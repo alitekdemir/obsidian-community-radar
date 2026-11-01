@@ -17,9 +17,10 @@ const {
 } = obsidian;
 
 // ─── 1. Constants ───────────────────────────────────────────────────────────
-const VIEW_TYPE = "plugin-radar-view";
-const ICON = "plugin-radar";
-const LEGACY_PLUGIN_ID = "plugin-discovery-tracker";  // the plugin's earlier private name
+const VIEW_TYPE = "community-radar-view";
+const ICON = "community-radar";
+// Earlier ids, newest first: "plugin-radar" (0.5.x), "plugin-discovery-tracker" (private "Eklenti Takip").
+const LEGACY_PLUGIN_IDS = ["plugin-radar", "plugin-discovery-tracker"];
 const REPO = "obsidianmd/obsidian-releases";
 const STATS_FILE = "community-plugin-stats.json";
 const RAW = "https://raw.githubusercontent.com";
@@ -1701,16 +1702,20 @@ class PluginRadar extends Plugin {
   }
 
   /**
-   * The plugin was first used privately as "Eklenti Takip" (id plugin-discovery-tracker). On a fresh
-   * install, its settings, lists and caches are copied over once so nothing is lost by the rename.
+   * The plugin ran earlier under other ids (see LEGACY_PLUGIN_IDS). On a fresh install, the newest
+   * earlier install's settings, lists and caches are copied over once so nothing is lost by the rename.
    */
   async importLegacyPlugin() {
     if (this.data.migrations.legacyImport) return;
     this.data.migrations.legacyImport = dayString(Date.now());
     const adapter = this.app.vault.adapter;
-    const legacyDir = normalizePath(`${this.app.vault.configDir}/plugins/${LEGACY_PLUGIN_ID}`);
     const hasOwnData = Object.keys(this.data.excluded).length || Object.keys(this.data.translations).length;
-    if (hasOwnData || !(await adapter.exists(`${legacyDir}/data.json`))) return this.saveData(this.data);
+    let legacyDir = null;
+    for (const id of LEGACY_PLUGIN_IDS) {
+      const dir = normalizePath(`${this.app.vault.configDir}/plugins/${id}`);
+      if (await adapter.exists(`${dir}/data.json`)) { legacyDir = dir; break; }
+    }
+    if (hasOwnData || !legacyDir) return this.saveData(this.data);
     try {
       const legacy = JSON.parse(await adapter.read(`${legacyDir}/data.json`));
       for (const key of ["excluded", "dismissed", "translations"]) this.data[key] = { ...legacy[key], ...this.data[key] };
