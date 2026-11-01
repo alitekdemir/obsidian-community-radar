@@ -1,5 +1,5 @@
-// A minimal stand-in for the `obsidian` module: in-memory vault, js-yaml frontmatter, mocked network.
-const yaml = require("js-yaml");
+// A minimal stand-in for the `obsidian` module: in-memory vault, YAML frontmatter, mocked network.
+const YAML = require("yaml");
 
 class TFile {
   constructor(path) {
@@ -8,11 +8,25 @@ class TFile {
     this.basename = path.split("/").pop().replace(/\.[^.]+$/, "");
   }
 }
-class TFolder { constructor(path) { this.path = path; } }
+/** A folder whose children are derived from the in-memory file list. */
+class TFolder {
+  constructor(path, files, folders) { this.path = path; this.files = files; this.folders = folders; }
+  get children() {
+    const prefix = `${this.path}/`;
+    const names = new Map();
+    for (const p of [...this.files.keys(), ...this.folders]) {
+      if (!p.startsWith(prefix)) continue;
+      const [head, ...rest] = p.slice(prefix.length).split("/");
+      names.set(head, names.get(head) || rest.length > 0 || this.folders.has(prefix + head));
+    }
+    return [...names].map(([name, isFolder]) => (isFolder
+      ? new TFolder(prefix + name, this.files, this.folders) : new TFile(prefix + name)));
+  }
+}
 
 function splitFrontmatter(text) {
   const m = text.match(/^---\n([\s\S]*?)\n---\n?/);
-  return m ? { fm: yaml.load(m[1]) || {}, body: text.slice(m[0].length) } : { fm: null, body: text };
+  return m ? { fm: YAML.parse(m[1]) || {}, body: text.slice(m[0].length) } : { fm: null, body: text };
 }
 
 /** An app with an in-memory vault, metadata cache, frontmatter writer and keychain. */
@@ -27,7 +41,11 @@ function makeApp() {
     configDir: ".obsidian",
     getMarkdownFiles: () => [...files.keys()].filter((p) => p.endsWith(".md")).map((p) => new TFile(p)),
     getFiles: () => [...files.keys()].map((p) => new TFile(p)),
-    getAbstractFileByPath: (p) => (files.has(p) ? new TFile(p) : folders.has(p) ? new TFolder(p) : null),
+    getAbstractFileByPath: (p) => {
+      if (files.has(p)) return new TFile(p);
+      const isFolder = folders.has(p) || [...files.keys()].some((k) => k.startsWith(`${p}/`));
+      return isFolder ? new TFolder(p, files, folders) : null;
+    },
     createFolder: async (p) => { folders.add(p); },
     create: async (p, content) => { if (files.has(p)) throw new Error(`exists: ${p}`); files.set(p, content); return new TFile(p); },
     read: async (f) => files.get(f.path),
@@ -53,7 +71,7 @@ function makeApp() {
         const { fm, body } = splitFrontmatter(files.get(f.path));
         const data = fm || {};
         fn(data);
-        files.set(f.path, `---\n${yaml.dump(data, { lineWidth: -1 })}---\n${body}`);
+        files.set(f.path, `---\n${YAML.stringify(data, { lineWidth: 0 })}---\n${body}`);
       },
     },
     workspace: { onLayoutReady: (cb) => cb(), getLeavesOfType: () => [], getActiveFile: () => null, openLinkText: () => {} },
@@ -90,7 +108,7 @@ Notice.all = [];
 const menus = [];
 
 module.exports = {
-  makeApp, network, requestUrl, Notice, TFile, menus,
+  makeApp, network, requestUrl, Notice, TFile, TFolder, menus,
   normalizePath: (p) => p.replace(/\/+/g, "/").replace(/\/$/, ""),
   addIcon: () => {},
   setIcon: (el, name) => { if (el.dataset) el.dataset.icon = name; },

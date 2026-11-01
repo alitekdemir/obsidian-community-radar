@@ -242,7 +242,7 @@ const tests = {
       assert.equal(core.t("row.gap", { n: 52 }), "after 52 days");
       assert.equal(core.historyLabel(12), "last year");
       assert.ok(core.noteBody(P("x")).includes("\n# My notes\n"));
-      assert.equal(core.defaultSettings().folder, "Plugin Radar");
+      assert.equal(core.defaultSettings().folder, "Community Radar");
     } finally {
       core.setLanguage("tr");
     }

@@ -123,6 +123,21 @@ const tests = {
     Object.assign(ctx, { app, plugin });
   },
 
+  async "notes are read from the notes folder only (no vault-wide listing), subfolders included"({ app, plugin }) {
+    const { getMarkdownFiles, getFiles } = app.vault;
+    app.vault.getMarkdownFiles = app.vault.getFiles = () => { throw new Error("vault-wide listing"); };
+    app.vault.files.set("Eklentiler/arşiv/Dataview.md", "---\nplugin_id: dataview\ngroup: eski\n---\n");
+    app.vault.files.set("Başka/Not.md", "---\nplugin_id: outside\n---\n");
+    try {
+      plugin.notes.rebuild();
+      assert.deepEqual([...plugin.notes.index.keys()].sort(), ["dataview", "homepage"]);  // "outside" isn't in the folder
+    } finally {
+      Object.assign(app.vault, { getMarkdownFiles, getFiles });
+      app.vault.files.delete("Eklentiler/arşiv/Dataview.md");
+      plugin.notes.rebuild();
+    }
+  },
+
   async "refresh + history: first-seen, gaps and modes"({ plugin }) {
     await plugin.refresh();
     await plugin.buildHistory(true);
@@ -187,7 +202,8 @@ const tests = {
     await tick(20);
     assert.equal(calls, 1);
     const note = app.vault.files.get("Eklentiler/Fresh Plugin.md");
-    assert.ok(note.includes("favorite: true") && note.includes("'[plugin](obsidian://show-plugin?id=fresh)'"));
+    assert.ok(note.includes("favorite: true"));
+    assert.match(note, /obsidian: ["']\[plugin\]\(obsidian:\/\/show-plugin\?id=fresh\)["']/);  // quoted, so YAML keeps it a string
     assert.ok(note.includes("\\#tag") && note.includes("\n#keep\n"), "tags escaped outside code only");
     plugin.toggleFavorite = original;
   },

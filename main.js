@@ -1,6 +1,6 @@
 "use strict";
 /*
- * Plugin Radar — discover community plugins, spot the ones that woke up after a long pause,
+ * Community Radar — discover community plugins, spot the ones that woke up after a long pause,
  * and track the ones you care about as notes. Plain JavaScript, no build step.
  *
  * Layers (each depends only on the ones above it):
@@ -13,7 +13,7 @@
 const obsidian = require("obsidian");
 const {
   Plugin, ItemView, Notice, SuggestModal, PluginSettingTab, Setting,
-  TFile, Menu, addIcon, normalizePath, requestUrl, setIcon,
+  TFile, TFolder, Menu, addIcon, normalizePath, requestUrl, setIcon,
 } = obsidian;
 
 // ─── 1. Constants ───────────────────────────────────────────────────────────
@@ -127,7 +127,6 @@ const STRINGS = {
     "group.placeholder": "Type or choose a group",
     "group.placeholderCurrent": ({ group }) => `Group: ${group} (type to change)`,
     "group.new": ({ name }) => `＋ New group: ${name}`,
-    "json.placeholder": "Choose the tracker.json you exported from the Colab notebook",
 
     "model.placeholder": "Search models… (any text you type can be used as a model name)",
     "model.custom": ({ name }) => `Use this name: ${name}`,
@@ -136,32 +135,28 @@ const STRINGS = {
     "price.unit": "1M tokens",
 
     "notice.busy": "Another task is running; please wait for it to finish.",
-    "notice.refreshing": "Plugin Radar: refreshing data",
+    "notice.refreshing": "Community Radar: refreshing data",
     "notice.downloadingCatalog": "Downloading catalog…",
     "notice.updatingNotes": "Updating tracking notes…",
-    "notice.refreshed": ({ n, released }) => `Plugin Radar: ${n} plugins · ${released} tracked notes have a new release${released ? " (README updated)" : ""}`,
-    "notice.history": "Plugin Radar: release history",
+    "notice.refreshed": ({ n, released }) => `Community Radar: ${n} plugins · ${released} tracked notes have a new release${released ? " (README updated)" : ""}`,
+    "notice.history": "Community Radar: release history",
     "notice.listingSnapshots": "Listing snapshots…",
     "notice.snapshotProgress": ({ done, total, date }) => `${done}/${total} snapshots · ${date}`,
-    "notice.historyDone": ({ label, from, to, n }) => `Plugin Radar: history ${label} · ${from} → ${to} · ${n} snapshots processed`,
-    "notice.historyCurrent": "Plugin Radar: history is up to date",
-    "notice.readme": "Plugin Radar: README",
+    "notice.historyDone": ({ label, from, to, n }) => `Community Radar: history ${label} · ${from} → ${to} · ${n} snapshots processed`,
+    "notice.historyCurrent": "Community Radar: history is up to date",
+    "notice.readme": "Community Radar: README",
     "notice.readmeProgress": ({ done, total }) => `README ${done}/${total}`,
-    "notice.readmeDone": ({ n }) => `Plugin Radar: ${n} READMEs updated`,
-    "notice.notTracking": "This note isn't a Plugin Radar note (no plugin_id).",
+    "notice.readmeDone": ({ n }) => `Community Radar: ${n} READMEs updated`,
+    "notice.notTracking": "This note isn't a Community Radar note (no plugin_id).",
     "notice.translating": ({ n }) => `Translating ${n} descriptions…`,
     "notice.translateFailed": ({ error }) => `Translation failed ✖\n${error}`,
-    "notice.translateSetup": "To translate, pick a provider, an API key and a model in Settings → Plugin Radar → Description translation.",
+    "notice.translateSetup": "To translate, pick a provider, an API key and a model in Settings → Community Radar → Description translation.",
     "notice.favorite": ({ star, name, created }) => `${star} ${name}${created ? " · note created" : ""}`,
     "notice.grouped": ({ name, group, created }) => `📌 ${name} → ${group}${created ? " · note created" : ""}`,
     "notice.excluded": ({ name }) => `⊘ ${name} excluded (undo in settings)`,
-    "notice.headings": ({ n }) => `Plugin Radar: "Notes" and "README" headings set to H1 in ${n} notes.`,
-    "notice.keysMoved": ({ n, example }) => `Plugin Radar: ${n} API keys copied to the shared name (e.g. ${example}).`,
-    "notice.legacyImported": "Plugin Radar: settings and cache imported from the earlier version. You can remove the old plugin folder.",
-    "notice.import": "Plugin Radar: import",
-    "notice.importNote": ({ done, total }) => `Note ${done}/${total}`,
-    "notice.importDone": ({ notes, excluded, missing }) => `Plugin Radar: ${notes} notes · ${excluded} excluded · ${missing} not in catalog`,
-    "notice.jsonError": ({ error }) => `Couldn't read JSON: ${error}`,
+    "notice.headings": ({ n }) => `Community Radar: "Notes" and "README" headings set to H1 in ${n} notes.`,
+    "notice.keysMoved": ({ n, example }) => `Community Radar: ${n} API keys copied to the shared name (e.g. ${example}).`,
+    "notice.legacyImported": "Community Radar: settings and cache imported from the earlier version. You can remove the old plugin folder.",
     "notice.rateLimit": "GitHub rate limit reached (60 requests per hour). Try again in an hour.",
     "notice.modelsFailed": ({ error }) => `Couldn't load models: ${error}`,
     "notice.modelOk": ({ model, sample }) => `✓ ${model} answered: “${sample}”`,
@@ -172,7 +167,6 @@ const STRINGS = {
     "cmd.rebuild": "Rebuild release history",
     "cmd.readmeCurrent": "Update README of this note",
     "cmd.readmeAll": "Update READMEs of all tracking notes",
-    "cmd.import": "Import from the Colab notebook (tracker.json)",
     "view.title": "Plugin discovery",
 
     "set.folder": "Notes folder", "set.folderDesc": "Notes for the plugins you track are created here.",
@@ -272,7 +266,6 @@ const STRINGS = {
     "group.placeholder": "Grup adı yazın ya da seçin",
     "group.placeholderCurrent": ({ group }) => `Grup: ${group} (değiştirmek için yazın)`,
     "group.new": ({ name }) => `＋ Yeni grup: ${name}`,
-    "json.placeholder": "Colab'dan indirdiğiniz tracker.json dosyasını seçin",
 
     "model.placeholder": "Model ara… (yazdığınız her ad model adı olarak kullanılabilir)",
     "model.custom": ({ name }) => `Bu adı kullan: ${name}`,
@@ -281,32 +274,28 @@ const STRINGS = {
     "price.unit": "1M token",
 
     "notice.busy": "Başka bir işlem sürüyor, bitmesini bekleyin.",
-    "notice.refreshing": "Plugin Radar: veri yenileniyor",
+    "notice.refreshing": "Community Radar: veri yenileniyor",
     "notice.downloadingCatalog": "Katalog indiriliyor…",
     "notice.updatingNotes": "Takip notları güncelleniyor…",
-    "notice.refreshed": ({ n, released }) => `Plugin Radar: ${n} eklenti · ${released} takip notunda yeni sürüm${released ? " (README güncellendi)" : ""}`,
-    "notice.history": "Plugin Radar: sürüm geçmişi",
+    "notice.refreshed": ({ n, released }) => `Community Radar: ${n} eklenti · ${released} takip notunda yeni sürüm${released ? " (README güncellendi)" : ""}`,
+    "notice.history": "Community Radar: sürüm geçmişi",
     "notice.listingSnapshots": "Anlık görüntü listesi alınıyor…",
     "notice.snapshotProgress": ({ done, total, date }) => `${done}/${total} anlık görüntü · ${date}`,
-    "notice.historyDone": ({ label, from, to, n }) => `Plugin Radar: geçmiş ${label} · ${from} → ${to} · ${n} anlık görüntü işlendi`,
-    "notice.historyCurrent": "Plugin Radar: geçmiş zaten güncel",
-    "notice.readme": "Plugin Radar: README",
+    "notice.historyDone": ({ label, from, to, n }) => `Community Radar: geçmiş ${label} · ${from} → ${to} · ${n} anlık görüntü işlendi`,
+    "notice.historyCurrent": "Community Radar: geçmiş zaten güncel",
+    "notice.readme": "Community Radar: README",
     "notice.readmeProgress": ({ done, total }) => `README ${done}/${total}`,
-    "notice.readmeDone": ({ n }) => `Plugin Radar: ${n} README güncellendi`,
-    "notice.notTracking": "Bu not bir Plugin Radar notu değil (plugin_id yok).",
+    "notice.readmeDone": ({ n }) => `Community Radar: ${n} README güncellendi`,
+    "notice.notTracking": "Bu not bir Community Radar notu değil (plugin_id yok).",
     "notice.translating": ({ n }) => `Çevriliyor: ${n} açıklama…`,
     "notice.translateFailed": ({ error }) => `Çeviri başarısız ✖\n${error}`,
-    "notice.translateSetup": "Çeviri için Ayarlar → Plugin Radar → Açıklama çevirisi bölümünden sağlayıcı, API anahtarı ve model seçin.",
+    "notice.translateSetup": "Çeviri için Ayarlar → Community Radar → Açıklama çevirisi bölümünden sağlayıcı, API anahtarı ve model seçin.",
     "notice.favorite": ({ star, name, created }) => `${star} ${name}${created ? " · not oluşturuldu" : ""}`,
     "notice.grouped": ({ name, group, created }) => `📌 ${name} → ${group}${created ? " · not oluşturuldu" : ""}`,
     "notice.excluded": ({ name }) => `⊘ ${name} dışlandı (ayarlardan geri alınır)`,
-    "notice.headings": ({ n }) => `Plugin Radar: ${n} notta "Notlarım" ve "README" başlıkları H1 yapıldı.`,
-    "notice.keysMoved": ({ n, example }) => `Plugin Radar: ${n} API anahtarı önerilen ortak ada kopyalandı (ör. ${example}).`,
-    "notice.legacyImported": "Plugin Radar: ayarlar ve önbellek önceki sürümden (Eklenti Takip) aktarıldı. Eski eklenti klasörünü silebilirsiniz.",
-    "notice.import": "Plugin Radar: içe aktarma",
-    "notice.importNote": ({ done, total }) => `Not ${done}/${total}`,
-    "notice.importDone": ({ notes, excluded, missing }) => `Plugin Radar: ${notes} not · ${excluded} dışlandı · ${missing} katalogda yok`,
-    "notice.jsonError": ({ error }) => `JSON okunamadı: ${error}`,
+    "notice.headings": ({ n }) => `Community Radar: ${n} notta "Notlarım" ve "README" başlıkları H1 yapıldı.`,
+    "notice.keysMoved": ({ n, example }) => `Community Radar: ${n} API anahtarı önerilen ortak ada kopyalandı (ör. ${example}).`,
+    "notice.legacyImported": "Community Radar: ayarlar ve önbellek önceki sürümden (Eklenti Takip) aktarıldı. Eski eklenti klasörünü silebilirsiniz.",
     "notice.rateLimit": "GitHub istek sınırına ulaşıldı (saatte 60). Bir saat sonra tekrar deneyin.",
     "notice.modelsFailed": ({ error }) => `Modeller alınamadı: ${error}`,
     "notice.modelOk": ({ model, sample }) => `✓ ${model} yanıt verdi: “${sample}”`,
@@ -317,7 +306,6 @@ const STRINGS = {
     "cmd.rebuild": "Sürüm geçmişini baştan kur",
     "cmd.readmeCurrent": "Bu notun README'sini güncelle",
     "cmd.readmeAll": "Tüm takip notlarının README'lerini güncelle",
-    "cmd.import": "Colab verisini içe aktar (tracker.json)",
     "view.title": "Eklenti keşfi",
 
     "set.folder": "Not klasörü", "set.folderDesc": "Takip ettiğiniz eklentilerin notları bu klasörde oluşur.",
@@ -369,7 +357,7 @@ function t(key, vars = {}) {
 
 function defaultSettings() {
   return {
-    folder: language === "tr" ? "Eklentiler" : "Plugin Radar",
+    folder: language === "tr" ? "Eklentiler" : "Community Radar",
     mode: "awakened",
     days: 14,
     dormantDays: 90,
@@ -710,23 +698,6 @@ function noteFromFrontmatter(path, fm) {
   };
 }
 
-/** Turns the Colab notebook's `tracker.json` into an import plan. */
-function planImport(tracker, catalogIds, today) {
-  const plan = { notes: [], excluded: [], missing: [] };
-  for (const [id, entry] of Object.entries(tracker.entries || {})) {
-    if (!catalogIds.has(id)) { plan.missing.push(id); continue; }
-    if (entry.group === "dışla") { plan.excluded.push(id); continue; }
-    plan.notes.push({
-      id,
-      group: entry.group || "",
-      favorite: entry.favorite === true,
-      note: entry.note || "",
-      reviewed: String(entry.added || today).slice(0, 10),
-    });
-  }
-  return plan;
-}
-
 // ─── Translation providers (pure: build requests, parse replies) ────────────
 /**
  * Each provider: chat request, reply text, model-list request and model entries.
@@ -850,7 +821,7 @@ const core = {
   historyLabel, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
   mergeSnapshot, dormantDays, isNewPlugin, isChanged, matchesQuery, discover, modeCounts, escapeOutsideCode,
   absolutizeLinks, readmeSection, replaceReadme, noteBody, migrateHeadings, sourceFields, noteFromFrontmatter,
-  planImport, PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
+  PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
   parseTranslations, mapLimit,
   constants: { DAY_MS, MONTH_MS, DAILY_DAYS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, TIMELINE_VERSION },
 };
@@ -921,7 +892,7 @@ class Cache {
     try {
       return (await this.adapter.exists(this.path(name))) ? JSON.parse(await this.adapter.read(this.path(name))) : fallback;
     } catch (error) {
-      console.warn(`[Plugin Radar] couldn't read the ${name} cache; it will be rebuilt`, error);
+      console.warn(`[Community Radar] couldn't read the ${name} cache; it will be rebuilt`, error);
       return fallback;
     }
   }
@@ -948,8 +919,18 @@ class Notes {
     return file instanceof TFile && file.extension === "md" && file.path.startsWith(`${this.folder}/`);
   }
 
+  /** Markdown files inside the notes folder only; the rest of the vault is never listed. */
   files() {
-    return this.app.vault.getMarkdownFiles().filter((file) => this.inFolder(file));
+    const files = [];
+    const walk = (folder) => {
+      for (const child of folder.children) {
+        if (child instanceof TFolder) walk(child);
+        else if (child instanceof TFile && child.extension === "md") files.push(child);
+      }
+    };
+    const root = this.app.vault.getAbstractFileByPath(this.folder);
+    if (root instanceof TFolder) walk(root);
+    return files;
   }
 
   rebuild() {
@@ -1189,22 +1170,6 @@ class GroupModal extends PickerModal {
 
   renderSuggestion(item, el) {
     el.setText(item.isNew ? t("group.new", { name: item.name }) : item.name);
-  }
-}
-
-/** Picks one of the vault's .json files (for the Colab import). */
-class JsonFileModal extends PickerModal {
-  constructor(app) {
-    super(app, t("json.placeholder"));
-  }
-
-  getSuggestions(query) {
-    return this.app.vault.getFiles()
-      .filter((f) => f.extension === "json" && f.path.toLowerCase().includes(query.toLowerCase()));
-  }
-
-  renderSuggestion(file, el) {
-    el.setText(file.path);
   }
 }
 
@@ -1757,7 +1722,7 @@ class PluginRadar extends Plugin {
       }
       new Notice(t("notice.legacyImported"), 10000);
     } catch (error) {
-      console.warn("[Plugin Radar] couldn't import data from the earlier version", error);
+      console.warn("[Community Radar] couldn't import data from the earlier version", error);
     }
     await this.saveData(this.data);
   }
@@ -1785,7 +1750,6 @@ class PluginRadar extends Plugin {
     command("rebuild-history", t("cmd.rebuild"), () => this.buildHistory(true));
     command("readme-current", t("cmd.readmeCurrent"), () => this.updateCurrentReadme());
     command("readme-all", t("cmd.readmeAll"), () => this.updateReadmes([...this.notes.index.keys()]));
-    command("import-colab", t("cmd.import"), () => this.importColab());
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -1832,7 +1796,7 @@ class PluginRadar extends Plugin {
       notice.setMessage(message || `${label} ✔`);
       setTimeout(() => notice.hide(), 6000);
     } catch (error) {
-      console.error("[Plugin Radar]", error);
+      console.error("[Community Radar]", error);
       notice.setMessage(`${label} ✖\n${error.message}`);
       setTimeout(() => notice.hide(), 12000);
     } finally {
@@ -1951,7 +1915,7 @@ class PluginRadar extends Plugin {
       notice.hide();
       return true;
     } catch (error) {
-      console.error("[Plugin Radar] translation", error);
+      console.error("[Community Radar] translation", error);
       notice.setMessage(t("notice.translateFailed", { error: error.message }));
       setTimeout(() => notice.hide(), 12000);
       return false;
@@ -1965,7 +1929,7 @@ class PluginRadar extends Plugin {
     if (created && plugin.repo) {
       this.github.readme(plugin.repo)
         .then((readme) => this.notes.writeReadme(file, plugin, readme))
-        .catch((error) => console.warn("[Plugin Radar] couldn't fetch the README", error));
+        .catch((error) => console.warn("[Community Radar] couldn't fetch the README", error));
     }
     return created;
   }
@@ -2013,36 +1977,6 @@ class PluginRadar extends Plugin {
     this.redraw();
   }
 
-  // ── Import from the Colab notebook ───────────────────────────────────────
-  async importColab() {
-    if (!(await this.ensureCatalog())) return;
-    const modal = new JsonFileModal(this.app);
-    modal.open();
-    const file = await modal.result;
-    if (!file) return;
-
-    let tracker;
-    try {
-      tracker = JSON.parse(await this.app.vault.read(file));
-    } catch (error) {
-      return new Notice(t("notice.jsonError", { error: error.message }));
-    }
-    const byId = new Map(this.catalog.plugins.map((p) => [p.id, p]));
-    const plan = planImport(tracker, new Set(byId.keys()), dayString(Date.now()));
-
-    await this.task(t("notice.import"), async (progress) => {
-      for (const id of plan.excluded) this.data.excluded[id] ||= dayString(Date.now());
-      await this.saveData(this.data);
-      const created = [];
-      for (const [i, item] of plan.notes.entries()) {
-        const { id, ...patch } = item;
-        if ((await this.notes.upsert(byId.get(id), patch)).created) created.push(id);
-        progress(t("notice.importNote", { done: i + 1, total: plan.notes.length }));
-      }
-      await this.fetchReadmes(created, progress);
-      return t("notice.importDone", { notes: plan.notes.length, excluded: plan.excluded.length, missing: plan.missing.length });
-    });
-  }
 }
 
 module.exports = PluginRadar;

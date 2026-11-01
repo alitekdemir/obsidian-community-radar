@@ -1,13 +1,13 @@
-# Plugin Radar
+# Community Radar
 
 Open the discovery view from the command palette (**Open plugin discovery**). This note lists only the plugins you track; `group`, `favorite` and `note` can be edited right in the table.
 
-> Change `Plugin Radar` in `file.inFolder(...)` if you use another notes folder.
+> Change `Community Radar` in `file.inFolder(...)` if you use another notes folder.
 
 ```base
 filters:
   and:
-    - file.inFolder("Plugin Radar")
+    - file.inFolder("Community Radar")
 views:
   - type: table
     name: All

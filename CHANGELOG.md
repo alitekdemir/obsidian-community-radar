@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.5.0 — first public release
+## 0.5.1
+
+- Renamed to **Community Radar** (the directory doesn't allow "Plugin" in names). The plugin id stays `plugin-radar`, so installs and settings carry over. Repository: `alitekdemir/obsidian-community-radar`.
+- Tracking notes are read from the notes folder only; the plugin no longer lists the whole vault.
+- Removed the one-off import from the Colab notebook.
+- Release assets are attached and attested by a GitHub workflow.
+- Tests use `yaml` instead of `js-yaml`; `package-lock.json` added.
+
+## 0.5.0
 
 - **All** tab: browse every community plugin, sorted by downloads, last update, name or newest listed, with a minimum-downloads filter and search. Tracked plugins stay visible here with their note badge; excluded ones stay hidden.
 - Sort options that only exist in **All** (name, newest listed) fall back to downloads in the other tabs, and the sort chip always shows the sort actually in use.

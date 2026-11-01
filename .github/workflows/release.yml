@@ -1,26 +1,40 @@
-name: Release
+name: Release assets
 
-# Push a tag that matches manifest.json's version (e.g. 0.4.0, no "v" prefix) to publish a release.
+# Publish a GitHub release whose tag equals manifest.json's version (e.g. 0.5.1, no "v").
+# This workflow tests that commit, attests main.js / manifest.json / styles.css and attaches them.
 on:
-  push:
-    tags: ["*"]
+  release:
+    types: [published]
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
-  release:
+  assets:
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+      - run: npm ci
       - run: npm test
       - name: Check that the tag matches manifest.json
-        run: test "$(node -p "require('./manifest.json').version")" = "${GITHUB_REF_NAME}"
-      - name: Create release
+        run: test "$(node -p "require('./manifest.json').version")" = "$TAG"
+      - name: Attest release assets
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
+      - name: Attach assets to the release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "${GITHUB_REF_NAME}" --title "${GITHUB_REF_NAME}" --notes-file CHANGELOG.md main.js manifest.json styles.css
+        run: gh release upload "$TAG" main.js manifest.json styles.css --clobber
