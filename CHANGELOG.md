@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.3
+
+- Plugin id is back to `plugin-radar`: the directory keeps the id of the original submission. Data from a 0.5.2 (`community-radar`) install is copied once on first run; remove that folder afterwards.
+- `package.json` has a no-op `build` script so the directory can verify the build (there is no build step).
+
 ## 0.5.2
 
 - Plugin id changed to `community-radar` so the id, name (**Community Radar**) and repository (`obsidian-community-radar`) match. On first run, settings, excluded plugins, translations and caches are copied once from an earlier `plugin-radar` install; notes and API keys are untouched. Remove the old plugin afterwards.

@@ -103,9 +103,9 @@ fake.network.handlers.push(
 );
 
 const tests = {
-  async "data from the newest earlier install (plugin-radar) is imported once; old notes get H1 headings"(ctx) {
+  async "data from the newest other install (community-radar) is imported once; old notes get H1 headings"(ctx) {
     const app = fake.makeApp();
-    app.vault.adapter.disk.set(".obsidian/plugins/plugin-radar/data.json", JSON.stringify({
+    app.vault.adapter.disk.set(".obsidian/plugins/community-radar/data.json", JSON.stringify({
       settings: { folder: "Eklentiler", mode: "updated", days: 14 }, excluded: { busy: "2026-10-01" }, translations: {},
       migrations: {},
     }));
@@ -115,7 +115,7 @@ const tests = {
     app.vault.files.set("Eklentiler/Homepage.md",
       `---\nplugin_id: homepage\ngroup: ai\nreviewed: '${core.dayString(ago(20))}'\n---\nx\n\n## Notlarım\nmine\n\n## README\n${core.constants.README_START}\n${core.constants.README_END}\n`);
     app.secretStorage.setSecret("plugin-tracker-anthropic-key", "sk-legacy");
-    const plugin = new PluginRadar(app, { dir: ".obsidian/plugins/community-radar" });
+    const plugin = new PluginRadar(app, { dir: ".obsidian/plugins/plugin-radar" });
     await plugin.onload();
     await tick(10);
     assert.equal(plugin.data.settings.folder, "Eklentiler");

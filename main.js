@@ -17,10 +17,10 @@ const {
 } = obsidian;
 
 // ─── 1. Constants ───────────────────────────────────────────────────────────
-const VIEW_TYPE = "community-radar-view";
-const ICON = "community-radar";
-// Earlier ids, newest first: "plugin-radar" (0.5.x), "plugin-discovery-tracker" (private "Eklenti Takip").
-const LEGACY_PLUGIN_IDS = ["plugin-radar", "plugin-discovery-tracker"];
+const VIEW_TYPE = "plugin-radar-view";
+const ICON = "plugin-radar";
+// Other ids the plugin ran under, newest first: "community-radar" (0.5.2 only), "plugin-discovery-tracker" (private "Eklenti Takip").
+const LEGACY_PLUGIN_IDS = ["community-radar", "plugin-discovery-tracker"];
 const REPO = "obsidianmd/obsidian-releases";
 const STATS_FILE = "community-plugin-stats.json";
 const RAW = "https://raw.githubusercontent.com";

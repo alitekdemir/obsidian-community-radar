@@ -35,7 +35,7 @@ Until Community Radar is in the community plugin directory:
 
 **With BRAT:** install [BRAT](https://github.com/TfTHacker/obsidian42-brat), run *BRAT: Add a beta plugin*, enter `alitekdemir/obsidian-community-radar`.
 
-**Manually:** download `main.js`, `manifest.json` and `styles.css` from the [latest release](https://github.com/alitekdemir/obsidian-community-radar/releases/latest) into `<your vault>/.obsidian/plugins/community-radar/` (the folder name is the plugin id), then enable **Community Radar** in *Settings → Community plugins*.
+**Manually:** download `main.js`, `manifest.json` and `styles.css` from the [latest release](https://github.com/alitekdemir/obsidian-community-radar/releases/latest) into `<your vault>/.obsidian/plugins/plugin-radar/` (the folder name is the plugin id), then enable **Community Radar** in *Settings → Community plugins*.
 
 ## Getting started
 
@@ -84,8 +84,8 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 | Data | Where |
 |---|---|
 | Your groups, stars, notes, review dates | Your tracking notes |
-| Excluded plugins, translations, settings | `.obsidian/plugins/community-radar/data.json` |
-| Catalog and release history (rebuildable caches) | `.obsidian/plugins/community-radar/cache/` |
+| Excluded plugins, translations, settings | `.obsidian/plugins/plugin-radar/data.json` |
+| Catalog and release history (rebuildable caches) | `.obsidian/plugins/plugin-radar/cache/` |
 
 ## Commands
 
