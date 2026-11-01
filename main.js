@@ -43,7 +43,7 @@ const README_START = "<!-- plugin-tracker:readme-start -->";
 const README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
-const MODE_KEYS = ["new", "updated", "awakened", "changed", "suggested"];
+const MODE_KEYS = ["all", "new", "updated", "awakened", "changed", "suggested"];
 
 /** Suggested names in Obsidian's keychain (ANTHROPIC_API_KEY → anthropic-api-key). */
 const KEY_NAMES = {
@@ -76,8 +76,9 @@ const STRINGS = {
     "history.label": ({ months }) => (months === 12 ? "last year" : months === 24 ? "last 2 years" : `last ${months} months`),
     untitled: "Untitled",
 
-    "mode.new": "✨ New", "mode.updated": "Updated", "mode.awakened": "Awakened",
+    "mode.all": "All", "mode.new": "✨ New", "mode.updated": "Updated", "mode.awakened": "Awakened",
     "mode.changed": "🔄 Changed", "mode.suggested": "Suggestions",
+    "tip.all": "Every community plugin; sort and search freely",
     "tip.new": ({ days }) => `Plugins listed in the last ${days} days`,
     "tip.updated": ({ days }) => `Plugins updated in the last ${days} days`,
     "tip.awakened": ({ days, gap }) => `Updated in the last ${days} days, at least ${gap} days after their previous release`,
@@ -86,7 +87,7 @@ const STRINGS = {
 
     "filter.last": "Last", "filter.gap": "Gap ≥", "filter.downloads": "Downloads ≥", "filter.sort": "Sort",
     "filter.days": ({ n }) => `${n} days`,
-    "sort.downloads": "downloads", "sort.updated": "updated",
+    "sort.downloads": "downloads", "sort.updated": "last update", "sort.name": "name", "sort.listed": "newest listed",
     "search.placeholder": "search… (comma = and)",
     "translate.visible": ({ n }) => `Translate visible (${n})`,
     "translate.pending": ({ pending, done }) => `${pending} descriptions in one request; ${done} already translated`,
@@ -220,8 +221,9 @@ const STRINGS = {
     "history.label": ({ months }) => (months === 12 ? "son 1 yıl" : months === 24 ? "son 2 yıl" : `son ${months} ay`),
     untitled: "Adsız",
 
-    "mode.new": "✨ Yeni", "mode.updated": "Güncellenen", "mode.awakened": "Uyananlar",
+    "mode.all": "Tümü", "mode.new": "✨ Yeni", "mode.updated": "Güncellenen", "mode.awakened": "Uyananlar",
     "mode.changed": "🔄 Değişenler", "mode.suggested": "Öneriler",
+    "tip.all": "Bütün topluluk eklentileri; serbestçe sıralayın ve arayın",
     "tip.new": ({ days }) => `Son ${days} günde listeye giren eklentiler`,
     "tip.updated": ({ days }) => `Son ${days} günde güncellenen eklentiler`,
     "tip.awakened": ({ days, gap }) => `Son ${days} günde, önceki sürümden en az ${gap} gün sonra güncellenenler`,
@@ -230,7 +232,7 @@ const STRINGS = {
 
     "filter.last": "Son", "filter.gap": "Ara ≥", "filter.downloads": "İndirme ≥", "filter.sort": "Sırala",
     "filter.days": ({ n }) => `${n} gün`,
-    "sort.downloads": "indirme", "sort.updated": "güncelleme",
+    "sort.downloads": "indirme", "sort.updated": "son güncelleme", "sort.name": "ad", "sort.listed": "listeye giriş",
     "search.placeholder": "ara… (virgül = ve)",
     "translate.visible": ({ n }) => `Görünenleri çevir (${n})`,
     "translate.pending": ({ pending, done }) => `${pending} açıklama tek istekte çevrilir; ${done} tanesi zaten çevrilmiş`,
@@ -564,31 +566,48 @@ function discover(state, opts, now) {
   const since = now - opts.days * DAY_MS;
   const base = (p) => !excluded.has(p.id) && matchesQuery(p, opts.query);
   const fresh = (p) => base(p) && !notes.has(p.id) && (p.downloads ?? 0) >= opts.minDownloads;
+  const sort = opts.mode === "all" || opts.sort === "updated" ? opts.sort : "downloads";  // name/listed exist only in All
 
   switch (opts.mode) {
+    case "all":   // browsing: tracked plugins stay visible (with their note badge), excluded ones don't
+      return sortRows(catalog.filter((p) => base(p) && (p.downloads ?? 0) >= opts.minDownloads), sort, catalog);
     case "new":   // no download filter: a brand-new plugin has no downloads yet
       return catalog
         .filter((p) => base(p) && !notes.has(p.id) && isNewPlugin(firstSeen, p, now, opts.days))
         .sort((a, b) => (firstSeen[b.id] ?? Infinity) - (firstSeen[a.id] ?? Infinity));
     case "updated":
-      return sortRows(catalog.filter((p) => fresh(p) && p.updated >= since), opts.sort);
+      return sortRows(catalog.filter((p) => fresh(p) && p.updated >= since), sort);
     case "awakened":
       return sortRows(catalog.filter((p) => fresh(p) && p.updated >= since
-        && (dormantDays(releases, p) ?? -1) >= opts.dormantDays), opts.sort);
+        && (dormantDays(releases, p) ?? -1) >= opts.dormantDays), sort);
     case "changed":
-      return sortRows(catalog.filter((p) => base(p) && isChanged(p, notes.get(p.id))), opts.sort);
+      return sortRows(catalog.filter((p) => base(p) && isChanged(p, notes.get(p.id))), sort);
     case "suggested":
       return sortRows(catalog.filter((p) => base(p) && installed.has(p.id) && !dismissed.has(p.id)
-        && !(notes.get(p.id) || {}).favorite), opts.sort);
+        && !(notes.get(p.id) || {}).favorite), sort);
     default:
       return [];
   }
 }
 
-function sortRows(rows, sort) {
+/**
+ * Sorts rows in place. "listed" uses the position in the official listing, which is the order
+ * plugins were added; `catalog` is needed only for that. Unknown sort keys fall back to downloads.
+ */
+function sortRows(rows, sort, catalog = []) {
   const byDownloads = (a, b) => (b.downloads ?? 0) - (a.downloads ?? 0);
-  const byUpdated = (a, b) => (b.updated ?? 0) - (a.updated ?? 0);
-  return rows.sort(sort === "updated" ? byUpdated : byDownloads);
+  switch (sort) {
+    case "updated":
+      return rows.sort((a, b) => (b.updated ?? 0) - (a.updated ?? 0));
+    case "name":
+      return rows.sort((a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" }));
+    case "listed": {
+      const position = new Map(catalog.map((p, i) => [p.id, i]));
+      return rows.sort((a, b) => (position.get(b.id) ?? -1) - (position.get(a.id) ?? -1));
+    }
+    default:
+      return rows.sort(byDownloads);
+  }
 }
 
 /** Row count of every mode (for the tab badges). */
@@ -1120,12 +1139,13 @@ function iconButton(parent, icon, tip, cls = "") {
 function menuChip(parent, label, options, current, onPick) {
   const chip = parent.createDiv({ cls: "pdt-chip is-menu", attr: { role: "button", tabindex: "0" } });
   chip.createSpan({ text: label });
-  chip.createSpan({ cls: "pdt-chip-value", text: options.find(([value]) => value === current)?.[1] ?? String(current) });
+  const selected = options.some(([value]) => value === current) ? current : options[0][0];  // invalid here → first option
+  chip.createSpan({ cls: "pdt-chip-value", text: options.find(([value]) => value === selected)[1] });
   setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), "chevron-down");
   const open = () => {
     const menu = new Menu();
     for (const [value, text] of options) {
-      menu.addItem((item) => item.setTitle(text).setChecked(value === current).onClick(() => onPick(value)));
+      menu.addItem((item) => item.setTitle(text).setChecked(value === selected).onClick(() => onPick(value)));
     }
     const rect = chip.getBoundingClientRect();
     menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
@@ -1300,13 +1320,14 @@ class DiscoveryView extends ItemView {
 
     if (mode === "new" || mode === "updated" || mode === "awakened") select(t("filter.last"), "days", dayOptions([7, 14, 30, 60, 90]));
     if (mode === "awakened") select(t("filter.gap"), "dormantDays", dayOptions([30, 60, 90, 180, 365]));
-    if (mode === "updated" || mode === "awakened") {
+    if (mode === "all" || mode === "updated" || mode === "awakened") {
       const chip = bar.createEl("label", { cls: "pdt-chip" });
       chip.createSpan({ text: t("filter.downloads") });
       const input = chip.createEl("input", { type: "number", value: String(this.settings.minDownloads) });
       input.onchange = () => this.update("minDownloads", Math.max(0, Number(input.value) || 0));
     }
-    if (mode !== "new") select(t("filter.sort"), "sort", [["downloads", t("sort.downloads")], ["updated", t("sort.updated")]]);
+    const sorts = mode === "all" ? ["downloads", "updated", "name", "listed"] : ["downloads", "updated"];
+    if (mode !== "new") select(t("filter.sort"), "sort", sorts.map((key) => [key, t(`sort.${key}`)]));
 
     const search = bar.createDiv({ cls: "pdt-search" });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");

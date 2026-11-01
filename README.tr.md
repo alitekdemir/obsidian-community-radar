@@ -4,15 +4,18 @@ Obsidian topluluk eklentilerinde yenileri ve güncellenenleri keşfedin, uzun bi
 
 *[English](README.md)*
 
-Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını takip etmek zor. Plugin Radar, Obsidian içine beş sekmeli bir keşif paneli ekler:
+Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını takip etmek zor. Plugin Radar, Obsidian içine altı sekmeli bir keşif paneli ekler:
 
 | Sekme | Gösterdiği |
 |---|---|
+| **Tümü** | Bütün topluluk eklentileri; indirme, son güncelleme, ad ya da listeye giriş sırasına göre |
 | **✨ Yeni** | Son *N* günde listeye giren eklentiler |
 | **Güncellenen** | Son *N* günde sürüm çıkaranlar |
 | **Uyananlar** | Son *N* günde, **uzun bir aradan sonra** sürüm çıkaranlar (ör. öncesinde 90+ gün sürüm yok). Sürekli güncellenenler elenir. |
 | **🔄 Değişenler** | Takip ettiklerinizden, incelediğiniz günden sonra yeni sürüm çıkaranlar |
 | **Öneriler** | Kurulu olan ama henüz favori yapmadığınız eklentiler |
+
+Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentinin sayfasını açar; kurulum orada yapılır. Plugin Radar keşif ve takip içindir, kurulum yapmaz.
 
 **Favori** yaptığınız ya da **gruba eklediğiniz** eklentiler vault'unuzda README'leriyle birlikte küçük notlara dönüşür; [Bases](https://help.obsidian.md/bases) ile tablo olarak görüp düzenleyebilirsiniz. **Dışladığınız** eklentiler bir daha görünmez.
 

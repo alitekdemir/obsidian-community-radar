@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.4.0 — first public release
+## 0.5.0 — first public release
+
+- **All** tab: browse every community plugin, sorted by downloads, last update, name or newest listed, with a minimum-downloads filter and search. Tracked plugins stay visible here with their note badge; excluded ones stay hidden.
+- Sort options that only exist in **All** (name, newest listed) fall back to downloads in the other tabs, and the sort chip always shows the sort actually in use.
+
+## 0.4.0
 
 - Renamed from the private "Eklenti Takip" to **Plugin Radar** (`plugin-radar`). Settings, excluded plugins, translations and caches from the earlier version are imported automatically on first run.
 - English and Turkish interface, following Obsidian's language.

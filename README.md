@@ -4,15 +4,18 @@ Discover new and updated Obsidian community plugins, find the ones that came bac
 
 *[Türkçe](README.tr.md)*
 
-With ~50 new community plugins a day, the built-in browser is hard to keep up with. Plugin Radar adds a discovery view inside Obsidian with five lenses:
+With ~50 new community plugins a day, the built-in browser is hard to keep up with. Plugin Radar adds a discovery view inside Obsidian with six tabs:
 
 | Tab | Shows |
 |---|---|
+| **All** | Every community plugin, sorted by downloads, last update, name or newest listed |
 | **✨ New** | Plugins listed in the last *N* days |
 | **Updated** | Plugins released in the last *N* days |
 | **Awakened** | Plugins released in the last *N* days **after a long pause** (e.g. no release for 90+ days before). Constantly updated plugins are filtered out. |
 | **🔄 Changed** | Plugins you track that shipped a release since you last reviewed them |
 | **Suggestions** | Installed plugins you haven't starred yet |
+
+Clicking a plugin's name opens its page in Obsidian's own plugin browser, where you install it — Plugin Radar is for discovering and tracking, not installing.
 
 Plugins you **star** or **add to a group** become small notes in your vault, with the plugin's README inside. Use [Bases](https://help.obsidian.md/bases) to browse and edit them as a table. Plugins you **exclude** never show up again.
 

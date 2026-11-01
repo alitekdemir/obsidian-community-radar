@@ -144,7 +144,7 @@ const tests = {
     plugin.data.settings.minDownloads = 0;
     view.render();
     const el = view.contentEl;
-    assert.equal($$(el, ".pdt-tab").length, 5);
+    assert.equal($$(el, ".pdt-tab").length, 6);
     assert.ok($$(el, ".pdt-tab").every((tab) => tab.getAttribute("data-tooltip")));
     const names = $$(el, ".pdt-name").map((a) => a.textContent);
     assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy excluded, homepage tracked
@@ -156,6 +156,23 @@ const tests = {
     await fake.menus[0].items[1].click();
     assert.equal(plugin.data.settings.sort, "updated");
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
+
+    // All tab: tracked Homepage is listed with its note badge; four sorts; back to Updated shows a valid sort
+    await view.update("mode", "all");
+    const allNames = $$(el, ".pdt-name").map((a) => a.textContent);
+    assert.ok(allNames.includes("Homepage") && !allNames.includes("Busy Plugin"));
+    const homepageRow = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
+    assert.ok($(homepageRow, ".pdt-badge.is-note"));
+    fake.menus.length = 0;
+    const sortChip = () => $$(el, ".pdt-chip.is-menu").find((c) => /^(Sırala|Sort)/.test(c.textContent));
+    sortChip().onclick();
+    assert.equal(fake.menus[0].items.length, 4);
+    await fake.menus[0].items[2].click();                       // name
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
+    await view.update("mode", "updated");
+    const chipText = sortChip().textContent;
+    assert.ok(chipText.endsWith(core.t("sort.downloads")), chipText);
+    await view.update("sort", "downloads");
     ctx.view = view;
   },
 

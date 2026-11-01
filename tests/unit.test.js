@@ -89,8 +89,27 @@ const tests = {
     assert.deepEqual(ids({ mode: "new" }), ["d"]);            // listed in the last 14 days; no download filter
     assert.deepEqual(ids({ mode: "new", days: 3 }), []);
     const counts = core.modeCounts(state, opts, NOW);
-    assert.deepEqual(counts, { new: 1, updated: 1, awakened: 1, changed: 1, suggested: 2 });
+    assert.deepEqual(counts, { all: 3, new: 1, updated: 1, awakened: 1, changed: 1, suggested: 2 });  // all: a, b, e (c excluded, d below 100 downloads)
     assert.deepEqual(ids({ query: "a, desc" }), ["a"]);
+  },
+
+  "discover all: every plugin incl. tracked, excluded hidden, four sorts; other tabs ignore All-only sorts"() {
+    const catalog = [
+      P("zeta", { name: "Zeta", downloads: 10, updated: ago(300) }),
+      P("alpha", { name: "alpha", downloads: 900, updated: ago(5) }),
+      P("mid", { name: "Mid", downloads: 500, updated: ago(1) }),
+      P("gone", { name: "Gone", downloads: 9999 }),
+    ];
+    const state = { catalog, releases: {}, firstSeen: {}, notes: new Map([["mid", { group: "x" }]]),
+      excluded: new Set(["gone"]), dismissed: new Set(), installed: new Set() };
+    const ids = (o) => core.discover(state, { mode: "all", days: 7, dormantDays: 90, minDownloads: 0, query: "", sort: "downloads", ...o }, NOW).map((p) => p.id);
+    assert.deepEqual(ids({}), ["alpha", "mid", "zeta"]);                        // tracked "mid" stays, "gone" excluded
+    assert.deepEqual(ids({ sort: "updated" }), ["mid", "alpha", "zeta"]);
+    assert.deepEqual(ids({ sort: "name" }), ["alpha", "mid", "zeta"]);            // case-insensitive
+    assert.deepEqual(ids({ sort: "listed" }), ["mid", "alpha", "zeta"]);          // newest in the listing first
+    assert.deepEqual(ids({ minDownloads: 100 }), ["alpha", "mid"]);
+    const updated = core.discover(state, { mode: "updated", days: 7, minDownloads: 0, query: "", sort: "name" }, NOW).map((p) => p.id);
+    assert.deepEqual(updated, ["alpha"]);                                         // "name" isn't offered here → downloads
   },
 
   "escapeOutsideCode: tags are escaped, code and headings are untouched"() {
