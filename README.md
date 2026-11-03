@@ -15,9 +15,13 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 | **🔄 Needs review** | Plugins you track that shipped a release since you last reviewed them |
 | **Suggestions** | Installed plugins you haven't starred yet |
 
+![The All tab: every community plugin with downloads, last update, dormant period and README / GitHub links](docs/images/Radar_1-All.png)
+
 Clicking a plugin's name opens its page in Obsidian's own plugin browser, where you install it — Community Radar is for discovering and tracking, not installing. **README** on a row opens the plugin's README inside Obsidian, in its tracking note.
 
 Plugins you **star** or **add to a group** become small notes in your vault, with the plugin's README inside. Use [Bases](https://help.obsidian.md/bases) to browse and edit them as a table. Plugins you **ignore** never show up again.
+
+![The Revived tab: plugins released in the last 7 days after at least 30 days dormant](docs/images/Radar_3-Revived.png)
 
 ## Features
 
@@ -26,6 +30,9 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Tracking notes**: `group`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
 - **Translate descriptions** with your own API key — Claude, OpenAI, Gemini or OpenRouter. One request translates a whole page; translations are cached.
+
+  ![A translated description under the original](docs/images/Radar_2-One_Translate.png)
+
 - **Badges** for new (✨), new release (🔄) and installed plugins; relative dates and dormant periods on every row.
 - **English and Turkish** interface, following Obsidian's language or chosen in settings. [Add your language](#translating).
 - Works on desktop and mobile.
@@ -46,6 +53,8 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 4. Optional: copy [`docs/community-radar-bases.md`](docs/community-radar-bases.md) into your vault for a ready-made Bases table of your tracked plugins.
 
 ## Settings
+
+![Translation settings: provider, API key from Obsidian's keychain, model with price, target language](docs/images/Radar_6-AI_Settings.png)
 
 | Setting | Options |
 |---|---|
@@ -74,6 +83,10 @@ github: "[github](https://github.com/mirnovov/obsidian-homepage)"
 ```
 
 The body has a **My notes** section for you and a **README** section that the plugin owns. README tags (`#tag`) and wiki links are escaped so they don't leak into your vault; code blocks are left as they are.
+
+![A tracking note: properties, My notes and the plugin's README](docs/images/Radar_4-Note.png)
+
+![Tracked plugins in a Bases table, editable in place](docs/images/Radar_5-Bases_Note.png)
 
 ## How it works
 

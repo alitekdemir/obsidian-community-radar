@@ -15,15 +15,22 @@ Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını
 | **🔄 Değişenler** | Takip ettiklerinizden, incelediğiniz günden sonra yeni sürüm çıkaranlar |
 | **Öneriler** | Kurulu olan ama henüz favori yapmadığınız eklentiler |
 
+![Tümü sekmesi: indirme, son güncelleme, sessizlik süresi ve README / GitHub bağlantılarıyla bütün eklentiler](docs/images/Radar_1-All.png)
+
 Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentinin sayfasını açar; kurulum orada yapılır. Satırdaki **README**, eklentinin README'sini Obsidian içinde, takip notunda açar.
 
 **Favori** yaptığınız ya da **gruba eklediğiniz** eklentiler vault'unuzda README'leriyle birlikte küçük notlara dönüşür; [Bases](https://help.obsidian.md/bases) ile tablo olarak görüp düzenleyebilirsiniz. **Dışladığınız** eklentiler bir daha görünmez.
+
+![Uyananlar sekmesi: en az 30 gün sessiz kaldıktan sonra son 7 günde sürüm çıkaranlar](docs/images/Radar_3-Revived.png)
 
 ## Özellikler
 
 - **Zamanlanmış eşitleme**: 6 saatte bir, günde bir, haftada bir ya da elle. Panel son eşitlemenin ne zaman yapıldığını ve ne getirdiğini gösterir (*Son eşitlemeden beri: 5 yeni · 23 güncelleme*).
 - **Takip notunda README**: yeni sürüm çıkınca not açıldığında, her eşitlemede ya da yalnızca istendiğinde yenilenir. Kendi notlarınıza dokunulmaz.
 - **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.
+
+  ![Özgün açıklamanın altında çevirisi](docs/images/Radar_2-One_Translate.png)
+
 - **Türkçe ve İngilizce** arayüz; Obsidian'ın dilini izler ya da ayarlardan seçilir. Yeni diller [`locales/`](locales) klasörüne eklenebilir (ayrıntılar İngilizce README'de).
 - Masaüstü ve mobilde çalışır.
 
@@ -42,7 +49,13 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 3. Her satırdan favori (☆), gruba ekle (＋) ya da dışla (⊘).
 4. İsterseniz [`docs/community-radar-bases.md`](docs/community-radar-bases.md) dosyasını vault'unuza kopyalayıp hazır Bases tablosunu kullanın (klasör adını kendi not klasörünüzle değiştirin).
 
+![Takip notu: özellikler, Notlarım ve eklentinin README'si](docs/images/Radar_4-Note.png)
+
+![Takip edilen eklentiler Bases tablosunda, yerinde düzenlenebilir](docs/images/Radar_5-Bases_Note.png)
+
 ## Ayarlar
+
+![Çeviri ayarları: sağlayıcı, anahtar deposundan API anahtarı, fiyatıyla model, hedef dil](docs/images/Radar_6-AI_Settings.png)
 
 | Ayar | Seçenekler |
 |---|---|

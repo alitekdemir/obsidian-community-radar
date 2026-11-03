@@ -1,6 +1,6 @@
 # Community Radar
 
-Open the discovery view from the command palette (**Open plugin discovery**). This note lists only the plugins you track; `group`, `favorite` and `note` can be edited right in the table.
+Open the discovery view from the command palette (**Open Community Radar**). This note lists only the plugins you track; `group`, `favorite` and `note` can be edited right in the table.
 
 > Change `Community Radar` in `file.inFolder(...)` if you use another notes folder.
 
