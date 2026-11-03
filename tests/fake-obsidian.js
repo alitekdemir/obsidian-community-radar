@@ -74,7 +74,14 @@ function makeApp() {
         files.set(f.path, `---\n${YAML.stringify(data, { lineWidth: 0 })}---\n${body}`);
       },
     },
-    workspace: { onLayoutReady: (cb) => cb(), getLeavesOfType: () => [], getActiveFile: () => null, openLinkText: () => {} },
+    workspace: {
+      handlers: {},
+      on(name, fn) { (this.handlers[name] ||= []).push(fn); return {}; },
+      trigger(name, ...args) { return Promise.all((this.handlers[name] || []).map((fn) => fn(...args))); },
+      opened: [],
+      onLayoutReady: (cb) => cb(), getLeavesOfType: () => [], getActiveFile: () => null,
+      openLinkText(link, source, pane) { this.opened.push({ link, pane }); },
+    },
     secretStorage: { setSecret: (k, v) => secrets.set(k, v), getSecret: (k) => secrets.get(k) ?? null, listSecrets: () => [...secrets.keys()] },
     plugins: { manifests: {} },
   };
@@ -121,6 +128,7 @@ module.exports = {
     addSettingTab(tab) { this.settingTab = tab; }
     addCommand(c) { (this.commands ||= {})[c.id] = c; }
     registerEvent() {}
+    registerInterval(id) { globalThis.window?.clearInterval?.(id); return id; }  // tests never wait for the timer
     async loadData() { return this._data; }
     async saveData(d) { this._data = JSON.parse(JSON.stringify(d)); }
   },

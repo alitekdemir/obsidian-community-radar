@@ -15,24 +15,43 @@ Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını
 | **🔄 Değişenler** | Takip ettiklerinizden, incelediğiniz günden sonra yeni sürüm çıkaranlar |
 | **Öneriler** | Kurulu olan ama henüz favori yapmadığınız eklentiler |
 
-Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentinin sayfasını açar; kurulum orada yapılır. Community Radar keşif ve takip içindir, kurulum yapmaz.
+Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentinin sayfasını açar; kurulum orada yapılır. Satırdaki **README**, eklentinin README'sini Obsidian içinde, takip notunda açar.
 
 **Favori** yaptığınız ya da **gruba eklediğiniz** eklentiler vault'unuzda README'leriyle birlikte küçük notlara dönüşür; [Bases](https://help.obsidian.md/bases) ile tablo olarak görüp düzenleyebilirsiniz. **Dışladığınız** eklentiler bir daha görünmez.
 
+## Özellikler
+
+- **Zamanlanmış eşitleme**: 6 saatte bir, günde bir, haftada bir ya da elle. Panel son eşitlemenin ne zaman yapıldığını ve ne getirdiğini gösterir (*Son eşitlemeden beri: 5 yeni · 23 güncelleme*).
+- **Takip notunda README**: yeni sürüm çıkınca not açıldığında, her eşitlemede ya da yalnızca istendiğinde yenilenir. Kendi notlarınıza dokunulmaz.
+- **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.
+- **Türkçe ve İngilizce** arayüz; Obsidian'ın dilini izler ya da ayarlardan seçilir. Yeni diller [`locales/`](locales) klasörüne eklenebilir (ayrıntılar İngilizce README'de).
+- Masaüstü ve mobilde çalışır.
+
 ## Kurulum
 
-Topluluk listesine girene kadar:
+Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Community Radar**'ı arayın, kurup etkinleştirin.
 
-**BRAT ile:** [BRAT](https://github.com/TfTHacker/obsidian42-brat)'ı kurun, *BRAT: Add a beta plugin* komutuna `alitekdemir/obsidian-community-radar` yazın.
+**BRAT ile** (ön sürümler): [BRAT](https://github.com/TfTHacker/obsidian42-brat)'ı kurun, *BRAT: Add a beta plugin* komutuna `alitekdemir/obsidian-community-radar` yazın.
 
 **Elle:** [son sürümdeki](https://github.com/alitekdemir/obsidian-community-radar/releases/latest) `main.js`, `manifest.json` ve `styles.css` dosyalarını `<vault>/.obsidian/plugins/plugin-radar/` klasörüne koyun, *Ayarlar → Topluluk eklentileri*'nden **Community Radar**'ı açın.
 
 ## Başlarken
 
-1. **Community Radar: Eklenti keşfini aç** komutunu çalıştırın ya da şeritteki radar simgesine tıklayın.
-2. Bir kez **Sürüm geçmişini kur**'a basın (~50 MB, birkaç dakika). *Uyananlar* ve *Yeni* sekmeleri buna dayanır; sonraki yenilemeler yalnızca aradaki günleri indirir.
+1. **Community Radar: Community Radar'ı aç** komutunu çalıştırın ya da şeritteki radar simgesine tıklayın.
+2. Bir kez **Sürüm geçmişini kur**'a basın (~50 MB, birkaç dakika). *Uyananlar* ve *Yeni* sekmeleri buna dayanır; sonraki eşitlemeler yalnızca aradaki günleri indirir.
 3. Her satırdan favori (☆), gruba ekle (＋) ya da dışla (⊘).
 4. İsterseniz [`docs/community-radar-bases.md`](docs/community-radar-bases.md) dosyasını vault'unuza kopyalayıp hazır Bases tablosunu kullanın (klasör adını kendi not klasörünüzle değiştirin).
+
+## Ayarlar
+
+| Ayar | Seçenekler |
+|---|---|
+| Dil | Otomatik (Obsidian'ın dili), English, Türkçe |
+| Not klasörü | Takip notlarının oluşturulacağı yer |
+| Eşitleme sıklığı | Elle · 6 saatte bir · **Günde bir** · Haftada bir. Eşitlemeler arasında hiçbir şey indirilmez. **Şimdi eşitle** hemen çalıştırır. |
+| README güncelleme | **Notu açtığımda** · Her eşitlemede · Elle (komut paleti) |
+| Geçmiş derinliği | 3, 6, 12 ya da 24 ay |
+| Çeviri | Sağlayıcı, API anahtarı (Obsidian'ın anahtar deposundan), model, hedef dil |
 
 ## Nasıl çalışır
 
@@ -41,14 +60,14 @@ Obsidian'ın [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releas
 ## Ağ kullanımı ve gizlilik
 
 - `raw.githubusercontent.com`: herkese açık eklenti listesi, istatistik anlık görüntüleri ve README'ler.
-- `api.github.com`: anlık görüntü listesi (geçmiş kurulumu/yenilemede 1–4 istek, kimliksiz, saatte 60 sınırı).
+- `api.github.com`: anlık görüntü listesi (geçmiş kurulumu ve eşitlemede 1–4 istek, kimliksiz, saatte 60 sınırı).
 - Çeviri sağlayıcınız: **yalnızca** *Çevir*'e bastığınızda ve bir sağlayıcı ayarladıysanız; yalnızca eklenti açıklamaları gönderilir.
 
 Telemetri yok, hesap yok, vault'unuzla ilgili hiçbir şey gönderilmez. Vault içinde eklenti yalnızca kendi not klasöründeki notları okur ve yazar; diğer dosyalarınızı listelemez. API anahtarları Obsidian'ın anahtar deposunda (SecretStorage) cihaz başına saklanır, `data.json`'a yazılmaz; eklenti yalnızca anahtarın adını (ör. `anthropic-api-key`) saklar.
 
 ## Geliştirme
 
-Derleme adımı yok; `main.js` eklentinin kendisi. Testler Node'da, ağsız çalışır: `npm install && npm test`.
+Kaynak `src/main.js`; `npm run build`, `locales/*.json` dosyalarını Obsidian'ın yüklediği `main.js` içine gömer. Testler Node'da, ağsız çalışır: `npm install && npm test`.
 
 ## Lisans
 

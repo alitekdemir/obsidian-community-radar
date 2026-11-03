@@ -1,7 +1,8 @@
 "use strict";
 /*
  * Community Radar — discover community plugins, spot the ones that woke up after a long pause,
- * and track the ones you care about as notes. Plain JavaScript, no build step.
+ * and track the ones you care about as notes. Plain JavaScript; scripts/build.js only embeds
+ * locales/*.json into the main.js that Obsidian loads.
  *
  * Layers (each depends only on the ones above it):
  *   1. Constants and i18n
@@ -28,14 +29,17 @@ const LISTING_URL = `${RAW}/${REPO}/HEAD/community-plugins.json`;
 const STATS_URL = `${RAW}/${REPO}/HEAD/${STATS_FILE}`;
 const COMMITS_API = `https://api.github.com/repos/${REPO}/commits`;
 
-const DAY_MS = 86_400_000;
+const HOUR_MS = 3_600_000;
+const DAY_MS = 24 * HOUR_MS;
 const MONTH_MS = 30.44 * DAY_MS;
 const HISTORY_MONTHS = [3, 6, 12, 24];
 const DAILY_DAYS = 30;             // snapshots are daily for this many days, weekly before that
 const RELEASES_CAP = 50;           // release dates kept per plugin
 const NEW_BADGE_DAYS = 30;         // ✨ badge: listed within this many days
 const PARALLEL = 4;                // snapshots downloaded at once
-const CATALOG_MAX_AGE_MS = DAY_MS; // the view refreshes a catalog older than this on open
+const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
+const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sync is due (no network)
+const README_MODES = ["open", "sync", "manual"];
 const PAGE_SIZE = 50;
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
 
@@ -60,305 +64,43 @@ const ICON_SVG = `<g transform="scale(4.1667)" fill="none" stroke="currentColor"
 <circle cx="4" cy="20" r="1.6" fill="currentColor" stroke="none"/><circle cx="16.5" cy="14" r="2" fill="currentColor" stroke="none"/></g>`;
 
 // ─── i18n ───────────────────────────────────────────────────────────────────
-const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
-
-const STRINGS = {
-  en: {
-    locale: "en-US",
-    "unit.million": "M", "unit.thousand": "K", "unit.thousandSpace": "",
-    "age.justNow": "just now",
-    "age.minutes": ({ n }) => `${n} min ago`,
-    "age.hours": ({ n }) => `${n} h ago`,
-    "age.days": ({ n }) => `${plural(n, "day", "days")} ago`,
-    "rel.today": "today", "rel.yesterday": "yesterday",
-    "rel.days": ({ n }) => `${n} days ago`,
-    "rel.months": ({ n }) => `${plural(n, "month", "months")} ago`,
-    "rel.years": ({ n }) => `${n} years ago`,
-    "history.label": ({ months }) => (months === 12 ? "last year" : months === 24 ? "last 2 years" : `last ${months} months`),
-    untitled: "Untitled",
-
-    "mode.all": "All", "mode.new": "✨ New", "mode.updated": "Updated", "mode.awakened": "Awakened",
-    "mode.changed": "🔄 Changed", "mode.suggested": "Suggestions",
-    "tip.all": "Every community plugin; sort and search freely",
-    "tip.new": ({ days }) => `Plugins listed in the last ${days} days`,
-    "tip.updated": ({ days }) => `Plugins updated in the last ${days} days`,
-    "tip.awakened": ({ days, gap }) => `Updated in the last ${days} days, at least ${gap} days after their previous release`,
-    "tip.changed": "Tracked plugins with a new release since you last reviewed them",
-    "tip.suggested": "Installed plugins you haven't starred yet",
-
-    "filter.last": "Last", "filter.gap": "Gap ≥", "filter.downloads": "Downloads ≥", "filter.sort": "Sort",
-    "filter.days": ({ n }) => `${n} days`,
-    "sort.downloads": "downloads", "sort.updated": "last update", "sort.name": "name", "sort.listed": "newest listed",
-    "search.placeholder": "search… (comma = and)",
-    "translate.visible": ({ n }) => `Translate visible (${n})`,
-    "translate.pending": ({ pending, done }) => `${pending} descriptions in one request; ${done} already translated`,
-    "translate.allDone": "All translated; show translations",
-    "translate.row": "Translate", "translate.hide": "Hide",
-    "changed.markAll": "Mark all reviewed",
-
-    "status.loading": "Loading catalog…",
-    "status.plugins": ({ n }) => `${n} plugins`,
-    "status.data": ({ age }) => `data ${age}`,
-    "status.history": ({ label }) => `history: ${label}`,
-    "status.noHistory": "no history yet",
-    "status.query": ({ q }) => `filtered by "${q}"`,
-    "status.clear": "✕ clear",
-    "status.build": "Build release history",
-    "status.rebuild": "Rebuild history (for listing dates)",
-    "status.refresh": "Refresh data",
-
-    "list.needHistory": "Build the release history first to find plugins that were updated after a long pause.",
-    "list.legacyHint": "Listing dates come from the release history. Until it is rebuilt, only plugins without published stats show up here.",
-    "list.empty": "No plugins match this filter.",
-    "list.more": ({ n, total, shown }) => `Show ${n} more  ·  ${shown} of ${total}`,
-
-    "badge.new": "✨ new", "badge.changed": "🔄 changed", "badge.installed": "installed", "badge.note": "📝 note",
-    "badge.openNote": "Open tracking note",
-    "row.updated": ({ when }) => `updated ${when}`,
-    "row.added": ({ when }) => `listed ${when}`,
-    "row.justListed": "just listed",
-    "row.gap": ({ n }) => `after ${plural(n, "day", "days")}`,
-    "row.firstRelease": "first recorded release",
-    "row.noStats": "no stats yet",
-    "row.downloads": ({ n }) => `${n} downloads`,
-    "action.favorite": "Star", "action.unfavorite": "Unstar",
-    "action.group": "Add to group", "action.groupNamed": ({ group }) => `Group: ${group}`,
-    "action.exclude": "Exclude", "action.dismiss": "Don't suggest", "action.reviewed": "Reviewed",
-
-    "group.placeholder": "Type or choose a group",
-    "group.placeholderCurrent": ({ group }) => `Group: ${group} (type to change)`,
-    "group.new": ({ name }) => `＋ New group: ${name}`,
-
-    "model.placeholder": "Search models… (any text you type can be used as a model name)",
-    "model.custom": ({ name }) => `Use this name: ${name}`,
-    "model.latestOnly": "Only “latest”",
-    "model.free": "free",
-    "price.unit": "1M tokens",
-
-    "notice.busy": "Another task is running; please wait for it to finish.",
-    "notice.refreshing": "Community Radar: refreshing data",
-    "notice.downloadingCatalog": "Downloading catalog…",
-    "notice.updatingNotes": "Updating tracking notes…",
-    "notice.refreshed": ({ n, released }) => `Community Radar: ${n} plugins · ${released} tracked notes have a new release${released ? " (README updated)" : ""}`,
-    "notice.history": "Community Radar: release history",
-    "notice.listingSnapshots": "Listing snapshots…",
-    "notice.snapshotProgress": ({ done, total, date }) => `${done}/${total} snapshots · ${date}`,
-    "notice.historyDone": ({ label, from, to, n }) => `Community Radar: history ${label} · ${from} → ${to} · ${n} snapshots processed`,
-    "notice.historyCurrent": "Community Radar: history is up to date",
-    "notice.readme": "Community Radar: README",
-    "notice.readmeProgress": ({ done, total }) => `README ${done}/${total}`,
-    "notice.readmeDone": ({ n }) => `Community Radar: ${n} READMEs updated`,
-    "notice.notTracking": "This note isn't a Community Radar note (no plugin_id).",
-    "notice.translating": ({ n }) => `Translating ${n} descriptions…`,
-    "notice.translateFailed": ({ error }) => `Translation failed ✖\n${error}`,
-    "notice.translateSetup": "To translate, pick a provider, an API key and a model in Settings → Community Radar → Description translation.",
-    "notice.favorite": ({ star, name, created }) => `${star} ${name}${created ? " · note created" : ""}`,
-    "notice.grouped": ({ name, group, created }) => `📌 ${name} → ${group}${created ? " · note created" : ""}`,
-    "notice.excluded": ({ name }) => `⊘ ${name} excluded (undo in settings)`,
-    "notice.headings": ({ n }) => `Community Radar: "Notes" and "README" headings set to H1 in ${n} notes.`,
-    "notice.keysMoved": ({ n, example }) => `Community Radar: ${n} API keys copied to the shared name (e.g. ${example}).`,
-    "notice.legacyImported": "Community Radar: settings and cache imported from the earlier version. You can remove the old plugin folder.",
-    "notice.rateLimit": "GitHub rate limit reached (60 requests per hour). Try again in an hour.",
-    "notice.modelsFailed": ({ error }) => `Couldn't load models: ${error}`,
-    "notice.modelOk": ({ model, sample }) => `✓ ${model} answered: “${sample}”`,
-    "notice.modelFailed": ({ error }) => `Model test failed ✖\n${error}`,
-
-    "cmd.open": "Open plugin discovery",
-    "cmd.refresh": "Refresh data (catalog, history, notes)",
-    "cmd.rebuild": "Rebuild release history",
-    "cmd.readmeCurrent": "Update README of this note",
-    "cmd.readmeAll": "Update READMEs of all tracking notes",
-    "view.title": "Plugin discovery",
-
-    "set.folder": "Notes folder", "set.folderDesc": "Notes for the plugins you track are created here.",
-    "set.history": "Release history", "set.depth": "History depth",
-    "set.depthDesc": ({ label, from, to }) => `Built: ${label} (${from} → ${to}). Use “Rebuild” after increasing the depth.`,
-    "set.notBuilt": "Not built yet.", "set.rebuild": "Rebuild",
-    "set.translation": "Description translation",
-    "set.needsKeychain": "Translation needs Obsidian 1.11.4 or later to keep the API key in Obsidian's keychain.",
-    "set.provider": "Provider", "set.none": "None",
-    "set.key": "API key",
-    "set.keyDesc": ({ name, found }) => `Pick from Obsidian's keychain or add a new one. Suggested name: ${name} — plugins using the same name share the key. ${found ? "✓ Key found." : "No key yet."}`,
-    "set.model": "Model",
-    "set.modelPrice": ({ price }) => `Price (input / output): ${price}.`,
-    "set.modelPick": "Choose model", "set.modelTest": "Test model",
-    "set.modelHint": "Type to filter; names that aren't listed (e.g. ~google/gemini-flash-latest on OpenRouter) can be used as typed.",
-    "set.noPrices": "This provider's model list has no prices.",
-    "set.targetLang": "Target language",
-    "set.saved": "Saved translations",
-    "set.savedDesc": ({ n }) => `${n} descriptions. Deleting them means they'll be translated (and billed) again.`,
-    "set.delete": "Delete",
-    "set.excluded": ({ n }) => `Excluded (${n})`,
-    "set.dismissed": ({ n }) => `Installed plugins not to suggest (${n})`,
-    "set.restore": "Restore",
-
-    "readme.meta": ({ repo, version, date }) => `> README · ${repo} · ${version} · fetched ${date}`,
-    "readme.noVersion": "no version yet",
-    "readme.failed": "_Couldn't fetch the README. Try “Update README of this note” from the command palette._",
-    "note.myNotes": "My notes",
-    "error.noJsonArray": "No JSON array in the translation reply.",
-    "error.countMismatch": ({ expected, got }) => `Translation count mismatch (expected ${expected}, got ${got}).`,
-    "error.noKey": ({ name }) => `Pick or add the API key named “${name}” first.`,
-    "provider.generic": "Provider",
-  },
-
-  tr: {
-    locale: "tr-TR",
-    "unit.million": "Mn", "unit.thousand": "bin", "unit.thousandSpace": " ",
-    "age.justNow": "az önce",
-    "age.minutes": ({ n }) => `${n} dk önce`,
-    "age.hours": ({ n }) => `${n} sa önce`,
-    "age.days": ({ n }) => `${n} gün önce`,
-    "rel.today": "bugün", "rel.yesterday": "dün",
-    "rel.days": ({ n }) => `${n} gün önce`,
-    "rel.months": ({ n }) => `${n} ay önce`,
-    "rel.years": ({ n }) => `${n} yıl önce`,
-    "history.label": ({ months }) => (months === 12 ? "son 1 yıl" : months === 24 ? "son 2 yıl" : `son ${months} ay`),
-    untitled: "Adsız",
-
-    "mode.all": "Tümü", "mode.new": "✨ Yeni", "mode.updated": "Güncellenen", "mode.awakened": "Uyananlar",
-    "mode.changed": "🔄 Değişenler", "mode.suggested": "Öneriler",
-    "tip.all": "Bütün topluluk eklentileri; serbestçe sıralayın ve arayın",
-    "tip.new": ({ days }) => `Son ${days} günde listeye giren eklentiler`,
-    "tip.updated": ({ days }) => `Son ${days} günde güncellenen eklentiler`,
-    "tip.awakened": ({ days, gap }) => `Son ${days} günde, önceki sürümden en az ${gap} gün sonra güncellenenler`,
-    "tip.changed": "Takip ettiklerinizden, incelediğiniz günden sonra yeni sürüm çıkaranlar",
-    "tip.suggested": "Kurulu olan ama henüz favori yapmadığınız eklentiler",
-
-    "filter.last": "Son", "filter.gap": "Ara ≥", "filter.downloads": "İndirme ≥", "filter.sort": "Sırala",
-    "filter.days": ({ n }) => `${n} gün`,
-    "sort.downloads": "indirme", "sort.updated": "son güncelleme", "sort.name": "ad", "sort.listed": "listeye giriş",
-    "search.placeholder": "ara… (virgül = ve)",
-    "translate.visible": ({ n }) => `Görünenleri çevir (${n})`,
-    "translate.pending": ({ pending, done }) => `${pending} açıklama tek istekte çevrilir; ${done} tanesi zaten çevrilmiş`,
-    "translate.allDone": "Hepsi zaten çevrilmiş; çevirileri göster",
-    "translate.row": "Çevir", "translate.hide": "Gizle",
-    "changed.markAll": "Hepsini incelendi say",
-
-    "status.loading": "Katalog yükleniyor…",
-    "status.plugins": ({ n }) => `${n} eklenti`,
-    "status.data": ({ age }) => `veri ${age}`,
-    "status.history": ({ label }) => `geçmiş: ${label}`,
-    "status.noHistory": "geçmiş kurulmadı",
-    "status.query": ({ q }) => `"${q}" araması uygulanıyor`,
-    "status.clear": "✕ temizle",
-    "status.build": "Sürüm geçmişini kur",
-    "status.rebuild": "Geçmişi yeniden kur (yeni eklenti tarihleri için)",
-    "status.refresh": "Veriyi yenile",
-
-    "list.needHistory": "Uzun aradan sonra güncellenenleri bulmak için önce sürüm geçmişini kurun.",
-    "list.legacyHint": "Eklentilerin listeye giriş tarihleri sürüm geçmişinden çıkarılır. Şimdilik yalnızca istatistiği henüz yayımlanmamış eklentiler görünüyor.",
-    "list.empty": "Bu filtreyle eşleşen eklenti yok.",
-    "list.more": ({ n, total, shown }) => `${n} tane daha göster  ·  ${total} içinden ${shown}`,
-
-    "badge.new": "✨ yeni", "badge.changed": "🔄 değişti", "badge.installed": "kurulu", "badge.note": "📝 not",
-    "badge.openNote": "Takip notunu aç",
-    "row.updated": ({ when }) => `${when} güncellendi`,
-    "row.added": ({ when }) => `${when} eklendi`,
-    "row.justListed": "yeni listelendi",
-    "row.gap": ({ n }) => `${n} gün aradan sonra`,
-    "row.firstRelease": "ilk kayıtlı sürüm",
-    "row.noStats": "istatistik yok",
-    "row.downloads": ({ n }) => `${n} indirme`,
-    "action.favorite": "Favori", "action.unfavorite": "Favoriden çıkar",
-    "action.group": "Gruba ekle", "action.groupNamed": ({ group }) => `Grup: ${group}`,
-    "action.exclude": "Dışla", "action.dismiss": "Önerme", "action.reviewed": "İnceledim",
-
-    "group.placeholder": "Grup adı yazın ya da seçin",
-    "group.placeholderCurrent": ({ group }) => `Grup: ${group} (değiştirmek için yazın)`,
-    "group.new": ({ name }) => `＋ Yeni grup: ${name}`,
-
-    "model.placeholder": "Model ara… (yazdığınız her ad model adı olarak kullanılabilir)",
-    "model.custom": ({ name }) => `Bu adı kullan: ${name}`,
-    "model.latestOnly": "Yalnızca “latest”",
-    "model.free": "ücretsiz",
-    "price.unit": "1M token",
-
-    "notice.busy": "Başka bir işlem sürüyor, bitmesini bekleyin.",
-    "notice.refreshing": "Community Radar: veri yenileniyor",
-    "notice.downloadingCatalog": "Katalog indiriliyor…",
-    "notice.updatingNotes": "Takip notları güncelleniyor…",
-    "notice.refreshed": ({ n, released }) => `Community Radar: ${n} eklenti · ${released} takip notunda yeni sürüm${released ? " (README güncellendi)" : ""}`,
-    "notice.history": "Community Radar: sürüm geçmişi",
-    "notice.listingSnapshots": "Anlık görüntü listesi alınıyor…",
-    "notice.snapshotProgress": ({ done, total, date }) => `${done}/${total} anlık görüntü · ${date}`,
-    "notice.historyDone": ({ label, from, to, n }) => `Community Radar: geçmiş ${label} · ${from} → ${to} · ${n} anlık görüntü işlendi`,
-    "notice.historyCurrent": "Community Radar: geçmiş zaten güncel",
-    "notice.readme": "Community Radar: README",
-    "notice.readmeProgress": ({ done, total }) => `README ${done}/${total}`,
-    "notice.readmeDone": ({ n }) => `Community Radar: ${n} README güncellendi`,
-    "notice.notTracking": "Bu not bir Community Radar notu değil (plugin_id yok).",
-    "notice.translating": ({ n }) => `Çevriliyor: ${n} açıklama…`,
-    "notice.translateFailed": ({ error }) => `Çeviri başarısız ✖\n${error}`,
-    "notice.translateSetup": "Çeviri için Ayarlar → Community Radar → Açıklama çevirisi bölümünden sağlayıcı, API anahtarı ve model seçin.",
-    "notice.favorite": ({ star, name, created }) => `${star} ${name}${created ? " · not oluşturuldu" : ""}`,
-    "notice.grouped": ({ name, group, created }) => `📌 ${name} → ${group}${created ? " · not oluşturuldu" : ""}`,
-    "notice.excluded": ({ name }) => `⊘ ${name} dışlandı (ayarlardan geri alınır)`,
-    "notice.headings": ({ n }) => `Community Radar: ${n} notta "Notlarım" ve "README" başlıkları H1 yapıldı.`,
-    "notice.keysMoved": ({ n, example }) => `Community Radar: ${n} API anahtarı önerilen ortak ada kopyalandı (ör. ${example}).`,
-    "notice.legacyImported": "Community Radar: ayarlar ve önbellek önceki sürümden (Eklenti Takip) aktarıldı. Eski eklenti klasörünü silebilirsiniz.",
-    "notice.rateLimit": "GitHub istek sınırına ulaşıldı (saatte 60). Bir saat sonra tekrar deneyin.",
-    "notice.modelsFailed": ({ error }) => `Modeller alınamadı: ${error}`,
-    "notice.modelOk": ({ model, sample }) => `✓ ${model} yanıt verdi: “${sample}”`,
-    "notice.modelFailed": ({ error }) => `Model denemesi başarısız ✖\n${error}`,
-
-    "cmd.open": "Eklenti keşfini aç",
-    "cmd.refresh": "Veriyi yenile (katalog, geçmiş, notlar)",
-    "cmd.rebuild": "Sürüm geçmişini baştan kur",
-    "cmd.readmeCurrent": "Bu notun README'sini güncelle",
-    "cmd.readmeAll": "Tüm takip notlarının README'lerini güncelle",
-    "view.title": "Eklenti keşfi",
-
-    "set.folder": "Not klasörü", "set.folderDesc": "Takip ettiğiniz eklentilerin notları bu klasörde oluşur.",
-    "set.history": "Sürüm geçmişi", "set.depth": "Geçmiş derinliği",
-    "set.depthDesc": ({ label, from, to }) => `Kurulu: ${label} (${from} → ${to}). Derinliği artırdıysanız "Baştan kur" ile yeniden kurun.`,
-    "set.notBuilt": "Henüz kurulmadı.", "set.rebuild": "Baştan kur",
-    "set.translation": "Açıklama çevirisi",
-    "set.needsKeychain": "Çeviri, API anahtarını Obsidian'ın anahtar deposunda tutmak için Obsidian 1.11.4 veya üstünü gerektirir.",
-    "set.provider": "Sağlayıcı", "set.none": "Seçilmedi",
-    "set.key": "API anahtarı",
-    "set.keyDesc": ({ name, found }) => `Obsidian'ın anahtar deposundan seçin ya da yeni ekleyin. Önerilen ad: ${name} — aynı adı kullanan eklentiler anahtarı paylaşır. ${found ? "✓ Anahtar bulundu." : "Henüz anahtar yok."}`,
-    "set.model": "Model",
-    "set.modelPrice": ({ price }) => `Fiyat (giriş / çıkış): ${price}.`,
-    "set.modelPick": "Model seç", "set.modelTest": "Modeli dene",
-    "set.modelHint": "Yazarak filtreleyin; listede olmayan adlar (ör. OpenRouter'da ~google/gemini-flash-latest) yazıldığı gibi kullanılabilir.",
-    "set.noPrices": "Bu sağlayıcının model listesi fiyat bilgisi vermiyor.",
-    "set.targetLang": "Hedef dil",
-    "set.saved": "Kayıtlı çeviriler",
-    "set.savedDesc": ({ n }) => `${n} açıklama. Silinirse yeniden çevrilir (ücretlendirilir).`,
-    "set.delete": "Sil",
-    "set.excluded": ({ n }) => `Dışlananlar (${n})`,
-    "set.dismissed": ({ n }) => `Önerilmeyecek kurulu eklentiler (${n})`,
-    "set.restore": "Geri al",
-
-    "readme.meta": ({ repo, version, date }) => `> README · ${repo} · ${version} · alındı: ${date}`,
-    "readme.noVersion": "sürüm henüz yok",
-    "readme.failed": "_README alınamadı. Komut paletinden 'Bu notun README'sini güncelle' ile tekrar deneyin._",
-    "note.myNotes": "Notlarım",
-    "error.noJsonArray": "Çeviri yanıtında JSON dizisi bulunamadı.",
-    "error.countMismatch": ({ expected, got }) => `Çeviri sayısı uyuşmuyor (beklenen ${expected}, gelen ${got}).`,
-    "error.noKey": ({ name }) => `Önce "${name}" adlı API anahtarını seçin ya da ekleyin.`,
-    "provider.generic": "Sağlayıcı",
-  },
-};
+/**
+ * UI strings, one table per language, filled at build time from locales/*.json (see scripts/build.js).
+ * Values are text with {placeholders}; plural text is {one, other, …} picked by Intl.PluralRules on {n}.
+ */
+const STRINGS = /* LOCALES */ {};
 
 let language = "en";
 
-/** Picks the UI language: Turkish when Obsidian runs in Turkish, English otherwise. */
+/** The locale for a code like "tr", "pt-BR" or "en-gb": exact match, then same base language, then English. */
+function matchLanguage(code) {
+  const wanted = String(code || "").toLowerCase();
+  const codes = Object.keys(STRINGS);
+  return codes.find((c) => c.toLowerCase() === wanted)
+    || codes.find((c) => wanted && wanted.split("-")[0] === c.toLowerCase().split("-")[0])
+    || "en";
+}
+
 function setLanguage(code) {
-  language = String(code || "").toLowerCase().startsWith("tr") ? "tr" : "en";
+  language = matchLanguage(code);
   return language;
 }
 
-/** Looks up a UI string; falls back to English, then to the key itself. */
+/** Obsidian's own UI language. */
+function obsidianLanguage() {
+  return obsidian.moment?.locale?.() || globalThis.localStorage?.getItem?.("language") || "en";
+}
+
+/** Looks up a UI string (falling back to English, then to the key) and fills its {placeholders}. */
 function t(key, vars = {}) {
-  const value = STRINGS[language][key] ?? STRINGS.en[key] ?? key;
-  return typeof value === "function" ? value(vars) : value;
+  let value = STRINGS[language]?.[key] ?? STRINGS.en[key] ?? key;
+  if (typeof value === "object") value = value[new Intl.PluralRules(t("locale")).select(Number(vars.n))] ?? value.other;
+  return value.replace(/\{(\w+)\}/g, (all, name) => (name in vars ? String(vars[name]) : all));
 }
 
 function defaultSettings() {
   return {
-    folder: language === "tr" ? "Eklentiler" : "Community Radar",
+    folder: t("default.folder"),
     mode: "awakened",
     days: 14,
     dormantDays: 90,
@@ -370,7 +112,10 @@ function defaultSettings() {
     model: "",
     modelPrice: "",
     keyNames: {},
-    targetLang: language === "tr" ? "Türkçe" : "English",
+    targetLang: t("language.name"),
+    language: "auto",
+    syncHours: 24,        // 0 = manual
+    readmeMode: "open",   // open | sync | manual
   };
 }
 
@@ -402,7 +147,7 @@ function formatCount(value) {
 function formatShort(value) {
   if (value == null) return "–";
   const gap = t("unit.thousandSpace");
-  if (value >= 1e6) return `${decimal(value / 1e6)}${language === "tr" ? " " : ""}${t("unit.million")}`;
+  if (value >= 1e6) return `${decimal(value / 1e6)}${t("unit.millionSpace")}${t("unit.million")}`;
   if (value >= 1e4) return `${Math.round(value / 1e3)}${gap}${t("unit.thousand")}`;
   if (value >= 1e3) return `${decimal(value / 1e3)}${gap}${t("unit.thousand")}`;
   return String(value);
@@ -427,7 +172,13 @@ function relativeDays(ms, now) {
 }
 
 function historyLabel(months) {
-  return t("history.label", { months });
+  return months === 12 ? t("history.lastYear") : months === 24 ? t("history.last2Years") : t("history.lastMonths", { months });
+}
+
+/** Clock time for today ("14:05"), date and time before that. */
+function formatTime(ms, now) {
+  const sameDay = dayString(ms) === dayString(now);
+  return new Date(ms).toLocaleString(t("locale"), sameDay ? { hour: "2-digit", minute: "2-digit" } : { dateStyle: "short", timeStyle: "short" });
 }
 
 /** A valid note file name derived from a plugin name. */
@@ -654,12 +405,33 @@ function readmeSection(readme, plugin, now) {
   return `${README_START}\n${meta}\n\n${body}\n${README_END}`;
 }
 
+/** Version the note's README was fetched for ("1.2.0"), read from its meta line; null when unknown. */
+function readmeVersion(content) {
+  const start = content.indexOf(README_START);
+  if (start === -1) return null;
+  const meta = content.slice(start + README_START.length).trimStart().split("\n", 1)[0];
+  return meta.match(/· v(\S+) ·/)?.[1] ?? null;
+}
+
 /** Replaces the README section; appends one when the markers are missing. Nothing else is touched. */
 function replaceReadme(content, section) {
   const start = content.indexOf(README_START);
   const end = content.indexOf(README_END, start);
   if (start === -1 || end === -1) return `${content.replace(/\s*$/, "")}\n\n# README\n${section}\n`;
   return content.slice(0, start) + section + content.slice(end + README_END.length);
+}
+
+/** What a sync brought: plugins that weren't in the previous catalog, and plugins with a newer release. */
+function catalogDelta(before, after) {
+  const previous = new Map(before.map((p) => [p.id, p]));
+  let added = 0;
+  let updated = 0;
+  for (const p of after) {
+    const old = previous.get(p.id);
+    if (!old) added++;
+    else if (p.updated && p.updated > (old.updated || 0)) updated++;
+  }
+  return { added, updated };
 }
 
 /** Body of a new tracking note (properties are written separately with processFrontMatter). */
@@ -818,10 +590,10 @@ async function mapLimit(items, limit, worker) {
 }
 
 const core = {
-  setLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
-  historyLabel, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
+  setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
+  historyLabel, formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
   mergeSnapshot, dormantDays, isNewPlugin, isChanged, matchesQuery, discover, modeCounts, escapeOutsideCode,
-  absolutizeLinks, readmeSection, replaceReadme, noteBody, migrateHeadings, sourceFields, noteFromFrontmatter,
+  absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
   parseTranslations, mapLimit,
   constants: { DAY_MS, MONTH_MS, DAILY_DAYS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, TIMELINE_VERSION },
@@ -1328,14 +1100,20 @@ class DiscoveryView extends ItemView {
     const { catalog, timeline } = this.plugin;
     status.empty();
     const text = status.createDiv({ cls: "pdt-status-text" });
+    const now = Date.now();
     if (!catalog) {
-      text.setText(t("status.loading"));
+      text.setText(this.plugin.busy ? this.plugin.progress || t("status.syncing") : t("status.loading"));
     } else {
-      text.setText([
-        t("status.plugins", { n: formatCount(catalog.plugins.length) }),
-        t("status.data", { age: formatAge(Date.now() - catalog.fetchedAt) }),
-        timeline.to ? t("status.history", { label: historyLabel(timeline.months) }) : t("status.noHistory"),
-      ].join("  ·  "));
+      text.createDiv({
+        text: [
+          t("status.plugins", { n: formatCount(catalog.plugins.length) }),
+          t("status.lastSync", { time: formatTime(catalog.fetchedAt, now), age: formatAge(now - catalog.fetchedAt) }),
+          timeline.to ? t("status.history", { label: historyLabel(timeline.months) }) : t("status.noHistory"),
+        ].join("  ·  "),
+      });
+      const { delta } = catalog;
+      if (this.plugin.busy) text.createDiv({ cls: "pdt-progress", text: this.plugin.progress || t("status.syncing") });
+      else if (delta) text.createDiv({ cls: "pdt-delta", text: t("status.delta", { added: formatCount(delta.added), updated: formatCount(delta.updated) }) });
     }
     const query = this.settings.query.trim();
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
@@ -1356,7 +1134,17 @@ class DiscoveryView extends ItemView {
       actions.createEl("button", { cls: "mod-cta", text: t(timeline.to ? "status.rebuild" : "status.build") })
         .onclick = () => this.plugin.buildHistory(true);
     }
-    iconButton(actions, "refresh-cw", t("status.refresh")).onclick = () => this.plugin.refresh();
+    const sync = actions.createEl("button", { cls: `pdt-ghost pdt-sync${this.plugin.busy ? " is-syncing" : ""}` });
+    setIcon(sync.createSpan({ cls: "pdt-btn-icon" }), "refresh-cw");
+    sync.createSpan({ text: this.plugin.busy ? t("status.syncing") : t("status.sync") });
+    setTooltip(sync, t("status.refresh"));
+    sync.disabled = this.plugin.busy;
+    sync.onclick = () => this.plugin.refresh();
+  }
+
+  /** Redraws only the status line (progress updates during a sync). */
+  refreshStatus() {
+    if (this.refs.status) this.renderStatus(this.refs.status);
   }
 
   renderList(list, state, now) {
@@ -1414,13 +1202,22 @@ class DiscoveryView extends ItemView {
     if (note) {
       const link = head.createSpan({ cls: "pdt-badge is-note", text: note.group ? `📝 ${note.group}` : t("badge.note") });
       setTooltip(link, t("badge.openNote"));
-      link.onclick = () => this.app.workspace.openLinkText(note.path, "");
+      link.onclick = () => this.app.workspace.openLinkText(note.path, "", "tab");
     }
 
-    // Meta line: author · GitHub · when · gap
+    // Meta line: README · GitHub · when · gap
     const meta = main.createDiv({ cls: "pdt-meta" });
     const sep = () => meta.createSpan({ cls: "pdt-sep", text: "·" });
-    if (p.author) { meta.createSpan({ cls: "pdt-author", text: p.author }); sep(); }
+    if (p.repo) {
+      const readme = meta.createEl("a", { cls: "pdt-readme", text: t("row.readme"), href: "#" });
+      setIcon(readme.createSpan({ cls: "pdt-gh-icon" }), "file-text");
+      setTooltip(readme, t(note ? "row.readmeOpen" : "row.readmeCreate"));
+      readme.onclick = async (event) => {
+        event.preventDefault();
+        await plugin.openReadme(p);
+      };
+      sep();
+    }
     if (p.repo) {
       const gh = meta.createEl("a", { cls: "pdt-gh", href: `https://github.com/${p.repo}`, text: "GitHub" });
       setIcon(gh.createSpan({ cls: "pdt-gh-icon" }), "external-link");
@@ -1514,12 +1311,60 @@ class RadarSettingTab extends PluginSettingTab {
     containerEl.empty();
 
     new Setting(containerEl)
+      .setName(t("set.language"))
+      .setDesc(t("set.languageDesc"))
+      .addDropdown((d) => {
+        d.addOption("auto", t("set.languageAuto", { name: STRINGS[matchLanguage(obsidianLanguage())]["language.name"] }));
+        for (const [code, strings] of Object.entries(STRINGS)) d.addOption(code, strings["language.name"]);
+        d.setValue(settings.language).onChange(async (value) => {
+          settings.language = value;
+          await save();
+          setLanguage(plugin.uiLanguage());
+          plugin.redraw(true);
+          this.display();
+        });
+      });
+
+    new Setting(containerEl)
       .setName(t("set.folder"))
       .setDesc(t("set.folderDesc"))
       .addText((text) => text.setValue(settings.folder).onChange(async (value) => {
         settings.folder = value.trim() || defaultSettings().folder;
         await save();
         plugin.notes.rebuild();
+      }));
+
+    // ── Sync
+    new Setting(containerEl).setName(t("set.sync")).setHeading();
+    new Setting(containerEl)
+      .setName(t("set.syncHours"))
+      .setDesc(t("set.syncHoursDesc"))
+      .addDropdown((d) => {
+        for (const hours of SYNC_HOURS) d.addOption(String(hours), t(`sync.${hours}`));
+        d.setValue(String(settings.syncHours)).onChange(async (value) => {
+          settings.syncHours = Number(value);
+          await save();
+        });
+      });
+    new Setting(containerEl)
+      .setName(t("set.readmeMode"))
+      .setDesc(t("set.readmeModeDesc"))
+      .addDropdown((d) => {
+        for (const mode of README_MODES) d.addOption(mode, t(`readmeMode.${mode}`));
+        d.setValue(settings.readmeMode).onChange(async (value) => {
+          settings.readmeMode = value;
+          await save();
+        });
+      });
+    const { catalog } = plugin;
+    const now = Date.now();
+    new Setting(containerEl)
+      .setName(t("set.syncNow"))
+      .setDesc(catalog ? t("set.lastSync", { time: formatTime(catalog.fetchedAt, now), age: formatAge(now - catalog.fetchedAt) }) : t("set.neverSynced"))
+      .addButton((b) => b.setButtonText(t("set.syncNow")).setCta().onClick(async () => {
+        b.setDisabled(true);
+        await plugin.refresh();
+        this.display();
       }));
 
     // ── Release history
@@ -1573,7 +1418,7 @@ class RadarSettingTab extends PluginSettingTab {
       const provider = settings.provider;
       const keySetting = new Setting(containerEl)
         .setName(t("set.key"))
-        .setDesc(t("set.keyDesc", { name: KEY_NAMES[provider], found: Boolean(translator.key()) }));
+        .setDesc(`${t("set.keyDesc", { name: KEY_NAMES[provider] })} ${t(translator.key() ? "set.keyFound" : "set.keyMissing")}`);
       new obsidian.SecretComponent(this.app, keySetting.controlEl)
         .setValue(translator.keyName(provider))
         .onChange(async (name) => {
@@ -1654,10 +1499,9 @@ class RadarSettingTab extends PluginSettingTab {
 // ─── 5. Plugin ──────────────────────────────────────────────────────────────
 class PluginRadar extends Plugin {
   async onload() {
-    setLanguage(obsidian.moment?.locale?.() || globalThis.localStorage?.getItem?.("language") || "en");
     addIcon(ICON, ICON_SVG);
-
     this.data = Object.assign({ excluded: {}, dismissed: {}, translations: {}, migrations: {} }, await this.loadData());
+    setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.github = new GitHub();
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
@@ -1666,6 +1510,8 @@ class PluginRadar extends Plugin {
     this.catalog = null;                                      // {fetchedAt, plugins}
     this.timeline = newTimeline(this.data.settings.historyMonths);
     this.busy = false;
+    this.progress = "";             // the running task's progress, shown in the view's status line
+    this.readmeJobs = new Set();    // plugin ids whose README is being fetched
 
     this.registerView(VIEW_TYPE, (leaf) => new DiscoveryView(leaf, this));
     this.addRibbonIcon(ICON, t("view.title"), () => this.openView());
@@ -1691,6 +1537,8 @@ class PluginRadar extends Plugin {
       this.redraw();
     }));
 
+    this.registerEvent(this.app.workspace.on("file-open", (file) => this.onNoteOpen(file)));
+
     this.app.workspace.onLayoutReady(async () => {
       await this.importLegacyPlugin();
       this.notes.rebuild();
@@ -1698,7 +1546,14 @@ class PluginRadar extends Plugin {
       this.timeline = upgradeTimeline(await this.cache.read("timeline", this.timeline));
       await this.runMigrations();
       this.redraw();
+      this.registerInterval(window.setInterval(() => this.syncIfDue(), SYNC_CHECK_MS));
+      await this.syncIfDue();
     });
+  }
+
+  uiLanguage() {
+    const language = this.data.settings?.language;
+    return language && language !== "auto" ? language : obsidianLanguage();
   }
 
   /**
@@ -1779,8 +1634,9 @@ class PluginRadar extends Plugin {
     return this.catalog?.plugins.find((p) => p.id === id) || null;
   }
 
-  redraw() {
-    for (const leaf of this.app.workspace.getLeavesOfType(VIEW_TYPE)) leaf.view.refresh?.();
+  /** Updates open views; `full` rebuilds them (e.g. after a language change). */
+  redraw(full = false) {
+    for (const leaf of this.app.workspace.getLeavesOfType(VIEW_TYPE)) (full ? leaf.view.render : leaf.view.refresh)?.call(leaf.view);
   }
 
   async openView() {
@@ -1791,28 +1647,48 @@ class PluginRadar extends Plugin {
   }
 
   // ── Data ─────────────────────────────────────────────────────────────────
-  /** Runs one long task at a time, showing progress in a persistent notice. */
-  async task(label, work) {
-    if (this.busy) return new Notice(t("notice.busy"));
+  /**
+   * Runs one long task at a time. Progress shows in the view's status line and, unless `quiet`
+   * (scheduled syncs), in a notice; a quiet task shows a notice only when it fails.
+   */
+  async task(label, work, { quiet = false } = {}) {
+    if (this.busy) return quiet ? undefined : new Notice(t("notice.busy"));
     this.busy = true;
-    const notice = new Notice(label, 0);
+    this.progress = "";
+    const notice = quiet ? null : new Notice(label, 0);
+    const progress = (text) => {
+      this.progress = text;
+      notice?.setMessage(`${label}\n${text}`);
+      for (const leaf of this.app.workspace.getLeavesOfType(VIEW_TYPE)) leaf.view.refreshStatus?.();
+    };
+    this.redraw();
     try {
-      const message = await work((text) => notice.setMessage(`${label}\n${text}`));
-      notice.setMessage(message || `${label} ✔`);
-      setTimeout(() => notice.hide(), 6000);
+      const message = await work(progress);
+      notice?.setMessage(message || `${label} ✔`);
+      setTimeout(() => notice?.hide(), 6000);
     } catch (error) {
       console.error("[Community Radar]", error);
-      notice.setMessage(`${label} ✖\n${error.message}`);
-      setTimeout(() => notice.hide(), 12000);
+      const failed = notice || new Notice("", 0);
+      failed.setMessage(`${label} ✖\n${error.message}`);
+      setTimeout(() => failed.hide(), 12000);
     } finally {
       this.busy = false;
+      this.progress = "";
       this.redraw();
     }
   }
 
-  /** On opening the view: refresh when there is no catalog or it is older than a day. */
+  /** On opening the view: sync when there is no data yet, otherwise follow the sync frequency. */
   async ensureFresh() {
-    if (!this.catalog || Date.now() - this.catalog.fetchedAt > CATALOG_MAX_AGE_MS) await this.refresh();
+    if (!this.catalog) await this.refresh();
+    else await this.syncIfDue();
+  }
+
+  /** Quietly syncs when the chosen interval has passed; makes no request otherwise or when set to manual. */
+  async syncIfDue() {
+    const hours = this.data.settings.syncHours;
+    const age = this.catalog ? Date.now() - this.catalog.fetchedAt : Infinity;
+    if (hours > 0 && age >= hours * HOUR_MS) await this.refresh({ quiet: true });
   }
 
   async ensureCatalog() {
@@ -1820,10 +1696,12 @@ class PluginRadar extends Plugin {
     return Boolean(this.catalog);
   }
 
-  refresh() {
+  refresh({ quiet = false } = {}) {
     return this.task(t("notice.refreshing"), async (progress) => {
       progress(t("notice.downloadingCatalog"));
-      this.catalog = { fetchedAt: Date.now(), plugins: await this.github.catalog() };
+      const plugins = await this.github.catalog();
+      const delta = this.catalog ? catalogDelta(this.catalog.plugins, plugins) : null;
+      this.catalog = { fetchedAt: Date.now(), plugins, delta };
       await this.cache.write("catalog", this.catalog);
 
       if (this.timeline.to) await this.syncTimeline(false, progress);
@@ -1834,9 +1712,9 @@ class PluginRadar extends Plugin {
         const plugin = this.pluginById(id);
         if (plugin && (await this.notes.syncSource(plugin))) released.push(id);
       }
-      if (released.length) await this.fetchReadmes(released, progress);
+      if (released.length && this.data.settings.readmeMode === "sync") await this.fetchReadmes(released, progress);
       return t("notice.refreshed", { n: formatCount(this.catalog.plugins.length), released: released.length });
-    });
+    }, { quiet });
   }
 
   buildHistory(rebuild) {
@@ -1887,6 +1765,35 @@ class PluginRadar extends Plugin {
     });
   }
 
+  /** "When I open the note" mode: an opened tracking note whose README is older than the release gets a fresh one. */
+  async onNoteOpen(file) {
+    if (this.data.settings.readmeMode !== "open" || !this.notes.inFolder(file)) return;
+    const note = [...this.notes.index.values()].find((n) => n.path === file.path);
+    const plugin = note && this.pluginById(note.id);
+    if (!plugin?.version || readmeVersion(await this.app.vault.cachedRead(file)) === plugin.version) return;
+    await this.refreshReadme(plugin, file);
+  }
+
+  /** Fetches one README in the background; a second request for the same plugin is ignored while it runs. */
+  async refreshReadme(plugin, file) {
+    if (!plugin.repo || this.readmeJobs.has(plugin.id)) return;
+    this.readmeJobs.add(plugin.id);
+    try {
+      await this.notes.writeReadme(file, plugin, await this.github.readme(plugin.repo));
+    } catch (error) {
+      console.warn("[Community Radar] couldn't fetch the README", error);
+    } finally {
+      this.readmeJobs.delete(plugin.id);
+    }
+  }
+
+  /** Opens the README in the plugin's tracking note, creating the note (with its README) when there is none. */
+  async openReadme(plugin) {
+    if (!this.notes.file(plugin.id)) await this.track(plugin, {});
+    const file = this.notes.file(plugin.id);
+    if (file) await this.app.workspace.openLinkText(`${file.path}#README`, "", "tab");
+  }
+
   async updateCurrentReadme() {
     const file = this.app.workspace.getActiveFile();
     const note = file && noteFromFrontmatter(file.path, this.app.metadataCache.getFileCache(file)?.frontmatter);
@@ -1931,18 +1838,14 @@ class PluginRadar extends Plugin {
   /** Creates or updates the note; a new note gets its README in the background. */
   async track(plugin, patch) {
     const { file, created } = await this.notes.upsert(plugin, patch);
-    if (created && plugin.repo) {
-      this.github.readme(plugin.repo)
-        .then((readme) => this.notes.writeReadme(file, plugin, readme))
-        .catch((error) => console.warn("[Community Radar] couldn't fetch the README", error));
-    }
+    if (created) this.refreshReadme(plugin, file);  // not awaited: the note is usable right away
     return created;
   }
 
   async toggleFavorite(plugin) {
     const favorite = !this.notes.index.get(plugin.id)?.favorite;
     const created = await this.track(plugin, { favorite });
-    new Notice(t("notice.favorite", { star: favorite ? "★" : "☆", name: plugin.name, created }));
+    new Notice(t("notice.favorite", { star: favorite ? "★" : "☆", name: plugin.name }) + (created ? t("notice.noteCreated") : ""));
   }
 
   async chooseGroup(plugin) {
@@ -1951,7 +1854,7 @@ class PluginRadar extends Plugin {
     const chosen = await modal.result;
     if (!chosen) return;
     const created = await this.track(plugin, { group: chosen.name });
-    new Notice(t("notice.grouped", { name: plugin.name, group: chosen.name, created }));
+    new Notice(t("notice.grouped", { name: plugin.name, group: chosen.name }) + (created ? t("notice.noteCreated") : ""));
   }
 
   async exclude(plugin) {

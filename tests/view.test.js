@@ -245,6 +245,67 @@ const tests = {
     assert.ok((await plugin.translator.test()).startsWith("TR: "));
   },
 
+  async "status line: last sync, what the sync brought, a labelled Sync button"({ plugin, view }) {
+    const el = view.contentEl;
+    plugin.catalog.plugins = plugin.catalog.plugins.filter((p) => p.id !== "fresh");  // pretend "fresh" is new
+    await plugin.refresh();
+    view.refresh();
+    const status = $(el, ".pdt-status").textContent;
+    assert.ok(status.includes(core.t("status.lastSync", { time: "", age: core.t("age.justNow") }).split(" · ")[0]), status);
+    assert.equal($(el, ".pdt-delta").textContent, core.t("status.delta", { added: 1, updated: 0 }));
+    const sync = $(el, ".pdt-sync");
+    assert.equal(sync.textContent, core.t("status.sync"));
+    assert.ok(!sync.classList.contains("is-syncing"));
+  },
+
+  async "sync frequency: no request when manual or not due; quiet sync when due"({ plugin }) {
+    const settings = plugin.data.settings;
+    const syncs = () => fake.network.calls.filter((c) => c.url.endsWith("community-plugins.json")).length;
+    fake.network.calls.length = 0;
+    const notices = fake.Notice.all.length;
+    settings.syncHours = 0;
+    plugin.catalog.fetchedAt = NOW - 30 * DAY;
+    await plugin.syncIfDue();
+    assert.equal(syncs(), 0);                              // manual
+    settings.syncHours = 6;
+    plugin.catalog.fetchedAt = Date.now() - 2 * 3600_000;
+    await plugin.syncIfDue();
+    assert.equal(syncs(), 0);                              // 2 h old, not due
+    plugin.catalog.fetchedAt = Date.now() - 7 * 3600_000;
+    await plugin.syncIfDue();
+    assert.equal(syncs(), 1);                              // due
+    assert.equal(fake.Notice.all.length, notices);         // quiet: no notice
+    settings.syncHours = 24;
+  },
+
+  async "README: link opens the note's README, creating the note; opening a stale note refreshes it"({ app, plugin, view }) {
+    const el = view.contentEl;
+    await view.update("mode", "all");
+    const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
+    assert.ok(!$(row, ".pdt-author"));                     // the README link took the author's place
+    app.workspace.opened.length = 0;
+    await $(row, ".pdt-readme").onclick({ preventDefault() {} });
+    await tick(20);
+    assert.deepEqual(app.workspace.opened, [{ link: "Eklentiler/Dataview.md#README", pane: "tab" }]);
+    const path = "Eklentiler/Dataview.md";
+    assert.ok(app.vault.files.get(path).includes("README · blacksmithgu/obsidian-dataview"));
+
+    const readmes = () => fake.network.calls.filter((c) => c.url.includes("blacksmithgu/obsidian-dataview")).length;
+    const file = app.vault.getAbstractFileByPath(path);
+    fake.network.calls.length = 0;
+    await app.workspace.trigger("file-open", file);
+    assert.equal(readmes(), 0);                            // README matches the current version
+    plugin.pluginById("dataview").version = "9.9.9";
+    await app.workspace.trigger("file-open", file);
+    assert.equal(readmes(), 1);
+    assert.equal(core.readmeVersion(app.vault.files.get(path)), "9.9.9");
+    plugin.data.settings.readmeMode = "manual";
+    plugin.pluginById("dataview").version = "10.0.0";
+    await app.workspace.trigger("file-open", file);
+    assert.equal(readmes(), 1);                            // manual mode: untouched
+    plugin.data.settings.readmeMode = "open";
+  },
+
   async "settings: keychain picker, model buttons, lists"({ plugin }) {
     plugin.settingTab.display();
     const el = plugin.settingTab.containerEl;
@@ -252,7 +313,29 @@ const tests = {
     assert.ok(names.some((n) => n.includes("~google/gemini-flash-latest")));
     assert.ok($$(el, "button").some((b) => b.classList.contains("mod-cta")));
     assert.ok($$(el, ".desc").some((d) => d.textContent.includes("openrouter-api-key")));
+    const values = (select) => [...select.options].map((o) => o.value).join();
+    const selects = $$(el, "select");
+    assert.equal(selects.find((d) => values(d) === "0,6,24,168").value, "24");
+    assert.ok(selects.some((d) => values(d) === "open,sync,manual"));
   },
+
+  async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {
+    const tab = plugin.settingTab;
+    tab.display();
+    const select = () => $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "auto"));
+    assert.deepEqual([...select().options].map((o) => o.textContent), ["Auto (English)", "English", "Türkçe"]);
+    const choose = async (value) => { select().value = value; await select().onchange(); };
+    await choose("tr");
+    assert.ok($(view.contentEl, ".pdt-tab").textContent.startsWith("Tümü"));
+    assert.equal($(tab.containerEl, ".name").textContent, "Dil");
+    await choose("en");
+    assert.ok($(view.contentEl, ".pdt-tab").textContent.startsWith("All"));
+    assert.equal(plugin.data.settings.language, "en");
+    await choose("auto");
+    assert.equal(core.t("set.language"), "Language");      // the fake Obsidian runs in English
+    core.setLanguage("tr");
+  },
+
 };
 
 (async () => {

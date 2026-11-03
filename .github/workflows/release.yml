@@ -1,7 +1,8 @@
 name: Release assets
 
 # Publish a GitHub release whose tag equals manifest.json's version (e.g. 0.5.1, no "v").
-# This workflow tests that commit, attests main.js / manifest.json / styles.css and attaches them.
+# This workflow tests and builds that commit (main.js is built from src/ and locales/), attests
+# main.js / manifest.json / styles.css and attaches them.
 on:
   release:
     types: [published]

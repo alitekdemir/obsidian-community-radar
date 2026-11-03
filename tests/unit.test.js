@@ -228,25 +228,58 @@ const tests = {
     for (const name of Object.values(core.KEY_NAMES)) assert.match(name, /^[a-z0-9]+(-[a-z0-9]+)*$/);  // SecretStorage id rule
   },
 
-  "i18n: English and Turkish have the same keys; English formats"() {
-    const en = Object.keys(core.STRINGS.en).sort();
-    const tr = Object.keys(core.STRINGS.tr).sort();
-    assert.deepEqual(en.filter((k) => !tr.includes(k)), [], "missing in Turkish");
-    assert.deepEqual(tr.filter((k) => !en.includes(k)), [], "missing in English");
+  "locales: every language has English's keys and placeholders; plural forms are valid"() {
+    const placeholders = (value) => [...new Set(Object.values(typeof value === "object" ? value : { other: value })
+      .flatMap((text) => text.match(/\{\w+\}/g) || []))].sort();
+    const en = core.STRINGS.en;
+    for (const [code, strings] of Object.entries(core.STRINGS)) {
+      assert.deepEqual(Object.keys(en).filter((k) => !(k in strings)), [], `${code}: missing keys`);
+      assert.deepEqual(Object.keys(strings).filter((k) => !(k in en)), [], `${code}: unknown keys`);
+      const categories = new Intl.PluralRules(strings.locale).resolvedOptions().pluralCategories;
+      for (const [key, value] of Object.entries(strings)) {
+        assert.deepEqual(placeholders(value), placeholders(en[key]), `${code}: placeholders of ${key}`);
+        if (typeof value !== "object") continue;
+        assert.ok(value.other, `${code}: ${key} needs an "other" form`);
+        for (const form of Object.keys(value)) assert.ok(categories.includes(form), `${code}: ${key} has unknown plural form "${form}"`);
+      }
+    }
+  },
+
+  "i18n: language matching, English formats and plurals"() {
+    assert.deepEqual(["tr", "TR-tr", "en-GB", "pt-BR", "", undefined].map(core.matchLanguage), ["tr", "tr", "en", "en", "en", "en"]);
     core.setLanguage("en-GB");
     try {
       assert.deepEqual([2575475, 354882, 1416, null].map(core.formatShort), ["2.6M", "355K", "1.4K", "–"]);
       assert.equal(core.formatCount(1234567), "1,234,567");
       assert.deepEqual([1, 548].map((d) => core.relativeDays(ago(d), NOW)), ["yesterday", "1.5 years ago"]);
-      assert.equal(core.t("row.gap", { n: 1 }), "after 1 day");
-      assert.equal(core.t("row.gap", { n: 52 }), "after 52 days");
+      assert.equal(core.t("row.gap", { n: 1 }), "after 1 day dormant");
+      assert.equal(core.t("row.gap", { n: 52 }), "after 52 days dormant");
+      assert.equal(core.t("status.delta", { added: 5, updated: 23 }), "Since last sync: 5 new · 23 updated");
+      assert.equal(core.t("missing.key"), "missing.key");
       assert.equal(core.historyLabel(12), "last year");
+      assert.equal(core.historyLabel(6), "last 6 months");
       assert.ok(core.noteBody(P("x")).includes("\n# My notes\n"));
       assert.equal(core.defaultSettings().folder, "Community Radar");
     } finally {
       core.setLanguage("tr");
     }
     assert.equal(core.defaultSettings().folder, "Eklentiler");
+    assert.equal(core.t("row.gap", { n: 1 }), "1 gün aradan sonra");
+    assert.equal(core.formatShort(2575475), "2,6 Mn");
+  },
+
+  "catalogDelta counts new plugins and newer releases"() {
+    const before = [{ id: "a", updated: 1 }, { id: "b", updated: 5 }, { id: "c" }];
+    const after = [{ id: "a", updated: 2 }, { id: "b", updated: 5 }, { id: "c", updated: 3 }, { id: "d", updated: 9 }];
+    assert.deepEqual(core.catalogDelta(before, after), { added: 1, updated: 2 });
+  },
+
+  "readmeVersion reads the version from the README meta line"() {
+    const plugin = { ...P("x"), repo: "o/x", version: "1.2.0" };
+    const note = core.replaceReadme(core.noteBody(plugin), core.readmeSection("# Hi", plugin, NOW));
+    assert.equal(core.readmeVersion(note), "1.2.0");
+    assert.equal(core.readmeVersion(core.noteBody(plugin)), null);   // markers but no meta yet
+    assert.equal(core.readmeVersion("no markers"), null);
   },
 
   async "mapLimit: keeps order and respects the limit"() {
