@@ -161,12 +161,15 @@ const tests = {
     assert.ok(body.includes("\n# Notlarım\n") && body.includes("\n# README\n"));
     const old = [
       "açıklama", "", "## Notlarım", "kendi notum", "## Kendi başlığım", "",
-      "## README", core.constants.README_START, "## README içindeki başlık", core.constants.README_END,
+      "## README", core.constants.LEGACY_README_START, "## README içindeki başlık", core.constants.LEGACY_README_END,
     ].join("\n");
     const out = core.migrateHeadings(old);
-    assert.ok(out.includes("\n# Notlarım\n") && out.includes("\n# README\n" + core.constants.README_START));
+    assert.ok(out.includes("\n# Notlarım\n") && out.includes("\n# README\n" + core.constants.LEGACY_README_START));
     assert.ok(out.includes("## Kendi başlığım") && out.includes("## README içindeki başlık"));
     assert.equal(core.migrateHeadings(out), out);   // a second run changes nothing
+    const hidden = core.migrateMarkers(out);
+    assert.ok(hidden.includes(core.constants.README_START) && hidden.includes(core.constants.README_END) && !hidden.includes("<!--"));
+    assert.equal(core.migrateMarkers(hidden), hidden);
   },
 
   "formatShort and relativeDays (Turkish)"() {

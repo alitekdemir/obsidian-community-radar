@@ -50,7 +50,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 1. Run **Community Radar: Open Community Radar** (or click the radar icon in the ribbon). The catalog downloads on first open.
 2. Click **Build release history** once. It downloads about a year of daily snapshots (~50 MB, a few minutes) and is needed for the *Revived* and *New* tabs. Later syncs only fetch the days you missed.
 3. Star (☆), group (＋) or ignore (⊘) plugins from any row.
-4. Optional: copy [`docs/community-radar-bases.md`](docs/community-radar-bases.md) into your vault for a ready-made Bases table of your tracked plugins.
+4. Optional: *Settings → Community Radar → Bases view → Create* adds a ready-made [Bases](https://help.obsidian.md/bases) table of your tracked plugins next to the notes folder (e.g. `Community Radar.base`). If you break it, **Reset** rewrites it from the template.
 
 ## Settings
 
@@ -60,6 +60,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 |---|---|
 | Language | Auto (Obsidian's language), English, Türkçe |
 | Notes folder | Where tracking notes are created |
+| Bases view | **Create** or **Reset** the Bases table of your tracking notes |
 | Sync frequency | Manual · Every 6 hours · **Daily** · Weekly. Between syncs nothing is downloaded. **Sync now** runs one immediately. |
 | README updates | **When I open the note** · On every sync · Manually (command palette) |
 | History depth | 3, 6, 12 or 24 months |
@@ -82,7 +83,7 @@ github: "[github](https://github.com/mirnovov/obsidian-homepage)"
 ---
 ```
 
-The body has a **My notes** section for you and a **README** section that the plugin owns. README tags (`#tag`) and wiki links are escaped so they don't leak into your vault; code blocks are left as they are.
+The body has a **My notes** section for you and a **README** section that the plugin owns, between two hidden `%% community-radar:readme-start/end %%` comments. README tags (`#tag`) and wiki links are escaped so they don't leak into your vault; code blocks are left as they are.
 
 ![A tracking note: properties, My notes and the plugin's README](docs/images/Radar_4-Note.png)
 
@@ -118,6 +119,7 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 - Sync now (catalog, history, notes)
 - Rebuild release history
 - Update README of this note / of all tracking notes
+- Create or reset the Bases view
 
 ## Translating
 

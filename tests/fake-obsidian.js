@@ -50,6 +50,7 @@ function makeApp() {
     create: async (p, content) => { if (files.has(p)) throw new Error(`exists: ${p}`); files.set(p, content); return new TFile(p); },
     read: async (f) => files.get(f.path),
     cachedRead: async (f) => files.get(f.path),
+    modify: async (f, content) => { vault.writes++; files.set(f.path, content); },
     process: async (f, fn) => { vault.writes++; files.set(f.path, fn(files.get(f.path))); },
     on: () => ({}),
     adapter: {

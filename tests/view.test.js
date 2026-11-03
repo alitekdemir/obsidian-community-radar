@@ -44,6 +44,7 @@ const component = (el, tag) => {
     addOption(v, text) { input.createEl("option", { value: v, text }); return c; },
     setButtonText(text) { input.textContent = text; return c; }, setCta() { input.classList.add("mod-cta"); return c; },
     onClick(f) { input.onclick = f; return c; }, setDisabled(d) { input.disabled = d; return c; },
+    setWarning() { input.classList.add("mod-warning"); return c; },
   };
   return c;
 };
@@ -113,14 +114,17 @@ const tests = {
       settings: { folder: "Older" }, excluded: { stale: "2026-01-01" }, translations: {}, migrations: {},
     }));
     app.vault.files.set("Eklentiler/Homepage.md",
-      `---\nplugin_id: homepage\ngroup: ai\nreviewed: '${core.dayString(ago(20))}'\n---\nx\n\n## Notlarım\nmine\n\n## README\n${core.constants.README_START}\n${core.constants.README_END}\n`);
+      `---\nplugin_id: homepage\ngroup: ai\nreviewed: '${core.dayString(ago(20))}'\n---\nx\n\n## Notlarım\nmine\n\n## README\n${core.constants.LEGACY_README_START}\n${core.constants.LEGACY_README_END}\n`);
     app.secretStorage.setSecret("plugin-tracker-anthropic-key", "sk-legacy");
     const plugin = new PluginRadar(app, { dir: ".obsidian/plugins/plugin-radar" });
     await plugin.onload();
     await tick(10);
     assert.equal(plugin.data.settings.folder, "Eklentiler");
     assert.deepEqual(Object.keys(plugin.data.excluded), ["busy"]);
-    assert.ok(app.vault.files.get("Eklentiler/Homepage.md").includes("\n# Notlarım\nmine"));
+    const homepage = app.vault.files.get("Eklentiler/Homepage.md");
+    assert.ok(homepage.includes("\n# Notlarım\nmine"));
+    assert.ok(homepage.includes(`\n# README\n${core.constants.README_START}\n${core.constants.README_END}`), "markers migrated");
+    assert.ok(!homepage.includes("<!--"));
     assert.equal(app.secretStorage.getSecret("anthropic-api-key"), "sk-legacy");
     assert.equal(plugin.notes.index.get("homepage").group, "ai");
     Object.assign(ctx, { app, plugin });
@@ -317,6 +321,27 @@ const tests = {
     const selects = $$(el, "select");
     assert.equal(selects.find((d) => values(d) === "0,6,24,168").value, "24");
     assert.ok(selects.some((d) => values(d) === "open,sync,manual"));
+  },
+
+  async "Bases view: created next to the notes folder, reset from settings, opened"({ app, plugin }) {
+    const YAML = require("yaml");
+    const tab = plugin.settingTab;
+    const baseButton = () => $$(tab.containerEl, "button").find((b) => [core.t("set.baseCreate"), core.t("set.baseReset")].includes(b.textContent));
+    tab.display();
+    assert.equal(baseButton().textContent, core.t("set.baseCreate"));
+    app.workspace.opened.length = 0;
+    await baseButton().onclick();
+    const base = YAML.parse(app.vault.files.get("Eklentiler.base"));
+    assert.deepEqual(base.filters, { and: ['file.inFolder("Eklentiler")'] });
+    assert.deepEqual(base.views.map((v) => v.name), ["base.all", "base.byGroup", "base.starred"].map((k) => core.t(k)));
+    assert.equal(base.views[1].groupBy.property, "note.group");
+    assert.deepEqual(app.workspace.opened, [{ link: "Eklentiler.base", pane: "tab" }]);
+
+    app.vault.files.set("Eklentiler.base", "broken: [");
+    assert.equal(baseButton().textContent, core.t("set.baseReset"));
+    assert.ok(baseButton().classList.contains("mod-warning"));
+    await baseButton().onclick();
+    assert.deepEqual(YAML.parse(app.vault.files.get("Eklentiler.base")).filters, base.filters);
   },
 
   async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {

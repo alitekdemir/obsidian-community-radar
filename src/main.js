@@ -43,9 +43,12 @@ const README_MODES = ["open", "sync", "manual"];
 const PAGE_SIZE = 50;
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
 
-// Marker comments are kept from the earlier version so existing notes keep working.
-const README_START = "<!-- plugin-tracker:readme-start -->";
-const README_END = "<!-- plugin-tracker:readme-end -->";
+// Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.
+const README_START = "%% community-radar:readme-start %%";
+const README_END = "%% community-radar:readme-end %%";
+// Markers before 0.6.1 (HTML comments show up in Live Preview); notes are migrated once.
+const LEGACY_README_START = "<!-- plugin-tracker:readme-start -->";
+const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
 const MODE_KEYS = ["all", "new", "updated", "awakened", "changed", "suggested"];
@@ -446,6 +449,34 @@ function migrateHeadings(content) {
     .replace(/^## README[ \t]*\n(?=<!-- plugin-tracker:readme-start -->)/m, "# README\n");
 }
 
+/** Swaps the README markers of notes made before 0.6.1 for hidden Obsidian comments. */
+function migrateMarkers(content) {
+  return content.replace(LEGACY_README_START, README_START).replace(LEGACY_README_END, README_END);
+}
+
+/** The Bases file listing the tracking notes in `folder` (written by "Create / reset Bases view"). */
+function baseFile(folder) {
+  const q = JSON.stringify;  // a JSON string is a valid YAML string
+  const links = ["obsidian", "github"];
+  const view = (name, extra, columns) => [
+    "  - type: table",
+    `    name: ${q(name)}`,
+    ...extra,
+    "    order:",
+    ...["file.name", ...columns, ...links].map((c) => `      - ${c}`),
+  ];
+  return [
+    "filters:",
+    "  and:",
+    `    - file.inFolder(${q(folder)})`,
+    "views:",
+    ...view(t("base.all"), [], ["group", "favorite", "note", "downloads", "version", "updated", "reviewed"]),
+    ...view(t("base.byGroup"), ["    groupBy:", "      property: note.group", "      direction: ASC"], ["favorite", "note", "downloads", "updated"]),
+    ...view(t("base.starred"), ["    filters:", "      and:", "        - favorite == true"], ["group", "note", "downloads", "updated"]),
+    "",
+  ].join("\n");
+}
+
 /** Properties that come from the catalog; refreshed on every data refresh. */
 function sourceFields(plugin) {
   return {
@@ -593,10 +624,10 @@ const core = {
   setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
   historyLabel, formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
   mergeSnapshot, dormantDays, isNewPlugin, isChanged, matchesQuery, discover, modeCounts, escapeOutsideCode,
-  absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, sourceFields, noteFromFrontmatter,
+  absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
   parseTranslations, mapLimit,
-  constants: { DAY_MS, MONTH_MS, DAILY_DAYS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, TIMELINE_VERSION },
+  constants: { DAY_MS, MONTH_MS, DAILY_DAYS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, LEGACY_README_START, LEGACY_README_END, TIMELINE_VERSION },
 };
 
 // ─── 3. Services ────────────────────────────────────────────────────────────
@@ -778,13 +809,13 @@ class Notes {
     await this.app.vault.process(file, (content) => replaceReadme(content, section));
   }
 
-  /** Sets the headings of 0.1 notes to H1; writes only the notes that change and returns their count. */
-  async migrateHeadings() {
+  /** Applies a one-time text change to every tracking note; writes only the notes that change and returns their count. */
+  async migrate(transform) {
     let changed = 0;
     for (const file of this.files()) {
       const content = await this.app.vault.cachedRead(file);
-      if (migrateHeadings(content) === content) continue;
-      await this.app.vault.process(file, migrateHeadings);
+      if (transform(content) === content) continue;
+      await this.app.vault.process(file, transform);
       changed++;
     }
     return changed;
@@ -1334,6 +1365,20 @@ class RadarSettingTab extends PluginSettingTab {
         plugin.notes.rebuild();
       }));
 
+    const basePath = plugin.basePath();
+    const baseExists = Boolean(this.app.vault.getAbstractFileByPath(basePath));
+    new Setting(containerEl)
+      .setName(t("set.base"))
+      .setDesc(t("set.baseDesc", { path: basePath }))
+      .addButton((b) => {
+        b.setButtonText(t(baseExists ? "set.baseReset" : "set.baseCreate"));
+        if (baseExists) b.setWarning();
+        b.onClick(async () => {
+          await plugin.writeBase();
+          this.display();
+        });
+      });
+
     // ── Sync
     new Setting(containerEl).setName(t("set.sync")).setHeading();
     new Setting(containerEl)
@@ -1591,9 +1636,13 @@ class PluginRadar extends Plugin {
   async runMigrations() {
     const done = this.data.migrations;
     if (!done.h1Headings) {
-      const changed = await this.notes.migrateHeadings();
+      const changed = await this.notes.migrate(migrateHeadings);
       done.h1Headings = dayString(Date.now());
       if (changed) new Notice(t("notice.headings", { n: changed }));
+    }
+    if (!done.readmeMarkers) {
+      await this.notes.migrate(migrateMarkers);
+      done.readmeMarkers = dayString(Date.now());
     }
     if (!done.keyNames) {
       const moved = this.translator.migrateLegacyKeys();
@@ -1610,6 +1659,7 @@ class PluginRadar extends Plugin {
     command("rebuild-history", t("cmd.rebuild"), () => this.buildHistory(true));
     command("readme-current", t("cmd.readmeCurrent"), () => this.updateCurrentReadme());
     command("readme-all", t("cmd.readmeAll"), () => this.updateReadmes([...this.notes.index.keys()]));
+    command("bases-view", t("cmd.base"), () => this.writeBase());
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -1792,6 +1842,27 @@ class PluginRadar extends Plugin {
     if (!this.notes.file(plugin.id)) await this.track(plugin, {});
     const file = this.notes.file(plugin.id);
     if (file) await this.app.workspace.openLinkText(`${file.path}#README`, "", "tab");
+  }
+
+  /** The Bases file sits next to the notes folder: "Eklentiler" → "Eklentiler.base". */
+  basePath() {
+    return normalizePath(`${this.notes.folder}.base`);
+  }
+
+  /** Creates the Bases view, or resets it to the template when it exists, then opens it. */
+  async writeBase() {
+    const path = this.basePath();
+    const content = baseFile(this.notes.folder);
+    const existing = this.app.vault.getAbstractFileByPath(path);
+    if (existing instanceof TFile) {
+      await this.app.vault.modify(existing, content);
+    } else {
+      const parent = path.split("/").slice(0, -1).join("/");
+      if (parent && !this.app.vault.getAbstractFileByPath(parent)) await this.app.vault.createFolder(parent);
+      await this.app.vault.create(path, content);
+    }
+    new Notice(t(existing ? "notice.baseReset" : "notice.baseCreated", { path }));
+    await this.app.workspace.openLinkText(path, "", "tab");
   }
 
   async updateCurrentReadme() {

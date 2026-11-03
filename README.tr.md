@@ -47,7 +47,7 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 1. **Community Radar: Community Radar'ı aç** komutunu çalıştırın ya da şeritteki radar simgesine tıklayın.
 2. Bir kez **Sürüm geçmişini kur**'a basın (~50 MB, birkaç dakika). *Uyananlar* ve *Yeni* sekmeleri buna dayanır; sonraki eşitlemeler yalnızca aradaki günleri indirir.
 3. Her satırdan favori (☆), gruba ekle (＋) ya da dışla (⊘).
-4. İsterseniz [`docs/community-radar-bases.md`](docs/community-radar-bases.md) dosyasını vault'unuza kopyalayıp hazır Bases tablosunu kullanın (klasör adını kendi not klasörünüzle değiştirin).
+4. İsterseniz *Ayarlar → Community Radar → Bases görünümü → Oluştur* ile takip notlarınızın hazır [Bases](https://help.obsidian.md/bases) tablosunu not klasörünün yanına ekleyin (ör. `Eklentiler.base`). Bozulursa **Sıfırla** şablondan yeniden yazar.
 
 ![Takip notu: özellikler, Notlarım ve eklentinin README'si](docs/images/Radar_4-Note.png)
 
@@ -61,6 +61,7 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 |---|---|
 | Dil | Otomatik (Obsidian'ın dili), English, Türkçe |
 | Not klasörü | Takip notlarının oluşturulacağı yer |
+| Bases görünümü | Takip notlarının Bases tablosunu **Oluştur** ya da **Sıfırla** |
 | Eşitleme sıklığı | Elle · 6 saatte bir · **Günde bir** · Haftada bir. Eşitlemeler arasında hiçbir şey indirilmez. **Şimdi eşitle** hemen çalıştırır. |
 | README güncelleme | **Notu açtığımda** · Her eşitlemede · Elle (komut paleti) |
 | Geçmiş derinliği | 3, 6, 12 ya da 24 ay |
