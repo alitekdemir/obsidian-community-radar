@@ -24,6 +24,7 @@ P.createSpan = function (o = {}) { return this.createEl("span", o); };
 P.empty = function () { this.innerHTML = ""; };
 P.setText = function (text) { this.textContent = text; };
 P.addClass = function (c) { this.classList.add(c); };
+P.removeClass = function (c) { this.classList.remove(c); };
 P.hasClass = function (c) { return this.classList.contains(c); };
 P.toggleClass = function (c, on) { this.classList.toggle(c, on); };
 globalThis.createDiv = (o = {}) => window.document.body.createDiv(o);
@@ -59,6 +60,7 @@ fake.Setting = class {
   addText(fn) { fn(component(this.controlEl, "input")); return this; }
   addDropdown(fn) { fn(component(this.controlEl, "select")); return this; }
   addButton(fn) { fn(component(this.controlEl, "button")); return this; }
+  addToggle(fn) { fn(component(this.controlEl, "input")); return this; }
 };
 const opened = [];
 const modals = [];
@@ -341,9 +343,7 @@ const tests = {
     const status = $(el, ".pdt-status").textContent;
     assert.ok(status.includes(core.t("status.lastSync", { time: "", age: core.t("age.justNow") }).split(" · ")[0]), status);
     assert.equal($(el, ".pdt-delta").textContent, core.t("status.delta", { added: 1, updated: 0 }));
-    const sync = $(el, ".pdt-sync");
-    assert.equal(sync.textContent, core.t("status.sync"));
-    assert.ok(!sync.classList.contains("is-syncing"));
+    assert.equal($(el, ".pdt-sync"), null);                                // syncing lives in the ⋮ menu
   },
 
   async "sync frequency: no request when manual or not due; quiet sync when due"({ plugin }) {
@@ -431,28 +431,51 @@ const tests = {
     modals.at(-1).close();
   },
 
-  async "batch grouping: one request for the ungrouped, several picks per plugin, nothing saved before Accept"({ app, plugin }) {
-    await plugin.track(plugin.pluginById("busy"), {});
-    await plugin.track(plugin.pluginById("fresh"), {});
-    const ungrouped = plugin.ungrouped().map((p) => p.id).sort();
-    assert.ok(ungrouped.includes("busy") && ungrouped.includes("fresh"));
+  async "grouping mode: chips on the rows of the current list, one request, nothing saved before Accept"({ app, plugin, view }) {
+    const el = view.contentEl;
+    const rowOf = (id) => $$(el, ".pdt-row").find((r) => r.dataset.id === id);
+    const bar = () => $(el, ".pdt-grouping-bar");
+
+    // From the ⋮ menu on the All tab: an untracked plugin gets a note once you accept
+    const freshNote = plugin.notes.index.get("fresh");                      // starred earlier: start untracked again
+    if (freshNote) { app.vault.files.delete(freshNote.path); plugin.notes.forget(freshNote.path); }
+    await view.update("mode", "all");
+    assert.ok(!plugin.notes.index.has("fresh"));
     fake.network.prompts.length = 0;
-    const run = plugin.groupUngrouped();
+    const menu = new fake.Menu();
+    view.onPaneMenu(menu, "more-options");
+    assert.ok(!menu.items.some((i) => i.title === core.t("cmd.base")), "Bases lives in settings only");
+    await menu.items.find((i) => i.icon === "folder-plus").click();
     await tick(20);
-    assert.equal(fake.network.prompts.length, 1);                       // all of them in one request
-    const modal = modals.at(-1);
-    const rows = $$(modal.contentEl, ".pdt-batch-row");
-    assert.equal(rows.length, ungrouped.length);
-    const before = app.vault.files.get("Eklentiler/Busy Plugin.md");
-    const busy = rows[modal.rows.findIndex((r) => r.plugin.id === "busy")];
-    $$(busy, ".pdt-gchip").find((c) => c.textContent.startsWith("Productivity")).onclick();
-    assert.equal(app.vault.files.get("Eklentiler/Busy Plugin.md"), before);   // nothing written yet
-    assert.match($(modal.contentEl, ".pdt-gm-foot .mod-cta").textContent, new RegExp(`\\(${ungrouped.length}\\)`));
-    $(modal.contentEl, ".pdt-gm-foot .mod-cta").onclick();
-    await run;
+    assert.equal(fake.network.prompts.length, 1);
+    assert.ok(bar(), "grouping bar shown");
+    assert.ok(!$(rowOf("fresh"), ".pdt-actions"), "chips take the place of the row's actions");
+    const before = [...app.vault.files.keys()].length;
+    $$(rowOf("fresh"), ".pdt-gchip").find((c) => c.textContent.startsWith("Planning")).onclick();
+    assert.ok(rowOf("fresh").classList.contains("is-grouping-changed"));
+    assert.equal($(rowOf("fresh"), ".pdt-badge.is-change").textContent, core.t("grouping.willCreate"));
+    assert.equal([...app.vault.files.keys()].length, before, "nothing written yet");
+    $(bar(), ".mod-cta").onclick();
+    await tick(20);
+    assert.deepEqual(plugin.notes.index.get("fresh").groups, ["Planning"]);
+    assert.equal(bar(), null, "back to the normal list");
+
+    // Settings' Suggest groups: the Tracked tab's Ungrouped list in grouping mode
+    await plugin.track(plugin.pluginById("busy"), {});
+    fake.network.prompts.length = 0;
+    await plugin.groupUngrouped();
+    await tick(20);
+    assert.equal(plugin.data.settings.mode, "tracked");
+    assert.equal(plugin.data.settings.trackedGroup, core.UNGROUPED);
+    assert.equal(fake.network.prompts.length, 1);
+    $$(bar(), "button").find((b) => b.textContent === core.t("grouping.pickTop")).onclick();
+    $$(rowOf("busy"), ".pdt-gchip").find((c) => c.textContent.startsWith("Productivity")).onclick();
+    $(bar(), ".mod-cta").onclick();
+    await tick(20);
     assert.deepEqual(plugin.notes.index.get("busy").groups, ["ai", "Productivity"]);
-    assert.deepEqual(plugin.notes.index.get("fresh").groups, ["ai"]);
     assert.equal(plugin.ungrouped().length, 0);
+    Object.assign(plugin.data.settings, { trackedGroup: "" });
+    await view.update("mode", "all");
   },
 
   async "similar plugins: strip under a row, local words only"({ plugin, view }) {
@@ -555,30 +578,34 @@ const tests = {
     await view.update("mode", "all");
   },
 
-  async "keyboard: j/k move between rows, f stars the focused row, keys in the search box are left alone"({ plugin, view }) {
+  async "keyboard: off by default; when on, j/k move the highlight and f acts on it without clicking"({ plugin, view }) {
     const el = view.contentEl;
-    window.document.body.appendChild(el);
-    view.registerDomEvent(el, "keydown", (event) => view.onKey(event));   // onOpen isn't run in these tests
-    const press = async (target, key) => {
-      const event = new window.KeyboardEvent("keydown", { key, bubbles: true });
-      target.dispatchEvent(event);
-      await tick(20);
-    };
+    const settings = plugin.data.settings;
+    const key = (k) => view.scope.keys.find((x) => x.key === k).fn({ key: k });
+    assert.equal(settings.keyboard, false);
+    assert.equal(key("j"), true, "off: the key is left to Obsidian");
+    assert.equal($(el, ".pdt-keys"), null);
+    settings.keyboard = true;
+    view.render();
+    assert.equal($$(el, ".pdt-keys-card .pdt-keys-row").length, 10);
+    assert.equal(key("j"), false);
+    assert.equal(key("j"), false);
     const rows = $$(el, ".pdt-row");
-    rows[0].focus();
-    await press(rows[0], "j");
-    assert.equal(window.document.activeElement, rows[1]);
+    assert.ok(rows[1].classList.contains("is-cursor"));
     const id = rows[1].dataset.id;
     const before = Boolean(plugin.notes.index.get(id)?.favorite);
-    await press(rows[1], "f");
+    key("f");
+    await tick(20);
     assert.equal(Boolean(plugin.notes.index.get(id)?.favorite), !before);
-    assert.equal(window.document.activeElement?.dataset.id, id);            // focus stays on the row
-    await press(window.document.activeElement, "f");                        // back as it was
-    const search = $(el, ".pdt-search input");
-    const mode = plugin.data.settings.mode;
-    await press(search, "j");
-    assert.equal(plugin.data.settings.mode, mode);
+    assert.equal($(el, ".pdt-row.is-cursor").dataset.id, id, "the highlight stays on the row");
+    key("f");
+    await tick(20);
+    window.document.body.appendChild(el);
+    $(el, ".pdt-search input").focus();
+    assert.equal(key("j"), true, "typing in the search box is left alone");
     el.remove();
+    settings.keyboard = false;
+    view.render();
   },
 
   async "settings: keychain picker, model buttons, lists"({ plugin }) {

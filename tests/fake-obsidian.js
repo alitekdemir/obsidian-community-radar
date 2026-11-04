@@ -80,7 +80,7 @@ function makeApp() {
       on(name, fn) { (this.handlers[name] ||= []).push(fn); return {}; },
       trigger(name, ...args) { return Promise.all((this.handlers[name] || []).map((fn) => fn(...args))); },
       opened: [],
-      onLayoutReady: (cb) => cb(), getLeavesOfType: () => [], getActiveFile: () => null,
+      onLayoutReady: (cb) => cb(), getLeavesOfType: () => [], getActiveFile: () => null, getLeaf: () => ({ setViewState: async () => {} }), revealLeaf: () => {},
       openLinkText(link, source, pane) { this.opened.push({ link, pane }); },
     },
     secretStorage: { setSecret: (k, v) => secrets.set(k, v), getSecret: (k) => secrets.get(k) ?? null, listSecrets: () => [...secrets.keys()] },
@@ -136,6 +136,10 @@ module.exports = {
     registerInterval(id) { globalThis.window?.clearInterval?.(id); return id; }  // tests never wait for the timer
     async loadData() { return this._data; }
     async saveData(d) { this._data = JSON.parse(JSON.stringify(d)); }
+  },
+  Scope: class {
+    constructor(parent) { this.parent = parent; this.keys = []; }
+    register(modifiers, key, fn) { this.keys.push({ modifiers, key, fn }); }
   },
   Menu: class {
     constructor() { this.items = []; menus.push(this); }

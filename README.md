@@ -30,11 +30,11 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Search** with comma-separated terms (all must match) or a `/regular expression/`, as in Obsidian's own search — e.g. `/project.+task/`.
 - **Revived detection** from the official release archive — exact, no guessing (see [How it works](#how-it-works)).
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
-- **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups** proposes groups for every ungrouped plugin at once (50 per request) and saves nothing until you accept.
+- **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups for this list** (⋮ menu) puts AI suggestions under every row of the list you're looking at — up to 50, one request — in English and your language (*AI* next to *Yapay Zekâ*); pick on the rows and nothing is saved until **Accept**.
 - **Similar plugins** under any row, found locally from shared words in names and descriptions — no AI, no request.
 - **Status and rating** for tracked plugins (*Candidate*, *Trying*, *Using*, *Dropped*; 1–5 stars), set from the row and stored as `status` and `rating` properties.
 - **Sort by dormant period** to see which revived plugins were quiet the longest.
-- **Keyboard**: on a row, `j`/`k` move, `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` expand (also in the ⋮ menu).
+- **Keyboard** (off by default; *Settings → Keyboard shortcuts*): while the tab is active, `j`/`k` move the highlight and `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` expand. The ⌨ icon in the filter bar lists them.
 - **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
 - **Translate descriptions** with your own API key — Claude, OpenAI, Gemini or OpenRouter. One request translates a whole page; translations are cached.
@@ -68,7 +68,8 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 |---|---|
 | Language | Auto (Obsidian's language), English, Türkçe |
 | Notes folder | Where tracking notes are created |
-| Suggest groups | AI group suggestions for every tracked plugin without a group, reviewed before saving |
+| Suggest groups | Opens the Tracked tab's *Ungrouped* list in grouping mode |
+| Keyboard shortcuts | Off by default |
 | Lists | *Manage* opens the ignored plugins or hidden suggestions in the view |
 | Bases view | **Create** or **Reset** the Bases table of your tracking notes |
 | Sync frequency | Manual · Every 6 hours · **Daily** · Weekly. Between syncs nothing is downloaded. **Sync now** runs one immediately. |
@@ -136,7 +137,7 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 - Create or reset the Bases view
 - Suggest groups for ungrouped plugins
 
-The view's ⋮ menu also has: Sync now, Ignored plugins, Hidden suggestions, Suggest groups, the Bases view, Rebuild history, Keyboard shortcuts and Settings.
+The view's ⋮ menu has: Sync now, Translate visible, Suggest groups for this list, Ignored plugins, Hidden suggestions, Rebuild history and Settings.
 
 ## Translating
 

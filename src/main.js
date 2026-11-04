@@ -13,7 +13,7 @@
  */
 const obsidian = require("obsidian");
 const {
-  Plugin, ItemView, Modal, Notice, SuggestModal, PluginSettingTab, Setting,
+  Plugin, ItemView, Modal, Notice, Scope, SuggestModal, PluginSettingTab, Setting,
   TFile, TFolder, Menu, addIcon, normalizePath, requestUrl, setIcon,
 } = obsidian;
 
@@ -45,6 +45,12 @@ const AI_BATCH = 50;               // plugins per group-suggestion request
 const AI_GROUPS = 10;              // group suggestions asked per plugin
 const SIMILAR_LIMIT = 8;
 const VISIBLE_SUGGESTIONS = 5;     // AI chips shown before "+n more"
+/** Keyboard shortcuts of the view (when enabled in settings): keys → help text key. */
+const KEY_HELP = [
+  [["j", "k"], "keys.move"], [["f"], "keys.star"], [["g"], "keys.groups"], [["x"], "keys.ignore"],
+  [["h"], "keys.snooze"], [["t"], "keys.translate"], [["r"], "keys.readme"], [["s"], "keys.similar"],
+  [["o"], "keys.open"], [["Enter"], "keys.expand"],
+];
 const MIN_SIMILARITY = 5;          // summed rarity of shared words; ~one rare word or two common ones
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
 
@@ -149,6 +155,7 @@ function defaultSettings() {
     language: "auto",
     syncHours: 24,        // 0 = manual
     readmeMode: "open",   // open | sync | manual
+    keyboard: false,      // single-letter shortcuts in the view
   };
 }
 
@@ -593,6 +600,11 @@ function groupsOf(fm) {
   return uniqueNames(raw.map((g) => String(g ?? "")));
 }
 
+/** The same names, in any order. */
+function sameNames(a, b) {
+  return a.length === b.length && a.every((n) => b.includes(n));
+}
+
 /** Trimmed, non-empty names without case-insensitive duplicates; the first spelling wins. */
 function uniqueNames(names) {
   const seen = new Set();
@@ -797,7 +809,8 @@ function groupPrompt(plugins, groups, language) {
     `For each plugin below, suggest up to ${AI_GROUPS} group names, best first, based on what the plugin does.`,
     "Rules:",
     "- When one of the user's existing groups fits, include it, spelled exactly as given.",
-    `- New group names: 1–3 words, in ${language}, Title Case. Reuse the same new name for similar plugins in this list.`,
+    `- New group names: 1–3 words, Title Case. Give names in ${language}, and when a widely used English or technical term exists`
+      + " (e.g. AI, Kanban, Habit Tracker, Git, PDF), suggest that term too — the user may prefer it. Reuse the same new name for similar plugins in this list.",
     "- Reply with ONLY a JSON object that maps each plugin id to an array of group names. No commentary.",
     "",
     "Existing groups (with example plugins):",
@@ -1405,100 +1418,6 @@ class GroupModal extends Modal {
   }
 }
 
-/**
- * Review of AI group suggestions for many plugins at once. Several groups can be picked per plugin;
- * `result` resolves with [{plugin, groups}] on Accept, or null when closed. Nothing is saved before.
- */
-class BatchGroupModal extends Modal {
-  constructor(plugin, rows) {
-    super(plugin.app);
-    this.plugin = plugin;
-    this.rows = rows;   // [{plugin, suggestions}]
-    this.mine = new Set(plugin.notes.groups().map((g) => g.name));
-    this.picked = rows.map((r) => r.suggestions.slice(0, 1));
-    this.saved = null;
-    this.result = new Promise((resolve) => { this.resolve = resolve; });
-  }
-
-  onOpen() {
-    this.modalEl.addClass("pdt-batch-modal");
-    this.titleEl.setText(t("batch.title"));
-    this.render();
-  }
-
-  onClose() {
-    this.contentEl.empty();
-    this.resolve(this.saved);
-  }
-
-  render() {
-    const el = this.contentEl;
-    el.empty();
-    const top = el.createDiv({ cls: "pdt-batch-top" });
-    top.createDiv({ cls: "pdt-gm-note", text: t("batch.info", { n: this.rows.length, model: this.plugin.data.settings.model }) });
-    const actions = top.createDiv({ cls: "pdt-batch-actions" });
-    actions.createEl("button", { text: t("batch.pickTop"), attr: { type: "button" } }).onclick = () => this.pickAll((r) => r.suggestions.slice(0, 1));
-    actions.createEl("button", { text: t("batch.clear"), attr: { type: "button" } }).onclick = () => this.pickAll(() => []);
-
-    const legend = el.createDiv({ cls: "pdt-batch-legend" });
-    setIcon(legend.createSpan({ cls: "pdt-gchip-star" }), "star");
-    legend.createSpan({ text: t("batch.legend") });
-
-    const list = el.createDiv({ cls: "pdt-batch-list" });
-    this.chipBoxes = this.rows.map(({ plugin, suggestions }, i) => {
-      const row = list.createDiv({ cls: "pdt-batch-row" });
-      const info = row.createDiv({ cls: "pdt-batch-info" });
-      info.createDiv({ cls: "pdt-batch-name", text: plugin.name });
-      if (plugin.description) info.createDiv({ cls: "pdt-gm-desc", text: plugin.description });
-      const translation = this.plugin.cachedTranslation(plugin);
-      if (translation) info.createDiv({ cls: "pdt-trans", text: translation });
-      const chips = row.createDiv({ cls: "pdt-gm-chips" });
-      this.renderChips(chips, i, suggestions);
-      return chips;
-    });
-
-    const foot = el.createDiv({ cls: "pdt-gm-foot" });
-    this.summaryEl = foot.createSpan({ cls: "pdt-gm-note" });
-    foot.createEl("button", { text: t("groups.cancel"), attr: { type: "button" } }).onclick = () => this.close();
-    this.acceptEl = foot.createEl("button", { cls: "mod-cta", attr: { type: "button" } });
-    this.acceptEl.onclick = () => {
-      this.saved = this.rows.map((r, i) => ({ plugin: r.plugin, groups: this.picked[i] }));
-      this.close();
-    };
-    this.updateSummary();
-  }
-
-  /** Redraws one row's chips only, so the list keeps its scroll position. */
-  renderChips(box, i, suggestions) {
-    box.empty();
-    if (!suggestions.length) box.createSpan({ cls: "pdt-gm-note", text: t("batch.noSuggestions") });
-    for (const name of suggestions) {
-      groupChip(box, {
-        name, on: this.picked[i].includes(name), star: this.mine.has(name), starTip: t("batch.legend"),
-        onToggle: () => {
-          const picked = this.picked[i];
-          this.picked[i] = picked.includes(name) ? picked.filter((g) => g !== name) : [...picked, name];
-          this.renderChips(box, i, suggestions);
-          this.updateSummary();
-        },
-      });
-    }
-  }
-
-  pickAll(choose) {
-    this.picked = this.rows.map(choose);
-    this.rows.forEach((r, i) => this.renderChips(this.chipBoxes[i], i, r.suggestions));
-    this.updateSummary();
-  }
-
-  updateSummary() {
-    const grouped = this.picked.filter((p) => p.length).length;
-    const fresh = new Set(this.picked.flat().filter((g) => !this.mine.has(g))).size;
-    this.summaryEl.setText(t("batch.summary", { grouped, total: this.rows.length, fresh }));
-    this.acceptEl.setText(t("batch.accept", { n: grouped }));
-  }
-}
-
 /** Model picker: filters as you type, shows prices, accepts names that aren't listed. */
 class ModelModal extends PickerModal {
   constructor(app, models) {
@@ -1549,6 +1468,13 @@ class DiscoveryView extends ItemView {
     this.similarOpen = new Set();
     this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
+    this.cursorId = null;         // the row keyboard shortcuts act on
+    this.grouping = null;         // grouping mode: {ids, suggestions, picked, loading, error}
+    // Obsidian activates a view's scope while its tab is focused, so keys work without clicking a row
+    this.scope = new Scope(this.app.scope);
+    for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "Enter"]) {
+      this.scope.register([], key, (event) => this.onKey(event, key));
+    }
   }
 
   getViewType() { return VIEW_TYPE; }
@@ -1557,7 +1483,6 @@ class DiscoveryView extends ItemView {
 
   async onOpen() {
     this.contentEl.addClass("pdt-view");
-    this.registerDomEvent(this.contentEl, "keydown", (event) => this.onKey(event));
     this.render();
     await this.plugin.ensureFresh();
   }
@@ -1566,34 +1491,41 @@ class DiscoveryView extends ItemView {
   onPaneMenu(menu, source) {
     super.onPaneMenu?.(menu, source);
     const plugin = this.plugin;
+    const shown = (this.rows || []).slice(0, this.visible);
     const item = (icon, title, run) => menu.addItem((i) => i.setIcon(icon).setTitle(title).onClick(run));
     item("refresh-cw", t("set.syncNow"), () => plugin.refresh());
+    item("languages", t("translate.visible", { n: shown.length }), () => this.translateVisible());
+    item("folder-plus", t("menu.groupList", { n: Math.min(shown.length, AI_BATCH) }), () => this.startGrouping(shown));
     item("ban", t("list.ignoredTitle", { n: plugin.ignoredCount() }), () => this.update("mode", "ignored"));
     item("eye-off", t("list.dismissedTitle", { n: Object.keys(plugin.data.dismissed).length }), () => this.update("mode", "dismissed"));
-    item("folder-plus", t("menu.groups"), () => plugin.groupUngrouped());
-    item("table", t("cmd.base"), () => plugin.writeBase());
     item("history", t("cmd.rebuild"), () => plugin.buildHistory(true));
-    item("keyboard", t("menu.keys"), () => new Notice(t("keys.help"), 15000));
     item("settings", t("menu.settings"), () => plugin.openSettings());
   }
 
+  async translateVisible() {
+    const rows = (this.rows || []).slice(0, this.visible);
+    if (await this.plugin.translateRows(rows)) rows.forEach((p) => this.shownTranslations.add(p.id));
+    this.refresh();
+  }
+
   /**
-   * Keys on a focused row: j/k move, f star, g groups, x ignore (or restore), h hide until the next
-   * release, t translate, r README, s similar, o open in Obsidian, Enter expand. Typing in a field is left alone.
+   * A shortcut key (see KEY_HELP). Returns true to let Obsidian handle the key as usual: when shortcuts
+   * are off, in grouping mode, or while typing in a field.
    */
-  async onKey(event) {
-    if (event.target.closest?.("input, textarea, select, [contenteditable]") || event.metaKey || event.ctrlKey || event.altKey) return;
+  onKey(event, key) {
+    const typing = globalThis.document?.activeElement?.closest?.("input, textarea, select, [contenteditable]");
+    if (!this.settings.keyboard || this.grouping || typing) return true;
     const rows = [...this.contentEl.querySelectorAll(".pdt-row")];
-    const row = event.target.closest?.(".pdt-row");
-    const index = rows.indexOf(row);
-    if (event.key === "j" || event.key === "k") {
-      event.preventDefault();
-      const next = index === -1 ? 0 : Math.max(0, Math.min(rows.length - 1, index + (event.key === "j" ? 1 : -1)));
-      rows[next]?.focus();
-      return;
+    if (!rows.length) return true;
+    const index = rows.findIndex((r) => r.dataset.id === this.cursorId);
+    if (key === "j" || key === "k") {
+      const next = index === -1 ? 0 : Math.max(0, Math.min(rows.length - 1, index + (key === "j" ? 1 : -1)));
+      this.setCursor(rows[next]);
+      return false;
     }
+    const row = rows[index];
     const p = row && this.plugin.pluginById(row.dataset.id);
-    if (!p) return;
+    if (!p) return true;
     const listMode = LIST_MODES.includes(this.settings.mode);
     const actions = {
       f: () => this.plugin.toggleFavorite(p),
@@ -1606,20 +1538,141 @@ class DiscoveryView extends ItemView {
       o: () => $(row, ".pdt-name")?.click(),
       Enter: () => $(row, ".pdt-desc")?.click(),
     };
-    const run = actions[event.key];
-    if (!run) return;
-    event.preventDefault();
-    await run();
-    if ("fxh".includes(event.key)) {
+    Promise.resolve(actions[key]()).then(() => {
+      if (!"fxh".includes(key)) return;
       this.refresh();
       const again = [...this.contentEl.querySelectorAll(".pdt-row")];
-      (again.find((r) => r.dataset.id === p.id) || again[Math.min(index, again.length - 1)])?.focus();
+      this.setCursor(again.find((r) => r.dataset.id === p.id) || again[Math.min(index, again.length - 1)]);
+    });
+    return false;
+  }
+
+  /** Highlights the row the shortcuts act on and keeps it in sight. */
+  setCursor(row) {
+    for (const r of this.contentEl.querySelectorAll(".pdt-row.is-cursor")) r.removeClass("is-cursor");
+    if (!row) return;
+    row.addClass("is-cursor");
+    this.cursorId = row.dataset.id;
+    row.scrollIntoView?.({ block: "nearest" });
+  }
+
+  // ── Grouping mode: AI suggestions for the plugins of the current list, picked on the rows ──
+  async startGrouping(plugins) {
+    const ids = plugins.slice(0, AI_BATCH).map((p) => p.id);
+    if (!ids.length) return new Notice(t("grouping.empty"));
+    if (!this.plugin.translator.ready) return new Notice(t("groups.aiSetup"));
+    const grouping = { ids, suggestions: {}, picked: Object.fromEntries(ids.map((id) => [id, [...this.currentGroups(id)]])), loading: true, error: "" };
+    this.grouping = grouping;
+    this.refresh();
+    try {
+      grouping.suggestions = await this.plugin.groupSuggestions(ids.map((id) => this.plugin.pluginById(id)).filter(Boolean));
+    } catch (error) {
+      grouping.error = error.message;
     }
+    grouping.loading = false;
+    if (this.grouping === grouping) this.refresh();   // unless it was cancelled meanwhile
+  }
+
+  currentGroups(id) {
+    return this.plugin.notes.index.get(id)?.groups || [];
+  }
+
+  stopGrouping() {
+    this.grouping = null;
+    this.render();
+  }
+
+  /** Writes the changed rows: new groups, cleared groups, or a new tracking note. */
+  async acceptGrouping() {
+    const { ids, picked } = this.grouping;
+    let written = 0;
+    for (const id of ids) {
+      const plugin = this.plugin.pluginById(id);
+      if (!plugin || sameNames(picked[id], this.currentGroups(id))) continue;
+      await this.plugin.track(plugin, { groups: picked[id] });
+      written++;
+    }
+    new Notice(t("notice.batchSaved", { n: written }));
+    this.stopGrouping();
+  }
+
+  renderGrouping(list, now) {
+    const grouping = this.grouping;
+    this.rows = grouping.ids.map((id) => this.plugin.pluginById(id)).filter(Boolean);
+    const bar = list.createDiv({ cls: "pdt-grouping-bar" });
+    const text = bar.createDiv({ cls: "pdt-grouping-text" });
+    text.createDiv({ cls: "pdt-banner-title", text: t("grouping.title", { n: this.rows.length }) });
+    this.refs.groupingSummary = text.createDiv({ cls: "pdt-gm-note" });
+    const button = (label, cls, run) => {
+      const el = bar.createEl("button", { cls, text: label, attr: { type: "button" } });
+      el.onclick = run;
+      return el;
+    };
+    const pickAll = (choose) => {
+      for (const id of grouping.ids) grouping.picked[id] = choose(id);
+      for (const id of grouping.ids) this.renderGroupingChips(id);
+      this.updateGroupingSummary();
+    };
+    button(t("grouping.pickTop"), "", () => pickAll((id) => {
+      const current = this.currentGroups(id);
+      return current.length ? [...current] : (grouping.suggestions[id] || []).slice(0, 1);
+    }));
+    button(t("grouping.reset"), "", () => pickAll((id) => [...this.currentGroups(id)]));
+    button(t("groups.cancel"), "", () => this.stopGrouping());
+    this.refs.groupingAccept = button("", "mod-cta", () => this.acceptGrouping());
+    this.groupingRows = new Map();
+    for (const p of this.rows) this.renderRow(list, p, now);
+    this.updateGroupingSummary();
+  }
+
+  /** Redraws one row's chips only, so the list keeps its scroll position. */
+  renderGroupingChips(id) {
+    const grouping = this.grouping;
+    const { row, box } = this.groupingRows.get(id) || {};
+    if (!box) return;
+    box.empty();
+    setIcon(box.createSpan({ cls: "pdt-grouping-icon" }), "folder-plus");
+    if (grouping.loading) {
+      for (let i = 0; i < 3; i++) box.createSpan({ cls: "pdt-skeleton" });
+      return;
+    }
+    const current = this.currentGroups(id);
+    const mine = new Set(this.plugin.notes.groups().map((g) => g.name));
+    const options = uniqueNames([...current, ...(grouping.suggestions[id] || [])]);
+    if (!options.length) box.createSpan({ cls: "pdt-gm-note", text: grouping.error ? t("groups.aiFailed", { error: grouping.error }) : t("batch.noSuggestions") });
+    for (const name of options) {
+      groupChip(box, {
+        name, on: grouping.picked[id].includes(name), star: mine.has(name), starTip: t("batch.legend"),
+        onToggle: () => {
+          const picked = grouping.picked[id];
+          grouping.picked[id] = picked.includes(name) ? picked.filter((g) => g !== name) : [...picked, name];
+          this.renderGroupingChips(id);
+          this.updateGroupingSummary();
+        },
+      });
+    }
+    const changed = !sameNames(grouping.picked[id], current);
+    row.toggleClass("is-grouping-changed", changed);
+    if (changed) {
+      const label = !this.plugin.notes.index.has(id) ? "grouping.willCreate" : grouping.picked[id].length ? "grouping.willChange" : "grouping.willClear";
+      box.createSpan({ cls: "pdt-badge is-change", text: t(label) });
+    }
+  }
+
+  updateGroupingSummary() {
+    const { ids, picked } = this.grouping;
+    const mine = new Set(this.plugin.notes.groups().map((g) => g.name));
+    const changed = ids.filter((id) => !sameNames(picked[id], this.currentGroups(id)));
+    const notes = changed.filter((id) => !this.plugin.notes.index.has(id)).length;
+    const fresh = new Set(ids.flatMap((id) => picked[id]).filter((g) => !mine.has(g))).size;
+    this.refs.groupingSummary?.setText(this.grouping.loading ? t("groups.aiLoading") : t("grouping.summary", { changed: changed.length, notes, fresh }));
+    this.refs.groupingAccept?.setText(t("grouping.accept", { n: changed.length }));
   }
 
   get settings() { return this.plugin.data.settings; }
 
   async update(key, value) {
+    if (key === "mode") this.grouping = null;   // another tab ends grouping mode
     this.settings[key] = value;
     this.visible = PAGE_SIZE;
     await this.plugin.saveData(this.plugin.data);
@@ -1758,14 +1811,21 @@ class DiscoveryView extends ItemView {
       const all = bar.createEl("button", { cls: "pdt-ghost", text: t("changed.markAll") });
       all.onclick = async () => { await this.plugin.markReviewed(this.rows || []); this.refresh(); };
     }
-    this.refs.translate = bar.createEl("button", { cls: "pdt-ghost" });
-    setIcon(this.refs.translate.createSpan({ cls: "pdt-btn-icon" }), "languages");
-    this.refs.translateLabel = this.refs.translate.createSpan({ text: t("translate.visible", { n: 0 }) });
-    this.refs.translate.onclick = async () => {
-      const rows = (this.rows || []).slice(0, this.visible);
-      if (await this.plugin.translateRows(rows)) rows.forEach((p) => this.shownTranslations.add(p.id));
-      this.refresh();
-    };
+    if (this.settings.keyboard) this.renderKeyHelp(bar);
+  }
+
+  /** ⌨ icon with a card of the shortcuts, shown on hover or keyboard focus. */
+  renderKeyHelp(bar) {
+    const help = bar.createDiv({ cls: "pdt-keys", attr: { tabindex: "0", "aria-label": t("keys.title") } });
+    setIcon(help.createSpan({ cls: "pdt-keys-icon" }), "keyboard");
+    const card = help.createDiv({ cls: "pdt-keys-card", attr: { role: "tooltip" } });
+    card.createDiv({ cls: "pdt-keys-title", text: t("keys.title") });
+    for (const [keys, label] of KEY_HELP) {
+      const line = card.createDiv({ cls: "pdt-keys-row" });
+      const cell = line.createSpan({ cls: "pdt-keys-keys" });
+      for (const key of keys) cell.createEl("kbd", { text: key });
+      line.createSpan({ text: t(label) });
+    }
   }
 
   renderStatus(status) {
@@ -1807,12 +1867,6 @@ class DiscoveryView extends ItemView {
       actions.createEl("button", { cls: "mod-cta", text: t(timeline.to ? "status.rebuild" : "status.build") })
         .onclick = () => this.plugin.buildHistory(true);
     }
-    const sync = actions.createEl("button", { cls: `pdt-ghost pdt-sync${this.plugin.busy ? " is-syncing" : ""}` });
-    setIcon(sync.createSpan({ cls: "pdt-btn-icon" }), "refresh-cw");
-    sync.createSpan({ text: this.plugin.busy ? t("status.syncing") : t("status.sync") });
-    setTooltip(sync, t("status.refresh"));
-    sync.disabled = this.plugin.busy;
-    sync.onclick = () => this.plugin.refresh();
   }
 
   /** Redraws only the status line (progress updates during a sync). */
@@ -1824,11 +1878,11 @@ class DiscoveryView extends ItemView {
     list.empty();
     this.rows = [];
     if (!this.plugin.catalog) return;
+    if (this.grouping) return this.renderGrouping(list, now);
     const { timeline } = this.plugin;
     const mode = this.settings.mode;
     if (mode === "awakened" && !timeline.to) {
       list.createDiv({ cls: "pdt-empty", text: t("list.needHistory") });
-      this.updateTranslateButton([]);
       return;
     }
     if (mode === "new" && (!timeline.to || timeline.legacy)) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
@@ -1837,7 +1891,6 @@ class DiscoveryView extends ItemView {
     if (LIST_MODES.includes(mode)) this.renderListBanner(list, mode);
     const sections = mode === "tracked" && !this.settings.trackedGroup && this.settings.trackedSections;
     const visible = sections ? this.rows : this.rows.slice(0, this.visible);   // sections show everything you track
-    this.updateTranslateButton(visible);
     if (!this.rows.length) {
       list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
       return;
@@ -1915,20 +1968,13 @@ class DiscoveryView extends ItemView {
     }
   }
 
-  updateTranslateButton(visible) {
-    const pending = visible.filter((p) => p.description && this.plugin.cachedTranslation(p) == null).length;
-    this.refs.translateLabel?.setText(t("translate.visible", { n: visible.length }));
-    if (!this.refs.translate) return;
-    this.refs.translate.disabled = !visible.length;
-    setTooltip(this.refs.translate, pending ? t("translate.pending", { pending, done: visible.length - pending }) : t("translate.allDone"));
-  }
-
   renderRow(list, p, now) {
     const plugin = this.plugin;
     const { firstSeen, releases } = plugin.timeline;
     const note = plugin.notes.index.get(p.id);
     const mode = this.settings.mode;
-    const row = list.createDiv({ cls: "pdt-row", attr: { tabindex: "0", "data-id": p.id } });
+    const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
+    row.addEventListener("click", () => this.setCursor(row));
     const main = row.createDiv({ cls: "pdt-main" });
 
     // Title: name · version · badges
@@ -2033,6 +2079,11 @@ class DiscoveryView extends ItemView {
       setIcon(downloads.createSpan({ cls: "pdt-dl-icon" }), "download");
       downloads.createSpan({ text: formatShort(p.downloads) });
       setTooltip(downloads, t("row.downloads", { n: formatCount(p.downloads) }));
+    }
+    if (this.grouping) {   // grouping mode: the row's group chips take the place of its actions
+      this.groupingRows.set(p.id, { row, box: main.createDiv({ cls: "pdt-grouping-chips pdt-gm-chips" }) });
+      this.renderGroupingChips(p.id);
+      return;
     }
     const actions = right.createDiv({ cls: "pdt-actions" });
     const act = (icon, tip, fn, cls) => {
@@ -2144,6 +2195,15 @@ class RadarSettingTab extends PluginSettingTab {
           this.display();
         });
       });
+
+    new Setting(containerEl)
+      .setName(t("set.keyboard"))
+      .setDesc(t("set.keyboardDesc"))
+      .addToggle((toggle) => toggle.setValue(Boolean(settings.keyboard)).onChange(async (value) => {
+        settings.keyboard = value;
+        await save();
+        plugin.redraw(true);
+      }));
 
     // ── Groups
     new Setting(containerEl).setName(t("set.groups")).setHeading();
@@ -2757,29 +2817,18 @@ class PluginRadar extends Plugin {
     return (await this.groupSuggestions([plugin]))[plugin.id];
   }
 
-  /** AI suggests groups for every tracked plugin without one; nothing is written before you accept. */
+  /** Opens the Tracked tab on Ungrouped and starts grouping mode there; nothing is written before Accept. */
   async groupUngrouped() {
     if (!(await this.ensureCatalog())) return;
-    const targets = this.ungrouped();
-    if (!targets.length) return new Notice(t("batch.none"));
+    if (!this.ungrouped().length) return new Notice(t("batch.none"));
     if (!this.translator.ready) return new Notice(t("groups.aiSetup"));
-    let suggestions = null;
-    await this.task(t("notice.batchTitle"), async (progress) => {
-      suggestions = await this.groupSuggestions(targets, progress);
-    });
-    if (!suggestions) return;   // the task's notice says why
-    const modal = new BatchGroupModal(this, targets.map((p) => ({ plugin: p, suggestions: suggestions[p.id] })));
-    modal.open();
-    const picked = await modal.result;
-    if (!picked) return;
-    let written = 0;
-    for (const { plugin, groups } of picked) {
-      if (!groups.length) continue;
-      await this.notes.upsert(plugin, { groups });
-      written++;
-    }
-    new Notice(t("notice.batchSaved", { n: written }));
-    this.redraw();
+    this.app.setting?.close?.();
+    await this.openView();
+    Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UNGROUPED, trackedStarred: false, trackedStatus: "" });
+    await this.saveData(this.data);
+    this.redraw(true);
+    const view = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view;
+    await view?.startGrouping((view.rows || []).slice(0, view.visible));
   }
 
   async exclude(plugin) {

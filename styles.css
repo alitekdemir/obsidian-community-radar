@@ -330,14 +330,6 @@
   color: var(--text-accent);
 }
 
-.pdt-sync.is-syncing .pdt-btn-icon svg {
-  animation: pdt-spin 1s linear infinite;
-}
-
-@keyframes pdt-spin {
-  to { transform: rotate(360deg); }
-}
-
 .pdt-query {
   display: inline-flex;
   align-items: center;
@@ -1068,4 +1060,143 @@ button.pdt-section-head:hover {
 .pdt-row:focus-visible {
   outline: 2px solid var(--interactive-accent);
   outline-offset: -2px;
+}
+
+/* ── Grouping mode: a sticky bar, chips under each row ─────────────────── */
+.pdt-grouping-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2) var(--size-4-3);
+  margin-bottom: var(--size-4-2);
+  padding: var(--size-4-3) var(--size-4-4);
+  border: 1px solid color-mix(in srgb, var(--interactive-accent) 55%, var(--background-modifier-border));
+  border-radius: var(--radius-m);
+  background: color-mix(in srgb, var(--interactive-accent) 10%, var(--background-primary));
+  box-shadow: var(--shadow-s);
+}
+
+.pdt-grouping-text {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pdt-grouping-chips {
+  margin-top: var(--size-4-2);
+}
+
+.pdt-grouping-icon {
+  display: inline-flex;
+  color: var(--text-faint);
+}
+
+.pdt-grouping-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.pdt-skeleton {
+  width: 96px;
+  height: 26px;
+  border-radius: 13px;
+  background: var(--background-modifier-border);
+  animation: pdt-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pdt-pulse {
+  50% { opacity: 0.45; }
+}
+
+.pdt-row.is-grouping-changed {
+  background: color-mix(in srgb, var(--interactive-accent) 6%, transparent);
+  box-shadow: inset 3px 0 0 var(--interactive-accent);
+}
+
+.pdt-badge.is-change {
+  color: var(--color-yellow);
+  background: color-mix(in srgb, var(--color-yellow) 15%, transparent);
+}
+
+/* ── Keyboard: highlighted row and the shortcut card ───────────────────── */
+.pdt-row.is-cursor {
+  box-shadow: inset 0 0 0 2px var(--interactive-accent);
+}
+
+.pdt-keys {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-s);
+  color: var(--text-faint);
+  cursor: help;
+}
+
+.pdt-keys:hover,
+.pdt-keys:focus-visible {
+  color: var(--text-accent);
+  background: var(--background-modifier-hover);
+}
+
+.pdt-keys-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pdt-keys-card {
+  display: none;
+  position: absolute;
+  top: 36px;
+  right: 0;
+  z-index: 10;
+  min-width: 280px;
+  padding: var(--size-4-3) var(--size-4-4);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-primary);
+  box-shadow: var(--shadow-l);
+  color: var(--text-normal);
+  font-size: var(--font-ui-small);
+  cursor: default;
+}
+
+.pdt-keys:hover .pdt-keys-card,
+.pdt-keys:focus-within .pdt-keys-card {
+  display: block;
+}
+
+.pdt-keys-title {
+  margin-bottom: var(--size-4-2);
+  font-weight: var(--font-semibold);
+}
+
+.pdt-keys-row {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  align-items: center;
+  gap: var(--size-4-2);
+  padding: 3px 0;
+}
+
+.pdt-keys-keys {
+  display: flex;
+  gap: 4px;
+}
+
+.pdt-keys kbd {
+  min-width: 20px;
+  padding: 1px 6px;
+  border: 1px solid var(--background-modifier-border);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-s);
+  background: var(--background-secondary);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  text-align: center;
 }

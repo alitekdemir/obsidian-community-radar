@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.2
+
+- **Grouping mode inside the view** replaces the batch window: *Suggest groups for this list* (⋮ menu) puts AI suggestions under each row of the current list (up to 50, one request). A sticky bar shows what will change (new notes, new groups) with *Top suggestion for all*, *Reset*, *Cancel* and *Accept*; changed rows are marked. *Settings → Suggest groups* opens the Tracked tab's *Ungrouped* list in this mode.
+- Group suggestions come in your language **and** the widely used English or technical term (e.g. *Yapay Zekâ* and *AI*, *Alışkanlık Takibi* and *Habit Tracker*); a name matching one of your groups keeps your spelling.
+- **Keyboard shortcuts** work as soon as the tab is active (Obsidian's own key scope) and move a visible highlight; they're **off by default** (*Settings → Keyboard shortcuts*). A ⌨ icon in the filter bar shows them in a readable card on hover or focus.
+- The **Sync** button and **Translate visible** moved into the ⋮ menu; *Bases view* and *Keyboard shortcuts* left it (Bases stays in settings).
+
 ## 0.7.1
 
 - **Tracked tab**: the plugins you track, with group chips (each group, *Ungrouped*) and **sections per group** — coloured, foldable headings, the rows indented under them; a plugin in two groups shows in both. Filters for ★ starred and status. A group badge on any row opens the tab on that group.

@@ -31,11 +31,11 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 - **Zamanlanmış eşitleme**: 6 saatte bir, günde bir, haftada bir ya da elle. Panel son eşitlemenin ne zaman yapıldığını ve ne getirdiğini gösterir (*Son eşitlemeden beri: 5 yeni · 23 güncelleme*).
 - **Takip notunda README**: yeni sürüm çıkınca not açıldığında, her eşitlemede ya da yalnızca istendiğinde yenilenir. Kendi notlarınıza dokunulmaz.
 - **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.
-- **Gruplar**: bir eklenti birden çok grupta olabilir (`groups` listesi). Grup penceresi gruplarınızdan en yakınını ★ ile işaretler, AI önerilerini açıp kapatabileceğiniz çipler olarak gösterir. **Grup öner**, grubu olmayan bütün eklentiler için tek seferde öneri alır (istek başına 50) ve siz onaylamadan hiçbir şey kaydetmez.
+- **Gruplar**: bir eklenti birden çok grupta olabilir (`groups` listesi). Grup penceresi gruplarınızdan en yakınını ★ ile işaretler, AI önerilerini açıp kapatabileceğiniz çipler olarak gösterir. ⋮ menüsündeki **Bu listedekilere grup öner**, baktığınız listenin her satırının altına AI önerilerini getirir (en çok 50, tek istek); öneriler hem Türkçe hem yaygın İngilizce karşılığıyla gelir (*Yapay Zekâ* ve *AI*). Satırlarda seçersiniz; **Kabul et**'e basılana kadar hiçbir şey kaydedilmez.
 - **Benzer eklentiler**: her satırın altında, ad ve açıklamalardaki ortak kelimelerden yerelde bulunur; AI ya da ağ isteği yok.
 - **Durum ve puan**: takip edilen eklentiler için (*Aday*, *Deniyorum*, *Kullanıyorum*, *Bıraktım*; 1–5 yıldız), satırdan seçilir, `status` ve `rating` özelliklerine yazılır.
 - **Sonraki sürüme kadar gizle**: eklenti yeni sürüm çıkarınca kendiliğinden geri gelir. Dışlananlar ve önerilmeyenler panelin ⋮ menüsünden; arama ve *Geri al* ile açılır.
-- **Sessizlik süresine göre sıralama** ve **klavye**: bir satırda `j`/`k` gezin, `f` favori, `g` gruplar, `x` dışla, `h` sonraki sürüme kadar gizle, `t` çevir, `r` README, `s` benzerleri, `o` aç, `Enter` genişlet.
+- **Sessizlik süresine göre sıralama** ve **klavye** (varsayılan kapalı; *Ayarlar → Klavye kısayolları*): sekme etkinken `j`/`k` vurguyu taşır; `f` favori, `g` gruplar, `x` dışla, `h` sonraki sürüme kadar gizle, `t` çevir, `r` README, `s` benzerleri, `o` aç, `Enter` genişlet. Filtre çubuğundaki ⌨ simgesi listeyi gösterir.
 
   ![Özgün açıklamanın altında çevirisi](docs/images/Radar_2-One_Translate.png)
 
@@ -69,7 +69,8 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 |---|---|
 | Dil | Otomatik (Obsidian'ın dili), English, Türkçe |
 | Not klasörü | Takip notlarının oluşturulacağı yer |
-| Grup öner | Grubu olmayan takip edilen eklentiler için AI grup önerileri; kaydetmeden önce incelenir |
+| Grup öner | Takip sekmesinin *Grupsuz* listesini gruplama modunda açar |
+| Klavye kısayolları | Varsayılan kapalı |
 | Listeler | *Yönet*, dışlananları ya da önerilmeyenleri panelde açar |
 | Bases görünümü | Takip notlarının Bases tablosunu **Oluştur** ya da **Sıfırla** |
 | Eşitleme sıklığı | Elle · 6 saatte bir · **Günde bir** · Haftada bir. Eşitlemeler arasında hiçbir şey indirilmez. **Şimdi eşitle** hemen çalıştırır. |
