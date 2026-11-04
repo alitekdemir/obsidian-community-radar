@@ -8,7 +8,7 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 
 | Tab | Shows |
 |---|---|
-| **All** | Every community plugin, sorted by downloads, last update, name or recently added |
+| **All** | Every community plugin |
 | **✨ New** | Plugins added in the last *N* days |
 | **Updated** | Plugins released in the last *N* days |
 | **Revived** | Plugins released in the last *N* days **after being dormant** (e.g. no release for 90+ days before). Constantly updated plugins are filtered out. |
@@ -25,6 +25,8 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 
 ## Features
 
+- **Filters on every tab**: *Downloads ≥* is a chip you switch on and off per tab, day ranges can be typed (e.g. last 1 day) or picked, and rows sort by downloads, last update, A–Z or recently added, in either direction.
+- **Search** with comma-separated terms (all must match) or a `/regular expression/`, as in Obsidian's own search — e.g. `/project.+task/`.
 - **Revived detection** from the official release archive — exact, no guessing (see [How it works](#how-it-works)).
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
 - **Tracking notes**: `group`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.

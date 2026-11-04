@@ -174,9 +174,9 @@ const tests = {
     const sort = $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith("Sırala") || c.textContent.startsWith("Sort"));
     fake.menus.length = 0;
     sort.onclick();
-    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false]);
+    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false]);   // same four sorts on every tab
     await fake.menus[0].items[1].click();
-    assert.equal(plugin.data.settings.sort, "updated");
+    assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "updated", dir: "desc" });
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
 
     // All tab: tracked Homepage is listed with its note badge; four sorts; back to Updated shows a valid sort
@@ -193,9 +193,75 @@ const tests = {
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
     await view.update("mode", "updated");
     const chipText = sortChip().textContent;
-    assert.ok(chipText.endsWith(core.t("sort.downloads")), chipText);
-    await view.update("sort", "downloads");
+    assert.ok(chipText.endsWith(core.t("sort.updated")), chipText);   // each tab keeps its own sort
+    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
     ctx.view = view;
+  },
+
+  async "filters: Downloads chip toggles per tab, typed days, sort direction, regex search"({ plugin, view }) {
+    const el = view.contentEl;
+    const settings = plugin.data.settings;
+    const names = () => $$(el, ".pdt-name").map((a) => a.textContent);
+    await view.update("mode", "all");
+    settings.minDownloads = 1000;
+    view.render();
+    const chip = () => $(el, ".pdt-chip.is-toggle");
+    assert.ok(chip().classList.contains("is-on"));
+    assert.ok(!names().includes("Fresh Plugin"));                              // 5 downloads
+    $(chip(), ".pdt-toggle").onclick();
+    await tick();
+    assert.ok(!chip().classList.contains("is-on"));
+    assert.ok(names().includes("Fresh Plugin"));
+    assert.equal(settings.downloadFilter.all, false);
+    assert.equal(core.modeOptions(settings, "updated").filterDownloads, true);   // other tabs keep theirs
+    const min = $(chip(), "input");
+    min.value = "2000";
+    await min.onchange();
+    assert.ok(chip().classList.contains("is-on"));                             // typing a value turns it on
+    assert.equal(settings.minDownloads, 2000);
+
+    await view.update("mode", "updated");
+    const savedDays = settings.days;
+    const typeDays = async (value) => { const input = $(el, ".pdt-chip.is-number input"); input.value = value; await input.onchange(); };
+    await typeDays("1");
+    assert.equal(settings.days, 1);
+    await typeDays("999");
+    assert.equal(settings.days, 365);                                          // clamped
+    await typeDays("");
+    assert.equal(settings.days, 365);                                          // empty: unchanged
+    fake.menus.length = 0;
+    $(el, ".pdt-chip.is-number .pdt-chip-caret").onclick();
+    assert.equal(fake.menus[0].items[0].title, core.t("filter.days", { n: 1 }));
+    await view.update("days", savedDays);
+
+    await view.update("mode", "all");
+    settings.minDownloads = 0;
+    view.render();
+    const before = names();
+    const dir = core.modeOptions(settings, "all").sortDir;
+    $(el, ".pdt-sort-dir").onclick();
+    await tick();
+    assert.deepEqual(names(), [...before].reverse());
+    assert.notEqual(settings.sortBy.all.dir, dir);
+    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    const sortedNames = names();
+
+    const search = $(el, ".pdt-search input");
+    search.value = "/home(/";
+    search.oninput();
+    assert.ok($(el, ".pdt-search").classList.contains("is-invalid"));
+    settings.query = search.value;
+    view.refresh();
+    assert.ok($(el, ".pdt-query.is-invalid"));
+    assert.deepEqual(names(), sortedNames);                                    // invalid regex: unfiltered
+    search.value = "/^home|^data/";
+    search.oninput();
+    assert.ok($(el, ".pdt-search").classList.contains("is-regex"));
+    settings.query = search.value;
+    view.refresh();
+    assert.deepEqual(names().sort(), ["Dataview", "Homepage"]);
+    settings.query = "";
+    view.render();
   },
 
   async "row actions: star creates a note with README; double click runs once"({ app, plugin, view }) {

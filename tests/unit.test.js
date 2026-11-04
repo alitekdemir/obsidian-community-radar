@@ -76,7 +76,7 @@ const tests = {
       notes: new Map([["e", { group: "ai", favorite: false, reviewed: core.dayString(ago(10)) }]]),
       excluded: new Set(["c"]), dismissed: new Set(), installed: new Set(["a", "e"]),
     };
-    const opts = { mode: "updated", days: 14, dormantDays: 90, minDownloads: 100, sort: "downloads", query: "" };
+    const opts = { mode: "updated", days: 14, dormantDays: 90, minDownloads: 100, filterDownloads: true, sort: "downloads", query: "" };
     const ids = (o) => core.discover(state, { ...opts, ...o }, NOW).map((p) => p.id);
     assert.deepEqual(ids({}), ["a"]);                       // b old, c excluded, d few downloads, e tracked
     assert.deepEqual(ids({ mode: "awakened" }), ["a"]);     // a was quiet for 299 days
@@ -86,14 +86,17 @@ const tests = {
     state.dismissed.add("a");
     assert.deepEqual(ids({ mode: "suggested" }), ["e"]);
     state.dismissed.delete("a");
-    assert.deepEqual(ids({ mode: "new" }), ["d"]);            // listed in the last 14 days; no download filter
-    assert.deepEqual(ids({ mode: "new", days: 3 }), []);
-    const counts = core.modeCounts(state, opts, NOW);
+    assert.deepEqual(ids({ mode: "new", filterDownloads: false }), ["d"]);   // listed in the last 14 days
+    assert.deepEqual(ids({ mode: "new" }), []);                                // …but below 100 downloads
+    assert.deepEqual(ids({ mode: "new", filterDownloads: false, days: 3 }), []);
+    const counts = core.modeCounts(state, opts, NOW);   // each tab with its default Downloads on/off (New: off)
     assert.deepEqual(counts, { all: 3, new: 1, updated: 1, awakened: 1, changed: 1, suggested: 2 });  // all: a, b, e (c excluded, d below 100 downloads)
+    const off = core.modeCounts(state, { ...opts, downloadFilter: { all: false } }, NOW);
+    assert.equal(off.all, 4);                                 // All with the filter off: d is back
     assert.deepEqual(ids({ query: "a, desc" }), ["a"]);
   },
 
-  "discover all: every plugin incl. tracked, excluded hidden, four sorts; other tabs ignore All-only sorts"() {
+  "discover all: every plugin incl. tracked, excluded hidden, four sorts in both directions"() {
     const catalog = [
       P("zeta", { name: "Zeta", downloads: 10, updated: ago(300) }),
       P("alpha", { name: "alpha", downloads: 900, updated: ago(5) }),
@@ -107,9 +110,38 @@ const tests = {
     assert.deepEqual(ids({ sort: "updated" }), ["mid", "alpha", "zeta"]);
     assert.deepEqual(ids({ sort: "name" }), ["alpha", "mid", "zeta"]);            // case-insensitive
     assert.deepEqual(ids({ sort: "listed" }), ["mid", "alpha", "zeta"]);          // newest in the listing first
-    assert.deepEqual(ids({ minDownloads: 100 }), ["alpha", "mid"]);
-    const updated = core.discover(state, { mode: "updated", days: 7, minDownloads: 0, query: "", sort: "name" }, NOW).map((p) => p.id);
-    assert.deepEqual(updated, ["alpha"]);                                         // "name" isn't offered here → downloads
+    assert.deepEqual(ids({ minDownloads: 100, filterDownloads: true }), ["alpha", "mid"]);
+    assert.deepEqual(ids({ minDownloads: 100 }), ["alpha", "mid", "zeta"]);      // filter off: threshold ignored
+    assert.deepEqual(ids({ sortDir: "asc" }), ["zeta", "mid", "alpha"]);          // fewest downloads first
+    assert.deepEqual(ids({ sort: "name", sortDir: "desc" }), ["zeta", "mid", "alpha"]);   // Z → A
+    assert.deepEqual(ids({ sort: "updated", sortDir: "asc" }), ["zeta", "alpha", "mid"]); // oldest first
+    assert.deepEqual(ids({ query: "/^(al|mi)/" }), ["alpha", "mid"]);
+  },
+
+  "compileQuery: comma terms, /regex/ (case-insensitive, in order), invalid regex never blanks the list"() {
+    const p = { id: "project-tasks", name: "Project Tasks", author: "Ali", description: "Plan a project, then track each task." };
+    const q = (text) => core.compileQuery(text);
+    assert.equal(q("task, project").test(p), true);
+    assert.equal(q("task, kanban").test(p), false);
+    assert.equal(q("/project.+task/").test(p), true);
+    assert.equal(q("/task.+kanban/").test(p), false);
+    assert.equal(q("/PROJECT\\s+TASKS/").test(p), true);                    // case-insensitive
+    assert.equal(q("/kanban|ali/").test(p), true);                             // author is searched too
+    const bad = q("/task(/");
+    assert.equal(bad.regex, true);
+    assert.ok(bad.error);
+    assert.equal(bad.test(p), true);
+    assert.equal(q("/").regex, false);                                         // a lone slash is plain text
+  },
+
+  "modeOptions: per-tab Downloads and sort with defaults; invalid saved values fall back"() {
+    const settings = { ...core.defaultSettings(), downloadFilter: { new: true }, sortBy: { all: { key: "name", dir: "desc" }, updated: { key: "bogus" } } };
+    assert.equal(core.modeOptions(settings, "all").filterDownloads, true);      // default
+    assert.equal(core.modeOptions(settings, "new").filterDownloads, true);      // saved
+    assert.equal(core.modeOptions(settings, "changed").filterDownloads, false); // default
+    assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "all")[k]), ["name", "desc"]);
+    assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "new")[k]), ["listed", "desc"]);
+    assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "updated")[k]), ["downloads", "desc"]);
   },
 
   "escapeOutsideCode: tags are escaped, code and headings are untouched"() {

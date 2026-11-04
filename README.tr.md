@@ -8,7 +8,7 @@ Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını
 
 | Sekme | Gösterdiği |
 |---|---|
-| **Tümü** | Bütün topluluk eklentileri; indirme, son güncelleme, ad ya da listeye giriş sırasına göre |
+| **Tümü** | Bütün topluluk eklentileri |
 | **✨ Yeni** | Son *N* günde listeye giren eklentiler |
 | **Güncellenen** | Son *N* günde sürüm çıkaranlar |
 | **Uyananlar** | Son *N* günde, **uzun bir aradan sonra** sürüm çıkaranlar (ör. öncesinde 90+ gün sürüm yok). Sürekli güncellenenler elenir. |
@@ -25,6 +25,8 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 
 ## Özellikler
 
+- **Her sekmede filtreler**: *İndirme ≥* sekme başına açılıp kapanan bir çip; gün aralığı yazılabilir (ör. son 1 gün) ya da seçilebilir; sıralama indirme, son güncelleme, A–Z ya da listeye giriş tarihine göre, iki yönde.
+- **Arama**: virgülle ayrılmış terimler (hepsi eşleşmeli) ya da Obsidian'ın aramasındaki gibi `/düzenli ifade/`, ör. `/project.+task/`.
 - **Zamanlanmış eşitleme**: 6 saatte bir, günde bir, haftada bir ya da elle. Panel son eşitlemenin ne zaman yapıldığını ve ne getirdiğini gösterir (*Son eşitlemeden beri: 5 yeni · 23 güncelleme*).
 - **Takip notunda README**: yeni sürüm çıkınca not açıldığında, her eşitlemede ya da yalnızca istendiğinde yenilenir. Kendi notlarınıza dokunulmaz.
 - **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.

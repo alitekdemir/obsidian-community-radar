@@ -52,6 +52,19 @@ const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
 const MODE_KEYS = ["all", "new", "updated", "awakened", "changed", "suggested"];
+const SORT_KEYS = ["downloads", "updated", "name", "listed"];
+const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc" };  // most, newest, A→Z, newest
+const DAY_PRESETS = [1, 3, 7, 14, 30, 60, 90];
+const DORMANT_PRESETS = [30, 60, 90, 180, 365];
+/** Per tab: is "Downloads ≥" on, and how rows are sorted, until the user changes them. */
+const TAB_DEFAULTS = {
+  all: { downloads: true, sort: "downloads" },
+  new: { downloads: false, sort: "listed" },        // a brand-new plugin has few downloads
+  updated: { downloads: true, sort: "downloads" },
+  awakened: { downloads: true, sort: "downloads" },
+  changed: { downloads: false, sort: "updated" },
+  suggested: { downloads: false, sort: "downloads" },
+};
 
 /** Suggested names in Obsidian's keychain (ANTHROPIC_API_KEY → anthropic-api-key). */
 const KEY_NAMES = {
@@ -108,7 +121,8 @@ function defaultSettings() {
     days: 14,
     dormantDays: 90,
     minDownloads: 100,
-    sort: "downloads",
+    downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
+    sortBy: {},           // tab → {key, dir}; missing tabs use TAB_DEFAULTS
     query: "",
     historyMonths: 12,
     provider: "",
@@ -293,69 +307,92 @@ function isChanged(plugin, note) {
   return Boolean(note && note.reviewed && plugin.updated && dayString(plugin.updated) > String(note.reviewed));
 }
 
-/** Does the plugin contain every comma-separated term? */
-function matchesQuery(plugin, query) {
-  const haystack = `${plugin.id} ${plugin.name} ${plugin.author} ${plugin.description}`.toLowerCase();
-  return query.split(",").map((s) => s.trim().toLowerCase()).filter(Boolean).every((s) => haystack.includes(s));
+/**
+ * Turns the search box into a test on a plugin's id, name, author and description.
+ * `/…/` is a case-insensitive regex (as in Obsidian's search); otherwise every comma-separated term
+ * must appear. An invalid regex matches everything and reports `error`, so the list never goes blank.
+ * @returns {{test: (plugin) => boolean, regex: boolean, error: string}}
+ */
+function compileQuery(query) {
+  const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
+  const pattern = String(query || "").trim().match(/^\/(.+)\/$/);
+  if (pattern) {
+    try {
+      const re = new RegExp(pattern[1], "iu");
+      return { test: (p) => re.test(text(p)), regex: true, error: "" };
+    } catch (error) {
+      return { test: () => true, regex: true, error: error.message };
+    }
+  }
+  const terms = String(query || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+  return { test: (p) => { const hay = text(p).toLowerCase(); return terms.every((s) => hay.includes(s)); }, regex: false, error: "" };
+}
+
+/** The filter options of one tab: its own Downloads on/off and sort, shared days and thresholds. */
+function modeOptions(settings, mode) {
+  const defaults = TAB_DEFAULTS[mode] || TAB_DEFAULTS.all;
+  const sort = settings.sortBy?.[mode] || {};
+  const key = SORT_KEYS.includes(sort.key) ? sort.key : defaults.sort;
+  return {
+    ...settings,
+    mode,
+    filterDownloads: settings.downloadFilter?.[mode] ?? defaults.downloads,
+    sort: key,
+    sortDir: sort.dir === "asc" || sort.dir === "desc" ? sort.dir : NATURAL_DIR[key],
+  };
 }
 
 /**
  * Rows of the discovery view.
  * @param {object} state  {catalog, releases, firstSeen, notes: Map(id→note), excluded: Set, dismissed: Set, installed: Set}
- * @param {object} opts   {mode, days, dormantDays, minDownloads, sort, query}
+ * @param {object} opts   {mode, days, dormantDays, minDownloads, filterDownloads, sort, sortDir, query} (see modeOptions)
  */
 function discover(state, opts, now) {
   const { catalog, releases, firstSeen, notes, excluded, dismissed, installed } = state;
   const since = now - opts.days * DAY_MS;
-  const base = (p) => !excluded.has(p.id) && matchesQuery(p, opts.query);
-  const fresh = (p) => base(p) && !notes.has(p.id) && (p.downloads ?? 0) >= opts.minDownloads;
-  const sort = opts.mode === "all" || opts.sort === "updated" ? opts.sort : "downloads";  // name/listed exist only in All
+  const query = compileQuery(opts.query);
+  const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
+  const base = (p) => !excluded.has(p.id) && (p.downloads ?? 0) >= minDownloads && query.test(p);
+  const fresh = (p) => base(p) && !notes.has(p.id);
+  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog);
 
   switch (opts.mode) {
     case "all":   // browsing: tracked plugins stay visible (with their note badge), excluded ones don't
-      return sortRows(catalog.filter((p) => base(p) && (p.downloads ?? 0) >= opts.minDownloads), sort, catalog);
-    case "new":   // no download filter: a brand-new plugin has no downloads yet
-      return catalog
-        .filter((p) => base(p) && !notes.has(p.id) && isNewPlugin(firstSeen, p, now, opts.days))
-        .sort((a, b) => (firstSeen[b.id] ?? Infinity) - (firstSeen[a.id] ?? Infinity));
+      return sorted(catalog.filter(base));
+    case "new":
+      return sorted(catalog.filter((p) => fresh(p) && isNewPlugin(firstSeen, p, now, opts.days)));
     case "updated":
-      return sortRows(catalog.filter((p) => fresh(p) && p.updated >= since), sort);
+      return sorted(catalog.filter((p) => fresh(p) && p.updated >= since));
     case "awakened":
-      return sortRows(catalog.filter((p) => fresh(p) && p.updated >= since
-        && (dormantDays(releases, p) ?? -1) >= opts.dormantDays), sort);
+      return sorted(catalog.filter((p) => fresh(p) && p.updated >= since && (dormantDays(releases, p) ?? -1) >= opts.dormantDays));
     case "changed":
-      return sortRows(catalog.filter((p) => base(p) && isChanged(p, notes.get(p.id))), sort);
+      return sorted(catalog.filter((p) => base(p) && isChanged(p, notes.get(p.id))));
     case "suggested":
-      return sortRows(catalog.filter((p) => base(p) && installed.has(p.id) && !dismissed.has(p.id)
-        && !(notes.get(p.id) || {}).favorite), sort);
+      return sorted(catalog.filter((p) => base(p) && installed.has(p.id) && !dismissed.has(p.id) && !(notes.get(p.id) || {}).favorite));
     default:
       return [];
   }
 }
 
 /**
- * Sorts rows in place. "listed" uses the position in the official listing, which is the order
- * plugins were added; `catalog` is needed only for that. Unknown sort keys fall back to downloads.
+ * Sorts rows in place by `key` in direction `dir` ("asc" | "desc"; default: the key's natural one).
+ * "listed" uses the position in the official listing, which is the order plugins were added.
  */
-function sortRows(rows, sort, catalog = []) {
-  const byDownloads = (a, b) => (b.downloads ?? 0) - (a.downloads ?? 0);
-  switch (sort) {
-    case "updated":
-      return rows.sort((a, b) => (b.updated ?? 0) - (a.updated ?? 0));
-    case "name":
-      return rows.sort((a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" }));
-    case "listed": {
-      const position = new Map(catalog.map((p, i) => [p.id, i]));
-      return rows.sort((a, b) => (position.get(b.id) ?? -1) - (position.get(a.id) ?? -1));
-    }
-    default:
-      return rows.sort(byDownloads);
-  }
+function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = []) {
+  const position = key === "listed" ? new Map(catalog.map((p, i) => [p.id, i])) : null;
+  const compare = {
+    downloads: (a, b) => (b.downloads ?? 0) - (a.downloads ?? 0),
+    updated: (a, b) => (b.updated ?? 0) - (a.updated ?? 0),
+    name: (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" }),
+    listed: (a, b) => (position.get(b.id) ?? -1) - (position.get(a.id) ?? -1),
+  }[key] || ((a, b) => (b.downloads ?? 0) - (a.downloads ?? 0));
+  const sign = dir === (NATURAL_DIR[key] || "desc") ? 1 : -1;
+  return rows.sort((a, b) => sign * compare(a, b));
 }
 
-/** Row count of every mode (for the tab badges). */
-function modeCounts(state, opts, now) {
-  return Object.fromEntries(MODE_KEYS.map((mode) => [mode, discover(state, { ...opts, mode }, now).length]));
+/** Row count of every mode (for the tab badges), each with its own tab options. */
+function modeCounts(state, settings, now) {
+  return Object.fromEntries(MODE_KEYS.map((mode) => [mode, discover(state, modeOptions(settings, mode), now).length]));
 }
 
 // ─── README and note body ───────────────────────────────────────────────────
@@ -623,7 +660,7 @@ async function mapLimit(items, limit, worker) {
 const core = {
   setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
   historyLabel, formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
-  mergeSnapshot, dormantDays, isNewPlugin, isChanged, matchesQuery, discover, modeCounts, escapeOutsideCode,
+  mergeSnapshot, dormantDays, isNewPlugin, isChanged, compileQuery, modeOptions, discover, sortRows, modeCounts, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
   parseTranslations, mapLimit,
@@ -940,6 +977,44 @@ function menuChip(parent, label, options, current, onPick) {
   return chip;
 }
 
+/** A chip with a typed whole number (e.g. "Last [7] days"); the caret opens presets in Obsidian's menu. */
+function numberChip(parent, { label, unit, value, min, max, presets, onChange }) {
+  const chip = parent.createDiv({ cls: "pdt-chip is-number" });
+  chip.createSpan({ text: label });
+  const input = chip.createEl("input", { type: "number", value: String(value), attr: { min: String(min), max: String(max), "aria-label": label } });
+  chip.createSpan({ text: unit });
+  input.onchange = () => {
+    const n = Math.round(Number(input.value));
+    onChange(Number.isFinite(n) && input.value !== "" ? Math.min(max, Math.max(min, n)) : value);
+  };
+  const caret = chip.createSpan({ cls: "pdt-chip-caret is-button", attr: { role: "button", tabindex: "0", "aria-label": t("filter.presets") } });
+  setIcon(caret, "chevron-down");
+  setTooltip(caret, t("filter.presets"));
+  const open = () => {
+    const menu = new Menu();
+    for (const n of presets) menu.addItem((item) => item.setTitle(t("filter.days", { n })).setChecked(n === value).onClick(() => onChange(n)));
+    const rect = chip.getBoundingClientRect();
+    menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
+  };
+  caret.onclick = open;
+  onActivate(caret, open);
+  return chip;
+}
+
+/** A filter chip that is itself the on/off switch; typing a value turns it on. */
+function toggleChip(parent, { label, value, on, onToggle, onValue }) {
+  const chip = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
+  const toggle = chip.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
+  setIcon(toggle.createSpan({ cls: "pdt-toggle-check" }), "check");
+  toggle.createSpan({ text: label });
+  setTooltip(toggle, t(on ? "filter.toggleOn" : "filter.toggleOff"));
+  toggle.onclick = () => onToggle(!on);
+  onActivate(toggle, () => onToggle(!on));
+  const input = chip.createEl("input", { type: "number", value: String(value), attr: { min: "0", "aria-label": label } });
+  input.onchange = () => onValue(Math.max(0, Math.round(Number(input.value)) || 0));
+  return chip;
+}
+
 /** A SuggestModal that resolves a promise with the chosen item (or null when dismissed). */
 class PickerModal extends SuggestModal {
   constructor(app, placeholder) {
@@ -1081,29 +1156,56 @@ class DiscoveryView extends ItemView {
     }
   }
 
+  /** Saves a per-tab setting (downloadFilter, sortBy) for the current tab. */
+  updateTab(key, value) {
+    return this.update(key, { ...this.settings[key], [this.settings.mode]: value });
+  }
+
   renderFilters(bar) {
     const mode = this.settings.mode;
-    const select = (label, key, options) =>
-      menuChip(bar, label, options, this.settings[key], (value) => this.update(key, value));
-    const dayOptions = (values) => values.map((n) => [n, t("filter.days", { n })]);
+    const opts = modeOptions(this.settings, mode);
+    const days = { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS };
 
-    if (mode === "new" || mode === "updated" || mode === "awakened") select(t("filter.last"), "days", dayOptions([7, 14, 30, 60, 90]));
-    if (mode === "awakened") select(t("filter.gap"), "dormantDays", dayOptions([30, 60, 90, 180, 365]));
-    if (mode === "all" || mode === "updated" || mode === "awakened") {
-      const chip = bar.createEl("label", { cls: "pdt-chip" });
-      chip.createSpan({ text: t("filter.downloads") });
-      const input = chip.createEl("input", { type: "number", value: String(this.settings.minDownloads) });
-      input.onchange = () => this.update("minDownloads", Math.max(0, Number(input.value) || 0));
+    if (mode === "new" || mode === "updated" || mode === "awakened") {
+      numberChip(bar, { ...days, value: this.settings.days, onChange: (n) => this.update("days", n) });
     }
-    const sorts = mode === "all" ? ["downloads", "updated", "name", "listed"] : ["downloads", "updated"];
-    if (mode !== "new") select(t("filter.sort"), "sort", sorts.map((key) => [key, t(`sort.${key}`)]));
+    if (mode === "awakened") {
+      numberChip(bar, { ...days, label: t("filter.gap"), max: 3650, presets: DORMANT_PRESETS, value: this.settings.dormantDays, onChange: (n) => this.update("dormantDays", n) });
+    }
+    toggleChip(bar, {
+      label: t("filter.downloads"),
+      value: this.settings.minDownloads,
+      on: opts.filterDownloads,
+      onToggle: (on) => this.updateTab("downloadFilter", on),
+      onValue: async (n) => {
+        this.settings.minDownloads = n;
+        await this.updateTab("downloadFilter", true);
+      },
+    });
+
+    const sort = bar.createDiv({ cls: "pdt-sort" });
+    menuChip(sort, t("filter.sort"), SORT_KEYS.map((key) => [key, t(`sort.${key}`)]), opts.sort,
+      (key) => this.updateTab("sortBy", { key, dir: NATURAL_DIR[key] }));
+    const ascending = opts.sortDir === "asc";
+    const tip = t(`sort.${opts.sort === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
+    iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
+      () => this.updateTab("sortBy", { key: opts.sort, dir: ascending ? "desc" : "asc" });
 
     const search = bar.createDiv({ cls: "pdt-search" });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");
     const input = search.createEl("input", { type: "search", placeholder: t("search.placeholder"), value: this.settings.query });
+    const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
+    setTooltip(badge, t("search.regex"));
+    const mark = () => {
+      const { regex, error } = compileQuery(input.value);
+      search.toggleClass("is-regex", regex && !error);
+      search.toggleClass("is-invalid", Boolean(error));
+    };
+    mark();
     this.refs.search = input;
     let timer;
     input.oninput = () => {
+      mark();
       clearTimeout(timer);
       timer = setTimeout(async () => {
         this.settings.query = input.value;
@@ -1148,8 +1250,9 @@ class DiscoveryView extends ItemView {
     }
     const query = this.settings.query.trim();
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
-      const tag = status.createDiv({ cls: "pdt-query" });
-      tag.createSpan({ text: t("status.query", { q: query }) });
+      const { error } = compileQuery(query);
+      const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
+      tag.createSpan({ text: error ? t("search.invalid", { error }) : t("status.query", { q: query }) });
       const clear = tag.createSpan({ cls: "pdt-query-clear", text: t("status.clear"), attr: { role: "button", tabindex: "0" } });
       clear.onclick = async () => {
         this.settings.query = "";
@@ -1191,7 +1294,7 @@ class DiscoveryView extends ItemView {
     }
     if (mode === "new" && (!timeline.to || timeline.legacy)) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
 
-    this.rows = discover(state, this.settings, now);
+    this.rows = discover(state, modeOptions(this.settings, mode), now);
     const visible = this.rows.slice(0, this.visible);
     this.updateTranslateButton(visible);
     if (!this.rows.length) {

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.2
+
+- **Downloads ≥** is a filter chip you switch on and off, on every tab, remembered per tab (on by default for All, Updated and Revived). Typing a number turns it on. Plugins under the threshold — new ones especially — are one click away.
+- **Last N days** and **Dormant ≥** take a typed number (1–365 days, e.g. the last 1 day) or a preset from the menu.
+- **Sort** on every tab by downloads, last update, **A–Z** or recently added, with a direction button; each tab keeps its own sort.
+- **Regex search**: `/…/` searches the id, name, author and description case-insensitively (as in Obsidian's search). An invalid pattern is marked in red and leaves the list unfiltered.
+
 ## 0.6.1
 
 - README markers in tracking notes are hidden Obsidian comments (`%% … %%`) instead of HTML comments, so they no longer show in Live Preview. Existing notes are converted once.
