@@ -89,7 +89,7 @@ function makeApp() {
 }
 
 /** Network mock: tests register handlers by URL prefix; LLM endpoints echo "TR: <text>". */
-const network = { handlers: [], calls: [] };
+const network = { handlers: [], calls: [], prompts: [] };
 async function requestUrl({ url, method = "GET", headers = {}, body }) {
   network.calls.push({ url, method, headers, body: body && JSON.parse(body) });
   for (const [prefix, handler] of network.handlers) if (url.startsWith(prefix)) return handler({ url, headers, body });
@@ -98,7 +98,11 @@ async function requestUrl({ url, method = "GET", headers = {}, body }) {
     const parsed = JSON.parse(body);
     const prompt = parsed.messages ? parsed.messages[0].content : parsed.contents[0].parts[0].text;
     const texts = JSON.parse(prompt.slice(prompt.lastIndexOf("\n[") + 1));
-    const reply = "```json\n" + JSON.stringify(texts.map((s) => `TR: ${s}`)) + "\n```";
+    network.prompts.push(prompt);
+    const answer = prompt.includes("group names")
+      ? Object.fromEntries(texts.map((p) => [p.id, ["ai", "Productivity", "Task Management", "Planning", "To-do", "GTD", "Checklists"]]))
+      : texts.map((s) => `TR: ${s}`);
+    const reply = "```json\n" + JSON.stringify(answer) + "\n```";
     if (url.includes("anthropic")) return { status: 200, json: { content: [{ text: reply }] } };
     if (url.includes("generativelanguage")) return { status: 200, json: { candidates: [{ content: { parts: [{ text: reply }] } }] } };
     return { status: 200, json: { choices: [{ message: { content: reply } }] } };

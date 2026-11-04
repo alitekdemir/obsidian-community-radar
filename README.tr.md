@@ -30,6 +30,8 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 - **Zamanlanmış eşitleme**: 6 saatte bir, günde bir, haftada bir ya da elle. Panel son eşitlemenin ne zaman yapıldığını ve ne getirdiğini gösterir (*Son eşitlemeden beri: 5 yeni · 23 güncelleme*).
 - **Takip notunda README**: yeni sürüm çıkınca not açıldığında, her eşitlemede ya da yalnızca istendiğinde yenilenir. Kendi notlarınıza dokunulmaz.
 - **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.
+- **Gruplar**: bir eklenti birden çok grupta olabilir (`groups` listesi). Grup penceresi gruplarınızdan en yakınını ★ ile işaretler, AI önerilerini açıp kapatabileceğiniz çipler olarak gösterir. **Grup öner**, grubu olmayan bütün eklentiler için tek seferde öneri alır (istek başına 50) ve siz onaylamadan hiçbir şey kaydetmez.
+- **Benzer eklentiler**: her satırın altında, ad ve açıklamalardaki ortak kelimelerden yerelde bulunur; AI ya da ağ isteği yok.
 
   ![Özgün açıklamanın altında çevirisi](docs/images/Radar_2-One_Translate.png)
 
@@ -63,11 +65,12 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 |---|---|
 | Dil | Otomatik (Obsidian'ın dili), English, Türkçe |
 | Not klasörü | Takip notlarının oluşturulacağı yer |
+| Grup öner | Grubu olmayan takip edilen eklentiler için AI grup önerileri; kaydetmeden önce incelenir |
 | Bases görünümü | Takip notlarının Bases tablosunu **Oluştur** ya da **Sıfırla** |
 | Eşitleme sıklığı | Elle · 6 saatte bir · **Günde bir** · Haftada bir. Eşitlemeler arasında hiçbir şey indirilmez. **Şimdi eşitle** hemen çalıştırır. |
 | README güncelleme | **Notu açtığımda** · Her eşitlemede · Elle (komut paleti) |
 | Geçmiş derinliği | 3, 6, 12 ya da 24 ay |
-| Çeviri | Sağlayıcı, API anahtarı (Obsidian'ın anahtar deposundan), model, hedef dil |
+| AI | Sağlayıcı, API anahtarı (Obsidian'ın anahtar deposundan), model, hedef dil — çeviri ve grup önerileri için |
 
 ## Nasıl çalışır
 
@@ -77,7 +80,7 @@ Obsidian'ın [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releas
 
 - `raw.githubusercontent.com`: herkese açık eklenti listesi, istatistik anlık görüntüleri ve README'ler.
 - `api.github.com`: anlık görüntü listesi (geçmiş kurulumu ve eşitlemede 1–4 istek, kimliksiz, saatte 60 sınırı).
-- Çeviri sağlayıcınız: **yalnızca** *Çevir*'e bastığınızda ve bir sağlayıcı ayarladıysanız; yalnızca eklenti açıklamaları gönderilir.
+- AI sağlayıcınız: **yalnızca** çeviri ya da grup önerisi istediğinizde ve bir sağlayıcı ayarladıysanız; eklenti adları, açıklamaları ve grup adlarınız gönderilir.
 
 Telemetri yok, hesap yok, vault'unuzla ilgili hiçbir şey gönderilmez. Vault içinde eklenti yalnızca kendi not klasöründeki notları okur ve yazar; diğer dosyalarınızı listelemez. API anahtarları Obsidian'ın anahtar deposunda (SecretStorage) cihaz başına saklanır, `data.json`'a yazılmaz; eklenti yalnızca anahtarın adını (ör. `anthropic-api-key`) saklar.
 

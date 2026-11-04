@@ -58,6 +58,17 @@ fake.Setting = class {
   addButton(fn) { fn(component(this.controlEl, "button")); return this; }
 };
 const opened = [];
+const modals = [];
+fake.Modal = class {
+  constructor(app) {
+    this.app = app;
+    this.modalEl = window.document.createElement("div");
+    this.titleEl = this.modalEl.createDiv({ cls: "modal-title" });
+    this.contentEl = this.modalEl.createDiv({ cls: "modal-content" });
+  }
+  open() { modals.push(this); this.onOpen?.(); }
+  close() { this.onClose?.(); }
+};
 fake.SuggestModal = class {
   constructor(app) {
     this.app = app;
@@ -126,7 +137,10 @@ const tests = {
     assert.ok(homepage.includes(`\n# README\n${core.constants.README_START}\n${core.constants.README_END}`), "markers migrated");
     assert.ok(!homepage.includes("<!--"));
     assert.equal(app.secretStorage.getSecret("anthropic-api-key"), "sk-legacy");
-    assert.equal(plugin.notes.index.get("homepage").group, "ai");
+    assert.deepEqual(plugin.notes.index.get("homepage").groups, ["ai"]);
+    const migrated = app.vault.files.get("Eklentiler/Homepage.md");
+    assert.match(migrated, /\ngroups:\n\s+- ai\n/);                 // `group: ai` became a list…
+    assert.ok(!/\ngroup:/.test(migrated));                            // …and the old property is gone
     Object.assign(ctx, { app, plugin });
   },
 
@@ -376,6 +390,78 @@ const tests = {
     plugin.data.settings.readmeMode = "open";
   },
 
+  async "group window: ★ closest preselected, AI chips (5 + more), new name, Confirm writes the groups list"({ app, plugin }) {
+    const target = plugin.pluginById("dataview");
+    const tick2 = () => tick(10);
+    fake.network.prompts.length = 0;
+    const pick = plugin.chooseGroup(target);
+    await tick2();
+    const modal = modals.at(-1);
+    const el = modal.contentEl;
+    const section = (i) => $$(el, ".pdt-gm-section")[i];
+    const chip = (name, i = 1) => [...section(i).querySelectorAll(".pdt-gchip")].find((c) => c.textContent.startsWith(name));   // 1: your groups
+    assert.ok(fake.network.prompts[0].includes('"name":"ai"'), "existing groups go into the prompt");
+    assert.ok(chip("ai").classList.contains("is-on"), "the model picked an existing group: it is starred and selected");
+    assert.ok($(chip("ai"), ".pdt-gchip-star"));
+    const aiChips = () => section(2).querySelectorAll(".pdt-gchip");
+    assert.equal(aiChips().length, 5);                                  // 6 new suggestions: 5 shown…
+    $(el, ".pdt-gm-more").onclick();
+    assert.equal(aiChips().length, 6);                                  // …and the rest after "+1 more"
+    chip("Planning", 2).onclick();
+    const input = $(el, ".pdt-gm-new input");
+    input.value = "  my   tools ";
+    input.oninput();
+    input.onkeydown({ key: "Enter", preventDefault() {} });
+    assert.deepEqual(modal.selected, ["ai", "Planning", "my tools"]);
+    $(el, ".pdt-gm-foot .mod-cta").onclick();
+    await pick;
+    await tick2();
+    assert.deepEqual(plugin.notes.index.get("dataview").groups, ["ai", "Planning", "my tools"]);
+    assert.match(app.vault.files.get("Eklentiler/Dataview.md"), /\ngroups:\n\s+- ai\n\s+- Planning\n\s+- my tools\n/);
+
+    fake.network.prompts.length = 0;                                    // a second look reuses the saved suggestions
+    plugin.chooseGroup(target);
+    await tick2();
+    assert.equal(fake.network.prompts.length, 0);
+    assert.deepEqual(modals.at(-1).selected, ["ai", "Planning", "my tools"]);   // current groups, not the suggestion
+    modals.at(-1).close();
+  },
+
+  async "batch grouping: one request for the ungrouped, several picks per plugin, nothing saved before Accept"({ app, plugin }) {
+    await plugin.track(plugin.pluginById("busy"), {});
+    await plugin.track(plugin.pluginById("fresh"), {});
+    const ungrouped = plugin.ungrouped().map((p) => p.id).sort();
+    assert.ok(ungrouped.includes("busy") && ungrouped.includes("fresh"));
+    fake.network.prompts.length = 0;
+    const run = plugin.groupUngrouped();
+    await tick(20);
+    assert.equal(fake.network.prompts.length, 1);                       // all of them in one request
+    const modal = modals.at(-1);
+    const rows = $$(modal.contentEl, ".pdt-batch-row");
+    assert.equal(rows.length, ungrouped.length);
+    const before = app.vault.files.get("Eklentiler/Busy Plugin.md");
+    const busy = rows[modal.rows.findIndex((r) => r.plugin.id === "busy")];
+    $$(busy, ".pdt-gchip").find((c) => c.textContent.startsWith("Productivity")).onclick();
+    assert.equal(app.vault.files.get("Eklentiler/Busy Plugin.md"), before);   // nothing written yet
+    assert.match($(modal.contentEl, ".pdt-gm-foot .mod-cta").textContent, new RegExp(`\\(${ungrouped.length}\\)`));
+    $(modal.contentEl, ".pdt-gm-foot .mod-cta").onclick();
+    await run;
+    assert.deepEqual(plugin.notes.index.get("busy").groups, ["ai", "Productivity"]);
+    assert.deepEqual(plugin.notes.index.get("fresh").groups, ["ai"]);
+    assert.equal(plugin.ungrouped().length, 0);
+  },
+
+  async "similar plugins: strip under a row, local words only"({ plugin, view }) {
+    const index = core.textIndex(plugin.catalog.plugins);
+    assert.ok(index.byId.get("homepage").has("startup"));
+    await view.update("mode", "all");
+    const row = $$(view.contentEl, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
+    $(row, ".pdt-similar-link").onclick({ preventDefault() {} });
+    const strip = $$(view.contentEl, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview").querySelector(".pdt-similar");
+    assert.ok(strip, "strip opened");
+    assert.ok($(strip, ".pdt-gm-note") || $(strip, ".pdt-gchip"));
+  },
+
   async "settings: keychain picker, model buttons, lists"({ plugin }) {
     plugin.settingTab.display();
     const el = plugin.settingTab.containerEl;
@@ -400,7 +486,7 @@ const tests = {
     const base = YAML.parse(app.vault.files.get("Eklentiler.base"));
     assert.deepEqual(base.filters, { and: ['file.inFolder("Eklentiler")'] });
     assert.deepEqual(base.views.map((v) => v.name), ["base.all", "base.byGroup", "base.starred"].map((k) => core.t(k)));
-    assert.equal(base.views[1].groupBy.property, "note.group");
+    assert.equal(base.views[1].groupBy.property, "note.groups");
     assert.deepEqual(app.workspace.opened, [{ link: "Eklentiler.base", pane: "tab" }]);
 
     app.vault.files.set("Eklentiler.base", "broken: [");
@@ -434,7 +520,7 @@ const tests = {
   const ctx = {};
   let failed = 0;
   for (const [name, fn] of Object.entries(tests)) {
-    try { await fn(ctx); } catch (error) { failed++; console.log(`  ✖ ${name}\n    ${error.stack.split("\n").slice(0, 3).join("\n    ")}`); }
+    try { await fn(ctx); } catch (error) { failed++; console.log(`  ✖ ${name}\n    ${error.stack.split("\n").slice(0, 8).join("\n    ")}`); }
   }
   const total = Object.keys(tests).length;
   console.log(failed ? `✖ ${failed}/${total} view tests failed` : `✅ ${total}/${total} view tests passed`);

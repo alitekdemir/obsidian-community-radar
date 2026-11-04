@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0
+
+- **Several groups per plugin.** Tracking notes now have a `groups` list instead of the `group` text; existing values move over once on first run (the old property is removed).
+- **New group window**: chips you switch on and off — the selected groups, your groups with their size (the closest one starred and preselected), up to 10 AI suggestions (5 shown, the rest under *+n more*) and a box for a new name. **Confirm** saves; closing changes nothing. A saved translation of the description is shown under it.
+- **Suggest groups** (settings and command): AI suggests groups for every tracked plugin without one, 50 plugins per request (names and short descriptions only). You review the list — several picks per plugin, stacked under the description on narrow screens — and nothing is saved before **Accept**. Suggestions are cached until a description changes.
+- **Similar plugins**: a *Similar* link on every row opens up to 8 plugins with the most shared rare words in their names and descriptions, most downloaded first. Local only.
+- The Bases template uses `groups`; press *Reset* under *Bases view* to update an existing one.
+- The AI settings section is now called **AI (translation, group suggestions)**.
+
 ## 0.6.2
 
 - **Downloads ≥** is a filter chip you switch on and off, on every tab, remembered per tab (on by default for All, Updated and Revived). Typing a number turns it on. Plugins under the threshold — new ones especially — are one click away.

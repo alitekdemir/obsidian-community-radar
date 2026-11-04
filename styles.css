@@ -701,3 +701,229 @@
   font-size: var(--font-ui-smaller);
   font-variant-numeric: tabular-nums;
 }
+
+/* ── Group chips (group window, batch review, similar plugins) ─────────── */
+.pdt-gm-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+}
+
+.pdt-gchip,
+button.pdt-gchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 15px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.pdt-gchip:hover,
+button.pdt-gchip:hover {
+  border-color: color-mix(in srgb, var(--interactive-accent) 55%, var(--background-modifier-border));
+  background: color-mix(in srgb, var(--interactive-accent) 10%, transparent);
+  color: var(--text-accent);
+}
+
+.pdt-gchip.is-on,
+button.pdt-gchip.is-on {
+  border-color: var(--interactive-accent);
+  background: color-mix(in srgb, var(--interactive-accent) 22%, transparent);
+  color: var(--text-normal);
+  font-weight: var(--font-semibold);
+}
+
+.pdt-gchip-icon,
+.pdt-gchip-star {
+  display: inline-flex;
+}
+
+.pdt-gchip-icon svg,
+.pdt-gchip-star svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.6;
+}
+
+.pdt-gchip-star {
+  color: var(--color-yellow);
+}
+
+.pdt-gchip-star svg {
+  fill: currentColor;
+  stroke-width: 1.5;
+}
+
+.pdt-gchip-meta {
+  color: var(--text-faint);
+  font-weight: normal;
+}
+
+/* ── Group window ──────────────────────────────────────────────────────── */
+.pdt-group-modal {
+  width: min(640px, 94vw);
+}
+
+.pdt-gm-desc {
+  margin: 0 0 var(--size-2-3);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  line-height: 1.5;
+}
+
+.pdt-gm-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  margin-top: var(--size-4-4);
+}
+
+.pdt-gm-label {
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pdt-gm-note {
+  color: var(--text-faint);
+  font-size: var(--font-ui-small);
+}
+
+.pdt-gm-note.is-loading {
+  color: var(--text-accent);
+}
+
+.pdt-gm-note.is-error {
+  color: var(--text-error);
+}
+
+button.pdt-gm-more {
+  height: 30px;
+  padding: 0 6px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--text-accent);
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+}
+
+button.pdt-gm-more:hover {
+  text-decoration: underline;
+}
+
+.pdt-gm-new {
+  display: flex;
+  gap: var(--size-4-2);
+  margin-top: var(--size-4-4);
+}
+
+.pdt-gm-new input {
+  flex: 1;
+}
+
+.pdt-gm-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+  margin-top: var(--size-4-4);
+  padding-top: var(--size-4-3);
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.pdt-gm-foot > .pdt-gm-note {
+  flex: 1 1 220px;
+}
+
+/* ── Batch review: suggestions sit beside the description, below it on narrow screens ── */
+.pdt-batch-modal {
+  width: min(1000px, 96vw);
+}
+
+.pdt-batch-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-4-2);
+}
+
+.pdt-batch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-4-2);
+}
+
+.pdt-batch-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--size-4-3) 0;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+.pdt-batch-list {
+  max-height: 60vh;
+  overflow-y: auto;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.pdt-batch-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--size-4-2) var(--size-4-6);
+  padding: var(--size-4-3) var(--size-4-2);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pdt-batch-row:hover {
+  background: var(--background-modifier-hover);
+}
+
+.pdt-batch-info {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.pdt-batch-row > .pdt-gm-chips {
+  flex: 1.3 1 340px;
+  min-width: 0;
+}
+
+.pdt-batch-name {
+  margin-bottom: 2px;
+  color: var(--text-normal);
+  font-weight: var(--font-semibold);
+}
+
+/* ── Similar plugins strip under a row ─────────────────────────────────── */
+.pdt-similar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  margin-top: var(--size-4-2);
+  padding: var(--size-4-2) var(--size-4-3);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+}
+
+.pdt-similar-link.is-open {
+  color: var(--text-accent);
+}

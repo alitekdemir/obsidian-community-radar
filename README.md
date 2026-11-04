@@ -29,7 +29,9 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Search** with comma-separated terms (all must match) or a `/regular expression/`, as in Obsidian's own search — e.g. `/project.+task/`.
 - **Revived detection** from the official release archive — exact, no guessing (see [How it works](#how-it-works)).
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
-- **Tracking notes**: `group`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
+- **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups** proposes groups for every ungrouped plugin at once (50 per request) and saves nothing until you accept.
+- **Similar plugins** under any row, found locally from shared words in names and descriptions — no AI, no request.
+- **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
 - **Translate descriptions** with your own API key — Claude, OpenAI, Gemini or OpenRouter. One request translates a whole page; translations are cached.
 
@@ -62,18 +64,21 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 |---|---|
 | Language | Auto (Obsidian's language), English, Türkçe |
 | Notes folder | Where tracking notes are created |
+| Suggest groups | AI group suggestions for every tracked plugin without a group, reviewed before saving |
 | Bases view | **Create** or **Reset** the Bases table of your tracking notes |
 | Sync frequency | Manual · Every 6 hours · **Daily** · Weekly. Between syncs nothing is downloaded. **Sync now** runs one immediately. |
 | README updates | **When I open the note** · On every sync · Manually (command palette) |
 | History depth | 3, 6, 12 or 24 months |
-| Translation | Provider, API key (from Obsidian's keychain), model, target language |
+| AI | Provider, API key (from Obsidian's keychain), model, target language — used for translations and group suggestions |
 
 ## Tracking notes
 
 ```yaml
 ---
 plugin_id: homepage
-group: startup
+groups:
+  - startup
+  - navigation
 favorite: true
 note: try with the daily note
 reviewed: 2026-10-31      # a release after this date puts the plugin in 🔄 Needs review
@@ -103,7 +108,7 @@ Community Radar only makes these requests:
 |---|---|---|
 | `raw.githubusercontent.com` | Sync, history build, README updates | The public plugin list, stats snapshots and plugin READMEs |
 | `api.github.com` | History build and sync (1–4 requests); README fallback | The list of stats snapshots. Unauthenticated, 60 requests/hour |
-| Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you click *Translate* and have configured a provider | The plugin descriptions to translate |
+| Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider configured | Plugin names and descriptions, and the names of your groups |
 
 No telemetry, no account, nothing about your vault is sent anywhere. Inside the vault, the plugin only reads and writes notes in its own notes folder; it never lists the rest of your files. API keys are stored in Obsidian's keychain (SecretStorage) on each device, never in `data.json`; the plugin stores only the key's name (e.g. `anthropic-api-key`), so other plugins using the same name share it. The installed-plugins list comes from Obsidian's internal `app.plugins` and is read defensively.
 
@@ -122,6 +127,7 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 - Rebuild release history
 - Update README of this note / of all tracking notes
 - Create or reset the Bases view
+- Suggest groups for ungrouped plugins
 
 ## Translating
 

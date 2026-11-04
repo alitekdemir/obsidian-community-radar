@@ -13,7 +13,7 @@
  */
 const obsidian = require("obsidian");
 const {
-  Plugin, ItemView, Notice, SuggestModal, PluginSettingTab, Setting,
+  Plugin, ItemView, Modal, Notice, SuggestModal, PluginSettingTab, Setting,
   TFile, TFolder, Menu, addIcon, normalizePath, requestUrl, setIcon,
 } = obsidian;
 
@@ -41,6 +41,11 @@ const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
 const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sync is due (no network)
 const README_MODES = ["open", "sync", "manual"];
 const PAGE_SIZE = 50;
+const AI_BATCH = 50;               // plugins per group-suggestion request
+const AI_GROUPS = 10;              // group suggestions asked per plugin
+const SIMILAR_LIMIT = 8;
+const VISIBLE_SUGGESTIONS = 5;     // AI chips shown before "+n more"
+const MIN_SIMILARITY = 5;          // summed rarity of shared words; ~one rare word or two common ones
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
 
 // Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.
@@ -507,9 +512,9 @@ function baseFile(folder) {
     "  and:",
     `    - file.inFolder(${q(folder)})`,
     "views:",
-    ...view(t("base.all"), [], ["group", "favorite", "note", "downloads", "version", "updated", "reviewed"]),
-    ...view(t("base.byGroup"), ["    groupBy:", "      property: note.group", "      direction: ASC"], ["favorite", "note", "downloads", "updated"]),
-    ...view(t("base.starred"), ["    filters:", "      and:", "        - favorite == true"], ["group", "note", "downloads", "updated"]),
+    ...view(t("base.all"), [], ["groups", "favorite", "note", "downloads", "version", "updated", "reviewed"]),
+    ...view(t("base.byGroup"), ["    groupBy:", "      property: note.groups", "      direction: ASC"], ["favorite", "note", "downloads", "updated"]),
+    ...view(t("base.starred"), ["    filters:", "      and:", "        - favorite == true"], ["groups", "note", "downloads", "updated"]),
     "",
   ].join("\n");
 }
@@ -525,13 +530,30 @@ function sourceFields(plugin) {
   };
 }
 
+/** A note's groups: the `groups` list, plus a 0.6-style `group` text until it's migrated. */
+function groupsOf(fm) {
+  const raw = [...(Array.isArray(fm.groups) ? fm.groups : fm.groups ? [fm.groups] : []), ...(fm.group ? [fm.group] : [])];
+  return uniqueNames(raw.map((g) => String(g ?? "")));
+}
+
+/** Trimmed, non-empty names without case-insensitive duplicates; the first spelling wins. */
+function uniqueNames(names) {
+  const seen = new Set();
+  return names.map((n) => n.replace(/\s+/g, " ").trim()).filter((n) => {
+    const key = n.toLocaleLowerCase();
+    if (!n || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 /** Tracking record from a note's frontmatter (only notes with `plugin_id`). */
 function noteFromFrontmatter(path, fm) {
   if (!fm || !fm.plugin_id) return null;
   return {
     path,
     id: String(fm.plugin_id),
-    group: fm.group ? String(fm.group) : "",
+    groups: groupsOf(fm),
     favorite: fm.favorite === true,
     note: fm.note ? String(fm.note) : "",
     reviewed: fm.reviewed ? String(fm.reviewed).slice(0, 10) : "",
@@ -644,6 +666,108 @@ function parseTranslations(reply, expected) {
   return list.map((s) => s.trim());
 }
 
+// ─── Similarity: shared rare words in names and descriptions (no AI) ────────
+const STOPWORDS = new Set(("the and for with your you from into that this are can all any its use using used "
+  + "plugin obsidian note file vault add allow make based more new also not via have has one just like easy "
+  + "simple support supports help helps create view open quick quickly within when which what way other own").split(" "));
+
+/** A rough singular so "tasks" and "task" match. */
+const stem = (w) => (w.length > 4 && w.endsWith("s") && !w.endsWith("ss") ? w.slice(0, -1) : w);
+
+/** The distinct meaningful words of a text. */
+function words(text) {
+  return new Set((String(text || "").toLowerCase().match(/[\p{L}\p{N}]+/gu) || [])
+    .map(stem).filter((w) => w.length >= 3 && !STOPWORDS.has(w)));
+}
+
+/** Every plugin's words and how rare each word is across the catalog (rarer words say more). */
+function textIndex(catalog) {
+  const byId = new Map();
+  const counts = new Map();
+  for (const p of catalog) {
+    const w = words(`${p.name} ${p.description}`);
+    byId.set(p.id, w);
+    for (const x of w) counts.set(x, (counts.get(x) || 0) + 1);
+  }
+  const n = catalog.length;
+  return { byId, weight: (w) => Math.log((n + 1) / ((counts.get(w) || 0) + 1)) };
+}
+
+/** Summed rarity of the words two sets share. */
+function overlap(index, a, b) {
+  let score = 0;
+  for (const w of a) if (b.has(w)) score += index.weight(w);
+  return score;
+}
+
+/** Plugins most like `target`: the best SIMILAR_LIMIT matches, most downloaded first. */
+function similarPlugins(target, catalog, index, exclude = new Set()) {
+  const mine = index.byId.get(target.id) || words(`${target.name} ${target.description}`);
+  return catalog
+    .filter((p) => p.id !== target.id && !exclude.has(p.id))
+    .map((p) => ({ p, score: overlap(index, mine, index.byId.get(p.id) || new Set()) }))
+    .filter((x) => x.score >= MIN_SIMILARITY)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, SIMILAR_LIMIT)
+    .map((x) => x.p)
+    .sort((a, b) => (b.downloads ?? 0) - (a.downloads ?? 0));
+}
+
+/**
+ * The user's group that fits `target` best, judged by the words of the plugins already in it (and the
+ * group's own name); null when nothing is close enough.
+ * @param {Map<string, string[]>} members  group name → plugin ids
+ */
+function closestGroup(target, members, index) {
+  const mine = index.byId.get(target.id) || words(`${target.name} ${target.description}`);
+  let best = null;
+  let bestScore = MIN_SIMILARITY;
+  for (const [group, ids] of members) {
+    const profile = words(group);
+    for (const id of ids) if (id !== target.id) for (const w of index.byId.get(id) || []) profile.add(w);
+    const score = overlap(index, mine, profile) / Math.sqrt(Math.max(1, ids.length));
+    if (score >= bestScore) { best = group; bestScore = score; }
+  }
+  return best;
+}
+
+/** One request that suggests groups for many plugins, preferring the user's own groups. */
+function groupPrompt(plugins, groups, language) {
+  return [
+    "You organise Obsidian community plugins into the user's groups.",
+    `For each plugin below, suggest up to ${AI_GROUPS} group names, best first, based on what the plugin does.`,
+    "Rules:",
+    "- When one of the user's existing groups fits, include it, spelled exactly as given.",
+    `- New group names: 1–3 words, in ${language}, Title Case. Reuse the same new name for similar plugins in this list.`,
+    "- Reply with ONLY a JSON object that maps each plugin id to an array of group names. No commentary.",
+    "",
+    "Existing groups (with example plugins):",
+    JSON.stringify(groups),
+    "",
+    "Plugins:",
+    JSON.stringify(plugins.map((p) => ({ id: p.id, name: p.name, description: p.description }))),
+  ].join("\n");
+}
+
+/**
+ * The suggestions from the model's reply: for each requested id, up to AI_GROUPS clean names
+ * (existing groups keep their spelling). Unknown ids and malformed entries are dropped.
+ */
+function parseGroupSuggestions(reply, ids, existing) {
+  const start = reply.indexOf("{");
+  const end = reply.lastIndexOf("}");
+  if (start === -1 || end <= start) throw new Error(t("error.noJsonObject"));
+  const data = JSON.parse(reply.slice(start, end + 1));
+  const spelling = new Map(existing.map((g) => [g.toLocaleLowerCase(), g]));
+  return Object.fromEntries(ids.map((id) => {
+    const raw = Array.isArray(data?.[id]) ? data[id].filter((g) => typeof g === "string") : [];
+    const clean = uniqueNames(raw)
+      .filter((g) => g.length <= 40 && g.split(" ").length <= 4)
+      .map((g) => spelling.get(g.toLocaleLowerCase()) || g);
+    return [id, clean.slice(0, AI_GROUPS)];
+  }));
+}
+
 /** Runs `worker` with limited concurrency; results keep the input order. */
 async function mapLimit(items, limit, worker) {
   const results = new Array(items.length);
@@ -663,7 +787,8 @@ const core = {
   mergeSnapshot, dormantDays, isNewPlugin, isChanged, compileQuery, modeOptions, discover, sortRows, modeCounts, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
-  parseTranslations, mapLimit,
+  parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, closestGroup,
+  groupPrompt, parseGroupSuggestions,
   constants: { DAY_MS, MONTH_MS, DAILY_DAYS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, LEGACY_README_START, LEGACY_README_END, TIMELINE_VERSION },
 };
 
@@ -791,8 +916,35 @@ class Notes {
     for (const [id, note] of this.index) if (note.path === path) this.index.delete(id);
   }
 
+  /** Your groups, alphabetical, with how many plugins each holds: [{name, count}]. */
   groups() {
-    return [...new Set([...this.index.values()].map((n) => n.group).filter(Boolean))].sort((a, b) => a.localeCompare(b, t("locale")));
+    return [...this.members()].map(([name, ids]) => ({ name, count: ids.length }))
+      .sort((a, b) => a.name.localeCompare(b.name, t("locale")));
+  }
+
+  /** Group name → ids of the plugins in it. */
+  members() {
+    const members = new Map();
+    for (const note of this.index.values()) {
+      for (const g of note.groups) members.set(g, [...(members.get(g) || []), note.id]);
+    }
+    return members;
+  }
+
+  /** Moves 0.6's `group` text into the `groups` list (the old property is removed); returns the count. */
+  async migrateGroups() {
+    let moved = 0;
+    for (const file of this.files()) {
+      const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+      if (!fm?.plugin_id || !("group" in fm)) continue;
+      await this.app.fileManager.processFrontMatter(file, (data) => {
+        data.groups = groupsOf(data);
+        delete data.group;
+      });
+      this.refresh(file);
+      moved++;
+    }
+    return moved;
   }
 
   file(id) {
@@ -808,7 +960,7 @@ class Notes {
 
   /**
    * Creates or updates the note.
-   * @param {object} patch  personal fields: {group?, favorite?, note?, reviewed?}
+   * @param {object} patch  personal fields: {groups?, favorite?, note?, reviewed?}
    * @returns {Promise<{file: TFile, created: boolean}>}
    */
   async upsert(plugin, patch) {
@@ -821,7 +973,7 @@ class Notes {
     let written = {};
     await this.app.fileManager.processFrontMatter(file, (fm) => {
       if (created) {
-        Object.assign(fm, { plugin_id: plugin.id, group: "", favorite: false, note: "", reviewed: dayString(Date.now()) });
+        Object.assign(fm, { plugin_id: plugin.id, groups: [], favorite: false, note: "", reviewed: dayString(Date.now()) });
       }
       Object.assign(fm, patch, sourceFields(plugin));
       written = { ...fm };
@@ -915,6 +1067,18 @@ class Translator {
     const spec = PROVIDERS[this.settings.provider];
     const request = spec.chat(this.settings.model, this.key(), translationPrompt(texts, this.settings.targetLang));
     return parseTranslations(spec.text(await this.call(request)), texts.length);
+  }
+
+  /**
+   * Group suggestions for up to AI_BATCH plugins in one request.
+   * @param {object[]} plugins  catalog entries
+   * @param {{name: string, examples: string[]}[]} groups  the user's groups with a few plugin names each
+   * @returns {Promise<Object<string, string[]>>} plugin id → suggestions
+   */
+  async suggestGroups(plugins, groups) {
+    const spec = PROVIDERS[this.settings.provider];
+    const request = spec.chat(this.settings.model, this.key(), groupPrompt(plugins, groups, this.settings.targetLang));
+    return parseGroupSuggestions(spec.text(await this.call(request)), plugins.map((p) => p.id), groups.map((g) => g.name));
   }
 
   /** A one-line translation to confirm that the provider, key and model work together. */
@@ -1034,21 +1198,241 @@ class PickerModal extends SuggestModal {
   }
 }
 
-/** Suggests existing groups; a newly typed name can be chosen too. */
-class GroupModal extends PickerModal {
-  constructor(app, groups, current) {
-    super(app, current ? t("group.placeholderCurrent", { group: current }) : t("group.placeholder"));
-    this.groups = groups;
+/** A group chip: a button you switch on and off. */
+function groupChip(parent, { name, on, removable = false, star = false, starTip = "", meta = "", onToggle }) {
+  const chip = parent.createEl("button", { cls: `pdt-gchip${on ? " is-on" : ""}`, attr: { type: "button", "aria-pressed": String(on) } });
+  if (on && !removable) setIcon(chip.createSpan({ cls: "pdt-gchip-icon" }), "check");
+  chip.createSpan({ text: name });
+  if (star) {
+    setIcon(chip.createSpan({ cls: "pdt-gchip-star" }), "star");
+    setTooltip(chip, starTip);
+  }
+  if (meta) chip.createSpan({ cls: "pdt-gchip-meta", text: meta });
+  if (removable) setIcon(chip.createSpan({ cls: "pdt-gchip-icon" }), "x");
+  chip.onclick = onToggle;
+  return chip;
+}
+
+/**
+ * One plugin's groups: the selected ones, your groups (the closest starred), AI suggestions and a box
+ * for a new name. `result` resolves with the chosen groups on Confirm, or null when closed.
+ */
+class GroupModal extends Modal {
+  constructor(plugin, target) {
+    super(plugin.app);
+    this.plugin = plugin;
+    this.target = target;
+    const note = plugin.notes.index.get(target.id);
+    this.mine = plugin.notes.groups();
+    this.closest = plugin.closestGroupFor(target);
+    this.touched = Boolean(note?.groups.length);
+    this.selected = this.touched ? [...note.groups] : this.closest ? [this.closest] : [];
+    this.ai = { state: plugin.translator.ready ? "loading" : "setup", list: [], error: "" };
+    this.showAll = false;
+    this.draft = "";
+    this.saved = null;
+    this.result = new Promise((resolve) => { this.resolve = resolve; });
   }
 
-  getSuggestions(query) {
-    const q = query.trim();
-    const matches = this.groups.filter((g) => g.toLowerCase().includes(q.toLowerCase())).map((name) => ({ name }));
-    return q && !this.groups.includes(q) ? [{ name: q, isNew: true }, ...matches] : matches;
+  onOpen() {
+    this.modalEl.addClass("pdt-group-modal");
+    this.render();
+    if (this.ai.state === "loading") this.loadSuggestions();
   }
 
-  renderSuggestion(item, el) {
-    el.setText(item.isNew ? t("group.new", { name: item.name }) : item.name);
+  onClose() {
+    this.contentEl.empty();
+    this.resolve(this.saved);
+  }
+
+  async loadSuggestions() {
+    try {
+      const list = await this.plugin.suggestGroups(this.target);
+      const known = new Set(this.mine.map((g) => g.name));
+      const pick = list.find((g) => known.has(g));
+      if (pick) this.closest = pick;   // the model's choice among your groups beats word overlap
+      if (!this.touched) this.selected = this.closest ? [this.closest] : [];
+      this.ai = { state: "ready", list: list.filter((g) => !known.has(g)), error: "" };
+    } catch (error) {
+      this.ai = { state: "failed", list: [], error: error.message };
+    }
+    this.render();
+  }
+
+  toggle(name) {
+    this.touched = true;
+    this.selected = this.selected.includes(name) ? this.selected.filter((g) => g !== name) : [...this.selected, name];
+    this.render();
+  }
+
+  addDraft() {
+    const [typed] = uniqueNames([this.draft]);
+    this.draft = "";
+    if (typed) {
+      const known = [...this.mine.map((g) => g.name), ...this.ai.list].find((g) => g.toLocaleLowerCase() === typed.toLocaleLowerCase());
+      const name = known || typed;
+      if (!this.selected.includes(name)) this.selected = [...this.selected, name];
+      this.touched = true;
+    }
+    this.render();
+  }
+
+  render() {
+    const el = this.contentEl;
+    el.empty();
+    this.titleEl.setText(this.target.version ? `${this.target.name} ${this.target.version}` : this.target.name);
+    if (this.target.description) el.createEl("p", { cls: "pdt-gm-desc", text: this.target.description });
+    const translation = this.plugin.cachedTranslation(this.target);
+    if (translation) el.createDiv({ cls: "pdt-trans", text: translation });
+
+    const section = (label) => {
+      const box = el.createDiv({ cls: "pdt-gm-section" });
+      box.createDiv({ cls: "pdt-gm-label", text: label });
+      return box.createDiv({ cls: "pdt-gm-chips" });
+    };
+
+    const selected = section(t("groups.selected", { n: this.selected.length }));
+    if (!this.selected.length) selected.createSpan({ cls: "pdt-gm-note", text: t("groups.none") });
+    for (const name of this.selected) groupChip(selected, { name, on: true, removable: true, onToggle: () => this.toggle(name) });
+
+    if (this.mine.length) {
+      const mine = section(t("groups.mine"));
+      for (const g of this.mine) {
+        groupChip(mine, {
+          name: g.name, on: this.selected.includes(g.name), meta: String(g.count),
+          star: g.name === this.closest, starTip: t("groups.closest"), onToggle: () => this.toggle(g.name),
+        });
+      }
+    }
+
+    const { state, list, error } = this.ai;
+    const ai = section(state === "ready" ? t("groups.aiCount", { n: list.length }) : t("groups.ai"));
+    if (state === "loading") ai.createSpan({ cls: "pdt-gm-note is-loading", text: t("groups.aiLoading") });
+    if (state === "setup") ai.createSpan({ cls: "pdt-gm-note", text: t("groups.aiSetup") });
+    if (state === "failed") ai.createSpan({ cls: "pdt-gm-note is-error", text: t("groups.aiFailed", { error }) });
+    if (state === "ready") {
+      for (const name of this.showAll ? list : list.slice(0, VISIBLE_SUGGESTIONS)) {
+        groupChip(ai, { name, on: this.selected.includes(name), onToggle: () => this.toggle(name) });
+      }
+      if (list.length > VISIBLE_SUGGESTIONS) {
+        const more = ai.createEl("button", { cls: "pdt-gm-more", attr: { type: "button", "aria-expanded": String(this.showAll) } });
+        more.setText(this.showAll ? t("groups.less") : t("groups.more", { n: list.length - VISIBLE_SUGGESTIONS }));
+        more.onclick = () => { this.showAll = !this.showAll; this.render(); };
+      }
+    }
+
+    const add = el.createDiv({ cls: "pdt-gm-new" });
+    const input = add.createEl("input", { type: "text", placeholder: t("groups.newPlaceholder"), value: this.draft, attr: { "aria-label": t("groups.newPlaceholder") } });
+    input.oninput = () => { this.draft = input.value; };
+    input.onkeydown = (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      this.addDraft();
+    };
+    add.createEl("button", { text: t("groups.add"), attr: { type: "button" } }).onclick = () => this.addDraft();
+
+    const foot = el.createDiv({ cls: "pdt-gm-foot" });
+    foot.createSpan({ cls: "pdt-gm-note", text: t("groups.hint") });
+    foot.createEl("button", { text: t("groups.cancel"), attr: { type: "button" } }).onclick = () => this.close();
+    const confirm = foot.createEl("button", { cls: "mod-cta", text: t("groups.confirm", { n: this.selected.length }), attr: { type: "button" } });
+    confirm.onclick = () => {
+      this.saved = [...this.selected];
+      this.close();
+    };
+  }
+}
+
+/**
+ * Review of AI group suggestions for many plugins at once. Several groups can be picked per plugin;
+ * `result` resolves with [{plugin, groups}] on Accept, or null when closed. Nothing is saved before.
+ */
+class BatchGroupModal extends Modal {
+  constructor(plugin, rows) {
+    super(plugin.app);
+    this.plugin = plugin;
+    this.rows = rows;   // [{plugin, suggestions}]
+    this.mine = new Set(plugin.notes.groups().map((g) => g.name));
+    this.picked = rows.map((r) => r.suggestions.slice(0, 1));
+    this.saved = null;
+    this.result = new Promise((resolve) => { this.resolve = resolve; });
+  }
+
+  onOpen() {
+    this.modalEl.addClass("pdt-batch-modal");
+    this.titleEl.setText(t("batch.title"));
+    this.render();
+  }
+
+  onClose() {
+    this.contentEl.empty();
+    this.resolve(this.saved);
+  }
+
+  render() {
+    const el = this.contentEl;
+    el.empty();
+    const top = el.createDiv({ cls: "pdt-batch-top" });
+    top.createDiv({ cls: "pdt-gm-note", text: t("batch.info", { n: this.rows.length, model: this.plugin.data.settings.model }) });
+    const actions = top.createDiv({ cls: "pdt-batch-actions" });
+    actions.createEl("button", { text: t("batch.pickTop"), attr: { type: "button" } }).onclick = () => this.pickAll((r) => r.suggestions.slice(0, 1));
+    actions.createEl("button", { text: t("batch.clear"), attr: { type: "button" } }).onclick = () => this.pickAll(() => []);
+
+    const legend = el.createDiv({ cls: "pdt-batch-legend" });
+    setIcon(legend.createSpan({ cls: "pdt-gchip-star" }), "star");
+    legend.createSpan({ text: t("batch.legend") });
+
+    const list = el.createDiv({ cls: "pdt-batch-list" });
+    this.chipBoxes = this.rows.map(({ plugin, suggestions }, i) => {
+      const row = list.createDiv({ cls: "pdt-batch-row" });
+      const info = row.createDiv({ cls: "pdt-batch-info" });
+      info.createDiv({ cls: "pdt-batch-name", text: plugin.name });
+      if (plugin.description) info.createDiv({ cls: "pdt-gm-desc", text: plugin.description });
+      const translation = this.plugin.cachedTranslation(plugin);
+      if (translation) info.createDiv({ cls: "pdt-trans", text: translation });
+      const chips = row.createDiv({ cls: "pdt-gm-chips" });
+      this.renderChips(chips, i, suggestions);
+      return chips;
+    });
+
+    const foot = el.createDiv({ cls: "pdt-gm-foot" });
+    this.summaryEl = foot.createSpan({ cls: "pdt-gm-note" });
+    foot.createEl("button", { text: t("groups.cancel"), attr: { type: "button" } }).onclick = () => this.close();
+    this.acceptEl = foot.createEl("button", { cls: "mod-cta", attr: { type: "button" } });
+    this.acceptEl.onclick = () => {
+      this.saved = this.rows.map((r, i) => ({ plugin: r.plugin, groups: this.picked[i] }));
+      this.close();
+    };
+    this.updateSummary();
+  }
+
+  /** Redraws one row's chips only, so the list keeps its scroll position. */
+  renderChips(box, i, suggestions) {
+    box.empty();
+    if (!suggestions.length) box.createSpan({ cls: "pdt-gm-note", text: t("batch.noSuggestions") });
+    for (const name of suggestions) {
+      groupChip(box, {
+        name, on: this.picked[i].includes(name), star: this.mine.has(name), starTip: t("batch.legend"),
+        onToggle: () => {
+          const picked = this.picked[i];
+          this.picked[i] = picked.includes(name) ? picked.filter((g) => g !== name) : [...picked, name];
+          this.renderChips(box, i, suggestions);
+          this.updateSummary();
+        },
+      });
+    }
+  }
+
+  pickAll(choose) {
+    this.picked = this.rows.map(choose);
+    this.rows.forEach((r, i) => this.renderChips(this.chipBoxes[i], i, r.suggestions));
+    this.updateSummary();
+  }
+
+  updateSummary() {
+    const grouped = this.picked.filter((p) => p.length).length;
+    const fresh = new Set(this.picked.flat().filter((g) => !this.mine.has(g))).size;
+    this.summaryEl.setText(t("batch.summary", { grouped, total: this.rows.length, fresh }));
+    this.acceptEl.setText(t("batch.accept", { n: grouped }));
   }
 }
 
@@ -1099,6 +1483,7 @@ class DiscoveryView extends ItemView {
     this.visible = PAGE_SIZE;
     this.shownTranslations = new Set();
     this.expanded = new Set();
+    this.similarOpen = new Set();
     this.refs = {};
   }
 
@@ -1311,6 +1696,24 @@ class DiscoveryView extends ItemView {
     }
   }
 
+  /** The strip of similar plugins under a row; each chip opens that plugin in Obsidian's browser. */
+  renderSimilar(parent, p) {
+    const box = parent.createDiv({ cls: "pdt-similar" });
+    box.createDiv({ cls: "pdt-gm-label", text: t("similar.title") });
+    const found = this.plugin.similarTo(p);
+    if (!found.length) {
+      box.createDiv({ cls: "pdt-gm-note", text: t("similar.none") });
+      return;
+    }
+    const chips = box.createDiv({ cls: "pdt-gm-chips" });
+    for (const other of found) {
+      const chip = chips.createEl("a", { cls: "pdt-gchip", href: `obsidian://show-plugin?id=${encodeURIComponent(other.id)}` });
+      chip.createSpan({ text: other.name });
+      chip.createSpan({ cls: "pdt-gchip-meta", text: formatShort(other.downloads) });
+      if (other.description) setTooltip(chip, other.description);
+    }
+  }
+
   updateTranslateButton(visible) {
     const pending = visible.filter((p) => p.description && this.plugin.cachedTranslation(p) == null).length;
     this.refs.translateLabel?.setText(t("translate.visible", { n: visible.length }));
@@ -1334,7 +1737,7 @@ class DiscoveryView extends ItemView {
     if (isChanged(p, note)) head.createSpan({ cls: "pdt-badge is-changed", text: t("badge.changed") });
     if (plugin.installed().has(p.id)) head.createSpan({ cls: "pdt-badge is-installed", text: t("badge.installed") });
     if (note) {
-      const link = head.createSpan({ cls: "pdt-badge is-note", text: note.group ? `📝 ${note.group}` : t("badge.note") });
+      const link = head.createSpan({ cls: "pdt-badge is-note", text: note.groups.length ? `📝 ${note.groups.join(", ")}` : t("badge.note") });
       setTooltip(link, t("badge.openNote"));
       link.onclick = () => this.app.workspace.openLinkText(note.path, "", "tab");
     }
@@ -1357,6 +1760,16 @@ class DiscoveryView extends ItemView {
       setIcon(gh.createSpan({ cls: "pdt-gh-icon" }), "external-link");
       sep();
     }
+    const similarOpen = this.similarOpen.has(p.id);
+    const similar = meta.createEl("a", { cls: `pdt-readme pdt-similar-link${similarOpen ? " is-open" : ""}`, text: t("row.similar"), href: "#", attr: { "aria-expanded": String(similarOpen) } });
+    setIcon(similar.createSpan({ cls: "pdt-gh-icon" }), similarOpen ? "chevron-up" : "chevron-down");
+    setTooltip(similar, t("row.similarTip"));
+    similar.onclick = (event) => {
+      event.preventDefault();
+      if (similarOpen) this.similarOpen.delete(p.id); else this.similarOpen.add(p.id);
+      this.refresh();
+    };
+    sep();
     const seen = firstSeen[p.id];
     if (p.updated) meta.createSpan({ text: t("row.updated", { when: relativeDays(p.updated, now) }) });
     else meta.createSpan({ text: seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
@@ -1397,6 +1810,7 @@ class DiscoveryView extends ItemView {
       onActivate(tr, () => tr.click());
     }
     if (showing) main.createDiv({ cls: "pdt-trans", text: translation });
+    if (similarOpen) this.renderSimilar(main, p);
 
     // Right side: downloads + actions
     const right = row.createDiv({ cls: "pdt-right" });
@@ -1424,7 +1838,7 @@ class DiscoveryView extends ItemView {
       return;
     }
     act("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => plugin.toggleFavorite(p), note?.favorite ? "is-favorite" : "");
-    act("folder-plus", note?.group ? t("action.groupNamed", { group: note.group }) : t("action.group"), () => plugin.chooseGroup(p));
+    act("folder-plus", note?.groups.length ? t("action.groupNamed", { group: note.groups.join(", ") }) : t("action.group"), () => plugin.chooseGroup(p));
     if (this.settings.mode === "suggested") act("x", t("action.dismiss"), () => plugin.dismiss(p));
     else act("ban", t("action.exclude"), () => plugin.exclude(p));
   }
@@ -1481,6 +1895,14 @@ class RadarSettingTab extends PluginSettingTab {
           this.display();
         });
       });
+
+    // ── Groups
+    new Setting(containerEl).setName(t("set.groups")).setHeading();
+    const ungrouped = plugin.ungrouped().length;
+    new Setting(containerEl)
+      .setName(t("set.batch"))
+      .setDesc(t("set.batchDesc", { n: ungrouped }))
+      .addButton((b) => b.setButtonText(t("set.batchButton")).setCta().setDisabled(!ungrouped).onClick(() => plugin.groupUngrouped()));
 
     // ── Sync
     new Setting(containerEl).setName(t("set.sync")).setHeading();
@@ -1648,7 +2070,7 @@ class RadarSettingTab extends PluginSettingTab {
 class PluginRadar extends Plugin {
   async onload() {
     addIcon(ICON, ICON_SVG);
-    this.data = Object.assign({ excluded: {}, dismissed: {}, translations: {}, migrations: {} }, await this.loadData());
+    this.data = Object.assign({ excluded: {}, dismissed: {}, translations: {}, groupSuggestions: {}, migrations: {} }, await this.loadData());
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.github = new GitHub();
@@ -1743,6 +2165,11 @@ class PluginRadar extends Plugin {
       done.h1Headings = dayString(Date.now());
       if (changed) new Notice(t("notice.headings", { n: changed }));
     }
+    if (!done.groupsList) {
+      const moved = await this.notes.migrateGroups();
+      done.groupsList = dayString(Date.now());
+      if (moved) new Notice(t("notice.groupsMigrated", { n: moved }), 10000);
+    }
     if (!done.readmeMarkers) {
       await this.notes.migrate(migrateMarkers);
       done.readmeMarkers = dayString(Date.now());
@@ -1763,6 +2190,7 @@ class PluginRadar extends Plugin {
     command("readme-current", t("cmd.readmeCurrent"), () => this.updateCurrentReadme());
     command("readme-all", t("cmd.readmeAll"), () => this.updateReadmes([...this.notes.index.keys()]));
     command("bases-view", t("cmd.base"), () => this.writeBase());
+    command("group-ungrouped", t("cmd.groupUngrouped"), () => this.groupUngrouped());
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -2023,12 +2451,88 @@ class PluginRadar extends Plugin {
   }
 
   async chooseGroup(plugin) {
-    const modal = new GroupModal(this.app, this.notes.groups(), this.notes.index.get(plugin.id)?.group);
+    const modal = new GroupModal(this, plugin);
     modal.open();
-    const chosen = await modal.result;
-    if (!chosen) return;
-    const created = await this.track(plugin, { group: chosen.name });
-    new Notice(t("notice.grouped", { name: plugin.name, group: chosen.name }) + (created ? t("notice.noteCreated") : ""));
+    const groups = await modal.result;
+    if (!groups) return;
+    const created = await this.track(plugin, { groups });
+    const message = groups.length ? t("notice.grouped", { name: plugin.name, group: groups.join(", ") }) : t("notice.ungrouped", { name: plugin.name });
+    new Notice(message + (created ? t("notice.noteCreated") : ""));
+  }
+
+  // ── Groups and similarity ────────────────────────────────────────────────
+  /** Word index of the current catalog, built once per catalog. */
+  textIndex() {
+    if (this.indexedCatalog !== this.catalog) {
+      this.indexedCatalog = this.catalog;
+      this.wordIndex = textIndex(this.catalog?.plugins || []);
+    }
+    return this.wordIndex;
+  }
+
+  closestGroupFor(plugin) {
+    return closestGroup(plugin, this.notes.members(), this.textIndex());
+  }
+
+  similarTo(plugin) {
+    return similarPlugins(plugin, this.catalog?.plugins || [], this.textIndex(), new Set(Object.keys(this.data.excluded)));
+  }
+
+  /** Tracked plugins that have no group yet. */
+  ungrouped() {
+    return [...this.notes.index.values()].filter((n) => !n.groups.length).map((n) => this.pluginById(n.id)).filter(Boolean);
+  }
+
+  /** Your groups with up to three plugin names each, so the model sees what each group means. */
+  groupExamples() {
+    return [...this.notes.members()].map(([name, ids]) => ({ name, examples: ids.slice(0, 3).map((id) => this.pluginById(id)?.name || id) }));
+  }
+
+  /**
+   * Group suggestions per plugin id. Saved ones are reused while the description is unchanged; the
+   * rest are asked for in requests of AI_BATCH plugins.
+   */
+  async groupSuggestions(plugins, progress = () => {}) {
+    const saved = this.data.groupSuggestions;
+    const missing = plugins.filter((p) => saved[p.id]?.src !== p.description);
+    const groups = this.groupExamples();
+    for (let i = 0; i < missing.length; i += AI_BATCH) {
+      progress(t("batch.requesting", { done: Math.min(i + AI_BATCH, missing.length), total: missing.length }));
+      const batch = missing.slice(i, i + AI_BATCH);
+      const found = await this.translator.suggestGroups(batch, groups);
+      for (const p of batch) saved[p.id] = { src: p.description, list: found[p.id] };
+      await this.saveData(this.data);
+    }
+    return Object.fromEntries(plugins.map((p) => [p.id, saved[p.id]?.list || []]));
+  }
+
+  async suggestGroups(plugin) {
+    return (await this.groupSuggestions([plugin]))[plugin.id];
+  }
+
+  /** AI suggests groups for every tracked plugin without one; nothing is written before you accept. */
+  async groupUngrouped() {
+    if (!(await this.ensureCatalog())) return;
+    const targets = this.ungrouped();
+    if (!targets.length) return new Notice(t("batch.none"));
+    if (!this.translator.ready) return new Notice(t("groups.aiSetup"));
+    let suggestions = null;
+    await this.task(t("notice.batchTitle"), async (progress) => {
+      suggestions = await this.groupSuggestions(targets, progress);
+    });
+    if (!suggestions) return;   // the task's notice says why
+    const modal = new BatchGroupModal(this, targets.map((p) => ({ plugin: p, suggestions: suggestions[p.id] })));
+    modal.open();
+    const picked = await modal.result;
+    if (!picked) return;
+    let written = 0;
+    for (const { plugin, groups } of picked) {
+      if (!groups.length) continue;
+      await this.notes.upsert(plugin, { groups });
+      written++;
+    }
+    new Notice(t("notice.batchSaved", { n: written }));
+    this.redraw();
   }
 
   async exclude(plugin) {

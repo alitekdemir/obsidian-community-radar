@@ -144,6 +144,50 @@ const tests = {
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "updated")[k]), ["downloads", "desc"]);
   },
 
+  "groupsOf / uniqueNames: list, legacy text, duplicates and blanks"() {
+    assert.deepEqual(core.groupsOf({ groups: ["Task", " task ", "", "AI"] }), ["Task", "AI"]);
+    assert.deepEqual(core.groupsOf({ group: "Task" }), ["Task"]);
+    assert.deepEqual(core.groupsOf({ groups: ["AI"], group: "Task" }), ["AI", "Task"]);
+    assert.deepEqual(core.groupsOf({ groups: "Solo" }), ["Solo"]);
+    assert.deepEqual(core.groupsOf({}), []);
+    assert.deepEqual(core.noteFromFrontmatter("x.md", { plugin_id: "x", group: "Ai" }).groups, ["Ai"]);
+  },
+
+  "parseGroupSuggestions: keeps your spelling, drops junk, caps at 10, ignores unknown ids"() {
+    const reply = "Sure!\n```json\n" + JSON.stringify({
+      a: ["task", "Project Management", "Project management", "", 42, "A very long name with far too many words", ...Array.from({ length: 12 }, (_, i) => `G${i}`)],
+      b: "not a list",
+      zz: ["Ignored"],
+    }) + "\n```";
+    const out = core.parseGroupSuggestions(reply, ["a", "b", "c"], ["Task"]);
+    assert.deepEqual(Object.keys(out), ["a", "b", "c"]);
+    assert.deepEqual(out.a.slice(0, 3), ["Task", "Project Management", "G0"]);
+    assert.equal(out.a.length, 10);
+    assert.deepEqual(out.b, []);
+    assert.throws(() => core.parseGroupSuggestions("no json here", ["a"], []));
+    const prompt = core.groupPrompt([{ id: "a", name: "A", description: "d" }], [{ name: "Task", examples: ["Tasks"] }], "Türkçe");
+    assert.ok(prompt.includes("Türkçe") && prompt.includes('"examples":["Tasks"]') && prompt.trim().endsWith("]"));
+  },
+
+  "similarPlugins and closestGroup: shared rare words, most downloaded first"() {
+    const catalog = [
+      P("kanban", { name: "Kanban", description: "Markdown kanban boards for tasks", downloads: 900 }),
+      P("board", { name: "Task Board", description: "A kanban board for your tasks and projects", downloads: 500 }),
+      P("tasks", { name: "Tasks", description: "Track tasks with due dates and recurring tasks", downloads: 2000 }),
+      P("draw", { name: "Excalidraw", description: "Sketch drawings and diagrams", downloads: 3000 }),
+      ...Array.from({ length: 40 }, (_, i) => P(`filler${i}`, { name: `Filler ${i}`, description: `Unrelated thing number ${i} for markdown`, downloads: i })),
+    ];
+    const index = core.textIndex(catalog);
+    assert.ok(index.byId.get("tasks").has("task"), "plural folded");
+    const similar = core.similarPlugins(catalog[1], catalog, index).map((p) => p.id);
+    assert.ok(similar.includes("kanban") && !similar.includes("draw") && !similar.includes("board"));
+    assert.ok(similar.indexOf("tasks") === -1 || similar.indexOf("tasks") < similar.indexOf("kanban"), "most downloaded first");
+    assert.deepEqual(core.similarPlugins(catalog[1], catalog, index, new Set(["kanban"])).includes("kanban"), false);
+    const members = new Map([["Task", ["tasks", "kanban"]], ["Visual", ["draw"]]]);
+    assert.equal(core.closestGroup(catalog[1], members, index), "Task");
+    assert.equal(core.closestGroup(P("x", { name: "Weather", description: "Shows the forecast" }), members, index), null);
+  },
+
   "escapeOutsideCode: tags are escaped, code and headings are untouched"() {
     const md = [
       "# Başlık", "Use #todo and #tag/nested, not #123 or a#b.", "Link [[Note]]",
