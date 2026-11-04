@@ -277,6 +277,7 @@ const tests = {
     settings.query = search.value;
     view.refresh();
     assert.deepEqual(names().sort(), ["Dataview", "Homepage"]);
+    await tick(300);                                                         // let the debounced search settle first
     settings.query = "";
     view.render();
   },
@@ -520,7 +521,6 @@ const tests = {
   async "ignore, hide until next release, Ignored list with Restore and restore-all; ⋮ menu"({ plugin, view }) {
     const el = view.contentEl;
     const names = () => $$(el, ".pdt-name").map((a) => a.textContent);
-    plugin.data.settings.query = "";   // the filters test's debounced search may have set one
     const dataview = plugin.pluginById("dataview");
     await plugin.snooze(dataview);
     view.refresh();
