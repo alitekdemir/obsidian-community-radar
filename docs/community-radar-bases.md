@@ -15,24 +15,13 @@ views:
       - file.name
       - groups
       - favorite
+      - status
+      - rating
       - note
       - downloads
       - version
       - updated
       - reviewed
-      - obsidian
-      - github
-  - type: table
-    name: By group
-    groupBy:
-      property: note.groups
-      direction: ASC
-    order:
-      - file.name
-      - favorite
-      - note
-      - downloads
-      - updated
       - obsidian
       - github
   - type: table
@@ -43,6 +32,19 @@ views:
     order:
       - file.name
       - groups
+      - note
+      - downloads
+      - updated
+      - obsidian
+      - github
+  - type: table
+    name: Ungrouped
+    filters:
+      and:
+        - groups.isEmpty()
+    order:
+      - file.name
+      - favorite
       - note
       - downloads
       - updated

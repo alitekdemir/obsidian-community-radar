@@ -12,6 +12,7 @@ Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını
 | **✨ Yeni** | Son *N* günde listeye giren eklentiler |
 | **Güncellenen** | Son *N* günde sürüm çıkaranlar |
 | **Uyananlar** | Son *N* günde, **uzun bir aradan sonra** sürüm çıkaranlar (ör. öncesinde 90+ gün sürüm yok). Sürekli güncellenenler elenir. |
+| **Takip** | Takip ettiğiniz eklentiler; her grup için ayrı bölümde (iki gruptaki eklenti ikisinde de görünür), favori, durum ve puan süzgeçleriyle |
 | **🔄 Değişenler** | Takip ettiklerinizden, incelediğiniz günden sonra yeni sürüm çıkaranlar |
 | **Öneriler** | Kurulu olan ama henüz favori yapmadığınız eklentiler |
 
@@ -32,6 +33,9 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 - **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.
 - **Gruplar**: bir eklenti birden çok grupta olabilir (`groups` listesi). Grup penceresi gruplarınızdan en yakınını ★ ile işaretler, AI önerilerini açıp kapatabileceğiniz çipler olarak gösterir. **Grup öner**, grubu olmayan bütün eklentiler için tek seferde öneri alır (istek başına 50) ve siz onaylamadan hiçbir şey kaydetmez.
 - **Benzer eklentiler**: her satırın altında, ad ve açıklamalardaki ortak kelimelerden yerelde bulunur; AI ya da ağ isteği yok.
+- **Durum ve puan**: takip edilen eklentiler için (*Aday*, *Deniyorum*, *Kullanıyorum*, *Bıraktım*; 1–5 yıldız), satırdan seçilir, `status` ve `rating` özelliklerine yazılır.
+- **Sonraki sürüme kadar gizle**: eklenti yeni sürüm çıkarınca kendiliğinden geri gelir. Dışlananlar ve önerilmeyenler panelin ⋮ menüsünden; arama ve *Geri al* ile açılır.
+- **Sessizlik süresine göre sıralama** ve **klavye**: bir satırda `j`/`k` gezin, `f` favori, `g` gruplar, `x` dışla, `h` sonraki sürüme kadar gizle, `t` çevir, `r` README, `s` benzerleri, `o` aç, `Enter` genişlet.
 
   ![Özgün açıklamanın altında çevirisi](docs/images/Radar_2-One_Translate.png)
 
@@ -66,6 +70,7 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 | Dil | Otomatik (Obsidian'ın dili), English, Türkçe |
 | Not klasörü | Takip notlarının oluşturulacağı yer |
 | Grup öner | Grubu olmayan takip edilen eklentiler için AI grup önerileri; kaydetmeden önce incelenir |
+| Listeler | *Yönet*, dışlananları ya da önerilmeyenleri panelde açar |
 | Bases görünümü | Takip notlarının Bases tablosunu **Oluştur** ya da **Sıfırla** |
 | Eşitleme sıklığı | Elle · 6 saatte bir · **Günde bir** · Haftada bir. Eşitlemeler arasında hiçbir şey indirilmez. **Şimdi eşitle** hemen çalıştırır. |
 | README güncelleme | **Notu açtığımda** · Her eşitlemede · Elle (komut paleti) |

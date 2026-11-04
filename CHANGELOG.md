@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.1
+
+- **Tracked tab**: the plugins you track, with group chips (each group, *Ungrouped*) and **sections per group** — coloured, foldable headings, the rows indented under them; a plugin in two groups shows in both. Filters for ★ starred and status. A group badge on any row opens the tab on that group.
+- **Status and rating** for tracked plugins (`status`: candidate · trying · using · dropped; `rating`: 1–5), set from chips on the row. Values that aren't valid are ignored and left untouched in the note.
+- **Hide until the next release**: a row action that hides a plugin until it ships a newer release.
+- **Ignored plugins** and **Hidden suggestions** moved from the settings page into the view: open them from the new ⋮ menu items or *Settings → Lists → Manage*, with search, sorting, *Restore* per row and *Restore all shown* (asks for a second click).
+- **⋮ menu** of the view: Sync now, the two lists, Suggest groups, Bases view, Rebuild history, Keyboard shortcuts, Settings.
+- **Sort by dormant period** (longest first), on every tab.
+- **Keyboard** on a focused row: `j`/`k`, `f`, `g`, `x`, `h`, `t`, `r`, `s`, `o`, `Enter`.
+- The Bases template's views are *All*, *Starred* and *Ungrouped* — Bases groups a list property as one value, so a "By group" view can't show a plugin under each of its groups; the Tracked tab does that. Press *Reset* under *Bases view* to update yours.
+- Issue templates for bug reports, feature requests and translations.
+
 ## 0.7.0
 
 - **Several groups per plugin.** Tracking notes now have a `groups` list instead of the `group` text; existing values move over once on first run (the old property is removed).

@@ -90,7 +90,7 @@ const tests = {
     assert.deepEqual(ids({ mode: "new" }), []);                                // …but below 100 downloads
     assert.deepEqual(ids({ mode: "new", filterDownloads: false, days: 3 }), []);
     const counts = core.modeCounts(state, opts, NOW);   // each tab with its default Downloads on/off (New: off)
-    assert.deepEqual(counts, { all: 3, new: 1, updated: 1, awakened: 1, changed: 1, suggested: 2 });  // all: a, b, e (c excluded, d below 100 downloads)
+    assert.deepEqual(counts, { all: 3, new: 1, updated: 1, awakened: 1, tracked: 1, changed: 1, suggested: 2 });  // all: a, b, e (c excluded, d below 100 downloads)
     const off = core.modeCounts(state, { ...opts, downloadFilter: { all: false } }, NOW);
     assert.equal(off.all, 4);                                 // All with the filter off: d is back
     assert.deepEqual(ids({ query: "a, desc" }), ["a"]);
@@ -116,6 +116,11 @@ const tests = {
     assert.deepEqual(ids({ sort: "name", sortDir: "desc" }), ["zeta", "mid", "alpha"]);   // Z → A
     assert.deepEqual(ids({ sort: "updated", sortDir: "asc" }), ["zeta", "alpha", "mid"]); // oldest first
     assert.deepEqual(ids({ query: "/^(al|mi)/" }), ["alpha", "mid"]);
+    const releases = { zeta: [ago(900), ago(300)], alpha: [ago(40), ago(5)], mid: [ago(2), ago(1)] };
+    assert.deepEqual(core.sortRows([...catalog.slice(0, 3)], "dormant", "desc", catalog, releases).map((p) => p.id), ["zeta", "alpha", "mid"]);
+    assert.deepEqual(core.groupSections([catalog[0], catalog[1], catalog[2]], new Map([["zeta", { groups: ["B", "A"] }], ["alpha", { groups: ["A"] }], ["mid", { groups: [] }]]))
+      .map((s) => [s.name, s.rows.map((p) => p.id)]), [["A", ["zeta", "alpha"]], ["B", ["zeta"]], [core.UNGROUPED, ["mid"]]]);
+    assert.equal(core.groupHue("Task"), core.groupHue("Task"));
   },
 
   "compileQuery: comma terms, /regex/ (case-insensitive, in order), invalid regex never blanks the list"() {

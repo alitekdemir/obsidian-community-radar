@@ -12,6 +12,7 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 | **✨ New** | Plugins added in the last *N* days |
 | **Updated** | Plugins released in the last *N* days |
 | **Revived** | Plugins released in the last *N* days **after being dormant** (e.g. no release for 90+ days before). Constantly updated plugins are filtered out. |
+| **Tracked** | Plugins you track, in sections per group (a plugin in two groups shows in both), with star, status and rating filters |
 | **🔄 Needs review** | Plugins you track that shipped a release since you last reviewed them |
 | **Suggestions** | Installed plugins you haven't starred yet |
 
@@ -19,7 +20,7 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 
 Clicking a plugin's name opens its page in Obsidian's own plugin browser, where you install it — Community Radar is for discovering and tracking, not installing. **README** on a row opens the plugin's README inside Obsidian, in its tracking note.
 
-Plugins you **star** or **add to a group** become small notes in your vault, with the plugin's README inside. Use [Bases](https://help.obsidian.md/bases) to browse and edit them as a table. Plugins you **ignore** never show up again.
+Plugins you **star** or **add to a group** become small notes in your vault, with the plugin's README inside. Use [Bases](https://help.obsidian.md/bases) to browse and edit them as a table. Plugins you **ignore** never show up again; **hide until the next release** brings a plugin back by itself when it ships one. Both lists open from the view's ⋮ menu, with search and *Restore*.
 
 ![The Revived tab: plugins released in the last 7 days after at least 30 days dormant](docs/images/Radar_3-Revived.png)
 
@@ -31,6 +32,9 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
 - **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups** proposes groups for every ungrouped plugin at once (50 per request) and saves nothing until you accept.
 - **Similar plugins** under any row, found locally from shared words in names and descriptions — no AI, no request.
+- **Status and rating** for tracked plugins (*Candidate*, *Trying*, *Using*, *Dropped*; 1–5 stars), set from the row and stored as `status` and `rating` properties.
+- **Sort by dormant period** to see which revived plugins were quiet the longest.
+- **Keyboard**: on a row, `j`/`k` move, `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` expand (also in the ⋮ menu).
 - **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
 - **Translate descriptions** with your own API key — Claude, OpenAI, Gemini or OpenRouter. One request translates a whole page; translations are cached.
@@ -65,6 +69,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 | Language | Auto (Obsidian's language), English, Türkçe |
 | Notes folder | Where tracking notes are created |
 | Suggest groups | AI group suggestions for every tracked plugin without a group, reviewed before saving |
+| Lists | *Manage* opens the ignored plugins or hidden suggestions in the view |
 | Bases view | **Create** or **Reset** the Bases table of your tracking notes |
 | Sync frequency | Manual · Every 6 hours · **Daily** · Weekly. Between syncs nothing is downloaded. **Sync now** runs one immediately. |
 | README updates | **When I open the note** · On every sync · Manually (command palette) |
@@ -80,6 +85,8 @@ groups:
   - startup
   - navigation
 favorite: true
+status: using             # candidate · trying · using · dropped
+rating: 4                 # 1–5
 note: try with the daily note
 reviewed: 2026-10-31      # a release after this date puts the plugin in 🔄 Needs review
 downloads: 1416257
@@ -128,6 +135,8 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 - Update README of this note / of all tracking notes
 - Create or reset the Bases view
 - Suggest groups for ungrouped plugins
+
+The view's ⋮ menu also has: Sync now, Ignored plugins, Hidden suggestions, Suggest groups, the Bases view, Rebuild history, Keyboard shortcuts and Settings.
 
 ## Translating
 

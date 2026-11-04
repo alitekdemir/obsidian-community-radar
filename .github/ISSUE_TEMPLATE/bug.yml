@@ -1,0 +1,39 @@
+name: Bug report
+description: Something in Community Radar doesn't work as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open Community Radar
+        2. …
+  - type: input
+    id: version
+    attributes:
+      label: Community Radar version
+      description: Settings → Community plugins → Community Radar.
+      placeholder: "0.7.1"
+    validations:
+      required: true
+  - type: input
+    id: obsidian
+    attributes:
+      label: Obsidian version and platform
+      placeholder: "1.11.4, Windows 11 / macOS / Android / iOS"
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console output (optional)
+      description: Ctrl/Cmd + Shift + I → Console. Lines starting with "[Community Radar]" help most. Remove anything private, such as API keys.
+      render: text

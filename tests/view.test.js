@@ -33,7 +33,10 @@ Object.defineProperty(P, "clientHeight", { get() { return 40; } });
 // ── Fake obsidian module
 const Module = require("module");
 const fake = require("./fake-obsidian");
-fake.ItemView = class { constructor(leaf) { this.leaf = leaf; this.app = leaf.app; this.contentEl = window.document.createElement("div"); } };
+fake.ItemView = class {
+  constructor(leaf) { this.leaf = leaf; this.app = leaf.app; this.contentEl = window.document.createElement("div"); }
+  registerDomEvent(el, type, fn) { el.addEventListener(type, fn); }
+};
 fake.PluginSettingTab = class { constructor(app) { this.app = app; this.containerEl = window.document.createElement("div"); } };
 const component = (el, tag) => {
   const input = el.createEl(tag);
@@ -180,7 +183,7 @@ const tests = {
     plugin.data.settings.minDownloads = 0;
     view.render();
     const el = view.contentEl;
-    assert.equal($$(el, ".pdt-tab").length, 6);
+    assert.equal($$(el, ".pdt-tab").length, 7);
     assert.ok($$(el, ".pdt-tab").every((tab) => tab.getAttribute("data-tooltip")));
     const names = $$(el, ".pdt-name").map((a) => a.textContent);
     assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy excluded, homepage tracked
@@ -188,7 +191,7 @@ const tests = {
     const sort = $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith("Sırala") || c.textContent.startsWith("Sort"));
     fake.menus.length = 0;
     sort.onclick();
-    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false]);   // same four sorts on every tab
+    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false, false]);   // same five sorts on every tab
     await fake.menus[0].items[1].click();
     assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "updated", dir: "desc" });
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
@@ -202,7 +205,7 @@ const tests = {
     fake.menus.length = 0;
     const sortChip = () => $$(el, ".pdt-chip.is-menu").find((c) => /^(Sırala|Sort)/.test(c.textContent));
     sortChip().onclick();
-    assert.equal(fake.menus[0].items.length, 4);
+    assert.equal(fake.menus[0].items.length, 5);
     await fake.menus[0].items[2].click();                       // name
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
     await view.update("mode", "updated");
@@ -462,6 +465,122 @@ const tests = {
     assert.ok($(strip, ".pdt-gm-note") || $(strip, ".pdt-gchip"));
   },
 
+  async "Tracked tab: group chips, sections per group (a plugin in two groups shows twice), status and rating"({ app, plugin, view }) {
+    const el = view.contentEl;
+    const settings = plugin.data.settings;
+    await plugin.track(plugin.pluginById("homepage"), { groups: ["ai", "Planning"] });
+    await view.update("mode", "tracked");
+    const chips = $$(el, ".pdt-groupbar .pdt-gchip").map((c) => c.firstChild.nextSibling?.textContent || c.textContent);
+    assert.ok(chips.includes("Planning") && chips.includes("ai"));
+    const sections = () => $$(el, ".pdt-section").map((s) => [$(s, ".pdt-section-name").textContent, $$(s, ".pdt-name").map((a) => a.textContent)]);
+    const byName = Object.fromEntries(sections());
+    assert.ok(byName.ai.includes("Homepage") && byName.Planning.includes("Homepage"), "in both of its groups");
+    const ai = $$(el, ".pdt-section").find((s) => $(s, ".pdt-section-name").textContent === "ai");
+    $(ai, ".pdt-section-head").onclick();
+    assert.equal($(($$(el, ".pdt-section").find((s) => $(s, ".pdt-section-name").textContent === "ai")), ".pdt-row"), null);   // folded
+    view.collapsed.clear();
+
+    // a group badge on a row opens the Tracked tab on that group
+    await view.update("mode", "all");
+    const badge = $$(el, ".pdt-badge.is-group").find((b) => b.textContent === "Planning");
+    await badge.onclick();
+    assert.equal(settings.mode, "tracked");
+    assert.equal(settings.trackedGroup, "Planning");
+    view.render();
+    assert.ok($$(el, ".pdt-name").map((a) => a.textContent).includes("Homepage"));
+    assert.ok($$(el, ".pdt-name").every((a) => plugin.notes.index.get(a.closest(".pdt-row").dataset.id).groups.includes("Planning")));
+
+    // status and rating: chosen from a menu, written to the note, validated on read
+    const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
+    fake.menus.length = 0;
+    $(row, ".pdt-badge.is-status").onclick();
+    await fake.menus[0].items.find((i) => i.title === core.t("pstatus.using")).click();
+    fake.menus.length = 0;
+    const homepageRow = () => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
+    $(homepageRow(), ".pdt-badge.is-rating").onclick();
+    await fake.menus[0].items.find((i) => i.title === "★★★★☆").click();
+    const note = app.vault.files.get(plugin.notes.index.get("homepage").path);
+    assert.match(note, /\nstatus: using\n/);
+    assert.match(note, /\nrating: 4\n/);
+    assert.equal(plugin.notes.index.get("homepage").rating, 4);
+    assert.equal(core.noteFromFrontmatter("x", { plugin_id: "x", status: "maybe", rating: 9 }).status, "");
+    assert.equal(core.noteFromFrontmatter("x", { plugin_id: "x", status: "maybe", rating: 9 }).rating, 0);
+    settings.trackedStatus = "using";
+    settings.trackedGroup = "";
+    view.render();
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Homepage", "Homepage"]);   // its two sections
+    fake.menus.length = 0;
+    $(homepageRow(), ".pdt-badge.is-status").onclick();
+    await fake.menus[0].items[0].click();                                  // "No status" removes the property
+    assert.ok(!/\nstatus:/.test(app.vault.files.get(plugin.notes.index.get("homepage").path)));
+    Object.assign(settings, { trackedStatus: "", trackedGroup: "" });
+    await view.update("mode", "all");
+  },
+
+  async "ignore, hide until next release, Ignored list with Restore and restore-all; ⋮ menu"({ plugin, view }) {
+    const el = view.contentEl;
+    const names = () => $$(el, ".pdt-name").map((a) => a.textContent);
+    plugin.data.settings.query = "";   // the filters test's debounced search may have set one
+    const dataview = plugin.pluginById("dataview");
+    await plugin.snooze(dataview);
+    view.refresh();
+    assert.ok(!names().includes("Dataview"));
+    assert.ok(core.isSnoozed(dataview, plugin.data.snoozed));
+    assert.ok(!core.isSnoozed({ ...dataview, updated: dataview.updated + 1 }, plugin.data.snoozed), "a newer release brings it back");
+
+    const menu = new fake.Menu();
+    view.onPaneMenu(menu, "more-options");
+    const titles = menu.items.map((i) => i.title);
+    assert.ok(titles.includes(core.t("list.ignoredTitle", { n: plugin.ignoredCount() })));
+    await menu.items.find((i) => i.title.startsWith(core.t("list.ignoredTitle", { n: "" }).split("(")[0])).click();
+    assert.equal(plugin.data.settings.mode, "ignored");
+    const listed = names();
+    assert.ok(listed.includes("Dataview") && listed.includes("Busy Plugin"), "snoozed and ignored together");
+    assert.ok($$(el, ".pdt-badge.is-snoozed").length >= 1);
+    const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
+    await row.querySelector('[data-icon="undo-2"]').onclick();
+    await tick();
+    assert.ok(!("dataview" in plugin.data.snoozed));
+    assert.ok(!names().includes("Dataview"));
+
+    await plugin.snooze(dataview);
+    view.render();
+    const all = $(el, ".pdt-banner .mod-warning");
+    await all.onclick();                                                    // first click only arms it
+    assert.ok(plugin.ignoredCount() >= 2);
+    await all.onclick();
+    assert.equal(plugin.ignoredCount(), 0);
+    assert.equal(Object.keys(plugin.data.excluded).length, 0);
+    await plugin.exclude(plugin.pluginById("busy"));                        // back as the earlier tests expect
+    await view.update("mode", "all");
+  },
+
+  async "keyboard: j/k move between rows, f stars the focused row, keys in the search box are left alone"({ plugin, view }) {
+    const el = view.contentEl;
+    window.document.body.appendChild(el);
+    view.registerDomEvent(el, "keydown", (event) => view.onKey(event));   // onOpen isn't run in these tests
+    const press = async (target, key) => {
+      const event = new window.KeyboardEvent("keydown", { key, bubbles: true });
+      target.dispatchEvent(event);
+      await tick(20);
+    };
+    const rows = $$(el, ".pdt-row");
+    rows[0].focus();
+    await press(rows[0], "j");
+    assert.equal(window.document.activeElement, rows[1]);
+    const id = rows[1].dataset.id;
+    const before = Boolean(plugin.notes.index.get(id)?.favorite);
+    await press(rows[1], "f");
+    assert.equal(Boolean(plugin.notes.index.get(id)?.favorite), !before);
+    assert.equal(window.document.activeElement?.dataset.id, id);            // focus stays on the row
+    await press(window.document.activeElement, "f");                        // back as it was
+    const search = $(el, ".pdt-search input");
+    const mode = plugin.data.settings.mode;
+    await press(search, "j");
+    assert.equal(plugin.data.settings.mode, mode);
+    el.remove();
+  },
+
   async "settings: keychain picker, model buttons, lists"({ plugin }) {
     plugin.settingTab.display();
     const el = plugin.settingTab.containerEl;
@@ -473,6 +592,9 @@ const tests = {
     const selects = $$(el, "select");
     assert.equal(selects.find((d) => values(d) === "0,6,24,168").value, "24");
     assert.ok(selects.some((d) => values(d) === "open,sync,manual"));
+    assert.ok(!$$(el, "button").some((b) => b.textContent === "Restore"), "no per-plugin list in settings");
+    const manage = $$(el, "button").filter((b) => b.textContent === core.t("set.manage"));
+    assert.equal(manage.length, 2);
   },
 
   async "Bases view: created next to the notes folder, reset from settings, opened"({ app, plugin }) {
@@ -485,8 +607,8 @@ const tests = {
     await baseButton().onclick();
     const base = YAML.parse(app.vault.files.get("Eklentiler.base"));
     assert.deepEqual(base.filters, { and: ['file.inFolder("Eklentiler")'] });
-    assert.deepEqual(base.views.map((v) => v.name), ["base.all", "base.byGroup", "base.starred"].map((k) => core.t(k)));
-    assert.equal(base.views[1].groupBy.property, "note.groups");
+    assert.deepEqual(base.views.map((v) => v.name), ["base.all", "base.starred", "base.ungrouped"].map((k) => core.t(k)));
+    assert.deepEqual(base.views[2].filters, { and: ["groups.isEmpty()"] });   // Bases can't split a list into groups: no "By group"
     assert.deepEqual(app.workspace.opened, [{ link: "Eklentiler.base", pane: "tab" }]);
 
     app.vault.files.set("Eklentiler.base", "broken: [");

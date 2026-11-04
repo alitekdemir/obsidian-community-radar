@@ -140,7 +140,7 @@ module.exports = {
   Menu: class {
     constructor() { this.items = []; menus.push(this); }
     addItem(cb) {
-      const item = { setTitle(x) { this.title = x; return this; }, setChecked(c) { this.checked = c; return this; }, onClick(f) { this.click = f; return this; } };
+      const item = { setTitle(x) { this.title = x; return this; }, setIcon(i) { this.icon = i; return this; }, setChecked(c) { this.checked = c; return this; }, onClick(f) { this.click = f; return this; } };
       cb(item); this.items.push(item); return this;
     }
     showAtPosition(pos) { this.shownAt = pos; return this; }

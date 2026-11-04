@@ -927,3 +927,145 @@ button.pdt-gm-more:hover {
 .pdt-similar-link.is-open {
   color: var(--text-accent);
 }
+
+/* ── Group colours: one slot per group name (see groupHue), from the theme's own palette ── */
+.pdt-hue-0 { --pdt-hue: var(--color-purple); }
+.pdt-hue-1 { --pdt-hue: var(--color-cyan); }
+.pdt-hue-2 { --pdt-hue: var(--color-orange); }
+.pdt-hue-3 { --pdt-hue: var(--color-blue); }
+.pdt-hue-4 { --pdt-hue: var(--color-pink); }
+.pdt-hue-5 { --pdt-hue: var(--color-green); }
+.pdt-hue-6 { --pdt-hue: var(--color-yellow); }
+.pdt-hue-7 { --pdt-hue: var(--color-red); }
+
+.pdt-swatch {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--pdt-hue, var(--text-faint));
+}
+
+.pdt-badge.is-group {
+  color: var(--pdt-hue, var(--text-accent));
+  background: color-mix(in srgb, var(--pdt-hue, var(--interactive-accent)) 15%, transparent);
+  cursor: pointer;
+}
+
+.pdt-badge.is-status,
+.pdt-badge.is-rating {
+  cursor: pointer;
+  color: var(--text-muted);
+  background: var(--background-modifier-hover);
+}
+
+.pdt-badge.is-empty {
+  color: var(--text-faint);
+  background: transparent;
+  border: 1px dashed var(--background-modifier-border);
+}
+
+.pdt-badge.is-trying { color: var(--color-yellow); background: color-mix(in srgb, var(--color-yellow) 15%, transparent); }
+.pdt-badge.is-using { color: var(--color-green); background: color-mix(in srgb, var(--color-green) 15%, transparent); }
+.pdt-badge.is-dropped { color: var(--color-red); background: color-mix(in srgb, var(--color-red) 13%, transparent); }
+.pdt-badge.is-rating:not(.is-empty) { color: var(--color-yellow); letter-spacing: 1px; }
+.pdt-badge.is-snoozed { color: var(--text-muted); background: var(--background-modifier-hover); }
+
+/* ── Tracked tab ───────────────────────────────────────────────────────── */
+.pdt-groupbar {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-4-2);
+}
+
+.pdt-section + .pdt-section {
+  margin-top: 22px;
+}
+
+button.pdt-section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: auto;
+  padding: 6px 4px;
+  border: 0;
+  border-radius: var(--radius-s);
+  background: none;
+  box-shadow: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.pdt-section-head:hover {
+  background: var(--background-modifier-hover);
+}
+
+.pdt-section-caret {
+  display: inline-flex;
+  color: var(--text-faint);
+  transition: transform 0.15s;
+}
+
+.pdt-section-caret.is-closed {
+  transform: rotate(-90deg);
+}
+
+.pdt-section-head .pdt-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.pdt-section-name {
+  color: var(--text-normal);
+  font-size: calc(var(--font-ui-medium) + 3px);
+  font-weight: var(--font-bold);
+}
+
+.pdt-section-count {
+  padding: 1px 8px;
+  border-radius: 99px;
+  color: var(--pdt-hue, var(--text-muted));
+  background: color-mix(in srgb, var(--pdt-hue, var(--text-faint)) 15%, transparent);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+}
+
+.pdt-section-rule {
+  flex: 1;
+  height: 1px;
+  margin-left: 6px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--pdt-hue, var(--text-faint)) 45%, transparent), transparent);
+}
+
+.pdt-section-body {
+  margin: 4px 0 0 10px;
+  padding-left: 14px;
+  border-left: 2px solid color-mix(in srgb, var(--pdt-hue, var(--text-faint)) 35%, transparent);
+}
+
+/* ── Ignored / Hidden suggestions banner ───────────────────────────────── */
+.pdt-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+  margin-bottom: var(--size-4-2);
+  padding: var(--size-4-2) var(--size-4-3);
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+}
+
+.pdt-banner-title {
+  flex: 1 1 200px;
+  font-weight: var(--font-semibold);
+}
+
+/* Keyboard: the focused row is visible */
+.pdt-row:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: -2px;
+}

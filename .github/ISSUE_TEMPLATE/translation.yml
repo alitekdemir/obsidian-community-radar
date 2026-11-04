@@ -1,0 +1,23 @@
+name: Translation
+description: Add a language or fix a translation.
+labels: [translation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Interface text lives in [`locales/`](../tree/main/locales), one JSON file per language. The quickest way is a pull request: copy `locales/en.json` to `locales/<code>.json`, translate the values, keep every `{placeholder}`, and run `npm test`. See *Translating* in the README.
+        If you'd rather not open a pull request, describe the change here.
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      placeholder: "Deutsch (de)"
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change?
+      description: The key or the current text, and what it should say.
+    validations:
+      required: true

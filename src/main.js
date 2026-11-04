@@ -56,9 +56,13 @@ const LEGACY_README_START = "<!-- plugin-tracker:readme-start -->";
 const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
-const MODE_KEYS = ["all", "new", "updated", "awakened", "changed", "suggested"];
-const SORT_KEYS = ["downloads", "updated", "name", "listed"];
-const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc" };  // most, newest, A→Z, newest
+const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "changed", "suggested"];
+const LIST_MODES = ["ignored", "dismissed"];   // reached from the ⋮ menu and settings, not from a tab
+const SORT_KEYS = ["downloads", "updated", "name", "listed", "dormant"];
+const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc" };  // most, newest, A→Z, newest, longest
+const STATUSES = ["candidate", "trying", "using", "dropped"];
+const UNGROUPED = "\u0000ungrouped";   // the "Ungrouped" filter of the Tracked tab; can't clash with a group name
+const GROUP_HUES = 8;
 const DAY_PRESETS = [1, 3, 7, 14, 30, 60, 90];
 const DORMANT_PRESETS = [30, 60, 90, 180, 365];
 /** Per tab: is "Downloads ≥" on, and how rows are sorted, until the user changes them. */
@@ -69,6 +73,9 @@ const TAB_DEFAULTS = {
   awakened: { downloads: true, sort: "downloads" },
   changed: { downloads: false, sort: "updated" },
   suggested: { downloads: false, sort: "downloads" },
+  tracked: { downloads: false, sort: "name" },
+  ignored: { downloads: false, sort: "name" },
+  dismissed: { downloads: false, sort: "name" },
 };
 
 /** Suggested names in Obsidian's keychain (ANTHROPIC_API_KEY → anthropic-api-key). */
@@ -127,6 +134,10 @@ function defaultSettings() {
     dormantDays: 90,
     minDownloads: 100,
     downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
+    trackedGroup: "",     // Tracked tab: "" = all, a group name, or UNGROUPED
+    trackedSections: true,
+    trackedStarred: false,
+    trackedStatus: "",
     sortBy: {},           // tab → {key, dir}; missing tabs use TAB_DEFAULTS
     query: "",
     historyMonths: 12,
@@ -347,19 +358,34 @@ function modeOptions(settings, mode) {
   };
 }
 
+/** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */
+function isSnoozed(plugin, snoozed) {
+  return snoozed != null && plugin.id in snoozed && (plugin.updated || 0) <= snoozed[plugin.id];
+}
+
+/** Does a tracked plugin pass the Tracked tab's group, star and status filters? */
+function trackedMatch(note, opts) {
+  if (!note) return false;
+  if (opts.trackedStarred && !note.favorite) return false;
+  if (opts.trackedStatus && note.status !== opts.trackedStatus) return false;
+  if (opts.trackedGroup === UNGROUPED) return !note.groups.length;
+  return !opts.trackedGroup || note.groups.includes(opts.trackedGroup);
+}
+
 /**
  * Rows of the discovery view.
- * @param {object} state  {catalog, releases, firstSeen, notes: Map(id→note), excluded: Set, dismissed: Set, installed: Set}
- * @param {object} opts   {mode, days, dormantDays, minDownloads, filterDownloads, sort, sortDir, query} (see modeOptions)
+ * @param {object} state  {catalog, releases, firstSeen, notes: Map(id→note), excluded: Set, dismissed: Set, installed: Set, snoozed: {id: ms}}
+ * @param {object} opts   {mode, days, dormantDays, minDownloads, filterDownloads, sort, sortDir, query, tracked…} (see modeOptions)
  */
 function discover(state, opts, now) {
-  const { catalog, releases, firstSeen, notes, excluded, dismissed, installed } = state;
+  const { catalog, releases, firstSeen, notes, excluded, dismissed, installed, snoozed } = state;
   const since = now - opts.days * DAY_MS;
   const query = compileQuery(opts.query);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
-  const base = (p) => !excluded.has(p.id) && (p.downloads ?? 0) >= minDownloads && query.test(p);
+  const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p);
+  const base = (p) => shown(p) && !excluded.has(p.id) && !isSnoozed(p, snoozed);
   const fresh = (p) => base(p) && !notes.has(p.id);
-  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog);
+  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog, releases);
 
   switch (opts.mode) {
     case "all":   // browsing: tracked plugins stay visible (with their note badge), excluded ones don't
@@ -374,6 +400,12 @@ function discover(state, opts, now) {
       return sorted(catalog.filter((p) => base(p) && isChanged(p, notes.get(p.id))));
     case "suggested":
       return sorted(catalog.filter((p) => base(p) && installed.has(p.id) && !dismissed.has(p.id) && !(notes.get(p.id) || {}).favorite));
+    case "tracked":   // your notes: ignoring a tracked plugin doesn't hide it here
+      return sorted(catalog.filter((p) => shown(p) && trackedMatch(notes.get(p.id), opts)));
+    case "ignored":
+      return sorted(catalog.filter((p) => shown(p) && (excluded.has(p.id) || isSnoozed(p, snoozed))));
+    case "dismissed":
+      return sorted(catalog.filter((p) => shown(p) && dismissed.has(p.id)));
     default:
       return [];
   }
@@ -383,9 +415,11 @@ function discover(state, opts, now) {
  * Sorts rows in place by `key` in direction `dir` ("asc" | "desc"; default: the key's natural one).
  * "listed" uses the position in the official listing, which is the order plugins were added.
  */
-function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = []) {
+function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = [], releases = {}) {
   const position = key === "listed" ? new Map(catalog.map((p, i) => [p.id, i])) : null;
+  const gap = (p) => dormantDays(releases, p) ?? -1;   // no history: last
   const compare = {
+    dormant: (a, b) => gap(b) - gap(a),
     downloads: (a, b) => (b.downloads ?? 0) - (a.downloads ?? 0),
     updated: (a, b) => (b.updated ?? 0) - (a.updated ?? 0),
     name: (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" }),
@@ -393,6 +427,29 @@ function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = []) {
   }[key] || ((a, b) => (b.downloads ?? 0) - (a.downloads ?? 0));
   const sign = dir === (NATURAL_DIR[key] || "desc") ? 1 : -1;
   return rows.sort((a, b) => sign * compare(a, b));
+}
+
+/**
+ * The Tracked tab's sections: one per group (a plugin in two groups shows in both), then Ungrouped.
+ * Rows keep their order inside each section.
+ */
+function groupSections(rows, notes) {
+  const sections = new Map();
+  const none = [];
+  for (const p of rows) {
+    const groups = notes.get(p.id)?.groups || [];
+    if (!groups.length) none.push(p);
+    for (const g of groups) sections.set(g, [...(sections.get(g) || []), p]);
+  }
+  const named = [...sections].sort((a, b) => a[0].localeCompare(b[0], t("locale"))).map(([name, list]) => ({ name, rows: list }));
+  return none.length ? [...named, { name: UNGROUPED, rows: none }] : named;
+}
+
+/** A stable colour slot for a group name, so a group looks the same everywhere. */
+function groupHue(name) {
+  let h = 0;
+  for (const ch of name) h = (h * 31 + ch.codePointAt(0)) >>> 0;
+  return h % GROUP_HUES;
 }
 
 /** Row count of every mode (for the tab badges), each with its own tab options. */
@@ -512,9 +569,9 @@ function baseFile(folder) {
     "  and:",
     `    - file.inFolder(${q(folder)})`,
     "views:",
-    ...view(t("base.all"), [], ["groups", "favorite", "note", "downloads", "version", "updated", "reviewed"]),
-    ...view(t("base.byGroup"), ["    groupBy:", "      property: note.groups", "      direction: ASC"], ["favorite", "note", "downloads", "updated"]),
-    ...view(t("base.starred"), ["    filters:", "      and:", "        - favorite == true"], ["groups", "note", "downloads", "updated"]),
+    ...view(t("base.all"), [], ["groups", "favorite", "status", "rating", "note", "downloads", "version", "updated", "reviewed"]),
+    ...view(t("base.starred"), ["    filters:", "      and:", "        - favorite == true"], ["groups", "status", "rating", "note", "downloads", "updated"]),
+    ...view(t("base.ungrouped"), ["    filters:", "      and:", "        - groups.isEmpty()"], ["favorite", "note", "downloads", "updated"]),
     "",
   ].join("\n");
 }
@@ -555,6 +612,8 @@ function noteFromFrontmatter(path, fm) {
     id: String(fm.plugin_id),
     groups: groupsOf(fm),
     favorite: fm.favorite === true,
+    status: STATUSES.includes(fm.status) ? fm.status : "",   // anything else is ignored, never rewritten
+    rating: Number.isInteger(fm.rating) && fm.rating >= 1 && fm.rating <= 5 ? fm.rating : 0,
     note: fm.note ? String(fm.note) : "",
     reviewed: fm.reviewed ? String(fm.reviewed).slice(0, 10) : "",
     updated: fm.updated ? String(fm.updated).slice(0, 10) : "",
@@ -784,7 +843,8 @@ async function mapLimit(items, limit, worker) {
 const core = {
   setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
   historyLabel, formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
-  mergeSnapshot, dormantDays, isNewPlugin, isChanged, compileQuery, modeOptions, discover, sortRows, modeCounts, escapeOutsideCode,
+  mergeSnapshot, dormantDays, isNewPlugin, isChanged, compileQuery, modeOptions, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
+  groupSections, groupHue, UNGROUPED, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
   parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, closestGroup,
@@ -976,6 +1036,7 @@ class Notes {
         Object.assign(fm, { plugin_id: plugin.id, groups: [], favorite: false, note: "", reviewed: dayString(Date.now()) });
       }
       Object.assign(fm, patch, sourceFields(plugin));
+      for (const [key, value] of Object.entries(patch)) if (value == null) delete fm[key];   // null clears a field
       written = { ...fm };
     });
     this.index.set(plugin.id, noteFromFrontmatter(file.path, written));  // don't wait for metadataCache
@@ -1103,6 +1164,8 @@ class Translator {
 }
 
 // ─── 4. UI ──────────────────────────────────────────────────────────────────
+const $ = (root, selector) => root.querySelector(selector);
+
 /** Obsidian's own tooltip (1.4.4+); falls back to the browser tooltip. */
 const setTooltip = obsidian.setTooltip || ((el, text) => el.setAttribute("title", text));
 
@@ -1484,6 +1547,7 @@ class DiscoveryView extends ItemView {
     this.shownTranslations = new Set();
     this.expanded = new Set();
     this.similarOpen = new Set();
+    this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
   }
 
@@ -1493,8 +1557,64 @@ class DiscoveryView extends ItemView {
 
   async onOpen() {
     this.contentEl.addClass("pdt-view");
+    this.registerDomEvent(this.contentEl, "keydown", (event) => this.onKey(event));
     this.render();
     await this.plugin.ensureFresh();
+  }
+
+  /** Obsidian's ⋮ menu of the view: actions that don't need a place on screen. */
+  onPaneMenu(menu, source) {
+    super.onPaneMenu?.(menu, source);
+    const plugin = this.plugin;
+    const item = (icon, title, run) => menu.addItem((i) => i.setIcon(icon).setTitle(title).onClick(run));
+    item("refresh-cw", t("set.syncNow"), () => plugin.refresh());
+    item("ban", t("list.ignoredTitle", { n: plugin.ignoredCount() }), () => this.update("mode", "ignored"));
+    item("eye-off", t("list.dismissedTitle", { n: Object.keys(plugin.data.dismissed).length }), () => this.update("mode", "dismissed"));
+    item("folder-plus", t("menu.groups"), () => plugin.groupUngrouped());
+    item("table", t("cmd.base"), () => plugin.writeBase());
+    item("history", t("cmd.rebuild"), () => plugin.buildHistory(true));
+    item("keyboard", t("menu.keys"), () => new Notice(t("keys.help"), 15000));
+    item("settings", t("menu.settings"), () => plugin.openSettings());
+  }
+
+  /**
+   * Keys on a focused row: j/k move, f star, g groups, x ignore (or restore), h hide until the next
+   * release, t translate, r README, s similar, o open in Obsidian, Enter expand. Typing in a field is left alone.
+   */
+  async onKey(event) {
+    if (event.target.closest?.("input, textarea, select, [contenteditable]") || event.metaKey || event.ctrlKey || event.altKey) return;
+    const rows = [...this.contentEl.querySelectorAll(".pdt-row")];
+    const row = event.target.closest?.(".pdt-row");
+    const index = rows.indexOf(row);
+    if (event.key === "j" || event.key === "k") {
+      event.preventDefault();
+      const next = index === -1 ? 0 : Math.max(0, Math.min(rows.length - 1, index + (event.key === "j" ? 1 : -1)));
+      rows[next]?.focus();
+      return;
+    }
+    const p = row && this.plugin.pluginById(row.dataset.id);
+    if (!p) return;
+    const listMode = LIST_MODES.includes(this.settings.mode);
+    const actions = {
+      f: () => this.plugin.toggleFavorite(p),
+      g: () => this.plugin.chooseGroup(p),
+      x: () => (listMode ? this.plugin.restoreFrom(this.settings.mode, [p.id]) : this.plugin.exclude(p)),
+      h: () => this.plugin.snooze(p),
+      t: () => $(row, ".pdt-tr")?.click(),
+      r: () => this.plugin.openReadme(p),
+      s: () => $(row, ".pdt-similar-link")?.click(),
+      o: () => $(row, ".pdt-name")?.click(),
+      Enter: () => $(row, ".pdt-desc")?.click(),
+    };
+    const run = actions[event.key];
+    if (!run) return;
+    event.preventDefault();
+    await run();
+    if ("fxh".includes(event.key)) {
+      this.refresh();
+      const again = [...this.contentEl.querySelectorAll(".pdt-row")];
+      (again.find((r) => r.dataset.id === p.id) || again[Math.min(index, again.length - 1)])?.focus();
+    }
   }
 
   get settings() { return this.plugin.data.settings; }
@@ -1541,6 +1661,39 @@ class DiscoveryView extends ItemView {
     }
   }
 
+  /** Tracked tab: group chips (All, each group, Ungrouped), then Sections, Starred and Status. */
+  renderTrackedBar(bar) {
+    const settings = this.settings;
+    const groups = bar.createDiv({ cls: "pdt-groupbar" });
+    const notes = [...this.plugin.notes.index.values()];
+    const chip = (value, name, count, hue) => {
+      const on = settings.trackedGroup === value;
+      const el = groups.createEl("button", { cls: `pdt-gchip${on ? " is-on" : ""}${hue == null ? "" : ` pdt-hue-${hue}`}`, attr: { type: "button", "aria-pressed": String(on) } });
+      if (hue != null) el.createSpan({ cls: "pdt-swatch" });
+      el.createSpan({ text: name });
+      el.createSpan({ cls: "pdt-gchip-meta", text: formatCount(count) });
+      el.onclick = () => this.update("trackedGroup", value);
+    };
+    chip("", t("tracked.all"), notes.length);
+    for (const g of this.plugin.notes.groups()) chip(g.name, g.name, g.count, groupHue(g.name));
+    const none = notes.filter((n) => !n.groups.length).length;
+    if (none) chip(UNGROUPED, t("tracked.ungrouped"), none);
+
+    const toggle = (label, key) => {
+      const on = Boolean(settings[key]);
+      const el = bar.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
+      const button = el.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
+      setIcon(button.createSpan({ cls: "pdt-toggle-check" }), "check");
+      button.createSpan({ text: label });
+      button.onclick = () => this.update(key, !on);
+      onActivate(button, () => this.update(key, !on));
+    };
+    if (!settings.trackedGroup) toggle(t("tracked.sections"), "trackedSections");
+    toggle(t("tracked.starred"), "trackedStarred");
+    menuChip(bar, t("tracked.status"), [["", t("tracked.anyStatus")], ...STATUSES.map((st) => [st, t(`pstatus.${st}`)])],
+      settings.trackedStatus, (value) => this.update("trackedStatus", value));
+  }
+
   /** Saves a per-tab setting (downloadFilter, sortBy) for the current tab. */
   updateTab(key, value) {
     return this.update(key, { ...this.settings[key], [this.settings.mode]: value });
@@ -1549,6 +1702,7 @@ class DiscoveryView extends ItemView {
   renderFilters(bar) {
     const mode = this.settings.mode;
     const opts = modeOptions(this.settings, mode);
+    if (mode === "tracked") this.renderTrackedBar(bar);
     const days = { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS };
 
     if (mode === "new" || mode === "updated" || mode === "awakened") {
@@ -1680,10 +1834,16 @@ class DiscoveryView extends ItemView {
     if (mode === "new" && (!timeline.to || timeline.legacy)) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
 
     this.rows = discover(state, modeOptions(this.settings, mode), now);
-    const visible = this.rows.slice(0, this.visible);
+    if (LIST_MODES.includes(mode)) this.renderListBanner(list, mode);
+    const sections = mode === "tracked" && !this.settings.trackedGroup && this.settings.trackedSections;
+    const visible = sections ? this.rows : this.rows.slice(0, this.visible);   // sections show everything you track
     this.updateTranslateButton(visible);
     if (!this.rows.length) {
       list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
+      return;
+    }
+    if (sections) {
+      for (const section of groupSections(this.rows, state.notes)) this.renderSection(list, section, now);
       return;
     }
     for (const plugin of visible) this.renderRow(list, plugin, now);
@@ -1694,6 +1854,47 @@ class DiscoveryView extends ItemView {
       });
       more.onclick = () => { this.visible += PAGE_SIZE; this.refresh(); };
     }
+  }
+
+  /** Ignored / Hidden suggestions: title, back, and "restore all shown" (asks for a second click). */
+  renderListBanner(list, mode) {
+    const banner = list.createDiv({ cls: "pdt-banner" });
+    const total = mode === "ignored" ? this.plugin.ignoredCount() : Object.keys(this.plugin.data.dismissed).length;
+    banner.createSpan({ cls: "pdt-banner-title", text: t(mode === "ignored" ? "list.ignoredTitle" : "list.dismissedTitle", { n: formatCount(total) }) });
+    const back = banner.createEl("button", { text: t("list.back"), attr: { type: "button" } });
+    back.onclick = () => this.update("mode", "all");
+    if (!this.rows.length) return;
+    const all = banner.createEl("button", { cls: "mod-warning", text: t("list.restoreAll", { n: this.rows.length }), attr: { type: "button" } });
+    let armed = false;
+    all.onclick = async () => {
+      if (!armed) {
+        armed = true;
+        all.setText(t("list.restoreConfirm", { n: this.rows.length }));
+        setTimeout(() => { armed = false; all.setText(t("list.restoreAll", { n: this.rows.length })); }, 4000);
+        return;
+      }
+      await this.plugin.restoreFrom(mode, this.rows.map((p) => p.id));
+    };
+  }
+
+  /** One Tracked-tab section: a coloured, foldable group heading and its rows, indented on a rail. */
+  renderSection(list, { name, rows }, now) {
+    const label = name === UNGROUPED ? t("tracked.ungrouped") : name;
+    const open = !this.collapsed.has(name);
+    const section = list.createDiv({ cls: `pdt-section${name === UNGROUPED ? "" : ` pdt-hue-${groupHue(name)}`}` });
+    const head = section.createEl("button", { cls: "pdt-section-head", attr: { type: "button", "aria-expanded": String(open) } });
+    setIcon(head.createSpan({ cls: `pdt-section-caret${open ? "" : " is-closed"}` }), "chevron-down");
+    head.createSpan({ cls: "pdt-swatch" });
+    head.createSpan({ cls: "pdt-section-name", text: label });
+    head.createSpan({ cls: "pdt-section-count", text: formatCount(rows.length) });
+    head.createSpan({ cls: "pdt-section-rule" });
+    head.onclick = () => {
+      if (open) this.collapsed.add(name); else this.collapsed.delete(name);
+      this.refresh();
+    };
+    if (!open) return;
+    const body = section.createDiv({ cls: "pdt-section-body" });
+    for (const p of rows) this.renderRow(body, p, now);
   }
 
   /** The strip of similar plugins under a row; each chip opens that plugin in Obsidian's browser. */
@@ -1726,7 +1927,8 @@ class DiscoveryView extends ItemView {
     const plugin = this.plugin;
     const { firstSeen, releases } = plugin.timeline;
     const note = plugin.notes.index.get(p.id);
-    const row = list.createDiv({ cls: "pdt-row" });
+    const mode = this.settings.mode;
+    const row = list.createDiv({ cls: "pdt-row", attr: { tabindex: "0", "data-id": p.id } });
     const main = row.createDiv({ cls: "pdt-main" });
 
     // Title: name · version · badges
@@ -1736,10 +1938,19 @@ class DiscoveryView extends ItemView {
     if (isNewPlugin(firstSeen, p, now)) head.createSpan({ cls: "pdt-badge is-new", text: t("badge.new") });
     if (isChanged(p, note)) head.createSpan({ cls: "pdt-badge is-changed", text: t("badge.changed") });
     if (plugin.installed().has(p.id)) head.createSpan({ cls: "pdt-badge is-installed", text: t("badge.installed") });
+    if (isSnoozed(p, plugin.data.snoozed)) head.createSpan({ cls: "pdt-badge is-snoozed", text: t("badge.snoozed") });
     if (note) {
-      const link = head.createSpan({ cls: "pdt-badge is-note", text: note.groups.length ? `📝 ${note.groups.join(", ")}` : t("badge.note") });
+      const link = head.createSpan({ cls: "pdt-badge is-note", text: t("badge.note") });
       setTooltip(link, t("badge.openNote"));
       link.onclick = () => this.app.workspace.openLinkText(note.path, "", "tab");
+      for (const g of note.groups) {
+        const badge = head.createSpan({ cls: `pdt-badge is-group pdt-hue-${groupHue(g)}`, text: g, attr: { role: "button", tabindex: "0" } });
+        setTooltip(badge, t("tracked.showGroup", { group: g }));
+        const show = () => this.plugin.showGroup(g);
+        badge.onclick = show;
+        onActivate(badge, show);
+      }
+      this.renderNoteState(head, p, note, mode === "tracked");
     }
 
     // Meta line: README · GitHub · when · gap
@@ -1833,14 +2044,52 @@ class DiscoveryView extends ItemView {
         this.refresh();
       };
     };
-    if (this.settings.mode === "changed") {
+    if (mode === "changed") {
       act("check", t("action.reviewed"), () => plugin.markReviewed([p]));
+      return;
+    }
+    if (LIST_MODES.includes(mode)) {
+      act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
     }
     act("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => plugin.toggleFavorite(p), note?.favorite ? "is-favorite" : "");
     act("folder-plus", note?.groups.length ? t("action.groupNamed", { group: note.groups.join(", ") }) : t("action.group"), () => plugin.chooseGroup(p));
-    if (this.settings.mode === "suggested") act("x", t("action.dismiss"), () => plugin.dismiss(p));
-    else act("ban", t("action.exclude"), () => plugin.exclude(p));
+    if (mode === "suggested") act("x", t("action.dismiss"), () => plugin.dismiss(p));
+    else {
+      act("eye-off", t("action.snooze"), () => plugin.snooze(p));
+      act("ban", t("action.exclude"), () => plugin.exclude(p));
+    }
+  }
+
+  /** Status and rating chips of a tracked plugin; empty ones show only on the Tracked tab. */
+  renderNoteState(parent, p, note, always) {
+    if (note.status || always) {
+      const options = [["", t("pstatus.clear")], ...STATUSES.map((st) => [st, t(`pstatus.${st}`)])];
+      const chip = parent.createSpan({ cls: `pdt-badge is-status${note.status ? ` is-${note.status}` : " is-empty"}`, text: note.status ? t(`pstatus.${note.status}`) : t("pstatus.set"), attr: { role: "button", tabindex: "0" } });
+      const open = () => this.pickFromMenu(chip, options, note.status, (value) => this.plugin.setNoteField(p, "status", value || null));
+      chip.onclick = open;
+      onActivate(chip, open);
+    }
+    if (note.rating || always) {
+      const stars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
+      const options = [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, stars(n)])];
+      const chip = parent.createSpan({ cls: `pdt-badge is-rating${note.rating ? "" : " is-empty"}`, text: note.rating ? stars(note.rating) : t("rating.set"), attr: { role: "button", tabindex: "0", "aria-label": note.rating ? t("rating.label", { n: note.rating }) : t("rating.set") } });
+      const open = () => this.pickFromMenu(chip, options, note.rating, (value) => this.plugin.setNoteField(p, "rating", value || null));
+      chip.onclick = open;
+      onActivate(chip, open);
+    }
+  }
+
+  pickFromMenu(anchor, options, current, onPick) {
+    const menu = new Menu();
+    for (const [value, title] of options) {
+      menu.addItem((item) => item.setTitle(title).setChecked(value === current).onClick(async () => {
+        await onPick(value);
+        this.refresh();
+      }));
+    }
+    const rect = anchor.getBoundingClientRect();
+    menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
   }
 }
 
@@ -1957,9 +2206,15 @@ class RadarSettingTab extends PluginSettingTab {
 
     this.displayTranslation(containerEl, settings, save);
 
-    // ── Lists
-    this.list(containerEl, t("set.excluded", { n: Object.keys(plugin.data.excluded).length }), plugin.data.excluded, (id) => plugin.restore("excluded", id));
-    this.list(containerEl, t("set.dismissed", { n: Object.keys(plugin.data.dismissed).length }), plugin.data.dismissed, (id) => plugin.restore("dismissed", id));
+    // ── Lists: managed in the view, with search and Restore (a settings list can't cope with thousands)
+    new Setting(containerEl).setName(t("set.lists")).setHeading();
+    new Setting(containerEl)
+      .setName(t("set.excluded", { n: formatCount(plugin.ignoredCount()) }))
+      .setDesc(t("set.listsDesc"))
+      .addButton((b) => b.setButtonText(t("set.manage")).onClick(() => plugin.showList("ignored")));
+    new Setting(containerEl)
+      .setName(t("set.dismissed", { n: formatCount(Object.keys(plugin.data.dismissed).length) }))
+      .addButton((b) => b.setButtonText(t("set.manage")).onClick(() => plugin.showList("dismissed")));
   }
 
   displayTranslation(containerEl, settings, save) {
@@ -2053,24 +2308,13 @@ class RadarSettingTab extends PluginSettingTab {
     await save();
     this.display();
   }
-
-  list(containerEl, title, entries, onRestore) {
-    new Setting(containerEl).setName(title).setHeading();
-    const names = new Map((this.plugin.catalog?.plugins || []).map((p) => [p.id, p.name]));
-    for (const [id, date] of Object.entries(entries).sort((a, b) => b[1].localeCompare(a[1]))) {
-      new Setting(containerEl)
-        .setName(names.get(id) || id)
-        .setDesc(`${id} · ${date}`)
-        .addButton((b) => b.setButtonText(t("set.restore")).onClick(async () => { await onRestore(id); this.display(); }));
-    }
-  }
 }
 
 // ─── 5. Plugin ──────────────────────────────────────────────────────────────
 class PluginRadar extends Plugin {
   async onload() {
     addIcon(ICON, ICON_SVG);
-    this.data = Object.assign({ excluded: {}, dismissed: {}, translations: {}, groupSuggestions: {}, migrations: {} }, await this.loadData());
+    this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, groupSuggestions: {}, migrations: {} }, await this.loadData());
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.github = new GitHub();
@@ -2207,6 +2451,7 @@ class PluginRadar extends Plugin {
       notes: this.notes.index,
       excluded: new Set(Object.keys(this.data.excluded)),
       dismissed: new Set(Object.keys(this.data.dismissed)),
+      snoozed: this.data.snoozed,
       installed: this.installed(),
     };
   }
@@ -2283,6 +2528,8 @@ class PluginRadar extends Plugin {
       const plugins = await this.github.catalog();
       const delta = this.catalog ? catalogDelta(this.catalog.plugins, plugins) : null;
       this.catalog = { fetchedAt: Date.now(), plugins, delta };
+      for (const p of plugins) if (p.id in this.data.snoozed && !isSnoozed(p, this.data.snoozed)) delete this.data.snoozed[p.id];
+      await this.saveData(this.data);
       await this.cache.write("catalog", this.catalog);
 
       if (this.timeline.to) await this.syncTimeline(false, progress);
@@ -2546,10 +2793,55 @@ class PluginRadar extends Plugin {
     await this.saveData(this.data);
   }
 
-  async restore(list, id) {
-    delete this.data[list][id];
+  /** Hides a plugin until it ships a release newer than the current one. */
+  async snooze(plugin) {
+    this.data.snoozed[plugin.id] = plugin.updated || 0;
+    await this.saveData(this.data);
+    new Notice(t("notice.snoozed", { name: plugin.name }));
+  }
+
+  /** Ignored list = ignored plugins + those hidden until their next release. */
+  ignoredCount() {
+    const snoozed = (this.catalog?.plugins || []).filter((p) => isSnoozed(p, this.data.snoozed) && !(p.id in this.data.excluded)).length;
+    return Object.keys(this.data.excluded).length + snoozed;
+  }
+
+  /** Brings plugins back from the Ignored (also un-snoozes) or Hidden suggestions list. */
+  async restoreFrom(mode, ids) {
+    for (const id of ids) {
+      if (mode === "ignored") { delete this.data.excluded[id]; delete this.data.snoozed[id]; }
+      else delete this.data.dismissed[id];
+    }
     await this.saveData(this.data);
     this.redraw();
+  }
+
+  /** Writes one personal property of a tracked plugin's note; null removes it. */
+  async setNoteField(plugin, key, value) {
+    await this.track(plugin, { [key]: value });
+    this.redraw();
+  }
+
+  /** Opens the view on a list mode (Ignored, Hidden suggestions). */
+  async showList(mode) {
+    this.app.setting?.close?.();
+    await this.openView();
+    this.data.settings.mode = mode;
+    await this.saveData(this.data);
+    this.redraw(true);
+  }
+
+  /** Opens the Tracked tab filtered to one group. */
+  async showGroup(group) {
+    Object.assign(this.data.settings, { mode: "tracked", trackedGroup: group });
+    await this.saveData(this.data);
+    this.redraw(true);
+  }
+
+  /** Obsidian's settings on this plugin's tab (`app.setting` isn't public API, so it's used defensively). */
+  openSettings() {
+    this.app.setting?.open?.();
+    this.app.setting?.openTabById?.(this.manifest.id);
   }
 
   async markReviewed(plugins) {
