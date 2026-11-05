@@ -2,41 +2,37 @@
 
 ## 0.7.3
 
-- **Rows in four layers**: system signals next to the name (NEW · NEW RELEASE · INSTALLED · UNTIL NEXT RELEASE), your note on its own line (note, groups, status, rating), and a metrics column on the right with **downloads first**, then the last update and the dormant period. Links (README · GitHub · Similar · Translate) close the row.
-- **Rows stay put**: starring, grouping, rating or setting a status no longer pulls a row out from under you; a row that no longer matches the filter stays, faded, until the view is reopened or a filter changes.
-- **New releases moved into Tracked**: the *Needs review* tab is gone; the Tracked tab shows a yellow count, rows get a *NEW RELEASE* signal and a *Reviewed* action, and the Group menu has a *New releases* entry with *Mark all reviewed*.
-- **Tracked tab's Group menu**: All, New releases, Starred, Ungrouped, then your groups — one menu instead of a row of chips.
-- **Rating from the star**: hover (or focus) the ☆ to give 1–5 stars; the Tracked tab sorts by **rating** by default (a new sort, ties A–Z). Keys `1`–`5` and `0` when shortcuts are on.
-- **Status is optional and yours**: off by default (*Settings → Status field*); edit the list — rename with an emoji, reorder, add, remove. New defaults: 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced; old values move over once (candidate → to-try, trying → testing, using → adopted, dropped → replaced).
-- **New tab** never applies the *Downloads ≥* filter (new plugins have few downloads) and doesn't show it.
+Changes since 0.6.2 (0.7.0–0.7.2 were not released).
 
-## 0.7.2
+### New
 
-- **Grouping mode inside the view** replaces the batch window: *Suggest groups for this list* (⋮ menu) puts AI suggestions under each row of the current list (up to 50, one request). A sticky bar shows what will change (new notes, new groups) with *Top suggestion for all*, *Reset*, *Cancel* and *Accept*; changed rows are marked. *Settings → Suggest groups* opens the Tracked tab's *Ungrouped* list in this mode.
-- Group suggestions come in your language **and** the widely used English or technical term (e.g. *Yapay Zekâ* and *AI*, *Alışkanlık Takibi* and *Habit Tracker*); a name matching one of your groups keeps your spelling.
-- **Keyboard shortcuts** work as soon as the tab is active (Obsidian's own key scope) and move a visible highlight; they're **off by default** (*Settings → Keyboard shortcuts*). A ⌨ icon in the filter bar shows them in a readable card on hover or focus.
-- The **Sync** button and **Translate visible** moved into the ⋮ menu; *Bases view* and *Keyboard shortcuts* left it (Bases stays in settings).
-
-## 0.7.1
-
-- **Tracked tab**: the plugins you track, with group chips (each group, *Ungrouped*) and **sections per group** — coloured, foldable headings, the rows indented under them; a plugin in two groups shows in both. Filters for ★ starred and status. A group badge on any row opens the tab on that group.
-- **Status and rating** for tracked plugins (`status`: candidate · trying · using · dropped; `rating`: 1–5), set from chips on the row. Values that aren't valid are ignored and left untouched in the note.
-- **Hide until the next release**: a row action that hides a plugin until it ships a newer release.
-- **Ignored plugins** and **Hidden suggestions** moved from the settings page into the view: open them from the new ⋮ menu items or *Settings → Lists → Manage*, with search, sorting, *Restore* per row and *Restore all shown* (asks for a second click).
-- **⋮ menu** of the view: Sync now, the two lists, Suggest groups, Bases view, Rebuild history, Keyboard shortcuts, Settings.
-- **Sort by dormant period** (longest first), on every tab.
-- **Keyboard** on a focused row: `j`/`k`, `f`, `g`, `x`, `h`, `t`, `r`, `s`, `o`, `Enter`.
-- The Bases template's views are *All*, *Starred* and *Ungrouped* — Bases groups a list property as one value, so a "By group" view can't show a plugin under each of its groups; the Tracked tab does that. Press *Reset* under *Bases view* to update yours.
+- **Groups**: a plugin can be in several groups (a `groups` list). The group window shows your groups with their size, stars and preselects the closest one, adds up to 10 AI suggestions (5 shown, the rest under *+n more*) and a box for a new name; **Confirm** saves, closing changes nothing. A saved translation of the description is shown under it.
+- **Grouping mode**: *Suggest groups for this list* (⋮ menu) puts AI suggestions under every row of the current list (up to 50, one request; names and short descriptions only). A sticky bar shows what will change, with *Top suggestion for all*, *Reset*, *Cancel* and *Accept*; nothing is saved before **Accept**. *Settings → Suggest groups* opens the Tracked tab's *Ungrouped* list in this mode. Suggestions come in your language **and** the widely used English term (*Yapay Zekâ* and *AI*), are cached until a description changes, and a name matching one of your groups keeps your spelling.
+- **Tracked tab**: your plugins in coloured, foldable sections per group; a plugin in two groups shows in both. One *Group* menu: All, New releases, Starred, Ungrouped, then your groups. A group pill on any row opens the tab on that group.
+- **New releases** of tracked plugins: a yellow count on the Tracked tab, a *NEW RELEASE* signal and a *Reviewed* action on the row, *Mark all reviewed* in the Group menu.
+- **Rating**: hover (or focus) the ☆ on a row to give 1–5 stars (`rating`). The Tracked tab sorts by rating by default (ties A–Z).
+- **Status** (optional, off by default; *Settings → Status field*): your own list — rename with an emoji, reorder, add, remove. Defaults: 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced.
+- **Similar plugins**: a *Similar* link on every row shows up to 8 plugins sharing the most rare words in name and description, found locally.
+- **Hide until the next release**: the plugin comes back by itself when it ships one.
+- **Ignored plugins** and **Hidden suggestions** open in the view (⋮ menu or *Settings → Lists → Manage*) with search, sorting, *Restore* and *Restore all shown*.
+- **Keyboard shortcuts** (off by default; *Settings → Keyboard shortcuts*): work as soon as the tab is active and move a visible highlight; the ⌨ icon in the filter bar lists them.
+- **Sort by dormant period** and **by rating**.
 - Issue templates for bug reports, feature requests and translations.
 
-## 0.7.0
+### Changed
 
-- **Several groups per plugin.** Tracking notes now have a `groups` list instead of the `group` text; existing values move over once on first run (the old property is removed).
-- **New group window**: chips you switch on and off — the selected groups, your groups with their size (the closest one starred and preselected), up to 10 AI suggestions (5 shown, the rest under *+n more*) and a box for a new name. **Confirm** saves; closing changes nothing. A saved translation of the description is shown under it.
-- **Suggest groups** (settings and command): AI suggests groups for every tracked plugin without one, 50 plugins per request (names and short descriptions only). You review the list — several picks per plugin, stacked under the description on narrow screens — and nothing is saved before **Accept**. Suggestions are cached until a description changes.
-- **Similar plugins**: a *Similar* link on every row opens up to 8 plugins with the most shared rare words in their names and descriptions, most downloaded first. Local only.
-- The Bases template uses `groups`; press *Reset* under *Bases view* to update an existing one.
-- The AI settings section is now called **AI (translation, group suggestions)**.
+- **Rows in four layers**: system signals next to the name, your note (note, groups, status, rating) on its own line, a metrics column with **downloads first**, then links (README · GitHub · Similar · Translate).
+- **Rows stay put**: a row that an action moves out of the filter stays, faded, until the view is reopened or a filter changes.
+- The *Needs review* tab is gone; new releases live in the Tracked tab.
+- The **New** tab never applies the *Downloads ≥* filter.
+- **Sync now** and **Translate visible** moved into the ⋮ menu; *Bases view* is only in settings.
+- The AI settings section is now **AI (translation, group suggestions)**.
+
+### Upgrade notes
+
+- `group` becomes the `groups` list on first run; the old property is removed.
+- Old status values move over once: candidate → to-try, trying → testing, using → adopted, dropped → replaced.
+- The Bases template's views are now *All*, *Starred* and *Ungrouped* (Bases treats a list as one value, so per-group sections live in the Tracked tab). Press *Settings → Bases view → Reset* to update yours.
 
 ## 0.6.2
 
