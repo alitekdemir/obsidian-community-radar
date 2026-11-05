@@ -61,6 +61,8 @@ fake.Setting = class {
   addDropdown(fn) { fn(component(this.controlEl, "select")); return this; }
   addButton(fn) { fn(component(this.controlEl, "button")); return this; }
   addToggle(fn) { fn(component(this.controlEl, "input")); return this; }
+  addExtraButton(fn) { const b = component(this.controlEl, "button"); b.setIcon = () => b; b.setTooltip = () => b; fn(b); return this; }
+  setClass(c) { this.el.classList.add(c); return this; }
 };
 const opened = [];
 const modals = [];
@@ -174,7 +176,7 @@ const tests = {
     assert.equal(core.dormantDays(timeline.releases, homepage), 117);
     const counts = core.modeCounts(plugin.state(), { ...plugin.data.settings, days: 14, query: "" }, NOW);
     assert.equal(counts.new, 1);                          // fresh
-    assert.equal(counts.changed, 1);                      // homepage: reviewed 20 days ago, released 3 days ago
+    assert.equal(plugin.updatesCount(), 1);               // homepage: reviewed 20 days ago, released 3 days ago
   },
 
   async "view: tabs with tooltips, menu chips, rows, no excluded/tracked rows"(ctx) {
@@ -185,7 +187,7 @@ const tests = {
     plugin.data.settings.minDownloads = 0;
     view.render();
     const el = view.contentEl;
-    assert.equal($$(el, ".pdt-tab").length, 7);
+    assert.equal($$(el, ".pdt-tab").length, 6);   // "Changed" is now a filter of Tracked
     assert.ok($$(el, ".pdt-tab").every((tab) => tab.getAttribute("data-tooltip")));
     const names = $$(el, ".pdt-name").map((a) => a.textContent);
     assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy excluded, homepage tracked
@@ -193,7 +195,7 @@ const tests = {
     const sort = $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith("Sırala") || c.textContent.startsWith("Sort"));
     fake.menus.length = 0;
     sort.onclick();
-    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false, false]);   // same five sorts on every tab
+    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false, false, false]);   // same six sorts on every tab
     await fake.menus[0].items[1].click();
     assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "updated", dir: "desc" });
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
@@ -203,11 +205,11 @@ const tests = {
     const allNames = $$(el, ".pdt-name").map((a) => a.textContent);
     assert.ok(allNames.includes("Homepage") && !allNames.includes("Busy Plugin"));
     const homepageRow = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
-    assert.ok($(homepageRow, ".pdt-badge.is-note"));
+    assert.ok($(homepageRow, ".pdt-pill.is-note"));
     fake.menus.length = 0;
     const sortChip = () => $$(el, ".pdt-chip.is-menu").find((c) => /^(Sırala|Sort)/.test(c.textContent));
     sortChip().onclick();
-    assert.equal(fake.menus[0].items.length, 5);
+    assert.equal(fake.menus[0].items.length, 6);
     await fake.menus[0].items[2].click();                       // name
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
     await view.update("mode", "updated");
@@ -489,13 +491,17 @@ const tests = {
     assert.ok($(strip, ".pdt-gm-note") || $(strip, ".pdt-gchip"));
   },
 
-  async "Tracked tab: group chips, sections per group (a plugin in two groups shows twice), status and rating"({ app, plugin, view }) {
+  async "Tracked tab: Group menu, sections per group, new releases, rows stay after an action, rating and custom statuses"({ app, plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
     await plugin.track(plugin.pluginById("homepage"), { groups: ["ai", "Planning"] });
     await view.update("mode", "tracked");
-    const chips = $$(el, ".pdt-groupbar .pdt-gchip").map((c) => c.firstChild.nextSibling?.textContent || c.textContent);
-    assert.ok(chips.includes("Planning") && chips.includes("ai"));
+    const tab = $$(el, ".pdt-tab")[4];
+    assert.equal($(tab, ".pdt-n.is-updates").textContent, core.t("tracked.updatesBadge", { n: plugin.updatesCount() }));
+    fake.menus.length = 0;
+    $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith(core.t("tracked.group"))).onclick();
+    const titles = fake.menus[0].items.map((i) => i.title);
+    assert.ok(titles[1].startsWith(core.t("tracked.updates", { n: "" }).trim()) && titles.some((x) => x.startsWith("Planning")));
     const sections = () => $$(el, ".pdt-section").map((s) => [$(s, ".pdt-section-name").textContent, $$(s, ".pdt-name").map((a) => a.textContent)]);
     const byName = Object.fromEntries(sections());
     assert.ok(byName.ai.includes("Homepage") && byName.Planning.includes("Homepage"), "in both of its groups");
@@ -504,40 +510,58 @@ const tests = {
     assert.equal($(($$(el, ".pdt-section").find((s) => $(s, ".pdt-section-name").textContent === "ai")), ".pdt-row"), null);   // folded
     view.collapsed.clear();
 
-    // a group badge on a row opens the Tracked tab on that group
+    // New releases filter: the row has a NEW RELEASE signal and a Reviewed action
+    await view.update("trackedGroup", core.UPDATES);
+    const updated = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
+    assert.ok($(updated, ".pdt-signal.is-changed"));
+    assert.ok(updated.querySelector('[data-icon="check"]'));
+
+    // a group pill on a row opens the Tracked tab on that group
     await view.update("mode", "all");
-    const badge = $$(el, ".pdt-badge.is-group").find((b) => b.textContent === "Planning");
-    await badge.onclick();
+    const pill = $$(el, ".pdt-pill.is-group").find((b) => b.textContent === "Planning");
+    await pill.onclick();
     assert.equal(settings.mode, "tracked");
     assert.equal(settings.trackedGroup, "Planning");
     view.render();
-    assert.ok($$(el, ".pdt-name").map((a) => a.textContent).includes("Homepage"));
     assert.ok($$(el, ".pdt-name").every((a) => plugin.notes.index.get(a.closest(".pdt-row").dataset.id).groups.includes("Planning")));
 
-    // status and rating: chosen from a menu, written to the note, validated on read
-    const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
-    fake.menus.length = 0;
-    $(row, ".pdt-badge.is-status").onclick();
-    await fake.menus[0].items.find((i) => i.title === core.t("pstatus.using")).click();
-    fake.menus.length = 0;
+    // rating from the star's popover; a row that leaves the filter stays (faded) until the view is redrawn
+    await view.update("trackedGroup", core.STARRED);
+    const starredBefore = $$(el, ".pdt-name").map((a) => a.textContent);
     const homepageRow = () => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
-    $(homepageRow(), ".pdt-badge.is-rating").onclick();
-    await fake.menus[0].items.find((i) => i.title === "★★★★☆").click();
-    const note = app.vault.files.get(plugin.notes.index.get("homepage").path);
-    assert.match(note, /\nstatus: using\n/);
-    assert.match(note, /\nrating: 4\n/);
+    if (!starredBefore.includes("Homepage")) {
+      await view.update("trackedGroup", "");
+    }
+    await $$(homepageRow(), ".pdt-rate-star")[1].onclick();                // the second from the left in DOM order is 4
     assert.equal(plugin.notes.index.get("homepage").rating, 4);
-    assert.equal(core.noteFromFrontmatter("x", { plugin_id: "x", status: "maybe", rating: 9 }).status, "");
-    assert.equal(core.noteFromFrontmatter("x", { plugin_id: "x", status: "maybe", rating: 9 }).rating, 0);
-    settings.trackedStatus = "using";
-    settings.trackedGroup = "";
+    assert.match(app.vault.files.get(plugin.notes.index.get("homepage").path), /\nrating: 4\n/);
+    await view.update("trackedGroup", core.STARRED);
+    const starred = plugin.notes.index.get("homepage").favorite;
+    if (!starred) await plugin.toggleFavorite(plugin.pluginById("homepage"));
     view.render();
-    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Homepage", "Homepage"]);   // its two sections
+    await homepageRow().querySelector('[data-icon="star"]').onclick();     // unstar: it no longer matches Starred…
+    assert.ok(homepageRow(), "…but stays in place");
+    assert.ok(homepageRow().classList.contains("is-stale"));
+    view.render();
+    assert.equal(homepageRow(), undefined, "gone once the view is redrawn");
+
+    // custom statuses: off by default; when on, chosen from your list and stored by key
+    assert.equal(settings.statusEnabled, false);
+    await view.update("trackedGroup", "");
+    assert.equal($(el, ".pdt-pill.is-status"), null);
+    settings.statusEnabled = true;
+    view.render();
     fake.menus.length = 0;
-    $(homepageRow(), ".pdt-badge.is-status").onclick();
+    $(homepageRow(), ".pdt-pill.is-status").onclick();
+    assert.deepEqual(fake.menus[0].items.slice(1).map((i) => i.title), settings.statuses.map((st) => st.label));
+    await fake.menus[0].items.find((i) => i.title === core.t("statusDefault.adopted")).click();
+    assert.match(app.vault.files.get(plugin.notes.index.get("homepage").path), /\nstatus: adopted\n/);
+    assert.equal($(homepageRow(), ".pdt-pill.is-status").textContent, core.t("statusDefault.adopted"));
+    fake.menus.length = 0;
+    $(homepageRow(), ".pdt-pill.is-status").onclick();
     await fake.menus[0].items[0].click();                                  // "No status" removes the property
     assert.ok(!/\nstatus:/.test(app.vault.files.get(plugin.notes.index.get("homepage").path)));
-    Object.assign(settings, { trackedStatus: "", trackedGroup: "" });
+    Object.assign(settings, { trackedStatus: "", trackedGroup: "", statusEnabled: false });
     await view.update("mode", "all");
   },
 
@@ -559,7 +583,7 @@ const tests = {
     assert.equal(plugin.data.settings.mode, "ignored");
     const listed = names();
     assert.ok(listed.includes("Dataview") && listed.includes("Busy Plugin"), "snoozed and ignored together");
-    assert.ok($$(el, ".pdt-badge.is-snoozed").length >= 1);
+    assert.ok($$(el, ".pdt-signal.is-snoozed").length >= 1);
     const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
     await row.querySelector('[data-icon="undo-2"]').onclick();
     await tick();
@@ -587,7 +611,7 @@ const tests = {
     assert.equal($(el, ".pdt-keys"), null);
     settings.keyboard = true;
     view.render();
-    assert.equal($$(el, ".pdt-keys-card .pdt-keys-row").length, 10);
+    assert.equal($$(el, ".pdt-keys-card .pdt-keys-row").length, 12);
     assert.equal(key("j"), false);
     assert.equal(key("j"), false);
     const rows = $$(el, ".pdt-row");
@@ -600,6 +624,12 @@ const tests = {
     assert.equal($(el, ".pdt-row.is-cursor").dataset.id, id, "the highlight stays on the row");
     key("f");
     await tick(20);
+    key("4");
+    await tick(20);
+    assert.equal(plugin.notes.index.get(id).rating, 4);
+    key("0");
+    await tick(20);
+    assert.equal(plugin.notes.index.get(id).rating, 0);
     window.document.body.appendChild(el);
     $(el, ".pdt-search input").focus();
     assert.equal(key("j"), true, "typing in the search box is left alone");
@@ -622,6 +652,19 @@ const tests = {
     assert.ok(!$$(el, "button").some((b) => b.textContent === "Restore"), "no per-plugin list in settings");
     const manage = $$(el, "button").filter((b) => b.textContent === core.t("set.manage"));
     assert.equal(manage.length, 2);
+    assert.equal(plugin.data.settings.statusEnabled, false);
+    const statusToggle = $$(el, ".setting").find((x) => $(x, ".name")?.textContent === core.t("set.status"));
+    assert.ok(statusToggle, "status field setting");
+    plugin.data.settings.statusEnabled = true;
+    plugin.settingTab.display();
+    const add = $$(plugin.settingTab.containerEl, ".setting").find((x) => $(x, ".name")?.textContent === core.t("set.statusAdd"));
+    const input = $(add, "input");
+    input.value = "📚 Reading the docs";
+    input.onchange();
+    await $(add, "button").onclick();
+    assert.deepEqual(plugin.data.settings.statuses.at(-1), { key: "reading-the-docs", label: "📚 Reading the docs" });
+    plugin.data.settings.statuses.pop();
+    plugin.data.settings.statusEnabled = false;
   },
 
   async "Bases view: created next to the notes folder, reset from settings, opened"({ app, plugin }) {

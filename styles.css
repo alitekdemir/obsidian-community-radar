@@ -371,7 +371,7 @@
 /* ── Rows ──────────────────────────────────────────────────────────── */
 .pdt-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) 7.5em auto;   /* content · metrics · actions */
   gap: var(--size-4-4);
   margin: 0 calc(-1 * var(--size-4-3));
   padding: var(--size-4-3);
@@ -428,31 +428,92 @@
   white-space: nowrap;
 }
 
-.pdt-badge.is-new {
-  color: var(--pdt-new);
-  background: color-mix(in srgb, var(--pdt-new) 14%, transparent);
+/* Layer 1 · system signals: filled, small capitals, next to the name */
+.pdt-signal {
+  align-self: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: calc(var(--font-ui-smaller) - 1px);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: var(--text-muted);
+  background: var(--background-modifier-hover);
 }
 
-.pdt-badge.is-changed {
-  color: var(--pdt-changed);
-  background: color-mix(in srgb, var(--pdt-changed) 14%, transparent);
+.pdt-signal.is-new { color: var(--pdt-new); background: color-mix(in srgb, var(--pdt-new) 18%, transparent); }
+.pdt-signal.is-changed { color: var(--color-yellow); background: color-mix(in srgb, var(--color-yellow) 18%, transparent); }
+.pdt-signal.is-installed { color: var(--pdt-installed); background: color-mix(in srgb, var(--pdt-installed) 18%, transparent); }
+.pdt-signal.is-stale {
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px dashed var(--background-modifier-border);
+  font-weight: var(--font-normal);
+  letter-spacing: 0;
 }
 
-.pdt-badge.is-installed {
-  color: var(--pdt-installed);
-  background: color-mix(in srgb, var(--pdt-installed) 14%, transparent);
+/* Layer 2 · your note: outlined pills on their own line */
+.pdt-personal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
 }
 
-.pdt-badge.is-note {
-  color: var(--text-accent);
-  background: var(--pdt-accent-bg);
+.pdt-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 21px;
+  padding: 0 9px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 99px;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
   cursor: pointer;
 }
 
-.pdt-meta {
-  margin-top: 2px;
+.pdt-pill:hover {
+  border-color: var(--text-accent);
+}
+
+.pdt-pill.is-note {
+  color: var(--text-accent);
+  border-color: color-mix(in srgb, var(--interactive-accent) 45%, transparent);
+}
+
+.pdt-pill.is-group {
+  color: var(--pdt-hue, var(--text-accent));
+  border-color: color-mix(in srgb, var(--pdt-hue, var(--interactive-accent)) 55%, transparent);
+  font-weight: var(--font-semibold);
+}
+
+.pdt-pill.is-rating:not(.is-empty) {
+  color: var(--color-yellow);
+  border-color: color-mix(in srgb, var(--color-yellow) 45%, transparent);
+  letter-spacing: 1px;
+}
+
+.pdt-pill.is-empty {
   color: var(--text-faint);
-  font-size: var(--font-ui-small);
+  border-style: dashed;
+}
+
+/* A row an action moved out of the current filter: still here, faded, until the view is reopened */
+.pdt-row.is-stale {
+  opacity: 0.7;
+}
+
+/* Layer 4 · links: faint, last */
+.pdt-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px var(--size-4-3);
+  margin-top: var(--size-2-3);
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
 }
 
 .pdt-sep {
@@ -461,7 +522,7 @@
 }
 
 .pdt-gap {
-  color: var(--text-muted);
+  color: var(--text-faint);
 }
 
 .pdt-gap.is-long {
@@ -491,16 +552,8 @@
 }
 
 /* Description: two lines; long ones expand on click */
-.pdt-desc-row {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--size-4-3);
-  margin-top: var(--size-2-3);
-}
-
 .pdt-desc {
-  flex: 1;
-  margin: 0;
+  margin: var(--size-2-3) 0 0;
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 2;
@@ -523,31 +576,6 @@
   -webkit-line-clamp: unset;
 }
 
-.pdt-tr {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 1px 7px;
-  border: 1px solid var(--background-modifier-border);
-  border-radius: var(--radius-s);
-  color: var(--text-faint);
-  font-size: var(--font-ui-smaller);
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
-}
-
-.pdt-tr:hover {
-  color: var(--text-accent);
-  border-color: var(--text-accent);
-}
-
-.pdt-tr .pdt-btn-icon svg {
-  width: 12px;
-  height: 12px;
-}
-
 .pdt-trans {
   margin-top: var(--size-4-2);
   padding: var(--size-2-3) var(--size-4-3);
@@ -560,37 +588,113 @@
   line-height: 1.5;
 }
 
-/* Right column: downloads + actions */
-.pdt-right {
+/* Layer 3 · metrics: downloads first and largest, then when and after how long */
+.pdt-metrics {
   display: flex;
-  align-items: flex-start;
-  gap: var(--size-4-3);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding-top: 2px;
+  text-align: right;
+  font-size: var(--font-ui-smaller);
+  font-variant-numeric: tabular-nums;
 }
 
 .pdt-downloads {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 5px;
-  min-width: 5.5em;
-  height: 30px;
-  color: var(--text-muted);
-  font-size: var(--font-ui-small);
-  font-variant-numeric: tabular-nums;
+  color: var(--text-normal);
+  font-size: calc(var(--font-ui-medium) + 1px);
+  font-weight: var(--font-bold);
+  white-space: nowrap;
 }
 
 .pdt-downloads.is-empty {
   color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-normal);
+}
+
+.pdt-dl-icon {
+  display: inline-flex;
+  color: var(--text-faint);
 }
 
 .pdt-dl-icon svg {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
+}
+
+.pdt-when {
+  color: var(--text-muted);
 }
 
 .pdt-actions {
   display: flex;
+  align-items: flex-start;
   gap: 2px;
+}
+
+/* The star: hover or focus opens 1–5 stars; the reversed order lets "~" fill a star and those before it */
+.pdt-rate {
+  position: relative;
+}
+
+.pdt-rate-pop {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: -6px;
+  z-index: 5;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-primary);
+  box-shadow: var(--shadow-s);
+  white-space: nowrap;
+}
+
+.pdt-rate:hover .pdt-rate-pop,
+.pdt-rate:focus-within .pdt-rate-pop {
+  display: flex;
+}
+
+.pdt-rate-stars {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+button.pdt-rate-star,
+button.pdt-rate-clear {
+  height: 26px;
+  padding: 0 3px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  font-size: 17px;
+  cursor: pointer;
+}
+
+button.pdt-rate-star.is-on,
+.pdt-rate-stars:hover button.pdt-rate-star:hover,
+.pdt-rate-stars button.pdt-rate-star:hover ~ button.pdt-rate-star {
+  color: var(--color-yellow);
+}
+
+.pdt-rate-stars:hover button.pdt-rate-star.is-on:not(:hover):not(:hover ~ *) {
+  color: var(--text-faint);
+}
+
+button.pdt-rate-clear {
+  font-size: var(--font-ui-smaller);
+}
+
+button.pdt-rate-clear:hover {
+  color: var(--text-error);
 }
 
 /* Row actions use Obsidian's clickable-icon look; only size and highlight are set here */
@@ -647,18 +751,19 @@
   }
 
   .pdt-row {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--size-4-2);
   }
 
-  .pdt-right {
-    justify-content: space-between;
-    align-items: center;
+  .pdt-main {
+    grid-column: 1 / -1;
   }
 
-  .pdt-desc-row {
-    flex-direction: column;
-    gap: var(--size-2-3);
+  .pdt-metrics {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--size-4-3);
+    text-align: left;
   }
 }
 
@@ -938,30 +1043,14 @@ button.pdt-gm-more:hover {
   background: var(--pdt-hue, var(--text-faint));
 }
 
-.pdt-badge.is-group {
-  color: var(--pdt-hue, var(--text-accent));
-  background: color-mix(in srgb, var(--pdt-hue, var(--interactive-accent)) 15%, transparent);
-  cursor: pointer;
+.pdt-n.is-updates {
+  color: var(--color-yellow);
+  background: color-mix(in srgb, var(--color-yellow) 16%, transparent);
 }
 
-.pdt-badge.is-status,
-.pdt-badge.is-rating {
-  cursor: pointer;
-  color: var(--text-muted);
-  background: var(--background-modifier-hover);
+.pdt-n.is-hidden {
+  display: none;
 }
-
-.pdt-badge.is-empty {
-  color: var(--text-faint);
-  background: transparent;
-  border: 1px dashed var(--background-modifier-border);
-}
-
-.pdt-badge.is-trying { color: var(--color-yellow); background: color-mix(in srgb, var(--color-yellow) 15%, transparent); }
-.pdt-badge.is-using { color: var(--color-green); background: color-mix(in srgb, var(--color-green) 15%, transparent); }
-.pdt-badge.is-dropped { color: var(--color-red); background: color-mix(in srgb, var(--color-red) 13%, transparent); }
-.pdt-badge.is-rating:not(.is-empty) { color: var(--color-yellow); letter-spacing: 1px; }
-.pdt-badge.is-snoozed { color: var(--text-muted); background: var(--background-modifier-hover); }
 
 /* ── Tracked tab ───────────────────────────────────────────────────────── */
 .pdt-groupbar {

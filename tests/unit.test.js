@@ -81,7 +81,8 @@ const tests = {
     assert.deepEqual(ids({}), ["a"]);                       // b old, c excluded, d few downloads, e tracked
     assert.deepEqual(ids({ mode: "awakened" }), ["a"]);     // a was quiet for 299 days
     assert.deepEqual(ids({ mode: "awakened", dormantDays: 365 }), []);
-    assert.deepEqual(ids({ mode: "changed" }), ["e"]);      // reviewed 10 days ago, released 1 day ago
+    assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.UPDATES }), ["e"]);   // reviewed 10 days ago, released 1 day ago
+    assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.STARRED }), []);
     assert.deepEqual(ids({ mode: "suggested" }), ["a", "e"]);   // installed and not starred
     state.dismissed.add("a");
     assert.deepEqual(ids({ mode: "suggested" }), ["e"]);
@@ -90,7 +91,7 @@ const tests = {
     assert.deepEqual(ids({ mode: "new" }), []);                                // …but below 100 downloads
     assert.deepEqual(ids({ mode: "new", filterDownloads: false, days: 3 }), []);
     const counts = core.modeCounts(state, opts, NOW);   // each tab with its default Downloads on/off (New: off)
-    assert.deepEqual(counts, { all: 3, new: 1, updated: 1, awakened: 1, tracked: 1, changed: 1, suggested: 2 });  // all: a, b, e (c excluded, d below 100 downloads)
+    assert.deepEqual(counts, { all: 3, new: 1, updated: 1, awakened: 1, tracked: 1, suggested: 2 });  // all: a, b, e (c excluded, d below 100 downloads)
     const off = core.modeCounts(state, { ...opts, downloadFilter: { all: false } }, NOW);
     assert.equal(off.all, 4);                                 // All with the filter off: d is back
     assert.deepEqual(ids({ query: "a, desc" }), ["a"]);
@@ -142,10 +143,17 @@ const tests = {
   "modeOptions: per-tab Downloads and sort with defaults; invalid saved values fall back"() {
     const settings = { ...core.defaultSettings(), downloadFilter: { new: true }, sortBy: { all: { key: "name", dir: "desc" }, updated: { key: "bogus" } } };
     assert.equal(core.modeOptions(settings, "all").filterDownloads, true);      // default
-    assert.equal(core.modeOptions(settings, "new").filterDownloads, true);      // saved
+    assert.equal(core.modeOptions(settings, "new").filterDownloads, false);     // never on New, even if saved
+    assert.equal(core.modeOptions({ ...settings, downloadFilter: { updated: false } }, "updated").filterDownloads, false);   // saved
     assert.equal(core.modeOptions(settings, "changed").filterDownloads, false); // default
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "all")[k]), ["name", "desc"]);
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "new")[k]), ["listed", "desc"]);
+    assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "tracked")[k]), ["rating", "desc"]);
+    const rated = [{ id: "b", name: "B" }, { id: "a", name: "A" }, { id: "c", name: "C" }];
+    const notes = new Map([["c", { rating: 5 }], ["b", { rating: 3 }]]);
+    assert.deepEqual(core.sortRows(rated, "rating", "desc", [], {}, notes).map((p) => p.id), ["c", "b", "a"]);
+    assert.equal(core.statusKey("🧪 Deneme süreci", []), "deneme-süreci");
+    assert.equal(core.statusKey("To try", ["to-try"]), "to-try-2");
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "updated")[k]), ["downloads", "desc"]);
   },
 

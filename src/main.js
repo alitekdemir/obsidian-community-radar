@@ -49,7 +49,7 @@ const VISIBLE_SUGGESTIONS = 5;     // AI chips shown before "+n more"
 const KEY_HELP = [
   [["j", "k"], "keys.move"], [["f"], "keys.star"], [["g"], "keys.groups"], [["x"], "keys.ignore"],
   [["h"], "keys.snooze"], [["t"], "keys.translate"], [["r"], "keys.readme"], [["s"], "keys.similar"],
-  [["o"], "keys.open"], [["Enter"], "keys.expand"],
+  [["o"], "keys.open"], [["Enter"], "keys.expand"], [["1", "…", "5"], "keys.rate"], [["0"], "keys.unrate"],
 ];
 const MIN_SIMILARITY = 5;          // summed rarity of shared words; ~one rare word or two common ones
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
@@ -62,12 +62,16 @@ const LEGACY_README_START = "<!-- plugin-tracker:readme-start -->";
 const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
-const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "changed", "suggested"];
+const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
 const LIST_MODES = ["ignored", "dismissed"];   // reached from the ⋮ menu and settings, not from a tab
-const SORT_KEYS = ["downloads", "updated", "name", "listed", "dormant"];
-const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc" };  // most, newest, A→Z, newest, longest
-const STATUSES = ["candidate", "trying", "using", "dropped"];
-const UNGROUPED = "\u0000ungrouped";   // the "Ungrouped" filter of the Tracked tab; can't clash with a group name
+const SORT_KEYS = ["downloads", "updated", "name", "listed", "dormant", "rating"];
+const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
+// Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
+const UNGROUPED = "\u0000ungrouped";
+const UPDATES = "\u0000updates";     // tracked plugins with a release since you reviewed them
+const STARRED = "\u0000starred";
+const DEFAULT_STATUSES = ["to-try", "watching", "testing", "adopted", "replaced"];   // labels come from the locale
+const LEGACY_STATUS = { candidate: "to-try", trying: "testing", using: "adopted", dropped: "replaced" };   // 0.7.1–0.7.2
 const GROUP_HUES = 8;
 const DAY_PRESETS = [1, 3, 7, 14, 30, 60, 90];
 const DORMANT_PRESETS = [30, 60, 90, 180, 365];
@@ -79,7 +83,7 @@ const TAB_DEFAULTS = {
   awakened: { downloads: true, sort: "downloads" },
   changed: { downloads: false, sort: "updated" },
   suggested: { downloads: false, sort: "downloads" },
-  tracked: { downloads: false, sort: "name" },
+  tracked: { downloads: false, sort: "rating" },
   ignored: { downloads: false, sort: "name" },
   dismissed: { downloads: false, sort: "name" },
 };
@@ -142,8 +146,9 @@ function defaultSettings() {
     downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
     trackedGroup: "",     // Tracked tab: "" = all, a group name, or UNGROUPED
     trackedSections: true,
-    trackedStarred: false,
     trackedStatus: "",
+    statusEnabled: false,  // the status field is optional; its values stay in the notes when it's off
+    statuses: DEFAULT_STATUSES.map((key) => ({ key, label: t(`statusDefault.${key}`) })),
     sortBy: {},           // tab → {key, dir}; missing tabs use TAB_DEFAULTS
     query: "",
     historyMonths: 12,
@@ -359,7 +364,7 @@ function modeOptions(settings, mode) {
   return {
     ...settings,
     mode,
-    filterDownloads: settings.downloadFilter?.[mode] ?? defaults.downloads,
+    filterDownloads: mode === "new" ? false : settings.downloadFilter?.[mode] ?? defaults.downloads,   // new plugins have few downloads
     sort: key,
     sortDir: sort.dir === "asc" || sort.dir === "desc" ? sort.dir : NATURAL_DIR[key],
   };
@@ -370,13 +375,17 @@ function isSnoozed(plugin, snoozed) {
   return snoozed != null && plugin.id in snoozed && (plugin.updated || 0) <= snoozed[plugin.id];
 }
 
-/** Does a tracked plugin pass the Tracked tab's group, star and status filters? */
-function trackedMatch(note, opts) {
+/** Does a tracked plugin pass the Tracked tab's group menu (a group, Ungrouped, Starred, New releases) and status filter? */
+function trackedMatch(note, opts, plugin) {
   if (!note) return false;
-  if (opts.trackedStarred && !note.favorite) return false;
-  if (opts.trackedStatus && note.status !== opts.trackedStatus) return false;
-  if (opts.trackedGroup === UNGROUPED) return !note.groups.length;
-  return !opts.trackedGroup || note.groups.includes(opts.trackedGroup);
+  if (opts.statusEnabled && opts.trackedStatus && note.status !== opts.trackedStatus) return false;
+  switch (opts.trackedGroup) {
+    case "": case undefined: return true;
+    case UNGROUPED: return !note.groups.length;
+    case STARRED: return note.favorite;
+    case UPDATES: return isChanged(plugin, note);
+    default: return note.groups.includes(opts.trackedGroup);
+  }
 }
 
 /**
@@ -392,7 +401,7 @@ function discover(state, opts, now) {
   const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p);
   const base = (p) => shown(p) && !excluded.has(p.id) && !isSnoozed(p, snoozed);
   const fresh = (p) => base(p) && !notes.has(p.id);
-  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog, releases);
+  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog, releases, notes);
 
   switch (opts.mode) {
     case "all":   // browsing: tracked plugins stay visible (with their note badge), excluded ones don't
@@ -403,12 +412,10 @@ function discover(state, opts, now) {
       return sorted(catalog.filter((p) => fresh(p) && p.updated >= since));
     case "awakened":
       return sorted(catalog.filter((p) => fresh(p) && p.updated >= since && (dormantDays(releases, p) ?? -1) >= opts.dormantDays));
-    case "changed":
-      return sorted(catalog.filter((p) => base(p) && isChanged(p, notes.get(p.id))));
     case "suggested":
       return sorted(catalog.filter((p) => base(p) && installed.has(p.id) && !dismissed.has(p.id) && !(notes.get(p.id) || {}).favorite));
     case "tracked":   // your notes: ignoring a tracked plugin doesn't hide it here
-      return sorted(catalog.filter((p) => shown(p) && trackedMatch(notes.get(p.id), opts)));
+      return sorted(catalog.filter((p) => shown(p) && trackedMatch(notes.get(p.id), opts, p)));
     case "ignored":
       return sorted(catalog.filter((p) => shown(p) && (excluded.has(p.id) || isSnoozed(p, snoozed))));
     case "dismissed":
@@ -422,10 +429,13 @@ function discover(state, opts, now) {
  * Sorts rows in place by `key` in direction `dir` ("asc" | "desc"; default: the key's natural one).
  * "listed" uses the position in the official listing, which is the order plugins were added.
  */
-function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = [], releases = {}) {
+function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = [], releases = {}, notes = new Map()) {
   const position = key === "listed" ? new Map(catalog.map((p, i) => [p.id, i])) : null;
   const gap = (p) => dormantDays(releases, p) ?? -1;   // no history: last
+  const rating = (p) => notes.get(p.id)?.rating || 0;
+  const byName = (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" });
   const compare = {
+    rating: (a, b) => rating(b) - rating(a) || (dir === "desc" ? byName(a, b) : -byName(a, b)),   // ties A→Z either way
     dormant: (a, b) => gap(b) - gap(a),
     downloads: (a, b) => (b.downloads ?? 0) - (a.downloads ?? 0),
     updated: (a, b) => (b.updated ?? 0) - (a.updated ?? 0),
@@ -450,6 +460,14 @@ function groupSections(rows, notes) {
   }
   const named = [...sections].sort((a, b) => a[0].localeCompare(b[0], t("locale"))).map(([name, list]) => ({ name, rows: list }));
   return none.length ? [...named, { name: UNGROUPED, rows: none }] : named;
+}
+
+/** A stable frontmatter value for a new status label: "🧪 Deneme süreci" → "deneme-süreci". */
+function statusKey(label, taken) {
+  const base = label.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, "-").replace(/^-+|-+$/g, "") || "status";
+  let key = base;
+  for (let i = 2; taken.includes(key); i++) key = `${base}-${i}`;
+  return key;
 }
 
 /** A stable colour slot for a group name, so a group looks the same everywhere. */
@@ -624,7 +642,7 @@ function noteFromFrontmatter(path, fm) {
     id: String(fm.plugin_id),
     groups: groupsOf(fm),
     favorite: fm.favorite === true,
-    status: STATUSES.includes(fm.status) ? fm.status : "",   // anything else is ignored, never rewritten
+    status: typeof fm.status === "string" ? fm.status.trim() : "",   // shown only if it's one of your statuses
     rating: Number.isInteger(fm.rating) && fm.rating >= 1 && fm.rating <= 5 ? fm.rating : 0,
     note: fm.note ? String(fm.note) : "",
     reviewed: fm.reviewed ? String(fm.reviewed).slice(0, 10) : "",
@@ -857,7 +875,7 @@ const core = {
   setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
   historyLabel, formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
   mergeSnapshot, dormantDays, isNewPlugin, isChanged, compileQuery, modeOptions, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
-  groupSections, groupHue, UNGROUPED, escapeOutsideCode,
+  groupSections, groupHue, statusKey, UNGROUPED, UPDATES, STARRED, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
   parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, closestGroup,
@@ -1472,7 +1490,8 @@ class DiscoveryView extends ItemView {
     this.grouping = null;         // grouping mode: {ids, suggestions, picked, loading, error}
     // Obsidian activates a view's scope while its tab is focused, so keys work without clicking a row
     this.scope = new Scope(this.app.scope);
-    for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "Enter"]) {
+    this.keep = new Map();        // id → index: rows an action moved out of the filter stay put until render()
+    for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "Enter", "0", "1", "2", "3", "4", "5"]) {
       this.scope.register([], key, (event) => this.onKey(event, key));
     }
   }
@@ -1538,8 +1557,9 @@ class DiscoveryView extends ItemView {
       o: () => $(row, ".pdt-name")?.click(),
       Enter: () => $(row, ".pdt-desc")?.click(),
     };
+    for (const n of [0, 1, 2, 3, 4, 5]) actions[n] = () => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", n || null));
     Promise.resolve(actions[key]()).then(() => {
-      if (!"fxh".includes(key)) return;
+      if (!"fxh012345".includes(key)) return;
       this.refresh();
       const again = [...this.contentEl.querySelectorAll(".pdt-row")];
       this.setCursor(again.find((r) => r.dataset.id === p.id) || again[Math.min(index, again.length - 1)]);
@@ -1682,6 +1702,7 @@ class DiscoveryView extends ItemView {
   render() {
     const root = this.contentEl;
     root.empty();
+    this.keep.clear();
     this.refs = { counts: {} };
     this.renderModes(root.createDiv({ cls: "pdt-seg" }));
     this.renderFilters(root.createDiv({ cls: "pdt-filters" }));
@@ -1697,6 +1718,9 @@ class DiscoveryView extends ItemView {
     if (this.plugin.catalog) {
       const counts = modeCounts(state, this.settings, now);
       for (const [mode, el] of Object.entries(this.refs.counts)) el.setText(formatCount(counts[mode]));
+      const updates = this.plugin.updatesCount(state, now);
+      this.refs.updates?.setText(updates ? t("tracked.updatesBadge", { n: updates }) : "");
+      this.refs.updates?.toggleClass("is-hidden", !updates);
     }
     this.renderStatus(this.refs.status);
     this.renderList(this.refs.list, state, now);
@@ -1708,43 +1732,39 @@ class DiscoveryView extends ItemView {
       const tab = seg.createDiv({ cls: `pdt-tab${mode === this.settings.mode ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0" } });
       tab.createSpan({ text: t(`mode.${mode}`) });
       this.refs.counts[mode] = tab.createSpan({ cls: "pdt-n", text: "…" });
+      if (mode === "tracked") this.refs.updates = tab.createSpan({ cls: "pdt-n is-updates is-hidden" });
       setTooltip(tab, t(`tip.${mode}`, tipVars));
       tab.onclick = () => this.update("mode", mode);
       onActivate(tab, () => this.update("mode", mode));
     }
   }
 
-  /** Tracked tab: group chips (All, each group, Ungrouped), then Sections, Starred and Status. */
+  /** Tracked tab: one Group menu (All, New releases, Starred, Ungrouped, then your groups), Sections, Status. */
   renderTrackedBar(bar) {
     const settings = this.settings;
-    const groups = bar.createDiv({ cls: "pdt-groupbar" });
     const notes = [...this.plugin.notes.index.values()];
-    const chip = (value, name, count, hue) => {
-      const on = settings.trackedGroup === value;
-      const el = groups.createEl("button", { cls: `pdt-gchip${on ? " is-on" : ""}${hue == null ? "" : ` pdt-hue-${hue}`}`, attr: { type: "button", "aria-pressed": String(on) } });
-      if (hue != null) el.createSpan({ cls: "pdt-swatch" });
-      el.createSpan({ text: name });
-      el.createSpan({ cls: "pdt-gchip-meta", text: formatCount(count) });
-      el.onclick = () => this.update("trackedGroup", value);
-    };
-    chip("", t("tracked.all"), notes.length);
-    for (const g of this.plugin.notes.groups()) chip(g.name, g.name, g.count, groupHue(g.name));
-    const none = notes.filter((n) => !n.groups.length).length;
-    if (none) chip(UNGROUPED, t("tracked.ungrouped"), none);
-
-    const toggle = (label, key) => {
-      const on = Boolean(settings[key]);
+    const state = this.plugin.state();
+    const options = [
+      ["", t("tracked.allCount", { n: notes.length })],
+      [UPDATES, t("tracked.updates", { n: this.plugin.updatesCount(state, Date.now()) })],
+      [STARRED, t("tracked.starredCount", { n: notes.filter((n) => n.favorite).length })],
+      [UNGROUPED, t("tracked.ungroupedCount", { n: notes.filter((n) => !n.groups.length).length })],
+      ...this.plugin.notes.groups().map((g) => [g.name, `${g.name}  ${formatCount(g.count)}`]),
+    ];
+    menuChip(bar, t("tracked.group"), options, settings.trackedGroup, (value) => this.update("trackedGroup", value));
+    if (!settings.trackedGroup) {
+      const on = Boolean(settings.trackedSections);
       const el = bar.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
       const button = el.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
       setIcon(button.createSpan({ cls: "pdt-toggle-check" }), "check");
-      button.createSpan({ text: label });
-      button.onclick = () => this.update(key, !on);
-      onActivate(button, () => this.update(key, !on));
-    };
-    if (!settings.trackedGroup) toggle(t("tracked.sections"), "trackedSections");
-    toggle(t("tracked.starred"), "trackedStarred");
-    menuChip(bar, t("tracked.status"), [["", t("tracked.anyStatus")], ...STATUSES.map((st) => [st, t(`pstatus.${st}`)])],
-      settings.trackedStatus, (value) => this.update("trackedStatus", value));
+      button.createSpan({ text: t("tracked.sections") });
+      button.onclick = () => this.update("trackedSections", !on);
+      onActivate(button, () => this.update("trackedSections", !on));
+    }
+    if (settings.statusEnabled) {
+      menuChip(bar, t("tracked.status"), [["", t("tracked.anyStatus")], ...settings.statuses.map((st) => [st.key, st.label])],
+        settings.trackedStatus, (value) => this.update("trackedStatus", value));
+    }
   }
 
   /** Saves a per-tab setting (downloadFilter, sortBy) for the current tab. */
@@ -1764,7 +1784,7 @@ class DiscoveryView extends ItemView {
     if (mode === "awakened") {
       numberChip(bar, { ...days, label: t("filter.gap"), max: 3650, presets: DORMANT_PRESETS, value: this.settings.dormantDays, onChange: (n) => this.update("dormantDays", n) });
     }
-    toggleChip(bar, {
+    if (mode !== "new") toggleChip(bar, {
       label: t("filter.downloads"),
       value: this.settings.minDownloads,
       on: opts.filterDownloads,
@@ -1807,7 +1827,7 @@ class DiscoveryView extends ItemView {
       }, 250);
     };
 
-    if (mode === "changed") {
+    if (mode === "tracked" && this.settings.trackedGroup === UPDATES) {
       const all = bar.createEl("button", { cls: "pdt-ghost", text: t("changed.markAll") });
       all.onclick = async () => { await this.plugin.markReviewed(this.rows || []); this.refresh(); };
     }
@@ -1888,6 +1908,13 @@ class DiscoveryView extends ItemView {
     if (mode === "new" && (!timeline.to || timeline.legacy)) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
 
     this.rows = discover(state, modeOptions(this.settings, mode), now);
+    this.stale = new Set();
+    for (const [id, index] of this.keep) {
+      const p = this.rows.some((r) => r.id === id) ? null : this.plugin.pluginById(id);
+      if (!p) continue;
+      this.rows.splice(Math.min(index, this.rows.length), 0, p);
+      this.stale.add(id);
+    }
     if (LIST_MODES.includes(mode)) this.renderListBanner(list, mode);
     const sections = mode === "tracked" && !this.settings.trackedGroup && this.settings.trackedSections;
     const visible = sections ? this.rows : this.rows.slice(0, this.visible);   // sections show everything you track
@@ -1968,82 +1995,51 @@ class DiscoveryView extends ItemView {
     }
   }
 
+  /**
+   * A row in four layers: 1 name + system signals, 2 your note (groups, status, rating), description,
+   * 4 links; 3 the metrics column (downloads first) and the actions on the right.
+   */
   renderRow(list, p, now) {
     const plugin = this.plugin;
     const { firstSeen, releases } = plugin.timeline;
     const note = plugin.notes.index.get(p.id);
     const mode = this.settings.mode;
-    const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
+    const stale = this.stale?.has(p.id);
+    const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}${stale ? " is-stale" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
     row.addEventListener("click", () => this.setCursor(row));
     const main = row.createDiv({ cls: "pdt-main" });
 
-    // Title: name · version · badges
+    // 1 · name, version, system signals
     const head = main.createDiv({ cls: "pdt-head" });
     head.createEl("a", { cls: "pdt-name", text: p.name, href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
     if (p.version) head.createSpan({ cls: "pdt-ver", text: p.version });
-    if (isNewPlugin(firstSeen, p, now)) head.createSpan({ cls: "pdt-badge is-new", text: t("badge.new") });
-    if (isChanged(p, note)) head.createSpan({ cls: "pdt-badge is-changed", text: t("badge.changed") });
-    if (plugin.installed().has(p.id)) head.createSpan({ cls: "pdt-badge is-installed", text: t("badge.installed") });
-    if (isSnoozed(p, plugin.data.snoozed)) head.createSpan({ cls: "pdt-badge is-snoozed", text: t("badge.snoozed") });
+    const signal = (cls, text) => head.createSpan({ cls: `pdt-signal ${cls}`, text });
+    if (isNewPlugin(firstSeen, p, now)) signal("is-new", t("badge.new"));
+    if (isChanged(p, note)) signal("is-changed", t("badge.changed"));
+    if (plugin.installed().has(p.id)) signal("is-installed", t("badge.installed"));
+    if (isSnoozed(p, plugin.data.snoozed)) signal("is-snoozed", t("badge.snoozed"));
+    if (stale) signal("is-stale", t("row.stale"));
+
+    // 2 · your note: note link, groups, status, rating
     if (note) {
-      const link = head.createSpan({ cls: "pdt-badge is-note", text: t("badge.note") });
+      const mine = main.createDiv({ cls: "pdt-personal" });
+      const link = mine.createSpan({ cls: "pdt-pill is-note", text: t("badge.note"), attr: { role: "button", tabindex: "0" } });
       setTooltip(link, t("badge.openNote"));
-      link.onclick = () => this.app.workspace.openLinkText(note.path, "", "tab");
+      const open = () => this.app.workspace.openLinkText(note.path, "", "tab");
+      link.onclick = open;
+      onActivate(link, open);
       for (const g of note.groups) {
-        const badge = head.createSpan({ cls: `pdt-badge is-group pdt-hue-${groupHue(g)}`, text: g, attr: { role: "button", tabindex: "0" } });
+        const badge = mine.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g, attr: { role: "button", tabindex: "0" } });
         setTooltip(badge, t("tracked.showGroup", { group: g }));
         const show = () => this.plugin.showGroup(g);
         badge.onclick = show;
         onActivate(badge, show);
       }
-      this.renderNoteState(head, p, note, mode === "tracked");
+      this.renderNoteState(mine, p, note, mode === "tracked");
     }
 
-    // Meta line: README · GitHub · when · gap
-    const meta = main.createDiv({ cls: "pdt-meta" });
-    const sep = () => meta.createSpan({ cls: "pdt-sep", text: "·" });
-    if (p.repo) {
-      const readme = meta.createEl("a", { cls: "pdt-readme", text: t("row.readme"), href: "#" });
-      setIcon(readme.createSpan({ cls: "pdt-gh-icon" }), "file-text");
-      setTooltip(readme, t(note ? "row.readmeOpen" : "row.readmeCreate"));
-      readme.onclick = async (event) => {
-        event.preventDefault();
-        await plugin.openReadme(p);
-      };
-      sep();
-    }
-    if (p.repo) {
-      const gh = meta.createEl("a", { cls: "pdt-gh", href: `https://github.com/${p.repo}`, text: "GitHub" });
-      setIcon(gh.createSpan({ cls: "pdt-gh-icon" }), "external-link");
-      sep();
-    }
-    const similarOpen = this.similarOpen.has(p.id);
-    const similar = meta.createEl("a", { cls: `pdt-readme pdt-similar-link${similarOpen ? " is-open" : ""}`, text: t("row.similar"), href: "#", attr: { "aria-expanded": String(similarOpen) } });
-    setIcon(similar.createSpan({ cls: "pdt-gh-icon" }), similarOpen ? "chevron-up" : "chevron-down");
-    setTooltip(similar, t("row.similarTip"));
-    similar.onclick = (event) => {
-      event.preventDefault();
-      if (similarOpen) this.similarOpen.delete(p.id); else this.similarOpen.add(p.id);
-      this.refresh();
-    };
-    sep();
-    const seen = firstSeen[p.id];
-    if (p.updated) meta.createSpan({ text: t("row.updated", { when: relativeDays(p.updated, now) }) });
-    else meta.createSpan({ text: seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
-    if (plugin.timeline.to && p.updated) {
-      const gap = dormantDays(releases, p);
-      sep();
-      if (gap != null) {
-        const long = this.settings.mode === "awakened" && gap >= this.settings.dormantDays;  // highlighted only in Awakened
-        meta.createSpan({ cls: long ? "pdt-gap is-long" : "pdt-gap", text: t("row.gap", { n: gap }) });
-      } else {
-        meta.createSpan({ cls: "pdt-gap", text: t("row.firstRelease") });
-      }
-    }
-
-    // Description: two lines; click to expand long ones. Translate next to it.
-    const descRow = main.createDiv({ cls: "pdt-desc-row" });
-    const desc = descRow.createEl("p", { cls: "pdt-desc", text: p.description || "–" });
+    // description (two lines; click to expand long ones) and its translation
+    const desc = main.createEl("p", { cls: "pdt-desc", text: p.description || "–" });
     if (this.expanded.has(p.id)) desc.addClass("is-expanded");
     requestAnimationFrame(() => {
       if (desc.scrollHeight > desc.clientHeight + 1 || desc.hasClass("is-expanded")) desc.addClass("is-clamped");
@@ -2055,56 +2051,77 @@ class DiscoveryView extends ItemView {
     };
     const translation = plugin.cachedTranslation(p);
     const showing = translation != null && this.shownTranslations.has(p.id);
+    if (showing) main.createDiv({ cls: "pdt-trans", text: translation });
+
+    // 4 · links
+    const links = main.createDiv({ cls: "pdt-meta" });
+    const link = (cls, text, icon, onClick, href = "#") => {
+      const a = links.createEl("a", { cls, text, href });
+      if (icon) setIcon(a.createSpan({ cls: "pdt-gh-icon" }), icon);
+      if (onClick) a.onclick = (event) => { event.preventDefault(); onClick(); };
+      return a;
+    };
+    if (p.repo) {
+      setTooltip(link("pdt-readme", t("row.readme"), "file-text", () => plugin.openReadme(p)), t(note ? "row.readmeOpen" : "row.readmeCreate"));
+      link("pdt-gh", "GitHub", "external-link", null, `https://github.com/${p.repo}`);
+    }
+    const similarOpen = this.similarOpen.has(p.id);
+    const similar = link(`pdt-readme pdt-similar-link${similarOpen ? " is-open" : ""}`, t("row.similar"), similarOpen ? "chevron-up" : "chevron-down", () => {
+      if (similarOpen) this.similarOpen.delete(p.id); else this.similarOpen.add(p.id);
+      this.refresh();
+    });
+    similar.setAttribute("aria-expanded", String(similarOpen));
+    setTooltip(similar, t("row.similarTip"));
     if (p.description) {
-      const tr = descRow.createDiv({ cls: "pdt-tr", attr: { role: "button", tabindex: "0" } });
-      setIcon(tr.createSpan({ cls: "pdt-btn-icon" }), "languages");
-      tr.createSpan({ text: showing ? t("translate.hide") : t("translate.row") });
-      tr.onclick = async () => {
+      link("pdt-readme pdt-tr", showing ? t("translate.hide") : t("translate.row"), "languages", async () => {
         if (showing) this.shownTranslations.delete(p.id);
         else if (translation != null || (await plugin.translateRows([p]))) this.shownTranslations.add(p.id);
         this.refresh();
-      };
-      onActivate(tr, () => tr.click());
+      });
     }
-    if (showing) main.createDiv({ cls: "pdt-trans", text: translation });
     if (similarOpen) this.renderSimilar(main, p);
 
-    // Right side: downloads + actions
-    const right = row.createDiv({ cls: "pdt-right" });
-    const downloads = right.createDiv({ cls: "pdt-downloads" });
+    // 3 · metrics: downloads first, then when it was updated and after how long
+    const metrics = row.createDiv({ cls: "pdt-metrics" });
+    const downloads = metrics.createDiv({ cls: `pdt-downloads${p.downloads == null ? " is-empty" : ""}` });
     if (p.downloads == null) {
-      downloads.addClass("is-empty");
       downloads.setText(t("row.noStats"));
     } else {
       setIcon(downloads.createSpan({ cls: "pdt-dl-icon" }), "download");
       downloads.createSpan({ text: formatShort(p.downloads) });
       setTooltip(downloads, t("row.downloads", { n: formatCount(p.downloads) }));
     }
+    const seen = firstSeen[p.id];
+    metrics.createDiv({ cls: "pdt-when", text: p.updated ? relativeDays(p.updated, now) : seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
+    if (plugin.timeline.to && p.updated) {
+      const gap = dormantDays(releases, p);
+      const long = mode === "awakened" && gap != null && gap >= this.settings.dormantDays;   // highlighted only in Revived
+      metrics.createDiv({ cls: `pdt-gap${long ? " is-long" : ""}`, text: gap != null ? t("row.gap", { n: gap }) : t("row.firstRelease") });
+    }
+
     if (this.grouping) {   // grouping mode: the row's group chips take the place of its actions
       this.groupingRows.set(p.id, { row, box: main.createDiv({ cls: "pdt-grouping-chips pdt-gm-chips" }) });
       this.renderGroupingChips(p.id);
       return;
     }
-    const actions = right.createDiv({ cls: "pdt-actions" });
-    const act = (icon, tip, fn, cls) => {
+    const actions = row.createDiv({ cls: "pdt-actions" });
+    const act = (icon, tip, fn, cls = "", keep = false) => {
       const button = iconButton(actions, icon, tip, cls);
       button.onclick = async () => {
         if (button.hasClass("is-busy")) return;  // a quick double click must not run the action twice
         button.addClass("is-busy");
-        await fn();
-        this.refresh();
+        if (keep) await this.runRowAction(p, fn);
+        else { await fn(); this.refresh(); }
       };
+      return button;
     };
-    if (mode === "changed") {
-      act("check", t("action.reviewed"), () => plugin.markReviewed([p]));
-      return;
-    }
     if (LIST_MODES.includes(mode)) {
       act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
     }
-    act("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => plugin.toggleFavorite(p), note?.favorite ? "is-favorite" : "");
-    act("folder-plus", note?.groups.length ? t("action.groupNamed", { group: note.groups.join(", ") }) : t("action.group"), () => plugin.chooseGroup(p));
+    if (isChanged(p, note)) act("check", t("action.reviewed"), () => plugin.markReviewed([p]), "", true);
+    this.renderStar(actions, act, p, note);
+    act("folder-plus", note?.groups.length ? t("action.groupNamed", { group: note.groups.join(", ") }) : t("action.group"), () => plugin.chooseGroup(p), "", true);
     if (mode === "suggested") act("x", t("action.dismiss"), () => plugin.dismiss(p));
     else {
       act("eye-off", t("action.snooze"), () => plugin.snooze(p));
@@ -2112,20 +2129,47 @@ class DiscoveryView extends ItemView {
     }
   }
 
-  /** Status and rating chips of a tracked plugin; empty ones show only on the Tracked tab. */
+  /** Runs a row action and keeps the row where it was even if it no longer matches the filter. */
+  async runRowAction(p, fn) {
+    const index = (this.rows || []).findIndex((r) => r.id === p.id);
+    await fn();
+    if (index !== -1) this.keep.set(p.id, index);
+    this.refresh();
+  }
+
+  /** The star: a click toggles the favourite; hovering or focusing it opens 1–5 stars to rate. */
+  renderStar(actions, act, p, note) {
+    const box = actions.createDiv({ cls: "pdt-rate" });
+    const star = act("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => this.plugin.toggleFavorite(p), note?.favorite ? "is-favorite" : "", true);
+    box.appendChild(star);
+    const pop = box.createDiv({ cls: "pdt-rate-pop", attr: { role: "group", "aria-label": t("rating.set") } });
+    const stars = pop.createDiv({ cls: "pdt-rate-stars" });   // laid out in reverse so hovering fills a star and those before it
+    for (let n = 5; n >= 1; n--) {
+      const button = stars.createEl("button", { cls: `pdt-rate-star${(note?.rating || 0) >= n ? " is-on" : ""}`, text: "★", attr: { type: "button", "aria-label": t("rating.label", { n }) } });
+      button.onclick = () => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", n));
+    }
+    if (note?.rating) {
+      const clear = pop.createEl("button", { cls: "pdt-rate-clear", text: t("rating.clear"), attr: { type: "button" } });
+      clear.onclick = () => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", null));
+    }
+  }
+
+  /** Status (when the field is on) and rating chips of a tracked plugin; empty ones only on the Tracked tab. */
   renderNoteState(parent, p, note, always) {
-    if (note.status || always) {
-      const options = [["", t("pstatus.clear")], ...STATUSES.map((st) => [st, t(`pstatus.${st}`)])];
-      const chip = parent.createSpan({ cls: `pdt-badge is-status${note.status ? ` is-${note.status}` : " is-empty"}`, text: note.status ? t(`pstatus.${note.status}`) : t("pstatus.set"), attr: { role: "button", tabindex: "0" } });
-      const open = () => this.pickFromMenu(chip, options, note.status, (value) => this.plugin.setNoteField(p, "status", value || null));
+    const { statusEnabled, statuses } = this.settings;
+    if (statusEnabled && (note.status || always)) {
+      const known = statuses.find((st) => st.key === note.status);
+      const options = [["", t("pstatus.clear")], ...statuses.map((st) => [st.key, st.label])];
+      const chip = parent.createSpan({ cls: `pdt-pill is-status${note.status ? "" : " is-empty"}`, text: note.status ? known?.label || note.status : t("pstatus.set"), attr: { role: "button", tabindex: "0" } });
+      const open = () => this.pickFromMenu(chip, options, note.status, (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "status", value || null)));
       chip.onclick = open;
       onActivate(chip, open);
     }
     if (note.rating || always) {
       const stars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
       const options = [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, stars(n)])];
-      const chip = parent.createSpan({ cls: `pdt-badge is-rating${note.rating ? "" : " is-empty"}`, text: note.rating ? stars(note.rating) : t("rating.set"), attr: { role: "button", tabindex: "0", "aria-label": note.rating ? t("rating.label", { n: note.rating }) : t("rating.set") } });
-      const open = () => this.pickFromMenu(chip, options, note.rating, (value) => this.plugin.setNoteField(p, "rating", value || null));
+      const chip = parent.createSpan({ cls: `pdt-pill is-rating${note.rating ? "" : " is-empty"}`, text: note.rating ? stars(note.rating) : t("rating.set"), attr: { role: "button", tabindex: "0", "aria-label": note.rating ? t("rating.label", { n: note.rating }) : t("rating.set") } });
+      const open = () => this.pickFromMenu(chip, options, note.rating, (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
       chip.onclick = open;
       onActivate(chip, open);
     }
@@ -2205,6 +2249,8 @@ class RadarSettingTab extends PluginSettingTab {
         plugin.redraw(true);
       }));
 
+    this.displayStatuses(containerEl, settings, save);
+
     // ── Groups
     new Setting(containerEl).setName(t("set.groups")).setHeading();
     const ungrouped = plugin.ungrouped().length;
@@ -2275,6 +2321,55 @@ class RadarSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName(t("set.dismissed", { n: formatCount(Object.keys(plugin.data.dismissed).length) }))
       .addButton((b) => b.setButtonText(t("set.manage")).onClick(() => plugin.showList("dismissed")));
+  }
+
+  /** The optional status field: on/off, then the list of statuses (label with an emoji, order, add, remove). */
+  displayStatuses(containerEl, settings, save) {
+    new Setting(containerEl)
+      .setName(t("set.status"))
+      .setDesc(t("set.statusDesc"))
+      .addToggle((toggle) => toggle.setValue(Boolean(settings.statusEnabled)).onChange(async (value) => {
+        settings.statusEnabled = value;
+        await save();
+        this.plugin.redraw(true);
+        this.display();
+      }));
+    if (!settings.statusEnabled) return;
+    const move = async (from, to) => {
+      const list = [...settings.statuses];
+      list.splice(to, 0, ...list.splice(from, 1));
+      settings.statuses = list;
+      await save();
+      this.display();
+    };
+    settings.statuses.forEach((status, i) => {
+      new Setting(containerEl)
+        .setClass("pdt-status-setting")
+        .setDesc(t("set.statusKey", { key: status.key }))
+        .addText((text) => text.setValue(status.label).onChange(async (value) => {
+          status.label = value.trim() || status.key;   // the key in your notes never changes
+          await save();
+        }))
+        .addExtraButton((b) => b.setIcon("arrow-up").setTooltip(t("set.statusUp")).setDisabled(i === 0).onClick(() => move(i, i - 1)))
+        .addExtraButton((b) => b.setIcon("arrow-down").setTooltip(t("set.statusDown")).setDisabled(i === settings.statuses.length - 1).onClick(() => move(i, i + 1)))
+        .addExtraButton((b) => b.setIcon("trash-2").setTooltip(t("set.statusRemove")).onClick(async () => {
+          settings.statuses = settings.statuses.filter((st) => st !== status);
+          await save();
+          this.display();
+        }));
+    });
+    let draft = "";
+    new Setting(containerEl)
+      .setName(t("set.statusAdd"))
+      .setDesc(t("set.statusAddDesc"))
+      .addText((text) => text.setPlaceholder(t("set.statusPlaceholder")).onChange((value) => { draft = value; }))
+      .addButton((b) => b.setButtonText(t("groups.add")).onClick(async () => {
+        const label = draft.trim();
+        if (!label) return;
+        settings.statuses = [...settings.statuses, { key: statusKey(label, settings.statuses.map((st) => st.key)), label }];
+        await save();
+        this.display();
+      }));
   }
 
   displayTranslation(containerEl, settings, save) {
@@ -2377,6 +2472,7 @@ class PluginRadar extends Plugin {
     this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, groupSuggestions: {}, migrations: {} }, await this.loadData());
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
+    if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
     this.github = new GitHub();
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
     this.notes = new Notes(this.app, this.data.settings);
@@ -2473,6 +2569,11 @@ class PluginRadar extends Plugin {
       const moved = await this.notes.migrateGroups();
       done.groupsList = dayString(Date.now());
       if (moved) new Notice(t("notice.groupsMigrated", { n: moved }), 10000);
+    }
+    if (!done.statusKeys) {   // 0.7.1's statuses → the new ones
+      const moved = await this.notes.migrate((content) => content.replace(/^status: (candidate|trying|using|dropped)[ \t]*$/m, (all, old) => `status: ${LEGACY_STATUS[old]}`));
+      done.statusKeys = dayString(Date.now());
+      if (moved) new Notice(t("notice.statusMigrated", { n: moved }), 10000);
     }
     if (!done.readmeMarkers) {
       await this.notes.migrate(migrateMarkers);
@@ -2818,13 +2919,18 @@ class PluginRadar extends Plugin {
   }
 
   /** Opens the Tracked tab on Ungrouped and starts grouping mode there; nothing is written before Accept. */
+  /** Tracked plugins with a release since you reviewed them (the Tracked tab's badge). */
+  updatesCount(state = this.state(), now = Date.now()) {
+    return discover(state, { ...modeOptions(this.data.settings, "tracked"), trackedGroup: UPDATES, trackedStatus: "", query: "" }, now).length;
+  }
+
   async groupUngrouped() {
     if (!(await this.ensureCatalog())) return;
     if (!this.ungrouped().length) return new Notice(t("batch.none"));
     if (!this.translator.ready) return new Notice(t("groups.aiSetup"));
     this.app.setting?.close?.();
     await this.openView();
-    Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UNGROUPED, trackedStarred: false, trackedStatus: "" });
+    Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UNGROUPED, trackedStatus: "" });
     await this.saveData(this.data);
     this.redraw(true);
     const view = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view;

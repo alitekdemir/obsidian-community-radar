@@ -13,7 +13,6 @@ Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını
 | **Güncellenen** | Son *N* günde sürüm çıkaranlar |
 | **Uyananlar** | Son *N* günde, **uzun bir aradan sonra** sürüm çıkaranlar (ör. öncesinde 90+ gün sürüm yok). Sürekli güncellenenler elenir. |
 | **Takip** | Takip ettiğiniz eklentiler; her grup için ayrı bölümde (iki gruptaki eklenti ikisinde de görünür), favori, durum ve puan süzgeçleriyle |
-| **🔄 Değişenler** | Takip ettiklerinizden, incelediğiniz günden sonra yeni sürüm çıkaranlar |
 | **Öneriler** | Kurulu olan ama henüz favori yapmadığınız eklentiler |
 
 ![Tümü sekmesi: indirme, son güncelleme, sessizlik süresi ve README / GitHub bağlantılarıyla bütün eklentiler](docs/images/Radar_1-All.png)
@@ -33,9 +32,12 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 - **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.
 - **Gruplar**: bir eklenti birden çok grupta olabilir (`groups` listesi). Grup penceresi gruplarınızdan en yakınını ★ ile işaretler, AI önerilerini açıp kapatabileceğiniz çipler olarak gösterir. ⋮ menüsündeki **Bu listedekilere grup öner**, baktığınız listenin her satırının altına AI önerilerini getirir (en çok 50, tek istek); öneriler hem Türkçe hem yaygın İngilizce karşılığıyla gelir (*Yapay Zekâ* ve *AI*). Satırlarda seçersiniz; **Kabul et**'e basılana kadar hiçbir şey kaydedilmez.
 - **Benzer eklentiler**: her satırın altında, ad ve açıklamalardaki ortak kelimelerden yerelde bulunur; AI ya da ağ isteği yok.
-- **Durum ve puan**: takip edilen eklentiler için (*Aday*, *Deniyorum*, *Kullanıyorum*, *Bıraktım*; 1–5 yıldız), satırdan seçilir, `status` ve `rating` özelliklerine yazılır.
+- **Puan**: satırdaki ☆'ın üzerine gelip 1–5 yıldız verin (`rating`). Takip sekmesi puana göre sıralar; her grubun en beğendikleri üstte.
+- **Yeni sürümler**: Takip sekmesinde sarı sayı, satırda *YENİ SÜRÜM* sinyali, Grup menüsünde *Yeni sürüm çıkanlar* ve *Hepsini incelendi say*.
+- **Durum** (isteğe bağlı, varsayılan kapalı): emojili kendi durum listeniz — ör. 🔖 Denenecek, 👀 İzleniyor, 🧪 Deneniyor, ✅ Benimsendi, 🔁 Yerine başkası — ayarlardan düzenlenir, `status` olarak saklanır.
+- Kolay taranan satırlar: sistem sinyalleri adın yanında, notunuz (gruplar, durum, puan) ayrı satırda, sağda indirmeyle başlayan ölçüm sütunu. Bir işlemle listeden çıkan satır, panel yeniden açılana kadar soluk olarak yerinde kalır.
 - **Sonraki sürüme kadar gizle**: eklenti yeni sürüm çıkarınca kendiliğinden geri gelir. Dışlananlar ve önerilmeyenler panelin ⋮ menüsünden; arama ve *Geri al* ile açılır.
-- **Sessizlik süresine göre sıralama** ve **klavye** (varsayılan kapalı; *Ayarlar → Klavye kısayolları*): sekme etkinken `j`/`k` vurguyu taşır; `f` favori, `g` gruplar, `x` dışla, `h` sonraki sürüme kadar gizle, `t` çevir, `r` README, `s` benzerleri, `o` aç, `Enter` genişlet. Filtre çubuğundaki ⌨ simgesi listeyi gösterir.
+- **Sessizlik süresine göre sıralama** ve **klavye** (varsayılan kapalı; *Ayarlar → Klavye kısayolları*): sekme etkinken `j`/`k` vurguyu taşır; `f` favori, `g` gruplar, `x` dışla, `h` sonraki sürüme kadar gizle, `t` çevir, `r` README, `s` benzerleri, `o` aç, `Enter` genişlet, `1`–`5` puan, `0` puanı sil. Filtre çubuğundaki ⌨ simgesi listeyi gösterir.
 
   ![Özgün açıklamanın altında çevirisi](docs/images/Radar_2-One_Translate.png)
 
@@ -71,6 +73,7 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 | Not klasörü | Takip notlarının oluşturulacağı yer |
 | Grup öner | Takip sekmesinin *Grupsuz* listesini gruplama modunda açar |
 | Klavye kısayolları | Varsayılan kapalı |
+| Durum alanı | Varsayılan kapalı; durum ekleyin, adlandırın (emoji olur), sıralayın ya da kaldırın |
 | Listeler | *Yönet*, dışlananları ya da önerilmeyenleri panelde açar |
 | Bases görünümü | Takip notlarının Bases tablosunu **Oluştur** ya da **Sıfırla** |
 | Eşitleme sıklığı | Elle · 6 saatte bir · **Günde bir** · Haftada bir. Eşitlemeler arasında hiçbir şey indirilmez. **Şimdi eşitle** hemen çalıştırır. |

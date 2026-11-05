@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.3
+
+- **Rows in four layers**: system signals next to the name (NEW · NEW RELEASE · INSTALLED · UNTIL NEXT RELEASE), your note on its own line (note, groups, status, rating), and a metrics column on the right with **downloads first**, then the last update and the dormant period. Links (README · GitHub · Similar · Translate) close the row.
+- **Rows stay put**: starring, grouping, rating or setting a status no longer pulls a row out from under you; a row that no longer matches the filter stays, faded, until the view is reopened or a filter changes.
+- **New releases moved into Tracked**: the *Needs review* tab is gone; the Tracked tab shows a yellow count, rows get a *NEW RELEASE* signal and a *Reviewed* action, and the Group menu has a *New releases* entry with *Mark all reviewed*.
+- **Tracked tab's Group menu**: All, New releases, Starred, Ungrouped, then your groups — one menu instead of a row of chips.
+- **Rating from the star**: hover (or focus) the ☆ to give 1–5 stars; the Tracked tab sorts by **rating** by default (a new sort, ties A–Z). Keys `1`–`5` and `0` when shortcuts are on.
+- **Status is optional and yours**: off by default (*Settings → Status field*); edit the list — rename with an emoji, reorder, add, remove. New defaults: 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced; old values move over once (candidate → to-try, trying → testing, using → adopted, dropped → replaced).
+- **New tab** never applies the *Downloads ≥* filter (new plugins have few downloads) and doesn't show it.
+
 ## 0.7.2
 
 - **Grouping mode inside the view** replaces the batch window: *Suggest groups for this list* (⋮ menu) puts AI suggestions under each row of the current list (up to 50, one request). A sticky bar shows what will change (new notes, new groups) with *Top suggestion for all*, *Reset*, *Cancel* and *Accept*; changed rows are marked. *Settings → Suggest groups* opens the Tracked tab's *Ungrouped* list in this mode.

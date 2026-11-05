@@ -13,7 +13,6 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 | **Updated** | Plugins released in the last *N* days |
 | **Revived** | Plugins released in the last *N* days **after being dormant** (e.g. no release for 90+ days before). Constantly updated plugins are filtered out. |
 | **Tracked** | Plugins you track, in sections per group (a plugin in two groups shows in both), with star, status and rating filters |
-| **🔄 Needs review** | Plugins you track that shipped a release since you last reviewed them |
 | **Suggestions** | Installed plugins you haven't starred yet |
 
 ![The All tab: every community plugin with downloads, last update, dormant period and README / GitHub links](docs/images/Radar_1-All.png)
@@ -32,9 +31,12 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
 - **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups for this list** (⋮ menu) puts AI suggestions under every row of the list you're looking at — up to 50, one request — in English and your language (*AI* next to *Yapay Zekâ*); pick on the rows and nothing is saved until **Accept**.
 - **Similar plugins** under any row, found locally from shared words in names and descriptions — no AI, no request.
-- **Status and rating** for tracked plugins (*Candidate*, *Trying*, *Using*, *Dropped*; 1–5 stars), set from the row and stored as `status` and `rating` properties.
+- **Rating**: hover the ☆ on a row to give 1–5 stars (`rating`). The Tracked tab sorts by rating, so your favourites lead every group.
+- **New releases** of tracked plugins: a yellow count on the Tracked tab, a *NEW RELEASE* signal on the row and a *New releases* entry in its Group menu, with *Mark all reviewed*.
+- **Status** (optional, off by default): your own list of statuses, emoji included — e.g. 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced — edited in settings and stored as `status`.
+- Rows are easy to scan: system signals next to the name, your note (groups, status, rating) on its own line, and a metrics column with downloads first. A row that an action moves out of the current filter stays (faded) until you reopen the view.
 - **Sort by dormant period** to see which revived plugins were quiet the longest.
-- **Keyboard** (off by default; *Settings → Keyboard shortcuts*): while the tab is active, `j`/`k` move the highlight and `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` expand. The ⌨ icon in the filter bar lists them.
+- **Keyboard** (off by default; *Settings → Keyboard shortcuts*): while the tab is active, `j`/`k` move the highlight and `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` expand, `1`–`5` rate, `0` clear the rating. The ⌨ icon in the filter bar lists them.
 - **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
 - **Translate descriptions** with your own API key — Claude, OpenAI, Gemini or OpenRouter. One request translates a whole page; translations are cached.
@@ -70,6 +72,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 | Notes folder | Where tracking notes are created |
 | Suggest groups | Opens the Tracked tab's *Ungrouped* list in grouping mode |
 | Keyboard shortcuts | Off by default |
+| Status field | Off by default; add, rename (emoji welcome), reorder or remove statuses |
 | Lists | *Manage* opens the ignored plugins or hidden suggestions in the view |
 | Bases view | **Create** or **Reset** the Bases table of your tracking notes |
 | Sync frequency | Manual · Every 6 hours · **Daily** · Weekly. Between syncs nothing is downloaded. **Sync now** runs one immediately. |
@@ -86,10 +89,10 @@ groups:
   - startup
   - navigation
 favorite: true
-status: using             # candidate · trying · using · dropped
+status: adopted           # optional; one of your statuses (Settings → Status field)
 rating: 4                 # 1–5
 note: try with the daily note
-reviewed: 2026-10-31      # a release after this date puts the plugin in 🔄 Needs review
+reviewed: 2026-10-31      # a release after this date marks the plugin NEW RELEASE
 downloads: 1416257
 version: 4.6.0
 updated: 2026-10-25
