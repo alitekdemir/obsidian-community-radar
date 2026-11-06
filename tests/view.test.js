@@ -73,6 +73,7 @@ fake.Modal = class {
     this.modalEl = window.document.createElement("div");
     this.titleEl = this.modalEl.createDiv({ cls: "modal-title" });
     this.contentEl = this.modalEl.createDiv({ cls: "modal-content" });
+    this.scope = new fake.Scope();
   }
   open() { modals.push(this); this.onOpen?.(); }
   close() { this.onClose?.(); }
@@ -110,7 +111,13 @@ const snapshots = [
   { sha: "b".repeat(40), date: ago(10), stats: { homepage: stat(1100, ago(120)), dataview: stat(5100, ago(400)), busy: stat(320, ago(11)) } },
   { sha: "c".repeat(40), date: ago(1), stats: { homepage: stat(1200, ago(3)), dataview: stat(5200, ago(400)), busy: stat(350, ago(2)), fresh: stat(5, ago(2)) } },
 ];
+// semantic vectors: start pages close together, the rest apart (not unit length, but cosines keep the order)
+const vectorRows = { homepage: [120, 30, 0, 0], startpage: [110, 50, 0, 0], hometab: [100, 70, 0, 0], dataview: [0, 0, 127, 0], busy: [0, 0, 0, 127], fresh: [0, 60, 0, 110] };
+const vectorsMeta = { model: "test", dim: 4, count: 6, built: "2026-11-01T04:30:00Z", ids: Object.keys(vectorRows) };
+const vectorsBin = () => Int8Array.from(Object.values(vectorRows).flat()).buffer;
 fake.network.handlers.push(
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.json", () => ({ status: 200, json: vectorsMeta })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.bin", () => ({ status: 200, arrayBuffer: vectorsBin() })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json", () => ({ status: 200, json: listing })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugin-stats.json", () => ({ status: 200, json: snapshots[2].stats })],
   ["https://api.github.com/repos/obsidianmd/obsidian-releases/commits", ({ url }) => {
@@ -373,7 +380,6 @@ const tests = {
     const el = view.contentEl;
     await view.update("mode", "all");
     const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
-    assert.ok(!$(row, ".pdt-author"));                     // the README link took the author's place
     app.workspace.opened.length = 0;
     await $(row, ".pdt-readme").onclick({ preventDefault() {} });
     await tick(20);
@@ -481,9 +487,11 @@ const tests = {
     await view.update("mode", "all");
   },
 
-  async "similar plugins: preview under a row, the Similar list with why and a trail, Back"({ plugin, view }) {
+  async "similar plugins by words (no vectors yet): preview under a row, the list, trail from the tab, sort and search"({ plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
+    const vectors = plugin.vectors;
+    plugin.vectors = null;
     const index = core.textIndex(plugin.catalog.plugins);
     assert.ok(index.byId.get("homepage").has("startup"));
     const catalog = plugin.catalog;
@@ -496,43 +504,107 @@ const tests = {
     const rowOf = (name) => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === name);
     const seed = plugin.pluginById("homepage");
     assert.ok(rowOf(seed.name), "Homepage is listed");
-    assert.ok(plugin.similarTo(seed).length >= 2, `similar: ${JSON.stringify(plugin.similarTo(seed).map((x) => [x.p.id, x.score]))}`);
+    const found = plugin.similarTo(seed);
+    assert.ok(found.length >= 2 && found.every((x) => x.cosine === undefined), "word matching");
     $(rowOf(seed.name), ".pdt-similar-link").onclick({ preventDefault() {} });
     const strip = $(rowOf(seed.name), ".pdt-similar");
-    const found = plugin.similarTo(seed);
     assert.equal($$(strip, ".pdt-similar-item").length, Math.min(3, found.length));
     assert.equal($(strip, ".pdt-similar-name").textContent, found[0].p.name);
     assert.ok($(strip, ".pdt-term"), "shared terms shown");
 
-    // See all: the Similar list, best match first, with a match bar and the shared terms
+    // See all: the Similar list, closest first, with a closeness bar and the shared terms
     await $(strip, ".pdt-similar-all").onclick();
     assert.equal(settings.mode, "similar");
     assert.deepEqual(settings.similarTrail, [seed.id]);
-    assert.equal($(el, ".pdt-banner-title").textContent, core.t("similar.listTitle", { name: seed.name }));
+    assert.equal($(el, ".pdt-similar-title-text").textContent, core.t("similar.listTitle", { name: seed.name }));
+    assert.equal($(el, ".pdt-similar-count").textContent, core.t("similar.count", { n: found.length }));
+    assert.equal($(el, ".pdt-similar-method").textContent, core.t("similar.byWords"));
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), found.map((x) => x.p.name));
     assert.equal($$(el, ".pdt-tab.is-active").length, 0);
     const first = $(el, ".pdt-row");
-    assert.equal(found[0].match, 1, "the bar is next to the best match");
-    assert.equal($(first, ".pdt-why-meter").getAttribute("aria-label"), core.t("similar.match", { pct: 100 }));
-    assert.equal($$(el, ".pdt-why-fill")[1].style.getPropertyValue("--pdt-match"), `${Math.round(found[1].match * 100)}%`);
+    assert.equal($(first, ".pdt-why-label").textContent, core.t("similar.veryClose"));
+    assert.equal($$(el, ".pdt-why-fill")[1].style.getPropertyValue("--pdt-match"), `${Math.max(6, Math.round(found[1].match * 100))}%`);
 
-    // Similar on a result goes one step further; the trail steps back
-    const next = plugin.pluginById(first.dataset.id);
-    await $(first, ".pdt-similar-link").onclick({ preventDefault() {} });
+    // sort by downloads; search within the results
+    await view.update("similarSort", { key: "downloads", dir: "desc" });
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...found].sort((a, b) => (b.p.downloads ?? 0) - (a.p.downloads ?? 0)).map((x) => x.p.name));
+    view.similarQuery = "tab";
+    view.refresh();
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Home Tab"]);
+    view.similarQuery = "";
+    await view.update("similarSort", { key: "relevance", dir: "desc" });
+
+    // Similar on a result goes one step further; the trail starts at the tab you came from
+    const next = plugin.pluginById($(el, ".pdt-row").dataset.id);
+    await $($(el, ".pdt-row"), ".pdt-similar-link").onclick({ preventDefault() {} });
     assert.deepEqual(settings.similarTrail, [seed.id, next.id]);
     const steps = $$(el, ".pdt-trail-step");
-    assert.deepEqual(steps.map((s) => s.textContent), [seed.name, next.name]);
-    assert.equal(steps[1].getAttribute("aria-current"), "page");
-    await steps[0].onclick();
+    assert.deepEqual(steps.map((s) => s.textContent), [core.t("mode.all"), seed.name, next.name]);
+    assert.equal(steps[2].getAttribute("aria-current"), "page");
+    await steps[1].onclick();
     assert.deepEqual(settings.similarTrail, [seed.id]);
-    assert.equal($(el, ".pdt-trail"), null, "one step: no trail");
-
-    // Back returns to the tab you came from
-    await $$(el, ".pdt-banner button").find((b) => b.textContent === core.t("list.back")).onclick();
+    await $(el, ".pdt-trail-step.is-home").onclick();
     assert.equal(settings.mode, "all");
     view.similarOpen.clear();
     plugin.catalog = catalog;
+    plugin.vectors = vectors;
+    plugin.similarCache.clear();
     await view.update("mode", "all");
+  },
+
+  async "similar plugins by meaning: vectors download on sync, closest by cosine, details window with README tabs"({ app, plugin, view }) {
+    const el = view.contentEl;
+    plugin.vectors = null;
+    await plugin.syncVectors(() => {});
+    assert.equal(plugin.vectors?.rows.size, 6, "downloaded and parsed");
+    assert.ok(app.vault.adapter.disk.has(`${plugin.cache.dir}/vectors.bin`), "cached");
+    const catalog = plugin.catalog;
+    plugin.catalog = { ...catalog, plugins: [...catalog.plugins,
+      { id: "startpage", name: "Startpage", author: "a", repo: "a/startpage", description: "Opens a page at launch.", downloads: 900, updated: Date.now() },
+      { id: "hometab", name: "Home Tab", author: "b", repo: "b/hometab", description: "A tab to start from.", downloads: 500, updated: Date.now() }] };
+    const homepage = plugin.pluginById("homepage");
+    const found = plugin.similarTo(homepage);
+    assert.deepEqual(found.slice(0, 2).map((x) => x.p.id), ["startpage", "hometab"], "closest by meaning even without shared words");
+    assert.ok(found[0].cosine > found[2].cosine);
+    await view.openSimilar(homepage);
+    assert.equal($(el, ".pdt-similar-method").textContent, core.t("similar.byMeaning"));
+    await view.update("mode", "all");
+
+    // the details window: numbers, description, similar, README tabs; ← → walk the list
+    await view.update("layout", "cards");
+    assert.ok(el.querySelector(".pdt-list").classList.contains("is-cards"));
+    const card = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
+    card.dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+    const modal = modals.at(-1);
+    assert.equal($(modal.titleEl, ".pdt-detail-name").textContent, "Homepage");
+    assert.equal($$(modal.contentEl, ".pdt-detail-stat").length, 4);
+    assert.deepEqual($$(modal.contentEl, ".pdt-detail-near-name").slice(0, 2).map((n) => n.textContent), ["Startpage", "Home Tab"]);
+    await tick(5);
+    const tabs = $$(modal.contentEl, ".pdt-detail-tab");
+    assert.equal(tabs.length, 2);
+    assert.ok(tabs[1].classList.contains("is-dim"), "no translation yet");
+    tabs[1].onclick();
+    await tick(5);
+    const translate = $(modal.contentEl, ".pdt-detail-readme-body.is-empty button");
+    assert.ok(translate, "a Translate button");
+    assert.ok(plugin.translator.ready, "the earlier tests set up a provider");
+    {
+      await modal.translate(homepage);
+      await tick(5);
+      const text = app.vault.files.get(plugin.notes.index.get("homepage").path);
+      const saved = core.readmeTranslation(text);
+      assert.ok(saved && saved.body.startsWith("TR "), "kept in the note");
+      assert.ok(text.indexOf(core.constants.README_TR_START) < text.indexOf(core.constants.README_START), "above the original");
+      assert.match($(modal.contentEl, ".pdt-detail-readme-body .md").textContent, /^TR /);
+    }
+    const right = modal.scope.keys.find((k) => k.key === "ArrowRight");
+    right.fn();
+    assert.notEqual($(modal.titleEl, ".pdt-detail-name").textContent, "Homepage");
+    modal.close();
+    view.cursorId = null;
+    await view.update("layout", "list");
+    plugin.catalog = catalog;
+    plugin.similarCache.clear();
   },
 
   async "Tracked tab: Group menu, sections per group, new releases, rows stay after an action, rating and custom statuses"({ app, plugin, view }) {

@@ -58,6 +58,8 @@ function makeApp() {
       exists: async (p) => disk.has(p) || [...disk.keys()].some((k) => k.startsWith(`${p}/`)),
       read: async (p) => disk.get(p),
       write: async (p, data) => { disk.set(p, data); },
+      readBinary: async (p) => disk.get(p),
+      writeBinary: async (p, data) => { disk.set(p, data); },
       mkdir: async () => {},
     },
   };
@@ -97,6 +99,13 @@ async function requestUrl({ url, method = "GET", headers = {}, body }) {
     if (url.includes("/models")) return { status: 200, json: { data: [{ id: "model-a" }, { id: "model-b-latest" }] } };
     const parsed = JSON.parse(body);
     const prompt = parsed.messages ? parsed.messages[0].content : parsed.contents[0].parts[0].text;
+    if (prompt.startsWith("Translate this part of an Obsidian plugin's README")) {   // Markdown in, Markdown out
+      network.prompts.push(prompt);
+      const markdown = prompt.slice(prompt.indexOf("\n\n") + 2);
+      const reply = "```markdown\n" + markdown.split("\n").map((line) => (line.trim() ? `TR ${line}` : line)).join("\n") + "\n```";
+      if (url.includes("anthropic")) return { status: 200, json: { content: [{ text: reply }] } };
+      return { status: 200, json: { choices: [{ message: { content: reply } }] } };
+    }
     const texts = JSON.parse(prompt.slice(prompt.lastIndexOf("\n[") + 1));
     network.prompts.push(prompt);
     const answer = prompt.includes("group names")
@@ -150,6 +159,8 @@ module.exports = {
     showAtPosition(pos) { this.shownAt = pos; return this; }
   },
   ItemView: class {}, Modal: class {}, PluginSettingTab: class {}, Setting: class {},
+  Component: class { load() {} unload() {} },
+  MarkdownRenderer: { render: async (app, markdown, el) => { el.createDiv({ cls: "md", text: markdown }); } },
   SuggestModal: class { constructor(app) { this.app = app; } setPlaceholder() {} open() {} },
   SecretComponent: class {
     constructor(app, el) { this.el = el; }

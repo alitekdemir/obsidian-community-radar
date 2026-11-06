@@ -218,6 +218,56 @@ const tests = {
     assert.equal(core.closestGroup(P("x", { name: "Weather", description: "Shows the forecast" }), members, index), null);
   },
 
+  "semantic Similar: cosine order with a little word help, closeness within the list, the vectors file"() {
+    const catalog = [P("a", { name: "Alpha", description: "kanban board" }), P("b", { name: "Beta", description: "board for tasks" }),
+      P("c", { name: "Gamma", description: "drawing" }), P("d", { name: "Delta", description: "kanban" }), P("new", { name: "New" })];
+    const index = core.textIndex(catalog);
+    const rows = { a: [127, 0, 0], b: [100, 78, 0], c: [0, 0, 127], d: [90, 0, 90] };
+    const meta = { model: "m", dim: 3, count: 4, built: "x", ids: Object.keys(rows) };
+    const vectors = core.parseVectors(meta, Int8Array.from(Object.values(rows).flat()).buffer);
+    assert.equal(vectors.rows.get("c"), 2);
+    assert.equal(core.parseVectors({ ...meta, count: 5 }, new ArrayBuffer(12)), null, "size must match");
+    const found = core.semanticPlugins(catalog[0], catalog, vectors, index, { limit: 3 });
+    assert.deepEqual(found.map((x) => x.p.id), ["b", "d", "c"]);
+    assert.equal(found[0].match, 1);
+    assert.equal(found.at(-1).match, 0);
+    assert.ok(found.find((x) => x.p.id === "d").shared.includes("kanban"), "shared words still explain it");
+    assert.equal(core.semanticPlugins(catalog[4], catalog, vectors, index), null, "no vector yet: fall back to words");
+    assert.deepEqual(core.semanticPlugins(catalog[0], catalog, vectors, index, { exclude: new Set(["b"]) }).map((x) => x.p.id), ["d", "c"]);
+    assert.equal(core.closeness(0.9), "similar.veryClose");
+    assert.equal(core.closeness(0.5), "similar.close");
+    assert.equal(core.closeness(0.1), "similar.related");
+  },
+
+  "README translation: kept above the original, version read back, split into requests, estimated; release cadence"() {
+    core.setLanguage("en");
+    const plugin = P("x", { version: "2.0.0", repo: "me/x" });
+    let note = core.replaceReadme(core.noteBody(plugin), core.readmeSection("# Hi\nText", plugin, NOW));
+    assert.equal(core.readmeText(note), "# Hi\nText");
+    assert.equal(core.readmeTranslation(note), null);
+    note = core.replaceReadmeTranslation(note, "> Translation (Türkçe) · v2.0.0 · 2026-11-06\n\n# Merhaba", "README (Türkçe)");
+    assert.deepEqual(core.readmeTranslation(note), { version: "2.0.0", body: "# Merhaba" });
+    assert.ok(note.indexOf("# README (Türkçe)") < note.indexOf("# README\n"), "right above the original");
+    const again = core.replaceReadmeTranslation(note, "> Translation (Türkçe) · v2.1.0 · 2026-12-01\n\nYeni", "README (Türkçe)");
+    assert.equal(core.readmeTranslation(again).version, "2.1.0");
+    assert.equal(again.split("README (Türkçe)").length, 2, "replaced, not added twice");
+    assert.ok(core.noteBody(plugin, "Notes").includes("\n# Notes\n"), "your heading");
+
+    const long = ["# A", "x".repeat(50), "## B", "y".repeat(50), "## C", "z".repeat(50)].join("\n");
+    const chunks = core.markdownChunks(long, 70);
+    assert.equal(chunks.length, 3);
+    assert.equal(chunks.join("\n"), long, "nothing lost");
+    assert.deepEqual(core.markdownChunks("short"), ["short"]);
+    const estimate = core.translationEstimate("x".repeat(4000), { input: 1, output: 5 });
+    assert.equal(estimate.tokens, 2000);
+    assert.ok(Math.abs(estimate.cost - (1000 * 1 + 1200 * 5) / 1e6) < 1e-9);
+    assert.equal(core.translationEstimate("abc", null).cost, null);
+    const D = core.constants.DAY_MS;
+    assert.equal(core.releaseCadence([0, 10 * D, 20 * D, 50 * D]), 10, "median gap");
+    assert.equal(core.releaseCadence([0, D]), null);
+    core.setLanguage("tr");   // the other tests read Turkish
+  },
+
   "escapeOutsideCode: tags are escaped, code and headings are untouched"() {
     const md = [
       "# Başlık", "Use #todo and #tag/nested, not #123 or a#b.", "Link [[Note]]",
@@ -361,8 +411,8 @@ const tests = {
       assert.deepEqual([2575475, 354882, 1416, null].map(core.formatShort), ["2.6M", "355K", "1.4K", "–"]);
       assert.equal(core.formatCount(1234567), "1,234,567");
       assert.deepEqual([1, 548].map((d) => core.relativeDays(ago(d), NOW)), ["yesterday", "1.5 years ago"]);
-      assert.equal(core.t("row.gap", { n: 1 }), "after 1 day dormant");
-      assert.equal(core.t("row.gap", { n: 52 }), "after 52 days dormant");
+      assert.equal(core.t("row.dormantFor", { n: 1 }), "after 1 day quiet");
+      assert.equal(core.t("row.dormantFor", { n: 52 }), "after 52 days quiet");
       assert.equal(core.t("status.delta", { added: 5, updated: 23 }), "Since last sync: 5 new · 23 updated");
       assert.equal(core.t("missing.key"), "missing.key");
       assert.equal(core.historyLabel(12), "last year");
@@ -372,8 +422,8 @@ const tests = {
     } finally {
       core.setLanguage("tr");
     }
-    assert.equal(core.defaultSettings().folder, "Eklentiler");
-    assert.equal(core.t("row.gap", { n: 1 }), "1 gün aradan sonra");
+    assert.equal(core.defaultSettings().folder, "Community Radar");   // one folder name in every language
+    assert.equal(core.t("row.dormantFor", { n: 1 }), "1 gün sessizlikten sonra");
     assert.equal(core.formatShort(2575475), "2,6 Mn");
   },
 

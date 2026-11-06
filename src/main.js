@@ -58,12 +58,18 @@ const NAME_WEIGHT = 2;             // a word in the name counts as much as two i
 const BM25_K1 = 1.2;               // BM25: how fast repeating a term stops adding
 const BM25_B = 0.75;               // BM25: how much a long description is evened out
 const MMR_LAMBDA = 0.75;           // relevance vs. variety when picking similar plugins
+const WORD_SHARE = 0.03;           // semantic Similar: how much the best word match adds to a cosine (~0.85–0.97)
+// Semantic vectors of every plugin's name and description, rebuilt daily by .github/workflows/embeddings.yml
+const VECTORS_URL = `${RAW}/alitekdemir/obsidian-community-radar/embeddings/granite-311m`;
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
 
 // Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.
 const README_START = "%% community-radar:readme-start %%";
 const README_END = "%% community-radar:readme-end %%";
 // Markers before 0.6.1 (HTML comments show up in Live Preview); notes are migrated once.
+const README_TR_START = "%% community-radar:readme-translation-start %%";   // the README in your language (on request)
+const README_TR_END = "%% community-radar:readme-translation-end %%";
+const README_CHUNK = 8000;         // characters of README per translation request (fits a 4096-token reply)
 const LEGACY_README_START = "<!-- plugin-tracker:readme-start -->";
 const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
@@ -72,6 +78,7 @@ const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
 const LIST_MODES = ["ignored", "dismissed"];   // reached from the ⋮ menu and settings, not from a tab
 const SIMILAR_MODE = "similar";                // reached from a row's Similar link
 const SORT_KEYS = ["downloads", "updated", "name", "listed", "dormant", "rating"];
+const SIMILAR_SORT_KEYS = ["relevance", "downloads", "updated", "name", "listed"];
 const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
 // Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
 const UNGROUPED = "\u0000ungrouped";
@@ -169,7 +176,11 @@ function defaultSettings() {
     readmeMode: "open",   // open | sync | manual
     keyboard: false,      // single-letter shortcuts in the view
     similarTrail: [],     // Similar list: the plugins you came through; the last one's matches are shown
-    similarFrom: "all",   // the tab Back returns to from the Similar list
+    similarFrom: "all",   // the tab the trail's first step returns to from the Similar list
+    similarSort: { key: "relevance", dir: "desc" },
+    layout: "list",           // "list" or "cards"
+    notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
+    readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"
   };
 }
 
@@ -541,6 +552,77 @@ function readmeSection(readme, plugin, now) {
   return `${README_START}\n${meta}\n\n${body}\n${README_END}`;
 }
 
+/** The README text inside a note (between the markers, without its "README · repo · version" line); null if none. */
+function readmeText(content) {
+  const a = content.indexOf(README_START);
+  const b = content.indexOf(README_END);
+  if (a === -1 || b < a) return null;
+  const inner = content.slice(a + README_START.length, b).trim();
+  return inner.split("\n").slice(1).join("\n").trim() || null;
+}
+
+/** The note's README translation: {version, body} (version: the README it was made from) or null. */
+function readmeTranslation(content) {
+  const a = content.indexOf(README_TR_START);
+  const b = content.indexOf(README_TR_END);
+  if (a === -1 || b < a) return null;
+  const [meta, ...body] = content.slice(a + README_TR_START.length, b).trim().split("\n");
+  return { version: meta.match(/· v(\S+) ·/)?.[1] ?? null, body: body.join("\n").trim() };
+}
+
+/** Puts the translation section in the note: replaces the old one, or goes right above the original README. */
+function replaceReadmeTranslation(content, section, heading) {
+  const block = `${README_TR_START}\n${section}\n${README_TR_END}`;
+  const a = content.indexOf(README_TR_START);
+  const b = content.indexOf(README_TR_END);
+  if (a !== -1 && b > a) return content.slice(0, a) + block + content.slice(b + README_TR_END.length);
+  const insert = `# ${heading}\n${block}\n\n`;
+  const at = content.search(/^# README[ \t]*$/m);
+  if (at !== -1) return content.slice(0, at) + insert + content.slice(at);
+  const start = content.indexOf(README_START);
+  return start !== -1 ? content.slice(0, start) + insert + content.slice(start) : `${content.trimEnd()}\n\n${insert}`;
+}
+
+/** A README cut before headings into requests of at most `max` characters (a longer section stays whole). */
+function markdownChunks(markdown, max = README_CHUNK) {
+  const chunks = [];
+  let current = "";
+  for (const part of markdown.split(/\n(?=#{1,3} )/)) {
+    if (current && current.length + part.length + 1 > max) {
+      chunks.push(current);
+      current = "";
+    }
+    current = current ? `${current}\n${part}` : part;
+  }
+  if (current) chunks.push(current);
+  return chunks;
+}
+
+/** Rough request size of translating `text`: tokens in and out (~4 characters a token), and the cost when the price is known. */
+function translationEstimate(text, price) {
+  const tokens = Math.ceil(text.length / 4);
+  const cost = price ? (tokens * (price.input || 0) + tokens * 1.2 * (price.output || 0)) / 1e6 : null;
+  return { chars: text.length, tokens: tokens * 2, cost };
+}
+
+function readmePrompt(markdown, targetLanguage) {
+  return [
+    `Translate this part of an Obsidian plugin's README (Markdown) into ${targetLanguage}.`,
+    "Keep the Markdown exactly: headings, lists, tables, links, image URLs and HTML tags.",
+    "Don't translate code blocks, inline code, commands, settings keys or product names.",
+    "Reply with ONLY the translated Markdown, nothing before or after it.",
+    "",
+    markdown,
+  ].join("\n");
+}
+
+/** Typical days between releases (median of the gaps in the history); null with fewer than three releases. */
+function releaseCadence(releases) {
+  if (!releases || releases.length < 3) return null;
+  const gaps = releases.slice(1).map((m, i) => (m - releases[i]) / DAY_MS).sort((a, b) => a - b);
+  return Math.max(1, Math.round(gaps[Math.floor(gaps.length / 2)]));
+}
+
 /** Version the note's README was fetched for ("1.2.0"), read from its meta line; null when unknown. */
 function readmeVersion(content) {
   const start = content.indexOf(README_START);
@@ -571,8 +653,8 @@ function catalogDelta(before, after) {
 }
 
 /** Body of a new tracking note (properties are written separately with processFrontMatter). */
-function noteBody(plugin) {
-  return `${plugin.description || ""}\n\n# ${t("note.myNotes")}\n\n\n# README\n${README_START}\n${README_END}\n`;
+function noteBody(plugin, heading = t("note.myNotes")) {
+  return `${plugin.description || ""}\n\n# ${heading}\n\n\n# README\n${README_START}\n${README_END}\n`;
 }
 
 /** Turns the H2 headings of 0.1 notes into H1; touches no other line. */
@@ -890,16 +972,58 @@ function similarPlugins(target, catalog, index, { exclude = new Set(), limit = S
     });
     const [x] = pool.splice(pick, 1);
     for (const other of pool) other.near = Math.max(other.near, termSimilarity(index, other.id, x.id, mass));
-    picked.push({
-      id: x.id,
-      score: x.score,
-      match: x.score / best,
-      shared: x.shared.sort((a, b) => b[1] - a[1]).map(([term]) => term)
-        .filter((term) => !term.includes(" ") || term.split(" ").some((w) => GENERIC_WORDS.has(w)))   // "manage daily": its words say it
-        .filter((term, i, all) => !all.slice(0, i).some((t) => t.includes(term) || term.includes(t))).slice(0, 4),
-    });
+    picked.push({ id: x.id, score: x.score, match: x.score / best, shared: sharedTerms(x.shared) });
   }
   return picked.map(({ id, ...rest }) => ({ p: byId.get(id), ...rest }));
+}
+
+/** The terms that earned a match the most, for "In common": no pair whose own words already say it, no repeats. */
+function sharedTerms(shared = []) {
+  return [...shared].sort((a, b) => b[1] - a[1]).map(([term]) => term)
+    .filter((term) => !term.includes(" ") || term.split(" ").some((w) => GENERIC_WORDS.has(w)))   // "manage daily": its words say it
+    .filter((term, i, all) => !all.slice(0, i).some((t) => t.includes(term) || term.includes(t))).slice(0, 4);
+}
+
+/**
+ * Plugins most like `target` by meaning: cosine similarity of the descriptions' vectors (built daily in
+ * GitHub Actions, see scripts/embeddings), plus a small share of the word match so a shared rare name
+ * still counts. `match` places each result between the list's last (0) and best (1); `cosine` is raw.
+ * Returns null when `target` has no vector yet (listed today): the caller falls back to words.
+ * @param {{dim: number, rows: Map<string, number>, data: Int8Array}} vectors
+ */
+function semanticPlugins(target, catalog, vectors, index, { exclude = new Set(), limit = SIMILAR_LIST } = {}) {
+  const row = vectors.rows.get(target.id);
+  if (row == null) return null;
+  const { dim, data } = vectors;
+  const query = data.subarray(row * dim, row * dim + dim);
+  const words = bm25(index, index.docs.get(target.id)?.tf || pluginTerms(target));
+  let wordBest = 0;
+  for (const [id, x] of words) if (id !== target.id) wordBest = Math.max(wordBest, x.score);
+  const scored = [];
+  for (const p of catalog) {
+    const r = vectors.rows.get(p.id);
+    if (r == null || p.id === target.id || exclude.has(p.id)) continue;
+    let dot = 0;
+    for (let k = 0, o = r * dim; k < dim; k++) dot += query[k] * data[o + k];
+    const cosine = dot / (127 * 127);   // the file stores unit vectors × 127
+    const word = words.get(p.id);
+    scored.push({ p, cosine, score: cosine + WORD_SHARE * (word && wordBest ? word.score / wordBest : 0), shared: word?.shared });
+  }
+  const top = scored.sort((a, b) => b.score - a.score).slice(0, limit);
+  const best = top[0]?.score ?? 0;
+  const floor = top.at(-1)?.score ?? 0;
+  return top.map((x) => ({ p: x.p, score: x.score, cosine: x.cosine, match: best > floor ? (x.score - floor) / (best - floor) : 1, shared: sharedTerms(x.shared) }));
+}
+
+/** "Very close" / "close" / "related": where a match sits within its list (cosines bunch up, so not absolute). */
+function closeness(match) {
+  return match >= 0.66 ? "similar.veryClose" : match >= 0.33 ? "similar.close" : "similar.related";
+}
+
+/** The vectors file (int8 rows) and its index ({model, dim, count, built, ids}) → a lookup, or null if they don't fit. */
+function parseVectors(meta, buffer) {
+  if (!meta?.ids || !buffer || buffer.byteLength !== meta.count * meta.dim || meta.ids.length !== meta.count) return null;
+  return { model: meta.model, built: meta.built, dim: meta.dim, rows: new Map(meta.ids.map((id, i) => [id, i])), data: new Int8Array(buffer) };
 }
 
 /**
@@ -978,9 +1102,9 @@ const core = {
   groupSections, groupHue, statusKey, UNGROUPED, UPDATES, STARRED, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
-  parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, closestGroup,
+  parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, semanticPlugins, closeness, parseVectors, closestGroup, readmeText, readmeTranslation, replaceReadmeTranslation, markdownChunks, translationEstimate, releaseCadence,
   groupPrompt, parseGroupSuggestions,
-  constants: { DAY_MS, MONTH_MS, DAILY_DAYS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, LEGACY_README_START, LEGACY_README_END, TIMELINE_VERSION },
+  constants: { DAY_MS, MONTH_MS, DAILY_DAYS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, README_TR_START, README_TR_END, LEGACY_README_START, LEGACY_README_END, TIMELINE_VERSION },
 };
 
 // ─── 3. Services ────────────────────────────────────────────────────────────
@@ -1017,6 +1141,17 @@ class GitHub {
 
   snapshot(sha) {
     return this.json(`${RAW}/${REPO}/${sha}/${STATS_FILE}`);
+  }
+
+  /** The semantic vectors' index (ids, build time) and, when asked, the vectors themselves. */
+  vectorsMeta() {
+    return this.json(`${VECTORS_URL}.json`);
+  }
+
+  async vectorsData() {
+    const res = await requestUrl({ url: `${VECTORS_URL}.bin`, throw: false });
+    if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${VECTORS_URL}.bin`);
+    return res.arrayBuffer;
   }
 
   /** README: tries raw file names first (no rate limit), then falls back to the API (60/hour). */
@@ -1057,6 +1192,21 @@ class Cache {
   async write(name, value) {
     if (!(await this.adapter.exists(this.dir))) await this.adapter.mkdir(this.dir);
     await this.adapter.write(this.path(name), JSON.stringify(value));
+  }
+
+  async readBinary(name) {
+    const path = `${this.dir}/${name}.bin`;
+    try {
+      return (await this.adapter.exists(path)) ? await this.adapter.readBinary(path) : null;
+    } catch (error) {
+      console.warn(`[Community Radar] couldn't read the ${name} cache; it will be downloaded again`, error);
+      return null;
+    }
+  }
+
+  async writeBinary(name, buffer) {
+    if (!(await this.adapter.exists(this.dir))) await this.adapter.mkdir(this.dir);
+    await this.adapter.writeBinary(`${this.dir}/${name}.bin`, buffer);
   }
 }
 
@@ -1159,7 +1309,7 @@ class Notes {
     const created = !file;
     if (created) {
       if (!this.app.vault.getAbstractFileByPath(this.folder)) await this.app.vault.createFolder(this.folder);
-      file = await this.app.vault.create(this.uniquePath(plugin), noteBody(plugin));
+      file = await this.app.vault.create(this.uniquePath(plugin), noteBody(plugin, this.settings.notesHeading.trim() || undefined));
     }
     let written = {};
     await this.app.fileManager.processFrontMatter(file, (fm) => {
@@ -1271,6 +1421,19 @@ class Translator {
     const spec = PROVIDERS[this.settings.provider];
     const request = spec.chat(this.settings.model, this.key(), groupPrompt(plugins, groups, this.settings.targetLang));
     return parseGroupSuggestions(spec.text(await this.call(request)), plugins.map((p) => p.id), groups.map((g) => g.name));
+  }
+
+  /** Translates a README into the target language, a few sections per request; progress(done, total). */
+  async translateMarkdown(markdown, progress = () => {}) {
+    const spec = PROVIDERS[this.settings.provider];
+    const chunks = markdownChunks(markdown);
+    const out = [];
+    for (const [i, chunk] of chunks.entries()) {
+      progress(i, chunks.length);
+      const reply = spec.text(await this.call(spec.chat(this.settings.model, this.key(), readmePrompt(chunk, this.settings.targetLang))));
+      out.push(reply.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, "$1"));   // some models wrap it in a fence
+    }
+    return out.join("\n\n");
   }
 
   /** A one-line translation to confirm that the provider, key and model work together. */
@@ -1576,14 +1739,255 @@ class ModelModal extends PickerModal {
  * render(): builds everything (on mode or filter changes). refresh(): updates only the counts, the status
  * and the list, so the search box keeps its focus.
  */
+/**
+ * A plugin's details in a large window that grows out of its card or row: the numbers, the whole
+ * description and its translation, your note, the README (and its translation, on request), the closest
+ * plugins and the release history. ←/→ walk the list it was opened from; Esc closes.
+ */
+class DetailModal extends Modal {
+  constructor(view, rows, index, origin) {
+    super(view.app);
+    this.view = view;
+    this.plugin = view.plugin;
+    this.rows = [...rows];
+    this.index = Math.max(0, index);
+    this.origin = origin;
+    this.tab = "readme";
+    this.fetched = new Map();   // README fetched for an untracked plugin (shown, not saved)
+    this.busy = "";             // progress of a translation in this window
+    this.scope.register([], "ArrowLeft", () => { this.step(-1); return false; });
+    this.scope.register([], "ArrowRight", () => { this.step(1); return false; });
+  }
+
+  get p() {
+    return this.rows[this.index];
+  }
+
+  step(delta) {
+    const next = this.index + delta;
+    if (next < 0 || next >= this.rows.length || this.busy) return;
+    this.index = next;
+    this.tab = "readme";
+    this.render();
+  }
+
+  onOpen() {
+    this.modalEl.addClass("pdt-detail");
+    this.component = new obsidian.Component();
+    this.component.load();
+    // grow out of the card: the animation starts at the card's centre (no motion if the system asks for less)
+    const from = this.origin?.getBoundingClientRect?.();
+    const box = this.modalEl.getBoundingClientRect?.();
+    if (from && box) this.modalEl.setCssProps({ "--pdt-origin": `${from.left + from.width / 2 - box.left}px ${from.top + from.height / 2 - box.top}px` });
+    this.modalEl.addClass("is-growing");
+    this.render();
+  }
+
+  onClose() {
+    this.component?.unload();
+    this.contentEl.empty();
+    this.view.refresh();
+  }
+
+  async act(fn, close = false) {
+    await fn();
+    if (close) this.close();
+    else this.render();
+  }
+
+  render() {
+    const p = this.p;
+    const plugin = this.plugin;
+    const note = plugin.notes.index.get(p.id);
+    const { firstSeen, releases, months } = plugin.timeline;
+    const now = Date.now();
+    this.titleEl.empty();
+    this.titleEl.createSpan({ cls: "pdt-detail-name", text: p.name });
+    this.titleEl.createSpan({ cls: "pdt-detail-by", text: [p.version, p.author].filter(Boolean).join(" · ") });
+    const el = this.contentEl;
+    el.empty();
+
+    const top = el.createDiv({ cls: "pdt-detail-top" });
+    const tags = top.createDiv({ cls: "pdt-detail-tags" });
+    for (const g of note?.groups || []) tags.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g });
+    if (note?.rating) tags.createSpan({ cls: "pdt-pill is-rating", text: "★".repeat(note.rating) + "☆".repeat(5 - note.rating) });
+    if (this.rows.length > 1) top.createSpan({ cls: "pdt-detail-pos", text: t("details.position", { n: this.index + 1, total: this.rows.length }) });
+    top.createEl("a", { cls: "pdt-detail-open mod-cta", text: t("details.openInObsidian"), href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
+
+    const stats = el.createDiv({ cls: "pdt-detail-stats" });
+    const stat = (value, label) => {
+      const box = stats.createDiv({ cls: "pdt-detail-stat" });
+      box.createDiv({ cls: "pdt-detail-value", text: value });
+      box.createDiv({ cls: "pdt-detail-label", text: label });
+    };
+    const seen = firstSeen[p.id];
+    const cadence = releaseCadence(releases[p.id]);
+    stat(p.downloads == null ? "–" : formatCount(p.downloads), t("details.downloads"));
+    stat(p.updated ? relativeDays(p.updated, now) : "–", t("details.lastRelease"));
+    const before = months >= 12 ? t("details.beforeYears", { n: Math.round(months / 12) }) : t("details.beforeMonths", { n: months });
+    stat(seen > 0 ? relativeDays(seen, now) : seen === 0 ? before : "–", t("details.listed"));   // 0: there before the history starts
+    stat(cadence ? t("details.every", { n: cadence }) : "–", t("details.cadence"));
+
+    const columns = el.createDiv({ cls: "pdt-detail-columns" });
+    const main = columns.createDiv({ cls: "pdt-detail-main" });
+    const section = (parent, title) => {
+      const box = parent.createDiv({ cls: "pdt-detail-section" });
+      box.createEl("h3", { text: title, attr: { lang: language } });
+      return box;
+    };
+    const about = section(main, t("details.description"));
+    about.createEl("p", { text: p.description || "–" });
+    const translation = plugin.cachedTranslation(p);
+    if (translation) about.createEl("p", { cls: "pdt-detail-trans", text: translation });
+    else if (p.description && plugin.translator.ready) {
+      about.createEl("button", { cls: "pdt-link-button", text: t("translate.row") }).onclick = async () => {
+        if (await plugin.translateRows([p])) this.render();
+      };
+    }
+    if (note?.note) section(main, t("details.yourNote")).createEl("p", { text: note.note });
+    this.renderReadme(main, p, note);
+
+    const side = columns.createDiv({ cls: "pdt-detail-side" });
+    const similar = plugin.similarTo(p);
+    const near = section(side, t("details.similar"));
+    for (const x of similar.slice(0, 5)) {
+      const item = near.createEl("button", { cls: "pdt-detail-near", attr: { type: "button" } });
+      item.createSpan({ cls: "pdt-detail-near-name", text: x.p.name });
+      const meter = item.createSpan({ cls: "pdt-why-meter" });
+      meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${Math.max(6, Math.round(x.match * 100))}%` });
+      setTooltip(item, x.p.description || x.p.name);
+      item.onclick = () => {   // look at it here; ← comes back
+        this.rows.splice(this.index + 1, 0, x.p);
+        this.step(1);
+      };
+    }
+    if (similar.length) {
+      const all = near.createEl("button", { cls: "pdt-link-button", text: t("similar.seeAll", { n: similar.length }), attr: { type: "button" } });
+      all.onclick = () => { this.close(); this.view.openSimilar(p); };
+    } else near.createEl("p", { cls: "pdt-detail-muted", text: t("similar.none") });
+    this.renderHistory(section(side, t("details.history")), releases[p.id] || [], now);
+
+    const footer = el.createDiv({ cls: "pdt-detail-actions" });
+    const button = (icon, text, fn, close = false) => {
+      const b = footer.createEl("button", { attr: { type: "button" } });
+      setIcon(b.createSpan({ cls: "pdt-detail-icon" }), icon);
+      b.createSpan({ text });
+      b.onclick = () => this.act(fn, close);
+      return b;
+    };
+    button("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => plugin.toggleFavorite(p)).toggleClass("is-favorite", Boolean(note?.favorite));
+    button("folder-plus", t("action.group"), () => plugin.chooseGroup(p));
+    button("eye-off", t("action.snooze"), () => plugin.snooze(p), true);
+    button("ban", t("action.exclude"), () => plugin.exclude(p), true);
+    if (this.rows.length > 1) footer.createSpan({ cls: "pdt-detail-keys", text: t("details.keys") });
+  }
+
+  /** Release dates as dots on a line from the first known one to today. */
+  renderHistory(box, dates, now) {
+    const shown = dates.slice(-24);
+    if (!shown.length) {
+      box.createEl("p", { cls: "pdt-detail-muted", text: t("details.noHistory") });
+      return;
+    }
+    const start = shown[0];
+    const span = Math.max(now - start, DAY_MS);
+    const line = box.createDiv({ cls: "pdt-history", attr: { role: "img", "aria-label": t("details.historyLabel", { n: shown.length }) } });
+    for (const date of shown) {
+      const dot = line.createSpan({ cls: "pdt-history-dot" });
+      dot.setCssProps({ "--pdt-at": `${((date - start) / span) * 100}%` });
+      setTooltip(dot, dayString(date));
+    }
+    const ends = box.createDiv({ cls: "pdt-history-ends" });
+    ends.createSpan({ text: dayString(start) });
+    ends.createSpan({ text: t("details.today") });
+  }
+
+  /** README / README · <language> tabs; the translation tab is dim until there is one, and translates on request. */
+  async renderReadme(parent, p, note) {
+    const plugin = this.plugin;
+    const box = parent.createDiv({ cls: "pdt-detail-section pdt-detail-readme" });
+    const translating = plugin.data.settings.readmeTranslation !== "off";
+    const { original, translation } = await plugin.readmeParts(p);
+    if (this.p !== p) return;   // moved on while reading
+    const text = original || this.fetched.get(p.id);
+    const tabs = box.createDiv({ cls: "pdt-detail-tabs", attr: { role: "tablist" } });
+    const tab = (key, label, extra = "") => {
+      const b = tabs.createEl("button", { cls: `pdt-detail-tab${this.tab === key ? " is-active" : ""}${extra}`, attr: { type: "button", role: "tab", "aria-selected": String(this.tab === key) } });
+      b.createSpan({ text: label });
+      b.onclick = () => { this.tab = key; this.render(); };
+      return b;
+    };
+    tab("readme", "README");
+    if (translating) {
+      const stale = translation && translation.version !== p.version;
+      const t2 = tab("translation", t("details.readmeIn", { lang: plugin.data.settings.targetLang }), translation ? "" : " is-dim");
+      if (!translation) t2.createSpan({ cls: "pdt-detail-tab-note", text: t("details.none") });
+      else if (stale) t2.createSpan({ cls: "pdt-detail-tab-note is-stale", text: t("details.stale") });
+    }
+    if (note) tabs.createEl("a", { cls: "pdt-detail-note-link", text: t("details.openNote"), href: "#" }).onclick = (event) => {
+      event.preventDefault();
+      this.close();
+      plugin.openReadme(p);
+    };
+    const body = box.createDiv({ cls: "pdt-detail-readme-body" });
+    const render = (markdown) => {
+      body.addClass("markdown-rendered");
+      obsidian.MarkdownRenderer.render(this.app, markdown, body, note?.path || "", this.component);
+    };
+    if (this.tab === "readme") {
+      if (text) return render(text);
+      if (!p.repo) return body.createEl("p", { cls: "pdt-detail-muted", text: t("readme.failed") });
+      const get = body.createEl("button", { text: t("details.fetchReadme"), attr: { type: "button" } });
+      get.onclick = async () => {
+        get.disabled = true;
+        const readme = await plugin.github.readme(p.repo);
+        this.fetched.set(p.id, readme == null ? t("readme.failed") : escapeOutsideCode(absolutizeLinks(readme.trim(), p.repo)));
+        this.render();
+      };
+      return;
+    }
+    if (translation && !this.busy) {
+      if (translation.version !== p.version) {
+        const again = body.createDiv({ cls: "pdt-detail-stale" });
+        again.createSpan({ text: t("details.staleNote", { version: translation.version || "?" }) });
+        again.createEl("button", { cls: "pdt-link-button", text: t("details.translateAgain"), attr: { type: "button" } }).onclick = () => this.translate(p);
+      }
+      return render(translation.body);
+    }
+    body.addClass("is-empty");
+    if (this.busy) {
+      body.createEl("p", { text: this.busy });
+      return;
+    }
+    body.createEl("p", { text: t("details.notTranslated", { lang: plugin.data.settings.targetLang }) });
+    body.createEl("button", { cls: "mod-cta", text: t("details.translate"), attr: { type: "button" } }).onclick = () => this.translate(p);
+    const estimate = translationEstimate(text || "", plugin.data.settings.modelCost);
+    if (text) {
+      body.createEl("p", {
+        cls: "pdt-detail-muted",
+        text: [t("details.chars", { n: formatCount(estimate.chars) }), t("details.tokens", { n: formatCount(estimate.tokens) }),
+          estimate.cost != null ? t("details.cost", { cost: decimal(estimate.cost, 3) }) : null, plugin.data.settings.model].filter(Boolean).join(" · "),
+      });
+    }
+  }
+
+  async translate(p) {
+    this.busy = t("details.translating");
+    this.render();
+    await this.plugin.translateReadme(p, (text) => { this.busy = text; if (this.p === p) this.render(); });
+    this.busy = "";
+    this.render();
+  }
+}
+
 class DiscoveryView extends ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.plugin = plugin;
     this.visible = PAGE_SIZE;
     this.shownTranslations = new Set();
-    this.expanded = new Set();
     this.similarOpen = new Set();
+    this.similarQuery = "";       // search within the Similar list (not saved)
     this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
     this.cursorId = null;         // the row keyboard shortcuts act on
@@ -1874,11 +2278,7 @@ class DiscoveryView extends ItemView {
 
   renderFilters(bar) {
     const mode = this.settings.mode;
-    if (mode === SIMILAR_MODE) {   // a list ordered by match: no filters, the trail is its navigation
-      bar.addClass("is-empty");
-      if (this.settings.keyboard) this.renderKeyHelp(bar);
-      return;
-    }
+    if (mode === SIMILAR_MODE) return this.renderSimilarBar(bar);
     const opts = modeOptions(this.settings, mode);
     if (mode === "tracked") this.renderTrackedBar(bar);
     const days = { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS };
@@ -1908,9 +2308,26 @@ class DiscoveryView extends ItemView {
     iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
       () => this.updateTab("sortBy", { key: opts.sort, dir: ascending ? "desc" : "asc" });
 
+    this.refs.search = this.renderSearch(bar, this.settings.query, t("search.placeholder"), async (value) => {
+      this.settings.query = value;
+      this.visible = PAGE_SIZE;
+      this.refresh();
+      await this.plugin.saveData(this.plugin.data);
+    });
+
+    if (mode === "tracked" && this.settings.trackedGroup === UPDATES) {
+      const all = bar.createEl("button", { cls: "pdt-ghost", text: t("changed.markAll") });
+      all.onclick = async () => { await this.plugin.markReviewed(this.rows || []); this.refresh(); };
+    }
+    if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
+    if (this.settings.keyboard) this.renderKeyHelp(bar);
+  }
+
+  /** The search box (comma terms or /regex/); `onChange` runs 250 ms after typing stops. Returns the input. */
+  renderSearch(bar, value, placeholder, onChange) {
     const search = bar.createDiv({ cls: "pdt-search" });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");
-    const input = search.createEl("input", { type: "search", placeholder: t("search.placeholder"), value: this.settings.query });
+    const input = search.createEl("input", { type: "search", placeholder, value });
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
     const mark = () => {
@@ -1919,23 +2336,32 @@ class DiscoveryView extends ItemView {
       search.toggleClass("is-invalid", Boolean(error));
     };
     mark();
-    this.refs.search = input;
     let timer;
     input.oninput = () => {
       mark();
       clearTimeout(timer);
-      timer = setTimeout(async () => {
-        this.settings.query = input.value;
-        this.visible = PAGE_SIZE;
-        this.refresh();
-        await this.plugin.saveData(this.plugin.data);
-      }, 250);
+      timer = setTimeout(() => onChange(input.value), 250);
     };
+    return input;
+  }
 
-    if (mode === "tracked" && this.settings.trackedGroup === UPDATES) {
-      const all = bar.createEl("button", { cls: "pdt-ghost", text: t("changed.markAll") });
-      all.onclick = async () => { await this.plugin.markReviewed(this.rows || []); this.refresh(); };
-    }
+  /** The Similar list's bar: sort (by meaning first), direction, a search within the results, shortcuts. */
+  renderSimilarBar(bar) {
+    const { key, dir } = this.settings.similarSort;
+    const sort = bar.createDiv({ cls: "pdt-sort" });
+    menuChip(sort, t("filter.sort"), SIMILAR_SORT_KEYS.map((k) => [k, t(`sort.${k}`)]), key,
+      (k) => this.update("similarSort", { key: k, dir: NATURAL_DIR[k] || "desc" }));
+    const ascending = dir === "asc";
+    const tip = t(`sort.${key === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
+    iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
+      () => this.update("similarSort", { key, dir: ascending ? "desc" : "asc" });
+    const seed = this.plugin.pluginById(this.settings.similarTrail.at(-1));
+    const n = seed ? this.plugin.similarTo(seed).length : 0;
+    this.renderSearch(bar, this.similarQuery, t("similar.search", { n }), (value) => {
+      this.similarQuery = value;
+      this.refresh();
+    });
+    this.renderLayoutSwitch(bar);
     if (this.settings.keyboard) this.renderKeyHelp(bar);
   }
 
@@ -2002,6 +2428,8 @@ class DiscoveryView extends ItemView {
   renderList(list, state, now) {
     list.empty();
     this.rows = [];
+    this.cards = this.settings.layout === "cards" && !this.grouping && !LIST_MODES.includes(this.settings.mode);
+    list.toggleClass("is-cards", this.cards);
     if (!this.plugin.catalog) return;
     if (this.grouping) return this.renderGrouping(list, now);
     const { timeline } = this.plugin;
@@ -2117,45 +2545,56 @@ class DiscoveryView extends ItemView {
     if (settings.mode !== SIMILAR_MODE) settings.similarFrom = settings.mode;
     settings.similarTrail = at === -1 ? [...trail, p.id] : trail.slice(0, at + 1);
     this.similarOpen.delete(p.id);
+    this.similarQuery = "";
     await this.update("mode", SIMILAR_MODE);
     this.contentEl.scrollTop = 0;
   }
 
-  /** The Similar list: plugins like the last one of the trail, best match first, each with why it matches. */
+  /** The Similar list: plugins like the last one of the trail, closest first (or as sorted), each with why it matches. */
   renderSimilarList(list, now) {
     const trail = this.settings.similarTrail.map((id) => this.plugin.pluginById(id)).filter(Boolean);
-    this.renderTrail(list, trail);
-    this.stale = new Set();
     const seed = trail.at(-1);
     const found = seed ? this.plugin.similarTo(seed) : [];
+    this.renderTrail(list, trail, found);
+    this.stale = new Set();
     this.similarInfo = new Map(found.map((x) => [x.p.id, x]));
-    this.rows = found.map((x) => x.p);
-    if (!found.length) {
-      list.createDiv({ cls: "pdt-empty", text: t("similar.none") });
+    const query = compileQuery(this.similarQuery);
+    const { key, dir } = this.settings.similarSort;
+    const matching = found.map((x) => x.p).filter((p) => query.test(p));
+    const { catalog, releases, notes } = this.plugin.state();
+    this.rows = key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, catalog, releases, notes);
+    if (!this.rows.length) {
+      list.createDiv({ cls: "pdt-empty", text: t(found.length ? "list.empty" : "similar.none") });
       return;
     }
     for (const p of this.rows) this.renderRow(list, p, now);
   }
 
-  /** Banner of the Similar list: title, Back, and the trail of plugins you came through (each a step back). */
-  renderTrail(list, trail) {
+  /**
+   * The Similar list's head: the trail (its first step is the tab you came from), the title with the
+   * number of matches and how they were found, and the plugin's description.
+   */
+  renderTrail(list, trail, found) {
     const seed = trail.at(-1);
-    const banner = list.createDiv({ cls: "pdt-banner" });
-    banner.createSpan({ cls: "pdt-banner-title", text: t("similar.listTitle", { name: seed?.name ?? "–" }) });
-    const back = banner.createEl("button", { text: t("list.back"), attr: { type: "button" } });
-    back.onclick = () => this.update("mode", this.settings.similarFrom || "all");
-    if (trail.length > 1) {
-      const nav = list.createEl("nav", { cls: "pdt-trail", attr: { "aria-label": t("similar.trail") } });
-      trail.forEach((p, i) => {
-        if (i) setIcon(nav.createSpan({ cls: "pdt-trail-sep" }), "chevron-right");
-        const current = i === trail.length - 1;
-        const step = nav.createEl("button", { cls: `pdt-trail-step${current ? " is-current" : ""}`, text: p.name, attr: { type: "button" } });
-        if (current) step.setAttribute("aria-current", "page");
-        else step.onclick = () => this.update("similarTrail", this.settings.similarTrail.slice(0, i + 1));
-      });
-    }
-    if (seed?.description) list.createDiv({ cls: "pdt-trail-seed", text: seed.description });
-    list.createDiv({ cls: "pdt-hint", text: t("similar.listNote") });
+    const from = this.settings.similarFrom || "all";
+    const nav = list.createEl("nav", { cls: "pdt-trail", attr: { "aria-label": t("similar.trail") } });
+    const home = nav.createEl("button", { cls: "pdt-trail-step is-home", attr: { type: "button" } });
+    setIcon(home.createSpan({ cls: "pdt-trail-icon" }), "arrow-left");
+    home.createSpan({ text: MODE_KEYS.includes(from) ? t(`mode.${from}`) : t("list.back") });
+    home.onclick = () => this.update("mode", from);
+    trail.forEach((p, i) => {
+      setIcon(nav.createSpan({ cls: "pdt-trail-sep" }), "chevron-right");
+      const current = i === trail.length - 1;
+      const step = nav.createEl("button", { cls: `pdt-trail-step${current ? " is-current" : ""}`, text: p.name, attr: { type: "button" } });
+      if (current) step.setAttribute("aria-current", "page");
+      else step.onclick = () => this.update("similarTrail", this.settings.similarTrail.slice(0, i + 1));
+    });
+    const head = list.createDiv({ cls: "pdt-similar-head-box" });
+    const title = head.createDiv({ cls: "pdt-similar-title" });
+    title.createSpan({ cls: "pdt-similar-title-text", text: t("similar.listTitle", { name: seed?.name ?? "–" }) });
+    title.createSpan({ cls: "pdt-similar-count", text: t("similar.count", { n: found.length }) });
+    title.createSpan({ cls: "pdt-similar-method", text: t(found[0]?.cosine != null ? "similar.byMeaning" : "similar.byWords") });
+    if (seed?.description) head.createDiv({ cls: "pdt-similar-seed", text: seed.description });
   }
 
   /** The shared terms of a match, as small tags. */
@@ -2165,20 +2604,24 @@ class DiscoveryView extends ItemView {
     for (const term of terms) box.createSpan({ cls: "pdt-term", text: term });
   }
 
-  /** A Similar-list row's reason: how close it is next to the best match (bar) and what it shares. */
-  renderWhy(parent, { match, shared }) {
+  /** A Similar-list row's reason: how close it is within the list (bar and word) and what it shares. */
+  renderWhy(parent, { match, shared, cosine }) {
     const pct = Math.round(match * 100);
+    const label = t(closeness(match));
     const why = parent.createDiv({ cls: "pdt-why" });
-    const meter = why.createSpan({ cls: "pdt-why-meter", attr: { role: "meter", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(pct), "aria-label": t("similar.match", { pct }) } });
-    meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${pct}%` });
-    setTooltip(meter, t("similar.match", { pct }));
-    if (shared.length) why.createSpan({ cls: "pdt-why-label", text: t("similar.why") });
+    const meter = why.createSpan({ cls: "pdt-why-meter", attr: { role: "meter", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(pct), "aria-label": label } });
+    meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${Math.max(pct, 6)}%` });
+    setTooltip(meter, cosine != null ? t("similar.cosineTip", { cosine: decimal(cosine, 2) }) : t("similar.match", { pct }));
+    why.createSpan({ cls: "pdt-why-label", text: label });
+    if (shared.length) why.createSpan({ cls: "pdt-why-common", text: t("similar.why") });
     this.renderTerms(why, shared);
   }
 
   /**
-   * A row in four layers: 1 name + system signals, 2 your note (groups, status, rating), description,
-   * 4 links; 3 the metrics column (downloads first) and the actions on the right.
+   * One plugin, as a list row or a card (the same markup; CSS places the parts):
+   * head (name, version) · metrics (updated, downloads) · tags (system signals, your note) ·
+   * body (description, translation, why it's similar) · links · actions · more (Similar preview, grouping).
+   * Clicking the description (or the card) opens the details window.
    */
   renderRow(list, p, now) {
     const plugin = this.plugin;
@@ -2187,58 +2630,72 @@ class DiscoveryView extends ItemView {
     const mode = this.settings.mode;
     const stale = this.stale?.has(p.id);
     const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}${stale ? " is-stale" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
-    row.addEventListener("click", () => this.setCursor(row));
-    const main = row.createDiv({ cls: "pdt-main" });
+    row.addEventListener("click", (event) => {
+      this.setCursor(row);
+      // a card opens its details from anywhere that isn't a control
+      if (this.cards && !event.target.closest("a, button, input, [role=button], .pdt-rate, .pdt-similar")) this.openDetails(p);
+    });
 
-    // 1 · name, version, system signals
-    const head = main.createDiv({ cls: "pdt-head" });
+    const head = row.createDiv({ cls: "pdt-head" });
     head.createEl("a", { cls: "pdt-name", text: p.name, href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
     if (p.version) head.createSpan({ cls: "pdt-ver", text: p.version });
-    const signal = (cls, text) => head.createSpan({ cls: `pdt-signal ${cls}`, text });
+    if (p.author) head.createSpan({ cls: "pdt-author", text: p.author });
+
+    // metrics: when it was updated, then downloads at the edge (a straight column down the list)
+    const metrics = row.createDiv({ cls: "pdt-metrics" });
+    const seen = firstSeen[p.id];
+    metrics.createSpan({ cls: "pdt-when", text: p.updated ? relativeDays(p.updated, now) : seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
+    const downloads = metrics.createSpan({ cls: `pdt-downloads${p.downloads == null ? " is-empty" : ""}` });
+    if (p.downloads == null) {
+      downloads.setText(t("row.noStats"));
+    } else {
+      setIcon(downloads.createSpan({ cls: "pdt-dl-icon" }), "download");
+      downloads.createSpan({ text: formatShort(p.downloads) });
+      setTooltip(downloads, t("row.downloads", { n: formatCount(p.downloads) }));
+    }
+
+    // tags: system signals, then your note (note link, groups, status, rating)
+    const tags = row.createDiv({ cls: "pdt-tags" });
+    const signal = (cls, text) => tags.createSpan({ cls: `pdt-signal ${cls}`, text });
     if (isNewPlugin(firstSeen, p, now)) signal("is-new", t("badge.new"));
     if (isChanged(p, note)) signal("is-changed", t("badge.changed"));
     if (plugin.installed().has(p.id)) signal("is-installed", t("badge.installed"));
     if (isSnoozed(p, plugin.data.snoozed)) signal("is-snoozed", t("badge.snoozed"));
     if (stale) signal("is-stale", t("row.stale"));
-
-    // 2 · your note: note link, groups, status, rating
+    // the pause before the latest release matters only when it was long (and always on the Revived tab)
+    const gap = plugin.timeline.to && p.updated ? dormantDays(releases, p) : null;
+    if (gap != null && (mode === "awakened" || gap >= this.settings.dormantDays)) signal("is-dormant", t("row.dormantFor", { n: gap }));
     if (note) {
-      const mine = main.createDiv({ cls: "pdt-personal" });
-      const link = mine.createSpan({ cls: "pdt-pill is-note", text: t("badge.note"), attr: { role: "button", tabindex: "0" } });
+      const link = tags.createSpan({ cls: "pdt-pill is-note", text: t("badge.note"), attr: { role: "button", tabindex: "0" } });
       setTooltip(link, t("badge.openNote"));
       const open = () => this.app.workspace.openLinkText(note.path, "", "tab");
       link.onclick = open;
       onActivate(link, open);
       for (const g of note.groups) {
-        const badge = mine.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g, attr: { role: "button", tabindex: "0" } });
+        const badge = tags.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g, attr: { role: "button", tabindex: "0" } });
         setTooltip(badge, t("tracked.showGroup", { group: g }));
         const show = () => this.plugin.showGroup(g);
         badge.onclick = show;
         onActivate(badge, show);
       }
-      this.renderNoteState(mine, p, note, mode === "tracked");
+      this.renderNoteState(tags, p, note, mode === "tracked");
     }
+    if (!tags.childElementCount) tags.remove();
 
-    // description (two lines; click to expand long ones) and its translation
-    const desc = main.createEl("p", { cls: "pdt-desc", text: p.description || "–" });
-    if (this.expanded.has(p.id)) desc.addClass("is-expanded");
-    requestAnimationFrame(() => {
-      if (desc.scrollHeight > desc.clientHeight + 1 || desc.hasClass("is-expanded")) desc.addClass("is-clamped");
-    });
-    desc.onclick = () => {
-      if (!desc.hasClass("is-clamped")) return;
-      desc.toggleClass("is-expanded", !desc.hasClass("is-expanded"));
-      if (desc.hasClass("is-expanded")) this.expanded.add(p.id); else this.expanded.delete(p.id);
-    };
+    // body: description (two lines; a click opens the details), its translation, why it's similar
+    const body = row.createDiv({ cls: "pdt-body" });
+    const desc = body.createEl("p", { cls: "pdt-desc", text: p.description || "–", attr: { role: "button", tabindex: "0" } });
+    setTooltip(desc, t("details.open"));
+    desc.onclick = () => this.openDetails(p);
+    onActivate(desc, () => this.openDetails(p));
     const translation = plugin.cachedTranslation(p);
     const showing = translation != null && this.shownTranslations.has(p.id);
-    if (showing) main.createDiv({ cls: "pdt-trans", text: translation });
+    if (showing) body.createDiv({ cls: "pdt-trans", text: translation });
     const inSimilar = mode === SIMILAR_MODE;
     const info = inSimilar && this.similarInfo?.get(p.id);
-    if (info) this.renderWhy(main, info);
+    if (info) this.renderWhy(body, info);
 
-    // 4 · links
-    const links = main.createDiv({ cls: "pdt-meta" });
+    const links = row.createDiv({ cls: "pdt-meta" });
     const link = (cls, text, icon, onClick, href = "#") => {
       const a = links.createEl("a", { cls, text, href });
       if (icon) setIcon(a.createSpan({ cls: "pdt-gh-icon" }), icon);
@@ -2266,28 +2723,9 @@ class DiscoveryView extends ItemView {
         this.refresh();
       });
     }
-    if (similarOpen) this.renderSimilar(main, p);
-
-    // 3 · metrics: downloads first, then when it was updated and after how long
-    const metrics = row.createDiv({ cls: "pdt-metrics" });
-    const downloads = metrics.createDiv({ cls: `pdt-downloads${p.downloads == null ? " is-empty" : ""}` });
-    if (p.downloads == null) {
-      downloads.setText(t("row.noStats"));
-    } else {
-      setIcon(downloads.createSpan({ cls: "pdt-dl-icon" }), "download");
-      downloads.createSpan({ text: formatShort(p.downloads) });
-      setTooltip(downloads, t("row.downloads", { n: formatCount(p.downloads) }));
-    }
-    const seen = firstSeen[p.id];
-    metrics.createDiv({ cls: "pdt-when", text: p.updated ? relativeDays(p.updated, now) : seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
-    if (plugin.timeline.to && p.updated) {
-      const gap = dormantDays(releases, p);
-      const long = mode === "awakened" && gap != null && gap >= this.settings.dormantDays;   // highlighted only in Revived
-      metrics.createDiv({ cls: `pdt-gap${long ? " is-long" : ""}`, text: gap != null ? t("row.gap", { n: gap }) : t("row.firstRelease") });
-    }
 
     if (this.grouping) {   // grouping mode: the row's group chips take the place of its actions
-      this.groupingRows.set(p.id, { row, box: main.createDiv({ cls: "pdt-grouping-chips pdt-gm-chips" }) });
+      this.groupingRows.set(p.id, { row, box: row.createDiv({ cls: "pdt-extra pdt-grouping-chips pdt-gm-chips" }) });
       this.renderGroupingChips(p.id);
       return;
     }
@@ -2302,6 +2740,7 @@ class DiscoveryView extends ItemView {
       };
       return button;
     };
+    if (similarOpen) this.renderSimilar(row.createDiv({ cls: "pdt-extra" }), p);
     if (LIST_MODES.includes(mode)) {
       act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
@@ -2313,6 +2752,24 @@ class DiscoveryView extends ItemView {
     else {
       act("eye-off", t("action.snooze"), () => plugin.snooze(p));
       act("ban", t("action.exclude"), () => plugin.exclude(p));
+    }
+  }
+
+  /** Opens the details window of `p`; ←/→ in it walks the current list. */
+  openDetails(p) {
+    const rows = this.rows?.some((r) => r.id === p.id) ? this.rows : [p];
+    const origin = [...this.contentEl.querySelectorAll(".pdt-row")].find((r) => r.dataset.id === p.id);
+    new DetailModal(this, rows, rows.findIndex((r) => r.id === p.id), origin).open();
+  }
+
+  /** List / Card switch. */
+  renderLayoutSwitch(bar) {
+    const box = bar.createDiv({ cls: "pdt-layout", attr: { role: "group", "aria-label": t("layout.label") } });
+    for (const [value, icon] of [["list", "list"], ["cards", "layout-grid"]]) {
+      const button = box.createEl("button", { cls: "pdt-layout-option", attr: { type: "button", "aria-pressed": String(this.settings.layout === value) } });
+      setIcon(button.createSpan(), icon);
+      button.createSpan({ text: t(`layout.${value}`) });
+      button.onclick = () => this.update("layout", value);
     }
   }
 
@@ -2412,6 +2869,23 @@ class RadarSettingTab extends PluginSettingTab {
         await save();
         plugin.notes.rebuild();
       }));
+
+    new Setting(containerEl)
+      .setName(t("set.notesHeading"))
+      .setDesc(t("set.notesHeadingDesc"))
+      .addText((text) => text.setPlaceholder(t("note.myNotes")).setValue(settings.notesHeading).onChange(async (value) => {
+        settings.notesHeading = value.trim();
+        await save();
+      }));
+
+    new Setting(containerEl)
+      .setName(t("set.readmeTranslation"))
+      .setDesc(t("set.readmeTranslationDesc"))
+      .addDropdown((d) => d.addOption("ask", t("set.readmeTranslationAsk")).addOption("off", t("set.readmeTranslationOff"))
+        .setValue(settings.readmeTranslation).onChange(async (value) => {
+          settings.readmeTranslation = value;
+          await save();
+        }));
 
     const basePath = plugin.basePath();
     const baseExists = Boolean(this.app.vault.getAbstractFileByPath(basePath));
@@ -2646,7 +3120,7 @@ class RadarSettingTab extends PluginSettingTab {
     modal.open();
     const model = await modal.result;
     if (!model) return;
-    Object.assign(settings, { model: model.id, modelPrice: formatPrice(model.price) });
+    Object.assign(settings, { model: model.id, modelPrice: formatPrice(model.price), modelCost: model.price || null });
     await save();
     this.display();
   }
@@ -2666,10 +3140,12 @@ class PluginRadar extends Plugin {
     this.notes = new Notes(this.app, this.data.settings);
     this.translator = new Translator(this.app, this.data.settings);
     this.catalog = null;                                      // {fetchedAt, plugins}
+    this.vectors = null;                                      // semantic Similar (parseVectors); null → word matching
     this.timeline = newTimeline(this.data.settings.historyMonths);
     this.busy = false;
     this.progress = "";             // the running task's progress, shown in the view's status line
     this.readmeJobs = new Set();    // plugin ids whose README is being fetched
+    this.similarCache = new Map();  // "id|limit|excluded" → similarTo result
 
     this.registerView(VIEW_TYPE, (leaf) => new DiscoveryView(leaf, this));
     this.addRibbonIcon(ICON, t("view.title"), () => this.openView());
@@ -2702,6 +3178,7 @@ class PluginRadar extends Plugin {
       this.notes.rebuild();
       this.catalog = await this.cache.read("catalog", null);
       this.timeline = upgradeTimeline(await this.cache.read("timeline", this.timeline));
+      this.vectors = parseVectors(await this.cache.read("vectors", null), await this.cache.readBinary("vectors"));
       await this.runMigrations();
       this.redraw();
       this.registerInterval(window.setInterval(() => this.syncIfDue(), SYNC_CHECK_MS));
@@ -2784,6 +3261,7 @@ class PluginRadar extends Plugin {
     command("readme-all", t("cmd.readmeAll"), () => this.updateReadmes([...this.notes.index.keys()]));
     command("bases-view", t("cmd.base"), () => this.writeBase());
     command("group-ungrouped", t("cmd.groupUngrouped"), () => this.groupUngrouped());
+    command("readme-translate", t("cmd.readmeTranslate"), () => this.translateCurrentReadme());
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -2882,6 +3360,7 @@ class PluginRadar extends Plugin {
       await this.cache.write("catalog", this.catalog);
 
       if (this.timeline.to) await this.syncTimeline(false, progress);
+      await this.syncVectors(progress);
 
       progress(t("notice.updatingNotes"));
       const released = [];
@@ -2892,6 +3371,23 @@ class PluginRadar extends Plugin {
       if (released.length && this.data.settings.readmeMode === "sync") await this.fetchReadmes(released, progress);
       return t("notice.refreshed", { n: formatCount(this.catalog.plugins.length), released: released.length });
     }, { quiet });
+  }
+
+  /** Downloads the semantic vectors when a newer build is out; a failure only leaves Similar on word matching. */
+  async syncVectors(progress) {
+    try {
+      const meta = await this.github.vectorsMeta();
+      if (this.vectors && meta.built === this.vectors.built) return;
+      progress(t("notice.vectors"));
+      const vectors = parseVectors(meta, await this.github.vectorsData());
+      if (!vectors) throw new Error("vector file doesn't match its index");
+      await this.cache.write("vectors", meta);
+      await this.cache.writeBinary("vectors", vectors.data.buffer);
+      this.vectors = vectors;
+      this.similarCache.clear();
+    } catch (error) {
+      console.warn("[Community Radar] couldn't update the semantic vectors; Similar uses words", error);
+    }
   }
 
   buildHistory(rebuild) {
@@ -2992,6 +3488,58 @@ class PluginRadar extends Plugin {
     await this.app.workspace.openLinkText(path, "", "tab");
   }
 
+  /** The README and its translation as kept in the tracking note: {original, translation}; nulls when missing. */
+  async readmeParts(plugin) {
+    const file = this.notes.file(plugin.id);
+    if (!file) return { original: null, translation: null };
+    const content = await this.app.vault.cachedRead(file);
+    return { original: readmeText(content), translation: readmeTranslation(content) };
+  }
+
+  /**
+   * Translates a plugin's README into the target language and keeps it in its tracking note, right above
+   * the original (a note is created when there is none; the README is fetched when missing or older than
+   * the release). Asked for only by the user; true when done.
+   */
+  async translateReadme(plugin, progress = () => {}) {
+    if (!this.translator.ready) {
+      new Notice(t("notice.translateSetup"));
+      return false;
+    }
+    try {
+      if (!this.notes.file(plugin.id)) await this.notes.upsert(plugin, {});
+      const file = this.notes.file(plugin.id);
+      let content = await this.app.vault.read(file);
+      if (!readmeText(content) || readmeVersion(content) !== plugin.version) {
+        progress(t("notice.readme"));
+        await this.notes.writeReadme(file, plugin, plugin.repo ? await this.github.readme(plugin.repo) : null);
+        content = await this.app.vault.read(file);
+      }
+      const original = readmeText(content);
+      if (!original) throw new Error(t("readme.failed"));
+      const lang = this.data.settings.targetLang;
+      const body = await this.translator.translateMarkdown(original, (done, total) => progress(t("readme.translating", { done: done + 1, total })));
+      const section = `${t("readme.translationMeta", { lang, version: plugin.version || "?", date: dayString(Date.now()) })}\n\n${body}`;
+      await this.app.vault.process(file, (text) => replaceReadmeTranslation(text, section, t("readme.translatedHeading", { lang })));
+      return true;
+    } catch (error) {
+      console.error("[Community Radar] README translation", error);
+      new Notice(t("notice.translateFailed", { error: error.message }), 12000);
+      return false;
+    }
+  }
+
+  async translateCurrentReadme() {
+    const file = this.app.workspace.getActiveFile();
+    const note = file && noteFromFrontmatter(file.path, this.app.metadataCache.getFileCache(file)?.frontmatter);
+    const plugin = note && this.pluginById(note.id);
+    if (!plugin) return new Notice(t("notice.notTracking"));
+    await this.task(t("readme.translateTitle", { name: plugin.name }), async (progress) => {
+      if (await this.translateReadme(plugin, progress)) return t("readme.translated", { name: plugin.name });
+      throw new Error(t("readme.notTranslated"));
+    });
+  }
+
   async updateCurrentReadme() {
     const file = this.app.workspace.getActiveFile();
     const note = file && noteFromFrontmatter(file.path, this.app.metadataCache.getFileCache(file)?.frontmatter);
@@ -3070,9 +3618,24 @@ class PluginRadar extends Plugin {
     return closestGroup(plugin, this.notes.members(), this.textIndex());
   }
 
-  /** [{p, score, match, shared}], best match first (see similarPlugins). */
+  /**
+   * [{p, score, match, shared, cosine?}], best match first: by meaning when the vectors are in
+   * (semanticPlugins), by words otherwise (similarPlugins). Cached per plugin until the data changes.
+   */
   similarTo(plugin, limit = SIMILAR_LIST) {
-    return similarPlugins(plugin, this.catalog?.plugins || [], this.textIndex(), { exclude: new Set(Object.keys(this.data.excluded)), limit });
+    const key = `${plugin.id}|${limit}`;
+    if (this.similarCatalog !== this.catalog) {
+      this.similarCatalog = this.catalog;
+      this.similarCache.clear();
+    }
+    if (!this.similarCache.has(key)) {
+      const catalog = this.catalog?.plugins || [];
+      const options = { exclude: new Set(Object.keys(this.data.excluded)), limit };
+      const found = (this.vectors && semanticPlugins(plugin, catalog, this.vectors, this.textIndex(), options))
+        || similarPlugins(plugin, catalog, this.textIndex(), options);
+      this.similarCache.set(key, found);
+    }
+    return this.similarCache.get(key);
   }
 
   /** Tracked plugins that have no group yet. */
@@ -3128,6 +3691,7 @@ class PluginRadar extends Plugin {
 
   async exclude(plugin) {
     this.data.excluded[plugin.id] = dayString(Date.now());
+    this.similarCache.clear();
     await this.saveData(this.data);
     new Notice(t("notice.excluded", { name: plugin.name }));
   }
@@ -3156,6 +3720,7 @@ class PluginRadar extends Plugin {
       if (mode === "ignored") { delete this.data.excluded[id]; delete this.data.snoozed[id]; }
       else delete this.data.dismissed[id];
     }
+    this.similarCache.clear();
     await this.saveData(this.data);
     this.redraw();
   }

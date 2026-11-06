@@ -32,25 +32,33 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Revived detection** from the official release archive — exact, no guessing (see [How it works](#how-it-works)).
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
 - **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups for this list** (⋮ menu) puts AI suggestions under every row of the list you're looking at — up to 50, one request — in English and your language (*AI* next to *Yapay Zekâ*); pick on the rows and nothing is saved until **Accept**.
-- **Similar plugins**, found locally — no AI, no request. *Similar* on a row shows the best 3 matches and the terms they share; *See all* opens the full list, best match first, with a match bar and every row action. *Similar* on a result goes one step further and the trail (`Periodic Notes › Periodic Calendar`) takes you back. Matching uses BM25 on names and descriptions (rare terms count most, names count double, word pairs like *daily note* count too) and spreads near-copies out.
+- **Similar plugins by meaning**: *Similar* on a row shows the 3 closest plugins; *See all* opens the full list with every row action, sorted by closeness (or downloads, last update, A–Z, newest) and searchable. Each result says how close it is (*very close*, *close*, *related*) and which terms it shares. *Similar* on a result goes one step further; the trail (`← All › Periodic Notes › Periodic Calendar`) takes you back. The meaning comes from vectors built daily with an open model in this repository's GitHub Actions; your device only downloads them (~2.5 MB) and compares — no AI request, no key. Until they're in, matching uses shared words.
 
   ![Similar under a row: the best three matches with the terms they share](docs/images/Radar_8-Similar_Preview.png)
 
-  ![The Similar list: a trail of where you came from, a match bar and the shared terms on every result](docs/images/Radar_7-Similar.png)
+  ![The Similar list: a trail back to the tab you came from, the number of matches, closeness and shared terms on every result](docs/images/Radar_7-Similar.png)
+
+- **Cards**: a *List / Cards* switch shows any tab as cards. Click a card — or a row's description, or press `Enter` — and it grows into a **details window**: downloads, latest release, when it was listed and how often it ships; the whole description and its translation; your note; the README; the five closest plugins; the release history as a timeline; and the actions. `←` / `→` walk the list.
+
+  ![The card view](docs/images/Radar_10-Cards.png)
+
+  ![The details window of a plugin](docs/images/Radar_11-Details.png)
+
+- **README in your language**, on request: the details window has a *README · <language>* tab that translates it with your AI provider (showing the size, and the cost when the model's price is known) and keeps the translation in the tracking note above the original. It's marked *older* when a new release changes the README.
 
 - **Rating**: hover the ☆ on a row to give 1–5 stars (`rating`). The Tracked tab sorts by rating, so your favourites lead every group.
 - **New releases** of tracked plugins: a yellow count on the Tracked tab, a *NEW RELEASE* signal on the row and a *New releases* entry in its Group menu, with *Mark all reviewed*.
 - **Status** (optional, off by default): your own list of statuses, emoji included — e.g. 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced — edited in settings and stored as `status`.
-- Rows are easy to scan: system signals next to the name, your note (groups, status, rating) on its own line, and a metrics column with downloads first. A row that an action moves out of the current filter stays (faded) until you reopen the view.
+- Rows are easy to scan: the name with the date and downloads on the same line (downloads line up down the list), signals and your note (groups, status, rating) under it, the description, then links on the left and actions on the right. A row that an action moves out of the current filter stays (faded) until you reopen the view.
 - **Sort by dormant period** to see which revived plugins were quiet the longest.
-- **Keyboard** (off by default; *Settings → Keyboard shortcuts*): while the tab is active, `j`/`k` move the highlight and `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` expand, `1`–`5` rate, `0` clear the rating. The ⌨ icon in the filter bar lists them.
+- **Keyboard** (off by default; *Settings → Keyboard shortcuts*): while the tab is active, `j`/`k` move the highlight and `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` details, `1`–`5` rate, `0` clear the rating. The ⌨ icon in the filter bar lists them.
 - **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
 - **Translate descriptions** with your own API key — Claude, OpenAI, Gemini or OpenRouter. One request translates a whole page; translations are cached.
 
   ![A translated description under the original](docs/images/Radar_2-One_Translate.png)
 
-- **Signals** next to the name for NEW, NEW RELEASE and INSTALLED plugins; relative dates and dormant periods on every row.
+- **Signals** for NEW, NEW RELEASE and INSTALLED plugins, and *after N days quiet* when the pause before the latest release was long.
 - **English and Turkish** interface, following Obsidian's language or chosen in settings. [Add your language](#translating).
 - Works on desktop and mobile.
 
@@ -76,7 +84,9 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 | Setting | Options |
 |---|---|
 | Language | Auto (Obsidian's language), English, Türkçe |
-| Notes folder | Where tracking notes are created |
+| Notes folder | Where tracking notes are created (default: *Community Radar*) |
+| Heading of your notes | The heading above your own notes in new tracking notes (default: *My notes* in the interface language) |
+| README translation | On request (details window, command) or off |
 | Suggest groups | Opens the Tracked tab's *Ungrouped* list in grouping mode |
 | Keyboard shortcuts | Off by default |
 | Status field | Off by default; add, rename (emoji welcome), reorder or remove statuses |
@@ -108,7 +118,7 @@ github: "[github](https://github.com/mirnovov/obsidian-homepage)"
 ---
 ```
 
-The body has a **My notes** section for you and a **README** section that the plugin owns, between two hidden `%% community-radar:readme-start/end %%` comments. README tags (`#tag`) and wiki links are escaped so they don't leak into your vault; code blocks are left as they are.
+The body has a **My notes** section for you, a **README (your language)** section when you've asked for a translation, and a **README** section that the plugin owns, between two hidden `%% community-radar:readme-start/end %%` comments. README tags (`#tag`) and wiki links are escaped so they don't leak into your vault; code blocks are left as they are.
 
 ![A tracking note: properties, My notes and the plugin's README](docs/images/Radar_4-Note.png)
 
@@ -118,6 +128,8 @@ The body has a **My notes** section for you and a **README** section that the pl
 
 Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day**. Each snapshot holds every plugin's latest release time. Community Radar reads these snapshots (daily for the last 30 days, weekly before that), keeps up to 50 release dates per plugin, and compares the current release with the previous one. That's how "released 7 days ago, after 52 days dormant" is exact even for plugins quiet for years. The same snapshots tell when a plugin first appeared, which powers the *New* tab.
 
+*Similar* compares meanings: once a day, a [GitHub Actions workflow](.github/workflows/embeddings.yml) turns every plugin's name and description into a vector with IBM's open [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) model (only new or edited plugins; Apache 2.0) and publishes them on the `embeddings` branch. The plugin downloads that file and ranks plugins by cosine similarity on your device, with a small share of shared-word matching (BM25) so a rare common name still counts.
+
 ## Network use
 
 Community Radar only makes these requests:
@@ -126,7 +138,8 @@ Community Radar only makes these requests:
 |---|---|---|
 | `raw.githubusercontent.com` | Sync, history build, README updates | The public plugin list, stats snapshots and plugin READMEs |
 | `api.github.com` | History build and sync (1–4 requests); README fallback | The list of stats snapshots. Unauthenticated, 60 requests/hour |
-| Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider configured | Plugin names and descriptions, and the names of your groups |
+| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/` | Sync, when a newer build is out | The semantic vectors for Similar (~2.5 MB, built daily by [this workflow](.github/workflows/embeddings.yml)) |
+| Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider configured | Plugin names and descriptions, the names of your groups, and a README you ask to translate |
 
 No telemetry, no account, nothing about your vault is sent anywhere. Inside the vault, the plugin only reads and writes notes in its own notes folder; it never lists the rest of your files. API keys are stored in Obsidian's keychain (SecretStorage) on each device, never in `data.json`; the plugin stores only the key's name (e.g. `anthropic-api-key`), so other plugins using the same name share it. The installed-plugins list comes from Obsidian's internal `app.plugins` and is read defensively.
 
@@ -136,7 +149,7 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 |---|---|
 | Your groups, stars, notes, review dates | Your tracking notes |
 | Ignored plugins, translations, settings | `.obsidian/plugins/plugin-radar/data.json` |
-| Catalog and release history (rebuildable caches) | `.obsidian/plugins/plugin-radar/cache/` |
+| Catalog, release history and semantic vectors (rebuildable caches) | `.obsidian/plugins/plugin-radar/cache/` |
 
 ## Commands
 
@@ -146,6 +159,7 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 - Update README of this note / of all tracking notes
 - Create or reset the Bases view
 - Suggest groups for ungrouped plugins
+- Translate the README of this note
 
 The view's ⋮ menu has: Sync now, Translate visible, Suggest groups for this list, Ignored plugins, Hidden suggestions, Rebuild history and Settings.
 

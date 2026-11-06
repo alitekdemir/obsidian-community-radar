@@ -1,13 +1,29 @@
 # Changelog
 
-## 0.7.4
+## 0.8.0
 
-- **Similar list**: *See all* under a row's preview opens the plugins like it as a full list, best match first, with every row action (star, group, rating, translate). Each result shows a **match bar** and the **terms it shares** with the plugin you started from.
-- **Trail**: *Similar* on a result goes one step further (`Tasks › Kanban › Projects`); every step of the trail goes back to it, *Back* returns to your tab.
-- **The preview under a row** shows the best 3 matches with their shared terms, downloads and description.
-- **Better matches**: BM25 ranking (rare terms count most, long descriptions are evened out, words in the name count double), word pairs (*daily note*, *habit tracker*), and near-copies spread out so a list isn't five versions of one plugin. Still local: no AI, no request.
+Changes since 0.7.3 (0.7.4 was not released).
+
+### New
+
+- **Similar by meaning**: plugins are matched by what their names and descriptions mean, not only by shared words (*Gamificate your PKM* finds *Gamified Tasks*, *Scholar Quest*, *RPG Manager*). The vectors are built once a day in GitHub Actions with IBM's open `granite-embedding-311m-multilingual-r2` model and downloaded with a sync (~2.5 MB); the comparison runs on your device, with no AI request and no key. Until the file is in (or for a plugin listed today) Similar falls back to word matching (BM25, word pairs, near-copies spread out).
+- **Similar list**: *See all* opens the matches as a full list with every row action. A trail starts at the tab you came from (`← All › Periodic Notes › Periodic Calendar`) and every step goes back; the head shows how many matches and how they were found. Sort by closeness, downloads, last update, A–Z or newest, and search within the results. Each result shows how close it is (*very close*, *close*, *related*, with a bar) and the terms it shares.
+- **Card view**: a *List / Cards* switch in the filter bar shows any tab as cards: name, version and author, your tags, two lines of description, links, then downloads, date and actions in the footer.
+- **Details window**: click a card, or a row's description (or press `Enter`), and it grows into a large window: downloads, latest release, when it was listed, how often it ships; the whole description and its translation; your note; the README; the five closest plugins; the release history as a timeline; and the actions. `←` / `→` walk the list, `Esc` closes.
+- **README in your language** (on request): the details window has a *README · <language>* tab; it's dim until there is a translation, shows a *Translate the README* button with the size (and the cost when the model's price is known), and keeps the translation in the tracking note right above the original. A newer release marks it *older* with *Translate again*. Also a command: *Translate the README of this note*. *Settings → README translation* turns it off.
+- **Heading of your notes** in new tracking notes can be set in settings (default: *My notes* in the interface language).
+
+### Changed
+
+- **Rows in three lines**: name and version with the date and downloads on the same line (downloads line up down the list), your tags under it, the description, then links on the left and actions on the right. More plugins fit on a screen; a narrow panel needs no special layout.
+- **"after N days dormant"** is shown only when the pause was long (at least the Revived tab's threshold) and always on the Revived tab, as *after N days quiet*. It never meant a recent update.
+- The notes folder defaults to **Community Radar** in every language (existing settings are kept).
 - Small uppercase labels follow the plugin's language, not Obsidian's (no *SİMİLAR* in English on a Turkish system).
-- README screenshots updated, with the Similar list, its preview and the Tracked tab.
+- README screenshots updated.
+
+### Network
+
+- `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/…`: the semantic vectors, on sync when a newer build is out.
 
 ## 0.7.3
 
