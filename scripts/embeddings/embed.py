@@ -29,7 +29,7 @@ UNREVIEWED_NOTE = re.compile(r"\s*-?\s*This plugin has not been manually reviewe
 MODELS = {
     "granite-311m": ("ibm-granite/granite-embedding-311m-multilingual-r2", 256, {}),
     "granite-97m": ("ibm-granite/granite-embedding-97m-multilingual-r2", None, {}),
-    "harrier-270m": ("microsoft/harrier-oss-v1-270m", None, {"model_kwargs": {"dtype": "auto"}}),
+    "harrier-270m": ("microsoft/harrier-oss-v1-270m", None, {"model_kwargs": {"torch_dtype": "float32"}}),
 }
 DEFAULT_MODEL = "granite-311m"
 
@@ -82,7 +82,8 @@ def build(catalog, key, out):
     fresh = {}
     if missing:
         model = SentenceTransformer(model_id, truncate_dim=dim, **kwargs)
-        vectors = model.encode([catalog[i]["text"] for i in missing], batch_size=64, show_progress_bar=False,
+        model.max_seq_length = 256   # names and descriptions are short; long padding only costs time
+        vectors = model.encode([catalog[i]["text"] for i in missing], batch_size=64, show_progress_bar=True,
                                normalize_embeddings=True, convert_to_numpy=True)
         fresh = dict(zip((hashes[i] for i in missing), to_int8(vectors.astype(np.float32))))
     matrix = np.stack([fresh.get(h, cached.get(h)) for h in hashes])
@@ -103,21 +104,33 @@ def neighbours(matrix, index, top):
     return [(int(i), float(scores[i])) for i in best]
 
 
-def report(catalog, matrices, path):
-    """Markdown: for each sample plugin, the top matches of every model side by side."""
-    position = {p["id"]: i for i, p in enumerate(catalog)}
+def load(out, key):
+    """A built model's (ids, int8 matrix), or None."""
+    meta_path, bin_path = out / f"{key}.json", out / f"{key}.bin"
+    if not (meta_path.exists() and bin_path.exists()):
+        return None
+    meta = json.loads(meta_path.read_text())
+    return meta["ids"], np.fromfile(bin_path, dtype=np.int8).reshape(meta["count"], meta["dim"])
+
+
+def report(catalog, built, path):
+    """Markdown: for each sample plugin, the top matches of every model side by side.
+    `built`: model key → (ids, matrix)."""
+    by_id = {p["id"]: p for p in catalog}
+    keys = list(built)
     lines = ["# Similar plugins: semantic models compared", "",
              f"{len(catalog)} plugins · built {datetime.date.today()} · top {REPORT_TOP} by cosine similarity", ""]
     for plugin_id in REPORT_IDS:
-        if plugin_id not in position:
+        if plugin_id not in by_id or any(plugin_id not in ids for ids, _ in built.values()):
             continue
-        index = position[plugin_id]
-        lines += [f"## {catalog[index]['name']}", "", f"> {catalog[index]['text']}", "",
-                  "| # | " + " | ".join(matrices) + " |", "|---|" + "---|" * len(matrices)]
-        columns = {key: neighbours(m, index, REPORT_TOP) for key, m in matrices.items()}
-        for rank in range(min(REPORT_TOP, len(catalog) - 1)):
-            cells = [f"{catalog[row]['name']} ({score:.2f})" for row, score in (columns[key][rank] for key in matrices)]
-            lines.append(f"| {rank + 1} | " + " | ".join(c.replace("|", "/") for c in cells) + " |")
+        lines += [f"## {by_id[plugin_id]['name']}", "", f"> {by_id[plugin_id]['text']}", "",
+                  "| # | " + " | ".join(keys) + " |", "|---|" + "---|" * len(keys)]
+        columns = {}
+        for key, (ids, matrix) in built.items():
+            name = lambda row: by_id.get(ids[row], {"name": ids[row]})["name"]
+            columns[key] = [f"{name(row)} ({score:.2f})" for row, score in neighbours(matrix, ids.index(plugin_id), REPORT_TOP)]
+        for rank in range(min(len(c) for c in columns.values())):
+            lines.append(f"| {rank + 1} | " + " | ".join(columns[key][rank].replace("|", "/") for key in keys) + " |")
         lines.append("")
     Path(path).write_text("\n".join(lines))
 
@@ -125,14 +138,16 @@ def report(catalog, matrices, path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", required=True, type=Path)
-    parser.add_argument("--model", action="append", choices=sorted(MODELS))
-    parser.add_argument("--report")
+    parser.add_argument("--model", action="append", choices=sorted(MODELS), help="build these (default: none with --report)")
+    parser.add_argument("--report", help="compare every model built in --out")
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     catalog = load_catalog()
-    matrices = {key: build(catalog, key, args.out) for key in (args.model or [DEFAULT_MODEL])}
+    for key in args.model or ([] if args.report else [DEFAULT_MODEL]):
+        build(catalog, key, args.out)
     if args.report:
-        report(catalog, matrices, args.report)
+        built = {key: load(args.out, key) for key in MODELS if load(args.out, key)}
+        report(catalog, built, args.report)
 
 
 if __name__ == "__main__":
