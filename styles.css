@@ -1010,7 +1010,7 @@ button.pdt-gm-more:hover {
   font-weight: var(--font-semibold);
 }
 
-/* ── Similar plugins strip under a row ─────────────────────────────────── */
+/* ── Similar plugins: preview under a row ──────────────────────────────── */
 .pdt-similar {
   display: flex;
   flex-direction: column;
@@ -1023,6 +1023,174 @@ button.pdt-gm-more:hover {
 
 .pdt-similar-link.is-open {
   color: var(--text-accent);
+}
+
+.pdt-similar-item {
+  min-width: 0;
+}
+
+.pdt-similar-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-1) var(--size-4-2);
+}
+
+.pdt-similar-name {
+  color: var(--text-normal);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
+}
+
+.pdt-similar-name:hover {
+  color: var(--text-accent);
+  text-decoration: underline;
+}
+
+.pdt-similar-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdt-similar-desc {
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+button.pdt-similar-all {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-4-1);
+  height: auto;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--text-accent);
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+}
+
+button.pdt-similar-all:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+.pdt-similar-all-icon {
+  display: inline-flex;
+}
+
+.pdt-similar-all-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Shared terms: why two plugins match */
+.pdt-terms {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pdt-term {
+  padding: 0 6px;
+  border-radius: var(--radius-s);
+  background: var(--background-modifier-hover);
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.6;
+}
+
+/* ── Similar list: trail, seed description, match bar ─────────────────── */
+.pdt-filters.is-empty:not(:has(*)) {
+  display: none;
+}
+
+.pdt-trail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--size-4-1);
+  margin: 0 0 var(--size-4-2);
+}
+
+button.pdt-trail-step {
+  height: auto;
+  padding: 2px 8px;
+  border-radius: 99px;
+  box-shadow: none;
+  background: transparent;
+  color: var(--text-accent);
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+}
+
+button.pdt-trail-step:hover {
+  background: var(--background-modifier-hover);
+}
+
+button.pdt-trail-step.is-current {
+  background: var(--background-modifier-active-hover);
+  color: var(--text-normal);
+  font-weight: var(--font-semibold);
+  cursor: default;
+}
+
+.pdt-trail-sep {
+  display: inline-flex;
+  color: var(--text-faint);
+}
+
+.pdt-trail-sep svg {
+  width: 14px;
+  height: 14px;
+}
+
+.pdt-trail-seed {
+  margin: 0 0 var(--size-4-1);
+  padding-left: var(--size-4-3);
+  border-left: 3px solid var(--interactive-accent);
+  color: var(--text-normal);
+}
+
+.pdt-why {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px var(--size-4-2);
+  margin-top: var(--size-4-1);
+  font-size: var(--font-ui-smaller);
+}
+
+.pdt-why-meter {
+  position: relative;
+  width: 64px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--background-modifier-border);
+}
+
+.pdt-why-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--pdt-match, 0%);
+  border-radius: inherit;
+  background: var(--interactive-accent);
+}
+
+.pdt-why-label {
+  color: var(--text-faint);
 }
 
 /* ── Group colours: one slot per group name (see groupHue), from the theme's own palette ── */

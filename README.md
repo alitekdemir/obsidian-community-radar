@@ -12,7 +12,7 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 | **✨ New** | Plugins added in the last *N* days |
 | **Updated** | Plugins released in the last *N* days |
 | **Revived** | Plugins released in the last *N* days **after being dormant** (e.g. no release for 90+ days before). Constantly updated plugins are filtered out. |
-| **Tracked** | Plugins you track, in sections per group (a plugin in two groups shows in both), with star, status and rating filters |
+| **Tracked** | Plugins you track, in sections per group (a plugin in two groups shows in both); one Group menu for All, New releases, Starred, Ungrouped and your groups |
 | **Suggestions** | Installed plugins you haven't starred yet |
 
 ![The All tab: every community plugin with downloads, last update, dormant period and README / GitHub links](docs/images/Radar_1-All.png)
@@ -21,7 +21,9 @@ Clicking a plugin's name opens its page in Obsidian's own plugin browser, where 
 
 Plugins you **star** or **add to a group** become small notes in your vault, with the plugin's README inside. Use [Bases](https://help.obsidian.md/bases) to browse and edit them as a table. Plugins you **ignore** never show up again; **hide until the next release** brings a plugin back by itself when it ships one. Both lists open from the view's ⋮ menu, with search and *Restore*.
 
-![The Revived tab: plugins released in the last 7 days after at least 30 days dormant](docs/images/Radar_3-Revived.png)
+![The Revived tab: plugins released in the last 14 days after at least 90 days dormant, longest pause first](docs/images/Radar_3-Revived.png)
+
+![The Tracked tab: your plugins in coloured sections per group, sorted by rating](docs/images/Radar_9-Tracked.png)
 
 ## Features
 
@@ -30,7 +32,12 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Revived detection** from the official release archive — exact, no guessing (see [How it works](#how-it-works)).
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
 - **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups for this list** (⋮ menu) puts AI suggestions under every row of the list you're looking at — up to 50, one request — in English and your language (*AI* next to *Yapay Zekâ*); pick on the rows and nothing is saved until **Accept**.
-- **Similar plugins** under any row, found locally from shared words in names and descriptions — no AI, no request.
+- **Similar plugins**, found locally — no AI, no request. *Similar* on a row shows the best 3 matches and the terms they share; *See all* opens the full list, best match first, with a match bar and every row action. *Similar* on a result goes one step further and the trail (`Periodic Notes › Periodic Calendar`) takes you back. Matching uses BM25 on names and descriptions (rare terms count most, names count double, word pairs like *daily note* count too) and spreads near-copies out.
+
+  ![Similar under a row: the best three matches with the terms they share](docs/images/Radar_8-Similar_Preview.png)
+
+  ![The Similar list: a trail of where you came from, a match bar and the shared terms on every result](docs/images/Radar_7-Similar.png)
+
 - **Rating**: hover the ☆ on a row to give 1–5 stars (`rating`). The Tracked tab sorts by rating, so your favourites lead every group.
 - **New releases** of tracked plugins: a yellow count on the Tracked tab, a *NEW RELEASE* signal on the row and a *New releases* entry in its Group menu, with *Mark all reviewed*.
 - **Status** (optional, off by default): your own list of statuses, emoji included — e.g. 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced — edited in settings and stored as `status`.
@@ -43,7 +50,7 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 
   ![A translated description under the original](docs/images/Radar_2-One_Translate.png)
 
-- **Badges** for new (✨), new release (🔄) and installed plugins; relative dates and dormant periods on every row.
+- **Signals** next to the name for NEW, NEW RELEASE and INSTALLED plugins; relative dates and dormant periods on every row.
 - **English and Turkish** interface, following Obsidian's language or chosen in settings. [Add your language](#translating).
 - Works on desktop and mobile.
 

@@ -12,7 +12,7 @@ Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını
 | **✨ Yeni** | Son *N* günde listeye giren eklentiler |
 | **Güncellenen** | Son *N* günde sürüm çıkaranlar |
 | **Uyananlar** | Son *N* günde, **uzun bir aradan sonra** sürüm çıkaranlar (ör. öncesinde 90+ gün sürüm yok). Sürekli güncellenenler elenir. |
-| **Takip** | Takip ettiğiniz eklentiler; her grup için ayrı bölümde (iki gruptaki eklenti ikisinde de görünür), favori, durum ve puan süzgeçleriyle |
+| **Takip** | Takip ettiğiniz eklentiler; her grup için ayrı bölümde (iki gruptaki eklenti ikisinde de görünür); Tümü, Yeni sürüm çıkanlar, Favoriler, Grupsuz ve gruplarınız tek Grup menüsünde |
 | **Öneriler** | Kurulu olan ama henüz favori yapmadığınız eklentiler |
 
 ![Tümü sekmesi: indirme, son güncelleme, sessizlik süresi ve README / GitHub bağlantılarıyla bütün eklentiler](docs/images/Radar_1-All.png)
@@ -21,7 +21,9 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 
 **Favori** yaptığınız ya da **gruba eklediğiniz** eklentiler vault'unuzda README'leriyle birlikte küçük notlara dönüşür; [Bases](https://help.obsidian.md/bases) ile tablo olarak görüp düzenleyebilirsiniz. **Dışladığınız** eklentiler bir daha görünmez.
 
-![Uyananlar sekmesi: en az 30 gün sessiz kaldıktan sonra son 7 günde sürüm çıkaranlar](docs/images/Radar_3-Revived.png)
+![Uyananlar sekmesi: en az 90 gün sessiz kaldıktan sonra son 14 günde sürüm çıkaranlar, en uzun ara üstte](docs/images/Radar_3-Revived.png)
+
+![Takip sekmesi: eklentileriniz grup başına renkli bölümlerde, puana göre sıralı](docs/images/Radar_9-Tracked.png)
 
 ## Özellikler
 
@@ -31,7 +33,12 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 - **Takip notunda README**: yeni sürüm çıkınca not açıldığında, her eşitlemede ya da yalnızca istendiğinde yenilenir. Kendi notlarınıza dokunulmaz.
 - **Açıklama çevirisi**: kendi API anahtarınızla Claude, OpenAI, Gemini ya da OpenRouter. Bir sayfa tek istekte çevrilir, çeviriler saklanır.
 - **Gruplar**: bir eklenti birden çok grupta olabilir (`groups` listesi). Grup penceresi gruplarınızdan en yakınını ★ ile işaretler, AI önerilerini açıp kapatabileceğiniz çipler olarak gösterir. ⋮ menüsündeki **Bu listedekilere grup öner**, baktığınız listenin her satırının altına AI önerilerini getirir (en çok 50, tek istek); öneriler hem Türkçe hem yaygın İngilizce karşılığıyla gelir (*Yapay Zekâ* ve *AI*). Satırlarda seçersiniz; **Kabul et**'e basılana kadar hiçbir şey kaydedilmez.
-- **Benzer eklentiler**: her satırın altında, ad ve açıklamalardaki ortak kelimelerden yerelde bulunur; AI ya da ağ isteği yok.
+- **Benzer eklentiler**, yerelde bulunur; AI ya da ağ isteği yok. Satırdaki *Benzerleri* en iyi 3 eşleşmeyi ve ortak terimlerini gösterir; *Tümünü gör* tam listeyi açar: en yakın eşleşme üstte, eşleşme çubuğu ve satırın bütün işlemleriyle. Bir sonuçtaki *Benzerleri* bir adım daha ilerler, üstteki iz (`Periodic Notes › Periodic Calendar`) geri götürür. Eşleştirme ad ve açıklamalarda BM25 ile yapılır (nadir terimler daha çok, addakiler iki kat sayılır; *daily note* gibi kelime çiftleri de eşleşir), birbirinin kopyası olanlar seyreltilir.
+
+  ![Satırın altında Benzerleri: en iyi üç eşleşme ve ortak terimleri](docs/images/Radar_8-Similar_Preview.png)
+
+  ![Benzerler listesi: geldiğiniz yolun izi, her sonuçta eşleşme çubuğu ve ortak terimler](docs/images/Radar_7-Similar.png)
+
 - **Puan**: satırdaki ☆'ın üzerine gelip 1–5 yıldız verin (`rating`). Takip sekmesi puana göre sıralar; her grubun en beğendikleri üstte.
 - **Yeni sürümler**: Takip sekmesinde sarı sayı, satırda *YENİ SÜRÜM* sinyali, Grup menüsünde *Yeni sürüm çıkanlar* ve *Hepsini incelendi say*.
 - **Durum** (isteğe bağlı, varsayılan kapalı): emojili kendi durum listeniz — ör. 🔖 Denenecek, 👀 İzleniyor, 🧪 Deneniyor, ✅ Benimsendi, 🔁 Yerine başkası — ayarlardan düzenlenir, `status` olarak saklanır.

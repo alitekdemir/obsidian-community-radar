@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.4
+
+- **Similar list**: *See all* under a row's preview opens the plugins like it as a full list, best match first, with every row action (star, group, rating, translate). Each result shows a **match bar** and the **terms it shares** with the plugin you started from.
+- **Trail**: *Similar* on a result goes one step further (`Tasks › Kanban › Projects`); every step of the trail goes back to it, *Back* returns to your tab.
+- **The preview under a row** shows the best 3 matches with their shared terms, downloads and description.
+- **Better matches**: BM25 ranking (rare terms count most, long descriptions are evened out, words in the name count double), word pairs (*daily note*, *habit tracker*), and near-copies spread out so a list isn't five versions of one plugin. Still local: no AI, no request.
+- Small uppercase labels follow the plugin's language, not Obsidian's (no *SİMİLAR* in English on a Turkish system).
+- README screenshots updated, with the Similar list, its preview and the Tracked tab.
+
 ## 0.7.3
 
 Changes since 0.6.2 (0.7.0–0.7.2 were not released).

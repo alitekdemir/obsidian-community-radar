@@ -182,20 +182,37 @@ const tests = {
     assert.ok(prompt.includes("Türkçe") && prompt.includes('"examples":["Tasks"]') && prompt.trim().endsWith("]"));
   },
 
-  "similarPlugins and closestGroup: shared rare words, most downloaded first"() {
+  "similarPlugins: BM25 on names and descriptions, word pairs, why it matches, near-copies spread out; closestGroup"() {
     const catalog = [
       P("kanban", { name: "Kanban", description: "Markdown kanban boards for tasks", downloads: 900 }),
       P("board", { name: "Task Board", description: "A kanban board for your tasks and projects", downloads: 500 }),
       P("tasks", { name: "Tasks", description: "Track tasks with due dates and recurring tasks", downloads: 2000 }),
       P("draw", { name: "Excalidraw", description: "Sketch drawings and diagrams", downloads: 3000 }),
+      P("cal", { name: "Calendar", description: "Explore your daily notes", downloads: 100 }),
+      P("daily", { name: "Daily Notes Plus", description: "Better daily notes with templates", downloads: 50 }),
+      P("dupe1", { name: "Kanban Lite", description: "Markdown kanban boards", downloads: 10 }),
+      P("dupe2", { name: "Kanban Lite 2", description: "Markdown kanban boards", downloads: 9 }),
       ...Array.from({ length: 40 }, (_, i) => P(`filler${i}`, { name: `Filler ${i}`, description: `Unrelated thing number ${i} for markdown`, downloads: i })),
     ];
     const index = core.textIndex(catalog);
     assert.ok(index.byId.get("tasks").has("task"), "plural folded");
-    const similar = core.similarPlugins(catalog[1], catalog, index).map((p) => p.id);
-    assert.ok(similar.includes("kanban") && !similar.includes("draw") && !similar.includes("board"));
-    assert.ok(similar.indexOf("tasks") === -1 || similar.indexOf("tasks") < similar.indexOf("kanban"), "most downloaded first");
-    assert.deepEqual(core.similarPlugins(catalog[1], catalog, index, new Set(["kanban"])).includes("kanban"), false);
+    assert.ok(index.byId.get("cal").has("daily note"), "word pairs, even with a generic word");
+    assert.ok(!index.byId.get("cal").has("note"), "a generic word alone doesn't count");
+
+    const similar = core.similarPlugins(catalog[1], catalog, index);
+    const ids = similar.map((x) => x.p.id);
+    assert.ok(ids.includes("kanban") && !ids.includes("draw") && !ids.includes("board"));
+    assert.ok(similar.every((x, i) => i === 0 || x.match <= 1) && similar[0].match > 0);
+    assert.ok(similar.find((x) => x.p.id === "kanban").shared.includes("kanban"), "why: the shared terms");
+    assert.equal(core.similarPlugins(catalog[1], catalog, index, { exclude: new Set(["kanban"]) }).some((x) => x.p.id === "kanban"), false);
+    assert.equal(core.similarPlugins(catalog[1], catalog, index, { limit: 2 }).length, 2);
+    assert.deepEqual(core.similarPlugins(catalog[4], catalog, index).map((x) => x.p.id), ["daily"]);
+
+    // two identical copies: the second one waits behind a different idea (maximal marginal relevance)
+    const top = core.similarPlugins(catalog[0], catalog, index, { limit: 3 }).map((x) => x.p.id);
+    assert.ok(top.includes("dupe1") || top.includes("dupe2"));
+    assert.ok(!(top[0].startsWith("dupe") && top[1].startsWith("dupe")), `near-copies not side by side: ${top}`);
+
     const members = new Map([["Task", ["tasks", "kanban"]], ["Visual", ["draw"]]]);
     assert.equal(core.closestGroup(catalog[1], members, index), "Task");
     assert.equal(core.closestGroup(P("x", { name: "Weather", description: "Shows the forecast" }), members, index), null);

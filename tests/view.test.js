@@ -27,6 +27,7 @@ P.addClass = function (c) { this.classList.add(c); };
 P.removeClass = function (c) { this.classList.remove(c); };
 P.hasClass = function (c) { return this.classList.contains(c); };
 P.toggleClass = function (c, on) { this.classList.toggle(c, on); };
+P.setCssProps = function (props) { for (const [k, val] of Object.entries(props)) this.style.setProperty(k, val); };
 globalThis.createDiv = (o = {}) => window.document.body.createDiv(o);
 Object.defineProperty(P, "scrollHeight", { get() { return this.textContent.length > 80 ? 90 : 40; } });  // jsdom has no layout
 Object.defineProperty(P, "clientHeight", { get() { return 40; } });
@@ -480,15 +481,58 @@ const tests = {
     await view.update("mode", "all");
   },
 
-  async "similar plugins: strip under a row, local words only"({ plugin, view }) {
+  async "similar plugins: preview under a row, the Similar list with why and a trail, Back"({ plugin, view }) {
+    const el = view.contentEl;
+    const settings = plugin.data.settings;
     const index = core.textIndex(plugin.catalog.plugins);
     assert.ok(index.byId.get("homepage").has("startup"));
+    const catalog = plugin.catalog;
+    plugin.catalog = { ...catalog, plugins: [...catalog.plugins,   // two more start pages, so Homepage has company
+      { id: "startpage", name: "Startpage", author: "a", repo: "a/startpage", description: "A workspace on startup with quick access to recent notes.", downloads: 900, updated: Date.now() },
+      { id: "hometab", name: "Home Tab", author: "b", repo: "b/hometab", description: "A homepage tab on startup, like a browser.", downloads: 500, updated: Date.now() },
+      // rarity needs a catalog of some size: words used by 2 of 6 plugins aren't rare
+      ...Array.from({ length: 40 }, (_, i) => ({ id: `filler${i}`, name: `Filler ${i}`, author: "f", repo: `f/f${i}`, description: `Unrelated thing ${i}`, downloads: 0 }))] };
     await view.update("mode", "all");
-    const row = $$(view.contentEl, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
-    $(row, ".pdt-similar-link").onclick({ preventDefault() {} });
-    const strip = $$(view.contentEl, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview").querySelector(".pdt-similar");
-    assert.ok(strip, "strip opened");
-    assert.ok($(strip, ".pdt-gm-note") || $(strip, ".pdt-gchip"));
+    const rowOf = (name) => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === name);
+    const seed = plugin.pluginById("homepage");
+    assert.ok(rowOf(seed.name), "Homepage is listed");
+    assert.ok(plugin.similarTo(seed).length >= 2, `similar: ${JSON.stringify(plugin.similarTo(seed).map((x) => [x.p.id, x.score]))}`);
+    $(rowOf(seed.name), ".pdt-similar-link").onclick({ preventDefault() {} });
+    const strip = $(rowOf(seed.name), ".pdt-similar");
+    const found = plugin.similarTo(seed);
+    assert.equal($$(strip, ".pdt-similar-item").length, Math.min(3, found.length));
+    assert.equal($(strip, ".pdt-similar-name").textContent, found[0].p.name);
+    assert.ok($(strip, ".pdt-term"), "shared terms shown");
+
+    // See all: the Similar list, best match first, with a match bar and the shared terms
+    await $(strip, ".pdt-similar-all").onclick();
+    assert.equal(settings.mode, "similar");
+    assert.deepEqual(settings.similarTrail, [seed.id]);
+    assert.equal($(el, ".pdt-banner-title").textContent, core.t("similar.listTitle", { name: seed.name }));
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), found.map((x) => x.p.name));
+    assert.equal($$(el, ".pdt-tab.is-active").length, 0);
+    const first = $(el, ".pdt-row");
+    assert.equal(found[0].match, 1, "the bar is next to the best match");
+    assert.equal($(first, ".pdt-why-meter").getAttribute("aria-label"), core.t("similar.match", { pct: 100 }));
+    assert.equal($$(el, ".pdt-why-fill")[1].style.getPropertyValue("--pdt-match"), `${Math.round(found[1].match * 100)}%`);
+
+    // Similar on a result goes one step further; the trail steps back
+    const next = plugin.pluginById(first.dataset.id);
+    await $(first, ".pdt-similar-link").onclick({ preventDefault() {} });
+    assert.deepEqual(settings.similarTrail, [seed.id, next.id]);
+    const steps = $$(el, ".pdt-trail-step");
+    assert.deepEqual(steps.map((s) => s.textContent), [seed.name, next.name]);
+    assert.equal(steps[1].getAttribute("aria-current"), "page");
+    await steps[0].onclick();
+    assert.deepEqual(settings.similarTrail, [seed.id]);
+    assert.equal($(el, ".pdt-trail"), null, "one step: no trail");
+
+    // Back returns to the tab you came from
+    await $$(el, ".pdt-banner button").find((b) => b.textContent === core.t("list.back")).onclick();
+    assert.equal(settings.mode, "all");
+    view.similarOpen.clear();
+    plugin.catalog = catalog;
+    await view.update("mode", "all");
   },
 
   async "Tracked tab: Group menu, sections per group, new releases, rows stay after an action, rating and custom statuses"({ app, plugin, view }) {

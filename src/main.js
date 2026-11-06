@@ -52,6 +52,12 @@ const KEY_HELP = [
   [["o"], "keys.open"], [["Enter"], "keys.expand"], [["1", "…", "5"], "keys.rate"], [["0"], "keys.unrate"],
 ];
 const MIN_SIMILARITY = 5;          // summed rarity of shared words; ~one rare word or two common ones
+const SIMILAR_LIST = 30;           // results in the Similar list (the strip under a row shows SIMILAR_PREVIEW)
+const SIMILAR_PREVIEW = 3;
+const NAME_WEIGHT = 2;             // a word in the name counts as much as two in the description
+const BM25_K1 = 1.2;               // BM25: how fast repeating a term stops adding
+const BM25_B = 0.75;               // BM25: how much a long description is evened out
+const MMR_LAMBDA = 0.75;           // relevance vs. variety when picking similar plugins
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
 
 // Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.
@@ -64,6 +70,7 @@ const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by O
 
 const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
 const LIST_MODES = ["ignored", "dismissed"];   // reached from the ⋮ menu and settings, not from a tab
+const SIMILAR_MODE = "similar";                // reached from a row's Similar link
 const SORT_KEYS = ["downloads", "updated", "name", "listed", "dormant", "rating"];
 const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
 // Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
@@ -161,6 +168,8 @@ function defaultSettings() {
     syncHours: 24,        // 0 = manual
     readmeMode: "open",   // open | sync | manual
     keyboard: false,      // single-letter shortcuts in the view
+    similarTrail: [],     // Similar list: the plugins you came through; the last one's matches are shown
+    similarFrom: "all",   // the tab Back returns to from the Similar list
   };
 }
 
@@ -756,30 +765,68 @@ function parseTranslations(reply, expected) {
 }
 
 // ─── Similarity: shared rare words in names and descriptions (no AI) ────────
-const STOPWORDS = new Set(("the and for with your you from into that this are can all any its use using used "
-  + "plugin obsidian note file vault add allow make based more new also not via have has one just like easy "
-  + "simple support supports help helps create view open quick quickly within when which what way other own").split(" "));
+const FUNCTION_WORDS = new Set(("the and for with your you from into that this are can all any its use using used "
+  + "allow make based more new also not via have has one just like easy simple support supports help helps "
+  + "quick quickly within when which what way other own set get let lets will show shows work works multiple "
+  + "various different better easily automatically directly custom manage manages").split(" "));
+const GENERIC_WORDS = new Set("plugin obsidian note file vault add create view open".split(" "));   // only count in pairs ("daily note")
 
 /** A rough singular so "tasks" and "task" match. */
-const stem = (w) => (w.length > 4 && w.endsWith("s") && !w.endsWith("ss") ? w.slice(0, -1) : w);
+const stem = (w) => (w.length > 4 && w.endsWith("ies") ? `${w.slice(0, -3)}y`
+  : w.length > 4 && w.endsWith("s") && !w.endsWith("ss") ? w.slice(0, -1) : w);
+
+/** The words of a text that can carry meaning, in order (generic ones like "note" included). */
+function tokens(text) {
+  return (String(text || "").toLowerCase().match(/[\p{L}\p{N}]+/gu) || [])
+    .map(stem).filter((w) => w.length >= 3 && !FUNCTION_WORDS.has(w));
+}
 
 /** The distinct meaningful words of a text. */
 function words(text) {
-  return new Set((String(text || "").toLowerCase().match(/[\p{L}\p{N}]+/gu) || [])
-    .map(stem).filter((w) => w.length >= 3 && !STOPWORDS.has(w)));
+  return new Set(tokens(text).filter((w) => !GENERIC_WORDS.has(w)));
 }
 
-/** Every plugin's words and how rare each word is across the catalog (rarer words say more). */
+/** A plugin's terms and their weights: words and word pairs ("daily note"), name ones counting double. */
+function pluginTerms(p) {
+  const tf = new Map();
+  const bump = (term, weight) => tf.set(term, (tf.get(term) || 0) + weight);
+  const add = (list, weight) => list.forEach((w, i) => {
+    if (!GENERIC_WORDS.has(w)) bump(w, weight);
+    const prev = list[i - 1];
+    if (prev && !(GENERIC_WORDS.has(prev) && GENERIC_WORDS.has(w))) bump(`${prev} ${w}`, weight);
+  });
+  add(tokens(p.name), NAME_WEIGHT);
+  add(tokens(p.description), 1);
+  return tf;
+}
+
+/**
+ * The catalog's search index: every plugin's terms, which plugins use each term, and how rare each term
+ * is (BM25's idf: rarer terms say more).
+ */
 function textIndex(catalog) {
-  const byId = new Map();
-  const counts = new Map();
+  const docs = new Map();
+  const postings = new Map();
+  let total = 0;
   for (const p of catalog) {
-    const w = words(`${p.name} ${p.description}`);
-    byId.set(p.id, w);
-    for (const x of w) counts.set(x, (counts.get(x) || 0) + 1);
+    const tf = pluginTerms(p);
+    let length = 0;
+    for (const [term, n] of tf) {
+      length += n;
+      if (!postings.has(term)) postings.set(term, []);
+      postings.get(term).push(p.id);
+    }
+    docs.set(p.id, { tf, length });
+    total += length;
   }
   const n = catalog.length;
-  return { byId, weight: (w) => Math.log((n + 1) / ((counts.get(w) || 0) + 1)) };
+  const avgLength = total / Math.max(1, n) || 1;
+  const weight = (term) => {
+    const df = postings.get(term)?.length || 0;
+    return Math.log(1 + (n - df + 0.5) / (df + 0.5));
+  };
+  const byId = new Map([...docs].map(([id, d]) => [id, new Set(d.tf.keys())]));
+  return { docs, postings, avgLength, weight, byId };
 }
 
 /** Summed rarity of the words two sets share. */
@@ -789,17 +836,70 @@ function overlap(index, a, b) {
   return score;
 }
 
-/** Plugins most like `target`: the best SIMILAR_LIMIT matches, most downloaded first. */
-function similarPlugins(target, catalog, index, exclude = new Set()) {
-  const mine = index.byId.get(target.id) || words(`${target.name} ${target.description}`);
-  return catalog
-    .filter((p) => p.id !== target.id && !exclude.has(p.id))
-    .map((p) => ({ p, score: overlap(index, mine, index.byId.get(p.id) || new Set()) }))
-    .filter((x) => x.score >= MIN_SIMILARITY)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, SIMILAR_LIMIT)
-    .map((x) => x.p)
-    .sort((a, b) => (b.downloads ?? 0) - (a.downloads ?? 0));
+/**
+ * BM25F-style scores of every plugin that shares a term with `query` (a term → weight map): rare terms,
+ * terms used often in a short description and name terms count most. Returns id → {score, shared}.
+ */
+function bm25(index, query) {
+  const scores = new Map();
+  for (const [term, qWeight] of query) {
+    const idf = index.weight(term);
+    for (const id of index.postings.get(term) || []) {
+      const doc = index.docs.get(id);
+      const f = doc.tf.get(term);
+      const part = idf * Math.min(qWeight, NAME_WEIGHT) * (f * (BM25_K1 + 1)) / (f + BM25_K1 * (1 - BM25_B + BM25_B * doc.length / index.avgLength));
+      const entry = scores.get(id) || { score: 0, shared: [] };
+      entry.score += part;
+      entry.shared.push([term, part]);
+      scores.set(id, entry);
+    }
+  }
+  return scores;
+}
+
+/** How alike two plugins' terms are, 0–1 (rarity-weighted overlap); `mass` caches each plugin's total. */
+function termSimilarity(index, a, b, mass) {
+  const sa = index.byId.get(a) || new Set();
+  const sb = index.byId.get(b) || new Set();
+  const total = (id, set) => mass.get(id) ?? mass.set(id, [...set].reduce((sum, w) => sum + index.weight(w), 0)).get(id);
+  return overlap(index, sa, sb) / (Math.sqrt(total(a, sa) * total(b, sb)) || 1);
+}
+
+/**
+ * Plugins most like `target`, best match first: [{p, score, match, shared}]. `match` is the score as a
+ * share of the best match's (0–1); `shared` the terms that earned the most. Near-duplicates
+ * are spread out (maximal marginal relevance), so a list isn't five copies of one idea.
+ */
+function similarPlugins(target, catalog, index, { exclude = new Set(), limit = SIMILAR_LIMIT } = {}) {
+  const query = index.docs.get(target.id)?.tf || pluginTerms(target);
+  const byId = new Map(catalog.map((p) => [p.id, p]));
+  const scores = bm25(index, query);
+  const pool = [...scores]
+    .filter(([id, x]) => id !== target.id && !exclude.has(id) && byId.has(id) && x.score >= MIN_SIMILARITY)
+    .sort((a, b) => b[1].score - a[1].score)
+    .slice(0, limit * 3)
+    .map(([id, x]) => ({ id, ...x, near: 0 }));
+  const best = pool[0]?.score || 1;
+  const mass = new Map();
+  const picked = [];
+  while (picked.length < limit && pool.length) {
+    let pick = 0;
+    pool.forEach((x, i) => {
+      const value = (c) => MMR_LAMBDA * (c.score / best) - (1 - MMR_LAMBDA) * c.near;
+      if (value(x) > value(pool[pick])) pick = i;
+    });
+    const [x] = pool.splice(pick, 1);
+    for (const other of pool) other.near = Math.max(other.near, termSimilarity(index, other.id, x.id, mass));
+    picked.push({
+      id: x.id,
+      score: x.score,
+      match: x.score / best,
+      shared: x.shared.sort((a, b) => b[1] - a[1]).map(([term]) => term)
+        .filter((term) => !term.includes(" ") || term.split(" ").some((w) => GENERIC_WORDS.has(w)))   // "manage daily": its words say it
+        .filter((term, i, all) => !all.slice(0, i).some((t) => t.includes(term) || term.includes(t))).slice(0, 4),
+    });
+  }
+  return picked.map(({ id, ...rest }) => ({ p: byId.get(id), ...rest }));
 }
 
 /**
@@ -1381,7 +1481,7 @@ class GroupModal extends Modal {
 
     const section = (label) => {
       const box = el.createDiv({ cls: "pdt-gm-section" });
-      box.createDiv({ cls: "pdt-gm-label", text: label });
+      box.createDiv({ cls: "pdt-gm-label", text: label, attr: { lang: language } });   // uppercase by the UI's rules, not Obsidian's (i → I, not İ)
       return box.createDiv({ cls: "pdt-gm-chips" });
     };
 
@@ -1774,6 +1874,11 @@ class DiscoveryView extends ItemView {
 
   renderFilters(bar) {
     const mode = this.settings.mode;
+    if (mode === SIMILAR_MODE) {   // a list ordered by match: no filters, the trail is its navigation
+      bar.addClass("is-empty");
+      if (this.settings.keyboard) this.renderKeyHelp(bar);
+      return;
+    }
     const opts = modeOptions(this.settings, mode);
     if (mode === "tracked") this.renderTrackedBar(bar);
     const days = { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS };
@@ -1867,7 +1972,7 @@ class DiscoveryView extends ItemView {
       if (this.plugin.busy) text.createDiv({ cls: "pdt-progress", text: this.plugin.progress || t("status.syncing") });
       else if (delta) text.createDiv({ cls: "pdt-delta", text: t("status.delta", { added: formatCount(delta.added), updated: formatCount(delta.updated) }) });
     }
-    const query = this.settings.query.trim();
+    const query = this.settings.mode === SIMILAR_MODE ? "" : this.settings.query.trim();   // the Similar list ignores the search
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
       const { error } = compileQuery(query);
       const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
@@ -1901,6 +2006,7 @@ class DiscoveryView extends ItemView {
     if (this.grouping) return this.renderGrouping(list, now);
     const { timeline } = this.plugin;
     const mode = this.settings.mode;
+    if (mode === SIMILAR_MODE) return this.renderSimilarList(list, now);
     if (mode === "awakened" && !timeline.to) {
       list.createDiv({ cls: "pdt-empty", text: t("list.needHistory") });
       return;
@@ -1977,22 +2083,97 @@ class DiscoveryView extends ItemView {
     for (const p of rows) this.renderRow(body, p, now);
   }
 
-  /** The strip of similar plugins under a row; each chip opens that plugin in Obsidian's browser. */
+  /** The preview under a row: the best few matches, why they match, and the way into the full list. */
   renderSimilar(parent, p) {
     const box = parent.createDiv({ cls: "pdt-similar" });
-    box.createDiv({ cls: "pdt-gm-label", text: t("similar.title") });
+    box.createDiv({ cls: "pdt-gm-label", text: t("similar.title"), attr: { lang: language } });
     const found = this.plugin.similarTo(p);
     if (!found.length) {
       box.createDiv({ cls: "pdt-gm-note", text: t("similar.none") });
       return;
     }
-    const chips = box.createDiv({ cls: "pdt-gm-chips" });
-    for (const other of found) {
-      const chip = chips.createEl("a", { cls: "pdt-gchip", href: `obsidian://show-plugin?id=${encodeURIComponent(other.id)}` });
-      chip.createSpan({ text: other.name });
-      chip.createSpan({ cls: "pdt-gchip-meta", text: formatShort(other.downloads) });
-      if (other.description) setTooltip(chip, other.description);
+    for (const x of found.slice(0, SIMILAR_PREVIEW)) {
+      const item = box.createDiv({ cls: "pdt-similar-item" });
+      const head = item.createDiv({ cls: "pdt-similar-head" });
+      head.createEl("a", { cls: "pdt-similar-name", text: x.p.name, href: `obsidian://show-plugin?id=${encodeURIComponent(x.p.id)}` });
+      this.renderTerms(head, x.shared.slice(0, 3));
+      if (x.p.downloads != null) {
+        const dl = head.createSpan({ cls: "pdt-similar-dl" });
+        setIcon(dl.createSpan({ cls: "pdt-dl-icon" }), "download");
+        dl.createSpan({ text: formatShort(x.p.downloads) });
+      }
+      if (x.p.description) item.createDiv({ cls: "pdt-similar-desc", text: x.p.description });
     }
+    const all = box.createEl("button", { cls: "pdt-similar-all", text: t("similar.seeAll", { n: found.length }), attr: { type: "button" } });
+    setIcon(all.createSpan({ cls: "pdt-similar-all-icon" }), "arrow-right");
+    all.onclick = () => this.openSimilar(p);
+  }
+
+  /** Opens the Similar list for `p`; inside it, adds `p` to the trail (or steps back to it). */
+  async openSimilar(p) {
+    const settings = this.settings;
+    const trail = settings.mode === SIMILAR_MODE ? settings.similarTrail : [];
+    const at = trail.indexOf(p.id);
+    if (settings.mode !== SIMILAR_MODE) settings.similarFrom = settings.mode;
+    settings.similarTrail = at === -1 ? [...trail, p.id] : trail.slice(0, at + 1);
+    this.similarOpen.delete(p.id);
+    await this.update("mode", SIMILAR_MODE);
+    this.contentEl.scrollTop = 0;
+  }
+
+  /** The Similar list: plugins like the last one of the trail, best match first, each with why it matches. */
+  renderSimilarList(list, now) {
+    const trail = this.settings.similarTrail.map((id) => this.plugin.pluginById(id)).filter(Boolean);
+    this.renderTrail(list, trail);
+    this.stale = new Set();
+    const seed = trail.at(-1);
+    const found = seed ? this.plugin.similarTo(seed) : [];
+    this.similarInfo = new Map(found.map((x) => [x.p.id, x]));
+    this.rows = found.map((x) => x.p);
+    if (!found.length) {
+      list.createDiv({ cls: "pdt-empty", text: t("similar.none") });
+      return;
+    }
+    for (const p of this.rows) this.renderRow(list, p, now);
+  }
+
+  /** Banner of the Similar list: title, Back, and the trail of plugins you came through (each a step back). */
+  renderTrail(list, trail) {
+    const seed = trail.at(-1);
+    const banner = list.createDiv({ cls: "pdt-banner" });
+    banner.createSpan({ cls: "pdt-banner-title", text: t("similar.listTitle", { name: seed?.name ?? "–" }) });
+    const back = banner.createEl("button", { text: t("list.back"), attr: { type: "button" } });
+    back.onclick = () => this.update("mode", this.settings.similarFrom || "all");
+    if (trail.length > 1) {
+      const nav = list.createEl("nav", { cls: "pdt-trail", attr: { "aria-label": t("similar.trail") } });
+      trail.forEach((p, i) => {
+        if (i) setIcon(nav.createSpan({ cls: "pdt-trail-sep" }), "chevron-right");
+        const current = i === trail.length - 1;
+        const step = nav.createEl("button", { cls: `pdt-trail-step${current ? " is-current" : ""}`, text: p.name, attr: { type: "button" } });
+        if (current) step.setAttribute("aria-current", "page");
+        else step.onclick = () => this.update("similarTrail", this.settings.similarTrail.slice(0, i + 1));
+      });
+    }
+    if (seed?.description) list.createDiv({ cls: "pdt-trail-seed", text: seed.description });
+    list.createDiv({ cls: "pdt-hint", text: t("similar.listNote") });
+  }
+
+  /** The shared terms of a match, as small tags. */
+  renderTerms(parent, terms) {
+    if (!terms.length) return;
+    const box = parent.createSpan({ cls: "pdt-terms", attr: { "aria-label": t("similar.why") } });
+    for (const term of terms) box.createSpan({ cls: "pdt-term", text: term });
+  }
+
+  /** A Similar-list row's reason: how close it is next to the best match (bar) and what it shares. */
+  renderWhy(parent, { match, shared }) {
+    const pct = Math.round(match * 100);
+    const why = parent.createDiv({ cls: "pdt-why" });
+    const meter = why.createSpan({ cls: "pdt-why-meter", attr: { role: "meter", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(pct), "aria-label": t("similar.match", { pct }) } });
+    meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${pct}%` });
+    setTooltip(meter, t("similar.match", { pct }));
+    if (shared.length) why.createSpan({ cls: "pdt-why-label", text: t("similar.why") });
+    this.renderTerms(why, shared);
   }
 
   /**
@@ -2052,6 +2233,9 @@ class DiscoveryView extends ItemView {
     const translation = plugin.cachedTranslation(p);
     const showing = translation != null && this.shownTranslations.has(p.id);
     if (showing) main.createDiv({ cls: "pdt-trans", text: translation });
+    const inSimilar = mode === SIMILAR_MODE;
+    const info = inSimilar && this.similarInfo?.get(p.id);
+    if (info) this.renderWhy(main, info);
 
     // 4 · links
     const links = main.createDiv({ cls: "pdt-meta" });
@@ -2065,13 +2249,16 @@ class DiscoveryView extends ItemView {
       setTooltip(link("pdt-readme", t("row.readme"), "file-text", () => plugin.openReadme(p)), t(note ? "row.readmeOpen" : "row.readmeCreate"));
       link("pdt-gh", "GitHub", "external-link", null, `https://github.com/${p.repo}`);
     }
-    const similarOpen = this.similarOpen.has(p.id);
-    const similar = link(`pdt-readme pdt-similar-link${similarOpen ? " is-open" : ""}`, t("row.similar"), similarOpen ? "chevron-up" : "chevron-down", () => {
-      if (similarOpen) this.similarOpen.delete(p.id); else this.similarOpen.add(p.id);
-      this.refresh();
-    });
-    similar.setAttribute("aria-expanded", String(similarOpen));
-    setTooltip(similar, t("row.similarTip"));
+    // in the Similar list it goes one step further down the trail; elsewhere it opens a preview
+    const similarOpen = !inSimilar && this.similarOpen.has(p.id);
+    const similar = link(`pdt-readme pdt-similar-link${similarOpen ? " is-open" : ""}`, t("row.similar"),
+      inSimilar ? "arrow-right" : similarOpen ? "chevron-up" : "chevron-down", () => {
+        if (inSimilar) return this.openSimilar(p);
+        if (similarOpen) this.similarOpen.delete(p.id); else this.similarOpen.add(p.id);
+        this.refresh();
+      });
+    if (!inSimilar) similar.setAttribute("aria-expanded", String(similarOpen));
+    setTooltip(similar, t(inSimilar ? "similar.nextTip" : "row.similarTip"));
     if (p.description) {
       link("pdt-readme pdt-tr", showing ? t("translate.hide") : t("translate.row"), "languages", async () => {
         if (showing) this.shownTranslations.delete(p.id);
@@ -2473,6 +2660,7 @@ class PluginRadar extends Plugin {
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
+    if (this.data.settings.mode === SIMILAR_MODE && !this.data.settings.similarTrail?.length) this.data.settings.mode = "all";
     this.github = new GitHub();
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
     this.notes = new Notes(this.app, this.data.settings);
@@ -2882,8 +3070,9 @@ class PluginRadar extends Plugin {
     return closestGroup(plugin, this.notes.members(), this.textIndex());
   }
 
-  similarTo(plugin) {
-    return similarPlugins(plugin, this.catalog?.plugins || [], this.textIndex(), new Set(Object.keys(this.data.excluded)));
+  /** [{p, score, match, shared}], best match first (see similarPlugins). */
+  similarTo(plugin, limit = SIMILAR_LIST) {
+    return similarPlugins(plugin, this.catalog?.plugins || [], this.textIndex(), { exclude: new Set(Object.keys(this.data.excluded)), limit });
   }
 
   /** Tracked plugins that have no group yet. */
