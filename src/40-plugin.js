@@ -239,7 +239,8 @@ class PluginRadar extends Plugin {
       await this.saveData(this.data);
       await this.cache.write("catalog", this.catalog);
 
-      if (this.timeline.to) await this.syncTimeline(false, progress);
+      await this.syncServerTimeline(progress);
+      if (this.timeline.to) await this.syncTimeline(false, progress);   // the days since (the server's or ours)
       await this.syncVectors(progress);
 
       progress(t("notice.updatingNotes"));
@@ -270,8 +271,36 @@ class PluginRadar extends Plugin {
     }
   }
 
+  /**
+   * The history built on GitHub (every day since 2020, with download growth) when ours was built here or
+   * is older; the days since come from snapshots as usual. A failure keeps ours: the local build still works.
+   */
+  async syncServerTimeline(progress, force = false) {
+    try {
+      const meta = await this.github.metricsMeta();
+      const ours = this.timeline;
+      const newer = ours.source !== "server" || meta.to > ours.to;   // a history built here is shorter, without growth
+      if (!force && !newer) return false;
+      progress(t("notice.serverHistory"));
+      const timeline = await this.github.metricsTimeline();
+      if (timeline?.v !== TIMELINE_VERSION || !timeline.to) throw new Error("unexpected timeline file");
+      this.timeline = timeline;
+      await this.cache.write("timeline", timeline);
+      return true;
+    } catch (error) {
+      console.warn("[Community Radar] couldn't download the release history; building it here", error);
+      return false;
+    }
+  }
+
   buildHistory(rebuild) {
-    return this.task(t("notice.history"), (progress) => this.syncTimeline(rebuild, progress));
+    return this.task(t("notice.history"), async (progress) => {
+      if (await this.syncServerTimeline(progress, rebuild)) {
+        await this.syncTimeline(false, progress);
+        return t("notice.historyServer", { from: dayString(this.timeline.from), to: dayString(this.timeline.to) });
+      }
+      return this.syncTimeline(rebuild, progress);
+    });
   }
 
   /**

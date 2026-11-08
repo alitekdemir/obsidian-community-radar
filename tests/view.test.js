@@ -115,7 +115,10 @@ const snapshots = [
 const vectorRows = { homepage: [120, 30, 0, 0], startpage: [110, 50, 0, 0], hometab: [100, 70, 0, 0], dataview: [0, 0, 127, 0], busy: [0, 0, 0, 127], fresh: [0, 60, 0, 110] };
 const vectorsMeta = { model: "test", dim: 4, count: 6, built: "2026-11-01T04:30:00Z", ids: Object.keys(vectorRows) };
 const vectorsBin = () => Int8Array.from(Object.values(vectorRows).flat()).buffer;
+let serverTimeline = null;   // the metrics branch: off (404) until a test turns it on
 fake.network.handlers.push(
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to } } : { status: 404 })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? { status: 200, json: serverTimeline } : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.json", () => ({ status: 200, json: vectorsMeta })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.bin", () => ({ status: 200, arrayBuffer: vectorsBin() })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json", () => ({ status: 200, json: listing })],
@@ -861,6 +864,26 @@ const tests = {
     assert.ok(baseButton().classList.contains("mod-warning"));
     await baseButton().onclick();
     assert.deepEqual(YAML.parse(app.vault.files.get("Eklentiler.base")).filters, base.filters);
+  },
+
+  async "release history from GitHub: replaces ours when newer, the days since come from snapshots, a failure keeps ours"({ plugin }) {
+    const ours = plugin.timeline;
+    serverTimeline = {
+      v: 2, months: 72, from: ago(2200), to: ago(10) + 1000, seeded: true, source: "server",
+      releases: { homepage: [ago(900), ago(120)], dataview: [ago(400)], busy: [ago(61), ago(11)] },
+      firstSeen: { homepage: 0, dataview: 0, busy: ago(700) },
+      growth: { homepage: [50, 200, 600] }, milestones: { homepage: [ago(800), null, null] },
+    };
+    await plugin.refresh();
+    assert.equal(plugin.timeline.source, "server");
+    assert.equal(plugin.timeline.from, ago(2200), "six years instead of ours");
+    assert.deepEqual(plugin.timeline.growth.homepage, [50, 200, 600]);
+    assert.equal(plugin.timeline.releases.homepage.at(-1), ago(3), "yesterday's snapshot added on top");
+    assert.equal(plugin.timeline.to, ago(1));
+    serverTimeline = null;                                                     // GitHub down: ours stays
+    await plugin.refresh();
+    assert.equal(plugin.timeline.source, "server");
+    plugin.timeline = ours;
   },
 
   async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {

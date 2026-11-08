@@ -65,6 +65,7 @@ const MMR_LAMBDA = 0.75;           // relevance vs. variety when picking similar
 const WORD_SHARE = 0.03;           // semantic Similar: how much the best word match adds to a cosine (~0.85–0.97)
 // Semantic vectors of every plugin's name and description, rebuilt daily by .github/workflows/embeddings.yml
 const VECTORS_URL = `${RAW}/alitekdemir/obsidian-community-radar/embeddings/granite-311m`;
+const METRICS_URL = `${RAW}/alitekdemir/obsidian-community-radar/metrics`;   // built daily by .github/workflows/metrics.yml
 const TIMELINE_VERSION = 2;        // 2: first-seen dates added
 
 // Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.

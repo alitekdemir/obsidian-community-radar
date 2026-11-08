@@ -34,6 +34,15 @@ class GitHub {
     return this.json(`${RAW}/${REPO}/${sha}/${STATS_FILE}`);
   }
 
+  /** The release history built daily on GitHub: meta.json says when, timeline.json is the history (~600 KB sent). */
+  metricsMeta() {
+    return this.json(`${METRICS_URL}/meta.json`);
+  }
+
+  metricsTimeline() {
+    return this.json(`${METRICS_URL}/timeline.json`);
+  }
+
   /** The semantic vectors' index (ids, build time) and, when asked, the vectors themselves. */
   vectorsMeta() {
     return this.json(`${VECTORS_URL}.json`);
