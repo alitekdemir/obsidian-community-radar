@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.9.0
+
+### New
+
+- **Incubation** (was *Revived*): plugins that released again after a long pause. *Incubation ≥* has presets from 30 to 360 days (default 60), and each plugin stays as long as its incubation was (at most 360 days), not just *N* days — a plugin quiet for 88 days and released 50 days ago is still found. The date reads *4 days ago (after a 70-day incubation)*; sort by *incubation* for the longest pauses.
+- **New for N days** (*Settings*, default 30): how long a plugin counts as new. *Updated* leaves new plugins out.
+- **Hide busy plugins** on *Updated* (on by default): plugins with more than 20 releases in 6 months stay out, so the rest get seen.
+- **Filters · N**: the filters you rarely change (*Downloads ≥*, *Incubation ≥*, *Hide busy plugins*) wait in a panel; *N* counts the ones at work. **Clear filters** (in the bar and on an empty list) puts the tab back to its defaults; sort and layout stay.
+- **Similar as a filter**: *Similar →* filters the list to the closest plugins, shown as one chip (`‹ · ≈ Similar: name · ✕`). The All tab stays active and rows keep every action, List / Cards included. `‹` steps back (up to 10 steps), `✕` or `Esc` returns to the tab, filters and scroll you had and lights up the row you started from. Also a command: *Show plugins similar to this note's plugin*.
+- **Details window, redone**: name, version and author on one line with *Open in Obsidian*; four tiles (downloads, latest release, **age** since it was listed, release rhythm); the README in a dark box under its tabs; the five closest plugins with how close they are and *All (30) →*; release history and the GitHub repository at the bottom; the same actions as a row (star with 1–5 on hover); `‹ n / total ›`. *Hide* and *Exclude* move on to the next plugin instead of closing.
+- **A click anywhere on a row** (not on a control) opens its details, as on a card.
+- **`description` property** in tracking notes, kept up to date. Notes made before lose the copy at the top of the body on the next sync (only if it is still the same text).
+
+### Changed
+
+- The search is no longer remembered between sessions; filters, sort and layout are.
+- The source is split into ordered files (`src/00-…40-*.js`); the build joins them.
+
+### Removed
+
+- The Similar strip under a row, the separate Similar list with its trail, and their settings.
+
 ## 0.8.1
 
 ### Fixed

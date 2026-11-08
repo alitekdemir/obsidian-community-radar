@@ -9,9 +9,9 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 | Tab | Shows |
 |---|---|
 | **All** | Every community plugin |
-| **✨ New** | Plugins added in the last *N* days |
-| **Updated** | Plugins released in the last *N* days |
-| **Revived** | Plugins released in the last *N* days **after being dormant** (e.g. no release for 90+ days before). Constantly updated plugins are filtered out. |
+| **✨ New** | Plugins added in the last *N* days. A plugin counts as new for 30 days after it's listed (*Settings → New for*). |
+| **Updated** | Plugins released in the last *N* days, except new ones. *Hide busy plugins* (on by default) leaves out those with more than 20 releases in 6 months, so the others get seen. |
+| **Incubation** | Plugins that **released again after a long pause** (an incubation of at least 60 days; presets 30–360). Each stays as long as its incubation was (at most 360 days), so a plugin quiet for 88 days is still here 50 days later — not buried under daily releasers. |
 | **Tracked** | Plugins you track, in sections per group (a plugin in two groups shows in both); one Group menu for All, New releases, Starred, Ungrouped and your groups |
 | **Suggestions** | Installed plugins you haven't starred yet |
 
@@ -32,13 +32,12 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **Revived detection** from the official release archive — exact, no guessing (see [How it works](#how-it-works)).
 - **Scheduled sync** every 6 hours, daily, weekly or manually. The view shows when the last sync ran and what it brought (*Since last sync: 5 new · 23 updated*).
 - **Groups**: a plugin can be in several groups (a `groups` list). The group window stars the closest of your groups and adds AI suggestions you switch on and off; **Suggest groups for this list** (⋮ menu) puts AI suggestions under every row of the list you're looking at — up to 50, one request — in English and your language (*AI* next to *Yapay Zekâ*); pick on the rows and nothing is saved until **Accept**.
-- **Similar plugins by meaning**: *Similar* on a row shows the 3 closest plugins; *See all* opens the full list with every row action, sorted by closeness (or downloads, last update, A–Z, newest) and searchable. Each result says how close it is (*very close*, *close*, *related*) and which terms it shares. *Similar* on a result goes one step further; the trail (`← All › Periodic Notes › Periodic Calendar`) takes you back. The meaning comes from vectors built daily with an open model in this repository's GitHub Actions; your device only downloads them (~2.5 MB) and compares — no AI request, no key. Until they're in, matching uses shared words.
-
-  ![Similar under a row: the best three matches with the terms they share](docs/images/Radar_8-Similar_Preview.png)
+- **Similar plugins by meaning**: *Similar →* on a row filters the list to the closest plugins, shown as one chip in the bar (`‹ · ≈ Similar: Periodic Notes · ✕`). Rows stay rows, with every action and List / Cards; each says how close it is (*very close*, *close*, *related*) and which terms it shares. Sort by closeness (or downloads, last update, A–Z, newest, rating) and search within the results. *Similar →* on a result goes one step further and `‹` comes back; `✕` or `Esc` returns to the tab, filters and scroll you had, with the row you started from lit up. Also from the details window (*All (30) →*) and the command *Show plugins similar to this note's plugin*. The meaning comes from vectors built daily with an open model in this repository's GitHub Actions; your device only downloads them (~2.5 MB) and compares — no AI request, no key. Until they're in, matching uses shared words.
 
   ![The Similar list: a trail back to the tab you came from, the number of matches, closeness and shared terms on every result](docs/images/Radar_7-Similar.png)
 
-- **Cards**: a *List / Cards* switch shows any tab as cards. Click a card — or a row's description, or press `Enter` — and it grows into a **details window**: downloads, latest release, when it was listed and how often it ships; the whole description and its translation; your note; the README; the five closest plugins; the release history as a timeline; and the actions. `←` / `→` walk the list.
+- **Filters**: *Last N days* stays in the bar; the ones you rarely change (*Downloads ≥*, *Incubation ≥*, *Hide busy plugins*) wait under **Filters · N**. They're remembered (the search isn't), and **Clear filters** puts the tab back to its defaults.
+- **Cards**: a *List / Cards* switch shows any tab as cards. Click a row or card anywhere but a control (or press `Enter`) and it grows into a **details window**: downloads, latest release, age (since it was listed) and how often it ships; the whole description and its translation; your note; the README in a dark box; the five closest plugins; the release history and the GitHub repository; and the same actions as a row. `←` / `→` walk the list; *Hide* and *Exclude* move on to the next plugin.
 
   ![The card view](docs/images/Radar_10-Cards.png)
 
@@ -50,15 +49,15 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **New releases** of tracked plugins: a yellow count on the Tracked tab, a *NEW RELEASE* signal on the row and a *New releases* entry in its Group menu, with *Mark all reviewed*.
 - **Status** (optional, off by default): your own list of statuses, emoji included — e.g. 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced — edited in settings and stored as `status`.
 - Rows are easy to scan: the name with the date and downloads on the same line (downloads line up down the list), signals and your note (groups, status, rating) under it, the description, then links on the left and actions on the right. A row that an action moves out of the current filter stays (faded) until you reopen the view.
-- **Sort by dormant period** to see which revived plugins were quiet the longest.
+- **Sort by incubation** to see which plugins were quiet the longest.
 - **Keyboard** (off by default; *Settings → Keyboard shortcuts*): while the tab is active, `j`/`k` move the highlight and `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` details, `1`–`5` rate, `0` clear the rating. The ⌨ icon in the filter bar lists them.
-- **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `downloads`, `version` and `updated` kept up to date.
+- **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `description`, `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
 - **Translate descriptions** with your own API key — Claude, OpenAI, Gemini or OpenRouter. One request translates a whole page; translations are cached.
 
   ![A translated description under the original](docs/images/Radar_2-One_Translate.png)
 
-- **Signals** for NEW, NEW RELEASE and INSTALLED plugins, and *after N days quiet* when the pause before the latest release was long.
+- **Signals** for NEW, NEW RELEASE and INSTALLED plugins, and *4 days ago (after a 70-day incubation)* when the pause before the latest release was long.
 - **English and Turkish** interface, following Obsidian's language or chosen in settings. [Add your language](#translating).
 - Works on desktop and mobile.
 
@@ -73,7 +72,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 ## Getting started
 
 1. Run **Community Radar: Open Community Radar** (or click the radar icon in the ribbon). The catalog downloads on first open.
-2. Click **Build release history** once. It downloads about a year of daily snapshots (~50 MB, a few minutes) and is needed for the *Revived* and *New* tabs. Later syncs only fetch the days you missed.
+2. Click **Build release history** once. It downloads about a year of daily snapshots (~50 MB, a few minutes) and is needed for the *Incubation* and *New* tabs. Later syncs only fetch the days you missed.
 3. Star (☆), group (＋) or ignore (⊘) plugins from any row.
 4. Optional: *Settings → Community Radar → Bases view → Create* adds a ready-made [Bases](https://help.obsidian.md/bases) table of your tracked plugins next to the notes folder (e.g. `Community Radar.base`). If you break it, **Reset** rewrites it from the template.
 
@@ -126,7 +125,7 @@ The body has a **My notes** section for you, a **README (your language)** sectio
 
 ## How it works
 
-Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day**. Each snapshot holds every plugin's latest release time. Community Radar reads these snapshots (daily for the last 30 days, weekly before that), keeps up to 50 release dates per plugin, and compares the current release with the previous one. That's how "released 7 days ago, after 52 days dormant" is exact even for plugins quiet for years. The same snapshots tell when a plugin first appeared, which powers the *New* tab.
+Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day**. Each snapshot holds every plugin's latest release time. Community Radar reads these snapshots (daily for the last 30 days, weekly before that), keeps up to 50 release dates per plugin, and compares the current release with the previous one. That's how "4 days ago (after a 70-day incubation)" is exact even for plugins quiet for years. The same snapshots tell when a plugin first appeared, which powers the *New* tab.
 
 *Similar* compares meanings: once a day, a [GitHub Actions workflow](.github/workflows/embeddings.yml) turns every plugin's name and description into a vector with IBM's open [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) model (only new or edited plugins; Apache 2.0) and publishes them on the `embeddings` branch. The plugin downloads that file and ranks plugins by cosine similarity on your device, with a small share of shared-word matching (BM25) so a rare common name still counts.
 
