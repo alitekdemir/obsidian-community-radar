@@ -9,12 +9,18 @@
   - **Discover widgets**: New arrivals, Milestones (1K, 5K, 10K, 25K, 50K or 100K), Out of incubation, Rising, Quiet updates, New releases you track; *Installed, not tracked* can be added. Each shows its count, *N new · since your last visit* and a preview, and is set in place: the value chip and ⋮ change its settings, ⓘ explains it, the grip reorders it (touch too), ⋮ hides it.
   - A widget opens the list of its plugins; its *N new* button opens only the new ones (*Only new* ✕ shows all), marked *new* on the rows. ✕ or Esc goes back home.
   - Motion: cards rise in, lift on hover and show their tools; off in the page's ⋮ or with the system's reduced motion.
-- The server's history now records 1K, 5K, 10K, 25K, 50K and 100K milestones.
+- The server's history now records 1K, 5K, 10K, 25K, 50K and 100K milestones. *Milestones* lists a plugin under the highest one it reached in the period (a 33K plugin that passed 1K, 10K and 25K this month is a 25K).
+- *Rising* by % (default): plugins that grew 20%+ from at least 1K downloads; by count in its ⋮.
+- A small *+ Add a widget* card brings hidden widgets back.
 
 ### Changed
 
 - A plugin counts as *new* for 14 days by default (was 30).
 - Tracked moved from the tabs to the Home · List · Tracked switch, with its new-release count.
+- The switch, tabs and filters stay at the top while the list scrolls.
+- *All* shows every plugin by default (Downloads ≥ off).
+- On Tracked, a chosen group or status counts as a filter; ✕ puts it back to All.
+- *Mark all reviewed* left the bar (it comes back as a bulk action with Undo). The new-plugin badge reads *NEW PLUGIN*, apart from *NEW RELEASE*.
 
 ## 0.9.1
 

@@ -244,14 +244,17 @@ const tests = {
     assert.equal($(head(), ".pdt-chip-value").textContent, "", "defaults: nothing changed, no count");
     assert.ok($(head(), ".pdt-filter-clear").classList.contains("is-hidden"), "nothing to clear yet");
     const chip = () => $(el, ".pdt-filter-panel .pdt-chip.is-toggle");
-    assert.ok(chip().classList.contains("is-on"));
-    assert.ok(!names().includes("Fresh Plugin"));                              // 5 downloads
+    assert.ok(!chip().classList.contains("is-on"), "All shows every plugin by default");
+    assert.ok(names().includes("Fresh Plugin"));                               // 5 downloads
     $(chip(), ".pdt-toggle").onclick();
     await tick();
-    assert.ok(!chip().classList.contains("is-on"));
-    assert.ok(names().includes("Fresh Plugin"));
-    assert.equal(settings.downloadFilter.all, false);
+    assert.ok(chip().classList.contains("is-on"));
+    assert.ok(!names().includes("Fresh Plugin"));
+    assert.equal(settings.downloadFilter.all, true);
     assert.equal(core.modeOptions(settings, "updated").filterDownloads, true);   // other tabs keep theirs
+    $(chip(), ".pdt-toggle").onclick();
+    await tick();
+    delete settings.downloadFilter.all;
     const min = $(chip(), "input");
     min.value = "2000";
     await min.onchange();
@@ -910,7 +913,10 @@ const tests = {
     assert.ok(card("new") && card("milestone") && card("hatched") && !card("installed"), "Installed waits in + Add");
     assert.equal($$(el, ".pdt-nav-item")[0].classList.contains("is-active"), true);
     assert.equal($(card("new"), ".pdt-home-n").textContent, "1");             // Fresh Plugin, listed yesterday
-    assert.equal($(card("rising"), ".pdt-home-n").textContent, "+200");        // the biggest 30-day gain
+    assert.equal($(card("rising"), ".pdt-home-n").textContent, "1");           // by %: Homepage, 1,000 → 1,200
+    assert.equal($(card("rising"), ".pdt-home-item-value").textContent, "+20%");
+    await view.home.setParam("rising", "by", "abs");
+    assert.equal($(card("rising"), ".pdt-home-n").textContent, "+200");        // by count: the biggest 30-day gain
 
     // "1 new" opens only what came in since the last visit; ✕ goes back home
     $(card("new"), ".pdt-home-fresh").onclick({ stopPropagation() {} });

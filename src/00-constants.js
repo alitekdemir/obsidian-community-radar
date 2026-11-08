@@ -94,7 +94,7 @@ const DAY_PRESETS = [1, 3, 7, 14, 30, 60, 90];
 const DORMANT_PRESETS = [30, 60, 90, 120, 180, 360];
 /** Per tab: is "Downloads ≥" on, and how rows are sorted, until the user changes them. */
 const TAB_DEFAULTS = {
-  all: { downloads: true, sort: "downloads" },
+  all: { downloads: false, sort: "downloads" },   // every plugin, unfiltered
   new: { downloads: false, sort: "listed" },        // a brand-new plugin has few downloads
   updated: { downloads: true, sort: "downloads" },
   awakened: { downloads: true, sort: "downloads" },

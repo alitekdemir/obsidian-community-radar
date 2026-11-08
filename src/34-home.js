@@ -55,10 +55,11 @@ class HomePage {
   renderSince(page, ctx, then) {
     const section = page.createDiv({ cls: "pdt-home-section" });
     const head = section.createDiv({ cls: "pdt-home-head" });
-    head.createEl("h2", { text: t("home.since") });
     const period = this.home.since.period;
+    head.createEl("h2", { text: period === "visit" ? t("home.since") : t("home.sinceTitle", { n: period }) });
     const chip = head.createEl("button", { cls: "pdt-home-chip", text: `${this.sinceLabel(period)} ▾`, attr: { type: "button" } });
     chip.onclick = (event) => this.choose(event, SINCE_PERIODS.map((p) => [p, this.sinceLabel(p)]), period, (p) => this.save((h) => { h.since.period = p; }));
+    chip.setText(`${t("home.period")} ▾`);
 
     const grid = section.createDiv({ cls: "pdt-home-since" });
     this.home.since.order.forEach((id, i) => {
@@ -81,8 +82,15 @@ class HomePage {
     const section = page.createDiv({ cls: "pdt-home-section" });
     section.createDiv({ cls: "pdt-home-head" }).createEl("h2", { text: t("home.discover") });
     const grid = section.createDiv({ cls: "pdt-home-grid" });
-    this.home.order.filter((id) => !this.home.hidden.includes(id)).forEach((id, i) => this.renderWidget(grid, ctx, id, then, i));
-    this.sortable(grid, (order) => this.save((h) => { h.order = [...order, ...h.order.filter((id) => !order.includes(id))]; }));
+    const shown = this.home.order.filter((id) => !this.home.hidden.includes(id));
+    shown.forEach((id, i) => this.renderWidget(grid, ctx, id, then, i));
+    // a small "+" card: hidden widgets come back here (your own filters will too)
+    const add = this.card(grid, "pdt-home-add", shown.length, () => {});
+    add.onclick = (event) => this.addMenu(event);
+    setIcon(add.createSpan({ cls: "pdt-home-add-icon" }), "plus");
+    add.createSpan({ cls: "pdt-home-add-title", text: t("home.addWidget") });
+    add.createSpan({ cls: "pdt-home-add-hint", text: t("home.addHint") });
+    this.sortable(grid, (order) => this.save((h) => { order = order.filter(Boolean); h.order = [...order, ...h.order.filter((id) => !order.includes(id))]; }));
   }
 
   renderWidget(grid, ctx, id, then, index) {
@@ -97,7 +105,7 @@ class HomePage {
     const head = card.createDiv({ cls: "pdt-home-card-head" });
     setIcon(head.createSpan({ cls: "pdt-home-icon" }), widget.icon);
     head.createSpan({ cls: "pdt-home-title", text: t(`home.${id}`) });
-    const info = t(`home.${id}.info`, this.paramWords(id, params));
+    const info = t(widget.info?.(params) || `home.${id}.info`, this.paramWords(id, params));
     this.info(head, info);
     head.createSpan({ cls: "pdt-home-spacer" });
     const more = head.createEl("button", { cls: "pdt-home-more", attr: { type: "button", "aria-label": t("home.widgetMenu") } });
@@ -110,11 +118,13 @@ class HomePage {
     const line = left.createDiv({ cls: "pdt-home-line" });
     line.createSpan({ cls: "pdt-home-n", text: headline });
     if (fresh?.length) {
-      const badge = line.createEl("button", { cls: "pdt-home-fresh", text: t("home.fresh", { n: formatCount(fresh.length), when: this.sinceLabel(this.home.since.period) }), attr: { type: "button" } });
-      setTooltip(badge, t("home.freshTip", { n: formatCount(fresh.length) }));
+      const badge = line.createEl("button", { cls: "pdt-home-fresh", attr: { type: "button" } });
+      badge.createSpan({ text: t("home.fresh", { n: formatCount(fresh.length), when: this.sinceLabel(this.home.since.period) }) });
+      setIcon(badge.createSpan({ cls: "pdt-home-fresh-go" }), "arrow-up-right");
+      setTooltip(badge, t("home.freshTip", { n: formatCount(fresh.length) }), { delay: 150 });
       badge.onclick = (event) => { event.stopPropagation(); open(then); };
     }
-    left.createSpan({ cls: "pdt-home-unit", text: t(`home.${id}.unit`, this.paramWords(id, params)) });
+    left.createSpan({ cls: "pdt-home-unit", text: t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(id, params)) });
     const key = Object.keys(widget.params)[0];
     if (key) {
       const chip = metric.createEl("button", { cls: "pdt-home-chip", text: `${this.paramText(key, params[key])} ▾`, attr: { type: "button" } });
@@ -131,7 +141,7 @@ class HomePage {
       item.createSpan({ cls: "pdt-home-item-name", text: p.name });
       item.createSpan({ cls: "pdt-home-item-value", text: widget.value(ctx, p, params) });
     }
-    if (!rows.length) preview.createDiv({ cls: "pdt-home-item is-empty", text: t("home.none") });
+    if (!rows.length) preview.createDiv({ cls: "pdt-home-item is-empty", text: t(id === "tracked" ? "home.tracked.empty" : "home.none") });
     card.createSpan({ cls: "pdt-home-cta", text: t("home.open") });
   }
 
@@ -149,9 +159,9 @@ class HomePage {
   }
 
   info(parent, text) {
-    const icon = parent.createSpan({ cls: "pdt-home-info", attr: { "aria-label": text } });
+    const icon = parent.createSpan({ cls: "pdt-home-info", attr: { "aria-label": text, tabindex: "0" } });
     setIcon(icon, "info");
-    setTooltip(icon, text);
+    setTooltip(icon, text, { delay: 100 });
   }
 
   /** Drag by the grip to reorder; the new order of `data-id`s is saved. */
@@ -159,6 +169,7 @@ class HomePage {
     if (typeof Sortable === "undefined" || !grid.children.length) return;
     Sortable.create(grid, {
       handle: ".pdt-grip",
+      filter: ".pdt-home-add",
       animation: this.home.motion ? 180 : 0,
       ghostClass: "is-ghost",
       onEnd: () => onOrder([...grid.children].map((el) => el.dataset.id)),
@@ -171,6 +182,7 @@ class HomePage {
 
   paramText(key, value) {
     if (key === "n") return formatShort(value);
+    if (key === "by") return t(`home.by.${value}`);
     if (key === "gap") return `≥ ${t("filter.days", { n: value })}`;
     return t("filter.days", { n: value });
   }
@@ -205,6 +217,16 @@ class HomePage {
     }
     menu.addItem((item) => item.setTitle(t("home.hide")).setIcon("eye-off").onClick(() => this.save((h) => { h.hidden = [...h.hidden, id]; })));
     menu.addItem((item) => item.setTitle(t("home.reset")).setIcon("rotate-ccw").onClick(() => this.save((h) => { delete h.params?.[id]; })));
+    menu.showAtMouseEvent(event);
+  }
+
+  /** The "+" card: the hidden widgets to bring back. */
+  addMenu(event) {
+    const menu = new Menu();
+    for (const id of this.home.hidden) {
+      menu.addItem((item) => item.setTitle(t(`home.${id}`)).setIcon(HOME_WIDGETS[id].icon).onClick(() => this.save((h) => { h.hidden = h.hidden.filter((x) => x !== id); })));
+    }
+    if (!this.home.hidden.length) menu.addItem((item) => item.setTitle(t("home.allShown")).setDisabled(true));
     menu.showAtMouseEvent(event);
   }
 

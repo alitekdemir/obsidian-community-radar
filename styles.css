@@ -2079,6 +2079,19 @@ button.pdt-section-head:hover {
   text-align: center;
 }
 
+/* ── Sticky header: the switch, tabs and filters stay while the list scrolls ── */
+.pdt-sticky {
+  position: sticky;
+  top: 0;   /* sticks over the view's top padding too, so no row peeks above it */
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  padding-bottom: var(--size-4-2);
+  background: var(--background-primary);
+  box-shadow: 0 6px 8px -8px rgba(0, 0, 0, 0.35);
+}
+
 /* ── Home · List · Tracked ─────────────────────────────────────────────── */
 .pdt-nav {
   display: flex;
@@ -2271,7 +2284,16 @@ button.pdt-home-chip {
 .pdt-home-info {
   display: flex;
   flex: none;
+  margin: -6px;
+  padding: 6px;   /* a bigger target than the 13 px icon */
+  border-radius: 99px;
   color: var(--text-faint);
+  cursor: help;
+}
+
+.pdt-home-info:hover,
+.pdt-home-info:focus-visible {
+  color: var(--text-normal);
 }
 
 .pdt-home-info svg { width: 13px; height: 13px; }
@@ -2337,8 +2359,58 @@ button.pdt-home-fresh {
   font-size: var(--font-ui-smaller);
   font-weight: var(--font-semibold);
   white-space: nowrap;
+  cursor: pointer;
   animation: pdt-pulse 1.6s ease-out 2;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
 }
+
+button.pdt-home-fresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+button.pdt-home-fresh:hover,
+button.pdt-home-fresh:focus-visible {
+  border-color: var(--interactive-accent);
+  background: color-mix(in srgb, var(--interactive-accent) 28%, transparent);
+  transform: translateY(-1px);
+}
+
+.pdt-home-fresh-go {
+  display: flex;
+  transition: transform 150ms ease;
+}
+
+.pdt-home-fresh-go svg { width: 12px; height: 12px; }
+button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px); }
+
+/* the "+" card: small, quiet, says filters can become widgets */
+.pdt-home-add {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  min-height: 96px;
+  padding: var(--size-4-3) var(--size-4-4);
+  border: 1px dashed var(--background-modifier-border);
+  border-radius: var(--radius-l);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.pdt-home-add:hover,
+.pdt-home-add:focus-visible {
+  border-color: var(--interactive-accent);
+  background: color-mix(in srgb, var(--interactive-accent) 6%, transparent);
+  color: var(--text-normal);
+}
+
+.pdt-home-add-icon { display: flex; color: var(--text-accent); }
+.pdt-home-add-title { font-weight: var(--font-semibold); }
+.pdt-home-add-hint { font-size: var(--font-ui-smaller); line-height: 1.4; }
 
 .pdt-home-top {
   display: flex;

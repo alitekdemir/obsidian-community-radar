@@ -9,6 +9,11 @@ function milestoneSteps(timeline) {
   return timeline.milestoneSteps || OLD_MILESTONE_STEPS;
 }
 
+/** The highest milestone a plugin passed after `after` (null: none): 33K that passed 1K, 10K and 25K this month is a 25K. */
+function topPassed(timeline, id, after) {
+  return [...milestoneSteps(timeline)].reverse().find((n) => passedAt(timeline, id, n) > after) ?? null;
+}
+
 /** When the plugin first passed `n` downloads (0: before the history; null: not yet). */
 function passedAt(timeline, id, n) {
   const i = milestoneSteps(timeline).indexOf(n);
@@ -16,6 +21,9 @@ function passedAt(timeline, id, n) {
 }
 
 const byDownloads = (a, b) => (b.downloads ?? 0) - (a.downloads ?? 0);
+const RISING_BASE = 1000;    // downloads before the period, so 10 → 30 isn't "rising"
+const RISING_SHARE = 0.2;    // grew by a fifth or more
+const risingGain = (ctx, p, params) => ctx.state.growth[p.id]?.[params.days === 7 ? 0 : 1] ?? 0;
 const since = (ctx, params) => params.since ?? ctx.now - params.days * DAY_MS;
 /** A tab's plugins with the widget's own settings: no Downloads ≥, no search. */
 const tabRows = (ctx, mode, extra) =>
@@ -32,7 +40,7 @@ const HOME_WIDGETS = {
   milestone: {
     icon: "target", tone: "green",
     params: { n: (ctx) => milestoneSteps(ctx.timeline), days: [7, 30, 90] }, defaults: { n: 10000, days: 30 },
-    rows: (ctx, params) => ctx.state.catalog.filter((p) => passedAt(ctx.timeline, p.id, params.n) > since(ctx, params)).sort(byDownloads),
+    rows: (ctx, params) => ctx.state.catalog.filter((p) => topPassed(ctx.timeline, p.id, since(ctx, params)) === params.n).sort(byDownloads),
     at: (ctx, p, params) => passedAt(ctx.timeline, p.id, params.n),
     value: (ctx, p) => formatShort(p.downloads ?? 0),
   },
@@ -43,21 +51,28 @@ const HOME_WIDGETS = {
     at: (ctx, p) => p.updated,
     value: (ctx, p) => t("filter.days", { n: dormantDays(ctx.state.releases, p) }),
   },
+  // by "pct": grew by at least RISING_SHARE on a base of RISING_BASE (a big plugin's +900K isn't news); "abs": most gained
   rising: {
     icon: "trending-up", tone: "green",
-    params: { days: [7, 30] }, defaults: { days: 30 },
+    params: { days: [7, 30], by: ["pct", "abs"] }, defaults: { days: 30, by: "pct" },
     rows: (ctx, params) => {
-      const i = params.days === 7 ? 0 : 1;
-      const gain = (p) => ctx.state.growth[p.id]?.[i] ?? 0;
-      return ctx.state.catalog.filter((p) => gain(p) > 0).sort((a, b) => gain(b) - gain(a));
+      const gain = (p) => risingGain(ctx, p, params);
+      if (params.by === "abs") return ctx.state.catalog.filter((p) => gain(p) > 0).sort((a, b) => gain(b) - gain(a));
+      const share = (p) => gain(p) / ((p.downloads ?? 0) - gain(p));
+      return ctx.state.catalog.filter((p) => (p.downloads ?? 0) - gain(p) >= RISING_BASE && share(p) >= RISING_SHARE).sort((a, b) => share(b) - share(a));
     },
-    value: (ctx, p, params) => `+${formatShort(ctx.state.growth[p.id]?.[params.days === 7 ? 0 : 1] ?? 0)}`,
-    headline: (ctx, rows, params) => (rows[0] ? HOME_WIDGETS.rising.value(ctx, rows[0], params) : "–"),
+    value: (ctx, p, params) => {
+      const gain = risingGain(ctx, p, params);
+      return params.by === "abs" ? `+${formatShort(gain)}` : `+${Math.round((100 * gain) / ((p.downloads ?? 0) - gain))}%`;
+    },
+    headline: (ctx, rows, params) => (params.by === "abs" ? (rows[0] ? HOME_WIDGETS.rising.value(ctx, rows[0], params) : "–") : formatCount(rows.length)),
+    unit: (params) => `home.rising.unit.${params.by}`,
+    info: (params) => `home.rising.info.${params.by}`,
   },
   quiet: {
     icon: "filter", tone: "blue",
     params: { days: [7, 14, 30] }, defaults: { days: 14 },
-    rows: (ctx, params) => tabRows(ctx, "updated", { days: params.since ? Math.ceil((ctx.now - params.since) / DAY_MS) : params.days, hideBusy: true, sort: "updated", sortDir: "desc" })
+    rows: (ctx, params) => tabRows(ctx, "updated", { days: params.since ? Math.ceil((ctx.now - params.since) / DAY_MS) : params.days, hideBusy: true, sort: "downloads", sortDir: "desc" })
       .filter((p) => p.updated > since(ctx, params)),
     at: (ctx, p) => p.updated,
     value: (ctx, p) => relativeDays(p.updated, ctx.now),

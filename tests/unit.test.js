@@ -88,7 +88,7 @@ const tests = {
     assert.deepEqual(ids({ mode: "new" }), []);                                // …but below 100 downloads
     assert.deepEqual(ids({ mode: "new", filterDownloads: false, days: 3 }), []);
     const counts = core.modeCounts(state, opts, NOW);   // each tab with its default Downloads on/off (New: off)
-    assert.deepEqual(counts, { all: 3, new: 1, updated: 1, awakened: 1, tracked: 1, suggested: 2 });  // all: a, b, e (c excluded, d below 100 downloads)
+    assert.deepEqual(counts, { all: 4, new: 1, updated: 1, awakened: 1, tracked: 1, suggested: 2 });  // all: every plugin but the excluded c (no Downloads ≥ by default)
     const off = core.modeCounts(state, { ...opts, downloadFilter: { all: false } }, NOW);
     assert.equal(off.all, 4);                                 // All with the filter off: d is back
     assert.deepEqual(ids({ query: "a, desc" }), ["a"]);
@@ -139,7 +139,7 @@ const tests = {
 
   "modeOptions: per-tab Downloads and sort with defaults; invalid saved values fall back"() {
     const settings = { ...core.defaultSettings(), downloadFilter: { new: true }, sortBy: { all: { key: "name", dir: "desc" }, updated: { key: "bogus" } } };
-    assert.equal(core.modeOptions(settings, "all").filterDownloads, true);      // default
+    assert.equal(core.modeOptions(settings, "all").filterDownloads, false);     // default: every plugin
     assert.equal(core.modeOptions(settings, "new").filterDownloads, false);     // never on New, even if saved
     assert.equal(core.modeOptions({ ...settings, downloadFilter: { updated: false } }, "updated").filterDownloads, false);   // saved
     assert.equal(core.modeOptions(settings, "changed").filterDownloads, false); // default

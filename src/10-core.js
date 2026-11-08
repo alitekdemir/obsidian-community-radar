@@ -193,6 +193,7 @@ function filterKeys(mode) {
     ...(mode === "new" || mode === "updated" ? ["days"] : []),
     ...(mode === "awakened" ? ["dormantDays"] : []),
     ...(mode === "updated" ? ["hideBusy"] : []),
+    ...(mode === "tracked" ? ["trackedGroup", "trackedStatus"] : []),
     ...(mode !== "new" ? ["minDownloads", "downloadFilter"] : []),
   ];
 }
@@ -230,6 +231,8 @@ function filterSummary(settings, mode) {
     days: () => `${t("filter.last")} ${t("filter.days", { n: settings.days })}`,
     dormantDays: () => `${t("filter.gap")} ${t("filter.days", { n: settings.dormantDays })}`,
     hideBusy: () => t(settings.hideBusy ? "filter.tipBusyHidden" : "filter.tipBusyShown"),
+    trackedGroup: () => t("filter.tipGroup"),
+    trackedStatus: () => t("filter.tipStatus"),
     downloadFilter: () => (opts.filterDownloads ? `${t("filter.downloads")} ${formatCount(settings.minDownloads)}` : t("filter.tipDownloadsOff")),
   };
   return [t("filter.tipChanged"), ...keys.map((k) => `• ${line[k]()}`), t("filter.tipClear")].join("\n");

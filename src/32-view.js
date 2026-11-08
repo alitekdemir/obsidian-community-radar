@@ -246,15 +246,16 @@ class DiscoveryView extends ItemView {
     root.toggleClass("is-keyboard", Boolean(this.settings.keyboard));   // the highlighted row shows only for shortcuts
     this.keep.clear();
     this.refs = { counts: {} };
-    const nav = root.createDiv({ cls: "pdt-nav" });
+    const header = root.createDiv({ cls: "pdt-sticky" });   // switch, tabs and filters stay put while the list scrolls
+    const nav = header.createDiv({ cls: "pdt-nav" });
     this.renderNav(nav);
     if (this.settings.section === "home") {
       this.home.renderTools(nav);
       this.home.render(root);
       return;
     }
-    if (this.settings.mode !== "tracked" && !this.preset) this.renderModes(root.createDiv({ cls: "pdt-seg" }));
-    this.renderFilters(root.createDiv({ cls: "pdt-filters" }));
+    if (this.settings.mode !== "tracked" && !this.preset) this.renderModes(header.createDiv({ cls: "pdt-seg" }));
+    this.renderFilters(header.createDiv({ cls: "pdt-filters" }));
     this.refs.status = root.createDiv({ cls: "pdt-status" });
     this.refs.list = root.createDiv({ cls: "pdt-list" });
     this.refresh();
@@ -455,10 +456,6 @@ class DiscoveryView extends ItemView {
       });
     }
 
-    if (mode === "tracked" && this.settings.trackedGroup === UPDATES) {
-      const all = bar.createEl("button", { cls: "pdt-ghost", text: t("changed.markAll") });
-      all.onclick = async () => { await this.plugin.markReviewed(this.rows || []); this.refresh(); };
-    }
     if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
     if (this.settings.keyboard) this.renderKeyHelp(bar);
   }
