@@ -11,7 +11,8 @@
 ### Changed
 
 - New installs keep their notes in *Plugins* (*Eklentiler* in Turkish) instead of *Community Radar*; an existing folder setting stays.
-- Clearer wording in the settings.
+- Clearer wording in the settings. *Suggest groups* left the settings; it's in the ⋮ menu and the command palette.
+- The highlighted row (a thin outline) shows only with keyboard shortcuts on.
 
 ## 0.9.0
 

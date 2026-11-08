@@ -93,14 +93,6 @@ class RadarSettingTab extends PluginSettingTab {
 
     this.displayStatuses(containerEl, settings, save);
 
-    // ── Groups
-    new Setting(containerEl).setName(t("set.groups")).setHeading();
-    const ungrouped = plugin.ungrouped().length;
-    new Setting(containerEl)
-      .setName(t("set.batch"))
-      .setDesc(t("set.batchDesc", { n: ungrouped }))
-      .addButton((b) => b.setButtonText(t("set.batchButton")).setCta().setDisabled(!ungrouped).onClick(() => plugin.groupUngrouped()));
-
     // ── Sync
     new Setting(containerEl).setName(t("set.sync")).setHeading();
     new Setting(containerEl)

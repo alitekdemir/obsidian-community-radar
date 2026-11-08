@@ -237,6 +237,7 @@ class DiscoveryView extends ItemView {
   render() {
     const root = this.contentEl;
     root.empty();
+    root.toggleClass("is-keyboard", Boolean(this.settings.keyboard));   // the highlighted row shows only for shortcuts
     this.keep.clear();
     this.refs = { counts: {} };
     this.renderModes(root.createDiv({ cls: "pdt-seg" }));
