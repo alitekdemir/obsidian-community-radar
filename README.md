@@ -36,7 +36,7 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 
   ![The Similar list: a trail back to the tab you came from, the number of matches, closeness and shared terms on every result](docs/images/Radar_7-Similar.png)
 
-- **Filters**: *Last N days* stays in the bar; the ones you rarely change (*Downloads ≥*, *Incubation ≥*, *Hide busy plugins*) wait under **Filters · N**. They're remembered (the search isn't), and **Clear filters** puts the tab back to its defaults.
+- **Filters** lead the bar: **Filters · N** counts the ones at work (the search included) and its ✕ clears them; the tab's filters sit next to it (*Last N days*, *Downloads ≥*, *Incubation ≥*, *Hide busy plugins*) and fold under it in a narrow panel. They're remembered; the search isn't.
 - **Cards**: a *List / Cards* switch shows any tab as cards. Click a row or card anywhere but a control (or press `Enter`) and it grows into a **details window**: downloads, latest release, age (since it was listed) and how often it ships; the whole description and its translation; your note; the README in a dark box; the five closest plugins; the release history and the GitHub repository; and the same actions as a row. `←` / `→` walk the list; *Hide* and *Exclude* move on to the next plugin.
 
   ![The card view](docs/images/Radar_10-Cards.png)
