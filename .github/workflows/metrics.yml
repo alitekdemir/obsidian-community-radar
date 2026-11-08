@@ -1,0 +1,56 @@
+# Release history and download metrics: replays every daily snapshot of obsidian-releases'
+# community-plugin-stats.json (since 2020-10) and keeps the result on the `metrics` branch, which the
+# plugin downloads instead of replaying a year of snapshots itself. Runs after Obsidian's daily commit
+# (~00:15 UTC). The branch holds a single commit, replaced on each run, so the repository doesn't grow.
+name: Metrics
+
+on:
+  schedule:
+    - cron: "23 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: metrics
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: obsidian-releases
+          key: obsidian-releases-${{ github.run_id }}
+          restore-keys: obsidian-releases-
+
+      - name: obsidian-releases with its full history (~300 MB the first time, then only new commits)
+        run: |
+          if [ -d obsidian-releases/.git ]; then
+            git -C obsidian-releases fetch -q origin master
+            git -C obsidian-releases update-ref refs/heads/master FETCH_HEAD
+          else
+            git clone -q --single-branch --no-checkout https://github.com/obsidianmd/obsidian-releases obsidian-releases
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build
+        run: python scripts/metrics/build.py obsidian-releases out
+
+      - name: Publish to the metrics branch
+        working-directory: out
+        run: |
+          git init -q -b metrics
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Metrics $(date -u +%F)"
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" metrics
