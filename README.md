@@ -176,7 +176,7 @@ Missing text falls back to English, so a partly translated file still works. The
 
 ## Development
 
-`src/main.js` is the plugin; `npm run build` embeds `locales/*.json` into the `main.js` Obsidian loads (Obsidian installs only `main.js`, `manifest.json` and `styles.css`). There are no dependencies at runtime. Tests run offline in Node with a small fake of the Obsidian API:
+`src/*.js` is the plugin (joined in file-name order); `npm run build` embeds `locales/*.json` into the `main.js` Obsidian loads (Obsidian installs only `main.js`, `manifest.json` and `styles.css`). There are no dependencies at runtime. Tests run offline in Node with a small fake of the Obsidian API:
 
 ```sh
 npm install

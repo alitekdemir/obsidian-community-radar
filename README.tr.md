@@ -115,7 +115,7 @@ Telemetri yok, hesap yok, vault'unuzla ilgili hiçbir şey gönderilmez. Vault i
 
 ## Geliştirme
 
-Kaynak `src/main.js`; `npm run build`, `locales/*.json` dosyalarını Obsidian'ın yüklediği `main.js` içine gömer. Testler Node'da, ağsız çalışır: `npm install && npm test`.
+Kaynak `src/*.js` (dosya adı sırasıyla birleştirilir); `npm run build`, `locales/*.json` dosyalarını Obsidian'ın yüklediği `main.js` içine gömer. Testler Node'da, ağsız çalışır: `npm install && npm test`.
 
 ## Lisans
 

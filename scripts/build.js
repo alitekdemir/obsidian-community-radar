@@ -1,5 +1,5 @@
-// Builds main.js from src/main.js with every locales/*.json embedded: Obsidian installs only
-// main.js, manifest.json and styles.css, so translations can't ship as separate files.
+// Builds main.js from src/*.js (joined in file-name order, one scope) with every locales/*.json embedded:
+// Obsidian installs only main.js, manifest.json and styles.css, so neither can ship as separate files.
 const fs = require("fs");
 const path = require("path");
 
@@ -13,9 +13,11 @@ const locales = Object.fromEntries(
 );
 if (!locales.en) throw new Error("locales/en.json is required: it is the fallback for every other language");
 
-const source = fs.readFileSync(path.join(root, "src", "main.js"), "utf8");
-if (!source.includes(MARKER)) throw new Error(`src/main.js has no ${MARKER} marker`);
+const srcDir = path.join(root, "src");
+const source = fs.readdirSync(srcDir).filter((f) => f.endsWith(".js")).sort()
+  .map((f) => fs.readFileSync(path.join(srcDir, f), "utf8")).join("");
+if (!source.includes(MARKER)) throw new Error(`src/*.js have no ${MARKER} marker`);
 
-const header = "// Built by scripts/build.js from src/main.js and locales/*.json; edit those files, not this one.\n";
+const header = "// Built by scripts/build.js from src/*.js and locales/*.json; edit those files, not this one.\n";
 fs.writeFileSync(path.join(root, "main.js"), header + source.replace(MARKER, () => JSON.stringify(locales, null, 2)));
 console.log(`main.js built · locales: ${Object.keys(locales).join(", ")}`);
