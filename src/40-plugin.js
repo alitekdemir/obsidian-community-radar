@@ -6,6 +6,10 @@ class PluginRadar extends Plugin {
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.data.settings.query = "";   // filters are remembered, the search isn't
+    this.data.settings.home = normalizeHome(this.data.settings.home);
+    if (this.data.settings.start === "home") this.data.settings.section = "home";
+    this.lastVisit = this.data.lastVisit || 0;   // "since your last visit" counts from here this session
+    this.data.lastVisit = Date.now();
     if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
     if (this.data.settings.mode === SIMILAR_MODE) this.data.settings.mode = "all";   // 0.8's Similar list
     delete this.data.settings.similarTrail;
@@ -120,6 +124,10 @@ class PluginRadar extends Plugin {
     if (!done.readmeMarkers) {
       await this.notes.migrate(migrateMarkers);
       done.readmeMarkers = dayString(Date.now());
+    }
+    if (!done.newDays14) {   // 0.9.2: "new" lasts 14 days by default; 30 was 0.9's default, not a choice
+      if (this.data.settings.newDays === 30) this.data.settings.newDays = NEW_BADGE_DAYS;
+      done.newDays14 = dayString(Date.now());
     }
     if (!done.readmeImages) {
       await this.notes.migrate(migrateImages);

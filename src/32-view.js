@@ -10,6 +10,8 @@ class DiscoveryView extends ItemView {
     this.visible = PAGE_SIZE;
     this.shownTranslations = new Set();
     this.similar = null;          // Similar filter: {steps: [{id, scroll}], before: {mode, scroll, visible, originId, originIndex}, query}
+    this.preset = null;           // a home widget's plugins in the list: {id, params, onlyNew, query, freshIds}
+    this.home = new HomePage(this);
     this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
     this.cursorId = null;         // the row keyboard shortcuts act on
@@ -20,9 +22,10 @@ class DiscoveryView extends ItemView {
     for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "Enter", "0", "1", "2", "3", "4", "5"]) {
       this.scope.register([], key, (event) => this.onKey(event, key));
     }
-    this.scope.register([], "Escape", () => {   // Esc closes the Similar filter, like ✕
-      if (!this.similar || globalThis.document?.activeElement?.closest?.("input, textarea, select")) return true;
-      this.closeSimilar();
+    this.scope.register([], "Escape", () => {   // Esc closes the Similar filter or a widget's list, like ✕
+      if (!(this.similar || this.preset) || globalThis.document?.activeElement?.closest?.("input, textarea, select")) return true;
+      if (this.similar) this.closeSimilar();
+      else this.closePreset();
       return false;
     });
   }
@@ -227,7 +230,10 @@ class DiscoveryView extends ItemView {
   get settings() { return this.plugin.data.settings; }
 
   async update(key, value) {
-    if (key === "mode") { this.grouping = null; this.filtersOpen = false; this.similar = null; }   // another tab ends grouping mode, Filters and Similar
+    if (key === "mode" || key === "section") {   // another tab or section ends grouping mode, Filters, Similar and a widget's list
+      Object.assign(this, { grouping: null, filtersOpen: false, similar: null, preset: null });
+    }
+    if (key === "mode" && value !== "tracked" && !LIST_MODES.includes(value)) this.settings.listMode = value;
     this.settings[key] = value;
     this.visible = PAGE_SIZE;
     await this.plugin.saveData(this.plugin.data);
@@ -240,7 +246,14 @@ class DiscoveryView extends ItemView {
     root.toggleClass("is-keyboard", Boolean(this.settings.keyboard));   // the highlighted row shows only for shortcuts
     this.keep.clear();
     this.refs = { counts: {} };
-    this.renderModes(root.createDiv({ cls: "pdt-seg" }));
+    const nav = root.createDiv({ cls: "pdt-nav" });
+    this.renderNav(nav);
+    if (this.settings.section === "home") {
+      this.home.renderTools(nav);
+      this.home.render(root);
+      return;
+    }
+    if (this.settings.mode !== "tracked" && !this.preset) this.renderModes(root.createDiv({ cls: "pdt-seg" }));
     this.renderFilters(root.createDiv({ cls: "pdt-filters" }));
     this.refs.status = root.createDiv({ cls: "pdt-status" });
     this.refs.list = root.createDiv({ cls: "pdt-list" });
@@ -248,6 +261,7 @@ class DiscoveryView extends ItemView {
   }
 
   refresh() {
+    if (this.settings.section === "home") return this.render();   // the home page has no partial redraw
     if (!this.refs.list) return;
     const now = Date.now();
     const state = this.plugin.state();
@@ -255,9 +269,6 @@ class DiscoveryView extends ItemView {
       const counts = modeCounts(state, this.settings, now);
       if (this.similar) counts.all = this.similarCount();   // the All tab counts the matches while the filter is on
       for (const [mode, el] of Object.entries(this.refs.counts)) el.setText(formatCount(counts[mode]));
-      const updates = this.plugin.updatesCount(state, now);
-      this.refs.updates?.setText(updates ? t("tracked.updatesBadge", { n: updates }) : "");
-      this.refs.updates?.toggleClass("is-hidden", !updates);
     }
     this.updateFilterHead();
     this.renderStatus(this.refs.status);
@@ -284,13 +295,98 @@ class DiscoveryView extends ItemView {
     return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, catalog, releases, notes, growth);
   }
 
+  /** Home · List · Tracked (with its new releases). */
+  renderNav(nav) {
+    const settings = this.settings;
+    const current = settings.section === "home" ? "home" : settings.mode === "tracked" ? "tracked" : "list";
+    const go = {
+      home: () => this.update("section", "home"),
+      list: () => { settings.section = "list"; return this.update("mode", settings.listMode || "all"); },
+      tracked: () => this.openTracked(settings.trackedGroup),
+    };
+    const seg = nav.createDiv({ cls: "pdt-nav-seg", attr: { role: "tablist" } });
+    for (const key of ["home", "list", "tracked"]) {
+      const tab = seg.createDiv({ cls: `pdt-nav-item${key === current ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0", "aria-selected": String(key === current) } });
+      tab.createSpan({ text: t(`nav.${key}`) });
+      if (key === "tracked") this.refs.updates = tab.createSpan({ cls: "pdt-n is-updates is-hidden" });
+      tab.onclick = go[key];
+      onActivate(tab, go[key]);
+    }
+    const updates = this.plugin.catalog ? this.plugin.updatesCount() : 0;
+    this.refs.updates.setText(updates ? t("tracked.updatesBadge", { n: updates }) : "");
+    this.refs.updates.toggleClass("is-hidden", !updates);
+    nav.createDiv({ cls: "pdt-nav-spacer" });
+  }
+
+  /** The Tracked list, on one of its groups (UPDATES: new releases). */
+  openTracked(group = "") {
+    this.settings.section = "list";
+    this.settings.trackedGroup = group;
+    return this.update("mode", "tracked");
+  }
+
+  /** A home widget's plugins as a list (`onlyNew`: only those that came in after then); ✕ goes back home. */
+  openPreset(id, params, onlyNew = null) {
+    Object.assign(this, { grouping: null, similar: null, filtersOpen: false, visible: PAGE_SIZE });
+    this.preset = { id, params, onlyNew, query: "" };
+    Object.assign(this.settings, { section: "list", mode: "all" });   // shown, not saved: ✕ goes home
+    this.render();
+    this.contentEl.scrollTop = 0;
+  }
+
+  closePreset() {
+    this.preset = null;
+    this.settings.section = "home";
+    this.render();
+  }
+
+  /** The widget's plugins, then only the new ones (when asked), then the search. */
+  presetRows() {
+    const { id, params, onlyNew, query } = this.preset;
+    const ctx = this.home.context(Date.now());
+    const widget = HOME_WIDGETS[id];
+    const rows = widget.rows(ctx, params);
+    const after = onlyNew ?? sinceMoment(this.settings.home.since.period, this.plugin.lastVisit, ctx.now);
+    this.preset.freshIds = new Set(widget.at ? rows.filter((p) => widget.at(ctx, p, params) > after).map((p) => p.id) : []);
+    const q = compileQuery(query);
+    return rows.filter((p) => (onlyNew == null || this.preset.freshIds.has(p.id)) && q.test(p));
+  }
+
+  /** The bar of a widget's list: what it is (✕ back home), "only new" (✕ shows all), search, layout. */
+  renderPresetBar(bar) {
+    const { id, params, onlyNew } = this.preset;
+    const chip = bar.createDiv({ cls: "pdt-chip pdt-similar-chip pdt-preset-chip" });
+    setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), HOME_WIDGETS[id].icon);
+    chip.createSpan({ text: t(`home.${id}`) });
+    const words = Object.entries(params).filter(([k]) => k !== "since").map(([k, v]) => this.home.paramText(k, v)).join(" · ");
+    if (words) chip.createSpan({ cls: "pdt-chip-value", text: words });
+    const close = chip.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.back") } });
+    setIcon(close, "x");
+    setTooltip(close, t("home.back"));
+    close.onclick = () => this.closePreset();
+    if (onlyNew != null) {
+      const fresh = bar.createDiv({ cls: "pdt-chip pdt-similar-chip is-fresh" });
+      fresh.createSpan({ text: t("home.onlyNew", { when: this.home.sinceLabel(params.since ? "visit" : this.settings.home.since.period) }) });
+      const all = fresh.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.showAll") } });
+      setIcon(all, "x");
+      setTooltip(all, t("home.showAll"));
+      all.onclick = () => { this.preset.onlyNew = null; this.render(); };
+    }
+    this.refs.search = this.renderSearch(bar, this.preset.query, t("search.placeholder"), (value) => {
+      this.preset.query = value;
+      this.visible = PAGE_SIZE;
+      this.refresh();
+    });
+    this.renderLayoutSwitch(bar);
+    if (this.settings.keyboard) this.renderKeyHelp(bar);
+  }
+
   renderModes(seg) {
     const tipVars = { days: this.settings.days, gap: this.settings.dormantDays };
-    for (const mode of MODE_KEYS) {
+    for (const mode of MODE_KEYS.filter((m) => m !== "tracked")) {
       const tab = seg.createDiv({ cls: `pdt-tab${mode === this.settings.mode ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0" } });
       tab.createSpan({ text: this.similar && mode === "all" ? t("similar.tab") : t(`mode.${mode}`) });
       this.refs.counts[mode] = tab.createSpan({ cls: "pdt-n", text: "…" });
-      if (mode === "tracked") this.refs.updates = tab.createSpan({ cls: "pdt-n is-updates is-hidden" });
       setTooltip(tab, t(`tip.${mode}`, tipVars));
       tab.onclick = () => this.update("mode", mode);
       onActivate(tab, () => this.update("mode", mode));
@@ -325,6 +421,7 @@ class DiscoveryView extends ItemView {
   }
 
   renderFilters(bar) {
+    if (this.preset) return this.renderPresetBar(bar);
     const mode = this.settings.mode;
     const opts = modeOptions(this.settings, mode);
     this.renderFilterMenu(bar, mode, opts);   // always first
@@ -518,6 +615,8 @@ class DiscoveryView extends ItemView {
     const now = Date.now();
     if (!catalog) {
       text.setText(this.plugin.busy ? this.plugin.progress || t("status.syncing") : t("status.loading"));
+    } else if (this.preset) {
+      text.createDiv({ text: t("home.status", { n: formatCount(this.presetRows().length), name: t(`home.${this.preset.id}`) }) });
     } else if (this.similar) {   // one line about the filter instead of the sync line
       const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
       const found = seed ? this.plugin.similarTo(seed) : [];
@@ -570,6 +669,13 @@ class DiscoveryView extends ItemView {
     const { timeline } = this.plugin;
     const mode = this.settings.mode;
     if (this.similar) return this.renderSimilarList(list, now);
+    if (this.preset) {
+      this.rows = this.presetRows();
+      this.stale = new Set();
+      if (!this.rows.length) return void list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
+      for (const p of this.rows.slice(0, this.visible)) this.renderRow(list, p, now);
+      return this.renderMore(list);
+    }
     if (mode === "awakened" && !timeline.to) {
       list.createDiv({ cls: "pdt-empty", text: t("list.needHistory") });
       return;
@@ -802,7 +908,8 @@ class DiscoveryView extends ItemView {
     if (plugin.installed().has(p.id)) signal("is-installed", t("badge.installed"));
     if (isSnoozed(p, plugin.data.snoozed)) signal("is-snoozed", t("badge.snoozed"));
     if (stale) signal("is-stale", t("row.stale"));
-    const milestone = recentMilestone(plugin.timeline.milestones?.[p.id], now);
+    if (this.preset?.freshIds?.has(p.id)) signal("is-fresh", t("home.freshMark"));
+    const milestone = recentMilestone(plugin.timeline.milestones?.[p.id], now, MILESTONE_DAYS, milestoneSteps(plugin.timeline));
     if (milestone) setTooltip(signal("is-milestone", t("badge.milestone", { n: formatShort(milestone.n) })), t("badge.milestoneTip", { n: formatCount(milestone.n), when: relativeDays(milestone.at, now) }));
     if (note) {
       const link = tags.createSpan({ cls: "pdt-pill is-note", text: t("badge.note"), attr: { role: "button", tabindex: "0" } });

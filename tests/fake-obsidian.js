@@ -153,10 +153,12 @@ module.exports = {
   Menu: class {
     constructor() { this.items = []; menus.push(this); }
     addItem(cb) {
-      const item = { setTitle(x) { this.title = x; return this; }, setIcon(i) { this.icon = i; return this; }, setChecked(c) { this.checked = c; return this; }, onClick(f) { this.click = f; return this; } };
+      const item = { setTitle(x) { this.title = x; return this; }, setIcon(i) { this.icon = i; return this; }, setChecked(c) { this.checked = c; return this; }, setDisabled(d) { this.disabled = d; return this; }, onClick(f) { this.click = f; return this; } };
       cb(item); this.items.push(item); return this;
     }
+    addSeparator() { return this; }
     showAtPosition(pos) { this.shownAt = pos; return this; }
+    showAtMouseEvent(event) { this.shownAt = event; return this; }
   },
   ItemView: class {}, Modal: class {}, PluginSettingTab: class {}, Setting: class {},
   Component: class { load() {} unload() {} },

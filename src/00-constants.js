@@ -31,7 +31,7 @@ const STATS_URL = `${RAW}/${REPO}/HEAD/${STATS_FILE}`;
 const HOUR_MS = 3_600_000;
 const DAY_MS = 24 * HOUR_MS;
 const RELEASES_CAP = 50;           // release dates kept per plugin
-const NEW_BADGE_DAYS = 30;         // a plugin counts as new this many days after it was listed (setting: newDays)
+const NEW_BADGE_DAYS = 14;         // a plugin counts as new this many days after it was listed (setting: newDays)
 const INCUBATION_CAP = 360;        // a plugin out of incubation stays on that tab for its incubation, at most this long
 const BUSY_DAYS = 180;             // "many releases": counted over this window…
 const BUSY_LIMIT = 20;             // …more than this many hides it from Updated (setting: hideBusy)
@@ -82,7 +82,6 @@ const SORT_KEYS = ["downloads", "growth7", "growth30", "updated", "name", "liste
 const SIMILAR_SORT_KEYS = ["relevance", "downloads", "growth30", "updated", "name", "listed", "rating"];
 const NATURAL_DIR = { downloads: "desc", growth7: "desc", growth30: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
 const GROWTH_INDEX = { growth7: 0, growth30: 1 };   // positions in the server's growth [7, 30, 90 days]
-const MILESTONES = [1000, 10000, 100000];
 const MILESTONE_DAYS = 30;         // a row shows a milestone passed within this many days
 // Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
 const UNGROUPED = "\u0000ungrouped";
@@ -162,6 +161,10 @@ function defaultSettings() {
     dormantDays: 60,      // incubation: the pause before the latest release
     newDays: NEW_BADGE_DAYS,
     hideBusy: true,       // Updated: hide plugins with more than BUSY_LIMIT releases in BUSY_DAYS
+    section: "home",      // home | list (Tracked is the list on its tab)
+    start: "home",        // the section the view opens on: home | last
+    listMode: "all",      // the List's last tab
+    home: homeDefaults(),
     minDownloads: 100,
     downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
     trackedGroup: "",     // Tracked tab: "" = all, a group name, or UNGROUPED

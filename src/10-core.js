@@ -51,10 +51,10 @@ function relativeDays(ms, now) {
 }
 
 /** The highest milestone (1K, 10K, 100K downloads) passed within the last `days` days: {n, at}, or null. */
-function recentMilestone(milestones, now, days = MILESTONE_DAYS) {
-  for (let i = MILESTONES.length - 1; i >= 0; i--) {
+function recentMilestone(milestones, now, days = MILESTONE_DAYS, steps = OLD_MILESTONE_STEPS) {
+  for (let i = steps.length - 1; i >= 0; i--) {
     const at = milestones?.[i];
-    if (at && now - at <= days * DAY_MS) return { n: MILESTONES[i], at };
+    if (at && now - at <= days * DAY_MS) return { n: steps[i], at };
   }
   return null;
 }

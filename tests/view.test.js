@@ -194,11 +194,13 @@ const tests = {
     const { app, plugin } = ctx;
     const view = plugin.viewFactory({ app });
     app.workspace.getLeavesOfType = () => [{ view }];
-    plugin.data.settings.mode = "updated";
-    plugin.data.settings.minDownloads = 0;
+    assert.equal(plugin.data.settings.section, "home", "opens on Home");
+    view.render();
+    assert.ok($(view.contentEl, ".pdt-home"));
+    Object.assign(plugin.data.settings, { section: "list", mode: "updated", minDownloads: 0 });
     view.render();
     const el = view.contentEl;
-    assert.equal($$(el, ".pdt-tab").length, 6);   // "Changed" is now a filter of Tracked
+    assert.equal($$(el, ".pdt-tab").length, 5);   // Tracked moved to the Home · List · Tracked switch
     assert.ok($$(el, ".pdt-tab").every((tab) => tab.getAttribute("data-tooltip")));
     const names = $$(el, ".pdt-name").map((a) => a.textContent);
     assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy excluded, homepage tracked
@@ -668,7 +670,8 @@ const tests = {
     const settings = plugin.data.settings;
     await plugin.track(plugin.pluginById("homepage"), { groups: ["ai", "Planning"] });
     await view.update("mode", "tracked");
-    const tab = $$(el, ".pdt-tab")[4];
+    const tab = $$(el, ".pdt-nav-item")[2];                                   // Home · List · Tracked
+    assert.ok(tab.classList.contains("is-active"));
     assert.equal($(tab, ".pdt-n.is-updates").textContent, core.t("tracked.updatesBadge", { n: plugin.updatesCount() }));
     fake.menus.length = 0;
     $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith(core.t("tracked.group"))).onclick();
@@ -890,6 +893,56 @@ const tests = {
     await assert.rejects(plugin.downloadHistory().then((r) => { if (r === undefined) throw new Error("failed"); }));
     serverTimeline = serverHistory;
     plugin.timeline = ours;
+  },
+
+  async "home: widgets from the history, “N new” opens only those, ✕ back home, settings in place"({ plugin, view }) {
+    const ours = plugin.timeline;
+    const settings = plugin.data.settings;
+    serverTimeline = {
+      ...serverHistory, to: NOW + 1, milestoneSteps: [1000, 5000, 10000, 25000, 50000, 100000],
+      milestones: { dataview: [0, ago(400), ago(5), null, null, null] }, growth: { homepage: [50, 200, 600] },
+    };
+    await plugin.refresh();
+    plugin.lastVisit = ago(3);
+    await view.update("section", "home");
+    const el = view.contentEl;
+    const card = (id) => $(el, `.pdt-home-card[data-id="${id}"]`);
+    assert.ok(card("new") && card("milestone") && card("hatched") && !card("installed"), "Installed waits in + Add");
+    assert.equal($$(el, ".pdt-nav-item")[0].classList.contains("is-active"), true);
+    assert.equal($(card("new"), ".pdt-home-n").textContent, "1");             // Fresh Plugin, listed yesterday
+    assert.equal($(card("rising"), ".pdt-home-n").textContent, "+200");        // the biggest 30-day gain
+
+    // "1 new" opens only what came in since the last visit; ✕ goes back home
+    $(card("new"), ".pdt-home-fresh").onclick({ stopPropagation() {} });
+    assert.equal(settings.section, "list");
+    assert.ok($(el, ".pdt-preset-chip") && $(el, ".pdt-similar-chip.is-fresh"));
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Fresh Plugin"]);
+    assert.ok($(el, ".pdt-signal.is-fresh"), "marked as new");
+    view.scope.keys.find((k) => k.key === "Escape").fn();
+    assert.ok($(el, ".pdt-home"));
+
+    // milestone: 10K passed five days ago; 5K long ago, so not within 30 days
+    assert.deepEqual($$(card("milestone"), ".pdt-home-item-name").map((x) => x.textContent), ["Dataview"]);
+    await view.home.setParam("milestone", "n", 5000);
+    assert.equal($(card("milestone"), ".pdt-home-n").textContent, "0");
+    assert.deepEqual(settings.home.params.milestone, { n: 5000 });
+
+    // since your last visit: four cards; the widget's own settings stay out of them
+    assert.equal($$(el, ".pdt-home-mini").length, 4);
+    assert.equal($(el, '.pdt-home-mini[data-id="new"] .pdt-home-mini-n').textContent, "1");
+
+    // hide and add back from the page's ⋮
+    await view.home.save((h) => { h.hidden = [...h.hidden, "rising"]; });
+    assert.ok(!card("rising"));
+    fake.menus.length = 0;
+    view.home.pageMenu({});
+    await fake.menus[0].items.find((i) => i.title === core.t("home.add", { name: core.t("home.rising") })).click();
+    assert.ok(card("rising"));
+
+    settings.home = core.normalizeHome();
+    serverTimeline = serverHistory;
+    plugin.timeline = ours;
+    await view.update("section", "list");
   },
 
   async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {

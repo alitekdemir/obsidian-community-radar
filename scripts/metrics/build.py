@@ -8,8 +8,8 @@ Usage: python build.py <obsidian-releases clone with full history> <out dir>
 
 Writes:
   timeline.json  the plugin's timeline format (see newTimeline / mergeSnapshot in src/10-core.js),
-                 plus `growth` {id: [last 7, 30, 90 days]} and `milestones` {id: [1K, 10K, 100K]}
-                 (ms when the downloads first passed it; 0: before the history starts)
+                 plus `growth` {id: [last 7, 30, 90 days]}, `milestoneSteps` [1K, 5K, 10K, 25K, 50K, 100K] and
+                 `milestones` {id: [one per step]} (ms when the downloads first passed it; 0: before the history starts)
   meta.json      {built, to, plugins}: small, so the plugin can tell whether there is something new
 """
 
@@ -25,7 +25,7 @@ TIMELINE_VERSION = 2
 RELEASES_CAP = 50
 DAY_MS = 86_400_000
 GROWTH_DAYS = (7, 30, 90)
-MILESTONES = (1_000, 10_000, 100_000)
+MILESTONES = (1_000, 5_000, 10_000, 25_000, 50_000, 100_000)
 META_KEYS = {"downloads", "updated"}
 
 
@@ -129,6 +129,7 @@ class History:
             "releases": {pid: self.releases[pid] for pid in listed if self.releases.get(pid)},
             "firstSeen": {pid: self.first_seen[pid] for pid in listed},
             "growth": {pid: self.growth(pid) for pid in listed},
+            "milestoneSteps": list(MILESTONES),
             "milestones": {pid: self.milestones[pid] for pid in listed if any(x is not None for x in self.milestones[pid])},
         }
 
