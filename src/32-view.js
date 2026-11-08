@@ -691,7 +691,7 @@ class DiscoveryView extends ItemView {
    * One plugin, as a list row or a card (the same markup; CSS places the parts):
    * head (name, version) · metrics (updated, downloads) · tags (system signals, your note) ·
    * body (description, translation, why it's similar) · links · actions · more (Similar preview, grouping).
-   * Clicking the description (or the card) opens the details window.
+   * Clicking the row (anywhere but a control) opens the details window.
    */
   renderRow(list, p, now) {
     const plugin = this.plugin;
@@ -702,8 +702,9 @@ class DiscoveryView extends ItemView {
     const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}${stale ? " is-stale" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
     row.addEventListener("click", (event) => {
       this.setCursor(row);
-      // a card opens its details from anywhere that isn't a control
-      if (this.cards && !event.target.closest("a, button, input, [role=button], .pdt-rate, .pdt-similar")) this.openDetails(p);
+      // a row or card opens its details from anywhere that isn't a control (or selected text)
+      if (this.grouping || globalThis.getSelection?.()?.toString()) return;
+      if (!event.target.closest("a, button, input, [role=button], .pdt-rate, .pdt-similar")) this.openDetails(p);
     });
 
     const head = row.createDiv({ cls: "pdt-head" });
@@ -855,8 +856,11 @@ class DiscoveryView extends ItemView {
     this.refresh();
   }
 
-  /** The star: a click toggles the favourite; hovering or focusing it opens 1–5 stars to rate. */
-  renderStar(actions, act, p, note) {
+  /**
+   * The star: a click toggles the favourite; hovering or focusing it opens 1–5 stars to rate.
+   * `run` applies a rating (a row keeps its place; the details window passes its own).
+   */
+  renderStar(actions, act, p, note, run = (fn) => this.runRowAction(p, fn)) {
     const box = actions.createDiv({ cls: "pdt-rate" });
     const star = act("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => this.plugin.toggleFavorite(p), note?.favorite ? "is-favorite" : "", true);
     box.appendChild(star);
@@ -864,11 +868,11 @@ class DiscoveryView extends ItemView {
     const stars = pop.createDiv({ cls: "pdt-rate-stars" });   // laid out in reverse so hovering fills a star and those before it
     for (let n = 5; n >= 1; n--) {
       const button = stars.createEl("button", { cls: `pdt-rate-star${(note?.rating || 0) >= n ? " is-on" : ""}`, text: "★", attr: { type: "button", "aria-label": t("rating.label", { n }) } });
-      button.onclick = () => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", n));
+      button.onclick = () => run(() => this.plugin.setNoteField(p, "rating", n));
     }
     if (note?.rating) {
       const clear = pop.createEl("button", { cls: "pdt-rate-clear", text: t("rating.clear"), attr: { type: "button" } });
-      clear.onclick = () => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", null));
+      clear.onclick = () => run(() => this.plugin.setNoteField(p, "rating", null));
     }
   }
 

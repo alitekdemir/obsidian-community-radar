@@ -48,53 +48,41 @@ class DetailModal extends Modal {
     this.view.refresh();
   }
 
-  async act(fn, close = false) {
+  async act(fn) {
     await fn();
-    if (close) this.close();
-    else this.render();
+    this.render();
+  }
+
+  /** Hide / Exclude: the plugin leaves this list and the next one shows; the window closes after the last. */
+  async drop(fn) {
+    await fn();
+    this.rows.splice(this.index, 1);
+    if (!this.rows.length) return this.close();
+    this.index = Math.min(this.index, this.rows.length - 1);
+    this.tab = "readme";
+    this.render();
   }
 
   render() {
     const p = this.p;
     const plugin = this.plugin;
     const note = plugin.notes.index.get(p.id);
-    const { firstSeen, releases, months } = plugin.timeline;
+    const { releases } = plugin.timeline;
     const now = Date.now();
-    this.titleEl.empty();
-    this.titleEl.createSpan({ cls: "pdt-detail-name", text: p.name });
-    this.titleEl.createSpan({ cls: "pdt-detail-by", text: [p.version, p.author].filter(Boolean).join(" · ") });
+    this.renderHead(p, note);
     const el = this.contentEl;
     el.empty();
-
-    const top = el.createDiv({ cls: "pdt-detail-top" });
-    const tags = top.createDiv({ cls: "pdt-detail-tags" });
-    for (const g of note?.groups || []) tags.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g });
-    if (note?.rating) tags.createSpan({ cls: "pdt-pill is-rating", text: "★".repeat(note.rating) + "☆".repeat(5 - note.rating) });
-    if (this.rows.length > 1) top.createSpan({ cls: "pdt-detail-pos", text: t("details.position", { n: this.index + 1, total: this.rows.length }) });
-    top.createEl("a", { cls: "pdt-detail-open mod-cta", text: t("details.openInObsidian"), href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
-
-    const stats = el.createDiv({ cls: "pdt-detail-stats" });
-    const stat = (value, label) => {
-      const box = stats.createDiv({ cls: "pdt-detail-stat" });
-      box.createDiv({ cls: "pdt-detail-value", text: value });
-      box.createDiv({ cls: "pdt-detail-label", text: label });
-    };
-    const seen = firstSeen[p.id];
-    const cadence = releaseCadence(releases[p.id]);
-    stat(p.downloads == null ? "–" : formatCount(p.downloads), t("details.downloads"));
-    stat(p.updated ? relativeDays(p.updated, now) : "–", t("details.lastRelease"));
-    const before = months >= 12 ? t("details.beforeYears", { n: Math.round(months / 12) }) : t("details.beforeMonths", { n: months });
-    stat(seen > 0 ? relativeDays(seen, now) : seen === 0 ? before : "–", t("details.listed"));   // 0: there before the history starts
-    stat(cadence ? t("details.every", { n: cadence }) : "–", t("details.cadence"));
+    this.renderStats(el.createDiv({ cls: "pdt-detail-stats" }), p, now);
 
     const columns = el.createDiv({ cls: "pdt-detail-columns" });
     const main = columns.createDiv({ cls: "pdt-detail-main" });
-    const section = (parent, title) => {
-      const box = parent.createDiv({ cls: "pdt-detail-section" });
-      box.createEl("h3", { text: title, attr: { lang: language } });
-      return box;
+    const section = (parent, title, cls = "") => {
+      const box = parent.createDiv({ cls: `pdt-detail-section${cls}` });
+      const head = box.createDiv({ cls: "pdt-detail-section-head" });
+      head.createEl("h3", { text: title, attr: { lang: language } });
+      return { box, head };
     };
-    const about = section(main, t("details.description"));
+    const about = section(main, t("details.description")).box;
     about.createEl("p", { text: p.description || "–" });
     const translation = plugin.cachedTranslation(p);
     if (translation) about.createEl("p", { cls: "pdt-detail-trans", text: translation });
@@ -103,42 +91,110 @@ class DetailModal extends Modal {
         if (await plugin.translateRows([p])) this.render();
       };
     }
-    if (note?.note) section(main, t("details.yourNote")).createEl("p", { text: note.note });
+    if (note?.note) section(main, t("details.yourNote")).box.createEl("p", { text: note.note });
     this.renderReadme(main, p, note);
 
     const side = columns.createDiv({ cls: "pdt-detail-side" });
     const similar = plugin.similarTo(p);
     const near = section(side, t("details.similar"));
+    if (similar.length) {
+      const all = near.head.createEl("a", { cls: "pdt-detail-head-link", text: t("details.similarAll", { n: similar.length }), href: "#" });
+      all.onclick = (event) => { event.preventDefault(); this.close(); this.view.openSimilar(p); };
+    }
     for (const x of similar.slice(0, 5)) {
-      const item = near.createEl("button", { cls: "pdt-detail-near", attr: { type: "button" } });
+      const item = near.box.createEl("button", { cls: "pdt-detail-near", attr: { type: "button" } });
       item.createSpan({ cls: "pdt-detail-near-name", text: x.p.name });
       const meter = item.createSpan({ cls: "pdt-why-meter" });
       meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${Math.max(6, Math.round(x.match * 100))}%` });
+      item.createSpan({ cls: "pdt-detail-near-close", text: t(closeness(x.match)) });
       setTooltip(item, x.p.description || x.p.name);
       item.onclick = () => {   // look at it here; ← comes back
         this.rows.splice(this.index + 1, 0, x.p);
         this.step(1);
       };
     }
-    if (similar.length) {
-      const all = near.createEl("button", { cls: "pdt-link-button", text: t("similar.seeAll", { n: similar.length }), attr: { type: "button" } });
-      all.onclick = () => { this.close(); this.view.openSimilar(p); };
-    } else near.createEl("p", { cls: "pdt-detail-muted", text: t("similar.none") });
-    this.renderHistory(section(side, t("details.history")), releases[p.id] || [], now);
+    if (!similar.length) near.box.createEl("p", { cls: "pdt-detail-muted", text: t("similar.none") });
 
-    const footer = el.createDiv({ cls: "pdt-detail-actions" });
-    const button = (icon, text, fn, close = false) => {
-      const b = footer.createEl("button", { attr: { type: "button" } });
+    // bottom of the column, level with the README box: release history, then the repository
+    const history = section(side, t("details.history"), " is-bottom");
+    const dates = releases[p.id] || [];
+    if (dates.length) history.head.createSpan({ cls: "pdt-detail-head-note", text: t("details.historyLabel", { n: dates.length }) });
+    this.renderHistory(history.box.createDiv({ cls: "pdt-detail-card" }), dates, now);
+    if (p.repo) {
+      const repo = history.box.createEl("a", { cls: "pdt-detail-card pdt-detail-repo", href: `https://github.com/${p.repo}` });
+      setIcon(repo.createSpan({ cls: "pdt-detail-icon" }), "github");
+      repo.createSpan({ cls: "pdt-detail-repo-name", text: p.repo });
+      repo.createSpan({ cls: "pdt-detail-head-note", text: "GitHub ↗" });
+    }
+
+    this.renderActions(el.createDiv({ cls: "pdt-detail-actions" }), p, note);
+  }
+
+  /** Name, version and author on one line, "Open in Obsidian" on the right; your groups and rating under it, when there are any. */
+  renderHead(p, note) {
+    const title = this.titleEl;
+    title.empty();
+    const left = title.createDiv({ cls: "pdt-detail-title" });
+    const line = left.createDiv({ cls: "pdt-detail-line" });
+    line.createSpan({ cls: "pdt-detail-name", text: p.name });
+    line.createSpan({ cls: "pdt-detail-by", text: [p.version, p.author].filter(Boolean).join(" · ") });
+    if (note) {
+      const tags = left.createDiv({ cls: "pdt-detail-tags" });
+      for (const g of note.groups) tags.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g });
+      if (note.rating) tags.createSpan({ cls: "pdt-detail-stars", text: "★".repeat(note.rating) + "☆".repeat(5 - note.rating) });
+      tags.createSpan({ cls: "pdt-detail-muted", text: t("details.tracked") });
+    }
+    title.createEl("a", { cls: "pdt-detail-open", text: t("details.openInObsidian"), href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
+  }
+
+  /** Four equal tiles: label, value, and what the value means. */
+  renderStats(stats, p, now) {
+    const { firstSeen, releases, months } = this.plugin.timeline;
+    const stat = (label, value, sub) => {
+      const box = stats.createDiv({ cls: "pdt-detail-stat" });
+      box.createDiv({ cls: "pdt-detail-label", text: label });
+      box.createDiv({ cls: "pdt-detail-value", text: value });
+      box.createDiv({ cls: "pdt-detail-sub", text: sub || " " });
+    };
+    const seen = firstSeen[p.id];
+    const dates = releases[p.id] || [];
+    const cadence = releaseCadence(dates);
+    stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), t("details.downloadsSub"));
+    stat(t("details.lastRelease"), p.updated ? relativeDays(p.updated, now) : "–", p.version);
+    // age counts from the day it was listed; 0: it was there before the history starts
+    const before = months >= 12 ? t("details.ageBeforeYears", { n: Math.round(months / 12) }) : t("details.ageBeforeMonths", { n: months });
+    stat(t("details.age"), seen > 0 ? ageLabel(seen, now) : seen === 0 ? before : "–", seen > 0 ? t("details.listedOn", { date: dayString(seen) }) : t("details.listed"));
+    stat(t("details.cadence"), cadence ? t("details.every", { n: cadence }) : "–", cadence ? t("details.cadenceSub", { n: Math.min(dates.length, RELEASES_CAP) }) : "");
+  }
+
+  /** The same actions as a row (star with 1–5 on hover, group, hide, exclude), then ‹ n / total › on the right. */
+  renderActions(footer, p, note) {
+    const plugin = this.plugin;
+    const button = (icon, label, onClick, cls = "") => {
+      const b = footer.createEl("button", { cls, attr: { type: "button" } });
       setIcon(b.createSpan({ cls: "pdt-detail-icon" }), icon);
-      b.createSpan({ text });
-      b.onclick = () => this.act(fn, close);
+      b.createSpan({ text: label });
+      b.onclick = onClick;
       return b;
     };
-    button("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => plugin.toggleFavorite(p)).toggleClass("is-favorite", Boolean(note?.favorite));
-    button("folder-plus", t("action.group"), () => plugin.chooseGroup(p));
-    button("eye-off", t("action.snooze"), () => plugin.snooze(p), true);
-    button("ban", t("action.exclude"), () => plugin.exclude(p), true);
-    if (this.rows.length > 1) footer.createSpan({ cls: "pdt-detail-keys", text: t("details.keys") });
+    const star = (icon, tip, fn, cls) => { const b = button(icon, t("details.favorite"), () => this.act(fn), cls); setTooltip(b, tip); return b; };
+    this.view.renderStar(footer, star, p, note, (fn) => this.act(fn));
+    button("folder-plus", t("action.group"), () => this.act(() => plugin.chooseGroup(p)));
+    button("eye-off", t("action.snooze"), () => this.drop(() => plugin.snooze(p)));
+    button("ban", t("action.exclude"), () => this.drop(() => plugin.exclude(p)));
+    const nav = footer.createDiv({ cls: "pdt-detail-nav" });
+    if (this.rows.length > 1) {
+      const arrow = (icon, delta, label) => {
+        const b = nav.createEl("button", { cls: "pdt-detail-arrow", attr: { type: "button", "aria-label": label } });
+        setIcon(b, icon);
+        b.disabled = this.index + delta < 0 || this.index + delta >= this.rows.length;
+        b.onclick = () => this.step(delta);
+      };
+      arrow("chevron-left", -1, t("details.previous"));
+      nav.createSpan({ cls: "pdt-detail-pos", text: t("details.position", { n: formatCount(this.index + 1), total: formatCount(this.rows.length) }) });
+      arrow("chevron-right", 1, t("details.next"));
+    }
+    nav.createSpan({ cls: "pdt-detail-muted", text: t("details.escClose") });
   }
 
   /** Release dates as dots on a line from the first known one to today. */

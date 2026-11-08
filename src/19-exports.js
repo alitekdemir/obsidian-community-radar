@@ -1,7 +1,7 @@
 const core = {
   setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
   historyLabel, formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
-  mergeSnapshot, dormantDays, releasesWithin, isNewPlugin, isChanged, compileQuery, modeOptions, clearedFilters, filtersChanged, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
+  ageLabel, mergeSnapshot, dormantDays, releasesWithin, isNewPlugin, isChanged, compileQuery, modeOptions, clearedFilters, filtersChanged, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
   groupSections, groupHue, statusKey, UNGROUPED, UPDATES, STARRED, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, migrateImages, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,

@@ -50,6 +50,14 @@ function relativeDays(ms, now) {
   return t("rel.years", { n: decimal(days / 365) });
 }
 
+/** How old a plugin is, from the day it was listed: 19 days old, 4 months old, 2.1 years old. */
+function ageLabel(listed, now) {
+  const days = Math.max(0, Math.floor((now - listed) / DAY_MS));
+  if (days < 60) return t("age.daysOld", { n: days });
+  if (days < 365) return t("age.monthsOld", { n: Math.round(days / 30) });
+  return t("age.yearsOld", { n: decimal(days / 365) });
+}
+
 function historyLabel(months) {
   return months === 12 ? t("history.lastYear") : months === 24 ? t("history.last2Years") : t("history.lastMonths", { months });
 }

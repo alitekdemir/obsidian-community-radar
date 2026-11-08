@@ -610,10 +610,23 @@ const tests = {
     }
     const right = modal.scope.keys.find((k) => k.key === "ArrowRight");
     right.fn();
-    assert.notEqual($(modal.titleEl, ".pdt-detail-name").textContent, "Homepage");
+    const second = $(modal.titleEl, ".pdt-detail-name").textContent;
+    assert.notEqual(second, "Homepage");
+    const total = modal.rows.length;
+    const hide = $$(modal.contentEl, ".pdt-detail-actions button").find((b) => b.textContent === core.t("action.snooze"));
+    await hide.onclick();                                                       // Hide: the next plugin shows, the window stays
+    assert.equal(modal.rows.length, total - 1);
+    assert.notEqual($(modal.titleEl, ".pdt-detail-name").textContent, second);
+    assert.ok($(modal.contentEl, ".pdt-detail-pos").textContent.startsWith(`${modal.index + 1} /`));
     modal.close();
     view.cursorId = null;
     await view.update("layout", "list");
+    const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
+    $(row, ".pdt-metrics").dispatchEvent(new window.MouseEvent("click", { bubbles: true }));   // a list row opens it too
+    assert.equal($(modals.at(-1).titleEl, ".pdt-detail-name").textContent, "Homepage");
+    assert.equal($(modals.at(-1).contentEl, ".pdt-detail-label").textContent, core.t("details.downloads"));
+    modals.at(-1).close();
+    view.cursorId = null;
     plugin.catalog = catalog;
     plugin.similarCache.clear();
   },
