@@ -159,7 +159,8 @@ class DetailModal extends Modal {
     const seen = firstSeen[p.id];
     const dates = releases[p.id] || [];
     const cadence = releaseCadence(dates);
-    stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), t("details.downloadsSub"));
+    const gained = this.plugin.timeline.growth?.[p.id]?.[1];
+    stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), gained != null ? t("details.growth30", { n: formatShort(gained) }) : t("details.downloadsSub"));
     stat(t("details.lastRelease"), p.updated ? relativeDays(p.updated, now) : "–", p.version);
     // age counts from the day it was listed; 0: it was there before the history starts
     const before = months >= 12 ? t("details.ageBeforeYears", { n: Math.round(months / 12) }) : t("details.ageBeforeMonths", { n: months });

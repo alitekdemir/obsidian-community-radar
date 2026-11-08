@@ -49,7 +49,7 @@ Plugins you **star** or **add to a group** become small notes in your vault, wit
 - **New releases** of tracked plugins: a yellow count on the Tracked tab, a *NEW RELEASE* signal on the row and a *New releases* entry in its Group menu, with *Mark all reviewed*.
 - **Status** (optional, off by default): your own list of statuses, emoji included — e.g. 🔖 To try, 👀 Watching, 🧪 Testing, ✅ Adopted, 🔁 Replaced — edited in settings and stored as `status`.
 - Rows are easy to scan: the name with the date and downloads on the same line (downloads line up down the list), signals and your note (groups, status, rating) under it, the description, then links on the left and actions on the right. A row that an action moves out of the current filter stays (faded) until you reopen the view.
-- **Sort by incubation** to see which plugins were quiet the longest.
+- **Sort by incubation** to see which plugins were quiet the longest, or by **growth** (downloads gained in the last 7 or 30 days, shown on each row) to see what's rising. A *🎯 10K* signal marks a plugin that passed 1K, 10K or 100K downloads in the last 30 days.
 - **Keyboard** (off by default; *Settings → Keyboard shortcuts*): while the tab is active, `j`/`k` move the highlight and `f` star, `g` groups, `x` ignore, `h` hide until next release, `t` translate, `r` README, `s` similar, `o` open, `Enter` details, `1`–`5` rate, `0` clear the rating. The ⌨ icon in the filter bar lists them.
 - **Tracking notes**: `groups`, `favorite`, `note` and `reviewed` properties you can edit anywhere, plus `description`, `downloads`, `version` and `updated` kept up to date.
 - **README in the note**, refreshed when a new version ships — when you open the note, on every sync, or only on demand. Your own notes in the note are never touched.
@@ -72,7 +72,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 ## Getting started
 
 1. Run **Community Radar: Open Community Radar** (or click the radar icon in the ribbon). The catalog downloads on first open.
-2. Click **Build release history** once. It downloads about a year of daily snapshots (~50 MB, a few minutes) and is needed for the *Incubation* and *New* tabs. Later syncs only fetch the days you missed.
+2. Sync. The release history (every day since 2020, ~600 KB) comes from this repository, built daily on GitHub; it powers the *Incubation* and *New* tabs, growth sorting and milestones. If GitHub can't be reached, **Build release history** builds a shorter one here from daily snapshots (~50 MB, a few minutes).
 3. Star (☆), group (＋) or ignore (⊘) plugins from any row.
 4. Optional: *Settings → Community Radar → Bases view → Create* adds a ready-made [Bases](https://help.obsidian.md/bases) table of your tracked plugins next to the notes folder (e.g. `Community Radar.base`). If you break it, **Reset** rewrites it from the template.
 
@@ -125,7 +125,7 @@ The body has a **My notes** section for you, a **README (your language)** sectio
 
 ## How it works
 
-Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day**. Each snapshot holds every plugin's latest release time. Community Radar reads these snapshots (daily for the last 30 days, weekly before that), keeps up to 50 release dates per plugin, and compares the current release with the previous one. That's how "4 days ago (after a 70-day incubation)" is exact even for plugins quiet for years. The same snapshots tell when a plugin first appeared, which powers the *New* tab.
+Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day** (since October 2020). Each snapshot holds every plugin's downloads and latest release time. Once a day, a [GitHub Actions workflow](.github/workflows/metrics.yml) replays all of them and publishes the result on the `metrics` branch: up to 50 release dates per plugin, the day it first appeared, downloads gained in the last 7 / 30 / 90 days and when it passed 1K, 10K and 100K downloads. The plugin downloads that file and adds the days since from the snapshots themselves (without it, it builds a shorter history the same way). That's how "4 days ago (after a 70-day incubation)" is exact even for plugins quiet for years. The same snapshots tell when a plugin first appeared, which powers the *New* tab.
 
 *Similar* compares meanings: once a day, a [GitHub Actions workflow](.github/workflows/embeddings.yml) turns every plugin's name and description into a vector with IBM's open [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) model (only new or edited plugins; Apache 2.0) and publishes them on the `embeddings` branch. The plugin downloads that file and ranks plugins by cosine similarity on your device, with a small share of shared-word matching (BM25) so a rare common name still counts.
 
@@ -137,6 +137,7 @@ Community Radar only makes these requests:
 |---|---|---|
 | `raw.githubusercontent.com` | Sync, history build, README updates | The public plugin list, stats snapshots and plugin READMEs |
 | `api.github.com` | History build and sync (1–4 requests); README fallback | The list of stats snapshots. Unauthenticated, 60 requests/hour |
+| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/` | Sync, when a newer build is out | The release history and download metrics (~600 KB, built daily by [this workflow](.github/workflows/metrics.yml)) |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/` | Sync, when a newer build is out | The semantic vectors for Similar (~2.5 MB, built daily by [this workflow](.github/workflows/embeddings.yml)) |
 | Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider configured | Plugin names and descriptions, the names of your groups, and a README you ask to translate |
 

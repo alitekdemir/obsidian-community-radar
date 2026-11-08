@@ -52,6 +52,7 @@ Eklenti adına tıklamak, Obsidian'ın kendi eklenti tarayıcısında o eklentin
 - **Durum** (isteğe bağlı, varsayılan kapalı): emojili kendi durum listeniz — ör. 🔖 Denenecek, 👀 İzleniyor, 🧪 Deneniyor, ✅ Benimsendi, 🔁 Yerine başkası — ayarlardan düzenlenir, `status` olarak saklanır.
 - Kolay taranan satırlar: adla aynı satırda tarih ve indirme (indirmeler liste boyunca alt alta hizalanır), altında sinyaller ve notunuz (gruplar, durum, puan), açıklama, en altta solda bağlantılar ve sağda işlemler. Önceki sürümden uzun bir ara varsa tarih *4 gün önce (70 günlük kuluçkadan çıktı)* olarak yazılır. Bir işlemle listeden çıkan satır, panel yeniden açılana kadar soluk olarak yerinde kalır.
 - **Sonraki sürüme kadar gizle**: eklenti yeni sürüm çıkarınca kendiliğinden geri gelir. Dışlananlar ve önerilmeyenler panelin ⋮ menüsünden; arama ve *Geri al* ile açılır.
+- **Artışa göre sıralama** (son 7 ya da 30 günde kazanılan indirme, satırda da görünür) ve son 30 günde 1K, 10K ya da 100K indirmeyi geçenler için *🎯 10K* işareti.
 - **Kuluçka süresine göre sıralama** ve **klavye** (varsayılan kapalı; *Ayarlar → Klavye kısayolları*): sekme etkinken `j`/`k` vurguyu taşır; `f` favori, `g` gruplar, `x` dışla, `h` sonraki sürüme kadar gizle, `t` çevir, `r` README, `s` benzerleri, `o` aç, `Enter` ayrıntılar, `1`–`5` puan, `0` puanı sil. Filtre çubuğundaki ⌨ simgesi listeyi gösterir.
 
   ![Özgün açıklamanın altında çevirisi](docs/images/Radar_2-One_Translate.png)
@@ -70,7 +71,7 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 ## Başlarken
 
 1. **Community Radar: Community Radar'ı aç** komutunu çalıştırın ya da şeritteki radar simgesine tıklayın.
-2. Bir kez **Sürüm geçmişini kur**'a basın (~50 MB, birkaç dakika). *Kuluçka* ve *Yeni* sekmeleri buna dayanır; sonraki eşitlemeler yalnızca aradaki günleri indirir.
+2. Eşitleyin. Sürüm geçmişi (2020'den beri her gün, ~600 KB) bu repodan gelir, GitHub'da her gün üretilir; *Kuluçka* ve *Yeni* sekmeleri, artış sıralaması ve barajlar buna dayanır. GitHub'a ulaşılamazsa **Sürüm geçmişini kur** daha kısa bir geçmişi burada anlık görüntülerden kurar (~50 MB, birkaç dakika).
 3. Her satırdan favori (☆), gruba ekle (＋) ya da dışla (⊘).
 4. İsterseniz *Ayarlar → Community Radar → Bases görünümü → Oluştur* ile takip notlarınızın hazır [Bases](https://help.obsidian.md/bases) tablosunu not klasörünün yanına ekleyin (ör. `Eklentiler.base`). Bozulursa **Sıfırla** şablondan yeniden yazar.
 
@@ -107,6 +108,7 @@ Obsidian'ın [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releas
 ## Ağ kullanımı ve gizlilik
 
 - `raw.githubusercontent.com`: herkese açık eklenti listesi, istatistik anlık görüntüleri ve README'ler.
+- `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/`: sürüm geçmişi ve indirme ölçüleri (~600 KB), eşitlemede ve yalnızca yeni bir derleme çıktıysa.
 - `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/`: Benzerleri için anlam vektörleri (~2,5 MB), eşitlemede ve yalnızca yeni bir derleme çıktıysa.
 - `api.github.com`: anlık görüntü listesi (geçmiş kurulumu ve eşitlemede 1–4 istek, kimliksiz, saatte 60 sınırı).
 - AI sağlayıcınız: **yalnızca** çeviri ya da grup önerisi istediğinizde ve bir sağlayıcı ayarladıysanız; eklenti adları, açıklamaları, grup adlarınız ve çevirmesini istediğiniz README gönderilir.

@@ -206,8 +206,8 @@ const tests = {
     const sort = $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith("Sırala") || c.textContent.startsWith("Sort"));
     fake.menus.length = 0;
     sort.onclick();
-    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false, false, false]);   // same six sorts on every tab
-    await fake.menus[0].items[1].click();
+    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false, false, false, false, false]);   // same eight sorts on every tab
+    await fake.menus[0].items[3].click();
     assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "updated", dir: "desc" });
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
 
@@ -220,8 +220,8 @@ const tests = {
     fake.menus.length = 0;
     const sortChip = () => $$(el, ".pdt-chip.is-menu").find((c) => /^(Sırala|Sort)/.test(c.textContent));
     sortChip().onclick();
-    assert.equal(fake.menus[0].items.length, 6);
-    await fake.menus[0].items[2].click();                       // name
+    assert.equal(fake.menus[0].items.length, 8);
+    await fake.menus[0].items[4].click();                       // name
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
     await view.update("mode", "updated");
     const chipText = sortChip().textContent;
@@ -866,13 +866,13 @@ const tests = {
     assert.deepEqual(YAML.parse(app.vault.files.get("Eklentiler.base")).filters, base.filters);
   },
 
-  async "release history from GitHub: replaces ours when newer, the days since come from snapshots, a failure keeps ours"({ plugin }) {
+  async "release history from GitHub: replaces ours when newer, the days since come from snapshots, a failure keeps ours"({ plugin, view }) {
     const ours = plugin.timeline;
     serverTimeline = {
       v: 2, months: 72, from: ago(2200), to: ago(10) + 1000, seeded: true, source: "server",
       releases: { homepage: [ago(900), ago(120)], dataview: [ago(400)], busy: [ago(61), ago(11)] },
       firstSeen: { homepage: 0, dataview: 0, busy: ago(700) },
-      growth: { homepage: [50, 200, 600] }, milestones: { homepage: [ago(800), null, null] },
+      growth: { homepage: [50, 200, 600], dataview: [10, 20, 30] }, milestones: { homepage: [ago(800), ago(5), null] },
     };
     await plugin.refresh();
     assert.equal(plugin.timeline.source, "server");
@@ -880,6 +880,15 @@ const tests = {
     assert.deepEqual(plugin.timeline.growth.homepage, [50, 200, 600]);
     assert.equal(plugin.timeline.releases.homepage.at(-1), ago(3), "yesterday's snapshot added on top");
     assert.equal(plugin.timeline.to, ago(1));
+    await view.update("mode", "all");
+    await view.updateTab("sortBy", { key: "growth7", dir: "desc" });            // gained most in 7 days first, with the gain
+    const rows = $$(view.contentEl, ".pdt-row");
+    assert.equal($(rows[0], ".pdt-name").textContent, "Homepage");
+    assert.equal($(rows[0], ".pdt-growth").textContent, "+50");
+    assert.equal($(rows[0], ".pdt-signal.is-milestone").textContent, "🎯 10K", "passed 10K five days ago");
+    assert.equal($(rows[1], ".pdt-name").textContent, "Dataview");
+    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    assert.ok(!$(view.contentEl, ".pdt-growth"), "the gain shows only when sorting by it");
     serverTimeline = null;                                                     // GitHub down: ours stays
     await plugin.refresh();
     assert.equal(plugin.timeline.source, "server");

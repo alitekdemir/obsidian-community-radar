@@ -155,6 +155,7 @@ class PluginRadar extends Plugin {
       catalog: this.catalog?.plugins || [],
       releases: this.timeline.releases,
       firstSeen: this.timeline.firstSeen,
+      growth: this.timeline.growth || {},   // server history only
       notes: this.notes.index,
       excluded: new Set(Object.keys(this.data.excluded)),
       dismissed: new Set(Object.keys(this.data.dismissed)),

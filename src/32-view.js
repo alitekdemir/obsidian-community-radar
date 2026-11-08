@@ -279,8 +279,8 @@ class DiscoveryView extends ItemView {
     const query = compileQuery(searched ? this.similar.query : "");
     const matching = found.map((x) => x.p).filter((p) => (p.downloads ?? 0) >= min && query.test(p));
     const { key, dir } = this.settings.similarSort;
-    const { catalog, releases, notes } = this.plugin.state();
-    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, catalog, releases, notes);
+    const { catalog, releases, notes, growth } = this.plugin.state();
+    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, catalog, releases, notes, growth);
   }
 
   renderModes(seg) {
@@ -785,6 +785,14 @@ class DiscoveryView extends ItemView {
       downloads.createSpan({ text: formatShort(p.downloads) });
       setTooltip(downloads, t("row.downloads", { n: formatCount(p.downloads) }));
     }
+    // sorted by growth: what it gained in that window, before the total
+    const sortKey = this.similar ? this.settings.similarSort.key : modeOptions(this.settings, mode).sort;
+    const gained = plugin.timeline.growth?.[p.id]?.[GROWTH_INDEX[sortKey]];
+    if (gained != null) {
+      const growth = metrics.createSpan({ cls: "pdt-growth", text: `+${formatShort(gained)}` });
+      setTooltip(growth, t(`row.${sortKey}`, { n: formatCount(gained) }));
+      metrics.insertBefore(growth, downloads);
+    }
 
     // tags: system signals, then your note (note link, groups, status, rating)
     const tags = row.createDiv({ cls: "pdt-tags" });
@@ -794,6 +802,8 @@ class DiscoveryView extends ItemView {
     if (plugin.installed().has(p.id)) signal("is-installed", t("badge.installed"));
     if (isSnoozed(p, plugin.data.snoozed)) signal("is-snoozed", t("badge.snoozed"));
     if (stale) signal("is-stale", t("row.stale"));
+    const milestone = recentMilestone(plugin.timeline.milestones?.[p.id], now);
+    if (milestone) setTooltip(signal("is-milestone", t("badge.milestone", { n: formatShort(milestone.n) })), t("badge.milestoneTip", { n: formatCount(milestone.n), when: relativeDays(milestone.at, now) }));
     if (note) {
       const link = tags.createSpan({ cls: "pdt-pill is-note", text: t("badge.note"), attr: { role: "button", tabindex: "0" } });
       setTooltip(link, t("badge.openNote"));

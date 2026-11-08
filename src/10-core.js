@@ -50,6 +50,15 @@ function relativeDays(ms, now) {
   return t("rel.years", { n: decimal(days / 365) });
 }
 
+/** The highest milestone (1K, 10K, 100K downloads) passed within the last `days` days: {n, at}, or null. */
+function recentMilestone(milestones, now, days = MILESTONE_DAYS) {
+  for (let i = MILESTONES.length - 1; i >= 0; i--) {
+    const at = milestones?.[i];
+    if (at && now - at <= days * DAY_MS) return { n: MILESTONES[i], at };
+  }
+  return null;
+}
+
 /** How old a plugin is, from the day it was listed: 19 days old, 4 months old, 2.1 years old. */
 function ageLabel(listed, now) {
   const days = Math.max(0, Math.floor((now - listed) / DAY_MS));
@@ -300,7 +309,7 @@ function discover(state, opts, now) {
   const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p);
   const base = (p) => shown(p) && !excluded.has(p.id) && !isSnoozed(p, snoozed);
   const fresh = (p) => base(p) && !notes.has(p.id);
-  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog, releases, notes);
+  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog, releases, notes, state.growth);
 
   switch (opts.mode) {
     case "all":   // browsing: tracked plugins stay visible (with their note badge), excluded ones don't
@@ -332,15 +341,18 @@ function discover(state, opts, now) {
  * Sorts rows in place by `key` in direction `dir` ("asc" | "desc"; default: the key's natural one).
  * "listed" uses the position in the official listing, which is the order plugins were added.
  */
-function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = [], releases = {}, notes = new Map()) {
+function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = [], releases = {}, notes = new Map(), growth = {}) {
   const position = key === "listed" ? new Map(catalog.map((p, i) => [p.id, i])) : null;
   const gap = (p) => dormantDays(releases, p) ?? -1;   // no history: last
   const rating = (p) => notes.get(p.id)?.rating || 0;
+  const gained = (p) => growth[p.id]?.[GROWTH_INDEX[key]] ?? -1;   // no server data: last
   const byName = (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" });
   const compare = {
     rating: (a, b) => rating(b) - rating(a) || (dir === "desc" ? byName(a, b) : -byName(a, b)),   // ties A→Z either way
     dormant: (a, b) => gap(b) - gap(a),
     downloads: (a, b) => (b.downloads ?? 0) - (a.downloads ?? 0),
+    growth7: (a, b) => gained(b) - gained(a),
+    growth30: (a, b) => gained(b) - gained(a),
     updated: (a, b) => (b.updated ?? 0) - (a.updated ?? 0),
     name: (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" }),
     listed: (a, b) => (position.get(b.id) ?? -1) - (position.get(a.id) ?? -1),

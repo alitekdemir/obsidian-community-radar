@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.1
+
+### New
+
+- **Release history from GitHub**: a daily [workflow](.github/workflows/metrics.yml) replays every stats snapshot since October 2020 and publishes the result (~600 KB) on the `metrics` branch. Sync downloads it when it's newer: six years instead of one, exact daily release dates instead of weekly ones before the last month, and the real listing date of every plugin (so *Age* and *New* hold for old plugins too). No need to *Build release history* any more; it stays as the way to build one here when GitHub can't be reached.
+- **Growth**: sort by *growth · 7 days* or *growth · 30 days* (downloads gained); the gain shows on each row (`+998`) and in the details window (*+1K in 30 days*).
+- **Milestones**: *🎯 10K* on a plugin that passed 1K, 10K or 100K downloads in the last 30 days.
+
 ## 0.9.0
 
 ### New
