@@ -76,6 +76,21 @@ class RadarSettingTab extends PluginSettingTab {
         plugin.redraw(true);
       }));
 
+    new Setting(containerEl)
+      .setName(t("set.newDays"))
+      .setDesc(t("set.newDaysDesc"))
+      .addText((text) => {
+        text.inputEl.type = "number";
+        text.inputEl.min = "1";
+        text.setValue(String(settings.newDays)).onChange(async (value) => {
+          const n = Math.round(Number(value));
+          if (!(n >= 1)) return;
+          settings.newDays = n;
+          await save();
+          plugin.redraw(true);
+        });
+      });
+
     this.displayStatuses(containerEl, settings, save);
 
     // ── Groups

@@ -306,7 +306,7 @@ class DiscoveryView extends ItemView {
     if (mode === "tracked") this.renderTrackedBar(bar);
     const days = { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS };
 
-    if (mode === "new" || mode === "updated" || mode === "awakened") {
+    if (mode === "new" || mode === "updated") {
       numberChip(bar, { ...days, value: this.settings.days, onChange: (n) => this.update("days", n) });
     }
     if (mode === "awakened") {
@@ -667,7 +667,14 @@ class DiscoveryView extends ItemView {
     // metrics: when it was updated, then downloads at the edge (a straight column down the list)
     const metrics = row.createDiv({ cls: "pdt-metrics" });
     const seen = firstSeen[p.id];
-    metrics.createSpan({ cls: "pdt-when", text: p.updated ? relativeDays(p.updated, now) : seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
+    // out of incubation: the pause before the latest release, when it was long (and always on the Incubation tab)
+    const gap = plugin.timeline.to && p.updated ? dormantDays(releases, p) : null;
+    const hatched = gap != null && (mode === "awakened" || gap >= this.settings.dormantDays);
+    const when = metrics.createSpan({ cls: "pdt-when", text: p.updated ? relativeDays(p.updated, now) : seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
+    if (hatched) {
+      when.setText(t("row.hatched", { when: relativeDays(p.updated, now), n: gap }));
+      setTooltip(when, t("row.hatchedTip", { n: gap }));
+    }
     const downloads = metrics.createSpan({ cls: `pdt-downloads${p.downloads == null ? " is-empty" : ""}` });
     if (p.downloads == null) {
       downloads.setText(t("row.noStats"));
@@ -680,14 +687,11 @@ class DiscoveryView extends ItemView {
     // tags: system signals, then your note (note link, groups, status, rating)
     const tags = row.createDiv({ cls: "pdt-tags" });
     const signal = (cls, text) => tags.createSpan({ cls: `pdt-signal ${cls}`, text });
-    if (isNewPlugin(firstSeen, p, now)) signal("is-new", t("badge.new"));
+    if (isNewPlugin(firstSeen, p, now, this.settings.newDays)) signal("is-new", t("badge.new"));
     if (isChanged(p, note)) signal("is-changed", t("badge.changed"));
     if (plugin.installed().has(p.id)) signal("is-installed", t("badge.installed"));
     if (isSnoozed(p, plugin.data.snoozed)) signal("is-snoozed", t("badge.snoozed"));
     if (stale) signal("is-stale", t("row.stale"));
-    // the pause before the latest release matters only when it was long (and always on the Revived tab)
-    const gap = plugin.timeline.to && p.updated ? dormantDays(releases, p) : null;
-    if (gap != null && (mode === "awakened" || gap >= this.settings.dormantDays)) signal("is-dormant", t("row.dormantFor", { n: gap }));
     if (note) {
       const link = tags.createSpan({ cls: "pdt-pill is-note", text: t("badge.note"), attr: { role: "button", tabindex: "0" } });
       setTooltip(link, t("badge.openNote"));

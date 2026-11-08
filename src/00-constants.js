@@ -35,7 +35,10 @@ const MONTH_MS = 30.44 * DAY_MS;
 const HISTORY_MONTHS = [3, 6, 12, 24];
 const DAILY_DAYS = 30;             // snapshots are daily for this many days, weekly before that
 const RELEASES_CAP = 50;           // release dates kept per plugin
-const NEW_BADGE_DAYS = 30;         // ✨ badge: listed within this many days
+const NEW_BADGE_DAYS = 30;         // a plugin counts as new this many days after it was listed (setting: newDays)
+const INCUBATION_CAP = 360;        // a plugin out of incubation stays on that tab for its incubation, at most this long
+const BUSY_DAYS = 180;             // "many releases": counted over this window…
+const BUSY_LIMIT = 20;             // …more than this many hides it from Updated (setting: hideBusy)
 const PARALLEL = 4;                // snapshots downloaded at once
 const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
 const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sync is due (no network)
@@ -88,7 +91,7 @@ const DEFAULT_STATUSES = ["to-try", "watching", "testing", "adopted", "replaced"
 const LEGACY_STATUS = { candidate: "to-try", trying: "testing", using: "adopted", dropped: "replaced" };   // 0.7.1–0.7.2
 const GROUP_HUES = 8;
 const DAY_PRESETS = [1, 3, 7, 14, 30, 60, 90];
-const DORMANT_PRESETS = [30, 60, 90, 180, 365];
+const DORMANT_PRESETS = [30, 60, 90, 120, 180, 360];
 /** Per tab: is "Downloads ≥" on, and how rows are sorted, until the user changes them. */
 const TAB_DEFAULTS = {
   all: { downloads: true, sort: "downloads" },
@@ -155,7 +158,9 @@ function defaultSettings() {
     folder: t("default.folder"),
     mode: "awakened",
     days: 14,
-    dormantDays: 90,
+    dormantDays: 60,      // incubation: the pause before the latest release
+    newDays: NEW_BADGE_DAYS,
+    hideBusy: true,       // Updated: hide plugins with more than BUSY_LIMIT releases in BUSY_DAYS
     minDownloads: 100,
     downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
     trackedGroup: "",     // Tracked tab: "" = all, a group name, or UNGROUPED

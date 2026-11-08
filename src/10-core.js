@@ -157,6 +157,14 @@ function dormantDays(releases, plugin) {
   return earlier.length ? Math.floor((plugin.updated - Math.max(...earlier)) / DAY_MS) : null;
 }
 
+/**
+ * Releases seen in the last `days` days.
+ * shortcut: older snapshots are weekly, so several releases in one week count as one; the server's metrics (0.9.1) fix it.
+ */
+function releasesWithin(releases, plugin, now, days) {
+  return (releases[plugin.id] || []).filter((m) => m > now - days * DAY_MS).length;
+}
+
 /** Listed within the last `days` days? Plugins without published stats count as new too. */
 function isNewPlugin(firstSeen, plugin, now, days = NEW_BADGE_DAYS) {
   const seen = firstSeen[plugin.id];
@@ -225,7 +233,7 @@ function trackedMatch(note, opts, plugin) {
 /**
  * Rows of the discovery view.
  * @param {object} state  {catalog, releases, firstSeen, notes: Map(id→note), excluded: Set, dismissed: Set, installed: Set, snoozed: {id: ms}}
- * @param {object} opts   {mode, days, dormantDays, minDownloads, filterDownloads, sort, sortDir, query, tracked…} (see modeOptions)
+ * @param {object} opts   {mode, days, dormantDays, newDays, hideBusy, minDownloads, filterDownloads, sort, sortDir, query, tracked…} (see modeOptions)
  */
 function discover(state, opts, now) {
   const { catalog, releases, firstSeen, notes, excluded, dismissed, installed, snoozed } = state;
@@ -242,10 +250,14 @@ function discover(state, opts, now) {
       return sorted(catalog.filter(base));
     case "new":
       return sorted(catalog.filter((p) => fresh(p) && isNewPlugin(firstSeen, p, now, opts.days)));
-    case "updated":
-      return sorted(catalog.filter((p) => fresh(p) && p.updated >= since));
-    case "awakened":
-      return sorted(catalog.filter((p) => fresh(p) && p.updated >= since && (dormantDays(releases, p) ?? -1) >= opts.dormantDays));
+    case "updated":   // new plugins have their own tab; "busy" ones would crowd out the rest
+      return sorted(catalog.filter((p) => fresh(p) && p.updated >= since && !isNewPlugin(firstSeen, p, now, opts.newDays ?? NEW_BADGE_DAYS)
+        && !(opts.hideBusy && releasesWithin(releases, p, now, BUSY_DAYS) > BUSY_LIMIT)));
+    case "awakened":   // out of incubation (a pause ≥ dormantDays); stays as long as the pause was, up to INCUBATION_CAP
+      return sorted(catalog.filter((p) => {
+        const gap = dormantDays(releases, p) ?? -1;
+        return fresh(p) && gap >= opts.dormantDays && now - p.updated <= Math.min(gap, INCUBATION_CAP) * DAY_MS;
+      }));
     case "suggested":
       return sorted(catalog.filter((p) => base(p) && installed.has(p.id) && !dismissed.has(p.id) && !(notes.get(p.id) || {}).favorite));
     case "tracked":   // your notes: ignoring a tracked plugin doesn't hide it here

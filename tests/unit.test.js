@@ -60,6 +60,22 @@ const tests = {
     assert.equal(core.upgradeTimeline(core.newTimeline(6)).legacy, undefined);
   },
 
+  "discover 0.9: Updated leaves out new and busy plugins; incubation keeps a plugin as long as its pause"() {
+    const busy = Array.from({ length: 25 }, (_, i) => ago(170 - i * 7));
+    const catalog = [P("young", { updated: ago(2) }), P("busy", { updated: ago(2) }), P("calm", { updated: ago(2) }),
+      P("hatched", { updated: ago(50) }), P("expired", { updated: ago(80) })];
+    const state = {
+      catalog, notes: new Map(), excluded: new Set(), dismissed: new Set(), installed: new Set(),
+      releases: { busy: [...busy, ago(2)], calm: [ago(40), ago(2)], hatched: [ago(138), ago(50)], expired: [ago(150), ago(80)] },
+      firstSeen: { young: ago(20), busy: 0, calm: 0, hatched: 0, expired: 0 },
+    };
+    const ids = (o) => core.discover(state, { mode: "updated", days: 14, dormantDays: 60, newDays: 30, hideBusy: true, minDownloads: 0, query: "", sort: "name", ...o }, NOW).map((p) => p.id);
+    assert.deepEqual(ids({}), ["calm"]);                          // young is 20 days old, busy shipped 26 times
+    assert.deepEqual(ids({ newDays: 10, hideBusy: false }), ["busy", "calm", "young"]);
+    assert.equal(core.releasesWithin(state.releases, P("busy"), NOW, 180), 26);
+    assert.deepEqual(ids({ mode: "awakened" }), ["hatched"]);     // 88-day pause, released 50 days ago; expired: 70-day pause, 80 days ago
+  },
+
   "dormantDays: a plugin with releases in between is not 90 days dormant (7/30/40 days example)"() {
     const plugin = P("x");
     assert.equal(core.dormantDays({ x: [ago(400), ago(40), ago(30), ago(7), ago(1)] }, plugin), 6);
@@ -427,8 +443,9 @@ const tests = {
       assert.deepEqual([2575475, 354882, 1416, null].map(core.formatShort), ["2.6M", "355K", "1.4K", "–"]);
       assert.equal(core.formatCount(1234567), "1,234,567");
       assert.deepEqual([1, 548].map((d) => core.relativeDays(ago(d), NOW)), ["yesterday", "1.5 years ago"]);
-      assert.equal(core.t("row.dormantFor", { n: 1 }), "after 1 day quiet");
-      assert.equal(core.t("row.dormantFor", { n: 52 }), "after 52 days quiet");
+      assert.equal(core.t("filter.days", { n: 1 }), "1 day");
+      assert.equal(core.t("filter.days", { n: 52 }), "52 days");
+      assert.equal(core.t("row.hatched", { when: "4 days ago", n: 70 }), "4 days ago (after a 70-day incubation)");
       assert.equal(core.t("status.delta", { added: 5, updated: 23 }), "Since last sync: 5 new · 23 updated");
       assert.equal(core.t("missing.key"), "missing.key");
       assert.equal(core.historyLabel(12), "last year");
@@ -439,7 +456,7 @@ const tests = {
       core.setLanguage("tr");
     }
     assert.equal(core.defaultSettings().folder, "Community Radar");   // one folder name in every language
-    assert.equal(core.t("row.dormantFor", { n: 1 }), "1 gün sessizlikten sonra");
+    assert.equal(core.t("row.hatched", { when: "4 gün önce", n: 70 }), "4 gün önce (70 günlük kuluçkadan çıktı)");
     assert.equal(core.formatShort(2575475), "2,6 Mn");
   },
 
