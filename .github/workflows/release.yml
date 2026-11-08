@@ -1,8 +1,8 @@
 name: Release assets
 
-# Push a tag equal to manifest.json's version (e.g. 0.8.2, no "v"), or publish a release with that tag.
-# This workflow tests and builds that commit (main.js is built from src/ and locales/), creates the
-# release from the version's CHANGELOG.md section when there is none, attests
+# Push a tag equal to manifest.json's version (e.g. 0.8.2, no "v"), or publish a release with that tag
+# (title and notes may stay empty). This workflow tests and builds that commit (main.js is built from src/
+# and locales/), writes the notes from the version's CHANGELOG.md section when there are none, attests
 # main.js / manifest.json / styles.css and attaches them.
 on:
   push:
@@ -34,14 +34,17 @@ jobs:
       - run: npm test
       - name: Check that the tag matches manifest.json
         run: test "$(node -p "require('./manifest.json').version")" = "$TAG"
-      - name: Create the release from CHANGELOG.md (unless it exists)
+      - name: Release notes from CHANGELOG.md (creates the release, or fills an empty one)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release view "$TAG" >/dev/null 2>&1 && exit 0
           awk -v v="## $TAG" '$0==v{f=1;next} /^## /{if(f)exit} f' CHANGELOG.md > notes.md
           test -s notes.md || { echo "CHANGELOG.md has no ## $TAG section"; exit 1; }
-          gh release create "$TAG" --title "$TAG" --notes-file notes.md --verify-tag
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --title "$TAG" --notes-file notes.md --verify-tag
+          elif [ -z "$(gh release view "$TAG" --json body --jq .body)" ]; then
+            gh release edit "$TAG" --title "$TAG" --notes-file notes.md
+          fi
       - name: Attest release assets
         uses: actions/attest-build-provenance@v2
         with:
