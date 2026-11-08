@@ -244,9 +244,29 @@ function clearedFilters(settings, mode) {
  * A tab's own defaults (Updated's 14 days, Incubation's 60) aren't counted; they are what the tab is.
  */
 function changedFilters(settings, mode) {
+  return changedFilterKeys(settings, mode).length;
+}
+
+/** The changed filters by name ("downloadFilter" stands for the threshold and its switch, one filter). */
+function changedFilterKeys(settings, mode) {
   const cleared = clearedFilters(settings, mode);
   const keys = Object.keys(cleared).filter((k) => (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
-  return new Set(keys.map((k) => (k === "minDownloads" ? "downloadFilter" : k))).size;   // the threshold and its switch are one filter
+  return [...new Set(keys.map((k) => (k === "minDownloads" ? "downloadFilter" : k)))];
+}
+
+/** What the Filters head says on hover: each changed filter as it is now, and what ✕ does. */
+function filterSummary(settings, mode) {
+  const keys = changedFilterKeys(settings, mode);
+  if (!keys.length) return t("filter.tipNone");
+  const opts = modeOptions(settings, mode);
+  const line = {
+    query: () => t("filter.tipSearch", { q: settings.query.trim() }),
+    days: () => `${t("filter.last")} ${t("filter.days", { n: settings.days })}`,
+    dormantDays: () => `${t("filter.gap")} ${t("filter.days", { n: settings.dormantDays })}`,
+    hideBusy: () => t(settings.hideBusy ? "filter.tipBusyHidden" : "filter.tipBusyShown"),
+    downloadFilter: () => (opts.filterDownloads ? `${t("filter.downloads")} ${formatCount(settings.minDownloads)}` : t("filter.tipDownloadsOff")),
+  };
+  return [t("filter.tipChanged"), ...keys.map((k) => `• ${line[k]()}`), t("filter.tipClear")].join("\n");
 }
 
 /** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */

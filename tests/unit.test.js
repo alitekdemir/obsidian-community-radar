@@ -76,6 +76,15 @@ const tests = {
     assert.deepEqual(ids({ mode: "awakened" }), ["hatched"]);     // 88-day pause, released 50 days ago; expired: 70-day pause, 80 days ago
   },
 
+  "filterSummary: the changed filters as they are now, merged Downloads"() {
+    const base = core.clearedFilters({ downloadFilter: {} }, "updated");
+    const settings = { ...base, days: 7, minDownloads: 500, downloadFilter: { updated: true }, query: "kanban" };
+    assert.equal(core.changedFilters(settings, "updated"), 3);
+    assert.equal(core.filterSummary(settings, "updated"),
+      "Bu sekmenin varsayılanından değişenler:\n• Arama: “kanban”\n• Son 7 gün\n• İndirme ≥ 500\n✕ hepsini varsayılana döndürür");
+    assert.equal(core.filterSummary(base, "updated"), core.t("filter.tipNone"));
+  },
+
   "dormantDays: a plugin with releases in between is not 90 days dormant (7/30/40 days example)"() {
     const plugin = P("x");
     assert.equal(core.dormantDays({ x: [ago(400), ago(40), ago(30), ago(7), ago(1)] }, plugin), 6);

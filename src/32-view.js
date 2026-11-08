@@ -425,6 +425,7 @@ class DiscoveryView extends ItemView {
     filterClear.toggleClass("is-hidden", !n);
     // nothing changed: the head has nothing to say (CSS still shows it where it folds the filters)
     filterCount.parentElement?.toggleClass("is-idle", !n);
+    setTooltip(filterCount.parentElement, filterSummary(this.filterState(), this.settings.mode));
   }
 
   /** The settings the filters read: inside the Similar filter, its own search stands in for the tab's. */
