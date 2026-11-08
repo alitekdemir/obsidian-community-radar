@@ -71,7 +71,7 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 ## Başlarken
 
 1. **Community Radar: Community Radar'ı aç** komutunu çalıştırın ya da şeritteki radar simgesine tıklayın.
-2. Eşitleyin. Sürüm geçmişi (2020'den beri her gün, ~600 KB) bu repodan gelir, GitHub'da her gün üretilir; *Kuluçka* ve *Yeni* sekmeleri, artış sıralaması ve barajlar buna dayanır. GitHub'a ulaşılamazsa **Sürüm geçmişini kur** daha kısa bir geçmişi burada anlık görüntülerden kurar (~50 MB, birkaç dakika).
+2. Eşitleyin. Sürüm geçmişi (2020'den beri her gün, ~600 KB) bu repodan gelir, GitHub'da her gün üretilir; *Kuluçka* ve *Yeni* sekmeleri, artış sıralaması ve barajlar buna dayanır.
 3. Her satırdan favori (☆), gruba ekle (＋) ya da dışla (⊘).
 4. İsterseniz *Ayarlar → Community Radar → Bases görünümü → Oluştur* ile takip notlarınızın hazır [Bases](https://help.obsidian.md/bases) tablosunu not klasörünün yanına ekleyin (ör. `Eklentiler.base`). Bozulursa **Sıfırla** şablondan yeniden yazar.
 
@@ -86,7 +86,7 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 | Ayar | Seçenekler |
 |---|---|
 | Dil | Otomatik (Obsidian'ın dili), English, Türkçe |
-| Not klasörü | Takip notlarının oluşturulacağı yer (varsayılan: *Community Radar*) |
+| Not klasörü | Takip notlarının oluşturulacağı yer (varsayılan: *Eklentiler*; İngilizcede *Plugins*) |
 | Notlarınızın başlığı | Yeni takip notlarında kendi notlarınızın üstündeki başlık (varsayılan: arayüz dilinde *Notlarım*) |
 | README çevirisi | İstenince (ayrıntı penceresi, komut) ya da kapalı |
 | Grup öner | Takip sekmesinin *Grupsuz* listesini gruplama modunda açar |
@@ -96,21 +96,21 @@ Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at**'ı açın, **Commun
 | Bases görünümü | Takip notlarının Bases tablosunu **Oluştur** ya da **Sıfırla** |
 | Eşitleme sıklığı | Elle · 6 saatte bir · **Günde bir** · Haftada bir. Eşitlemeler arasında hiçbir şey indirilmez. **Şimdi eşitle** hemen çalıştırır. |
 | README güncelleme | **Notu açtığımda** · Her eşitlemede · Elle (komut paleti) |
-| Geçmiş derinliği | 3, 6, 12 ya da 24 ay |
+| Yeni eklenti süresi | Bir eklentinin kaç gün yeni sayılacağı (varsayılan: 30) |
 | AI | Sağlayıcı, API anahtarı (Obsidian'ın anahtar deposundan), model, hedef dil — çeviri ve grup önerileri için |
 
 ## Nasıl çalışır
 
-Obsidian'ın [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) reposu `community-plugin-stats.json` dosyasını **her gün** commit'liyor; her anlık görüntü tüm eklentilerin son sürüm zamanını içeriyor. Community Radar bu anlık görüntüleri okur (son 30 gün her gün, öncesi haftalık), eklenti başına 50'ye kadar sürüm tarihi saklar ve mevcut sürümü bir öncekiyle karşılaştırır. "4 gün önce (70 günlük kuluçkadan çıktı)" bilgisi bu yüzden yıllarca sessiz kalmış eklentilerde bile kesindir.
+Obsidian'ın [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) reposu `community-plugin-stats.json` dosyasını **her gün** commit'liyor; her anlık görüntü tüm eklentilerin son sürüm zamanını içeriyor. Her gün bir [GitHub Actions iş akışı](.github/workflows/metrics.yml) Ekim 2020'den bu yana bütün anlık görüntüleri işler ve sonucu `metrics` dalında yayınlar: eklenti başına 50'ye kadar sürüm tarihi, listeye ilk giriş günü, son 7 / 30 / 90 günde kazanılan indirme ve 1K, 10K, 100K barajlarını geçtiği gün. Eklenti bu dosyayı, yenisi çıktıysa her eşitlemede indirir. "4 gün önce (70 günlük kuluçkadan çıktı)" bilgisi bu yüzden yıllarca sessiz kalmış eklentilerde bile kesindir.
 
 *Benzerleri* anlamları karşılaştırır: her gün bir [GitHub Actions iş akışı](.github/workflows/embeddings.yml), her eklentinin adını ve açıklamasını IBM'in açık [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) modeliyle vektöre çevirir (yalnızca yeni ya da değişen eklentiler; Apache 2.0) ve `embeddings` dalında yayınlar. Eklenti bu dosyayı indirir, eklentileri cihazınızda kosinüs benzerliğine göre sıralar; nadir ortak bir ad yine sayılsın diye kelime eşleşmesinden (BM25) küçük bir pay ekler.
 
 ## Ağ kullanımı ve gizlilik
 
-- `raw.githubusercontent.com`: herkese açık eklenti listesi, istatistik anlık görüntüleri ve README'ler.
+- `raw.githubusercontent.com`: herkese açık eklenti listesi ve istatistikleri, README'ler.
 - `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/`: sürüm geçmişi ve indirme ölçüleri (~600 KB), eşitlemede ve yalnızca yeni bir derleme çıktıysa.
 - `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/`: Benzerleri için anlam vektörleri (~2,5 MB), eşitlemede ve yalnızca yeni bir derleme çıktıysa.
-- `api.github.com`: anlık görüntü listesi (geçmiş kurulumu ve eşitlemede 1–4 istek, kimliksiz, saatte 60 sınırı).
+- `api.github.com`: yalnızca README alışılmış yolda değilse, README için (kimliksiz, saatte 60 sınırı).
 - AI sağlayıcınız: **yalnızca** çeviri ya da grup önerisi istediğinizde ve bir sağlayıcı ayarladıysanız; eklenti adları, açıklamaları, grup adlarınız ve çevirmesini istediğiniz README gönderilir.
 
 Telemetri yok, hesap yok, vault'unuzla ilgili hiçbir şey gönderilmez. Vault içinde eklenti yalnızca kendi not klasöründeki notları okur ve yazar; diğer dosyalarınızı listelemez. API anahtarları Obsidian'ın anahtar deposunda (SecretStorage) cihaz başına saklanır, `data.json`'a yazılmaz; eklenti yalnızca anahtarın adını (ör. `anthropic-api-key`) saklar.

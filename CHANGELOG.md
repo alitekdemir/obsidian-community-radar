@@ -4,9 +4,14 @@
 
 ### New
 
-- **Release history from GitHub**: a daily [workflow](.github/workflows/metrics.yml) replays every stats snapshot since October 2020 and publishes the result (~600 KB) on the `metrics` branch. Sync downloads it when it's newer: six years instead of one, exact daily release dates instead of weekly ones before the last month, and the real listing date of every plugin (so *Age* and *New* hold for old plugins too). No need to *Build release history* any more; it stays as the way to build one here when GitHub can't be reached.
+- **Release history from GitHub**: a daily [workflow](.github/workflows/metrics.yml) replays every stats snapshot since October 2020 and publishes the result (~600 KB) on the `metrics` branch; sync downloads it when a newer one is out. Six years instead of one, exact daily release dates, and the real listing date of every plugin (so *Age* and *New* hold for old plugins too). The plugin no longer builds a history itself: *Build release history* and *History depth* are gone, along with the ~50 MB of snapshots they downloaded.
 - **Growth**: sort by *growth · 7 days* or *growth · 30 days* (downloads gained); the gain shows on each row (`+998`) and in the details window (*+1K in 30 days*).
 - **Milestones**: *🎯 10K* on a plugin that passed 1K, 10K or 100K downloads in the last 30 days.
+
+### Changed
+
+- New installs keep their notes in *Plugins* (*Eklentiler* in Turkish) instead of *Community Radar*; an existing folder setting stays.
+- Clearer wording in the settings.
 
 ## 0.9.0
 

@@ -67,10 +67,6 @@ function ageLabel(listed, now) {
   return t("age.yearsOld", { n: decimal(days / 365) });
 }
 
-function historyLabel(months) {
-  return months === 12 ? t("history.lastYear") : months === 24 ? t("history.last2Years") : t("history.lastMonths", { months });
-}
-
 /** Clock time for today ("14:05"), date and time before that. */
 function formatTime(ms, now) {
   const sameDay = dayString(ms) === dayString(now);
@@ -124,47 +120,8 @@ function parseCatalog(listing, stats) {
  * Release history: release dates per plugin (`releases`) and the day each plugin first appeared
  * (`firstSeen`). A `firstSeen` of 0 means the plugin was already listed when the archive starts.
  */
-function newTimeline(months) {
-  return { v: TIMELINE_VERSION, months, from: 0, to: 0, seeded: false, releases: {}, firstSeen: {} };
-}
-
-/** Upgrades a version-1 history (no first-seen dates); listing dates need a rebuild. */
-function upgradeTimeline(timeline) {
-  if (timeline.v === TIMELINE_VERSION) return timeline;
-  return { ...newTimeline(12), ...timeline, v: TIMELINE_VERSION, firstSeen: {}, seeded: false, legacy: true };
-}
-
-/**
- * Picks the snapshots to download: daily for the last DAILY_DAYS days, weekly before that.
- * @param {{sha:string,date:number}[]} commits  oldest first
- */
-function selectSnapshots(commits, now) {
-  const picked = new Map();
-  for (const commit of commits) {
-    const recent = now - commit.date <= DAILY_DAYS * DAY_MS;
-    const key = recent ? `d${dayString(commit.date)}` : `w${weekKey(commit.date)}`;
-    picked.delete(key);         // same day/week: the latest commit wins, order is kept
-    picked.set(key, commit);
-  }
-  return [...picked.values()];
-}
-
-/** Merges one snapshot into the history (release dates + first seen); returns the new releases. */
-function mergeSnapshot(timeline, stats, date) {
-  const { releases, firstSeen } = timeline;
-  let added = 0;
-  for (const [id, stat] of Object.entries(stats)) {
-    if (!(id in firstSeen)) firstSeen[id] = timeline.seeded ? date : 0;
-    const moment = stat && stat.updated;
-    if (!Number.isInteger(moment) || moment <= 0) continue;
-    const history = releases[id] || (releases[id] = []);
-    if (history[history.length - 1] === moment) continue;
-    history.push(moment);
-    if (history.length > RELEASES_CAP) history.splice(0, history.length - RELEASES_CAP);
-    added++;
-  }
-  timeline.seeded = true;
-  return added;
+function newTimeline() {
+  return { v: TIMELINE_VERSION, from: 0, to: 0, releases: {}, firstSeen: {} };
 }
 
 /** Days between the current release and the previous one; null when the previous one is unknown. */

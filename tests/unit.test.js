@@ -22,43 +22,15 @@ const tests = {
     assert.equal(p.description, "Cool.");
   },
 
-  "selectSnapshots: daily for 30 days, weekly before (last commit of the week)"() {
-    const commits = Array.from({ length: 120 }, (_, i) => ({ sha: `s${i}`, date: ago(119 - i) }));
-    const picked = core.selectSnapshots(commits, NOW);
-    const recent = picked.filter((c) => NOW - c.date <= 30 * DAY_MS);
-    assert.equal(recent.length, 31);                       // 0..30 days ago
-    const older = picked.filter((c) => NOW - c.date > 30 * DAY_MS);
-    assert.ok(older.length >= 12 && older.length <= 14, older.length);
-    assert.deepEqual(picked.map((c) => c.date), [...picked.map((c) => c.date)].sort((a, b) => a - b));  // order kept
+  "isNewPlugin: listed within the window; 0 (before the history) is old; no stats yet is new"() {
+    const firstSeen = { old: 0, fresh: ago(3) };
+    assert.ok(core.isNewPlugin(firstSeen, P("fresh"), NOW));
+    assert.ok(!core.isNewPlugin(firstSeen, P("old"), NOW));
+    assert.ok(core.isNewPlugin(firstSeen, P("listed", { downloads: null }), NOW));   // no stats yet
+    assert.ok(!core.isNewPlugin(firstSeen, P("fresh"), NOW, 2));                     // outside the window
   },
 
-  "mergeSnapshot: appends only on change, caps at 50, skips undated"() {
-    const timeline = core.newTimeline(12);
-    for (let d = 80; d >= 0; d--) core.mergeSnapshot(timeline, { x: { updated: ago(d) }, y: { updated: ago(5) }, z: { updated: 0 } }, ago(d));
-    assert.equal(timeline.releases.x.length, 50);
-    assert.equal(timeline.releases.y.length, 1);
-    assert.equal(timeline.releases.z, undefined);
-  },
 
-  "mergeSnapshot: first snapshot marks plugins as old (0), later ones get their first-seen day"() {
-    const timeline = core.newTimeline(12);
-    core.mergeSnapshot(timeline, { old: { updated: ago(400) } }, ago(100));
-    core.mergeSnapshot(timeline, { old: { updated: ago(400) }, fresh: { updated: 0 } }, ago(3));
-    assert.deepEqual(timeline.firstSeen, { old: 0, fresh: ago(3) });
-    assert.ok(core.isNewPlugin(timeline.firstSeen, P("fresh"), NOW));
-    assert.ok(!core.isNewPlugin(timeline.firstSeen, P("old"), NOW));
-    assert.ok(core.isNewPlugin(timeline.firstSeen, P("listed", { downloads: null }), NOW));  // no stats yet
-    assert.ok(!core.isNewPlugin(timeline.firstSeen, P("fresh"), NOW, 2));                    // outside the window
-  },
-
-  "upgradeTimeline: keeps old history and flags a rebuild for first-seen dates"() {
-    const old = { from: 1, to: 2, releases: { a: [1] } };
-    const up = core.upgradeTimeline(old);
-    assert.deepEqual(up.releases, { a: [1] });
-    assert.equal(up.legacy, true);
-    assert.equal(up.v, core.constants.TIMELINE_VERSION);
-    assert.equal(core.upgradeTimeline(core.newTimeline(6)).legacy, undefined);
-  },
 
   "discover 0.9: Updated leaves out new and busy plugins; incubation keeps a plugin as long as its pause"() {
     const busy = Array.from({ length: 25 }, (_, i) => ago(170 - i * 7));
@@ -462,14 +434,12 @@ const tests = {
       assert.equal(core.t("row.hatched", { when: "4 days ago", n: 70 }), "4 days ago (after a 70-day incubation)");
       assert.equal(core.t("status.delta", { added: 5, updated: 23 }), "Since last sync: 5 new · 23 updated");
       assert.equal(core.t("missing.key"), "missing.key");
-      assert.equal(core.historyLabel(12), "last year");
-      assert.equal(core.historyLabel(6), "last 6 months");
       assert.ok(core.noteBody(P("x")).startsWith("# My notes\n"));
-      assert.equal(core.defaultSettings().folder, "Community Radar");
+      assert.equal(core.defaultSettings().folder, "Plugins");
     } finally {
       core.setLanguage("tr");
     }
-    assert.equal(core.defaultSettings().folder, "Community Radar");   // one folder name in every language
+    assert.equal(core.defaultSettings().folder, "Eklentiler");   // "Plugins" in English
     assert.equal(core.t("row.hatched", { when: "4 gün önce", n: 70 }), "4 gün önce (70 günlük kuluçkadan çıktı)");
     assert.equal(core.formatShort(2575475), "2,6 Mn");
   },

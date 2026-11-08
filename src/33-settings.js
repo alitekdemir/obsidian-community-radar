@@ -138,19 +138,12 @@ class RadarSettingTab extends PluginSettingTab {
     new Setting(containerEl).setName(t("set.history")).setHeading();
     const { timeline } = plugin;
     new Setting(containerEl)
-      .setName(t("set.depth"))
-      .setDesc(timeline.to
-        ? t("set.depthDesc", { label: historyLabel(timeline.months), from: dayString(timeline.from), to: dayString(timeline.to) })
-        : t("set.notBuilt"))
-      .addDropdown((d) => {
-        for (const months of HISTORY_MONTHS) d.addOption(String(months), historyLabel(months));
-        d.setValue(String(settings.historyMonths)).onChange(async (value) => {
-          settings.historyMonths = Number(value);
-          await save();
-          this.display();
-        });
-      })
-      .addButton((b) => b.setButtonText(t("set.rebuild")).onClick(() => plugin.buildHistory(true)));
+      .setName(t("set.historySource"))
+      .setDesc(timeline.to ? t("set.historyDesc", { from: dayString(timeline.from), to: dayString(timeline.to) }) : t("set.notBuilt"))
+      .addButton((b) => b.setButtonText(t("set.rebuild")).onClick(async () => {
+        await plugin.downloadHistory();
+        this.display();
+      }));
 
     this.displayTranslation(containerEl, settings, save);
 

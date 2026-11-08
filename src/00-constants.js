@@ -27,13 +27,9 @@ const STATS_FILE = "community-plugin-stats.json";
 const RAW = "https://raw.githubusercontent.com";
 const LISTING_URL = `${RAW}/${REPO}/HEAD/community-plugins.json`;
 const STATS_URL = `${RAW}/${REPO}/HEAD/${STATS_FILE}`;
-const COMMITS_API = `https://api.github.com/repos/${REPO}/commits`;
 
 const HOUR_MS = 3_600_000;
 const DAY_MS = 24 * HOUR_MS;
-const MONTH_MS = 30.44 * DAY_MS;
-const HISTORY_MONTHS = [3, 6, 12, 24];
-const DAILY_DAYS = 30;             // snapshots are daily for this many days, weekly before that
 const RELEASES_CAP = 50;           // release dates kept per plugin
 const NEW_BADGE_DAYS = 30;         // a plugin counts as new this many days after it was listed (setting: newDays)
 const INCUBATION_CAP = 360;        // a plugin out of incubation stays on that tab for its incubation, at most this long
@@ -175,7 +171,6 @@ function defaultSettings() {
     statuses: DEFAULT_STATUSES.map((key) => ({ key, label: t(`statusDefault.${key}`) })),
     sortBy: {},           // tab → {key, dir}; missing tabs use TAB_DEFAULTS
     query: "",
-    historyMonths: 12,
     provider: "",
     model: "",
     modelPrice: "",

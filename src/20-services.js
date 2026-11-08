@@ -18,22 +18,6 @@ class GitHub {
     return parseCatalog(listing, stats);
   }
 
-  /** Commits that touched the stats file after `since`, oldest first. */
-  async statsCommits(since) {
-    const commits = [];
-    for (let page = 1; ; page++) {
-      const url = `${COMMITS_API}?path=${STATS_FILE}&since=${new Date(since).toISOString()}&per_page=100&page=${page}`;
-      const batch = await this.json(url);
-      commits.push(...batch.map((c) => ({ sha: c.sha, date: Date.parse(c.commit.committer.date) })));
-      if (batch.length < 100) break;
-    }
-    return commits.filter((c) => c.date > since).sort((a, b) => a.date - b.date);
-  }
-
-  snapshot(sha) {
-    return this.json(`${RAW}/${REPO}/${sha}/${STATS_FILE}`);
-  }
-
   /** The release history built daily on GitHub: meta.json says when, timeline.json is the history (~600 KB sent). */
   metricsMeta() {
     return this.json(`${METRICS_URL}/meta.json`);

@@ -52,7 +52,7 @@ class DiscoveryView extends ItemView {
     item("folder-plus", t("menu.groupList", { n: Math.min(shown.length, AI_BATCH) }), () => this.startGrouping(shown));
     item("ban", t("list.ignoredTitle", { n: plugin.ignoredCount() }), () => this.update("mode", "ignored"));
     item("eye-off", t("list.dismissedTitle", { n: Object.keys(plugin.data.dismissed).length }), () => this.update("mode", "dismissed"));
-    item("history", t("cmd.rebuild"), () => plugin.buildHistory(true));
+    item("history", t("cmd.rebuild"), () => plugin.downloadHistory());
     item("settings", t("menu.settings"), () => plugin.openSettings());
   }
 
@@ -526,7 +526,7 @@ class DiscoveryView extends ItemView {
         text: [
           t("status.plugins", { n: formatCount(catalog.plugins.length) }),
           t("status.lastSync", { time: formatTime(catalog.fetchedAt, now), age: formatAge(now - catalog.fetchedAt) }),
-          timeline.to ? t("status.history", { label: historyLabel(timeline.months) }) : t("status.noHistory"),
+          timeline.to ? t("status.history", { year: new Date(timeline.from).getFullYear() }) : t("status.noHistory"),
         ].join("  ·  "),
       });
       const { delta } = catalog;
@@ -549,9 +549,8 @@ class DiscoveryView extends ItemView {
       onActivate(clear, () => clear.click());
     }
     const actions = status.createDiv({ cls: "pdt-status-actions" });
-    if (!timeline.to || timeline.legacy) {
-      actions.createEl("button", { cls: "mod-cta", text: t(timeline.to ? "status.rebuild" : "status.build") })
-        .onclick = () => this.plugin.buildHistory(true);
+    if (!timeline.to && !this.plugin.busy) {
+      actions.createEl("button", { cls: "mod-cta", text: t("status.build") }).onclick = () => this.plugin.downloadHistory();
     }
   }
 
@@ -574,7 +573,7 @@ class DiscoveryView extends ItemView {
       list.createDiv({ cls: "pdt-empty", text: t("list.needHistory") });
       return;
     }
-    if (mode === "new" && (!timeline.to || timeline.legacy)) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
+    if (mode === "new" && !timeline.to) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
 
     this.rows = discover(state, modeOptions(this.settings, mode), now);
     this.stale = new Set();

@@ -115,7 +115,14 @@ const snapshots = [
 const vectorRows = { homepage: [120, 30, 0, 0], startpage: [110, 50, 0, 0], hometab: [100, 70, 0, 0], dataview: [0, 0, 127, 0], busy: [0, 0, 0, 127], fresh: [0, 60, 0, 110] };
 const vectorsMeta = { model: "test", dim: 4, count: 6, built: "2026-11-01T04:30:00Z", ids: Object.keys(vectorRows) };
 const vectorsBin = () => Int8Array.from(Object.values(vectorRows).flat()).buffer;
-let serverTimeline = null;   // the metrics branch: off (404) until a test turns it on
+// the metrics branch: the release history built on GitHub (null: unreachable)
+const serverHistory = {
+  v: 2, months: 72, from: ago(2200), to: ago(1), source: "server",
+  releases: { homepage: [ago(120), ago(3)], dataview: [ago(400)], busy: [ago(61), ago(11), ago(2)], fresh: [ago(2)] },
+  firstSeen: { homepage: 0, dataview: 0, busy: 0, fresh: ago(1) },
+  growth: {}, milestones: {},
+};
+let serverTimeline = serverHistory;
 fake.network.handlers.push(
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to } } : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? { status: 200, json: serverTimeline } : { status: 404 })],
@@ -123,12 +130,6 @@ fake.network.handlers.push(
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.bin", () => ({ status: 200, arrayBuffer: vectorsBin() })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json", () => ({ status: 200, json: listing })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugin-stats.json", () => ({ status: 200, json: snapshots[2].stats })],
-  ["https://api.github.com/repos/obsidianmd/obsidian-releases/commits", ({ url }) => {
-    const since = Date.parse(new URL(url).searchParams.get("since"));
-    const list = snapshots.filter((s) => s.date >= since).reverse().map((s) => ({ sha: s.sha, commit: { committer: { date: new Date(s.date).toISOString() } } }));
-    return { status: 200, json: list };
-  }],
-  ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/", ({ url }) => ({ status: 200, json: snapshots.find((s) => url.includes(s.sha)).stats })],
   ["https://raw.githubusercontent.com/", () => ({ status: 200, text: "# Readme\nUse #tag here.\n```\n#keep\n```" })],
 );
 
@@ -177,9 +178,8 @@ const tests = {
     }
   },
 
-  async "refresh + history: first-seen, gaps and modes"({ plugin }) {
+  async "refresh + history (from GitHub): first-seen, gaps and modes"({ plugin }) {
     await plugin.refresh();
-    await plugin.buildHistory(true);
     const { timeline } = plugin;
     assert.equal(timeline.firstSeen.fresh, ago(1));       // appeared in the last snapshot
     assert.equal(timeline.firstSeen.homepage, 0);         // already there at the start
@@ -866,20 +866,15 @@ const tests = {
     assert.deepEqual(YAML.parse(app.vault.files.get("Eklentiler.base")).filters, base.filters);
   },
 
-  async "release history from GitHub: replaces ours when newer, the days since come from snapshots, a failure keeps ours"({ plugin, view }) {
+  async "release history from GitHub: a newer one replaces ours, growth and milestones on rows, a failure keeps ours"({ plugin, view }) {
     const ours = plugin.timeline;
     serverTimeline = {
-      v: 2, months: 72, from: ago(2200), to: ago(10) + 1000, seeded: true, source: "server",
-      releases: { homepage: [ago(900), ago(120)], dataview: [ago(400)], busy: [ago(61), ago(11)] },
-      firstSeen: { homepage: 0, dataview: 0, busy: ago(700) },
+      ...serverHistory, to: NOW,
       growth: { homepage: [50, 200, 600], dataview: [10, 20, 30] }, milestones: { homepage: [ago(800), ago(5), null] },
     };
     await plugin.refresh();
-    assert.equal(plugin.timeline.source, "server");
-    assert.equal(plugin.timeline.from, ago(2200), "six years instead of ours");
+    assert.equal(plugin.timeline.to, NOW, "newer: downloaded");
     assert.deepEqual(plugin.timeline.growth.homepage, [50, 200, 600]);
-    assert.equal(plugin.timeline.releases.homepage.at(-1), ago(3), "yesterday's snapshot added on top");
-    assert.equal(plugin.timeline.to, ago(1));
     await view.update("mode", "all");
     await view.updateTab("sortBy", { key: "growth7", dir: "desc" });            // gained most in 7 days first, with the gain
     const rows = $$(view.contentEl, ".pdt-row");
@@ -891,7 +886,9 @@ const tests = {
     assert.ok(!$(view.contentEl, ".pdt-growth"), "the gain shows only when sorting by it");
     serverTimeline = null;                                                     // GitHub down: ours stays
     await plugin.refresh();
-    assert.equal(plugin.timeline.source, "server");
+    assert.equal(plugin.timeline.to, NOW);
+    await assert.rejects(plugin.downloadHistory().then((r) => { if (r === undefined) throw new Error("failed"); }));
+    serverTimeline = serverHistory;
     plugin.timeline = ours;
   },
 

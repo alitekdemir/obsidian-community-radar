@@ -149,7 +149,7 @@ class DetailModal extends Modal {
 
   /** Four equal tiles: label, value, and what the value means. */
   renderStats(stats, p, now) {
-    const { firstSeen, releases, months } = this.plugin.timeline;
+    const { firstSeen, releases, from } = this.plugin.timeline;
     const stat = (label, value, sub) => {
       const box = stats.createDiv({ cls: "pdt-detail-stat" });
       box.createDiv({ cls: "pdt-detail-label", text: label });
@@ -163,7 +163,7 @@ class DetailModal extends Modal {
     stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), gained != null ? t("details.growth30", { n: formatShort(gained) }) : t("details.downloadsSub"));
     stat(t("details.lastRelease"), p.updated ? relativeDays(p.updated, now) : "–", p.version);
     // age counts from the day it was listed; 0: it was there before the history starts
-    const before = months >= 12 ? t("details.ageBeforeYears", { n: Math.round(months / 12) }) : t("details.ageBeforeMonths", { n: months });
+    const before = t("details.ageBeforeYears", { n: Math.max(1, Math.floor((now - from) / (365 * DAY_MS))) });
     stat(t("details.age"), seen > 0 ? ageLabel(seen, now) : seen === 0 ? before : "–", seen > 0 ? t("details.listedOn", { date: dayString(seen) }) : t("details.listed"));
     stat(t("details.cadence"), cadence ? t("details.every", { n: cadence }) : "–", cadence ? t("details.cadenceSub", { n: Math.min(dates.length, RELEASES_CAP) }) : "");
   }

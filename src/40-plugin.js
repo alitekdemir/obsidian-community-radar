@@ -9,6 +9,7 @@ class PluginRadar extends Plugin {
     if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
     if (this.data.settings.mode === SIMILAR_MODE) this.data.settings.mode = "all";   // 0.8's Similar list
     delete this.data.settings.similarTrail;
+    delete this.data.settings.historyMonths;   // 0.9.1: the history comes from GitHub
     delete this.data.settings.similarFrom;
     this.github = new GitHub();
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
@@ -16,7 +17,7 @@ class PluginRadar extends Plugin {
     this.translator = new Translator(this.app, this.data.settings);
     this.catalog = null;                                      // {fetchedAt, plugins}
     this.vectors = null;                                      // semantic Similar (parseVectors); null → word matching
-    this.timeline = newTimeline(this.data.settings.historyMonths);
+    this.timeline = newTimeline();
     this.busy = false;
     this.progress = "";             // the running task's progress, shown in the view's status line
     this.readmeJobs = new Set();    // plugin ids whose README is being fetched
@@ -52,7 +53,8 @@ class PluginRadar extends Plugin {
       await this.importLegacyPlugin();
       this.notes.rebuild();
       this.catalog = await this.cache.read("catalog", null);
-      this.timeline = upgradeTimeline(await this.cache.read("timeline", this.timeline));
+      const cached = await this.cache.read("timeline", null);   // only the history built on GitHub (0.9.1+)
+      if (cached?.v === TIMELINE_VERSION && cached.source === "server") this.timeline = cached;
       this.vectors = parseVectors(await this.cache.read("vectors", null), await this.cache.readBinary("vectors"));
       await this.runMigrations();
       this.redraw();
@@ -135,7 +137,7 @@ class PluginRadar extends Plugin {
     const command = (id, name, callback) => this.addCommand({ id, name, callback });
     command("open", t("cmd.open"), () => this.openView());
     command("refresh", t("cmd.refresh"), () => this.refresh());
-    command("rebuild-history", t("cmd.rebuild"), () => this.buildHistory(true));
+    command("rebuild-history", t("cmd.rebuild"), () => this.downloadHistory());
     command("readme-current", t("cmd.readmeCurrent"), () => this.updateCurrentReadme());
     command("readme-all", t("cmd.readmeAll"), () => this.updateReadmes([...this.notes.index.keys()]));
     command("bases-view", t("cmd.base"), () => this.writeBase());
@@ -241,7 +243,6 @@ class PluginRadar extends Plugin {
       await this.cache.write("catalog", this.catalog);
 
       await this.syncServerTimeline(progress);
-      if (this.timeline.to) await this.syncTimeline(false, progress);   // the days since (the server's or ours)
       await this.syncVectors(progress);
 
       progress(t("notice.updatingNotes"));
@@ -273,15 +274,13 @@ class PluginRadar extends Plugin {
   }
 
   /**
-   * The history built on GitHub (every day since 2020, with download growth) when ours was built here or
-   * is older; the days since come from snapshots as usual. A failure keeps ours: the local build still works.
+   * The release history, built daily on GitHub (every day since 2020, with download growth): downloaded when
+   * a newer one is out (`force`: in any case). A failure keeps the one we have.
    */
   async syncServerTimeline(progress, force = false) {
     try {
       const meta = await this.github.metricsMeta();
-      const ours = this.timeline;
-      const newer = ours.source !== "server" || meta.to > ours.to;   // a history built here is shorter, without growth
-      if (!force && !newer) return false;
+      if (!force && meta.to <= (this.timeline.to || 0)) return true;
       progress(t("notice.serverHistory"));
       const timeline = await this.github.metricsTimeline();
       if (timeline?.v !== TIMELINE_VERSION || !timeline.to) throw new Error("unexpected timeline file");
@@ -289,44 +288,16 @@ class PluginRadar extends Plugin {
       await this.cache.write("timeline", timeline);
       return true;
     } catch (error) {
-      console.warn("[Community Radar] couldn't download the release history; building it here", error);
+      console.warn("[Community Radar] couldn't download the release history", error);
       return false;
     }
   }
 
-  buildHistory(rebuild) {
+  downloadHistory() {
     return this.task(t("notice.history"), async (progress) => {
-      if (await this.syncServerTimeline(progress, rebuild)) {
-        await this.syncTimeline(false, progress);
-        return t("notice.historyServer", { from: dayString(this.timeline.from), to: dayString(this.timeline.to) });
-      }
-      return this.syncTimeline(rebuild, progress);
+      if (!(await this.syncServerTimeline(progress, true))) throw new Error(t("notice.historyFailed"));
+      return t("notice.historyServer", { from: dayString(this.timeline.from), to: dayString(this.timeline.to) });
     });
-  }
-
-  /**
-   * Downloads the missing days' snapshots and merges them into the history. After a long break it
-   * fills every missing day; it saves after each batch, so an interrupted run keeps its progress.
-   */
-  async syncTimeline(rebuild, progress) {
-    const now = Date.now();
-    if (rebuild || !this.timeline.to) this.timeline = newTimeline(this.data.settings.historyMonths);
-    const since = this.timeline.to || now - this.timeline.months * MONTH_MS;
-
-    progress(t("notice.listingSnapshots"));
-    const snapshots = selectSnapshots(await this.github.statsCommits(since), now);
-    for (let i = 0; i < snapshots.length; i += PARALLEL) {
-      const batch = snapshots.slice(i, i + PARALLEL);
-      const stats = await mapLimit(batch, PARALLEL, (s) => this.github.snapshot(s.sha));
-      stats.forEach((s, k) => mergeSnapshot(this.timeline, s, batch[k].date));  // order kept: oldest first
-      this.timeline.from ||= batch[0].date;
-      this.timeline.to = batch[batch.length - 1].date;
-      await this.cache.write("timeline", this.timeline);
-      progress(t("notice.snapshotProgress", { done: Math.min(i + PARALLEL, snapshots.length), total: snapshots.length, date: dayString(this.timeline.to) }));
-    }
-    return snapshots.length
-      ? t("notice.historyDone", { label: historyLabel(this.timeline.months), from: dayString(this.timeline.from), to: dayString(this.timeline.to), n: snapshots.length })
-      : t("notice.historyCurrent");
   }
 
   // ── README ───────────────────────────────────────────────────────────────

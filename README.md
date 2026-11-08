@@ -72,7 +72,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 ## Getting started
 
 1. Run **Community Radar: Open Community Radar** (or click the radar icon in the ribbon). The catalog downloads on first open.
-2. Sync. The release history (every day since 2020, ~600 KB) comes from this repository, built daily on GitHub; it powers the *Incubation* and *New* tabs, growth sorting and milestones. If GitHub can't be reached, **Build release history** builds a shorter one here from daily snapshots (~50 MB, a few minutes).
+2. Sync. The release history (every day since 2020, ~600 KB) comes from this repository, built daily on GitHub; it powers the *Incubation* and *New* tabs, growth sorting and milestones.
 3. Star (☆), group (＋) or ignore (⊘) plugins from any row.
 4. Optional: *Settings → Community Radar → Bases view → Create* adds a ready-made [Bases](https://help.obsidian.md/bases) table of your tracked plugins next to the notes folder (e.g. `Community Radar.base`). If you break it, **Reset** rewrites it from the template.
 
@@ -83,7 +83,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 | Setting | Options |
 |---|---|
 | Language | Auto (Obsidian's language), English, Türkçe |
-| Notes folder | Where tracking notes are created (default: *Community Radar*) |
+| Notes folder | Where tracking notes are created (default: *Plugins*; *Eklentiler* in Turkish) |
 | Heading of your notes | The heading above your own notes in new tracking notes (default: *My notes* in the interface language) |
 | README translation | On request (details window, command) or off |
 | Suggest groups | Opens the Tracked tab's *Ungrouped* list in grouping mode |
@@ -93,7 +93,7 @@ In Obsidian, open **Settings → Community plugins → Browse**, search for **Co
 | Bases view | **Create** or **Reset** the Bases table of your tracking notes |
 | Sync frequency | Manual · Every 6 hours · **Daily** · Weekly. Between syncs nothing is downloaded. **Sync now** runs one immediately. |
 | README updates | **When I open the note** · On every sync · Manually (command palette) |
-| History depth | 3, 6, 12 or 24 months |
+| New plugin period | How many days a plugin counts as new (default: 30) |
 | AI | Provider, API key (from Obsidian's keychain), model, target language — used for translations and group suggestions |
 
 ## Tracking notes
@@ -125,7 +125,7 @@ The body has a **My notes** section for you, a **README (your language)** sectio
 
 ## How it works
 
-Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day** (since October 2020). Each snapshot holds every plugin's downloads and latest release time. Once a day, a [GitHub Actions workflow](.github/workflows/metrics.yml) replays all of them and publishes the result on the `metrics` branch: up to 50 release dates per plugin, the day it first appeared, downloads gained in the last 7 / 30 / 90 days and when it passed 1K, 10K and 100K downloads. The plugin downloads that file and adds the days since from the snapshots themselves (without it, it builds a shorter history the same way). That's how "4 days ago (after a 70-day incubation)" is exact even for plugins quiet for years. The same snapshots tell when a plugin first appeared, which powers the *New* tab.
+Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day** (since October 2020). Each snapshot holds every plugin's downloads and latest release time. Once a day, a [GitHub Actions workflow](.github/workflows/metrics.yml) replays all of them and publishes the result on the `metrics` branch: up to 50 release dates per plugin, the day it first appeared, downloads gained in the last 7 / 30 / 90 days and when it passed 1K, 10K and 100K downloads. The plugin downloads that file with each sync when a newer one is out. That's how "4 days ago (after a 70-day incubation)" is exact even for plugins quiet for years. The same snapshots tell when a plugin first appeared, which powers the *New* tab.
 
 *Similar* compares meanings: once a day, a [GitHub Actions workflow](.github/workflows/embeddings.yml) turns every plugin's name and description into a vector with IBM's open [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) model (only new or edited plugins; Apache 2.0) and publishes them on the `embeddings` branch. The plugin downloads that file and ranks plugins by cosine similarity on your device, with a small share of shared-word matching (BM25) so a rare common name still counts.
 
@@ -135,8 +135,8 @@ Community Radar only makes these requests:
 
 | Destination | When | What |
 |---|---|---|
-| `raw.githubusercontent.com` | Sync, history build, README updates | The public plugin list, stats snapshots and plugin READMEs |
-| `api.github.com` | History build and sync (1–4 requests); README fallback | The list of stats snapshots. Unauthenticated, 60 requests/hour |
+| `raw.githubusercontent.com` | Sync, README updates | The public plugin list and stats, and plugin READMEs |
+| `api.github.com` | Only when a README isn't at a usual path | The README. Unauthenticated, 60 requests/hour |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/` | Sync, when a newer build is out | The release history and download metrics (~600 KB, built daily by [this workflow](.github/workflows/metrics.yml)) |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/` | Sync, when a newer build is out | The semantic vectors for Similar (~2.5 MB, built daily by [this workflow](.github/workflows/embeddings.yml)) |
 | Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider configured | Plugin names and descriptions, the names of your groups, and a README you ask to translate |
@@ -155,7 +155,7 @@ No telemetry, no account, nothing about your vault is sent anywhere. Inside the 
 
 - Open Community Radar
 - Sync now (catalog, history, notes)
-- Rebuild release history
+- Download the release history again
 - Update README of this note / of all tracking notes
 - Create or reset the Bases view
 - Suggest groups for ungrouped plugins
