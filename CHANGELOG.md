@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.1
+
+### Fixed
+
+- **README images** linked to a GitHub page (`github.com/…/blob/…`, as in *Kanban* and *Linter*) now point to the image itself and show up. Notes pick this up with the next README update.
+
+### New
+
+- **Support**: a *Sponsor* button at the bottom of the settings (and on the plugin's page in Obsidian) links to GitHub Sponsors.
+
 ## 0.8.0
 
 Changes since 0.7.3 (0.7.4 was not released).

@@ -298,6 +298,15 @@ const tests = {
     assert.ok(out.includes('<a href="https://github.com/o/r/blob/HEAD/LICENSE">'));
   },
 
+  "absolutizeLinks: images on a GitHub page point to the file; page links stay"() {
+    const out = core.absolutizeLinks(
+      "![k](https://github.com/m/kanban/blob/main/docs/a.png) [p](https://github.com/m/kanban/blob/main/x.md) "
+      + '<img src="https://github.com/p/linter/blob/master/b.gif?raw=true">', "o/r");
+    assert.ok(out.includes("![k](https://raw.githubusercontent.com/m/kanban/main/docs/a.png)"));
+    assert.ok(out.includes("[p](https://github.com/m/kanban/blob/main/x.md)"));
+    assert.ok(out.includes('<img src="https://raw.githubusercontent.com/p/linter/master/b.gif?raw=true">'));
+  },
+
   "replaceReadme: only the marked section changes; appended when markers are missing"() {
     const plugin = P("x");
     const body = core.noteBody(plugin).replace("# Notlarım\n\n", "# Notlarım\nBenim notum\n");

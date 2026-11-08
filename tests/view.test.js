@@ -768,6 +768,12 @@ const tests = {
     assert.ok(!$$(el, "button").some((b) => b.textContent === "Restore"), "no per-plugin list in settings");
     const manage = $$(el, "button").filter((b) => b.textContent === core.t("set.manage"));
     assert.equal(manage.length, 2);
+    assert.ok(!$$(el, "button").some((b) => b.textContent === core.t("set.sponsor")), "no Support row without fundingUrl");
+    plugin.manifest.fundingUrl = "https://github.com/sponsors/x";
+    plugin.settingTab.display();
+    assert.ok($$(el, "button").some((b) => b.textContent === core.t("set.sponsor")), "Support row");
+    delete plugin.manifest.fundingUrl;
+    plugin.settingTab.display();
     assert.equal(plugin.data.settings.statusEnabled, false);
     const statusToggle = $$(el, ".setting").find((x) => $(x, ".name")?.textContent === core.t("set.status"));
     assert.ok(statusToggle, "status field setting");

@@ -529,17 +529,18 @@ function escapeOutsideCode(markdown) {
   }).join("\n");
 }
 
-/** Points relative images and links to GitHub. */
+/** Points relative images and links to GitHub; images on a GitHub page (`/blob/`) to the file itself. */
 function absolutizeLinks(markdown, repo) {
   const rawBase = `${RAW}/${repo}/HEAD/`;
   const blobBase = `https://github.com/${repo}/blob/HEAD/`;
   const isRelative = (url) => url && !/^([a-z][a-z0-9+.-]*:|#|\/\/)/i.test(url);
   const join = (base, url) => base + url.replace(/^\.?\//, "");
+  const image = (url) => isRelative(url) ? join(rawBase, url)
+    : url.replace(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\//i, `${RAW}/$1/`);
   return markdown
     .replace(/(!?)\[([^\]]*)\]\(\s*<?([^)\s>]+)>?((?:\s+"[^"]*")?)\s*\)/g, (all, bang, text, url, title) =>
-      isRelative(url) ? `${bang}[${text}](${join(bang ? rawBase : blobBase, url)}${title})` : all)
-    .replace(/(<img\b[^>]*?\bsrc=)(["'])([^"']+)\2/gi, (all, head, q, url) =>
-      isRelative(url) ? `${head}${q}${join(rawBase, url)}${q}` : all)
+      bang ? `![${text}](${image(url)}${title})` : isRelative(url) ? `[${text}](${join(blobBase, url)}${title})` : all)
+    .replace(/(<img\b[^>]*?\bsrc=)(["'])([^"']+)\2/gi, (all, head, q, url) => `${head}${q}${image(url)}${q}`)
     .replace(/(<a\b[^>]*?\bhref=)(["'])([^"']+)\2/gi, (all, head, q, url) =>
       isRelative(url) ? `${head}${q}${join(blobBase, url)}${q}` : all);
 }
@@ -2982,6 +2983,13 @@ class RadarSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName(t("set.dismissed", { n: formatCount(Object.keys(plugin.data.dismissed).length) }))
       .addButton((b) => b.setButtonText(t("set.manage")).onClick(() => plugin.showList("dismissed")));
+
+    if (plugin.manifest.fundingUrl) {
+      new Setting(containerEl)
+        .setName(t("set.support"))
+        .setDesc(t("set.supportDesc"))
+        .addButton((b) => b.setButtonText(t("set.sponsor")).onClick(() => window.open(plugin.manifest.fundingUrl)));
+    }
   }
 
   /** The optional status field: on/off, then the list of statuses (label with an emoji, order, add, remove). */
