@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- **README images** linked to a GitHub page (`github.com/…/blob/…`, as in *Kanban* and *Linter*) now point to the image itself and show up. Notes pick this up with the next README update.
+- **README images** linked to a GitHub page (`github.com/…/blob/…`, as in *Kanban* and *Linter*) now point to the image itself and show up, in the details window and in your tracking notes (existing notes are fixed once, on upgrade).
 
 ### New
 

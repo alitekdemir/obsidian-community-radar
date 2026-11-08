@@ -529,14 +529,25 @@ function escapeOutsideCode(markdown) {
   }).join("\n");
 }
 
+/** An image on a GitHub page (`github.com/o/r/blob/…`) → the file itself; other URLs unchanged. */
+function rawImage(url) {
+  return url.replace(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\//i, `${RAW}/$1/`);
+}
+
+/** Points images on GitHub pages to the files in notes written before 0.8.1; touches no link. */
+function migrateImages(content) {
+  return content
+    .replace(/(!\[[^\]]*\]\(\s*<?)([^)\s>]+)/g, (all, head, url) => head + rawImage(url))
+    .replace(/(<img\b[^>]*?\bsrc=)(["'])([^"']+)\2/gi, (all, head, q, url) => `${head}${q}${rawImage(url)}${q}`);
+}
+
 /** Points relative images and links to GitHub; images on a GitHub page (`/blob/`) to the file itself. */
 function absolutizeLinks(markdown, repo) {
   const rawBase = `${RAW}/${repo}/HEAD/`;
   const blobBase = `https://github.com/${repo}/blob/HEAD/`;
   const isRelative = (url) => url && !/^([a-z][a-z0-9+.-]*:|#|\/\/)/i.test(url);
   const join = (base, url) => base + url.replace(/^\.?\//, "");
-  const image = (url) => isRelative(url) ? join(rawBase, url)
-    : url.replace(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\//i, `${RAW}/$1/`);
+  const image = (url) => isRelative(url) ? join(rawBase, url) : rawImage(url);
   return markdown
     .replace(/(!?)\[([^\]]*)\]\(\s*<?([^)\s>]+)>?((?:\s+"[^"]*")?)\s*\)/g, (all, bang, text, url, title) =>
       bang ? `![${text}](${image(url)}${title})` : isRelative(url) ? `[${text}](${join(blobBase, url)}${title})` : all)
@@ -1101,7 +1112,7 @@ const core = {
   historyLabel, formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, upgradeTimeline, selectSnapshots,
   mergeSnapshot, dormantDays, isNewPlugin, isChanged, compileQuery, modeOptions, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
   groupSections, groupHue, statusKey, UNGROUPED, UPDATES, STARRED, escapeOutsideCode,
-  absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, baseFile, sourceFields, noteFromFrontmatter,
+  absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, migrateHeadings, migrateMarkers, migrateImages, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
   parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, semanticPlugins, closeness, parseVectors, closestGroup, readmeText, readmeTranslation, replaceReadmeTranslation, markdownChunks, translationEstimate, releaseCadence,
   groupPrompt, parseGroupSuggestions,
@@ -3251,6 +3262,10 @@ class PluginRadar extends Plugin {
     if (!done.readmeMarkers) {
       await this.notes.migrate(migrateMarkers);
       done.readmeMarkers = dayString(Date.now());
+    }
+    if (!done.readmeImages) {
+      await this.notes.migrate(migrateImages);
+      done.readmeImages = dayString(Date.now());
     }
     if (!done.keyNames) {
       const moved = this.translator.migrateLegacyKeys();

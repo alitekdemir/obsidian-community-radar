@@ -307,6 +307,13 @@ const tests = {
     assert.ok(out.includes('<img src="https://raw.githubusercontent.com/p/linter/master/b.gif?raw=true">'));
   },
 
+  "migrateImages: only images on GitHub pages change"() {
+    const note = "[p](https://github.com/m/k/blob/main/x.md)\n![s](https://github.com/m/k/blob/main/a%20b.png)\n<img src='https://github.com/m/k/blob/main/c.gif'>\n![ok](https://x.y/d.png)";
+    const out = core.migrateImages(note);
+    assert.equal(out, "[p](https://github.com/m/k/blob/main/x.md)\n![s](https://raw.githubusercontent.com/m/k/main/a%20b.png)\n<img src='https://raw.githubusercontent.com/m/k/main/c.gif'>\n![ok](https://x.y/d.png)");
+    assert.equal(core.migrateImages(out), out, "idempotent");
+  },
+
   "replaceReadme: only the marked section changes; appended when markers are missing"() {
     const plugin = P("x");
     const body = core.noteBody(plugin).replace("# Notlarım\n\n", "# Notlarım\nBenim notum\n");
