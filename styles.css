@@ -1180,90 +1180,6 @@ button.pdt-gm-more:hover {
   font-weight: var(--font-semibold);
 }
 
-/* ── Similar plugins: preview under a row ──────────────────────────────── */
-.pdt-similar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-4-2);
-  margin-top: var(--size-4-2);
-  padding: var(--size-4-2) var(--size-4-3);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: var(--radius-m);
-}
-
-.pdt-similar-link.is-open {
-  color: var(--text-accent);
-}
-
-.pdt-similar-item {
-  min-width: 0;
-}
-
-.pdt-similar-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--size-4-1) var(--size-4-2);
-}
-
-.pdt-similar-name {
-  color: var(--text-normal);
-  font-weight: var(--font-semibold);
-  text-decoration: none;
-}
-
-.pdt-similar-name:hover {
-  color: var(--text-accent);
-  text-decoration: underline;
-}
-
-.pdt-similar-dl {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin-left: auto;
-  color: var(--text-muted);
-  font-size: var(--font-ui-smaller);
-  font-variant-numeric: tabular-nums;
-}
-
-.pdt-similar-desc {
-  overflow: hidden;
-  color: var(--text-muted);
-  font-size: var(--font-ui-small);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-button.pdt-similar-all {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--size-4-1);
-  height: auto;
-  padding: 2px 0;
-  border: 0;
-  background: none;
-  box-shadow: none;
-  color: var(--text-accent);
-  font-size: var(--font-ui-small);
-  cursor: pointer;
-}
-
-button.pdt-similar-all:hover {
-  background: none;
-  text-decoration: underline;
-}
-
-.pdt-similar-all-icon {
-  display: inline-flex;
-}
-
-.pdt-similar-all-icon svg {
-  width: 14px;
-  height: 14px;
-}
-
 /* Shared terms: why two plugins match */
 .pdt-terms {
   display: inline-flex;
@@ -1281,101 +1197,51 @@ button.pdt-similar-all:hover {
   line-height: 1.6;
 }
 
-/* ── Similar list: trail (first step = the tab you came from), title with count, match bar ── */
-.pdt-trail {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--size-4-1);
-  margin: 0 0 var(--size-4-3);
+/* ── Similar filter: one chip in the bar (‹ back · ≈ Similar: name · ✕) ── */
+.pdt-similar-chip {
+  gap: 4px;
+  padding: 0 4px 0 6px;
+  border-color: color-mix(in srgb, var(--interactive-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--interactive-accent) 10%, var(--background-primary));
 }
 
-button.pdt-trail-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 28px;
-  padding: 0 10px;
-  border: 0;
-  border-radius: 14px;
-  box-shadow: none;
-  background: transparent;
+.pdt-similar-sign {
   color: var(--text-accent);
-  font-size: var(--font-ui-small);
-  cursor: pointer;
+  font-weight: var(--font-bold);
 }
 
-button.pdt-trail-step.is-home {
-  border: 1px solid var(--background-modifier-border);
+.pdt-similar-chip a.pdt-chip-value {
+  max-width: 220px;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-button.pdt-trail-step:hover {
+button.pdt-similar-step {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--text-muted);
+}
+
+button.pdt-similar-step:hover {
   background: var(--background-modifier-hover);
-}
-
-button.pdt-trail-step.is-current {
-  background: var(--background-modifier-active-hover);
   color: var(--text-normal);
-  font-weight: var(--font-semibold);
-  cursor: default;
 }
 
-.pdt-trail-icon,
-.pdt-trail-sep {
-  display: inline-flex;
-  color: var(--text-faint);
-}
-
-.pdt-trail-icon {
-  color: inherit;
-}
-
-.pdt-trail-icon svg,
-.pdt-trail-sep svg {
+button.pdt-similar-step svg {
   width: 14px;
   height: 14px;
 }
 
-.pdt-similar-head-box {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-4-2);
-  margin: 0 0 var(--size-4-3);
-  padding: var(--size-4-3) var(--size-4-4);
-  border-radius: var(--radius-l);
-  background: var(--background-secondary);
-}
-
-.pdt-similar-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--size-4-1) var(--size-4-3);
-}
-
-.pdt-similar-title-text {
-  color: var(--text-normal);
-  font-size: var(--font-ui-large);
-  font-weight: var(--font-bold);
-}
-
-.pdt-similar-count {
-  padding: 1px 8px;
-  border-radius: 99px;
-  background: var(--pdt-accent-bg);
-  color: var(--text-accent);
-  font-size: var(--font-ui-smaller);
-  font-weight: var(--font-semibold);
-}
-
-.pdt-similar-method {
-  color: var(--text-muted);
-  font-size: var(--font-ui-smaller);
-}
-
-.pdt-similar-seed {
-  color: var(--text-muted);
-  line-height: 1.5;
+/* ✕ brings you back: the row you started from lights up for a moment */
+.pdt-row.is-flash {
+  background: color-mix(in srgb, var(--interactive-accent) 16%, transparent);
+  transition: background 600ms ease;
 }
 
 .pdt-why {

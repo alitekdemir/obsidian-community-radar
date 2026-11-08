@@ -498,7 +498,7 @@ const tests = {
     await view.update("mode", "all");
   },
 
-  async "similar plugins by words (no vectors yet): preview under a row, the list, trail from the tab, sort and search"({ plugin, view }) {
+  async "similar plugins by words (no vectors yet): the Similar filter, ‹ back, ✕ returns to the tab and row, sort and search"({ plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
     const vectors = plugin.vectors;
@@ -511,52 +511,52 @@ const tests = {
       { id: "hometab", name: "Home Tab", author: "b", repo: "b/hometab", description: "A homepage tab on startup, like a browser.", downloads: 500, updated: Date.now() },
       // rarity needs a catalog of some size: words used by 2 of 6 plugins aren't rare
       ...Array.from({ length: 40 }, (_, i) => ({ id: `filler${i}`, name: `Filler ${i}`, author: "f", repo: `f/f${i}`, description: `Unrelated thing ${i}`, downloads: 0 }))] };
-    await view.update("mode", "all");
+    await view.update("mode", "tracked");
+    await plugin.track(plugin.pluginById("homepage"), {});
+    view.render();
     const rowOf = (name) => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === name);
     const seed = plugin.pluginById("homepage");
-    assert.ok(rowOf(seed.name), "Homepage is listed");
+    assert.ok(rowOf(seed.name), "Homepage is listed on Tracked");
     const found = plugin.similarTo(seed);
     assert.ok(found.length >= 2 && found.every((x) => x.cosine === undefined), "word matching");
-    $(rowOf(seed.name), ".pdt-similar-link").onclick({ preventDefault() {} });
-    const strip = $(rowOf(seed.name), ".pdt-similar");
-    assert.equal($$(strip, ".pdt-similar-item").length, Math.min(3, found.length));
-    assert.equal($(strip, ".pdt-similar-name").textContent, found[0].p.name);
-    assert.ok($(strip, ".pdt-term"), "shared terms shown");
 
-    // See all: the Similar list, closest first, with a closeness bar and the shared terms
-    await $(strip, ".pdt-similar-all").onclick();
-    assert.equal(settings.mode, "similar");
-    assert.deepEqual(settings.similarTrail, [seed.id]);
-    assert.equal($(el, ".pdt-similar-title-text").textContent, core.t("similar.listTitle", { name: seed.name }));
-    assert.equal($(el, ".pdt-similar-count").textContent, core.t("similar.count", { n: found.length }));
-    assert.equal($(el, ".pdt-similar-method").textContent, core.t("similar.byWords"));
+    // Similar →: the list filters to the matches on the All tab, closest first, with a bar and the shared terms
+    $(rowOf(seed.name), ".pdt-similar-link").onclick({ preventDefault() {} });
+    assert.equal(settings.mode, "all");
+    assert.equal($(el, ".pdt-tab.is-active").textContent.startsWith(core.t("mode.all")), true);
+    const chip = () => $(el, ".pdt-similar-chip");
+    assert.equal($(chip(), ".pdt-chip-value").textContent, seed.name);
+    assert.equal($$(chip(), ".pdt-similar-step").length, 1, "only ✕: nothing to go back to");
+    assert.ok($(el, ".pdt-status-text").textContent.includes(core.t("similar.byWords")));
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), found.map((x) => x.p.name));
-    assert.equal($$(el, ".pdt-tab.is-active").length, 0);
     const first = $(el, ".pdt-row");
     assert.equal($(first, ".pdt-why-label").textContent, core.t("similar.veryClose"));
     assert.equal($$(el, ".pdt-why-fill")[1].style.getPropertyValue("--pdt-match"), `${Math.max(6, Math.round(found[1].match * 100))}%`);
 
     // sort by downloads; search within the results
     await view.update("similarSort", { key: "downloads", dir: "desc" });
+    assert.ok(view.similar, "sorting keeps the filter");
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...found].sort((a, b) => (b.p.downloads ?? 0) - (a.p.downloads ?? 0)).map((x) => x.p.name));
-    view.similarQuery = "tab";
+    view.similar.query = "tab";
     view.refresh();
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Home Tab"]);
-    view.similarQuery = "";
+    view.similar.query = "";
     await view.update("similarSort", { key: "relevance", dir: "desc" });
 
-    // Similar on a result goes one step further; the trail starts at the tab you came from
+    // Similar on a result goes one step further; ‹ comes back; ✕ returns to Tracked and lights up the row
     const next = plugin.pluginById($(el, ".pdt-row").dataset.id);
-    await $($(el, ".pdt-row"), ".pdt-similar-link").onclick({ preventDefault() {} });
-    assert.deepEqual(settings.similarTrail, [seed.id, next.id]);
-    const steps = $$(el, ".pdt-trail-step");
-    assert.deepEqual(steps.map((s) => s.textContent), [core.t("mode.all"), seed.name, next.name]);
-    assert.equal(steps[2].getAttribute("aria-current"), "page");
-    await steps[1].onclick();
-    assert.deepEqual(settings.similarTrail, [seed.id]);
-    await $(el, ".pdt-trail-step.is-home").onclick();
-    assert.equal(settings.mode, "all");
-    view.similarOpen.clear();
+    $($(el, ".pdt-row"), ".pdt-similar-link").onclick({ preventDefault() {} });
+    assert.equal($(chip(), ".pdt-chip-value").textContent, next.name);
+    assert.equal($$(chip(), ".pdt-similar-step").length, 2, "‹ and ✕");
+    $$(chip(), ".pdt-similar-step")[0].onclick();
+    assert.equal($(chip(), ".pdt-chip-value").textContent, seed.name);
+    const esc = view.scope.keys.find((k) => k.key === "Escape");
+    assert.equal(esc.fn(), false);
+    assert.equal(view.similar, null);
+    assert.equal(settings.mode, "tracked");
+    assert.ok(rowOf(seed.name).classList.contains("is-flash") && rowOf(seed.name).classList.contains("is-cursor"));
+    assert.equal(esc.fn(), true, "no filter: Esc is left to Obsidian");
+    view.cursorId = null;
     plugin.catalog = catalog;
     plugin.vectors = vectors;
     plugin.similarCache.clear();
@@ -577,8 +577,9 @@ const tests = {
     const found = plugin.similarTo(homepage);
     assert.deepEqual(found.slice(0, 2).map((x) => x.p.id), ["startpage", "hometab"], "closest by meaning even without shared words");
     assert.ok(found[0].cosine > found[2].cosine);
-    await view.openSimilar(homepage);
-    assert.equal($(el, ".pdt-similar-method").textContent, core.t("similar.byMeaning"));
+    view.openSimilar(homepage);
+    assert.ok($(el, ".pdt-status-text").textContent.includes(core.t("similar.byMeaning")));
+    view.closeSimilar();
     await view.update("mode", "all");
 
     // the details window: numbers, description, similar, README tabs; ← → walk the list

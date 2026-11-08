@@ -7,7 +7,9 @@ class PluginRadar extends Plugin {
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.data.settings.query = "";   // filters are remembered, the search isn't
     if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
-    if (this.data.settings.mode === SIMILAR_MODE && !this.data.settings.similarTrail?.length) this.data.settings.mode = "all";
+    if (this.data.settings.mode === SIMILAR_MODE) this.data.settings.mode = "all";   // 0.8's Similar list
+    delete this.data.settings.similarTrail;
+    delete this.data.settings.similarFrom;
     this.github = new GitHub();
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
     this.notes = new Notes(this.app, this.data.settings);
@@ -139,6 +141,7 @@ class PluginRadar extends Plugin {
     command("bases-view", t("cmd.base"), () => this.writeBase());
     command("group-ungrouped", t("cmd.groupUngrouped"), () => this.groupUngrouped());
     command("readme-translate", t("cmd.readmeTranslate"), () => this.translateCurrentReadme());
+    command("similar-current", t("cmd.similarCurrent"), () => this.similarOfCurrent());
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -415,6 +418,16 @@ class PluginRadar extends Plugin {
       if (await this.translateReadme(plugin, progress)) return t("readme.translated", { name: plugin.name });
       throw new Error(t("readme.notTranslated"));
     });
+  }
+
+  /** The Similar filter for the plugin of the open tracking note. */
+  async similarOfCurrent() {
+    const file = this.app.workspace.getActiveFile();
+    const note = file && noteFromFrontmatter(file.path, this.app.metadataCache.getFileCache(file)?.frontmatter);
+    const p = note && this.pluginById(note.id);
+    if (!p) return new Notice(t("notice.notTracking"));
+    await this.openView();
+    await this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view.openSimilar(p);
   }
 
   async updateCurrentReadme() {

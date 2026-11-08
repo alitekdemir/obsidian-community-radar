@@ -55,8 +55,8 @@ const KEY_HELP = [
   [["o"], "keys.open"], [["Enter"], "keys.expand"], [["1", "…", "5"], "keys.rate"], [["0"], "keys.unrate"],
 ];
 const MIN_SIMILARITY = 5;          // summed rarity of shared words; ~one rare word or two common ones
-const SIMILAR_LIST = 30;           // results in the Similar list (the strip under a row shows SIMILAR_PREVIEW)
-const SIMILAR_PREVIEW = 3;
+const SIMILAR_LIST = 30;           // results of the Similar filter
+const SIMILAR_STEPS = 10;          // Similar → Similar steps that ‹ can go back through (this session only)
 const NAME_WEIGHT = 2;             // a word in the name counts as much as two in the description
 const BM25_K1 = 1.2;               // BM25: how fast repeating a term stops adding
 const BM25_B = 0.75;               // BM25: how much a long description is evened out
@@ -79,9 +79,9 @@ const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by O
 
 const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
 const LIST_MODES = ["ignored", "dismissed"];   // reached from the ⋮ menu and settings, not from a tab
-const SIMILAR_MODE = "similar";                // reached from a row's Similar link
+const SIMILAR_MODE = "similar";                // 0.8's Similar list; the Similar filter replaced it
 const SORT_KEYS = ["downloads", "updated", "name", "listed", "dormant", "rating"];
-const SIMILAR_SORT_KEYS = ["relevance", "downloads", "updated", "name", "listed"];
+const SIMILAR_SORT_KEYS = ["relevance", "downloads", "updated", "name", "listed", "rating"];
 const NATURAL_DIR = { downloads: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
 // Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
 const UNGROUPED = "\u0000ungrouped";
@@ -180,9 +180,7 @@ function defaultSettings() {
     syncHours: 24,        // 0 = manual
     readmeMode: "open",   // open | sync | manual
     keyboard: false,      // single-letter shortcuts in the view
-    similarTrail: [],     // Similar list: the plugins you came through; the last one's matches are shown
-    similarFrom: "all",   // the tab the trail's first step returns to from the Similar list
-    similarSort: { key: "relevance", dir: "desc" },
+    similarSort: { key: "relevance", dir: "desc" },   // the Similar filter's own sort
     layout: "list",           // "list" or "cards"
     notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"

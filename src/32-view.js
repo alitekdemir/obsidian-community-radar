@@ -9,8 +9,7 @@ class DiscoveryView extends ItemView {
     this.plugin = plugin;
     this.visible = PAGE_SIZE;
     this.shownTranslations = new Set();
-    this.similarOpen = new Set();
-    this.similarQuery = "";       // search within the Similar list (not saved)
+    this.similar = null;          // Similar filter: {steps: [{id, scroll}], before: {mode, scroll, visible, originId, originIndex}, query}
     this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
     this.cursorId = null;         // the row keyboard shortcuts act on
@@ -21,6 +20,11 @@ class DiscoveryView extends ItemView {
     for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "Enter", "0", "1", "2", "3", "4", "5"]) {
       this.scope.register([], key, (event) => this.onKey(event, key));
     }
+    this.scope.register([], "Escape", () => {   // Esc closes the Similar filter, like ✕
+      if (!this.similar || globalThis.document?.activeElement?.closest?.("input, textarea, select")) return true;
+      this.closeSimilar();
+      return false;
+    });
   }
 
   getViewType() { return VIEW_TYPE; }
@@ -223,7 +227,7 @@ class DiscoveryView extends ItemView {
   get settings() { return this.plugin.data.settings; }
 
   async update(key, value) {
-    if (key === "mode") { this.grouping = null; this.filtersOpen = false; }   // another tab ends grouping mode and closes Filters
+    if (key === "mode") { this.grouping = null; this.filtersOpen = false; this.similar = null; }   // another tab ends grouping mode, Filters and Similar
     this.settings[key] = value;
     this.visible = PAGE_SIZE;
     await this.plugin.saveData(this.plugin.data);
@@ -299,7 +303,7 @@ class DiscoveryView extends ItemView {
 
   renderFilters(bar) {
     const mode = this.settings.mode;
-    if (mode === SIMILAR_MODE) return this.renderSimilarBar(bar);
+    if (this.similar) return this.renderSimilarBar(bar);
     const opts = modeOptions(this.settings, mode);
     if (mode === "tracked") this.renderTrackedBar(bar);
     const days = { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS };
@@ -414,8 +418,31 @@ class DiscoveryView extends ItemView {
     return input;
   }
 
-  /** The Similar list's bar: sort (by meaning first), direction, a search within the results, shortcuts. */
+  /**
+   * The bar while the Similar filter is on: the filter as one chip (‹ back when there is a step to go back to,
+   * the plugin's name opens its details, ✕ closes), then sort (closeness first), direction, a search within
+   * the results, layout and shortcuts.
+   */
   renderSimilarBar(bar) {
+    const { steps } = this.similar;
+    const seed = this.plugin.pluginById(steps.at(-1).id);
+    const chip = bar.createDiv({ cls: "pdt-chip pdt-similar-chip" });
+    if (steps.length > 1) {
+      const back = chip.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("similar.back") } });
+      setIcon(back, "chevron-left");
+      setTooltip(back, t("similar.backTo", { name: this.plugin.pluginById(steps.at(-2).id)?.name ?? "–" }));
+      back.onclick = () => this.similarBack();
+    }
+    chip.createSpan({ cls: "pdt-similar-sign", text: "≈" });
+    chip.createSpan({ text: t("similar.chip") });
+    const name = chip.createEl("a", { cls: "pdt-chip-value", text: seed?.name ?? "–", href: "#" });
+    setTooltip(name, t("details.open"));
+    name.onclick = (event) => { event.preventDefault(); if (seed) this.openDetails(seed); };
+    const close = chip.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("similar.closeFilter") } });
+    setIcon(close, "x");
+    setTooltip(close, t("similar.closeFilter"));
+    close.onclick = () => this.closeSimilar();
+
     const { key, dir } = this.settings.similarSort;
     const sort = bar.createDiv({ cls: "pdt-sort" });
     menuChip(sort, t("filter.sort"), SIMILAR_SORT_KEYS.map((k) => [k, t(`sort.${k}`)]), key,
@@ -424,10 +451,9 @@ class DiscoveryView extends ItemView {
     const tip = t(`sort.${key === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
     iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
       () => this.update("similarSort", { key, dir: ascending ? "desc" : "asc" });
-    const seed = this.plugin.pluginById(this.settings.similarTrail.at(-1));
     const n = seed ? this.plugin.similarTo(seed).length : 0;
-    this.renderSearch(bar, this.similarQuery, t("similar.search", { n }), (value) => {
-      this.similarQuery = value;
+    this.renderSearch(bar, this.similar.query, t("similar.search", { n }), (value) => {
+      this.similar.query = value;
       this.refresh();
     });
     this.renderLayoutSwitch(bar);
@@ -455,6 +481,10 @@ class DiscoveryView extends ItemView {
     const now = Date.now();
     if (!catalog) {
       text.setText(this.plugin.busy ? this.plugin.progress || t("status.syncing") : t("status.loading"));
+    } else if (this.similar) {   // one line about the filter instead of the sync line
+      const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
+      const found = seed ? this.plugin.similarTo(seed) : [];
+      text.createDiv({ text: t("similar.status", { n: found.length, how: t(found[0]?.cosine != null ? "similar.byMeaning" : "similar.byWords") }) });
     } else {
       text.createDiv({
         text: [
@@ -467,7 +497,7 @@ class DiscoveryView extends ItemView {
       if (this.plugin.busy) text.createDiv({ cls: "pdt-progress", text: this.plugin.progress || t("status.syncing") });
       else if (delta) text.createDiv({ cls: "pdt-delta", text: t("status.delta", { added: formatCount(delta.added), updated: formatCount(delta.updated) }) });
     }
-    const query = this.settings.mode === SIMILAR_MODE ? "" : this.settings.query.trim();   // the Similar list ignores the search
+    const query = this.similar ? "" : this.settings.query.trim();   // the Similar filter has its own search
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
       const { error } = compileQuery(query);
       const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
@@ -503,7 +533,7 @@ class DiscoveryView extends ItemView {
     if (this.grouping) return this.renderGrouping(list, now);
     const { timeline } = this.plugin;
     const mode = this.settings.mode;
-    if (mode === SIMILAR_MODE) return this.renderSimilarList(list, now);
+    if (this.similar) return this.renderSimilarList(list, now);
     if (mode === "awakened" && !timeline.to) {
       list.createDiv({ cls: "pdt-empty", text: t("list.needHistory") });
       return;
@@ -581,54 +611,67 @@ class DiscoveryView extends ItemView {
     for (const p of rows) this.renderRow(body, p, now);
   }
 
-  /** The preview under a row: the best few matches, why they match, and the way into the full list. */
-  renderSimilar(parent, p) {
-    const box = parent.createDiv({ cls: "pdt-similar" });
-    box.createDiv({ cls: "pdt-gm-label", text: t("similar.title"), attr: { lang: language } });
-    const found = this.plugin.similarTo(p);
-    if (!found.length) {
-      box.createDiv({ cls: "pdt-gm-note", text: t("similar.none") });
-      return;
-    }
-    for (const x of found.slice(0, SIMILAR_PREVIEW)) {
-      const item = box.createDiv({ cls: "pdt-similar-item" });
-      const head = item.createDiv({ cls: "pdt-similar-head" });
-      head.createEl("a", { cls: "pdt-similar-name", text: x.p.name, href: `obsidian://show-plugin?id=${encodeURIComponent(x.p.id)}` });
-      this.renderTerms(head, x.shared.slice(0, 3));
-      if (x.p.downloads != null) {
-        const dl = head.createSpan({ cls: "pdt-similar-dl" });
-        setIcon(dl.createSpan({ cls: "pdt-dl-icon" }), "download");
-        dl.createSpan({ text: formatShort(x.p.downloads) });
-      }
-      if (x.p.description) item.createDiv({ cls: "pdt-similar-desc", text: x.p.description });
-    }
-    const all = box.createEl("button", { cls: "pdt-similar-all", text: t("similar.seeAll", { n: found.length }), attr: { type: "button" } });
-    setIcon(all.createSpan({ cls: "pdt-similar-all-icon" }), "arrow-right");
-    all.onclick = () => this.openSimilar(p);
+  /**
+   * Turns the Similar filter on for `p`, or steps to `p` inside it (back to it, if it is an earlier step).
+   * The All tab stays (or becomes) active; ✕ brings back the tab, filters and scroll of before.
+   */
+  openSimilar(p) {
+    const scroll = this.contentEl.scrollTop;
+    if (!this.similar) {
+      this.similar = {
+        steps: [],
+        before: { mode: this.settings.mode, scroll, visible: this.visible, originId: p.id, originIndex: (this.rows || []).findIndex((r) => r.id === p.id) },
+        query: "",
+      };
+    } else this.similar.steps.at(-1).scroll = scroll;
+    const steps = this.similar.steps;
+    const at = steps.findIndex((step) => step.id === p.id);
+    if (at !== -1) steps.splice(at + 1);
+    else steps.push({ id: p.id, scroll: 0 });
+    if (steps.length > SIMILAR_STEPS) steps.splice(0, steps.length - SIMILAR_STEPS);
+    this.similar.query = "";
+    Object.assign(this, { grouping: null, filtersOpen: false, visible: PAGE_SIZE });
+    this.settings.mode = "all";   // shown, not saved: ✕ goes back to the tab you came from
+    this.render();
+    this.contentEl.scrollTop = steps.at(-1).scroll;
   }
 
-  /** Opens the Similar list for `p`; inside it, adds `p` to the trail (or steps back to it). */
-  async openSimilar(p) {
-    const settings = this.settings;
-    const trail = settings.mode === SIMILAR_MODE ? settings.similarTrail : [];
-    const at = trail.indexOf(p.id);
-    if (settings.mode !== SIMILAR_MODE) settings.similarFrom = settings.mode;
-    settings.similarTrail = at === -1 ? [...trail, p.id] : trail.slice(0, at + 1);
-    this.similarOpen.delete(p.id);
-    this.similarQuery = "";
-    await this.update("mode", SIMILAR_MODE);
-    this.contentEl.scrollTop = 0;
+  /** ‹: the previous plugin's matches, with the scroll position they had. */
+  similarBack() {
+    const steps = this.similar?.steps;
+    if (!steps || steps.length < 2) return;
+    steps.pop();
+    this.similar.query = "";
+    this.render();
+    this.contentEl.scrollTop = steps.at(-1).scroll;
   }
 
-  /** The Similar list: plugins like the last one of the trail, closest first (or as sorted), each with why it matches. */
+  /** ✕ / Esc: the tab, filters and scroll of before, and the row you started from, highlighted for a moment. */
+  closeSimilar() {
+    if (!this.similar) return;
+    const { before } = this.similar;
+    this.similar = null;
+    this.settings.mode = before.mode;
+    this.visible = before.visible;
+    this.render();
+    this.contentEl.scrollTop = before.scroll;
+    const rows = [...this.contentEl.querySelectorAll(".pdt-row")];
+    // the row itself, or the one now in its place if an action took it out of the list
+    const row = rows.find((r) => r.dataset.id === before.originId) || rows[Math.min(Math.max(before.originIndex, 0), rows.length - 1)];
+    if (!row) return;
+    this.setCursor(row);
+    row.addClass("is-flash");
+    setTimeout(() => row.removeClass("is-flash"), 1500);
+    row.focus?.({ preventScroll: true });
+  }
+
+  /** The Similar filter's rows: like the last step's plugin, closest first (or as sorted), each with why it matches. */
   renderSimilarList(list, now) {
-    const trail = this.settings.similarTrail.map((id) => this.plugin.pluginById(id)).filter(Boolean);
-    const seed = trail.at(-1);
+    const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
     const found = seed ? this.plugin.similarTo(seed) : [];
-    this.renderTrail(list, trail, found);
     this.stale = new Set();
     this.similarInfo = new Map(found.map((x) => [x.p.id, x]));
-    const query = compileQuery(this.similarQuery);
+    const query = compileQuery(this.similar.query);
     const { key, dir } = this.settings.similarSort;
     const matching = found.map((x) => x.p).filter((p) => query.test(p));
     const { catalog, releases, notes } = this.plugin.state();
@@ -638,33 +681,6 @@ class DiscoveryView extends ItemView {
       return;
     }
     for (const p of this.rows) this.renderRow(list, p, now);
-  }
-
-  /**
-   * The Similar list's head: the trail (its first step is the tab you came from), the title with the
-   * number of matches and how they were found, and the plugin's description.
-   */
-  renderTrail(list, trail, found) {
-    const seed = trail.at(-1);
-    const from = this.settings.similarFrom || "all";
-    const nav = list.createEl("nav", { cls: "pdt-trail", attr: { "aria-label": t("similar.trail") } });
-    const home = nav.createEl("button", { cls: "pdt-trail-step is-home", attr: { type: "button" } });
-    setIcon(home.createSpan({ cls: "pdt-trail-icon" }), "arrow-left");
-    home.createSpan({ text: MODE_KEYS.includes(from) ? t(`mode.${from}`) : t("list.back") });
-    home.onclick = () => this.update("mode", from);
-    trail.forEach((p, i) => {
-      setIcon(nav.createSpan({ cls: "pdt-trail-sep" }), "chevron-right");
-      const current = i === trail.length - 1;
-      const step = nav.createEl("button", { cls: `pdt-trail-step${current ? " is-current" : ""}`, text: p.name, attr: { type: "button" } });
-      if (current) step.setAttribute("aria-current", "page");
-      else step.onclick = () => this.update("similarTrail", this.settings.similarTrail.slice(0, i + 1));
-    });
-    const head = list.createDiv({ cls: "pdt-similar-head-box" });
-    const title = head.createDiv({ cls: "pdt-similar-title" });
-    title.createSpan({ cls: "pdt-similar-title-text", text: t("similar.listTitle", { name: seed?.name ?? "–" }) });
-    title.createSpan({ cls: "pdt-similar-count", text: t("similar.count", { n: found.length }) });
-    title.createSpan({ cls: "pdt-similar-method", text: t(found[0]?.cosine != null ? "similar.byMeaning" : "similar.byWords") });
-    if (seed?.description) head.createDiv({ cls: "pdt-similar-seed", text: seed.description });
   }
 
   /** The shared terms of a match, as small tags. */
@@ -690,7 +706,7 @@ class DiscoveryView extends ItemView {
   /**
    * One plugin, as a list row or a card (the same markup; CSS places the parts):
    * head (name, version) · metrics (updated, downloads) · tags (system signals, your note) ·
-   * body (description, translation, why it's similar) · links · actions · more (Similar preview, grouping).
+   * body (description, translation, why it's similar) · links · actions · more (grouping).
    * Clicking the row (anywhere but a control) opens the details window.
    */
   renderRow(list, p, now) {
@@ -766,8 +782,7 @@ class DiscoveryView extends ItemView {
     const translation = plugin.cachedTranslation(p);
     const showing = translation != null && this.shownTranslations.has(p.id);
     if (showing) body.createDiv({ cls: "pdt-trans", text: translation });
-    const inSimilar = mode === SIMILAR_MODE;
-    const info = inSimilar && this.similarInfo?.get(p.id);
+    const info = this.similar && this.similarInfo?.get(p.id);
     if (info) this.renderWhy(body, info);
 
     const links = row.createDiv({ cls: "pdt-meta" });
@@ -781,16 +796,8 @@ class DiscoveryView extends ItemView {
       setTooltip(link("pdt-readme", t("row.readme"), "file-text", () => plugin.openReadme(p)), t(note ? "row.readmeOpen" : "row.readmeCreate"));
       link("pdt-gh", "GitHub", "external-link", null, `https://github.com/${p.repo}`);
     }
-    // in the Similar list it goes one step further down the trail; elsewhere it opens a preview
-    const similarOpen = !inSimilar && this.similarOpen.has(p.id);
-    const similar = link(`pdt-readme pdt-similar-link${similarOpen ? " is-open" : ""}`, t("row.similar"),
-      inSimilar ? "arrow-right" : similarOpen ? "chevron-up" : "chevron-down", () => {
-        if (inSimilar) return this.openSimilar(p);
-        if (similarOpen) this.similarOpen.delete(p.id); else this.similarOpen.add(p.id);
-        this.refresh();
-      });
-    if (!inSimilar) similar.setAttribute("aria-expanded", String(similarOpen));
-    setTooltip(similar, t(inSimilar ? "similar.nextTip" : "row.similarTip"));
+    // Similar → filters the list to this plugin's matches (one step further when the filter is already on)
+    setTooltip(link("pdt-readme pdt-similar-link", t("row.similar"), "arrow-right", () => this.openSimilar(p)), t("row.similarTip"));
     if (p.description) {
       link("pdt-readme pdt-tr", showing ? t("translate.hide") : t("translate.row"), "languages", async () => {
         if (showing) this.shownTranslations.delete(p.id);
@@ -815,7 +822,6 @@ class DiscoveryView extends ItemView {
       };
       return button;
     };
-    if (similarOpen) this.renderSimilar(row.createDiv({ cls: "pdt-extra" }), p);
     if (LIST_MODES.includes(mode)) {
       act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
