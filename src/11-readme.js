@@ -162,7 +162,18 @@ function catalogDelta(before, after) {
 
 /** Body of a new tracking note (properties are written separately with processFrontMatter). */
 function noteBody(plugin, heading = t("note.myNotes")) {
-  return `${plugin.description || ""}\n\n# ${heading}\n\n\n# README\n${README_START}\n${README_END}\n`;
+  return `# ${heading}\n\n\n# README\n${README_START}\n${README_END}\n`;
+}
+
+/** Notes made before 0.9 start with the description; it lives in the `description` property now. */
+function stripDescription(content, description) {
+  if (!description) return content;
+  const fm = content.match(/^---\n[\s\S]*?\n---\n/);
+  const head = fm ? fm[0] : "";
+  const body = content.slice(head.length);
+  const line = `${description.trim()}\n\n`;
+  const start = body.match(/^\n*/)[0].length;
+  return body.startsWith(line, start) ? head + body.slice(0, start) + body.slice(start + line.length) : content;
 }
 
 /** Turns the H2 headings of 0.1 notes into H1; touches no other line. */
@@ -203,6 +214,7 @@ function baseFile(folder) {
 /** Properties that come from the catalog; refreshed on every data refresh. */
 function sourceFields(plugin) {
   return {
+    description: plugin.description || null,
     downloads: plugin.downloads ?? null,
     version: plugin.version ?? null,
     updated: plugin.updated ? dayString(plugin.updated) : null,

@@ -223,6 +223,7 @@ class Notes {
     const current = this.app.metadataCache.getFileCache(file)?.frontmatter || {};
     const changed = Object.entries(fresh).some(([key, value]) => String(current[key] ?? "") !== String(value ?? ""));
     if (changed) await this.app.fileManager.processFrontMatter(file, (fm) => Object.assign(fm, fresh));
+    if (current.description == null && plugin.description) await this.app.vault.process(file, (content) => stripDescription(content, plugin.description));
     return String(current.updated ?? "").slice(0, 10) !== String(fresh.updated ?? "");
   }
 

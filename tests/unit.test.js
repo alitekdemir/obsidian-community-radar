@@ -267,7 +267,7 @@ const tests = {
     const again = core.replaceReadmeTranslation(note, "> Translation (Türkçe) · v2.1.0 · 2026-12-01\n\nYeni", "README (Türkçe)");
     assert.equal(core.readmeTranslation(again).version, "2.1.0");
     assert.equal(again.split("README (Türkçe)").length, 2, "replaced, not added twice");
-    assert.ok(core.noteBody(plugin, "Notes").includes("\n# Notes\n"), "your heading");
+    assert.ok(core.noteBody(plugin, "Notes").startsWith("# Notes\n"), "your heading");
 
     const long = ["# A", "x".repeat(50), "## B", "y".repeat(50), "## C", "z".repeat(50)].join("\n");
     const chunks = core.markdownChunks(long, 70);
@@ -346,7 +346,12 @@ const tests = {
 
   "noteBody uses H1; migrateHeadings changes only our two headings"() {
     const body = core.noteBody(P("x"));
-    assert.ok(body.includes("\n# Notlarım\n") && body.includes("\n# README\n"));
+    assert.ok(body.startsWith("# Notlarım\n") && body.includes("\n# README\n"), "no description in the body: it's a property");
+    const desc = "Create and use dynamic templates.";
+    const old0 = `---\nplugin_id: x\n---\n${desc}\n\n${body}`;
+    assert.equal(core.stripDescription(old0, desc), `---\nplugin_id: x\n---\n${body}`);
+    assert.equal(core.stripDescription(old0, "Another text"), old0);   // changed since: left alone
+    assert.equal(core.sourceFields(P("x", { description: desc })).description, desc);
     const old = [
       "açıklama", "", "## Notlarım", "kendi notum", "## Kendi başlığım", "",
       "## README", core.constants.LEGACY_README_START, "## README içindeki başlık", core.constants.LEGACY_README_END,
@@ -450,7 +455,7 @@ const tests = {
       assert.equal(core.t("missing.key"), "missing.key");
       assert.equal(core.historyLabel(12), "last year");
       assert.equal(core.historyLabel(6), "last 6 months");
-      assert.ok(core.noteBody(P("x")).includes("\n# My notes\n"));
+      assert.ok(core.noteBody(P("x")).startsWith("# My notes\n"));
       assert.equal(core.defaultSettings().folder, "Community Radar");
     } finally {
       core.setLanguage("tr");
