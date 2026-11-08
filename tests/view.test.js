@@ -233,8 +233,13 @@ const tests = {
     const names = () => $$(el, ".pdt-name").map((a) => a.textContent);
     await view.update("mode", "all");
     settings.minDownloads = 1000;
+    view.filtersOpen = false;
     view.render();
-    const chip = () => $(el, ".pdt-chip.is-toggle");
+    assert.ok(!$(el, ".pdt-chip.is-toggle"), "Downloads ≥ waits in the Filters panel");
+    const filters = $(el, ".pdt-filter-menu .pdt-chip");
+    assert.ok(filters.textContent.includes("· 1"));                            // one filter at work
+    filters.onclick();
+    const chip = () => $(el, ".pdt-filter-panel .pdt-chip.is-toggle");
     assert.ok(chip().classList.contains("is-on"));
     assert.ok(!names().includes("Fresh Plugin"));                              // 5 downloads
     $(chip(), ".pdt-toggle").onclick();
@@ -248,6 +253,12 @@ const tests = {
     await min.onchange();
     assert.ok(chip().classList.contains("is-on"));                             // typing a value turns it on
     assert.equal(settings.minDownloads, 2000);
+    const clear = $(el, ".pdt-clear-filters");                                 // off its default: Clear filters shows
+    assert.ok(clear);
+    await clear.onclick();
+    assert.equal(settings.minDownloads, 100);
+    assert.ok(!("all" in settings.downloadFilter) && !$(el, ".pdt-clear-filters"));
+    view.filtersOpen = false;
 
     await view.update("mode", "updated");
     const savedDays = settings.days;

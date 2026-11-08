@@ -64,6 +64,18 @@ function numberChip(parent, { label, unit, value, min, max, presets, onChange })
 }
 
 /** A filter chip that is itself the on/off switch; typing a value turns it on. */
+/** An on/off chip with a check mark. */
+function switchChip(parent, { label, on, tip, onToggle }) {
+  const el = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
+  const button = el.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
+  setIcon(button.createSpan({ cls: "pdt-toggle-check" }), "check");
+  button.createSpan({ text: label });
+  if (tip) setTooltip(button, tip);
+  button.onclick = () => onToggle(!on);
+  onActivate(button, () => onToggle(!on));
+  return el;
+}
+
 function toggleChip(parent, { label, value, on, onToggle, onValue }) {
   const chip = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
   const toggle = chip.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });

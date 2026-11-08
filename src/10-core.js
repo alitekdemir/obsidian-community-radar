@@ -212,6 +212,30 @@ function modeOptions(settings, mode) {
   };
 }
 
+/** The filter settings a tab uses (sort and layout aren't filters). */
+function filterKeys(mode) {
+  return [
+    "query",
+    ...(mode === "new" || mode === "updated" ? ["days"] : []),
+    ...(mode === "awakened" ? ["dormantDays"] : []),
+    ...(mode === "updated" ? ["hideBusy"] : []),
+    ...(mode !== "new" ? ["minDownloads", "downloadFilter"] : []),
+  ];
+}
+
+/** The settings that put a tab's filters back to their defaults. */
+function clearedFilters(settings, mode) {
+  const defaults = defaultSettings();
+  const { [mode]: ownDownloads, ...otherTabs } = settings.downloadFilter || {};
+  return Object.fromEntries(filterKeys(mode).map((k) => [k, k === "downloadFilter" ? otherTabs : defaults[k]]));
+}
+
+/** Has a tab's filter moved off its defaults (so "Clear filters" has something to do)? */
+function filtersChanged(settings, mode) {
+  const cleared = clearedFilters(settings, mode);
+  return Object.keys(cleared).some((k) => (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
+}
+
 /** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */
 function isSnoozed(plugin, snoozed) {
   return snoozed != null && plugin.id in snoozed && (plugin.updated || 0) <= snoozed[plugin.id];

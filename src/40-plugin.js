@@ -5,6 +5,7 @@ class PluginRadar extends Plugin {
     this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, groupSuggestions: {}, migrations: {} }, await this.loadData());
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
+    this.data.settings.query = "";   // filters are remembered, the search isn't
     if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
     if (this.data.settings.mode === SIMILAR_MODE && !this.data.settings.similarTrail?.length) this.data.settings.mode = "all";
     this.github = new GitHub();

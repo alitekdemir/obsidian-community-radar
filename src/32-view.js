@@ -29,6 +29,10 @@ class DiscoveryView extends ItemView {
 
   async onOpen() {
     this.contentEl.addClass("pdt-view");
+    // the Filters panel closes on a click anywhere else
+    this.registerDomEvent(globalThis.document, "pointerdown", (event) => {
+      if (this.filtersOpen && !event.target.closest?.(".pdt-filter-menu, .menu")) { this.filtersOpen = false; this.render(); }
+    });
     this.render();
     await this.plugin.ensureFresh();
   }
@@ -219,7 +223,7 @@ class DiscoveryView extends ItemView {
   get settings() { return this.plugin.data.settings; }
 
   async update(key, value) {
-    if (key === "mode") this.grouping = null;   // another tab ends grouping mode
+    if (key === "mode") { this.grouping = null; this.filtersOpen = false; }   // another tab ends grouping mode and closes Filters
     this.settings[key] = value;
     this.visible = PAGE_SIZE;
     await this.plugin.saveData(this.plugin.data);
@@ -280,13 +284,7 @@ class DiscoveryView extends ItemView {
     ];
     menuChip(bar, t("tracked.group"), options, settings.trackedGroup, (value) => this.update("trackedGroup", value));
     if (!settings.trackedGroup) {
-      const on = Boolean(settings.trackedSections);
-      const el = bar.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
-      const button = el.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
-      setIcon(button.createSpan({ cls: "pdt-toggle-check" }), "check");
-      button.createSpan({ text: t("tracked.sections") });
-      button.onclick = () => this.update("trackedSections", !on);
-      onActivate(button, () => this.update("trackedSections", !on));
+      switchChip(bar, { label: t("tracked.sections"), on: Boolean(settings.trackedSections), onToggle: (on) => this.update("trackedSections", on) });
     }
     if (settings.statusEnabled) {
       menuChip(bar, t("tracked.status"), [["", t("tracked.anyStatus")], ...settings.statuses.map((st) => [st.key, st.label])],
@@ -309,19 +307,7 @@ class DiscoveryView extends ItemView {
     if (mode === "new" || mode === "updated") {
       numberChip(bar, { ...days, value: this.settings.days, onChange: (n) => this.update("days", n) });
     }
-    if (mode === "awakened") {
-      numberChip(bar, { ...days, label: t("filter.gap"), max: 3650, presets: DORMANT_PRESETS, value: this.settings.dormantDays, onChange: (n) => this.update("dormantDays", n) });
-    }
-    if (mode !== "new") toggleChip(bar, {
-      label: t("filter.downloads"),
-      value: this.settings.minDownloads,
-      on: opts.filterDownloads,
-      onToggle: (on) => this.updateTab("downloadFilter", on),
-      onValue: async (n) => {
-        this.settings.minDownloads = n;
-        await this.updateTab("downloadFilter", true);
-      },
-    });
+    this.renderFilterMenu(bar, mode, opts);
 
     const sort = bar.createDiv({ cls: "pdt-sort" });
     menuChip(sort, t("filter.sort"), SORT_KEYS.map((key) => [key, t(`sort.${key}`)]), opts.sort,
@@ -344,6 +330,66 @@ class DiscoveryView extends ItemView {
     }
     if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
     if (this.settings.keyboard) this.renderKeyHelp(bar);
+  }
+
+  /**
+   * "Filters · N": the filters of a tab you rarely change (Downloads ≥, Incubation ≥, many releases), in a
+   * panel under the chip; N counts the ones at work. "Clear filters" follows when any filter is off its default.
+   */
+  renderFilterMenu(bar, mode, opts) {
+    const settings = this.settings;
+    const items = [];
+    if (mode === "awakened") {
+      items.push((box) => numberChip(box, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) }));
+    }
+    if (mode !== "new") {
+      items.push((box) => toggleChip(box, {
+        label: t("filter.downloads"),
+        value: settings.minDownloads,
+        on: opts.filterDownloads,
+        onToggle: (on) => this.updateTab("downloadFilter", on),
+        onValue: async (n) => {
+          settings.minDownloads = n;
+          await this.updateTab("downloadFilter", true);
+        },
+      }));
+    }
+    if (mode === "updated") {
+      items.push((box) => switchChip(box, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) }));
+    }
+    if (items.length) {
+      const active = Number(mode === "awakened") + Number(mode !== "new" && Boolean(opts.filterDownloads)) + Number(mode === "updated" && Boolean(settings.hideBusy));
+      const open = Boolean(this.filtersOpen);
+      const wrap = bar.createDiv({ cls: "pdt-filter-menu" });
+      const chip = wrap.createDiv({ cls: `pdt-chip is-menu${open ? " is-open" : ""}`, attr: { role: "button", tabindex: "0", "aria-expanded": String(open) } });
+      setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), "sliders-horizontal");
+      chip.createSpan({ text: t("filter.more") });
+      if (active) chip.createSpan({ cls: "pdt-chip-value", text: `· ${active}` });
+      setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), open ? "chevron-up" : "chevron-down");
+      const toggle = () => { this.filtersOpen = !open; this.render(); };
+      chip.onclick = toggle;
+      onActivate(chip, toggle);
+      if (open) {
+        const panel = wrap.createDiv({ cls: "pdt-filter-panel" });
+        for (const item of items) item(panel);
+        panel.addEventListener("keydown", (event) => { if (event.key === "Escape") toggle(); });
+      }
+    }
+    if (filtersChanged(settings, mode)) this.renderClearFilters(bar);
+  }
+
+  /** "Clear filters": the tab's filters (and the search) back to their defaults; sort and layout stay. */
+  renderClearFilters(parent) {
+    const button = parent.createEl("button", { cls: "pdt-ghost pdt-clear-filters", attr: { type: "button" } });
+    setIcon(button.createSpan({ cls: "pdt-chip-caret" }), "filter-x");
+    button.createSpan({ text: t("filter.clear") });
+    button.onclick = async () => {
+      Object.assign(this.settings, clearedFilters(this.settings, this.settings.mode));
+      this.visible = PAGE_SIZE;
+      await this.plugin.saveData(this.plugin.data);
+      this.render();
+    };
+    return button;
   }
 
   /** The search box (comma terms or /regex/); `onChange` runs 250 ms after typing stops. Returns the input. */
@@ -476,7 +522,8 @@ class DiscoveryView extends ItemView {
     const sections = mode === "tracked" && !this.settings.trackedGroup && this.settings.trackedSections;
     const visible = sections ? this.rows : this.rows.slice(0, this.visible);   // sections show everything you track
     if (!this.rows.length) {
-      list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
+      const empty = list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
+      if (filtersChanged(this.settings, mode)) this.renderClearFilters(empty.createDiv());
       return;
     }
     if (sections) {
