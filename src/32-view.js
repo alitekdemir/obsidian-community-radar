@@ -420,13 +420,23 @@ class DiscoveryView extends ItemView {
   updateFilterHead() {
     const { filterCount, filterClear } = this.refs;
     if (!filterCount) return;
-    const n = changedFilters(this.settings, this.settings.mode);
+    const n = changedFilters(this.filterState(), this.settings.mode);
     filterCount.setText(n ? `· ${n}` : "");
     filterClear.toggleClass("is-hidden", !n);
+    // nothing changed: the head has nothing to say (CSS still shows it where it folds the filters)
+    filterCount.parentElement?.toggleClass("is-idle", !n);
+  }
+
+  /** The settings the filters read: inside the Similar filter, its own search stands in for the tab's. */
+  filterState() {
+    return this.similar ? { ...this.settings, query: this.similar.query } : this.settings;
   }
 
   async clearFilters() {
-    Object.assign(this.settings, clearedFilters(this.settings, this.settings.mode));
+    const { query, ...cleared } = clearedFilters(this.settings, this.settings.mode);
+    if (this.similar) this.similar.query = "";   // the All tab's own search stays as it was
+    else cleared.query = query;
+    Object.assign(this.settings, cleared);
     this.visible = PAGE_SIZE;
     await this.plugin.saveData(this.plugin.data);
     this.render();
@@ -578,7 +588,7 @@ class DiscoveryView extends ItemView {
     const visible = sections ? this.rows : this.rows.slice(0, this.visible);   // sections show everything you track
     if (!this.rows.length) {
       const empty = list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
-      if (changedFilters(this.settings, mode) > 0) this.renderClearFilters(empty.createDiv());
+      if (changedFilters(this.filterState(), mode) > 0) this.renderClearFilters(empty.createDiv());
       return;
     }
     if (sections) {
@@ -703,7 +713,7 @@ class DiscoveryView extends ItemView {
     this.rows = this.similarRows();
     if (!this.rows.length) {
       const empty = list.createDiv({ cls: "pdt-empty", text: t(found.length ? "list.empty" : "similar.none") });
-      if (changedFilters(this.settings, "all") > 0) this.renderClearFilters(empty.createDiv());
+      if (changedFilters(this.filterState(), "all") > 0) this.renderClearFilters(empty.createDiv());
       return;
     }
     for (const p of this.rows.slice(0, this.visible)) this.renderRow(list, p, now);

@@ -549,7 +549,8 @@ const tests = {
     assert.ok(view.similar, "a filter change keeps Similar");
     assert.ok(!$$(el, ".pdt-name").some((a) => a.textContent === "Home Tab"), "500 downloads: below Downloads ≥ 600");
     settings.minDownloads = min;
-    await view.updateTab("downloadFilter", false);
+    delete settings.downloadFilter.all;                                         // back to All's default
+    view.render();
 
     // sort by downloads; search within the results
     await view.update("similarSort", { key: "downloads", dir: "desc" });
@@ -558,7 +559,16 @@ const tests = {
     view.similar.query = "tab";
     view.refresh();
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Home Tab"]);
-    view.similar.query = "";
+    const before = core.changedFilters({ ...settings, query: "" }, "all");        // what earlier tests left changed
+    settings.query = "kept";                                                    // All's own search…
+    view.refresh();
+    assert.equal($(el, ".pdt-filter-head .pdt-chip-value").textContent, `· ${before + 1}`, "counts the Similar search, not All's");
+    await $(el, ".pdt-filter-clear").onclick({ stopPropagation() {} });
+    assert.equal(view.similar.query, "");
+    assert.equal(settings.query, "kept", "…survives a clear inside Similar");
+    assert.ok($(el, ".pdt-filter-head").classList.contains("is-idle"), "nothing changed: the head hides (wide bar)");
+    assert.equal(settings.minDownloads, 100, "the clear covered All's Downloads ≥ too (it applies here)");
+    settings.query = "";
     await view.update("similarSort", { key: "relevance", dir: "desc" });
 
     // Similar on a result goes one step further; ‹ comes back; ✕ returns to Tracked and lights up the row

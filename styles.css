@@ -107,12 +107,15 @@
 }
 
 .pdt-filter-clear.is-hidden,
-.pdt-filter-caret {
+.pdt-filter-caret,
+.pdt-filter-head.is-idle {
   display: none;
 }
 
 @container (max-width: 640px) {
-  .pdt-filter-head {
+  .pdt-filter-head,
+  .pdt-filter-head.is-idle {   /* folded: the head is the way to the filters */
+    display: inline-flex;
     cursor: pointer;
   }
 
