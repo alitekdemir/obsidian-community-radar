@@ -238,22 +238,15 @@ function clearedFilters(settings, mode) {
   return Object.fromEntries(filterKeys(mode).map((k) => [k, k === "downloadFilter" ? otherTabs : defaults[k]]));
 }
 
-/** Has a tab's filter moved off its defaults (so "Clear filters" has something to do)? */
-function filtersChanged(settings, mode) {
-  const cleared = clearedFilters(settings, mode);
-  return Object.keys(cleared).some((k) => (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
-}
 
-/** How many filters narrow a tab right now: its window, thresholds and switches that are on, and the search. */
-function activeFilters(settings, mode) {
-  const opts = modeOptions(settings, mode);
-  return [
-    mode === "new" || mode === "updated",
-    mode === "awakened",
-    mode !== "new" && opts.filterDownloads,
-    mode === "updated" && settings.hideBusy,
-    Boolean(String(settings.query || "").trim()),
-  ].filter(Boolean).length;
+/**
+ * How many of a tab's filters you changed from their defaults (the search included): what ✕ would undo.
+ * A tab's own defaults (Updated's 14 days, Incubation's 60) aren't counted; they are what the tab is.
+ */
+function changedFilters(settings, mode) {
+  const cleared = clearedFilters(settings, mode);
+  const keys = Object.keys(cleared).filter((k) => (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
+  return new Set(keys.map((k) => (k === "minDownloads" ? "downloadFilter" : k))).size;   // the threshold and its switch are one filter
 }
 
 /** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */

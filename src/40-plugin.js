@@ -512,7 +512,7 @@ class PluginRadar extends Plugin {
    * [{p, score, match, shared, cosine?}], best match first: by meaning when the vectors are in
    * (semanticPlugins), by words otherwise (similarPlugins). Cached per plugin until the data changes.
    */
-  similarTo(plugin, limit = SIMILAR_LIST) {
+  similarTo(plugin, limit = SIMILAR_MAX) {
     const key = `${plugin.id}|${limit}`;
     if (this.similarCatalog !== this.catalog) {
       this.similarCatalog = this.catalog;

@@ -55,7 +55,8 @@ const KEY_HELP = [
   [["o"], "keys.open"], [["Enter"], "keys.expand"], [["1", "…", "5"], "keys.rate"], [["0"], "keys.unrate"],
 ];
 const MIN_SIMILARITY = 5;          // summed rarity of shared words; ~one rare word or two common ones
-const SIMILAR_LIST = 30;           // results of the Similar filter
+const SIMILAR_LIST = 30;           // closeness labels are set by the best this many; the details window shows the top 5
+const SIMILAR_MAX = 300;           // the Similar filter lists matches down to here, in pages; further down it's noise
 const SIMILAR_STEPS = 10;          // Similar → Similar steps that ‹ can go back through (this session only)
 const NAME_WEIGHT = 2;             // a word in the name counts as much as two in the description
 const BM25_K1 = 1.2;               // BM25: how fast repeating a term stops adding

@@ -162,9 +162,11 @@ function semanticPlugins(target, catalog, vectors, index, { exclude = new Set(),
     scored.push({ p, cosine, score: cosine + WORD_SHARE * (word && wordBest ? word.score / wordBest : 0), shared: word?.shared });
   }
   const top = scored.sort((a, b) => b.score - a.score).slice(0, limit);
+  // closeness is relative to the best SIMILAR_LIST, so a longer list doesn't change the labels at its top
   const best = top[0]?.score ?? 0;
-  const floor = top.at(-1)?.score ?? 0;
-  return top.map((x) => ({ p: x.p, score: x.score, cosine: x.cosine, match: best > floor ? (x.score - floor) / (best - floor) : 1, shared: sharedTerms(x.shared) }));
+  const floor = top[Math.min(SIMILAR_LIST, top.length) - 1]?.score ?? 0;
+  const match = (score) => (best > floor ? Math.max(0, (score - floor) / (best - floor)) : 1);
+  return top.map((x) => ({ p: x.p, score: x.score, cosine: x.cosine, match: match(x.score), shared: sharedTerms(x.shared) }));
 }
 
 /** "Very close" / "close" / "related": where a match sits within its list (cosines bunch up, so not absolute). */

@@ -236,7 +236,7 @@ const tests = {
     view.render();
     const head = () => $(el, ".pdt-filter-head");
     assert.equal($(el, ".pdt-filters").firstElementChild, $(el, ".pdt-filter-menu"), "Filters come first");
-    assert.equal($(head(), ".pdt-chip-value").textContent, "· 1");               // Downloads ≥
+    assert.equal($(head(), ".pdt-chip-value").textContent, "", "defaults: nothing changed, no count");
     assert.ok($(head(), ".pdt-filter-clear").classList.contains("is-hidden"), "nothing to clear yet");
     const chip = () => $(el, ".pdt-filter-panel .pdt-chip.is-toggle");
     assert.ok(chip().classList.contains("is-on"));
@@ -252,6 +252,7 @@ const tests = {
     await min.onchange();
     assert.ok(chip().classList.contains("is-on"));                             // typing a value turns it on
     assert.equal(settings.minDownloads, 2000);
+    assert.equal($(head(), ".pdt-chip-value").textContent, "· 1", "Downloads ≥ off its default");
     settings.query = "data";
     view.refresh();
     assert.equal($(head(), ".pdt-chip-value").textContent, "· 2", "the search counts as a filter");
@@ -538,6 +539,17 @@ const tests = {
     const first = $(el, ".pdt-row");
     assert.equal($(first, ".pdt-why-label").textContent, core.t("similar.veryClose"));
     assert.equal($$(el, ".pdt-why-fill")[1].style.getPropertyValue("--pdt-match"), `${Math.max(6, Math.round(found[1].match * 100))}%`);
+
+    // the same bar as All: Filters first (its Downloads ≥ applies), then the Similar chip
+    assert.equal($(el, ".pdt-filters").firstElementChild, $(el, ".pdt-filter-menu"));
+    assert.ok($(el, ".pdt-filter-menu + .pdt-similar-chip"));
+    const min = settings.minDownloads;
+    settings.minDownloads = 600;
+    await view.updateTab("downloadFilter", true);
+    assert.ok(view.similar, "a filter change keeps Similar");
+    assert.ok(!$$(el, ".pdt-name").some((a) => a.textContent === "Home Tab"), "500 downloads: below Downloads ≥ 600");
+    settings.minDownloads = min;
+    await view.updateTab("downloadFilter", false);
 
     // sort by downloads; search within the results
     await view.update("similarSort", { key: "downloads", dir: "desc" });

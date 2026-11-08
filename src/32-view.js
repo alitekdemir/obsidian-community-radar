@@ -264,8 +264,23 @@ class DiscoveryView extends ItemView {
   }
 
   similarCount() {
+    return this.similarRows(false).length;
+  }
+
+  /**
+   * The Similar filter's plugins: the matches of the last step that pass the All tab's Downloads ≥ and
+   * (with `searched`) the filter's own search, sorted as chosen.
+   */
+  similarRows(searched = true) {
     const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
-    return seed ? this.plugin.similarTo(seed).length : 0;
+    const found = seed ? this.plugin.similarTo(seed) : [];
+    const opts = modeOptions(this.settings, "all");
+    const min = opts.filterDownloads ? opts.minDownloads : 0;
+    const query = compileQuery(searched ? this.similar.query : "");
+    const matching = found.map((x) => x.p).filter((p) => (p.downloads ?? 0) >= min && query.test(p));
+    const { key, dir } = this.settings.similarSort;
+    const { catalog, releases, notes } = this.plugin.state();
+    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, catalog, releases, notes);
   }
 
   renderModes(seg) {
@@ -310,25 +325,37 @@ class DiscoveryView extends ItemView {
 
   renderFilters(bar) {
     const mode = this.settings.mode;
-    if (this.similar) return this.renderSimilarBar(bar);
     const opts = modeOptions(this.settings, mode);
     this.renderFilterMenu(bar, mode, opts);   // always first
+    if (this.similar) this.renderSimilarChip(bar);   // the same bar as All, plus the Similar chip
     if (mode === "tracked") this.renderTrackedBar(bar);
 
+    // the Similar filter sorts by closeness first, with its own sort and search
+    const similar = this.similar;
+    const { key, dir } = similar ? this.settings.similarSort : { key: opts.sort, dir: opts.sortDir };
+    const setSort = (value) => (similar ? this.update("similarSort", value) : this.updateTab("sortBy", value));
     const sort = bar.createDiv({ cls: "pdt-sort" });
-    menuChip(sort, t("filter.sort"), SORT_KEYS.map((key) => [key, t(`sort.${key}`)]), opts.sort,
-      (key) => this.updateTab("sortBy", { key, dir: NATURAL_DIR[key] }));
-    const ascending = opts.sortDir === "asc";
-    const tip = t(`sort.${opts.sort === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
+    menuChip(sort, t("filter.sort"), (similar ? SIMILAR_SORT_KEYS : SORT_KEYS).map((k) => [k, t(`sort.${k}`)]), key,
+      (k) => setSort({ key: k, dir: NATURAL_DIR[k] || "desc" }));
+    const ascending = dir === "asc";
+    const tip = t(`sort.${key === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
     iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
-      () => this.updateTab("sortBy", { key: opts.sort, dir: ascending ? "desc" : "asc" });
+      () => setSort({ key, dir: ascending ? "desc" : "asc" });
 
-    this.refs.search = this.renderSearch(bar, this.settings.query, t("search.placeholder"), async (value) => {
-      this.settings.query = value;
-      this.visible = PAGE_SIZE;
-      this.refresh();
-      await this.plugin.saveData(this.plugin.data);
-    });
+    if (similar) {
+      this.refs.search = this.renderSearch(bar, similar.query, t("similar.search", { n: this.similarRows(false).length }), (value) => {
+        similar.query = value;
+        this.visible = PAGE_SIZE;
+        this.refresh();
+      });
+    } else {
+      this.refs.search = this.renderSearch(bar, this.settings.query, t("search.placeholder"), async (value) => {
+        this.settings.query = value;
+        this.visible = PAGE_SIZE;
+        this.refresh();
+        await this.plugin.saveData(this.plugin.data);
+      });
+    }
 
     if (mode === "tracked" && this.settings.trackedGroup === UPDATES) {
       const all = bar.createEl("button", { cls: "pdt-ghost", text: t("changed.markAll") });
@@ -393,9 +420,9 @@ class DiscoveryView extends ItemView {
   updateFilterHead() {
     const { filterCount, filterClear } = this.refs;
     if (!filterCount) return;
-    const n = activeFilters(this.settings, this.settings.mode);
+    const n = changedFilters(this.settings, this.settings.mode);
     filterCount.setText(n ? `· ${n}` : "");
-    filterClear.toggleClass("is-hidden", !filtersChanged(this.settings, this.settings.mode));
+    filterClear.toggleClass("is-hidden", !n);
   }
 
   async clearFilters() {
@@ -436,12 +463,8 @@ class DiscoveryView extends ItemView {
     return input;
   }
 
-  /**
-   * The bar while the Similar filter is on: the filter as one chip (‹ back when there is a step to go back to,
-   * the plugin's name opens its details, ✕ closes), then sort (closeness first), direction, a search within
-   * the results, layout and shortcuts.
-   */
-  renderSimilarBar(bar) {
+  /** The Similar filter as one chip: ‹ back (when there is a step), ≈ Similar: name (opens its details), ✕. */
+  renderSimilarChip(bar) {
     const { steps } = this.similar;
     const seed = this.plugin.pluginById(steps.at(-1).id);
     const chip = bar.createDiv({ cls: "pdt-chip pdt-similar-chip" });
@@ -460,22 +483,6 @@ class DiscoveryView extends ItemView {
     setIcon(close, "x");
     setTooltip(close, t("similar.closeFilter"));
     close.onclick = () => this.closeSimilar();
-
-    const { key, dir } = this.settings.similarSort;
-    const sort = bar.createDiv({ cls: "pdt-sort" });
-    menuChip(sort, t("filter.sort"), SIMILAR_SORT_KEYS.map((k) => [k, t(`sort.${k}`)]), key,
-      (k) => this.update("similarSort", { key: k, dir: NATURAL_DIR[k] || "desc" }));
-    const ascending = dir === "asc";
-    const tip = t(`sort.${key === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
-    iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
-      () => this.update("similarSort", { key, dir: ascending ? "desc" : "asc" });
-    const n = seed ? this.plugin.similarTo(seed).length : 0;
-    this.renderSearch(bar, this.similar.query, t("similar.search", { n }), (value) => {
-      this.similar.query = value;
-      this.refresh();
-    });
-    this.renderLayoutSwitch(bar);
-    if (this.settings.keyboard) this.renderKeyHelp(bar);
   }
 
   /** ⌨ icon with a card of the shortcuts, shown on hover or keyboard focus. */
@@ -502,7 +509,7 @@ class DiscoveryView extends ItemView {
     } else if (this.similar) {   // one line about the filter instead of the sync line
       const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
       const found = seed ? this.plugin.similarTo(seed) : [];
-      text.createDiv({ text: t("similar.status", { n: found.length, how: t(found[0]?.cosine != null ? "similar.byMeaning" : "similar.byWords") }) });
+      text.createDiv({ text: t("similar.status", { n: formatCount(this.similarCount()), how: t(found[0]?.cosine != null ? "similar.byMeaning" : "similar.byWords") }) });
     } else {
       text.createDiv({
         text: [
@@ -571,7 +578,7 @@ class DiscoveryView extends ItemView {
     const visible = sections ? this.rows : this.rows.slice(0, this.visible);   // sections show everything you track
     if (!this.rows.length) {
       const empty = list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
-      if (filtersChanged(this.settings, mode)) this.renderClearFilters(empty.createDiv());
+      if (changedFilters(this.settings, mode) > 0) this.renderClearFilters(empty.createDiv());
       return;
     }
     if (sections) {
@@ -579,13 +586,17 @@ class DiscoveryView extends ItemView {
       return;
     }
     for (const plugin of visible) this.renderRow(list, plugin, now);
-    if (this.rows.length > this.visible) {
-      const more = list.createEl("button", {
-        cls: "pdt-more",
-        text: t("list.more", { n: Math.min(PAGE_SIZE, this.rows.length - this.visible), total: formatCount(this.rows.length), shown: this.visible }),
-      });
-      more.onclick = () => { this.visible += PAGE_SIZE; this.refresh(); };
-    }
+    this.renderMore(list);
+  }
+
+  /** "Show 50 more" under a list that has more rows than shown. */
+  renderMore(list) {
+    if (this.rows.length <= this.visible) return;
+    const more = list.createEl("button", {
+      cls: "pdt-more",
+      text: t("list.more", { n: Math.min(PAGE_SIZE, this.rows.length - this.visible), total: formatCount(this.rows.length), shown: this.visible }),
+    });
+    more.onclick = () => { this.visible += PAGE_SIZE; this.refresh(); };
   }
 
   /** Ignored / Hidden suggestions: title, back, and "restore all shown" (asks for a second click). */
@@ -683,22 +694,20 @@ class DiscoveryView extends ItemView {
     row.focus?.({ preventScroll: true });
   }
 
-  /** The Similar filter's rows: like the last step's plugin, closest first (or as sorted), each with why it matches. */
+  /** The Similar filter's rows, each with why it matches, in pages like any list. */
   renderSimilarList(list, now) {
     const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
     const found = seed ? this.plugin.similarTo(seed) : [];
     this.stale = new Set();
     this.similarInfo = new Map(found.map((x) => [x.p.id, x]));
-    const query = compileQuery(this.similar.query);
-    const { key, dir } = this.settings.similarSort;
-    const matching = found.map((x) => x.p).filter((p) => query.test(p));
-    const { catalog, releases, notes } = this.plugin.state();
-    this.rows = key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, catalog, releases, notes);
+    this.rows = this.similarRows();
     if (!this.rows.length) {
-      list.createDiv({ cls: "pdt-empty", text: t(found.length ? "list.empty" : "similar.none") });
+      const empty = list.createDiv({ cls: "pdt-empty", text: t(found.length ? "list.empty" : "similar.none") });
+      if (changedFilters(this.settings, "all") > 0) this.renderClearFilters(empty.createDiv());
       return;
     }
-    for (const p of this.rows) this.renderRow(list, p, now);
+    for (const p of this.rows.slice(0, this.visible)) this.renderRow(list, p, now);
+    this.renderMore(list);
   }
 
   /** The shared terms of a match, as small tags. */
