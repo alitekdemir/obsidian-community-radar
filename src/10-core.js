@@ -244,6 +244,18 @@ function filtersChanged(settings, mode) {
   return Object.keys(cleared).some((k) => (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
 }
 
+/** How many filters narrow a tab right now: its window, thresholds and switches that are on, and the search. */
+function activeFilters(settings, mode) {
+  const opts = modeOptions(settings, mode);
+  return [
+    mode === "new" || mode === "updated",
+    mode === "awakened",
+    mode !== "new" && opts.filterDownloads,
+    mode === "updated" && settings.hideBusy,
+    Boolean(String(settings.query || "").trim()),
+  ].filter(Boolean).length;
+}
+
 /** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */
 function isSnoozed(plugin, snoozed) {
   return snoozed != null && plugin.id in snoozed && (plugin.updated || 0) <= snoozed[plugin.id];

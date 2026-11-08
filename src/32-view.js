@@ -252,20 +252,27 @@ class DiscoveryView extends ItemView {
     const state = this.plugin.state();
     if (this.plugin.catalog) {
       const counts = modeCounts(state, this.settings, now);
+      if (this.similar) counts.all = this.similarCount();   // the All tab counts the matches while the filter is on
       for (const [mode, el] of Object.entries(this.refs.counts)) el.setText(formatCount(counts[mode]));
       const updates = this.plugin.updatesCount(state, now);
       this.refs.updates?.setText(updates ? t("tracked.updatesBadge", { n: updates }) : "");
       this.refs.updates?.toggleClass("is-hidden", !updates);
     }
+    this.updateFilterHead();
     this.renderStatus(this.refs.status);
     this.renderList(this.refs.list, state, now);
+  }
+
+  similarCount() {
+    const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
+    return seed ? this.plugin.similarTo(seed).length : 0;
   }
 
   renderModes(seg) {
     const tipVars = { days: this.settings.days, gap: this.settings.dormantDays };
     for (const mode of MODE_KEYS) {
       const tab = seg.createDiv({ cls: `pdt-tab${mode === this.settings.mode ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0" } });
-      tab.createSpan({ text: t(`mode.${mode}`) });
+      tab.createSpan({ text: this.similar && mode === "all" ? t("similar.tab") : t(`mode.${mode}`) });
       this.refs.counts[mode] = tab.createSpan({ cls: "pdt-n", text: "…" });
       if (mode === "tracked") this.refs.updates = tab.createSpan({ cls: "pdt-n is-updates is-hidden" });
       setTooltip(tab, t(`tip.${mode}`, tipVars));
@@ -305,13 +312,8 @@ class DiscoveryView extends ItemView {
     const mode = this.settings.mode;
     if (this.similar) return this.renderSimilarBar(bar);
     const opts = modeOptions(this.settings, mode);
+    this.renderFilterMenu(bar, mode, opts);   // always first
     if (mode === "tracked") this.renderTrackedBar(bar);
-    const days = { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS };
-
-    if (mode === "new" || mode === "updated") {
-      numberChip(bar, { ...days, value: this.settings.days, onChange: (n) => this.update("days", n) });
-    }
-    this.renderFilterMenu(bar, mode, opts);
 
     const sort = bar.createDiv({ cls: "pdt-sort" });
     menuChip(sort, t("filter.sort"), SORT_KEYS.map((key) => [key, t(`sort.${key}`)]), opts.sort,
@@ -337,17 +339,41 @@ class DiscoveryView extends ItemView {
   }
 
   /**
-   * "Filters · N": the filters of a tab you rarely change (Downloads ≥, Incubation ≥, many releases), in a
-   * panel under the chip; N counts the ones at work. "Clear filters" follows when any filter is off its default.
+   * Filters first in the bar: a head ("Filters · N", ✕ clears them all, the search included) and the tab's
+   * filters next to it. Below a certain width (CSS container query) the filters fold into a panel under the head.
    */
   renderFilterMenu(bar, mode, opts) {
     const settings = this.settings;
-    const items = [];
+    const wrap = bar.createDiv({ cls: `pdt-filter-menu${this.filtersOpen ? " is-open" : ""}` });
+    const head = wrap.createDiv({ cls: "pdt-chip pdt-filter-head", attr: { role: "button", tabindex: "0", "aria-expanded": String(Boolean(this.filtersOpen)) } });
+    setIcon(head.createSpan({ cls: "pdt-chip-caret" }), "sliders-horizontal");
+    head.createSpan({ text: t("filter.more") });
+    this.refs.filterCount = head.createSpan({ cls: "pdt-chip-value" });
+    const clear = head.createEl("button", { cls: "pdt-similar-step pdt-filter-clear", attr: { type: "button", "aria-label": t("filter.clear") } });
+    setIcon(clear, "x");
+    setTooltip(clear, t("filter.clear"));
+    clear.onclick = (event) => { event.stopPropagation(); this.clearFilters(); };
+    this.refs.filterClear = clear;
+    setIcon(head.createSpan({ cls: "pdt-chip-caret pdt-filter-caret" }), "chevron-down");
+    const toggle = () => {   // only matters when the filters are folded (narrow)
+      this.filtersOpen = !this.filtersOpen;
+      wrap.toggleClass("is-open", this.filtersOpen);
+      head.setAttribute("aria-expanded", String(this.filtersOpen));
+    };
+    head.onclick = toggle;
+    onActivate(head, toggle);
+    this.updateFilterHead();
+
+    const panel = wrap.createDiv({ cls: "pdt-filter-panel" });
+    panel.addEventListener("keydown", (event) => { if (event.key === "Escape" && this.filtersOpen) toggle(); });
+    if (mode === "new" || mode === "updated") {
+      numberChip(panel, { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS, value: settings.days, onChange: (n) => this.update("days", n) });
+    }
     if (mode === "awakened") {
-      items.push((box) => numberChip(box, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) }));
+      numberChip(panel, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) });
     }
     if (mode !== "new") {
-      items.push((box) => toggleChip(box, {
+      toggleChip(panel, {
         label: t("filter.downloads"),
         value: settings.minDownloads,
         on: opts.filterDownloads,
@@ -356,30 +382,27 @@ class DiscoveryView extends ItemView {
           settings.minDownloads = n;
           await this.updateTab("downloadFilter", true);
         },
-      }));
+      });
     }
     if (mode === "updated") {
-      items.push((box) => switchChip(box, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) }));
+      switchChip(panel, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) });
     }
-    if (items.length) {
-      const active = Number(mode === "awakened") + Number(mode !== "new" && Boolean(opts.filterDownloads)) + Number(mode === "updated" && Boolean(settings.hideBusy));
-      const open = Boolean(this.filtersOpen);
-      const wrap = bar.createDiv({ cls: "pdt-filter-menu" });
-      const chip = wrap.createDiv({ cls: `pdt-chip is-menu${open ? " is-open" : ""}`, attr: { role: "button", tabindex: "0", "aria-expanded": String(open) } });
-      setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), "sliders-horizontal");
-      chip.createSpan({ text: t("filter.more") });
-      if (active) chip.createSpan({ cls: "pdt-chip-value", text: `· ${active}` });
-      setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), open ? "chevron-up" : "chevron-down");
-      const toggle = () => { this.filtersOpen = !open; this.render(); };
-      chip.onclick = toggle;
-      onActivate(chip, toggle);
-      if (open) {
-        const panel = wrap.createDiv({ cls: "pdt-filter-panel" });
-        for (const item of items) item(panel);
-        panel.addEventListener("keydown", (event) => { if (event.key === "Escape") toggle(); });
-      }
-    }
-    if (filtersChanged(settings, mode)) this.renderClearFilters(bar);
+  }
+
+  /** The head's count and ✕ follow the filters, the search included, without redrawing the bar. */
+  updateFilterHead() {
+    const { filterCount, filterClear } = this.refs;
+    if (!filterCount) return;
+    const n = activeFilters(this.settings, this.settings.mode);
+    filterCount.setText(n ? `· ${n}` : "");
+    filterClear.toggleClass("is-hidden", !filtersChanged(this.settings, this.settings.mode));
+  }
+
+  async clearFilters() {
+    Object.assign(this.settings, clearedFilters(this.settings, this.settings.mode));
+    this.visible = PAGE_SIZE;
+    await this.plugin.saveData(this.plugin.data);
+    this.render();
   }
 
   /** "Clear filters": the tab's filters (and the search) back to their defaults; sort and layout stay. */
@@ -387,12 +410,7 @@ class DiscoveryView extends ItemView {
     const button = parent.createEl("button", { cls: "pdt-ghost pdt-clear-filters", attr: { type: "button" } });
     setIcon(button.createSpan({ cls: "pdt-chip-caret" }), "filter-x");
     button.createSpan({ text: t("filter.clear") });
-    button.onclick = async () => {
-      Object.assign(this.settings, clearedFilters(this.settings, this.settings.mode));
-      this.visible = PAGE_SIZE;
-      await this.plugin.saveData(this.plugin.data);
-      this.render();
-    };
+    button.onclick = () => this.clearFilters();
     return button;
   }
 

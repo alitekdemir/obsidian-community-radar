@@ -64,11 +64,14 @@
 
 /* ── Filters ─────────────────────────────────────────────────────────── */
 .pdt-filters {
+  position: relative;
+  z-index: 2;   /* a folded Filters panel stays above the list */
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--size-4-2);
   margin-top: var(--size-4-2);
+  container-type: inline-size;
 }
 
 .pdt-chip,
@@ -85,30 +88,61 @@
   font-size: var(--font-ui-small);
 }
 
-/* Filters · N: the rarely changed filters in a panel under the chip */
+/* Filters first: the head (count, ✕) and the filters next to it; in a narrow bar they fold into a panel */
+.pdt-filter-menu,
+.pdt-filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+}
+
 .pdt-filter-menu {
   position: relative;
 }
 
-.pdt-chip.is-open {
-  border-color: var(--interactive-accent);
+.pdt-filter-head {
+  gap: 4px;
+  color: var(--text-normal);
 }
 
-.pdt-filter-panel {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: var(--layer-popover);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--size-4-2);
-  min-width: 240px;
-  padding: var(--size-4-3);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: var(--radius-m);
-  background: var(--background-primary);
-  box-shadow: var(--shadow-s);
+.pdt-filter-clear.is-hidden,
+.pdt-filter-caret {
+  display: none;
+}
+
+@container (max-width: 640px) {
+  .pdt-filter-head {
+    cursor: pointer;
+  }
+
+  .pdt-filter-caret {
+    display: inline-flex;
+  }
+
+  .pdt-filter-menu.is-open .pdt-filter-head {
+    border-color: var(--interactive-accent);
+  }
+
+  .pdt-filter-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: var(--layer-popover);
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 240px;
+    padding: var(--size-4-3);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-m);
+    background: var(--background-primary);
+    box-shadow: var(--shadow-s);
+  }
+
+  .pdt-filter-menu.is-open .pdt-filter-panel {
+    display: flex;
+  }
 }
 
 .pdt-empty .pdt-clear-filters {
