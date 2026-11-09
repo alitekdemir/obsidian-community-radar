@@ -29,8 +29,6 @@ class HomePage {
 
   /** Sync and the page's ⋮ go next to the section switch. */
   renderTools(bar) {
-    const lastVisit = this.plugin.lastVisit;
-    if (lastVisit) bar.createSpan({ cls: "pdt-home-visit", text: t("home.lastVisit", { when: relativeDays(lastVisit, Date.now()) }) });
     const sync = bar.createEl("button", { cls: "pdt-home-tool", text: t("set.syncNow"), attr: { type: "button" } });
     sync.onclick = () => this.plugin.refresh();
     const more = bar.createEl("button", { cls: "pdt-home-tool is-icon", attr: { type: "button", "aria-label": t("home.menu") } });
@@ -46,17 +44,27 @@ class HomePage {
     }
     const now = Date.now();
     const ctx = this.context(now);
-    const then = sinceMoment(this.home.since.period, this.plugin.lastVisit, now);
-    if (this.home.since.show) this.renderSince(page, ctx, then);
-    this.renderWidgets(page, ctx, then);
+    if (this.home.since.show) this.renderSince(page, ctx);
+    this.renderWidgets(page, ctx);
   }
 
-  /** "Since your last visit": one card per widget, counting what came in after `then`. */
-  renderSince(page, ctx, then) {
+  /** Opens a widget's list, its new plugins marked; with "Not seen yet", they count as seen from now on. */
+  openList(ctx, id, params, rows, then, onlyNew = false) {
+    if (id === "tracked") return this.view.openTracked(UPDATES);
+    const upTo = this.home.since.period === "seen" && seenUpTo(ctx, id, params, rows, then);
+    if (upTo) {
+      this.home.seen = { ...this.home.seen, [id]: upTo };
+      this.plugin.saveData(this.plugin.data);
+    }
+    return this.view.openPreset(id, params, then, onlyNew);
+  }
+
+  /** "Not seen yet": one card per widget, counting what came in after you last opened its list. */
+  renderSince(page, ctx) {
     const section = page.createDiv({ cls: "pdt-home-section" });
     const head = section.createDiv({ cls: "pdt-home-head" });
     const period = this.home.since.period;
-    head.createEl("h2", { text: period === "visit" ? t("home.since") : t("home.sinceTitle", { n: period }) });
+    head.createEl("h2", { text: period === "seen" ? t("home.since") : t("home.sinceTitle", { n: period }) });
     const chip = head.createEl("button", { cls: "pdt-home-chip", text: `${this.sinceLabel(period)} ▾`, attr: { type: "button" } });
     chip.onclick = (event) => this.choose(event, SINCE_PERIODS.map((p) => [p, this.sinceLabel(p)]), period, (p) => this.save((h) => { h.since.period = p; }));
     chip.setText(`${t("home.period")} ▾`);
@@ -64,13 +72,16 @@ class HomePage {
     const grid = section.createDiv({ cls: "pdt-home-since" });
     this.home.since.order.forEach((id, i) => {
       const tracked = id === "tracked";
+      const then = sinceMoment(this.home, id, ctx.now);
       const params = { ...widgetParams(this.home, id), since: then };
-      const n = tracked ? this.plugin.updatesCount(ctx.state, ctx.now) : HOME_WIDGETS[id].rows(ctx, params).length;
-      const card = this.card(grid, `pdt-home-mini is-${HOME_WIDGETS[id].tone}`, i, () => (tracked ? this.view.openTracked(UPDATES) : this.view.openPreset(id, params)));
+      const rows = tracked ? [] : HOME_WIDGETS[id].rows(ctx, params);
+      const n = tracked ? this.plugin.updatesCount(ctx.state, ctx.now) : rows.length;
+      const done = n === 0 && period === "seen";
+      const card = this.card(grid, `pdt-home-mini is-${HOME_WIDGETS[id].tone}${done ? " is-done" : ""}`, i, () => this.openList(ctx, id, params, rows, then));
       card.dataset.id = id;
       this.grip(card);
       setIcon(card.createSpan({ cls: "pdt-home-mini-icon" }), HOME_WIDGETS[id].icon);
-      card.createSpan({ cls: "pdt-home-mini-n", text: formatCount(n) });
+      card.createSpan({ cls: "pdt-home-mini-n", text: done ? "✓" : formatCount(n) });
       this.info(card, t(`home.since.${id}.info`, { when: this.sinceLabel(period), n: stepLabel(params.n ?? 0) }));
       card.createSpan({ cls: "pdt-home-mini-label", text: t(`home.since.${id}`, { n: stepLabel(params.n ?? 0) }) });
       card.createSpan({ cls: "pdt-home-cta", text: t("home.list") });
@@ -78,12 +89,12 @@ class HomePage {
     this.sortable(grid, (order) => this.save((h) => { h.since.order = order; }));
   }
 
-  renderWidgets(page, ctx, then) {
+  renderWidgets(page, ctx) {
     const section = page.createDiv({ cls: "pdt-home-section" });
     section.createDiv({ cls: "pdt-home-head" }).createEl("h2", { text: t("home.discover") });
     const grid = section.createDiv({ cls: "pdt-home-grid" });
     const shown = this.home.order.filter((id) => !this.home.hidden.includes(id));
-    shown.forEach((id, i) => this.renderWidget(grid, ctx, id, then, i));
+    shown.forEach((id, i) => this.renderWidget(grid, ctx, id, i));
     // a small "+" card: hidden widgets come back here (your own filters will too)
     const add = this.card(grid, "pdt-home-add", shown.length, () => {});
     add.onclick = (event) => this.addMenu(event);
@@ -93,12 +104,13 @@ class HomePage {
     this.sortable(grid, (order) => this.save((h) => { order = order.filter(Boolean); h.order = [...order, ...h.order.filter((id) => !order.includes(id))]; }));
   }
 
-  renderWidget(grid, ctx, id, then, index) {
+  renderWidget(grid, ctx, id, index) {
     const widget = HOME_WIDGETS[id];
     const params = widgetParams(this.home, id);
+    const then = sinceMoment(this.home, id, ctx.now);
     const { rows, fresh, headline } = widgetResult(ctx, id, params, then);
-    const open = (onlyNew) => (id === "tracked" ? this.view.openTracked(UPDATES) : this.view.openPreset(id, params, onlyNew));
-    const card = this.card(grid, `pdt-home-card is-${widget.tone}`, index, () => open(null));
+    const open = (onlyNew) => this.openList(ctx, id, params, rows, then, onlyNew);
+    const card = this.card(grid, `pdt-home-card is-${widget.tone}`, index, () => open(false));
     card.dataset.id = id;
     this.grip(card);
 
@@ -122,7 +134,7 @@ class HomePage {
       badge.createSpan({ text: t("home.fresh", { n: formatCount(fresh.length), when: this.sinceLabel(this.home.since.period) }) });
       setIcon(badge.createSpan({ cls: "pdt-home-fresh-go" }), "arrow-up-right");
       setTooltip(badge, t("home.freshTip", { n: formatCount(fresh.length) }), { delay: 150 });
-      badge.onclick = (event) => { event.stopPropagation(); open(then); };
+      badge.onclick = (event) => { event.stopPropagation(); open(true); };
     }
     left.createSpan({ cls: "pdt-home-unit", text: t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(id, params)) });
     const key = Object.keys(widget.params)[0];
@@ -177,7 +189,7 @@ class HomePage {
   }
 
   sinceLabel(period) {
-    return period === "visit" ? t("home.sinceVisit") : t("home.sinceDays", { n: period });
+    return period === "seen" ? t("home.sinceSeen") : t("home.sinceDays", { n: period });
   }
 
   paramText(key, value) {

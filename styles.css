@@ -4,7 +4,7 @@
   --pdt-new: var(--color-yellow);
   --pdt-changed: var(--color-blue);
   --pdt-installed: var(--color-green);
-  padding: 0 var(--size-4-4) var(--size-4-6);   /* no top padding: sticky stops below it in Chromium, rows would peek above */
+  padding: var(--size-4-3) var(--size-4-4) var(--size-4-6);
 }
 
 /* ── Mode tabs: one segmented control ─────────────────────────── */
@@ -2082,8 +2082,7 @@ button.pdt-section-head:hover {
 /* ── Sticky header: the switch, tabs and filters stay while the list scrolls ── */
 .pdt-sticky {
   position: sticky;
-  top: 0;
-  padding-top: var(--size-4-3);   /* the view's top padding, here so it scrolls under nothing */
+  top: 0;   /* the view sets the real offset: minus its top padding */
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -2135,11 +2134,6 @@ button.pdt-section-head:hover {
 
 .pdt-nav-spacer {
   flex: 1;
-}
-
-.pdt-home-visit {
-  color: var(--text-faint);
-  font-size: var(--font-ui-smaller);
 }
 
 button.pdt-home-tool {
@@ -2247,6 +2241,7 @@ button.pdt-home-chip {
 
 .pdt-home-mini-icon { grid-area: icon; display: flex; }
 .pdt-home-mini-n { grid-area: n; font-size: 20px; font-weight: var(--font-bold); font-variant-numeric: tabular-nums; }
+.pdt-home-mini.is-done .pdt-home-mini-n { color: var(--text-faint); }   /* all seen: done, not urgent */
 .pdt-home-mini .pdt-home-info { grid-area: info; justify-self: end; align-self: start; }
 .pdt-home-mini-label { grid-area: label; overflow: hidden; color: var(--text-muted); font-size: var(--font-ui-smaller); text-overflow: ellipsis; white-space: nowrap; }
 .pdt-home-mini .pdt-home-cta { grid-area: cta; justify-self: end; }

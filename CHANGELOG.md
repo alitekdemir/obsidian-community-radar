@@ -5,8 +5,8 @@
 ### New
 
 - **Home**: the view opens on a home page (Home · List · Tracked at the top; *Opens on* in its ⋮ menu).
-  - **Since your last visit**: new plugins, new releases you track, milestones passed and updates since you last opened Obsidian (or in the last 7 / 30 days). Each card opens the list of exactly those.
-  - **Discover widgets**: New arrivals, Milestones (1K, 5K, 10K, 25K, 50K or 100K), Out of incubation, Rising, Quiet updates, New releases you track; *Installed, not tracked* can be added. Each shows its count, *N new · since your last visit* and a preview, and is set in place: the value chip and ⋮ change its settings, ⓘ explains it, the grip reorders it (touch too), ⋮ hides it.
+  - **Not seen yet**: new plugins, new releases you track, milestones passed and updates you haven't seen (or in the last 7 / 30 days). Opening a card's list marks them seen, so it counts down to ✓; restarting Obsidian doesn't reset it.
+  - **Discover widgets**: New arrivals, Milestones (1K, 5K, 10K, 25K, 50K or 100K), Out of incubation, Rising, Quiet updates, New releases you track; *Installed, not tracked* can be added. Each shows its count, *N new* (not seen yet) and a preview, and is set in place: the value chip and ⋮ change its settings, ⓘ explains it, the grip reorders it (touch too), ⋮ hides it.
   - A widget opens the list of its plugins; its *N new* button opens only the new ones (*Only new* ✕ shows all), marked *new* on the rows. ✕ or Esc goes back home.
   - Motion: cards rise in, lift on hover and show their tools; off in the page's ⋮ or with the system's reduced motion.
 - The server's history now records 1K, 5K, 10K, 25K, 50K and 100K milestones. *Milestones* lists a plugin under the highest one it reached in the period (a 33K plugin that passed 1K, 10K and 25K this month is a 25K).
@@ -17,7 +17,7 @@
 
 - A plugin counts as *new* for 14 days by default (was 30).
 - Tracked moved from the tabs to the Home · List · Tracked switch, with its new-release count.
-- The switch, tabs and filters stay at the top while the list scrolls.
+- The switch, tabs and filters stay at the top while the list scrolls, with no gap above them.
 - *All* shows every plugin by default (Downloads ≥ off).
 - On Tracked, a chosen group or status counts as a filter; ✕ puts it back to All.
 - *Mark all reviewed* left the bar (it comes back as a bulk action with Undo). The new-plugin badge reads *NEW PLUGIN*, apart from *NEW RELEASE*.

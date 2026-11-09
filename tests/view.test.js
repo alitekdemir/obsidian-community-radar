@@ -906,7 +906,7 @@ const tests = {
       milestones: { dataview: [0, ago(400), ago(5), null, null, null] }, growth: { homepage: [50, 200, 600] },
     };
     await plugin.refresh();
-    plugin.lastVisit = ago(3);
+    settings.home.seen = { new: ago(3) };   // you last opened New arrivals three days ago
     await view.update("section", "home");
     const el = view.contentEl;
     const card = (id) => $(el, `.pdt-home-card[data-id="${id}"]`);
@@ -926,6 +926,10 @@ const tests = {
     assert.ok($(el, ".pdt-signal.is-fresh"), "marked as new");
     view.scope.keys.find((k) => k.key === "Escape").fn();
     assert.ok($(el, ".pdt-home"));
+    // opened, so seen: no "1 new" any more, the card is done (and a restart doesn't bring it back)
+    assert.ok(settings.home.seen.new > ago(3));
+    assert.ok(!$(card("new"), ".pdt-home-fresh"));
+    assert.equal($(el, '.pdt-home-mini[data-id="new"] .pdt-home-mini-n').textContent, "✓");
 
     // milestone: 10K passed five days ago; 5K long ago, so not within 30 days
     assert.deepEqual($$(card("milestone"), ".pdt-home-item-name").map((x) => x.textContent), ["Dataview"]);
@@ -933,9 +937,8 @@ const tests = {
     assert.equal($(card("milestone"), ".pdt-home-n").textContent, "0");
     assert.deepEqual(settings.home.params.milestone, { n: 5000 });
 
-    // since your last visit: four cards; the widget's own settings stay out of them
+    // not seen yet: four cards
     assert.equal($$(el, ".pdt-home-mini").length, 4);
-    assert.equal($(el, '.pdt-home-mini[data-id="new"] .pdt-home-mini-n').textContent, "1");
 
     // hide and add back from the page's ⋮
     await view.home.save((h) => { h.hidden = [...h.hidden, "rising"]; });

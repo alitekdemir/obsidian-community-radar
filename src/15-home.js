@@ -95,12 +95,12 @@ const HOME_WIDGETS = {
 };
 const HOME_ORDER = ["tracked", "new", "milestone", "hatched", "rising", "quiet", "installed"];
 const HOME_HIDDEN = ["installed"];
-// "Since your last visit": each card is a widget asked for what came in after then
+// "Not seen yet": each card is a widget asked for what came in after you last opened its list
 const SINCE_CARDS = ["new", "tracked", "milestone", "quiet"];
-const SINCE_PERIODS = ["visit", 7, 30];
+const SINCE_PERIODS = ["seen", 7, 30];
 
 function homeDefaults() {
-  return { order: [...HOME_ORDER], hidden: [...HOME_HIDDEN], params: {}, since: { show: true, period: "visit", order: [...SINCE_CARDS] }, info: false, motion: true, preview: 3 };
+  return { order: [...HOME_ORDER], hidden: [...HOME_HIDDEN], params: {}, since: { show: true, period: "seen", order: [...SINCE_CARDS] }, seen: {}, info: false, motion: true, preview: 3 };
 }
 
 /** Saved home settings filled with today's defaults (new widgets join the end). */
@@ -108,6 +108,7 @@ function normalizeHome(saved = {}) {
   const base = homeDefaults();
   const home = { ...base, ...saved, since: { ...base.since, ...saved.since } };
   home.order = [...home.order.filter((id) => HOME_WIDGETS[id]), ...base.order.filter((id) => !home.order.includes(id))];
+  if (home.since.period === "visit") home.since.period = "seen";   // before 0.9.2: since the plugin last loaded
   home.since.order = [...home.since.order.filter((id) => SINCE_CARDS.includes(id)), ...SINCE_CARDS.filter((id) => !home.since.order.includes(id))];
   return home;
 }
@@ -123,10 +124,18 @@ function paramOptions(ctx, id, key) {
   return typeof options === "function" ? options(ctx) : options;
 }
 
-/** The moment "new" counts from: your last visit (a week ago if there wasn't one), or 7 / 30 days ago. */
-function sinceMoment(period, lastVisit, now) {
-  if (period === "visit") return lastVisit || now - 7 * DAY_MS;
+/** The moment a widget's "new" counts from: the newest plugin you saw in its list (a week ago if none yet), or 7 / 30 days ago. */
+function sinceMoment(home, id, now) {
+  const period = home.since.period;
+  if (period === "seen") return home.seen?.[id] || now - 7 * DAY_MS;
   return now - period * DAY_MS;
+}
+
+/** The newest `at` among a widget's rows after `then` (null: nothing new): seen up to there, so data that syncs in late still counts. */
+function seenUpTo(ctx, id, params, rows, then) {
+  const at = HOME_WIDGETS[id].at;
+  const times = at ? rows.map((p) => at(ctx, p, params)).filter((x) => x > then) : [];
+  return times.length ? Math.max(...times) : null;
 }
 
 /** One widget worked out: its rows, how many are new since `then` (null: it can't tell), its headline. */

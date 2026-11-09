@@ -10,7 +10,7 @@ class DiscoveryView extends ItemView {
     this.visible = PAGE_SIZE;
     this.shownTranslations = new Set();
     this.similar = null;          // Similar filter: {steps: [{id, scroll}], before: {mode, scroll, visible, originId, originIndex}, query}
-    this.preset = null;           // a home widget's plugins in the list: {id, params, onlyNew, query, freshIds}
+    this.preset = null;           // a home widget's plugins in the list: {id, params, after, onlyNew, query, freshIds}
     this.home = new HomePage(this);
     this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
@@ -247,6 +247,7 @@ class DiscoveryView extends ItemView {
     this.keep.clear();
     this.refs = { counts: {} };
     const header = root.createDiv({ cls: "pdt-sticky" });   // switch, tabs and filters stay put while the list scrolls
+    header.style.top = `-${root.ownerDocument.defaultView.getComputedStyle(root).paddingTop || "0px"}`;   // Chromium stops sticky below the padding (whoever sets it); rows would peek above
     const nav = header.createDiv({ cls: "pdt-nav" });
     this.renderNav(nav);
     if (this.settings.section === "home") {
@@ -326,10 +327,10 @@ class DiscoveryView extends ItemView {
     return this.update("mode", "tracked");
   }
 
-  /** A home widget's plugins as a list (`onlyNew`: only those that came in after then); ✕ goes back home. */
-  openPreset(id, params, onlyNew = null) {
+  /** A home widget's plugins as a list, those after `after` marked new (`onlyNew`: only them); ✕ goes back home. */
+  openPreset(id, params, after, onlyNew = false) {
     Object.assign(this, { grouping: null, similar: null, filtersOpen: false, visible: PAGE_SIZE });
-    this.preset = { id, params, onlyNew, query: "" };
+    this.preset = { id, params, after, onlyNew, query: "" };
     Object.assign(this.settings, { section: "list", mode: "all" });   // shown, not saved: ✕ goes home
     this.render();
     this.contentEl.scrollTop = 0;
@@ -343,14 +344,13 @@ class DiscoveryView extends ItemView {
 
   /** The widget's plugins, then only the new ones (when asked), then the search. */
   presetRows() {
-    const { id, params, onlyNew, query } = this.preset;
+    const { id, params, after, onlyNew, query } = this.preset;
     const ctx = this.home.context(Date.now());
     const widget = HOME_WIDGETS[id];
     const rows = widget.rows(ctx, params);
-    const after = onlyNew ?? sinceMoment(this.settings.home.since.period, this.plugin.lastVisit, ctx.now);
     this.preset.freshIds = new Set(widget.at ? rows.filter((p) => widget.at(ctx, p, params) > after).map((p) => p.id) : []);
     const q = compileQuery(query);
-    return rows.filter((p) => (onlyNew == null || this.preset.freshIds.has(p.id)) && q.test(p));
+    return rows.filter((p) => (!onlyNew || this.preset.freshIds.has(p.id)) && q.test(p));
   }
 
   /** The bar of a widget's list: what it is (✕ back home), "only new" (✕ shows all), search, layout. */
@@ -365,13 +365,13 @@ class DiscoveryView extends ItemView {
     setIcon(close, "x");
     setTooltip(close, t("home.back"));
     close.onclick = () => this.closePreset();
-    if (onlyNew != null) {
+    if (onlyNew) {
       const fresh = bar.createDiv({ cls: "pdt-chip pdt-similar-chip is-fresh" });
-      fresh.createSpan({ text: t("home.onlyNew", { when: this.home.sinceLabel(params.since ? "visit" : this.settings.home.since.period) }) });
+      fresh.createSpan({ text: t("home.onlyNew", { when: this.home.sinceLabel(this.settings.home.since.period) }) });
       const all = fresh.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.showAll") } });
       setIcon(all, "x");
       setTooltip(all, t("home.showAll"));
-      all.onclick = () => { this.preset.onlyNew = null; this.render(); };
+      all.onclick = () => { this.preset.onlyNew = false; this.render(); };
     }
     this.refs.search = this.renderSearch(bar, this.preset.query, t("search.placeholder"), (value) => {
       this.preset.query = value;

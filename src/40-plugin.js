@@ -8,8 +8,7 @@ class PluginRadar extends Plugin {
     this.data.settings.query = "";   // filters are remembered, the search isn't
     this.data.settings.home = normalizeHome(this.data.settings.home);
     if (this.data.settings.start === "home") this.data.settings.section = "home";
-    this.lastVisit = this.data.lastVisit || 0;   // "since your last visit" counts from here this session
-    this.data.lastVisit = Date.now();
+    delete this.data.lastVisit;   // before 0.9.2: "new" counted from the last load, so every restart zeroed it
     if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
     if (this.data.settings.mode === SIMILAR_MODE) this.data.settings.mode = "all";   // 0.8's Similar list
     delete this.data.settings.similarTrail;
