@@ -354,6 +354,31 @@ const tests = {
     assert.ok(box().getAttribute("placeholder").includes("released <= 30d"), "Basic: the page's query, faint in the box");
     settings.pageQueries = {};
 
+    // nothing found: the status names the clause that emptied the list; applied queries are remembered; Esc reverts
+    await view.update("mode", "all");
+    await modeButton(1).onclick();
+    await typeQuery("downloads >= 1k name ~ zzzz");
+    assert.equal($$(el, ".pdt-row").length, 0);
+    assert.equal($(el, ".pdt-query-why").textContent, core.t("query.without", { clause: "name ~ zzzz", n: 2 }));
+    assert.deepEqual(view.clauseCounts("downloads >= 1k name ~ zzzz"), [["downloads >= 1k", 2], ["name ~ zzzz", 0]], "what each clause finds alone");
+    assert.equal(settings.recentQueries[0], "downloads >= 1k name ~ zzzz");
+    box().onkeydown({ key: "Escape", ctrlKey: false, preventDefault() {}, stopPropagation() {} });
+    assert.equal(box().value, core.pageQuery(settings, "all"), "Esc: back to the page's query");
+    await tick(1100);
+    await modeButton(0).onclick();
+    assert.equal(settings.queries.all, undefined);
+    // ? : the cheat sheet; a click puts it at the caret
+    box().value = "";
+    $(el, ".pdt-qhelp-button").onclick();
+    const help = $$(modals.at(-1).contentEl, ".pdt-qhelp-item").find((b) => b.textContent.startsWith("startOfMonth()"));
+    help.onclick();
+    assert.equal(box().value, "startOfMonth() ");
+    box().value = "";
+    box().oninput();
+    await tick(10);
+    const starters = core.queryStarters("", settings.recentQueries);
+    assert.equal(starters[0].head, core.t("query.recent"), "the empty box offers your recent queries first");
+
     await view.update("mode", "all");
     settings.minDownloads = 0;
     view.render();

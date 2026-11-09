@@ -513,8 +513,11 @@ const QUERY_EXAMPLES = [
   ["gap >= 1y released < 30d", "awakened"],
 ];
 
-/** The empty box's list: your filters as a query (when there are any), then the examples. */
-function queryStarters(fromFilters) {
-  const items = QUERY_EXAMPLES.map(([q, key], k) => ({ label: q, insert: q, hint: t(`query.example.${key}`), head: k === 0 ? t("query.examples") : "" }));
-  return fromFilters ? [{ label: fromFilters, insert: fromFilters, hint: t("query.fromFiltersHint"), head: t("query.fromFilters") }, ...items] : items;
+/** The empty box's list: your filters as a query (when there are any), your recent queries, then the examples. */
+function queryStarters(fromFilters, recent = []) {
+  const flat = (q) => q.replace(/\s*\n\s*/g, " ");
+  const items = QUERY_EXAMPLES.map(([q, key], k) => ({ label: flat(q), insert: q, hint: t(`query.example.${key}`), head: k === 0 ? t("query.examples") : "" }));
+  const mine = recent.slice(0, 5).map((q, k) => ({ label: flat(q), insert: q, head: k === 0 ? t("query.recent") : "" }));
+  const filters = fromFilters ? [{ label: flat(fromFilters), insert: fromFilters, hint: t("query.fromFiltersHint"), head: t("query.fromFilters") }] : [];
+  return [...filters, ...mine, ...items];
 }

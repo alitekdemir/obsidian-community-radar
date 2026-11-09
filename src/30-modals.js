@@ -197,7 +197,7 @@ const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.Abs
     const data = this.data();
     if (!this.input.value.trim()) {   // the empty box: your filters as a query, then examples (also on focus)
       Object.assign(this, { from: 0, caret: this.input.value.length });
-      return queryStarters(data.fromFilters);
+      return queryStarters(data.fromFilters, data.recent);
     }
     if (!this.typed) return [];
     const caret = this.input.selectionStart ?? this.input.value.length;
@@ -492,3 +492,38 @@ class ModelModal extends PickerModal {
   }
 }
 
+
+/**
+ * The query cheat sheet: fields (with what they mean), operators, functions, values. A click puts it in the box
+ * (`onPick`) and closes.
+ */
+class QueryHelpModal extends Modal {
+  constructor(app, onPick) {
+    super(app);
+    this.onPick = onPick;
+  }
+
+  onOpen() {
+    this.titleEl.setText(t("query.help.title"));
+    this.modalEl.addClass("pdt-qhelp");
+    const group = (title, items) => {
+      this.contentEl.createEl("h4", { text: title });
+      const list = this.contentEl.createDiv({ cls: "pdt-qhelp-list" });
+      for (const [text, hint] of items) {
+        const item = list.createEl("button", { cls: "pdt-qhelp-item", attr: { type: "button" } });
+        item.createEl("code", { text });
+        if (hint) item.createSpan({ text: hint });
+        item.onclick = () => { this.close(); this.onPick(text); };
+      }
+    };
+    group(t("query.help.fields"), Object.keys(QUERY_FIELDS).map((k) => [k, t(`query.field.${k}`)]));
+    group(t("query.help.ops"), [["=", t("query.op.=")], ["!=", t("query.op.!=")], [">=", t("query.op.>=")], ["<=", t("query.op.<=")], ["~", t("query.op.~")], ["!~", t("query.op.!~")],
+      ["in (", t("query.op.in")], ["not in (", t("query.op.not_in")], ["is empty", t("query.op.is_empty")], ["AND", ""], ["OR", ""], ["NOT", ""], ["order by", ""]]);
+    group(t("query.help.functions"), QUERY_FUNC_NAMES.map((f) => [`${f}()`, t(`query.fn.${f}`)]));
+    group(t("query.help.values"), [["10k", "10 000"], ["1.5m", "1 500 000"], ["30d", t("query.help.days")], ["2w · 6m · 1y", ""], ["2026-01-01", t("query.help.date")], ['"two words"', t("query.help.quoted")]]);
+  }
+
+  onClose() {
+    this.contentEl.empty();
+  }
+}

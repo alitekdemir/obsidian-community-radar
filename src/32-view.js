@@ -25,6 +25,11 @@ class DiscoveryView extends ItemView {
     for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "Enter", "0", "1", "2", "3", "4", "5"]) {
       this.scope.register([], key, (event) => this.onKey(event, key));
     }
+    this.scope.register([], "/", () => {   // / jumps to the search box (shortcuts on or off), unless you're typing
+      if (globalThis.document?.activeElement?.closest?.("input, textarea, select, [contenteditable]") || !this.refs?.search) return true;
+      this.refs.search.focus();
+      return false;
+    });
     this.scope.register([], "Escape", () => {   // Esc closes the Similar filter or a widget's list, like ✕
       if (!(this.similar || this.preset) || globalThis.document?.activeElement?.closest?.("input, textarea, select")) return true;
       if (this.similar) this.closeSimilar();
@@ -393,9 +398,14 @@ class DiscoveryView extends ItemView {
     const views = settings.home.views || [];
     const temp = this.preset && !this.preset.id.startsWith(VIEW_PREFIX) ? this.preset : null;
     if (views.length || temp) strip.createDiv({ cls: "pdt-strip-sep" });
+    const ctx = views.length && this.plugin.catalog ? this.home.context(Date.now()) : null;
     for (const v of views) {
-      const el = tab(VIEW_PREFIX + v.id, v.name, () => this.home.openView(VIEW_PREFIX + v.id), "is-view");
+      const id = VIEW_PREFIX + v.id;
+      const el = tab(id, v.name, () => this.home.openView(id), "is-view");
       setTooltip(el, v.query);
+      const widget = ctx && homeWidget(settings.home, id);
+      const fresh = widget ? freshRows(ctx, widget, {}, widget.rows(ctx, {}), sinceMoment(settings.home, id, ctx.now))?.length : 0;
+      if (fresh) el.createSpan({ cls: "pdt-n is-fresh", text: `+${formatCount(fresh)}` });   // matches you haven't seen
     }
     if (temp) {   // a widget's list: shown, not saved; ✕ goes home
       const words = Object.entries(temp.params).filter(([k]) => k !== "since").map(([k, v]) => this.home.paramText(k, v)).join(" · ");
@@ -462,6 +472,7 @@ class DiscoveryView extends ItemView {
       this.renderStatus(this.refs.status);
       if (this.queryDraft != null) return;
       this.preset.query = value;
+      this.rememberQuery(value);
       this.visible = PAGE_SIZE;
       this.refresh();
     }, "query");
@@ -530,8 +541,10 @@ class DiscoveryView extends ItemView {
         this.queryDraft = compileQuery(value, null, Date.now(), this.inQuery).error ? value : null;
         this.renderStatus(this.refs.status);
         if (this.queryDraft != null) return;
-        if (this.inQuery) this.settings.queries = { ...this.settings.queries, [mode]: value };
-        else this.settings.query = value;
+        if (this.inQuery) {
+          this.settings.queries = { ...this.settings.queries, [mode]: value };
+          this.rememberQuery(value);
+        } else this.settings.query = value;
         this.visible = PAGE_SIZE;
         this.clearSelection();   // another search, another list
         this.refresh();
@@ -755,6 +768,17 @@ class DiscoveryView extends ItemView {
     input.value = value || "";
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
+    const help = iconButton(search, "help-circle", t("query.help.title"), "pdt-qhelp-button");
+    help.onclick = () => new QueryHelpModal(this.app, (text) => {   // a click puts it at the caret
+      const at = input.selectionStart ?? input.value.length;
+      const before = input.value.slice(0, at);
+      const glue = before && !/\s$/.test(before) ? " " : "";
+      input.value = `${before}${glue}${text} ${input.value.slice(input.selectionEnd ?? at)}`;
+      const caret = before.length + glue.length + text.length + 1;
+      input.focus();
+      input.setSelectionRange(caret, caret);
+      input.dispatchEvent(new Event("input"));
+    }).open();
     const seg = modes === true && this.renderQueryModes(search, queryMode);
     const mark = () => {
       const text = input.value;
@@ -794,6 +818,18 @@ class DiscoveryView extends ItemView {
       apply(input.value.trim() ? 1000 : 0);
     };
     input.onkeydown = (event) => {
+      if (event.key === " " && event.ctrlKey) {   // Ctrl+Space: the suggestions, wherever the caret is
+        event.preventDefault();
+        input.dispatchEvent(new Event("input"));
+        return;
+      }
+      if (event.key === "Escape" && !event.defaultPrevented && input.value) {   // an open list took the first Esc
+        event.preventDefault();
+        event.stopPropagation();
+        input.value = queryMode && modes === true ? pageQuery(this.settings, this.settings.mode) : queryMode ? (this.preset?.base ?? "") : "";
+        input.oninput();
+        return;
+      }
       if (event.key !== "Enter" || event.defaultPrevented || event.isComposing) return;   // a picked suggestion took it
       if (event.ctrlKey || event.metaKey || !search.hasClass("is-advanced")) {
         event.preventDefault();
@@ -880,6 +916,14 @@ class DiscoveryView extends ItemView {
     this.render();
   }
 
+  /** The last queries you applied (up to RECENT_QUERIES), newest first, for the empty box's list. */
+  rememberQuery(text) {
+    const q = text.trim();
+    if (!q) return;
+    const flat = (x) => x.replace(/\s+/g, " ");
+    this.settings.recentQueries = [q, ...(this.settings.recentQueries || []).filter((x) => flat(x) !== flat(q))].slice(0, RECENT_QUERIES);
+  }
+
   /** Query mode: the box back to the page's own query. */
   async revertQuery() {
     const mode = this.settings.mode;
@@ -901,7 +945,7 @@ class DiscoveryView extends ItemView {
       this.authors = { at: this.plugin.catalog?.fetchedAt, list: [...byAuthor].sort((a, b) => b[1] - a[1]).map(([name]) => name) };
     }
     const fromFilters = modes && !this.inQuery ? joinQuery(pageQuery(this.settings, this.settings.mode), filtersToQuery({ ...this.settings, query: "" }, this.settings.mode)) : "";
-    return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.authors.list, fromFilters };
+    return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.authors.list, fromFilters, recent: this.settings.recentQueries || [] };
   }
 
   /** The Similar filter as one chip: ‹ back (when there is a step), ≈ Similar: name (opens its details), ✕. */
@@ -976,6 +1020,15 @@ class DiscoveryView extends ItemView {
       tag.createSpan({ text: advanced
         ? (error ? t("query.invalid", { error, at: at + 1 }) : `${t("query.clauses", { n: clauses })}${words}`)
         : (error ? t("search.invalid", { error }) : t("status.query", { q: query })) });
+      if (this.inQuery && advanced && !error) {
+        // hover: what each clause finds on its own; nothing found: the clause that emptied the list
+        tag.addEventListener("mouseenter", () => setTooltip(tag, this.clauseCounts(query).map(([c, n]) => `${c}  →  ${formatCount(n)}`).join("\n")), { once: true });
+        const shown = this.preset ? this.presetRows().length : discover(this.plugin.state(), modeOptions(this.settings, this.settings.mode), Date.now()).length;
+        if (shown === 0) {
+          const best = this.clauseCounts(query, true)[0];
+          if (best?.[1] > 0) wrap.createSpan({ cls: "pdt-query-why", text: t("query.without", { clause: best[0], n: formatCount(best[1]) }) });
+        }
+      }
       if (this.inQuery) this.renderQueryChanged(wrap, query);
       const clear = this.inQuery ? null : tag.createSpan({ cls: "pdt-query-clear", text: t("status.clear"), attr: { role: "button", tabindex: "0" } });
       if (clear) clear.onclick = async () => {
@@ -995,6 +1048,25 @@ class DiscoveryView extends ItemView {
     if (!timeline.to && !this.plugin.busy) {
       actions.createEl("button", { cls: "mod-cta", text: t("status.build") }).onclick = () => this.plugin.downloadHistory();
     }
+  }
+
+  /**
+   * Each clause of the query (NOT with its own) and how many plugins it finds on its own; `without`: how many the
+   * query finds without it, most first (what emptied a list).
+   */
+  clauseCounts(query, without = false) {
+    const spans = compileQuery(query, null, Date.now(), true).spans || [];
+    const top = spans.filter((x) => x.kind !== "order" && !spans.some((y) => y !== x && y.from <= x.from && y.to >= x.to && y.kind === "neg"));
+    const count = (text) => {
+      if (this.preset) return queryRows(this.home.context(Date.now()), text).length;
+      const mode = this.settings.mode;
+      return discover(this.plugin.state(), modeOptions({ ...this.settings, queries: { ...this.settings.queries, [mode]: text } }, mode), Date.now()).length;
+    };
+    const rows = top.map((x) => {
+      const clause = query.slice(x.from, x.to);
+      return [clause, count(without ? `${query.slice(0, x.from)} ${query.slice(x.to)}` : clause)];
+    });
+    return without ? rows.sort((a, b) => b[1] - a[1]) : rows;
   }
 
   /** Query mode, the box no longer the page's own query: "changed · Save ▾ · Revert". */
