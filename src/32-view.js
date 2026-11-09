@@ -512,7 +512,7 @@ class DiscoveryView extends ItemView {
     } else {
       this.refs.search = this.renderSearch(bar, this.queryDraft ?? this.settings.query, t("search.placeholder"), async (value) => {
         // an invalid query isn't applied (like Jira): the list keeps the last valid one, the box keeps what you typed
-        this.queryDraft = compileQuery(value).error ? value : null;
+        this.queryDraft = compileQuery(value, null, Date.now(), this.settings.queryMode).error ? value : null;
         this.renderStatus(this.refs.status);
         if (this.queryDraft != null) return;
         this.settings.query = value;
@@ -520,7 +520,7 @@ class DiscoveryView extends ItemView {
         this.clearSelection();   // another search, another list
         this.refresh();
         await this.plugin.saveData(this.plugin.data);
-      });
+      }, true);
     }
 
     if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
@@ -533,7 +533,8 @@ class DiscoveryView extends ItemView {
     }
     if (this.settings.keyboard) this.renderKeyHelp(bar);
     // quick filters (Jira style): the changed and added ones as chips on a row of their own, under the bar
-    if (this.quickFilters) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
+    if (this.quickFilters && !this.settings.queryMode) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
+    bar.toggleClass("is-query", Boolean(this.settings.queryMode && !similar));   // Filter and Sort step back: the query decides
     this.updateFilterHead();
   }
 
@@ -559,7 +560,8 @@ class DiscoveryView extends ItemView {
     const panel = wrap.createDiv({ cls: "pdt-filter-panel", attr: { role: "dialog", "aria-label": t("filter.more") } });
     panel.addEventListener("keydown", (event) => { if (event.key === "Escape") { this.filtersOpen = false; this.render(); } });
     this.renderFilterChips(panel, mode, opts, true);
-    const addable = addableFilters(this.settings, mode);
+    const addable = this.settings.queryMode ? [] : addableFilters(this.settings, mode);
+    if (this.settings.queryMode) panel.createDiv({ cls: "pdt-filter-note", text: t("filter.queryNote") });
     if (addable.length) {
       panel.createDiv({ cls: "pdt-filter-group", text: t("filter.addTitle") });
       const adds = panel.createDiv({ cls: "pdt-filter-adds" });
@@ -593,7 +595,7 @@ class DiscoveryView extends ItemView {
       this.chipButton(chip, "rotate-ccw", t("filter.resetOne"), () => this.resetFilter(key));
     };
     if (all) parent.createDiv({ cls: "pdt-filter-group", text: t("filter.ownTitle") });
-    if (!this.similar && changed.has("query")) {
+    if (!this.similar && changed.has("query") && !settings.queryMode) {
       own("query", (p) => { const chip = p.createDiv({ cls: "pdt-chip" }); chip.createSpan({ text: t("filter.tipSearch", { q: settings.query.trim() }) }); return chip; });
     }
     if (mode === "new" || mode === "updated") {
@@ -602,7 +604,7 @@ class DiscoveryView extends ItemView {
     if (mode === "awakened") {
       own("dormantDays", (p) => numberChip(p, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) }));
     }
-    if (mode !== "new") {
+    if (mode !== "new" && !settings.queryMode) {
       own("downloadFilter", (p) => toggleChip(p, {
         label: t("filter.downloads"),
         value: settings.minDownloads,
@@ -727,39 +729,49 @@ class DiscoveryView extends ItemView {
 
   /**
    * The search box (comma terms, /regex/ or the query language). A textarea over a painted copy of its text: the
-   * copy shows each clause as a chip and a broken one underlined, and gives the box its height (long queries wrap,
-   * new lines are kept). `onChange` runs 1 s after typing stops, at once when the box is cleared or on Enter
-   * (Ctrl/Cmd+Enter in a query, where Enter starts a new line). Returns the textarea.
+   * copy colours each word by its role (field, operator, value, function, keyword) and underlines a broken part,
+   * and gives the box its height (long queries wrap, new lines are kept). `onChange` runs 1 s after typing stops,
+   * at once when the box is cleared or on Enter (Ctrl/Cmd+Enter in a query, where Enter starts a new line).
+   * `modes` (the list's own box): the Basic | Query buttons and the switch to Query as an advanced query is typed.
+   * Returns the textarea.
    */
-  renderSearch(bar, value, placeholder, onChange) {
-    const search = bar.createDiv({ cls: "pdt-search" });
+  renderSearch(bar, value, placeholder, onChange, modes = false) {
+    const queryMode = modes && this.settings.queryMode;
+    const search = bar.createDiv({ cls: `pdt-search${queryMode ? " is-query" : ""}` });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");
     const box = search.createDiv({ cls: "pdt-q" });
     const paint = box.createDiv({ cls: "pdt-q-paint", attr: { "aria-hidden": "true" } });
-    const input = box.createEl("textarea", { cls: "pdt-q-input", attr: { rows: "1", placeholder, spellcheck: "false", autocomplete: "off", autocapitalize: "off" } });
+    const input = box.createEl("textarea", { cls: "pdt-q-input", attr: { rows: "1", placeholder: queryMode ? t("search.placeholderQuery") : placeholder, spellcheck: "false", autocomplete: "off", autocapitalize: "off" } });
     input.value = value || "";
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
-    const mode = search.createSpan({ cls: "pdt-query-mode", text: t("search.advanced") });
-    setTooltip(mode, t("search.advancedTip"));
+    const seg = modes && this.renderQueryModes(search, queryMode);
     const mark = () => {
       const text = input.value;
-      const { regex, error, advanced, spans = [] } = compileQuery(text);
+      const { regex, error, advanced, from = 0, to = 0 } = compileQuery(text, null, Date.now(), queryMode);
       search.toggleClass("is-regex", regex && !error);
       search.toggleClass("is-advanced", Boolean(advanced));
       search.toggleClass("is-invalid", Boolean(error));
       setTooltip(input, error || "");
       paint.empty();
+      const bad = error ? [from, to] : null;
+      const piece = (a, b, cls) => {
+        if (a >= b) return;
+        const broken = bad && a < bad[1] && b > bad[0];
+        if (cls || broken) paint.createSpan({ cls: [cls && `pdt-q-${cls}`, broken && "is-bad"].filter(Boolean).join(" "), text: text.slice(a, b) });
+        else paint.append(text.slice(a, b));
+      };
       let at = 0;
-      for (const span of [...spans].sort((a, b) => a.from - b.from || b.to - a.to)) {
-        if (span.from < at) continue;   // inside a wider one (a clause under its NOT)
-        paint.append(text.slice(at, span.from));
-        paint.createSpan({ cls: `pdt-q-c is-${span.kind}`, text: text.slice(span.from, span.to) });
-        at = span.to;
+      for (const tok of advanced ? queryHighlight(text) : []) {
+        piece(at, tok.at, "");
+        piece(tok.at, tok.end, tok.cls);
+        at = tok.end;
       }
-      paint.append(`${text.slice(at)}\u200b`);   // keeps a trailing new line's height
+      piece(at, text.length, "");
+      paint.append("\u200b");   // keeps a trailing new line's height
+      if (seg) seg.refresh(text);
     };
-    if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData());
+    if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData(modes));
     mark();
     let timer;
     const apply = (delay) => {
@@ -767,6 +779,7 @@ class DiscoveryView extends ItemView {
       timer = setTimeout(() => onChange(input.value), delay);
     };
     input.oninput = () => {
+      if (modes && !queryMode && isAdvancedQuery(input.value)) return this.toQueryMode(input);   // typed a query: Query mode
       mark();
       apply(input.value.trim() ? 1000 : 0);
     };
@@ -780,14 +793,78 @@ class DiscoveryView extends ItemView {
     return input;
   }
 
-  /** What the query suggestions offer as values: your groups (with counts), statuses, and the catalog's authors. */
-  queryData() {
+  /**
+   * Basic | Query, at the box's end (Jira's Basic / JQL). Query writes the filters into the box; Basic turns the
+   * query back into filters, and is locked (with the reason) when the query has something filters can't say.
+   */
+  renderQueryModes(search, queryMode) {
+    const seg = search.createDiv({ cls: "pdt-qmode", attr: { role: "group" } });
+    const basic = seg.createEl("button", { cls: "pdt-qmode-option", text: t("query.mode.basic"), attr: { type: "button", "aria-pressed": String(!queryMode) } });
+    const query = seg.createEl("button", { cls: "pdt-qmode-option", text: t("query.mode.query"), attr: { type: "button", "aria-pressed": String(queryMode) } });
+    setTooltip(query, t("query.mode.queryTip"));
+    let reason = "";
+    basic.onclick = () => (!queryMode ? null : reason ? new Notice(`${reason}\n${t("query.basicClear")}`) : this.toBasicMode());
+    query.onclick = () => (queryMode ? null : this.toQueryMode());
+    seg.refresh = (text) => {
+      reason = queryMode && text.trim() ? queryToFilters(text, this.settings, this.settings.mode).reason || "" : "";
+      basic.toggleClass("is-locked", Boolean(reason));
+      setTooltip(basic, reason || t("query.mode.basicTip"));
+    };
+    return seg;
+  }
+
+  /**
+   * To Query mode: the tab's filters (and sort, from the button) become the query; the panel's downloads threshold
+   * and added filters rest until Basic. From typing (`input`), what you typed follows your filters.
+   */
+  async toQueryMode(input = null) {
+    const settings = this.settings;
+    const mode = settings.mode;
+    let text = filtersToQuery(settings, mode);
+    let caret = null;
+    if (input) {
+      const prefix = filtersToQuery({ ...settings, query: "" }, mode, { order: false });
+      const typed = input.value;
+      text = prefix && !typed.startsWith(prefix) ? `${prefix} ${typed}` : typed;
+      caret = (input.selectionStart ?? typed.length) + text.length - typed.length;
+    }
+    settings.queryMode = true;
+    this.queryDraft = compileQuery(text, null, Date.now(), true).error ? text : null;
+    if (this.queryDraft == null) settings.query = text;
+    this.visible = PAGE_SIZE;
+    this.clearSelection();
+    this.render();
+    const box = this.refs.search;
+    box.focus();
+    box.setSelectionRange(caret ?? text.length, caret ?? text.length);
+    await this.plugin.saveData(this.plugin.data);
+  }
+
+  /** Back to Basic: the query's clauses become filters again, its order by the sort, its words the plain search. */
+  async toBasicMode() {
+    const text = this.queryDraft ?? this.settings.query;
+    const { patch, reason } = text.trim() ? queryToFilters(text, this.settings, this.settings.mode) : { patch: { query: "", queryMode: false } };
+    if (reason) return new Notice(reason);
+    Object.assign(this.settings, patch);
+    this.queryDraft = null;
+    this.visible = PAGE_SIZE;
+    this.clearSelection();
+    this.render();
+    await this.plugin.saveData(this.plugin.data);
+  }
+
+  /**
+   * What the query suggestions offer as values: your groups (with counts), statuses, and the catalog's authors;
+   * for the empty list box (`modes`), your filters as a query.
+   */
+  queryData(modes = false) {
     if (!this.authors || this.authors.at !== this.plugin.catalog?.fetchedAt) {
       const byAuthor = new Map();
       for (const p of this.plugin.catalog?.plugins || []) if (p.author) byAuthor.set(p.author, (byAuthor.get(p.author) || 0) + (p.downloads || 0));
       this.authors = { at: this.plugin.catalog?.fetchedAt, list: [...byAuthor].sort((a, b) => b[1] - a[1]).map(([name]) => name) };
     }
-    return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.authors.list };
+    const fromFilters = modes && !this.settings.queryMode ? filtersToQuery({ ...this.settings, query: "" }, this.settings.mode) : "";
+    return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.authors.list, fromFilters };
   }
 
   /** The Similar filter as one chip: ‹ back (when there is a step), ≈ Similar: name (opens its details), ✕. */
@@ -854,7 +931,7 @@ class DiscoveryView extends ItemView {
     }
     const query = this.similar ? "" : (this.queryDraft ?? this.settings.query).trim();   // the Similar filter has its own search
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
-      const { error, advanced, at, clauses, free = [] } = compileQuery(query);
+      const { error, advanced, at, clauses, free = [] } = compileQuery(query, null, Date.now(), Boolean(this.settings.queryMode && !this.similar));
       const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
       // a query isn't repeated: how many clauses, plus the words it searches
       const words = free.length ? ` + “${free.join(" ")}”` : "";
@@ -864,6 +941,7 @@ class DiscoveryView extends ItemView {
       const clear = tag.createSpan({ cls: "pdt-query-clear", text: t("status.clear"), attr: { role: "button", tabindex: "0" } });
       clear.onclick = async () => {
         this.settings.query = "";
+        this.queryDraft = null;
         if (this.refs.search) {
           this.refs.search.value = "";
           this.refs.search.oninput();   // repaints the box

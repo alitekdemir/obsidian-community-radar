@@ -179,6 +179,7 @@ function defaultSettings() {
     statuses: DEFAULT_STATUSES.map((key) => ({ key, label: t(`statusDefault.${key}`) })),
     sortBy: {},           // tab → {key, dir}; missing tabs use TAB_DEFAULTS
     query: "",
+    queryMode: false,   // Query (true): the search box holds the downloads threshold, added filters and sort as a query
     provider: "",
     model: "",
     modelPrice: "",

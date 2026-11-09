@@ -231,15 +231,15 @@ function isChanged(plugin, note) {
  * must appear. An invalid regex matches everything and reports `error`, so the list never goes blank.
  * @returns {{test: (plugin) => boolean, regex: boolean, error: string}}
  */
-function compileQuery(query, state = null, now = Date.now()) {
-  if (isAdvancedQuery(String(query || ""))) {   // the query language (16-query.js)
+function compileQuery(query, state = null, now = Date.now(), advanced = false) {
+  if (advanced || isAdvancedQuery(String(query || ""))) {   // Query mode reads even plain words as the query language   // the query language (16-query.js)
     try {
       const q = parseQuery(String(query));
       return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, free: q.free, spans: q.spans, advanced: true, regex: false, error: "" };
     } catch (error) {
       if (!(error instanceof QueryError)) throw error;
       const bad = { from: error.from, to: error.to, kind: "bad" };
-      return { test: () => true, advanced: true, regex: false, error: error.message, at: error.at ?? 0, spans: [...(error.spans || []), bad] };
+      return { test: () => true, advanced: true, regex: false, error: error.message, at: error.at ?? 0, from: error.from, to: error.to, spans: [...(error.spans || []), bad] };
     }
   }
   const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
@@ -316,8 +316,9 @@ function modeOptions(settings, mode) {
   return {
     ...settings,
     mode,
-    filterDownloads: mode === "new" ? false : settings.downloadFilter?.[mode] ?? defaults.downloads,   // new plugins have few downloads
-    extras: settings.extraFilters?.[mode] || {},
+    // new plugins have few downloads; in Query mode the query holds the threshold and the added filters
+    filterDownloads: mode === "new" || settings.queryMode ? false : settings.downloadFilter?.[mode] ?? defaults.downloads,
+    extras: settings.queryMode ? {} : settings.extraFilters?.[mode] || {},
     sort: key,
     sortDir: sort.dir === "asc" || sort.dir === "desc" ? sort.dir : NATURAL_DIR[key],
   };
@@ -358,6 +359,7 @@ function changedFilterKeys(settings, mode) {
   const cleared = clearedFilters(settings, mode);
   const own = Object.keys(cleared).filter((k) => k !== "extraFilters"
     && (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
+  if (settings.queryMode) return own.filter((k) => !["query", "minDownloads", "downloadFilter"].includes(k));   // those live in the query
   const extras = Object.keys(settings.extraFilters?.[mode] || {}).map((k) => `extra.${k}`);
   return [...new Set(own.map((k) => (k === "minDownloads" ? "downloadFilter" : k))), ...extras];
 }
@@ -414,7 +416,7 @@ function trackedMatch(note, opts, plugin) {
 function discover(state, opts, now) {
   const { catalog, releases, firstSeen, notes, excluded, dismissed, installed, snoozed } = state;
   const since = now - opts.days * DAY_MS;
-  const query = compileQuery(opts.query, state, now);
+  const query = compileQuery(opts.query, state, now, opts.queryMode);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
   const extras = Object.entries(opts.extras || {}).filter(([k]) => EXTRA_FILTERS[k]);
   const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p) && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now));

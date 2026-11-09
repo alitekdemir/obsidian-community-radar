@@ -300,22 +300,42 @@ const tests = {
     head().onclick();
     assert.ok(!$(el, ".pdt-filter-panel"));
 
-    // the query language: an invalid query isn't applied (the list keeps the last valid one); a valid one is
+    // Basic → Query by typing a query: your filters lead it, the panel's threshold rests; the box paints by role
+    settings.downloadFilter = { ...settings.downloadFilter, all: true };
+    settings.minDownloads = 1000;
+    view.render();
     const box = () => $(el, ".pdt-search .pdt-q-input");
     const typeQuery = async (text) => { box().value = text; box().oninput(); await tick(1100); };
-    await typeQuery("downloads > 1k order by name desc");
-    assert.equal(settings.query, "downloads > 1k order by name desc");
+    const modeButton = (k) => $$(el, ".pdt-qmode-option")[k];
+    await typeQuery("order by name desc");
+    assert.equal(settings.queryMode, true);
+    assert.equal(settings.query, "downloads >= 1k order by name desc", "the filters lead what you typed");
+    assert.equal(core.modeOptions(settings, "all").filterDownloads, false, "the panel's threshold rests in Query mode");
     assert.deepEqual(names(), ["Homepage", "Dataview"], "filtered and sorted by the query");
-    assert.ok($(el, ".pdt-search").classList.contains("is-advanced"));
-    assert.equal($(el, ".pdt-q-paint .pdt-q-c.is-clause").textContent, "downloads > 1k", "each clause painted as a chip");
+    assert.equal($(el, ".pdt-q-paint .pdt-q-field").textContent, "downloads", "words coloured by their role");
     assert.ok($(el, ".pdt-query").textContent.startsWith(core.t("query.clauses", { n: 1 })), "the status line counts, doesn't repeat the query");
+    // an invalid query isn't applied: the list keeps the last valid one
     await typeQuery("downloads > lots");
-    assert.equal(settings.query, "downloads > 1k order by name desc", "not applied");
+    assert.equal(settings.query, "downloads >= 1k order by name desc", "not applied");
     assert.equal(box().value, "downloads > lots", "the box keeps what you typed");
-    assert.ok($(el, ".pdt-query.is-invalid"), "the status line says why");
+    assert.ok($(el, ".pdt-query.is-invalid") && $(el, ".pdt-q-paint .is-bad"), "the status line says why, the box underlines it");
     assert.deepEqual(names(), ["Homepage", "Dataview"]);
-    await typeQuery("");
+    // Query → Basic: the clauses become filters again
+    await typeQuery("downloads >= 1k author ~ brenan");
+    await modeButton(0).onclick();
+    assert.equal(settings.queryMode, false);
     assert.equal(settings.query, "");
+    assert.deepEqual(settings.extraFilters.all, { author: "brenan" });
+    assert.equal(settings.downloadFilter.all, true);
+    assert.deepEqual(names(), ["Dataview"]);
+    // the Query button writes them back; a query filters can't say locks Basic
+    await modeButton(1).onclick();
+    assert.ok(settings.query.startsWith("downloads >= 1k author ~ brenan"), settings.query);
+    await typeQuery("author ~ brenan OR installed");
+    assert.ok(modeButton(0).classList.contains("is-locked"));
+    Object.assign(settings, { queryMode: false, query: "", extraFilters: {}, downloadFilter: {}, minDownloads: 100 });
+    view.queryDraft = null;
+    view.render();
 
     await view.update("mode", "updated");
     head().onclick();   // the days live in the panel

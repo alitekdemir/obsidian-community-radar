@@ -38,6 +38,21 @@ const QUERY_FIELDS = {
   new: { type: "bool", get: (s, p, now) => isNewPlugin(s.firstSeen, p, now, NEW_BADGE_DAYS) },
 };
 
+/** Date functions for date fields (released, age), Jira style: `startOfMonth(-1)` is last month's first day. */
+const QUERY_FUNCS = {
+  today: (now, n) => { const d = new Date(now); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + n); return d.getTime(); },
+  startofweek: (now, n) => { const d = new Date(now); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * n); return d.getTime(); },   // weeks start on Monday
+  startofmonth: (now, n) => { const d = new Date(now); return new Date(d.getFullYear(), d.getMonth() + n, 1).getTime(); },
+  startofyear: (now, n) => new Date(new Date(now).getFullYear() + n, 0, 1).getTime(),
+  lastsync: (now, n, s) => s.lastSync ?? null,   // the sync before the latest one
+};
+const QUERY_FUNC_NAMES = ["today", "startOfWeek", "startOfMonth", "startOfYear", "lastSync"];
+
+const QUERY_CMP = {
+  "=": (a, b) => Math.round(a) === Math.round(b), "!=": (a, b) => Math.round(a) !== Math.round(b),
+  ">": (a, b) => a > b, ">=": (a, b) => a >= b, "<": (a, b) => a < b, "<=": (a, b) => a <= b,
+};
+
 /** Case and Turkish dotted/dotless i folded, so `istanbul` finds `İstanbul` and `image` finds `IMAGE`. */
 const fold = (text) => String(text ?? "").toLowerCase().replace(/i̇/g, "i").replace(/ı/g, "i");
 
@@ -146,6 +161,15 @@ function parseQuery(query) {
     }
 
     const token = valueOf(name, take());
+    if (field.type === "number" && token.kind === "word" && peek()?.kind === "(") {   // a date function
+      const fn = QUERY_FUNCS[fold(token.text)];
+      if (!fn || !field.at) fail("fn", { name: token.text, field: name }, token.at);
+      take();
+      const shift = peek()?.kind === "word" && /^[+-]?\d+$/.test(peek().text) ? Number(take().text) : 0;
+      if (take()?.kind !== ")") fail("paren");
+      const cmp = QUERY_CMP[op.text];
+      return (s, p, now) => { const at2 = field.at(s, p); const moment = fn(now, shift, s); return at2 > 0 && moment != null && cmp(at2, moment); };
+    }
     if (field.type === "bool") {
       const v = fold(token.text);
       if (v !== "true" && v !== "false") fail("bool", { field: name }, token.at);
@@ -157,7 +181,7 @@ function parseQuery(query) {
       if (!value || Number.isNaN(value.n)) fail(field.days ? "days" : "number", { field: name }, token.at);
       if (value.date && !field.at) fail("days", { field: name }, token.at);
       // a date compares moments (released > 2026-01-01: after it); a span compares days ago
-      const cmp = { "=": (a, b) => Math.round(a) === Math.round(b), "!=": (a, b) => Math.round(a) !== Math.round(b), ">": (a, b) => a > b, ">=": (a, b) => a >= b, "<": (a, b) => a < b, "<=": (a, b) => a <= b }[op.text];
+      const cmp = QUERY_CMP[op.text];
       return value.date
         ? (s, p) => { const at2 = field.at(s, p); return at2 > 0 && cmp(at2, value.date); }
         : (s, p, now) => { const v = field.get(s, p, now); return v != null && cmp(v, value.n); };
@@ -272,15 +296,17 @@ function querySuggestions(text, caret, data) {
     const hits = items.filter((x) => fold(x.label).startsWith(partial) || (partial.length > 1 && fold(x.label).includes(partial)));
     return hits.some((x) => fold(x.insert) === partial || fold(x.label) === partial) ? [] : hits.slice(0, 30);   // typed in full: done
   };
-  const quote = (v) => (/^[\p{L}\p{N}_.-]+$/u.test(v) ? v : `"${v.replace(/"/g, '\\"')}"`);
   const values = (name) => {
     const field = QUERY_FIELDS[name];
-    if (name === "group") return data.groups.map((g) => ({ label: g.name, insert: quote(g.name), hint: t("query.count", { n: g.count }) }));
-    if (name === "status") return data.statuses.map((st) => ({ label: st.label, insert: quote(st.key), hint: st.key }));
-    if (name === "author") return data.authors.map((a) => ({ label: a, insert: quote(a) }));
+    if (name === "group") return data.groups.map((g) => ({ label: g.name, insert: quoteValue(g.name), hint: t("query.count", { n: g.count }) }));
+    if (name === "status") return data.statuses.map((st) => ({ label: st.label, insert: quoteValue(st.key), hint: st.key }));
+    if (name === "author") return data.authors.map((a) => ({ label: a, insert: quoteValue(a) }));
     if (name === "rating") return [5, 4, 3, 2, 1].map((n) => ({ label: String(n), insert: String(n), hint: "★".repeat(n) }));
     if (field.type === "bool") return ["true", "false"].map((v) => ({ label: v, insert: v }));
-    if (field.days) return ["7d", "30d", "90d", "1y", dayString(Date.now() - 365 * DAY_MS)].map((v) => ({ label: v, insert: v }));
+    if (field.days) {
+      const spans = ["7d", "30d", "90d", "1y"].map((v) => ({ label: v, insert: v }));
+      return field.at ? [...spans, ...QUERY_FUNC_NAMES.map((f) => ({ label: `${f}()`, insert: `${f}()`, hint: t(`query.fn.${f}`) }))] : spans;
+    }
     if (field.type === "number") return ["100", "1k", "10k", "100k"].map((v) => ({ label: v, insert: v }));
     return [];
   };
@@ -292,6 +318,7 @@ function querySuggestions(text, caret, data) {
     const listed = new Set(tokens.slice(lastOpen[1] + 1).filter((tok) => tok.kind === "word" || tok.kind === "value").map((tok) => fold(tok.text)));
     return { from, items: pick(values(fold(fieldTok.text)).filter((x) => !listed.has(fold(x.label)))) };
   }
+  if (prev?.kind === "(" && QUERY_FUNCS[fold(before2?.text)]) return { from, items: [] };
   if (prev?.kind === "op" && isField(before2)) return { from, items: pick(values(fold(before2.text))) };
   if (isField(prev) && !typing && QUERY_FIELDS[fold(prev.text)].type !== "bool") {   // a yes/no field stands alone: `NOT installed`
     const type = QUERY_FIELDS[fold(prev.text)].type;
@@ -306,4 +333,129 @@ function querySuggestions(text, caret, data) {
   const fields = Object.keys(QUERY_FIELDS).map((k) => ({ label: k, insert: k, hint: t(`query.field.${k}`) }));
   const words = (prev && prev.kind !== "(" && !["and", "or", "not"].includes(fold(prev.text)) ? ["AND", "OR", "order by"] : ["NOT"]).map((w) => ({ label: w, insert: w }));
   return { from, items: pick([...fields, ...words]) };
+}
+
+/** A value as the query reads it: quoted when it has spaces or would read as a keyword or a field. */
+function quoteValue(v) {
+  const plain = /^[\p{L}\p{N}_.-]+$/u.test(v) && !["and", "or", "not", "in", "is", "order", "by"].includes(fold(v)) && !QUERY_FIELDS[fold(v)];
+  return plain ? v : `"${String(v).replace(/"/g, '\\"')}"`;
+}
+
+/** What each token of the box is, for its colour: field, op, value, fn, kw (AND OR order by), neg (NOT) or "" (free text). */
+function queryHighlight(text) {
+  const tokens = tokenize(text);
+  let expect = false;   // a value comes next
+  let list = false;     // inside `in (…)` or a function's ( )
+  return tokens.map((tok, k) => {
+    const prev = tokens[k - 1];
+    const next = tokens[k + 1];
+    const w = fold(tok.text);
+    let cls = "";
+    if (tok.kind === "op") { cls = "op"; expect = true; }
+    else if (tok.kind === "(") list = fold(prev?.text) === "in" || Boolean(QUERY_FUNCS[fold(prev?.text)]);
+    else if (tok.kind === ")") list = false;
+    else if (tok.kind === ",") cls = "";
+    else if (next?.kind === "(" && QUERY_FUNCS[w]) { cls = "fn"; expect = false; }
+    else if (tok.kind !== "word" || list || expect) { cls = "value"; expect = false; }
+    else if (w === "in" || w === "is" || w === "empty" || (w === "not" && (fold(next?.text) === "in" || fold(prev?.text) === "is"))) cls = "op";
+    else if (w === "and" || w === "or" || w === "order" || (w === "by" && fold(prev?.text) === "order")) cls = "kw";
+    else if (w === "not") cls = "neg";
+    else if ((w === "asc" || w === "desc") && QUERY_FIELDS[fold(prev?.text)]) cls = "value";
+    else if (QUERY_FIELDS[w]) cls = "field";
+    return { ...tok, cls };
+  });
+}
+
+/** A count as the query writes it: 1000 → 1k, 1500 → 1.5k, 2000000 → 2m. */
+function queryCount(n) {
+  if (n >= 1e6 && n % 1e5 === 0) return `${n / 1e6}m`;
+  if (n >= 1e3 && n % 100 === 0) return `${n / 1e3}k`;
+  return String(n);
+}
+
+/**
+ * Basic → Query: the tab's downloads threshold, added filters, sort (unless the tab's default; `order` false
+ * leaves it out) and the plain search's words, as one query. The tab's own settings (its days, Hide busy) stay.
+ */
+function filtersToQuery(settings, mode, { order = true } = {}) {
+  const opts = modeOptions({ ...settings, queryMode: false }, mode);
+  const query = String(settings.query || "").trim();
+  const parts = isAdvancedQuery(query) || /^\/.+\/$/.test(query) ? [query] : query.split(",").map((w) => w.trim()).filter(Boolean).map(quoteValue);
+  if (opts.filterDownloads && opts.minDownloads > 0) parts.push(`downloads >= ${queryCount(opts.minDownloads)}`);
+  const x = opts.extras;
+  if (x.released != null) parts.push(`released <= ${x.released}d`);
+  if (x.gap != null) parts.push(`gap >= ${x.gap}d`);
+  if (x.growth != null) parts.push(`gain30 >= ${queryCount(x.growth)}`);
+  if (x.age != null) parts.push(`age <= ${x.age}d`);
+  if (x.author) parts.push(`author ~ ${quoteValue(x.author)}`);
+  if (x.installed) parts.push("installed");
+  const field = Object.keys(QUERY_FIELDS).find((k) => QUERY_FIELDS[k].sort === opts.sort);
+  const tab = TAB_DEFAULTS[mode] || TAB_DEFAULTS.all;
+  const sorted = order && field && (opts.sort !== tab.sort || opts.sortDir !== (NATURAL_DIR[opts.sort] || "desc"));
+  return [parts.join(" "), sorted ? `order by ${field} ${opts.sortDir}` : ""].filter(Boolean).join("\n");
+}
+
+/**
+ * Query → Basic: the settings that say the same with filters ({patch}), or why they can't ({reason}). Every clause
+ * needs a filter of its own: downloads >=, released <=, gap >=, gain30 >=, age <=, author ~, installed; one
+ * order by; free words become the plain search. OR, ( ), in (…), NOT, regex and functions don't fit.
+ */
+function queryToFilters(query, settings, mode) {
+  let q;
+  try { q = parseQuery(String(query)); } catch (error) { return { reason: error.message }; }
+  const tokens = tokenize(String(query));
+  const bad = new Set();
+  tokens.forEach((tok, k) => {
+    const prev = fold(tokens[k - 1]?.text);
+    if (tok.kind === "word" && fold(tok.text) === "or") bad.add("OR");
+    if (tok.kind === "regex") bad.add("/regex/");
+    if (tok.kind === "(") bad.add(prev === "in" ? "in (…)" : QUERY_FUNCS[prev] ? `${tokens[k - 1].text}()` : "( )");
+  });
+  if (q.spans.some((span) => span.kind === "neg")) bad.add("NOT");
+  const extras = {};
+  let downloads = null;
+  const own = (key) => !EXTRA_FILTERS[key].skip?.includes(mode);
+  const set = (key, value, text) => (key in extras || !own(key) ? bad.add(text) : (extras[key] = value));
+  for (const span of q.spans.filter((x) => x.kind === "clause")) {
+    const text = String(query).slice(span.from, span.to);
+    const [f, op, v, ...rest] = tokens.filter((tok) => tok.at >= span.from && tok.end <= span.to);
+    const field = fold(f.text);
+    const days = v && queryNumber(v.text, true);
+    const count = v && queryNumber(v.text, false);
+    const lower = op?.text === "<=" || op?.text === "<";
+    if (rest.length) bad.add(text);
+    else if (field === "installed" && !op) set("installed", true, text);
+    else if (field === "downloads" && op?.text === ">=" && count?.n >= 0 && mode !== "new" && downloads == null) downloads = Math.round(count.n);
+    else if (field === "released" && lower && days?.n >= 0) set("released", Math.round(days.n), text);
+    else if (field === "age" && lower && days?.n >= 0) set("age", Math.round(days.n), text);
+    else if (field === "gap" && op?.text === ">=" && days?.n >= 0) set("gap", Math.round(days.n), text);
+    else if (field === "gain30" && op?.text === ">=" && count?.n >= 0) set("growth", Math.round(count.n), text);
+    else if (field === "author" && op?.text === "~" && v.kind !== "regex") set("author", v.text, text);
+    else bad.add(text);
+  }
+  if (bad.size) return { reason: t("query.basicNo", { what: [...bad].join(", ") }) };
+  const patch = {
+    query: q.free.join(", "),
+    queryMode: false,
+    extraFilters: { ...settings.extraFilters, [mode]: extras },
+    sortBy: q.order ? { ...settings.sortBy, [mode]: q.order } : settings.sortBy,
+  };
+  if (mode !== "new") patch.downloadFilter = { ...settings.downloadFilter, [mode]: downloads != null };
+  if (downloads != null) patch.minDownloads = downloads;
+  return { patch };
+}
+
+/** Ready-made queries the empty box offers, each with what it finds. */
+const QUERY_EXAMPLES = [
+  ["released >= startOfMonth() order by downloads desc", "month"],
+  ["age < 30d gain30 >= 1k", "rising"],
+  ["tracked AND NOT installed", "trackedOnly"],
+  ["tracked group is empty", "ungrouped"],
+  ["gap >= 1y released < 30d", "awakened"],
+];
+
+/** The empty box's list: your filters as a query (when there are any), then the examples. */
+function queryStarters(fromFilters) {
+  const items = QUERY_EXAMPLES.map(([q, key], k) => ({ label: q, insert: q, hint: t(`query.example.${key}`), head: k === 0 ? t("query.examples") : "" }));
+  return fromFilters ? [{ label: fromFilters, insert: fromFilters, hint: t("query.fromFiltersHint"), head: t("query.fromFilters") }, ...items] : items;
 }

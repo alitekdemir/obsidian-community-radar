@@ -171,6 +171,7 @@ class PluginRadar extends Plugin {
       dismissed: new Set(Object.keys(this.data.dismissed)),
       snoozed: this.data.snoozed,
       installed: this.installed(),
+      lastSync: this.catalog?.prevAt ?? null,
     };
   }
 
@@ -245,7 +246,7 @@ class PluginRadar extends Plugin {
       progress(t("notice.downloadingCatalog"));
       const plugins = await this.github.catalog();
       const delta = this.catalog ? catalogDelta(this.catalog.plugins, plugins) : null;
-      this.catalog = { fetchedAt: Date.now(), plugins, delta };
+      this.catalog = { fetchedAt: Date.now(), prevAt: this.catalog?.fetchedAt, plugins, delta };   // prevAt: lastSync() in queries
       for (const p of plugins) if (p.id in this.data.snoozed && !isSnoozed(p, this.data.snoozed)) delete this.data.snoozed[p.id];
       await this.saveData(this.data);
       await this.cache.write("catalog", this.catalog);

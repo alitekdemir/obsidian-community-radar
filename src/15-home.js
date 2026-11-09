@@ -98,7 +98,7 @@ const VIEW_SEEN_CAP = 5000;    // a view's matches you've seen are kept as ids, 
 
 /** The filter settings a saved view keeps: the tab's filters (search and added ones included) and its sort. */
 function viewFilters(settings, mode) {
-  return Object.fromEntries([...filterKeys(mode), "sortBy"].map((k) => [k, settings[k]]));
+  return Object.fromEntries([...filterKeys(mode), "sortBy", "queryMode"].map((k) => [k, settings[k]]));
 }
 
 /**
@@ -109,7 +109,7 @@ function viewWidget(view, seen) {
   const known = Array.isArray(seen) ? new Set(seen) : null;
   return {
     icon: "bookmark", tone: "blue", params: {}, defaults: {}, view,
-    rows: (ctx) => discover(ctx.state, modeOptions({ ...ctx.settings, ...view.filters }, view.mode), ctx.now),
+    rows: (ctx) => discover(ctx.state, modeOptions({ ...ctx.settings, queryMode: false, ...view.filters }, view.mode), ctx.now),   // views from before Query mode are Basic
     isNew: known && ((ctx, p) => !known.has(p.id)),
     value: (ctx, p) => formatShort(p.downloads ?? 0),
   };

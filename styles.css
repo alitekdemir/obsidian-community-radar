@@ -201,18 +201,7 @@
   cursor: pointer;
 }
 
-/* the query language: a "query" tag in the box once it reads as one; suggestions show field, operator or value + its meaning */
-.pdt-query-mode {
-  display: none;
-  padding: 0 6px;
-  border-radius: var(--radius-s);
-  background: color-mix(in srgb, var(--interactive-accent) 18%, transparent);
-  color: var(--text-accent);
-  font-size: var(--font-ui-smaller);
-  font-weight: var(--font-semibold);
-}
-
-.pdt-search.is-advanced .pdt-query-mode { display: inline-block; }
+/* the query language: suggestions show field, operator or value + its meaning */
 
 /* the box: a textarea over a painted copy of its text (same font and wrapping), the copy sets the height */
 .pdt-view .pdt-search {
@@ -225,7 +214,7 @@
 
 .pdt-search .pdt-search-icon,
 .pdt-search .pdt-regex,
-.pdt-search .pdt-query-mode {
+.pdt-search .pdt-qmode {
   margin-top: 2px;
 }
 
@@ -284,36 +273,70 @@
   color: var(--text-faint);
 }
 
-/* chips: a background with no padding, so the text keeps its place under the caret */
-.pdt-q-c {
-  border-radius: 3px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  background: var(--pdt-accent-bg);
-  box-shadow: 0 0 0 2px var(--pdt-accent-bg);
-  color: var(--text-accent);
-}
+/* syntax colours: field, operator, value, function, keyword (AND OR order by), NOT; a broken part wavy red */
+.pdt-q-field { color: var(--color-blue); }
+.pdt-q-op { color: var(--text-muted); }
+.pdt-q-value { color: var(--color-yellow); }
+.pdt-q-fn { color: var(--color-cyan); }
+.pdt-q-kw { color: var(--color-purple); font-weight: var(--font-semibold); }
+.pdt-q-neg { color: var(--color-red); font-weight: var(--font-semibold); }
 
-.pdt-q-c.is-neg {
-  --pdt-q-bg: color-mix(in srgb, var(--text-error) 15%, transparent);
-  background: var(--pdt-q-bg);
-  box-shadow: 0 0 0 2px var(--pdt-q-bg);
-  color: var(--text-error);
-}
-
-.pdt-q-c.is-order {
-  --pdt-q-bg: color-mix(in srgb, var(--color-purple) 16%, transparent);
-  background: var(--pdt-q-bg);
-  box-shadow: 0 0 0 2px var(--pdt-q-bg);
-  color: var(--color-purple);
-}
-
-.pdt-q-c.is-bad {
-  background: none;
-  box-shadow: none;
+.pdt-q-paint .is-bad {
   color: var(--text-error);
   text-decoration: underline wavy var(--text-error);
   text-underline-offset: 3px;
+}
+
+/* Basic | Query at the box's end; Basic locked (dimmed) when the query can't become filters */
+.pdt-qmode {
+  display: inline-flex;
+  flex: none;
+  overflow: hidden;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+}
+
+.pdt-view .pdt-qmode-option {
+  height: 20px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  cursor: pointer;
+}
+
+.pdt-view .pdt-qmode-option[aria-pressed="true"] {
+  background: var(--pdt-accent-bg);
+  color: var(--text-accent);
+  font-weight: var(--font-semibold);
+}
+
+.pdt-qmode-option.is-locked {
+  opacity: 0.45;
+}
+
+/* Query mode: Filter and Sort step back, the query decides */
+.pdt-filters.is-query .pdt-filter-head,
+.pdt-filters.is-query .pdt-sort {
+  opacity: 0.55;
+}
+
+.pdt-filter-note {
+  padding: var(--size-4-1) var(--size-4-2);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+.pdt-qs { flex-wrap: wrap; }
+.pdt-qs-head {
+  flex-basis: 100%;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 .pdt-qs { display: flex; justify-content: space-between; gap: var(--size-4-3); }
 .pdt-qs-label { font-family: var(--font-monospace); }

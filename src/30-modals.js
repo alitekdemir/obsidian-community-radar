@@ -194,9 +194,14 @@ const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.Abs
   }
 
   getSuggestions() {
+    const data = this.data();
+    if (!this.input.value.trim()) {   // the empty box: your filters as a query, then examples (also on focus)
+      Object.assign(this, { from: 0, caret: this.input.value.length });
+      return queryStarters(data.fromFilters);
+    }
     if (!this.typed) return [];
     const caret = this.input.selectionStart ?? this.input.value.length;
-    const { from, items } = querySuggestions(this.input.value, caret, this.data());
+    const { from, items } = querySuggestions(this.input.value, caret, data);
     this.from = from;
     this.caret = caret;
     return items;
@@ -204,11 +209,13 @@ const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.Abs
 
   renderSuggestion(item, el) {
     el.addClass("pdt-qs");
+    if (item.head) el.createDiv({ cls: "pdt-qs-head", text: item.head });
     el.createSpan({ cls: "pdt-qs-label", text: item.label });
     if (item.hint) el.createSpan({ cls: "pdt-qs-hint", text: item.hint });
   }
 
   selectSuggestion(item) {
+    this.close();   // the input below may redraw the box (Query mode), so this list goes first
     const value = this.input.value;
     const insert = item.insert.endsWith("(") ? item.insert : `${item.insert} `;
     this.input.value = value.slice(0, this.from) + insert + value.slice(this.caret).replace(/^[ \t]+/, "");

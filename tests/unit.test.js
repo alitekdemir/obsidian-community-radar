@@ -194,6 +194,41 @@ const tests = {
       ["clause:downloads >= 5k", "clause:installed", "neg:NOT installed", "order:order by gain30 desc"]);
     assert.deepEqual(core.compileQuery("downloads >= 5k calendar").free, ["calendar"]);
     assert.deepEqual(spans("author ~ brenan rating = on"), ["clause:author ~ brenan", "bad:rating = on"]);
+
+    // syntax colours: each token's role
+    const roles = (text) => core.queryHighlight(text).map((x) => `${x.cls || "-"}:${x.text}`).join(" ");
+    assert.equal(roles('name = new AND author in (a, "b c") NOT installed cal order by gain30 desc'),
+      'field:name op:= value:new kw:AND field:author op:in -:( value:a -:, value:b c -:) neg:NOT field:installed -:cal kw:order kw:by field:gain30 value:desc');
+    assert.equal(roles("released >= startOfMonth(-1)"), "field:released op:>= fn:startOfMonth -:( value:-1 -:)");
+
+    // date functions on date fields: today(), startOfWeek(), startOfMonth(n), startOfYear(), lastSync()
+    const local = new Date(now);
+    const monthStart = new Date(local.getFullYear(), local.getMonth(), 1).getTime();
+    assert.deepEqual(ids("released >= startOfMonth()"), plugins.filter((p) => p.updated >= monthStart).map((p) => p.id));
+    assert.deepEqual(ids("released >= startOfMonth(-1) released < startOfMonth()"), plugins.filter((p) => p.updated < monthStart && p.updated >= new Date(local.getFullYear(), local.getMonth() - 1, 1).getTime()).map((p) => p.id));
+    assert.deepEqual(ids("released >= startOfYear()"), ["cal", "tasks"]);
+    assert.deepEqual(ids("age >= startOfWeek(-1)"), ["tasks"]);
+    assert.equal(new Date(core.QUERY_FUNCS.startofweek(now, 0)).getDay(), 1, "weeks start on Monday");
+    assert.deepEqual(core.compileQuery("released > lastSync()", { ...state, lastSync: now - 10 * DAY }, now) && plugins.filter((p) => core.compileQuery("released > lastSync()", { ...state, lastSync: now - 10 * DAY }, now).test(p)).map((p) => p.id), ["cal"]);
+    assert.ok(core.compileQuery("downloads > today()", state, now).error, "functions only on date fields");
+    assert.ok(core.compileQuery("released > soon()", state, now).error);
+    assert.ok(sug("released >= ").includes("startOfMonth()"));
+    assert.deepEqual(sug("released >= startOfMonth("), [], "nothing inside a function's ( )");
+
+    // Basic ↔ Query: the tab's filters as a query, and back
+    const settings = { query: "calendar, big tasks", minDownloads: 1000, downloadFilter: { all: true }, extraFilters: { all: { author: "brenan", released: 30, installed: true } }, sortBy: { all: { key: "name", dir: "asc" } } };
+    const text = core.filtersToQuery(settings, "all");
+    assert.equal(text, 'calendar "big tasks" downloads >= 1k released <= 30d author ~ brenan installed\norder by name asc');
+    assert.equal(core.filtersToQuery({ ...settings, sortBy: {} }, "all"), 'calendar "big tasks" downloads >= 1k released <= 30d author ~ brenan installed', "the tab's own sort isn't written");
+    const back = core.queryToFilters(text, { ...settings, query: "", extraFilters: {}, downloadFilter: {}, sortBy: {} }, "all").patch;
+    assert.deepEqual(back, { query: "calendar, big tasks", queryMode: false, extraFilters: { all: { released: 30, author: "brenan", installed: true } }, sortBy: { all: { key: "name", dir: "asc" } }, downloadFilter: { all: true }, minDownloads: 1000 });
+    assert.match(core.queryToFilters("author ~ x OR installed", settings, "all").reason, /OR/);
+    assert.match(core.queryToFilters("group in (a) released >= startOfMonth()", settings, "all").reason, /in \(…\).*startOfMonth\(\)/);
+    assert.match(core.queryToFilters("NOT installed rating >= 4", settings, "all").reason, /NOT.*rating >= 4/);
+    assert.match(core.queryToFilters("released <= 30d", settings, "updated").reason, /released/, "Updated's own days aren't an added filter");
+    const starters = core.queryStarters("downloads >= 1k");
+    assert.equal(starters[0].insert, "downloads >= 1k");
+    assert.ok(starters[0].head && starters[1].head && starters.length === 6);
   },
 
   "compileQuery: comma terms, /regex/ (case-insensitive, in order), invalid regex never blanks the list"() {
