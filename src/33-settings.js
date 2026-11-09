@@ -267,6 +267,27 @@ class RadarSettingTab extends PluginSettingTab {
           settings.targetLang = value.trim() || defaultSettings().targetLang;
           await save();
         }));
+      // the instructions sent with each translation; the reply format is added after them and stays fixed
+      for (const kind of Object.keys(DEFAULT_PROMPTS)) {
+        const mine = settings.prompts?.[kind] || "";
+        new Setting(containerEl)
+          .setName(t(`set.prompt.${kind}`))
+          .setDesc(t("set.promptDesc"))
+          .setClass("pdt-setting-prompt")
+          .addTextArea((area) => {
+            area.setPlaceholder(DEFAULT_PROMPTS[kind]).setValue(mine || DEFAULT_PROMPTS[kind]).onChange(async (value) => {
+              const text = value.trim();
+              settings.prompts = { ...settings.prompts, [kind]: text === DEFAULT_PROMPTS[kind] ? "" : text };
+              await save();
+            });
+            area.inputEl.rows = 4;
+          })
+          .addExtraButton((b) => b.setIcon("rotate-ccw").setTooltip(t("set.promptReset")).setDisabled(!mine).onClick(async () => {
+            settings.prompts = { ...settings.prompts, [kind]: "" };
+            await save();
+            this.display();
+          }));
+      }
     }
 
     const saved = Object.keys(plugin.data.translations).length;

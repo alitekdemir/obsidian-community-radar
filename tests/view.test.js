@@ -59,6 +59,7 @@ fake.Setting = class {
   setDesc(text) { this.el.createDiv({ cls: "desc", text }); return this; }
   setHeading() { this.el.classList.add("heading"); return this; }
   addText(fn) { fn(component(this.controlEl, "input")); return this; }
+  addTextArea(fn) { fn(component(this.controlEl, "textarea")); return this; }
   addDropdown(fn) { fn(component(this.controlEl, "select")); return this; }
   addButton(fn) { fn(component(this.controlEl, "button")); return this; }
   addToggle(fn) { fn(component(this.controlEl, "input")); return this; }

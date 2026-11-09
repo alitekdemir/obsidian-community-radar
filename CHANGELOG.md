@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.4
+
+### New
+
+- **Translation instructions** in settings (AI translation): the instructions sent for descriptions and for READMEs can be changed; `{language}` becomes the target language, ↺ goes back to the default. The reply format is added after them, so a changed prompt can't break the answer.
+
+### Changed
+
+- *Sync now* says how far the release history reaches (or that it couldn't be had this time), and the status line shows its span: *history: 2020 – 2026-11-09*, marked *old* past two days.
+
 ## 0.9.3
 
 ### New

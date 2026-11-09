@@ -292,7 +292,7 @@ class Translator {
   /** Translates the texts in one request; output keeps the input order. */
   async translate(texts) {
     const spec = PROVIDERS[this.settings.provider];
-    const request = spec.chat(this.settings.model, this.key(), translationPrompt(texts, this.settings.targetLang));
+    const request = spec.chat(this.settings.model, this.key(), translationPrompt(texts, this.settings.targetLang, this.settings.prompts));
     return parseTranslations(spec.text(await this.call(request)), texts.length);
   }
 
@@ -315,7 +315,7 @@ class Translator {
     const out = [];
     for (const [i, chunk] of chunks.entries()) {
       progress(i, chunks.length);
-      const reply = spec.text(await this.call(spec.chat(this.settings.model, this.key(), readmePrompt(chunk, this.settings.targetLang))));
+      const reply = spec.text(await this.call(spec.chat(this.settings.model, this.key(), readmePrompt(chunk, this.settings.targetLang, this.settings.prompts))));
       out.push(reply.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, "$1"));   // some models wrap it in a fence
     }
     return out.join("\n\n");

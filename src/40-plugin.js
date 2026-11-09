@@ -250,7 +250,7 @@ class PluginRadar extends Plugin {
       await this.saveData(this.data);
       await this.cache.write("catalog", this.catalog);
 
-      await this.syncServerTimeline(progress);
+      const history = await this.syncServerTimeline(progress);
       await this.syncVectors(progress);
 
       progress(t("notice.updatingNotes"));
@@ -260,7 +260,9 @@ class PluginRadar extends Plugin {
         if (plugin && (await this.notes.syncSource(plugin))) released.push(id);
       }
       if (released.length && this.data.settings.readmeMode === "sync") await this.fetchReadmes(released, progress);
-      return t("notice.refreshed", { n: formatCount(this.catalog.plugins.length), released: released.length });
+      // the release history is part of Sync: say how far it reaches, or that it couldn't be had this time
+      const reach = history ? t("notice.historyTo", { date: dayString(this.timeline.to) }) : t("notice.historyStale");
+      return `${t("notice.refreshed", { n: formatCount(this.catalog.plugins.length), released: released.length })} · ${reach}`;
     }, { quiet });
   }
 

@@ -113,11 +113,9 @@ function translationEstimate(text, price) {
   return { chars: text.length, tokens: tokens * 2, cost };
 }
 
-function readmePrompt(markdown, targetLanguage) {
+function readmePrompt(markdown, targetLanguage, prompts) {
   return [
-    `Translate this part of an Obsidian plugin's README (Markdown) into ${targetLanguage}.`,
-    "Keep the Markdown exactly: headings, lists, tables, links, image URLs and HTML tags.",
-    "Don't translate code blocks, inline code, commands, settings keys or product names.",
+    promptInstructions(prompts, "readme", targetLanguage),
     "Reply with ONLY the translated Markdown, nothing before or after it.",
     "",
     markdown,

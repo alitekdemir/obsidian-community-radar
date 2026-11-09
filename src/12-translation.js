@@ -80,11 +80,24 @@ function filterModels(models, query, latestOnly) {
   return typed && !exact && !/\s/.test(typed) ? [{ id: typed, price: null, custom: true }, ...matches] : matches;
 }
 
+/**
+ * The translation instructions you can change in settings ({language}: the target language). The reply format
+ * and the text itself are added after them and stay fixed, so a changed prompt can't break the answer's parsing.
+ */
+const DEFAULT_PROMPTS = {
+  description: "Translate each of the following Obsidian plugin descriptions into {language}.\nKeep product names, code and technical terms (Markdown, Canvas, Bases, API…) as they are.",
+  readme: "Translate this part of an Obsidian plugin's README (Markdown) into {language}.\nKeep the Markdown exactly: headings, lists, tables, links, image URLs and HTML tags.\nDon't translate code blocks, inline code, commands, settings keys or product names.",
+};
+
+/** Your instructions for one kind of translation (or the default), with the language filled in. */
+function promptInstructions(prompts, kind, targetLanguage) {
+  return (prompts?.[kind]?.trim() || DEFAULT_PROMPTS[kind]).replaceAll("{language}", targetLanguage);
+}
+
 /** Batch translation prompt: several descriptions in one request, answered as a JSON array. */
-function translationPrompt(texts, targetLanguage) {
+function translationPrompt(texts, targetLanguage, prompts) {
   return [
-    `Translate each of the following Obsidian plugin descriptions into ${targetLanguage}.`,
-    "Keep product names, code and technical terms (Markdown, Canvas, Bases, API…) as they are.",
+    promptInstructions(prompts, "description", targetLanguage),
     "Reply with ONLY a JSON array of strings, same length and same order as the input. No commentary.",
     "",
     JSON.stringify(texts),

@@ -797,7 +797,7 @@ class DiscoveryView extends ItemView {
         text: [
           t("status.plugins", { n: formatCount(catalog.plugins.length) }),
           t("status.lastSync", { time: formatTime(catalog.fetchedAt, now), age: formatAge(now - catalog.fetchedAt) }),
-          timeline.to ? t("status.history", { year: new Date(timeline.from).getFullYear() }) : t("status.noHistory"),
+          timeline.to ? t(now - timeline.to > HISTORY_STALE_DAYS * DAY_MS ? "status.historyOld" : "status.history", { year: new Date(timeline.from).getFullYear(), date: dayString(timeline.to) }) : t("status.noHistory"),
           ...this.activeFilters(),
         ].join("  ·  "),
       });

@@ -276,6 +276,10 @@ const tests = {
     const Y = 365 * D;
     const now = 3000 * D;
     const rhythm = (dates) => { const c = core.releaseCadence(dates, now); return c && `${core.cadenceLabel(c)} | ${core.cadenceSub(c)}`; };
+    // translation instructions: yours (with {language}) or the default; the reply format is always added
+    const custom = core.translationPrompt(["x"], "Türkçe", { description: "Into {language}, informal." });
+    assert.ok(custom.startsWith("Into Türkçe, informal.\nReply with ONLY a JSON array"));
+    assert.ok(core.translationPrompt(["x"], "Türkçe", {}).startsWith("Translate each of the following Obsidian plugin descriptions into Türkçe."));
     const historyNote = (dates) => core.cadenceNote(core.releaseCadence(dates, now), dates.at(-1), now);
     const monthly = Array.from({ length: 12 }, (_, i) => now - i * 30 * D).reverse();
     assert.equal(rhythm([now - 400 * D, ...monthly, now - 30 * D + D]), "every ~30 days | 13 releases in 12 months", "the next-day patch isn't another update");
