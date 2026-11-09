@@ -1123,6 +1123,12 @@ const tests = {
     assert.equal(view.boxText, "age <= 30d\norder by downloads desc", "the widget's list is its query");
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Fresh Plugin"]);
     assert.ok($(el, ".pdt-signal.is-fresh"), "marked as new");
+    // a widget's list is a page like a tab: Filter and Sort, Basic narrows its query
+    assert.ok($(el, ".pdt-filter-head") && $(el, ".pdt-sort"), "Filter and Sort, like a tab");
+    await $$(el, ".pdt-qmode-option")[0].onclick();
+    assert.equal(view.inQuery, false);
+    assert.ok($(el, ".pdt-q-input").getAttribute("placeholder").startsWith("age <= 30d"), "Basic: its query faint in the box");
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Fresh Plugin"]);
     view.scope.keys.find((k) => k.key === "Escape").fn();
     assert.ok($(el, ".pdt-home"));
     // opened, so seen: no "1 new" any more, the card is done (and a restart doesn't bring it back)
