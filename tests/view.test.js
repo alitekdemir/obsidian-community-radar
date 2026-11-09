@@ -240,63 +240,67 @@ const tests = {
     settings.minDownloads = 100;
     view.render();
     const head = () => $(el, ".pdt-filter-head");
-    assert.equal($(el, ".pdt-filters").firstElementChild, $(el, ".pdt-filter-menu"), "Filters come first");
-    assert.equal($(head(), ".pdt-chip-value").textContent, "", "defaults: nothing changed, no count");
-    assert.ok($(head(), ".pdt-filter-clear").classList.contains("is-hidden"), "nothing to clear yet");
+    const count = () => $(el, ".pdt-filter-count");
+    assert.equal($(el, ".pdt-filters").firstElementChild, $(el, ".pdt-filter-menu"), "Filter comes first");
+    assert.ok(count().classList.contains("is-hidden"), "defaults: nothing changed, no count");
+    assert.ok(!$(el, ".pdt-filter-panel"), "the panel opens on click");
+    head().onclick();
     const chip = () => $(el, ".pdt-filter-panel .pdt-chip.is-toggle");
+    const clear = () => $(el, ".pdt-filter-panel .pdt-filter-clear");
+    assert.ok(clear().classList.contains("is-hidden"), "nothing to reset yet");
     assert.ok(!chip().classList.contains("is-on"), "All shows every plugin by default");
     assert.ok(names().includes("Fresh Plugin"));                               // 5 downloads
     $(chip(), ".pdt-toggle").onclick();
     await tick();
-    assert.ok(chip().classList.contains("is-on"));
+    assert.ok(chip().classList.contains("is-on") && chip().classList.contains("is-changed"), "changed: marked, panel stays open");
     assert.ok(!names().includes("Fresh Plugin"));
     assert.equal(settings.downloadFilter.all, true);
     assert.equal(core.modeOptions(settings, "updated").filterDownloads, true);   // other tabs keep theirs
-    $(chip(), ".pdt-toggle").onclick();
-    await tick();
-    delete settings.downloadFilter.all;
+    assert.ok($(el, ".pdt-status").textContent.includes(core.t("filter.active", { n: 1 })), "the status line says why the list is short");
+    await $(chip(), ".pdt-chip-act").onclick({ stopPropagation() {} });     // ↺
+    assert.ok(!chip().classList.contains("is-changed") && !("all" in settings.downloadFilter));
     const min = $(chip(), "input");
     min.value = "2000";
     await min.onchange();
     assert.ok(chip().classList.contains("is-on"));                             // typing a value turns it on
     assert.equal(settings.minDownloads, 2000);
-    assert.equal($(head(), ".pdt-chip-value").textContent, "· 1", "Downloads ≥ off its default");
+    assert.equal(count().textContent, "1", "Downloads ≥ off its default");
     settings.query = "data";
     view.refresh();
-    assert.equal($(head(), ".pdt-chip-value").textContent, "· 2", "the search counts as a filter");
-    const clear = $(head(), ".pdt-filter-clear");                              // off its defaults: ✕ shows
-    assert.ok(!clear.classList.contains("is-hidden"));
-    await clear.onclick({ stopPropagation() {} });
+    assert.equal(count().textContent, "2", "the search counts as a filter");
+    assert.equal(clear().textContent, core.t("filter.reset", { n: 2 }));
+    await clear().onclick();
     assert.equal(settings.minDownloads, 100);
     assert.equal(settings.query, "");
     assert.ok(!("all" in settings.downloadFilter));
-    assert.ok($(head(), ".pdt-filter-clear").classList.contains("is-hidden"));
+    assert.ok(count().classList.contains("is-hidden"));
 
-    // chips: a changed one is marked and has ↺; "N changed · Reset" comes last; + Filter adds any filter, ✕ removes it
-    const reset = () => $(el, ".pdt-filter-reset");
-    assert.ok(reset().classList.contains("is-hidden"), "nothing changed: no Reset");
-    $(chip(), ".pdt-toggle").onclick();
+    // add a filter from the panel; quick filters show it under the bar; ✕ removes it; the bar never changes
+    const bar = () => [...$(el, ".pdt-filters").children].map((c) => c.className);
+    const barBefore = bar();
+    $$(el, ".pdt-filter-add").find((b) => b.textContent === core.t("filter.x.author")).onclick();
     await tick();
-    assert.ok(chip().classList.contains("is-changed"));
-    assert.equal(reset().textContent, core.t("filter.reset", { n: 1 }));
-    assert.equal($(el, ".pdt-filters").lastElementChild, reset(), "Reset ends the bar, nothing shifts");
-    await $(chip(), ".pdt-chip-act").onclick({ stopPropagation() {} });     // ↺
-    assert.ok(!chip().classList.contains("is-changed") && !("all" in settings.downloadFilter));
-    fake.menus.length = 0;
-    $(el, ".pdt-filter-add").onclick();
-    const addItem = (key) => fake.menus[0].items.find((i) => i.title === core.t(`filter.x.${key}`));
-    assert.ok(addItem("gap") && addItem("author") && !addItem("nothing"));
-    await addItem("author").click();
+    assert.ok(!$$(el, ".pdt-filter-add").some((b) => b.textContent === core.t("filter.x.author")), "added once");
     const author = () => $(el, ".pdt-chip.is-extra input");
     author().value = "brenan";
     await author().onchange();
     assert.deepEqual(names(), ["Dataview"]);
-    assert.equal(reset().textContent, core.t("filter.reset", { n: 1 }), "an added filter counts");
-    await $(el, ".pdt-chip.is-extra .pdt-chip-act").onclick({ stopPropagation() {} });   // ✕
+    assert.equal(count().textContent, "1", "an added filter counts");
+    assert.deepEqual(bar(), barBefore, "the bar keeps its items and order");
+    assert.ok(!$(el, ".pdt-quick"), "quick filters off: no row under the bar");
+    $(el, ".pdt-filter-foot .pdt-toggle").onclick();
+    await tick();
+    assert.ok($(el, ".pdt-quick .pdt-chip.is-extra"), "quick filters: the added filter as a chip under the bar");
+    assert.ok(!$(el, ".pdt-status").textContent.includes(core.t("filter.active", { n: 1 })), "the row says it, the status line doesn't");
+    await $(el, ".pdt-quick .pdt-chip.is-extra .pdt-chip-act").onclick({ stopPropagation() {} });   // ✕
     assert.deepEqual(settings.extraFilters.all, {});
     assert.ok(names().length > 1);
+    settings.quickFilters = {};
+    head().onclick();
+    assert.ok(!$(el, ".pdt-filter-panel"));
 
     await view.update("mode", "updated");
+    head().onclick();   // the days live in the panel
     const savedDays = settings.days;
     const typeDays = async (value) => { const input = $(el, ".pdt-chip.is-number input"); input.value = value; await input.onchange(); };
     await typeDays("1");
@@ -594,11 +598,11 @@ const tests = {
     const before = core.changedFilters({ ...settings, query: "" }, "all");        // what earlier tests left changed
     settings.query = "kept";                                                    // All's own search…
     view.refresh();
-    assert.equal($(el, ".pdt-filter-head .pdt-chip-value").textContent, `· ${before + 1}`, "counts the Similar search, not All's");
-    await $(el, ".pdt-filter-clear").onclick({ stopPropagation() {} });
+    assert.equal($(el, ".pdt-filter-count").textContent, String(before + 1), "counts the Similar search, not All's");
+    await view.clearFilters();
     assert.equal(view.similar.query, "");
     assert.equal(settings.query, "kept", "…survives a clear inside Similar");
-    assert.ok($(el, ".pdt-filter-head").classList.contains("is-idle"), "nothing changed: the head hides (wide bar)");
+    assert.ok($(el, ".pdt-filter-count").classList.contains("is-hidden"), "nothing changed: no count");
     assert.equal(settings.minDownloads, 100, "the clear covered All's Downloads ≥ too (it applies here)");
     settings.query = "";
     await view.update("similarSort", { key: "relevance", dir: "desc" });

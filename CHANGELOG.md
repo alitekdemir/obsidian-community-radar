@@ -4,8 +4,9 @@
 
 ### New
 
-- **Filters as chips**: a changed filter is marked and has ↺ (back to the tab's default); *N filters changed · Reset* ends the bar, so nothing shifts when you change one.
-- **Saved views**: *Save* in the filter bar keeps the tab with its filters (search, added filters and sort included) under a name, as a widget on the home page. It counts its matches and shows *N new* for the ones that weren't there when you last opened it; ⋮ renames, hides or deletes it.
+- **Filters**: one *Filter ▾* button, always first in the bar (only its count changes). Its panel holds every filter of the tab — a changed one is marked and has ↺ — and adds more: Released ≤, Incubation ≥, Gained · 30 days ≥, Age ≤, Author, Installed (✕ removes them; each tab keeps its own; home widgets ignore them). *Reset* sits in the panel; the status line says *N filters in effect*.
+- **Quick filters** (a switch in the panel, per tab): the filters in effect show as chips on a row under the bar, set and reset right there.
+- **Saved views**: *Save* at the end of the bar keeps the tab with its filters (search, added filters and sort included) under a name, as a widget on the home page. It counts its matches and shows *N new* for the ones that weren't there when you last opened it; ⋮ renames, hides or deletes it.
 - **Table** layout (List · Cards · Table): Name plus a few columns (Downloads, Latest release, ★); the column picker adds Rating, Gained 30/7 days, Author, Incubation, Age, Release rhythm, Groups, Description and orders them by dragging, per tab. A header click sorts; the ★ and Rating cells change on click; rows open their details and can be picked for bulk actions.
 - **Bulk actions**: a box on each row (on hover; on every row once you pick one, Shift+click for a range) and a bar at the bottom: Favorite, Rate, Add to group (or a new one), Mark reviewed (Tracked), Hide, Ignore, *Select the N shown*. Each asks first, then leaves a result with **Undo** at the bottom left.
 - **Recent actions** (⋮ on Home, the clock in the List's bar, and a command): the last 20 bulk actions, kept across restarts. Undo turns back only what the action did; a plugin you changed by hand since is skipped and counted.

@@ -550,7 +550,7 @@ class DiscoveryView extends ItemView {
     if (this.preset) return this.renderPresetBar(bar);
     const mode = this.settings.mode;
     const opts = modeOptions(this.settings, mode);
-    this.renderFilterMenu(bar, mode, opts);   // always first
+    this.renderFilterButton(bar, mode, opts);   // always first, never moves
     if (this.similar) this.renderSimilarChip(bar);   // the same bar as All, plus the Similar chip
     if (mode === "tracked") this.renderTrackedBar(bar);
 
@@ -583,57 +583,86 @@ class DiscoveryView extends ItemView {
     }
 
     if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
+    if (!similar && !LIST_MODES.includes(mode)) {
+      const save = bar.createEl("button", { cls: "pdt-chip pdt-filter-save", attr: { type: "button" } });
+      setIcon(save.createSpan({ cls: "pdt-chip-caret" }), "bookmark-plus");
+      save.createSpan({ text: t("home.view.save") });
+      setTooltip(save, t("home.view.saveTip"));
+      save.onclick = () => this.saveView();
+    }
     if (this.settings.keyboard) this.renderKeyHelp(bar);
-    // last in the bar, so showing it moves nothing (where the filters fold, the head's ✕ does this)
-    const reset = bar.createEl("button", { cls: "pdt-filter-reset", attr: { type: "button" } });
-    reset.onclick = () => this.clearFilters();
-    this.refs.filterReset = reset;
+    // quick filters (Jira style): the changed and added ones as chips on a row of their own, under the bar
+    if (this.quickFilters) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
     this.updateFilterHead();
   }
 
+  /** Quick filters on this tab: the filters you changed or added show under the bar (off: only in the panel). */
+  get quickFilters() {
+    return Boolean(this.settings.quickFilters?.[this.settings.mode]);
+  }
+
   /**
-   * The tab's filters as chips: quiet at their defaults, marked with ↺ (back to the default) once changed; filters
-   * added with "+ Filter" carry ✕; "N changed · Reset" ends the bar, so nothing shifts. Below a certain width (CSS
-   * container query) they fold into a panel under a "Filters" head.
+   * "Filter ▾ (N)": always first in the bar, only its count changes. It opens a panel with every filter of the
+   * tab (changed ones marked with ↺, added ones with ✕), the filters you can add, the quick-filter switch and Reset.
    */
-  renderFilterMenu(bar, mode, opts) {
+  renderFilterButton(bar, mode, opts) {
+    const wrap = bar.createDiv({ cls: `pdt-filter-menu${this.filtersOpen ? " is-open" : ""}` });
+    const head = wrap.createEl("button", { cls: "pdt-chip pdt-filter-head", attr: { type: "button", "aria-expanded": String(Boolean(this.filtersOpen)), "aria-haspopup": "true" } });
+    setIcon(head.createSpan({ cls: "pdt-chip-caret" }), "sliders-horizontal");
+    head.createSpan({ text: t("filter.more") });
+    this.refs.filterCount = head.createSpan({ cls: "pdt-filter-count" });
+    setIcon(head.createSpan({ cls: "pdt-chip-caret" }), "chevron-down");
+    head.onclick = () => { this.filtersOpen = !this.filtersOpen; this.render(); };
+    if (!this.filtersOpen) return;
+
+    const panel = wrap.createDiv({ cls: "pdt-filter-panel", attr: { role: "dialog", "aria-label": t("filter.more") } });
+    panel.addEventListener("keydown", (event) => { if (event.key === "Escape") { this.filtersOpen = false; this.render(); } });
+    this.renderFilterChips(panel, mode, opts, true);
+    const addable = addableFilters(this.settings, mode);
+    if (addable.length) {
+      panel.createDiv({ cls: "pdt-filter-group", text: t("filter.addTitle") });
+      const adds = panel.createDiv({ cls: "pdt-filter-adds" });
+      for (const key of addable) {
+        const add = adds.createEl("button", { cls: "pdt-chip pdt-filter-add", attr: { type: "button" } });
+        setIcon(add.createSpan({ cls: "pdt-chip-icon" }), EXTRA_FILTERS[key].icon);
+        add.createSpan({ text: t(`filter.x.${key}`) });
+        add.onclick = () => this.setExtra(key, EXTRA_FILTERS[key].value);
+      }
+    }
+    const foot = panel.createDiv({ cls: "pdt-filter-foot" });
+    switchChip(foot, { label: t("filter.quick"), tip: t("filter.quickTip"), on: this.quickFilters,
+      onToggle: (on) => this.update("quickFilters", { ...this.settings.quickFilters, [mode]: on }) });
+    const clear = foot.createEl("button", { cls: "pdt-filter-clear", attr: { type: "button" } });
+    clear.onclick = () => this.clearFilters();
+    this.refs.filterClear = clear;
+  }
+
+  /**
+   * The tab's filters as chips: its own (all of them, or with `all` false only the changed ones, each with ↺),
+   * then the added ones (✕). The panel lists all; the quick row only what's in effect, then Reset.
+   */
+  renderFilterChips(parent, mode, opts, all) {
     const settings = this.settings;
     const changed = new Set(changedFilterKeys(this.filterState(), mode));
-    /** Marks a tab's own chip as changed and gives it ↺. */
-    const own = (chip, key) => {
+    const own = (key, build) => {
+      if (!all && !changed.has(key)) return;
+      const chip = build(parent);
       if (!changed.has(key)) return;
       chip.addClass("is-changed");
       this.chipButton(chip, "rotate-ccw", t("filter.resetOne"), () => this.resetFilter(key));
     };
-    const wrap = bar.createDiv({ cls: `pdt-filter-menu${this.filtersOpen ? " is-open" : ""}` });
-    const head = wrap.createDiv({ cls: "pdt-chip pdt-filter-head", attr: { role: "button", tabindex: "0", "aria-expanded": String(Boolean(this.filtersOpen)) } });
-    setIcon(head.createSpan({ cls: "pdt-chip-caret" }), "sliders-horizontal");
-    head.createSpan({ text: t("filter.more") });
-    this.refs.filterCount = head.createSpan({ cls: "pdt-chip-value" });
-    const clear = head.createEl("button", { cls: "pdt-similar-step pdt-filter-clear", attr: { type: "button", "aria-label": t("filter.clear") } });
-    setIcon(clear, "x");
-    setTooltip(clear, t("filter.clear"));
-    clear.onclick = (event) => { event.stopPropagation(); this.clearFilters(); };
-    this.refs.filterClear = clear;
-    setIcon(head.createSpan({ cls: "pdt-chip-caret pdt-filter-caret" }), "chevron-down");
-    const toggle = () => {   // only matters when the filters are folded (narrow)
-      this.filtersOpen = !this.filtersOpen;
-      wrap.toggleClass("is-open", this.filtersOpen);
-      head.setAttribute("aria-expanded", String(this.filtersOpen));
-    };
-    head.onclick = toggle;
-    onActivate(head, toggle);
-
-    const panel = wrap.createDiv({ cls: "pdt-filter-panel" });
-    panel.addEventListener("keydown", (event) => { if (event.key === "Escape" && this.filtersOpen) toggle(); });
+    if (all) parent.createDiv({ cls: "pdt-filter-group", text: t("filter.ownTitle") });
+    if (!this.similar && changed.has("query")) {
+      own("query", (p) => { const chip = p.createDiv({ cls: "pdt-chip" }); chip.createSpan({ text: t("filter.tipSearch", { q: settings.query.trim() }) }); return chip; });
+    }
     if (mode === "new" || mode === "updated") {
-      own(numberChip(panel, { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS, value: settings.days, onChange: (n) => this.update("days", n) }), "days");
+      own("days", (p) => numberChip(p, { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS, value: settings.days, onChange: (n) => this.update("days", n) }));
     }
     if (mode === "awakened") {
-      own(numberChip(panel, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) }), "dormantDays");
+      own("dormantDays", (p) => numberChip(p, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) }));
     }
     if (mode !== "new") {
-      own(toggleChip(panel, {
+      own("downloadFilter", (p) => toggleChip(p, {
         label: t("filter.downloads"),
         value: settings.minDownloads,
         on: opts.filterDownloads,
@@ -642,25 +671,15 @@ class DiscoveryView extends ItemView {
           settings.minDownloads = n;
           await this.updateTab("downloadFilter", true);
         },
-      }), "downloadFilter");
+      }));
     }
     if (mode === "updated") {
-      own(switchChip(panel, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) }), "hideBusy");
+      own("hideBusy", (p) => switchChip(p, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) }));
     }
-    for (const [key, value] of Object.entries(opts.extras)) if (EXTRA_FILTERS[key]) this.renderExtraChip(panel, key, value);
-    if (addableFilters(settings, mode).length) {
-      const add = panel.createEl("button", { cls: "pdt-chip pdt-filter-add", attr: { type: "button" } });
-      setIcon(add.createSpan({ cls: "pdt-chip-caret" }), "plus");
-      add.createSpan({ text: t("filter.add") });
-      add.onclick = () => this.addFilterMenu(add);
-    }
-    if (!this.similar && !LIST_MODES.includes(mode)) {
-      const save = panel.createEl("button", { cls: "pdt-chip pdt-filter-save", attr: { type: "button" } });
-      setIcon(save.createSpan({ cls: "pdt-chip-caret" }), "bookmark-plus");
-      save.createSpan({ text: t("home.view.save") });
-      setTooltip(save, t("home.view.saveTip"));
-      save.onclick = () => this.saveView();
-    }
+    const extras = Object.entries(opts.extras).filter(([key]) => EXTRA_FILTERS[key]);
+    if (all && extras.length) parent.createDiv({ cls: "pdt-filter-group", text: t("filter.addedTitle") });
+    for (const [key, value] of extras) this.renderExtraChip(parent, key, value);
+    if (!all && changed.size) parent.createEl("button", { cls: "pdt-filter-clear", text: t("filter.resetAll"), attr: { type: "button" } }).onclick = () => this.clearFilters();
   }
 
   /** A small round button at the end of a chip (↺ back to the default, ✕ remove). */
@@ -697,16 +716,6 @@ class DiscoveryView extends ItemView {
     if (filter.kind === "text" && !value) chip.querySelector("input")?.focus();
   }
 
-  /** "+ Filter": the filters this tab can add, in Obsidian's menu. */
-  addFilterMenu(button) {
-    const menu = new Menu();
-    for (const key of addableFilters(this.settings, this.settings.mode)) {
-      menu.addItem((item) => item.setTitle(t(`filter.x.${key}`)).setIcon(EXTRA_FILTERS[key].icon).onClick(() => this.setExtra(key, EXTRA_FILTERS[key].value)));
-    }
-    const rect = button.getBoundingClientRect();
-    menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
-  }
-
   /** Adds, changes (a value) or removes (undefined) a filter added with "+ Filter" on this tab. */
   async setExtra(key, value) {
     this.selected.clear();
@@ -738,17 +747,15 @@ class DiscoveryView extends ItemView {
     this.render();
   }
 
-  /** The head's count and ✕ follow the filters, the search included, without redrawing the bar. */
+  /** The button's count (and the panel's Reset) follow the filters, the search included, without redrawing the bar. */
   updateFilterHead() {
     const { filterCount, filterClear } = this.refs;
     if (!filterCount) return;
     const n = changedFilters(this.filterState(), this.settings.mode);
-    filterCount.setText(n ? `· ${n}` : "");
-    filterClear.toggleClass("is-hidden", !n);
-    this.refs.filterReset?.setText(n ? t("filter.reset", { n }) : "");
-    this.refs.filterReset?.toggleClass("is-hidden", !n);
-    // nothing changed: the head has nothing to say (CSS still shows it where it folds the filters)
-    filterCount.parentElement?.toggleClass("is-idle", !n);
+    filterCount.setText(n ? String(n) : "");
+    filterCount.toggleClass("is-hidden", !n);
+    filterClear?.setText(t("filter.reset", { n }));
+    filterClear?.toggleClass("is-hidden", !n);
     setTooltip(filterCount.parentElement, filterSummary(this.filterState(), this.settings.mode));
   }
 
@@ -854,6 +861,7 @@ class DiscoveryView extends ItemView {
           t("status.plugins", { n: formatCount(catalog.plugins.length) }),
           t("status.lastSync", { time: formatTime(catalog.fetchedAt, now), age: formatAge(now - catalog.fetchedAt) }),
           timeline.to ? t("status.history", { year: new Date(timeline.from).getFullYear() }) : t("status.noHistory"),
+          ...this.activeFilters(),
         ].join("  ·  "),
       });
       const { delta } = catalog;
@@ -879,6 +887,12 @@ class DiscoveryView extends ItemView {
     if (!timeline.to && !this.plugin.busy) {
       actions.createEl("button", { cls: "mod-cta", text: t("status.build") }).onclick = () => this.plugin.downloadHistory();
     }
+  }
+
+  /** "3 filters in effect" for the status line, when quick filters don't show them (so a short list has its reason). */
+  activeFilters() {
+    const n = changedFilters(this.filterState(), this.settings.mode);
+    return n && !this.quickFilters ? [t("filter.active", { n })] : [];
   }
 
   /** Redraws only the status line (progress updates during a sync). */

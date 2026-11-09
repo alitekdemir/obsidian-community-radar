@@ -88,15 +88,7 @@
   font-size: var(--font-ui-small);
 }
 
-/* Filters first: the head (count, ✕) and the filters next to it; in a narrow bar they fold into a panel */
-.pdt-filter-menu,
-.pdt-filter-panel {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--size-4-2);
-}
-
+/* Filters: one "Filter ▾ (N)" button, always first; its panel holds every filter; quick filters get a row of their own */
 .pdt-filter-menu {
   position: relative;
 }
@@ -104,14 +96,71 @@
 .pdt-filter-head {
   gap: 4px;
   color: var(--text-normal);
+  cursor: pointer;
 }
 
-/* the head only where the filters fold; wide, the chips say it themselves and "N changed · Reset" comes last */
+.pdt-filter-menu.is-open .pdt-filter-head {
+  border-color: var(--interactive-accent);
+}
+
+.pdt-filter-count {
+  padding: 0 6px;
+  border-radius: 99px;
+  background: var(--color-yellow);
+  color: var(--background-primary);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-bold);
+}
+
+.pdt-filter-count.is-hidden,
 .pdt-filter-clear.is-hidden,
-.pdt-filter-head .pdt-filter-caret,
-.pdt-filter-head,
-.pdt-filter-reset.is-hidden {
+.pdt-quick:empty {
   display: none;
+}
+
+.pdt-filter-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: var(--layer-popover);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--size-4-2);
+  width: min(420px, 100cqw);
+  box-sizing: border-box;
+  padding: var(--size-4-3);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-primary);
+  box-shadow: var(--shadow-s);
+}
+
+.pdt-filter-group {
+  margin-top: var(--size-4-1);
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pdt-filter-adds,
+.pdt-quick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+}
+
+.pdt-filter-foot {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-4-2);
+  margin-top: var(--size-4-1);
+  padding-top: var(--size-4-2);
+  border-top: 1px solid var(--background-modifier-border);
 }
 
 .pdt-chip.is-changed,
@@ -160,7 +209,7 @@
   width: 100%;
 }
 
-.pdt-filter-reset {
+button.pdt-filter-clear {
   height: 30px;
   padding: 0 var(--size-4-2);
   border: 0;
@@ -170,46 +219,6 @@
   font-size: var(--font-ui-small);
   text-decoration: underline;
   cursor: pointer;
-}
-
-@container (max-width: 640px) {
-  .pdt-filter-head,
-  .pdt-filter-head.is-idle {   /* folded: the head is the way to the filters */
-    display: inline-flex;
-    cursor: pointer;
-  }
-
-  .pdt-filter-head .pdt-filter-caret {
-    display: inline-flex;
-  }
-
-  .pdt-filter-reset {
-    display: none;
-  }
-
-  .pdt-filter-menu.is-open .pdt-filter-head {
-    border-color: var(--interactive-accent);
-  }
-
-  .pdt-filter-panel {
-    display: none;
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    z-index: var(--layer-popover);
-    flex-direction: column;
-    align-items: flex-start;
-    min-width: 240px;
-    padding: var(--size-4-3);
-    border: 1px solid var(--background-modifier-border);
-    border-radius: var(--radius-m);
-    background: var(--background-primary);
-    box-shadow: var(--shadow-s);
-  }
-
-  .pdt-filter-menu.is-open .pdt-filter-panel {
-    display: flex;
-  }
 }
 
 .pdt-empty .pdt-clear-filters {
