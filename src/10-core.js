@@ -271,6 +271,33 @@ function addableFilters(settings, mode) {
   return Object.keys(EXTRA_FILTERS).filter((k) => !(k in added) && !EXTRA_FILTERS[k].skip?.includes(mode));
 }
 
+/**
+ * The table layout's columns besides Name: how a cell reads (`text`; favorite and rating are buttons the view
+ * draws), its alignment, and the sort key a click on its header picks.
+ */
+const TABLE_COLUMNS = {
+  downloads: { align: "right", sort: "downloads", text: (s, p) => formatCount(p.downloads) },
+  updated: { sort: "updated", text: (s, p, now) => (p.updated ? relativeDays(p.updated, now) : "–") },
+  favorite: { align: "center" },
+  rating: { sort: "rating" },
+  growth30: { align: "right", sort: "growth30", text: (s, p) => gainText(s.growth?.[p.id]?.[1]) },
+  growth7: { align: "right", sort: "growth7", text: (s, p) => gainText(s.growth?.[p.id]?.[0]) },
+  author: { text: (s, p) => p.author || "" },
+  gap: { align: "right", sort: "dormant", text: (s, p) => { const n = dormantDays(s.releases, p); return n == null ? "–" : t("filter.days", { n }); } },
+  age: { sort: "listed", text: (s, p, now) => (s.firstSeen[p.id] > 0 ? ageLabel(s.firstSeen[p.id], now) : "–") },
+  cadence: { text: (s, p, now) => { const c = releaseCadence(s.releases[p.id], now); return c ? cadenceLabel(c) : "–"; } },
+  groups: { text: (s, p) => (s.notes.get(p.id)?.groups || []).join(", ") },
+  description: { text: (s, p) => p.description || "" },
+};
+const TABLE_DEFAULT = ["downloads", "updated", "favorite"];
+const gainText = (n) => (n == null ? "–" : `+${formatCount(n)}`);
+
+/** The table's columns on a tab: yours (shown, in your order) or the default few. */
+function tableColumns(settings, mode) {
+  const mine = settings.tableColumns?.[mode];
+  return (Array.isArray(mine) ? mine : TABLE_DEFAULT).filter((k) => TABLE_COLUMNS[k]);
+}
+
 /** The filter options of one tab: its own Downloads on/off and sort, shared days and thresholds. */
 function modeOptions(settings, mode) {
   const defaults = TAB_DEFAULTS[mode] || TAB_DEFAULTS.all;

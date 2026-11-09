@@ -135,6 +135,51 @@ class TextModal extends Modal {
   }
 }
 
+/** The table's column picker: show or hide each column, drag by the grip to order them; Name always stays first. */
+class ColumnsModal extends Modal {
+  constructor(app, { columns, onChange }) {
+    super(app);
+    this.shown = [...columns];
+    this.onChange = onChange;
+  }
+
+  onOpen() {
+    this.titleEl.setText(t("table.columns"));
+    this.render();
+  }
+
+  render() {
+    const box = this.contentEl;
+    box.empty();
+    box.createEl("p", { cls: "pdt-detail-muted", text: t("table.columnsHint") });
+    box.createDiv({ cls: "pdt-col-item is-fixed", text: t("table.nameAlways") });
+    const list = box.createDiv({ cls: "pdt-col-list" });
+    const all = [...this.shown, ...Object.keys(TABLE_COLUMNS).filter((k) => !this.shown.includes(k))];
+    for (const key of all) {
+      const item = list.createDiv({ cls: "pdt-col-item" });
+      item.dataset.key = key;
+      setIcon(item.createSpan({ cls: "pdt-grip" }), "grip-vertical");
+      const box2 = item.createEl("input", { type: "checkbox", attr: { "aria-label": t(`col.${key}`) } });
+      box2.checked = this.shown.includes(key);
+      box2.onchange = () => this.save([...list.children].map((el) => el.dataset.key).filter((k) => k === key ? box2.checked : this.shown.includes(k)));
+      item.createSpan({ text: t(`col.${key}`) });
+    }
+    if (typeof Sortable !== "undefined") {
+      Sortable.create(list, { handle: ".pdt-grip", animation: 150, onEnd: () => this.save([...list.children].map((el) => el.dataset.key).filter((k) => this.shown.includes(k))) });
+    }
+    box.createEl("button", { cls: "pdt-bulk-link", text: t("table.reset") }).onclick = () => { this.save(null); this.shown = [...TABLE_DEFAULT]; this.render(); };
+  }
+
+  save(columns) {
+    if (columns) this.shown = columns;
+    this.onChange(columns);
+  }
+
+  onClose() {
+    this.contentEl.empty();
+  }
+}
+
 /** A few names for a sentence: "A, B, C +4". */
 function namesLine(plugins, max = 5) {
   const names = plugins.slice(0, max).map((p) => p.name).join(", ");

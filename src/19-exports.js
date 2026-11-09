@@ -1,7 +1,7 @@
 const core = {
   setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
   formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline,
-  ageLabel, recentMilestone, widgetResult, widgetParams, homeWidget, viewFilters, freshRows, seenIds, normalizeHome, sinceMoment, seenUpTo, passedAt, topPassed, milestoneSteps, HOME_WIDGETS, dormantDays, updateWaves, releaseWaves, releaseGaps, spanLabel, isNewPlugin, isChanged, compileQuery, modeOptions, EXTRA_FILTERS, addableFilters, extraValueText, clearedFilters, changedFilters, filterSummary, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
+  ageLabel, recentMilestone, widgetResult, widgetParams, homeWidget, viewFilters, freshRows, seenIds, normalizeHome, sinceMoment, seenUpTo, passedAt, topPassed, milestoneSteps, HOME_WIDGETS, dormantDays, updateWaves, releaseWaves, releaseGaps, spanLabel, isNewPlugin, isChanged, compileQuery, modeOptions, TABLE_COLUMNS, tableColumns, EXTRA_FILTERS, addableFilters, extraValueText, clearedFilters, changedFilters, filterSummary, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
   groupSections, groupHue, statusKey, UNGROUPED, UPDATES, STARRED, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, stripDescription, migrateHeadings, migrateMarkers, migrateImages, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,

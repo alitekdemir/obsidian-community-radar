@@ -303,7 +303,7 @@ class DiscoveryView extends ItemView {
 
   /** Rows and the bar follow the selection without redrawing the list. */
   syncSelection() {
-    for (const row of this.refs.list?.querySelectorAll(".pdt-row") || []) {
+    for (const row of this.refs.list?.querySelectorAll(".pdt-row, .pdt-trow") || []) {
       const on = this.selected.has(row.dataset.id);
       row.toggleClass("is-selected", on);
       const box = row.querySelector(".pdt-select");
@@ -900,7 +900,7 @@ class DiscoveryView extends ItemView {
       this.rows = this.presetRows();
       this.stale = new Set();
       if (!this.rows.length) return void list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
-      for (const p of this.rows.slice(0, this.visible)) this.renderRow(list, p, now);
+      this.renderRows(list, this.rows.slice(0, this.visible), now);
       return this.renderMore(list);
     }
     if (mode === "awakened" && !timeline.to) {
@@ -929,8 +929,81 @@ class DiscoveryView extends ItemView {
       for (const section of groupSections(this.rows, state.notes)) this.renderSection(list, section, now);
       return;
     }
-    for (const plugin of visible) this.renderRow(list, plugin, now);
+    this.renderRows(list, visible, now);
     this.renderMore(list);
+  }
+
+  /** Rows as the layout says: list or cards (renderRow), or the table. */
+  renderRows(list, rows, now) {
+    if (this.settings.layout === "table" && this.selectable) return this.renderTable(list, rows, now);
+    for (const p of rows) this.renderRow(list, p, now);
+  }
+
+  /**
+   * The table: a pick box, Name (its description on hover), then the tab's columns; a header click sorts by it,
+   * the last header opens the column picker. Favorite and Rating cells change on click; a row opens its details.
+   */
+  renderTable(list, rows, now) {
+    const mode = this.settings.mode;
+    const state = this.plugin.state();
+    const columns = tableColumns(this.settings, mode);
+    const { sort, sortDir } = modeOptions(this.settings, mode);
+    const wrap = list.createDiv({ cls: "pdt-table-wrap" });
+    const table = wrap.createEl("table", { cls: "pdt-table" });
+    const head = table.createEl("thead").createEl("tr");
+    const all = head.createEl("th", { cls: "pdt-table-pick" }).createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("table.pickShown") } });
+    all.checked = rows.length > 0 && rows.every((p) => this.selected.has(p.id));
+    all.onclick = () => { for (const p of rows) (all.checked ? this.selected.add(p.id) : this.selected.delete(p.id)); this.syncSelection(); };
+    const header = (key, label, align = "left") => {
+      const th = head.createEl("th", { cls: `is-${align}` });
+      const sortKey = key === "name" ? "name" : TABLE_COLUMNS[key].sort;
+      if (!sortKey) return void th.setText(label);
+      const on = sort === sortKey;
+      th.setAttribute("aria-sort", on ? (sortDir === "asc" ? "ascending" : "descending") : "none");
+      const button = th.createEl("button", { cls: `pdt-table-sort${on ? " is-on" : ""}`, text: on ? `${label} ${sortDir === "asc" ? "↑" : "↓"}` : label });
+      button.onclick = () => this.updateTab("sortBy", { key: sortKey, dir: on ? (sortDir === "asc" ? "desc" : "asc") : NATURAL_DIR[sortKey] || "desc" });
+    };
+    header("name", t("col.name"));
+    for (const key of columns) header(key, t(`col.${key}`), TABLE_COLUMNS[key].align);
+    const pick = head.createEl("th", { cls: "pdt-table-cols" });
+    iconButton(pick, "columns-3", t("table.columns")).onclick = () => new ColumnsModal(this.app, {
+      columns,
+      onChange: async (next) => {
+        this.settings.tableColumns = { ...this.settings.tableColumns, [mode]: next };
+        if (!next) delete this.settings.tableColumns[mode];
+        await this.plugin.saveData(this.plugin.data);
+        this.refresh();
+      },
+    }).open();
+
+    const body = table.createEl("tbody");
+    for (const p of rows) {
+      const note = state.notes.get(p.id);
+      const tr = body.createEl("tr", { cls: `pdt-trow${this.selected.has(p.id) ? " is-selected" : ""}`, attr: { "data-id": p.id, tabindex: "0" } });
+      tr.onclick = (event) => { if (!event.target.closest("a, button, input")) this.openDetails(p); };
+      const box = tr.createEl("td", { cls: "pdt-table-pick" }).createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("bulk.pick", { name: p.name }) } });
+      box.checked = this.selected.has(p.id);
+      box.onclick = (event) => { event.stopPropagation(); this.pick(p, box.checked, event.shiftKey); };
+      const name = tr.createEl("td", { cls: "pdt-table-name" });
+      name.createEl("a", { cls: "pdt-name", text: p.name, href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
+      if (p.version) name.createSpan({ cls: "pdt-ver", text: p.version });
+      if (p.description) setTooltip(name, p.description, { delay: 300 });
+      for (const key of columns) {
+        const td = tr.createEl("td", { cls: `is-${TABLE_COLUMNS[key].align || "left"} is-${key}` });
+        if (key === "favorite") {
+          const star = td.createEl("button", { cls: `pdt-table-star${note?.favorite ? " is-on" : ""}`, text: note?.favorite ? "★" : "☆", attr: { "aria-label": t(note?.favorite ? "action.unfavorite" : "action.favorite") } });
+          star.onclick = () => this.runRowAction(p, () => this.plugin.toggleFavorite(p));
+        } else if (key === "rating") {
+          const stars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
+          const cell = td.createEl("button", { cls: "pdt-table-rating", text: note?.rating ? stars(note.rating) : "·" });
+          cell.onclick = () => this.pickFromMenu(cell, [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, stars(n)])], note?.rating || 0,
+            (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
+        } else {
+          td.setText(TABLE_COLUMNS[key].text(state, p, now));
+        }
+      }
+      tr.createEl("td");
+    }
   }
 
   /** "Show 50 more" under a list that has more rows than shown. */
@@ -1234,7 +1307,7 @@ class DiscoveryView extends ItemView {
   /** List / Card switch. */
   renderLayoutSwitch(bar) {
     const box = bar.createDiv({ cls: "pdt-layout", attr: { role: "group", "aria-label": t("layout.label") } });
-    for (const [value, icon] of [["list", "list"], ["cards", "layout-grid"]]) {
+    for (const [value, icon] of [["list", "list"], ["cards", "layout-grid"], ["table", "table"]]) {
       const button = box.createEl("button", { cls: "pdt-layout-option", attr: { type: "button", "aria-pressed": String(this.settings.layout === value) } });
       setIcon(button.createSpan(), icon);
       button.createSpan({ text: t(`layout.${value}`) });

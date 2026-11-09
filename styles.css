@@ -633,6 +633,78 @@ button.pdt-bulk-link {
   color: var(--text-accent);
 }
 
+/* table layout */
+.pdt-table-wrap {
+  overflow-x: auto;
+  margin: 0 calc(-1 * var(--size-4-3));
+}
+
+.pdt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-ui-small);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdt-table th,
+.pdt-table td {
+  padding: var(--size-4-2) var(--size-4-3);
+  border-bottom: 1px solid var(--background-modifier-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pdt-table th {
+  color: var(--text-muted);
+  font-weight: var(--font-semibold);
+}
+
+.pdt-table .is-right { text-align: right; }
+.pdt-table .is-center { text-align: center; }
+.pdt-table td.is-description { max-width: 28em; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); }
+.pdt-table td.is-downloads { color: var(--text-normal); font-weight: var(--font-semibold); }
+.pdt-table-pick { width: 28px; }
+.pdt-table-cols { width: 36px; text-align: right; }
+.pdt-table .pdt-select { position: static; }
+.pdt-table th .pdt-select { opacity: 1; }
+.pdt-table-name .pdt-ver { margin-left: var(--size-2-3); }
+
+button.pdt-table-sort,
+button.pdt-table-star,
+button.pdt-table-rating {
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+button.pdt-table-sort.is-on { color: var(--text-normal); }
+button.pdt-table-star { color: var(--text-faint); font-size: 15px; }
+button.pdt-table-star.is-on,
+button.pdt-table-rating { color: var(--color-yellow); }
+
+.pdt-trow { cursor: pointer; }
+.pdt-trow:hover { background: var(--background-modifier-hover); }
+.pdt-trow.is-selected { background: color-mix(in srgb, var(--interactive-accent) 12%, transparent); }
+.pdt-trow:hover .pdt-select,
+.pdt-trow:focus-within .pdt-select,
+.pdt-list.is-selecting .pdt-trow .pdt-select { opacity: 1; }
+
+.pdt-col-item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  height: 30px;
+  padding: 0 var(--size-4-1);
+}
+
+.pdt-col-item.is-fixed { color: var(--text-muted); padding-left: 28px; }
+.pdt-col-item .pdt-grip { display: inline-flex; color: var(--text-faint); cursor: grab; }
+
 .pdt-confirm-list {
   margin: 0;
   padding-left: var(--size-4-4);

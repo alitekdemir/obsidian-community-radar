@@ -187,7 +187,8 @@ function defaultSettings() {
     readmeMode: "open",   // open | sync | manual
     keyboard: false,      // single-letter shortcuts in the view
     similarSort: { key: "relevance", dir: "desc" },   // the Similar filter's own sort
-    layout: "list",           // "list" or "cards"
+    layout: "list",           // "list", "cards" or "table"
+    tableColumns: {},         // tab → the table's columns in order (TABLE_COLUMNS); missing tabs use TABLE_DEFAULT
     notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"
   };

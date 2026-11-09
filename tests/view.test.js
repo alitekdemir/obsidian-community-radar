@@ -823,6 +823,34 @@ const tests = {
     await view.update("mode", "all");
   },
 
+  async "table: few columns by default, header sorts, star cell toggles, your columns per tab, picks work"({ plugin, view }) {
+    const el = view.contentEl;
+    const settings = plugin.data.settings;
+    await view.update("mode", "all");
+    settings.minDownloads = 0;
+    await view.update("layout", "table");
+    const heads = () => $$(el, ".pdt-table thead th").map((th) => th.textContent.trim()).filter(Boolean);
+    assert.deepEqual(heads().slice(0, 4), [core.t("col.name"), `${core.t("col.downloads")} ↓`, core.t("col.updated"), core.t("col.favorite")]);
+    assert.equal($$(el, ".pdt-trow").length, view.rows.length);
+    $$(el, ".pdt-table-sort")[0].onclick();   // Name
+    await tick();
+    assert.equal(core.modeOptions(settings, "all").sort, "name");
+    const names = $$(el, ".pdt-trow .pdt-name").map((a) => a.textContent);
+    assert.deepEqual(names, [...names].sort((a, b) => a.localeCompare(b)));
+    settings.tableColumns = { all: ["growth30", "author"] };
+    view.refresh();
+    assert.deepEqual(heads().slice(1, 3), [core.t("col.growth30"), core.t("col.author")]);
+    assert.ok($(el, ".pdt-trow td.is-author").textContent.length > 0);
+    const box = $(el, ".pdt-trow .pdt-select");
+    box.checked = true;
+    box.onclick({ stopPropagation() {}, shiftKey: false });
+    assert.ok($(el, ".pdt-bulk-bar") && $(el, ".pdt-trow").classList.contains("is-selected"));
+    view.selected.clear();
+    settings.tableColumns = {};
+    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    await view.update("layout", "list");
+  },
+
   async "ignore, hide until next release, Ignored list with Restore and restore-all; ⋮ menu"({ plugin, view }) {
     const el = view.contentEl;
     const names = () => $$(el, ".pdt-name").map((a) => a.textContent);
