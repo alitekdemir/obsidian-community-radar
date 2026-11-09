@@ -40,8 +40,8 @@ const QUERY_FIELDS = {
   age: { type: "number", days: true, sort: "listed", get: (s, p, now) => (fresh(s, p) ? 0 : daysAgo(s.firstSeen[p.id], now)), at: (s, p, now) => (fresh(s, p) ? now : s.firstSeen[p.id]) },
   gap: { type: "number", days: true, sort: "dormant", get: (s, p) => dormantDays(s.releases, p) },
   rating: { type: "number", sort: "rating", get: (s, p) => s.notes.get(p.id)?.rating || null },
-  rise7: { type: "number", get: (s, p) => gainShare(s, p, 0) },
-  rise30: { type: "number", get: (s, p) => gainShare(s, p, 1) },
+  rise7: { type: "number", sort: "rise7", get: (s, p) => gainShare(s, p, 0) },
+  rise30: { type: "number", sort: "rise30", get: (s, p) => gainShare(s, p, 1) },
   milestone: { type: "number", get: topMilestone },   // the highest download milestone passed (1k, 10k, 100k…)
   passed: { type: "number", days: true, get: (s, p, now) => daysAgo(s.timeline && passedAt(s.timeline, p.id, topMilestone(s, p)), now),
     at: (s, p) => s.timeline && passedAt(s.timeline, p.id, topMilestone(s, p)) },
@@ -56,6 +56,7 @@ const QUERY_FIELDS = {
   // out of incubation: released after a pause, and still within that pause's length (at most INCUBATION_CAP)
   hatched: { type: "bool", get: (s, p, now) => { const gap = dormantDays(s.releases, p) ?? -1; return gap > 0 && now - p.updated <= Math.min(gap, INCUBATION_CAP) * DAY_MS; } },
   dismissed: { type: "bool", get: (s, p) => Boolean(s.dismissed?.has(p.id)) },
+  changed: { type: "bool", get: (s, p) => { const note = s.notes.get(p.id); return Boolean(note) && isChanged(p, note); } },   // tracked, released since you reviewed it
   ignored: { type: "bool", get: (s, p) => Boolean(s.excluded?.has(p.id) || isSnoozed(p, s.snoozed || {})) },
 };
 

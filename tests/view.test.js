@@ -201,7 +201,7 @@ const tests = {
     Object.assign(plugin.data.settings, { section: "list", mode: "updated", minDownloads: 0 });
     view.render();
     const el = view.contentEl;
-    assert.equal($$(el, ".pdt-tab").length, 5);   // Tracked moved to the Home · List · Tracked switch
+    assert.equal($$(el, ".pdt-tab").length, 6);   // one strip: the five tabs and Tracked
     assert.ok($$(el, ".pdt-tab").every((tab) => tab.getAttribute("data-tooltip")));
     const names = $$(el, ".pdt-name").map((a) => a.textContent);
     assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy excluded, homepage tracked
@@ -736,7 +736,7 @@ const tests = {
     const settings = plugin.data.settings;
     await plugin.track(plugin.pluginById("homepage"), { groups: ["ai", "Planning"] });
     await view.update("mode", "tracked");
-    const tab = $$(el, ".pdt-nav-item")[2];                                   // Home · List · Tracked
+    const tab = $(el, '.pdt-tab[data-key="tracked"]');                        // Tracked is a tab in the strip
     assert.ok(tab.classList.contains("is-active"));
     assert.equal($(tab, ".pdt-n.is-updates").textContent, core.t("tracked.updatesBadge", { n: plugin.updatesCount() }));
     fake.menus.length = 0;
@@ -1094,7 +1094,8 @@ const tests = {
     // "1 new" opens only what came in since the last visit; ✕ goes back home
     $(card("new"), ".pdt-home-fresh").onclick({ stopPropagation() {} });
     assert.equal(settings.section, "list");
-    assert.ok($(el, ".pdt-preset-chip") && $(el, ".pdt-similar-chip.is-fresh"));
+    assert.ok($(el, ".pdt-tab.is-temp.is-active") && $(el, ".pdt-similar-chip.is-fresh"), "a tab of its own in the strip, only the new ones");
+    assert.equal(view.boxText, "age <= 30d\norder by downloads desc", "the widget's list is its query");
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Fresh Plugin"]);
     assert.ok($(el, ".pdt-signal.is-fresh"), "marked as new");
     view.scope.keys.find((k) => k.key === "Escape").fn();
@@ -1124,11 +1125,17 @@ const tests = {
     // a saved view is a widget: its matches so far are seen; a new match shows as "1 new" and opens alone
     settings.query = "home";
     const rows = core.discover(plugin.state(), core.modeOptions(settings, "all"), Date.now());
-    const saved = await view.home.saveView("Home pages", "all", rows);
+    const saved = await view.home.saveView("Home pages", '"home"', rows);
     settings.query = "";
     await view.update("section", "home");
     const id = `view:${saved.id}`;
     assert.equal($(card(id), ".pdt-home-title").textContent, "Home pages");
+    assert.equal($(el, ".pdt-tab.is-view").textContent, "Home pages", "a saved view is a tab in the strip too");
+    if (process.env.PDT_DUMP) {   // a look at the real DOM in a browser (scripts/look)
+      view.openPreset("new", { days: 30 });
+      require("fs").writeFileSync(process.env.PDT_DUMP, view.contentEl.outerHTML);
+      view.closePreset();
+    }
     assert.equal($(card(id), ".pdt-home-n").textContent, String(rows.length), "keeps its own search, not the tab's");
     assert.ok(!$(card(id), ".pdt-home-fresh"), "nothing new right after saving");
     settings.home.seen[id] = settings.home.seen[id].filter((x) => x !== "homepage");   // as if Homepage matched since

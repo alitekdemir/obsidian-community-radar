@@ -160,11 +160,13 @@ class DiscoveryView extends ItemView {
 
   get settings() { return this.plugin.data.settings; }
 
-  /** This page is in Query mode: its query in the box (the Similar filter has its own search). */
-  get inQuery() { return !this.similar && inQueryMode(this.settings, this.settings.mode); }
+  /** This page is in Query mode: its query in the box (a widget's or view's list always; the Similar filter has its own search). */
+  get inQuery() { return !this.similar && (Boolean(this.preset) || inQueryMode(this.settings, this.settings.mode)); }
 
-  /** What the list's box holds: a draft that didn't parse, else the page's query (Query) or your words (Basic). */
-  get boxText() { return this.queryDraft ?? (this.inQuery ? this.settings.queries[this.settings.mode] : this.settings.query); }
+  /** What the list's box holds: a draft that didn't parse, else the query (a widget's or view's, the page's) or your words (Basic). */
+  get boxText() {
+    return this.queryDraft ?? (this.preset ? this.preset.query : this.inQuery ? this.settings.queries[this.settings.mode] : this.settings.query);
+  }
 
   async update(key, value) {
     if (key === "mode" || key === "section") {   // another tab or section ends Filters, Similar, a widget's list, the toast and a draft
@@ -193,7 +195,6 @@ class DiscoveryView extends ItemView {
       this.home.render(root);
       return;
     }
-    if (this.settings.mode !== "tracked" && !this.preset) this.renderModes(header.createDiv({ cls: "pdt-seg" }));
     this.renderFilters(header.createDiv({ cls: "pdt-filters" }));
     this.refs.status = root.createDiv({ cls: "pdt-status" });
     this.refs.list = root.createDiv({ cls: "pdt-list" });
@@ -356,27 +357,58 @@ class DiscoveryView extends ItemView {
   }
 
   /** Home · List · Tracked (with its new releases). */
+  /**
+   * ⌂ Home, then one strip of pages: the tabs (each is its query, on hover), your saved views, and a widget's
+   * list while it's open (✕ back home). Recent actions at the end.
+   */
   renderNav(nav) {
     const settings = this.settings;
-    const current = settings.section === "home" ? "home" : settings.mode === "tracked" ? "tracked" : "list";
-    const go = {
-      home: () => this.update("section", "home"),
-      list: () => { settings.section = "list"; return this.update("mode", settings.listMode || "all"); },
-      tracked: () => this.openTracked(settings.trackedGroup),
+    const onHome = settings.section === "home";
+    const home = nav.createDiv({ cls: `pdt-nav-item is-home${onHome ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0", "aria-label": t("nav.home") } });
+    setIcon(home, "home");
+    setTooltip(home, t("nav.home"));
+    home.onclick = () => this.update("section", "home");
+    onActivate(home, () => this.update("section", "home"));
+    const strip = nav.createDiv({ cls: "pdt-seg pdt-strip", attr: { role: "tablist" } });
+    const widgetKey = (id) => (id.startsWith(VIEW_PREFIX) ? id : `widget:${id}`);   // a widget's id can be a tab's ("new")
+    const active = onHome ? null : this.preset ? widgetKey(this.preset.id) : settings.mode;
+    const tab = (key, label, go, cls = "") => {
+      const el = strip.createDiv({ cls: `pdt-tab ${cls}${key === active ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0", "aria-selected": String(key === active) } });
+      el.dataset.key = key;
+      el.createSpan({ cls: "pdt-tab-label", text: label });
+      el.onclick = go;
+      onActivate(el, go);
+      return el;
     };
-    const seg = nav.createDiv({ cls: "pdt-nav-seg", attr: { role: "tablist" } });
-    for (const key of ["home", "list", "tracked"]) {
-      const tab = seg.createDiv({ cls: `pdt-nav-item${key === current ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0", "aria-selected": String(key === current) } });
-      tab.createSpan({ text: t(`nav.${key}`) });
-      if (key === "tracked") this.refs.updates = tab.createSpan({ cls: "pdt-n is-updates is-hidden" });
-      tab.onclick = go[key];
-      onActivate(tab, go[key]);
+    for (const mode of MODE_KEYS) {
+      const go = mode === "tracked" ? () => this.openTracked(settings.trackedGroup) : () => { settings.section = "list"; return this.update("mode", mode); };
+      const el = tab(mode, this.similar && mode === "all" ? t("similar.tab") : t(`mode.${mode}`), go);
+      this.refs.counts[mode] = el.createSpan({ cls: "pdt-n", text: "…" });
+      setTooltip(el, pageQuery(settings, mode));   // the page is its query
+      if (mode === "tracked") {
+        const updates = this.plugin.catalog ? this.plugin.updatesCount() : 0;
+        if (updates) el.createSpan({ cls: "pdt-n is-updates", text: t("tracked.updatesBadge", { n: updates }) });
+      }
     }
-    const updates = this.plugin.catalog ? this.plugin.updatesCount() : 0;
-    this.refs.updates.setText(updates ? t("tracked.updatesBadge", { n: updates }) : "");
-    this.refs.updates.toggleClass("is-hidden", !updates);
-    nav.createDiv({ cls: "pdt-nav-spacer" });
-    if (settings.section !== "home" && this.plugin.data.ops?.length) {
+    const views = settings.home.views || [];
+    const temp = this.preset && !this.preset.id.startsWith(VIEW_PREFIX) ? this.preset : null;
+    if (views.length || temp) strip.createDiv({ cls: "pdt-strip-sep" });
+    for (const v of views) {
+      const el = tab(VIEW_PREFIX + v.id, v.name, () => this.home.openView(VIEW_PREFIX + v.id), "is-view");
+      setTooltip(el, v.query);
+    }
+    if (temp) {   // a widget's list: shown, not saved; ✕ goes home
+      const words = Object.entries(temp.params).filter(([k]) => k !== "since").map(([k, v]) => this.home.paramText(k, v)).join(" · ");
+      const el = tab(widgetKey(temp.id), words ? `${this.home.title(temp.id)} · ${words}` : this.home.title(temp.id), () => {}, "is-temp");
+      setIcon(el.createSpan({ cls: "pdt-tab-icon" }), homeWidget(settings.home, temp.id)?.icon || "list");
+      el.prepend(el.lastChild);
+      const close = el.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.back") } });
+      setIcon(close, "x");
+      setTooltip(close, t("home.back"));
+      close.onclick = (event) => { event.stopPropagation(); this.closePreset(); };
+    }
+    strip.querySelector(".is-active")?.scrollIntoView?.({ block: "nearest", inline: "nearest" });   // a narrow panel scrolls to it
+    if (!onHome && this.plugin.data.ops?.length) {
       iconButton(nav, "history", t("bulk.recent"), "pdt-nav-recent").onclick = () => this.openRecent();
     }
   }
@@ -388,10 +420,14 @@ class DiscoveryView extends ItemView {
     return this.update("mode", "tracked");
   }
 
-  /** A home widget's plugins as a list, `freshIds` marked new (`onlyNew`: only them); ✕ goes back home. */
+  /**
+   * A home widget's (or saved view's) plugins as a list in Query mode: its query in the box, to edit and save as
+   * a view; `freshIds` marked new (`onlyNew`: only them). ✕ (or Esc) goes back home.
+   */
   openPreset(id, params, freshIds = new Set(), onlyNew = false) {
-    Object.assign(this, { similar: null, filtersOpen: false, visible: PAGE_SIZE });
-    this.preset = { id, params, freshIds, onlyNew, query: "", sort: null };
+    Object.assign(this, { similar: null, filtersOpen: false, visible: PAGE_SIZE, queryDraft: null });
+    const query = homeWidget(this.settings.home, id)?.query?.(this.home.context(Date.now()), params) ?? "";
+    this.preset = { id, params, freshIds, onlyNew, query, base: query };
     Object.assign(this.settings, { section: "list", mode: "all" });   // shown, not saved: ✕ goes home
     this.render();
     this.contentEl.scrollTop = 0;
@@ -399,35 +435,21 @@ class DiscoveryView extends ItemView {
 
   closePreset() {
     this.preset = null;
+    this.queryDraft = null;
     this.settings.section = "home";
     this.render();
   }
 
-  /** The widget's plugins (in its order, or sorted), then only the new ones (when asked), then the search. */
+  /** The list's query (its order by included), then only the new ones when asked. */
   presetRows() {
-    const { id, params, freshIds, onlyNew, query, sort } = this.preset;
-    const ctx = this.home.context(Date.now());
-    const widget = homeWidget(this.settings.home, id);
-    if (!widget) return [];
-    const q = compileQuery(query, ctx.state, ctx.now);
-    const rows = widget.rows(ctx, params).filter((p) => (!onlyNew || freshIds.has(p.id)) && q.test(p));
-    const s = ctx.state;
-    return sort ? sortRows(rows, sort.key, sort.dir, s.catalog, s.releases, s.notes, s.growth) : rows;
+    const { query, freshIds, onlyNew } = this.preset;
+    const rows = queryRows(this.home.context(Date.now()), query);
+    return onlyNew ? rows.filter((p) => freshIds.has(p.id)) : rows;
   }
 
-  /** The bar of a widget's list: what it is (✕ back home), "only new" (✕ shows all), search, layout. */
+  /** The bar of a widget's or view's list: "only new" (✕ shows all), the query box, layout. */
   renderPresetBar(bar) {
-    const { id, params, onlyNew, sort } = this.preset;
-    const chip = bar.createDiv({ cls: "pdt-chip pdt-similar-chip pdt-preset-chip" });
-    setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), homeWidget(this.settings.home, id)?.icon || "list");
-    chip.createSpan({ text: this.home.title(id) });
-    const words = Object.entries(params).filter(([k]) => k !== "since").map(([k, v]) => this.home.paramText(k, v)).join(" · ");
-    if (words) chip.createSpan({ cls: "pdt-chip-value", text: words });
-    const close = chip.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.back") } });
-    setIcon(close, "x");
-    setTooltip(close, t("home.back"));
-    close.onclick = () => this.closePreset();
-    if (onlyNew) {
+    if (this.preset.onlyNew) {
       const fresh = bar.createDiv({ cls: "pdt-chip pdt-similar-chip is-fresh" });
       fresh.createSpan({ text: t("home.onlyNew", { when: this.home.sinceLabel(this.settings.home.since.period) }) });
       const all = fresh.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.showAll") } });
@@ -435,30 +457,16 @@ class DiscoveryView extends ItemView {
       setTooltip(all, t("home.showAll"));
       all.onclick = () => { this.preset.onlyNew = false; this.render(); };
     }
-    // the widget's own order first (its reason to exist), any other sort on request
-    const order = [["", t("home.order")], ...SORT_KEYS.map((k) => [k, t(`sort.${k}`)])];
-    menuChip(bar.createDiv({ cls: "pdt-sort" }), t("filter.sort"), order, sort?.key || "", (key) => {
-      this.preset.sort = key ? { key, dir: NATURAL_DIR[key] || "desc" } : null;
-      this.render();
-    });
-    this.refs.search = this.renderSearch(bar, this.preset.query, t("search.placeholder"), (value) => {
+    this.refs.search = this.renderSearch(bar, this.boxText, this.preset.base.replace(/\s*\n\s*/g, " "), (value) => {
+      this.queryDraft = compileQuery(value, null, Date.now(), true).error ? value : null;
+      this.renderStatus(this.refs.status);
+      if (this.queryDraft != null) return;
       this.preset.query = value;
       this.visible = PAGE_SIZE;
       this.refresh();
-    });
+    }, "query");
     this.renderLayoutSwitch(bar);
     if (this.settings.keyboard) this.renderKeyHelp(bar);
-  }
-
-  renderModes(seg) {
-    for (const mode of MODE_KEYS.filter((m) => m !== "tracked")) {
-      const tab = seg.createDiv({ cls: `pdt-tab${mode === this.settings.mode ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0" } });
-      tab.createSpan({ text: this.similar && mode === "all" ? t("similar.tab") : t(`mode.${mode}`) });
-      this.refs.counts[mode] = tab.createSpan({ cls: "pdt-n", text: "…" });
-      setTooltip(tab, pageQuery(this.settings, mode));   // the page is its query
-      tab.onclick = () => this.update("mode", mode);
-      onActivate(tab, () => this.update("mode", mode));
-    }
   }
 
   /** Tracked tab: one Group menu (All, New releases, Starred, Ungrouped, then your groups), Sections, Status. */
@@ -669,13 +677,16 @@ class DiscoveryView extends ItemView {
     this.render();
   }
 
-  /** Saves this tab with its filters as a view: asks for a name, then it's a widget on the home page. */
+  /** Saves what the list shows as a view (its query): asks for a name, then it's a tab in the strip and a widget on the home page. */
   async saveView() {
     const mode = this.settings.mode;
-    const name = await new TextModal(this.app, { title: t("home.view.saveTitle"), value: this.settings.query.trim() || t(`mode.${mode}`), cta: t("home.view.save") }).ask();
+    const query = this.preset || this.inQuery ? this.boxText : joinQuery(pageQuery(this.settings, mode), filtersToQuery(this.settings, mode));
+    const suggested = this.preset ? this.home.title(this.preset.id) : t(`mode.${mode}`);
+    const name = await new TextModal(this.app, { title: t("home.view.saveTitle"), value: suggested, cta: t("home.view.save") }).ask();
     if (!name) return;
-    await this.home.saveView(name, mode, discover(this.plugin.state(), modeOptions(this.settings, mode), Date.now()));
+    const view = await this.home.saveView(name, query, queryRows(this.home.context(Date.now()), query));
     new Notice(t("home.view.saved", { name }));
+    this.home.openView(VIEW_PREFIX + view.id);
   }
 
   /** ↺ on a changed chip: that filter back to the tab's default. */
@@ -735,7 +746,7 @@ class DiscoveryView extends ItemView {
    * Returns the textarea.
    */
   renderSearch(bar, value, placeholder, onChange, modes = false) {
-    const queryMode = modes && this.inQuery;
+    const queryMode = modes === "query" || (modes === true && this.inQuery);   // "query": always (a widget's list)
     const search = bar.createDiv({ cls: `pdt-search${queryMode ? " is-query" : ""}` });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");
     const box = search.createDiv({ cls: "pdt-q" });
@@ -744,7 +755,7 @@ class DiscoveryView extends ItemView {
     input.value = value || "";
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
-    const seg = modes && this.renderQueryModes(search, queryMode);
+    const seg = modes === true && this.renderQueryModes(search, queryMode);
     const mark = () => {
       const text = input.value;
       const { regex, error, advanced, from = 0, to = 0 } = compileQuery(text, null, Date.now(), queryMode);
@@ -770,7 +781,7 @@ class DiscoveryView extends ItemView {
       paint.append("\u200b");   // keeps a trailing new line's height
       if (seg) seg.refresh(text);
     };
-    if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData(modes));
+    if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData(modes === true));
     mark();
     let timer;
     const apply = (delay) => {
@@ -778,7 +789,7 @@ class DiscoveryView extends ItemView {
       timer = setTimeout(() => onChange(input.value), delay);
     };
     input.oninput = () => {
-      if (modes && !queryMode && isAdvancedQuery(input.value)) return this.toQueryMode(input);   // typed a query: Query mode
+      if (modes === true && !queryMode && isAdvancedQuery(input.value)) return this.toQueryMode(input);   // typed a query: Query mode
       mark();
       apply(input.value.trim() ? 1000 : 0);
     };
@@ -958,13 +969,14 @@ class DiscoveryView extends ItemView {
     const query = this.similar ? "" : this.boxText.trim();   // the Similar filter has its own search
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
       const { error, advanced, at, clauses, free = [] } = compileQuery(query, null, Date.now(), this.inQuery);
-      const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
+      const wrap = status.createDiv({ cls: "pdt-query-wrap" });   // the query's line, and what you can do with it
+      const tag = wrap.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
       // a query isn't repeated: how many clauses, plus the words it searches
       const words = free.length ? ` + “${free.join(" ")}”` : "";
       tag.createSpan({ text: advanced
         ? (error ? t("query.invalid", { error, at: at + 1 }) : `${t("query.clauses", { n: clauses })}${words}`)
         : (error ? t("search.invalid", { error }) : t("status.query", { q: query })) });
-      if (this.inQuery) this.renderQueryChanged(status, query);
+      if (this.inQuery) this.renderQueryChanged(wrap, query);
       const clear = this.inQuery ? null : tag.createSpan({ cls: "pdt-query-clear", text: t("status.clear"), attr: { role: "button", tabindex: "0" } });
       if (clear) clear.onclick = async () => {
         this.settings.query = "";
@@ -988,19 +1000,34 @@ class DiscoveryView extends ItemView {
   /** Query mode, the box no longer the page's own query: "changed · Save ▾ · Revert". */
   renderQueryChanged(status, query) {
     const same = (x, y) => x.replace(/\s+/g, " ").trim() === y.replace(/\s+/g, " ").trim();
-    if (this.queryDraft != null || same(query, pageQuery(this.settings, this.settings.mode))) return;
+    const preset = this.preset;
+    const view = preset?.id.startsWith(VIEW_PREFIX);
+    if (this.queryDraft != null) return;
+    if (preset && !view && same(query, preset.base)) {   // a widget's list: it can become a view as it is
+      const link = status.createSpan({ cls: "pdt-query-clear pdt-query-saveview", text: t("query.saveAsView"), attr: { role: "button", tabindex: "0" } });
+      link.onclick = () => this.saveView();
+      onActivate(link, () => this.saveView());
+      return;
+    }
+    if (same(query, preset ? preset.base : pageQuery(this.settings, this.settings.mode))) return;
     const box = status.createDiv({ cls: "pdt-query-changed" });
     box.createSpan({ text: t("query.changed") });
     const save = box.createEl("button", { cls: "pdt-query-save", text: t("query.save"), attr: { type: "button" } });
     save.onclick = (event) => {
       const menu = new Menu();
-      menu.addItem((item) => item.setTitle(t("query.saveAsPage", { name: t(`mode.${this.settings.mode}`) })).setIcon("save").onClick(() => this.savePageQuery()));
+      if (view) menu.addItem((item) => item.setTitle(t("query.saveView", { name: this.home.title(preset.id) })).setIcon("save").onClick(async () => {
+        await this.home.updateView(preset.id, query);
+        preset.base = query;
+        this.render();
+      }));
+      else if (!preset) menu.addItem((item) => item.setTitle(t("query.saveAsPage", { name: t(`mode.${this.settings.mode}`) })).setIcon("save").onClick(() => this.savePageQuery()));
       menu.addItem((item) => item.setTitle(t("query.saveAsView")).setIcon("bookmark-plus").onClick(() => this.saveView()));
       menu.showAtMouseEvent(event);
     };
     const revert = box.createSpan({ cls: "pdt-query-clear", text: t("query.revert"), attr: { role: "button", tabindex: "0" } });
-    revert.onclick = () => this.revertQuery();
-    onActivate(revert, () => this.revertQuery());
+    const back = () => (preset ? (Object.assign(preset, { query: preset.base }), (this.queryDraft = null), this.render()) : this.revertQuery());
+    revert.onclick = back;
+    onActivate(revert, back);
   }
 
   /** "3 filters in effect" for the status line, when quick filters don't show them (so a short list has its reason). */

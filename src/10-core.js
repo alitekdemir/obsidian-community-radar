@@ -462,6 +462,7 @@ function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = [], releases = {}
   const gap = (p) => dormantDays(releases, p) ?? -1;   // no history: last
   const rating = (p) => notes.get(p.id)?.rating || 0;
   const gained = (p) => growth[p.id]?.[GROWTH_INDEX[key]] ?? -1;   // no server data: last
+  const share = (p) => { const g = growth[p.id]?.[key === "rise7" ? 0 : 1]; const base = (p.downloads ?? 0) - (g ?? 0); return g == null || base < RISING_BASE ? -1 : g / base; };
   const byName = (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" });
   const compare = {
     rating: (a, b) => rating(b) - rating(a) || (dir === "desc" ? byName(a, b) : -byName(a, b)),   // ties A→Z either way
@@ -472,6 +473,8 @@ function sortRows(rows, key, dir = NATURAL_DIR[key], catalog = [], releases = {}
     updated: (a, b) => (b.updated ?? 0) - (a.updated ?? 0),
     name: (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" }),
     listed: (a, b) => (position.get(b.id) ?? -1) - (position.get(a.id) ?? -1),
+    rise7: (a, b) => share(b) - share(a),
+    rise30: (a, b) => share(b) - share(a),
   }[key] || ((a, b) => (b.downloads ?? 0) - (a.downloads ?? 0));
   const sign = dir === (NATURAL_DIR[key] || "desc") ? 1 : -1;
   return rows.sort((a, b) => sign * compare(a, b));

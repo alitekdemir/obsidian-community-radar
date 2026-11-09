@@ -34,10 +34,18 @@ const tabRows = (ctx, mode, extra) =>
 /** The plugins a query finds, the way a page in Query mode would (hidden ones out unless it asks for them). */
 const queryRows = (ctx, text) => discover(ctx.state, { ...modeOptions({ ...ctx.settings, queries: { all: text } }, "all"), query: "" }, ctx.now);
 
+/** A widget's days as the query writes them: its own, or since the card's moment (whole days, at least one). */
+const spanDays = (ctx, params) => (params.since ? Math.max(1, Math.ceil((ctx.now - params.since) / DAY_MS)) : params.days);
+
+/**
+ * The home widgets. `query` is the list a widget opens: the same plugins as a query you can edit and save as a
+ * view (the card's own order is its order by).
+ */
 const HOME_WIDGETS = {
   new: {
     icon: "sparkles", tone: "purple",
     params: { days: [7, 14, 30] }, defaults: { days: 30 },
+    query: (ctx, params) => `age <= ${spanDays(ctx, params)}d\norder by downloads desc`,
     rows: (ctx, params) => ctx.state.catalog.filter((p) => ctx.state.firstSeen[p.id] > since(ctx, params)).sort(byDownloads),
     at: (ctx, p) => ctx.state.firstSeen[p.id],
     value: (ctx, p) => formatShort(p.downloads ?? 0),
@@ -45,6 +53,7 @@ const HOME_WIDGETS = {
   milestone: {
     icon: "target", tone: "green",
     params: { n: (ctx) => milestoneSteps(ctx.timeline), days: [7, 30, 90] }, defaults: { n: 10000, days: 30 },
+    query: (ctx, params) => `milestone = ${queryCount(params.n)} passed <= ${spanDays(ctx, params)}d\norder by downloads desc`,
     rows: (ctx, params) => ctx.state.catalog.filter((p) => topPassed(ctx.timeline, p.id, since(ctx, params)) === params.n).sort(byDownloads),
     at: (ctx, p, params) => passedAt(ctx.timeline, p.id, params.n),
     value: (ctx, p) => formatShort(p.downloads ?? 0),
@@ -52,7 +61,8 @@ const HOME_WIDGETS = {
   hatched: {
     icon: "egg", tone: "orange",
     params: { gap: DORMANT_PRESETS }, defaults: { gap: 60 },
-    rows: (ctx, params) => queryRows(ctx, `gap >= ${params.gap}d hatched NOT tracked\norder by downloads desc`),
+    query: (ctx, params) => `gap >= ${params.gap}d hatched NOT tracked\norder by downloads desc`,
+    rows: (ctx, params) => queryRows(ctx, HOME_WIDGETS.hatched.query(ctx, params)),
     at: (ctx, p) => p.updated,
     value: (ctx, p) => t("filter.days", { n: dormantDays(ctx.state.releases, p) }),
   },
@@ -60,6 +70,7 @@ const HOME_WIDGETS = {
   rising: {
     icon: "trending-up", tone: "green",
     params: { days: [7, 30], by: ["pct", "abs"] }, defaults: { days: 30, by: "pct" },
+    query: (ctx, { days, by }) => (by === "abs" ? `gain${days} > 0\norder by gain${days} desc` : `rise${days} >= ${RISING_SHARE * 100}\norder by rise${days} desc`),
     rows: (ctx, params) => {
       const gain = (p) => risingGain(ctx, p, params);
       if (params.by === "abs") return ctx.state.catalog.filter((p) => gain(p) > 0).sort((a, b) => gain(b) - gain(a));
@@ -77,7 +88,8 @@ const HOME_WIDGETS = {
   quiet: {
     icon: "filter", tone: "blue",
     params: { days: [7, 14, 30] }, defaults: { days: 14 },
-    rows: (ctx, params) => queryRows(ctx, `released <= ${params.since ? Math.ceil((ctx.now - params.since) / DAY_MS) : params.days}d NOT new NOT tracked NOT busy\norder by downloads desc`)
+    query: (ctx, params) => `released <= ${spanDays(ctx, params)}d NOT new NOT tracked NOT busy\norder by downloads desc`,
+    rows: (ctx, params) => queryRows(ctx, HOME_WIDGETS.quiet.query(ctx, params))
       .filter((p) => p.updated > since(ctx, params)),
     at: (ctx, p) => p.updated,
     value: (ctx, p) => relativeDays(p.updated, ctx.now),
@@ -85,12 +97,14 @@ const HOME_WIDGETS = {
   tracked: {
     icon: "bell-ring", tone: "yellow",
     params: {}, defaults: {},
+    query: () => "tracked changed\norder by released desc",
     rows: (ctx) => tabRows(ctx, "tracked", { trackedGroup: UPDATES, trackedStatus: "" }),
     value: (ctx, p) => p.version || "",
   },
   installed: {
     icon: "package-check", tone: "gray",
     params: {}, defaults: {},
+    query: (ctx) => pageQuery(ctx.settings, "suggested"),
     rows: (ctx) => tabRows(ctx, "suggested", { sort: "downloads", sortDir: "desc" }),
     value: (ctx, p) => formatShort(p.downloads ?? 0),
   },
@@ -98,9 +112,10 @@ const HOME_WIDGETS = {
 const VIEW_PREFIX = "view:";   // a saved view's widget id: "view:<id>"
 const VIEW_SEEN_CAP = 5000;    // a view's matches you've seen are kept as ids, up to this many
 
-/** The filter settings a saved view keeps: the tab's filters (search and added ones included) and its sort. */
-function viewFilters(settings, mode) {
-  return Object.fromEntries([...filterKeys(mode), "sortBy", "queries", "pageQueries"].map((k) => [k, settings[k]]));
+/** A view saved before 0.10 (a tab and its filters) as the query it meant: the tab's query, then its filters. */
+function legacyViewQuery(view, settings) {
+  const merged = { ...settings, queries: {}, ...view.filters };
+  return joinQuery(pageQuery(settings, view.mode), filtersToQuery(merged, view.mode));
 }
 
 /**
@@ -111,7 +126,8 @@ function viewWidget(view, seen) {
   const known = Array.isArray(seen) ? new Set(seen) : null;
   return {
     icon: "bookmark", tone: "blue", params: {}, defaults: {}, view,
-    rows: (ctx) => discover(ctx.state, modeOptions({ ...ctx.settings, queries: {}, ...view.filters }, view.mode), ctx.now),   // views from before Query mode are Basic
+    query: () => view.query,
+    rows: (ctx) => queryRows(ctx, view.query),
     isNew: known && ((ctx, p) => !known.has(p.id)),
     value: (ctx, p) => formatShort(p.downloads ?? 0),
   };

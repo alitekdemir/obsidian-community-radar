@@ -141,6 +141,11 @@ class PluginRadar extends Plugin {
       delete st.queryMode;
       done.pageQueries = dayString(Date.now());
     }
+    if (!done.viewQueries) {   // 0.10: a saved view is a query (its tab's query, then its filters)
+      const home = this.data.settings.home;
+      if (home?.views) home.views = home.views.map((v) => (v.query != null ? v : { id: v.id, name: v.name, query: legacyViewQuery(v, this.data.settings) }));
+      done.viewQueries = dayString(Date.now());
+    }
     if (!done.readmeImages) {
       await this.notes.migrate(migrateImages);
       done.readmeImages = dayString(Date.now());

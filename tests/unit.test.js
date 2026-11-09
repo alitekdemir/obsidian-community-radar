@@ -246,6 +246,9 @@ const tests = {
     assert.match(core.queryToFilters("group in (a) released >= startOfMonth()", settings, "all").reason, /in \(…\).*startOfMonth\(\)/);
     assert.match(core.queryToFilters("NOT installed rating >= 4", settings, "all").reason, /NOT.*rating >= 4/);
     assert.match(core.queryToFilters("released <= 30d", settings, "updated").reason, /released/, "Updated's own days aren't an added filter");
+    // a view saved before 0.10 (a tab + filters) becomes the query it meant
+    const legacy = core.legacyViewQuery({ mode: "new", filters: { query: "kanban", extraFilters: { new: { author: "abbys" } } } }, { pageQueries: {}, sortBy: {} });
+    assert.equal(legacy, 'age <= 14d NOT tracked "kanban" author ~ abbys\norder by age desc');
     const starters = core.queryStarters("downloads >= 1k");
     assert.equal(starters[0].insert, "downloads >= 1k");
     assert.ok(starters[0].head && starters[1].head && starters.length === 6);

@@ -64,14 +64,27 @@ class HomePage {
     return this.view.openPreset(id, params, fresh, onlyNew);
   }
 
+  /** A saved view from the strip: its list, the way its widget opens it (what's new marked, then seen). */
+  openView(id) {
+    const ctx = this.context(Date.now());
+    const widget = homeWidget(this.home, id);
+    if (!widget) return null;
+    return this.openList(ctx, id, {}, widget.rows(ctx, {}), sinceMoment(this.home, id, ctx.now));
+  }
+
+  /** A saved view's query changed in its list: Save puts it in the view. */
+  async updateView(id, query) {
+    await this.save((h) => { h.views = h.views.map((v) => (VIEW_PREFIX + v.id === id ? { ...v, query } : v)); });
+  }
+
   /** A widget's title: yours for a saved view. */
   title(id) {
     return homeWidget(this.home, id).view?.name ?? t(`home.${id}`);
   }
 
-  /** Saves the list's current tab and filters as a view: a widget on the home page, its matches so far seen. */
-  async saveView(name, mode, rows) {
-    const view = { id: Date.now().toString(36), name, mode, filters: viewFilters(this.view.settings, mode) };
+  /** Saves a query as a view: a tab in the strip and a widget on the home page, its matches so far seen. */
+  async saveView(name, query, rows) {
+    const view = { id: Date.now().toString(36), name, query };
     const id = VIEW_PREFIX + view.id;
     await this.save((h) => {
       h.views = [...(h.views || []), view];
@@ -163,7 +176,7 @@ class HomePage {
       setTooltip(badge, t("home.freshTip", { n: formatCount(fresh.length) }), { delay: 150 });
       badge.onclick = (event) => { event.stopPropagation(); open(true); };
     }
-    const unit = widget.view ? t("home.view.unit", { tab: t(`mode.${widget.view.mode}`) }) : t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(id, params));
+    const unit = widget.view ? t("home.view.unitQuery") : t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(id, params));
     left.createSpan({ cls: "pdt-home-unit", text: unit });
     const key = Object.keys(widget.params)[0];
     if (key) {
@@ -243,10 +256,9 @@ class HomePage {
     menu.showAtMouseEvent(event);
   }
 
-  /** What a saved view filters: its tab, then its filters as the Filters tooltip lists them. */
+  /** What a saved view shows: its query. */
   viewInfo(view) {
-    const lines = filterSummary({ ...this.view.settings, ...view.filters }, view.mode).split("\n").filter((l) => l.startsWith("•"));
-    return [t("home.view.info", { tab: t(`mode.${view.mode}`) }), ...lines].join("\n");
+    return `${t("home.view.infoQuery")}\n${view.query}`;
   }
 
   /** ⋮ of a widget: every setting, then Hide and Reset; a saved view: Rename, Hide, Delete. */

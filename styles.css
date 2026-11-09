@@ -3008,3 +3008,81 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
 .pdt-setting-query textarea.is-changed { border-color: var(--color-yellow); }
 .pdt-setting-query textarea.is-invalid { border-color: var(--text-error); }
 .pdt-setting-query .setting-item-description { color: var(--text-error); }
+
+/* ── One strip of pages: ⌂, the tabs, your saved views, a widget's list ─── */
+.pdt-nav-item.is-home {
+  padding: 0 var(--size-4-2);
+}
+
+.pdt-nav-item.is-home svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pdt-strip {
+  flex: 1;
+  min-width: 0;
+}
+
+.pdt-strip .pdt-tab {
+  flex: 0 0 auto;
+}
+
+.pdt-strip-sep {
+  flex: none;
+  width: 1px;
+  margin: 4px 2px;
+  background: var(--background-modifier-border);
+}
+
+.pdt-tab.is-view {
+  color: var(--text-accent);
+}
+
+.pdt-tab.is-temp {
+  border: 1px dashed var(--color-purple);
+  color: var(--text-normal);
+}
+
+.pdt-tab-icon {
+  display: inline-flex;
+}
+
+.pdt-tab-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.pdt-tab .pdt-n.is-updates {
+  background: color-mix(in srgb, var(--color-yellow) 22%, transparent);
+  color: var(--text-normal);
+}
+
+.pdt-query-changed {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  padding: 1px 4px 1px var(--size-4-2);
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--color-yellow) 15%, transparent);
+  color: var(--text-normal);
+  font-size: var(--font-ui-smaller);
+}
+
+.pdt-view button.pdt-query-save {
+  height: 20px;
+  padding: 0 var(--size-4-2);
+  border-radius: 99px;
+  background: var(--color-yellow);
+  color: var(--text-on-accent);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+  box-shadow: none;
+}
+
+.pdt-query-wrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+}
