@@ -1163,6 +1163,7 @@ class DiscoveryView extends ItemView {
     const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}${stale ? " is-stale" : ""}${picked ? " is-selected" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
     if (this.selectable) {
       const box = row.createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("bulk.pick", { name: p.name }) } });
+      row.addClass("has-select");
       box.checked = picked;
       box.onclick = (event) => { event.stopPropagation(); this.pick(p, box.checked, event.shiftKey); };
     }

@@ -530,12 +530,13 @@
 }
 
 /* bulk selection: a box at the row's left, shown on hover, and on every row once something is picked */
-.pdt-row:has(> .pdt-select) {
+.pdt-row.has-select {
   position: relative;
   padding-left: 36px;
 }
 
-.pdt-select {
+/* specific enough to beat Obsidian's own input[type=checkbox] rules (they set position) */
+.pdt-view .pdt-row > input.pdt-select {
   position: absolute;
   top: calc(var(--size-4-3) + 3px);
   left: var(--size-4-3);
@@ -544,15 +545,15 @@
   cursor: pointer;
 }
 
-.pdt-row:hover > .pdt-select,
-.pdt-row:focus-within > .pdt-select,
-.pdt-list.is-selecting .pdt-select,
-.pdt-select:checked {
+.pdt-view .pdt-row:hover > input.pdt-select,
+.pdt-view .pdt-row:focus-within > input.pdt-select,
+.pdt-view .pdt-list.is-selecting input.pdt-select,
+.pdt-view input.pdt-select:checked {
   opacity: 1;
 }
 
 @media (hover: none) {
-  .pdt-select { opacity: 1; }
+  .pdt-view input.pdt-select { opacity: 1; }
 }
 
 .pdt-row.is-selected {
@@ -690,9 +691,11 @@ button.pdt-table-rating { color: var(--color-yellow); }
 .pdt-trow { cursor: pointer; }
 .pdt-trow:hover { background: var(--background-modifier-hover); }
 .pdt-trow.is-selected { background: color-mix(in srgb, var(--interactive-accent) 12%, transparent); }
-.pdt-trow:hover .pdt-select,
-.pdt-trow:focus-within .pdt-select,
-.pdt-list.is-selecting .pdt-trow .pdt-select { opacity: 1; }
+.pdt-view .pdt-trow input.pdt-select { opacity: 0; }
+.pdt-view .pdt-trow:hover input.pdt-select,
+.pdt-view .pdt-trow:focus-within input.pdt-select,
+.pdt-view .pdt-list.is-selecting .pdt-trow input.pdt-select,
+.pdt-view .pdt-trow input.pdt-select:checked { opacity: 1; }
 
 .pdt-col-item {
   display: flex;
