@@ -233,6 +233,15 @@ class RecentModal extends Modal {
     const box = this.contentEl;
     box.empty();
     box.createEl("p", { cls: "pdt-detail-muted", text: t("bulk.recentHint", { n: OPS_CAP }) });
+    // reviewed marks set on one day for many plugins (before Recent actions existed): taken back here
+    for (const { date, ids } of this.plugin.massReviews()) {
+      const row = box.createDiv({ cls: "pdt-op" });
+      row.createSpan({ cls: "pdt-op-when", text: date });
+      const what = row.createDiv({ cls: "pdt-op-what" });
+      what.createEl("b", { text: t("bulk.massReviewed", { n: ids.length }) });
+      what.createSpan({ cls: "pdt-detail-muted", text: t("bulk.massHint") });
+      row.createEl("button", { text: t("bulk.unreview") }).onclick = async () => { await this.plugin.unreview(date); this.render(); };
+    }
     const ops = this.plugin.data.ops || [];
     if (!ops.length) box.createEl("p", { text: t("bulk.recentNone") });
     for (const op of ops) {

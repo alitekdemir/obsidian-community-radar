@@ -96,15 +96,20 @@ class HomePage {
       const tracked = id === "tracked";
       const then = sinceMoment(this.home, id, ctx.now);
       const params = { ...widgetParams(this.home, id), since: then };
-      const rows = tracked ? [] : HOME_WIDGETS[id].rows(ctx, params);   // the since cards are built-in widgets
-      const n = tracked ? this.plugin.updatesCount(ctx.state, ctx.now) : rows.length;
+      // tracked: "not seen" is what you haven't reviewed; a period counts the releases in it
+      const reviewBased = tracked && period === "seen";
+      const rows = reviewBased ? [] : tracked
+        ? tabRows(ctx, "tracked", { trackedGroup: "", trackedStatus: "" }).filter((p) => (p.updated || 0) > then)
+        : HOME_WIDGETS[id].rows(ctx, params);   // the since cards are built-in widgets
+      const n = reviewBased ? this.plugin.updatesCount(ctx.state, ctx.now) : rows.length;
       const done = n === 0 && period === "seen";
-      const card = this.card(grid, `pdt-home-mini is-${HOME_WIDGETS[id].tone}${done ? " is-done" : ""}`, i, () => this.openList(ctx, id, params, rows, then));
+      const open = tracked && !reviewBased ? () => this.view.openTracked("") : () => this.openList(ctx, id, params, rows, then);
+      const card = this.card(grid, `pdt-home-mini is-${HOME_WIDGETS[id].tone}${done ? " is-done" : ""}`, i, open);
       card.dataset.id = id;
       this.grip(card);
       setIcon(card.createSpan({ cls: "pdt-home-mini-icon" }), HOME_WIDGETS[id].icon);
       card.createSpan({ cls: "pdt-home-mini-n", text: done ? "✓" : formatCount(n) });
-      this.info(card, t(`home.since.${id}.info`, { when: this.sinceLabel(period), n: stepLabel(params.n ?? 0) }));
+      this.info(card, t(tracked && !reviewBased ? "home.since.tracked.infoDays" : `home.since.${id}.info`, { when: this.sinceLabel(period), n: stepLabel(params.n ?? 0) }));
       card.createSpan({ cls: "pdt-home-mini-label", text: t(`home.since.${id}`, { n: stepLabel(params.n ?? 0) }) });
       card.createSpan({ cls: "pdt-home-cta", text: t("home.list") });
     });
@@ -298,7 +303,7 @@ class HomePage {
     toggle(t("home.showSince"), home.since.show, (h) => { h.since.show = !h.since.show; });
     toggle(t("home.showInfo"), home.info, (h) => { h.info = !h.info; });
     toggle(t("home.motion"), home.motion, (h) => { h.motion = !h.motion; });
-    if (this.plugin.data.ops?.length) menu.addItem((item) => item.setTitle(t("bulk.recent")).setIcon("history").onClick(() => this.view.openRecent()));
+    menu.addItem((item) => item.setTitle(t("bulk.recent")).setIcon("history").onClick(() => this.view.openRecent()));
     menu.addSeparator();
     for (const id of home.hidden.filter((x) => homeWidget(home, x))) {
       menu.addItem((item) => item.setTitle(t("home.add", { name: this.title(id) })).setIcon("plus").onClick(() => this.save((h) => { h.hidden = h.hidden.filter((x) => x !== id); })));

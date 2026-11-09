@@ -491,49 +491,44 @@ const tests = {
     modals.at(-1).close();
   },
 
-  async "grouping mode: chips on the rows of the current list, one request, nothing saved before Accept"({ app, plugin, view }) {
+  async "suggest groups for the picked rows: one request, chips under the rows, a click saves at once"({ app, plugin, view }) {
     const el = view.contentEl;
     const rowOf = (id) => $$(el, ".pdt-row").find((r) => r.dataset.id === id);
-    const bar = () => $(el, ".pdt-grouping-bar");
+    const chipOf = (id, name) => $$(rowOf(id), ".pdt-gchip").find((c) => c.textContent.startsWith(name));
 
-    // From the ⋮ menu on the All tab: an untracked plugin gets a note once you accept
+    // All tab: pick an untracked plugin, Suggest groups in the bar; a chip click writes its note right away
     const freshNote = plugin.notes.index.get("fresh");                      // starred earlier: start untracked again
     if (freshNote) { app.vault.files.delete(freshNote.path); plugin.notes.forget(freshNote.path); }
     await view.update("mode", "all");
     assert.ok(!plugin.notes.index.has("fresh"));
-    fake.network.prompts.length = 0;
     const menu = new fake.Menu();
     view.onPaneMenu(menu, "more-options");
-    assert.ok(!menu.items.some((i) => i.title === core.t("cmd.base")), "Bases lives in settings only");
-    await menu.items.find((i) => i.icon === "folder-plus").click();
+    assert.ok(!menu.items.some((i) => i.icon === "folder-plus"), "no separate grouping mode any more");
+    fake.network.prompts.length = 0;
+    view.pick(plugin.pluginById("fresh"), true);
+    $$(el, ".pdt-bulk-action").find((b) => b.textContent === core.t("bulk.suggest", { n: 1 })).onclick();
     await tick(20);
     assert.equal(fake.network.prompts.length, 1);
-    assert.ok(bar(), "grouping bar shown");
-    assert.ok(!$(rowOf("fresh"), ".pdt-actions"), "chips take the place of the row's actions");
-    const before = [...app.vault.files.keys()].length;
-    $$(rowOf("fresh"), ".pdt-gchip").find((c) => c.textContent.startsWith("Planning")).onclick();
-    assert.ok(rowOf("fresh").classList.contains("is-grouping-changed"));
-    assert.equal($(rowOf("fresh"), ".pdt-badge.is-change").textContent, core.t("grouping.willCreate"));
-    assert.equal([...app.vault.files.keys()].length, before, "nothing written yet");
-    $(bar(), ".mod-cta").onclick();
-    await tick(20);
-    assert.deepEqual(plugin.notes.index.get("fresh").groups, ["Planning"]);
-    assert.equal(bar(), null, "back to the normal list");
+    assert.ok($(rowOf("fresh"), ".pdt-actions"), "the row keeps its actions");
+    await chipOf("fresh", "Planning").onclick();
+    await tick();
+    assert.deepEqual(plugin.notes.index.get("fresh").groups, ["Planning"], "saved at once");
+    assert.ok(chipOf("fresh", "Planning").classList.contains("is-on"));
+    view.clearSelection();
+    view.syncSelection();
+    assert.ok(!$(rowOf("fresh"), ".pdt-gchip"), "no picks, no chips");
 
-    // Settings' Suggest groups: the Tracked tab's Ungrouped list in grouping mode
+    // Settings' Suggest groups: Tracked › Ungrouped with its plugins picked and their groups under the rows
     await plugin.track(plugin.pluginById("busy"), {});
     fake.network.prompts.length = 0;
     await plugin.groupUngrouped();
     await tick(20);
     assert.equal(plugin.data.settings.mode, "tracked");
     assert.equal(plugin.data.settings.trackedGroup, core.UNGROUPED);
-    assert.equal(fake.network.prompts.length, 1);
-    $$(bar(), "button").find((b) => b.textContent === core.t("grouping.pickTop")).onclick();
-    $$(rowOf("busy"), ".pdt-gchip").find((c) => c.textContent.startsWith("Productivity")).onclick();
-    $(bar(), ".mod-cta").onclick();
-    await tick(20);
-    assert.deepEqual(plugin.notes.index.get("busy").groups, ["ai", "Productivity"]);
-    assert.equal(plugin.ungrouped().length, 0);
+    assert.ok(view.selected.has("busy"));
+    await chipOf("busy", "Productivity").onclick();
+    await tick();
+    assert.deepEqual(plugin.notes.index.get("busy").groups, ["Productivity"]);
     Object.assign(plugin.data.settings, { trackedGroup: "" });
     await view.update("mode", "all");
   },
@@ -787,6 +782,21 @@ const tests = {
     assert.equal(view.selected.size, 3, "Shift picks the range");
     assert.ok($(el, ".pdt-list").classList.contains("is-selecting") && rows()[1].classList.contains("is-selected"));
     assert.equal($(el, ".pdt-bulk-bar b").textContent, core.t("bulk.selected", { n: 3 }));
+    // like Gmail: the shown rows first, then every row of the list
+    view.clearSelection();
+    view.selected.add(view.rows[0].id);
+    view.visible = 2;
+    view.refresh();
+    const link = () => $$(el, ".pdt-bulk-bar .pdt-bulk-link")[0];
+    link().onclick();
+    assert.equal(link().textContent, core.t("bulk.selectAll", { n: core.formatCount(view.rows.length) }));
+    link().onclick();
+    assert.equal(view.selected.size, view.rows.length, "the rows not shown yet too");
+    view.clearSelection();
+    view.visible = 50;
+    for (const i of [0, 1, 2]) view.selected.add(view.rows[i].id);
+    view.syncSelection();
+    assert.ok($(rows()[0], "label.pdt-select-hit > .pdt-select"), "the box sits in a label over the gutter: a near miss picks, not opens");
     const picked = [...view.selected];
     let asked = null;
     view.confirm = async (o) => { asked = o; return true; };
@@ -811,6 +821,17 @@ const tests = {
     assert.equal(view.selected.size, 0, "another tab clears the selection");
     assert.ok(!$(el, ".pdt-toast"), "and the toast");
     assert.ok($(el, ".pdt-nav-recent"), "Recent actions in the nav once there is one");
+    // reviewed marks set on one day for many plugins can be taken back (and that undone too)
+    const day = "2026-01-02";
+    const tracked = [...plugin.notes.index.keys()].slice(0, 3);
+    for (const id of tracked) await plugin.track(plugin.pluginById(id), { reviewed: day });
+    assert.deepEqual(plugin.massReviews(3).map((m) => m.date), [day]);
+    const unreviewed = await plugin.unreview(day);
+    assert.ok(tracked.every((id) => !plugin.notes.index.get(id).reviewed));
+    await plugin.undo(unreviewed);
+    assert.ok(tracked.every((id) => plugin.notes.index.get(id).reviewed === day));
+    for (const id of tracked) await plugin.track(plugin.pluginById(id), { reviewed: null });
+
     // note fields: Undo turns back only what the action did
     const p = plugin.pluginById("homepage");
     const before = plugin.notes.index.get("homepage")?.groups || [];

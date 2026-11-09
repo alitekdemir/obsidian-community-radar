@@ -18,7 +18,7 @@ class DiscoveryView extends ItemView {
     this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
     this.cursorId = null;         // the row keyboard shortcuts act on
-    this.grouping = null;         // grouping mode: {ids, suggestions, picked, loading, error}
+    this.suggest = null;          // AI groups for the picked rows: {ids, lists, loading, error}
     // Obsidian activates a view's scope while its tab is focused, so keys work without clicking a row
     this.scope = new Scope(this.app.scope);
     this.keep = new Map();        // id → index: rows an action moved out of the filter stay put until render()
@@ -55,7 +55,6 @@ class DiscoveryView extends ItemView {
     const item = (icon, title, run) => menu.addItem((i) => i.setIcon(icon).setTitle(title).onClick(run));
     item("refresh-cw", t("set.syncNow"), () => plugin.refresh());
     item("languages", t("translate.visible", { n: shown.length }), () => this.translateVisible());
-    item("folder-plus", t("menu.groupList", { n: Math.min(shown.length, AI_BATCH) }), () => this.startGrouping(shown));
     item("ban", t("list.ignoredTitle", { n: plugin.ignoredCount() }), () => this.update("mode", "ignored"));
     item("eye-off", t("list.dismissedTitle", { n: Object.keys(plugin.data.dismissed).length }), () => this.update("mode", "dismissed"));
     item("history", t("cmd.rebuild"), () => plugin.downloadHistory());
@@ -70,11 +69,11 @@ class DiscoveryView extends ItemView {
 
   /**
    * A shortcut key (see KEY_HELP). Returns true to let Obsidian handle the key as usual: when shortcuts
-   * are off, in grouping mode, or while typing in a field.
+   * are off, or while typing in a field.
    */
   onKey(event, key) {
     const typing = globalThis.document?.activeElement?.closest?.("input, textarea, select, [contenteditable]");
-    if (!this.settings.keyboard || this.grouping || typing) return true;
+    if (!this.settings.keyboard || typing) return true;
     const rows = [...this.contentEl.querySelectorAll(".pdt-row")];
     if (!rows.length) return true;
     const index = rows.findIndex((r) => r.dataset.id === this.cursorId);
@@ -117,126 +116,55 @@ class DiscoveryView extends ItemView {
     row.scrollIntoView?.({ block: "nearest" });
   }
 
-  // ── Grouping mode: AI suggestions for the plugins of the current list, picked on the rows ──
-  async startGrouping(plugins) {
-    const ids = plugins.slice(0, AI_BATCH).map((p) => p.id);
-    if (!ids.length) return new Notice(t("grouping.empty"));
+  // ── Group suggestions for the picked rows: the AI's groups under each row, a click saves right away ──
+  /** Asks the AI for groups for the picked plugins (the first AI_BATCH); they show under the rows while picked. */
+  async suggestGroups() {
+    const ids = [...this.selected].slice(0, AI_BATCH);
     if (!this.plugin.translator.ready) return new Notice(t("groups.aiSetup"));
-    const grouping = { ids, suggestions: {}, picked: Object.fromEntries(ids.map((id) => [id, [...this.currentGroups(id)]])), loading: true, error: "" };
-    this.grouping = grouping;
+    const suggest = { ids: new Set(ids), lists: {}, loading: true, error: "" };
+    this.suggest = suggest;
     this.refresh();
     try {
-      grouping.suggestions = await this.plugin.groupSuggestions(ids.map((id) => this.plugin.pluginById(id)).filter(Boolean));
+      suggest.lists = await this.plugin.groupSuggestions(ids.map((id) => this.plugin.pluginById(id)).filter(Boolean));
     } catch (error) {
-      grouping.error = error.message;
+      suggest.error = error.message;
     }
-    grouping.loading = false;
-    if (this.grouping === grouping) this.refresh();   // unless it was cancelled meanwhile
+    suggest.loading = false;
+    if (this.suggest === suggest) this.refresh();   // unless the selection went meanwhile
   }
 
-  currentGroups(id) {
-    return this.plugin.notes.index.get(id)?.groups || [];
-  }
-
-  stopGrouping() {
-    this.grouping = null;
-    this.render();
-  }
-
-  /** Writes the changed rows: new groups, cleared groups, or a new tracking note. */
-  async acceptGrouping() {
-    const { ids, picked } = this.grouping;
-    let written = 0;
-    for (const id of ids) {
-      const plugin = this.plugin.pluginById(id);
-      if (!plugin || sameNames(picked[id], this.currentGroups(id))) continue;
-      await this.plugin.track(plugin, { groups: picked[id] });
-      written++;
-    }
-    new Notice(t("notice.batchSaved", { n: written }));
-    this.stopGrouping();
-  }
-
-  renderGrouping(list, now) {
-    const grouping = this.grouping;
-    this.rows = grouping.ids.map((id) => this.plugin.pluginById(id)).filter(Boolean);
-    const bar = list.createDiv({ cls: "pdt-grouping-bar" });
-    const text = bar.createDiv({ cls: "pdt-grouping-text" });
-    text.createDiv({ cls: "pdt-banner-title", text: t("grouping.title", { n: this.rows.length }) });
-    this.refs.groupingSummary = text.createDiv({ cls: "pdt-gm-note" });
-    const button = (label, cls, run) => {
-      const el = bar.createEl("button", { cls, text: label, attr: { type: "button" } });
-      el.onclick = run;
-      return el;
-    };
-    const pickAll = (choose) => {
-      for (const id of grouping.ids) grouping.picked[id] = choose(id);
-      for (const id of grouping.ids) this.renderGroupingChips(id);
-      this.updateGroupingSummary();
-    };
-    button(t("grouping.pickTop"), "", () => pickAll((id) => {
-      const current = this.currentGroups(id);
-      return current.length ? [...current] : (grouping.suggestions[id] || []).slice(0, 1);
-    }));
-    button(t("grouping.reset"), "", () => pickAll((id) => [...this.currentGroups(id)]));
-    button(t("groups.cancel"), "", () => this.stopGrouping());
-    this.refs.groupingAccept = button("", "mod-cta", () => this.acceptGrouping());
-    this.groupingRows = new Map();
-    for (const p of this.rows) this.renderRow(list, p, now);
-    this.updateGroupingSummary();
-  }
-
-  /** Redraws one row's chips only, so the list keeps its scroll position. */
-  renderGroupingChips(id) {
-    const grouping = this.grouping;
-    const { row, box } = this.groupingRows.get(id) || {};
-    if (!box) return;
+  /** A picked row's groups: the ones it has and the AI's, on/off; a click adds or removes the group at once. */
+  renderSuggestions(box, p) {
+    const suggest = this.suggest;
     box.empty();
-    setIcon(box.createSpan({ cls: "pdt-grouping-icon" }), "folder-plus");
-    if (grouping.loading) {
+    setIcon(box.createSpan({ cls: "pdt-grouping-icon" }), "sparkles");
+    if (suggest.loading) {
       for (let i = 0; i < 3; i++) box.createSpan({ cls: "pdt-skeleton" });
       return;
     }
-    const current = this.currentGroups(id);
+    const current = this.plugin.notes.index.get(p.id)?.groups || [];
     const mine = new Set(this.plugin.notes.groups().map((g) => g.name));
-    const options = uniqueNames([...current, ...(grouping.suggestions[id] || [])]);
-    if (!options.length) box.createSpan({ cls: "pdt-gm-note", text: grouping.error ? t("groups.aiFailed", { error: grouping.error }) : t("batch.noSuggestions") });
+    const options = uniqueNames([...current, ...(suggest.lists[p.id] || [])]);
+    if (!options.length) box.createSpan({ cls: "pdt-gm-note", text: suggest.error ? t("groups.aiFailed", { error: suggest.error }) : t("batch.noSuggestions") });
     for (const name of options) {
       groupChip(box, {
-        name, on: grouping.picked[id].includes(name), star: mine.has(name), starTip: t("batch.legend"),
-        onToggle: () => {
-          const picked = grouping.picked[id];
-          grouping.picked[id] = picked.includes(name) ? picked.filter((g) => g !== name) : [...picked, name];
-          this.renderGroupingChips(id);
-          this.updateGroupingSummary();
+        name, on: current.includes(name), star: mine.has(name), starTip: t("batch.legend"),
+        onToggle: async () => {
+          const now = this.plugin.notes.index.get(p.id)?.groups || [];
+          await this.plugin.track(p, { groups: now.includes(name) ? now.filter((g) => g !== name) : [...now, name] });
+          this.renderSuggestions(box, p);
         },
       });
     }
-    const changed = !sameNames(grouping.picked[id], current);
-    row.toggleClass("is-grouping-changed", changed);
-    if (changed) {
-      const label = !this.plugin.notes.index.has(id) ? "grouping.willCreate" : grouping.picked[id].length ? "grouping.willChange" : "grouping.willClear";
-      box.createSpan({ cls: "pdt-badge is-change", text: t(label) });
-    }
-  }
-
-  updateGroupingSummary() {
-    const { ids, picked } = this.grouping;
-    const mine = new Set(this.plugin.notes.groups().map((g) => g.name));
-    const changed = ids.filter((id) => !sameNames(picked[id], this.currentGroups(id)));
-    const notes = changed.filter((id) => !this.plugin.notes.index.has(id)).length;
-    const fresh = new Set(ids.flatMap((id) => picked[id]).filter((g) => !mine.has(g))).size;
-    this.refs.groupingSummary?.setText(this.grouping.loading ? t("groups.aiLoading") : t("grouping.summary", { changed: changed.length, notes, fresh }));
-    this.refs.groupingAccept?.setText(t("grouping.accept", { n: changed.length }));
   }
 
   get settings() { return this.plugin.data.settings; }
 
   async update(key, value) {
-    if (key === "mode" || key === "section") {   // another tab or section ends grouping mode, Filters, Similar, a widget's list and the toast
-      Object.assign(this, { grouping: null, filtersOpen: false, similar: null, preset: null, toast: null });
+    if (key === "mode" || key === "section") {   // another tab or section ends Filters, Similar, a widget's list and the toast
+      Object.assign(this, { filtersOpen: false, similar: null, preset: null, toast: null });
     }
-    this.selected.clear();   // what you picked was on that list
+    this.clearSelection();   // what you picked was on that list
     if (key === "mode" && value !== "tracked" && !LIST_MODES.includes(value)) this.settings.listMode = value;
     this.settings[key] = value;
     this.visible = PAGE_SIZE;
@@ -285,9 +213,15 @@ class DiscoveryView extends ItemView {
   }
 
   // ─── Bulk actions ─────────────────────────────────────────────────────────
-  /** Can rows be picked here? Not while grouping, nor on the Ignored / Hidden lists (they have Restore). */
+  /** Can rows be picked here? Not on the Ignored / Hidden lists (they have Restore). */
   get selectable() {
-    return !this.grouping && !LIST_MODES.includes(this.settings.mode);
+    return !LIST_MODES.includes(this.settings.mode);
+  }
+
+  /** Drops the picks (and the group suggestions that came with them). */
+  clearSelection() {
+    this.selected.clear();
+    this.suggest = null;
   }
 
   /** Picks or drops a row; with Shift, every row between it and the last one picked. */
@@ -310,6 +244,7 @@ class DiscoveryView extends ItemView {
       if (box) box.checked = on;
     }
     this.refs.list?.toggleClass("is-selecting", this.selected.size > 0);
+    if (!this.selected.size && this.refs.list?.querySelector(".pdt-grouping-chips")) { this.suggest = null; this.refresh(); return; }   // no picks, no AI groups
     this.renderBulk();
   }
 
@@ -332,12 +267,13 @@ class DiscoveryView extends ItemView {
     if (!this.selected.size || !this.selectable) return;
     const bar = footer.createDiv({ cls: "pdt-bulk-bar", attr: { role: "toolbar", "aria-label": t("bulk.toolbar") } });
     bar.createEl("b", { text: t("bulk.selected", { n: this.selected.size }) });
-    const shown = this.rows.slice(0, this.visible).filter((p) => !this.selected.has(p.id));
-    if (shown.length) {
-      bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.selectShown", { n: this.rows.slice(0, this.visible).length }) }).onclick = () => {
-        for (const p of shown) this.selected.add(p.id);
-        this.syncSelection();
-      };
+    // like Gmail: first the rows on screen, then every row of the list, the ones not shown yet included
+    const visible = this.rows.slice(0, this.visible);
+    const pickAll = (rows) => () => { for (const p of rows) this.selected.add(p.id); this.syncSelection(); };
+    if (visible.some((p) => !this.selected.has(p.id))) {
+      bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.selectShown", { n: visible.length }) }).onclick = pickAll(visible);
+    } else if (this.rows.length > visible.length && this.selected.size < this.rows.length) {
+      bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.selectAll", { n: formatCount(this.rows.length) }) }).onclick = pickAll(this.rows);
     }
     const action = (icon, label, onClick) => {
       const button = bar.createEl("button", { cls: "pdt-bulk-action" });
@@ -352,11 +288,12 @@ class DiscoveryView extends ItemView {
         const group = name ?? await new TextModal(this.app, { title: t("bulk.newGroup"), cta: t("bulk.go.group", { n: this.selected.size }) }).ask();
         if (group) this.runBulk("group", group);
       }));
+    action("sparkles", t("bulk.suggest", { n: Math.min(this.selected.size, AI_BATCH) }), () => this.suggestGroups());
     if (this.settings.mode === "tracked") action("check-check", t("bulk.reviewed"), () => this.runBulk("reviewed"));
     action("eye-off", t("bulk.snooze"), () => this.runBulk("snooze"));
     action("ban", t("bulk.exclude"), () => this.runBulk("exclude"));
     bar.createDiv({ cls: "pdt-nav-spacer" });
-    bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.clear") }).onclick = () => { this.selected.clear(); this.syncSelection(); };
+    bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.clear") }).onclick = () => { this.clearSelection(); this.syncSelection(); };
   }
 
   bulkMenu(event, options, onPick) {
@@ -371,7 +308,7 @@ class DiscoveryView extends ItemView {
     const vars = { n: plugins.length, value: kind === "rating" ? "★".repeat(value) : value };
     const ok = await this.confirm({ title: t(`bulk.ask.${kind}`, vars), plugins, text: t(`bulk.what.${kind}`), cta: t(`bulk.go.${kind}`, vars) });
     if (!ok) return;
-    this.selected.clear();
+    this.clearSelection();
     const op = await this.plugin.bulk(kind, plugins, value);
     this.toast = { op, text: opLabel(op) };
     this.refresh();
@@ -447,7 +384,7 @@ class DiscoveryView extends ItemView {
 
   /** A home widget's plugins as a list, `freshIds` marked new (`onlyNew`: only them); ✕ goes back home. */
   openPreset(id, params, freshIds = new Set(), onlyNew = false) {
-    Object.assign(this, { grouping: null, similar: null, filtersOpen: false, visible: PAGE_SIZE });
+    Object.assign(this, { similar: null, filtersOpen: false, visible: PAGE_SIZE });
     this.preset = { id, params, freshIds, onlyNew, query: "", sort: null };
     Object.assign(this.settings, { section: "list", mode: "all" });   // shown, not saved: ✕ goes home
     this.render();
@@ -576,7 +513,7 @@ class DiscoveryView extends ItemView {
       this.refs.search = this.renderSearch(bar, this.settings.query, t("search.placeholder"), async (value) => {
         this.settings.query = value;
         this.visible = PAGE_SIZE;
-        this.selected.clear();   // another search, another list
+        this.clearSelection();   // another search, another list
         this.refresh();
         await this.plugin.saveData(this.plugin.data);
       });
@@ -718,7 +655,7 @@ class DiscoveryView extends ItemView {
 
   /** Adds, changes (a value) or removes (undefined) a filter added with "+ Filter" on this tab. */
   async setExtra(key, value) {
-    this.selected.clear();
+    this.clearSelection();
     const mode = this.settings.mode;
     const { [key]: old, ...rest } = this.settings.extraFilters?.[mode] || {};
     this.settings.extraFilters = { ...this.settings.extraFilters, [mode]: value === undefined ? rest : { ...rest, [key]: value } };
@@ -738,7 +675,7 @@ class DiscoveryView extends ItemView {
 
   /** ↺ on a changed chip: that filter back to the tab's default. */
   async resetFilter(key) {
-    this.selected.clear();
+    this.clearSelection();
     const cleared = clearedFilters(this.settings, this.settings.mode);
     if (key === "downloadFilter") Object.assign(this.settings, { downloadFilter: cleared.downloadFilter, minDownloads: cleared.minDownloads });
     else this.settings[key] = cleared[key];
@@ -765,7 +702,7 @@ class DiscoveryView extends ItemView {
   }
 
   async clearFilters() {
-    this.selected.clear();
+    this.clearSelection();
     const { query, ...cleared } = clearedFilters(this.settings, this.settings.mode);
     if (this.similar) this.similar.query = "";   // the All tab's own search stays as it was
     else cleared.query = query;
@@ -903,10 +840,9 @@ class DiscoveryView extends ItemView {
   renderList(list, state, now) {
     list.empty();
     this.rows = [];
-    this.cards = this.settings.layout === "cards" && !this.grouping && !LIST_MODES.includes(this.settings.mode);
+    this.cards = this.settings.layout === "cards" && !LIST_MODES.includes(this.settings.mode);
     list.toggleClass("is-cards", this.cards);
     if (!this.plugin.catalog) return;
-    if (this.grouping) return this.renderGrouping(list, now);
     const { timeline } = this.plugin;
     const mode = this.settings.mode;
     if (this.similar) return this.renderSimilarList(list, now);
@@ -969,7 +905,8 @@ class DiscoveryView extends ItemView {
     all.checked = rows.length > 0 && rows.every((p) => this.selected.has(p.id));
     all.onclick = () => { for (const p of rows) (all.checked ? this.selected.add(p.id) : this.selected.delete(p.id)); this.syncSelection(); };
     const header = (key, label, align = "left") => {
-      const th = head.createEl("th", { cls: `is-${align}` });
+      const th = head.createEl("th", { cls: key === "name" ? "pdt-table-name" : `is-${align} is-${key} is-draggable` });
+      th.dataset.key = key;
       const sortKey = key === "name" ? "name" : TABLE_COLUMNS[key].sort;
       if (!sortKey) return void th.setText(label);
       const on = sort === sortKey;
@@ -979,16 +916,16 @@ class DiscoveryView extends ItemView {
     };
     header("name", t("col.name"));
     for (const key of columns) header(key, t(`col.${key}`), TABLE_COLUMNS[key].align);
+    const saveColumns = async (next) => {
+      this.settings.tableColumns = { ...this.settings.tableColumns, [mode]: next };
+      if (!next) delete this.settings.tableColumns[mode];
+      await this.plugin.saveData(this.plugin.data);
+      this.refresh();
+    };
     const pick = head.createEl("th", { cls: "pdt-table-cols" });
-    iconButton(pick, "columns-3", t("table.columns")).onclick = () => new ColumnsModal(this.app, {
-      columns,
-      onChange: async (next) => {
-        this.settings.tableColumns = { ...this.settings.tableColumns, [mode]: next };
-        if (!next) delete this.settings.tableColumns[mode];
-        await this.plugin.saveData(this.plugin.data);
-        this.refresh();
-      },
-    }).open();
+    iconButton(pick, "columns-3", t("table.columns")).onclick = () => new ColumnsModal(this.app, { columns, onChange: saveColumns }).open();
+    // a column's header drags to a new place (Name and the edges stay)
+    Sortable.create(head, { draggable: "th.is-draggable", animation: 150, onEnd: () => saveColumns([...head.querySelectorAll("th.is-draggable")].map((th) => th.dataset.key)) });
 
     const body = table.createEl("tbody");
     for (const p of rows) {
@@ -1090,7 +1027,7 @@ class DiscoveryView extends ItemView {
     else steps.push({ id: p.id, scroll: 0 });
     if (steps.length > SIMILAR_STEPS) steps.splice(0, steps.length - SIMILAR_STEPS);
     this.similar.query = "";
-    Object.assign(this, { grouping: null, filtersOpen: false, visible: PAGE_SIZE });
+    Object.assign(this, { filtersOpen: false, visible: PAGE_SIZE });
     this.settings.mode = "all";   // shown, not saved: ✕ goes back to the tab you came from
     this.render();
     this.contentEl.scrollTop = steps.at(-1).scroll;
@@ -1164,7 +1101,7 @@ class DiscoveryView extends ItemView {
   /**
    * One plugin, as a list row or a card (the same markup; CSS places the parts):
    * head (name, version) · metrics (updated, downloads) · tags (system signals, your note) ·
-   * body (description, translation, why it's similar) · links · actions · more (grouping).
+   * body (description, translation, why it's similar) · links · actions · more (AI groups while picked).
    * Clicking the row (anywhere but a control) opens the details window.
    */
   renderRow(list, p, now) {
@@ -1176,16 +1113,19 @@ class DiscoveryView extends ItemView {
     const picked = this.selected.has(p.id);
     const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}${stale ? " is-stale" : ""}${picked ? " is-selected" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
     if (this.selectable) {
-      const box = row.createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("bulk.pick", { name: p.name }) } });
+      // the box's whole gutter takes the click (a label around it), so a near miss picks instead of opening the details
+      const hit = row.createEl("label", { cls: "pdt-select-hit" });
+      const box = hit.createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("bulk.pick", { name: p.name }) } });
       row.addClass("has-select");
       box.checked = picked;
+      hit.onclick = (event) => event.stopPropagation();
       box.onclick = (event) => { event.stopPropagation(); this.pick(p, box.checked, event.shiftKey); };
     }
     row.addEventListener("click", (event) => {
       this.setCursor(row);
       // a row or card opens its details from anywhere that isn't a control (or selected text)
-      if (this.grouping || globalThis.getSelection?.()?.toString()) return;
-      if (!event.target.closest("a, button, input, [role=button], .pdt-rate, .pdt-similar")) this.openDetails(p);
+      if (globalThis.getSelection?.()?.toString()) return;
+      if (!event.target.closest("a, button, input, label, [role=button], .pdt-rate, .pdt-similar")) this.openDetails(p);
     });
 
     const head = row.createDiv({ cls: "pdt-head" });
@@ -1282,11 +1222,7 @@ class DiscoveryView extends ItemView {
       });
     }
 
-    if (this.grouping) {   // grouping mode: the row's group chips take the place of its actions
-      this.groupingRows.set(p.id, { row, box: row.createDiv({ cls: "pdt-extra pdt-grouping-chips pdt-gm-chips" }) });
-      this.renderGroupingChips(p.id);
-      return;
-    }
+    if (this.suggest?.ids.has(p.id)) this.renderSuggestions(row.createDiv({ cls: "pdt-extra pdt-grouping-chips pdt-gm-chips" }), p);
     const actions = row.createDiv({ cls: "pdt-actions" });
     const act = (icon, tip, fn, cls = "", keep = false) => {
       const button = iconButton(actions, icon, tip, cls);

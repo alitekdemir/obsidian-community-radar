@@ -569,12 +569,12 @@ class PluginRadar extends Plugin {
     return (await this.groupSuggestions([plugin]))[plugin.id];
   }
 
-  /** Opens the Tracked tab on Ungrouped and starts grouping mode there; nothing is written before Accept. */
   /** Tracked plugins with a release since you reviewed them (the Tracked tab's badge). */
   updatesCount(state = this.state(), now = Date.now()) {
     return discover(state, { ...modeOptions(this.data.settings, "tracked"), trackedGroup: UPDATES, trackedStatus: "", query: "" }, now).length;
   }
 
+  /** Opens Tracked on Ungrouped with its plugins picked and their AI groups under the rows. */
   async groupUngrouped() {
     if (!(await this.ensureCatalog())) return;
     if (!this.ungrouped().length) return new Notice(t("batch.none"));
@@ -585,7 +585,11 @@ class PluginRadar extends Plugin {
     await this.saveData(this.data);
     this.redraw(true);
     const view = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view;
-    await view?.startGrouping((view.rows || []).slice(0, view.visible));
+    if (!view) return;
+    // pick the ungrouped plugins shown and ask for their groups: they show under the rows, a click saves
+    for (const p of (view.rows || []).slice(0, Math.min(view.visible, AI_BATCH))) view.selected.add(p.id);
+    view.syncSelection();
+    await view.suggestGroups();
   }
 
   async exclude(plugin) {
@@ -710,8 +714,9 @@ class PluginRadar extends Plugin {
         still = Boolean(p && note?.groups.includes(op.value));
         if (still) await this.track(p, { groups: note.groups.filter((g) => g !== op.value) });
       } else {
-        still = Boolean(p && note && note[op.kind] === c.after);
-        if (still) await this.track(p, { [op.kind]: c.before || null });   // nothing before: the field goes
+        const field = op.field || op.kind;
+        still = Boolean(p && note && note[field] === c.after);
+        if (still) await this.track(p, { [field]: c.before || null });   // nothing before: the field goes
       }
       if (still) restored++; else skipped++;
     }
@@ -720,6 +725,29 @@ class PluginRadar extends Plugin {
     await this.saveData(this.data);
     this.redraw();
     return { restored, skipped };
+  }
+
+  /** Days on which many tracked plugins were marked reviewed together (like the old "Mark all reviewed"), newest first. */
+  massReviews(min = 5) {
+    const byDay = new Map();
+    for (const [id, note] of this.notes.index) if (note.reviewed) byDay.set(note.reviewed, [...(byDay.get(note.reviewed) || []), id]);
+    return [...byDay].filter(([, ids]) => ids.length >= min).map(([date, ids]) => ({ date, ids })).sort((a, b) => b.date.localeCompare(a.date));
+  }
+
+  /** Takes back the "reviewed" marks of one day, as an operation of its own (so it can be undone too). */
+  async unreview(date) {
+    const changes = [];
+    for (const [id, note] of this.notes.index) {
+      const p = note.reviewed === date && this.pluginById(id);
+      if (!p) continue;
+      changes.push({ id, before: date, after: "" });
+      await this.track(p, { reviewed: null });
+    }
+    const op = { at: Date.now(), kind: "unreviewed", field: "reviewed", value: date, changes };
+    this.data.ops = [op, ...(this.data.ops || [])].slice(0, OPS_CAP);
+    await this.saveData(this.data);
+    this.redraw();
+    return op;
   }
 
   async markReviewed(plugins) {
