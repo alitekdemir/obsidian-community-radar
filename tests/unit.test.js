@@ -246,6 +246,14 @@ const tests = {
     assert.match(core.queryToFilters("group in (a) released >= startOfMonth()", settings, "all").reason, /in \(…\).*startOfMonth\(\)/);
     assert.match(core.queryToFilters("NOT installed rating >= 4", settings, "all").reason, /NOT.*rating >= 4/);
     assert.match(core.queryToFilters("released <= 30d", settings, "updated").reason, /released/, "Updated's own days aren't an added filter");
+    // Basic → Query → Basic untouched: no filter counts as changed (your own sort comes back as your sort)
+    for (const mode of ["new", "awakened"]) {
+      const st = { query: "", minDownloads: 100, pageQueries: {}, queries: {}, extraFilters: {}, downloadFilter: { awakened: false }, sortBy: { new: { key: "listed", dir: "asc" }, awakened: { key: "dormant", dir: "desc" } } };
+      assert.equal(core.changedFilters(st, mode), 0, `${mode}: a saved "off" equal to the default isn't a change`);
+      const round = core.queryToBasic(core.joinQuery(core.pageQuery(st, mode), core.filtersToQuery(st, mode)), { ...st, sortBy: {}, downloadFilter: {} }, mode).patch;
+      assert.equal(core.changedFilters({ ...st, ...round }, mode), 0, mode);
+      assert.deepEqual(round.sortBy[mode], st.sortBy[mode]);
+    }
     // a view saved before 0.10 (a tab + filters) becomes the query it meant
     const legacy = core.legacyViewQuery({ mode: "new", filters: { query: "kanban", extraFilters: { new: { author: "abbys" } } } }, { pageQueries: {}, sortBy: {} });
     assert.equal(legacy, 'age <= 14d NOT tracked "kanban" author ~ abbys\norder by age desc');

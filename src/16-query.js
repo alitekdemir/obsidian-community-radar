@@ -499,7 +499,9 @@ function queryToFilters(query, settings, mode) {
     extraFilters: { ...settings.extraFilters, [mode]: extras },
     sortBy: q.order ? { ...settings.sortBy, [mode]: q.order } : settings.sortBy,
   };
-  patch.downloadFilter = { ...settings.downloadFilter, [mode]: downloads != null };
+  // no downloads clause: the tab's default again (a saved "off" would count as a changed filter)
+  const { [mode]: dl, ...others } = settings.downloadFilter || {};
+  patch.downloadFilter = downloads != null ? { ...others, [mode]: true } : others;
   if (downloads != null) patch.minDownloads = downloads;
   return { patch };
 }

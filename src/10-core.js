@@ -355,8 +355,9 @@ function changedFilters(settings, mode) {
 /** The changed filters by name ("downloadFilter" stands for the threshold and its switch; an added filter is "extra.<name>"). */
 function changedFilterKeys(settings, mode) {
   const cleared = clearedFilters(settings, mode);
+  const def = (TAB_DEFAULTS[mode] || TAB_DEFAULTS.all).downloads;
   const own = Object.keys(cleared).filter((k) => k !== "extraFilters"
-    && (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
+    && (k === "downloadFilter" ? (settings.downloadFilter?.[mode] ?? def) !== def : settings[k] !== cleared[k]));   // a saved value equal to the default isn't a change
   if (inQueryMode(settings, mode)) return own.filter((k) => !["query", "minDownloads", "downloadFilter"].includes(k));   // those live in the query
   const extras = Object.keys(settings.extraFilters?.[mode] || {}).map((k) => `extra.${k}`);
   return [...new Set(own.map((k) => (k === "minDownloads" ? "downloadFilter" : k))), ...extras];
