@@ -93,6 +93,40 @@ const HOME_WIDGETS = {
     value: (ctx, p) => formatShort(p.downloads ?? 0),
   },
 };
+const VIEW_PREFIX = "view:";   // a saved view's widget id: "view:<id>"
+const VIEW_SEEN_CAP = 5000;    // a view's matches you've seen are kept as ids, up to this many
+
+/** The filter settings a saved view keeps: the tab's filters (search and added ones included) and its sort. */
+function viewFilters(settings, mode) {
+  return Object.fromEntries([...filterKeys(mode), "sortBy"].map((k) => [k, settings[k]]));
+}
+
+/**
+ * A view you saved from the list (a tab and its filters) as a widget. It has no "came in" moment, so a match is
+ * new when it wasn't among the ones you saw when you last opened it (`seen`: their ids).
+ */
+function viewWidget(view, seen) {
+  const known = Array.isArray(seen) ? new Set(seen) : null;
+  return {
+    icon: "bookmark", tone: "blue", params: {}, defaults: {}, view,
+    rows: (ctx) => discover(ctx.state, modeOptions({ ...ctx.settings, ...view.filters }, view.mode), ctx.now),
+    isNew: known && ((ctx, p) => !known.has(p.id)),
+    value: (ctx, p) => formatShort(p.downloads ?? 0),
+  };
+}
+
+/** A widget by id: a built-in one, or one of your saved views (undefined: a view since deleted). */
+function homeWidget(home, id) {
+  if (!id.startsWith(VIEW_PREFIX)) return HOME_WIDGETS[id];
+  const view = home.views?.find((v) => VIEW_PREFIX + v.id === id);
+  return view && viewWidget(view, home.seen?.[id]);
+}
+
+/** The ids a view's widget remembers as seen (none past the cap: too many to tell what's new). */
+function seenIds(rows) {
+  return rows.length <= VIEW_SEEN_CAP ? rows.map((p) => p.id) : null;
+}
+
 const HOME_ORDER = ["tracked", "new", "milestone", "hatched", "rising", "quiet", "installed"];
 const HOME_HIDDEN = ["installed"];
 // "Not seen yet": each card is a widget asked for what came in after you last opened its list
@@ -100,14 +134,14 @@ const SINCE_CARDS = ["new", "tracked", "milestone", "quiet"];
 const SINCE_PERIODS = ["seen", 7, 30];
 
 function homeDefaults() {
-  return { order: [...HOME_ORDER], hidden: [...HOME_HIDDEN], params: {}, since: { show: true, period: "seen", order: [...SINCE_CARDS] }, seen: {}, info: false, motion: true, preview: 3 };
+  return { order: [...HOME_ORDER], hidden: [...HOME_HIDDEN], params: {}, since: { show: true, period: "seen", order: [...SINCE_CARDS] }, seen: {}, views: [], info: false, motion: true, preview: 3 };
 }
 
 /** Saved home settings filled with today's defaults (new widgets join the end). */
 function normalizeHome(saved = {}) {
   const base = homeDefaults();
   const home = { ...base, ...saved, since: { ...base.since, ...saved.since } };
-  home.order = [...home.order.filter((id) => HOME_WIDGETS[id]), ...base.order.filter((id) => !home.order.includes(id))];
+  home.order = [...home.order.filter((id) => homeWidget(home, id)), ...base.order.filter((id) => !home.order.includes(id))];
   if (home.since.period === "visit") home.since.period = "seen";   // before 0.9.2: since the plugin last loaded
   home.since.order = [...home.since.order.filter((id) => SINCE_CARDS.includes(id)), ...SINCE_CARDS.filter((id) => !home.since.order.includes(id))];
   return home;
@@ -115,33 +149,37 @@ function normalizeHome(saved = {}) {
 
 /** A widget's settings: its defaults, then yours. */
 function widgetParams(home, id) {
-  return { ...HOME_WIDGETS[id].defaults, ...home.params?.[id] };
+  return { ...homeWidget(home, id).defaults, ...home.params?.[id] };
 }
 
 /** The options of a widget setting (a list, or one worked out from the data, like milestone steps). */
 function paramOptions(ctx, id, key) {
-  const options = HOME_WIDGETS[id].params[key];
+  const options = homeWidget(ctx.settings.home, id).params[key];
   return typeof options === "function" ? options(ctx) : options;
 }
 
 /** The moment a widget's "new" counts from: the newest plugin you saw in its list (a week ago if none yet), or 7 / 30 days ago. */
 function sinceMoment(home, id, now) {
   const period = home.since.period;
-  if (period === "seen") return home.seen?.[id] || now - 7 * DAY_MS;
+  if (period === "seen") return typeof home.seen?.[id] === "number" ? home.seen[id] : now - 7 * DAY_MS;
   return now - period * DAY_MS;
 }
 
 /** The newest `at` among a widget's rows after `then` (null: nothing new): seen up to there, so data that syncs in late still counts. */
 function seenUpTo(ctx, id, params, rows, then) {
-  const at = HOME_WIDGETS[id].at;
+  const at = HOME_WIDGETS[id]?.at;
   const times = at ? rows.map((p) => at(ctx, p, params)).filter((x) => x > then) : [];
   return times.length ? Math.max(...times) : null;
 }
 
-/** One widget worked out: its rows, how many are new since `then` (null: it can't tell), its headline. */
-function widgetResult(ctx, id, params, then) {
-  const widget = HOME_WIDGETS[id];
+/** A widget's new rows: came in after `then`, or (a saved view) not seen before; null when it can't tell. */
+function freshRows(ctx, widget, params, rows, then) {
+  if (widget.at) return rows.filter((p) => widget.at(ctx, p, params) > then);
+  return widget.isNew ? rows.filter((p) => widget.isNew(ctx, p)) : null;
+}
+
+/** One widget worked out: its rows, its new ones (null: it can't tell), its headline. */
+function widgetResult(ctx, widget, params, then) {
   const rows = widget.rows(ctx, params);
-  const fresh = widget.at ? rows.filter((p) => widget.at(ctx, p, params) > then) : null;
-  return { rows, fresh, headline: widget.headline ? widget.headline(ctx, rows, params) : formatCount(rows.length) };
+  return { rows, fresh: freshRows(ctx, widget, params, rows, then), headline: widget.headline ? widget.headline(ctx, rows, params) : formatCount(rows.length) };
 }

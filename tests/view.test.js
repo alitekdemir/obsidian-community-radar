@@ -279,7 +279,7 @@ const tests = {
     await tick();
     assert.ok(chip().classList.contains("is-changed"));
     assert.equal(reset().textContent, core.t("filter.reset", { n: 1 }));
-    assert.equal($(el, ".pdt-filter-panel").lastElementChild, reset(), "Reset comes last, nothing shifts");
+    assert.equal($(el, ".pdt-filters").lastElementChild, reset(), "Reset ends the bar, nothing shifts");
     await $(chip(), ".pdt-chip-act").onclick({ stopPropagation() {} });     // ↺
     assert.ok(!chip().classList.contains("is-changed") && !("all" in settings.downloadFilter));
     fake.menus.length = 0;
@@ -971,6 +971,28 @@ const tests = {
     view.home.pageMenu({});
     await fake.menus[0].items.find((i) => i.title === core.t("home.add", { name: core.t("home.rising") })).click();
     assert.ok(card("rising"));
+
+    // a saved view is a widget: its matches so far are seen; a new match shows as "1 new" and opens alone
+    settings.query = "home";
+    const rows = core.discover(plugin.state(), core.modeOptions(settings, "all"), Date.now());
+    const saved = await view.home.saveView("Home pages", "all", rows);
+    settings.query = "";
+    await view.update("section", "home");
+    const id = `view:${saved.id}`;
+    assert.equal($(card(id), ".pdt-home-title").textContent, "Home pages");
+    assert.equal($(card(id), ".pdt-home-n").textContent, String(rows.length), "keeps its own search, not the tab's");
+    assert.ok(!$(card(id), ".pdt-home-fresh"), "nothing new right after saving");
+    settings.home.seen[id] = settings.home.seen[id].filter((x) => x !== "homepage");   // as if Homepage matched since
+    view.render();
+    $(card(id), ".pdt-home-fresh").onclick({ stopPropagation() {} });
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Homepage"]);
+    assert.ok(settings.home.seen[id].includes("homepage"), "opened: seen");
+    view.closePreset();
+    assert.ok(!$(card(id), ".pdt-home-fresh"));
+    fake.menus.length = 0;
+    view.home.widgetMenu({}, id);
+    await fake.menus[0].items.find((i) => i.title === core.t("home.view.delete")).click();
+    assert.ok(!card(id) && !settings.home.views.length && !settings.home.order.includes(id));
 
     settings.home = core.normalizeHome();
     serverTimeline = serverHistory;

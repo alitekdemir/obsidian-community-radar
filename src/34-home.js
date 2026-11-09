@@ -48,15 +48,37 @@ class HomePage {
     this.renderWidgets(page, ctx);
   }
 
-  /** Opens a widget's list, its new plugins marked; with "Not seen yet", they count as seen from now on. */
+  /**
+   * Opens a widget's list with its new plugins marked; from then on they count as seen (with "Not seen yet"; a
+   * saved view always remembers what you saw).
+   */
   openList(ctx, id, params, rows, then, onlyNew = false) {
     if (id === "tracked") return this.view.openTracked(UPDATES);
-    const upTo = this.home.since.period === "seen" && seenUpTo(ctx, id, params, rows, then);
-    if (upTo) {
-      this.home.seen = { ...this.home.seen, [id]: upTo };
+    const widget = homeWidget(this.home, id);
+    const fresh = new Set((freshRows(ctx, widget, params, rows, then) || []).map((p) => p.id));
+    const seen = widget.view ? seenIds(rows) : this.home.since.period === "seen" && seenUpTo(ctx, id, params, rows, then);
+    if (seen) {
+      this.home.seen = { ...this.home.seen, [id]: seen };
       this.plugin.saveData(this.plugin.data);
     }
-    return this.view.openPreset(id, params, then, onlyNew);
+    return this.view.openPreset(id, params, fresh, onlyNew);
+  }
+
+  /** A widget's title: yours for a saved view. */
+  title(id) {
+    return homeWidget(this.home, id).view?.name ?? t(`home.${id}`);
+  }
+
+  /** Saves the list's current tab and filters as a view: a widget on the home page, its matches so far seen. */
+  async saveView(name, mode, rows) {
+    const view = { id: Date.now().toString(36), name, mode, filters: viewFilters(this.view.settings, mode) };
+    const id = VIEW_PREFIX + view.id;
+    await this.save((h) => {
+      h.views = [...(h.views || []), view];
+      h.order = [...h.order, id];
+      h.seen = { ...h.seen, [id]: seenIds(rows) };
+    });
+    return view;
   }
 
   /** "Not seen yet": one card per widget, counting what came in after you last opened its list. */
@@ -74,7 +96,7 @@ class HomePage {
       const tracked = id === "tracked";
       const then = sinceMoment(this.home, id, ctx.now);
       const params = { ...widgetParams(this.home, id), since: then };
-      const rows = tracked ? [] : HOME_WIDGETS[id].rows(ctx, params);
+      const rows = tracked ? [] : HOME_WIDGETS[id].rows(ctx, params);   // the since cards are built-in widgets
       const n = tracked ? this.plugin.updatesCount(ctx.state, ctx.now) : rows.length;
       const done = n === 0 && period === "seen";
       const card = this.card(grid, `pdt-home-mini is-${HOME_WIDGETS[id].tone}${done ? " is-done" : ""}`, i, () => this.openList(ctx, id, params, rows, then));
@@ -93,9 +115,9 @@ class HomePage {
     const section = page.createDiv({ cls: "pdt-home-section" });
     section.createDiv({ cls: "pdt-home-head" }).createEl("h2", { text: t("home.discover") });
     const grid = section.createDiv({ cls: "pdt-home-grid" });
-    const shown = this.home.order.filter((id) => !this.home.hidden.includes(id));
+    const shown = this.home.order.filter((id) => !this.home.hidden.includes(id) && homeWidget(this.home, id));
     shown.forEach((id, i) => this.renderWidget(grid, ctx, id, i));
-    // a small "+" card: hidden widgets come back here (your own filters will too)
+    // a small "+" card: hidden widgets and views come back here
     const add = this.card(grid, "pdt-home-add", shown.length, () => {});
     add.onclick = (event) => this.addMenu(event);
     setIcon(add.createSpan({ cls: "pdt-home-add-icon" }), "plus");
@@ -105,10 +127,10 @@ class HomePage {
   }
 
   renderWidget(grid, ctx, id, index) {
-    const widget = HOME_WIDGETS[id];
+    const widget = homeWidget(this.home, id);
     const params = widgetParams(this.home, id);
     const then = sinceMoment(this.home, id, ctx.now);
-    const { rows, fresh, headline } = widgetResult(ctx, id, params, then);
+    const { rows, fresh, headline } = widgetResult(ctx, widget, params, then);
     const open = (onlyNew) => this.openList(ctx, id, params, rows, then, onlyNew);
     const card = this.card(grid, `pdt-home-card is-${widget.tone}`, index, () => open(false));
     card.dataset.id = id;
@@ -116,8 +138,8 @@ class HomePage {
 
     const head = card.createDiv({ cls: "pdt-home-card-head" });
     setIcon(head.createSpan({ cls: "pdt-home-icon" }), widget.icon);
-    head.createSpan({ cls: "pdt-home-title", text: t(`home.${id}`) });
-    const info = t(widget.info?.(params) || `home.${id}.info`, this.paramWords(id, params));
+    head.createSpan({ cls: "pdt-home-title", text: this.title(id) });
+    const info = widget.view ? this.viewInfo(widget.view) : t(widget.info?.(params) || `home.${id}.info`, this.paramWords(id, params));
     this.info(head, info);
     head.createSpan({ cls: "pdt-home-spacer" });
     const more = head.createEl("button", { cls: "pdt-home-more", attr: { type: "button", "aria-label": t("home.widgetMenu") } });
@@ -131,12 +153,13 @@ class HomePage {
     line.createSpan({ cls: "pdt-home-n", text: headline });
     if (fresh?.length) {
       const badge = line.createEl("button", { cls: "pdt-home-fresh", attr: { type: "button" } });
-      badge.createSpan({ text: t("home.fresh", { n: formatCount(fresh.length), when: this.sinceLabel(this.home.since.period) }) });
+      badge.createSpan({ text: t("home.fresh", { n: formatCount(fresh.length), when: this.sinceLabel(widget.view ? "seen" : this.home.since.period) }) });
       setIcon(badge.createSpan({ cls: "pdt-home-fresh-go" }), "arrow-up-right");
       setTooltip(badge, t("home.freshTip", { n: formatCount(fresh.length) }), { delay: 150 });
       badge.onclick = (event) => { event.stopPropagation(); open(true); };
     }
-    left.createSpan({ cls: "pdt-home-unit", text: t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(id, params)) });
+    const unit = widget.view ? t("home.view.unit", { tab: t(`mode.${widget.view.mode}`) }) : t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(id, params));
+    left.createSpan({ cls: "pdt-home-unit", text: unit });
     const key = Object.keys(widget.params)[0];
     if (key) {
       const chip = metric.createEl("button", { cls: "pdt-home-chip", text: `${this.paramText(key, params[key])} ▾`, attr: { type: "button" } });
@@ -215,12 +238,34 @@ class HomePage {
     menu.showAtMouseEvent(event);
   }
 
-  /** ⋮ of a widget: every setting, then Hide and Reset. */
+  /** What a saved view filters: its tab, then its filters as the Filters tooltip lists them. */
+  viewInfo(view) {
+    const lines = filterSummary({ ...this.view.settings, ...view.filters }, view.mode).split("\n").filter((l) => l.startsWith("•"));
+    return [t("home.view.info", { tab: t(`mode.${view.mode}`) }), ...lines].join("\n");
+  }
+
+  /** ⋮ of a widget: every setting, then Hide and Reset; a saved view: Rename, Hide, Delete. */
   widgetMenu(event, id) {
     const ctx = this.context(Date.now());
     const params = widgetParams(this.home, id);
+    const widget = homeWidget(this.home, id);
     const menu = new Menu();
-    for (const key of Object.keys(HOME_WIDGETS[id].params)) {
+    if (widget.view) {
+      menu.addItem((item) => item.setTitle(t("home.view.rename")).setIcon("pencil").onClick(async () => {
+        const name = await new TextModal(this.plugin.app, { title: t("home.view.rename"), value: widget.view.name, cta: t("home.view.save") }).ask();
+        if (name) await this.save((h) => { h.views = h.views.map((v) => (v.id === widget.view.id ? { ...v, name } : v)); });
+      }));
+      menu.addItem((item) => item.setTitle(t("home.hide")).setIcon("eye-off").onClick(() => this.save((h) => { h.hidden = [...h.hidden, id]; })));
+      menu.addItem((item) => item.setTitle(t("home.view.delete")).setIcon("trash").onClick(() => this.save((h) => {
+        h.views = h.views.filter((v) => v.id !== widget.view.id);
+        h.order = h.order.filter((x) => x !== id);
+        h.hidden = h.hidden.filter((x) => x !== id);
+        delete h.seen?.[id];
+      })));
+      menu.showAtMouseEvent(event);
+      return;
+    }
+    for (const key of Object.keys(widget.params)) {
       menu.addItem((item) => item.setTitle(t(`home.param.${key}`)).setDisabled(true));
       for (const v of paramOptions(ctx, id, key)) {
         menu.addItem((item) => item.setTitle(this.paramText(key, v)).setChecked(params[key] === v).onClick(() => this.setParam(id, key, v)));
@@ -235,10 +280,13 @@ class HomePage {
   /** The "+" card: the hidden widgets to bring back. */
   addMenu(event) {
     const menu = new Menu();
-    for (const id of this.home.hidden) {
-      menu.addItem((item) => item.setTitle(t(`home.${id}`)).setIcon(HOME_WIDGETS[id].icon).onClick(() => this.save((h) => { h.hidden = h.hidden.filter((x) => x !== id); })));
+    const hidden = this.home.hidden.filter((id) => homeWidget(this.home, id));
+    for (const id of hidden) {
+      menu.addItem((item) => item.setTitle(this.title(id)).setIcon(homeWidget(this.home, id).icon).onClick(() => this.save((h) => { h.hidden = h.hidden.filter((x) => x !== id); })));
     }
-    if (!this.home.hidden.length) menu.addItem((item) => item.setTitle(t("home.allShown")).setDisabled(true));
+    if (!hidden.length) menu.addItem((item) => item.setTitle(t("home.allShown")).setDisabled(true));
+    menu.addSeparator();
+    menu.addItem((item) => item.setTitle(t("home.view.how")).setIcon("bookmark-plus").setDisabled(true));
     menu.showAtMouseEvent(event);
   }
 
@@ -251,8 +299,8 @@ class HomePage {
     toggle(t("home.showInfo"), home.info, (h) => { h.info = !h.info; });
     toggle(t("home.motion"), home.motion, (h) => { h.motion = !h.motion; });
     menu.addSeparator();
-    for (const id of home.hidden) {
-      menu.addItem((item) => item.setTitle(t("home.add", { name: t(`home.${id}`) })).setIcon("plus").onClick(() => this.save((h) => { h.hidden = h.hidden.filter((x) => x !== id); })));
+    for (const id of home.hidden.filter((x) => homeWidget(home, x))) {
+      menu.addItem((item) => item.setTitle(t("home.add", { name: this.title(id) })).setIcon("plus").onClick(() => this.save((h) => { h.hidden = h.hidden.filter((x) => x !== id); })));
     }
     menu.addItem((item) => item.setTitle(t("home.start", { where: t(this.view.settings.start === "home" ? "home.startHome" : "home.startLast") }))
       .onClick(() => this.view.update("start", this.view.settings.start === "home" ? "last" : "home")));

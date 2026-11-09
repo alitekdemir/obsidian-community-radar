@@ -4,7 +4,9 @@
 
 ### New
 
-- **Filters as chips**: a changed filter is marked and has ↺ (back to the tab's default); *N filters changed · Reset* comes last, so nothing shifts when you change one.
+- **Filters as chips**: a changed filter is marked and has ↺ (back to the tab's default); *N filters changed · Reset* ends the bar, so nothing shifts when you change one.
+- **Saved views**: *Save* in the filter bar keeps the tab with its filters (search, added filters and sort included) under a name, as a widget on the home page. It counts its matches and shows *N new* for the ones that weren't there when you last opened it; ⋮ renames, hides or deletes it.
+- A widget's list has a *Sort* menu (the widget's own order first).
 - **+ Filter** adds a filter to any tab: Released ≤, Incubation ≥, Gained · 30 days ≥, Age ≤, Author, Installed. ✕ removes it; each tab keeps its own. Home widgets ignore them.
 
 ## 0.9.2

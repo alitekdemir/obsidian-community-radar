@@ -327,10 +327,10 @@ class DiscoveryView extends ItemView {
     return this.update("mode", "tracked");
   }
 
-  /** A home widget's plugins as a list, those after `after` marked new (`onlyNew`: only them); ✕ goes back home. */
-  openPreset(id, params, after, onlyNew = false) {
+  /** A home widget's plugins as a list, `freshIds` marked new (`onlyNew`: only them); ✕ goes back home. */
+  openPreset(id, params, freshIds = new Set(), onlyNew = false) {
     Object.assign(this, { grouping: null, similar: null, filtersOpen: false, visible: PAGE_SIZE });
-    this.preset = { id, params, after, onlyNew, query: "" };
+    this.preset = { id, params, freshIds, onlyNew, query: "", sort: null };
     Object.assign(this.settings, { section: "list", mode: "all" });   // shown, not saved: ✕ goes home
     this.render();
     this.contentEl.scrollTop = 0;
@@ -342,23 +342,24 @@ class DiscoveryView extends ItemView {
     this.render();
   }
 
-  /** The widget's plugins, then only the new ones (when asked), then the search. */
+  /** The widget's plugins (in its order, or sorted), then only the new ones (when asked), then the search. */
   presetRows() {
-    const { id, params, after, onlyNew, query } = this.preset;
+    const { id, params, freshIds, onlyNew, query, sort } = this.preset;
     const ctx = this.home.context(Date.now());
-    const widget = HOME_WIDGETS[id];
-    const rows = widget.rows(ctx, params);
-    this.preset.freshIds = new Set(widget.at ? rows.filter((p) => widget.at(ctx, p, params) > after).map((p) => p.id) : []);
+    const widget = homeWidget(this.settings.home, id);
+    if (!widget) return [];
     const q = compileQuery(query);
-    return rows.filter((p) => (!onlyNew || this.preset.freshIds.has(p.id)) && q.test(p));
+    const rows = widget.rows(ctx, params).filter((p) => (!onlyNew || freshIds.has(p.id)) && q.test(p));
+    const s = ctx.state;
+    return sort ? sortRows(rows, sort.key, sort.dir, s.catalog, s.releases, s.notes, s.growth) : rows;
   }
 
   /** The bar of a widget's list: what it is (✕ back home), "only new" (✕ shows all), search, layout. */
   renderPresetBar(bar) {
-    const { id, params, onlyNew } = this.preset;
+    const { id, params, onlyNew, sort } = this.preset;
     const chip = bar.createDiv({ cls: "pdt-chip pdt-similar-chip pdt-preset-chip" });
-    setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), HOME_WIDGETS[id].icon);
-    chip.createSpan({ text: t(`home.${id}`) });
+    setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), homeWidget(this.settings.home, id)?.icon || "list");
+    chip.createSpan({ text: this.home.title(id) });
     const words = Object.entries(params).filter(([k]) => k !== "since").map(([k, v]) => this.home.paramText(k, v)).join(" · ");
     if (words) chip.createSpan({ cls: "pdt-chip-value", text: words });
     const close = chip.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.back") } });
@@ -373,6 +374,12 @@ class DiscoveryView extends ItemView {
       setTooltip(all, t("home.showAll"));
       all.onclick = () => { this.preset.onlyNew = false; this.render(); };
     }
+    // the widget's own order first (its reason to exist), any other sort on request
+    const order = [["", t("home.order")], ...SORT_KEYS.map((k) => [k, t(`sort.${k}`)])];
+    menuChip(bar.createDiv({ cls: "pdt-sort" }), t("filter.sort"), order, sort?.key || "", (key) => {
+      this.preset.sort = key ? { key, dir: NATURAL_DIR[key] || "desc" } : null;
+      this.render();
+    });
     this.refs.search = this.renderSearch(bar, this.preset.query, t("search.placeholder"), (value) => {
       this.preset.query = value;
       this.visible = PAGE_SIZE;
@@ -458,11 +465,16 @@ class DiscoveryView extends ItemView {
 
     if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
     if (this.settings.keyboard) this.renderKeyHelp(bar);
+    // last in the bar, so showing it moves nothing (where the filters fold, the head's ✕ does this)
+    const reset = bar.createEl("button", { cls: "pdt-filter-reset", attr: { type: "button" } });
+    reset.onclick = () => this.clearFilters();
+    this.refs.filterReset = reset;
+    this.updateFilterHead();
   }
 
   /**
    * The tab's filters as chips: quiet at their defaults, marked with ↺ (back to the default) once changed; filters
-   * added with "+ Filter" carry ✕; "N changed · Reset" comes last, so nothing shifts. Below a certain width (CSS
+   * added with "+ Filter" carry ✕; "N changed · Reset" ends the bar, so nothing shifts. Below a certain width (CSS
    * container query) they fold into a panel under a "Filters" head.
    */
   renderFilterMenu(bar, mode, opts) {
@@ -523,10 +535,13 @@ class DiscoveryView extends ItemView {
       add.createSpan({ text: t("filter.add") });
       add.onclick = () => this.addFilterMenu(add);
     }
-    const reset = panel.createEl("button", { cls: "pdt-filter-reset", attr: { type: "button" } });
-    reset.onclick = () => this.clearFilters();
-    this.refs.filterReset = reset;
-    this.updateFilterHead();
+    if (!this.similar && !LIST_MODES.includes(mode)) {
+      const save = panel.createEl("button", { cls: "pdt-chip pdt-filter-save", attr: { type: "button" } });
+      setIcon(save.createSpan({ cls: "pdt-chip-caret" }), "bookmark-plus");
+      save.createSpan({ text: t("home.view.save") });
+      setTooltip(save, t("home.view.saveTip"));
+      save.onclick = () => this.saveView();
+    }
   }
 
   /** A small round button at the end of a chip (↺ back to the default, ✕ remove). */
@@ -581,6 +596,15 @@ class DiscoveryView extends ItemView {
     this.visible = PAGE_SIZE;
     await this.plugin.saveData(this.plugin.data);
     this.render();
+  }
+
+  /** Saves this tab with its filters as a view: asks for a name, then it's a widget on the home page. */
+  async saveView() {
+    const mode = this.settings.mode;
+    const name = await new TextModal(this.app, { title: t("home.view.saveTitle"), value: this.settings.query.trim() || t(`mode.${mode}`), cta: t("home.view.save") }).ask();
+    if (!name) return;
+    await this.home.saveView(name, mode, discover(this.plugin.state(), modeOptions(this.settings, mode), Date.now()));
+    new Notice(t("home.view.saved", { name }));
   }
 
   /** ↺ on a changed chip: that filter back to the tab's default. */

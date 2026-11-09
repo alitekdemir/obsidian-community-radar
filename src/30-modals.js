@@ -108,6 +108,33 @@ class PickerModal extends SuggestModal {
   }
 }
 
+/** Asks for one line of text (a name); `ask()` resolves with it trimmed, or null when dismissed or left empty. */
+class TextModal extends Modal {
+  constructor(app, { title, value = "", cta }) {
+    super(app);
+    Object.assign(this, { heading: title, value, cta, answer: null });
+  }
+
+  ask() {
+    return new Promise((resolve) => { this.resolve = resolve; this.open(); });
+  }
+
+  onOpen() {
+    this.titleEl.setText(this.heading);
+    const input = this.contentEl.createEl("input", { type: "text", value: this.value, cls: "pdt-text-input" });
+    const done = () => { this.answer = input.value.trim() || null; this.close(); };
+    input.addEventListener("keydown", (event) => { if (event.key === "Enter") done(); });
+    const row = this.contentEl.createDiv({ cls: "modal-button-container" });
+    row.createEl("button", { text: this.cta, cls: "mod-cta" }).onclick = done;
+    input.select();
+  }
+
+  onClose() {
+    this.contentEl.empty();
+    this.resolve?.(this.answer);
+  }
+}
+
 /** A group chip: a button you switch on and off. */
 function groupChip(parent, { name, on, removable = false, star = false, starTip = "", meta = "", onToggle }) {
   const chip = parent.createEl("button", { cls: `pdt-gchip${on ? " is-on" : ""}`, attr: { type: "button", "aria-pressed": String(on) } });
