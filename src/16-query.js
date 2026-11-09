@@ -18,7 +18,15 @@ const daysAgo = (ms, now) => (ms > 0 ? (now - ms) / DAY_MS : null);
  * The fields: type, value (null: empty), and for dates the moment itself so `released > 2026-01-01` works.
  * `sort` is the list's sort key `order by` uses.
  */
+const gainShare = (s, p, k) => {   // growth over 7/30 days in percent, on a base of RISING_BASE (10 → 30 isn't rising)
+  const gain = s.growth?.[p.id]?.[k];
+  const base = (p.downloads ?? 0) - (gain ?? 0);
+  return gain == null || base < RISING_BASE ? null : (100 * gain) / base;
+};
+const topMilestone = (s, p) => (s.timeline ? topPassed(s.timeline, p.id, 0) : null);
+
 const QUERY_FIELDS = {
+  text: { type: "text", get: (s, p) => `${p.id} ${p.name} ${p.author} ${p.description}` },   // what a plain word searches
   name: { type: "text", sort: "name", get: (s, p) => p.name },
   description: { type: "text", get: (s, p) => p.description },
   author: { type: "text", get: (s, p) => p.author },
@@ -30,12 +38,23 @@ const QUERY_FIELDS = {
   age: { type: "number", days: true, sort: "listed", get: (s, p, now) => daysAgo(s.firstSeen[p.id], now), at: (s, p) => s.firstSeen[p.id] },
   gap: { type: "number", days: true, sort: "dormant", get: (s, p) => dormantDays(s.releases, p) },
   rating: { type: "number", sort: "rating", get: (s, p) => s.notes.get(p.id)?.rating || null },
+  rise7: { type: "number", get: (s, p) => gainShare(s, p, 0) },
+  rise30: { type: "number", get: (s, p) => gainShare(s, p, 1) },
+  milestone: { type: "number", get: topMilestone },   // the highest download milestone passed (1k, 10k, 100k…)
+  passed: { type: "number", days: true, get: (s, p, now) => daysAgo(s.timeline && passedAt(s.timeline, p.id, topMilestone(s, p)), now),
+    at: (s, p) => s.timeline && passedAt(s.timeline, p.id, topMilestone(s, p)) },
   group: { type: "list", get: (s, p) => s.notes.get(p.id)?.groups || [] },
   status: { type: "list", get: (s, p) => { const st = s.notes.get(p.id)?.status; return st ? [st] : []; } },
   favorite: { type: "bool", get: (s, p) => Boolean(s.notes.get(p.id)?.favorite) },
   installed: { type: "bool", get: (s, p) => s.installed.has(p.id) },
   tracked: { type: "bool", get: (s, p) => s.notes.has(p.id) },
   new: { type: "bool", get: (s, p, now) => isNewPlugin(s.firstSeen, p, now, NEW_BADGE_DAYS) },
+  // more than BUSY_LIMIT update waves in BUSY_DAYS: they'd crowd out the rest of Updated
+  busy: { type: "bool", get: (s, p, now) => updateWaves(s.releases[p.id] || [], now - BUSY_DAYS * DAY_MS, now) > BUSY_LIMIT },
+  // out of incubation: released after a pause, and still within that pause's length (at most INCUBATION_CAP)
+  hatched: { type: "bool", get: (s, p, now) => { const gap = dormantDays(s.releases, p) ?? -1; return gap > 0 && now - p.updated <= Math.min(gap, INCUBATION_CAP) * DAY_MS; } },
+  dismissed: { type: "bool", get: (s, p) => Boolean(s.dismissed?.has(p.id)) },
+  ignored: { type: "bool", get: (s, p) => Boolean(s.excluded?.has(p.id) || isSnoozed(p, s.snoozed || {})) },
 };
 
 /** Date functions for date fields (released, age), Jira style: `startOfMonth(-1)` is last month's first day. */
@@ -104,7 +123,7 @@ class QueryError extends Error {
  * {from, to, kind: clause|neg|order}. Throws a QueryError with the position of what it couldn't read, plus the
  * spans so far and the broken part (from, to).
  */
-function parseQuery(query) {
+function parseQuery(query, { strict = false } = {}) {
   const tokens = tokenize(query);
   let i = 0;
   let clauses = 0;
@@ -220,6 +239,8 @@ function parseQuery(query) {
       return test;
     }
     if (token.kind === "word" || token.kind === "value" || token.kind === "regex") {   // free text
+      // in Query mode a bare word must be a field (a typo isn't a silent text search): "busy" or text ~ busy searches
+      if (strict && token.kind === "word") fail("unknown", { text: token.text }, token.at);
       take();
       free.push(token.text);
       const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
@@ -380,7 +401,8 @@ function queryCount(n) {
 function filtersToQuery(settings, mode, { order = true } = {}) {
   const opts = modeOptions({ ...settings, queryMode: false }, mode);
   const query = String(settings.query || "").trim();
-  const parts = isAdvancedQuery(query) || /^\/.+\/$/.test(query) ? [query] : query.split(",").map((w) => w.trim()).filter(Boolean).map(quoteValue);
+  const quoted = (w) => `"${w.replace(/"/g, '\\"')}"`;   // a plain search word, as Query mode reads text
+  const parts = isAdvancedQuery(query) || /^\/.+\/$/.test(query) ? [query] : query.split(",").map((w) => w.trim()).filter(Boolean).map(quoted);
   if (opts.filterDownloads && opts.minDownloads > 0) parts.push(`downloads >= ${queryCount(opts.minDownloads)}`);
   const x = opts.extras;
   if (x.released != null) parts.push(`released <= ${x.released}d`);
@@ -402,7 +424,7 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
  */
 function queryToFilters(query, settings, mode) {
   let q;
-  try { q = parseQuery(String(query)); } catch (error) { return { reason: error.message }; }
+  try { q = parseQuery(String(query), { strict: true }); } catch (error) { return { reason: error.message }; }
   const tokens = tokenize(String(query));
   const bad = new Set();
   tokens.forEach((tok, k) => {

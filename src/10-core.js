@@ -234,7 +234,7 @@ function isChanged(plugin, note) {
 function compileQuery(query, state = null, now = Date.now(), advanced = false) {
   if (advanced || isAdvancedQuery(String(query || ""))) {   // Query mode reads even plain words as the query language   // the query language (16-query.js)
     try {
-      const q = parseQuery(String(query));
+      const q = parseQuery(String(query), { strict: advanced });
       return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, free: q.free, spans: q.spans, advanced: true, regex: false, error: "" };
     } catch (error) {
       if (!(error instanceof QueryError)) throw error;

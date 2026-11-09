@@ -172,6 +172,7 @@ class PluginRadar extends Plugin {
       snoozed: this.data.snoozed,
       installed: this.installed(),
       lastSync: this.catalog?.prevAt ?? null,
+      timeline: this.timeline,   // milestones for the query's milestone fields
     };
   }
 

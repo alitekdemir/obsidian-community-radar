@@ -215,11 +215,28 @@ const tests = {
     assert.ok(sug("released >= ").includes("startOfMonth()"));
     assert.deepEqual(sug("released >= startOfMonth("), [], "nothing inside a function's ( )");
 
+    // the fields behind the tabs and widgets: busy, hatched, dismissed, ignored, rise30, milestone, text
+    const state2 = { ...state, releases: { cal: Array.from({ length: 12 }, (_, k) => now - 3 * DAY - k * 14 * DAY).reverse(), tasks: [now - 200 * DAY, now - 40 * DAY] },
+      dismissed: new Set(["old"]), excluded: new Set(["tasks"]), snoozed: {},
+      timeline: { milestoneSteps: [1000, 10000], milestones: { cal: [now - 400 * DAY, now - 5 * DAY] } } };
+    const ids2 = (q) => { const c = core.compileQuery(q, state2, now, true); if (c.error) throw new Error(c.error); return plugins.filter((p) => c.test(p)).map((p) => p.id); };
+    assert.deepEqual(ids2("busy"), ["cal"], "12 update waves in 180 days");
+    assert.deepEqual(ids2("hatched gap >= 60d"), ["tasks"], "released 40 days ago after a 160-day pause");
+    assert.deepEqual(ids2("dismissed"), ["old"]);
+    assert.deepEqual(ids2("ignored"), ["tasks"]);
+    assert.deepEqual(ids2("rise30 > 0"), ["cal"]);
+    assert.deepEqual(ids2("milestone = 10k passed <= 30d"), ["cal"]);
+    assert.deepEqual(ids2("text ~ calendar"), ["cal"]);
+    assert.deepEqual(ids2('"calendar"'), ["cal"], "quoted words search the text in Query mode");
+    const unknown = core.compileQuery("downloads > 0 NOT bussy", state2, now, true);
+    assert.match(unknown.error, /bussy/, "Query mode: a bare unknown word is an error, not a silent text search");
+    assert.equal(unknown.at, "downloads > 0 NOT ".length);
+
     // Basic ↔ Query: the tab's filters as a query, and back
     const settings = { query: "calendar, big tasks", minDownloads: 1000, downloadFilter: { all: true }, extraFilters: { all: { author: "brenan", released: 30, installed: true } }, sortBy: { all: { key: "name", dir: "asc" } } };
     const text = core.filtersToQuery(settings, "all");
-    assert.equal(text, 'calendar "big tasks" downloads >= 1k released <= 30d author ~ brenan installed\norder by name asc');
-    assert.equal(core.filtersToQuery({ ...settings, sortBy: {} }, "all"), 'calendar "big tasks" downloads >= 1k released <= 30d author ~ brenan installed', "the tab's own sort isn't written");
+    assert.equal(text, '"calendar" "big tasks" downloads >= 1k released <= 30d author ~ brenan installed\norder by name asc');
+    assert.equal(core.filtersToQuery({ ...settings, sortBy: {} }, "all"), '"calendar" "big tasks" downloads >= 1k released <= 30d author ~ brenan installed', "the tab's own sort isn't written");
     const back = core.queryToFilters(text, { ...settings, query: "", extraFilters: {}, downloadFilter: {}, sortBy: {} }, "all").patch;
     assert.deepEqual(back, { query: "calendar, big tasks", queryMode: false, extraFilters: { all: { released: 30, author: "brenan", installed: true } }, sortBy: { all: { key: "name", dir: "asc" } }, downloadFilter: { all: true }, minDownloads: 1000 });
     assert.match(core.queryToFilters("author ~ x OR installed", settings, "all").reason, /OR/);
