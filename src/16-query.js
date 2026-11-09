@@ -367,7 +367,7 @@ function quoteValue(v) {
   return plain ? v : `"${String(v).replace(/"/g, '\\"')}"`;
 }
 
-/** What each token of the box is, for its colour: field, op, value, fn, kw (AND OR order by), neg (NOT) or "" (free text). */
+/** What each token of the box is, for its colour: field, op, value, number, fn, kw (AND OR order by), neg (NOT) or "" (free text). */
 function queryHighlight(text) {
   const tokens = tokenize(text);
   let expect = false;   // a value comes next
@@ -388,6 +388,7 @@ function queryHighlight(text) {
     else if (w === "not") cls = "neg";
     else if ((w === "asc" || w === "desc") && QUERY_FIELDS[fold(prev?.text)]) cls = "value";
     else if (QUERY_FIELDS[w]) cls = "field";
+    if (cls === "value" && !tok.quoted && /^[+-]?\d/.test(tok.text)) cls = "number";   // 10k, 30d, 2026-01-01
     return { ...tok, cls };
   });
 }

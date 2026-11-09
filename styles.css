@@ -274,12 +274,14 @@
 }
 
 /* syntax colours: field, operator, value, function, keyword (AND OR order by), NOT; a broken part wavy red */
-.pdt-q-field { color: var(--color-blue); }
-.pdt-q-op { color: var(--text-muted); }
-.pdt-q-value { color: var(--color-yellow); }
-.pdt-q-fn { color: var(--color-cyan); }
-.pdt-q-kw { color: var(--color-purple); font-weight: var(--font-semibold); }
-.pdt-q-neg { color: var(--color-red); font-weight: var(--font-semibold); }
+/* the theme's code colours (as your code blocks look), with Obsidian's defaults behind them */
+.pdt-q-field { color: var(--code-property, var(--color-cyan)); }
+.pdt-q-op { color: var(--code-punctuation, var(--text-muted)); }
+.pdt-q-value { color: var(--code-string, var(--color-green)); }
+.pdt-q-number { color: var(--code-value, var(--color-purple)); }
+.pdt-q-fn { color: var(--code-function, var(--color-yellow)); }
+.pdt-q-kw { color: var(--code-keyword, var(--color-pink)); font-weight: var(--font-semibold); }
+.pdt-q-neg { color: var(--code-important, var(--color-orange)); font-weight: var(--font-semibold); }
 
 .pdt-q-paint .is-bad {
   color: var(--text-error);

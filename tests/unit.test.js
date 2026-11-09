@@ -202,7 +202,7 @@ const tests = {
     const roles = (text) => core.queryHighlight(text).map((x) => `${x.cls || "-"}:${x.text}`).join(" ");
     assert.equal(roles('name = new AND author in (a, "b c") NOT installed cal order by gain30 desc'),
       'field:name op:= value:new kw:AND field:author op:in -:( value:a -:, value:b c -:) neg:NOT field:installed -:cal kw:order kw:by field:gain30 value:desc');
-    assert.equal(roles("released >= startOfMonth(-1)"), "field:released op:>= fn:startOfMonth -:( value:-1 -:)");
+    assert.equal(roles("released >= startOfMonth(-1)"), "field:released op:>= fn:startOfMonth -:( number:-1 -:)");
 
     // date functions on date fields: today(), startOfWeek(), startOfMonth(n), startOfYear(), lastSync()
     const local = new Date(now);
