@@ -118,7 +118,9 @@ class DetailModal extends Modal {
     // bottom of the column, level with the README box: release history, then the repository
     const history = section(side, t("details.history"), " is-bottom");
     const dates = releases[p.id] || [];
-    if (dates.length) history.head.createSpan({ cls: "pdt-detail-head-note", text: t("details.historyLabel", { n: dates.length }) });
+    // the server keeps the last RELEASES_CAP releases: a busy plugin had more, and its strip starts at the oldest kept one
+    const capped = dates.length >= RELEASES_CAP;
+    if (dates.length) history.head.createSpan({ cls: "pdt-detail-head-note", text: t(capped ? "details.historyCapped" : "details.historyLabel", { n: dates.length }) });
     this.renderHistory(history.box.createDiv({ cls: "pdt-detail-card" }), dates, now);
     if (p.repo) {
       const repo = history.box.createEl("a", { cls: "pdt-detail-card pdt-detail-repo", href: `https://github.com/${p.repo}` });
@@ -223,7 +225,7 @@ class DetailModal extends Modal {
       setTooltip(cell, `${t("details.gapWave", { date: dates, n: g.releases })}\n${after}`, { delay: 100 });
     }
     const ends = box.createDiv({ cls: "pdt-history-ends" });
-    ends.createSpan({ text: dayString(dates[0]) });
+    ends.createSpan({ text: dates.length >= RELEASES_CAP ? t("details.historySince", { date: dayString(dates[0]) }) : dayString(dates[0]) });
     ends.createSpan({ text: t("details.today") });
     const cadence = releaseCadence(dates, now);
     if (cadence) box.createDiv({ cls: "pdt-history-note", text: cadenceNote(cadence, dates.at(-1), now) });
