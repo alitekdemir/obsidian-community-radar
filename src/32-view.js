@@ -876,9 +876,11 @@ class DiscoveryView extends ItemView {
     if (input) {
       const lead = splitOrder(joinQuery(page, filtersToQuery({ ...settings, query: "" }, mode)));
       const typed = input.value;
-      const own = splitOrder(typed).order;   // your own order by replaces the page's
-      text = typed.startsWith(lead.filter) ? typed : [`${lead.filter} ${typed}`.trim(), own ? "" : lead.order].filter(Boolean).join("\n");
-      caret = (input.selectionStart ?? typed.length) + (typed.startsWith(lead.filter) ? 0 : lead.filter.length + 1);
+      const mine = splitOrder(typed);   // your own order by replaces the page's
+      const joint = /^(AND|OR)\b/i.test(mine.filter) ? " " : " AND ";   // after the page's query, joined by AND
+      const filter = [lead.filter, mine.filter].filter(Boolean).join(joint);
+      text = typed.startsWith(lead.filter) ? typed : [filter, mine.order || lead.order].filter(Boolean).join("\n");
+      caret = typed.startsWith(lead.filter) ? input.selectionStart : mine.filter ? (input.selectionStart ?? typed.length) + filter.length - mine.filter.length : text.length;
     }
     const valid = !compileQuery(text, null, Date.now(), true).error;
     const { [mode]: sort, ...sortBy } = settings.sortBy || {};

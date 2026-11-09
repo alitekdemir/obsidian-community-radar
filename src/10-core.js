@@ -441,13 +441,14 @@ function pageQuery(settings, mode) {
  * just out of a long pause, and so on. `opts` carry the days and thresholds (older settings, the widgets).
  */
 function defaultPageQuery(mode, { days = 14, gap = 60, busy = true, downloads = 100 } = {}) {
-  const min = downloads > 0 ? ` downloads >= ${queryCount(downloads)}` : "";
+  const min = downloads > 0 ? `downloads >= ${queryCount(downloads)}` : "";
+  const all = (...parts) => parts.filter(Boolean).join(" AND ");   // AND written out: easier to read than a space
   return {
     all: "order by downloads desc",
-    new: `age <= ${days}d NOT tracked\norder by age desc`,
-    updated: `released <= ${days}d NOT new NOT tracked${busy ? " NOT busy" : ""}${min}\norder by downloads desc`,
-    awakened: `gap >= ${gap}d hatched NOT tracked${min}\norder by downloads desc`,
-    suggested: "installed NOT favorite NOT dismissed\norder by downloads desc",
+    new: `${all(`age <= ${days}d`, "NOT tracked")}\norder by age desc`,
+    updated: `${all(`released <= ${days}d`, "NOT new", "NOT tracked", busy && "NOT busy", min)}\norder by downloads desc`,
+    awakened: `${all(`gap >= ${gap}d`, "hatched", "NOT tracked", min)}\norder by downloads desc`,
+    suggested: `${all("installed", "NOT favorite", "NOT dismissed")}\norder by downloads desc`,
     tracked: "tracked\norder by rating desc",
     ignored: "ignored\norder by name asc",
     dismissed: "dismissed\norder by name asc",

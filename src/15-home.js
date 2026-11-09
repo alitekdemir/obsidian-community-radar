@@ -53,7 +53,7 @@ const HOME_WIDGETS = {
   milestone: {
     icon: "target", tone: "green",
     params: { n: (ctx) => milestoneSteps(ctx.timeline), days: [7, 30, 90] }, defaults: { n: 10000, days: 30 },
-    query: (ctx, params) => `milestone = ${queryCount(params.n)} passed <= ${spanDays(ctx, params)}d\norder by downloads desc`,
+    query: (ctx, params) => `milestone = ${queryCount(params.n)} AND passed <= ${spanDays(ctx, params)}d\norder by downloads desc`,
     rows: (ctx, params) => ctx.state.catalog.filter((p) => topPassed(ctx.timeline, p.id, since(ctx, params)) === params.n).sort(byDownloads),
     at: (ctx, p, params) => passedAt(ctx.timeline, p.id, params.n),
     value: (ctx, p) => formatShort(p.downloads ?? 0),
@@ -61,7 +61,7 @@ const HOME_WIDGETS = {
   hatched: {
     icon: "egg", tone: "orange",
     params: { gap: DORMANT_PRESETS }, defaults: { gap: 60 },
-    query: (ctx, params) => `gap >= ${params.gap}d hatched NOT tracked\norder by downloads desc`,
+    query: (ctx, params) => `gap >= ${params.gap}d AND hatched AND NOT tracked\norder by downloads desc`,
     rows: (ctx, params) => queryRows(ctx, HOME_WIDGETS.hatched.query(ctx, params)),
     at: (ctx, p) => p.updated,
     value: (ctx, p) => t("filter.days", { n: dormantDays(ctx.state.releases, p) }),
@@ -88,7 +88,7 @@ const HOME_WIDGETS = {
   quiet: {
     icon: "filter", tone: "blue",
     params: { days: [7, 14, 30] }, defaults: { days: 14 },
-    query: (ctx, params) => `released <= ${spanDays(ctx, params)}d NOT new NOT tracked NOT busy\norder by downloads desc`,
+    query: (ctx, params) => `released <= ${spanDays(ctx, params)}d AND NOT new AND NOT tracked AND NOT busy\norder by downloads desc`,
     rows: (ctx, params) => queryRows(ctx, HOME_WIDGETS.quiet.query(ctx, params))
       .filter((p) => p.updated > since(ctx, params)),
     at: (ctx, p) => p.updated,
@@ -97,7 +97,7 @@ const HOME_WIDGETS = {
   tracked: {
     icon: "bell-ring", tone: "yellow",
     params: {}, defaults: {},
-    query: () => "tracked changed\norder by released desc",
+    query: () => "tracked AND changed\norder by released desc",
     rows: (ctx) => tabRows(ctx, "tracked", { trackedGroup: UPDATES, trackedStatus: "" }),
     value: (ctx, p) => p.version || "",
   },

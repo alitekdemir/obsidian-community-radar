@@ -419,7 +419,7 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
   if (x.installed) parts.push("installed");
   const field = Object.keys(QUERY_FIELDS).find((k) => QUERY_FIELDS[k].sort === opts.sort);
   const sorted = order && field && settings.sortBy?.[mode];
-  return [parts.join(" "), sorted ? `order by ${field} ${opts.sortDir}` : ""].filter(Boolean).join("\n");
+  return [parts.join(" AND "), sorted ? `order by ${field} ${opts.sortDir}` : ""].filter(Boolean).join("\n");
 }
 
 /** A query split at its `order by` (always last): {filter, order}. */
@@ -432,7 +432,7 @@ function splitOrder(text) {
 function joinQuery(page, mine) {
   const a = splitOrder(page);
   const b = splitOrder(mine);
-  return [[a.filter, b.filter].filter(Boolean).join(" "), b.order || a.order].filter(Boolean).join("\n");
+  return [[a.filter, b.filter].filter(Boolean).join(" AND "), b.order || a.order].filter(Boolean).join("\n");
 }
 
 /**
@@ -447,7 +447,7 @@ function queryToBasic(text, settings, mode) {
   const body = norm(mine.filter);
   if (head && !(body === head || body.startsWith(`${head} `))) return { reason: t("query.basicChanged") };
   const order = mine.order && norm(mine.order) !== norm(page.order) ? mine.order : "";
-  const rest = [body.slice(head.length).trim(), order].filter(Boolean).join("\n");
+  const rest = [body.slice(head.length).trim().replace(/^AND\s+/i, ""), order].filter(Boolean).join("\n");
   const { patch, reason } = rest ? queryToFilters(rest, settings, mode) : { patch: { query: "", extraFilters: { ...settings.extraFilters, [mode]: {} } } };
   if (reason) return { reason };
   const { [mode]: gone, ...queries } = settings.queries || {};
@@ -509,10 +509,10 @@ function queryToFilters(query, settings, mode) {
 /** Ready-made queries the empty box offers, each with what it finds. */
 const QUERY_EXAMPLES = [
   ["released >= startOfMonth() order by downloads desc", "month"],
-  ["age < 30d gain30 >= 1k", "rising"],
+  ["age < 30d AND gain30 >= 1k", "rising"],
   ["tracked AND NOT installed", "trackedOnly"],
-  ["tracked group is empty", "ungrouped"],
-  ["gap >= 1y released < 30d", "awakened"],
+  ["tracked AND group is empty", "ungrouped"],
+  ["gap >= 1y AND released < 30d", "awakened"],
 ];
 
 /** The empty box's list: your filters as a query (when there are any), your recent queries, then the examples. */

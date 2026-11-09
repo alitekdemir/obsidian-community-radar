@@ -238,8 +238,8 @@ const tests = {
     // Basic ↔ Query: the tab's filters as a query, and back
     const settings = { query: "calendar, big tasks", minDownloads: 1000, downloadFilter: { all: true }, extraFilters: { all: { author: "brenan", released: 30, installed: true } }, sortBy: { all: { key: "name", dir: "asc" } } };
     const text = core.filtersToQuery(settings, "all");
-    assert.equal(text, '"calendar" "big tasks" downloads >= 1k released <= 30d author ~ brenan installed\norder by name asc');
-    assert.equal(core.filtersToQuery({ ...settings, sortBy: {} }, "all"), '"calendar" "big tasks" downloads >= 1k released <= 30d author ~ brenan installed', "the tab's own sort isn't written");
+    assert.equal(text, '"calendar" AND "big tasks" AND downloads >= 1k AND released <= 30d AND author ~ brenan AND installed\norder by name asc');
+    assert.equal(core.filtersToQuery({ ...settings, sortBy: {} }, "all"), '"calendar" AND "big tasks" AND downloads >= 1k AND released <= 30d AND author ~ brenan AND installed', "the tab's own sort isn't written");
     const back = core.queryToFilters(text, { ...settings, query: "", extraFilters: {}, downloadFilter: {}, sortBy: {} }, "all").patch;
     assert.deepEqual(back, { query: "calendar, big tasks", extraFilters: { all: { released: 30, author: "brenan", installed: true } }, sortBy: { all: { key: "name", dir: "asc" } }, downloadFilter: { all: true }, minDownloads: 1000 });
     assert.match(core.queryToFilters("author ~ x OR installed", settings, "all").reason, /OR/);
@@ -256,7 +256,7 @@ const tests = {
     }
     // a view saved before 0.10 (a tab + filters) becomes the query it meant
     const legacy = core.legacyViewQuery({ mode: "new", filters: { query: "kanban", extraFilters: { new: { author: "abbys" } } } }, { pageQueries: {}, sortBy: {} });
-    assert.equal(legacy, 'age <= 14d NOT tracked "kanban" author ~ abbys\norder by age desc');
+    assert.equal(legacy, 'age <= 14d AND NOT tracked AND "kanban" AND author ~ abbys\norder by age desc');
     const starters = core.queryStarters("downloads >= 1k");
     assert.equal(starters[0].insert, "downloads >= 1k");
     assert.ok(starters[0].head && starters[1].head && starters.length === 6);

@@ -308,14 +308,14 @@ const tests = {
     const typeQuery = async (text) => { box().value = text; box().oninput(); await tick(1100); };
     const modeButton = (k) => $$(el, ".pdt-qmode-option")[k];
     await typeQuery("order by name desc");
-    assert.equal(settings.queries.all, "downloads >= 1k order by name desc", "Query mode on this page; the filters lead what you typed");
+    assert.equal(settings.queries.all, "downloads >= 1k\norder by name desc", "Query mode on this page; the filters lead what you typed");
     assert.equal(core.modeOptions(settings, "all").filterDownloads, false, "the panel's threshold rests in Query mode");
     assert.deepEqual(names(), ["Homepage", "Dataview"], "filtered and sorted by the query");
     assert.equal($(el, ".pdt-q-paint .pdt-q-field").textContent, "downloads", "words coloured by their role");
     assert.ok($(el, ".pdt-query").textContent.startsWith(core.t("query.clauses", { n: 1 })), "the status line counts, doesn't repeat the query");
     // an invalid query isn't applied: the list keeps the last valid one
     await typeQuery("downloads > lots");
-    assert.equal(settings.queries.all, "downloads >= 1k order by name desc", "not applied");
+    assert.equal(settings.queries.all, "downloads >= 1k\norder by name desc", "not applied");
     assert.equal(box().value, "downloads > lots", "the box keeps what you typed");
     assert.ok($(el, ".pdt-query.is-invalid") && $(el, ".pdt-q-paint .is-bad"), "the status line says why, the box underlines it");
     assert.deepEqual(names(), ["Homepage", "Dataview"]);
@@ -329,7 +329,7 @@ const tests = {
     assert.deepEqual(names(), ["Dataview"]);
     // the Query button writes them back; a query filters can't say locks Basic
     await modeButton(1).onclick();
-    assert.ok(settings.queries.all.startsWith("downloads >= 1k author ~ brenan"), settings.queries.all);
+    assert.ok(settings.queries.all.startsWith("downloads >= 1k AND author ~ brenan"), settings.queries.all);
     await typeQuery("author ~ brenan OR installed");
     assert.ok(modeButton(0).classList.contains("is-locked"));
     Object.assign(settings, { queries: {}, query: "", extraFilters: {}, downloadFilter: {}, minDownloads: 100 });
