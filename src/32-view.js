@@ -907,7 +907,7 @@ class DiscoveryView extends ItemView {
     if (stale) signal("is-stale", t("row.stale"));
     if (this.preset?.freshIds?.has(p.id)) signal("is-fresh", t("home.freshMark"));
     const milestone = recentMilestone(plugin.timeline.milestones?.[p.id], now, MILESTONE_DAYS, milestoneSteps(plugin.timeline));
-    if (milestone) setTooltip(signal("is-milestone", t("badge.milestone", { n: formatShort(milestone.n) })), t("badge.milestoneTip", { n: formatCount(milestone.n), when: relativeDays(milestone.at, now) }));
+    if (milestone) setTooltip(signal("is-milestone", t("badge.milestone", { n: stepLabel(milestone.n) })), t("badge.milestoneTip", { n: formatCount(milestone.n), when: relativeDays(milestone.at, now) }));
     if (note) {
       const link = tags.createSpan({ cls: "pdt-pill is-note", text: t("badge.note"), attr: { role: "button", tabindex: "0" } });
       setTooltip(link, t("badge.openNote"));

@@ -9,6 +9,9 @@ function milestoneSteps(timeline) {
   return timeline.milestoneSteps || OLD_MILESTONE_STEPS;
 }
 
+/** A milestone's name: 1K, 25K, 100K in every language ("1 bin barajı" reads wrong in Turkish). */
+const stepLabel = (n) => (n >= 1000 ? `${n / 1000}K` : String(n));
+
 /** The highest milestone a plugin passed after `after` (null: none): 33K that passed 1K, 10K and 25K this month is a 25K. */
 function topPassed(timeline, id, after) {
   return [...milestoneSteps(timeline)].reverse().find((n) => passedAt(timeline, id, n) > after) ?? null;

@@ -4,7 +4,7 @@
   --pdt-new: var(--color-yellow);
   --pdt-changed: var(--color-blue);
   --pdt-installed: var(--color-green);
-  padding: var(--size-4-3) var(--size-4-4) var(--size-4-6);
+  padding: 0 var(--size-4-4) var(--size-4-6);   /* no top padding: sticky stops below it in Chromium, rows would peek above */
 }
 
 /* ── Mode tabs: one segmented control ─────────────────────────── */
@@ -2082,7 +2082,8 @@ button.pdt-section-head:hover {
 /* ── Sticky header: the switch, tabs and filters stay while the list scrolls ── */
 .pdt-sticky {
   position: sticky;
-  top: 0;   /* sticks over the view's top padding too, so no row peeks above it */
+  top: 0;
+  padding-top: var(--size-4-3);   /* the view's top padding, here so it scrolls under nothing */
   z-index: 3;
   display: flex;
   flex-direction: column;

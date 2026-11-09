@@ -71,8 +71,8 @@ class HomePage {
       this.grip(card);
       setIcon(card.createSpan({ cls: "pdt-home-mini-icon" }), HOME_WIDGETS[id].icon);
       card.createSpan({ cls: "pdt-home-mini-n", text: formatCount(n) });
-      this.info(card, t(`home.since.${id}.info`, { when: this.sinceLabel(period), n: formatShort(params.n ?? 0) }));
-      card.createSpan({ cls: "pdt-home-mini-label", text: t(`home.since.${id}`, { n: formatShort(params.n ?? 0) }) });
+      this.info(card, t(`home.since.${id}.info`, { when: this.sinceLabel(period), n: stepLabel(params.n ?? 0) }));
+      card.createSpan({ cls: "pdt-home-mini-label", text: t(`home.since.${id}`, { n: stepLabel(params.n ?? 0) }) });
       card.createSpan({ cls: "pdt-home-cta", text: t("home.list") });
     });
     this.sortable(grid, (order) => this.save((h) => { h.since.order = order; }));
@@ -181,7 +181,7 @@ class HomePage {
   }
 
   paramText(key, value) {
-    if (key === "n") return formatShort(value);
+    if (key === "n") return stepLabel(value);
     if (key === "by") return t(`home.by.${value}`);
     if (key === "gap") return `≥ ${t("filter.days", { n: value })}`;
     return t("filter.days", { n: value });
@@ -189,7 +189,7 @@ class HomePage {
 
   /** A widget's settings as words for its info and unit lines. */
   paramWords(id, params) {
-    return Object.fromEntries(Object.entries(params).map(([k, v]) => [k, k === "n" ? formatShort(v) : v]));
+    return Object.fromEntries(Object.entries(params).map(([k, v]) => [k, k === "n" ? stepLabel(v) : v]));
   }
 
   setParam(id, key, value) {
