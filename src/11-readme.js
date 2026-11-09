@@ -124,11 +124,45 @@ function readmePrompt(markdown, targetLanguage) {
   ].join("\n");
 }
 
-/** Typical days between releases (median of the gaps in the history); null with fewer than three releases. */
-function releaseCadence(releases) {
+const WAVE_DAYS = 3;   // a release within 3 days of its wave's first one is a patch of it, not another update
+const YEAR_DAYS = 365;
+
+/**
+ * How often a plugin updates lately: its update waves in the year up to `end` (or since its first release, when that's
+ * later: a young plugin, or a busy one whose 50 kept releases span less). The start of the history is a release
+ * itself, so it isn't counted: n waves after it are n gaps. With no wave in that year, `before` is the rhythm up to
+ * the latest release. Null with fewer than three releases.
+ */
+function releaseCadence(releases, end) {
   if (!releases || releases.length < 3) return null;
-  const gaps = releases.slice(1).map((m, i) => (m - releases[i]) / DAY_MS).sort((a, b) => a - b);
-  return Math.max(1, Math.round(gaps[Math.floor(gaps.length / 2)]));
+  const startMs = Math.max(end - YEAR_DAYS * DAY_MS, releases[0]);
+  const inside = releases.filter((m) => m > startMs && m <= end);
+  let waves = 0;
+  let wave = -Infinity;
+  for (const m of inside) if (m - wave > WAVE_DAYS * DAY_MS) { waves++; wave = m; }
+  const span = (end - startMs) / DAY_MS;
+  const i = releases.indexOf(inside[0]);
+  return {
+    waves, span, releases: releases.filter((m) => m >= startMs && m <= end).length,
+    days: waves ? span / waves : null,
+    prevGap: i > 0 ? (inside[0] - releases[i - 1]) / DAY_MS : null,   // the pause before this year's first release
+    before: waves ? null : releaseCadence(releases, releases.at(-1)),
+  };
+}
+
+/** The rhythm in words: ~N days up to 45, ~N months up to 5, then every six months, yearly, none for a year. */
+function cadenceLabel(c) {
+  if (!c.waves) return t("details.noneYear");
+  if (c.days <= 45) return t("details.every", { n: Math.max(1, Math.round(c.days)) });
+  if (c.days <= 150) return t("details.everyMonths", { n: Math.round(c.days / 30.44) });
+  return c.days <= 250 ? t("details.halfYearly") : t("details.yearly");
+}
+
+/** The facts under it: the releases it counts, the year-plus pause before a rare one, or the rhythm before it went quiet. */
+function cadenceSub(c) {
+  if (c.before) return t("details.cadenceBefore", { rhythm: cadenceLabel(c.before) });
+  const count = c.span < YEAR_DAYS - 1 ? t("details.cadenceSpan", { n: c.releases, days: Math.round(c.span) }) : t("details.cadenceSub", { n: c.releases });
+  return c.waves <= 2 && c.prevGap >= YEAR_DAYS ? `${count} · ${t("details.prevGap", { n: decimal(c.prevGap / YEAR_DAYS) })}` : count;
 }
 
 /** Version the note's README was fetched for ("1.2.0"), read from its meta line; null when unknown. */

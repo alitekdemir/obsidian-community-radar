@@ -260,8 +260,19 @@ const tests = {
     assert.ok(Math.abs(estimate.cost - (1000 * 1 + 1200 * 5) / 1e6) < 1e-9);
     assert.equal(core.translationEstimate("abc", null).cost, null);
     const D = core.constants.DAY_MS;
-    assert.equal(core.releaseCadence([0, 10 * D, 20 * D, 50 * D]), 10, "median gap");
-    assert.equal(core.releaseCadence([0, D]), null);
+    // release rhythm: update waves in the last year (a patch within 3 days joins its wave)
+    const Y = 365 * D;
+    const now = 3000 * D;
+    const rhythm = (dates) => { const c = core.releaseCadence(dates, now); return c && `${core.cadenceLabel(c)} | ${core.cadenceSub(c)}`; };
+    const monthly = Array.from({ length: 12 }, (_, i) => now - i * 30 * D).reverse();
+    assert.equal(rhythm([0, ...monthly, now - 30 * D + D]), "every ~30 days | 13 releases in 12 months", "the next-day patch isn't another update");
+    // busy early, then a year and four years apart (Hotkeys for templates)
+    const early = Array.from({ length: 12 }, (_, i) => i * 5 * D);
+    assert.equal(rhythm([...early, now - 5 * Y, now - 4 * D]), "yearly | 1 release in 12 months · previous gap 5 years");
+    assert.equal(rhythm(monthly.map((m) => m - 2 * Y)), "none for a year | before: every ~30 days", "went quiet two years ago");
+    assert.equal(rhythm([now - 90 * D, now - 60 * D, now - 30 * D]), "every ~45 days | 3 releases in 90 days", "young: its own span");
+    assert.equal(rhythm([now - 500 * D, now - 300 * D, now - 100 * D]), "every 6 months | 2 releases in 12 months");
+    assert.equal(rhythm([0, D]), null);
     core.setLanguage("tr");   // the other tests read Turkish
   },
 

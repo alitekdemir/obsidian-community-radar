@@ -158,14 +158,14 @@ class DetailModal extends Modal {
     };
     const seen = firstSeen[p.id];
     const dates = releases[p.id] || [];
-    const cadence = releaseCadence(dates);
+    const cadence = releaseCadence(dates, now);
     const gained = this.plugin.timeline.growth?.[p.id]?.[1];
     stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), gained != null ? t("details.growth30", { n: formatShort(gained) }) : t("details.downloadsSub"));
     stat(t("details.lastRelease"), p.updated ? relativeDays(p.updated, now) : "–", p.version);
     // age counts from the day it was listed; 0: it was there before the history starts
     const before = t("details.ageBeforeYears", { n: Math.max(1, Math.floor((now - from) / (365 * DAY_MS))) });
     stat(t("details.age"), seen > 0 ? ageLabel(seen, now) : seen === 0 ? before : "–", seen > 0 ? t("details.listedOn", { date: dayString(seen) }) : t("details.listed"));
-    stat(t("details.cadence"), cadence ? t("details.every", { n: cadence }) : "–", cadence ? t("details.cadenceSub", { n: Math.min(dates.length, RELEASES_CAP) }) : "");
+    stat(t("details.cadence"), cadence ? cadenceLabel(cadence) : "–", cadence ? cadenceSub(cadence) : "");
   }
 
   /** The same actions as a row (star with 1–5 on hover, group, hide, exclude), then ‹ n / total › on the right. */

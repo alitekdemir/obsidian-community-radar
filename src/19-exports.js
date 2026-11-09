@@ -5,7 +5,7 @@ const core = {
   groupSections, groupHue, statusKey, UNGROUPED, UPDATES, STARRED, escapeOutsideCode,
   absolutizeLinks, readmeSection, readmeVersion, replaceReadme, catalogDelta, noteBody, stripDescription, migrateHeadings, migrateMarkers, migrateImages, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, tokenPrice, formatPrice, filterModels, translationPrompt,
-  parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, semanticPlugins, closeness, parseVectors, closestGroup, readmeText, readmeTranslation, replaceReadmeTranslation, markdownChunks, translationEstimate, releaseCadence,
+  parseTranslations, mapLimit, groupsOf, uniqueNames, words, textIndex, similarPlugins, semanticPlugins, closeness, parseVectors, closestGroup, readmeText, readmeTranslation, replaceReadmeTranslation, markdownChunks, translationEstimate, releaseCadence, cadenceLabel, cadenceSub,
   groupPrompt, parseGroupSuggestions,
   constants: { DAY_MS, RELEASES_CAP, NEW_BADGE_DAYS, README_START, README_END, README_TR_START, README_TR_END, LEGACY_README_START, LEGACY_README_END, TIMELINE_VERSION },
 };

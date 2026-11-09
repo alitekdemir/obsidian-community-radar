@@ -15,6 +15,7 @@
 
 ### Changed
 
+- *Release rhythm* in a plugin's details reads its last 12 months, in update waves (a patch within 3 days joins its release): *every ~N days*, *every ~N months*, *every 6 months*, *yearly* or *none for a year*, with the releases it counts, a year-plus pause before a rare one, or the rhythm before it went quiet. It was the median of every gap, so a busy first month outweighed years of silence.
 - A plugin counts as *new* for 14 days by default (was 30).
 - Tracked moved from the tabs to the Home · List · Tracked switch, with its new-release count.
 - The switch, tabs and filters stay at the top while the list scrolls, with no gap above them.
