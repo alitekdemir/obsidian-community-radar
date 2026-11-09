@@ -39,8 +39,8 @@ function menuChip(parent, label, options, current, onPick) {
   return chip;
 }
 
-/** A chip with a typed whole number (e.g. "Last [7] days"); the caret opens presets in Obsidian's menu. */
-function numberChip(parent, { label, unit, value, min, max, presets, onChange }) {
+/** A chip with a typed whole number (e.g. "Last [7] days"); the caret opens presets (days unless `format` says) in Obsidian's menu. */
+function numberChip(parent, { label, unit, value, min, max, presets, onChange, format = (n) => t("filter.days", { n }) }) {
   const chip = parent.createDiv({ cls: "pdt-chip is-number" });
   chip.createSpan({ text: label });
   const input = chip.createEl("input", { type: "number", value: String(value), attr: { min: String(min), max: String(max), "aria-label": label } });
@@ -54,7 +54,7 @@ function numberChip(parent, { label, unit, value, min, max, presets, onChange })
   setTooltip(caret, t("filter.presets"));
   const open = () => {
     const menu = new Menu();
-    for (const n of presets) menu.addItem((item) => item.setTitle(t("filter.days", { n })).setChecked(n === value).onClick(() => onChange(n)));
+    for (const n of presets) menu.addItem((item) => item.setTitle(format(n)).setChecked(n === value).onClick(() => onChange(n)));
     const rect = chip.getBoundingClientRect();
     menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
   };

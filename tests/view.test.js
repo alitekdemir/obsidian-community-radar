@@ -272,6 +272,30 @@ const tests = {
     assert.ok(!("all" in settings.downloadFilter));
     assert.ok($(head(), ".pdt-filter-clear").classList.contains("is-hidden"));
 
+    // chips: a changed one is marked and has ↺; "N changed · Reset" comes last; + Filter adds any filter, ✕ removes it
+    const reset = () => $(el, ".pdt-filter-reset");
+    assert.ok(reset().classList.contains("is-hidden"), "nothing changed: no Reset");
+    $(chip(), ".pdt-toggle").onclick();
+    await tick();
+    assert.ok(chip().classList.contains("is-changed"));
+    assert.equal(reset().textContent, core.t("filter.reset", { n: 1 }));
+    assert.equal($(el, ".pdt-filter-panel").lastElementChild, reset(), "Reset comes last, nothing shifts");
+    await $(chip(), ".pdt-chip-act").onclick({ stopPropagation() {} });     // ↺
+    assert.ok(!chip().classList.contains("is-changed") && !("all" in settings.downloadFilter));
+    fake.menus.length = 0;
+    $(el, ".pdt-filter-add").onclick();
+    const addItem = (key) => fake.menus[0].items.find((i) => i.title === core.t(`filter.x.${key}`));
+    assert.ok(addItem("gap") && addItem("author") && !addItem("nothing"));
+    await addItem("author").click();
+    const author = () => $(el, ".pdt-chip.is-extra input");
+    author().value = "brenan";
+    await author().onchange();
+    assert.deepEqual(names(), ["Dataview"]);
+    assert.equal(reset().textContent, core.t("filter.reset", { n: 1 }), "an added filter counts");
+    await $(el, ".pdt-chip.is-extra .pdt-chip-act").onclick({ stopPropagation() {} });   // ✕
+    assert.deepEqual(settings.extraFilters.all, {});
+    assert.ok(names().length > 1);
+
     await view.update("mode", "updated");
     const savedDays = settings.days;
     const typeDays = async (value) => { const input = $(el, ".pdt-chip.is-number input"); input.value = value; await input.onchange(); };

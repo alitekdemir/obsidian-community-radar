@@ -28,9 +28,9 @@ const RISING_BASE = 1000;    // downloads before the period, so 10 → 30 isn't 
 const RISING_SHARE = 0.2;    // grew by a fifth or more
 const risingGain = (ctx, p, params) => ctx.state.growth[p.id]?.[params.days === 7 ? 0 : 1] ?? 0;
 const since = (ctx, params) => params.since ?? ctx.now - params.days * DAY_MS;
-/** A tab's plugins with the widget's own settings: no Downloads ≥, no search. */
+/** A tab's plugins with the widget's own settings: no Downloads ≥, no search, no added filters. */
 const tabRows = (ctx, mode, extra) =>
-  discover(ctx.state, { ...modeOptions(ctx.settings, mode), filterDownloads: false, query: "", ...extra }, ctx.now);
+  discover(ctx.state, { ...modeOptions(ctx.settings, mode), filterDownloads: false, query: "", extras: {}, ...extra }, ctx.now);
 
 const HOME_WIDGETS = {
   new: {

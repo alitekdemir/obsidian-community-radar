@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.3
+
+### New
+
+- **Filters as chips**: a changed filter is marked and has ↺ (back to the tab's default); *N filters changed · Reset* comes last, so nothing shifts when you change one.
+- **+ Filter** adds a filter to any tab: Released ≤, Incubation ≥, Gained · 30 days ≥, Age ≤, Author, Installed. ✕ removes it; each tab keeps its own. Home widgets ignore them.
+
 ## 0.9.2
 
 ### New

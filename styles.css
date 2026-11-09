@@ -106,10 +106,62 @@
   color: var(--text-normal);
 }
 
+/* the head only where the filters fold; wide, the chips say it themselves and "N changed · Reset" comes last */
 .pdt-filter-clear.is-hidden,
-.pdt-filter-head .pdt-filter-caret,   /* the caret only where the filters fold */
-.pdt-filter-head.is-idle {
+.pdt-filter-head .pdt-filter-caret,
+.pdt-filter-head,
+.pdt-filter-reset.is-hidden {
   display: none;
+}
+
+.pdt-chip.is-changed,
+.pdt-chip.is-toggle.is-on.is-changed {
+  border-color: color-mix(in srgb, var(--color-yellow) 55%, transparent);
+  background: color-mix(in srgb, var(--color-yellow) 10%, var(--background-primary));
+  box-shadow: none;
+}
+
+.pdt-chip.is-changed > span:first-child,
+.pdt-chip.is-changed .pdt-toggle,
+.pdt-chip.is-toggle.is-on.is-changed .pdt-toggle,
+.pdt-chip.is-changed input {
+  color: var(--color-yellow);
+}
+
+.pdt-chip-icon {
+  display: inline-flex;
+  color: var(--text-faint);
+}
+
+.pdt-chip-icon svg,
+.pdt-chip-act svg {
+  width: 14px;
+  height: 14px;
+}
+
+.pdt-chip.is-extra input[type="text"] {
+  width: 9em;
+  border: 0;
+  background: transparent;
+  color: var(--text-normal);
+}
+
+.pdt-filter-add {
+  border-style: dashed;
+  color: var(--text-accent);
+  cursor: pointer;
+}
+
+.pdt-filter-reset {
+  height: 30px;
+  padding: 0 var(--size-4-2);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-yellow);
+  font-size: var(--font-ui-small);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @container (max-width: 640px) {

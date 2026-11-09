@@ -461,11 +461,19 @@ class DiscoveryView extends ItemView {
   }
 
   /**
-   * Filters first in the bar: a head ("Filters · N", ✕ clears them all, the search included) and the tab's
-   * filters next to it. Below a certain width (CSS container query) the filters fold into a panel under the head.
+   * The tab's filters as chips: quiet at their defaults, marked with ↺ (back to the default) once changed; filters
+   * added with "+ Filter" carry ✕; "N changed · Reset" comes last, so nothing shifts. Below a certain width (CSS
+   * container query) they fold into a panel under a "Filters" head.
    */
   renderFilterMenu(bar, mode, opts) {
     const settings = this.settings;
+    const changed = new Set(changedFilterKeys(this.filterState(), mode));
+    /** Marks a tab's own chip as changed and gives it ↺. */
+    const own = (chip, key) => {
+      if (!changed.has(key)) return;
+      chip.addClass("is-changed");
+      this.chipButton(chip, "rotate-ccw", t("filter.resetOne"), () => this.resetFilter(key));
+    };
     const wrap = bar.createDiv({ cls: `pdt-filter-menu${this.filtersOpen ? " is-open" : ""}` });
     const head = wrap.createDiv({ cls: "pdt-chip pdt-filter-head", attr: { role: "button", tabindex: "0", "aria-expanded": String(Boolean(this.filtersOpen)) } });
     setIcon(head.createSpan({ cls: "pdt-chip-caret" }), "sliders-horizontal");
@@ -484,18 +492,17 @@ class DiscoveryView extends ItemView {
     };
     head.onclick = toggle;
     onActivate(head, toggle);
-    this.updateFilterHead();
 
     const panel = wrap.createDiv({ cls: "pdt-filter-panel" });
     panel.addEventListener("keydown", (event) => { if (event.key === "Escape" && this.filtersOpen) toggle(); });
     if (mode === "new" || mode === "updated") {
-      numberChip(panel, { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS, value: settings.days, onChange: (n) => this.update("days", n) });
+      own(numberChip(panel, { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS, value: settings.days, onChange: (n) => this.update("days", n) }), "days");
     }
     if (mode === "awakened") {
-      numberChip(panel, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) });
+      own(numberChip(panel, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) }), "dormantDays");
     }
     if (mode !== "new") {
-      toggleChip(panel, {
+      own(toggleChip(panel, {
         label: t("filter.downloads"),
         value: settings.minDownloads,
         on: opts.filterDownloads,
@@ -504,11 +511,86 @@ class DiscoveryView extends ItemView {
           settings.minDownloads = n;
           await this.updateTab("downloadFilter", true);
         },
-      });
+      }), "downloadFilter");
     }
     if (mode === "updated") {
-      switchChip(panel, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) });
+      own(switchChip(panel, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) }), "hideBusy");
     }
+    for (const [key, value] of Object.entries(opts.extras)) if (EXTRA_FILTERS[key]) this.renderExtraChip(panel, key, value);
+    if (addableFilters(settings, mode).length) {
+      const add = panel.createEl("button", { cls: "pdt-chip pdt-filter-add", attr: { type: "button" } });
+      setIcon(add.createSpan({ cls: "pdt-chip-caret" }), "plus");
+      add.createSpan({ text: t("filter.add") });
+      add.onclick = () => this.addFilterMenu(add);
+    }
+    const reset = panel.createEl("button", { cls: "pdt-filter-reset", attr: { type: "button" } });
+    reset.onclick = () => this.clearFilters();
+    this.refs.filterReset = reset;
+    this.updateFilterHead();
+  }
+
+  /** A small round button at the end of a chip (↺ back to the default, ✕ remove). */
+  chipButton(chip, icon, tip, onClick) {
+    const button = chip.createEl("button", { cls: "pdt-similar-step pdt-chip-act", attr: { type: "button", "aria-label": tip } });
+    setIcon(button, icon);
+    setTooltip(button, tip);
+    button.onclick = (event) => { event.stopPropagation(); onClick(); };
+    return button;
+  }
+
+  /** A filter added with "+ Filter": its icon, name and value (typed, or a preset), ✕ removes it. */
+  renderExtraChip(panel, key, value) {
+    const filter = EXTRA_FILTERS[key];
+    const label = t(`filter.x.${key}`);
+    const set = (v) => this.setExtra(key, v);
+    let chip;
+    if (filter.kind === "number") {
+      chip = numberChip(panel, { label, unit: filter.unit === "days" ? t("filter.daysUnit") : "", min: 0, max: 1e9, presets: filter.presets, value, onChange: set,
+        format: (n) => extraValueText(key, n) });
+    } else {
+      chip = panel.createDiv({ cls: "pdt-chip" });
+      chip.createSpan({ text: label });
+      if (filter.kind === "text") {
+        const input = chip.createEl("input", { type: "text", value, attr: { "aria-label": label, placeholder: "…" } });
+        input.onchange = () => set(input.value.trim());
+      }
+    }
+    chip.addClass("is-extra");
+    const icon = chip.createSpan({ cls: "pdt-chip-icon" });
+    setIcon(icon, filter.icon);
+    chip.prepend(icon);
+    this.chipButton(chip, "x", t("filter.remove"), () => this.setExtra(key, undefined));
+    if (filter.kind === "text" && !value) chip.querySelector("input")?.focus();
+  }
+
+  /** "+ Filter": the filters this tab can add, in Obsidian's menu. */
+  addFilterMenu(button) {
+    const menu = new Menu();
+    for (const key of addableFilters(this.settings, this.settings.mode)) {
+      menu.addItem((item) => item.setTitle(t(`filter.x.${key}`)).setIcon(EXTRA_FILTERS[key].icon).onClick(() => this.setExtra(key, EXTRA_FILTERS[key].value)));
+    }
+    const rect = button.getBoundingClientRect();
+    menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
+  }
+
+  /** Adds, changes (a value) or removes (undefined) a filter added with "+ Filter" on this tab. */
+  async setExtra(key, value) {
+    const mode = this.settings.mode;
+    const { [key]: old, ...rest } = this.settings.extraFilters?.[mode] || {};
+    this.settings.extraFilters = { ...this.settings.extraFilters, [mode]: value === undefined ? rest : { ...rest, [key]: value } };
+    this.visible = PAGE_SIZE;
+    await this.plugin.saveData(this.plugin.data);
+    this.render();
+  }
+
+  /** ↺ on a changed chip: that filter back to the tab's default. */
+  async resetFilter(key) {
+    const cleared = clearedFilters(this.settings, this.settings.mode);
+    if (key === "downloadFilter") Object.assign(this.settings, { downloadFilter: cleared.downloadFilter, minDownloads: cleared.minDownloads });
+    else this.settings[key] = cleared[key];
+    this.visible = PAGE_SIZE;
+    await this.plugin.saveData(this.plugin.data);
+    this.render();
   }
 
   /** The head's count and ✕ follow the filters, the search included, without redrawing the bar. */
@@ -518,6 +600,8 @@ class DiscoveryView extends ItemView {
     const n = changedFilters(this.filterState(), this.settings.mode);
     filterCount.setText(n ? `· ${n}` : "");
     filterClear.toggleClass("is-hidden", !n);
+    this.refs.filterReset?.setText(n ? t("filter.reset", { n }) : "");
+    this.refs.filterReset?.toggleClass("is-hidden", !n);
     // nothing changed: the head has nothing to say (CSS still shows it where it folds the filters)
     filterCount.parentElement?.toggleClass("is-idle", !n);
     setTooltip(filterCount.parentElement, filterSummary(this.filterState(), this.settings.mode));

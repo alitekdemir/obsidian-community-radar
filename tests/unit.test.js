@@ -49,7 +49,15 @@ const tests = {
     const sittings = [...Array.from({ length: 11 }, (_, i) => ago(120) + i * 6 * 3600e3), ...Array.from({ length: 10 }, (_, i) => ago(10) + i * 6 * 3600e3)];
     assert.equal(core.updateWaves(sittings, ago(180), NOW), 2);
     assert.deepEqual(core.releaseWaves([0, 6 * DAY_MS, 7 * DAY_MS]).map((w) => w.length), [2, 1], "within a week: one update; a week later: the next");
-    assert.deepEqual(ids({ mode: "awakened" }), ["hatched"]);     // 88-day pause, released 50 days ago; expired: 70-day pause, 80 days ago
+    assert.deepEqual(ids({ mode: "awakened" }), ["hatched"]);
+    // filters added with + Filter work on any tab
+    assert.deepEqual(ids({ mode: "all", extras: { gap: 80 } }), ["hatched"], "incubation ≥ 80 on All");
+    assert.deepEqual(ids({ mode: "all", extras: { released: 10 } }), ["busy", "calm", "young"]);
+    state.installed = new Set(["calm"]);
+    assert.deepEqual(ids({ mode: "all", extras: { installed: true, released: 10 } }), ["calm"]);
+    state.installed = new Set();
+    assert.ok(!core.addableFilters({ extraFilters: { all: { gap: 60 } } }, "all").includes("gap"), "added once");
+    assert.ok(!core.addableFilters({}, "awakened").includes("gap"), "Incubation has its own");     // 88-day pause, released 50 days ago; expired: 70-day pause, 80 days ago
   },
 
   "filterSummary: the changed filters as they are now, merged Downloads"() {

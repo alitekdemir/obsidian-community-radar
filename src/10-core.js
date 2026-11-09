@@ -246,6 +246,31 @@ function compileQuery(query) {
   return { test: (p) => { const hay = text(p).toLowerCase(); return terms.every((s) => hay.includes(s)); }, regex: false, error: "" };
 }
 
+/**
+ * Filters any tab can add with "+ Filter", beyond its own: how the value is set (a number with presets, text, or
+ * just on), its starting value, the tabs that already have it, and the test on a plugin.
+ */
+const EXTRA_FILTERS = {
+  released: { icon: "clock", kind: "number", unit: "days", presets: DAY_PRESETS, value: 30, skip: ["new", "updated"],
+    test: (s, p, n, now) => (p.updated || 0) >= now - n * DAY_MS },
+  gap: { icon: "egg", kind: "number", unit: "days", presets: DORMANT_PRESETS, value: 60, skip: ["awakened"],
+    test: (s, p, n) => (dormantDays(s.releases, p) ?? -1) >= n },
+  growth: { icon: "trending-up", kind: "number", presets: [100, 1000, 10000], value: 1000,
+    test: (s, p, n) => (s.growth?.[p.id]?.[1] ?? 0) >= n },
+  age: { icon: "cake", kind: "number", unit: "days", presets: [7, 30, 90, 365], value: 30, skip: ["new"],
+    test: (s, p, n, now) => s.firstSeen[p.id] > 0 && now - s.firstSeen[p.id] <= n * DAY_MS },
+  author: { icon: "user", kind: "text", value: "",
+    test: (s, p, text) => String(p.author || "").toLowerCase().includes(String(text).trim().toLowerCase()) },
+  installed: { icon: "package-check", kind: "toggle", value: true, skip: ["suggested"],
+    test: (s, p) => s.installed.has(p.id) },
+};
+
+/** The filters a tab can still add (not its own, not added yet). */
+function addableFilters(settings, mode) {
+  const added = settings.extraFilters?.[mode] || {};
+  return Object.keys(EXTRA_FILTERS).filter((k) => !(k in added) && !EXTRA_FILTERS[k].skip?.includes(mode));
+}
+
 /** The filter options of one tab: its own Downloads on/off and sort, shared days and thresholds. */
 function modeOptions(settings, mode) {
   const defaults = TAB_DEFAULTS[mode] || TAB_DEFAULTS.all;
@@ -255,6 +280,7 @@ function modeOptions(settings, mode) {
     ...settings,
     mode,
     filterDownloads: mode === "new" ? false : settings.downloadFilter?.[mode] ?? defaults.downloads,   // new plugins have few downloads
+    extras: settings.extraFilters?.[mode] || {},
     sort: key,
     sortDir: sort.dir === "asc" || sort.dir === "desc" ? sort.dir : NATURAL_DIR[key],
   };
@@ -269,14 +295,16 @@ function filterKeys(mode) {
     ...(mode === "updated" ? ["hideBusy"] : []),
     ...(mode === "tracked" ? ["trackedGroup", "trackedStatus"] : []),
     ...(mode !== "new" ? ["minDownloads", "downloadFilter"] : []),
+    "extraFilters",
   ];
 }
 
 /** The settings that put a tab's filters back to their defaults. */
 function clearedFilters(settings, mode) {
   const defaults = defaultSettings();
-  const { [mode]: ownDownloads, ...otherTabs } = settings.downloadFilter || {};
-  return Object.fromEntries(filterKeys(mode).map((k) => [k, k === "downloadFilter" ? otherTabs : defaults[k]]));
+  const without = (byTab) => { const { [mode]: own, ...others } = byTab || {}; return others; };   // only this tab's entry goes
+  const perTab = { downloadFilter: without(settings.downloadFilter), extraFilters: without(settings.extraFilters) };
+  return Object.fromEntries(filterKeys(mode).map((k) => [k, k in perTab ? perTab[k] : defaults[k]]));
 }
 
 
@@ -288,11 +316,13 @@ function changedFilters(settings, mode) {
   return changedFilterKeys(settings, mode).length;
 }
 
-/** The changed filters by name ("downloadFilter" stands for the threshold and its switch, one filter). */
+/** The changed filters by name ("downloadFilter" stands for the threshold and its switch; an added filter is "extra.<name>"). */
 function changedFilterKeys(settings, mode) {
   const cleared = clearedFilters(settings, mode);
-  const keys = Object.keys(cleared).filter((k) => (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
-  return [...new Set(keys.map((k) => (k === "minDownloads" ? "downloadFilter" : k)))];
+  const own = Object.keys(cleared).filter((k) => k !== "extraFilters"
+    && (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
+  const extras = Object.keys(settings.extraFilters?.[mode] || {}).map((k) => `extra.${k}`);
+  return [...new Set(own.map((k) => (k === "minDownloads" ? "downloadFilter" : k))), ...extras];
 }
 
 /** What the Filters head says on hover: each changed filter as it is now, and what ✕ does. */
@@ -309,7 +339,16 @@ function filterSummary(settings, mode) {
     trackedStatus: () => t("filter.tipStatus"),
     downloadFilter: () => (opts.filterDownloads ? `${t("filter.downloads")} ${formatCount(settings.minDownloads)}` : t("filter.tipDownloadsOff")),
   };
-  return [t("filter.tipChanged"), ...keys.map((k) => `• ${line[k]()}`), t("filter.tipClear")].join("\n");
+  const extra = (k) => `${t(`filter.x.${k}`)} ${extraValueText(k, opts.extras[k])}`.trim();
+  return [t("filter.tipChanged"), ...keys.map((k) => `• ${k.startsWith("extra.") ? extra(k.slice(6)) : line[k]()}`), t("filter.tipClear")].join("\n");
+}
+
+/** An added filter's value as the chip shows it: "30 days", "1,000", the author typed; nothing for an on/off one. */
+function extraValueText(key, value) {
+  const filter = EXTRA_FILTERS[key];
+  if (filter.kind === "toggle") return "";
+  if (filter.kind === "text") return String(value);
+  return filter.unit === "days" ? t("filter.days", { n: value }) : formatCount(value);
 }
 
 /** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */
@@ -340,7 +379,8 @@ function discover(state, opts, now) {
   const since = now - opts.days * DAY_MS;
   const query = compileQuery(opts.query);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
-  const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p);
+  const extras = Object.entries(opts.extras || {}).filter(([k]) => EXTRA_FILTERS[k]);
+  const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p) && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now));
   const base = (p) => shown(p) && !excluded.has(p.id) && !isSnoozed(p, snoozed);
   const fresh = (p) => base(p) && !notes.has(p.id);
   const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog, releases, notes, state.growth);

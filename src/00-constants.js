@@ -168,6 +168,7 @@ function defaultSettings() {
     home: homeDefaults(),
     minDownloads: 100,
     downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
+    extraFilters: {},     // tab → {filter: value} added with + Filter (EXTRA_FILTERS)
     trackedGroup: "",     // Tracked tab: "" = all, a group name, or UNGROUPED
     trackedSections: true,
     trackedStatus: "",
