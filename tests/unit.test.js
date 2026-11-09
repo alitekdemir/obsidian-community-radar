@@ -42,9 +42,12 @@ const tests = {
       firstSeen: { young: ago(20), busy: 0, calm: 0, hatched: 0, expired: 0 },
     };
     const ids = (o) => core.discover(state, { mode: "updated", days: 14, dormantDays: 60, newDays: 30, hideBusy: true, minDownloads: 0, query: "", sort: "name", ...o }, NOW).map((p) => p.id);
-    assert.deepEqual(ids({}), ["calm"]);                          // young is 20 days old, busy shipped 26 times
+    assert.deepEqual(ids({}), ["calm"]);                          // young is 20 days old, busy updated 25 times
     assert.deepEqual(ids({ newDays: 10, hideBusy: false }), ["busy", "calm", "young"]);
-    assert.equal(core.releasesWithin(state.releases, P("busy"), NOW, 180), 26);
+    assert.equal(core.updateWaves(state.releases.busy, ago(180), NOW), 25);   // 26 releases, the last two the same day
+    // 21 hotfixes in two sittings are two updates, not a busy plugin
+    const sittings = [...Array.from({ length: 11 }, (_, i) => ago(120) + i * 6 * 3600e3), ...Array.from({ length: 10 }, (_, i) => ago(10) + i * 6 * 3600e3)];
+    assert.equal(core.updateWaves(sittings, ago(180), NOW), 2);
     assert.deepEqual(ids({ mode: "awakened" }), ["hatched"]);     // 88-day pause, released 50 days ago; expired: 70-day pause, 80 days ago
   },
 
@@ -265,14 +268,18 @@ const tests = {
     const now = 3000 * D;
     const rhythm = (dates) => { const c = core.releaseCadence(dates, now); return c && `${core.cadenceLabel(c)} | ${core.cadenceSub(c)}`; };
     const monthly = Array.from({ length: 12 }, (_, i) => now - i * 30 * D).reverse();
-    assert.equal(rhythm([0, ...monthly, now - 30 * D + D]), "every ~30 days | 13 releases in 12 months", "the next-day patch isn't another update");
+    assert.equal(rhythm([now - 400 * D, ...monthly, now - 30 * D + D]), "every ~30 days | 13 releases in 12 months", "the next-day patch isn't another update");
     // busy early, then a year and four years apart (Hotkeys for templates)
     const early = Array.from({ length: 12 }, (_, i) => i * 5 * D);
     assert.equal(rhythm([...early, now - 5 * Y, now - 4 * D]), "yearly | 1 release in 12 months · previous gap 5 years");
     assert.equal(rhythm(monthly.map((m) => m - 2 * Y)), "none for a year | before: every ~30 days", "went quiet two years ago");
     assert.equal(rhythm([now - 90 * D, now - 60 * D, now - 30 * D]), "every ~45 days | 3 releases in 90 days", "young: its own span");
     assert.equal(rhythm([now - 500 * D, now - 300 * D, now - 100 * D]), "every 6 months | 2 releases in 12 months");
-    assert.equal(rhythm([0, D]), null);
+    assert.equal(rhythm([now - 5 * Y]), "none for a year | its only release", "never a dash: one release says so");
+    assert.equal(rhythm([now - 20 * D, now - 19 * D]), "one update | 2 releases in 20 days", "a young plugin's one wave");
+    assert.equal(rhythm([now - 90 * D, now - 70 * D, now - 50 * D, now - 30 * D, now - 10 * D]), "every ~23 days | 5 releases in 90 days", "by days between waves, not their count");
+    assert.equal(rhythm([...early, now - 5 * Y, now - 100 * D, now - 4 * D]), "every 6 months | 2 releases in 12 months · previous gap 4.7 years", "a second wave keeps the long pause");
+    assert.equal(core.releaseCadence([], now), null);
     core.setLanguage("tr");   // the other tests read Turkish
   },
 

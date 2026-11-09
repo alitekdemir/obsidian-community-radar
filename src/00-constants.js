@@ -33,8 +33,9 @@ const DAY_MS = 24 * HOUR_MS;
 const RELEASES_CAP = 50;           // release dates kept per plugin
 const NEW_BADGE_DAYS = 14;         // a plugin counts as new this many days after it was listed (setting: newDays)
 const INCUBATION_CAP = 360;        // a plugin out of incubation stays on that tab for its incubation, at most this long
-const BUSY_DAYS = 180;             // "many releases": counted over this window…
-const BUSY_LIMIT = 20;             // …more than this many hides it from Updated (setting: hideBusy)
+const WAVE_DAYS = 3;               // a release within 3 days of its wave's first one is a patch of it, not another update
+const BUSY_DAYS = 180;             // "busy": update waves counted over this window…
+const BUSY_LIMIT = 12;             // …more than this (about every two weeks) hides it from Updated (setting: hideBusy)
 const PARALLEL = 4;                // snapshots downloaded at once
 const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
 const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sync is due (no network)

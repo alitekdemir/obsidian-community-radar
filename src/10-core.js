@@ -131,12 +131,52 @@ function dormantDays(releases, plugin) {
   return earlier.length ? Math.floor((plugin.updated - Math.max(...earlier)) / DAY_MS) : null;
 }
 
+/** Update waves in (start, end]: a release within WAVE_DAYS of its wave's first one is a patch of it, not another update. */
+function updateWaves(dates, start, end) {
+  let waves = 0;
+  let wave = -Infinity;
+  for (const m of dates) if (m > start && m <= end && m - wave > WAVE_DAYS * DAY_MS) { waves++; wave = m; }
+  return waves;
+}
+
+const YEAR_DAYS = 365;
+
 /**
- * Releases seen in the last `days` days.
- * shortcut: older snapshots are weekly, so several releases in one week count as one; the server's metrics (0.9.1) fix it.
+ * How often a plugin updates lately: its update waves in the year up to `end` (or since its first release, when that's
+ * later: a young plugin, or a busy one whose 50 kept releases span less). When the window starts at a release, its
+ * wave is the starting point, not an update: n waves after it are n gaps. With no wave in a full year, `before` is
+ * the rhythm up to the latest release. Null with no releases known.
  */
-function releasesWithin(releases, plugin, now, days) {
-  return (releases[plugin.id] || []).filter((m) => m > now - days * DAY_MS).length;
+function releaseCadence(releases, end) {
+  if (!releases?.length) return null;
+  const startMs = Math.max(end - YEAR_DAYS * DAY_MS, releases[0]);
+  const fromRelease = startMs === releases[0];
+  const waves = updateWaves(releases, fromRelease ? startMs - 1 : startMs, end) - (fromRelease ? 1 : 0);
+  const span = (end - startMs) / DAY_MS;
+  const young = span < YEAR_DAYS - 1;
+  const i = releases.findIndex((m) => m > startMs);
+  return {
+    waves, span, young, total: releases.length, releases: releases.filter((m) => m >= startMs && m <= end).length,
+    days: waves ? span / waves : null,
+    prevGap: i > 0 ? (releases[i] - releases[i - 1]) / DAY_MS : null,   // the pause before this window's first release
+    before: waves || young || releases.length < 2 ? null : releaseCadence(releases, releases.at(-1)),
+  };
+}
+
+/** The rhythm in words, by the days between waves: ~N days up to 45, ~N months up to 135, every 6 months up to 240, then yearly. */
+function cadenceLabel(c) {
+  if (!c.waves) return c.young ? t("details.single") : t("details.noneYear");
+  if (c.days <= 45) return t("details.every", { n: Math.max(1, Math.round(c.days)) });
+  if (c.days <= 135) return t("details.everyMonths", { n: Math.round(c.days / 30.44) });
+  return c.days <= 240 ? t("details.halfYearly") : t("details.yearly");
+}
+
+/** The facts under it: the releases it counts and a year-plus pause before them, or the rhythm before it went quiet. */
+function cadenceSub(c) {
+  if (c.before) return t("details.cadenceBefore", { rhythm: cadenceLabel(c.before) });
+  if (!c.waves && !c.young) return t("details.singleSub");   // quiet for a year, and only ever one release
+  const count = c.young ? t("details.cadenceSpan", { n: c.releases, days: Math.round(c.span) }) : t("details.cadenceSub", { n: c.releases });
+  return c.prevGap >= YEAR_DAYS ? `${count} · ${t("details.prevGap", { n: decimal(c.prevGap / YEAR_DAYS) })}` : count;
 }
 
 /** Listed within the last `days` days? Plugins without published stats count as new too. */
@@ -278,7 +318,7 @@ function discover(state, opts, now) {
       return sorted(catalog.filter((p) => fresh(p) && isNewPlugin(firstSeen, p, now, opts.days)));
     case "updated":   // new plugins have their own tab; "busy" ones would crowd out the rest
       return sorted(catalog.filter((p) => fresh(p) && p.updated >= since && !isNewPlugin(firstSeen, p, now, opts.newDays ?? NEW_BADGE_DAYS)
-        && !(opts.hideBusy && releasesWithin(releases, p, now, BUSY_DAYS) > BUSY_LIMIT)));
+        && !(opts.hideBusy && updateWaves(releases[p.id] || [], now - BUSY_DAYS * DAY_MS, now) > BUSY_LIMIT)));
     case "awakened":   // out of incubation (a pause ≥ dormantDays); stays as long as the pause was, up to INCUBATION_CAP
       return sorted(catalog.filter((p) => {
         const gap = dormantDays(releases, p) ?? -1;

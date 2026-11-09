@@ -10,7 +10,7 @@ Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını
 |---|---|
 | **Tümü** | Bütün topluluk eklentileri |
 | **✨ Yeni** | Son *N* günde listeye girenler. Bir eklenti listeye girdikten sonra 30 gün yeni sayılır (*Ayarlar → Yeni sayılma süresi*). |
-| **Güncellenen** | Son *N* günde sürüm çıkaranlar, yeniler hariç. *Çok sık sürüm çıkaranları gizle* (varsayılan açık) 6 ayda 20'den fazla sürüm çıkaranları göstermez; diğerleri de görünsün diye. |
+| **Güncellenen** | Son *N* günde sürüm çıkaranlar, yeniler hariç. *Çok sık sürüm çıkaranları gizle* (varsayılan açık) son 6 ayda 2 haftada birden sık güncellenenleri göstermez (3 gün içindeki yamalar tek güncelleme sayılır); diğerleri de görünsün diye. |
 | **Kuluçka** | **Uzun bir aradan sonra yeniden sürüm çıkaranlar** (en az 60 günlük kuluçka; hazır değerler 30–360). Her biri kuluçkası kadar burada kalır (en çok 360 gün); 88 gün sessiz kalan bir eklenti 50 gün sonra hâlâ buradadır, her gün sürüm çıkaranların altında kaybolmaz. |
 | **Takip** | Takip ettiğiniz eklentiler; her grup için ayrı bölümde (iki gruptaki eklenti ikisinde de görünür); Tümü, Yeni sürüm çıkanlar, Favoriler, Grupsuz ve gruplarınız tek Grup menüsünde |
 | **Öneriler** | Kurulu olan ama henüz favori yapmadığınız eklentiler |
