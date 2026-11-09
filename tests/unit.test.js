@@ -267,18 +267,25 @@ const tests = {
     const Y = 365 * D;
     const now = 3000 * D;
     const rhythm = (dates) => { const c = core.releaseCadence(dates, now); return c && `${core.cadenceLabel(c)} | ${core.cadenceSub(c)}`; };
+    const historyNote = (dates) => core.cadenceNote(core.releaseCadence(dates, now), dates.at(-1), now);
     const monthly = Array.from({ length: 12 }, (_, i) => now - i * 30 * D).reverse();
     assert.equal(rhythm([now - 400 * D, ...monthly, now - 30 * D + D]), "every ~30 days | 13 releases in 12 months", "the next-day patch isn't another update");
     // busy early, then a year and four years apart (Hotkeys for templates)
     const early = Array.from({ length: 12 }, (_, i) => i * 5 * D);
-    assert.equal(rhythm([...early, now - 5 * Y, now - 4 * D]), "yearly | 1 release in 12 months · previous gap 5 years");
+    assert.equal(rhythm([...early, now - 5 * Y, now - 4 * D]), "yearly | 1 release in 12 months", "the tile keeps one short fact");
+    assert.equal(historyNote([...early, now - 5 * Y, now - 4 * D]), "Last 12 months: 1 update, 1 release · previous gap 5 years", "the long pause goes under the history");
     assert.equal(rhythm(monthly.map((m) => m - 2 * Y)), "none for a year | before: every ~30 days", "went quiet two years ago");
     assert.equal(rhythm([now - 90 * D, now - 60 * D, now - 30 * D]), "every ~45 days | 3 releases in 90 days", "young: its own span");
     assert.equal(rhythm([now - 500 * D, now - 300 * D, now - 100 * D]), "every 6 months | 2 releases in 12 months");
     assert.equal(rhythm([now - 5 * Y]), "none for a year | its only release", "never a dash: one release says so");
     assert.equal(rhythm([now - 20 * D, now - 19 * D]), "one update | 2 releases in 20 days", "a young plugin's one wave");
     assert.equal(rhythm([now - 90 * D, now - 70 * D, now - 50 * D, now - 30 * D, now - 10 * D]), "every ~23 days | 5 releases in 90 days", "by days between waves, not their count");
-    assert.equal(rhythm([...early, now - 5 * Y, now - 100 * D, now - 4 * D]), "every 6 months | 2 releases in 12 months · previous gap 4.7 years", "a second wave keeps the long pause");
+    assert.equal(historyNote([...early, now - 5 * Y, now - 100 * D, now - 4 * D]), "Last 12 months: 2 updates, 2 releases · previous gap 4.7 years", "a second wave keeps the long pause");
+    assert.equal(historyNote(monthly.map((m) => m - 2 * Y)), "No release for 2 years · before: every ~30 days");
+    // the history strip: pauses between waves, the last one open until now
+    const gaps = core.releaseGaps([now - 400 * D, now - 399 * D, now - 10 * D], now);
+    assert.deepEqual(gaps.map((g) => [Math.round(g.days), g.releases, g.open]), [[390, 2, false], [10, 1, true]]);
+    assert.deepEqual([3, 20, 100, 600].map(core.spanLabel), ["3 days", "3 weeks", "3 months", "1.6 years"]);
     assert.equal(core.releaseCadence([], now), null);
     core.setLanguage("tr");   // the other tests read Turkish
   },

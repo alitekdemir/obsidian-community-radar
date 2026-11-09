@@ -198,24 +198,34 @@ class DetailModal extends Modal {
     nav.createSpan({ cls: "pdt-detail-muted", text: t("details.escClose") });
   }
 
-  /** Release dates as dots on a line from the first known one to today. */
+  /**
+   * The release history as a strip of the pauses between update waves, colored by length (under a month, 1–6 months,
+   * 6–12 months, over a year), the last one striped while it lasts. Widths grow with the log of the pause, so a
+   * 4-year silence is wider than a 1-year one without squeezing the busy months into a point.
+   */
   renderHistory(box, dates, now) {
-    const shown = dates.slice(-24);
-    if (!shown.length) {
+    if (!dates.length) {
       box.createEl("p", { cls: "pdt-detail-muted", text: t("details.noHistory") });
       return;
     }
-    const start = shown[0];
-    const span = Math.max(now - start, DAY_MS);
-    const line = box.createDiv({ cls: "pdt-history", attr: { role: "img", "aria-label": t("details.historyLabel", { n: shown.length }) } });
-    for (const date of shown) {
-      const dot = line.createSpan({ cls: "pdt-history-dot" });
-      dot.setCssProps({ "--pdt-at": `${((date - start) / span) * 100}%` });
-      setTooltip(dot, dayString(date));
+    const gaps = releaseGaps(dates, now);
+    const weight = (g) => Math.log1p(g.days) || 0.1;   // an update today still gets a sliver
+    const total = gaps.reduce((sum, g) => sum + weight(g), 0);
+    const strip = box.createDiv({ cls: "pdt-gaps", attr: { role: "img", "aria-label": t("details.historyLabel", { n: dates.length }) } });
+    for (const g of gaps) {
+      const tone = g.days < 30 ? "short" : g.days < 182 ? "mid" : g.days < YEAR_DAYS ? "long" : "gap";
+      const cell = strip.createSpan({ cls: `pdt-gap is-${tone}${g.open ? " is-open" : ""}` });
+      cell.setCssProps({ "--pdt-w": String(weight(g) / total) });
+      if (g.days >= 30 && weight(g) / total >= 0.09) cell.setText(spanLabel(g.days));
+      const span = spanLabel(g.days);
+      const wave = t("details.gapWave", { date: dayString(g.from), n: g.releases });
+      setTooltip(cell, g.open ? `${wave} · ${t("details.gapOpen", { span })}` : `${wave} · ${t("details.gapNext", { span, date: dayString(g.to) })}`, { delay: 100 });
     }
     const ends = box.createDiv({ cls: "pdt-history-ends" });
-    ends.createSpan({ text: dayString(start) });
+    ends.createSpan({ text: dayString(dates[0]) });
     ends.createSpan({ text: t("details.today") });
+    const cadence = releaseCadence(dates, now);
+    if (cadence) box.createDiv({ cls: "pdt-history-note", text: cadenceNote(cadence, dates.at(-1), now) });
   }
 
   /** README / README · <language> tabs; the translation tab is dim until there is one, and translates on request. */

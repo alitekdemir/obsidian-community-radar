@@ -131,12 +131,36 @@ function dormantDays(releases, plugin) {
   return earlier.length ? Math.floor((plugin.updated - Math.max(...earlier)) / DAY_MS) : null;
 }
 
-/** Update waves in (start, end]: a release within WAVE_DAYS of its wave's first one is a patch of it, not another update. */
-function updateWaves(dates, start, end) {
-  let waves = 0;
-  let wave = -Infinity;
-  for (const m of dates) if (m > start && m <= end && m - wave > WAVE_DAYS * DAY_MS) { waves++; wave = m; }
+/** Releases as update waves (arrays of dates): a release within WAVE_DAYS of its wave's first one is a patch of it. */
+function releaseWaves(dates) {
+  const waves = [];
+  for (const m of dates) {
+    if (waves.length && m - waves.at(-1)[0] <= WAVE_DAYS * DAY_MS) waves.at(-1).push(m);
+    else waves.push([m]);
+  }
   return waves;
+}
+
+/** How many update waves started in (start, end]. */
+function updateWaves(dates, start, end) {
+  return releaseWaves(dates).filter(([first]) => first > start && first <= end).length;
+}
+
+/** The pauses between update waves, the last one open until `now`: {from, to, days, releases (in the wave at `from`), open}. */
+function releaseGaps(dates, now) {
+  const waves = releaseWaves(dates);
+  return waves.map((wave, i) => {
+    const to = waves[i + 1]?.[0] ?? now;
+    return { from: wave[0], to, days: Math.max(0, (to - wave[0]) / DAY_MS), releases: wave.length, open: i === waves.length - 1 };
+  });
+}
+
+/** A length of time in the largest unit that fits: 5 days, 3 weeks, 4 months, 1.6 years. */
+function spanLabel(days) {
+  if (days >= YEAR_DAYS) return t("span.years", { n: decimal(days / YEAR_DAYS) });
+  if (days >= 30) return t("span.months", { n: Math.round(days / 30.44) });
+  if (days >= 14) return t("span.weeks", { n: Math.round(days / 7) });
+  return t("span.days", { n: Math.max(1, Math.round(days)) });
 }
 
 const YEAR_DAYS = 365;
@@ -171,11 +195,21 @@ function cadenceLabel(c) {
   return c.days <= 240 ? t("details.halfYearly") : t("details.yearly");
 }
 
-/** The facts under it: the releases it counts and a year-plus pause before them, or the rhythm before it went quiet. */
+/** The one fact under it (short, it fits the tile): the releases it counts, or the rhythm before it went quiet. */
 function cadenceSub(c) {
   if (c.before) return t("details.cadenceBefore", { rhythm: cadenceLabel(c.before) });
   if (!c.waves && !c.young) return t("details.singleSub");   // quiet for a year, and only ever one release
-  const count = c.young ? t("details.cadenceSpan", { n: c.releases, days: Math.round(c.span) }) : t("details.cadenceSub", { n: c.releases });
+  return c.young ? t("details.cadenceSpan", { n: c.releases, days: Math.round(c.span) }) : t("details.cadenceSub", { n: c.releases });
+}
+
+/** The sentence under the release history: updates and releases counted, the year-plus pause before them, or how long it's been quiet. */
+function cadenceNote(c, last, now) {
+  if (!c.waves) {
+    const quiet = t("details.noteQuiet", { span: spanLabel((now - last) / DAY_MS) });
+    if (c.young) return t("details.noteOneWave", { n: c.releases });
+    return `${quiet} · ${c.before ? t("details.cadenceBefore", { rhythm: cadenceLabel(c.before) }) : t("details.singleSub")}`;
+  }
+  const count = `${t(c.young ? "details.noteSpan" : "details.noteYear", { n: c.waves, days: Math.round(c.span) })}, ${t("details.historyLabel", { n: c.releases })}`;
   return c.prevGap >= YEAR_DAYS ? `${count} · ${t("details.prevGap", { n: decimal(c.prevGap / YEAR_DAYS) })}` : count;
 }
 
