@@ -342,7 +342,7 @@ class DiscoveryView extends ItemView {
     const found = seed ? this.plugin.similarTo(seed) : [];
     const opts = modeOptions(this.settings, "all");
     const min = opts.filterDownloads ? opts.minDownloads : 0;
-    const query = compileQuery(searched ? this.similar.query : "");
+    const query = compileQuery(searched ? this.similar.query : "", this.plugin.state(), Date.now());
     const matching = found.map((x) => x.p).filter((p) => (p.downloads ?? 0) >= min && query.test(p));
     const { key, dir } = this.settings.similarSort;
     const { catalog, releases, notes, growth } = this.plugin.state();
@@ -403,7 +403,7 @@ class DiscoveryView extends ItemView {
     const ctx = this.home.context(Date.now());
     const widget = homeWidget(this.settings.home, id);
     if (!widget) return [];
-    const q = compileQuery(query);
+    const q = compileQuery(query, ctx.state, ctx.now);
     const rows = widget.rows(ctx, params).filter((p) => (!onlyNew || freshIds.has(p.id)) && q.test(p));
     const s = ctx.state;
     return sort ? sortRows(rows, sort.key, sort.dir, s.catalog, s.releases, s.notes, s.growth) : rows;
@@ -510,7 +510,11 @@ class DiscoveryView extends ItemView {
         this.refresh();
       });
     } else {
-      this.refs.search = this.renderSearch(bar, this.settings.query, t("search.placeholder"), async (value) => {
+      this.refs.search = this.renderSearch(bar, this.queryDraft ?? this.settings.query, t("search.placeholder"), async (value) => {
+        // an invalid query isn't applied (like Jira): the list keeps the last valid one, the box keeps what you typed
+        this.queryDraft = compileQuery(value).error ? value : null;
+        this.renderStatus(this.refs.status);
+        if (this.queryDraft != null) return;
         this.settings.query = value;
         this.visible = PAGE_SIZE;
         this.clearSelection();   // another search, another list
@@ -728,11 +732,16 @@ class DiscoveryView extends ItemView {
     const input = search.createEl("input", { type: "search", placeholder, value });
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
+    const mode = search.createSpan({ cls: "pdt-query-mode", text: t("search.advanced") });
+    setTooltip(mode, t("search.advancedTip"));
     const mark = () => {
-      const { regex, error } = compileQuery(input.value);
+      const { regex, error, advanced } = compileQuery(input.value);
       search.toggleClass("is-regex", regex && !error);
+      search.toggleClass("is-advanced", Boolean(advanced));
       search.toggleClass("is-invalid", Boolean(error));
+      setTooltip(input, error || "");
     };
+    if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData());
     mark();
     let timer;
     input.oninput = () => {
@@ -741,6 +750,16 @@ class DiscoveryView extends ItemView {
       timer = setTimeout(() => onChange(input.value), 250);
     };
     return input;
+  }
+
+  /** What the query suggestions offer as values: your groups (with counts), statuses, and the catalog's authors. */
+  queryData() {
+    if (!this.authors || this.authors.at !== this.plugin.catalog?.fetchedAt) {
+      const byAuthor = new Map();
+      for (const p of this.plugin.catalog?.plugins || []) if (p.author) byAuthor.set(p.author, (byAuthor.get(p.author) || 0) + (p.downloads || 0));
+      this.authors = { at: this.plugin.catalog?.fetchedAt, list: [...byAuthor].sort((a, b) => b[1] - a[1]).map(([name]) => name) };
+    }
+    return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.authors.list };
   }
 
   /** The Similar filter as one chip: ‹ back (when there is a step), ≈ Similar: name (opens its details), ✕. */
@@ -805,7 +824,7 @@ class DiscoveryView extends ItemView {
       if (this.plugin.busy) text.createDiv({ cls: "pdt-progress", text: this.plugin.progress || t("status.syncing") });
       else if (delta) text.createDiv({ cls: "pdt-delta", text: t("status.delta", { added: formatCount(delta.added), updated: formatCount(delta.updated) }) });
     }
-    const query = this.similar ? "" : this.settings.query.trim();   // the Similar filter has its own search
+    const query = this.similar ? "" : (this.queryDraft ?? this.settings.query).trim();   // the Similar filter has its own search
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
       const { error } = compileQuery(query);
       const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });

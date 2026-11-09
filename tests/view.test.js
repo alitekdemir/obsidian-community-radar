@@ -300,6 +300,21 @@ const tests = {
     head().onclick();
     assert.ok(!$(el, ".pdt-filter-panel"));
 
+    // the query language: an invalid query isn't applied (the list keeps the last valid one); a valid one is
+    const box = () => $(el, ".pdt-search input");
+    const typeQuery = async (text) => { box().value = text; box().oninput(); await tick(300); };
+    await typeQuery("downloads > 1k order by name desc");
+    assert.equal(settings.query, "downloads > 1k order by name desc");
+    assert.deepEqual(names(), ["Homepage", "Dataview"], "filtered and sorted by the query");
+    assert.ok($(el, ".pdt-search").classList.contains("is-advanced"));
+    await typeQuery("downloads > lots");
+    assert.equal(settings.query, "downloads > 1k order by name desc", "not applied");
+    assert.equal(box().value, "downloads > lots", "the box keeps what you typed");
+    assert.ok($(el, ".pdt-query.is-invalid"), "the status line says why");
+    assert.deepEqual(names(), ["Homepage", "Dataview"]);
+    await typeQuery("");
+    assert.equal(settings.query, "");
+
     await view.update("mode", "updated");
     head().onclick();   // the days live in the panel
     const savedDays = settings.days;

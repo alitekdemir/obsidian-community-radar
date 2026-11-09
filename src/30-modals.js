@@ -180,6 +180,41 @@ class ColumnsModal extends Modal {
   }
 }
 
+/**
+ * The search box's suggestions for the query language: fields, then the operators that fit the field, then its
+ * values (your groups and statuses, authors), as you type. Obsidian's own suggestion popup.
+ */
+const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.AbstractInputSuggest {
+  constructor(app, input, data) {
+    super(app, input);
+    Object.assign(this, { input, data });
+  }
+
+  getSuggestions() {
+    const caret = this.input.selectionStart ?? this.input.value.length;
+    const { from, items } = querySuggestions(this.input.value, caret, this.data());
+    this.from = from;
+    this.caret = caret;
+    return items;
+  }
+
+  renderSuggestion(item, el) {
+    el.addClass("pdt-qs");
+    el.createSpan({ cls: "pdt-qs-label", text: item.label });
+    if (item.hint) el.createSpan({ cls: "pdt-qs-hint", text: item.hint });
+  }
+
+  selectSuggestion(item) {
+    const value = this.input.value;
+    const insert = item.insert.endsWith("(") ? item.insert : `${item.insert} `;
+    this.input.value = value.slice(0, this.from) + insert + value.slice(this.caret).replace(/^\s+/, "");
+    const caret = this.from + insert.length;
+    this.input.setSelectionRange(caret, caret);
+    this.input.dispatchEvent(new Event("input"));
+    this.input.focus();
+  }
+};
+
 /** A few names for a sentence: "A, B, C +4". */
 function namesLine(plugins, max = 5) {
   const names = plugins.slice(0, max).map((p) => p.name).join(", ");

@@ -133,6 +133,56 @@ const tests = {
     assert.equal(core.groupHue("Task"), core.groupHue("Task"));
   },
 
+  "query language: fields, operators by type, in (…), is empty, AND/OR/NOT, free text, order by, errors with a position"() {
+    const DAY = 86400000;
+    const now = Date.parse("2026-11-09T12:00:00Z");
+    const P = (id, o) => ({ id, name: id, author: "Ali", description: "", downloads: 0, updated: now, ...o });
+    const plugins = [
+      P("cal", { name: "Calendar", author: "Liam", downloads: 2_000_000, updated: now - 3 * DAY, description: "A calendar view" }),
+      P("tasks", { name: "Tasks", author: "İlker Çalışkan", downloads: 600, updated: now - 40 * DAY }),
+      P("old", { name: "Old Thing", author: "abbys", downloads: 50, updated: now - 400 * DAY }),
+    ];
+    const state = {
+      notes: new Map([["cal", { groups: ["Görev", "Takvim"], rating: 4, favorite: true, status: "using" }], ["tasks", { groups: ["Görev"], rating: 0 }]]),
+      installed: new Set(["cal"]), firstSeen: { cal: now - 900 * DAY, tasks: now - 5 * DAY, old: 0 }, releases: {}, growth: { cal: [10, 2000, 0] },
+    };
+    const ids = (q) => { const c = core.compileQuery(q, state, now); if (c.error) throw new Error(c.error); return plugins.filter((p) => c.test(p)).map((p) => p.id); };
+    assert.deepEqual(ids("downloads > 500"), ["cal", "tasks"]);
+    assert.deepEqual(ids("downloads >= 1.5m"), ["cal"]);
+    assert.deepEqual(ids("released < 30d"), ["cal"]);
+    assert.deepEqual(ids("released > 2026-01-01"), ["cal", "tasks"], "a date compares moments");
+    assert.deepEqual(ids('group in ("Görev", Takvim)'), ["cal", "tasks"]);
+    assert.deepEqual(ids("group not in (takvim)"), ["tasks", "old"]);
+    assert.deepEqual(ids("group = görev AND NOT installed"), ["tasks"]);
+    assert.deepEqual(ids("group is empty"), ["old"]);
+    assert.deepEqual(ids("rating >= 4 OR author ~ abb"), ["cal", "old"]);
+    assert.deepEqual(ids('author in ("ilker çalışkan", abbys)'), ["tasks", "old"], "Turkish İ folds");
+    assert.deepEqual(ids("tracked = true calendar"), ["cal"], "words that aren't a clause search the text");
+    assert.deepEqual(ids("downloads > 0 AND tracked"), ["cal", "tasks"], "a yes/no field alone, once the query is advanced");
+    assert.deepEqual(ids("(group = takvim OR downloads < 100) favorite = false"), ["old"]);
+    assert.deepEqual(ids("name ~ /^t/"), ["tasks"]);
+    assert.deepEqual(ids("gain30 > 1k"), ["cal"]);
+    assert.deepEqual(ids("new = true"), ["tasks"]);
+    assert.deepEqual(core.compileQuery("downloads > 0 order by released asc", state, now).order, { key: "updated", dir: "asc" });
+    // errors: not applied (everything passes), with where and why
+    const bad = core.compileQuery("author ~ brenan rating = on", state, now);
+    assert.ok(bad.error && bad.at === 25 && bad.test(plugins[0]));
+    assert.ok(core.compileQuery("group > 3", state, now).error, "a list has no >");
+    assert.ok(core.compileQuery("favorite = maybe", state, now).error);
+    assert.ok(core.compileQuery('group in ("a", b', state, now).error);
+    assert.equal(core.isAdvancedQuery("task, project"), false, "plain search stays plain");
+    // suggestions: fields, then the type's operators, then the field's values
+    const data = { groups: [{ name: "Görev", count: 2 }, { name: "Not alma", count: 9 }], statuses: [{ key: "using", label: "Using" }], authors: ["Liam", "abbys"] };
+    const sug = (text) => core.querySuggestions(text, text.length, data).items.map((x) => x.insert);
+    assert.ok(sug("dow").includes("downloads"));
+    assert.deepEqual(sug("group "), ["=", "!=", "in (", "not in (", "is empty"]);
+    assert.ok(!sug("favorite ").includes(">"), "no number operators for a yes/no field");
+    assert.deepEqual(sug("group in ("), ["Görev", '"Not alma"']);
+    assert.deepEqual(sug('group in ("Görev", N'), ['"Not alma"']);
+    assert.deepEqual(sug("author = a"), ["abbys"]);
+    assert.ok(sug("downloads > 5 ").includes("AND"));
+  },
+
   "compileQuery: comma terms, /regex/ (case-insensitive, in order), invalid regex never blanks the list"() {
     const p = { id: "project-tasks", name: "Project Tasks", author: "Ali", description: "Plan a project, then track each task." };
     const q = (text) => core.compileQuery(text);

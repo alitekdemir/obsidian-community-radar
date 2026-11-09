@@ -231,7 +231,15 @@ function isChanged(plugin, note) {
  * must appear. An invalid regex matches everything and reports `error`, so the list never goes blank.
  * @returns {{test: (plugin) => boolean, regex: boolean, error: string}}
  */
-function compileQuery(query) {
+function compileQuery(query, state = null, now = Date.now()) {
+  if (isAdvancedQuery(String(query || ""))) {   // the query language (16-query.js)
+    try {
+      const q = parseQuery(String(query).trim());
+      return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, advanced: true, regex: false, error: "" };
+    } catch (error) {
+      return { test: () => true, advanced: true, regex: false, error: error.message, at: error.at ?? 0 };
+    }
+  }
   const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
   const pattern = String(query || "").trim().match(/^\/(.+)\/$/);
   if (pattern) {
@@ -404,13 +412,14 @@ function trackedMatch(note, opts, plugin) {
 function discover(state, opts, now) {
   const { catalog, releases, firstSeen, notes, excluded, dismissed, installed, snoozed } = state;
   const since = now - opts.days * DAY_MS;
-  const query = compileQuery(opts.query);
+  const query = compileQuery(opts.query, state, now);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
   const extras = Object.entries(opts.extras || {}).filter(([k]) => EXTRA_FILTERS[k]);
   const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p) && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now));
   const base = (p) => shown(p) && !excluded.has(p.id) && !isSnoozed(p, snoozed);
   const fresh = (p) => base(p) && !notes.has(p.id);
-  const sorted = (rows) => sortRows(rows, opts.sort, opts.sortDir, catalog, releases, notes, state.growth);
+  const { key: sortKey, dir: sortDir } = query.order || { key: opts.sort, dir: opts.sortDir };   // `order by` wins over the tab's sort
+  const sorted = (rows) => sortRows(rows, sortKey, sortDir, catalog, releases, notes, state.growth);
 
   switch (opts.mode) {
     case "all":   // browsing: tracked plugins stay visible (with their note badge), excluded ones don't

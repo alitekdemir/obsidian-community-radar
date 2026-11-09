@@ -1,9 +1,10 @@
 # Changelog
 
-## 0.9.4
+## 0.10.0
 
 ### New
 
+- **Query language** in the search box (like Jira's JQL, English field names): `downloads > 500 released < 30d group in ("Tasks", Calendar) NOT installed calendar order by gain30 desc`. A space is AND; AND, OR, NOT and ( ) work too; words that aren't a clause search the text. Fields by type — numbers and days (downloads, gain7, gain30, released, age, gap, rating: `= != > >= < <=`, `is empty`), text (name, description, author, id: `=`, `~` contains, `!~`, `/regex/`, `in (…)`), lists (group, status: `=`, `!=`, `in`, `not in`, `is empty`), yes/no (favorite, installed, tracked, new). Values: 10k, 1.5m, 30d, 2w, 6m, 1y, 2026-01-01; quotes for spaces. Suggestions as you type: fields, then only the operators that fit, then the field's values (your groups and statuses, authors). An invalid query isn't applied — the list keeps the last valid one and the status line says where and why. Saved views keep the query, `order by` included. Plain search (commas, /regex/) works as before.
 - **Translation instructions** in settings (AI translation): the instructions sent for descriptions and for READMEs can be changed; `{language}` becomes the target language, ↺ goes back to the default. The reply format is added after them, so a changed prompt can't break the answer.
 
 ### Changed
