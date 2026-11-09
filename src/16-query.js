@@ -55,10 +55,11 @@ function tokenize(query) {
   while (re.lastIndex < query.length && (match = re.exec(query))) {
     const [all, quoted, regex, op, word] = match;
     const at = match.index + all.length - (quoted || regex || op || word || "").length;
-    if (quoted != null) tokens.push({ kind: "value", text: quoted.slice(1, quoted.length > 1 && quoted.endsWith('"') ? -1 : undefined).replace(/\\"/g, '"'), at, quoted: true });
-    else if (regex) tokens.push({ kind: "regex", text: regex, at });
-    else if (op) tokens.push({ kind: op === "(" || op === ")" || op === "," ? op : "op", text: op, at });
-    else if (word) tokens.push({ kind: "word", text: word, at });
+    const end = re.lastIndex;
+    if (quoted != null) tokens.push({ kind: "value", text: quoted.slice(1, quoted.length > 1 && quoted.endsWith('"') ? -1 : undefined).replace(/\\"/g, '"'), at, end, quoted: true });
+    else if (regex) tokens.push({ kind: "regex", text: regex, at, end });
+    else if (op) tokens.push({ kind: op === "(" || op === ")" || op === "," ? op : "op", text: op, at, end });
+    else if (word) tokens.push({ kind: "word", text: word, at, end });
     if (!all) break;
   }
   return tokens;
@@ -84,17 +85,27 @@ class QueryError extends Error {
 }
 
 /**
- * Parses an advanced query into {test(state, p, now), order, clauses}. Throws a QueryError with the position of
- * what it couldn't read.
+ * Parses an advanced query into {test(state, p, now), order, clauses, free, spans}. `spans` are what the box paints:
+ * {from, to, kind: clause|neg|order}. Throws a QueryError with the position of what it couldn't read, plus the
+ * spans so far and the broken part (from, to).
  */
 function parseQuery(query) {
   const tokens = tokenize(query);
   let i = 0;
   let clauses = 0;
+  let current = null;   // where the clause being read starts
+  const free = [];
+  const spans = [];
   const peek = () => tokens[i];
   const word = (w) => peek()?.kind === "word" && fold(peek().text) === w;
   const take = () => tokens[i++];
-  const fail = (key, vars = {}, at = peek()?.at ?? query.length) => { throw new QueryError(key, vars, at); };
+  const end = () => tokens[i - 1]?.end ?? 0;
+  const fail = (key, vars = {}, at = peek()?.at ?? query.length) => {
+    const error = new QueryError(key, vars, at);
+    const to = tokens.find((tok) => tok.at >= at)?.end ?? query.length;
+    Object.assign(error, { spans, from: Math.min(current ?? at, at), to: Math.max(to, at) });
+    throw error;
+  };
 
   const valueOf = (field, token) => {
     if (!token || (token.kind !== "word" && token.kind !== "value" && token.kind !== "regex")) fail("value", { field });
@@ -178,10 +189,15 @@ function parseQuery(query) {
     if (token.kind === "word" && QUERY_FIELDS[fold(token.text)] && (tokens[i + 1]?.kind === "op" || ["in", "is", "not"].includes(fold(tokens[i + 1]?.text))
       || QUERY_FIELDS[fold(token.text)].type === "bool")) {
       take();
-      return clause(fold(token.text), token.at);
+      current = token.at;
+      const test = clause(fold(token.text), token.at);
+      spans.push({ from: token.at, to: end(), kind: "clause" });
+      current = null;
+      return test;
     }
     if (token.kind === "word" || token.kind === "value" || token.kind === "regex") {   // free text
       take();
+      free.push(token.text);
       const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
       if (token.kind === "regex") {
         const [, body] = token.text.match(/^\/(.+)\/[a-z]*$/);
@@ -194,7 +210,13 @@ function parseQuery(query) {
     }
     return fail("unexpected", { text: token.text }, token.at);
   };
-  const not = () => (word("not") ? (take(), ((inner) => (s, p, now) => !inner(s, p, now))(not())) : primary());
+  const not = () => {
+    if (!word("not")) return primary();
+    const from = take().at;
+    const inner = not();
+    spans.push({ from, to: end(), kind: "neg" });
+    return (s, p, now) => !inner(s, p, now);
+  };
   const and = () => {
     let left = not();
     while (peek() && peek().kind !== ")" && !word("or") && !word("order")) {
@@ -219,7 +241,7 @@ function parseQuery(query) {
   const test = peek() && !word("order") ? or() : () => true;
   let order = null;
   if (word("order")) {
-    take();
+    current = take().at;
     if (!word("by")) fail("orderBy");
     take();
     const name = fold(peek()?.text);
@@ -228,13 +250,16 @@ function parseQuery(query) {
     take();
     const dir = word("asc") || word("desc") ? fold(take().text) : NATURAL_DIR[field.sort] || "desc";
     order = { key: field.sort, dir };
+    spans.push({ from: current, to: end(), kind: "order" });
+    current = null;
   }
   if (peek()) fail("unexpected", { text: peek().text });
-  return { test, order, clauses };
+  return { test, order, clauses, free, spans };
 }
 
 /** Suggestions where the caret is: fields, then the operators of that field's type, then its values, then AND / OR. */
 function querySuggestions(text, caret, data) {
+  if (/^[^\s(),=!~<>]/.test(text.slice(caret))) return { from: caret, items: [] };   // inside a word: nothing to offer
   const before = text.slice(0, caret);
   const tokens = tokenize(before);
   const typing = /[^\s(),=!~<>]$/.test(before) && tokens.length && ["word", "value"].includes(tokens.at(-1).kind) ? tokens.pop() : null;
@@ -243,7 +268,10 @@ function querySuggestions(text, caret, data) {
   const prev = tokens.at(-1);
   const before2 = tokens.at(-2);
   const isField = (tok) => tok?.kind === "word" && QUERY_FIELDS[fold(tok.text)];
-  const pick = (items) => items.filter((x) => fold(x.label).startsWith(partial) || (partial.length > 1 && fold(x.label).includes(partial))).slice(0, 30);
+  const pick = (items) => {
+    const hits = items.filter((x) => fold(x.label).startsWith(partial) || (partial.length > 1 && fold(x.label).includes(partial)));
+    return hits.some((x) => fold(x.insert) === partial || fold(x.label) === partial) ? [] : hits.slice(0, 30);   // typed in full: done
+  };
   const quote = (v) => (/^[\p{L}\p{N}_.-]+$/u.test(v) ? v : `"${v.replace(/"/g, '\\"')}"`);
   const values = (name) => {
     const field = QUERY_FIELDS[name];
@@ -261,10 +289,11 @@ function querySuggestions(text, caret, data) {
   const lastOpen = open.at(-1);
   if (lastOpen?.[0].kind === "(" && fold(tokens[lastOpen[1] - 1]?.text) === "in" && isField(tokens[lastOpen[1] - 2]?.text === "not" ? tokens[lastOpen[1] - 3] : tokens[lastOpen[1] - 2])) {
     const fieldTok = fold(tokens[lastOpen[1] - 2]?.text) === "not" ? tokens[lastOpen[1] - 3] : tokens[lastOpen[1] - 2];
-    return { from, items: pick(values(fold(fieldTok.text))) };
+    const listed = new Set(tokens.slice(lastOpen[1] + 1).filter((tok) => tok.kind === "word" || tok.kind === "value").map((tok) => fold(tok.text)));
+    return { from, items: pick(values(fold(fieldTok.text)).filter((x) => !listed.has(fold(x.label)))) };
   }
   if (prev?.kind === "op" && isField(before2)) return { from, items: pick(values(fold(before2.text))) };
-  if (isField(prev) && !typing) {
+  if (isField(prev) && !typing && QUERY_FIELDS[fold(prev.text)].type !== "bool") {   // a yes/no field stands alone: `NOT installed`
     const type = QUERY_FIELDS[fold(prev.text)].type;
     const ops = QUERY_OPS[type].map((op) => (op === "is" ? "is empty" : op));
     return { from, items: ops.map((op) => ({ label: op, insert: op === "in" || op === "not in" ? `${op} (` : op, hint: t(`query.op.${op.replace(/ /g, "_")}`) })) };

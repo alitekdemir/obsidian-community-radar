@@ -213,7 +213,108 @@
 }
 
 .pdt-search.is-advanced .pdt-query-mode { display: inline-block; }
-.pdt-search.is-advanced input { font-family: var(--font-monospace); font-size: var(--font-ui-small); }
+
+/* the box: a textarea over a painted copy of its text (same font and wrapping), the copy sets the height */
+.pdt-view .pdt-search {
+  height: auto;
+  min-height: 30px;
+  align-items: flex-start;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.pdt-search .pdt-search-icon,
+.pdt-search .pdt-regex,
+.pdt-search .pdt-query-mode {
+  margin-top: 2px;
+}
+
+.pdt-q {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.pdt-q > .pdt-q-paint,
+.pdt-search .pdt-q > textarea.pdt-q-input {
+  grid-area: 1 / 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: var(--font-ui-small);
+  font-weight: normal;
+  font-variant-ligatures: none;
+  line-height: 20px;
+  letter-spacing: normal;
+  tab-size: 4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.pdt-search.is-advanced .pdt-q {
+  font-family: var(--font-monospace);
+}
+
+.pdt-q-paint {
+  color: var(--text-normal);
+  pointer-events: none;
+}
+
+.pdt-search .pdt-q > textarea.pdt-q-input {
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
+  resize: none;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  color: transparent;
+  caret-color: var(--text-normal);
+}
+
+.pdt-q-input::selection {
+  color: transparent;
+  background: var(--text-selection);
+}
+
+.pdt-q-input::placeholder {
+  color: var(--text-faint);
+}
+
+/* chips: a background with no padding, so the text keeps its place under the caret */
+.pdt-q-c {
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background: var(--pdt-accent-bg);
+  box-shadow: 0 0 0 2px var(--pdt-accent-bg);
+  color: var(--text-accent);
+}
+
+.pdt-q-c.is-neg {
+  --pdt-q-bg: color-mix(in srgb, var(--text-error) 15%, transparent);
+  background: var(--pdt-q-bg);
+  box-shadow: 0 0 0 2px var(--pdt-q-bg);
+  color: var(--text-error);
+}
+
+.pdt-q-c.is-order {
+  --pdt-q-bg: color-mix(in srgb, var(--color-purple) 16%, transparent);
+  background: var(--pdt-q-bg);
+  box-shadow: 0 0 0 2px var(--pdt-q-bg);
+  color: var(--color-purple);
+}
+
+.pdt-q-c.is-bad {
+  background: none;
+  box-shadow: none;
+  color: var(--text-error);
+  text-decoration: underline wavy var(--text-error);
+  text-underline-offset: 3px;
+}
 .pdt-qs { display: flex; justify-content: space-between; gap: var(--size-4-3); }
 .pdt-qs-label { font-family: var(--font-monospace); }
 .pdt-qs-hint { color: var(--text-muted); font-size: var(--font-ui-smaller); }
@@ -274,8 +375,7 @@ button.pdt-filter-clear {
   height: 12px;
 }
 
-.pdt-chip input,
-.pdt-search input {
+.pdt-chip input {
   height: auto;
   padding: 0;
   border: 0;
@@ -404,11 +504,6 @@ button.pdt-filter-clear {
 .pdt-search {
   flex: 1 1 14em;
   min-width: 12em;
-}
-
-.pdt-search input {
-  flex: 1;
-  font-weight: normal;
 }
 
 /* Regex: accent border and a .* badge; invalid: red */

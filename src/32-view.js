@@ -725,29 +725,57 @@ class DiscoveryView extends ItemView {
     return button;
   }
 
-  /** The search box (comma terms or /regex/); `onChange` runs 250 ms after typing stops. Returns the input. */
+  /**
+   * The search box (comma terms, /regex/ or the query language). A textarea over a painted copy of its text: the
+   * copy shows each clause as a chip and a broken one underlined, and gives the box its height (long queries wrap,
+   * new lines are kept). `onChange` runs 1 s after typing stops, at once when the box is cleared or on Enter
+   * (Ctrl/Cmd+Enter in a query, where Enter starts a new line). Returns the textarea.
+   */
   renderSearch(bar, value, placeholder, onChange) {
     const search = bar.createDiv({ cls: "pdt-search" });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");
-    const input = search.createEl("input", { type: "search", placeholder, value });
+    const box = search.createDiv({ cls: "pdt-q" });
+    const paint = box.createDiv({ cls: "pdt-q-paint", attr: { "aria-hidden": "true" } });
+    const input = box.createEl("textarea", { cls: "pdt-q-input", attr: { rows: "1", placeholder, spellcheck: "false", autocomplete: "off", autocapitalize: "off" } });
+    input.value = value || "";
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
     const mode = search.createSpan({ cls: "pdt-query-mode", text: t("search.advanced") });
     setTooltip(mode, t("search.advancedTip"));
     const mark = () => {
-      const { regex, error, advanced } = compileQuery(input.value);
+      const text = input.value;
+      const { regex, error, advanced, spans = [] } = compileQuery(text);
       search.toggleClass("is-regex", regex && !error);
       search.toggleClass("is-advanced", Boolean(advanced));
       search.toggleClass("is-invalid", Boolean(error));
       setTooltip(input, error || "");
+      paint.empty();
+      let at = 0;
+      for (const span of [...spans].sort((a, b) => a.from - b.from || b.to - a.to)) {
+        if (span.from < at) continue;   // inside a wider one (a clause under its NOT)
+        paint.append(text.slice(at, span.from));
+        paint.createSpan({ cls: `pdt-q-c is-${span.kind}`, text: text.slice(span.from, span.to) });
+        at = span.to;
+      }
+      paint.append(`${text.slice(at)}\u200b`);   // keeps a trailing new line's height
     };
     if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData());
     mark();
     let timer;
+    const apply = (delay) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => onChange(input.value), delay);
+    };
     input.oninput = () => {
       mark();
-      clearTimeout(timer);
-      timer = setTimeout(() => onChange(input.value), 250);
+      apply(input.value.trim() ? 1000 : 0);
+    };
+    input.onkeydown = (event) => {
+      if (event.key !== "Enter" || event.defaultPrevented || event.isComposing) return;   // a picked suggestion took it
+      if (event.ctrlKey || event.metaKey || !search.hasClass("is-advanced")) {
+        event.preventDefault();
+        apply(0);
+      }
     };
     return input;
   }
@@ -826,13 +854,20 @@ class DiscoveryView extends ItemView {
     }
     const query = this.similar ? "" : (this.queryDraft ?? this.settings.query).trim();   // the Similar filter has its own search
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
-      const { error } = compileQuery(query);
+      const { error, advanced, at, clauses, free = [] } = compileQuery(query);
       const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
-      tag.createSpan({ text: error ? t("search.invalid", { error }) : t("status.query", { q: query }) });
+      // a query isn't repeated: how many clauses, plus the words it searches
+      const words = free.length ? ` + “${free.join(" ")}”` : "";
+      tag.createSpan({ text: advanced
+        ? (error ? t("query.invalid", { error, at: at + 1 }) : `${t("query.clauses", { n: clauses })}${words}`)
+        : (error ? t("search.invalid", { error }) : t("status.query", { q: query })) });
       const clear = tag.createSpan({ cls: "pdt-query-clear", text: t("status.clear"), attr: { role: "button", tabindex: "0" } });
       clear.onclick = async () => {
         this.settings.query = "";
-        if (this.refs.search) this.refs.search.value = "";
+        if (this.refs.search) {
+          this.refs.search.value = "";
+          this.refs.search.oninput();   // repaints the box
+        }
         this.visible = PAGE_SIZE;
         this.refresh();
         await this.plugin.saveData(this.plugin.data);

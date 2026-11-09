@@ -188,9 +188,13 @@ const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.Abs
   constructor(app, input, data) {
     super(app, input);
     Object.assign(this, { input, data });
+    // opens only while typing: on focus or a click the caret isn't where it lands yet; capture runs before the suggest's own listener
+    input.addEventListener("input", () => { this.typed = true; }, true);
+    for (const type of ["focus", "mousedown"]) input.addEventListener(type, () => { this.typed = false; }, true);
   }
 
   getSuggestions() {
+    if (!this.typed) return [];
     const caret = this.input.selectionStart ?? this.input.value.length;
     const { from, items } = querySuggestions(this.input.value, caret, this.data());
     this.from = from;
@@ -207,7 +211,7 @@ const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.Abs
   selectSuggestion(item) {
     const value = this.input.value;
     const insert = item.insert.endsWith("(") ? item.insert : `${item.insert} `;
-    this.input.value = value.slice(0, this.from) + insert + value.slice(this.caret).replace(/^\s+/, "");
+    this.input.value = value.slice(0, this.from) + insert + value.slice(this.caret).replace(/^[ \t]+/, "");
     const caret = this.from + insert.length;
     this.input.setSelectionRange(caret, caret);
     this.input.dispatchEvent(new Event("input"));

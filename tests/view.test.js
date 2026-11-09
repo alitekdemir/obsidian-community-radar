@@ -301,12 +301,14 @@ const tests = {
     assert.ok(!$(el, ".pdt-filter-panel"));
 
     // the query language: an invalid query isn't applied (the list keeps the last valid one); a valid one is
-    const box = () => $(el, ".pdt-search input");
-    const typeQuery = async (text) => { box().value = text; box().oninput(); await tick(300); };
+    const box = () => $(el, ".pdt-search .pdt-q-input");
+    const typeQuery = async (text) => { box().value = text; box().oninput(); await tick(1100); };
     await typeQuery("downloads > 1k order by name desc");
     assert.equal(settings.query, "downloads > 1k order by name desc");
     assert.deepEqual(names(), ["Homepage", "Dataview"], "filtered and sorted by the query");
     assert.ok($(el, ".pdt-search").classList.contains("is-advanced"));
+    assert.equal($(el, ".pdt-q-paint .pdt-q-c.is-clause").textContent, "downloads > 1k", "each clause painted as a chip");
+    assert.ok($(el, ".pdt-query").textContent.startsWith(core.t("query.clauses", { n: 1 })), "the status line counts, doesn't repeat the query");
     await typeQuery("downloads > lots");
     assert.equal(settings.query, "downloads > 1k order by name desc", "not applied");
     assert.equal(box().value, "downloads > lots", "the box keeps what you typed");
@@ -342,7 +344,7 @@ const tests = {
     await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
     const sortedNames = names();
 
-    const search = $(el, ".pdt-search input");
+    const search = $(el, ".pdt-search .pdt-q-input");
     search.value = "/home(/";
     search.oninput();
     assert.ok($(el, ".pdt-search").classList.contains("is-invalid"));
@@ -356,7 +358,7 @@ const tests = {
     settings.query = search.value;
     view.refresh();
     assert.deepEqual(names().sort(), ["Dataview", "Homepage"]);
-    await tick(300);                                                         // let the debounced search settle first
+    await tick(1100);                                                        // let the debounced search settle first
     settings.query = "";
     view.render();
   },
@@ -958,7 +960,7 @@ const tests = {
     await tick(20);
     assert.equal(plugin.notes.index.get(id).rating, 0);
     window.document.body.appendChild(el);
-    $(el, ".pdt-search input").focus();
+    $(el, ".pdt-search .pdt-q-input").focus();
     assert.equal(key("j"), true, "typing in the search box is left alone");
     el.remove();
     settings.keyboard = false;

@@ -181,6 +181,19 @@ const tests = {
     assert.deepEqual(sug('group in ("Görev", N'), ['"Not alma"']);
     assert.deepEqual(sug("author = a"), ["abbys"]);
     assert.ok(sug("downloads > 5 ").includes("AND"));
+    assert.deepEqual(sug("group in (Görev, "), ['"Not alma"'], "a value already listed isn't offered again");
+    assert.deepEqual(sug("author = abbys"), [], "typed in full: the list closes");
+    assert.deepEqual(sug("downloads <= 5100"), [], "a number being typed");
+    assert.ok(sug("NOT installed ").includes("AND") && !sug("NOT installed ").includes("="), "a yes/no field stands alone");
+    const mid = "author in (abbys, x)";
+    assert.deepEqual(core.querySuggestions(mid, mid.indexOf("bys"), data).items, [], "inside a word: nothing");
+
+    // what the box paints: one span per clause (NOT and order by their own), the broken part, free words
+    const spans = (text) => core.compileQuery(text).spans.map((x) => `${x.kind}:${text.slice(x.from, x.to)}`);
+    assert.deepEqual(spans("downloads >= 5k AND\n  NOT installed calendar order by gain30 desc"),
+      ["clause:downloads >= 5k", "clause:installed", "neg:NOT installed", "order:order by gain30 desc"]);
+    assert.deepEqual(core.compileQuery("downloads >= 5k calendar").free, ["calendar"]);
+    assert.deepEqual(spans("author ~ brenan rating = on"), ["clause:author ~ brenan", "bad:rating = on"]);
   },
 
   "compileQuery: comma terms, /regex/ (case-insensitive, in order), invalid regex never blanks the list"() {

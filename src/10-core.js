@@ -234,10 +234,12 @@ function isChanged(plugin, note) {
 function compileQuery(query, state = null, now = Date.now()) {
   if (isAdvancedQuery(String(query || ""))) {   // the query language (16-query.js)
     try {
-      const q = parseQuery(String(query).trim());
-      return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, advanced: true, regex: false, error: "" };
+      const q = parseQuery(String(query));
+      return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, free: q.free, spans: q.spans, advanced: true, regex: false, error: "" };
     } catch (error) {
-      return { test: () => true, advanced: true, regex: false, error: error.message, at: error.at ?? 0 };
+      if (!(error instanceof QueryError)) throw error;
+      const bad = { from: error.from, to: error.to, kind: "bad" };
+      return { test: () => true, advanced: true, regex: false, error: error.message, at: error.at ?? 0, spans: [...(error.spans || []), bad] };
     }
   }
   const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
