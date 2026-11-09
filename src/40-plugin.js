@@ -151,6 +151,7 @@ class PluginRadar extends Plugin {
     command("group-ungrouped", t("cmd.groupUngrouped"), () => this.groupUngrouped());
     command("readme-translate", t("cmd.readmeTranslate"), () => this.translateCurrentReadme());
     command("similar-current", t("cmd.similarCurrent"), () => this.similarOfCurrent());
+    command("recent-actions", t("bulk.recent"), () => new RecentModal(this, async (op) => { await this.undo(op); }).open());
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -649,6 +650,76 @@ class PluginRadar extends Plugin {
   openSettings() {
     this.app.setting?.open?.();
     this.app.setting?.openTabById?.(this.manifest.id);
+  }
+
+  // ── Bulk actions ─────────────────────────────────────────────────────────
+  /**
+   * Runs one action on many plugins and keeps what it changed (each plugin's value before and after) as an
+   * operation in Recent actions, so Undo turns back exactly that. Plugins it wouldn't change aren't recorded.
+   * @param {"favorite"|"rating"|"group"|"reviewed"|"snooze"|"exclude"} kind
+   * @param value  the rating, or the group's name
+   */
+  async bulk(kind, plugins, value = null) {
+    const today = dayString(Date.now());
+    const changes = [];
+    for (const p of plugins) {
+      if (kind === "snooze" || kind === "exclude") {
+        const store = this.data[kind === "snooze" ? "snoozed" : "excluded"];
+        const after = kind === "snooze" ? p.updated || 0 : today;
+        if (store[p.id] === after) continue;
+        changes.push({ id: p.id, before: store[p.id] ?? null, after });
+        store[p.id] = after;
+        continue;
+      }
+      const note = this.notes.index.get(p.id);
+      if (kind === "reviewed" && !note) continue;   // only tracked plugins have a review date
+      const groups = note?.groups || [];
+      if (kind === "group") {
+        if (groups.includes(value)) continue;
+        changes.push({ id: p.id, before: false, after: true, created: !note });
+        await this.track(p, { groups: [...groups, value] });
+        continue;
+      }
+      const after = kind === "favorite" ? true : kind === "reviewed" ? today : value;
+      const before = note?.[kind] ?? null;
+      if (before === after) continue;
+      changes.push({ id: p.id, before, after, created: !note });
+      await this.track(p, { [kind]: after });
+    }
+    if (kind === "exclude") this.similarCache.clear();
+    const op = { at: Date.now(), kind, value, changes };
+    this.data.ops = [op, ...(this.data.ops || [])].slice(0, OPS_CAP);
+    await this.saveData(this.data);
+    this.redraw();
+    return op;
+  }
+
+  /** Turns back what an operation did, only where its value is still there (changed since by hand: skipped). */
+  async undo(op) {
+    let restored = 0;
+    let skipped = 0;
+    for (const c of op.changes) {
+      const p = this.pluginById(c.id);
+      const note = this.notes.index.get(c.id);
+      let still;
+      if (op.kind === "snooze" || op.kind === "exclude") {
+        const store = this.data[op.kind === "snooze" ? "snoozed" : "excluded"];
+        still = store[c.id] === c.after;
+        if (still) { if (c.before == null) delete store[c.id]; else store[c.id] = c.before; }
+      } else if (op.kind === "group") {
+        still = Boolean(p && note?.groups.includes(op.value));
+        if (still) await this.track(p, { groups: note.groups.filter((g) => g !== op.value) });
+      } else {
+        still = Boolean(p && note && note[op.kind] === c.after);
+        if (still) await this.track(p, { [op.kind]: c.before || null });   // nothing before: the field goes
+      }
+      if (still) restored++; else skipped++;
+    }
+    if (op.kind === "exclude") this.similarCache.clear();
+    op.undone = Date.now();
+    await this.saveData(this.data);
+    this.redraw();
+    return { restored, skipped };
   }
 
   async markReviewed(plugins) {

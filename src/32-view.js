@@ -10,7 +10,10 @@ class DiscoveryView extends ItemView {
     this.visible = PAGE_SIZE;
     this.shownTranslations = new Set();
     this.similar = null;          // Similar filter: {steps: [{id, scroll}], before: {mode, scroll, visible, originId, originIndex}, query}
-    this.preset = null;           // a home widget's plugins in the list: {id, params, after, onlyNew, query, freshIds}
+    this.preset = null;           // a home widget's plugins in the list: {id, params, freshIds, onlyNew, query, sort}
+    this.selected = new Set();    // ids picked for a bulk action (a tab, filter or search change clears them)
+    this.lastPicked = null;       // row index of the last pick, for Shift+click ranges
+    this.toast = null;            // the last bulk action's result: {text, op} (op: Undo turns it back)
     this.home = new HomePage(this);
     this.collapsed = new Set();   // Tracked tab sections folded away
     this.refs = {};
@@ -230,9 +233,10 @@ class DiscoveryView extends ItemView {
   get settings() { return this.plugin.data.settings; }
 
   async update(key, value) {
-    if (key === "mode" || key === "section") {   // another tab or section ends grouping mode, Filters, Similar and a widget's list
-      Object.assign(this, { grouping: null, filtersOpen: false, similar: null, preset: null });
+    if (key === "mode" || key === "section") {   // another tab or section ends grouping mode, Filters, Similar, a widget's list and the toast
+      Object.assign(this, { grouping: null, filtersOpen: false, similar: null, preset: null, toast: null });
     }
+    this.selected.clear();   // what you picked was on that list
     if (key === "mode" && value !== "tracked" && !LIST_MODES.includes(value)) this.settings.listMode = value;
     this.settings[key] = value;
     this.visible = PAGE_SIZE;
@@ -259,6 +263,7 @@ class DiscoveryView extends ItemView {
     this.renderFilters(header.createDiv({ cls: "pdt-filters" }));
     this.refs.status = root.createDiv({ cls: "pdt-status" });
     this.refs.list = root.createDiv({ cls: "pdt-list" });
+    this.refs.bulk = root.createDiv({ cls: "pdt-bulk" });
     this.refresh();
   }
 
@@ -275,6 +280,116 @@ class DiscoveryView extends ItemView {
     this.updateFilterHead();
     this.renderStatus(this.refs.status);
     this.renderList(this.refs.list, state, now);
+    this.refs.list.toggleClass("is-selecting", this.selected.size > 0);
+    this.renderBulk();
+  }
+
+  // ─── Bulk actions ─────────────────────────────────────────────────────────
+  /** Can rows be picked here? Not while grouping, nor on the Ignored / Hidden lists (they have Restore). */
+  get selectable() {
+    return !this.grouping && !LIST_MODES.includes(this.settings.mode);
+  }
+
+  /** Picks or drops a row; with Shift, every row between it and the last one picked. */
+  pick(p, on, range = false) {
+    const ids = this.rows.map((r) => r.id);
+    const i = ids.indexOf(p.id);
+    const from = range && this.lastPicked != null ? Math.min(i, this.lastPicked) : i;
+    const to = range && this.lastPicked != null ? Math.max(i, this.lastPicked) : i;
+    for (const id of ids.slice(from, to + 1)) (on ? this.selected.add(id) : this.selected.delete(id));
+    this.lastPicked = i;
+    this.syncSelection();
+  }
+
+  /** Rows and the bar follow the selection without redrawing the list. */
+  syncSelection() {
+    for (const row of this.refs.list?.querySelectorAll(".pdt-row") || []) {
+      const on = this.selected.has(row.dataset.id);
+      row.toggleClass("is-selected", on);
+      const box = row.querySelector(".pdt-select");
+      if (box) box.checked = on;
+    }
+    this.refs.list?.toggleClass("is-selecting", this.selected.size > 0);
+    this.renderBulk();
+  }
+
+  /** The bottom of the list: the last action's result (with Undo), then the bar for what's picked. */
+  renderBulk() {
+    const footer = this.refs.bulk;
+    if (!footer) return;
+    footer.empty();
+    if (this.toast) {
+      const toast = footer.createDiv({ cls: "pdt-toast", attr: { role: "status" } });
+      setIcon(toast.createSpan({ cls: "pdt-toast-icon" }), this.toast.op ? "check" : "rotate-ccw");
+      toast.createSpan({ text: this.toast.text });
+      if (this.toast.op?.changes.length) {
+        toast.createEl("button", { cls: "pdt-toast-undo", text: t("bulk.undo") }).onclick = () => this.undoOp(this.toast.op);
+      }
+      const close = toast.createEl("button", { cls: "pdt-similar-step", attr: { "aria-label": t("bulk.close") } });
+      setIcon(close, "x");
+      close.onclick = () => { this.toast = null; this.renderBulk(); };
+    }
+    if (!this.selected.size || !this.selectable) return;
+    const bar = footer.createDiv({ cls: "pdt-bulk-bar", attr: { role: "toolbar", "aria-label": t("bulk.toolbar") } });
+    bar.createEl("b", { text: t("bulk.selected", { n: this.selected.size }) });
+    const shown = this.rows.slice(0, this.visible).filter((p) => !this.selected.has(p.id));
+    if (shown.length) {
+      bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.selectShown", { n: this.rows.slice(0, this.visible).length }) }).onclick = () => {
+        for (const p of shown) this.selected.add(p.id);
+        this.syncSelection();
+      };
+    }
+    const action = (icon, label, onClick) => {
+      const button = bar.createEl("button", { cls: "pdt-bulk-action" });
+      setIcon(button.createSpan({ cls: "pdt-chip-caret" }), icon);
+      button.createSpan({ text: label });
+      button.onclick = (event) => onClick(event);
+    };
+    action("star", t("bulk.favorite"), () => this.runBulk("favorite"));
+    action("star-half", t("bulk.rate"), (event) => this.bulkMenu(event, [1, 2, 3, 4, 5].map((n) => [n, "★".repeat(n)]), (n) => this.runBulk("rating", n)));
+    action("folder-plus", t("bulk.group"), (event) => this.bulkMenu(event, [...this.plugin.notes.groups().map((g) => [g.name, g.name]), [null, t("bulk.newGroup")]],
+      async (name) => {
+        const group = name ?? await new TextModal(this.app, { title: t("bulk.newGroup"), cta: t("bulk.go.group", { n: this.selected.size }) }).ask();
+        if (group) this.runBulk("group", group);
+      }));
+    if (this.settings.mode === "tracked") action("check-check", t("bulk.reviewed"), () => this.runBulk("reviewed"));
+    action("eye-off", t("bulk.snooze"), () => this.runBulk("snooze"));
+    action("ban", t("bulk.exclude"), () => this.runBulk("exclude"));
+    bar.createDiv({ cls: "pdt-nav-spacer" });
+    bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.clear") }).onclick = () => { this.selected.clear(); this.syncSelection(); };
+  }
+
+  bulkMenu(event, options, onPick) {
+    const menu = new Menu();
+    for (const [value, title] of options) menu.addItem((item) => item.setTitle(title).onClick(() => onPick(value)));
+    menu.showAtMouseEvent(event);
+  }
+
+  /** Asks, runs the action on what's picked, then shows what it did with Undo. */
+  async runBulk(kind, value = null) {
+    const plugins = [...this.selected].map((id) => this.plugin.pluginById(id)).filter(Boolean);
+    const vars = { n: plugins.length, value: kind === "rating" ? "★".repeat(value) : value };
+    const ok = await this.confirm({ title: t(`bulk.ask.${kind}`, vars), plugins, text: t(`bulk.what.${kind}`), cta: t(`bulk.go.${kind}`, vars) });
+    if (!ok) return;
+    this.selected.clear();
+    const op = await this.plugin.bulk(kind, plugins, value);
+    this.toast = { op, text: opLabel(op) };
+    this.refresh();
+  }
+
+  confirm(options) {
+    return new ConfirmModal(this.app, options).ask();
+  }
+
+  /** Undo of an operation (from the toast or Recent actions): what came back and what changed since. */
+  async undoOp(op) {
+    const { restored, skipped } = await this.plugin.undo(op);
+    this.toast = { op: null, text: t("bulk.undoneN", { n: restored }) + (skipped ? t("bulk.skipped", { n: skipped }) : "") };
+    this.refresh();
+  }
+
+  openRecent() {
+    new RecentModal(this.plugin, (op) => this.undoOp(op)).open();
   }
 
   similarCount() {
@@ -318,6 +433,9 @@ class DiscoveryView extends ItemView {
     this.refs.updates.setText(updates ? t("tracked.updatesBadge", { n: updates }) : "");
     this.refs.updates.toggleClass("is-hidden", !updates);
     nav.createDiv({ cls: "pdt-nav-spacer" });
+    if (settings.section !== "home" && this.plugin.data.ops?.length) {
+      iconButton(nav, "history", t("bulk.recent"), "pdt-nav-recent").onclick = () => this.openRecent();
+    }
   }
 
   /** The Tracked list, on one of its groups (UPDATES: new releases). */
@@ -458,6 +576,7 @@ class DiscoveryView extends ItemView {
       this.refs.search = this.renderSearch(bar, this.settings.query, t("search.placeholder"), async (value) => {
         this.settings.query = value;
         this.visible = PAGE_SIZE;
+        this.selected.clear();   // another search, another list
         this.refresh();
         await this.plugin.saveData(this.plugin.data);
       });
@@ -590,6 +709,7 @@ class DiscoveryView extends ItemView {
 
   /** Adds, changes (a value) or removes (undefined) a filter added with "+ Filter" on this tab. */
   async setExtra(key, value) {
+    this.selected.clear();
     const mode = this.settings.mode;
     const { [key]: old, ...rest } = this.settings.extraFilters?.[mode] || {};
     this.settings.extraFilters = { ...this.settings.extraFilters, [mode]: value === undefined ? rest : { ...rest, [key]: value } };
@@ -609,6 +729,7 @@ class DiscoveryView extends ItemView {
 
   /** ↺ on a changed chip: that filter back to the tab's default. */
   async resetFilter(key) {
+    this.selected.clear();
     const cleared = clearedFilters(this.settings, this.settings.mode);
     if (key === "downloadFilter") Object.assign(this.settings, { downloadFilter: cleared.downloadFilter, minDownloads: cleared.minDownloads });
     else this.settings[key] = cleared[key];
@@ -637,6 +758,7 @@ class DiscoveryView extends ItemView {
   }
 
   async clearFilters() {
+    this.selected.clear();
     const { query, ...cleared } = clearedFilters(this.settings, this.settings.mode);
     if (this.similar) this.similar.query = "";   // the All tab's own search stays as it was
     else cleared.query = query;
@@ -721,7 +843,7 @@ class DiscoveryView extends ItemView {
     if (!catalog) {
       text.setText(this.plugin.busy ? this.plugin.progress || t("status.syncing") : t("status.loading"));
     } else if (this.preset) {
-      text.createDiv({ text: t("home.status", { n: formatCount(this.presetRows().length), name: t(`home.${this.preset.id}`) }) });
+      text.createDiv({ text: t("home.status", { n: formatCount(this.presetRows().length), name: this.home.title(this.preset.id) }) });
     } else if (this.similar) {   // one line about the filter instead of the sync line
       const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
       const found = seed ? this.plugin.similarTo(seed) : [];
@@ -964,7 +1086,13 @@ class DiscoveryView extends ItemView {
     const note = plugin.notes.index.get(p.id);
     const mode = this.settings.mode;
     const stale = this.stale?.has(p.id);
-    const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}${stale ? " is-stale" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
+    const picked = this.selected.has(p.id);
+    const row = list.createDiv({ cls: `pdt-row${p.id === this.cursorId ? " is-cursor" : ""}${stale ? " is-stale" : ""}${picked ? " is-selected" : ""}`, attr: { tabindex: "0", "data-id": p.id } });
+    if (this.selectable) {
+      const box = row.createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("bulk.pick", { name: p.name }) } });
+      box.checked = picked;
+      box.onclick = (event) => { event.stopPropagation(); this.pick(p, box.checked, event.shiftKey); };
+    }
     row.addEventListener("click", (event) => {
       this.setCursor(row);
       // a row or card opens its details from anywhere that isn't a control (or selected text)

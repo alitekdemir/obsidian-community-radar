@@ -34,6 +34,7 @@ const RELEASES_CAP = 50;           // release dates kept per plugin
 const NEW_BADGE_DAYS = 14;         // a plugin counts as new this many days after it was listed (setting: newDays)
 const INCUBATION_CAP = 360;        // a plugin out of incubation stays on that tab for its incubation, at most this long
 const WAVE_DAYS = 7;               // releases within a week of a wave's first one belong to that update
+const OPS_CAP = 20;                // bulk actions kept for Recent actions (each with what it changed, for Undo)
 const BUSY_DAYS = 180;             // "busy": update waves counted over this window…
 const BUSY_LIMIT = 9;              // …more than this (about every three weeks) hides it from Updated (setting: hideBusy)
 const PARALLEL = 4;                // snapshots downloaded at once

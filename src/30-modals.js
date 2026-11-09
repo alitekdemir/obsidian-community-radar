@@ -135,6 +135,84 @@ class TextModal extends Modal {
   }
 }
 
+/** A few names for a sentence: "A, B, C +4". */
+function namesLine(plugins, max = 5) {
+  const names = plugins.slice(0, max).map((p) => p.name).join(", ");
+  return plugins.length > max ? `${names} +${plugins.length - max}` : names;
+}
+
+/** Asks before a bulk action: what it does, to which plugins, that it can be undone. `ask()` resolves true or false. */
+class ConfirmModal extends Modal {
+  constructor(app, { title, plugins, text, cta }) {
+    super(app);
+    Object.assign(this, { heading: title, plugins, text, cta, answer: false });
+  }
+
+  ask() {
+    return new Promise((resolve) => { this.resolve = resolve; this.open(); });
+  }
+
+  onOpen() {
+    this.titleEl.setText(this.heading);
+    const list = this.contentEl.createEl("ul", { cls: "pdt-confirm-list" });
+    for (const p of this.plugins.slice(0, 5)) list.createEl("li", { text: p.name });
+    if (this.plugins.length > 5) list.createEl("li", { cls: "pdt-detail-muted", text: t("bulk.more", { n: this.plugins.length - 5 }) });
+    if (this.text) this.contentEl.createEl("p", { text: this.text });
+    this.contentEl.createEl("p", { cls: "pdt-detail-muted", text: t("bulk.undoable") });
+    const row = this.contentEl.createDiv({ cls: "modal-button-container" });
+    row.createEl("button", { text: t("bulk.cancel") }).onclick = () => this.close();
+    const go = row.createEl("button", { text: this.cta, cls: "mod-cta" });
+    go.onclick = () => { this.answer = true; this.close(); };
+    go.focus();
+  }
+
+  onClose() {
+    this.contentEl.empty();
+    this.resolve?.(this.answer);
+  }
+}
+
+/** Recent actions: the last bulk actions, newest first, each with Undo (or when it was undone). */
+class RecentModal extends Modal {
+  constructor(plugin, onUndo) {
+    super(plugin.app);
+    Object.assign(this, { plugin, onUndo });
+  }
+
+  onOpen() {
+    this.titleEl.setText(t("bulk.recent"));
+    this.render();
+  }
+
+  render() {
+    const box = this.contentEl;
+    box.empty();
+    box.createEl("p", { cls: "pdt-detail-muted", text: t("bulk.recentHint", { n: OPS_CAP }) });
+    const ops = this.plugin.data.ops || [];
+    if (!ops.length) box.createEl("p", { text: t("bulk.recentNone") });
+    for (const op of ops) {
+      const row = box.createDiv({ cls: "pdt-op" });
+      row.createSpan({ cls: "pdt-op-when", text: formatTime(op.at, Date.now()) });
+      const what = row.createDiv({ cls: "pdt-op-what" });
+      what.createEl("b", { text: opLabel(op) });
+      what.createSpan({ cls: "pdt-detail-muted", text: namesLine(op.changes.map((c) => this.plugin.pluginById(c.id) || { name: c.id }), 3) });
+      if (op.undone) row.createSpan({ cls: "pdt-detail-muted", text: t("bulk.undone") });
+      else if (op.changes.length) {
+        row.createEl("button", { text: t("bulk.undo") }).onclick = async () => { await this.onUndo(op); this.render(); };
+      }
+    }
+  }
+
+  onClose() {
+    this.contentEl.empty();
+  }
+}
+
+/** What an operation did, in a sentence: "3 plugins hidden", "12 plugins added to Tasks". */
+function opLabel(op) {
+  return t(`bulk.done.${op.kind}`, { n: op.changes.length, value: op.value ?? "" });
+}
+
 /** A group chip: a button you switch on and off. */
 function groupChip(parent, { name, on, removable = false, star = false, starTip = "", meta = "", onToggle }) {
   const chip = parent.createEl("button", { cls: `pdt-gchip${on ? " is-on" : ""}`, attr: { type: "button", "aria-pressed": String(on) } });

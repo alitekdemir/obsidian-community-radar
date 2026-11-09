@@ -767,6 +767,62 @@ const tests = {
     await view.update("mode", "all");
   },
 
+  async "bulk: pick rows (Shift for a range), confirm, toast with Undo; Undo skips what changed since; Recent actions"({ plugin, view }) {
+    const el = view.contentEl;
+    const settings = plugin.data.settings;
+    await view.update("mode", "all");
+    settings.minDownloads = 0;
+    view.render();
+    const rows = () => $$(el, ".pdt-row");
+    const box = (i) => $(rows()[i], ".pdt-select");
+    assert.ok(box(0) && !$(el, ".pdt-bulk-bar"), "boxes on the rows, no bar yet");
+    box(0).checked = true;
+    box(0).onclick({ stopPropagation() {}, shiftKey: false });
+    box(2).checked = true;
+    box(2).onclick({ stopPropagation() {}, shiftKey: true });
+    assert.equal(view.selected.size, 3, "Shift picks the range");
+    assert.ok($(el, ".pdt-list").classList.contains("is-selecting") && rows()[1].classList.contains("is-selected"));
+    assert.equal($(el, ".pdt-bulk-bar b").textContent, core.t("bulk.selected", { n: 3 }));
+    const picked = [...view.selected];
+    let asked = null;
+    view.confirm = async (o) => { asked = o; return true; };
+    await view.runBulk("snooze");
+    assert.equal(asked.plugins.length, 3);
+    assert.ok(picked.every((id) => id in plugin.data.snoozed));
+    assert.equal(view.selected.size, 0, "done: the selection goes");
+    assert.equal($(el, ".pdt-toast span:nth-child(2)").textContent, core.t("bulk.done.snooze", { n: 3 }));
+    assert.equal(plugin.data.ops[0].changes.length, 3);
+    plugin.data.snoozed[picked[0]] = 123;   // changed by hand since
+    await $(el, ".pdt-toast-undo").onclick();
+    assert.ok(!(picked[1] in plugin.data.snoozed) && !(picked[2] in plugin.data.snoozed));
+    assert.equal(plugin.data.snoozed[picked[0]], 123, "changed since: left alone");
+    assert.ok($(el, ".pdt-toast").textContent.includes(core.t("bulk.skipped", { n: 1 })));
+    assert.ok(plugin.data.ops[0].undone);
+    delete plugin.data.snoozed[picked[0]];
+    view.confirm = async () => false;
+    view.pick(plugin.pluginById(picked[0]), true);
+    await view.runBulk("exclude");
+    assert.ok(!(picked[0] in plugin.data.excluded), "cancelled: nothing done");
+    await view.update("mode", "updated");
+    assert.equal(view.selected.size, 0, "another tab clears the selection");
+    assert.ok(!$(el, ".pdt-toast"), "and the toast");
+    assert.ok($(el, ".pdt-nav-recent"), "Recent actions in the nav once there is one");
+    // note fields: Undo turns back only what the action did
+    const p = plugin.pluginById("homepage");
+    const before = plugin.notes.index.get("homepage")?.groups || [];
+    const grouped = await plugin.bulk("group", [p], "Start pages");
+    assert.ok(plugin.notes.index.get("homepage").groups.includes("Start pages"));
+    await plugin.undo(grouped);
+    assert.deepEqual(plugin.notes.index.get("homepage").groups, before);
+    const ratingBefore = plugin.notes.index.get("homepage").rating;
+    const rated = await plugin.bulk("rating", [p], ratingBefore === 2 ? 3 : 2);
+    assert.notEqual(plugin.notes.index.get("homepage").rating, ratingBefore);
+    await plugin.undo(rated);
+    assert.equal(plugin.notes.index.get("homepage").rating, ratingBefore);
+    plugin.data.ops = [];
+    await view.update("mode", "all");
+  },
+
   async "ignore, hide until next release, Ignored list with Restore and restore-all; ⋮ menu"({ plugin, view }) {
     const el = view.contentEl;
     const names = () => $$(el, ".pdt-name").map((a) => a.textContent);

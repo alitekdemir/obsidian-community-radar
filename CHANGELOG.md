@@ -6,6 +6,8 @@
 
 - **Filters as chips**: a changed filter is marked and has ↺ (back to the tab's default); *N filters changed · Reset* ends the bar, so nothing shifts when you change one.
 - **Saved views**: *Save* in the filter bar keeps the tab with its filters (search, added filters and sort included) under a name, as a widget on the home page. It counts its matches and shows *N new* for the ones that weren't there when you last opened it; ⋮ renames, hides or deletes it.
+- **Bulk actions**: a box on each row (on hover; on every row once you pick one, Shift+click for a range) and a bar at the bottom: Favorite, Rate, Add to group (or a new one), Mark reviewed (Tracked), Hide, Ignore, *Select the N shown*. Each asks first, then leaves a result with **Undo** at the bottom left.
+- **Recent actions** (⋮ on Home, the clock in the List's bar, and a command): the last 20 bulk actions, kept across restarts. Undo turns back only what the action did; a plugin you changed by hand since is skipped and counted.
 - A widget's list has a *Sort* menu (the widget's own order first).
 - **+ Filter** adds a filter to any tab: Released ≤, Incubation ≥, Gained · 30 days ≥, Age ≤, Author, Installed. ✕ removes it; each tab keeps its own. Home widgets ignore them.
 

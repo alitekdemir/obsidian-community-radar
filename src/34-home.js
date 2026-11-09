@@ -298,6 +298,7 @@ class HomePage {
     toggle(t("home.showSince"), home.since.show, (h) => { h.since.show = !h.since.show; });
     toggle(t("home.showInfo"), home.info, (h) => { h.info = !h.info; });
     toggle(t("home.motion"), home.motion, (h) => { h.motion = !h.motion; });
+    if (this.plugin.data.ops?.length) menu.addItem((item) => item.setTitle(t("bulk.recent")).setIcon("history").onClick(() => this.view.openRecent()));
     menu.addSeparator();
     for (const id of home.hidden.filter((x) => homeWidget(home, x))) {
       menu.addItem((item) => item.setTitle(t("home.add", { name: this.title(id) })).setIcon("plus").onClick(() => this.save((h) => { h.hidden = h.hidden.filter((x) => x !== id); })));
