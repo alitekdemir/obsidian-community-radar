@@ -48,6 +48,7 @@ const tests = {
     // 21 hotfixes in two sittings are two updates, not a busy plugin
     const sittings = [...Array.from({ length: 11 }, (_, i) => ago(120) + i * 6 * 3600e3), ...Array.from({ length: 10 }, (_, i) => ago(10) + i * 6 * 3600e3)];
     assert.equal(core.updateWaves(sittings, ago(180), NOW), 2);
+    assert.deepEqual(core.releaseWaves([0, 6 * DAY_MS, 7 * DAY_MS]).map((w) => w.length), [2, 1], "within a week: one update; a week later: the next");
     assert.deepEqual(ids({ mode: "awakened" }), ["hatched"]);     // 88-day pause, released 50 days ago; expired: 70-day pause, 80 days ago
   },
 

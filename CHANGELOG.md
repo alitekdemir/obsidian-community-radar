@@ -15,9 +15,9 @@
 
 ### Changed
 
-- *Release rhythm* in a plugin's details reads the last 12 months (a young plugin: its own age) in update waves, a patch within 3 days joining its release: *every ~N days* (up to 45), *every ~N months* (up to 135), *every 6 months*, *yearly* or *none for a year*, with the releases it counts and a year-plus pause before them, or the rhythm before it went quiet; one release says so instead of a dash. It was the median of every gap, so a busy first month outweighed years of silence.
-- The details' *Release history* is a strip of the pauses between updates instead of dots: colored by length (under a month, 1–6 months, 6–12 months, over a year), widths by the log of the pause, the current silence striped; hover a part for its date, releases and the pause after it. A sentence under it gives the year's updates and a year-plus pause before them, or how long it has been quiet. The *Release rhythm* tile keeps one short fact.
-- *Hide busy plugins* counts update waves too: more than 12 in 6 months (about every two weeks). 21 hotfixes in two sittings no longer hide a plugin.
+- *Release rhythm* in a plugin's details reads the last 12 months (a young plugin: its own age) in update waves, releases within a week counting as one update: *every ~N days* (up to 45), *every ~N months* (up to 135), *every 6 months*, *yearly* or *none for a year*, with the releases it counts and a year-plus pause before them, or the rhythm before it went quiet; one release says so instead of a dash. It was the median of every gap, so a busy first month outweighed years of silence.
+- The details' *Release history* is a strip of the pauses between updates instead of dots: colored by length (under a month, 1–6 months, 6–12 months, over a year), widths by the log of the pause, the current silence striped; hover a part for its dates, releases and, on a second line, the pause after it. A sentence under it gives the year's updates and a year-plus pause before them, or how long it has been quiet. The *Release rhythm* tile keeps one short fact.
+- *Hide busy plugins* counts update waves too: more than 9 in 6 months (about every three weeks). 21 hotfixes in two sittings no longer hide a plugin.
 - A plugin counts as *new* for 14 days by default (was 30).
 - Tracked moved from the tabs to the Home · List · Tracked switch, with its new-release count.
 - The switch, tabs and filters stay at the top while the list scrolls, with no gap above them.

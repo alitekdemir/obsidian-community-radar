@@ -218,8 +218,9 @@ class DetailModal extends Modal {
       cell.setCssProps({ "--pdt-w": String(weight(g) / total) });
       if (g.days >= 30 && weight(g) / total >= 0.09) cell.setText(spanLabel(g.days));
       const span = spanLabel(g.days);
-      const wave = t("details.gapWave", { date: dayString(g.from), n: g.releases });
-      setTooltip(cell, g.open ? `${wave} · ${t("details.gapOpen", { span })}` : `${wave} · ${t("details.gapNext", { span, date: dayString(g.to) })}`, { delay: 100 });
+      const dates = g.releases > 1 ? `${dayString(g.from)} – ${dayString(g.last)}` : dayString(g.from);
+      const after = g.open ? t("details.gapOpen", { span }) : t("details.gapNext", { span, date: dayString(g.to) });
+      setTooltip(cell, `${t("details.gapWave", { date: dates, n: g.releases })}\n${after}`, { delay: 100 });
     }
     const ends = box.createDiv({ cls: "pdt-history-ends" });
     ends.createSpan({ text: dayString(dates[0]) });

@@ -10,7 +10,7 @@ With ~50 new community plugins a day, the built-in browser is hard to keep up wi
 |---|---|
 | **All** | Every community plugin |
 | **✨ New** | Plugins added in the last *N* days. A plugin counts as new for 30 days after it's listed (*Settings → New for*). |
-| **Updated** | Plugins released in the last *N* days, except new ones. *Hide busy plugins* (on by default) leaves out those updated more often than every two weeks in 6 months (patches within 3 days count as one update), so the others get seen. |
+| **Updated** | Plugins released in the last *N* days, except new ones. *Hide busy plugins* (on by default) leaves out those updated more often than every three weeks in 6 months (releases within a week count as one update), so the others get seen. |
 | **Incubation** | Plugins that **released again after a long pause** (an incubation of at least 60 days; presets 30–360). Each stays as long as its incubation was (at most 360 days), so a plugin quiet for 88 days is still here 50 days later — not buried under daily releasers. |
 | **Tracked** | Plugins you track, in sections per group (a plugin in two groups shows in both); one Group menu for All, New releases, Starred, Ungrouped and your groups |
 | **Suggestions** | Installed plugins you haven't starred yet |

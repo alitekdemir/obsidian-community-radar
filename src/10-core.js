@@ -131,11 +131,11 @@ function dormantDays(releases, plugin) {
   return earlier.length ? Math.floor((plugin.updated - Math.max(...earlier)) / DAY_MS) : null;
 }
 
-/** Releases as update waves (arrays of dates): a release within WAVE_DAYS of its wave's first one is a patch of it. */
+/** Releases as update waves (arrays of dates): a release less than WAVE_DAYS after its wave's first one belongs to it. */
 function releaseWaves(dates) {
   const waves = [];
   for (const m of dates) {
-    if (waves.length && m - waves.at(-1)[0] <= WAVE_DAYS * DAY_MS) waves.at(-1).push(m);
+    if (waves.length && m - waves.at(-1)[0] < WAVE_DAYS * DAY_MS) waves.at(-1).push(m);   // a weekly release is still a new update
     else waves.push([m]);
   }
   return waves;
@@ -146,12 +146,12 @@ function updateWaves(dates, start, end) {
   return releaseWaves(dates).filter(([first]) => first > start && first <= end).length;
 }
 
-/** The pauses between update waves, the last one open until `now`: {from, to, days, releases (in the wave at `from`), open}. */
+/** The pauses between update waves, the last one open until `now`: {from, last (release of that wave), to, days, releases, open}. */
 function releaseGaps(dates, now) {
   const waves = releaseWaves(dates);
   return waves.map((wave, i) => {
     const to = waves[i + 1]?.[0] ?? now;
-    return { from: wave[0], to, days: Math.max(0, (to - wave[0]) / DAY_MS), releases: wave.length, open: i === waves.length - 1 };
+    return { from: wave[0], last: wave.at(-1), to, days: Math.max(0, (to - wave[0]) / DAY_MS), releases: wave.length, open: i === waves.length - 1 };
   });
 }
 
