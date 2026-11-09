@@ -3131,3 +3131,83 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
 
 .pdt-qhelp button.pdt-qhelp-item:hover { background: var(--background-modifier-hover); }
 .pdt-qhelp-item code { color: var(--code-property, var(--text-accent)); font-variant-ligatures: none; }
+
+/* the save bar under the box while the query isn't the page's: yellow says unsaved, the button is the theme's */
+.pdt-search.is-changed {
+  border-color: var(--color-yellow);
+}
+
+.pdt-view .pdt-search {
+  flex-wrap: wrap;
+}
+
+.pdt-savebar {
+  display: flex;
+  flex: 0 0 calc(100% + 2 * var(--size-4-2));   /* the box's full width, past its padding */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  min-width: 0;
+  align-items: center;
+  gap: var(--size-4-2);
+  margin: 4px calc(-1 * var(--size-4-2)) -4px;
+  padding: 5px var(--size-4-2);
+  border-top: 1px solid color-mix(in srgb, var(--color-yellow) 30%, transparent);
+  border-radius: 0 0 var(--radius-s) var(--radius-s);
+  background: color-mix(in srgb, var(--color-yellow) 10%, var(--background-primary));
+}
+
+.pdt-savebar.is-hidden { display: none; }
+
+.pdt-savebar-msg {
+  flex: 1 1 12em;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-normal);
+  font-size: var(--font-ui-smaller);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdt-savebar-diff { color: var(--text-muted); font-family: var(--font-monospace); }
+
+.pdt-view .pdt-savebar button {
+  flex: none;
+  height: 24px;
+  padding: 0 var(--size-4-2);
+  font-size: var(--font-ui-smaller);
+  white-space: nowrap;
+}
+
+.pdt-view .pdt-savebar button.pdt-savebar-discard {
+  background: none;
+  box-shadow: none;
+  color: var(--text-muted);
+}
+
+.pdt-tab-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--color-yellow);
+}
+
+/* a query word explained */
+.pdt-qtip {
+  position: fixed;
+  z-index: var(--layer-tooltip, 60);
+  max-width: 300px;
+  padding: 6px 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+  box-shadow: var(--shadow-s);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.45;
+  pointer-events: none;
+}
+
+.pdt-qtip-head { display: flex; justify-content: space-between; gap: var(--size-4-3); color: var(--text-normal); }
+.pdt-qtip-head code { font-variant-ligatures: none; }
+.pdt-qtip-kind { color: var(--text-faint); }
+.pdt-qtip-example { margin-top: 2px; color: var(--text-faint); font-family: var(--font-monospace); }

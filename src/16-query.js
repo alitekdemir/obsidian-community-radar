@@ -523,3 +523,74 @@ function queryStarters(fromFilters, recent = []) {
   const filters = fromFilters ? [{ label: flat(fromFilters), insert: fromFilters, hint: t("query.fromFiltersHint"), head: t("query.fromFilters") }] : [];
   return [...filters, ...mine, ...items];
 }
+
+/** Two queries the same but for spacing and line breaks? */
+const sameQuery = (a, b) => String(a).replace(/\s+/g, " ").trim() === String(b).replace(/\s+/g, " ").trim();
+
+/**
+ * What changed from query `a` to `b`, short: "14d → 30d" when one clause changed, else "+1 clause · −2 clauses",
+ * "sort". Empty when it can't tell (a query that doesn't parse).
+ */
+function queryDiff(a, b) {
+  const clauses = (q) => {
+    try {
+      const { spans } = parseQuery(q, { strict: true });
+      const top = spans.filter((x) => x.kind !== "order" && !spans.some((y) => y !== x && y.kind === "neg" && y.from <= x.from && y.to >= x.to));
+      return top.map((x) => q.slice(x.from, x.to).replace(/\s+/g, " ").trim());
+    } catch (error) { return null; }
+  };
+  const [ca, cb] = [clauses(a), clauses(b)];
+  if (!ca || !cb) return "";
+  const removed = ca.filter((c) => !cb.includes(c));
+  const added = cb.filter((c) => !ca.includes(c));
+  const parts = [];
+  if (removed.length === 1 && added.length === 1) {   // one clause changed: only what differs ("14d → 30d")
+    const [wa, wb] = [removed[0].split(" "), added[0].split(" ")];
+    let k = 0;
+    while (k < wa.length - 1 && k < wb.length - 1 && wa[k] === wb[k]) k++;
+    parts.push(`${wa.slice(k).join(" ")} → ${wb.slice(k).join(" ")}`);
+  } else {
+    if (added.length) parts.push(t("query.diffAdded", { n: added.length }));
+    if (removed.length) parts.push(t("query.diffRemoved", { n: removed.length }));
+  }
+  if (!sameQuery(splitOrder(a).order, splitOrder(b).order)) parts.push(t("query.diffSort"));
+  return parts.join(" · ");
+}
+
+/**
+ * A word of the box explained, for its tooltip: a field (its type, meaning and an example), an operator, a value's
+ * unit, a function (with the day it means now), AND / OR / NOT / order by. Null for plain text and punctuation.
+ */
+function queryTip(tok, prev, now = Date.now(), state = {}) {
+  const w = fold(tok.text);
+  if (tok.cls === "field") {
+    const f = QUERY_FIELDS[w];
+    const example = { bool: `NOT ${tok.text}`, list: `${tok.text} in (…)`, text: `${tok.text} ~ …` }[f.type] || (f.days ? `${tok.text} <= 30d` : `${tok.text} >= 10k`);
+    return { head: tok.text, kind: t(`query.type.${f.days ? "days" : f.type}`), body: t(`query.field.${w}`), example };
+  }
+  if (tok.cls === "op") {
+    const op = w === "not" ? "not_in" : w === "is" || w === "empty" ? "is_empty" : w;
+    const days = QUERY_FIELDS[fold(prev?.text)]?.days && ["<", "<=", ">", ">="].includes(w);
+    return { head: tok.text, body: days ? t(`query.tip.days${w.startsWith("<") ? "Within" : "Over"}`) : t(`query.op.${op}`) };
+  }
+  if (tok.cls === "number") {
+    const m = tok.text.toLowerCase().match(/^([+-]?\d+(?:\.\d+)?)([kmdwy]?)$/);
+    if (!m) return /^\d{4}-\d{2}-\d{2}$/.test(tok.text) ? { head: tok.text, body: t("query.help.date") } : null;
+    const [, n, unit] = m;
+    const days = QUERY_FIELDS[fold(prev?.text)]?.days || QUERY_FIELDS[fold(prev?.text)] == null;
+    const body = unit === "k" || (unit === "m" && !days) ? formatCount(Number(n) * (unit === "k" ? 1e3 : 1e6))
+      : unit ? t(`query.tip.unit.${unit}`, { n }) : null;
+    return body ? { head: tok.text, body } : null;
+  }
+  if (tok.cls === "fn") {
+    const fn = QUERY_FUNCS[w];
+    const moment = fn?.(now, 0, state);
+    return { head: `${tok.text}()`, body: t(`query.fn.${QUERY_FUNC_NAMES.find((x) => fold(x) === w)}`), example: moment ? t("query.tip.now", { date: dayString(moment) }) : "" };
+  }
+  if (tok.cls === "kw" || tok.cls === "neg") {
+    const key = w === "by" ? "order" : w;
+    return { head: key === "order" ? "order by" : tok.text.toUpperCase(), body: t(`query.tip.${key}`) };
+  }
+  if (tok.cls === "value" && tok.quoted && prev?.cls !== "op" && prev?.kind !== "(" && prev?.kind !== ",") return { head: `"${tok.text}"`, body: t("query.field.text") };
+  return null;
+}

@@ -254,6 +254,21 @@ const tests = {
       assert.equal(core.changedFilters({ ...st, ...round }, mode), 0, mode);
       assert.deepEqual(round.sortBy[mode], st.sortBy[mode]);
     }
+    // what changed, short; a word explained
+    assert.equal(core.queryDiff("released <= 14d AND NOT busy\norder by downloads desc", "released <= 30d AND NOT busy\norder by downloads desc"), "14d → 30d");
+    assert.equal(core.queryDiff("name ~ x", "name ~ x AND installed AND tracked\norder by name asc"), "+2 koşul · sıralama");
+    assert.equal(core.queryDiff("NOT busy", "busy"), "NOT busy → busy");
+    const tips = core.queryHighlight("released <= 30d AND NOT busy AND startOfMonth() order by name desc");
+    const tip = (i) => core.queryTip(tips[i], tips[i - 1], NOW, {});
+    assert.deepEqual(tip(0), { head: "released", kind: "gün / tarih", body: core.t("query.field.released"), example: "released <= 30d" });
+    assert.equal(tip(1).body, core.t("query.tip.daysWithin"), "<= on a days field: at most that long ago");
+    assert.equal(tip(2).body, "30 gün");
+    assert.equal(tip(3).body, core.t("query.tip.and"));
+    assert.equal(tip(4).head, "NOT");
+    assert.equal(tip(5).kind, "evet/hayır");
+    assert.equal(tip(7).head, "startOfMonth()");
+    assert.equal(tip(7).example, core.t("query.tip.now", { date: core.dayString(new Date(new Date(NOW).getFullYear(), new Date(NOW).getMonth(), 1).getTime()) }));
+    assert.equal(tip(10).head, "order by");
     // a view saved before 0.10 (a tab + filters) becomes the query it meant
     const legacy = core.legacyViewQuery({ mode: "new", filters: { query: "kanban", extraFilters: { new: { author: "abbys" } } } }, { pageQueries: {}, sortBy: {} });
     assert.equal(legacy, 'age <= 14d AND NOT tracked AND "kanban" AND author ~ abbys\norder by age desc');
