@@ -99,8 +99,8 @@ const DORMANT_PRESETS = [30, 60, 90, 120, 180, 360];
 const TAB_DEFAULTS = {
   all: { downloads: false, sort: "downloads" },   // every plugin, unfiltered
   new: { downloads: false, sort: "listed" },        // a brand-new plugin has few downloads
-  updated: { downloads: true, sort: "downloads" },
-  awakened: { downloads: true, sort: "downloads" },
+  updated: { downloads: false, sort: "downloads" },   // thresholds live in the page queries now
+  awakened: { downloads: false, sort: "downloads" },
   changed: { downloads: false, sort: "updated" },
   suggested: { downloads: false, sort: "downloads" },
   tracked: { downloads: false, sort: "rating" },
@@ -179,7 +179,8 @@ function defaultSettings() {
     statuses: DEFAULT_STATUSES.map((key) => ({ key, label: t(`statusDefault.${key}`) })),
     sortBy: {},           // tab → {key, dir}; missing tabs use TAB_DEFAULTS
     query: "",
-    queryMode: false,   // Query (true): the search box holds the downloads threshold, added filters and sort as a query
+    pageQueries: {},    // page → the query you saved over its default (Settings › Page queries resets it)
+    queries: {},        // page → the query in its box while it's in Query mode (absent: Basic)
     provider: "",
     model: "",
     modelPrice: "",

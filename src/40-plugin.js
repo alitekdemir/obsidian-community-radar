@@ -128,6 +128,19 @@ class PluginRadar extends Plugin {
       if (this.data.settings.newDays === 30) this.data.settings.newDays = NEW_BADGE_DAYS;
       done.newDays14 = dayString(Date.now());
     }
+    if (!done.pageQueries) {   // 0.10: a tab's days, pause, Hide busy and Downloads ≥ become its query
+      const st = this.data.settings;
+      const old = { days: st.days ?? 14, gap: st.dormantDays ?? 60, busy: st.hideBusy !== false };
+      const min = (mode) => (st.downloadFilter?.[mode] ?? true ? st.minDownloads ?? 100 : 0);   // on by default there
+      const mine = { new: defaultPageQuery("new", old), updated: defaultPageQuery("updated", { ...old, downloads: min("updated") }),
+        awakened: defaultPageQuery("awakened", { ...old, downloads: min("awakened") }) };
+      st.pageQueries = Object.fromEntries(Object.entries(mine).filter(([mode, q]) => q !== defaultPageQuery(mode)));
+      for (const mode of ["updated", "awakened"]) if (st.downloadFilter) delete st.downloadFilter[mode];
+      st.queries = {};
+      if (st.queryMode) st.query = "";   // 0.10 builds before this: one query for every tab
+      delete st.queryMode;
+      done.pageQueries = dayString(Date.now());
+    }
     if (!done.readmeImages) {
       await this.notes.migrate(migrateImages);
       done.readmeImages = dayString(Date.now());

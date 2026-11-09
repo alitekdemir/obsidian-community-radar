@@ -39,11 +39,13 @@ const tests = {
     const state = {
       catalog, notes: new Map(), excluded: new Set(), dismissed: new Set(), installed: new Set(),
       releases: { busy: [...busy, ago(2)], calm: [ago(40), ago(2)], hatched: [ago(138), ago(50)], expired: [ago(150), ago(80)] },
-      firstSeen: { young: ago(20), busy: 0, calm: 0, hatched: 0, expired: 0 },
+      firstSeen: { young: ago(10), busy: 0, calm: 0, hatched: 0, expired: 0 },
     };
-    const ids = (o) => core.discover(state, { mode: "updated", days: 14, dormantDays: 60, newDays: 30, hideBusy: true, minDownloads: 0, query: "", sort: "name", ...o }, NOW).map((p) => p.id);
-    assert.deepEqual(ids({}), ["calm"]);                          // young is 20 days old, busy updated 25 times
-    assert.deepEqual(ids({ newDays: 10, hideBusy: false }), ["busy", "calm", "young"]);
+    // the tabs are their page queries now; the days and Hide busy live in them
+    const page = (mode, o) => ({ pageQueries: { [mode]: core.defaultPageQuery(mode, { downloads: 0, ...o }) } });
+    const ids = (o) => core.discover(state, { mode: "updated", minDownloads: 0, query: "", sort: "name", ...page("updated"), ...o }, NOW).map((p) => p.id);
+    assert.deepEqual(ids({}), ["calm"]);                          // young is 10 days old, busy updated 25 times
+    assert.deepEqual(ids(page("updated", { busy: false })), ["busy", "calm"]);
     assert.equal(core.updateWaves(state.releases.busy, ago(180), NOW), 25);   // 26 releases, the last two the same day
     // 21 hotfixes in two sittings are two updates, not a busy plugin
     const sittings = [...Array.from({ length: 11 }, (_, i) => ago(120) + i * 6 * 3600e3), ...Array.from({ length: 10 }, (_, i) => ago(10) + i * 6 * 3600e3)];
@@ -62,10 +64,10 @@ const tests = {
 
   "filterSummary: the changed filters as they are now, merged Downloads"() {
     const base = core.clearedFilters({ downloadFilter: {} }, "updated");
-    const settings = { ...base, days: 7, minDownloads: 500, downloadFilter: { updated: true }, query: "kanban" };
-    assert.equal(core.changedFilters(settings, "updated"), 3);
+    const settings = { ...base, minDownloads: 500, downloadFilter: { updated: true }, query: "kanban" };
+    assert.equal(core.changedFilters(settings, "updated"), 2);
     assert.equal(core.filterSummary(settings, "updated"),
-      "Bu sekmenin varsayılanından değişenler:\n• Arama: “kanban”\n• Son 7 gün\n• İndirme ≥ 500\n✕ hepsini varsayılana döndürür");
+      "Bu sekmenin varsayılanından değişenler:\n• Arama: “kanban”\n• İndirme ≥ 500\n✕ hepsini varsayılana döndürür");
     assert.equal(core.filterSummary(base, "updated"), core.t("filter.tipNone"));
   },
 
@@ -85,11 +87,12 @@ const tests = {
       notes: new Map([["e", { group: "ai", favorite: false, reviewed: core.dayString(ago(10)) }]]),
       excluded: new Set(["c"]), dismissed: new Set(), installed: new Set(["a", "e"]),
     };
-    const opts = { mode: "updated", days: 14, dormantDays: 90, minDownloads: 100, filterDownloads: true, sort: "downloads", query: "" };
+    const opts = { mode: "updated", minDownloads: 100, filterDownloads: true, sort: "downloads", query: "" };
     const ids = (o) => core.discover(state, { ...opts, ...o }, NOW).map((p) => p.id);
+    const page = (mode, o) => ({ pageQueries: { [mode]: core.defaultPageQuery(mode, o) } });
     assert.deepEqual(ids({}), ["a"]);                       // b old, c excluded, d few downloads, e tracked
-    assert.deepEqual(ids({ mode: "awakened" }), ["a"]);     // a was quiet for 299 days
-    assert.deepEqual(ids({ mode: "awakened", dormantDays: 365 }), []);
+    assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { gap: 90 }) }), ["a"]);     // a was quiet for 299 days
+    assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { gap: 365 }) }), []);
     assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.UPDATES }), ["e"]);   // reviewed 10 days ago, released 1 day ago
     assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.STARRED }), []);
     assert.deepEqual(ids({ mode: "suggested" }), ["a", "e"]);   // installed and not starred
@@ -98,7 +101,7 @@ const tests = {
     state.dismissed.delete("a");
     assert.deepEqual(ids({ mode: "new", filterDownloads: false }), ["d"]);   // listed in the last 14 days
     assert.deepEqual(ids({ mode: "new" }), []);                                // …but below 100 downloads
-    assert.deepEqual(ids({ mode: "new", filterDownloads: false, days: 3 }), []);
+    assert.deepEqual(ids({ mode: "new", filterDownloads: false, ...page("new", { days: 3 }) }), []);
     const counts = core.modeCounts(state, opts, NOW);   // each tab with its default Downloads on/off (New: off)
     assert.deepEqual(counts, { all: 4, new: 1, updated: 1, awakened: 1, tracked: 1, suggested: 2 });  // all: every plugin but the excluded c (no Downloads ≥ by default)
     const off = core.modeCounts(state, { ...opts, downloadFilter: { all: false } }, NOW);
@@ -238,7 +241,7 @@ const tests = {
     assert.equal(text, '"calendar" "big tasks" downloads >= 1k released <= 30d author ~ brenan installed\norder by name asc');
     assert.equal(core.filtersToQuery({ ...settings, sortBy: {} }, "all"), '"calendar" "big tasks" downloads >= 1k released <= 30d author ~ brenan installed', "the tab's own sort isn't written");
     const back = core.queryToFilters(text, { ...settings, query: "", extraFilters: {}, downloadFilter: {}, sortBy: {} }, "all").patch;
-    assert.deepEqual(back, { query: "calendar, big tasks", queryMode: false, extraFilters: { all: { released: 30, author: "brenan", installed: true } }, sortBy: { all: { key: "name", dir: "asc" } }, downloadFilter: { all: true }, minDownloads: 1000 });
+    assert.deepEqual(back, { query: "calendar, big tasks", extraFilters: { all: { released: 30, author: "brenan", installed: true } }, sortBy: { all: { key: "name", dir: "asc" } }, downloadFilter: { all: true }, minDownloads: 1000 });
     assert.match(core.queryToFilters("author ~ x OR installed", settings, "all").reason, /OR/);
     assert.match(core.queryToFilters("group in (a) released >= startOfMonth()", settings, "all").reason, /in \(…\).*startOfMonth\(\)/);
     assert.match(core.queryToFilters("NOT installed rating >= 4", settings, "all").reason, /NOT.*rating >= 4/);
@@ -267,7 +270,7 @@ const tests = {
   "modeOptions: per-tab Downloads and sort with defaults; invalid saved values fall back"() {
     const settings = { ...core.defaultSettings(), downloadFilter: { new: true }, sortBy: { all: { key: "name", dir: "desc" }, updated: { key: "bogus" } } };
     assert.equal(core.modeOptions(settings, "all").filterDownloads, false);     // default: every plugin
-    assert.equal(core.modeOptions(settings, "new").filterDownloads, false);     // never on New, even if saved
+    assert.equal(core.modeOptions(settings, "new").filterDownloads, true);      // your choice, on New too (the page query holds the defaults)
     assert.equal(core.modeOptions({ ...settings, downloadFilter: { updated: false } }, "updated").filterDownloads, false);   // saved
     assert.equal(core.modeOptions(settings, "changed").filterDownloads, false); // default
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "all")[k]), ["name", "desc"]);

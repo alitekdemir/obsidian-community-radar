@@ -2995,3 +2995,16 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
   .pdt-home-info-text,
   .pdt-home-mini .pdt-home-info { display: none; }
 }
+
+/* Settings › Page queries: monospace, a changed one with a yellow edge, one that doesn't parse red */
+.pdt-setting-query textarea {
+  width: 100%;
+  min-width: 22em;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  font-variant-ligatures: none;
+}
+
+.pdt-setting-query textarea.is-changed { border-color: var(--color-yellow); }
+.pdt-setting-query textarea.is-invalid { border-color: var(--text-error); }
+.pdt-setting-query .setting-item-description { color: var(--text-error); }

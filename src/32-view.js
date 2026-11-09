@@ -160,9 +160,15 @@ class DiscoveryView extends ItemView {
 
   get settings() { return this.plugin.data.settings; }
 
+  /** This page is in Query mode: its query in the box (the Similar filter has its own search). */
+  get inQuery() { return !this.similar && inQueryMode(this.settings, this.settings.mode); }
+
+  /** What the list's box holds: a draft that didn't parse, else the page's query (Query) or your words (Basic). */
+  get boxText() { return this.queryDraft ?? (this.inQuery ? this.settings.queries[this.settings.mode] : this.settings.query); }
+
   async update(key, value) {
-    if (key === "mode" || key === "section") {   // another tab or section ends Filters, Similar, a widget's list and the toast
-      Object.assign(this, { filtersOpen: false, similar: null, preset: null, toast: null });
+    if (key === "mode" || key === "section") {   // another tab or section ends Filters, Similar, a widget's list, the toast and a draft
+      Object.assign(this, { filtersOpen: false, similar: null, preset: null, toast: null, queryDraft: null });
     }
     this.clearSelection();   // what you picked was on that list
     if (key === "mode" && value !== "tracked" && !LIST_MODES.includes(value)) this.settings.listMode = value;
@@ -445,12 +451,11 @@ class DiscoveryView extends ItemView {
   }
 
   renderModes(seg) {
-    const tipVars = { days: this.settings.days, gap: this.settings.dormantDays };
     for (const mode of MODE_KEYS.filter((m) => m !== "tracked")) {
       const tab = seg.createDiv({ cls: `pdt-tab${mode === this.settings.mode ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0" } });
       tab.createSpan({ text: this.similar && mode === "all" ? t("similar.tab") : t(`mode.${mode}`) });
       this.refs.counts[mode] = tab.createSpan({ cls: "pdt-n", text: "…" });
-      setTooltip(tab, t(`tip.${mode}`, tipVars));
+      setTooltip(tab, pageQuery(this.settings, mode));   // the page is its query
       tab.onclick = () => this.update("mode", mode);
       onActivate(tab, () => this.update("mode", mode));
     }
@@ -510,12 +515,15 @@ class DiscoveryView extends ItemView {
         this.refresh();
       });
     } else {
-      this.refs.search = this.renderSearch(bar, this.queryDraft ?? this.settings.query, t("search.placeholder"), async (value) => {
+      const flat = (q) => q.replace(/\s*\n\s*/g, " ");
+      const placeholder = this.inQuery ? flat(pageQuery(this.settings, mode)) : `${flat(pageQuery(this.settings, mode))} · ${t("search.narrow")}`;
+      this.refs.search = this.renderSearch(bar, this.boxText, placeholder, async (value) => {
         // an invalid query isn't applied (like Jira): the list keeps the last valid one, the box keeps what you typed
-        this.queryDraft = compileQuery(value, null, Date.now(), this.settings.queryMode).error ? value : null;
+        this.queryDraft = compileQuery(value, null, Date.now(), this.inQuery).error ? value : null;
         this.renderStatus(this.refs.status);
         if (this.queryDraft != null) return;
-        this.settings.query = value;
+        if (this.inQuery) this.settings.queries = { ...this.settings.queries, [mode]: value };
+        else this.settings.query = value;
         this.visible = PAGE_SIZE;
         this.clearSelection();   // another search, another list
         this.refresh();
@@ -533,8 +541,8 @@ class DiscoveryView extends ItemView {
     }
     if (this.settings.keyboard) this.renderKeyHelp(bar);
     // quick filters (Jira style): the changed and added ones as chips on a row of their own, under the bar
-    if (this.quickFilters && !this.settings.queryMode) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
-    bar.toggleClass("is-query", Boolean(this.settings.queryMode && !similar));   // Filter and Sort step back: the query decides
+    if (this.quickFilters && !this.inQuery) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
+    bar.toggleClass("is-query", this.inQuery);   // Filter and Sort step back: the query decides
     this.updateFilterHead();
   }
 
@@ -560,8 +568,8 @@ class DiscoveryView extends ItemView {
     const panel = wrap.createDiv({ cls: "pdt-filter-panel", attr: { role: "dialog", "aria-label": t("filter.more") } });
     panel.addEventListener("keydown", (event) => { if (event.key === "Escape") { this.filtersOpen = false; this.render(); } });
     this.renderFilterChips(panel, mode, opts, true);
-    const addable = this.settings.queryMode ? [] : addableFilters(this.settings, mode);
-    if (this.settings.queryMode) panel.createDiv({ cls: "pdt-filter-note", text: t("filter.queryNote") });
+    const addable = this.inQuery ? [] : addableFilters(this.settings, mode);
+    if (this.inQuery) panel.createDiv({ cls: "pdt-filter-note", text: t("filter.queryNote") });
     if (addable.length) {
       panel.createDiv({ cls: "pdt-filter-group", text: t("filter.addTitle") });
       const adds = panel.createDiv({ cls: "pdt-filter-adds" });
@@ -595,16 +603,10 @@ class DiscoveryView extends ItemView {
       this.chipButton(chip, "rotate-ccw", t("filter.resetOne"), () => this.resetFilter(key));
     };
     if (all) parent.createDiv({ cls: "pdt-filter-group", text: t("filter.ownTitle") });
-    if (!this.similar && changed.has("query") && !settings.queryMode) {
+    if (!this.similar && changed.has("query") && !this.inQuery) {
       own("query", (p) => { const chip = p.createDiv({ cls: "pdt-chip" }); chip.createSpan({ text: t("filter.tipSearch", { q: settings.query.trim() }) }); return chip; });
     }
-    if (mode === "new" || mode === "updated") {
-      own("days", (p) => numberChip(p, { label: t("filter.last"), unit: t("filter.daysUnit"), min: 1, max: 365, presets: DAY_PRESETS, value: settings.days, onChange: (n) => this.update("days", n) }));
-    }
-    if (mode === "awakened") {
-      own("dormantDays", (p) => numberChip(p, { label: t("filter.gap"), unit: t("filter.daysUnit"), min: 1, max: 3650, presets: DORMANT_PRESETS, value: settings.dormantDays, onChange: (n) => this.update("dormantDays", n) }));
-    }
-    if (mode !== "new" && !settings.queryMode) {
+    if (!this.inQuery) {
       own("downloadFilter", (p) => toggleChip(p, {
         label: t("filter.downloads"),
         value: settings.minDownloads,
@@ -615,9 +617,6 @@ class DiscoveryView extends ItemView {
           await this.updateTab("downloadFilter", true);
         },
       }));
-    }
-    if (mode === "updated") {
-      own("hideBusy", (p) => switchChip(p, { label: t("filter.hideBusy"), tip: t("filter.hideBusyTip"), on: Boolean(settings.hideBusy), onToggle: (on) => this.update("hideBusy", on) }));
     }
     const extras = Object.entries(opts.extras).filter(([key]) => EXTRA_FILTERS[key]);
     if (all && extras.length) parent.createDiv({ cls: "pdt-filter-group", text: t("filter.addedTitle") });
@@ -736,12 +735,12 @@ class DiscoveryView extends ItemView {
    * Returns the textarea.
    */
   renderSearch(bar, value, placeholder, onChange, modes = false) {
-    const queryMode = modes && this.settings.queryMode;
+    const queryMode = modes && this.inQuery;
     const search = bar.createDiv({ cls: `pdt-search${queryMode ? " is-query" : ""}` });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");
     const box = search.createDiv({ cls: "pdt-q" });
     const paint = box.createDiv({ cls: "pdt-q-paint", attr: { "aria-hidden": "true" } });
-    const input = box.createEl("textarea", { cls: "pdt-q-input", attr: { rows: "1", placeholder: queryMode ? t("search.placeholderQuery") : placeholder, spellcheck: "false", autocomplete: "off", autocapitalize: "off" } });
+    const input = box.createEl("textarea", { cls: "pdt-q-input", attr: { rows: "1", placeholder, spellcheck: "false", autocomplete: "off", autocapitalize: "off" } });
     input.value = value || "";
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
@@ -803,10 +802,10 @@ class DiscoveryView extends ItemView {
     const query = seg.createEl("button", { cls: "pdt-qmode-option", text: t("query.mode.query"), attr: { type: "button", "aria-pressed": String(queryMode) } });
     setTooltip(query, t("query.mode.queryTip"));
     let reason = "";
-    basic.onclick = () => (!queryMode ? null : reason ? new Notice(`${reason}\n${t("query.basicClear")}`) : this.toBasicMode());
+    basic.onclick = () => (!queryMode ? null : reason ? new Notice(reason) : this.toBasicMode());
     query.onclick = () => (queryMode ? null : this.toQueryMode());
     seg.refresh = (text) => {
-      reason = queryMode && text.trim() ? queryToFilters(text, this.settings, this.settings.mode).reason || "" : "";
+      reason = queryMode ? queryToBasic(text, this.settings, this.settings.mode).reason || "" : "";
       basic.toggleClass("is-locked", Boolean(reason));
       setTooltip(basic, reason || t("query.mode.basicTip"));
     };
@@ -814,23 +813,29 @@ class DiscoveryView extends ItemView {
   }
 
   /**
-   * To Query mode: the tab's filters (and sort, from the button) become the query; the panel's downloads threshold
-   * and added filters rest until Basic. From typing (`input`), what you typed follows your filters.
+   * To Query mode: the page's query with your narrowing (words, Downloads ≥, added filters, your sort) goes into
+   * the box, and the narrowing rests. From typing (`input`), what you typed comes after the page's query.
    */
   async toQueryMode(input = null) {
     const settings = this.settings;
     const mode = settings.mode;
-    let text = filtersToQuery(settings, mode);
+    const page = pageQuery(settings, mode);
+    const full = joinQuery(page, filtersToQuery(settings, mode));
+    let text = full;
     let caret = null;
     if (input) {
-      const prefix = filtersToQuery({ ...settings, query: "" }, mode, { order: false });
+      const lead = splitOrder(joinQuery(page, filtersToQuery({ ...settings, query: "" }, mode)));
       const typed = input.value;
-      text = prefix && !typed.startsWith(prefix) ? `${prefix} ${typed}` : typed;
-      caret = (input.selectionStart ?? typed.length) + text.length - typed.length;
+      const own = splitOrder(typed).order;   // your own order by replaces the page's
+      text = typed.startsWith(lead.filter) ? typed : [`${lead.filter} ${typed}`.trim(), own ? "" : lead.order].filter(Boolean).join("\n");
+      caret = (input.selectionStart ?? typed.length) + (typed.startsWith(lead.filter) ? 0 : lead.filter.length + 1);
     }
-    settings.queryMode = true;
-    this.queryDraft = compileQuery(text, null, Date.now(), true).error ? text : null;
-    if (this.queryDraft == null) settings.query = text;
+    const valid = !compileQuery(text, null, Date.now(), true).error;
+    const { [mode]: sort, ...sortBy } = settings.sortBy || {};
+    const { [mode]: dl, ...downloadFilter } = settings.downloadFilter || {};
+    Object.assign(settings, { query: "", sortBy, downloadFilter, extraFilters: { ...settings.extraFilters, [mode]: {} },
+      queries: { ...settings.queries, [mode]: valid ? text : full } });
+    this.queryDraft = valid ? null : text;
     this.visible = PAGE_SIZE;
     this.clearSelection();
     this.render();
@@ -840,15 +845,36 @@ class DiscoveryView extends ItemView {
     await this.plugin.saveData(this.plugin.data);
   }
 
-  /** Back to Basic: the query's clauses become filters again, its order by the sort, its words the plain search. */
+  /** Back to Basic: what follows the page's query becomes filters again, its order by the sort. */
   async toBasicMode() {
-    const text = this.queryDraft ?? this.settings.query;
-    const { patch, reason } = text.trim() ? queryToFilters(text, this.settings, this.settings.mode) : { patch: { query: "", queryMode: false } };
+    const { patch, reason } = queryToBasic(this.boxText, this.settings, this.settings.mode);
     if (reason) return new Notice(reason);
     Object.assign(this.settings, patch);
     this.queryDraft = null;
     this.visible = PAGE_SIZE;
     this.clearSelection();
+    this.render();
+    await this.plugin.saveData(this.plugin.data);
+  }
+
+  /** Query mode, the box no longer the page's query: make it the page's (Settings › Page queries undoes it). */
+  async savePageQuery() {
+    const mode = this.settings.mode;
+    const text = this.settings.queries[mode];
+    const { [mode]: old, ...rest } = this.settings.pageQueries || {};
+    const same = (a, b) => a.replace(/\s+/g, " ").trim() === b.replace(/\s+/g, " ").trim();
+    this.settings.pageQueries = same(text, defaultPageQuery(mode)) ? rest : { ...rest, [mode]: text };
+    await this.plugin.saveData(this.plugin.data);
+    new Notice(t("query.pageSaved", { name: t(`mode.${mode}`) }));
+    this.render();
+  }
+
+  /** Query mode: the box back to the page's own query. */
+  async revertQuery() {
+    const mode = this.settings.mode;
+    this.settings.queries = { ...this.settings.queries, [mode]: pageQuery(this.settings, mode) };
+    this.queryDraft = null;
+    this.visible = PAGE_SIZE;
     this.render();
     await this.plugin.saveData(this.plugin.data);
   }
@@ -863,7 +889,7 @@ class DiscoveryView extends ItemView {
       for (const p of this.plugin.catalog?.plugins || []) if (p.author) byAuthor.set(p.author, (byAuthor.get(p.author) || 0) + (p.downloads || 0));
       this.authors = { at: this.plugin.catalog?.fetchedAt, list: [...byAuthor].sort((a, b) => b[1] - a[1]).map(([name]) => name) };
     }
-    const fromFilters = modes && !this.settings.queryMode ? filtersToQuery({ ...this.settings, query: "" }, this.settings.mode) : "";
+    const fromFilters = modes && !this.inQuery ? joinQuery(pageQuery(this.settings, this.settings.mode), filtersToQuery({ ...this.settings, query: "" }, this.settings.mode)) : "";
     return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.authors.list, fromFilters };
   }
 
@@ -929,17 +955,18 @@ class DiscoveryView extends ItemView {
       if (this.plugin.busy) text.createDiv({ cls: "pdt-progress", text: this.plugin.progress || t("status.syncing") });
       else if (delta) text.createDiv({ cls: "pdt-delta", text: t("status.delta", { added: formatCount(delta.added), updated: formatCount(delta.updated) }) });
     }
-    const query = this.similar ? "" : (this.queryDraft ?? this.settings.query).trim();   // the Similar filter has its own search
+    const query = this.similar ? "" : this.boxText.trim();   // the Similar filter has its own search
     if (query) {  // a saved search shouldn't be forgotten: this is why the list is short
-      const { error, advanced, at, clauses, free = [] } = compileQuery(query, null, Date.now(), Boolean(this.settings.queryMode && !this.similar));
+      const { error, advanced, at, clauses, free = [] } = compileQuery(query, null, Date.now(), this.inQuery);
       const tag = status.createDiv({ cls: `pdt-query${error ? " is-invalid" : ""}` });
       // a query isn't repeated: how many clauses, plus the words it searches
       const words = free.length ? ` + “${free.join(" ")}”` : "";
       tag.createSpan({ text: advanced
         ? (error ? t("query.invalid", { error, at: at + 1 }) : `${t("query.clauses", { n: clauses })}${words}`)
         : (error ? t("search.invalid", { error }) : t("status.query", { q: query })) });
-      const clear = tag.createSpan({ cls: "pdt-query-clear", text: t("status.clear"), attr: { role: "button", tabindex: "0" } });
-      clear.onclick = async () => {
+      if (this.inQuery) this.renderQueryChanged(status, query);
+      const clear = this.inQuery ? null : tag.createSpan({ cls: "pdt-query-clear", text: t("status.clear"), attr: { role: "button", tabindex: "0" } });
+      if (clear) clear.onclick = async () => {
         this.settings.query = "";
         this.queryDraft = null;
         if (this.refs.search) {
@@ -950,12 +977,30 @@ class DiscoveryView extends ItemView {
         this.refresh();
         await this.plugin.saveData(this.plugin.data);
       };
-      onActivate(clear, () => clear.click());
+      if (clear) onActivate(clear, () => clear.click());
     }
     const actions = status.createDiv({ cls: "pdt-status-actions" });
     if (!timeline.to && !this.plugin.busy) {
       actions.createEl("button", { cls: "mod-cta", text: t("status.build") }).onclick = () => this.plugin.downloadHistory();
     }
+  }
+
+  /** Query mode, the box no longer the page's own query: "changed · Save ▾ · Revert". */
+  renderQueryChanged(status, query) {
+    const same = (x, y) => x.replace(/\s+/g, " ").trim() === y.replace(/\s+/g, " ").trim();
+    if (this.queryDraft != null || same(query, pageQuery(this.settings, this.settings.mode))) return;
+    const box = status.createDiv({ cls: "pdt-query-changed" });
+    box.createSpan({ text: t("query.changed") });
+    const save = box.createEl("button", { cls: "pdt-query-save", text: t("query.save"), attr: { type: "button" } });
+    save.onclick = (event) => {
+      const menu = new Menu();
+      menu.addItem((item) => item.setTitle(t("query.saveAsPage", { name: t(`mode.${this.settings.mode}`) })).setIcon("save").onClick(() => this.savePageQuery()));
+      menu.addItem((item) => item.setTitle(t("query.saveAsView")).setIcon("bookmark-plus").onClick(() => this.saveView()));
+      menu.showAtMouseEvent(event);
+    };
+    const revert = box.createSpan({ cls: "pdt-query-clear", text: t("query.revert"), attr: { role: "button", tabindex: "0" } });
+    revert.onclick = () => this.revertQuery();
+    onActivate(revert, () => this.revertQuery());
   }
 
   /** "3 filters in effect" for the status line, when quick filters don't show them (so a short list has its reason). */

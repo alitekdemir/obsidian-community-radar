@@ -30,7 +30,9 @@ const risingGain = (ctx, p, params) => ctx.state.growth[p.id]?.[params.days === 
 const since = (ctx, params) => params.since ?? ctx.now - params.days * DAY_MS;
 /** A tab's plugins with the widget's own settings: no Downloads ≥, no search, no added filters. */
 const tabRows = (ctx, mode, extra) =>
-  discover(ctx.state, { ...modeOptions(ctx.settings, mode), filterDownloads: false, query: "", extras: {}, ...extra }, ctx.now);
+  discover(ctx.state, { ...modeOptions({ ...ctx.settings, queries: {} }, mode), filterDownloads: false, query: "", extras: {}, ...extra }, ctx.now);
+/** The plugins a query finds, the way a page in Query mode would (hidden ones out unless it asks for them). */
+const queryRows = (ctx, text) => discover(ctx.state, { ...modeOptions({ ...ctx.settings, queries: { all: text } }, "all"), query: "" }, ctx.now);
 
 const HOME_WIDGETS = {
   new: {
@@ -50,7 +52,7 @@ const HOME_WIDGETS = {
   hatched: {
     icon: "egg", tone: "orange",
     params: { gap: DORMANT_PRESETS }, defaults: { gap: 60 },
-    rows: (ctx, params) => tabRows(ctx, "awakened", { dormantDays: params.gap, sort: "downloads", sortDir: "desc" }),
+    rows: (ctx, params) => queryRows(ctx, `gap >= ${params.gap}d hatched NOT tracked\norder by downloads desc`),
     at: (ctx, p) => p.updated,
     value: (ctx, p) => t("filter.days", { n: dormantDays(ctx.state.releases, p) }),
   },
@@ -75,7 +77,7 @@ const HOME_WIDGETS = {
   quiet: {
     icon: "filter", tone: "blue",
     params: { days: [7, 14, 30] }, defaults: { days: 14 },
-    rows: (ctx, params) => tabRows(ctx, "updated", { days: params.since ? Math.ceil((ctx.now - params.since) / DAY_MS) : params.days, hideBusy: true, sort: "downloads", sortDir: "desc" })
+    rows: (ctx, params) => queryRows(ctx, `released <= ${params.since ? Math.ceil((ctx.now - params.since) / DAY_MS) : params.days}d NOT new NOT tracked NOT busy\norder by downloads desc`)
       .filter((p) => p.updated > since(ctx, params)),
     at: (ctx, p) => p.updated,
     value: (ctx, p) => relativeDays(p.updated, ctx.now),
@@ -98,7 +100,7 @@ const VIEW_SEEN_CAP = 5000;    // a view's matches you've seen are kept as ids, 
 
 /** The filter settings a saved view keeps: the tab's filters (search and added ones included) and its sort. */
 function viewFilters(settings, mode) {
-  return Object.fromEntries([...filterKeys(mode), "sortBy", "queryMode"].map((k) => [k, settings[k]]));
+  return Object.fromEntries([...filterKeys(mode), "sortBy", "queries", "pageQueries"].map((k) => [k, settings[k]]));
 }
 
 /**
@@ -109,7 +111,7 @@ function viewWidget(view, seen) {
   const known = Array.isArray(seen) ? new Set(seen) : null;
   return {
     icon: "bookmark", tone: "blue", params: {}, defaults: {}, view,
-    rows: (ctx) => discover(ctx.state, modeOptions({ ...ctx.settings, queryMode: false, ...view.filters }, view.mode), ctx.now),   // views from before Query mode are Basic
+    rows: (ctx) => discover(ctx.state, modeOptions({ ...ctx.settings, queries: {}, ...view.filters }, view.mode), ctx.now),   // views from before Query mode are Basic
     isNew: known && ((ctx, p) => !known.has(p.id)),
     value: (ctx, p) => formatShort(p.downloads ?? 0),
   };

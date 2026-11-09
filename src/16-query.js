@@ -13,6 +13,7 @@ const QUERY_OPS = {
 };
 
 const daysAgo = (ms, now) => (ms > 0 ? (now - ms) / DAY_MS : null);
+const fresh = (s, p) => s.firstSeen[p.id] === undefined && p.downloads == null;
 
 /**
  * The fields: type, value (null: empty), and for dates the moment itself so `released > 2026-01-01` works.
@@ -35,7 +36,8 @@ const QUERY_FIELDS = {
   gain7: { type: "number", sort: "growth7", get: (s, p) => s.growth?.[p.id]?.[0] ?? null },
   gain30: { type: "number", sort: "growth30", get: (s, p) => s.growth?.[p.id]?.[1] ?? null },
   released: { type: "number", days: true, sort: "updated", get: (s, p, now) => daysAgo(p.updated, now), at: (s, p) => p.updated },
-  age: { type: "number", days: true, sort: "listed", get: (s, p, now) => daysAgo(s.firstSeen[p.id], now), at: (s, p) => s.firstSeen[p.id] },
+  // a plugin the history hasn't seen yet (no downloads count either) came in just now
+  age: { type: "number", days: true, sort: "listed", get: (s, p, now) => (fresh(s, p) ? 0 : daysAgo(s.firstSeen[p.id], now)), at: (s, p, now) => (fresh(s, p) ? now : s.firstSeen[p.id]) },
   gap: { type: "number", days: true, sort: "dormant", get: (s, p) => dormantDays(s.releases, p) },
   rating: { type: "number", sort: "rating", get: (s, p) => s.notes.get(p.id)?.rating || null },
   rise7: { type: "number", get: (s, p) => gainShare(s, p, 0) },
@@ -127,6 +129,7 @@ function parseQuery(query, { strict = false } = {}) {
   const tokens = tokenize(query);
   let i = 0;
   let clauses = 0;
+  const fields = new Set();   // the fields the query names (discover keeps hidden plugins when it names `ignored`)
   let current = null;   // where the clause being read starts
   const free = [];
   const spans = [];
@@ -150,6 +153,7 @@ function parseQuery(query, { strict = false } = {}) {
   const clause = (name, at) => {
     const field = QUERY_FIELDS[name];
     clauses++;
+    fields.add(name);
     let op = peek();
     if (field.type === "bool" && (!op || op.kind !== "op")) return (s, p, now) => field.get(s, p, now);   // `installed`
     if (word("not") && fold(tokens[i + 1]?.text) === "in") { take(); take(); op = { text: "not in" }; }
@@ -187,7 +191,7 @@ function parseQuery(query, { strict = false } = {}) {
       const shift = peek()?.kind === "word" && /^[+-]?\d+$/.test(peek().text) ? Number(take().text) : 0;
       if (take()?.kind !== ")") fail("paren");
       const cmp = QUERY_CMP[op.text];
-      return (s, p, now) => { const at2 = field.at(s, p); const moment = fn(now, shift, s); return at2 > 0 && moment != null && cmp(at2, moment); };
+      return (s, p, now) => { const at2 = field.at(s, p, now); const moment = fn(now, shift, s); return at2 > 0 && moment != null && cmp(at2, moment); };
     }
     if (field.type === "bool") {
       const v = fold(token.text);
@@ -202,7 +206,7 @@ function parseQuery(query, { strict = false } = {}) {
       // a date compares moments (released > 2026-01-01: after it); a span compares days ago
       const cmp = QUERY_CMP[op.text];
       return value.date
-        ? (s, p) => { const at2 = field.at(s, p); return at2 > 0 && cmp(at2, value.date); }
+        ? (s, p, now) => { const at2 = field.at(s, p, now); return at2 > 0 && cmp(at2, value.date); }
         : (s, p, now) => { const v = field.get(s, p, now); return v != null && cmp(v, value.n); };
     }
     // text and list: = exact (case folded), ~ contains or /regex/
@@ -299,7 +303,7 @@ function parseQuery(query, { strict = false } = {}) {
     current = null;
   }
   if (peek()) fail("unexpected", { text: peek().text });
-  return { test, order, clauses, free, spans };
+  return { test, order, clauses, free, spans, fields };
 }
 
 /** Suggestions where the caret is: fields, then the operators of that field's type, then its values, then AND / OR. */
@@ -395,11 +399,11 @@ function queryCount(n) {
 }
 
 /**
- * Basic → Query: the tab's downloads threshold, added filters, sort (unless the tab's default; `order` false
- * leaves it out) and the plain search's words, as one query. The tab's own settings (its days, Hide busy) stay.
+ * Basic → Query: your narrowing of a page — the plain search's words, Downloads ≥, the added filters, and the
+ * sort if you chose one (`order` false leaves it out) — as query text, without the page's own query.
  */
 function filtersToQuery(settings, mode, { order = true } = {}) {
-  const opts = modeOptions({ ...settings, queryMode: false }, mode);
+  const opts = modeOptions({ ...settings, queries: {} }, mode);
   const query = String(settings.query || "").trim();
   const quoted = (w) => `"${w.replace(/"/g, '\\"')}"`;   // a plain search word, as Query mode reads text
   const parts = isAdvancedQuery(query) || /^\/.+\/$/.test(query) ? [query] : query.split(",").map((w) => w.trim()).filter(Boolean).map(quoted);
@@ -412,9 +416,41 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
   if (x.author) parts.push(`author ~ ${quoteValue(x.author)}`);
   if (x.installed) parts.push("installed");
   const field = Object.keys(QUERY_FIELDS).find((k) => QUERY_FIELDS[k].sort === opts.sort);
-  const tab = TAB_DEFAULTS[mode] || TAB_DEFAULTS.all;
-  const sorted = order && field && (opts.sort !== tab.sort || opts.sortDir !== (NATURAL_DIR[opts.sort] || "desc"));
+  const sorted = order && field && settings.sortBy?.[mode];
   return [parts.join(" "), sorted ? `order by ${field} ${opts.sortDir}` : ""].filter(Boolean).join("\n");
+}
+
+/** A query split at its `order by` (always last): {filter, order}. */
+function splitOrder(text) {
+  const at = String(text).search(/(^|\s)order\s+by\b/i);
+  return at < 0 ? { filter: String(text).trim(), order: "" } : { filter: text.slice(0, at).trim(), order: text.slice(at).trim() };
+}
+
+/** The page's query with your narrowing after it; your order by, if any, replaces the page's. */
+function joinQuery(page, mine) {
+  const a = splitOrder(page);
+  const b = splitOrder(mine);
+  return [[a.filter, b.filter].filter(Boolean).join(" "), b.order || a.order].filter(Boolean).join("\n");
+}
+
+/**
+ * Query → Basic for a page: the box must still start with the page's own query; what follows becomes filters
+ * ({patch}), or the reason it can't ({reason}).
+ */
+function queryToBasic(text, settings, mode) {
+  const norm = (x) => x.replace(/\s+/g, " ").trim();
+  const page = splitOrder(pageQuery(settings, mode));
+  const mine = splitOrder(text);
+  const head = norm(page.filter);
+  const body = norm(mine.filter);
+  if (head && !(body === head || body.startsWith(`${head} `))) return { reason: t("query.basicChanged") };
+  const order = mine.order && norm(mine.order) !== norm(page.order) ? mine.order : "";
+  const rest = [body.slice(head.length).trim(), order].filter(Boolean).join("\n");
+  const { patch, reason } = rest ? queryToFilters(rest, settings, mode) : { patch: { query: "", extraFilters: { ...settings.extraFilters, [mode]: {} } } };
+  if (reason) return { reason };
+  const { [mode]: gone, ...queries } = settings.queries || {};
+  const { [mode]: sort, ...sortBy } = settings.sortBy || {};
+  return { patch: { sortBy, ...patch, queries } };   // no order by of your own: the page's sort again
 }
 
 /**
@@ -447,7 +483,7 @@ function queryToFilters(query, settings, mode) {
     const lower = op?.text === "<=" || op?.text === "<";
     if (rest.length) bad.add(text);
     else if (field === "installed" && !op) set("installed", true, text);
-    else if (field === "downloads" && op?.text === ">=" && count?.n >= 0 && mode !== "new" && downloads == null) downloads = Math.round(count.n);
+    else if (field === "downloads" && op?.text === ">=" && count?.n >= 0 && downloads == null) downloads = Math.round(count.n);
     else if (field === "released" && lower && days?.n >= 0) set("released", Math.round(days.n), text);
     else if (field === "age" && lower && days?.n >= 0) set("age", Math.round(days.n), text);
     else if (field === "gap" && op?.text === ">=" && days?.n >= 0) set("gap", Math.round(days.n), text);
@@ -458,11 +494,10 @@ function queryToFilters(query, settings, mode) {
   if (bad.size) return { reason: t("query.basicNo", { what: [...bad].join(", ") }) };
   const patch = {
     query: q.free.join(", "),
-    queryMode: false,
     extraFilters: { ...settings.extraFilters, [mode]: extras },
     sortBy: q.order ? { ...settings.sortBy, [mode]: q.order } : settings.sortBy,
   };
-  if (mode !== "new") patch.downloadFilter = { ...settings.downloadFilter, [mode]: downloads != null };
+  patch.downloadFilter = { ...settings.downloadFilter, [mode]: downloads != null };
   if (downloads != null) patch.minDownloads = downloads;
   return { patch };
 }

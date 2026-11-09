@@ -256,7 +256,7 @@ const tests = {
     assert.ok(chip().classList.contains("is-on") && chip().classList.contains("is-changed"), "changed: marked, panel stays open");
     assert.ok(!names().includes("Fresh Plugin"));
     assert.equal(settings.downloadFilter.all, true);
-    assert.equal(core.modeOptions(settings, "updated").filterDownloads, true);   // other tabs keep theirs
+    assert.equal(core.modeOptions(settings, "updated").filterDownloads, false);   // other tabs keep theirs (Updated's threshold is in its query)
     assert.ok($(el, ".pdt-status").textContent.includes(core.t("filter.active", { n: 1 })), "the status line says why the list is short");
     await $(chip(), ".pdt-chip-act").onclick({ stopPropagation() {} });     // ↺
     assert.ok(!chip().classList.contains("is-changed") && !("all" in settings.downloadFilter));
@@ -308,49 +308,51 @@ const tests = {
     const typeQuery = async (text) => { box().value = text; box().oninput(); await tick(1100); };
     const modeButton = (k) => $$(el, ".pdt-qmode-option")[k];
     await typeQuery("order by name desc");
-    assert.equal(settings.queryMode, true);
-    assert.equal(settings.query, "downloads >= 1k order by name desc", "the filters lead what you typed");
+    assert.equal(settings.queries.all, "downloads >= 1k order by name desc", "Query mode on this page; the filters lead what you typed");
     assert.equal(core.modeOptions(settings, "all").filterDownloads, false, "the panel's threshold rests in Query mode");
     assert.deepEqual(names(), ["Homepage", "Dataview"], "filtered and sorted by the query");
     assert.equal($(el, ".pdt-q-paint .pdt-q-field").textContent, "downloads", "words coloured by their role");
     assert.ok($(el, ".pdt-query").textContent.startsWith(core.t("query.clauses", { n: 1 })), "the status line counts, doesn't repeat the query");
     // an invalid query isn't applied: the list keeps the last valid one
     await typeQuery("downloads > lots");
-    assert.equal(settings.query, "downloads >= 1k order by name desc", "not applied");
+    assert.equal(settings.queries.all, "downloads >= 1k order by name desc", "not applied");
     assert.equal(box().value, "downloads > lots", "the box keeps what you typed");
     assert.ok($(el, ".pdt-query.is-invalid") && $(el, ".pdt-q-paint .is-bad"), "the status line says why, the box underlines it");
     assert.deepEqual(names(), ["Homepage", "Dataview"]);
     // Query → Basic: the clauses become filters again
     await typeQuery("downloads >= 1k author ~ brenan");
     await modeButton(0).onclick();
-    assert.equal(settings.queryMode, false);
+    assert.equal(settings.queries.all, undefined, "Basic again");
     assert.equal(settings.query, "");
     assert.deepEqual(settings.extraFilters.all, { author: "brenan" });
     assert.equal(settings.downloadFilter.all, true);
     assert.deepEqual(names(), ["Dataview"]);
     // the Query button writes them back; a query filters can't say locks Basic
     await modeButton(1).onclick();
-    assert.ok(settings.query.startsWith("downloads >= 1k author ~ brenan"), settings.query);
+    assert.ok(settings.queries.all.startsWith("downloads >= 1k author ~ brenan"), settings.queries.all);
     await typeQuery("author ~ brenan OR installed");
     assert.ok(modeButton(0).classList.contains("is-locked"));
-    Object.assign(settings, { queryMode: false, query: "", extraFilters: {}, downloadFilter: {}, minDownloads: 100 });
+    Object.assign(settings, { queries: {}, query: "", extraFilters: {}, downloadFilter: {}, minDownloads: 100 });
     view.queryDraft = null;
     view.render();
 
+    // a page is its query: in Query mode the box holds it; changed, it can become the page's own (Settings resets it)
     await view.update("mode", "updated");
-    head().onclick();   // the days live in the panel
-    const savedDays = settings.days;
-    const typeDays = async (value) => { const input = $(el, ".pdt-chip.is-number input"); input.value = value; await input.onchange(); };
-    await typeDays("1");
-    assert.equal(settings.days, 1);
-    await typeDays("999");
-    assert.equal(settings.days, 365);                                          // clamped
-    await typeDays("");
-    assert.equal(settings.days, 365);                                          // empty: unchanged
+    await modeButton(1).onclick();
+    assert.equal(settings.queries.updated, core.pageQuery(settings, "updated"));
+    assert.ok(!$(el, ".pdt-query-changed"), "unchanged: nothing to save");
+    const wider = core.pageQuery(settings, "updated").replace("released <= 14d", "released <= 30d");
+    await typeQuery(wider);
+    assert.ok($(el, ".pdt-query-changed"), "changed: Save ▾ and Revert");
     fake.menus.length = 0;
-    $(el, ".pdt-chip.is-number .pdt-chip-caret").onclick();
-    assert.equal(fake.menus[0].items[0].title, core.t("filter.days", { n: 1 }));
-    await view.update("days", savedDays);
+    $(el, ".pdt-query-save").onclick({});
+    await fake.menus[0].items[0].click();
+    assert.equal(settings.pageQueries.updated, wider, "the page's query now");
+    assert.ok(!$(el, ".pdt-query-changed"));
+    await modeButton(0).onclick();
+    assert.equal(settings.queries.updated, undefined);
+    assert.ok(box().getAttribute("placeholder").includes("released <= 30d"), "Basic: the page's query, faint in the box");
+    settings.pageQueries = {};
 
     await view.update("mode", "all");
     settings.minDownloads = 0;

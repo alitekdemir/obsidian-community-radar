@@ -235,7 +235,7 @@ function compileQuery(query, state = null, now = Date.now(), advanced = false) {
   if (advanced || isAdvancedQuery(String(query || ""))) {   // Query mode reads even plain words as the query language   // the query language (16-query.js)
     try {
       const q = parseQuery(String(query), { strict: advanced });
-      return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, free: q.free, spans: q.spans, advanced: true, regex: false, error: "" };
+      return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, free: q.free, spans: q.spans, fields: q.fields, advanced: true, regex: false, error: "" };
     } catch (error) {
       if (!(error instanceof QueryError)) throw error;
       const bad = { from: error.from, to: error.to, kind: "bad" };
@@ -316,25 +316,23 @@ function modeOptions(settings, mode) {
   return {
     ...settings,
     mode,
-    // new plugins have few downloads; in Query mode the query holds the threshold and the added filters
-    filterDownloads: mode === "new" || settings.queryMode ? false : settings.downloadFilter?.[mode] ?? defaults.downloads,
-    extras: settings.queryMode ? {} : settings.extraFilters?.[mode] || {},
+    // in Query mode the query holds the threshold and the added filters
+    filterDownloads: inQueryMode(settings, mode) ? false : settings.downloadFilter?.[mode] ?? defaults.downloads,
+    extras: inQueryMode(settings, mode) ? {} : settings.extraFilters?.[mode] || {},
     sort: key,
     sortDir: sort.dir === "asc" || sort.dir === "desc" ? sort.dir : NATURAL_DIR[key],
+    sorted: SORT_KEYS.includes(sort.key),   // you chose a sort (false: the page query's order by decides)
   };
 }
 
-/** The filter settings a tab uses (sort and layout aren't filters). */
+/** Is this page in Query mode (its query in the box) rather than Basic? */
+function inQueryMode(settings, mode) {
+  return settings.queries?.[mode] != null;
+}
+
+/** The filter settings a page narrows its query with in Basic (sort and layout aren't filters). */
 function filterKeys(mode) {
-  return [
-    "query",
-    ...(mode === "new" || mode === "updated" ? ["days"] : []),
-    ...(mode === "awakened" ? ["dormantDays"] : []),
-    ...(mode === "updated" ? ["hideBusy"] : []),
-    ...(mode === "tracked" ? ["trackedGroup", "trackedStatus"] : []),
-    ...(mode !== "new" ? ["minDownloads", "downloadFilter"] : []),
-    "extraFilters",
-  ];
+  return ["query", ...(mode === "tracked" ? ["trackedGroup", "trackedStatus"] : []), "minDownloads", "downloadFilter", "extraFilters"];
 }
 
 /** The settings that put a tab's filters back to their defaults. */
@@ -359,7 +357,7 @@ function changedFilterKeys(settings, mode) {
   const cleared = clearedFilters(settings, mode);
   const own = Object.keys(cleared).filter((k) => k !== "extraFilters"
     && (k === "downloadFilter" ? mode in (settings.downloadFilter || {}) : settings[k] !== cleared[k]));
-  if (settings.queryMode) return own.filter((k) => !["query", "minDownloads", "downloadFilter"].includes(k));   // those live in the query
+  if (inQueryMode(settings, mode)) return own.filter((k) => !["query", "minDownloads", "downloadFilter"].includes(k));   // those live in the query
   const extras = Object.keys(settings.extraFilters?.[mode] || {}).map((k) => `extra.${k}`);
   return [...new Set(own.map((k) => (k === "minDownloads" ? "downloadFilter" : k))), ...extras];
 }
@@ -414,41 +412,45 @@ function trackedMatch(note, opts, plugin) {
  * @param {object} opts   {mode, days, dormantDays, newDays, hideBusy, minDownloads, filterDownloads, sort, sortDir, query, tracked…} (see modeOptions)
  */
 function discover(state, opts, now) {
-  const { catalog, releases, firstSeen, notes, excluded, dismissed, installed, snoozed } = state;
-  const since = now - opts.days * DAY_MS;
-  const query = compileQuery(opts.query, state, now, opts.queryMode);
+  const { catalog, notes } = state;
+  const mode = opts.mode;
+  const inQuery = inQueryMode(opts, mode);
+  // the page is its query: in Query mode the box's, in Basic the page's own, narrowed by your words and filters
+  const page = compileQuery(inQuery ? opts.queries[mode] : pageQuery(opts, mode), state, now, true);
+  const words = inQuery ? null : compileQuery(opts.query, state, now);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
   const extras = Object.entries(opts.extras || {}).filter(([k]) => EXTRA_FILTERS[k]);
-  const shown = (p) => (p.downloads ?? 0) >= minDownloads && query.test(p) && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now));
-  const base = (p) => shown(p) && !excluded.has(p.id) && !isSnoozed(p, snoozed);
-  const fresh = (p) => base(p) && !notes.has(p.id);
-  const { key: sortKey, dir: sortDir } = query.order || { key: opts.sort, dir: opts.sortDir };   // `order by` wins over the tab's sort
-  const sorted = (rows) => sortRows(rows, sortKey, sortDir, catalog, releases, notes, state.growth);
+  // hidden plugins stay out unless the query asks for them; Tracked and Dismissed show yours whatever you hid
+  const keepHidden = page.fields?.has("ignored") || mode === "tracked" || mode === "dismissed";
+  const hidden = (p) => !keepHidden && (state.excluded.has(p.id) || isSnoozed(p, state.snoozed));
+  const shown = (p) => !hidden(p) && page.test(p) && (!words || words.test(p)) && (p.downloads ?? 0) >= minDownloads
+    && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now)) && (mode !== "tracked" || trackedMatch(notes.get(p.id), opts, p));
+  // sort: Query mode follows its order by; Basic your sort, else the page query's
+  const order = (inQuery || opts.sorted === false ? page.order : null) || { key: opts.sort, dir: opts.sortDir };
+  return sortRows(catalog.filter(shown), order.key, order.dir, catalog, state.releases, notes, state.growth);
+}
 
-  switch (opts.mode) {
-    case "all":   // browsing: tracked plugins stay visible (with their note badge), excluded ones don't
-      return sorted(catalog.filter(base));
-    case "new":
-      return sorted(catalog.filter((p) => fresh(p) && isNewPlugin(firstSeen, p, now, opts.days)));
-    case "updated":   // new plugins have their own tab; "busy" ones would crowd out the rest
-      return sorted(catalog.filter((p) => fresh(p) && p.updated >= since && !isNewPlugin(firstSeen, p, now, opts.newDays ?? NEW_BADGE_DAYS)
-        && !(opts.hideBusy && updateWaves(releases[p.id] || [], now - BUSY_DAYS * DAY_MS, now) > BUSY_LIMIT)));
-    case "awakened":   // out of incubation (a pause ≥ dormantDays); stays as long as the pause was, up to INCUBATION_CAP
-      return sorted(catalog.filter((p) => {
-        const gap = dormantDays(releases, p) ?? -1;
-        return fresh(p) && gap >= opts.dormantDays && now - p.updated <= Math.min(gap, INCUBATION_CAP) * DAY_MS;
-      }));
-    case "suggested":
-      return sorted(catalog.filter((p) => base(p) && installed.has(p.id) && !dismissed.has(p.id) && !(notes.get(p.id) || {}).favorite));
-    case "tracked":   // your notes: ignoring a tracked plugin doesn't hide it here
-      return sorted(catalog.filter((p) => shown(p) && trackedMatch(notes.get(p.id), opts, p)));
-    case "ignored":
-      return sorted(catalog.filter((p) => shown(p) && (excluded.has(p.id) || isSnoozed(p, snoozed))));
-    case "dismissed":
-      return sorted(catalog.filter((p) => shown(p) && dismissed.has(p.id)));
-    default:
-      return [];
-  }
+/** A page's query: yours (saved over it) or the default. */
+function pageQuery(settings, mode) {
+  return settings.pageQueries?.[mode] ?? defaultPageQuery(mode);
+}
+
+/**
+ * The default queries, the tab rules as they were: Updated hides new and busy plugins, Incubation shows the ones
+ * just out of a long pause, and so on. `opts` carry the days and thresholds (older settings, the widgets).
+ */
+function defaultPageQuery(mode, { days = 14, gap = 60, busy = true, downloads = 100 } = {}) {
+  const min = downloads > 0 ? ` downloads >= ${queryCount(downloads)}` : "";
+  return {
+    all: "order by downloads desc",
+    new: `age <= ${days}d NOT tracked\norder by age desc`,
+    updated: `released <= ${days}d NOT new NOT tracked${busy ? " NOT busy" : ""}${min}\norder by downloads desc`,
+    awakened: `gap >= ${gap}d hatched NOT tracked${min}\norder by downloads desc`,
+    suggested: "installed NOT favorite NOT dismissed\norder by downloads desc",
+    tracked: "tracked\norder by rating desc",
+    ignored: "ignored\norder by name asc",
+    dismissed: "dismissed\norder by name asc",
+  }[mode] ?? "";
 }
 
 /**

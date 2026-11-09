@@ -140,6 +140,8 @@ class RadarSettingTab extends PluginSettingTab {
     this.displayTranslation(containerEl, settings, save);
 
     // ── Lists: managed in the view, with search and Restore (a settings list can't cope with thousands)
+    this.displayPageQueries(containerEl, settings, save);
+
     new Setting(containerEl).setName(t("set.lists")).setHeading();
     new Setting(containerEl)
       .setName(t("set.excluded", { n: formatCount(plugin.ignoredCount()) }))
@@ -299,6 +301,48 @@ class RadarSettingTab extends PluginSettingTab {
         await save();
         this.display();
       }));
+  }
+
+  /**
+   * Page queries: what each page shows, as a query. Yours replace the default (a changed one has a yellow edge);
+   * ↺ puts one back, the button below all of them. A query that doesn't parse isn't saved (red edge, the reason).
+   */
+  displayPageQueries(containerEl, settings, save) {
+    new Setting(containerEl).setName(t("set.pageQueries")).setDesc(t("set.pageQueriesDesc")).setHeading();
+    for (const mode of [...MODE_KEYS, ...LIST_MODES]) {
+      const mine = settings.pageQueries?.[mode];
+      const setting = new Setting(containerEl).setName(t(`mode.${mode}`)).setClass("pdt-setting-query");
+      setting.addTextArea((area) => {
+        area.setValue(pageQuery(settings, mode)).onChange(async (value) => {
+          const { error } = compileQuery(value, null, Date.now(), true);
+          area.inputEl.toggleClass("is-invalid", Boolean(error));
+          setting.setDesc(error || "");
+          if (error) return;
+          const { [mode]: old, ...rest } = settings.pageQueries || {};
+          const same = value.replace(/\s+/g, " ").trim() === defaultPageQuery(mode).replace(/\s+/g, " ").trim();
+          settings.pageQueries = same ? rest : { ...rest, [mode]: value };
+          area.inputEl.toggleClass("is-changed", !same);
+          await save();
+          this.plugin.redraw();
+        });
+        area.inputEl.rows = 2;
+        area.inputEl.spellcheck = false;
+        area.inputEl.toggleClass("is-changed", mine != null);
+      });
+      setting.addExtraButton((b) => b.setIcon("rotate-ccw").setTooltip(t("set.pageQueryReset")).setDisabled(mine == null).onClick(async () => {
+        const { [mode]: old, ...rest } = settings.pageQueries || {};
+        settings.pageQueries = rest;
+        await save();
+        this.plugin.redraw();
+        this.display();
+      }));
+    }
+    new Setting(containerEl).addButton((b) => b.setButtonText(t("set.pageQueriesReset")).setDisabled(!Object.keys(settings.pageQueries || {}).length).onClick(async () => {
+      settings.pageQueries = {};
+      await save();
+      this.plugin.redraw();
+      this.display();
+    }));
   }
 
   /** Loads the model list once (if it can), then opens the filtering picker; typed names are allowed. */
