@@ -282,29 +282,35 @@ function addableFilters(settings, mode) {
 }
 
 /**
- * The table layout's columns besides Name: how a cell reads (`text`; favorite and rating are buttons the view
- * draws), its alignment, and the sort key a click on its header picks.
+ * The table layout's columns besides Name: how a cell reads (`text`), its alignment, the sort key a click on its
+ * header picks, the query field it shows (`field`) and its place in the column picker (`group`).
  */
 const TABLE_COLUMNS = {
-  downloads: { align: "right", sort: "downloads", text: (s, p) => formatCount(p.downloads) },
-  updated: { sort: "updated", text: (s, p, now) => (p.updated ? relativeDays(p.updated, now) : "–") },
-  favorite: { align: "center" },
-  rating: { sort: "rating" },
-  growth30: { align: "right", sort: "growth30", text: (s, p) => gainText(s.growth?.[p.id]?.[1]) },
-  growth7: { align: "right", sort: "growth7", text: (s, p) => gainText(s.growth?.[p.id]?.[0]) },
-  author: { text: (s, p) => p.author || "" },
-  gap: { align: "right", sort: "dormant", text: (s, p) => { const n = dormantDays(s.releases, p); return n == null ? "–" : t("filter.days", { n }); } },
-  age: { sort: "listed", text: (s, p, now) => (s.firstSeen[p.id] > 0 ? ageLabel(s.firstSeen[p.id], now) : "–") },
-  cadence: { text: (s, p, now) => { const c = releaseCadence(s.releases[p.id], now); return c ? cadenceLabel(c) : "–"; } },
-  groups: { text: (s, p) => (s.notes.get(p.id)?.groups || []).join(", ") },
-  description: { text: (s, p) => p.description || "" },
+  downloads: { group: "numbers", field: "downloads", align: "right", sort: "downloads", text: (s, p) => formatCount(p.downloads) },
+  growth30: { group: "numbers", field: "gain30", align: "right", sort: "growth30", text: (s, p) => gainText(s.growth?.[p.id]?.[1]) },
+  growth7: { group: "numbers", field: "gain7", align: "right", sort: "growth7", text: (s, p) => gainText(s.growth?.[p.id]?.[0]) },
+  rise30: { group: "numbers", field: "rise30", align: "right", sort: "rise30", text: (s, p) => riseText(gainShare(s, p, 1)) },
+  rise7: { group: "numbers", field: "rise7", align: "right", sort: "rise7", text: (s, p) => riseText(gainShare(s, p, 0)) },
+  milestone: { group: "numbers", field: "milestone", align: "right", text: (s, p) => { const m = topMilestone(s, p); return m ? formatShort(m) : "–"; } },
+  updated: { group: "time", field: "released", sort: "updated", text: (s, p, now) => (p.updated ? relativeDays(p.updated, now) : "–") },
+  age: { group: "time", field: "age", sort: "listed", text: (s, p, now) => (s.firstSeen[p.id] > 0 ? ageLabel(s.firstSeen[p.id], now) : "–") },
+  gap: { group: "time", field: "gap", align: "right", sort: "dormant", text: (s, p) => { const n = dormantDays(s.releases, p); return n == null ? "–" : t("filter.days", { n }); } },
+  cadence: { group: "time", text: (s, p, now) => { const c = releaseCadence(s.releases[p.id], now); return c ? cadenceLabel(c) : "–"; } },
+  favorite: { group: "yours", field: "favorite", align: "center", text: (s, p) => (s.notes.get(p.id)?.favorite ? "★" : "☆") },
+  rating: { group: "yours", field: "rating", sort: "rating", text: (s, p) => { const n = s.notes.get(p.id)?.rating; return n ? ratingStars(n) : "·"; } },
+  groups: { group: "yours", field: "group", text: (s, p) => (s.notes.get(p.id)?.groups || []).join(", ") },
+  status: { group: "yours", field: "status", text: (s, p) => s.notes.get(p.id)?.status || "" },   // the view shows its label
+  author: { group: "info", field: "author", text: (s, p) => p.author || "" },
+  description: { group: "info", field: "description", text: (s, p) => p.description || "" },
 };
 const TABLE_DEFAULT = ["downloads", "updated", "favorite"];
 const gainText = (n) => (n == null ? "–" : `+${formatCount(n)}`);
+const riseText = (n) => (n == null ? "–" : t("table.percent", { n: formatCount(Math.round(n)) }));
+const ratingStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
-/** The table's columns on a tab: yours (shown, in your order) or the default few. */
-function tableColumns(settings, mode) {
-  const mine = settings.tableColumns?.[mode];
+/** The table's columns on a page (a tab, a saved view, a widget's list): yours (shown, in your order) or the default few. */
+function tableColumns(settings, page) {
+  const mine = settings.tableColumns?.[page];
   return (Array.isArray(mine) ? mine : TABLE_DEFAULT).filter((k) => TABLE_COLUMNS[k]);
 }
 

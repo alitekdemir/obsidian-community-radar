@@ -246,6 +246,10 @@ const tests = {
     assert.match(core.queryToFilters("group in (a) released >= startOfMonth()", settings, "all").reason, /in \(…\).*startOfMonth\(\)/);
     assert.match(core.queryToFilters("NOT installed rating >= 4", settings, "all").reason, /NOT.*rating >= 4/);
     assert.match(core.queryToFilters("released <= 30d", settings, "updated").reason, /released/, "Updated's own days aren't an added filter");
+    // a sort from a header or the Sort menu replaces the query's order by, by its field name
+    assert.equal(core.withOrder("installed AND downloads >= 1k\norder by downloads desc", "growth30", "asc"), "installed AND downloads >= 1k\norder by gain30 asc");
+    assert.equal(core.withOrder("", "updated", "desc"), "order by released desc");
+    assert.equal(core.parseQuery(core.withOrder("tracked", "rise7", "desc")).order.key, "rise7");
     // Basic → Query → Basic untouched: no filter counts as changed (your own sort comes back as your sort)
     for (const mode of ["new", "awakened"]) {
       const st = { query: "", minDownloads: 100, pageQueries: {}, queries: {}, extraFilters: {}, downloadFilter: { awakened: false }, sortBy: { new: { key: "listed", dir: "asc" }, awakened: { key: "dormant", dir: "desc" } } };

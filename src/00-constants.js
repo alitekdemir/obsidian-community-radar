@@ -82,9 +82,9 @@ const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by O
 const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
 const LIST_MODES = ["ignored", "dismissed"];   // reached from the ⋮ menu and settings, not from a tab
 const SIMILAR_MODE = "similar";                // 0.8's Similar list; the Similar filter replaced it
-const SORT_KEYS = ["downloads", "growth7", "growth30", "updated", "name", "listed", "dormant", "rating"];
+const SORT_KEYS = ["downloads", "growth7", "growth30", "rise7", "rise30", "updated", "name", "listed", "dormant", "rating"];
 const SIMILAR_SORT_KEYS = ["relevance", "downloads", "growth30", "updated", "name", "listed", "rating"];
-const NATURAL_DIR = { downloads: "desc", growth7: "desc", growth30: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
+const NATURAL_DIR = { downloads: "desc", growth7: "desc", growth30: "desc", rise7: "desc", rise30: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
 const GROWTH_INDEX = { growth7: 0, growth30: 1 };   // positions in the server's growth [7, 30, 90 days]
 const MILESTONE_DAYS = 30;         // a row shows a milestone passed within this many days
 // Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name

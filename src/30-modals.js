@@ -135,50 +135,112 @@ class TextModal extends Modal {
   }
 }
 
-/** The table's column picker: show or hide each column, drag by the grip to order them; Name always stays first. */
-class ColumnsModal extends Modal {
-  constructor(app, { columns, onChange }) {
-    super(app);
-    this.shown = [...columns];
-    this.onChange = onChange;
+/**
+ * The table's column picker, under its button: the shown columns in order (drag by the grip, ✕ hides), the rest as
+ * chips in groups (a click adds one at the end). Each change goes to the table behind at once; Esc or a click
+ * outside closes it. Name always stays first.
+ */
+class ColumnsPopover {
+  constructor(anchor, { page, columns, sort, sample, onChange }) {
+    Object.assign(this, { anchor, page, sort, sample, onChange, shown: [...columns] });
   }
 
-  onOpen() {
-    this.titleEl.setText(t("table.columns"));
+  open() {
+    this.el = document.body.createDiv({ cls: "pdt-cols-pop", attr: { role: "dialog", "aria-label": t("table.columns") } });
+    const at = this.anchor.getBoundingClientRect();
+    this.el.style.top = `${at.bottom + 4}px`;
+    this.el.style.right = `${Math.max(8, window.innerWidth - at.right)}px`;
+    this.outside = (event) => { if (!this.el.contains(event.target) && !event.target.closest?.(".pdt-table-cols")) this.close(); };
+    this.esc = (event) => { if (event.key === "Escape") { event.stopPropagation(); this.close(); } };
+    document.addEventListener("mousedown", this.outside, true);
+    document.addEventListener("keydown", this.esc, true);
     this.render();
+    return this;
+  }
+
+  get isOpen() { return Boolean(this.el); }
+
+  close() {
+    if (!this.el) return;
+    document.removeEventListener("mousedown", this.outside, true);
+    document.removeEventListener("keydown", this.esc, true);
+    this.el.remove();
+    this.el = null;
   }
 
   render() {
-    const box = this.contentEl;
+    const box = this.el;
     box.empty();
-    box.createEl("p", { cls: "pdt-detail-muted", text: t("table.columnsHint") });
-    box.createDiv({ cls: "pdt-col-item is-fixed", text: t("table.nameAlways") });
-    const list = box.createDiv({ cls: "pdt-col-list" });
-    const all = [...this.shown, ...Object.keys(TABLE_COLUMNS).filter((k) => !this.shown.includes(k))];
-    for (const key of all) {
-      const item = list.createDiv({ cls: "pdt-col-item" });
-      item.dataset.key = key;
-      setIcon(item.createSpan({ cls: "pdt-grip" }), "grip-vertical");
-      const box2 = item.createEl("input", { type: "checkbox", attr: { "aria-label": t(`col.${key}`) } });
-      box2.checked = this.shown.includes(key);
-      box2.onchange = () => this.save([...list.children].map((el) => el.dataset.key).filter((k) => k === key ? box2.checked : this.shown.includes(k)));
-      item.createSpan({ text: t(`col.${key}`) });
+    const head = box.createDiv({ cls: "pdt-cols-head" });
+    head.createEl("b", { text: t("table.columns") });
+    head.createSpan({ cls: "pdt-cols-page", text: this.page });
+    const section = (label, hint) => {
+      const el = box.createDiv({ cls: "pdt-cols-sec" });
+      el.createSpan({ text: label });
+      el.createSpan({ cls: "pdt-cols-hint", text: hint });
+    };
+    const row = (parent, key, label, field, value) => {
+      const el = parent.createDiv({ cls: "pdt-cols-row" });
+      el.dataset.key = key;
+      const name = el.createSpan({ cls: "pdt-cols-name", text: label });
+      if ((key === "name" ? "name" : TABLE_COLUMNS[key].sort) === this.sort) name.createSpan({ cls: "pdt-cols-sorted", text: t("table.sorted") });
+      el.createSpan({ cls: "pdt-cols-field", text: field || "" });
+      el.createSpan({ cls: "pdt-cols-sample", text: value });
+      return el;
+    };
+
+    section(t("table.shown", { n: this.shown.length + 1 }), t("table.dragHint"));
+    const lock = row(box, "name", t("col.name"), "name", t("table.fixed"));
+    lock.addClass("is-fixed");
+    setIcon(lock.createSpan({ cls: "pdt-cols-grip" }), "lock");
+    lock.prepend(lock.lastChild);
+    lock.createSpan();
+    const list = box.createDiv({ cls: "pdt-cols-list" });
+    for (const key of this.shown) {
+      const el = row(list, key, columnLabel(key), TABLE_COLUMNS[key].field, this.sample(key));
+      setIcon(el.createSpan({ cls: "pdt-cols-grip" }), "grip-vertical");
+      el.prepend(el.lastChild);
+      const hide = el.createEl("button", { cls: "pdt-cols-x clickable-icon", attr: { type: "button", "aria-label": t("table.hide", { name: columnLabel(key) }) } });
+      setIcon(hide, "x");
+      hide.onclick = () => this.save(this.shown.filter((k) => k !== key));
     }
     if (typeof Sortable !== "undefined") {
-      Sortable.create(list, { handle: ".pdt-grip", animation: 150, onEnd: () => this.save([...list.children].map((el) => el.dataset.key).filter((k) => this.shown.includes(k))) });
+      Sortable.create(list, { handle: ".pdt-cols-grip", animation: 150, onEnd: () => this.save([...list.children].map((el) => el.dataset.key)) });
     }
-    box.createEl("button", { cls: "pdt-bulk-link", text: t("table.reset") }).onclick = () => { this.save(null); this.shown = [...TABLE_DEFAULT]; this.render(); };
+
+    const hidden = Object.keys(TABLE_COLUMNS).filter((k) => !this.shown.includes(k));
+    if (hidden.length) section(t("table.add"), t("table.addHint"));
+    for (const group of ["numbers", "time", "yours", "info"]) {
+      const keys = hidden.filter((k) => TABLE_COLUMNS[k].group === group);
+      if (!keys.length) continue;
+      const line = box.createDiv({ cls: "pdt-cols-group" });
+      line.createSpan({ cls: "pdt-cols-glabel", text: t(`table.group.${group}`) });
+      const chips = line.createDiv({ cls: "pdt-cols-chips" });
+      for (const key of keys) {
+        const { field } = TABLE_COLUMNS[key];
+        const chip = chips.createEl("button", { cls: "pdt-cols-chip", text: `+ ${columnLabel(key)}`, attr: { type: "button" } });
+        const value = this.sample(key);
+        setTooltip(chip, [field ? `${field} · ${t(`query.field.${field}`)}` : t(`table.hint.${key}`), value && t("table.example", { value })].filter(Boolean).join("\n"), { delay: 300 });
+        chip.onclick = () => this.save([...this.shown, key]);
+      }
+    }
+
+    const foot = box.createDiv({ cls: "pdt-cols-foot" });
+    const reset = foot.createEl("button", { cls: "pdt-bulk-link", text: t("table.reset"), attr: { type: "button" } });
+    reset.disabled = this.shown.join() === TABLE_DEFAULT.join();
+    reset.onclick = () => this.save(null);
   }
 
+  /** Your columns (null: the default few) to the table, and this list redrawn. */
   save(columns) {
-    if (columns) this.shown = columns;
+    this.shown = columns ? columns : [...TABLE_DEFAULT];
     this.onChange(columns);
-  }
-
-  onClose() {
-    this.contentEl.empty();
+    this.render();
   }
 }
+
+/** A column's name in the picker ("★" reads as "Favorite ★"). */
+const columnLabel = (key) => t(key === "favorite" ? "table.favorite" : `col.${key}`);
 
 /**
  * The search box's suggestions for the query language: fields, then the operators that fit the field, then its

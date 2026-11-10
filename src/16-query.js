@@ -417,7 +417,7 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
   if (x.age != null) parts.push(`age <= ${x.age}d`);
   if (x.author) parts.push(`author ~ ${quoteValue(x.author)}`);
   if (x.installed) parts.push("installed");
-  const field = Object.keys(QUERY_FIELDS).find((k) => QUERY_FIELDS[k].sort === opts.sort);
+  const field = sortField(opts.sort);
   const sorted = order && field && settings.sortBy?.[mode];
   return [parts.join(" AND "), sorted ? `order by ${field} ${opts.sortDir}` : ""].filter(Boolean).join("\n");
 }
@@ -426,6 +426,14 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
 function splitOrder(text) {
   const at = String(text).search(/(^|\s)order\s+by\b/i);
   return at < 0 ? { filter: String(text).trim(), order: "" } : { filter: text.slice(0, at).trim(), order: text.slice(at).trim() };
+}
+
+/** The field `order by` names for a list sort key (growth30 → gain30, updated → released…). */
+const sortField = (key) => Object.keys(QUERY_FIELDS).find((k) => QUERY_FIELDS[k].sort === key);
+
+/** The query sorted by a list sort key: its order by replaced (or added). */
+function withOrder(text, key, dir) {
+  return [splitOrder(text).filter, `order by ${sortField(key)} ${dir}`].filter(Boolean).join("\n");
 }
 
 /** The page's query with your narrowing after it; your order by, if any, replaces the page's. */

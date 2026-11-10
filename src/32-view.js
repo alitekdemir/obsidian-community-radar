@@ -52,6 +52,10 @@ class DiscoveryView extends ItemView {
     await this.plugin.ensureFresh();
   }
 
+  async onClose() {
+    this.columnsPop?.close();
+  }
+
   /** Obsidian's ⋮ menu of the view: actions that don't need a place on screen. */
   onPaneMenu(menu, source) {
     super.onPaneMenu?.(menu, source);
@@ -507,6 +511,24 @@ class DiscoveryView extends ItemView {
     }
   }
 
+  /** The sort the list follows: the query's order by (Query mode, or Basic when you chose no sort), else yours. */
+  get listSort() {
+    const opts = modeOptions(this.pageSettings, this.page);
+    const order = this.inQuery || opts.sorted === false
+      ? compileQuery(this.inQuery ? this.settings.queries[this.page] : pageQuery(this.pageSettings, this.page), null, Date.now(), true).order : null;
+    return order || { key: opts.sort, dir: opts.sortDir };
+  }
+
+  /** A sort from the Sort menu or a table header: in Query mode it rewrites the query's order by (the save bar shows it). */
+  async setSort(value) {
+    if (!this.inQuery) return this.updateTab("sortBy", value);
+    this.settings.queries = { ...this.settings.queries, [this.page]: withOrder(this.settings.queries[this.page], value.key, value.dir) };
+    this.queryDraft = null;
+    this.visible = PAGE_SIZE;
+    this.render();
+    await this.plugin.saveData(this.plugin.data);
+  }
+
   /** Saves a per-tab setting (downloadFilter, sortBy) for the current tab. */
   updateTab(key, value) {
     return this.update(key, { ...this.settings[key], [this.page]: value });
@@ -522,8 +544,8 @@ class DiscoveryView extends ItemView {
 
     // the Similar filter sorts by closeness first, with its own sort and search
     const similar = this.similar;
-    const { key, dir } = similar ? this.settings.similarSort : { key: opts.sort, dir: opts.sortDir };
-    const setSort = (value) => (similar ? this.update("similarSort", value) : this.updateTab("sortBy", value));
+    const { key, dir } = similar ? this.settings.similarSort : this.listSort;
+    const setSort = (value) => (similar ? this.update("similarSort", value) : this.setSort(value));
     const sort = bar.createDiv({ cls: "pdt-sort" });
     menuChip(sort, t("filter.sort"), (similar ? SIMILAR_SORT_KEYS : SORT_KEYS).map((k) => [k, t(`sort.${k}`)]), key,
       (k) => setSort({ key: k, dir: NATURAL_DIR[k] || "desc" }));
@@ -1234,10 +1256,10 @@ class DiscoveryView extends ItemView {
    * the last header opens the column picker. Favorite and Rating cells change on click; a row opens its details.
    */
   renderTable(list, rows, now) {
-    const mode = this.settings.mode;
+    const page = this.page;
     const state = this.plugin.state();
-    const columns = tableColumns(this.settings, mode);
-    const { sort, sortDir } = modeOptions(this.settings, mode);
+    const columns = tableColumns(this.settings, page);
+    const { key: sort, dir: sortDir } = this.listSort;
     const wrap = list.createDiv({ cls: "pdt-table-wrap" });
     const table = wrap.createEl("table", { cls: "pdt-table" });
     const head = table.createEl("thead").createEl("tr");
@@ -1252,18 +1274,24 @@ class DiscoveryView extends ItemView {
       const on = sort === sortKey;
       th.setAttribute("aria-sort", on ? (sortDir === "asc" ? "ascending" : "descending") : "none");
       const button = th.createEl("button", { cls: `pdt-table-sort${on ? " is-on" : ""}`, text: on ? `${label} ${sortDir === "asc" ? "↑" : "↓"}` : label });
-      button.onclick = () => this.updateTab("sortBy", { key: sortKey, dir: on ? (sortDir === "asc" ? "desc" : "asc") : NATURAL_DIR[sortKey] || "desc" });
+      button.onclick = () => this.setSort({ key: sortKey, dir: on ? (sortDir === "asc" ? "desc" : "asc") : NATURAL_DIR[sortKey] || "desc" });
     };
     header("name", t("col.name"));
     for (const key of columns) header(key, t(`col.${key}`), TABLE_COLUMNS[key].align);
     const saveColumns = async (next) => {
-      this.settings.tableColumns = { ...this.settings.tableColumns, [mode]: next };
-      if (!next) delete this.settings.tableColumns[mode];
+      this.settings.tableColumns = { ...this.settings.tableColumns, [page]: next };
+      if (!next) delete this.settings.tableColumns[page];
       await this.plugin.saveData(this.plugin.data);
       this.refresh();
     };
     const pick = head.createEl("th", { cls: "pdt-table-cols" });
-    iconButton(pick, "columns-3", t("table.columns")).onclick = () => new ColumnsModal(this.app, { columns, onChange: saveColumns }).open();
+    const button = iconButton(pick, "columns-3", t("table.columns"));
+    button.onclick = () => {
+      if (this.columnsPop?.isOpen) return this.columnsPop.close();
+      const title = this.preset ? this.home.title(this.preset.id) : t(`mode.${page}`);
+      const sample = (key) => (rows[0] ? this.cellText(key, rows[0], state, now) : "");
+      this.columnsPop = new ColumnsPopover(button, { page: title, columns, sort, sample, onChange: saveColumns }).open();
+    };
     // a column's header drags to a new place (Name and the edges stay)
     Sortable.create(head, { draggable: "th.is-draggable", animation: 150, onEnd: () => saveColumns([...head.querySelectorAll("th.is-draggable")].map((th) => th.dataset.key)) });
 
@@ -1285,16 +1313,21 @@ class DiscoveryView extends ItemView {
           const star = td.createEl("button", { cls: `pdt-table-star${note?.favorite ? " is-on" : ""}`, text: note?.favorite ? "★" : "☆", attr: { "aria-label": t(note?.favorite ? "action.unfavorite" : "action.favorite") } });
           star.onclick = () => this.runRowAction(p, () => this.plugin.toggleFavorite(p));
         } else if (key === "rating") {
-          const stars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
-          const cell = td.createEl("button", { cls: "pdt-table-rating", text: note?.rating ? stars(note.rating) : "·" });
-          cell.onclick = () => this.pickFromMenu(cell, [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, stars(n)])], note?.rating || 0,
+          const cell = td.createEl("button", { cls: "pdt-table-rating", text: this.cellText(key, p, state, now) });
+          cell.onclick = () => this.pickFromMenu(cell, [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, ratingStars(n)])], note?.rating || 0,
             (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
         } else {
-          td.setText(TABLE_COLUMNS[key].text(state, p, now));
+          td.setText(this.cellText(key, p, state, now));
         }
       }
       tr.createEl("td");
     }
+  }
+
+  /** A table cell's text (a status by its label). */
+  cellText(key, p, state, now) {
+    const text = TABLE_COLUMNS[key].text(state, p, now);
+    return key === "status" && text ? this.settings.statuses?.find((st) => st.key === text)?.label || text : text;
   }
 
   /** "Show 50 more" under a list that has more rows than shown. */
@@ -1646,9 +1679,8 @@ class DiscoveryView extends ItemView {
       onActivate(chip, open);
     }
     if (note.rating || always) {
-      const stars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
-      const options = [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, stars(n)])];
-      const chip = parent.createSpan({ cls: `pdt-pill is-rating${note.rating ? "" : " is-empty"}`, text: note.rating ? stars(note.rating) : t("rating.set"), attr: { role: "button", tabindex: "0", "aria-label": note.rating ? t("rating.label", { n: note.rating }) : t("rating.set") } });
+      const options = [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, ratingStars(n)])];
+      const chip = parent.createSpan({ cls: `pdt-pill is-rating${note.rating ? "" : " is-empty"}`, text: note.rating ? ratingStars(note.rating) : t("rating.set"), attr: { role: "button", tabindex: "0", "aria-label": note.rating ? t("rating.label", { n: note.rating }) : t("rating.set") } });
       const open = () => this.pickFromMenu(chip, options, note.rating, (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
       chip.onclick = open;
       onActivate(chip, open);

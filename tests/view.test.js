@@ -209,8 +209,8 @@ const tests = {
     const sort = $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith("Sırala") || c.textContent.startsWith("Sort"));
     fake.menus.length = 0;
     sort.onclick();
-    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, false, false, false, false, false, false, false]);   // same eight sorts on every tab
-    await fake.menus[0].items[3].click();
+    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, ...Array(9).fill(false)]);   // same ten sorts on every tab
+    await fake.menus[0].items[5].click();   // updated (SORT_KEYS order)
     assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "updated", dir: "desc" });
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
 
@@ -223,8 +223,8 @@ const tests = {
     fake.menus.length = 0;
     const sortChip = () => $$(el, ".pdt-chip.is-menu").find((c) => /^(Sırala|Sort)/.test(c.textContent));
     sortChip().onclick();
-    assert.equal(fake.menus[0].items.length, 8);
-    await fake.menus[0].items[4].click();                       // name
+    assert.equal(fake.menus[0].items.length, 10);
+    await fake.menus[0].items[6].click();                       // name
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
     await view.update("mode", "updated");
     const chipText = sortChip().textContent;
@@ -940,6 +940,48 @@ const tests = {
     view.selected.clear();
     settings.tableColumns = {};
     await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+
+    // the column picker: a popover with the shown columns (field, first row's value, ✕) and the rest as chips
+    view.refresh();
+    $(el, ".pdt-table-cols .pdt-icon").onclick();
+    const pop = () => document.querySelector(".pdt-cols-pop");
+    const shown = () => [...pop().querySelectorAll(".pdt-cols-list .pdt-cols-row")].map((r) => r.dataset.key);
+    assert.deepEqual(shown(), ["downloads", "updated", "favorite"]);
+    const first = pop().querySelector(".pdt-cols-list .pdt-cols-row");
+    assert.equal(first.querySelector(".pdt-cols-field").textContent, "downloads");
+    assert.ok(first.querySelector(".pdt-cols-sorted"), "the sorted column is marked");
+    assert.equal(first.querySelector(".pdt-cols-sample").textContent, $(el, ".pdt-trow td.is-downloads").textContent);
+    assert.ok(pop().querySelector(".pdt-cols-foot button").disabled, "already the default");
+    [...pop().querySelectorAll(".pdt-cols-chip")].find((c) => c.textContent.includes(core.t("col.rise30"))).onclick();
+    await tick();
+    assert.deepEqual(settings.tableColumns.all, ["downloads", "updated", "favorite", "rise30"]);
+    assert.ok($(el, ".pdt-trow td.is-rise30"), "the table behind changes at once");
+    pop().querySelector(".pdt-cols-list .pdt-cols-row[data-key=updated] .pdt-cols-x").onclick();
+    await tick();
+    assert.deepEqual(shown(), ["downloads", "favorite", "rise30"]);
+    document.body.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    assert.ok(!pop(), "Esc closes it");
+    // a page keeps its own columns: another tab still has the default
+    await view.update("mode", "new");
+    assert.deepEqual(core.tableColumns(settings, "new"), ["downloads", "updated", "favorite"]);
+    await view.update("mode", "all");
+    $(el, ".pdt-table-cols .pdt-icon").onclick();
+    pop().querySelector(".pdt-cols-foot button").onclick();
+    await tick();
+    assert.ok(!settings.tableColumns.all, "back to the default");
+    document.body.dispatchEvent(new window.MouseEvent("mousedown", { bubbles: true }));
+    assert.ok(!pop(), "a click outside closes it");
+
+    // Query mode: a header click writes the query's order by (the list follows it, the save bar shows it)
+    await view.toQueryMode();
+    $$(el, ".pdt-table-sort").find((b) => b.textContent.startsWith(core.t("col.updated"))).onclick();
+    await tick();
+    assert.equal(settings.queries.all, "order by released desc");   // All's query is only its sort
+    assert.deepEqual(view.listSort, { key: "updated", dir: "desc" });
+    assert.ok($$(el, ".pdt-table-sort.is-on")[0].textContent.startsWith(core.t("col.updated")));
+    assert.ok($(el, ".pdt-savebar"), "the changed query can be saved");
+    await view.revertQuery();
+    await view.toBasicMode();
     await view.update("layout", "list");
   },
 
