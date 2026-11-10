@@ -579,11 +579,12 @@ class DiscoveryView extends ItemView {
 
     if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
     if (!similar && !LIST_MODES.includes(mode)) {
-      const save = bar.createEl("button", { cls: "pdt-chip pdt-filter-save", attr: { type: "button" } });
-      setIcon(save.createSpan({ cls: "pdt-chip-caret" }), "bookmark-plus");
-      save.createSpan({ text: t("home.view.save") });
-      setTooltip(save, t("home.view.saveTip"));
-      save.onclick = () => this.saveView();
+      const more = iconButton(bar, "more-horizontal", t("list.more"), "pdt-list-more");
+      more.onclick = (event) => {
+        const menu = new Menu();
+        menu.addItem((item) => item.setTitle(t("query.saveWidget")).setIcon("bookmark-plus").onClick(() => this.saveView()));
+        menu.showAtMouseEvent(event);
+      };
     }
     if (this.settings.keyboard) this.renderKeyHelp(bar);
     // quick filters (Jira style): the changed and added ones as chips on a row of their own, under the bar
@@ -801,12 +802,14 @@ class DiscoveryView extends ItemView {
    */
   renderSearch(bar, value, placeholder, onChange, modes = false) {
     const queryMode = modes === "query" || (modes === true && this.inQuery);   // "query": always (a widget's list)
-    const search = bar.createDiv({ cls: `pdt-search${queryMode ? " is-query" : ""}` });
+    // the slot keeps the bar one row high; out of focus the box shows one line, in focus it opens down over the list
+    const search = bar.createDiv({ cls: "pdt-search-slot" }).createDiv({ cls: `pdt-search${queryMode ? " is-query" : ""}` });
     setIcon(search.createSpan({ cls: "pdt-search-icon" }), "search");
     const box = search.createDiv({ cls: "pdt-q" });
     const paint = box.createDiv({ cls: "pdt-q-paint", attr: { "aria-hidden": "true" } });
     const input = box.createEl("textarea", { cls: "pdt-q-input", attr: { rows: "1", placeholder, spellcheck: "false", autocomplete: "off", autocapitalize: "off" } });
     input.value = value || "";
+    const more = search.createSpan({ cls: "pdt-q-more" });   // "+1 line" while the box is folded
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
     const help = iconButton(search, "help-circle", t("query.help.title"), "pdt-qhelp-button");
@@ -821,7 +824,10 @@ class DiscoveryView extends ItemView {
       input.dispatchEvent(new Event("input"));
     }).open();
     const seg = modes === true && this.renderQueryModes(search, queryMode);
-    if (modes === true) this.refs.saveBar = search.createDiv({ cls: "pdt-savebar is-hidden" });   // filled by renderSaveBar
+    if (modes === true) {
+      this.refs.changes = search.createEl("button", { cls: "pdt-q-changes is-hidden", attr: { type: "button" } });   // filled by renderChanges
+      search.insertBefore(this.refs.changes, help);
+    }
     let tokens = [];
     const mark = () => {
       const text = input.value;
@@ -848,6 +854,8 @@ class DiscoveryView extends ItemView {
       });
       piece(at, text.length, "");
       paint.append("\u200b");   // keeps a trailing new line's height
+      const lines = text.split("\n").length - 1;
+      more.setText(lines ? t("search.more", { n: lines }) : "");
       if (seg) seg.refresh(text);
     };
     if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData(modes === true));
@@ -1126,7 +1134,7 @@ class DiscoveryView extends ItemView {
       };
       if (clear) onActivate(clear, () => clear.click());
     }
-    this.renderSaveBar();
+    this.renderChanges();
     const actions = status.createDiv({ cls: "pdt-status-actions" });
     if (!timeline.to && !this.plugin.busy) {
       actions.createEl("button", { cls: "mod-cta", text: t("status.build") }).onclick = () => this.plugin.downloadHistory();
@@ -1152,53 +1160,56 @@ class DiscoveryView extends ItemView {
   }
 
   /**
-   * Under the box, while the query isn't the page's own: what changed, Discard, New view…, and the one save that
-   * fits (to this tab, to this view; a widget's list offers to become a view even unchanged). A broken query can't
-   * be saved. The box gets a yellow edge, the tab a dot (see renderNav).
+   * While the query isn't the page's own: a "● 2 changes" badge in the box (what changed in its tooltip) and a dot on
+   * the tab; the badge opens Discard · New view… · the one save that fits (this tab's query, this view; a widget's
+   * list becomes a view). A broken query shows "● Error" and can only be discarded.
    */
-  renderSaveBar() {
-    const bar = this.refs.saveBar;
-    if (!bar) return;
-    bar.empty();
+  renderChanges() {
+    const badge = this.refs.changes;
+    if (!badge) return;
     const preset = this.preset;
     const view = preset?.id.startsWith(VIEW_PREFIX);
     const base = pageQuery(this.pageSettings, this.page);
     const text = this.boxText;
     const changed = this.inQuery && !sameQuery(text, base);
-    const widget = Boolean(preset && !view && this.inQuery);
-    bar.parentElement.toggleClass("is-changed", changed);
+    const broken = this.queryDraft != null;
+    const diff = changed && !broken ? queryDiff(base, text) : "";
     const tab = this.contentEl.querySelector(`.pdt-tab[data-key="${preset && !view ? `widget:${preset.id}` : this.page}"]`);
     const dot = tab?.querySelector(".pdt-tab-dot");
     if (changed && tab && !dot) tab.createSpan({ cls: "pdt-tab-dot", attr: { "aria-label": t("query.changed") } });   // the tab shows it's unsaved
     if (!changed) dot?.remove();
-    bar.toggleClass("is-hidden", !changed && !widget);
-    if (!changed && !widget) return;
-    const msg = bar.createSpan({ cls: "pdt-savebar-msg" });
-    const broken = this.queryDraft != null;
-    if (changed) {
-      msg.setText(`● ${t(broken ? "query.cantSave" : "query.changed")}`);
-      const diff = broken ? "" : queryDiff(base, text);
-      if (diff) msg.createSpan({ cls: "pdt-savebar-diff", text: ` · ${diff}` });
-      const discard = bar.createEl("button", { cls: "pdt-savebar-discard", text: t("query.discard"), attr: { type: "button" } });
-      discard.onclick = () => this.revertQuery();
-    }
-    if (broken) return;
-    if (changed && !widget) bar.createEl("button", { cls: "pdt-savebar-second", text: t("query.newView"), attr: { type: "button" } }).onclick = () => this.saveView();
-    const primary = bar.createEl("button", { cls: "pdt-savebar-primary mod-cta", attr: { type: "button" } });
-    if (widget) {
-      primary.setText(t("query.saveWidget"));
-      primary.onclick = () => this.saveView();
-    } else if (view) {
-      primary.setText(t("query.updateView", { name: this.home.title(preset.id) }));
-      primary.onclick = async () => {
-        await this.home.updateView(preset.id, text);
-        preset.base = text;   // the view's query now: nothing changed any more
-        this.render();
-      };
-    } else {
-      primary.setText(t("query.saveToPage", { name: t(`mode.${this.settings.mode}`) }));
-      primary.onclick = () => this.savePageQuery();
-    }
+    badge.toggleClass("is-hidden", !changed);
+    badge.toggleClass("is-error", broken);
+    if (!changed) return;
+    badge.setText(`● ${broken ? t("query.error") : t("query.changes", { n: diff ? diff.split(" · ").length : 1 })}`);
+    setTooltip(badge, broken ? t("query.cantSave") : diff || t("query.changed"));
+    badge.onclick = () => {
+      if (this.changesPop?.isOpen) return this.changesPop.close();
+      this.changesPop = new Popover(badge, { cls: "pdt-changes-pop", label: t("query.changed"), keep: ".pdt-q-changes", fill: (box, pop) => {
+        box.createDiv({ cls: "pdt-changes-what", text: broken ? t("query.cantSave") : diff || t("query.changed") });
+        const row = box.createDiv({ cls: "pdt-changes-actions" });
+        const button = (label, cls, run) => {
+          const el = row.createEl("button", { cls, text: label, attr: { type: "button" } });
+          el.onclick = async () => { pop.close(); await run(); };
+          return el;
+        };
+        button(t("query.discard"), "pdt-changes-discard", () => this.revertQuery());
+        if (broken) return;
+        const widget = Boolean(preset && !view);
+        if (widget) return button(t("query.saveWidget"), "mod-cta", () => this.saveView());
+        button(t("query.newView"), "", () => this.saveView());
+        if (view) {
+          button(t("query.updateView", { name: this.home.title(preset.id) }), "mod-cta", async () => {
+            await this.home.updateView(preset.id, text);
+            preset.base = text;   // the view's query now: nothing changed any more
+            this.render();
+          });
+        } else {
+          button(t("query.replacePage", { name: t(`mode.${this.settings.mode}`) }), "mod-cta", () => this.savePageQuery());
+          box.createDiv({ cls: "pdt-changes-hint", text: t("query.replaceHint") });
+        }
+      } }).open();
+    };
   }
 
   /** "3 filters in effect" for the status line, when quick filters don't show them (so a short list has its reason). */
@@ -1645,9 +1656,9 @@ class DiscoveryView extends ItemView {
   renderLayoutSwitch(bar) {
     const box = bar.createDiv({ cls: "pdt-layout", attr: { role: "group", "aria-label": t("layout.label") } });
     for (const [value, icon] of [["list", "list"], ["cards", "layout-grid"], ["table", "table"]]) {
-      const button = box.createEl("button", { cls: "pdt-layout-option", attr: { type: "button", "aria-pressed": String(this.settings.layout === value) } });
-      setIcon(button.createSpan(), icon);
-      button.createSpan({ text: t(`layout.${value}`) });
+      const button = box.createEl("button", { cls: "pdt-layout-option", attr: { type: "button", "aria-pressed": String(this.settings.layout === value), "aria-label": t(`layout.${value}`) } });
+      setIcon(button.createSpan(), icon);   // icon only; the name in the tooltip
+      setTooltip(button, t(`layout.${value}`));
       button.onclick = () => this.update("layout", value);
     }
   }

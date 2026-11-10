@@ -135,22 +135,19 @@ class TextModal extends Modal {
   }
 }
 
-/**
- * The table's column picker, under its button: the shown columns in order (drag by the grip, ✕ hides), the rest as
- * chips in groups (a click adds one at the end). Each change goes to the table behind at once; Esc or a click
- * outside closes it. Name always stays first.
- */
-class ColumnsPopover {
-  constructor(anchor, { page, columns, sort, sample, onChange }) {
-    Object.assign(this, { anchor, page, sort, sample, onChange, shown: [...columns] });
+/** A small box under a button, over the view; Esc or a click outside closes it. */
+class Popover {
+  /** `keep`: a selector a click on doesn't close it (its own button, which toggles); `fill(box)` draws it. */
+  constructor(anchor, { cls, label, keep, fill } = {}) {
+    Object.assign(this, { anchor, cls, label, keep, fillWith: fill });
   }
 
   open() {
-    this.el = document.body.createDiv({ cls: "pdt-cols-pop", attr: { role: "dialog", "aria-label": t("table.columns") } });
+    this.el = document.body.createDiv({ cls: `pdt-popover ${this.cls || ""}`, attr: { role: "dialog", "aria-label": this.label || "" } });
     const at = this.anchor.getBoundingClientRect();
     this.el.style.top = `${at.bottom + 4}px`;
     this.el.style.right = `${Math.max(8, window.innerWidth - at.right)}px`;
-    this.outside = (event) => { if (!this.el.contains(event.target) && !event.target.closest?.(".pdt-table-cols")) this.close(); };
+    this.outside = (event) => { if (!this.el.contains(event.target) && !(this.keep && event.target.closest?.(this.keep))) this.close(); };
     this.esc = (event) => { if (event.key === "Escape") { event.stopPropagation(); this.close(); } };
     document.addEventListener("mousedown", this.outside, true);
     document.addEventListener("keydown", this.esc, true);
@@ -169,8 +166,27 @@ class ColumnsPopover {
   }
 
   render() {
-    const box = this.el;
-    box.empty();
+    this.el.empty();
+    this.fill(this.el);
+  }
+
+  fill(box) {
+    this.fillWith?.(box, this);
+  }
+}
+
+/**
+ * The table's column picker, under its button: the shown columns in order (drag by the grip, ✕ hides), the rest as
+ * chips in groups (a click adds one at the end). Each change goes to the table behind at once; Esc or a click
+ * outside closes it. Name always stays first.
+ */
+class ColumnsPopover extends Popover {
+  constructor(anchor, { page, columns, sort, sample, onChange }) {
+    super(anchor, { cls: "pdt-cols-pop", label: t("table.columns"), keep: ".pdt-table-cols" });
+    Object.assign(this, { page, sort, sample, onChange, shown: [...columns] });
+  }
+
+  fill(box) {
     const head = box.createDiv({ cls: "pdt-cols-head" });
     head.createEl("b", { text: t("table.columns") });
     head.createSpan({ cls: "pdt-cols-page", text: this.page });
