@@ -4,6 +4,8 @@ Discover new and updated Obsidian community plugins, find the ones that came bac
 
 *[Türkçe](README.tr.md)*
 
+![Community Radar: home, query, table, details, similar, tracked](docs/images/demo.webp)
+
 With ~50 new community plugins a day, the built-in browser is hard to keep up with. Community Radar adds a discovery view inside Obsidian with six tabs:
 
 | Tab | Shows |

@@ -4,6 +4,8 @@ Obsidian topluluk eklentilerinde yenileri ve güncellenenleri keşfedin, uzun bi
 
 *[English](README.md)*
 
+![Community Radar: ana sayfa, sorgu, tablo, detay, benzerler, takip](docs/images/demo.webp)
+
 Günde ~50 yeni topluluk eklentisi çıkarken yerleşik eklenti tarayıcısını takip etmek zor. Community Radar, Obsidian içine altı sekmeli bir keşif paneli ekler:
 
 | Sekme | Gösterdiği |
