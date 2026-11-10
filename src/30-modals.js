@@ -220,7 +220,7 @@ class ColumnsPopover {
         const { field } = TABLE_COLUMNS[key];
         const chip = chips.createEl("button", { cls: "pdt-cols-chip", text: `+ ${columnLabel(key)}`, attr: { type: "button" } });
         const value = this.sample(key);
-        setTooltip(chip, [field ? `${field} · ${t(`query.field.${field}`)}` : t(`table.hint.${key}`), value && t("table.example", { value })].filter(Boolean).join("\n"), { delay: 300 });
+        setTooltip(chip, [field ? `${field} · ${t(`query.field.${field}`)}` : t(`table.hint.${key}`), !["", "–", "·"].includes(value) && t("table.example", { value })].filter(Boolean).join("\n"), { delay: 300 });
         chip.onclick = () => this.save([...this.shown, key]);
       }
     }
@@ -271,7 +271,7 @@ const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.Abs
 
   renderSuggestion(item, el) {
     el.addClass("pdt-qs");
-    if (item.head) el.createDiv({ cls: "pdt-qs-head", text: item.head });
+    if (item.head) el.createDiv({ cls: "pdt-qs-head", text: item.head, attr: { lang: language } });
     el.createSpan({ cls: "pdt-qs-label", text: item.label });
     if (item.hint) el.createSpan({ cls: "pdt-qs-hint", text: item.hint });
   }

@@ -19,6 +19,10 @@
 
 ### Changed
 
+- Home's strip shows the tabs' counts (it showed "…").
+- Headings in capitals follow the plugin's language, not Obsidian's: an English UI in a Turkish Obsidian reads *DISCOVER*, not *DİSCOVER*.
+- In Query mode, Sort shows the typed query's `order by` as soon as it applies.
+- The column picker's tooltip leaves out the first row's value when it has none.
 - *Sync now* says how far the release history reaches (or that it couldn't be had this time), and the status line shows its span: *history: 2020 – 2026-11-09*, marked *old* past two days.
 
 ## 0.9.3

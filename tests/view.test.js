@@ -980,6 +980,12 @@ const tests = {
     assert.deepEqual(view.listSort, { key: "updated", dir: "desc" });
     assert.ok($$(el, ".pdt-table-sort.is-on")[0].textContent.startsWith(core.t("col.updated")));
     assert.ok($(el, ".pdt-savebar"), "the changed query can be saved");
+    const typed = $(el, ".pdt-search .pdt-q-input");
+    typed.value = "downloads >= 1\norder by name asc";
+    typed.oninput();
+    await tick(1100);
+    assert.equal(view.listSort.key, "name");
+    assert.ok($(el, ".pdt-sort").textContent.includes(core.t("sort.name")), "Sort follows the typed order by without a redraw");
     await view.revertQuery();
     await view.toBasicMode();
     await view.update("layout", "list");
@@ -1154,6 +1160,8 @@ const tests = {
     const card = (id) => $(el, `.pdt-home-card[data-id="${id}"]`);
     assert.ok(card("new") && card("milestone") && card("hatched") && !card("installed"), "Installed waits in + Add");
     assert.equal($$(el, ".pdt-nav-item")[0].classList.contains("is-active"), true);
+    assert.ok($$(el, ".pdt-nav .pdt-n").length && $$(el, ".pdt-nav .pdt-n").every((n) => n.textContent !== "…"), "the strip counts on Home too");
+    assert.equal(el.getAttribute("lang"), "en", "uppercase headings follow the UI's language, not Obsidian's");
     assert.equal($(card("new"), ".pdt-home-n").textContent, "1");             // Fresh Plugin, listed yesterday
     assert.equal($(card("rising"), ".pdt-home-n").textContent, "1");           // by %: Homepage, 1,000 → 1,200
     assert.equal($(card("rising"), ".pdt-home-item-value").textContent, "+20%");

@@ -204,6 +204,7 @@ class DiscoveryView extends ItemView {
     const root = this.contentEl;
     root.empty();
     root.toggleClass("is-keyboard", Boolean(this.settings.keyboard));   // the highlighted row shows only for shortcuts
+    root.setAttribute("lang", language);   // uppercase headings by the UI's rules, not Obsidian's (i → I, not İ)
     this.keep.clear();
     this.refs = { counts: {} };
     const header = root.createDiv({ cls: "pdt-sticky" });   // switch, tabs and filters stay put while the list scrolls
@@ -211,6 +212,7 @@ class DiscoveryView extends ItemView {
     const nav = header.createDiv({ cls: "pdt-nav" });
     this.renderNav(nav);
     if (this.settings.section === "home") {
+      this.fillCounts(this.plugin.state(), Date.now());
       this.home.renderTools(nav);
       this.home.render(root);
       return;
@@ -227,16 +229,21 @@ class DiscoveryView extends ItemView {
     if (!this.refs.list) return;
     const now = Date.now();
     const state = this.plugin.state();
-    if (this.plugin.catalog) {
-      const counts = modeCounts(state, this.settings, now);
-      if (this.similar) counts.all = this.similarCount();   // the All tab counts the matches while the filter is on
-      for (const [mode, el] of Object.entries(this.refs.counts)) el.setText(formatCount(counts[mode]));
-    }
+    this.fillCounts(state, now);
+    this.renderSort();   // in Query mode the query's order by decides, and it may just have changed
     this.updateFilterHead();
     this.renderStatus(this.refs.status);
     this.renderList(this.refs.list, state, now);
     this.refs.list.toggleClass("is-selecting", this.selected.size > 0);
     this.renderBulk();
+  }
+
+  /** The tabs' counts in the strip. */
+  fillCounts(state, now) {
+    if (!this.plugin.catalog) return;
+    const counts = modeCounts(state, this.settings, now);
+    if (this.similar) counts.all = this.similarCount();   // the All tab counts the matches while the filter is on
+    for (const [mode, el] of Object.entries(this.refs.counts)) el.setText(formatCount(counts[mode]));
   }
 
   // ─── Bulk actions ─────────────────────────────────────────────────────────
@@ -542,18 +549,8 @@ class DiscoveryView extends ItemView {
     if (this.similar) this.renderSimilarChip(bar);   // the same bar as All, plus the Similar chip
     if (mode === "tracked") this.renderTrackedBar(bar);
 
-    // the Similar filter sorts by closeness first, with its own sort and search
+    this.refs.sort = bar.createDiv({ cls: "pdt-sort" });
     const similar = this.similar;
-    const { key, dir } = similar ? this.settings.similarSort : this.listSort;
-    const setSort = (value) => (similar ? this.update("similarSort", value) : this.setSort(value));
-    const sort = bar.createDiv({ cls: "pdt-sort" });
-    menuChip(sort, t("filter.sort"), (similar ? SIMILAR_SORT_KEYS : SORT_KEYS).map((k) => [k, t(`sort.${k}`)]), key,
-      (k) => setSort({ key: k, dir: NATURAL_DIR[k] || "desc" }));
-    const ascending = dir === "asc";
-    const tip = t(`sort.${key === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
-    iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
-      () => setSort({ key, dir: ascending ? "desc" : "asc" });
-
     if (similar) {
       this.refs.search = this.renderSearch(bar, similar.query, t("similar.search", { n: this.similarRows(false).length }), (value) => {
         similar.query = value;
@@ -593,6 +590,22 @@ class DiscoveryView extends ItemView {
     if (this.quickFilters && !this.inQuery) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
     bar.toggleClass("is-query", this.inQuery);   // Filter and Sort step back: the query decides
     this.updateFilterHead();
+  }
+
+  /** Sort menu and direction (the Similar filter sorts by closeness first, with its own sort). */
+  renderSort() {
+    const sort = this.refs.sort;
+    if (!sort) return;
+    sort.empty();
+    const similar = this.similar;
+    const { key, dir } = similar ? this.settings.similarSort : this.listSort;
+    const setSort = (value) => (similar ? this.update("similarSort", value) : this.setSort(value));
+    menuChip(sort, t("filter.sort"), (similar ? SIMILAR_SORT_KEYS : SORT_KEYS).map((k) => [k, t(`sort.${k}`)]), key,
+      (k) => setSort({ key: k, dir: NATURAL_DIR[k] || "desc" }));
+    const ascending = dir === "asc";
+    const tip = t(`sort.${key === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
+    iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
+      () => setSort({ key, dir: ascending ? "desc" : "asc" });
   }
 
   /** Quick filters on this tab: the filters you changed or added show under the bar (off: only in the panel). */
