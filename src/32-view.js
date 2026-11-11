@@ -193,7 +193,6 @@ class DiscoveryView extends ItemView {
       Object.assign(this, { filtersOpen: false, similar: null, preset: null, toast: null, queryDraft: null });
     }
     this.clearSelection();   // what you picked was on that list
-    if (key === "mode" && value !== "tracked" && !LIST_MODES.includes(value)) this.settings.listMode = value;
     this.settings[key] = value;
     this.visible = PAGE_SIZE;
     await this.plugin.saveData(this.plugin.data);

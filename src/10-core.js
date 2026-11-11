@@ -6,13 +6,6 @@ function dayString(ms) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
-/** Monday of the ISO week (UTC), used as a bucket key. */
-function weekKey(ms) {
-  const d = new Date(ms);
-  const monday = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - ((d.getUTCDay() + 6) % 7) * DAY_MS;
-  return new Date(monday).toISOString().slice(0, 10);
-}
-
 function decimal(value, digits = 1) {
   return new Intl.NumberFormat(t("locale"), { maximumFractionDigits: digits }).format(value);
 }
@@ -376,9 +369,6 @@ function filterSummary(settings, mode) {
   const opts = modeOptions(settings, mode);
   const line = {
     query: () => t("filter.tipSearch", { q: settings.query.trim() }),
-    days: () => `${t("filter.last")} ${t("filter.days", { n: settings.days })}`,
-    dormantDays: () => `${t("filter.gap")} ${t("filter.days", { n: settings.dormantDays })}`,
-    hideBusy: () => t(settings.hideBusy ? "filter.tipBusyHidden" : "filter.tipBusyShown"),
     trackedGroup: () => t("filter.tipGroup"),
     trackedStatus: () => t("filter.tipStatus"),
     downloadFilter: () => (opts.filterDownloads ? `${t("filter.downloads")} ${formatCount(settings.minDownloads)}` : t("filter.tipDownloadsOff")),

@@ -117,7 +117,7 @@ class HomePage {
       const n = reviewBased ? this.plugin.updatesCount(ctx.state, ctx.now) : rows.length;
       const done = n === 0 && period === "seen";
       const open = tracked && !reviewBased ? () => this.view.openTracked("") : () => this.openList(ctx, id, params, rows, then);
-      const card = this.card(grid, `pdt-home-mini is-${HOME_WIDGETS[id].tone}${done ? " is-done" : ""}`, i, open);
+      const card = this.card(grid, `pdt-home-mini is-${HOME_WIDGETS[id].tone}${n === 0 ? " is-done" : ""}`, i, open);
       card.dataset.id = id;
       this.grip(card);
       setIcon(card.createSpan({ cls: "pdt-home-mini-icon" }), HOME_WIDGETS[id].icon);

@@ -278,8 +278,10 @@
 
 .pdt-q-paint .is-bad {
   color: var(--text-error);
-  text-decoration: underline wavy var(--text-error);
-  text-underline-offset: 3px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'%3E%3Cpath d='M0 2.5 Q 1.5 0.5 3 2.5 T 6 2.5' fill='none' stroke='%23e93147' stroke-width='1.1'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  padding-bottom: 2px;
 }
 
 /* Basic | Query at the box's end; Basic locked (dimmed) when the query can't become filters */
@@ -325,7 +327,13 @@
   font-size: var(--font-ui-smaller);
 }
 
-.pdt-qs { flex-wrap: wrap; }
+.pdt-qs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--size-4-3);
+}
+
 .pdt-qs-head {
   flex-basis: 100%;
   color: var(--text-faint);
@@ -333,7 +341,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.pdt-qs { display: flex; justify-content: space-between; gap: var(--size-4-3); }
+
 .pdt-qs-label { font-family: var(--font-monospace); }
 .pdt-qs-hint { color: var(--text-muted); font-size: var(--font-ui-smaller); }
 
@@ -597,15 +605,13 @@ button.pdt-filter-clear {
 }
 
 .pdt-search-icon,
-.pdt-btn-icon,
 .pdt-dl-icon,
 .pdt-gh-icon {
   display: inline-flex;
   color: var(--text-faint);
 }
 
-.pdt-search-icon svg,
-.pdt-btn-icon svg {
+.pdt-search-icon svg {
   width: 14px;
   height: 14px;
 }
@@ -702,7 +708,7 @@ button.pdt-filter-clear {
     "body body"
     "links actions"
     "extra extra";
-  column-gap: var(--size-4-4);
+  gap: 0 var(--size-4-4);
   margin: 0 calc(-1 * var(--size-4-3));
   padding: var(--size-4-3) var(--size-4-3) var(--size-4-2);
   border-radius: var(--radius-m);
@@ -1078,14 +1084,6 @@ button.pdt-table-rating { color: var(--color-yellow); }
   display: none;   /* cards only */
 }
 
-.pdt-badge {
-  padding: 0 7px;
-  border-radius: 99px;
-  font-size: var(--font-ui-smaller);
-  font-weight: var(--font-semibold);
-  white-space: nowrap;
-}
-
 /* metrics: when, then downloads at the right edge so they line up down the list */
 .pdt-metrics {
   grid-area: metrics;
@@ -1214,11 +1212,6 @@ button.pdt-table-rating { color: var(--color-yellow); }
 .pdt-pill.is-empty {
   color: var(--text-faint);
   border-style: dashed;
-}
-
-/* A row an action moved out of the current filter: still here, faded, until the view is reopened */
-.pdt-row.is-stale {
-  opacity: 0.7;
 }
 
 /* A row an action moved out of the current filter: still here, faded, until the view is reopened */
@@ -1447,7 +1440,7 @@ button.pdt-rate-clear:hover {
 .pdt-list.is-cards .pdt-head {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  column-gap: var(--size-4-2);
+  gap: 0 var(--size-4-2);
   align-items: baseline;
 }
 
@@ -1733,69 +1726,6 @@ button.pdt-gm-more:hover {
 
 .pdt-gm-foot > .pdt-gm-note {
   flex: 1 1 220px;
-}
-
-/* ── Batch review: suggestions sit beside the description, below it on narrow screens ── */
-.pdt-batch-modal {
-  width: min(1000px, 96vw);
-}
-
-.pdt-batch-top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--size-4-2);
-}
-
-.pdt-batch-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--size-4-2);
-}
-
-.pdt-batch-legend {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: var(--size-4-3) 0;
-  color: var(--text-muted);
-  font-size: var(--font-ui-smaller);
-}
-
-.pdt-batch-list {
-  max-height: 60vh;
-  overflow-y: auto;
-  border-top: 1px solid var(--background-modifier-border);
-}
-
-.pdt-batch-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: var(--size-4-2) var(--size-4-6);
-  padding: var(--size-4-3) var(--size-4-2);
-  border-bottom: 1px solid var(--background-modifier-border);
-}
-
-.pdt-batch-row:hover {
-  background: var(--background-modifier-hover);
-}
-
-.pdt-batch-info {
-  flex: 1 1 280px;
-  min-width: 0;
-}
-
-.pdt-batch-row > .pdt-gm-chips {
-  flex: 1.3 1 340px;
-  min-width: 0;
-}
-
-.pdt-batch-name {
-  margin-bottom: 2px;
-  color: var(--text-normal);
-  font-weight: var(--font-semibold);
 }
 
 /* Shared terms: why two plugins match */
@@ -2260,14 +2190,15 @@ button.pdt-detail-near:hover {
 
 .pdt-detail-near .pdt-why-meter {
   flex-shrink: 0;
+  width: 48px;
 }
 
 .pdt-detail-near-close {
   flex-shrink: 0;
-  width: 56px;
   color: var(--text-faint);
   font-size: var(--font-ui-smaller);
   text-align: right;
+  white-space: nowrap;
 }
 
 .pdt-detail-near-name {
@@ -2424,23 +2355,11 @@ button.pdt-detail-arrow {
   background: var(--pdt-hue, var(--text-faint));
 }
 
-.pdt-n.is-updates {
-  color: var(--color-yellow);
-  background: color-mix(in srgb, var(--color-yellow) 16%, transparent);
-}
-
 .pdt-n.is-hidden {
   display: none;
 }
 
 /* ── Tracked tab ───────────────────────────────────────────────────────── */
-.pdt-groupbar {
-  flex-basis: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--size-4-2);
-}
-
 .pdt-section + .pdt-section {
   margin-top: 22px;
 }
@@ -2552,21 +2471,11 @@ button.pdt-section-head:hover {
   height: 26px;
   border-radius: 13px;
   background: var(--background-modifier-border);
-  animation: pdt-pulse 1.2s ease-in-out infinite;
+  animation: pdt-skeleton-pulse 1.2s ease-in-out infinite;
 }
 
-@keyframes pdt-pulse {
+@keyframes pdt-skeleton-pulse {
   50% { opacity: 0.45; }
-}
-
-.pdt-row.is-grouping-changed {
-  background: color-mix(in srgb, var(--interactive-accent) 6%, transparent);
-  box-shadow: inset 3px 0 0 var(--interactive-accent);
-}
-
-.pdt-badge.is-change {
-  color: var(--color-yellow);
-  background: color-mix(in srgb, var(--color-yellow) 15%, transparent);
 }
 
 /* ── Keyboard: highlighted row (only with shortcuts on) and the shortcut card ── */
@@ -2667,15 +2576,6 @@ button.pdt-section-head:hover {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--size-4-2);
-}
-
-.pdt-nav-seg {
-  display: flex;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid var(--background-modifier-border);
-  border-radius: var(--radius-m);
-  background: var(--background-secondary);
 }
 
 .pdt-nav-item {
@@ -2808,7 +2708,7 @@ button.pdt-home-chip {
   padding: var(--size-4-2) var(--size-4-3);
 }
 
-.pdt-home-mini-icon { grid-area: icon; display: flex; }
+.pdt-home-mini-icon { grid-area: icon; display: flex; color: var(--pdt-tone); }
 .pdt-home-mini-n { grid-area: n; font-size: 20px; font-weight: var(--font-bold); font-variant-numeric: tabular-nums; }
 .pdt-home-mini.is-done .pdt-home-mini-n { color: var(--text-faint); }   /* all seen: done, not urgent */
 .pdt-home-mini .pdt-home-info { grid-area: info; justify-self: end; align-self: start; }
@@ -2834,7 +2734,6 @@ button.pdt-home-chip {
   color: var(--pdt-tone);
 }
 
-.pdt-home-mini-icon { color: var(--pdt-tone); }
 .pdt-home-icon svg, .pdt-home-mini-icon svg { width: 16px; height: 16px; }
 
 .pdt-home-title {
@@ -2914,6 +2813,9 @@ button.pdt-home-more {
 }
 
 button.pdt-home-fresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   height: 26px;
   padding: 0 10px;
   border: 1px solid color-mix(in srgb, var(--interactive-accent) 60%, transparent);
@@ -2927,12 +2829,6 @@ button.pdt-home-fresh {
   cursor: pointer;
   animation: pdt-pulse 1.6s ease-out 2;
   transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
-}
-
-button.pdt-home-fresh {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
 }
 
 button.pdt-home-fresh:hover,
@@ -3081,14 +2977,19 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
   100% { box-shadow: 0 0 0 8px transparent; }
 }
 
-.pdt-home.is-still *,
-.pdt-home.is-still .is-in {
-  animation: none !important;
-  transition: none !important;
+.pdt-view .pdt-home.is-still *,
+.pdt-view .pdt-home.is-still .is-in {
+  animation: none;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pdt-home *, .pdt-nav-item { animation: none !important; transition: none !important; }
+  .pdt-view .pdt-home *,
+  .pdt-view .pdt-home .is-in,
+  .pdt-view .pdt-nav-item {
+    animation: none;
+    transition: none;
+  }
 }
 
 /* a widget's list: what it is, and "only new" */
@@ -3174,28 +3075,6 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
 .pdt-tab .pdt-n.is-updates {
   background: color-mix(in srgb, var(--color-yellow) 22%, transparent);
   color: var(--text-normal);
-}
-
-.pdt-query-changed {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--size-4-2);
-  padding: 1px 4px 1px var(--size-4-2);
-  border-radius: 99px;
-  background: color-mix(in srgb, var(--color-yellow) 15%, transparent);
-  color: var(--text-normal);
-  font-size: var(--font-ui-smaller);
-}
-
-.pdt-view button.pdt-query-save {
-  height: 20px;
-  padding: 0 var(--size-4-2);
-  border-radius: 99px;
-  background: var(--color-yellow);
-  color: var(--text-on-accent);
-  font-size: var(--font-ui-smaller);
-  font-weight: var(--font-semibold);
-  box-shadow: none;
 }
 
 .pdt-query-wrap {

@@ -220,11 +220,6 @@ function groupsOf(fm) {
   return uniqueNames(raw.map((g) => String(g ?? "")));
 }
 
-/** The same names, in any order. */
-function sameNames(a, b) {
-  return a.length === b.length && a.every((n) => b.includes(n));
-}
-
 /** Trimmed, non-empty names without case-insensitive duplicates; the first spelling wins. */
 function uniqueNames(names) {
   const seen = new Set();

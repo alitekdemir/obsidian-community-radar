@@ -1,5 +1,5 @@
 const core = {
-  setLanguage, matchLanguage, t, defaultSettings, dayString, weekKey, formatCount, formatShort, formatAge, relativeDays,
+  setLanguage, matchLanguage, t, defaultSettings, dayString, formatCount, formatShort, formatAge, relativeDays,
   formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline,
   ageLabel, recentMilestone, widgetResult, widgetParams, homeWidget, legacyViewQuery, freshRows, seenIds, normalizeHome, sinceMoment, seenUpTo, passedAt, topPassed, milestoneSteps, HOME_WIDGETS, dormantDays, updateWaves, releaseWaves, releaseGaps, spanLabel, isNewPlugin, isChanged, compileQuery, parseQuery, isAdvancedQuery, querySuggestions, tokenize, QUERY_FIELDS, queryHighlight, filtersToQuery, queryToFilters, queryToBasic, queryStarters, queryDiff, queryTip, sameQuery, QUERY_FUNCS, defaultPageQuery, pageQuery, joinQuery, withOrder, sortField, splitOrder, modeOptions, TABLE_COLUMNS, tableColumns, EXTRA_FILTERS, addableFilters, extraValueText, clearedFilters, changedFilters, filterSummary, discover, sortRows, modeCounts, isSnoozed, trackedMatch,
   groupSections, groupHue, statusKey, UNGROUPED, UPDATES, STARRED, escapeOutsideCode,

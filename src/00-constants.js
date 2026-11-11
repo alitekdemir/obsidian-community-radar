@@ -102,7 +102,6 @@ const TAB_DEFAULTS = {
   new: { downloads: false, sort: "listed" },        // a brand-new plugin has few downloads
   updated: { downloads: false, sort: "downloads" },   // thresholds live in the page queries now
   awakened: { downloads: false, sort: "downloads" },
-  changed: { downloads: false, sort: "updated" },
   suggested: { downloads: false, sort: "downloads" },
   tracked: { downloads: false, sort: "rating" },
   ignored: { downloads: false, sort: "name" },
@@ -167,7 +166,6 @@ function defaultSettings() {
     hideBusy: true,       // Updated: hide plugins with more than BUSY_LIMIT releases in BUSY_DAYS
     section: "home",      // home | list (Tracked is the list on its tab)
     start: "home",        // the section the view opens on: home | last
-    listMode: "all",      // the List's last tab
     home: homeDefaults(),
     minDownloads: 100,
     downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
