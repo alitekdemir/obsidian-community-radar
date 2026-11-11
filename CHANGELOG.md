@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.10.3
+
+### Changed
+
+- **Clearer UI phrasing & terminology (`en`, `tr`):** refined tooltips, widget descriptions, bulk-action prompts, query help text, and status messages across both languages so every label reads naturally without shorthand or jargon.
+- **Unified Turkish tone (`tr`):** standardized all interface strings on a consistent formal address (*siz*) and unified terminology for *Dışla* (Ignore), *Sürüme kadar gizle* (Hide until update), *Önerilerden çıkarılanlar* (Dismissed suggestions), and *İncelendi işaretle* (Mark reviewed).
+- **Consistent growth labels (`en`):** aligned the Sort menu labels (`growth · 7d / 30d`) with the table column headers.
+
+### Fixed
+
+- Separated the filter bar's `⋯` menu tooltip (`list.moreActions`) from the list's pagination button (`list.more`), which now shows the remaining batch count (`Show {n} more` / `Daha fazla göster (+{n})`).
+- Updated the translation setup notice (`notice.translateSetup`) to point to *Settings → Community Radar → AI*.
+
 ## 0.10.2
 
 ### Changed
