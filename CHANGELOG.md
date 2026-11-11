@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.10.2
+
+### Changed
+
+- **Documentation:** rewritten `README.md` and `README.tr.md` with deeper explanations and dedicated guides in `docs/` (`query.md`, `tracking-notes.md`, `settings-commands.md`, `how-it-works.md`, `development.md`).
+- **Home mini cards:** zero counts (`0`) now appear dimmed across all time periods (7 / 30 days as well as *Not seen yet*) so active cards stand out immediately.
+- **Details window:** tightened the closeness bar and label in the *Similar* list to give plugin names more horizontal room.
+
+### Fixed
+
+- Resolved all 7 Obsidian community store CSS analyzer warnings (`!important`, `column-gap`, and `text-decoration` Level 3 shorthand) while keeping the wavy red syntax-error underline in the query box via an inline SVG wave.
+- Fixed a `@keyframes` name collision between the AI group-suggestion loading skeleton and the Home *N new* badge pulse, and removed unused legacy styles and locale keys.
+
 ## 0.10.1
 
 ### Changed
