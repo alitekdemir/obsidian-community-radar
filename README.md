@@ -1,88 +1,145 @@
+<div align="center">
+
 # Community Radar
 
-**Your radar for Obsidian's 10,000+ community plugins.** See what's new, what's rising and what woke up after years of silence. Ask the list questions like you would in Jira, find plugins that do the same job by meaning, and keep the ones you care about as notes in your vault.
+**Turn Obsidian's plugin directory into a live discovery engine and personal curation workspace.**
 
-*[Türkçe](README.tr.md)*
+Spot fast-rising newcomers, catch long-dormant plugins making a comeback, query the catalog like a database, discover alternatives by meaning—and keep the plugins you care about as living Markdown notes in your vault.
+
+[![Obsidian](https://img.shields.io/badge/Obsidian-%E2%89%A51.9.0-7C3AED?logo=obsidian&logoColor=white)](https://obsidian.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Desktop%20%26%20Mobile-Supported-blue)](#install)
+
+*English · [Türkçe](README.tr.md)*
+
+</div>
 
 ![Community Radar: home, query, table, details, similar, tracked](docs/images/demo.webp)
 
-## Why
+---
 
-- **Too much to follow.** About 50 new plugins arrive every day, and hundreds more ship updates. Obsidian's browser shows them all the same way. Community Radar opens on what changed since you last looked.
-- **Growth and pauses are invisible.** Obsidian only shows today's download count. Community Radar replays every daily snapshot since 2020: what gained the most this month, what passed 10K, what released again after a year.
-- **What you found gets lost.** A plugin you liked last month is a name you can't remember. Here it's a note with your groups, rating and notes, and a README that stays current.
+## Why Community Radar?
 
-## What it does
+Obsidian's built-in plugin browser is great for installing a plugin when you already know its name—but as the catalog grows into the thousands, genuine discovery hits a wall:
 
-### 🏠 A home that shows what changed
+- **All-time downloads hide today's momentum.** A five-year-old giant always sits at the top, while a brilliant month-old plugin gaining a thousand users this week stays buried. Community Radar replays **every daily release snapshot since October 2020** to surface real 7- and 30-day growth, fresh milestones, and release rhythms.
+- **Frequent patchers drown out real comebacks.** Plugins shipping tiny tweaks every few days push everything else off the screen. By grouping rapid patches into *update waves*, Community Radar filters out release noise and spotlights quiet plugins waking up after months—or years—of silence.
+- **"I'll try this later" disappears.** Bookmarked GitHub repos and mental notes get lost. Here, starring or grouping a plugin creates a structured vault note—complete with your rating, status, personal notes, an auto-updated README, and a one-click **Obsidian Bases** table.
+
+---
+
+## Highlights
+
+### 🏠 Start With What Changed Since You Last Looked
 
 ![Home: the last 7 days and the discovery widgets](docs/images/home.png)
 
-The top strip counts what you haven't seen yet: new plugins, new releases of plugins you track, milestones passed and quiet updates. It resets when you open the list, not when you restart Obsidian. Below it, widgets each answer one question: *New arrivals*, *Milestones*, *Out of incubation*, *Rising*, *Quiet updates*, *New releases you track*, *Installed, not tracked*. Change a widget's period or threshold right on the card. Its **N new** badge opens only the new ones.
+Instead of dropping you into an endless alphabetical wall, Community Radar opens on **Home**—a live dashboard tailored to your attention.
 
-### 🥚 Plugins that came back
+At the top, the **Not seen yet** strip tracks new arrivals, updates to plugins you follow, newly crossed download milestones, and quiet releases. Counts clear only when you actually open a list—restarting Obsidian never wipes your unread state. Below it, draggable cards answer the questions you actually care about: *New arrivals*, *Milestones* (`1K` to `100K`), *Out of incubation*, *Rising*, *Quiet updates*, and *New releases you track*. Tweak time windows or thresholds right on any card, or click its **N new** pill to jump straight to what arrived since your last check.
+
+---
+
+### 🥚 Catch Comebacks. Mute Release Noise.
 
 ![Incubation: plugins releasing again after a long pause](docs/images/incubation.png)
 
-*Incubation* lists plugins that released again after at least 60 days of silence, for example "4 days ago (after a 1,462-day incubation)". *Updated* leaves out plugins that ship every few days, so a real update isn't buried. Both read the full release history, not just the latest version.
+Some of the most exciting moments in the ecosystem happen when an abandoned favorite suddenly ships a major rewrite—yet in a standard "sort by updated" list, it vanishes within hours under daily hotfixes.
 
-### 🔍 A query language, with Basic mode for everyone else
+- **Incubation** surfaces plugins that shipped a new version after lying dormant for 60 to 360+ days—showing exact context like *"4 days ago (after a 1,462-day incubation)"*. Better yet, a plugin stays visible here proportional to how long it slept, so a huge comeback never slips past you.
+- **Updated** automatically sets aside hyper-active plugins (more than 9 update waves in 6 months), giving thoughtful, less frequent releases room to breathe.
+
+---
+
+### 🔍 Point-and-Click Filters—or a Full JQL-Style Query Engine
 
 ![The query box: colors, a change badge and its actions](docs/images/query-save.png)
 
-Every tab is a query you can read and change:
+Prefer visual controls? Stay in **Basic** mode to combine search terms, `/regex/`, and quick filter chips behind the **Filter** menu. Want total precision? Flip to **Query** mode—because under the hood, **every tab in Community Radar is just an editable query**:
 
-```
+```sql
 age <= 30d AND downloads >= 50 AND NOT tracked
 order by gain30 desc
 ```
 
-27 fields, date functions like `startOfMonth()` and `lastSync()`, suggestions as you type (`Ctrl+Space`), colors, and an explanation when you hover any word. Press `?` for the cheat sheet. If nothing matches, it says which condition emptied the list. Prefer clicking? **Basic** mode has the same filters behind a **Filter** button. A changed query can replace the tab's own query or be saved as a **view**: a tab of its own that counts new matches, and a widget on Home. See [the query reference](docs/query.md).
+- **27 searchable fields & date functions:** Filter by `gain7`, `rise30` (% growth), `gap`, `milestone`, `installed`, `group`, `rating`, and dynamic dates like `startOfMonth(-1)` or `lastSync()`.
+- **Guided as you type:** Press `Ctrl+Space` for context-aware autocomplete (including your own groups, statuses, and plugin authors), hover over any token to see a plain-English explanation, or hit `?` for an interactive cheat sheet. If a query returns zero results, Community Radar even tells you **which clause emptied the list**.
+- **Saved Views:** Customize any query and save it as a **View**—giving it a permanent tab in your top bar (with a `+N` badge for unseen matches) and its own widget card on Home. → *[Full Query Reference](docs/query.md)*
 
-### ≈ Similar, by meaning
+---
+
+### ≈ Discover Alternatives by Meaning—100% On-Device
 
 ![Plugins similar to Templater, closest first](docs/images/similar.png)
 
-**Similar →** on any plugin lists up to 300 others that do something close, closest first, even with no shared words. It runs on your device with vectors built daily from every plugin's description. No API key needed.
+You shouldn't have to guess an author's exact wording to find plugins solving the same problem. Click **Similar →** on any plugin to uncover up to 300 conceptually related tools—ranked from *very close* to *related* alongside the key terms they share.
 
-### 📊 List, cards or a table, and many plugins at once
+> **Zero API keys, zero cloud queries:** Multilingual semantic embeddings are prebuilt daily via GitHub Actions. Your device downloads a compact ~2.5 MB index during sync and blends vector cosine similarity with BM25 lexical matching **entirely offline**. Hop from one plugin to another down a discovery chain, then hit `Esc` to snap right back to where you started.
+
+---
+
+### 📊 List, Cards, or Custom Tables—Built for Fast Triage
 
 ![Table view with the column picker](docs/images/table.png)
 
-Switch between **List**, **Cards** and **Table**. The table has 16 columns to pick from, such as downloads, gained in 7 or 30 days, % growth, milestone and release rhythm. Each page keeps its own columns. Tick rows (or **Select all N**) to favorite, rate, group, hide or ignore many at once. **Recent actions** keeps your last 20 bulk changes, and **Undo** skips anything you edited since. Click a row for the details window: stats, README, release history and similar plugins.
+Work the way that fits the task at hand:
+
+- **Three layouts:** Scan compact **Lists**, browse visual **Cards**, or switch to **Table** view with **16 draggable columns** (including 7/30-day download gains, percentage growth, milestones, release cadence, and inline star/rating toggles)—remembered independently per tab and saved view.
+- **Batch actions with smart Undo:** Select rows (with `Shift+Click` ranges or Gmail-style *Select all N in this list*) to favorite, rate, group, mark reviewed, snooze until next release, or ignore in bulk. **Recent actions** remembers your last 20 batch operations across restarts—and **Undo** safely skips any plugin you manually edited afterward.
+- **Deep plugin inspector & keyboard flow:** Click any row (or press `Enter`) to inspect four key metrics, a color-coded visual timeline of release pauses, the 5 closest alternatives, and the full rendered README. Prefer keeping your hands on the keyboard? Enable Vim-style shortcuts (`j`/`k`, `f`, `g`, `1`–`5`, `s`, `h`, `x`) in Settings.
 
 ![Details window: stats, README, release history, similar](docs/images/details.png)
 
-### 📝 Notes you own, and optional AI
+---
+
+### 📝 Living Vault Notes, Obsidian Bases & Optional AI
 
 ![Tracked plugins, in sections by group](docs/images/tracked.png)
 
-Star a plugin or add it to a group and it gets a note in your vault: groups, favorite, rating, status and your notes in the properties, with its README kept current below. One click builds an **Obsidian Bases** table of all of them. With an API key (Anthropic, OpenAI, Google or OpenRouter), you can translate descriptions and READMEs into your language and get group suggestions for the rows you select. AI stays off until you set it up. See [tracking notes](docs/tracking-notes.md).
+Community Radar doesn't lock your curation inside a private database. The moment you star (**☆**) or group (**＋**) a plugin, it creates a clean Markdown note inside your vault:
+
+- **Structured frontmatter + untouched personal notes:** Your `groups`, `favorite`, `rating` (1–5), custom emoji `status`, and personal thoughts stay yours, while catalog stats and the embedded **README** stay fresh automatically (with `#tags` and `[[wikilinks]]` safely escaped so they never pollute your graph).
+- **One-click Obsidian Bases:** Generate a ready-made `.base` view from Settings to filter, sort, and edit your entire plugin library as a native Obsidian database table. → *[Tracking Notes Guide](docs/tracking-notes.md)*
+- **Bring-your-own-key AI (strictly opt-in):** Connect Anthropic, OpenAI, Gemini, or OpenRouter via Obsidian's native keychain to translate whole pages of descriptions, translate full plugin READMEs (with upfront token/cost estimates and stale-version detection), or get one-click group suggestions for selected plugins.
+
+---
 
 ## Install
 
-Open **Settings → Community plugins → Browse**, search for **Community Radar**, then **Install** and **Enable**. Open it from the ribbon or with the command **Open Community Radar**.
+1. Open **Settings → Community plugins → Browse** in Obsidian.
+2. Search for **Community Radar**, then click **Install** and **Enable**.
+3. Click the **radar icon** in the left ribbon—or run `Community Radar: Open Community Radar` from the Command Palette.
 
-## Get started in 60 seconds
+### Up and Running in 60 Seconds
 
-1. The first sync downloads the plugin list and the release history (about 3 MB).
-2. Look at **Home**: what's new since your last visit.
-3. Open a widget's list. Star a plugin you like; a note appears in your vault.
-4. Press **Query** on any tab to see its rule, change it, and save it as your own view.
+1. **Let the initial sync finish:** Community Radar fetches the public plugin catalog, the 6-year release archive, and the semantic similarity index (~3 MB total).
+2. **Check Home:** Scan *Not seen yet* and click into a discovery card like *Rising* or *Out of incubation*.
+3. **Curate your first plugin:** Star (**☆**) or group (**＋**) something interesting—its Markdown note is created instantly in your vault (and you can generate an **Obsidian Bases** view anytime from Settings).
+4. **Make it yours:** Switch any tab from **Basic** to **Query** to inspect its rule, tweak it, and save your own custom view.
 
-## Privacy
+---
 
-No account, no telemetry. Community Radar reads only its own notes folder. It downloads public files from GitHub, and calls an AI provider only when you ask for a translation or group suggestions. API keys stay in Obsidian's keychain. [Every request, listed.](docs/how-it-works.md#network)
+## Privacy by Design
+
+- **No accounts, no telemetry, no analytics.** Nothing about you or your vault is ever collected.
+- **Strictly scoped vault access.** Community Radar only reads and writes inside its designated plugin notes folder—it never scans the rest of your vault.
+- **Public data & keychain security.** Syncs fetch static public files from GitHub. AI requests happen **only** when you explicitly trigger a translation or group suggestion, using API keys stored exclusively in Obsidian's device-local keychain (`SecretStorage`). → *[Every network request, documented](docs/how-it-works.md#network)*
+
+---
 
 ## Documentation
 
-- [Query language](docs/query.md): fields, operators, dates, examples
-- [Tracking notes](docs/tracking-notes.md): the note's properties and the Bases view
-- [Settings and commands](docs/settings-commands.md): every setting, command and shortcut
-- [How it works](docs/how-it-works.md): where the data comes from, network, storage
-- [Development and translating](docs/development.md)
-- [Changelog](CHANGELOG.md)
+| Guide | What's Inside |
+|---|---|
+| **[Query Language](docs/query.md)** | All 27 fields, operators, date functions, autocomplete, and ready-to-use examples |
+| **[Tracking Notes & Bases](docs/tracking-notes.md)** | Frontmatter schema, README syncing modes, translations, and Obsidian Bases setup |
+| **[Settings & Commands](docs/settings-commands.md)** | Complete reference for settings, Command Palette actions, and keyboard shortcuts |
+| **[How It Works & Privacy](docs/how-it-works.md)** | Release archive pipeline, local vector matching, storage layout, and network table |
+| **[Development & Translating](docs/development.md)** | Architecture overview, running the offline test suite, and adding a UI language |
+| **[Changelog](CHANGELOG.md)** | Release-by-release history |
+
+---
 
 ## License
 
-[MIT](LICENSE) © Ali Tekdemir · [Sponsor](https://github.com/sponsors/alitekdemir)
+[MIT](LICENSE) © [Ali Tekdemir](https://github.com/alitekdemir) · [Sponsor on GitHub](https://github.com/sponsors/alitekdemir)
