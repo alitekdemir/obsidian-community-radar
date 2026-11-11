@@ -67,7 +67,7 @@ const tests = {
     const settings = { ...base, minDownloads: 500, downloadFilter: { updated: true }, query: "kanban" };
     assert.equal(core.changedFilters(settings, "updated"), 2);
     assert.equal(core.filterSummary(settings, "updated"),
-      "Bu sekmenin varsayılanından değişenler:\n• Arama: “kanban”\n• İndirme ≥ 500\n✕ hepsini varsayılana döndürür");
+      "Bu sekmenin varsayılanından değişenler:\n• Arama: “kanban”\n• İndirme ≥ 500\nSıfırla hepsini varsayılana döndürür");
     assert.equal(core.filterSummary(base, "updated"), core.t("filter.tipNone"));
   },
 
@@ -435,10 +435,10 @@ const tests = {
     const early = Array.from({ length: 12 }, (_, i) => i * 5 * D);
     assert.equal(rhythm([...early, now - 5 * Y, now - 4 * D]), "yearly | 1 release in 12 months", "the tile keeps one short fact");
     assert.equal(historyNote([...early, now - 5 * Y, now - 4 * D]), "Last 12 months: 1 update, 1 release · previous gap 5 years", "the long pause goes under the history");
-    assert.equal(rhythm(monthly.map((m) => m - 2 * Y)), "none for a year | before: every ~30 days", "went quiet two years ago");
+    assert.equal(rhythm(monthly.map((m) => m - 2 * Y)), "no release for a year | before: every ~30 days", "went quiet two years ago");
     assert.equal(rhythm([now - 90 * D, now - 60 * D, now - 30 * D]), "every ~45 days | 3 releases in 90 days", "young: its own span");
     assert.equal(rhythm([now - 500 * D, now - 300 * D, now - 100 * D]), "every 6 months | 2 releases in 12 months");
-    assert.equal(rhythm([now - 5 * Y]), "none for a year | its only release", "never a dash: one release says so");
+    assert.equal(rhythm([now - 5 * Y]), "no release for a year | its only release", "never a dash: one release says so");
     assert.equal(rhythm([now - 20 * D, now - 19 * D]), "one update | 2 releases in 20 days", "a young plugin's one wave");
     assert.equal(rhythm([now - 90 * D, now - 70 * D, now - 50 * D, now - 30 * D, now - 10 * D]), "every ~23 days | 5 releases in 90 days", "by days between waves, not their count");
     assert.equal(historyNote([...early, now - 5 * Y, now - 100 * D, now - 4 * D]), "Last 12 months: 2 updates, 2 releases · previous gap 4.7 years", "a second wave keeps the long pause");

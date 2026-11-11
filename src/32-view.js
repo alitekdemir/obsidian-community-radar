@@ -578,7 +578,7 @@ class DiscoveryView extends ItemView {
 
     if (!LIST_MODES.includes(mode)) this.renderLayoutSwitch(bar);
     if (!similar && !LIST_MODES.includes(mode)) {
-      const more = iconButton(bar, "more-horizontal", t("list.more"), "pdt-list-more");
+      const more = iconButton(bar, "more-horizontal", t("list.moreActions"), "pdt-list-more");
       more.onclick = (event) => {
         const menu = new Menu();
         menu.addItem((item) => item.setTitle(t("query.saveWidget")).setIcon("bookmark-plus").onClick(() => this.saveView()));
