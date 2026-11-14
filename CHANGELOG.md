@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.11.3
 
 ### Changed
 - **Cards and rows, simpler:** only ★ (track) and ⋯ stay on a card. ⋯ or a right click opens every other action (group, rate, similar plugins, README, hide), and each says on hover what it does. The plugin's name opens its GitHub page, a click on the description translates it, and an empty spot opens the details. The same in the list and the table.
