@@ -30,4 +30,4 @@ All interface text lives in [`locales/`](../locales), one JSON file per language
 
 Missing text falls back to English, so a partial translation still works. The new language appears in *Settings → Language* on its own.
 
-Query field names (`downloads`, `gain30`…) stay English in every language, so saved queries keep working after a language switch.
+Query field names (`downloads`, `gain(30d)`…) stay English in every language, so saved queries keep working after a language switch.

@@ -2,15 +2,14 @@
 class PluginRadar extends Plugin {
   async onload() {
     addIcon(ICON, ICON_SVG);
-    this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, groupSuggestions: {}, migrations: {} }, await this.loadData());
+    this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, groupSuggestions: {}, migrations: {}, aiUsage: {} }, await this.loadData());
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.data.settings.query = "";   // filters are remembered, the search isn't
     this.data.settings.home = normalizeHome(this.data.settings.home);
     if (this.data.settings.start === "home") this.data.settings.section = "home";
     delete this.data.lastVisit;   // before 0.9.2: "new" counted from the last load, so every restart zeroed it
-    if (this.data.settings.mode === "changed") Object.assign(this.data.settings, { mode: "tracked", trackedGroup: UPDATES });   // 0.7.2's tab
-    if (this.data.settings.mode === SIMILAR_MODE) this.data.settings.mode = "all";   // 0.8's Similar list
+    if (!["all", "tracked", ...LIST_MODES].includes(this.data.settings.mode)) this.data.settings.mode = "all";   // 0.12: the other tabs are widgets
     delete this.data.settings.similarTrail;
     delete this.data.settings.historyMonths;   // 0.9.1: the history comes from GitHub
     delete this.data.settings.similarFrom;
@@ -18,6 +17,10 @@ class PluginRadar extends Plugin {
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
     this.notes = new Notes(this.app, this.data.settings);
     this.translator = new Translator(this.app, this.data.settings);
+    this.translator.onUsage = (provider, model, usage) => {   // the AI tab's usage table
+      this.data.aiUsage = addUsage(this.data.aiUsage, provider, model, usage);
+      this.saveData(this.data);
+    };
     this.catalog = null;                                      // {fetchedAt, plugins}
     this.vectors = null;                                      // semantic Similar (parseVectors); null → word matching
     this.timeline = newTimeline();
@@ -125,12 +128,12 @@ class PluginRadar extends Plugin {
       done.readmeMarkers = dayString(Date.now());
     }
     if (!done.newDays14) {   // 0.9.2: "new" lasts 14 days by default; 30 was 0.9's default, not a choice
-      if (this.data.settings.newDays === 30) this.data.settings.newDays = NEW_BADGE_DAYS;
+      if (this.data.settings.newDays === 30) this.data.settings.newDays = DEFAULT_NEW_DAYS;
       done.newDays14 = dayString(Date.now());
     }
     if (!done.pageQueries) {   // 0.10: a tab's days, pause, Hide busy and Downloads ≥ become its query
       const st = this.data.settings;
-      const old = { days: st.days ?? 14, gap: st.dormantDays ?? 60, busy: st.hideBusy !== false };
+      const old = { days: st.days ?? 14, incubated: st.dormantDays ?? INCUBATION_DAYS, busy: st.hideBusy !== false };
       const min = (mode) => (st.downloadFilter?.[mode] ?? true ? st.minDownloads ?? 100 : 0);   // on by default there
       const mine = { new: defaultPageQuery("new", old), updated: defaultPageQuery("updated", { ...old, downloads: min("updated") }),
         awakened: defaultPageQuery("awakened", { ...old, downloads: min("awakened") }) };
@@ -140,6 +143,14 @@ class PluginRadar extends Plugin {
       if (st.queryMode) st.query = "";   // 0.10 builds before this: one query for every tab
       delete st.queryMode;
       done.pageQueries = dayString(Date.now());
+    }
+    if (!done.fields011) {   // 0.11: busy, new, gain7…, a bare milestone are gone; saved queries say it the new way
+      const st = this.data.settings;
+      const move = (q) => migrateQuery(q, st.newDays);
+      const each = (obj) => Object.fromEntries(Object.entries(obj || {}).map(([k, q]) => [k, typeof q === "string" ? move(q) : q]));
+      Object.assign(st, { pageQueries: each(st.pageQueries), queries: each(st.queries), recentQueries: (st.recentQueries || []).map(move) });
+      if (st.home?.views) st.home.views = st.home.views.map((v) => ({ ...v, query: move(v.query) }));
+      done.fields011 = dayString(Date.now());
     }
     if (!done.viewQueries) {   // 0.10: a saved view is a query (its tab's query, then its filters)
       const home = this.data.settings.home;
@@ -170,6 +181,14 @@ class PluginRadar extends Plugin {
     command("readme-translate", t("cmd.readmeTranslate"), () => this.translateCurrentReadme());
     command("similar-current", t("cmd.similarCurrent"), () => this.similarOfCurrent());
     command("recent-actions", t("bulk.recent"), () => new RecentModal(this, async (op) => { await this.undo(op); }).open());
+    command("home", t("cmd.home"), async () => {
+      await this.openView();
+      this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view?.update?.("section", "home");
+    });
+    command("help", t("help.title"), async () => {
+      await this.openView();
+      this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view?.openHelp?.();
+    });
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -180,10 +199,9 @@ class PluginRadar extends Plugin {
 
   state() {
     return {
-      catalog: this.catalog?.plugins || [],
+      catalog: [...(this.catalog?.plugins || []), ...removedRows(this.timeline.removed, this.app.plugins?.manifests)],
       releases: this.timeline.releases,
       firstSeen: this.timeline.firstSeen,
-      growth: this.timeline.growth || {},   // server history only
       notes: this.notes.index,
       excluded: new Set(Object.keys(this.data.excluded)),
       dismissed: new Set(Object.keys(this.data.dismissed)),
@@ -304,15 +322,18 @@ class PluginRadar extends Plugin {
   }
 
   /**
-   * The release history, built daily on GitHub (every day since 2020, with download growth): downloaded when
-   * a newer one is out (`force`: in any case). A failure keeps the one we have.
+   * The release history, built daily on GitHub (every day since 2020, with a year of downloads): when a newer one is
+   * out, its last days (delta.json, ~150 KB) join the copy we have; the whole file (~1 MB) when ours is older than
+   * they reach, or `force`. A failure keeps the one we have.
    */
   async syncServerTimeline(progress, force = false) {
     try {
       const meta = await this.github.metricsMeta();
-      if (!force && meta.to <= (this.timeline.to || 0)) return true;
+      const ours = this.timeline;
+      if (!force && meta.to <= (ours.to || 0)) return true;
       progress(t("notice.serverHistory"));
-      const timeline = await this.github.metricsTimeline();
+      const reaches = !force && ours.v === TIMELINE_VERSION && ours.series && meta.deltaFrom && ours.to >= meta.deltaFrom - DAY_MS;
+      const timeline = (reaches && mergeTimeline(ours, await this.github.metricsDelta())) || await this.github.metricsTimeline();
       if (timeline?.v !== TIMELINE_VERSION || !timeline.to) throw new Error("unexpected timeline file");
       this.timeline = timeline;
       await this.cache.write("timeline", timeline);
@@ -614,11 +635,9 @@ class PluginRadar extends Plugin {
     await view.suggestGroups();
   }
 
+  /** Ignores a plugin: every list leaves it out. Recorded, so the toast's Undo (or Recent actions) turns it back. */
   async exclude(plugin) {
-    this.data.excluded[plugin.id] = dayString(Date.now());
-    this.similarCache.clear();
-    await this.saveData(this.data);
-    new Notice(t("notice.excluded", { name: plugin.name }));
+    this.announce(t("notice.excluded", { name: plugin.name }), await this.bulk("exclude", [plugin]));
   }
 
   async dismiss(plugin) {
@@ -626,25 +645,30 @@ class PluginRadar extends Plugin {
     await this.saveData(this.data);
   }
 
-  /** Hides a plugin until it ships a release newer than the current one. */
+  /** Hides a plugin until it ships a release newer than the current one (recorded like exclude, with Undo). */
   async snooze(plugin) {
-    this.data.snoozed[plugin.id] = plugin.updated || 0;
-    await this.saveData(this.data);
-    new Notice(t("notice.snoozed", { name: plugin.name }));
+    this.announce(t("notice.snoozed", { name: plugin.name }), await this.bulk("snooze", [plugin]));
   }
 
-  /** Ignored list = ignored plugins + those hidden until their next release. */
-  ignoredCount() {
-    const snoozed = (this.catalog?.plugins || []).filter((p) => isSnoozed(p, this.data.snoozed) && !(p.id in this.data.excluded)).length;
-    return Object.keys(this.data.excluded).length + snoozed;
-  }
-
-  /** Brings plugins back from the Ignored (also un-snoozes) or Hidden suggestions list. */
-  async restoreFrom(mode, ids) {
-    for (const id of ids) {
-      if (mode === "ignored") { delete this.data.excluded[id]; delete this.data.snoozed[id]; }
-      else delete this.data.dismissed[id];
+  /** Says what an action did: in the open Community Radar view with Undo, else as a notice. */
+  announce(text, op) {
+    const leaves = this.app.workspace.getLeavesOfType(VIEW_TYPE);
+    for (const leaf of leaves) {
+      leaf.view.toast = { text, op };
+      leaf.view.refresh?.();
     }
+    if (!leaves.length) new Notice(text);
+  }
+
+  /** How many plugins each kind of the Hidden page holds (snoozed: those still waiting for their next release). */
+  hiddenCounts() {
+    const snoozed = (this.catalog?.plugins || []).filter((p) => isSnoozed(p, this.data.snoozed)).length;
+    return { excluded: Object.keys(this.data.excluded).length, snoozed, dismissed: Object.keys(this.data.dismissed).length };
+  }
+
+  /** Brings plugins back from one kind of the Hidden page (its store has the same name: excluded, snoozed, dismissed). */
+  async restoreFrom(mode, ids) {
+    for (const id of ids) delete this.data[mode][id];
     this.similarCache.clear();
     await this.saveData(this.data);
     this.redraw();
@@ -656,13 +680,11 @@ class PluginRadar extends Plugin {
     this.redraw();
   }
 
-  /** Opens the view on a list mode (Ignored, Hidden suggestions). */
+  /** Opens the view on one kind of the Hidden page. */
   async showList(mode) {
     this.app.setting?.close?.();
     await this.openView();
-    this.data.settings.mode = mode;
-    await this.saveData(this.data);
-    this.redraw(true);
+    for (const leaf of this.app.workspace.getLeavesOfType(VIEW_TYPE)) await leaf.view.showHidden?.(mode);
   }
 
   /** Opens the Tracked tab filtered to one group. */

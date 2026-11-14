@@ -1,3 +1,5 @@
+const SETTING_TABS = ["general", "notes", "data", "ai", "hidden"];   // the settings, one tab at a time
+
 class RadarSettingTab extends PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
@@ -11,7 +13,28 @@ class RadarSettingTab extends PluginSettingTab {
     const settings = plugin.data.settings;
     const save = () => plugin.saveData(plugin.data);
     containerEl.empty();
+    const tab = SETTING_TABS.includes(this.tab) ? this.tab : SETTING_TABS[0];   // the last one you looked at, while open
+    this.renderTabs(containerEl, tab);
+    const body = containerEl.createDiv({ cls: "pdt-settings-body", attr: { role: "tabpanel" } });
+    const sections = { general: this.displayGeneral, notes: this.displayNotes, data: this.displayData, ai: this.displayTranslation, hidden: this.displayHidden };
+    sections[tab].call(this, body, settings, save);
+  }
 
+  /** The tab strip: one section of the settings at a time (Hidden carries its count). */
+  renderTabs(containerEl, current) {
+    const strip = containerEl.createDiv({ cls: "pdt-settings-tabs", attr: { role: "tablist" } });
+    const hidden = Object.values(this.plugin.hiddenCounts()).reduce((a, b) => a + b, 0);
+    for (const key of SETTING_TABS) {
+      const on = key === current;
+      const button = strip.createEl("button", { cls: `pdt-settings-tab${on ? " is-active" : ""}`, text: t(`set.tab.${key}`), attr: { type: "button", role: "tab", "aria-selected": String(on) } });
+      if (key === "hidden" && hidden) button.createSpan({ cls: "pdt-settings-tab-n", text: formatCount(hidden) });
+      button.onclick = () => { this.tab = key; this.display(); };
+    }
+  }
+
+  /** General: language, where the view opens, how long a plugin is new, keyboard, support. */
+  displayGeneral(containerEl, settings, save) {
+    const plugin = this.plugin;
     new Setting(containerEl)
       .setName(t("set.language"))
       .setDesc(t("set.languageDesc"))
@@ -27,6 +50,50 @@ class RadarSettingTab extends PluginSettingTab {
         });
       });
 
+    new Setting(containerEl)
+      .setName(t("set.start"))
+      .setDesc(t("set.startDesc"))
+      .addDropdown((d) => d.addOption("home", t("home.startHome")).addOption("last", t("home.startLast"))
+        .setValue(settings.start).onChange(async (value) => {
+          settings.start = value;
+          await save();
+        }));
+
+    new Setting(containerEl)
+      .setName(t("set.newDays"))
+      .setDesc(t("set.newDaysDesc"))
+      .addText((text) => {
+        text.inputEl.type = "number";
+        text.inputEl.min = "1";
+        text.setValue(String(settings.newDays)).onChange(async (value) => {
+          const n = Math.round(Number(value));
+          if (!(n >= 1)) return;
+          settings.newDays = n;
+          await save();
+          plugin.redraw(true);
+        });
+      });
+
+    new Setting(containerEl)
+      .setName(t("set.keyboard"))
+      .setDesc(t("set.keyboardDesc"))
+      .addToggle((toggle) => toggle.setValue(Boolean(settings.keyboard)).onChange(async (value) => {
+        settings.keyboard = value;
+        await save();
+        plugin.redraw(true);
+      }));
+
+    if (plugin.manifest.fundingUrl) {
+      new Setting(containerEl)
+        .setName(t("set.support"))
+        .setDesc(t("set.supportDesc"))
+        .addButton((b) => b.setButtonText(t("set.sponsor")).onClick(() => window.open(plugin.manifest.fundingUrl)));
+    }
+  }
+
+  /** Notes: where tracking notes live, their heading, the status field, the Bases table. */
+  displayNotes(containerEl, settings, save) {
+    const plugin = this.plugin;
     new Setting(containerEl)
       .setName(t("set.folder"))
       .setDesc(t("set.folderDesc"))
@@ -44,15 +111,6 @@ class RadarSettingTab extends PluginSettingTab {
         await save();
       }));
 
-    new Setting(containerEl)
-      .setName(t("set.readmeTranslation"))
-      .setDesc(t("set.readmeTranslationDesc"))
-      .addDropdown((d) => d.addOption("ask", t("set.readmeTranslationAsk")).addOption("off", t("set.readmeTranslationOff"))
-        .setValue(settings.readmeTranslation).onChange(async (value) => {
-          settings.readmeTranslation = value;
-          await save();
-        }));
-
     const basePath = plugin.basePath();
     const baseExists = Boolean(this.app.vault.getAbstractFileByPath(basePath));
     new Setting(containerEl)
@@ -67,34 +125,12 @@ class RadarSettingTab extends PluginSettingTab {
         });
       });
 
-    new Setting(containerEl)
-      .setName(t("set.keyboard"))
-      .setDesc(t("set.keyboardDesc"))
-      .addToggle((toggle) => toggle.setValue(Boolean(settings.keyboard)).onChange(async (value) => {
-        settings.keyboard = value;
-        await save();
-        plugin.redraw(true);
-      }));
-
-    new Setting(containerEl)
-      .setName(t("set.newDays"))
-      .setDesc(t("set.newDaysDesc"))
-      .addText((text) => {
-        text.inputEl.type = "number";
-        text.inputEl.min = "1";
-        text.setValue(String(settings.newDays)).onChange(async (value) => {
-          const n = Math.round(Number(value));
-          if (!(n >= 1)) return;
-          settings.newDays = n;
-          await save();
-          plugin.redraw(true);
-        });
-      });
-
     this.displayStatuses(containerEl, settings, save);
+  }
 
-    // ── Sync
-    new Setting(containerEl).setName(t("set.sync")).setHeading();
+  /** Data: how often to sync, the README in notes, sync now, the release history. */
+  displayData(containerEl, settings, save) {
+    const plugin = this.plugin;
     new Setting(containerEl)
       .setName(t("set.syncHours"))
       .setDesc(t("set.syncHoursDesc"))
@@ -102,16 +138,6 @@ class RadarSettingTab extends PluginSettingTab {
         for (const hours of SYNC_HOURS) d.addOption(String(hours), t(`sync.${hours}`));
         d.setValue(String(settings.syncHours)).onChange(async (value) => {
           settings.syncHours = Number(value);
-          await save();
-        });
-      });
-    new Setting(containerEl)
-      .setName(t("set.readmeMode"))
-      .setDesc(t("set.readmeModeDesc"))
-      .addDropdown((d) => {
-        for (const mode of README_MODES) d.addOption(mode, t(`readmeMode.${mode}`));
-        d.setValue(settings.readmeMode).onChange(async (value) => {
-          settings.readmeMode = value;
           await save();
         });
       });
@@ -125,9 +151,16 @@ class RadarSettingTab extends PluginSettingTab {
         await plugin.refresh();
         this.display();
       }));
-
-    // ── Release history
-    new Setting(containerEl).setName(t("set.history")).setHeading();
+    new Setting(containerEl)
+      .setName(t("set.readmeMode"))
+      .setDesc(t("set.readmeModeDesc"))
+      .addDropdown((d) => {
+        for (const mode of README_MODES) d.addOption(mode, t(`readmeMode.${mode}`));
+        d.setValue(settings.readmeMode).onChange(async (value) => {
+          settings.readmeMode = value;
+          await save();
+        });
+      });
     const { timeline } = plugin;
     new Setting(containerEl)
       .setName(t("set.historySource"))
@@ -136,26 +169,16 @@ class RadarSettingTab extends PluginSettingTab {
         await plugin.downloadHistory();
         this.display();
       }));
+  }
 
-    this.displayTranslation(containerEl, settings, save);
-
-    // ── Lists: managed in the view, with search and Restore (a settings list can't cope with thousands)
-    this.displayPageQueries(containerEl, settings, save);
-
-    new Setting(containerEl).setName(t("set.lists")).setHeading();
-    new Setting(containerEl)
-      .setName(t("set.excluded", { n: formatCount(plugin.ignoredCount()) }))
-      .setDesc(t("set.listsDesc"))
-      .addButton((b) => b.setButtonText(t("set.manage")).onClick(() => plugin.showList("ignored")));
-    new Setting(containerEl)
-      .setName(t("set.dismissed", { n: formatCount(Object.keys(plugin.data.dismissed).length) }))
-      .addButton((b) => b.setButtonText(t("set.manage")).onClick(() => plugin.showList("dismissed")));
-
-    if (plugin.manifest.fundingUrl) {
+  /** Hidden: the three kinds, each opening the Hidden page on it (search, sort and Restore are there). */
+  displayHidden(containerEl) {
+    const counts = this.plugin.hiddenCounts();
+    for (const kind of LIST_MODES) {
       new Setting(containerEl)
-        .setName(t("set.support"))
-        .setDesc(t("set.supportDesc"))
-        .addButton((b) => b.setButtonText(t("set.sponsor")).onClick(() => window.open(plugin.manifest.fundingUrl)));
+        .setName(`${t(`mode.${kind}`)} (${formatCount(counts[kind])})`)
+        .setDesc(t(`set.hidden.${kind}`))
+        .addButton((b) => b.setButtonText(t("set.manage")).onClick(() => this.plugin.showList(kind)));
     }
   }
 
@@ -208,10 +231,10 @@ class RadarSettingTab extends PluginSettingTab {
       }));
   }
 
+  /** AI: provider, key, model, target language, README translation, the instructions (folded), saved translations. */
   displayTranslation(containerEl, settings, save) {
     const plugin = this.plugin;
     const translator = plugin.translator;
-    new Setting(containerEl).setName(t("set.translation")).setHeading();
     if (!translator.supported) {
       new Setting(containerEl).setDesc(t("set.needsKeychain"));
       return;
@@ -269,10 +292,20 @@ class RadarSettingTab extends PluginSettingTab {
           settings.targetLang = value.trim() || defaultSettings().targetLang;
           await save();
         }));
-      // the instructions sent with each translation; the reply format is added after them and stays fixed
+      new Setting(containerEl)
+        .setName(t("set.readmeTranslation"))
+        .setDesc(t("set.readmeTranslationDesc"))
+        .addDropdown((d) => d.addOption("ask", t("set.readmeTranslationAsk")).addOption("off", t("set.readmeTranslationOff"))
+          .setValue(settings.readmeTranslation).onChange(async (value) => {
+            settings.readmeTranslation = value;
+            await save();
+          }));
+      // the instructions sent with each translation (folded: rarely changed); the reply format after them stays fixed
+      const advanced = containerEl.createEl("details", { cls: "pdt-settings-advanced" });
+      advanced.createEl("summary", { text: t("set.advanced") });
       for (const kind of Object.keys(DEFAULT_PROMPTS)) {
         const mine = settings.prompts?.[kind] || "";
-        new Setting(containerEl)
+        new Setting(advanced)
           .setName(t(`set.prompt.${kind}`))
           .setDesc(t("set.promptDesc"))
           .setClass("pdt-setting-prompt")
@@ -292,6 +325,8 @@ class RadarSettingTab extends PluginSettingTab {
       }
     }
 
+    this.renderUsage(containerEl, save);
+
     const saved = Object.keys(plugin.data.translations).length;
     new Setting(containerEl)
       .setName(t("set.saved"))
@@ -304,45 +339,36 @@ class RadarSettingTab extends PluginSettingTab {
   }
 
   /**
-   * Page queries: what each page shows, as a query. Yours replace the default (a changed one has a yellow edge);
-   * ↺ puts one back, the button below all of them. A query that doesn't parse isn't saved (red edge, the reason).
+   * What each model has used so far (requests, tokens, cost) with a total row, so the user can compare models.
+   * Cost shows only where the provider reports it (OpenRouter); elsewhere a dash.
    */
-  displayPageQueries(containerEl, settings, save) {
-    new Setting(containerEl).setName(t("set.pageQueries")).setDesc(t("set.pageQueriesDesc")).setHeading();
-    for (const mode of [...MODE_KEYS, ...LIST_MODES]) {
-      const mine = settings.pageQueries?.[mode];
-      const setting = new Setting(containerEl).setName(t(`mode.${mode}`)).setClass("pdt-setting-query");
-      setting.addTextArea((area) => {
-        area.setValue(pageQuery(settings, mode)).onChange(async (value) => {
-          const { error } = compileQuery(value, null, Date.now(), true);
-          area.inputEl.toggleClass("is-invalid", Boolean(error));
-          setting.setDesc(error || "");
-          if (error) return;
-          const { [mode]: old, ...rest } = settings.pageQueries || {};
-          const same = value.replace(/\s+/g, " ").trim() === defaultPageQuery(mode).replace(/\s+/g, " ").trim();
-          settings.pageQueries = same ? rest : { ...rest, [mode]: value };
-          area.inputEl.toggleClass("is-changed", !same);
-          await save();
-          this.plugin.redraw();
-        });
-        area.inputEl.rows = 2;
-        area.inputEl.spellcheck = false;
-        area.inputEl.toggleClass("is-changed", mine != null);
-      });
-      setting.addExtraButton((b) => b.setIcon("rotate-ccw").setTooltip(t("set.pageQueryReset")).setDisabled(mine == null).onClick(async () => {
-        const { [mode]: old, ...rest } = settings.pageQueries || {};
-        settings.pageQueries = rest;
+  renderUsage(containerEl, save) {
+    const rows = Object.values(this.plugin.data.aiUsage || {}).sort((a, b) => b.requests - a.requests);
+    new Setting(containerEl)
+      .setName(t("set.usage"))
+      .setDesc(t("set.usageDesc"))
+      .addButton((b) => b.setButtonText(t("set.usageReset")).setDisabled(!rows.length).onClick(async () => {
+        this.plugin.data.aiUsage = {};
         await save();
-        this.plugin.redraw();
         this.display();
       }));
+    if (!rows.length) return;
+
+    const sum = (key) => rows.reduce((total, row) => total + (row[key] || 0), 0);
+    const priced = rows.some((row) => row.cost != null);
+    const total = { model: t("set.usageTotal"), requests: sum("requests"), input: sum("input"), output: sum("output"), cost: priced ? sum("cost") : null };
+    const cost = (value) => (value == null ? "—" : `$${value.toFixed(value < 1 ? 4 : 2)}`);
+
+    const table = containerEl.createEl("table", { cls: "pdt-usage" });
+    const head = table.createEl("thead").createEl("tr");
+    for (const key of ["model", "requests", "input", "output", "cost"]) head.createEl("th", { text: t(`set.usageCol.${key}`) });
+    const body = table.createEl("tbody");
+    for (const row of [...rows, total]) {
+      const tr = body.createEl("tr", { cls: row === total ? "is-total" : "" });
+      tr.createEl("td", { text: row.model, attr: row.provider ? { title: PROVIDERS[row.provider]?.label || row.provider } : {} });
+      for (const key of ["requests", "input", "output"]) tr.createEl("td", { text: formatCount(row[key]) });
+      tr.createEl("td", { text: cost(row.cost) });
     }
-    new Setting(containerEl).addButton((b) => b.setButtonText(t("set.pageQueriesReset")).setDisabled(!Object.keys(settings.pageQueries || {}).length).onClick(async () => {
-      settings.pageQueries = {};
-      await save();
-      this.plugin.redraw();
-      this.display();
-    }));
   }
 
   /** Loads the model list once (if it can), then opens the filtering picker; typed names are allowed. */

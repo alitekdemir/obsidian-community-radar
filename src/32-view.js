@@ -10,7 +10,8 @@ class DiscoveryView extends ItemView {
     this.visible = PAGE_SIZE;
     this.shownTranslations = new Set();
     this.similar = null;          // Similar filter: {steps: [{id, scroll}], before: {mode, scroll, visible, originId, originIndex}, query}
-    this.preset = null;           // a home widget's plugins in the list: {id, params, freshIds, onlyNew, query, sort}
+    this.preset = null;           // the widget list on screen: {key, id, params, freshIds, onlyNew, base} (one of widgetTabs)
+    this.widgetTabs = [];         // every widget list you opened: each keeps its tab until you close it
     this.selected = new Set();    // ids picked for a bulk action (a tab, filter or search change clears them)
     this.lastPicked = null;       // row index of the last pick, for Shift+click ranges
     this.toast = null;            // the last bulk action's result: {text, op} (op: Undo turns it back)
@@ -30,10 +31,12 @@ class DiscoveryView extends ItemView {
       this.refs.search.focus();
       return false;
     });
-    this.scope.register([], "Escape", () => {   // Esc closes the Similar filter or a widget's list, like ✕
-      if (!(this.similar || this.preset) || globalThis.document?.activeElement?.closest?.("input, textarea, select")) return true;
+    // Esc steps back one level: the Similar filter, then a widget's tab, then the list itself → Home
+    this.scope.register([], "Escape", () => {
+      if (this.settings.section === "home" || globalThis.document?.activeElement?.closest?.("input, textarea, select")) return true;
       if (this.similar) this.closeSimilar();
-      else this.closePreset();
+      else if (this.preset) this.closePreset();
+      else this.update("section", "home");
       return false;
     });
   }
@@ -44,6 +47,8 @@ class DiscoveryView extends ItemView {
 
   async onOpen() {
     this.contentEl.addClass("pdt-view");
+    this.addAction?.("help-circle", t("help.title"), () => this.openHelp());
+    if (recordVisit(this.settings.home, Date.now())) this.plugin.saveData(this.plugin.data);   // opened today: a visit
     // the Filters panel closes on a click anywhere else
     this.registerDomEvent(globalThis.document, "pointerdown", (event) => {
       if (this.filtersOpen && !event.target.closest?.(".pdt-filter-menu, .menu")) { this.filtersOpen = false; this.render(); }
@@ -56,6 +61,11 @@ class DiscoveryView extends ItemView {
     this.columnsPop?.close();
   }
 
+  /** Help on a tab: start (Quick start), presets (Ready-made queries) or guide (Query guide). */
+  openHelp(tab = "start") {
+    new HelpModal(this.app, this, { tab }).open();
+  }
+
   /** Obsidian's ⋮ menu of the view: actions that don't need a place on screen. */
   onPaneMenu(menu, source) {
     super.onPaneMenu?.(menu, source);
@@ -64,8 +74,7 @@ class DiscoveryView extends ItemView {
     const item = (icon, title, run) => menu.addItem((i) => i.setIcon(icon).setTitle(title).onClick(run));
     item("refresh-cw", t("set.syncNow"), () => plugin.refresh());
     item("languages", t("translate.visible", { n: shown.length }), () => this.translateVisible());
-    item("ban", t("list.ignoredTitle", { n: plugin.ignoredCount() }), () => this.update("mode", "ignored"));
-    item("eye-off", t("list.dismissedTitle", { n: Object.keys(plugin.data.dismissed).length }), () => this.update("mode", "dismissed"));
+    item("ban", t("hidden.title", { n: this.hiddenTotal() }), () => this.openHidden());
     item("history", t("cmd.rebuild"), () => plugin.downloadHistory());
     item("settings", t("menu.settings"), () => plugin.openSettings());
   }
@@ -174,13 +183,17 @@ class DiscoveryView extends ItemView {
 
   /** The page on screen: a tab, or a widget's or saved view's list (each a page of its own: its query, filters, sort). */
   get page() {
-    const id = this.preset?.id;
-    return !id ? this.settings.mode : id.startsWith(VIEW_PREFIX) ? id : `widget:${id}`;
+    return this.preset?.key ?? this.settings.mode;
   }
 
-  /** The settings the core reads for this page: a widget's or view's list brings its query as the page's. */
+  /** The settings the core reads for a widget tab: it brings its query as its page's. */
+  tabSettings(tab) {
+    return { ...this.settings, pageQueries: { ...this.settings.pageQueries, [tab.key]: tab.base } };
+  }
+
+  /** The settings the core reads for this page (a widget tab's, or the settings themselves). */
   get pageSettings() {
-    return this.preset ? { ...this.settings, pageQueries: { ...this.settings.pageQueries, [this.page]: this.preset.base } } : this.settings;
+    return this.preset ? this.tabSettings(this.preset) : this.settings;
   }
 
   /** What the list's box holds: a draft that didn't parse, else the query (a widget's or view's, the page's) or your words (Basic). */
@@ -189,7 +202,7 @@ class DiscoveryView extends ItemView {
   }
 
   async update(key, value) {
-    if (key === "mode" || key === "section") {   // another tab or section ends Filters, Similar, a widget's list, the toast and a draft
+    if (key === "mode" || key === "section") {   // another tab or section ends Filters, Similar, the toast and a draft (widget tabs stay)
       Object.assign(this, { filtersOpen: false, similar: null, preset: null, toast: null, queryDraft: null });
     }
     this.clearSelection();   // what you picked was on that list
@@ -243,6 +256,9 @@ class DiscoveryView extends ItemView {
     const counts = modeCounts(state, this.settings, now);
     if (this.similar) counts.all = this.similarCount();   // the All tab counts the matches while the filter is on
     for (const [mode, el] of Object.entries(this.refs.counts)) el.setText(formatCount(counts[mode]));
+    for (const tab of this.widgetTabs) {   // a widget tab counts its list (your edits to its query included)
+      this.refs.tabCounts?.[tab.key]?.setText(formatCount(discover(state, modeOptions(this.tabSettings(tab), tab.key), now).length));
+    }
   }
 
   // ─── Bulk actions ─────────────────────────────────────────────────────────
@@ -378,73 +394,78 @@ class DiscoveryView extends ItemView {
     const query = compileQuery(searched ? this.similar.query : "", this.plugin.state(), Date.now());
     const matching = found.map((x) => x.p).filter((p) => (p.downloads ?? 0) >= min && query.test(p));
     const { key, dir } = this.settings.similarSort;
-    const { catalog, releases, notes, growth } = this.plugin.state();
-    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, catalog, releases, notes, growth);
+    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, this.plugin.state());
   }
 
-  /** Home · List · Tracked (with its new releases). */
   /**
-   * ⌂ Home, then one strip of pages: the tabs (each is its query, on hover), your saved views, and a widget's
-   * list while it's open (✕ back home). Recent actions at the end.
+   * "⌂ Home | All": one two-part button, the place you're in filled. After it, a widget's list or a page a widget
+   * opened (Tracked, Hidden) while it's open (✕ back home). Everything else lives on Home. Recent actions at the end.
    */
   renderNav(nav) {
     const settings = this.settings;
     const onHome = settings.section === "home";
-    const home = nav.createDiv({ cls: `pdt-nav-item is-home${onHome ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0", "aria-label": t("nav.home") } });
-    setIcon(home, "home");
-    setTooltip(home, t("nav.home"));
-    home.onclick = () => this.update("section", "home");
-    onActivate(home, () => this.update("section", "home"));
+    const active = onHome ? "home" : this.page;
+    const place = nav.createDiv({ cls: "pdt-place", attr: { role: "tablist" } });
     const strip = nav.createDiv({ cls: "pdt-seg pdt-strip", attr: { role: "tablist" } });
-    const widgetKey = (id) => (id.startsWith(VIEW_PREFIX) ? id : `widget:${id}`);   // a widget's id can be a tab's ("new")
-    const active = onHome ? null : this.preset ? widgetKey(this.preset.id) : settings.mode;
-    const tab = (key, label, go, cls = "") => {
-      const el = strip.createDiv({ cls: `pdt-tab ${cls}${key === active ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0", "aria-selected": String(key === active) } });
+    const tab = (parent, key, label, go, cls = "") => {
+      const el = parent.createDiv({ cls: `pdt-tab ${cls}${key === active ? " is-active" : ""}`, attr: { role: "tab", tabindex: "0", "aria-selected": String(key === active) } });
       el.dataset.key = key;
       el.createSpan({ cls: "pdt-tab-label", text: label });
       el.onclick = go;
       onActivate(el, go);
       return el;
     };
-    for (const mode of MODE_KEYS) {
-      const go = mode === "tracked" ? () => this.openTracked(settings.trackedGroup) : () => { settings.section = "list"; return this.update("mode", mode); };
-      const el = tab(mode, this.similar && mode === "all" ? t("similar.tab") : t(`mode.${mode}`), go);
-      if (settings.queries?.[mode] != null && !sameQuery(settings.queries[mode], pageQuery(settings, mode))) {
-        el.createSpan({ cls: "pdt-tab-dot", attr: { "aria-label": t("query.changed") } });   // its query isn't saved
-      }
-      this.refs.counts[mode] = el.createSpan({ cls: "pdt-n", text: "…" });
-      setTooltip(el, pageQuery(settings, mode));   // the page is its query
-      if (mode === "tracked") {
-        const updates = this.plugin.catalog ? this.plugin.updatesCount() : 0;
-        if (updates) el.createSpan({ cls: "pdt-n is-updates", text: t("tracked.updatesBadge", { n: updates }) });
-      }
+    const home = tab(place, "home", t("nav.home"), () => this.update("section", "home"), "is-home");
+    setIcon(home.createSpan({ cls: "pdt-tab-icon" }), "home");
+    home.prepend(home.lastChild);
+    const all = tab(place, "all", this.similar ? t("similar.tab") : t("mode.all"), () => { settings.section = "list"; return this.update("mode", "all"); });
+    if (settings.queries?.all != null && !this.preset && !sameQuery(settings.queries.all, pageQuery(settings, "all"))) {
+      all.createSpan({ cls: "pdt-tab-dot", attr: { "aria-label": t("query.changed") } });   // its query isn't saved
     }
-    const views = settings.home.views || [];
-    const temp = this.preset && !this.preset.id.startsWith(VIEW_PREFIX) ? this.preset : null;
-    if (views.length || temp) strip.createDiv({ cls: "pdt-strip-sep" });
-    const ctx = views.length && this.plugin.catalog ? this.home.context(Date.now()) : null;
-    for (const v of views) {
-      const id = VIEW_PREFIX + v.id;
-      const el = tab(id, v.name, () => this.home.openView(id), "is-view");
-      setTooltip(el, v.query);
-      const widget = ctx && homeWidget(settings.home, id);
-      const fresh = widget ? freshRows(ctx, widget, {}, widget.rows(ctx, {}), sinceMoment(settings.home, id, ctx.now))?.length : 0;
-      if (fresh) el.createSpan({ cls: "pdt-n is-fresh", text: `+${formatCount(fresh)}` });   // matches you haven't seen
-    }
-    if (temp) {   // a widget's list: shown, not saved; ✕ goes home
-      const words = Object.entries(temp.params).filter(([k]) => k !== "since").map(([k, v]) => this.home.paramText(k, v)).join(" · ");
-      const el = tab(widgetKey(temp.id), words ? `${this.home.title(temp.id)} · ${words}` : this.home.title(temp.id), () => {}, "is-temp");
+    this.refs.counts.all = all.createSpan({ cls: "pdt-n", text: "…" });
+    // the widget lists you opened: shown, not saved; each stays (with its count) until its ✕
+    this.refs.tabCounts = {};
+    for (const temp of this.widgetTabs) {
+      const words = Object.entries(temp.params).map(([k, v]) => this.home.paramText(k, v)).join(" · ");
+      const el = tab(strip, temp.key, words ? `${this.home.title(temp.id)} · ${words}` : this.home.title(temp.id), () => this.showTab(temp), "is-temp");
       setIcon(el.createSpan({ cls: "pdt-tab-icon" }), homeWidget(settings.home, temp.id)?.icon || "list");
       el.prepend(el.lastChild);
+      this.refs.tabCounts[temp.key] = el.createSpan({ cls: "pdt-n", text: "…" });
+      const close = el.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.closeTab") } });
+      setIcon(close, "x");
+      setTooltip(close, t("home.closeTab"));
+      close.onclick = (event) => {
+        event.stopPropagation();
+        this.closeTab(temp);
+      };
+    }
+    // a page a widget opened (Tracked, Hidden): its tab while you're on it, ✕ back home
+    if (!onHome && !this.preset && settings.mode !== "all") {
+      const hidden = LIST_MODES.includes(settings.mode);
+      const el = tab(strip, settings.mode, hidden ? t("hidden.tab") : t(`mode.${settings.mode}`), () => {}, "is-temp is-page");
+      setIcon(el.createSpan({ cls: "pdt-tab-icon" }), hidden ? "eye-off" : HOME_WIDGETS.mine.icon);
+      el.prepend(el.lastChild);
+      this.refs.counts[settings.mode] = el.createSpan({ cls: "pdt-n", text: hidden ? formatCount(this.hiddenTotal()) : "…" });
       const close = el.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.back") } });
       setIcon(close, "x");
       setTooltip(close, t("home.back"));
-      close.onclick = (event) => { event.stopPropagation(); this.closePreset(); };
+      close.onclick = (event) => {
+        event.stopPropagation();
+        Object.assign(settings, { section: "home", mode: "all" });
+        this.render();
+      };
     }
+    strip.toggleClass("is-empty", !strip.children.length);   // nothing open: it only keeps Sync and ⋮ on the right
     strip.querySelector(".is-active")?.scrollIntoView?.({ block: "nearest", inline: "nearest" });   // a narrow panel scrolls to it
     if (!onHome && this.plugin.data.ops?.length) {
       iconButton(nav, "history", t("bulk.recent"), "pdt-nav-recent").onclick = () => this.openRecent();
     }
+  }
+
+  /** A page a widget opens: Tracked (with its groups) or Hidden. */
+  openPage(page) {
+    this.preset = null;   // the widget tabs stay
+    return page === "hidden" ? this.openHidden() : this.openTracked();
   }
 
   /** The Tracked list, on one of its groups (UPDATES: new releases). */
@@ -461,21 +482,54 @@ class DiscoveryView extends ItemView {
   openPreset(id, params, freshIds = new Set(), onlyNew = false) {
     Object.assign(this, { similar: null, filtersOpen: false, visible: PAGE_SIZE, queryDraft: null });
     const query = homeWidget(this.settings.home, id)?.query?.(this.home.context(Date.now()), params) ?? "";
-    this.preset = { id, params, freshIds, onlyNew, base: query };
+    // a tab per widget and settings ("New" and "New · since your last visit" are two); opened again, it starts afresh
+    const key = `${id.startsWith(VIEW_PREFIX) ? id : `widget:${id}`}${Object.keys(params).length ? `?${JSON.stringify(params)}` : ""}`;
+    const tab = { key, id, params, freshIds, onlyNew, base: query };
+    const at = this.widgetTabs.findIndex((x) => x.key === key);
+    if (at < 0) this.widgetTabs.push(tab);
+    else this.widgetTabs[at] = tab;
+    this.preset = tab;
     // a page of its own, opened in Query mode on its query (Basic narrows it with filters, like a tab)
-    this.settings.queries = { ...this.settings.queries, [this.page]: query };
-    Object.assign(this.settings, { section: "list", mode: "all" });   // shown, not saved: ✕ goes home
+    this.settings.queries = { ...this.settings.queries, [key]: query };
+    Object.assign(this.settings, { section: "list", mode: "all" });   // shown, not saved
     this.render();
     this.contentEl.scrollTop = 0;
   }
 
-  closePreset() {
-    const { [this.page]: gone, ...queries } = this.settings.queries || {};   // the list's box goes with it
-    this.settings.queries = queries;
-    this.preset = null;
-    this.queryDraft = null;
-    this.settings.section = "home";
+  /** The All list in Query mode on `text`: a gallery preset to try, edit or save as a view ("" : an empty box and its presets). */
+  openQuery(text) {
+    this.preset = null;   // the widget tabs stay
+    Object.assign(this, { similar: null, filtersOpen: false, visible: PAGE_SIZE, queryDraft: null });
+    this.settings.queries = { ...this.settings.queries, all: text };
+    Object.assign(this.settings, { section: "list", mode: "all" });
     this.render();
+    this.contentEl.scrollTop = 0;
+  }
+
+  /** Back to a widget tab: as you left it (its query, its new ones marked). */
+  showTab(tab) {
+    Object.assign(this, { preset: tab, similar: null, filtersOpen: false, visible: PAGE_SIZE, queryDraft: null });
+    Object.assign(this.settings, { section: "list", mode: "all" });
+    this.render();
+  }
+
+  /** Closes a widget tab (its box goes with it); the one on screen gives way to its neighbour, the last one to Home. */
+  closeTab(tab) {
+    const at = this.widgetTabs.indexOf(tab);
+    this.widgetTabs.splice(at, 1);
+    const { [tab.key]: gone, ...queries } = this.settings.queries || {};
+    this.settings.queries = queries;
+    if (tab !== this.preset) return this.render();
+    const next = this.widgetTabs[Math.min(at, this.widgetTabs.length - 1)];
+    if (next) return this.showTab(next);
+    Object.assign(this, { preset: null, queryDraft: null });
+    this.settings.section = "home";
+    return this.render();
+  }
+
+  /** Esc, or a list done with: closes the widget tab on screen. */
+  closePreset() {
+    if (this.preset) this.closeTab(this.preset);
   }
 
   /** The list as a page (its query, or Basic: the query narrowed by your filters), then only the new ones when asked. */
@@ -488,7 +542,7 @@ class DiscoveryView extends ItemView {
   /** "Only the N new" on a widget's list (✕ shows all of it). */
   renderOnlyNew(bar) {
     const fresh = bar.createDiv({ cls: "pdt-chip pdt-similar-chip is-fresh" });
-    fresh.createSpan({ text: t("home.onlyNew", { when: this.home.sinceLabel(this.settings.home.since.period) }) });
+    fresh.createSpan({ text: `${t("home.onlyNew", { when: this.home.sinceLabel("seen") })} (${formatCount(this.preset.freshIds.size)})` });   // a saved view's
     const all = fresh.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.showAll") } });
     setIcon(all, "x");
     setTooltip(all, t("home.showAll"));
@@ -557,8 +611,7 @@ class DiscoveryView extends ItemView {
         this.refresh();
       });
     } else {
-      const flat = (q) => q.replace(/\s*\n\s*/g, " ");
-      const own = flat(pageQuery(this.pageSettings, mode));
+      const own = flatQuery(pageQuery(this.pageSettings, mode));
       const placeholder = this.inQuery ? own : `${own} · ${t("search.narrow")}`;
       this.refs.search = this.renderSearch(bar, this.boxText, placeholder, async (value) => {
         // an invalid query isn't applied (like Jira): the list keeps the last valid one, the box keeps what you typed
@@ -582,6 +635,9 @@ class DiscoveryView extends ItemView {
       more.onclick = (event) => {
         const menu = new Menu();
         menu.addItem((item) => item.setTitle(t("query.saveWidget")).setIcon("bookmark-plus").onClick(() => this.saveView()));
+        if (!this.preset && this.settings.pageQueries?.[mode] != null) {   // only once you saved your own over the tab's
+          menu.addItem((item) => item.setTitle(t("query.resetPage")).setIcon("rotate-ccw").onClick(() => this.resetPageQuery(mode)));
+        }
         menu.showAtMouseEvent(event);
       };
     }
@@ -600,8 +656,8 @@ class DiscoveryView extends ItemView {
     const similar = this.similar;
     const { key, dir } = similar ? this.settings.similarSort : this.listSort;
     const setSort = (value) => (similar ? this.update("similarSort", value) : this.setSort(value));
-    menuChip(sort, t("filter.sort"), (similar ? SIMILAR_SORT_KEYS : SORT_KEYS).map((k) => [k, t(`sort.${k}`)]), key,
-      (k) => setSort({ key: k, dir: NATURAL_DIR[k] || "desc" }));
+    menuChip(sort, t("filter.sort"), (similar ? SIMILAR_SORT_KEYS : SORT_KEYS).map((k) => [k, sortLabel(k)]), key,
+      (k) => setSort({ key: k, dir: naturalDir(k) }));
     const ascending = dir === "asc";
     const tip = t(`sort.${key === "name" ? (ascending ? "az" : "za") : ascending ? "asc" : "desc"}`);
     iconButton(sort, ascending ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow", tip, "pdt-sort-dir").onclick =
@@ -731,14 +787,16 @@ class DiscoveryView extends ItemView {
     this.render();
   }
 
-  /** Saves what the list shows as a view (its query): asks for a name, then it's a tab in the strip and a widget on the home page. */
+  /** Saves what the list shows as a view (its query): asks its name and where it goes on Home, then opens it. */
   async saveView() {
     const mode = this.page;
     const query = this.inQuery ? this.boxText : joinQuery(pageQuery(this.pageSettings, mode), filtersToQuery(this.settings, mode));
     const suggested = this.preset ? this.home.title(this.preset.id) : t(`mode.${mode}`);
-    const name = await new TextModal(this.app, { title: t("home.view.saveTitle"), value: suggested, cta: t("home.view.save") }).ask();
-    if (!name) return;
-    const view = await this.home.saveView(name, query, queryRows(this.home.context(Date.now()), query));
+    const widget = viewWidget({ id: "preview", name: suggested, query }, null);   // how it will look, before it's saved
+    const at = await this.home.ask({ id: VIEW_PREFIX + widget.view.id, widget, name: suggested, askName: true });
+    if (!at) return;
+    const name = at.name;
+    const view = await this.home.saveView(name, query, queryRows(this.home.context(Date.now()), query), at.group);
     new Notice(t("home.view.saved", { name }));
     this.home.openView(VIEW_PREFIX + view.id);
   }
@@ -812,7 +870,7 @@ class DiscoveryView extends ItemView {
     const badge = search.createSpan({ cls: "pdt-regex", text: ".*" });
     setTooltip(badge, t("search.regex"));
     const help = iconButton(search, "help-circle", t("query.help.title"), "pdt-qhelp-button");
-    help.onclick = () => new QueryHelpModal(this.app, (text) => {   // a click puts it at the caret
+    help.onclick = () => new HelpModal(this.app, this, { tab: "guide", onPick: (text) => {   // a click puts it at the caret
       const at = input.selectionStart ?? input.value.length;
       const before = input.value.slice(0, at);
       const glue = before && !/\s$/.test(before) ? " " : "";
@@ -821,7 +879,7 @@ class DiscoveryView extends ItemView {
       input.focus();
       input.setSelectionRange(caret, caret);
       input.dispatchEvent(new Event("input"));
-    }).open();
+    } }).open();
     const seg = modes === true && this.renderQueryModes(search, queryMode);
     if (modes === true) {
       this.refs.changes = search.createEl("button", { cls: "pdt-q-changes is-hidden", attr: { type: "button" } });   // filled by renderChanges
@@ -994,13 +1052,30 @@ class DiscoveryView extends ItemView {
     await this.plugin.saveData(this.plugin.data);
   }
 
-  /** Query mode, the box no longer the page's query: make it the page's (Settings › Page queries undoes it). */
+  /** A tab's query back to the default (its box too): the tab and its Home card show the default list again. */
+  async resetPageQuery(mode) {
+    const { [mode]: mine, ...pageQueries } = this.settings.pageQueries || {};
+    const { [mode]: draft, ...queries } = this.settings.queries || {};
+    Object.assign(this.settings, { pageQueries, queries });
+    await this.plugin.saveData(this.plugin.data);
+    new Notice(t("query.pageReset", { name: t(`mode.${mode}`) }));
+    this.render();
+  }
+
+  /** A tab in Query mode, its query in the box to change (✓ Save makes it the tab's, and its Home card's). */
+  editPageQuery(mode) {
+    this.settings.queries = { ...this.settings.queries, [mode]: this.settings.queries?.[mode] ?? pageQuery(this.settings, mode) };
+    this.settings.section = "list";
+    return this.update("mode", mode);
+  }
+
+  /** Query mode, the box no longer the page's query: make it the page's (⋯ › Reset to default undoes it). */
   async savePageQuery() {
     const mode = this.page;
     const text = this.settings.queries[mode];
     const { [mode]: old, ...rest } = this.settings.pageQueries || {};
     const same = (a, b) => a.replace(/\s+/g, " ").trim() === b.replace(/\s+/g, " ").trim();
-    this.settings.pageQueries = same(text, defaultPageQuery(mode)) ? rest : { ...rest, [mode]: text };
+    this.settings.pageQueries = same(text, defaultPageQuery(mode, { newDays: this.settings.newDays })) ? rest : { ...rest, [mode]: text };
     await this.plugin.saveData(this.plugin.data);
     new Notice(t("query.pageSaved", { name: t(`mode.${mode}`) }));
     this.render();
@@ -1173,7 +1248,7 @@ class DiscoveryView extends ItemView {
     const changed = this.inQuery && !sameQuery(text, base);
     const broken = this.queryDraft != null;
     const diff = changed && !broken ? queryDiff(base, text) : "";
-    const tab = this.contentEl.querySelector(`.pdt-tab[data-key="${preset && !view ? `widget:${preset.id}` : this.page}"]`);
+    const tab = [...this.contentEl.querySelectorAll(".pdt-tab")].find((el) => el.dataset.key === this.page);   // keys hold quotes: no selector
     const dot = tab?.querySelector(".pdt-tab-dot");
     if (changed && tab && !dot) tab.createSpan({ cls: "pdt-tab-dot", attr: { "aria-label": t("query.changed") } });   // the tab shows it's unsaved
     if (!changed) dot?.remove();
@@ -1297,7 +1372,7 @@ class DiscoveryView extends ItemView {
       const on = sort === sortKey;
       th.setAttribute("aria-sort", on ? (sortDir === "asc" ? "ascending" : "descending") : "none");
       const button = th.createEl("button", { cls: `pdt-table-sort${on ? " is-on" : ""}`, text: on ? `${label} ${sortDir === "asc" ? "↑" : "↓"}` : label });
-      button.onclick = () => this.setSort({ key: sortKey, dir: on ? (sortDir === "asc" ? "desc" : "asc") : NATURAL_DIR[sortKey] || "desc" });
+      button.onclick = () => this.setSort({ key: sortKey, dir: on ? (sortDir === "asc" ? "desc" : "asc") : naturalDir(sortKey) });
     };
     header("name", t("col.name"));
     for (const key of columns) header(key, t(`col.${key}`), TABLE_COLUMNS[key].align);
@@ -1363,13 +1438,38 @@ class DiscoveryView extends ItemView {
     more.onclick = () => { this.visible += PAGE_SIZE; this.refresh(); };
   }
 
-  /** Ignored / Hidden suggestions: title, back, and "restore all shown" (asks for a second click). */
+  /** All hidden plugins, of every kind (the Hidden tab's count). */
+  hiddenTotal() {
+    return Object.values(this.plugin.hiddenCounts()).reduce((a, b) => a + b, 0);
+  }
+
+  /** The Hidden page, on the kind you were last on (else the first that holds anything). */
+  openHidden() {
+    const counts = this.plugin.hiddenCounts();
+    const kind = LIST_MODES.includes(this.lastHidden) ? this.lastHidden : LIST_MODES.find((k) => counts[k]) || LIST_MODES[0];
+    return this.showHidden(kind);
+  }
+
+  /** One kind of the Hidden page, in Query mode: the box says what the list is (excluded, snoozed or dismissed). */
+  showHidden(kind) {
+    this.settings.queries = { ...this.settings.queries, [kind]: this.settings.queries?.[kind] ?? pageQuery(this.settings, kind) };
+    this.settings.section = "list";
+    return this.update("mode", kind);
+  }
+
+  /** The Hidden page's head: its three kinds (each one a query: excluded, snoozed, dismissed), and "restore all shown" (asks twice). */
   renderListBanner(list, mode) {
+    this.lastHidden = mode;
     const banner = list.createDiv({ cls: "pdt-banner" });
-    const total = mode === "ignored" ? this.plugin.ignoredCount() : Object.keys(this.plugin.data.dismissed).length;
-    banner.createSpan({ cls: "pdt-banner-title", text: t(mode === "ignored" ? "list.ignoredTitle" : "list.dismissedTitle", { n: formatCount(total) }) });
-    const back = banner.createEl("button", { text: t("list.back"), attr: { type: "button" } });
-    back.onclick = () => this.update("mode", "all");
+    const kinds = banner.createDiv({ cls: "pdt-hidden-kinds", attr: { role: "radiogroup", "aria-label": t("hidden.kinds") } });
+    const counts = this.plugin.hiddenCounts();
+    for (const kind of LIST_MODES) {
+      const on = kind === mode;
+      const chip = kinds.createEl("button", { cls: `pdt-chip pdt-hidden-kind${on ? " is-on" : ""}`, attr: { type: "button", role: "radio", "aria-checked": String(on) } });
+      chip.createSpan({ text: t(`mode.${kind}`) });
+      chip.createSpan({ cls: "pdt-n", text: formatCount(counts[kind]) });
+      chip.onclick = () => this.showHidden(kind);
+    }
     if (!this.rows.length) return;
     const all = banner.createEl("button", { cls: "mod-warning", text: t("list.restoreAll", { n: this.rows.length }), attr: { type: "button" } });
     let armed = false;
@@ -1532,13 +1632,14 @@ class DiscoveryView extends ItemView {
     // metrics: when it was updated, then downloads at the edge (a straight column down the list)
     const metrics = row.createDiv({ cls: "pdt-metrics" });
     const seen = firstSeen[p.id];
-    // out of incubation: the pause before the latest release, when it was long (and always on the Incubation tab)
-    const gap = plugin.timeline.to && p.updated ? dormantDays(releases, p) : null;
-    const hatched = gap != null && (mode === "awakened" || gap >= this.settings.dormantDays);
+    // just out of incubation (within HATCHED_DAYS of it): the pause it came out of, when long (always on the Incubation tab)
+    const hatch = plugin.timeline.to && p.updated ? lastHatch(releases, p) : null;
+    const pause = hatch && now - hatch.at <= HATCHED_DAYS * DAY_MS ? hatch.days : null;
+    const hatched = pause != null && (mode === "awakened" || pause >= INCUBATION_DAYS);
     const when = metrics.createSpan({ cls: "pdt-when", text: p.updated ? relativeDays(p.updated, now) : seen > 0 ? t("row.added", { when: relativeDays(seen, now) }) : t("row.justListed") });
     if (hatched) {
-      when.setText(t("row.hatched", { when: relativeDays(p.updated, now), n: gap }));
-      setTooltip(when, t("row.hatchedTip", { n: gap }));
+      when.setText(t("row.hatched", { when: relativeDays(p.updated, now), n: pause }));
+      setTooltip(when, t("row.hatchedTip", { n: pause }));
     }
     const downloads = metrics.createSpan({ cls: `pdt-downloads${p.downloads == null ? " is-empty" : ""}` });
     if (p.downloads == null) {
@@ -1550,10 +1651,11 @@ class DiscoveryView extends ItemView {
     }
     // sorted by growth: what it gained in that window, before the total
     const sortKey = this.similar ? this.settings.similarSort.key : modeOptions(this.settings, mode).sort;
-    const gained = plugin.timeline.growth?.[p.id]?.[GROWTH_INDEX[sortKey]];
+    const ref = fieldRef(sortKey);
+    const gained = ref?.name === "gain" ? gainOver(plugin.timeline, p.id, ref.arg) : null;
     if (gained != null) {
       const growth = metrics.createSpan({ cls: "pdt-growth", text: `+${formatShort(gained)}` });
-      setTooltip(growth, t(`row.${sortKey}`, { n: formatCount(gained) }));
+      setTooltip(growth, t("row.gain", { n: formatCount(gained), days: ref.arg }));
       metrics.insertBefore(growth, downloads);
     }
 
@@ -1561,9 +1663,12 @@ class DiscoveryView extends ItemView {
     const tags = row.createDiv({ cls: "pdt-tags" });
     const signal = (cls, text) => tags.createSpan({ cls: `pdt-signal ${cls}`, text });
     if (isNewPlugin(firstSeen, p, now, this.settings.newDays)) signal("is-new", t("badge.new"));
-    if (isChanged(p, note)) signal("is-changed", t("badge.changed"));
+    if (isUnreviewed(p, note)) signal("is-changed", t("badge.changed"));
     if (plugin.installed().has(p.id)) signal("is-installed", t("badge.installed"));
     if (isSnoozed(p, plugin.data.snoozed)) signal("is-snoozed", t("badge.snoozed"));
+    if (LIST_MODES.includes(mode) && typeof plugin.data[mode][p.id] === "string") {   // when you hid it (snoozed keeps a release, no day)
+      signal("is-why", t(`hidden.when.${mode}`, { day: this.home.dayLabel(dayStart(plugin.data[mode][p.id])) }));
+    }
     if (stale) signal("is-stale", t("row.stale"));
     if (this.preset?.freshIds?.has(p.id)) signal("is-fresh", t("home.freshMark"));
     const milestone = recentMilestone(plugin.timeline.milestones?.[p.id], now, MILESTONE_DAYS, milestoneSteps(plugin.timeline));
@@ -1634,7 +1739,7 @@ class DiscoveryView extends ItemView {
       act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
     }
-    if (isChanged(p, note)) act("check", t("action.reviewed"), () => plugin.markReviewed([p]), "", true);
+    if (isUnreviewed(p, note)) act("check", t("action.reviewed"), () => plugin.markReviewed([p]), "", true);
     this.renderStar(actions, act, p, note);
     act("folder-plus", note?.groups.length ? t("action.groupNamed", { group: note.groups.join(", ") }) : t("action.group"), () => plugin.chooseGroup(p), "", true);
     if (mode === "suggested") act("x", t("action.dismiss"), () => plugin.dismiss(p));

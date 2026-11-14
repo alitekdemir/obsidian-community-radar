@@ -1,5 +1,71 @@
 # Changelog
 
+## 0.11.0
+
+### Added
+- **Home groups:** Home is groups of widgets, small cards or big ones. A group's ⋯ (or a right click on its title) renames it, puts it side by side with another (half width), makes a small group count from the chosen period, adds a widget into it, adds a new group after it or deletes it; its grip reorders the groups. A card's menu takes it off its group; the gallery brings back what's on no group. Your layout before groups becomes the three default groups.
+- **Where a widget goes:** adding from the gallery (or saving a list as a widget) asks small or big card, each drawn as it will look, and which group (or a new one).
+- **⌂ Home | All:** one two-part button at the top shows where you are; widget tabs follow it.
+- **Back to Home:** `Esc` on a list goes back to Home (after closing the Similar filter and the open widget tab), and a new **Go to Home** command can take a hotkey.
+- **Fields with a parameter, any window:** `gain(21d)`, `rise(7d)`, `releases(180d)` and `milestone(10k)` are written like functions; `()` takes the default (`gain()` is 30 days, `milestone()` the latest milestone) and a bare `gain` says how to write it. They replace `gain7`/`gain30`, `rise7`/`rise30` and `busy` (*Updated* now says `releases(180d) <= 9`). `order by gain(7d) desc` sorts by one.
+- **A year of downloads:** the daily build on GitHub now sends each plugin's downloads over the last year (day by day for the last month, every Monday before it), so gains and `milestone(n)` work for any window and count. The whole file (~1 MB) comes down once; after that a daily sync takes only the last week of changes (`delta.json`, ~150 KB). `milestone(10k) <= 30d` is the day a plugin reached 10K, whatever it reached after: *Milestones* no longer misses a plugin that went on to 25K.
+- **`removed`:** plugins Obsidian took off its list, with when and why. Installed ones show up when a query names `removed` (`installed AND removed`), and their details say why.
+- **Help:** the **?** in the view's header opens one window with a Quick start (three steps, one click each), the Ready-made queries and the Query guide, its fields grouped (text, numbers, days, with a parameter, yes/no) and readable in full. The query box's **?** opens it on the guide; there's a *Help* command, and a Quick start card on Home until you close it.
+- **Ready-made queries:** *Just passed 10K* (`milestone(10k) <= 30d`) and *Actively developed* (`releases(30d) >= 3`).
+- **Ready-made query gallery:** **+ Add widget** on Home opens a gallery: widgets on no group to bring back, then 12 ready-made queries in four sections (*Discover*, *Notify*, *Vault check*, *Tracking tidy-up*). Each row says what it finds and why it helps, shows its query and a live count; **Add** saves it as a view (a Home card; a big one shows *N new*), **Try in query** opens it to edit first. The empty query box and the `?` help offer the same list.
+- **AI usage table** (*Settings → AI*): requests, input and output tokens and cost per model, with a total row and **Reset**, to compare translation models. Cost shows where the provider reports it (OpenRouter).
+- **Bigger details window:** nearly full size by default, resizable from its corner, and ⤢ fills the screen (remembered). Its text can now be selected and copied.
+- **Query guide:** `docs/query.md` gains *Reading days*, *Build one in three steps*, *Ready-made queries* and *Common surprises*.
+
+### Changed
+
+- **One tab: All.** *New*, *Updated*, *Incubation* and *Suggested* are cards on Home (their list opens next to *All*); *Plugins you track* and *Hidden* are cards that open their page, which has a tab with ✕ while it's open. Saved views are cards, not tabs.
+- **Details window:** *Open in Community plugins* (it opens Obsidian's page of the plugin), ⤢ and ✕ sit in one row at one height.
+- **At a glance** (was *What's new*): the period chip on top of Home; the *What's new* group counts for it (new plugins, releases you track, updates; *Milestones* is a big card now), the *Where you stand* group shows *Plugins you track*, *Suggestions* and *Hidden* in totals.
+- **Saved queries move to today's fields** (`busy`, `new`, `gain7`…); one that no longer parses finds nothing instead of every plugin. A card asked "since" swaps its own window for the day (`listed >= 2026-11-13 AND NOT tracked`).
+- **Animations** have no switch in the Home menu any more; they follow your system's *reduce motion* setting.
+- **Every Home card counts exactly the list it opens:** a widget is now only its query, so ignored or hidden plugins, plugins without stats yet, the order and the 14th-day boundary no longer differ between the card and its list. *New releases you track* opens its own query; *Installed but not tracked* leaves out tracked plugins.
+- **Updated no longer leaves out new plugins** (add `NOT listed <= 14d` to its query to get that back).
+- **The `new` field is gone:** it was `listed` under another name. *New* is `listed <= 14d AND NOT tracked`, its days still *Settings → New plugin period*, like the badge.
+- **A tab's Home card is the tab:** *New*, *Updated*, *Incubation* and *Suggested* show their tab's own query (they were near copies with their own days and thresholds: *Quiet updates* was *Updated* without its 100-download floor, *Installed but not tracked* and *Suggested* disagreed on starred vs tracked). Change a tab's query and its card follows; its *N new* is the tab's query from your last visit day on. *Rising*, *Milestones* and *New releases you track* keep their own.
+- **Suggested** is `installed AND NOT tracked AND NOT dismissed` (was `NOT favorite`).
+- **Reset to default only when it means something:** once you saved your own query over a tab's, the list's ⋯ and its Home card's ⋮ offer *Reset the query to default*; a card's *Reset* shows only after you changed one of its settings.
+- **Sort by `released`** (was `updated`): the sort, the column and the query field share one name.
+- Translations: the instructions end with *Don't add anything.*
+- *Milestones* starts off a new Home; bring it back from the gallery.
+
+### Changed: settings and hidden plugins
+
+- **Settings in five tabs:** General · Notes · Data · AI · Hidden. *Opens on* (Home or where you left off) joins General, README translation joins AI, the translation instructions fold under *Advanced*. Page queries left the settings: a tab's query is changed in the list (**Query**).
+- **One Hidden page** at the end of the tab strip, with its three kinds side by side: *Ignored*, *Until next release*, *Removed from Suggested*. Each kind is a query in the box (`excluded`, `snoozed`, `dismissed`); rows say when you hid them, **Restore** is on every row.
+- **Ignore and Hide until next release say so with Undo**, in the view's toast; Recent actions keeps them too.
+
+### Changed: incubation is fair
+
+- **Every comeback gets the same 30 days** on *Incubation* and *Out of incubation*, the latest on top. Before, a plugin stayed as long as it had slept (up to 360 days), so one release after a year asleep held a spot for a year, while a plugin that kept releasing after its comeback dropped off.
+- The comeback (**hatching**) is the first release after a pause of 30+ days between update waves; releases after it, a hotfix or the next update, don't undo it. The widget gains a period (7 / 30 / 90 days) next to its pause.
+
+### Changed: query names (saved queries need the new names)
+
+| Before | Now |
+|---|---|
+| `age` | `listed` |
+| `gap` | `incubated` (how long the latest incubation lasted) |
+| `hatched` (yes/no) | `hatched` (days since it came out: `hatched <= 30d`) |
+| `changed` | `unreviewed` |
+| `ignored` | `excluded`, `snoozed` |
+| sort `growth7` / `growth30` / `dormant` | `gain(7d)` / `gain(30d)` / `incubated`, and the new `hatched` |
+
+- The *Ignored* list is the *Hidden* list (`excluded OR snoozed`).
+
+### Fixed
+
+- **"What's new" counts from your last visit day, and opening a list empties nothing.** The first opening of a day remembers it; the cards and the lists they open count from the day before you came, all day long. The window is in the list's query (`listed >= 2026-11-11`) and its tab (*New arrivals · since 11 Nov*), so the card and the list always agree; the period chip says the period (*since your last visit ▾*) instead of *Period*.
+- **The widget's tab stays** while you look at other tabs, and comes back as you left it; ✕ closes it.
+- Dates in queries are days on your clock: `2026-11-01` starts at midnight where you are, like `startOfMonth()`.
+- `listed` and `milestone` see plugins listed (or milestones passed) before the history began: `listed >= 1y` and `milestone >= 1y` find the oldest plugins.
+- Sorting ascending puts plugins without a value (no history, no stats, unrated) last instead of first.
+
 ## 0.10.3
 
 ### Changed

@@ -12,6 +12,7 @@ const PROVIDERS = {
       body: { model, max_tokens: 4096, messages: [{ role: "user", content: prompt }] },
     }),
     text: (json) => (json.content || []).map((part) => part.text || "").join(""),
+    usage: (json) => ({ input: json.usage?.input_tokens, output: json.usage?.output_tokens }),
     models: (key) => ({ url: "https://api.anthropic.com/v1/models?limit=100", headers: { "x-api-key": key, "anthropic-version": "2023-06-01" } }),
     modelList: (json) => (json.data || []).map((m) => ({ id: m.id, price: null })),
   },
@@ -23,6 +24,7 @@ const PROVIDERS = {
       body: { model, messages: [{ role: "user", content: prompt }] },
     }),
     text: (json) => json.choices?.[0]?.message?.content || "",
+    usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens }),
     models: (key) => ({ url: "https://api.openai.com/v1/models", headers: { Authorization: `Bearer ${key}` } }),
     modelList: (json) => (json.data || []).filter((m) => /^(gpt|o\d|chatgpt)/.test(m.id)).map((m) => ({ id: m.id, price: null })),
   },
@@ -34,6 +36,7 @@ const PROVIDERS = {
       body: { contents: [{ parts: [{ text: prompt }] }] },
     }),
     text: (json) => (json.candidates?.[0]?.content?.parts || []).map((part) => part.text || "").join(""),
+    usage: (json) => ({ input: json.usageMetadata?.promptTokenCount, output: json.usageMetadata?.candidatesTokenCount }),
     models: (key) => ({ url: "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", headers: { "x-goog-api-key": key } }),
     modelList: (json) => (json.models || [])
       .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
@@ -44,13 +47,26 @@ const PROVIDERS = {
     chat: (model, key, prompt) => ({
       url: "https://openrouter.ai/api/v1/chat/completions",
       headers: { Authorization: `Bearer ${key}` },
-      body: { model, messages: [{ role: "user", content: prompt }] },
+      body: { model, messages: [{ role: "user", content: prompt }], usage: { include: true } },   // the reply says what it cost
     }),
     text: (json) => json.choices?.[0]?.message?.content || "",
+    usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens, cost: json.usage?.cost }),
     models: (key) => ({ url: "https://openrouter.ai/api/v1/models", headers: { Authorization: `Bearer ${key}` } }),
     modelList: (json) => (json.data || []).map((m) => ({ id: m.id, price: tokenPrice(m.pricing) })),
   },
 };
+
+/**
+ * Adds one request's usage to the running totals, per provider and model: requests, input and output tokens, and
+ * the cost in USD when the provider tells it (OpenRouter does; the others count tokens only, cost stays null).
+ * @returns {object} the totals, a new object
+ */
+function addUsage(totals, provider, model, { input, output, cost } = {}) {
+  const key = `${provider}/${model}`;
+  const was = totals?.[key] || { provider, model, requests: 0, input: 0, output: 0, cost: null };
+  const priced = typeof cost === "number" ? (was.cost ?? 0) + cost : was.cost;
+  return { ...totals, [key]: { ...was, requests: was.requests + 1, input: was.input + (input || 0), output: was.output + (output || 0), cost: priced } };
+}
 
 /** OpenRouter price (USD per token, as text) → {input, output} per 1M tokens; null if unreadable. */
 function tokenPrice(pricing) {
@@ -85,8 +101,8 @@ function filterModels(models, query, latestOnly) {
  * and the text itself are added after them and stay fixed, so a changed prompt can't break the answer's parsing.
  */
 const DEFAULT_PROMPTS = {
-  description: "Translate each of the following Obsidian plugin descriptions into {language}.\nKeep product names, code and technical terms (Markdown, Canvas, Bases, API…) as they are.",
-  readme: "Translate this part of an Obsidian plugin's README (Markdown) into {language}.\nKeep the Markdown exactly: headings, lists, tables, links, image URLs and HTML tags.\nDon't translate code blocks, inline code, commands, settings keys or product names.",
+  description: "Translate each of the following Obsidian plugin descriptions into {language}.\nKeep product names, code and technical terms (Markdown, Canvas, Bases, API…) as they are.\nDon't add anything.",
+  readme: "Translate this part of an Obsidian plugin's README (Markdown) into {language}.\nKeep the Markdown exactly: headings, lists, tables, links, image URLs and HTML tags.\nDon't translate code blocks, inline code, commands, settings keys or product names.\nDon't add anything.",
 };
 
 /** Your instructions for one kind of translation (or the default), with the language filled in. */

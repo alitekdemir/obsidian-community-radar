@@ -31,13 +31,14 @@ const STATS_URL = `${RAW}/${REPO}/HEAD/${STATS_FILE}`;
 const HOUR_MS = 3_600_000;
 const DAY_MS = 24 * HOUR_MS;
 const RELEASES_CAP = 50;           // release dates kept per plugin
-const NEW_BADGE_DAYS = 14;         // a plugin counts as new this many days after it was listed (setting: newDays)
-const INCUBATION_CAP = 360;        // a plugin out of incubation stays on that tab for its incubation, at most this long
+const DEFAULT_NEW_DAYS = 14;       // a plugin counts as new this many days after it was listed (setting: newDays)
+const HATCHED_DAYS = 30;           // out of incubation: listed this long after hatching, the same for every plugin
+const INCUBATION_DAYS = 60;        // a pause this long is worth telling (the Incubation tab, its widget, a row's label)
 const WAVE_DAYS = 7;               // releases within a week of a wave's first one belong to that update
 const HISTORY_STALE_DAYS = 2;     // the server builds the history daily; older than this, the status line says so
 const RECENT_QUERIES = 10;          // the empty query box remembers this many of your last queries
 const OPS_CAP = 20;                // bulk actions kept for Recent actions (each with what it changed, for Undo)
-const BUSY_DAYS = 180;             // "busy": update waves counted over this window…
+const BUSY_DAYS = 180;             // "busy" (Updated hides it: releases(180d) <= 9): update waves counted over this window…
 const BUSY_LIMIT = 9;              // …more than this (about every three weeks) hides it from Updated (setting: hideBusy)
 const PARALLEL = 4;                // snapshots downloaded at once
 const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
@@ -66,7 +67,10 @@ const WORD_SHARE = 0.03;           // semantic Similar: how much the best word m
 // Semantic vectors of every plugin's name and description, rebuilt daily by .github/workflows/embeddings.yml
 const VECTORS_URL = `${RAW}/alitekdemir/obsidian-community-radar/embeddings/granite-311m`;
 const METRICS_URL = `${RAW}/alitekdemir/obsidian-community-radar/metrics`;   // built daily by .github/workflows/metrics.yml
-const TIMELINE_VERSION = 2;        // 2: first-seen dates added
+const TIMELINE_VERSION = 3;        // 2: first-seen dates added; 3: downloads series and removed plugins
+// the downloads series keeps calendar days (as scripts/metrics/build.py writes them): Mondays back a year, then daily
+const SERIES_DAYS = 365;
+const SERIES_DAILY = 30;
 
 // Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.
 const README_START = "%% community-radar:readme-start %%";
@@ -80,12 +84,13 @@ const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
 const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
-const LIST_MODES = ["ignored", "dismissed"];   // reached from the ⋮ menu and settings, not from a tab
+const LIST_MODES = ["excluded", "snoozed", "dismissed"];   // the Hidden page: one kind at a time   // reached from the ⋮ menu and settings, not from a tab
 const SIMILAR_MODE = "similar";                // 0.8's Similar list; the Similar filter replaced it
-const SORT_KEYS = ["downloads", "growth7", "growth30", "rise7", "rise30", "updated", "name", "listed", "dormant", "rating"];
-const SIMILAR_SORT_KEYS = ["relevance", "downloads", "growth30", "updated", "name", "listed", "rating"];
-const NATURAL_DIR = { downloads: "desc", growth7: "desc", growth30: "desc", rise7: "desc", rise30: "desc", updated: "desc", name: "asc", listed: "desc", dormant: "desc", rating: "desc" };
-const GROWTH_INDEX = { growth7: 0, growth30: 1 };   // positions in the server's growth [7, 30, 90 days]
+// sort keys are what `order by` writes: a field, with its parameter where it takes one
+const SORT_KEYS = ["downloads", "gain(7d)", "gain(30d)", "rise(7d)", "rise(30d)", "released", "name", "listed", "incubated", "hatched", "rating"];
+const SIMILAR_SORT_KEYS = ["relevance", "downloads", "gain(30d)", "released", "name", "listed", "rating"];
+// by field name (gain(7d) sorts like gain)
+const NATURAL_DIR = { downloads: "desc", gain: "desc", rise: "desc", releases: "desc", released: "desc", name: "asc", listed: "desc", incubated: "desc", hatched: "desc", rating: "desc", milestone: "desc" };
 const MILESTONE_DAYS = 30;         // a row shows a milestone passed within this many days
 // Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
 const UNGROUPED = "\u0000ungrouped";
@@ -95,16 +100,17 @@ const DEFAULT_STATUSES = ["to-try", "watching", "testing", "adopted", "replaced"
 const LEGACY_STATUS = { candidate: "to-try", trying: "testing", using: "adopted", dropped: "replaced" };   // 0.7.1–0.7.2
 const GROUP_HUES = 8;
 const DAY_PRESETS = [1, 3, 7, 14, 30, 60, 90];
-const DORMANT_PRESETS = [30, 60, 90, 120, 180, 360];
+const INCUBATION_PRESETS = [30, 60, 90, 120, 180, 360];
 /** Per tab: is "Downloads ≥" on, and how rows are sorted, until the user changes them. */
 const TAB_DEFAULTS = {
   all: { downloads: false, sort: "downloads" },   // every plugin, unfiltered
   new: { downloads: false, sort: "listed" },        // a brand-new plugin has few downloads
   updated: { downloads: false, sort: "downloads" },   // thresholds live in the page queries now
-  awakened: { downloads: false, sort: "downloads" },
+  awakened: { downloads: false, sort: "hatched" },   // the latest hatching first: every one gets its turn on top
   suggested: { downloads: false, sort: "downloads" },
   tracked: { downloads: false, sort: "rating" },
-  ignored: { downloads: false, sort: "name" },
+  excluded: { downloads: false, sort: "name" },
+  snoozed: { downloads: false, sort: "name" },
   dismissed: { downloads: false, sort: "name" },
 };
 
@@ -159,12 +165,11 @@ function t(key, vars = {}) {
 function defaultSettings() {
   return {
     folder: t("default.folder"),
-    mode: "awakened",
+    mode: "all",
     days: 14,
-    dormantDays: 60,      // incubation: the pause before the latest release
-    newDays: NEW_BADGE_DAYS,
+    newDays: DEFAULT_NEW_DAYS,
     hideBusy: true,       // Updated: hide plugins with more than BUSY_LIMIT releases in BUSY_DAYS
-    section: "home",      // home | list (Tracked is the list on its tab)
+    section: "home",      // home | list (All, a widget's list, or a page a widget opens: Tracked, Hidden)
     start: "home",        // the section the view opens on: home | last
     home: homeDefaults(),
     minDownloads: 100,
@@ -195,6 +200,7 @@ function defaultSettings() {
     layout: "list",           // "list", "cards" or "table"
     tableColumns: {},         // tab → the table's columns in order (TABLE_COLUMNS); missing tabs use TABLE_DEFAULT
     notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
+    detailFull: false,        // the details window fills the screen (its ⤢ button)
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"
   };
 }

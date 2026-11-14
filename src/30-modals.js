@@ -571,37 +571,314 @@ class ModelModal extends PickerModal {
 }
 
 
+/** Where the full query guide lives (the Help window's last link). */
+const GUIDE_URL = "https://github.com/alitekdemir/obsidian-community-radar/blob/main/docs/query.md";
+
+/** The query guide's field groups, from each field's own type (no second list to keep): which group a field is in. */
+function fieldGroup(field) {
+  if (field.param) return "params";
+  if (field.days) return "days";
+  return { text: "text", number: "numbers" }[field.type] || "flags";   // flags: yes/no and your note's lists
+}
+
+/** The guide's rows after the fields: what's shown, what a click puts in the box, and its text (help.<key>). */
+const GUIDE_ROWS = {
+  ops: [["=  /  !=", "=", "help.op.eq"], [">  /  >=", ">=", "help.op.gt"], ["<  /  <=", "<=", "help.op.lt"], ["~  /  !~", "~", "help.op.has"],
+    ["in (…) / not in (…)", "in (", "help.op.in"], ["is empty", "is empty", "help.op.empty"], ["AND / OR / NOT", "AND", "help.op.bool"], ["order by … desc", "order by", "help.op.order"]],
+  functions: QUERY_FUNC_NAMES.map((f) => [`${f}()`, `${f}()`, `query.fn.${f}`]),   // the same text as the box's hints
+  values: [["10k · 1.5m", "10k", "help.value.count"], ["14d · 2w · 6m · 1y", "14d", "help.value.span"], ["2026-01-01", "2026-01-01", "help.value.date"],
+    [null, '""', "help.value.quoted"], ['("Tasks", Calendar)', "(", "help.value.list"]],   // null: the example is in your language
+};
+
 /**
- * The query cheat sheet: fields (with what they mean), operators, functions, values. A click puts it in the box
- * (`onPick`) and closes.
+ * Help: Quick start (three steps, each one click), Ready-made queries (the gallery) and the Query guide (fields by
+ * group, operators, date functions, values). Opened from the view's ? (`tab`), the query box's ? (the guide; a
+ * click on an item puts it in the box: `onPick`), the Quick start card and the Help command.
  */
-class QueryHelpModal extends Modal {
-  constructor(app, onPick) {
+class HelpModal extends Modal {
+  constructor(app, view, { tab = "start", onPick = null } = {}) {
     super(app);
-    this.onPick = onPick;
+    Object.assign(this, { view, tab, onPick });
+    this.gallery = new GalleryPanel(view.home, () => this.close());
   }
 
   onOpen() {
-    this.titleEl.setText(t("query.help.title"));
-    this.modalEl.addClass("pdt-qhelp");
-    const group = (title, items) => {
-      this.contentEl.createEl("h4", { text: title });
-      const list = this.contentEl.createDiv({ cls: "pdt-qhelp-list" });
-      for (const [text, hint] of items) {
-        const item = list.createEl("button", { cls: "pdt-qhelp-item", attr: { type: "button" } });
-        item.createEl("code", { text });
-        if (hint) item.createSpan({ text: hint });
-        item.onclick = () => { this.close(); this.onPick(text); };
-      }
-    };
-    group(t("query.help.fields"), Object.keys(QUERY_FIELDS).map((k) => [k, t(`query.field.${k}`)]));
-    group(t("query.help.ops"), [["=", t("query.op.=")], ["!=", t("query.op.!=")], [">=", t("query.op.>=")], ["<=", t("query.op.<=")], ["~", t("query.op.~")], ["!~", t("query.op.!~")],
-      ["in (", t("query.op.in")], ["not in (", t("query.op.not_in")], ["is empty", t("query.op.is_empty")], ["AND", ""], ["OR", ""], ["NOT", ""], ["order by", ""]]);
-    group(t("query.help.functions"), QUERY_FUNC_NAMES.map((f) => [`${f}()`, t(`query.fn.${f}`)]));
-    group(t("query.help.values"), [["10k", "10 000"], ["1.5m", "1 500 000"], ["30d", t("query.help.days")], ["2w · 6m · 1y", ""], ["2026-01-01", t("query.help.date")], ['"two words"', t("query.help.quoted")]]);
+    this.titleEl.setText(t("help.title"));
+    this.modalEl.addClass("pdt-help");
+    this.render();
   }
 
   onClose() {
     this.contentEl.empty();
+  }
+
+  render() {
+    const el = this.contentEl;
+    el.empty();
+    const tabs = el.createDiv({ cls: "pdt-help-tabs", attr: { role: "tablist" } });
+    for (const key of ["start", "presets", "guide"]) {
+      const on = key === this.tab;
+      const button = tabs.createEl("button", { cls: `pdt-help-tab${on ? " is-on" : ""}`, text: t(`help.tab.${key}`), attr: { type: "button", role: "tab", "aria-selected": String(on) } });
+      button.onclick = () => { this.tab = key; this.render(); };
+    }
+    const body = el.createDiv({ cls: "pdt-help-body" });
+    if (this.tab === "start") this.renderStart(body);
+    else if (this.tab === "presets") this.gallery.render(body);
+    else this.renderGuide(body);
+  }
+
+  /** Three steps, each with what to do and a button that does it. */
+  renderStart(el) {
+    const view = this.view;
+    const steps = [
+      ["explore", () => { view.settings.section = "list"; return view.update("mode", "all"); }],
+      ["track", () => view.openPage("tracked")],
+      ["query", () => view.openQuery("gain(30d) >= 500 AND NOT tracked\norder by gain(30d) desc")],
+    ];
+    steps.forEach(([key, run], i) => {
+      const step = el.createDiv({ cls: "pdt-help-step" });
+      step.createSpan({ cls: "pdt-help-step-n", text: String(i + 1) });
+      const text = step.createDiv({ cls: "pdt-help-step-text" });
+      text.createDiv({ cls: "pdt-help-step-title", text: t(`help.step.${key}`) });
+      text.createDiv({ cls: "pdt-help-step-desc", text: t(`help.step.${key}.desc`) });
+      const go = step.createEl("button", { text: t(`help.step.${key}.cta`), attr: { type: "button" } });
+      go.onclick = () => { this.close(); run(); };
+    });
+    el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: GUIDE_URL });
+  }
+
+  /** The query language in short: fields by group, then operators, date functions and values; a group may carry a hint. */
+  renderGuide(el) {
+    const group = (key, rows) => {
+      const head = el.createEl("h4");
+      head.createSpan({ cls: "pdt-help-group-name", text: t(`help.group.${key}`) });
+      const hint = t(`help.group.${key}.hint`);
+      if (hint !== `help.group.${key}.hint`) head.createSpan({ cls: "pdt-help-group-hint", text: `· ${hint}` });   // only some groups have one
+      const list = el.createDiv({ cls: "pdt-help-list" });
+      for (const [code, insert, text] of rows) {
+        const item = list.createEl(this.onPick ? "button" : "div", { cls: "pdt-help-item", attr: this.onPick ? { type: "button" } : {} });
+        item.createEl("code", { text: code });
+        item.createSpan({ text });
+        if (this.onPick) item.onclick = () => { this.close(); this.onPick(insert); };
+      }
+    };
+    // a field as it's written: gain(30d) for one with a parameter
+    const written = (k) => { const p = QUERY_FIELDS[k].param; return p ? `${k}(${p.fallback ?? "10k"})` : k; };
+    for (const key of ["text", "numbers", "days", "params", "flags"]) {
+      const fields = Object.keys(QUERY_FIELDS).filter((k) => fieldGroup(QUERY_FIELDS[k]) === key);
+      group(key, fields.map((k) => [written(k), written(k), t(`query.field.${k}`)]));
+    }
+    for (const [key, rows] of Object.entries(GUIDE_ROWS)) group(key, rows.map(([code, insert, text]) => [code ?? t(`${text}.code`), insert, t(text)]));
+    el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: GUIDE_URL });
+  }
+}
+
+/**
+ * The ready-made queries (QUERY_PRESETS) by section, after your hidden widgets to bring back. Each row says what it
+ * finds and why it helps, shows its query and how many plugins it finds now; Add saves it as a view (a Home widget
+ * that marks new matches), "Try in query" opens it in the list to edit first. Drawn into any element: "+ Add widget"
+ * and Help's Ready-made queries share it; `close` closes the window it's in.
+ */
+class GalleryPanel {
+  /** `target`: the group a group's "Add widget" opened it for (else the Add window asks where). */
+  constructor(home, close, target = null) {
+    Object.assign(this, { home, close, target, section: "all", open: null });   // open: the query whose row is unfolded
+  }
+
+  /** The rows of every section, worked out now: [{section, rows: [{title, desc, why, query, count, action, done, run}]}]. */
+  sections(ctx) {
+    const home = this.home.home;
+    const hidden = unplacedWidgets(home).map((id) => {
+      const widget = homeWidget(home, id);
+      const params = widgetParams(home, id);
+      const title = this.home.title(id);
+      return {
+        title,
+        desc: widget.view ? "" : this.home.widgetInfo(id, params),
+        query: widget.query(ctx, params), count: widgetRows(ctx, widget, params).length, action: t("gallery.restore"),
+        run: async () => {
+          const at = await this.home.ask({ id, widget, name: title, groupId: this.target });
+          if (at) await this.home.place(id, at.group);
+        },
+      };
+    });
+    const preset = (p) => {
+      const title = t(`preset.${p.key}`);
+      const rows = queryRows(ctx, p.query);
+      const done = (home.views || []).some((v) => sameQuery(v.query, p.query));   // added already
+      const widget = viewWidget({ id: "preview", name: title, query: p.query }, null);   // how it will look, before it's saved
+      return { title, desc: t(`preset.${p.key}.desc`), why: t(`preset.${p.key}.why`), query: p.query, count: rows.length,
+        action: t(done ? "gallery.added" : "gallery.add"), done,
+        run: async () => {
+          const at = await this.home.ask({ id: VIEW_PREFIX + widget.view.id, widget, name: title, groupId: this.target });
+          if (at) await this.home.saveView(title, p.query, rows, at.group);
+        } };
+    };
+    return Object.keys(GALLERY_SECTIONS)
+      .map((section) => ({ section, rows: section === "hidden" ? hidden : QUERY_PRESETS.filter((p) => p.cat === section).map(preset) }))
+      .filter((s) => s.rows.length);
+  }
+
+  render(host) {
+    const sections = this.sections(this.home.context(Date.now()));
+    host.empty();
+    const el = host.createDiv({ cls: "pdt-gallery" });
+    el.createEl("p", { cls: "pdt-gallery-intro", text: t("gallery.intro") });
+    const chips = el.createDiv({ cls: "pdt-gallery-chips" });
+    const chip = (section, n) => {
+      const on = this.section === section;
+      const button = chips.createEl("button", { cls: `pdt-gallery-chip${on ? " is-on" : ""}`, attr: { type: "button", "aria-pressed": String(on) } });
+      button.createSpan({ text: t(`gallery.section.${section}`) });
+      button.createSpan({ cls: "pdt-gallery-chip-n", text: formatCount(n) });
+      button.onclick = () => { this.section = section; this.render(host); };
+    };
+    chip("all", sections.reduce((n, s) => n + s.rows.length, 0));
+    for (const s of sections) chip(s.section, s.rows.length);
+    for (const s of sections) if (this.section === "all" || this.section === s.section) this.renderSection(el, s, () => this.render(host));
+
+    const foot = el.createDiv({ cls: "pdt-gallery-foot" });
+    foot.createSpan({ text: t("gallery.own") });
+    const own = foot.createEl("button", { text: t("gallery.openQuery"), attr: { type: "button" } });
+    own.onclick = () => { this.close(); this.home.view.openQuery(""); };
+  }
+
+  /**
+   * A section: its heading, then one row per widget or preset. A row is one line (title, what it finds, count, Add);
+   * a click on it unfolds why it helps, its whole query and "Try in query".
+   */
+  renderSection(el, { section, rows }, redraw) {
+    const head = el.createDiv({ cls: "pdt-gallery-head", attr: { "data-section": section } });   // data-section: its tone (CSS)
+    head.createEl("h3", { text: t(`gallery.section.${section}`) });
+    head.createSpan({ text: t(`gallery.section.${section}.hint`) });
+    for (const row of rows) {
+      const open = this.open === row.query;
+      const item = el.createDiv({ cls: `pdt-gallery-row${open ? " is-open" : ""}`, attr: { "data-section": section } });
+      const line = item.createDiv({ cls: "pdt-gallery-line", attr: { role: "button", tabindex: "0", "aria-expanded": String(open) } });
+      const toggle = () => { this.open = open ? null : row.query; redraw(); };
+      line.onclick = (event) => { if (!event.target.closest?.("button")) toggle(); };
+      onActivate(line, toggle);
+      setIcon(line.createSpan({ cls: "pdt-gallery-icon", attr: { "aria-hidden": "true" } }), open ? "chevron-down" : "chevron-right");
+      const text = line.createDiv({ cls: "pdt-gallery-text" });
+      text.createDiv({ cls: "pdt-gallery-title", text: row.title });
+      if (row.desc) text.createDiv({ cls: "pdt-gallery-desc", text: row.desc });
+      const side = line.createDiv({ cls: "pdt-gallery-side" });
+      side.createSpan({ cls: "pdt-gallery-n", text: formatCount(row.count) });
+      const act = side.createEl("button", { cls: row.done ? "pdt-gallery-done" : "mod-cta", text: row.action, attr: { type: "button" } });
+      act.disabled = Boolean(row.done);
+      act.onclick = async () => { await row.run(); redraw(); };
+
+      const more = item.createDiv({ cls: "pdt-gallery-more" });   // shown when the row is open (CSS)
+      if (row.why) more.createDiv({ cls: "pdt-gallery-why", text: row.why });
+      const query = more.createDiv({ cls: "pdt-gallery-query" });
+      query.createEl("code", { text: row.query });
+      const tryIt = query.createEl("button", { cls: "pdt-gallery-try", text: t("gallery.try"), attr: { type: "button" } });
+      tryIt.onclick = () => { this.close(); this.home.view.openQuery(row.query); };
+    }
+  }
+}
+
+/** "+ Add widget": the gallery in a window of its own; from a group's ⋯, it adds into that group. */
+class GalleryModal extends Modal {
+  constructor(app, home, target = null) {
+    super(app);
+    this.panel = new GalleryPanel(home, () => this.close(), target);
+  }
+
+  onOpen() {
+    this.titleEl.setText(t("home.addWidget"));
+    this.modalEl.addClass("pdt-gallery-modal");
+    this.panel.render(this.contentEl);
+  }
+
+  onClose() {
+    this.contentEl.empty();
+  }
+}
+
+const NEW_GROUP = "\u0000new";   // the group list's "+ New group…" (no group id can be it)
+
+/**
+ * Where a widget goes on Home: a small or a big card, each drawn as it will look (the small one after the group's
+ * last cards), then a group of that kind or a new one. With `askName` (the list saved as a widget) its name first.
+ * `ask()` resolves {name, group} (a new group is made, unsaved: placing it saves) or null.
+ */
+class PlaceModal extends Modal {
+  constructor(home, { id, widget, name, askName, groupId }) {
+    super(home.plugin.app);
+    const target = home.home.groups.find((g) => g.id === groupId);
+    Object.assign(this, { home, id, widget, name, askName, look: target?.look ?? "big", group: groupId, newName: "", answer: null });
+  }
+
+  ask() {
+    return new Promise((resolve) => { this.resolve = resolve; this.open(); });
+  }
+
+  onOpen() {
+    this.titleEl.setText(t(this.askName ? "home.view.saveTitle" : "home.place.title"));
+    this.modalEl.addClass("pdt-place-modal");
+    this.draw();
+  }
+
+  onClose() {
+    this.contentEl.empty();
+    this.resolve?.(this.answer);
+  }
+
+  /** The groups of the chosen kind; the pick stays when it's one of them, else the first (none: a new one). */
+  groups() {
+    const groups = this.home.home.groups.filter((g) => g.look === this.look);
+    if (this.group !== NEW_GROUP && !groups.some((g) => g.id === this.group)) this.group = groups[0]?.id ?? NEW_GROUP;
+    return groups;
+  }
+
+  draw() {
+    const el = this.contentEl;
+    el.empty();
+    if (this.askName) {
+      const name = el.createEl("input", { type: "text", value: this.name, cls: "pdt-text-input pdt-place-name", attr: { "aria-label": t("home.place.name") } });
+      name.oninput = () => { this.name = name.value; };
+    }
+    const groups = this.groups();
+    const group = groups.find((g) => g.id === this.group);
+    const ctx = this.home.context(Date.now());
+    const looks = el.createDiv({ cls: "pdt-place-looks", attr: { role: "radiogroup", "aria-label": t("home.place.look") } });
+    for (const look of GROUP_LOOKS) {
+      const on = look === this.look;
+      const option = looks.createDiv({ cls: `pdt-place-look is-${look}${on ? " is-on" : ""}`, attr: { role: "radio", tabindex: "0", "aria-checked": String(on) } });
+      const head = option.createDiv({ cls: "pdt-place-look-head" });
+      head.createSpan({ cls: "pdt-place-radio" });
+      head.createSpan({ cls: "pdt-place-look-title", text: t(`home.place.${look}`) });
+      head.createSpan({ cls: "pdt-place-look-where", text: t(`home.place.${look}.hint`) });
+      const frame = option.createDiv({ cls: "pdt-place-frame" });
+      // each option draws the card the way it will look: the small one among the chosen small group's cards
+      this.home.preview(frame, ctx, look, this.id, this.widget, look === this.look ? group : this.home.home.groups.find((g) => g.look === look));
+      const pick = () => { this.look = look; this.draw(); };
+      option.onclick = pick;
+      onActivate(option, pick);
+    }
+
+    const row = el.createDiv({ cls: "pdt-place-group" });
+    row.createSpan({ cls: "pdt-place-label", text: t("home.place.group") });
+    const select = row.createEl("select", { cls: "dropdown" });
+    for (const g of groups) select.createEl("option", { value: g.id, text: this.home.groupName(g) });
+    select.createEl("option", { value: NEW_GROUP, text: t("home.place.newGroup") });
+    select.value = this.group;
+    select.onchange = () => { this.group = select.value; this.draw(); };
+    if (this.group === NEW_GROUP) {
+      const input = row.createEl("input", { type: "text", value: this.newName, cls: "pdt-text-input", attr: { placeholder: t("home.place.newGroupName") } });
+      input.oninput = () => { this.newName = input.value; };
+    }
+
+    const buttons = el.createDiv({ cls: "modal-button-container" });
+    buttons.createEl("button", { text: t("home.place.cancel"), attr: { type: "button" } }).onclick = () => this.close();
+    buttons.createEl("button", { cls: "mod-cta", text: t("home.place.add"), attr: { type: "button" } }).onclick = () => this.done();
+  }
+
+  done() {
+    const name = this.name.trim();
+    if (this.askName && !name) return;
+    const group = this.group === NEW_GROUP ? this.home.addGroup(this.newName.trim(), this.look).id : this.group;
+    this.answer = { name, group };
+    this.close();
   }
 }

@@ -2,28 +2,24 @@
 
 ## Settings
 
-| Setting | What it does |
+Settings come in five tabs, one at a time:
+
+| Tab | Settings |
 |---|---|
-| Language | Auto follows Obsidian's language; or pick one |
-| Notes folder | Where tracking notes are created |
-| Heading of your notes | The heading above your own notes in new tracking notes (default: *My notes*) |
-| README translation with AI | *On request* or *Off* |
-| Reset Bases view | **Create** (or reset) the Bases table of your tracking notes |
-| Keyboard shortcuts | Single-letter shortcuts while the Community Radar tab is active (see below) |
-| New plugin period | How many days a plugin counts as new (default: 14) |
-| Sync frequency | Manual · Every 6 hours · **Daily** · Weekly. Nothing is downloaded between syncs. **Sync now** runs one immediately. |
-| README updates | When a tracked plugin releases, refresh its README: **When I open the note** · On every sync · Manually (command palette) |
-| Release history | Shows how far the history reaches; **Download again** rebuilds it |
-| Lists | Ignored plugins and hidden suggestions, each with Restore |
-| Status field | Your own statuses for tracked plugins (add, reorder, remove); off hides the status chip and filter |
-| AI | Provider (Anthropic, OpenAI, Google, OpenRouter), API key from Obsidian's keychain, model, target language, the instructions sent for descriptions and READMEs, and saved translations |
-| Page queries | Each tab's query: edit it here, **↺** puts one back, one button resets all |
+| General | Language (Auto follows Obsidian's), where the view opens (Home or where you left off), New plugin period (days a plugin counts as new: the badge and the New card's `listed <= 14d`; default 14), keyboard shortcuts (see below), support |
+| Notes | Notes folder, the heading above your own notes, the Bases table of your tracking notes (**Create** or reset), the status field and your statuses (add, reorder, remove) |
+| Data | Sync frequency (Manual · Every 6 hours · **Daily** · Weekly; nothing is downloaded between syncs), **Sync now**, README updates (**When I open the note** · On every sync · Manually), the release history (**Download again**) |
+| AI | Provider (Anthropic, OpenAI, Google, OpenRouter), API key from Obsidian's keychain, model, target language, README translation (*On request* or *Off*), the translation instructions (folded under *Advanced*), usage per model (requests, tokens, cost; Reset), saved translations |
+| Hidden | How many plugins you ignored, hid until their next release, or took off Suggested; **Manage** opens that kind on the Hidden page |
+
+A list's query is changed in the list itself (**Query**), not here.
 
 ## Commands
 
 | Command | |
 |---|---|
 | Open Community Radar | Opens the view (also the ribbon icon) |
+| Go to Home | Opens the view on Home; give it a hotkey to jump there from anywhere |
 | Sync now (catalog, history, notes) | |
 | Download the release history again | |
 | Update README of this note | In a tracking note |
@@ -34,7 +30,7 @@
 | Suggest groups for ungrouped plugins | Needs an AI provider |
 | Recent actions | The last 20 bulk actions, with Undo |
 
-The view's ⋮ menu (top right): Sync now, Translate visible, Ignored plugins, Hidden suggestions, Download the release history again, Settings. The **⋯** button at the end of the list's toolbar: **Save as a view…**
+The view's ⋮ menu (top right): Sync now, Translate visible, Hidden, Download the release history again, Settings. The **⋯** button at the end of the list's toolbar: **Save as a view…**
 
 ## Keyboard shortcuts
 
@@ -52,9 +48,9 @@ On while *Settings → Keyboard shortcuts* is on and the Community Radar tab is 
 | `t` | translate |
 | `o` | open in Obsidian |
 | `h` | hide until the next release |
-| `x` | ignore (restore in Lists) |
+| `x` | ignore (a toast offers Undo; restore on the Hidden page) |
 
-Always on: `/` focuses the search box, `Ctrl+Space` opens suggestions, `Esc` clears the box (Basic) or goes back to the page's query (Query).
+Always on: `/` focuses the search box, `Ctrl+Space` opens suggestions, `Esc` clears the box (Basic) or goes back to the page's query (Query). Outside the box, `Esc` steps back one level: the Similar filter, then the open widget tab, then the list itself to Home.
 
 ## Selecting many
 

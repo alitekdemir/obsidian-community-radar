@@ -36,7 +36,7 @@ Obsidian'ın yerleşik eklenti tarayıcısı adını bildiğiniz bir eklentiyi k
 
 Sonsuz bir alfabetik listeye düşmek yerine doğrudan **Ana Sayfa (Home)** ile başlarsınız.
 
-En üstteki **Henüz görülmedi** şeridi; yeni çıkan eklentileri, takip ettiklerinizin yeni sürümlerini, yeni aşılan indirme barajlarını ve sessiz güncellemeleri sayar. Sayaçlar Obsidian'ı kapatıp açtığınızda değil, **yalnızca ilgili listeyi açıp baktığınızda** sıfırlanır. Hemen altında sürükleyip sıralayabileceğiniz keşif kartları yer alır: *Yeni gelenler*, *Barajlar* (`1K`–`100K`), *Kuluçkadan çıkanlar*, *Yükselenler*, *Sessiz güncellemeler* ve *Takip ettiklerinizin yeni sürümleri*. Her kartın zaman aralığını veya eşiğini doğrudan üzerinden değiştirebilir, **N yeni** rozetine tıklayarak yalnızca son incelemenizden beri gelenleri açabilirsiniz.
+En üstteki **Yeni gelişmeler** şeridi; yeni çıkan eklentileri, takip ettiklerinizin yeni sürümlerini, yeni aşılan indirme barajlarını ve sessiz güncellemeleri son ziyaret gününüzden (ya da son 7 / 30 günden) bu yana sayar. Listeyi açmak hiçbir şeyi boşaltmaz: gün boyunca son baktığınız günden beri gelenleri gösterir ve bunu sorgusunda açıkça yazar (`listed >= 2026-11-11`). Hemen altında sürükleyip sıralayabileceğiniz keşif kartları yer alır: her sekmenin kendi kartı (*Yeni*, *Güncellenen*, *Kuluçka*; *Öneriler* eklenebilir) sekmenin sorgusunu sayar; bunlara *Yükselenler*, *Baraj geçenler* ve *Takipte yeni sürüm* eklenir. Her kart, tıklayınca açtığı listeyi birebir sayar; sekmenin sorgusunu değiştirirseniz kartı da değişir. Kartın zaman aralığını veya eşiğini doğrudan üzerinden değiştirebilir, **N yeni** rozetine tıklayarak yalnızca son incelemenizden beri gelenleri açabilirsiniz. **+ Widget ekle**, hazır sorgu galerisini açar (*Gizli cevherler*, *Hızlı çıkış yapanlar*, *Terk edilmiş kurulular*, *Denenecekler*…): her biri ne bulduğunu, neden işe yaradığını ve canlı eşleşme sayısını gösterir; eklerken küçük ya da büyük kartı (göründüğü hâliyle) ve gireceği grubu seçersiniz. Ana sayfa sizin düzenlediğiniz gruplardan oluşur: grubun adının yanındaki ⋯ menüsünden (ya da sağ tıklayarak) yeniden adlandırır, iki grubu yan yana koyar, tutamacından sürükleyerek sıralarsınız. Üstteki **⌂ Ana sayfa | Tümü** nerede olduğunuzu gösterir; `Esc` ana sayfaya döndürür.
 
 ---
 
@@ -46,7 +46,7 @@ En üstteki **Henüz görülmedi** şeridi; yeni çıkan eklentileri, takip etti
 
 Ekosistemdeki en heyecan verici anlardan biri, terk edildiğini sandığınız sevilen bir eklentinin aylar sonra yepyeni bir sürümle geri dönmesidir; ancak sıradan bir listede bu dönüş birkaç saat içinde günlük yamaların altında kaybolur.
 
-- **Kuluçka (Incubation)**, en az 60–360+ gün sessiz kaldıktan sonra yeniden sürüm çıkaran eklentileri yakalar ve *"4 gün önce (1.462 günlük kuluçkadan sonra)"* gibi net bir bağlamla sunar. Üstelik bir eklenti ne kadar uzun süre uyuduysa bu listede o kadar uzun süre görünür kalır.
+- **Kuluçka (Incubation)**, en az 60–360+ gün sessiz kaldıktan sonra yeniden sürüm çıkaran eklentileri yakalar ve *"4 gün önce (1.462 günlük kuluçkadan sonra)"* gibi net bir bağlamla sunar. Her dönüş, en yenisi üstte olmak üzere listede aynı 30 günü alır; ertesi gün düzeltme sürümü çıkarsa bile bu süreyi korur.
 - **Güncellenen (Updated)** sekmesi ise çok sık sürüm çıkaranları (6 ayda 9'dan fazla güncelleme dalgası) otomatik olarak kenara çekerek daha seyrek ama anlamlı güncellemelerin görülmesini sağlar.
 
 ---
@@ -58,11 +58,11 @@ Ekosistemdeki en heyecan verici anlardan biri, terk edildiğini sandığınız s
 Görsel kontrollerle mi çalışmak istiyorsunuz? **Basic** modunda arama terimlerini, `/regex/` ifadelerini ve **Filtre** menüsündeki hızlı çipleri kullanın. Tam kontrol mü istiyorsunuz? Tek tıkla **Query** moduna geçin—çünkü kaputun altında **Community Radar'daki her sekme aslında okunabilir ve değiştirilebilir bir sorgudur**:
 
 ```sql
-age <= 30d AND downloads >= 50 AND NOT tracked
-order by gain30 desc
+listed <= 30d AND downloads >= 50 AND NOT tracked
+order by gain(30d) desc
 ```
 
-- **27 sorgu alanı ve tarih fonksiyonları:** `gain7`, `rise30` (% büyüme), `gap`, `milestone`, `installed`, `group`, `rating` gibi alanların yanında `startOfMonth(-1)` veya `lastSync()` gibi dinamik fonksiyonlarla dilediğiniz soruyu sorun.
+- **Parametreli alanlar, istediğiniz aralık:** `gain(21d)` (indirme artışı), `rise(7d)` (% büyüme), `releases(180d)` (güncelleme sayısı), `milestone(10k)` (10K'ya ulaştığı gün); bir yıllık günlük indirme geçmişinden. Ayrıca `incubated`, `hatched`, `installed`, `group`, `rating`, `removed` ve `startOfMonth(-1)`, `lastSync()` gibi tarih fonksiyonları.
 - **Yazarken rehberlik eder:** `Ctrl+Space` ile kendi gruplarınızı, durumlarınızı ve eklenti yazarlarını öneren otomatik tamamlamayı açın; herhangi bir kelimenin üzerine gelerek ne anlama geldiğini görün veya `?` ile tıklanabilir kopya kağıdına göz atın. Hiç sonuç çıkmazsa, **listeyi hangi koşulun sıfırladığını** bile size söyler.
 - **Kaydedilmiş Görünümler (Saved Views):** Değiştirdiğiniz bir sorguyu **Görünüm** olarak kaydedin; hem üst şeritte kendi sekmesine kavuşsun (görülmemiş eşleşmeleri `+N` rozetiyle sayarak) hem de Ana Sayfaya bir kart olarak yerleşsin. → *[Sorgu Dili Rehberi](docs/query.md)*
 
@@ -113,7 +113,7 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 ### 60 Saniyede Başlangıç
 
 1. **İlk eşitlemenin tamamlanmasını bekleyin:** Eklenti kataloğu, 6 yıllık sürüm arşivi ve anlamsal benzerlik dizini (~3 MB) indirilir.
-2. **Ana Sayfaya göz atın:** *Henüz görülmedi* şeridine bakın ve *Yükselenler* veya *Kuluçkadan çıkanlar* gibi bir kartın listesini açın.
+2. **Ana Sayfaya göz atın:** *Yeni gelişmeler* şeridine bakın ve *Yükselenler* veya *Kuluçka* gibi bir kartın listesini açın.
 3. **İlk eklentinizi takip edin:** İlginizi çeken bir eklentiyi yıldızlayın (**☆**) veya gruplayın (**＋**)—Markdown notu anında vault'unuzda oluşur (dilediğiniz zaman Ayarlardan **Obsidian Bases** tablosunu da oluşturabilirsiniz).
 4. **Kendi görünümünüzü yaratın:** Herhangi bir sekmede **Query** moduna geçip sekmenin kuralını görün, değiştirin ve kendi görünümünüz olarak kaydedin.
 

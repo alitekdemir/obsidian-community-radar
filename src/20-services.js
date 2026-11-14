@@ -27,6 +27,11 @@ class GitHub {
     return this.json(`${METRICS_URL}/timeline.json`);
   }
 
+  /** The changes of the last few days (~150 KB): what a daily sync downloads instead of the whole timeline. */
+  metricsDelta() {
+    return this.json(`${METRICS_URL}/delta.json`);
+  }
+
   /** The semantic vectors' index (ids, build time) and, when asked, the vectors themselves. */
   vectorsMeta() {
     return this.json(`${VECTORS_URL}.json`);
@@ -289,11 +294,18 @@ class Translator {
     return spec.modelList(await this.call(spec.models(key))).sort((a, b) => a.id.localeCompare(b.id));
   }
 
+  /** One prompt to the chosen model: its reply text; what it used goes to `onUsage` (the AI tab's table). */
+  async chat(prompt) {
+    const { provider, model } = this.settings;
+    const spec = PROVIDERS[provider];
+    const json = await this.call(spec.chat(model, this.key(), prompt));
+    this.onUsage?.(provider, model, spec.usage(json));
+    return spec.text(json);
+  }
+
   /** Translates the texts in one request; output keeps the input order. */
   async translate(texts) {
-    const spec = PROVIDERS[this.settings.provider];
-    const request = spec.chat(this.settings.model, this.key(), translationPrompt(texts, this.settings.targetLang, this.settings.prompts));
-    return parseTranslations(spec.text(await this.call(request)), texts.length);
+    return parseTranslations(await this.chat(translationPrompt(texts, this.settings.targetLang, this.settings.prompts)), texts.length);
   }
 
   /**
@@ -303,19 +315,17 @@ class Translator {
    * @returns {Promise<Object<string, string[]>>} plugin id → suggestions
    */
   async suggestGroups(plugins, groups) {
-    const spec = PROVIDERS[this.settings.provider];
-    const request = spec.chat(this.settings.model, this.key(), groupPrompt(plugins, groups, this.settings.targetLang));
-    return parseGroupSuggestions(spec.text(await this.call(request)), plugins.map((p) => p.id), groups.map((g) => g.name));
+    const reply = await this.chat(groupPrompt(plugins, groups, this.settings.targetLang));
+    return parseGroupSuggestions(reply, plugins.map((p) => p.id), groups.map((g) => g.name));
   }
 
   /** Translates a README into the target language, a few sections per request; progress(done, total). */
   async translateMarkdown(markdown, progress = () => {}) {
-    const spec = PROVIDERS[this.settings.provider];
     const chunks = markdownChunks(markdown);
     const out = [];
     for (const [i, chunk] of chunks.entries()) {
       progress(i, chunks.length);
-      const reply = spec.text(await this.call(spec.chat(this.settings.model, this.key(), readmePrompt(chunk, this.settings.targetLang, this.settings.prompts))));
+      const reply = await this.chat(readmePrompt(chunk, this.settings.targetLang, this.settings.prompts));
       out.push(reply.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, "$1"));   // some models wrap it in a fence
     }
     return out.join("\n\n");
