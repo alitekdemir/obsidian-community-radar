@@ -127,15 +127,21 @@ function fieldRef(key) {
   return { name: fold(name), field, text: text ?? "", arg: text == null ? null : paramValue(field, text) };
 }
 
-/** Date functions for date fields (released, listed, hatched), Jira style: `startOfMonth(-1)` is last month's first day. */
+/**
+ * Date functions for date fields (released, listed, hatched), Jira style: `startOfMonth(-1)` is last month's first day.
+ * Keyed as they're written (the suggestions and the guide show these names); a query may type them in any case.
+ */
 const QUERY_FUNCS = {
   today: (now, n) => { const d = new Date(now); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + n); return d.getTime(); },
-  startofweek: (now, n) => { const d = new Date(now); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * n); return d.getTime(); },   // weeks start on Monday
-  startofmonth: (now, n) => { const d = new Date(now); return new Date(d.getFullYear(), d.getMonth() + n, 1).getTime(); },
-  startofyear: (now, n) => new Date(new Date(now).getFullYear() + n, 0, 1).getTime(),
-  lastsync: (now, n, s) => s.lastSync ?? null,   // the sync before the latest one
+  startOfWeek: (now, n) => { const d = new Date(now); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * n); return d.getTime(); },   // weeks start on Monday
+  startOfMonth: (now, n) => { const d = new Date(now); return new Date(d.getFullYear(), d.getMonth() + n, 1).getTime(); },
+  startOfYear: (now, n) => new Date(new Date(now).getFullYear() + n, 0, 1).getTime(),
+  lastSync: (now, n, s) => s.lastSync ?? null,   // the sync before the latest one
 };
-const QUERY_FUNC_NAMES = ["today", "startOfWeek", "startOfMonth", "startOfYear", "lastSync"];
+/** A date function's written name for any spelling (`startofmonth` → `startOfMonth`); undefined if it's none. */
+const queryFuncName = (text) => Object.keys(QUERY_FUNCS).find((name) => fold(name) === fold(text));
+/** The date function for any spelling of its name; undefined if it's none. */
+const queryFunc = (text) => QUERY_FUNCS[queryFuncName(text)];
 
 const QUERY_CMP = {
   "=": (a, b) => Math.round(a) === Math.round(b), "!=": (a, b) => Math.round(a) !== Math.round(b),
@@ -178,7 +184,7 @@ function queryNumber(text, days) {
   if (!m) return null;
   const n = Number(m[1]);
   const unit = m[2];
-  if (days) return { n: n * ({ "": 1, d: 1, w: 7, m: 30.44, y: 365 }[unit] ?? NaN) };
+  if (days) return { n: n * ({ "": 1, d: 1, w: 7, m: MONTH_DAYS, y: YEAR_DAYS }[unit] ?? NaN) };
   return { n: n * ({ "": 1, k: 1e3, m: 1e6 }[unit] ?? NaN) };
 }
 
@@ -211,6 +217,16 @@ function parseQuery(query, { strict = false } = {}) {
     const to = tokens.find((tok) => tok.at >= at)?.end ?? query.length;
     Object.assign(error, { spans, from: Math.min(current ?? at, at), to: Math.max(to, at) });
     throw error;
+  };
+
+  /** A `/…/` token as a case-insensitive RegExp (its flags after the last / are ignored); fails with its error. */
+  const regexOf = (token) => {
+    const [, body] = token.text.match(/^\/(.+)\/[a-z]*$/);
+    try {
+      return new RegExp(body, "iu");
+    } catch (error) {
+      return fail("regex", { error: error.message }, token.at);
+    }
   };
 
   const valueOf = (field, token) => {
@@ -271,7 +287,7 @@ function parseQuery(query, { strict = false } = {}) {
 
     const token = valueOf(name, take());
     if (field.type === "number" && token.kind === "word" && peek()?.kind === "(") {   // a date function
-      const fn = QUERY_FUNCS[fold(token.text)];
+      const fn = queryFunc(token.text);
       if (!fn || !field.at) fail("fn", { name: token.text, field: name }, token.at);
       take();
       const shift = peek()?.kind === "word" && /^[+-]?\d+$/.test(peek().text) ? Number(take().text) : 0;
@@ -298,9 +314,7 @@ function parseQuery(query, { strict = false } = {}) {
     // text and list: = exact (case folded), ~ contains or /regex/
     let match;
     if (token.kind === "regex") {
-      const [, body] = token.text.match(/^\/(.+)\/[a-z]*$/);
-      let re;
-      try { re = new RegExp(body, "iu"); } catch (error) { fail("regex", { error: error.message }, token.at); }
+      const re = regexOf(token);
       match = (v) => re.test(String(v ?? ""));
     } else {
       const want = fold(token.text);
@@ -335,11 +349,9 @@ function parseQuery(query, { strict = false } = {}) {
       if (strict && token.kind === "word") fail("unknown", { text: token.text }, token.at);
       take();
       free.push(token.text);
-      const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
+      const text = (p) => QUERY_FIELDS.text.get(null, p);
       if (token.kind === "regex") {
-        const [, body] = token.text.match(/^\/(.+)\/[a-z]*$/);
-        let re;
-        try { re = new RegExp(body, "iu"); } catch (error) { fail("regex", { error: error.message }, token.at); }
+        const re = regexOf(token);
         return (s, p) => re.test(text(p));
       }
       const want = fold(token.text);
@@ -428,7 +440,7 @@ function querySuggestions(text, caret, data) {
     if (field.type === "bool") return ["true", "false"].map((v) => ({ label: v, insert: v }));
     if (field.days) {
       const spans = ["7d", "30d", "90d", "1y"].map((v) => ({ label: v, insert: v }));
-      return field.at ? [...spans, ...QUERY_FUNC_NAMES.map((f) => ({ label: `${f}()`, insert: `${f}()`, hint: t(`query.fn.${f}`) }))] : spans;
+      return field.at ? [...spans, ...Object.keys(QUERY_FUNCS).map((f) => ({ label: `${f}()`, insert: `${f}()`, hint: t(`query.fn.${f}`) }))] : spans;
     }
     if (field.type === "number") return ["100", "1k", "10k", "100k"].map((v) => ({ label: v, insert: v }));
     return [];
@@ -441,7 +453,7 @@ function querySuggestions(text, caret, data) {
     const listed = new Set(tokens.slice(lastOpen[1] + 1).filter((tok) => tok.kind === "word" || tok.kind === "value").map((tok) => fold(tok.text)));
     return { from, items: pick(values(fold(fieldTok.text)).filter((x) => !listed.has(fold(x.label)))) };
   }
-  if (prev?.kind === "(" && QUERY_FUNCS[fold(before2?.text)]) return { from, items: [] };
+  if (prev?.kind === "(" && queryFunc(before2?.text)) return { from, items: [] };
   if (prev?.kind === "(" && QUERY_FIELDS[fold(before2?.text)]?.param) return { from, items: [] };   // gain(… : the parameter is yours
   const valueField = prev?.kind === "op" ? fieldAt(tokens.length - 2) : null;
   if (valueField) return { from, items: pick(values(fold(valueField.text))) };
@@ -479,11 +491,11 @@ function queryHighlight(text) {
     const w = fold(tok.text);
     let cls = "";
     if (tok.kind === "op") { cls = "op"; expect = true; }
-    else if (tok.kind === "(") list = fold(prev?.text) === "in" || Boolean(QUERY_FUNCS[fold(prev?.text)]) || Boolean(QUERY_FIELDS[fold(prev?.text)]?.param);
+    else if (tok.kind === "(") list = fold(prev?.text) === "in" || Boolean(queryFunc(prev?.text)) || Boolean(QUERY_FIELDS[fold(prev?.text)]?.param);
     else if (tok.kind === ")") list = false;
     else if (tok.kind === ",") cls = "";
     else if (next?.kind === "(" && QUERY_FIELDS[w]?.param && !expect) cls = "field";
-    else if (next?.kind === "(" && QUERY_FUNCS[w]) { cls = "fn"; expect = false; }
+    else if (next?.kind === "(" && queryFunc(w)) { cls = "fn"; expect = false; }
     else if (tok.kind !== "word" || list || expect) { cls = "value"; expect = false; }
     else if (w === "in" || w === "is" || w === "empty" || (w === "not" && (fold(next?.text) === "in" || fold(prev?.text) === "is"))) cls = "op";
     else if (w === "and" || w === "or" || w === "order" || (w === "by" && fold(prev?.text) === "order")) cls = "kw";
@@ -591,7 +603,7 @@ function queryToFilters(query, settings, mode) {
     const prev = fold(tokens[k - 1]?.text);
     if (tok.kind === "word" && fold(tok.text) === "or") bad.add("OR");
     if (tok.kind === "regex") bad.add("/regex/");
-    if (tok.kind === "(" && !QUERY_FIELDS[prev]?.param) bad.add(prev === "in" ? "in (…)" : QUERY_FUNCS[prev] ? `${tokens[k - 1].text}()` : "( )");
+    if (tok.kind === "(" && !QUERY_FIELDS[prev]?.param) bad.add(prev === "in" ? "in (…)" : queryFunc(prev) ? `${tokens[k - 1].text}()` : "( )");
   });
   if (q.spans.some((span) => span.kind === "neg")) bad.add("NOT");
   const extras = {};
@@ -722,9 +734,9 @@ function queryTip(tok, prev, now = Date.now(), state = {}) {
     return body ? { head: tok.text, body } : null;
   }
   if (tok.cls === "fn") {
-    const fn = QUERY_FUNCS[w];
-    const moment = fn?.(now, 0, state);
-    return { head: `${tok.text}()`, body: t(`query.fn.${QUERY_FUNC_NAMES.find((x) => fold(x) === w)}`), example: moment ? t("query.tip.now", { date: dayString(moment) }) : "" };
+    const name = queryFuncName(w);
+    const moment = name ? QUERY_FUNCS[name](now, 0, state) : null;
+    return { head: `${tok.text}()`, body: t(`query.fn.${name}`), example: moment ? t("query.tip.now", { date: dayString(moment) }) : "" };
   }
   if (tok.cls === "kw" || tok.cls === "neg") {
     const key = w === "by" ? "order" : w;

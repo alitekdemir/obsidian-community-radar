@@ -146,7 +146,7 @@ class DetailModal extends Modal {
     if (note) {
       const tags = left.createDiv({ cls: "pdt-detail-tags" });
       for (const g of note.groups) tags.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g });
-      if (note.rating) tags.createSpan({ cls: "pdt-detail-stars", text: "★".repeat(note.rating) + "☆".repeat(5 - note.rating) });
+      if (note.rating) tags.createSpan({ cls: "pdt-detail-stars", text: ratingStars(note.rating) });
       tags.createSpan({ cls: "pdt-detail-muted", text: t("details.tracked") });
     }
     const actions = title.createDiv({ cls: "pdt-detail-head-actions" });
@@ -193,7 +193,7 @@ class DetailModal extends Modal {
     stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), gained != null ? t("details.growth30", { n: formatShort(gained) }) : t("details.downloadsSub"));
     stat(t("details.lastRelease"), p.updated ? relativeDays(p.updated, now) : "–", p.version);
     // age counts from the day it was listed; 0: it was there before the history starts
-    const before = t("details.ageBeforeYears", { n: Math.max(1, Math.floor((now - from) / (365 * DAY_MS))) });
+    const before = t("details.ageBeforeYears", { n: Math.max(1, Math.floor((now - from) / (YEAR_DAYS * DAY_MS))) });
     stat(t("details.age"), seen > 0 ? ageLabel(seen, now) : seen === 0 ? before : "–", seen > 0 ? t("details.listedOn", { date: dayString(seen) }) : t("details.listed"));
     stat(t("details.cadence"), cadence ? cadenceLabel(cadence) : t("details.noData"), cadence ? cadenceSub(cadence) : t("details.noDataSub"));
   }
@@ -243,7 +243,7 @@ class DetailModal extends Modal {
     const total = gaps.reduce((sum, g) => sum + weight(g), 0);
     const strip = box.createDiv({ cls: "pdt-gaps", attr: { role: "img", "aria-label": t("details.historyLabel", { n: dates.length }) } });
     for (const g of gaps) {
-      const tone = g.days < 30 ? "short" : g.days < 182 ? "mid" : g.days < YEAR_DAYS ? "long" : "gap";
+      const tone = g.days < 30 ? "short" : g.days < YEAR_DAYS / 2 ? "mid" : g.days < YEAR_DAYS ? "long" : "gap";   // under a month, 1–6 months, 6–12, a year+
       const cell = strip.createSpan({ cls: `pdt-gap is-${tone}${g.open ? " is-open" : ""}` });
       cell.setCssProps({ "--pdt-w": String(weight(g) / total) });
       if (g.days >= 30 && weight(g) / total >= 0.09) cell.setText(spanLabel(g.days));

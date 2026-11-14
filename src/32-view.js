@@ -309,9 +309,7 @@ class DiscoveryView extends ItemView {
       if (this.toast.op?.changes.length) {
         toast.createEl("button", { cls: "pdt-toast-undo", text: t("bulk.undo") }).onclick = () => this.undoOp(this.toast.op);
       }
-      const close = toast.createEl("button", { cls: "pdt-similar-step", attr: { "aria-label": t("bulk.close") } });
-      setIcon(close, "x");
-      close.onclick = () => { this.toast = null; this.renderBulk(); };
+      smallButton(toast, "x", t("bulk.close"), () => { this.toast = null; this.renderBulk(); });
     }
     if (!this.selected.size || !this.selectable) return;
     const bar = footer.createDiv({ cls: "pdt-bulk-bar", attr: { role: "toolbar", "aria-label": t("bulk.toolbar") } });
@@ -328,11 +326,11 @@ class DiscoveryView extends ItemView {
       const button = bar.createEl("button", { cls: "pdt-bulk-action" });
       setIcon(button.createSpan({ cls: "pdt-chip-caret" }), icon);
       button.createSpan({ text: label });
-      button.onclick = (event) => onClick(event);
+      button.onclick = () => onClick(button);   // the button: a menu opens under it
     };
     action("star", t("bulk.favorite"), () => this.runBulk("favorite"));
-    action("star-half", t("bulk.rate"), (event) => this.bulkMenu(event, [1, 2, 3, 4, 5].map((n) => [n, "★".repeat(n)]), (n) => this.runBulk("rating", n)));
-    action("folder-plus", t("bulk.group"), (event) => this.bulkMenu(event, [...this.plugin.notes.groups().map((g) => [g.name, g.name]), [null, t("bulk.newGroup")]],
+    action("star-half", t("bulk.rate"), (button) => showMenuBelow(button, [1, 2, 3, 4, 5].map((n) => [n, ratingStars(n)]), null, (n) => this.runBulk("rating", n)));
+    action("folder-plus", t("bulk.group"), (button) => showMenuBelow(button, [...this.plugin.notes.groups().map((g) => [g.name, g.name]), [null, t("bulk.newGroup")]], undefined,
       async (name) => {
         const group = name ?? await new TextModal(this.app, { title: t("bulk.newGroup"), cta: t("bulk.go.group", { n: this.selected.size }) }).ask();
         if (group) this.runBulk("group", group);
@@ -343,12 +341,6 @@ class DiscoveryView extends ItemView {
     action("ban", t("bulk.exclude"), () => this.runBulk("exclude"));
     bar.createDiv({ cls: "pdt-nav-spacer" });
     bar.createEl("button", { cls: "pdt-bulk-link", text: t("bulk.clear") }).onclick = () => { this.clearSelection(); this.syncSelection(); };
-  }
-
-  bulkMenu(event, options, onPick) {
-    const menu = new Menu();
-    for (const [value, title] of options) menu.addItem((item) => item.setTitle(title).onClick(() => onPick(value)));
-    menu.showAtMouseEvent(event);
   }
 
   /** Asks, runs the action on what's picked, then shows what it did with Undo. */
@@ -431,13 +423,7 @@ class DiscoveryView extends ItemView {
       setIcon(el.createSpan({ cls: "pdt-tab-icon" }), homeWidget(settings.home, temp.id)?.icon || "list");
       el.prepend(el.lastChild);
       this.refs.tabCounts[temp.key] = el.createSpan({ cls: "pdt-n", text: "…" });
-      const close = el.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.closeTab") } });
-      setIcon(close, "x");
-      setTooltip(close, t("home.closeTab"));
-      close.onclick = (event) => {
-        event.stopPropagation();
-        this.closeTab(temp);
-      };
+      smallButton(el, "x", t("home.closeTab"), () => this.closeTab(temp));
     }
     // a page a widget opened (Tracked, Hidden): its tab while you're on it, ✕ back home
     if (!onHome && !this.preset && settings.mode !== "all") {
@@ -446,14 +432,10 @@ class DiscoveryView extends ItemView {
       setIcon(el.createSpan({ cls: "pdt-tab-icon" }), hidden ? "eye-off" : HOME_WIDGETS.mine.icon);
       el.prepend(el.lastChild);
       this.refs.counts[settings.mode] = el.createSpan({ cls: "pdt-n", text: hidden ? formatCount(this.hiddenTotal()) : "…" });
-      const close = el.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.back") } });
-      setIcon(close, "x");
-      setTooltip(close, t("home.back"));
-      close.onclick = (event) => {
-        event.stopPropagation();
+      smallButton(el, "x", t("home.back"), () => {
         Object.assign(settings, { section: "home", mode: "all" });
         this.render();
-      };
+      });
     }
     strip.toggleClass("is-empty", !strip.children.length);   // nothing open: it only keeps Sync and ⋮ on the right
     strip.querySelector(".is-active")?.scrollIntoView?.({ block: "nearest", inline: "nearest" });   // a narrow panel scrolls to it
@@ -543,10 +525,7 @@ class DiscoveryView extends ItemView {
   renderOnlyNew(bar) {
     const fresh = bar.createDiv({ cls: "pdt-chip pdt-similar-chip is-fresh" });
     fresh.createSpan({ text: `${t("home.onlyNew", { when: this.home.sinceLabel("seen") })} (${formatCount(this.preset.freshIds.size)})` });   // a saved view's
-    const all = fresh.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("home.showAll") } });
-    setIcon(all, "x");
-    setTooltip(all, t("home.showAll"));
-    all.onclick = () => { this.preset.onlyNew = false; this.render(); };
+    smallButton(fresh, "x", t("home.showAll"), () => { this.preset.onlyNew = false; this.render(); });
   }
 
   /** Tracked tab: one Group menu (All, New releases, Starred, Ungrouped, then your groups), Sections, Status. */
@@ -718,7 +697,7 @@ class DiscoveryView extends ItemView {
       const chip = build(parent);
       if (!changed.has(key)) return;
       chip.addClass("is-changed");
-      this.chipButton(chip, "rotate-ccw", t("filter.resetOne"), () => this.resetFilter(key));
+      smallButton(chip, "rotate-ccw", t("filter.resetOne"), () => this.resetFilter(key), "pdt-chip-act");
     };
     if (all) parent.createDiv({ cls: "pdt-filter-group", text: t("filter.ownTitle") });
     if (!this.similar && changed.has("query") && !this.inQuery) {
@@ -742,15 +721,6 @@ class DiscoveryView extends ItemView {
     if (!all && changed.size) parent.createEl("button", { cls: "pdt-filter-clear", text: t("filter.resetAll"), attr: { type: "button" } }).onclick = () => this.clearFilters();
   }
 
-  /** A small round button at the end of a chip (↺ back to the default, ✕ remove). */
-  chipButton(chip, icon, tip, onClick) {
-    const button = chip.createEl("button", { cls: "pdt-similar-step pdt-chip-act", attr: { type: "button", "aria-label": tip } });
-    setIcon(button, icon);
-    setTooltip(button, tip);
-    button.onclick = (event) => { event.stopPropagation(); onClick(); };
-    return button;
-  }
-
   /** A filter added with "+ Filter": its icon, name and value (typed, or a preset), ✕ removes it. */
   renderExtraChip(panel, key, value) {
     const filter = EXTRA_FILTERS[key];
@@ -772,7 +742,7 @@ class DiscoveryView extends ItemView {
     const icon = chip.createSpan({ cls: "pdt-chip-icon" });
     setIcon(icon, filter.icon);
     chip.prepend(icon);
-    this.chipButton(chip, "x", t("filter.remove"), () => this.setExtra(key, undefined));
+    smallButton(chip, "x", t("filter.remove"), () => this.setExtra(key, undefined), "pdt-chip-act");
     if (filter.kind === "text" && !value) chip.querySelector("input")?.focus();
   }
 
@@ -1119,20 +1089,14 @@ class DiscoveryView extends ItemView {
     const seed = this.plugin.pluginById(steps.at(-1).id);
     const chip = bar.createDiv({ cls: "pdt-chip pdt-similar-chip" });
     if (steps.length > 1) {
-      const back = chip.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("similar.back") } });
-      setIcon(back, "chevron-left");
-      setTooltip(back, t("similar.backTo", { name: this.plugin.pluginById(steps.at(-2).id)?.name ?? "–" }));
-      back.onclick = () => this.similarBack();
+      smallButton(chip, "chevron-left", t("similar.backTo", { name: this.plugin.pluginById(steps.at(-2).id)?.name ?? "–" }), () => this.similarBack());
     }
     chip.createSpan({ cls: "pdt-similar-sign", text: "≈" });
     chip.createSpan({ text: t("similar.chip") });
     const name = chip.createEl("a", { cls: "pdt-chip-value", text: seed?.name ?? "–", href: "#" });
     setTooltip(name, t("details.open"));
     name.onclick = (event) => { event.preventDefault(); if (seed) this.openDetails(seed); };
-    const close = chip.createEl("button", { cls: "pdt-similar-step", attr: { type: "button", "aria-label": t("similar.closeFilter") } });
-    setIcon(close, "x");
-    setTooltip(close, t("similar.closeFilter"));
-    close.onclick = () => this.closeSimilar();
+    smallButton(chip, "x", t("similar.closeFilter"), () => this.closeSimilar());
   }
 
   /** ⌨ icon with a card of the shortcuts, shown on hover or keyboard focus. */
@@ -1412,7 +1376,7 @@ class DiscoveryView extends ItemView {
           star.onclick = () => this.runRowAction(p, () => this.plugin.toggleFavorite(p));
         } else if (key === "rating") {
           const cell = td.createEl("button", { cls: "pdt-table-rating", text: this.cellText(key, p, state, now) });
-          cell.onclick = () => this.pickFromMenu(cell, [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, ratingStars(n)])], note?.rating || 0,
+          cell.onclick = () => this.pickFromMenu(cell, ratingOptions(), note?.rating || 0,
             (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
         } else {
           td.setText(this.cellText(key, p, state, now));
@@ -1739,7 +1703,7 @@ class DiscoveryView extends ItemView {
       act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
     }
-    if (isUnreviewed(p, note)) act("check", t("action.reviewed"), () => plugin.markReviewed([p]), "", true);
+    if (isUnreviewed(p, note)) act("check", t("action.reviewed"), () => plugin.bulk("reviewed", [p]), "", true);   // in Recent actions, with Undo
     this.renderStar(actions, act, p, note);
     act("folder-plus", note?.groups.length ? t("action.groupNamed", { group: note.groups.join(", ") }) : t("action.group"), () => plugin.chooseGroup(p), "", true);
     if (mode === "suggested") act("x", t("action.dismiss"), () => plugin.dismiss(p));
@@ -1807,7 +1771,7 @@ class DiscoveryView extends ItemView {
       onActivate(chip, open);
     }
     if (note.rating || always) {
-      const options = [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, ratingStars(n)])];
+      const options = ratingOptions();
       const chip = parent.createSpan({ cls: `pdt-pill is-rating${note.rating ? "" : " is-empty"}`, text: note.rating ? ratingStars(note.rating) : t("rating.set"), attr: { role: "button", tabindex: "0", "aria-label": note.rating ? t("rating.label", { n: note.rating }) : t("rating.set") } });
       const open = () => this.pickFromMenu(chip, options, note.rating, (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
       chip.onclick = open;
@@ -1815,16 +1779,12 @@ class DiscoveryView extends ItemView {
     }
   }
 
+  /** A menu under `anchor` (see showMenuBelow); the list is redrawn after the pick. */
   pickFromMenu(anchor, options, current, onPick) {
-    const menu = new Menu();
-    for (const [value, title] of options) {
-      menu.addItem((item) => item.setTitle(title).setChecked(value === current).onClick(async () => {
-        await onPick(value);
-        this.refresh();
-      }));
-    }
-    const rect = anchor.getBoundingClientRect();
-    menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
+    showMenuBelow(anchor, options, current, async (value) => {
+      await onPick(value);
+      this.refresh();
+    });
   }
 }
 

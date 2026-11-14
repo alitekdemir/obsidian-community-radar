@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+- **Reviewed (✓ on a row):** now a recorded action like the bulk one: it shows in *Recent actions* and can be undone.
+- **Menus:** the Home chips' and the bulk bar's menus open right under their button, like every other chip.
+
 ### Fixed
 - **Why a list is empty:** in Query mode the status line names the clause that emptied the list again; with `AND` between clauses it always counted 0 and never showed.
 - **Saved views from before 0.10:** upgrading straight to 0.11 turned their query into the word `undefined`, so they found nothing; the upgrade steps now run in order.

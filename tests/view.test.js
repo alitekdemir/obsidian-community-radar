@@ -1481,6 +1481,23 @@ const tests = {
     await view.update("section", "list");
   },
 
+  async "a row's ✓ (reviewed) is a recorded action: Undo takes it back"({ plugin, view }) {
+    const p = plugin.pluginById("homepage");
+    const was = plugin.notes.index.get("homepage").reviewed;
+    const old = core.dayString(ago(20));   // reviewed before its latest release
+    await plugin.track(p, { reviewed: old });
+    view.settings.section = "list";
+    await view.update("mode", "all");
+    const row = $$(view.contentEl, ".pdt-row").find((r) => r.dataset.id === "homepage");
+    await row.querySelector('[data-icon="check"]').onclick();
+    assert.equal(plugin.notes.index.get("homepage").reviewed, core.dayString(Date.now()));
+    const [op] = plugin.data.ops;
+    assert.deepEqual([op.kind, op.changes.map((c) => c.id)], ["reviewed", ["homepage"]], "in Recent actions");
+    await plugin.undo(op);
+    assert.equal(plugin.notes.index.get("homepage").reviewed, old);
+    await plugin.track(p, { reviewed: was || null });
+  },
+
   async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {
     const tab = plugin.settingTab;
     tab.tab = "general";

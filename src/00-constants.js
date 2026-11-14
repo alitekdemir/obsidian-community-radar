@@ -30,6 +30,8 @@ const STATS_URL = `${RAW}/${REPO}/HEAD/${STATS_FILE}`;
 
 const HOUR_MS = 3_600_000;
 const DAY_MS = 24 * HOUR_MS;
+const YEAR_DAYS = 365;
+const MONTH_DAYS = 30.44;          // an average month (365.25 / 12), for spans written in months
 const RELEASES_CAP = 50;           // release dates kept per plugin
 const DEFAULT_NEW_DAYS = 14;       // a plugin counts as new this many days after it was listed (setting: newDays)
 const HATCHED_DAYS = 30;           // out of incubation: listed this long after hatching, the same for every plugin

@@ -10,6 +10,21 @@ function onActivate(el, handler) {
   });
 }
 
+/**
+ * A small round icon button inside a chip, tab or toast (✕ close, ‹ back, ↺ reset). Its click stays with it, so it
+ * never also opens what it sits on.
+ */
+function smallButton(parent, icon, tip, onClick, cls = "") {
+  const button = parent.createEl("button", { cls: `pdt-similar-step ${cls}`.trim(), attr: { type: "button", "aria-label": tip } });
+  setIcon(button, icon);
+  setTooltip(button, tip);
+  button.onclick = (event) => {
+    event?.stopPropagation?.();
+    onClick();
+  };
+  return button;
+}
+
 /** Obsidian's built-in icon button look (clickable-icon): transparent, highlighted on hover. */
 function iconButton(parent, icon, tip, cls = "") {
   const button = parent.createDiv({ cls: `clickable-icon pdt-icon ${cls}`.trim(), attr: { "aria-label": tip, role: "button", tabindex: "0" } });
@@ -19,6 +34,17 @@ function iconButton(parent, icon, tip, cls = "") {
   return button;
 }
 
+/** Obsidian's menu of `options` ([value, title]) right under `anchor`, `current` checked; a pick calls onPick(value). */
+function showMenuBelow(anchor, options, current, onPick) {
+  const menu = new Menu();
+  for (const [value, title] of options) {
+    menu.addItem((item) => item.setTitle(title).setChecked(value === current).onClick(() => onPick(value)));
+  }
+  const rect = anchor.getBoundingClientRect();
+  menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
+  return menu;
+}
+
 /** A filter chip whose options open in Obsidian's own menu. */
 function menuChip(parent, label, options, current, onPick) {
   const chip = parent.createDiv({ cls: "pdt-chip is-menu", attr: { role: "button", tabindex: "0" } });
@@ -26,14 +52,7 @@ function menuChip(parent, label, options, current, onPick) {
   const selected = options.some(([value]) => value === current) ? current : options[0][0];  // invalid here → first option
   chip.createSpan({ cls: "pdt-chip-value", text: options.find(([value]) => value === selected)[1] });
   setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), "chevron-down");
-  const open = () => {
-    const menu = new Menu();
-    for (const [value, text] of options) {
-      menu.addItem((item) => item.setTitle(text).setChecked(value === selected).onClick(() => onPick(value)));
-    }
-    const rect = chip.getBoundingClientRect();
-    menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
-  };
+  const open = () => showMenuBelow(chip, options, selected, onPick);
   chip.onclick = open;
   onActivate(chip, open);
   return chip;
@@ -52,38 +71,27 @@ function numberChip(parent, { label, unit, value, min, max, presets, onChange, f
   const caret = chip.createSpan({ cls: "pdt-chip-caret is-button", attr: { role: "button", tabindex: "0", "aria-label": t("filter.presets") } });
   setIcon(caret, "chevron-down");
   setTooltip(caret, t("filter.presets"));
-  const open = () => {
-    const menu = new Menu();
-    for (const n of presets) menu.addItem((item) => item.setTitle(format(n)).setChecked(n === value).onClick(() => onChange(n)));
-    const rect = chip.getBoundingClientRect();
-    menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
-  };
+  const open = () => showMenuBelow(chip, presets.map((n) => [n, format(n)]), value, onChange);
   caret.onclick = open;
   onActivate(caret, open);
   return chip;
 }
 
-/** An on/off chip with a check mark. */
+/** An on/off chip: a check mark and the label; a click or Enter flips it. Returns the chip (more can go inside). */
 function switchChip(parent, { label, on, tip, onToggle }) {
-  const el = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
-  const button = el.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
+  const chip = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
+  const button = chip.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
   setIcon(button.createSpan({ cls: "pdt-toggle-check" }), "check");
   button.createSpan({ text: label });
   if (tip) setTooltip(button, tip);
   button.onclick = () => onToggle(!on);
   onActivate(button, () => onToggle(!on));
-  return el;
+  return chip;
 }
 
 /** A filter chip that is itself the on/off switch, with a number to type (Downloads ≥ [100]). */
 function toggleChip(parent, { label, value, on, onToggle, onValue }) {
-  const chip = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
-  const toggle = chip.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
-  setIcon(toggle.createSpan({ cls: "pdt-toggle-check" }), "check");
-  toggle.createSpan({ text: label });
-  setTooltip(toggle, t(on ? "filter.toggleOn" : "filter.toggleOff"));
-  toggle.onclick = () => onToggle(!on);
-  onActivate(toggle, () => onToggle(!on));
+  const chip = switchChip(parent, { label, on, tip: t(on ? "filter.toggleOn" : "filter.toggleOff"), onToggle });
   const input = chip.createEl("input", { type: "number", value: String(value), attr: { min: "0", "aria-label": label } });
   input.onchange = () => onValue(Math.max(0, Math.round(Number(input.value)) || 0));
   return chip;
@@ -585,7 +593,7 @@ function fieldGroup(field) {
 const GUIDE_ROWS = {
   ops: [["=  /  !=", "=", "help.op.eq"], [">  /  >=", ">=", "help.op.gt"], ["<  /  <=", "<=", "help.op.lt"], ["~  /  !~", "~", "help.op.has"],
     ["in (…) / not in (…)", "in (", "help.op.in"], ["is empty", "is empty", "help.op.empty"], ["AND / OR / NOT", "AND", "help.op.bool"], ["order by … desc", "order by", "help.op.order"]],
-  functions: QUERY_FUNC_NAMES.map((f) => [`${f}()`, `${f}()`, `query.fn.${f}`]),   // the same text as the box's hints
+  functions: Object.keys(QUERY_FUNCS).map((f) => [`${f}()`, `${f}()`, `query.fn.${f}`]),   // the same text as the box's hints
   values: [["10k · 1.5m", "10k", "help.value.count"], ["14d · 2w · 6m · 1y", "14d", "help.value.span"], ["2026-01-01", "2026-01-01", "help.value.date"],
     [null, '""', "help.value.quoted"], ['("Tasks", Calendar)', "(", "help.value.list"]],   // null: the example is in your language
 };

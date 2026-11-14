@@ -45,8 +45,8 @@ function relativeDays(ms, now) {
   if (days <= 0) return t("rel.today");
   if (days === 1) return t("rel.yesterday");
   if (days < 60) return t("rel.days", { n: days });
-  if (days < 365) return t("rel.months", { n: Math.round(days / 30) });
-  return t("rel.years", { n: decimal(days / 365) });
+  if (days < YEAR_DAYS) return t("rel.months", { n: Math.round(days / 30) });
+  return t("rel.years", { n: decimal(days / YEAR_DAYS) });
 }
 
 /** The highest milestone (1K, 10K, 100K downloads) passed within the last `days` days: {n, at}, or null. */
@@ -62,8 +62,8 @@ function recentMilestone(milestones, now, days = MILESTONE_DAYS, steps = OLD_MIL
 function ageLabel(listed, now) {
   const days = Math.max(0, Math.floor((now - listed) / DAY_MS));
   if (days < 60) return t("age.daysOld", { n: days });
-  if (days < 365) return t("age.monthsOld", { n: Math.round(days / 30) });
-  return t("age.yearsOld", { n: decimal(days / 365) });
+  if (days < YEAR_DAYS) return t("age.monthsOld", { n: Math.round(days / 30) });
+  return t("age.yearsOld", { n: decimal(days / YEAR_DAYS) });
 }
 
 /** Clock time for today ("14:05"), date and time before that. */
@@ -160,7 +160,7 @@ function mergeTimeline(timeline, delta) {
   return {
     ...timeline,
     to: delta.to,
-    months: Math.max(1, Math.round((delta.to - timeline.from) / (30.44 * DAY_MS))),
+    months: Math.max(1, Math.round((delta.to - timeline.from) / (MONTH_DAYS * DAY_MS))),
     releases,
     firstSeen: { ...timeline.firstSeen, ...delta.firstSeen },
     milestones: { ...timeline.milestones, ...delta.milestones },
@@ -215,12 +215,11 @@ function releaseGaps(dates, now) {
 /** A length of time in the largest unit that fits: 5 days, 3 weeks, 4 months, 1.6 years. */
 function spanLabel(days) {
   if (days >= YEAR_DAYS) return t("span.years", { n: decimal(days / YEAR_DAYS) });
-  if (days >= 30) return t("span.months", { n: Math.round(days / 30.44) });
+  if (days >= 30) return t("span.months", { n: Math.round(days / MONTH_DAYS) });
   if (days >= 14) return t("span.weeks", { n: Math.round(days / 7) });
   return t("span.days", { n: Math.max(1, Math.round(days)) });
 }
 
-const YEAR_DAYS = 365;
 
 /**
  * How often a plugin updates lately: its update waves in the year up to `end` (or since its first release, when that's
@@ -248,7 +247,7 @@ function releaseCadence(releases, end) {
 function cadenceLabel(c) {
   if (!c.waves) return c.young ? t("details.single") : t("details.noneYear");
   if (c.days <= 45) return t("details.every", { n: Math.max(1, Math.round(c.days)) });
-  if (c.days <= 135) return t("details.everyMonths", { n: Math.round(c.days / 30.44) });
+  if (c.days <= 135) return t("details.everyMonths", { n: Math.round(c.days / MONTH_DAYS) });
   return c.days <= 240 ? t("details.halfYearly") : t("details.yearly");
 }
 
@@ -299,7 +298,7 @@ function compileQuery(query, state = null, now = Date.now(), advanced = false) {
       return { test: () => true, advanced: true, regex: false, error: error.message, at: error.at ?? 0, from: error.from, to: error.to, spans: [...(error.spans || []), bad] };
     }
   }
-  const text = (p) => `${p.id} ${p.name} ${p.author} ${p.description}`;
+  const text = (p) => QUERY_FIELDS.text.get(null, p);   // what a plain word searches (one rule for every box)
   const pattern = String(query || "").trim().match(/^\/(.+)\/$/);
   if (pattern) {
     try {
@@ -364,6 +363,8 @@ const TABLE_DEFAULT = ["downloads", "released", "favorite"];
 const gainText = (n) => (n == null ? "–" : `+${formatCount(n)}`);
 const riseText = (n) => (n == null ? "–" : t("table.percent", { n: formatCount(Math.round(n)) }));
 const ratingStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
+/** The rating menu: Clear, then 5 stars down to 1. */
+const ratingOptions = () => [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, ratingStars(n)])];
 
 /** The table's columns on a page (a tab, a saved view, a widget's list): yours (shown, in your order) or the default few. */
 function tableColumns(settings, page) {

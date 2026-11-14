@@ -167,7 +167,7 @@ class HomePage {
     const period = this.home.since.period;
     head.createEl("h2", { text: t("home.since") });
     const chip = head.createEl("button", { cls: "pdt-home-chip", text: `${this.sinceLabel(period)} ▾`, attr: { type: "button" } });
-    chip.onclick = (event) => this.choose(event, SINCE_PERIODS.map((p) => [p, this.sinceLabel(p)]), period, (p) => this.save((h) => { h.since.period = p; }));
+    chip.onclick = () => showMenuBelow(chip, SINCE_PERIODS.map((p) => [p, this.sinceLabel(p)]), period, (p) => this.save((h) => { h.since.period = p; }));
     if (period === "seen") setTooltip(chip, t("home.sinceSeenTip", { day: this.dayLabel(sinceMoment(this.home, Date.now())) }));
   }
 
@@ -295,7 +295,7 @@ class HomePage {
       chip.onclick = (event) => {
         event.stopPropagation();
         if (preview) return;
-        this.choose(event, paramOptions(ctx, id, key).map((v) => [v, this.paramText(key, v)]), params[key], (v) => this.setParam(id, key, v));
+        showMenuBelow(chip, paramOptions(ctx, id, key).map((v) => [v, this.paramText(key, v)]), params[key], (v) => this.setParam(id, key, v));
       };
     }
 
@@ -371,13 +371,6 @@ class HomePage {
 
   setParam(id, key, value) {
     return this.save((h) => { h.params = { ...h.params, [id]: { ...h.params?.[id], [key]: value } }; });
-  }
-
-  /** A small menu of options under the chip that opened it. */
-  choose(event, options, current, onPick) {
-    const menu = new Menu();
-    for (const [value, text] of options) menu.addItem((item) => item.setTitle(text).setChecked(value === current).onClick(() => onPick(value)));
-    menu.showAtMouseEvent(event);
   }
 
   /** What a saved view shows: its query. */

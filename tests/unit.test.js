@@ -401,7 +401,7 @@ const tests = {
     assert.deepEqual(ids("released >= startOfMonth(-1) released < startOfMonth()"), plugins.filter((p) => p.updated < monthStart && p.updated >= new Date(local.getFullYear(), local.getMonth() - 1, 1).getTime()).map((p) => p.id));
     assert.deepEqual(ids("released >= startOfYear()"), ["cal", "tasks"]);
     assert.deepEqual(ids("listed >= startOfWeek(-1)"), ["tasks"]);
-    assert.equal(new Date(core.QUERY_FUNCS.startofweek(now, 0)).getDay(), 1, "weeks start on Monday");
+    assert.equal(new Date(core.QUERY_FUNCS.startOfWeek(now, 0)).getDay(), 1, "weeks start on Monday");
     assert.deepEqual(core.compileQuery("released > lastSync()", { ...state, lastSync: now - 10 * DAY }, now) && plugins.filter((p) => core.compileQuery("released > lastSync()", { ...state, lastSync: now - 10 * DAY }, now).test(p)).map((p) => p.id), ["cal"]);
     assert.ok(core.compileQuery("downloads > today()", state, now).error, "functions only on date fields");
     assert.ok(core.compileQuery("released > soon()", state, now).error);
@@ -853,6 +853,14 @@ const tests = {
     assert.deepEqual(st.home.views.map((v) => v.query), [undefined, "releases(180d) > 9"]);
     assert.equal(st.pageQueries.new, "listed <= 14d");
     assert.deepEqual(st.recentQueries, ["gain(7d) > 5"]);
+  },
+
+  "date functions: one table, written names, any case in a query"() {
+    for (const text of ["released >= startOfMonth()", "released >= STARTOFMONTH()", "released >= startofmonth(-1)"]) {
+      assert.equal(core.compileQuery(text, null, NOW, true).error, "", text);
+    }
+    const tip = core.queryTip({ text: "startofmonth", cls: "fn" }, null, NOW);
+    assert.equal(tip.body, core.t("query.fn.startOfMonth"), "the guide's text, found by any spelling");
   },
 
   "dropClause: the joiner goes with the clause, so what is left still parses"() {

@@ -65,8 +65,13 @@ class Cache {
     this.dir = normalizePath(`${dir}/cache`);
   }
 
-  path(name) {
-    return `${this.dir}/${name}.json`;
+  path(name, ext = "json") {
+    return `${this.dir}/${name}.${ext}`;
+  }
+
+  /** Makes the cache folder on the first write. */
+  async ensureDir() {
+    if (!(await this.adapter.exists(this.dir))) await this.adapter.mkdir(this.dir);
   }
 
   async read(name, fallback) {
@@ -79,12 +84,12 @@ class Cache {
   }
 
   async write(name, value) {
-    if (!(await this.adapter.exists(this.dir))) await this.adapter.mkdir(this.dir);
+    await this.ensureDir();
     await this.adapter.write(this.path(name), JSON.stringify(value));
   }
 
   async readBinary(name) {
-    const path = `${this.dir}/${name}.bin`;
+    const path = this.path(name, "bin");
     try {
       return (await this.adapter.exists(path)) ? await this.adapter.readBinary(path) : null;
     } catch (error) {
@@ -94,8 +99,8 @@ class Cache {
   }
 
   async writeBinary(name, buffer) {
-    if (!(await this.adapter.exists(this.dir))) await this.adapter.mkdir(this.dir);
-    await this.adapter.writeBinary(`${this.dir}/${name}.bin`, buffer);
+    await this.ensureDir();
+    await this.adapter.writeBinary(this.path(name, "bin"), buffer);
   }
 }
 

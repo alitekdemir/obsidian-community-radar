@@ -767,18 +767,6 @@ class PluginRadar extends Plugin {
     this.redraw();
     return op;
   }
-
-  async markReviewed(plugins) {
-    const today = dayString(Date.now());
-    for (const plugin of plugins) {
-      const file = this.notes.file(plugin.id);
-      if (!file) continue;
-      await this.app.fileManager.processFrontMatter(file, (fm) => { fm.reviewed = today; });
-      this.notes.index.get(plugin.id).reviewed = today;
-    }
-    this.redraw();
-  }
-
 }
 
 module.exports = PluginRadar;
