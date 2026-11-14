@@ -5,15 +5,7 @@
  * group's ⋯ (or a right click on its title) renames, widens, adds or deletes it, its grip reorders the groups; a
  * card's grip reorders the cards, its ⋮ (a small card: right click) changes its settings or takes it off.
  */
-class HomePage {
-  constructor(view) {
-    this.view = view;
-  }
-
-  get plugin() {
-    return this.view.plugin;
-  }
-
+class HomePage extends ViewPart {
   get home() {
     return this.view.settings.home;
   }
@@ -454,7 +446,7 @@ class HomePage {
     const home = this.home;
     const menu = new Menu();
     menu.addItem((item) => item.setTitle(t("home.showInfo")).setChecked(home.info).onClick(() => this.save((h) => { h.info = !h.info; })));
-    menu.addItem((item) => item.setTitle(t("bulk.recent")).setIcon("history").onClick(() => this.view.openRecent()));
+    menu.addItem((item) => item.setTitle(t("bulk.recent")).setIcon("history").onClick(() => this.view.bulkBar.openRecent()));
     menu.addSeparator();
     menu.addItem((item) => item.setTitle(t("home.addWidget")).setIcon("plus").onClick(() => this.addMenu()));
     menu.addItem((item) => item.setTitle(t("home.start", { where: t(this.view.settings.start === "home" ? "home.startHome" : "home.startLast") }))

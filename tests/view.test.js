@@ -237,12 +237,25 @@ const tests = {
     plugin._data = { settings: { home: { views: [{ id: "v1", name: "Mine", mode: "updated", filters: {} }] } }, migrations: {} };
     await plugin.onload();
     await tick(10);
-    const steps = ["h1Headings", "groupsList", "statusKeys", "readmeMarkers", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages", "keyNames"];
+    const steps = ["h1Headings", "groupsList", "statusKeys", "readmeMarkers", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages", "keyNames", "viewQueriesRepair"];
     assert.deepEqual(Object.keys(plugin.data.migrations).filter((k) => steps.includes(k)), steps, "all recorded, in this order");
     const [view] = plugin.data.settings.home.views;
     assert.notEqual(view.query, "undefined");
     assert.ok(view.query.startsWith("released <= 14d"), view.query);
     assert.equal(core.compileQuery(view.query, null, NOW, true).error, "", "it parses");
+  },
+
+  async "migrations: a view the old order left as \"undefined\" gets its query back"() {
+    const plugin = new PluginRadar(fake.makeApp(), { dir: ".obsidian/plugins/plugin-radar" });
+    const done = Object.fromEntries(["legacyImport", "h1Headings", "groupsList", "statusKeys", "readmeMarkers", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages", "keyNames"].map((k) => [k, "2026-10-01"]));
+    const broken = { id: "v1", name: "Mine", mode: "updated", filters: {}, query: "undefined" };
+    const fine = { id: "v2", name: "Ok", query: "downloads >= 1k" };
+    plugin._data = { settings: { home: { views: [broken, fine] } }, migrations: done };
+    await plugin.onload();
+    await tick(10);
+    const [repaired, kept] = plugin.data.settings.home.views;
+    assert.ok(repaired.query.startsWith("released <= 14d"), repaired.query);
+    assert.deepEqual(kept, fine, "a view with a real query is left alone");
   },
 
   async "view: tabs with tooltips, menu chips, rows, no excluded/tracked rows"(ctx) {
@@ -284,7 +297,7 @@ const tests = {
     await view.update("mode", "updated");
     const chipText = sortChip().textContent;
     assert.ok(chipText.endsWith(core.t("sort.released")), chipText);   // each tab keeps its own sort
-    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    await view.filterBar.updateTab("sortBy", { key: "downloads", dir: "desc" });
     ctx.view = view;
   },
 
@@ -427,8 +440,8 @@ const tests = {
     await typeQuery("downloads >= 1k name ~ zzzz");
     assert.equal($$(el, ".pdt-row").length, 0);
     assert.equal($(el, ".pdt-query-why").textContent, core.t("query.without", { clause: "name ~ zzzz", n: 2 }));
-    assert.deepEqual(view.clauseCounts("downloads >= 1k name ~ zzzz"), [["downloads >= 1k", 2], ["name ~ zzzz", 0]], "what each clause finds alone");
-    assert.deepEqual(view.clauseCounts("downloads >= 1k AND name ~ zzzz", true), [["name ~ zzzz", 2], ["downloads >= 1k", 0]], "without a clause: its AND goes too");
+    assert.deepEqual(view.searchBox.clauseCounts("downloads >= 1k name ~ zzzz"), [["downloads >= 1k", 2], ["name ~ zzzz", 0]], "what each clause finds alone");
+    assert.deepEqual(view.searchBox.clauseCounts("downloads >= 1k AND name ~ zzzz", true), [["name ~ zzzz", 2], ["downloads >= 1k", 0]], "without a clause: its AND goes too");
     assert.equal(settings.recentQueries[0], "downloads >= 1k name ~ zzzz");
     box().onkeydown({ key: "Escape", ctrlKey: false, preventDefault() {}, stopPropagation() {} });
     assert.equal(box().value, core.pageQuery(settings, "all"), "Esc: back to the page's query");
@@ -462,7 +475,7 @@ const tests = {
     await tick();
     assert.deepEqual(names(), [...before].reverse());
     assert.notEqual(settings.sortBy.all.dir, dir);
-    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    await view.filterBar.updateTab("sortBy", { key: "downloads", dir: "desc" });
     const sortedNames = names();
 
     const search = $(el, ".pdt-search .pdt-q-input");
@@ -675,7 +688,7 @@ const tests = {
     view.onPaneMenu(menu, "more-options");
     assert.ok(!menu.items.some((i) => i.icon === "folder-plus"), "no separate grouping mode any more");
     fake.network.prompts.length = 0;
-    view.pick(plugin.pluginById("fresh"), true);
+    view.bulkBar.pick(plugin.pluginById("fresh"), true);
     $$(el, ".pdt-bulk-action").find((b) => b.textContent === core.t("bulk.suggest", { n: 1 })).onclick();
     await tick(20);
     assert.equal(fake.network.prompts.length, 1);
@@ -684,8 +697,8 @@ const tests = {
     await tick();
     assert.deepEqual(plugin.notes.index.get("fresh").groups, ["Planning"], "saved at once");
     assert.ok(chipOf("fresh", "Planning").classList.contains("is-on"));
-    view.clearSelection();
-    view.syncSelection();
+    view.bulkBar.clearSelection();
+    view.bulkBar.syncSelection();
     assert.ok(!$(rowOf("fresh"), ".pdt-gchip"), "no picks, no chips");
 
     // Settings' Suggest groups: Tracked › Ungrouped with its plugins picked and their groups under the rows
@@ -746,7 +759,7 @@ const tests = {
     assert.ok($(el, ".pdt-filter-menu + .pdt-similar-chip"));
     const min = settings.minDownloads;
     settings.minDownloads = 600;
-    await view.updateTab("downloadFilter", true);
+    await view.filterBar.updateTab("downloadFilter", true);
     assert.ok(view.similar, "a filter change keeps Similar");
     assert.ok(!$$(el, ".pdt-name").some((a) => a.textContent === "Home Tab"), "500 downloads: below Downloads ≥ 600");
     settings.minDownloads = min;
@@ -764,7 +777,7 @@ const tests = {
     settings.query = "kept";                                                    // All's own search…
     view.refresh();
     assert.equal($(el, ".pdt-filter-count").textContent, String(before + 1), "counts the Similar search, not All's");
-    await view.clearFilters();
+    await view.filterBar.clearFilters();
     assert.equal(view.similar.query, "");
     assert.equal(settings.query, "kept", "…survives a clear inside Similar");
     assert.ok($(el, ".pdt-filter-count").classList.contains("is-hidden"), "nothing changed: no count");
@@ -809,9 +822,9 @@ const tests = {
     const found = plugin.similarTo(homepage);
     assert.deepEqual(found.slice(0, 2).map((x) => x.p.id), ["startpage", "hometab"], "closest by meaning even without shared words");
     assert.ok(found[0].cosine > found[2].cosine);
-    view.openSimilar(homepage);
+    view.similarFilter.open(homepage);
     assert.ok($(el, ".pdt-status-text").textContent.includes(core.t("similar.byMeaning")));
-    view.closeSimilar();
+    view.similarFilter.close();
     await view.update("mode", "all");
 
     // the details window: numbers, description, similar, README tabs; ← → walk the list
@@ -954,7 +967,7 @@ const tests = {
     assert.ok($(el, ".pdt-list").classList.contains("is-selecting") && rows()[1].classList.contains("is-selected"));
     assert.equal($(el, ".pdt-bulk-bar b").textContent, core.t("bulk.selected", { n: 3 }));
     // like Gmail: the shown rows first, then every row of the list
-    view.clearSelection();
+    view.bulkBar.clearSelection();
     view.selected.add(view.rows[0].id);
     view.visible = 2;
     view.refresh();
@@ -963,15 +976,15 @@ const tests = {
     assert.equal(link().textContent, core.t("bulk.selectAll", { n: core.formatCount(view.rows.length) }));
     link().onclick();
     assert.equal(view.selected.size, view.rows.length, "the rows not shown yet too");
-    view.clearSelection();
+    view.bulkBar.clearSelection();
     view.visible = 50;
     for (const i of [0, 1, 2]) view.selected.add(view.rows[i].id);
-    view.syncSelection();
+    view.bulkBar.syncSelection();
     assert.ok($(rows()[0], "label.pdt-select-hit > .pdt-select"), "the box sits in a label over the gutter: a near miss picks, not opens");
     const picked = [...view.selected];
     let asked = null;
-    view.confirm = async (o) => { asked = o; return true; };
-    await view.runBulk("snooze");
+    view.bulkBar.confirm = async (o) => { asked = o; return true; };
+    await view.bulkBar.runBulk("snooze");
     assert.equal(asked.plugins.length, 3);
     assert.ok(picked.every((id) => id in plugin.data.snoozed));
     assert.equal(view.selected.size, 0, "done: the selection goes");
@@ -984,9 +997,9 @@ const tests = {
     assert.ok($(el, ".pdt-toast").textContent.includes(core.t("bulk.skipped", { n: 1 })));
     assert.ok(plugin.data.ops[0].undone);
     delete plugin.data.snoozed[picked[0]];
-    view.confirm = async () => false;
-    view.pick(plugin.pluginById(picked[0]), true);
-    await view.runBulk("exclude");
+    view.bulkBar.confirm = async () => false;
+    view.bulkBar.pick(plugin.pluginById(picked[0]), true);
+    await view.bulkBar.runBulk("exclude");
     assert.ok(!(picked[0] in plugin.data.excluded), "cancelled: nothing done");
     await view.update("mode", "updated");
     assert.equal(view.selected.size, 0, "another tab clears the selection");
@@ -1043,7 +1056,7 @@ const tests = {
     assert.ok($(el, ".pdt-bulk-bar") && $(el, ".pdt-trow").classList.contains("is-selected"));
     view.selected.clear();
     settings.tableColumns = {};
-    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    await view.filterBar.updateTab("sortBy", { key: "downloads", dir: "desc" });
 
     // the column picker: a popover with the shown columns (field, first row's value, ✕) and the rest as chips
     view.refresh();
@@ -1077,21 +1090,21 @@ const tests = {
     assert.ok(!pop(), "a click outside closes it");
 
     // Query mode: a header click writes the query's order by (the list follows it, the save bar shows it)
-    await view.toQueryMode();
+    await view.searchBox.toQueryMode();
     $$(el, ".pdt-table-sort").find((b) => b.textContent.startsWith(core.t("col.released"))).onclick();
     await tick();
     assert.equal(settings.queries.all, "order by released desc");   // All's query is only its sort
-    assert.deepEqual(view.listSort, { key: "released", dir: "desc" });
+    assert.deepEqual(view.filterBar.listSort, { key: "released", dir: "desc" });
     assert.ok($$(el, ".pdt-table-sort.is-on")[0].textContent.startsWith(core.t("col.released")));
     assert.ok($(el, ".pdt-q-changes:not(.is-hidden)"), "the changed query can be saved");
     const typed = $(el, ".pdt-search .pdt-q-input");
     typed.value = "downloads >= 1\norder by name asc";
     typed.oninput();
     await tick(1100);
-    assert.equal(view.listSort.key, "name");
+    assert.equal(view.filterBar.listSort.key, "name");
     assert.ok($(el, ".pdt-sort").textContent.includes(core.t("sort.name")), "Sort follows the typed order by without a redraw");
-    await view.revertQuery();
-    await view.toBasicMode();
+    await view.searchBox.revertQuery();
+    await view.searchBox.toBasicMode();
     await view.update("layout", "list");
   },
 
@@ -1261,13 +1274,13 @@ const tests = {
     assert.equal(plugin.timeline.to, NOW, "newer: downloaded");
     assert.equal(core.gainOver(plugin.timeline, "homepage", 30), 200);
     await view.update("mode", "all");
-    await view.updateTab("sortBy", { key: "gain(7d)", dir: "desc" });            // gained most in 7 days first, with the gain
+    await view.filterBar.updateTab("sortBy", { key: "gain(7d)", dir: "desc" });            // gained most in 7 days first, with the gain
     const rows = $$(view.contentEl, ".pdt-row");
     assert.equal($(rows[0], ".pdt-name").textContent, "Homepage");
     assert.equal($(rows[0], ".pdt-growth").textContent, "+50");
     assert.equal($(rows[0], ".pdt-signal.is-milestone").textContent, "🎯 10K", "passed 10K five days ago");
     assert.equal($(rows[1], ".pdt-name").textContent, "Dataview");
-    await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    await view.filterBar.updateTab("sortBy", { key: "downloads", dir: "desc" });
     assert.ok(!$(view.contentEl, ".pdt-growth"), "the gain shows only when sorting by it");
     // the next day: only delta.json comes down, and joins on to ours
     const today = Math.floor(NOW / DAY);

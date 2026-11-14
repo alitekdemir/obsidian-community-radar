@@ -8,7 +8,8 @@
  *   00     Constants and i18n
  *   10–19  Core: pure functions (dates, catalog, release history, discovery, README, translation, similarity)
  *   20     Services: GitHub client, cache, notes, translator
- *   30–33  UI: modals, details window, discovery view, settings tab
+ *   30–39  UI: modals, details window, the view (32) and its parts (34 Home, 35 search box, 36 filter bar,
+ *          37 rows, 38 bulk bar, 39 Similar filter), settings tab
  *   40     Plugin class: wires everything together
  */
 const obsidian = require("obsidian");

@@ -9,7 +9,7 @@
 
 ### Fixed
 - **Why a list is empty:** in Query mode the status line names the clause that emptied the list again; with `AND` between clauses it always counted 0 and never showed.
-- **Saved views from before 0.10:** upgrading straight to 0.11 turned their query into the word `undefined`, so they found nothing; the upgrade steps now run in order.
+- **Saved views from before 0.10:** upgrading straight to 0.11 turned their query into the word `undefined`, so they found nothing; the upgrade steps now run in order, and views it already broke get their query back.
 - **Hidden tab:** its count no longer turns into "–" after the list refreshes.
 - **Sync:** rewriting the tracking notes redraws the view once, not once per note, so a sync with many tracked plugins no longer stalls Obsidian.
 - **AI errors:** a provider's error page that isn't JSON (a proxy's 502) now shows its status and text instead of "Unexpected token <".

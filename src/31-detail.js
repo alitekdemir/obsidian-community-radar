@@ -102,7 +102,7 @@ class DetailModal extends Modal {
     const near = section(side, t("details.similar"));
     if (similar.length) {
       const all = near.head.createEl("a", { cls: "pdt-detail-head-link", text: t("details.similarAll", { n: similar.length }), href: "#" });
-      all.onclick = (event) => { event.preventDefault(); this.close(); this.view.openSimilar(p); };
+      all.onclick = (event) => { event.preventDefault(); this.close(); this.view.similarFilter.open(p); };
     }
     for (const x of similar.slice(0, 5)) {
       const item = near.box.createEl("button", { cls: "pdt-detail-near", attr: { type: "button" } });
@@ -209,7 +209,7 @@ class DetailModal extends Modal {
       return b;
     };
     const star = (icon, tip, fn, cls) => { const b = button(icon, t("details.favorite"), () => this.act(fn), cls); setTooltip(b, tip); return b; };
-    this.view.renderStar(footer, star, p, note, (fn) => this.act(fn));
+    this.view.rowRenderer.renderStar(footer, star, p, note, (fn) => this.act(fn));
     button("folder-plus", t("action.group"), () => this.act(() => plugin.chooseGroup(p)));
     button("eye-off", t("action.snooze"), () => this.drop(() => plugin.snooze(p)));
     button("ban", t("action.exclude"), () => this.drop(() => plugin.exclude(p)));

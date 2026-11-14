@@ -134,6 +134,11 @@ class PluginRadar extends Plugin {
         const moved = this.translator.migrateLegacyKeys();
         if (moved) new Notice(t("notice.keysMoved", { n: moved, example: KEY_NAMES.anthropic }));
       }],
+      // 0.11.3: before the order above was fixed, a pre-0.10 view could end up with the query "undefined"; its tab and
+      // filters are still there, so it gets the query it meant
+      ["viewQueriesRepair", () => {
+        if (st.home?.views) st.home.views = st.home.views.map((v) => (v.query === "undefined" && v.mode ? { id: v.id, name: v.name, query: legacyViewQuery(v, st) } : v));
+      }],
     ];
     for (const [key, run] of steps) {
       if (done[key]) continue;
@@ -459,7 +464,7 @@ class PluginRadar extends Plugin {
     const p = note && this.pluginById(note.id);
     if (!p) return new Notice(t("notice.notTracking"));
     await this.openView();
-    await this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view.openSimilar(p);
+    await this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]?.view.similarFilter.open(p);
   }
 
   async updateCurrentReadme() {
@@ -611,8 +616,8 @@ class PluginRadar extends Plugin {
     if (!view) return;
     // pick the ungrouped plugins shown and ask for their groups: they show under the rows, a click saves
     for (const p of (view.rows || []).slice(0, Math.min(view.visible, AI_BATCH))) view.selected.add(p.id);
-    view.syncSelection();
-    await view.suggestGroups();
+    view.bulkBar.syncSelection();
+    await view.bulkBar.suggestGroups();
   }
 
   /** Ignores a plugin: every list leaves it out. Recorded, so the toast's Undo (or Recent actions) turns it back. */
