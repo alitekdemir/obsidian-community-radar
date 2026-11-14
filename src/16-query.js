@@ -86,6 +86,30 @@ function migrateQuery(text, newDays = DEFAULT_NEW_DAYS) {
     .replace(asClause("milestone"), "milestone()");
 }
 
+/** 0.10: a tab's days, pause, Hide busy and Downloads ≥ become its query; changes `st` (the settings) in place. */
+function migratePageQueries(st) {
+  const old = { days: st.days ?? 14, incubated: st.dormantDays ?? INCUBATION_DAYS, busy: st.hideBusy !== false };
+  const min = (mode) => (st.downloadFilter?.[mode] ?? true ? st.minDownloads ?? 100 : 0);   // on by default there
+  const mine = {
+    new: defaultPageQuery("new", old),
+    updated: defaultPageQuery("updated", { ...old, downloads: min("updated") }),
+    awakened: defaultPageQuery("awakened", { ...old, downloads: min("awakened") }),
+  };
+  st.pageQueries = Object.fromEntries(Object.entries(mine).filter(([mode, q]) => q !== defaultPageQuery(mode)));   // only what differs
+  for (const mode of ["updated", "awakened"]) if (st.downloadFilter) delete st.downloadFilter[mode];
+  st.queries = {};
+  if (st.queryMode) st.query = "";   // 0.10 builds before this: one query for every tab
+  delete st.queryMode;
+}
+
+/** 0.11: every saved query (pages, boxes, recent ones, views) in today's fields (see migrateQuery); changes `st` in place. */
+function migrateFields011(st) {
+  const move = (q) => (typeof q === "string" ? migrateQuery(q, st.newDays) : q);   // a missing query stays missing
+  const each = (byPage) => Object.fromEntries(Object.entries(byPage || {}).map(([page, q]) => [page, move(q)]));
+  Object.assign(st, { pageQueries: each(st.pageQueries), queries: each(st.queries), recentQueries: (st.recentQueries || []).map(move) });
+  if (st.home?.views) st.home.views = st.home.views.map((v) => ({ ...v, query: move(v.query) }));
+}
+
 /** A parameter as the field reads it (days or a count); null if it isn't one. */
 function paramValue(field, text) {
   const value = queryNumber(text, field.param.kind === "days");

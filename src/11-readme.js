@@ -174,6 +174,11 @@ function migrateHeadings(content) {
     .replace(/^## README[ \t]*\n(?=<!-- plugin-tracker:readme-start -->)/m, "# README\n");
 }
 
+/** Turns 0.7.1's status values (candidate, trying, using, dropped) into today's (see LEGACY_STATUS). */
+function migrateStatuses(content) {
+  return content.replace(/^status: (candidate|trying|using|dropped)[ \t]*$/m, (all, old) => `status: ${LEGACY_STATUS[old]}`);
+}
+
 /** Swaps the README markers of notes made before 0.6.1 for hidden Obsidian comments. */
 function migrateMarkers(content) {
   return content.replace(LEGACY_README_START, README_START).replace(LEGACY_README_END, README_END);

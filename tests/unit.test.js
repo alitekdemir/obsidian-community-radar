@@ -837,6 +837,24 @@ const tests = {
     assert.equal(core.readmeVersion("no markers"), null);
   },
 
+  "note migrations: each changes an old note, and twice is the same as once"() {
+    const { LEGACY_README_START, LEGACY_README_END } = core.constants;
+    const old = `---\nstatus: trying\n---\n## Notlarım\nmine\n\n## README\n${LEGACY_README_START}\n![x](https://github.com/o/r/blob/main/a.png)\n${LEGACY_README_END}\n`;
+    for (const fn of [core.migrateHeadings, core.migrateStatuses, core.migrateMarkers, core.migrateImages]) {
+      const once = fn(old);
+      assert.notEqual(once, old, `${fn.name} changes an old note`);
+      assert.equal(fn(once), once, `${fn.name} twice is once`);
+    }
+  },
+
+  "settings migrations: a missing view query stays missing (it used to become \"undefined\")"() {
+    const st = { newDays: 14, pageQueries: { new: "new" }, queries: {}, recentQueries: ["gain7 > 5"], home: { views: [{ id: "a" }, { id: "b", query: "busy" }] } };
+    core.migrateFields011(st);
+    assert.deepEqual(st.home.views.map((v) => v.query), [undefined, "releases(180d) > 9"]);
+    assert.equal(st.pageQueries.new, "listed <= 14d");
+    assert.deepEqual(st.recentQueries, ["gain(7d) > 5"]);
+  },
+
   "dropClause: the joiner goes with the clause, so what is left still parses"() {
     const cut = (query, clause) => {
       const from = query.indexOf(clause);

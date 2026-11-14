@@ -198,6 +198,53 @@ const tests = {
     assert.equal(plugin.updatesCount(), 1);               // homepage: reviewed 20 days ago, released 3 days ago
   },
 
+  async "notes: null clears a property; a sync with nothing new writes nothing"({ app, plugin }) {
+    const p = plugin.pluginById("homepage");
+    const file = plugin.notes.file("homepage");
+    const fm = () => app.metadataCache.getFileCache(file).frontmatter;
+    await plugin.notes.upsert(p, { note: "try it" });
+    assert.equal(fm().note, "try it");
+    const groups = fm().groups;
+    await plugin.notes.upsert(p, { note: null });
+    assert.ok(!("note" in fm()), "null removes the property");
+    assert.deepEqual(fm().groups, groups, "the rest stays");
+
+    const write = app.fileManager.processFrontMatter;
+    let writes = 0;
+    app.fileManager.processFrontMatter = async (...args) => { writes++; return write(...args); };
+    try {
+      await plugin.notes.syncSource(p);   // brings the note up to date, if it wasn't
+      writes = 0;
+      assert.equal(await plugin.notes.syncSource(p), false, "same release");
+      assert.equal(writes, 0, "nothing changed: no write");
+      assert.equal(await plugin.notes.syncSource({ ...p, downloads: p.downloads + 1 }), false, "a new count isn't a release");
+      assert.equal(writes, 1, "…but it is written");
+      await plugin.notes.syncSource(p);
+    } finally {
+      app.fileManager.processFrontMatter = write;
+    }
+  },
+
+  async "note migrations change nothing the second time"({ plugin }) {
+    for (const fn of [core.migrateHeadings, core.migrateStatuses, core.migrateMarkers, core.migrateImages]) {
+      assert.equal(await plugin.notes.migrate(fn), 0, fn.name);
+    }
+  },
+
+  async "migrations: every step runs once, in order; a pre-0.10 view becomes its query, not \"undefined\""() {
+    const app = fake.makeApp();
+    const plugin = new PluginRadar(app, { dir: ".obsidian/plugins/plugin-radar" });
+    plugin._data = { settings: { home: { views: [{ id: "v1", name: "Mine", mode: "updated", filters: {} }] } }, migrations: {} };
+    await plugin.onload();
+    await tick(10);
+    const steps = ["h1Headings", "groupsList", "statusKeys", "readmeMarkers", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages", "keyNames"];
+    assert.deepEqual(Object.keys(plugin.data.migrations).filter((k) => steps.includes(k)), steps, "all recorded, in this order");
+    const [view] = plugin.data.settings.home.views;
+    assert.notEqual(view.query, "undefined");
+    assert.ok(view.query.startsWith("released <= 14d"), view.query);
+    assert.equal(core.compileQuery(view.query, null, NOW, true).error, "", "it parses");
+  },
+
   async "view: tabs with tooltips, menu chips, rows, no excluded/tracked rows"(ctx) {
     const { app, plugin } = ctx;
     const view = plugin.viewFactory({ app });

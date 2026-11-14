@@ -108,66 +108,37 @@ class PluginRadar extends Plugin {
     await this.saveData(this.data);
   }
 
-  /** One-time changes applied to notes and keys when upgrading. */
+  /**
+   * One-time changes to notes, settings and keys when upgrading, oldest first. Each step runs once: its day is kept
+   * under its key in `data.migrations`. A new step goes at the end of the list, with a key of its own.
+   */
   async runMigrations() {
     const done = this.data.migrations;
-    if (!done.h1Headings) {
-      const changed = await this.notes.migrate(migrateHeadings);
-      done.h1Headings = dayString(Date.now());
-      if (changed) new Notice(t("notice.headings", { n: changed }));
-    }
-    if (!done.groupsList) {
-      const moved = await this.notes.migrateGroups();
-      done.groupsList = dayString(Date.now());
-      if (moved) new Notice(t("notice.groupsMigrated", { n: moved }), 10000);
-    }
-    if (!done.statusKeys) {   // 0.7.1's statuses → the new ones
-      const moved = await this.notes.migrate((content) => content.replace(/^status: (candidate|trying|using|dropped)[ \t]*$/m, (all, old) => `status: ${LEGACY_STATUS[old]}`));
-      done.statusKeys = dayString(Date.now());
-      if (moved) new Notice(t("notice.statusMigrated", { n: moved }), 10000);
-    }
-    if (!done.readmeMarkers) {
-      await this.notes.migrate(migrateMarkers);
-      done.readmeMarkers = dayString(Date.now());
-    }
-    if (!done.newDays14) {   // 0.9.2: "new" lasts 14 days by default; 30 was 0.9's default, not a choice
-      if (this.data.settings.newDays === 30) this.data.settings.newDays = DEFAULT_NEW_DAYS;
-      done.newDays14 = dayString(Date.now());
-    }
-    if (!done.pageQueries) {   // 0.10: a tab's days, pause, Hide busy and Downloads ≥ become its query
-      const st = this.data.settings;
-      const old = { days: st.days ?? 14, incubated: st.dormantDays ?? INCUBATION_DAYS, busy: st.hideBusy !== false };
-      const min = (mode) => (st.downloadFilter?.[mode] ?? true ? st.minDownloads ?? 100 : 0);   // on by default there
-      const mine = { new: defaultPageQuery("new", old), updated: defaultPageQuery("updated", { ...old, downloads: min("updated") }),
-        awakened: defaultPageQuery("awakened", { ...old, downloads: min("awakened") }) };
-      st.pageQueries = Object.fromEntries(Object.entries(mine).filter(([mode, q]) => q !== defaultPageQuery(mode)));
-      for (const mode of ["updated", "awakened"]) if (st.downloadFilter) delete st.downloadFilter[mode];
-      st.queries = {};
-      if (st.queryMode) st.query = "";   // 0.10 builds before this: one query for every tab
-      delete st.queryMode;
-      done.pageQueries = dayString(Date.now());
-    }
-    if (!done.fields011) {   // 0.11: busy, new, gain7…, a bare milestone are gone; saved queries say it the new way
-      const st = this.data.settings;
-      const move = (q) => migrateQuery(q, st.newDays);
-      const each = (obj) => Object.fromEntries(Object.entries(obj || {}).map(([k, q]) => [k, typeof q === "string" ? move(q) : q]));
-      Object.assign(st, { pageQueries: each(st.pageQueries), queries: each(st.queries), recentQueries: (st.recentQueries || []).map(move) });
-      if (st.home?.views) st.home.views = st.home.views.map((v) => ({ ...v, query: move(v.query) }));
-      done.fields011 = dayString(Date.now());
-    }
-    if (!done.viewQueries) {   // 0.10: a saved view is a query (its tab's query, then its filters)
-      const home = this.data.settings.home;
-      if (home?.views) home.views = home.views.map((v) => (v.query != null ? v : { id: v.id, name: v.name, query: legacyViewQuery(v, this.data.settings) }));
-      done.viewQueries = dayString(Date.now());
-    }
-    if (!done.readmeImages) {
-      await this.notes.migrate(migrateImages);
-      done.readmeImages = dayString(Date.now());
-    }
-    if (!done.keyNames) {
-      const moved = this.translator.migrateLegacyKeys();
-      done.keyNames = dayString(Date.now());
-      if (moved) new Notice(t("notice.keysMoved", { n: moved, example: KEY_NAMES.anthropic }));
+    const st = this.data.settings;
+    const tell = (key, n, timeout) => { if (n) new Notice(t(key, { n }), timeout); };   // only when something changed
+    const steps = [
+      ["h1Headings", async () => tell("notice.headings", await this.notes.migrate(migrateHeadings))],
+      ["groupsList", async () => tell("notice.groupsMigrated", await this.notes.migrateGroups(), 10000)],
+      ["statusKeys", async () => tell("notice.statusMigrated", await this.notes.migrate(migrateStatuses), 10000)],
+      ["readmeMarkers", () => this.notes.migrate(migrateMarkers)],
+      // 0.9.2: "new" lasts 14 days by default; 30 was 0.9's default, not a choice
+      ["newDays14", () => { if (st.newDays === 30) st.newDays = DEFAULT_NEW_DAYS; }],
+      ["pageQueries", () => migratePageQueries(st)],
+      // 0.10: a saved view is a query (its tab's query, then its filters); before fields011, which rewrites that query
+      ["viewQueries", () => {
+        if (st.home?.views) st.home.views = st.home.views.map((v) => (v.query != null ? v : { id: v.id, name: v.name, query: legacyViewQuery(v, st) }));
+      }],
+      ["fields011", () => migrateFields011(st)],
+      ["readmeImages", () => this.notes.migrate(migrateImages)],
+      ["keyNames", () => {
+        const moved = this.translator.migrateLegacyKeys();
+        if (moved) new Notice(t("notice.keysMoved", { n: moved, example: KEY_NAMES.anthropic }));
+      }],
+    ];
+    for (const [key, run] of steps) {
+      if (done[key]) continue;
+      await run();
+      done[key] = dayString(Date.now());
     }
     await this.saveData(this.data);
   }
