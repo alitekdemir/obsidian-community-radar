@@ -186,8 +186,14 @@ class PluginRadar extends Plugin {
     };
   }
 
+  /** A catalog plugin by id; the lookup is rebuilt when the catalog's list changes (like textIndex). */
   pluginById(id) {
-    return this.catalog?.plugins.find((p) => p.id === id) || null;
+    const plugins = this.catalog?.plugins;
+    if (this.byIdPlugins !== plugins) {
+      this.byIdPlugins = plugins;
+      this.byId = new Map((plugins || []).map((p) => [p.id, p]));
+    }
+    return this.byId.get(id) || null;
   }
 
   /** Updates open views; `full` rebuilds them (e.g. after a language change). */

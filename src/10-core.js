@@ -13,12 +13,12 @@ function dayStart(day) {
 }
 
 function decimal(value, digits = 1) {
-  return new Intl.NumberFormat(t("locale"), { maximumFractionDigits: digits }).format(value);
+  return intl(Intl.NumberFormat, { maximumFractionDigits: digits }).format(value);
 }
 
 /** 1234567 → "1,234,567" (en) / "1.234.567" (tr); missing → "–" */
 function formatCount(value) {
-  return value == null ? "–" : new Intl.NumberFormat(t("locale")).format(value);
+  return value == null ? "–" : intl(Intl.NumberFormat).format(value);
 }
 
 /** 2575475 → "2.6M" / "2,6 Mn"; 354882 → "355K" / "355 bin" */
@@ -480,17 +480,26 @@ function trackedMatch(note, opts, plugin) {
 }
 
 /**
- * Rows of the discovery view.
+ * Rows of the discovery view, sorted (see matchRows for what they are).
  * @param {object} state  {catalog, releases, firstSeen, notes: Map(id→note), excluded: Set, dismissed: Set, installed: Set, snoozed: {id: ms}}
  * @param {object} opts   {mode, days, newDays, hideBusy, minDownloads, filterDownloads, sort, sortDir, query, tracked…} (see modeOptions)
  */
 function discover(state, opts, now) {
+  const { rows, order } = matchRows(state, opts, now);
+  return order ? sortRows(rows, order.key, order.dir, state, now) : rows;
+}
+
+/**
+ * The plugins a page finds, unsorted, and the order they go in ({rows, order}): what counts need, without the sort.
+ * Same arguments as discover.
+ */
+function matchRows(state, opts, now) {
   const { catalog, notes } = state;
   const mode = opts.mode;
   const inQuery = inQueryMode(opts, mode);
   // the page is its query: in Query mode the box's, in Basic the page's own, narrowed by your words and filters
   const page = compileQuery(inQuery ? opts.queries[mode] : pageQuery(opts, mode), state, now, true);
-  if (page.error) return [];   // a saved query that doesn't parse (a field since renamed) finds nothing, not everything
+  if (page.error) return { rows: [], order: null };   // a saved query that doesn't parse (a field since renamed) finds nothing, not everything
   const words = inQuery ? null : compileQuery(opts.query, state, now);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
   const extras = Object.entries(opts.extras || {}).filter(([k]) => EXTRA_FILTERS[k]);
@@ -501,7 +510,7 @@ function discover(state, opts, now) {
     && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now)) && (mode !== "tracked" || trackedMatch(notes.get(p.id), opts, p));
   // sort: Query mode follows its order by; Basic your sort, else the page query's
   const order = (inQuery || opts.sorted === false ? page.order : null) || { key: opts.sort, dir: opts.sortDir };
-  return sortRows(catalog.filter(shown), order.key, order.dir, state, now);
+  return { rows: catalog.filter(shown), order };
 }
 
 /** A sort key's label in the sort menu: `gain(7d)` → sort.gain7d. */
@@ -589,8 +598,8 @@ function groupHue(name) {
   return h % GROUP_HUES;
 }
 
-/** Row count of every mode (for the tab badges), each with its own tab options. */
-function modeCounts(state, settings, now) {
-  return Object.fromEntries(MODE_KEYS.map((mode) => [mode, discover(state, modeOptions(settings, mode), now).length]));
+/** Row count of each mode (every one, unless `modes` names some), each with its own tab options; nothing is sorted. */
+function modeCounts(state, settings, now, modes = MODE_KEYS) {
+  return Object.fromEntries(modes.map((mode) => [mode, matchRows(state, modeOptions(settings, mode), now).rows.length]));
 }
 

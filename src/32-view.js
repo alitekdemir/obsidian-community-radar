@@ -244,20 +244,24 @@ class DiscoveryView extends ItemView {
     this.fillCounts(state, now);
     this.renderSort();   // in Query mode the query's order by decides, and it may just have changed
     this.updateFilterHead();
+    this.renderList(this.refs.list, state, now);   // first: the status line reads how many it found (this.matched)
     this.renderStatus(this.refs.status);
-    this.renderList(this.refs.list, state, now);
     this.refs.list.toggleClass("is-selecting", this.selected.size > 0);
     this.renderBulk();
   }
 
-  /** The tabs' counts in the strip. */
+  /**
+   * The counts of the tabs on screen: All, and the page a widget opened. The Hidden tab keeps the total it was drawn
+   * with (every kind); while the Similar filter is on, All counts its matches.
+   */
   fillCounts(state, now) {
     if (!this.plugin.catalog) return;
-    const counts = modeCounts(state, this.settings, now);
-    if (this.similar) counts.all = this.similarCount();   // the All tab counts the matches while the filter is on
-    for (const [mode, el] of Object.entries(this.refs.counts)) el.setText(formatCount(counts[mode]));
+    const modes = Object.keys(this.refs.counts).filter((mode) => MODE_KEYS.includes(mode) && !(mode === "all" && this.similar));
+    const counts = modeCounts(state, this.settings, now, modes);
+    if (this.similar) counts.all = this.similarCount();
+    for (const [mode, el] of Object.entries(this.refs.counts)) if (mode in counts) el.setText(formatCount(counts[mode]));
     for (const tab of this.widgetTabs) {   // a widget tab counts its list (your edits to its query included)
-      this.refs.tabCounts?.[tab.key]?.setText(formatCount(discover(state, modeOptions(this.tabSettings(tab), tab.key), now).length));
+      this.refs.tabCounts?.[tab.key]?.setText(formatCount(matchRows(state, modeOptions(this.tabSettings(tab), tab.key), now).rows.length));
     }
   }
 
@@ -383,10 +387,11 @@ class DiscoveryView extends ItemView {
     const found = seed ? this.plugin.similarTo(seed) : [];
     const opts = modeOptions(this.settings, "all");
     const min = opts.filterDownloads ? opts.minDownloads : 0;
-    const query = compileQuery(searched ? this.similar.query : "", this.plugin.state(), Date.now());
+    const state = this.plugin.state();
+    const query = compileQuery(searched ? this.similar.query : "", state, Date.now());
     const matching = found.map((x) => x.p).filter((p) => (p.downloads ?? 0) >= min && query.test(p));
     const { key, dir } = this.settings.similarSort;
-    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, this.plugin.state());
+    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, state);
   }
 
   /**
@@ -1121,7 +1126,7 @@ class DiscoveryView extends ItemView {
     if (!catalog) {
       text.setText(this.plugin.busy ? this.plugin.progress || t("status.syncing") : t("status.loading"));
     } else if (this.preset) {
-      text.createDiv({ text: t("home.status", { n: formatCount(this.presetRows().length), name: this.home.title(this.preset.id) }) });
+      text.createDiv({ text: t("home.status", { n: formatCount(this.matched ?? this.presetRows().length), name: this.home.title(this.preset.id) }) });
     } else if (this.similar) {   // one line about the filter instead of the sync line
       const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
       const found = seed ? this.plugin.similarTo(seed) : [];
@@ -1152,7 +1157,7 @@ class DiscoveryView extends ItemView {
       if (this.inQuery && advanced && !error) {
         // hover: what each clause finds on its own; nothing found: the clause that emptied the list
         tag.addEventListener("mouseenter", () => setTooltip(tag, this.clauseCounts(query).map(([c, n]) => `${c}  →  ${formatCount(n)}`).join("\n")), { once: true });
-        const shown = this.preset ? this.presetRows().length : discover(this.plugin.state(), modeOptions(this.pageSettings, this.page), Date.now()).length;
+        const shown = this.matched ?? matchRows(this.plugin.state(), modeOptions(this.pageSettings, this.page), Date.now()).rows.length;
         if (shown === 0) {
           const best = this.clauseCounts(query, true)[0];
           if (best?.[1] > 0) wrap.createSpan({ cls: "pdt-query-why", text: t("query.without", { clause: best[0], n: formatCount(best[1]) }) });
@@ -1264,6 +1269,8 @@ class DiscoveryView extends ItemView {
   renderList(list, state, now) {
     list.empty();
     this.rows = [];
+    this.matched = null;      // how many the page finds (rows an action moved out, kept in place, not counted)
+    this.listState = state;   // the rows read it (installed, notes) instead of building it again per row
     this.cards = this.settings.layout === "cards" && !LIST_MODES.includes(this.settings.mode);
     list.toggleClass("is-cards", this.cards);
     if (!this.plugin.catalog) return;
@@ -1272,6 +1279,7 @@ class DiscoveryView extends ItemView {
     if (this.similar) return this.renderSimilarList(list, now);
     if (this.preset) {
       this.rows = this.presetRows();
+      this.matched = this.rows.length;
       this.stale = new Set();
       if (!this.rows.length) return void list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
       this.renderRows(list, this.rows.slice(0, this.visible), now);
@@ -1284,6 +1292,7 @@ class DiscoveryView extends ItemView {
     if (mode === "new" && !timeline.to) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
 
     this.rows = discover(state, modeOptions(this.settings, mode), now);
+    this.matched = this.rows.length;
     this.stale = new Set();
     for (const [id, index] of this.keep) {
       const p = this.rows.some((r) => r.id === id) ? null : this.plugin.pluginById(id);
@@ -1319,7 +1328,7 @@ class DiscoveryView extends ItemView {
    */
   renderTable(list, rows, now) {
     const page = this.page;
-    const state = this.plugin.state();
+    const state = this.listState;
     const columns = tableColumns(this.settings, page);
     const { key: sort, dir: sortDir } = this.listSort;
     const wrap = list.createDiv({ cls: "pdt-table-wrap" });
@@ -1628,7 +1637,7 @@ class DiscoveryView extends ItemView {
     const signal = (cls, text) => tags.createSpan({ cls: `pdt-signal ${cls}`, text });
     if (isNewPlugin(firstSeen, p, now, this.settings.newDays)) signal("is-new", t("badge.new"));
     if (isUnreviewed(p, note)) signal("is-changed", t("badge.changed"));
-    if (plugin.installed().has(p.id)) signal("is-installed", t("badge.installed"));
+    if (this.listState.installed.has(p.id)) signal("is-installed", t("badge.installed"));
     if (isSnoozed(p, plugin.data.snoozed)) signal("is-snoozed", t("badge.snoozed"));
     if (LIST_MODES.includes(mode) && typeof plugin.data[mode][p.id] === "string") {   // when you hid it (snoozed keeps a release, no day)
       signal("is-why", t(`hidden.when.${mode}`, { day: this.home.dayLabel(dayStart(plugin.data[mode][p.id])) }));

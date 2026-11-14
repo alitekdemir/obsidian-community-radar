@@ -691,6 +691,13 @@ class GalleryPanel {
   /** `target`: the group a group's "Add widget" opened it for (else the Add window asks where). */
   constructor(home, close, target = null) {
     Object.assign(this, { home, close, target, section: "all", open: null });   // open: the query whose row is unfolded
+    this.counts = new Map();   // query → how many it finds: worked out once while the panel is open
+  }
+
+  /** How many plugins a query finds now (a chip or an unfolded row redraws the panel; the counts stay). */
+  count(ctx, query) {
+    if (!this.counts.has(query)) this.counts.set(query, queryRows(ctx, query).length);
+    return this.counts.get(query);
   }
 
   /** The rows of every section, worked out now: [{section, rows: [{title, desc, why, query, count, action, done, run}]}]. */
@@ -700,10 +707,11 @@ class GalleryPanel {
       const widget = homeWidget(home, id);
       const params = widgetParams(home, id);
       const title = this.home.title(id);
+      const query = widget.query(ctx, params);
       return {
         title,
         desc: widget.view ? "" : this.home.widgetInfo(id, params),
-        query: widget.query(ctx, params), count: widgetRows(ctx, widget, params).length, action: t("gallery.restore"),
+        query, count: this.count(ctx, query), action: t("gallery.restore"),
         run: async () => {
           const at = await this.home.ask({ id, widget, name: title, groupId: this.target });
           if (at) await this.home.place(id, at.group);
@@ -712,14 +720,13 @@ class GalleryPanel {
     });
     const preset = (p) => {
       const title = t(`preset.${p.key}`);
-      const rows = queryRows(ctx, p.query);
       const done = (home.views || []).some((v) => sameQuery(v.query, p.query));   // added already
       const widget = viewWidget({ id: "preview", name: title, query: p.query }, null);   // how it will look, before it's saved
-      return { title, desc: t(`preset.${p.key}.desc`), why: t(`preset.${p.key}.why`), query: p.query, count: rows.length,
+      return { title, desc: t(`preset.${p.key}.desc`), why: t(`preset.${p.key}.why`), query: p.query, count: this.count(ctx, p.query),
         action: t(done ? "gallery.added" : "gallery.add"), done,
         run: async () => {
           const at = await this.home.ask({ id: VIEW_PREFIX + widget.view.id, widget, name: title, groupId: this.target });
-          if (at) await this.home.saveView(title, p.query, rows, at.group);
+          if (at) await this.home.saveView(title, p.query, queryRows(ctx, p.query), at.group);   // its matches so far: seen
         } };
     };
     return Object.keys(GALLERY_SECTIONS)

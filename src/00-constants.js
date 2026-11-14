@@ -159,8 +159,17 @@ function obsidianLanguage() {
 /** Looks up a UI string (falling back to English, then to the key) and fills its {placeholders}. */
 function t(key, vars = {}) {
   let value = STRINGS[language]?.[key] ?? STRINGS.en[key] ?? key;
-  if (typeof value === "object") value = value[new Intl.PluralRules(t("locale")).select(Number(vars.n))] ?? value.other;
+  if (typeof value === "object") value = value[intl(Intl.PluralRules).select(Number(vars.n))] ?? value.other;
   return value.replace(/\{(\w+)\}/g, (all, name) => (name in vars ? String(vars[name]) : all));
+}
+
+const intlCache = new Map();   // "Kind|locale|options" → formatter
+
+/** One Intl formatter (NumberFormat, PluralRules…) per UI locale and options: making one is slow, a list formats hundreds. */
+function intl(Kind, options = {}) {
+  const key = `${Kind.name}|${t("locale")}|${JSON.stringify(options)}`;
+  if (!intlCache.has(key)) intlCache.set(key, new Kind(t("locale"), options));
+  return intlCache.get(key);
 }
 
 function defaultSettings() {

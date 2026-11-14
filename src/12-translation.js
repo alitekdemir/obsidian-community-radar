@@ -79,7 +79,7 @@ function tokenPrice(pricing) {
 function formatPrice(price) {
   if (!price) return "";
   if (!price.input && !price.output) return t("model.free");
-  const usd = (n) => `$${new Intl.NumberFormat(t("locale"), { minimumFractionDigits: n < 10 ? 2 : 1, maximumFractionDigits: n < 10 ? 2 : 1 }).format(n)}`;
+  const usd = (n) => { const digits = n < 10 ? 2 : 1; return `$${intl(Intl.NumberFormat, { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n)}`; };
   return `${usd(price.input)} / ${usd(price.output)} · ${t("price.unit")}`;
 }
 

@@ -1131,6 +1131,8 @@ const tests = {
 
     // restore all shown asks twice, on this kind only
     await view.showHidden("excluded");
+    view.refresh();
+    assert.equal($(el, '.pdt-tab[data-key="excluded"] .pdt-n').textContent, core.formatCount(view.hiddenTotal()), "the Hidden tab keeps its total after a refresh");
     const all = $(el, ".pdt-banner .mod-warning");
     await all.onclick();                                                    // first click only arms it
     assert.equal(plugin.hiddenCounts().excluded, 1);
