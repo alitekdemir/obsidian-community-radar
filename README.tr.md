@@ -2,7 +2,7 @@
 
 # Community Radar
 
-**Obsidian eklenti mağazasını canlı bir keşif motoruna ve kişisel kürasyon merkezine dönüştürün.**
+**Eklenti dizini için SQL.**
 
 Hızla yükselen yeni eklentileri yakalayın, uzun bir sessizlikten uyananları kaçırmayın, kataloğu bir veritabanı gibi sorgulayın, anlamca benzer alternatifleri bulun ve önemsediğiniz eklentileri vault'unuzda yaşayan Markdown notları olarak yönetin.
 

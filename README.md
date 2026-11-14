@@ -2,7 +2,7 @@
 
 # Community Radar
 
-**Turn Obsidian's plugin directory into a live discovery engine and personal curation workspace.**
+**SQL for Obsidian's plugin directory.**
 
 Spot fast-rising newcomers, catch long-dormant plugins making a comeback, query the catalog like a database, discover alternatives by meaning—and keep the plugins you care about as living Markdown notes in your vault.
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.1
+
+### Changed
+- **Shorter description:** the directory text now reads *Query the plugin directory like SQL: trending newcomers, comebacks after long silence, alternatives and milestones. Track your picks as notes.*
+
 ## 0.11.0
 
 ### Added
