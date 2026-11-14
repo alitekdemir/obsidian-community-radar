@@ -13,6 +13,7 @@ class PluginRadar extends Plugin {
     delete this.data.settings.similarTrail;
     delete this.data.settings.historyMonths;   // 0.9.1: the history comes from GitHub
     delete this.data.settings.similarFrom;
+    delete this.data.settings.modelPrice;   // 0.11.3: the price lives in modelCost only; formatPrice writes its text
     this.github = new GitHub();
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
     this.notes = new Notes(this.app, this.data.settings);
@@ -34,23 +35,25 @@ class PluginRadar extends Plugin {
     this.addSettingTab(new RadarSettingTab(this.app, this));
     this.addCommands();
 
-    // Only changes inside the notes folder refresh the view, so typing elsewhere stays quiet
+    // Only changes inside the notes folder refresh the view, so typing elsewhere stays quiet. A sync rewrites every
+    // tracked note (downloads change daily): the burst ends in one redraw, not one per note.
     const relevant = (path) => path.startsWith(`${this.notes.folder}/`);
+    this.redrawSoon = debounce(() => this.redraw(), 200, true);
     this.registerEvent(this.app.metadataCache.on("changed", (file) => {
       if (!relevant(file.path)) return;
       this.notes.refresh(file);
-      this.redraw();
+      this.redrawSoon();
     }));
     this.registerEvent(this.app.vault.on("delete", (file) => {
       if (!relevant(file.path)) return;
       this.notes.forget(file.path);
-      this.redraw();
+      this.redrawSoon();
     }));
     this.registerEvent(this.app.vault.on("rename", (file, old) => {
       if (!relevant(file.path) && !relevant(old)) return;
       this.notes.forget(old);
       this.notes.refresh(file);
-      this.redraw();
+      this.redrawSoon();
     }));
 
     this.registerEvent(this.app.workspace.on("file-open", (file) => this.onNoteOpen(file)));

@@ -67,7 +67,9 @@ function makeApp() {
     vault,
     metadataCache: {
       getFileCache: (f) => { const text = files.get(f.path); return text == null ? null : { frontmatter: splitFrontmatter(text).fm || undefined }; },
-      on: () => ({}),
+      handlers: {},
+      on(name, fn) { (this.handlers[name] ||= []).push(fn); return {}; },
+      trigger(name, ...args) { for (const fn of this.handlers[name] || []) fn(...args); },
     },
     fileManager: {
       processFrontMatter: async (f, fn) => {
@@ -131,6 +133,18 @@ const menus = [];
 module.exports = {
   makeApp, network, requestUrl, Notice, TFile, TFolder, menus,
   normalizePath: (p) => p.replace(/\/+/g, "/").replace(/\/$/, ""),
+  /** Obsidian's debounce: runs `fn` once `timeout` ms after the last call (`reset`) or the first one. */
+  debounce(fn, timeout = 0, reset = false) {
+    let timer = null;
+    const run = (...args) => {
+      if (timer && !reset) return run;
+      clearTimeout(timer);
+      timer = setTimeout(() => { timer = null; fn(...args); }, timeout);
+      return run;
+    };
+    run.cancel = () => { clearTimeout(timer); timer = null; return run; };
+    return run;
+  },
   addIcon: () => {},
   setIcon: (el, name) => { if (el.dataset) el.dataset.icon = name; },
   setTooltip: (el, text) => el.setAttribute && el.setAttribute("data-tooltip", text),

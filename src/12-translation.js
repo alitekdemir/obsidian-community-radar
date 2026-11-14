@@ -31,7 +31,7 @@ const PROVIDERS = {
   gemini: {
     label: "Gemini (Google)",
     chat: (model, key, prompt) => ({
-      url: `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+      url: `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,   // a typed id may hold / or ?
       headers: { "x-goog-api-key": key },
       body: { contents: [{ parts: [{ text: prompt }] }] },
     }),

@@ -14,7 +14,7 @@
 const obsidian = require("obsidian");
 const {
   Plugin, ItemView, Modal, Notice, Scope, SuggestModal, PluginSettingTab, Setting,
-  TFile, TFolder, Menu, addIcon, normalizePath, requestUrl, setIcon,
+  TFile, TFolder, Menu, addIcon, debounce, normalizePath, requestUrl, setIcon,
 } = obsidian;
 
 // ─── 1. Constants ───────────────────────────────────────────────────────────
@@ -188,7 +188,7 @@ function defaultSettings() {
     recentQueries: [],  // the last queries you applied, newest first
     provider: "",
     model: "",
-    modelPrice: "",
+    modelCost: null,          // the model's price per 1M tokens {input, output} (formatPrice writes it); null: unknown
     keyNames: {},
     targetLang: t("language.name"),
     prompts: {},              // your translation instructions: {description, readme}; empty uses DEFAULT_PROMPTS

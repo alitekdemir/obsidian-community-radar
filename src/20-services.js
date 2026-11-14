@@ -244,6 +244,21 @@ class Notes {
 }
 
 /**
+ * The reason in an error reply: its JSON error, else the start of its text. Reading `json` throws when the body
+ * isn't JSON (a proxy's HTML 502 page), so that read is guarded.
+ */
+function errorDetail(res) {
+  let detail = null;
+  try {
+    detail = res.json?.error?.message || res.json?.error;
+  } catch {
+    // not JSON: the text below says it
+  }
+  detail ||= res.text?.slice(0, 200) || "";
+  return typeof detail === "string" ? detail : JSON.stringify(detail);
+}
+
+/**
  * Description translation. The API key lives in Obsidian's keychain (SecretStorage); the plugin only
  * stores the key's NAME (e.g. "anthropic-api-key"), so plugins using the same name share it.
  */
@@ -279,9 +294,8 @@ class Translator {
       throw: false,
     });
     if (res.status >= 400) {
-      const detail = res.json?.error?.message || res.json?.error || res.text?.slice(0, 200);
       const label = PROVIDERS[this.settings.provider]?.label || t("provider.generic");
-      throw new Error(`${label} ${res.status}: ${typeof detail === "string" ? detail : JSON.stringify(detail)}`);
+      throw new Error(`${label} ${res.status}: ${errorDetail(res)}`);
     }
     return res.json;
   }

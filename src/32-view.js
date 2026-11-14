@@ -1228,7 +1228,7 @@ class DiscoveryView extends ItemView {
     };
     const rows = top.map((x) => {
       const clause = query.slice(x.from, x.to);
-      return [clause, count(without ? `${query.slice(0, x.from)} ${query.slice(x.to)}` : clause)];
+      return [clause, count(without ? dropClause(query, x) : clause)];
     });
     return without ? rows.sort((a, b) => b[1] - a[1]) : rows;
   }

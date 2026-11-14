@@ -837,6 +837,33 @@ const tests = {
     assert.equal(core.readmeVersion("no markers"), null);
   },
 
+  "dropClause: the joiner goes with the clause, so what is left still parses"() {
+    const cut = (query, clause) => {
+      const from = query.indexOf(clause);
+      return core.dropClause(query, { from, to: from + clause.length });
+    };
+    const q = "listed <= 14d AND NOT tracked\norder by listed desc";
+    assert.equal(cut(q, "listed <= 14d"), "NOT tracked\norder by listed desc");
+    assert.equal(cut(q, "NOT tracked"), "listed <= 14d\norder by listed desc");
+    assert.equal(cut("a ~ x OR b ~ y", "b ~ y"), "a ~ x");
+    assert.equal(cut("downloads >= 1k name ~ z", "name ~ z"), "downloads >= 1k", "space-joined: nothing else to clean");
+    assert.equal(cut("(a ~ x OR b ~ y) AND c ~ z", "a ~ x"), "(b ~ y) AND c ~ z");
+    assert.equal(cut("author ~ x AND name ~ y", "name ~ y"), "author ~ x", "author's \"or\" isn't a joiner");
+    for (const clause of ["listed <= 14d", "NOT tracked"]) assert.equal(core.compileQuery(cut(q, clause), null, NOW, true).error, "");
+  },
+
+  "errorDetail: the JSON error, else the reply's text (an HTML page has no JSON)"() {
+    assert.equal(core.errorDetail({ json: { error: { message: "bad key" } } }), "bad key");
+    assert.equal(core.errorDetail({ json: { error: { code: 7 } } }), '{"code":7}');
+    const html = { get json() { throw new SyntaxError("Unexpected token <"); }, text: "<html>502 Bad Gateway</html>" };
+    assert.equal(core.errorDetail(html), "<html>502 Bad Gateway</html>");
+    assert.equal(core.errorDetail({ json: null, text: "" }), "");
+  },
+
+  "Gemini: a typed model id is encoded in the URL path"() {
+    assert.ok(core.PROVIDERS.gemini.chat("a/b?c", "k", "p").url.endsWith("/models/a%2Fb%3Fc:generateContent"));
+  },
+
   async "mapLimit: keeps order and respects the limit"() {
     let running = 0, peak = 0;
     const out = await core.mapLimit([5, 1, 3, 2], 2, async (n) => {

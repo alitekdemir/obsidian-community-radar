@@ -505,6 +505,18 @@ function splitOrder(text) {
   return at < 0 ? { filter: String(text).trim(), order: "" } : { filter: text.slice(0, at).trim(), order: text.slice(at).trim() };
 }
 
+/**
+ * The query without one clause (a span from parseQuery): the AND / OR that joined it goes too, so the rest still
+ * parses. `a AND b` without b → `a`; without a → `b`. Space-joined clauses need no cleanup.
+ */
+function dropClause(query, { from, to }) {
+  const before = query.slice(0, from);
+  const after = query.slice(to);
+  const joinerBefore = /\s*\b(AND|OR)\s*$/i;   // "a AND " — the clause came after its joiner
+  if (joinerBefore.test(before)) return `${before.replace(joinerBefore, "")}${after}`.trim();
+  return `${before}${after.replace(/^\s*(AND|OR)\b\s*/i, "")}`.trim();   // " AND b" — the joiner follows it
+}
+
 /** What `order by` writes for a list sort key (they're the same text: `released`, `gain(7d)`); null if it can't sort. */
 const sortField = (key) => (fieldRef(key)?.field.sort ? key : null);
 

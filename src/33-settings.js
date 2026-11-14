@@ -246,7 +246,7 @@ class RadarSettingTab extends PluginSettingTab {
         d.addOption("", t("set.none"));
         for (const [id, spec] of Object.entries(PROVIDERS)) d.addOption(id, spec.label);
         d.setValue(settings.provider).onChange(async (value) => {
-          Object.assign(settings, { provider: value, model: "", modelPrice: "" });
+          Object.assign(settings, { provider: value, model: "", modelCost: null });   // another provider: no model, no price yet
           this.modelList = null;
           await save();
           this.display();
@@ -268,7 +268,7 @@ class RadarSettingTab extends PluginSettingTab {
         });
 
       const description = [
-        settings.modelPrice ? t("set.modelPrice", { price: settings.modelPrice }) : "",
+        settings.modelCost ? t("set.modelPrice", { price: formatPrice(settings.modelCost) }) : "",
         this.modelList && provider !== "openrouter" ? t("set.noPrices") : "",
         t("set.modelHint"),
       ].filter(Boolean).join(" ");
@@ -384,7 +384,7 @@ class RadarSettingTab extends PluginSettingTab {
     modal.open();
     const model = await modal.result;
     if (!model) return;
-    Object.assign(settings, { model: model.id, modelPrice: formatPrice(model.price), modelCost: model.price || null });
+    Object.assign(settings, { model: model.id, modelCost: model.price || null });
     await save();
     this.display();
   }

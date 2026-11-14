@@ -381,6 +381,7 @@ const tests = {
     assert.equal($$(el, ".pdt-row").length, 0);
     assert.equal($(el, ".pdt-query-why").textContent, core.t("query.without", { clause: "name ~ zzzz", n: 2 }));
     assert.deepEqual(view.clauseCounts("downloads >= 1k name ~ zzzz"), [["downloads >= 1k", 2], ["name ~ zzzz", 0]], "what each clause finds alone");
+    assert.deepEqual(view.clauseCounts("downloads >= 1k AND name ~ zzzz", true), [["name ~ zzzz", 2], ["downloads >= 1k", 0]], "without a clause: its AND goes too");
     assert.equal(settings.recentQueries[0], "downloads >= 1k name ~ zzzz");
     box().onkeydown({ key: "Escape", ctrlKey: false, preventDefault() {}, stopPropagation() {} });
     assert.equal(box().value, core.pageQuery(settings, "all"), "Esc: back to the page's query");
@@ -485,6 +486,37 @@ const tests = {
     await plugin.translateRows(rows);
     assert.equal(fake.network.calls.length, 0);
     assert.ok((await plugin.translator.test()).startsWith("TR: "));
+  },
+
+  async "AI settings: the price is kept once (modelCost); another provider clears it"({ plugin }) {
+    const settings = plugin.data.settings;
+    const model = settings.model;
+    const tab = plugin.settingTab;
+    settings.modelCost = { input: 0.3, output: 2.5 };
+    tab.tab = "ai";
+    tab.display();
+    assert.ok(tab.containerEl.textContent.includes(core.formatPrice(settings.modelCost)), "its text comes from modelCost");
+    const provider = $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "openrouter"));
+    await provider.onchange();
+    assert.equal(settings.model, "");
+    assert.equal(settings.modelCost, null, "no stale price for the next model's estimate");
+    settings.model = model;
+  },
+
+  async "vault changes in the notes folder: a burst ends in one redraw"({ app, plugin }) {
+    const redraw = plugin.redraw;
+    let redraws = 0;
+    plugin.redraw = () => { redraws++; };
+    try {
+      const note = new fake.TFile("Eklentiler/Homepage.md");
+      for (let i = 0; i < 50; i++) app.metadataCache.trigger("changed", note);   // a sync rewriting notes
+      app.metadataCache.trigger("changed", new fake.TFile("Başka/Not.md"));      // outside the folder: ignored
+      assert.equal(redraws, 0, "not one per change");
+      await tick(250);
+      assert.equal(redraws, 1);
+    } finally {
+      plugin.redraw = redraw;
+    }
   },
 
   async "status line: last sync, what the sync brought, a labelled Sync button"({ plugin, view }) {
