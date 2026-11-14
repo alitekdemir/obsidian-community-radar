@@ -154,7 +154,7 @@ class DetailModal extends Modal {
     setTooltip(open, t("details.openInObsidianTip"));
     this.renderSizeToggle(actions);
     const close = actions.createEl("button", { cls: "clickable-icon pdt-detail-close", attr: { type: "button", "aria-label": t("details.close") } });
-    setIcon(close, "x");   // in the row, the size of ⤢ (Obsidian's own ✕ is pinned to the corner, so it's hidden)
+    setIcon(close, "x");   // in the row, the size of ⤢ (Obsidian's own ✕ is pinned to the corner, so the CSS hides it)
     close.onclick = () => this.close();
   }
 

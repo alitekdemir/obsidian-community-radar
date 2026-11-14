@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.2
+
+### Fixed
+- **Details window:** a second ✕ showed in the corner on newer Obsidian versions (Obsidian renamed its close button); only the one in the head row shows again.
+
 ## 0.11.1
 
 ### Changed
