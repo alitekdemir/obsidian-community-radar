@@ -110,6 +110,8 @@ Community Radar doesn't lock your curation inside a private database. The moment
 2. Search for **Community Radar**, then click **Install** and **Enable**.
 3. Click the **radar icon** in the left ribbon—or run `Community Radar: Open Community Radar` from the Command Palette.
 
+**Interface languages:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Community Radar follows Obsidian's language (change it in *Settings → Language*). Corrections to any translation are welcome.
+
 ### Up and Running in 60 Seconds
 
 1. **Let the initial sync finish:** Community Radar fetches the public plugin catalog, the 6-year release archive, and the semantic similarity index (~3 MB total).

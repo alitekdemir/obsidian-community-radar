@@ -1,5 +1,7 @@
 # Settings, commands and shortcuts
 
+*English · [Türkçe](settings-commands.tr.md)*
+
 ## Settings
 
 Settings come in five tabs, one at a time:

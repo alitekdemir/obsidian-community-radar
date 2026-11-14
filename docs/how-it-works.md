@@ -1,5 +1,7 @@
 # How it works
 
+*English · [Türkçe](how-it-works.tr.md)*
+
 ## Where the data comes from
 
 Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day**, back to October 2020. Each snapshot holds every plugin's downloads and latest release time.

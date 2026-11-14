@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- **Four new interface languages:** Deutsch, Русский, 日本語 and 简体中文 (Traditional Chinese falls back to Simplified). They use Obsidian's own words for its features (Community plugins, vault, Bases, keychain…), and Russian gets its full plural forms. *Settings → Language* lists them; Auto picks yours from Obsidian.
+- **Turkish documentation:** every guide in `docs/` has a Turkish version, linked from the Turkish README; in Turkish, Help's "full query guide" link opens the Turkish guide.
+
 ## 0.11.3
 
 ### Changed

@@ -1,5 +1,7 @@
 # Tracking notes
 
+*English · [Türkçe](tracking-notes.tr.md)*
+
 Star a plugin, rate it, give it a status or add it to a group, and Community Radar writes a note for it in your notes folder (*Settings → Notes folder*). The note is yours: edit its properties in Obsidian, and the list follows.
 
 ## Properties

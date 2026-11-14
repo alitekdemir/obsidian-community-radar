@@ -1,5 +1,7 @@
 # Development and translating
 
+*English · [Türkçe](development.tr.md)*
+
 ## Building
 
 `src/*.js` is the plugin, joined in file-name order; `npm run build` also embeds `locales/*.json` into the `main.js` Obsidian loads. There are no runtime dependencies. Tests run offline in Node with a small fake of the Obsidian API:
@@ -34,4 +36,29 @@ All interface text lives in [`locales/`](../locales), one JSON file per language
 
 Missing text falls back to English, so a partial translation still works. The new language appears in *Settings → Language* on its own.
 
-Query field names (`downloads`, `gain(30d)`…) stay English in every language, so saved queries keep working after a language switch.
+The interface speaks English, Türkçe, Deutsch, Русский, 日本語 and 简体中文 (`zh-TW` falls back to Simplified Chinese). `en.json` is the source: every other file is translated from it. German, Russian, Japanese and Chinese are machine-assisted; corrections are welcome. A new key goes into every `locales/*.json` in the same commit; the test fails otherwise. `help.guideFile` names the query guide the Help window links to: a language with a translated guide (`docs/query.<code>.md`) points to it, the others keep `query.md`.
+
+### Kept in English
+
+- **Names:** Community Radar, Obsidian, GitHub, README, Markdown, JSON, API, providers and models.
+- **Query syntax:** field names (`downloads`, `gain(30d)`…), `AND` `OR` `NOT`, `order by`, `asc` / `desc`, `in`, `is empty`, `true` / `false`, date functions and units (`30d`, `10k`). Saved queries keep working after a language switch.
+- **Note properties** (`plugin_id`, `groups`, `status`…), file paths and keys (`j`, `Esc`, `Ctrl+Space`).
+
+### Terms
+
+Obsidian's own words come from its [official translations](https://github.com/obsidianmd/obsidian-translations), so the plugin reads like Obsidian:
+
+| en | tr | de | ru | ja | zh |
+|---|---|---|---|---|---|
+| plugin | eklenti | Erweiterung | плагин | プラグイン | 插件 |
+| Community plugins | Topluluk eklentileri | Externe Erweiterungen | Сторонние плагины | コミュニティプラグイン | 第三方插件 |
+| vault | kasa | Vault | хранилище | 保管庫 | 仓库 |
+| note | not | Notiz | заметка | ノート | 笔记 |
+| Bases | Bases | Basen | Базы данных | ベース | 数据库 |
+| keychain | anahtar deposu | Schlüsselbund | связка ключей | キーチェーン | 钥匙串 |
+| command palette | komut paleti | Befehlspalette | палитра команд | コマンドパレット | 命令面板 |
+| release | sürüm | Version | релиз | リリース | 版本 / 发布 |
+| track, tracked | takip et, takip | verfolgen, Verfolgt | отслеживать, Отслеживаемые | 追跡, 追跡中 | 跟踪, 已跟踪 |
+| incubation, hatched | kuluçka, kuluçkadan çıkış | Inkubation, aus der Inkubation | инкубация, выход из инкубации | 休眠期間, 休眠明け | 休眠期, 复苏 |
+| query, view | sorgu, görünüm | Abfrage, Ansicht | запрос, вид | クエリ, ビュー | 查询, 视图 |
+| AI | yapay zekâ | KI | ИИ | AI | AI |

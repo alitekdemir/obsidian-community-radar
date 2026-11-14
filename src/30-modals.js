@@ -585,8 +585,8 @@ class ModelModal extends PickerModal {
 /** Help › Quick start: what a click on each part of a card does ([icon, help.card.<key>]), in the order you meet them. */
 const HELP_CARD_TIPS = [["star", "star"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["more-horizontal", "menu"], ["bell-ring", "seen"]];
 
-/** Where the full query guide lives (the Help window's last link). */
-const GUIDE_URL = "https://github.com/alitekdemir/obsidian-community-radar/blob/main/docs/query.md";
+/** The docs folder on GitHub; the Help window's last link adds the UI language's guide file (help.guideFile). */
+const DOCS_URL = "https://github.com/alitekdemir/obsidian-community-radar/blob/main/docs/";
 
 /** The query guide's field groups, from each field's own type (no second list to keep): which group a field is in. */
 function fieldGroup(field) {
@@ -659,7 +659,7 @@ class HelpModal extends Modal {
       go.onclick = () => { this.close(); run(); };
     });
     this.renderCardTips(el);
-    el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: GUIDE_URL });
+    el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: DOCS_URL + t("help.guideFile") });
   }
 
   /** "Getting to know a card": where to click on a plugin's card or row, and what happens. */
@@ -696,7 +696,7 @@ class HelpModal extends Modal {
       group(key, fields.map((k) => [written(k), written(k), t(`query.field.${k}`)]));
     }
     for (const [key, rows] of Object.entries(GUIDE_ROWS)) group(key, rows.map(([code, insert, text]) => [code ?? t(`${text}.code`), insert, t(text)]));
-    el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: GUIDE_URL });
+    el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: DOCS_URL + t("help.guideFile") });
   }
 }
 

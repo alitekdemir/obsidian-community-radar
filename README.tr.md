@@ -64,7 +64,7 @@ order by gain(30d) desc
 
 - **Parametreli alanlar, istediğiniz aralık:** `gain(21d)` (indirme artışı), `rise(7d)` (% büyüme), `releases(180d)` (güncelleme sayısı), `milestone(10k)` (10K'ya ulaştığı gün); bir yıllık günlük indirme geçmişinden. Ayrıca `incubated`, `hatched`, `installed`, `group`, `rating`, `removed` ve `startOfMonth(-1)`, `lastSync()` gibi tarih fonksiyonları.
 - **Yazarken rehberlik eder:** `Ctrl+Space` ile kendi gruplarınızı, durumlarınızı ve eklenti yazarlarını öneren otomatik tamamlamayı açın; herhangi bir kelimenin üzerine gelerek ne anlama geldiğini görün veya `?` ile tıklanabilir kopya kağıdına göz atın. Hiç sonuç çıkmazsa, **listeyi hangi koşulun sıfırladığını** bile size söyler.
-- **Kaydedilmiş Görünümler (Saved Views):** Değiştirdiğiniz bir sorguyu **Görünüm** olarak kaydedin; hem üst şeritte kendi sekmesine kavuşsun (görülmemiş eşleşmeleri `+N` rozetiyle sayarak) hem de Ana Sayfaya bir kart olarak yerleşsin. → *[Sorgu Dili Rehberi](docs/query.md)*
+- **Kaydedilmiş Görünümler (Saved Views):** Değiştirdiğiniz bir sorguyu **Görünüm** olarak kaydedin; hem üst şeritte kendi sekmesine kavuşsun (görülmemiş eşleşmeleri `+N` rozetiyle sayarak) hem de Ana Sayfaya bir kart olarak yerleşsin. → *[Sorgu Dili Rehberi](docs/query.tr.md)*
 
 ---
 
@@ -99,7 +99,7 @@ O anki işinize en uygun düzende çalışın:
 Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi yıldızladığınız (**☆**) veya bir gruba eklediğiniz (**＋**) anda vault'unuzda temiz bir Markdown notu oluşturur:
 
 - **Yapılandırılmış özellikler + dokunulmayan kişisel notlar:** `groups`, `favorite`, `rating` (1–5), emojili özel `status` alanları ve kişisel notlarınız tamamen size aittir; indirme/sürüm bilgileri ile gömülü **README** ise otomatik güncellenir (`#etiketler` ve `[[bağlantılar]]` grafiğinizi kirletmemesi için güvenli biçimde kaçış karakteriyle korunur).
-- **Tek tıkla Obsidian Bases:** Ayarlardan hazır `.base` görünümünü oluşturarak tüm eklenti koleksiyonunuzu yerleşik bir Obsidian veritabanı tablosunda filtreleyin ve düzenleyin. → *[Takip Notları Rehberi](docs/tracking-notes.md)*
+- **Tek tıkla Obsidian Bases:** Ayarlardan hazır `.base` görünümünü oluşturarak tüm eklenti koleksiyonunuzu yerleşik bir Obsidian veritabanı tablosunda filtreleyin ve düzenleyin. → *[Takip Notları Rehberi](docs/tracking-notes.tr.md)*
 - **Kendi anahtarınızla AI (tamamen isteğe bağlı):** Obsidian'ın güvenli anahtar deposu üzerinden Anthropic, OpenAI, Gemini veya OpenRouter bağlayarak görünür açıklamaları topluca çevirin, eklenti README'lerini kendi dilinize aktarın (tahmini maliyet hesabı ve eski sürüm uyarısıyla) veya seçtiğiniz satırlar için tek tıkla akıllı grup önerileri alın.
 
 ---
@@ -109,6 +109,8 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 1. Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at** yolunu izleyin.
 2. **Community Radar** aratın, **Kur** ve **Etkinleştir** düğmelerine basın.
 3. Sol şeritteki **radar simgesine** tıklayın veya Komut Paletinden `Community Radar: Community Radar'ı aç` komutunu çalıştırın.
+
+**Arayüz dilleri:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Community Radar, Obsidian'ın dilini izler (*Ayarlar → Dil*'den değiştirilebilir). Çevirilere düzeltmeler memnuniyetle karşılanır.
 
 ### 60 Saniyede Başlangıç
 
@@ -123,7 +125,7 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 
 - **Hesap yok, telemetri yok, analitik yok.** Sizden veya vault'unuzdan hiçbir veri toplanmaz.
 - **Yalnızca kendi klasörüne erişir.** Community Radar sadece belirlediğiniz eklenti notları klasörünü okur ve yazar; vault'unuzun geri kalanını taramaz.
-- **Açık veriler ve güvenli anahtar deposu.** Eşitleme yalnızca GitHub üzerindeki herkese açık statik dosyaları indirir. AI istekleri **yalnızca** siz çeviri veya grup önerisi istediğinizde, Obsidian'ın cihaz içi anahtar deposunda (`SecretStorage`) saklanan anahtarınızla yapılır. → *[Tüm ağ isteklerinin tam listesi](docs/how-it-works.md#network)*
+- **Açık veriler ve güvenli anahtar deposu.** Eşitleme yalnızca GitHub üzerindeki herkese açık statik dosyaları indirir. AI istekleri **yalnızca** siz çeviri veya grup önerisi istediğinizde, Obsidian'ın cihaz içi anahtar deposunda (`SecretStorage`) saklanan anahtarınızla yapılır. → *[Tüm ağ isteklerinin tam listesi](docs/how-it-works.tr.md#ağ)*
 
 ---
 
@@ -131,11 +133,11 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 
 | Rehber | İçerik |
 |---|---|
-| **[Sorgu Dili](docs/query.md)** | 27 alanın tamamı, operatörler, tarih fonksiyonları, otomatik tamamlama ve örnek sorgular |
-| **[Takip Notları ve Bases](docs/tracking-notes.md)** | Not özellikleri (frontmatter), README güncelleme modları, çeviriler ve Obsidian Bases kurulumu |
-| **[Ayarlar ve Komutlar](docs/settings-commands.md)** | Tüm ayarlar, Komut Paleti eylemleri ve klavye kısayolları |
-| **[Nasıl Çalışır ve Gizlilik](docs/how-it-works.md)** | Sürüm arşivi mimarisi, yerel vektör eşleştirme, depolama yapısı ve ağ istekleri tablosu |
-| **[Geliştirme ve Çeviri](docs/development.md)** | Kod mimarisi, çevrimdışı testlerin çalıştırılması ve yeni arayüz dili ekleme |
+| **[Sorgu Dili](docs/query.tr.md)** | 27 alanın tamamı, operatörler, tarih fonksiyonları, otomatik tamamlama ve örnek sorgular |
+| **[Takip Notları ve Bases](docs/tracking-notes.tr.md)** | Not özellikleri (frontmatter), README güncelleme modları, çeviriler ve Obsidian Bases kurulumu |
+| **[Ayarlar ve Komutlar](docs/settings-commands.tr.md)** | Tüm ayarlar, Komut Paleti eylemleri ve klavye kısayolları |
+| **[Nasıl Çalışır ve Gizlilik](docs/how-it-works.tr.md)** | Sürüm arşivi mimarisi, yerel vektör eşleştirme, depolama yapısı ve ağ istekleri tablosu |
+| **[Geliştirme ve Çeviri](docs/development.tr.md)** | Kod mimarisi, çevrimdışı testlerin çalıştırılması ve yeni arayüz dili ekleme |
 | **[Değişiklik Günlüğü](CHANGELOG.md)** | Sürüm geçmişi ve tüm yenilikler |
 
 ---

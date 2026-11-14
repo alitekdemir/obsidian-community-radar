@@ -1591,7 +1591,7 @@ const tests = {
     tab.tab = "general";
     tab.display();
     const select = () => $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "auto"));
-    assert.deepEqual([...select().options].map((o) => o.textContent), ["Auto (English)", "English", "Türkçe"]);
+    assert.deepEqual([...select().options].map((o) => o.textContent), ["Auto (English)", "Deutsch", "English", "日本語", "Русский", "Türkçe", "简体中文"]);
     const choose = async (value) => { select().value = value; await select().onchange(); };
     await choose("tr");
     assert.ok($$(view.contentEl, ".pdt-tab")[1].textContent.startsWith("Tümü"));

@@ -250,8 +250,10 @@ const tests = {
       assert.ok(core.GALLERY_SECTIONS[p.cat] && p.cat !== "hidden", `${p.key}: section`);
     }
     assert.equal(new Set(core.QUERY_PRESETS.map((p) => p.key)).size, core.QUERY_PRESETS.length, "keys are unique");
-    const guide = require("fs").readFileSync(require("path").join(__dirname, "../docs/query.md"), "utf8");
-    for (const p of core.QUERY_PRESETS) assert.ok(guide.includes(`\`${p.query.replace(/\s*\n\s*/g, " ")}\``), `docs/query.md lists ${p.key}`);
+    for (const file of ["query.md", "query.tr.md"]) {   // every translated guide lists the same queries
+      const guide = require("fs").readFileSync(require("path").join(__dirname, "../docs", file), "utf8");
+      for (const p of core.QUERY_PRESETS) assert.ok(guide.includes(`\`${p.query.replace(/\s*\n\s*/g, " ")}\``), `docs/${file} lists ${p.key}`);
+    }
     for (const q of ['author ~ zsviczian', '"daily note" OR "journal"']) assert.doesNotThrow(() => core.parseQuery(q, { strict: true }), q);
   },
 
@@ -791,6 +793,7 @@ const tests = {
     for (const [code, strings] of Object.entries(core.STRINGS)) {
       assert.deepEqual(Object.keys(en).filter((k) => !(k in strings)), [], `${code}: missing keys`);
       assert.deepEqual(Object.keys(strings).filter((k) => !(k in en)), [], `${code}: unknown keys`);
+      assert.ok(require("fs").existsSync(require("path").join(__dirname, "../docs", strings["help.guideFile"])), `${code}: help.guideFile is a file in docs/`);
       const categories = new Intl.PluralRules(strings.locale).resolvedOptions().pluralCategories;
       for (const [key, value] of Object.entries(strings)) {
         assert.deepEqual(placeholders(value), placeholders(en[key]), `${code}: placeholders of ${key}`);
@@ -803,6 +806,7 @@ const tests = {
 
   "i18n: language matching, English formats and plurals"() {
     assert.deepEqual(["tr", "TR-tr", "en-GB", "pt-BR", "", undefined].map(core.matchLanguage), ["tr", "tr", "en", "en", "en", "en"]);
+    assert.deepEqual(["zh", "zh-TW", "ja", "ru", "de-AT"].map(core.matchLanguage), ["zh", "zh", "ja", "ru", "de"]);   // Traditional Chinese gets Simplified
     core.setLanguage("en-GB");
     try {
       assert.deepEqual([2575475, 354882, 1416, null].map(core.formatShort), ["2.6M", "355K", "1.4K", "–"]);
