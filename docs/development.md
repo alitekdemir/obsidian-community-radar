@@ -11,10 +11,14 @@ npm test        # builds main.js first
 
 To try a change in a vault, run `npm run build` and copy `main.js`, `manifest.json` and `styles.css` into `<vault>/.obsidian/plugins/plugin-radar/`, then reload the plugin.
 
+## Between releases
+
+Changes go to `main` without a release: only a tag publishes one. Each change adds a line under `## Unreleased` at the top of `CHANGELOG.md` and leaves the version alone — Obsidian reads `manifest.json` on `main` as the latest version, so a version with no release of the same tag offers users an update they can't download.
+
 ## Releasing
 
 1. Set the new version in `manifest.json`, `package.json`, `package-lock.json` and `versions.json`.
-2. Add a `## <version>` section to `CHANGELOG.md`.
+2. Rename `## Unreleased` in `CHANGELOG.md` to `## <version>`.
 3. Push to `main`, then push a tag with the same version, without a `v` (e.g. `0.10.1`).
 
 The [release workflow](../.github/workflows/release.yml) checks that the tag matches `manifest.json`, runs the tests, builds and attests `main.js`, `manifest.json` and `styles.css`, and publishes the release with that version's changelog section as its notes.
