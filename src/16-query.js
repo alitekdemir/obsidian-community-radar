@@ -16,7 +16,8 @@ const QUERY_OPS = {
 const daysAgo = (ms, now) => (ms > 0 ? (now - ms) / DAY_MS : null);
 /** Days since a moment the history knows, where 0 is "before it started": then at least as long as the history. */
 const historyDays = (s, ms, now) => (ms === 0 ? daysAgo(s.timeline?.from, now) : daysAgo(ms, now));
-const fresh = (s, p) => s.firstSeen[p.id] === undefined && p.downloads == null;
+/** Listed just now: the history hasn't seen it yet and it has no download count. */
+const isUnlisted = (s, p) => s.firstSeen[p.id] === undefined && p.downloads == null;
 
 /** Growth over `days` in percent (see riseShare: 10 → 30 isn't rising). */
 const gainShare = (s, p, days) => { const share = riseShare(s.timeline, p, days); return share == null ? null : 100 * share; };
@@ -48,7 +49,7 @@ const QUERY_FIELDS = {
   // a plugin the history hasn't seen yet (no downloads count either) came in just now
   // sorted by its place in the official list (the order plugins came in): first-seen is 0 for every older one
   listed: { type: "number", days: true, sort: true, rank: (s, p) => s.position?.get(p.id) ?? null,
-    get: (s, p, now) => (fresh(s, p) ? 0 : historyDays(s, s.firstSeen[p.id], now)), at: (s, p, now) => (fresh(s, p) ? now : s.firstSeen[p.id]) },
+    get: (s, p, now) => (isUnlisted(s, p) ? 0 : historyDays(s, s.firstSeen[p.id], now)), at: (s, p, now) => (isUnlisted(s, p) ? now : s.firstSeen[p.id]) },
   // incubation (see lastHatch): how long the latest pause lasted, and how long ago the plugin came out of it
   incubated: { type: "number", days: true, sort: true, rank: (s, p) => lastHatch(s.releases, p)?.days ?? null, get: (s, p) => lastHatch(s.releases, p)?.days ?? null },
   hatched: { type: "number", days: true, sort: true, get: (s, p, now) => daysAgo(lastHatch(s.releases, p)?.at, now), at: (s, p) => lastHatch(s.releases, p)?.at ?? null },

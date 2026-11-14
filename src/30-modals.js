@@ -63,7 +63,6 @@ function numberChip(parent, { label, unit, value, min, max, presets, onChange, f
   return chip;
 }
 
-/** A filter chip that is itself the on/off switch; typing a value turns it on. */
 /** An on/off chip with a check mark. */
 function switchChip(parent, { label, on, tip, onToggle }) {
   const el = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
@@ -76,6 +75,7 @@ function switchChip(parent, { label, on, tip, onToggle }) {
   return el;
 }
 
+/** A filter chip that is itself the on/off switch, with a number to type (Downloads ≥ [100]). */
 function toggleChip(parent, { label, value, on, onToggle, onValue }) {
   const chip = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
   const toggle = chip.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });

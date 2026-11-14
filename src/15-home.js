@@ -5,17 +5,13 @@
 
 const OLD_MILESTONE_STEPS = [1000, 10000, 100000];   // the server's files before 0.9.2
 
+/** The download counts the timeline keeps milestones for (1K, 5K, 10K…); older files had three. */
 function milestoneSteps(timeline) {
   return timeline.milestoneSteps || OLD_MILESTONE_STEPS;
 }
 
 /** A milestone's name: 1K, 25K, 100K in every language ("1 bin barajı" reads wrong in Turkish). */
 const stepLabel = (n) => (n >= 1000 ? `${n / 1000}K` : String(n));
-
-/** The highest milestone a plugin passed after `after` (null: none): 33K that passed 1K, 10K and 25K this month is a 25K. */
-function topPassed(timeline, id, after) {
-  return [...milestoneSteps(timeline)].reverse().find((n) => passedAt(timeline, id, n) > after) ?? null;
-}
 
 /** When the plugin first passed `n` downloads (0: before the history; null: not yet). */
 function passedAt(timeline, id, n) {
@@ -103,7 +99,6 @@ function sinceParams(params, since) {
   return { ...rest, since };
 }
 
-/** A widget's days as the query writes them: its own, or since the card's moment (whole days, at least one). */
 /** A widget's time window on a days field: its last N days, or (asked "since") from that day on. */
 const within = (field, params) => (params.since ? `${field} >= ${dayString(params.since)}` : `${field} <= ${params.days}d`);
 

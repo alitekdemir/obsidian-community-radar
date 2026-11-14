@@ -9,7 +9,7 @@ class PluginRadar extends Plugin {
     this.data.settings.home = normalizeHome(this.data.settings.home);
     if (this.data.settings.start === "home") this.data.settings.section = "home";
     delete this.data.lastVisit;   // before 0.9.2: "new" counted from the last load, so every restart zeroed it
-    if (!["all", "tracked", ...LIST_MODES].includes(this.data.settings.mode)) this.data.settings.mode = "all";   // 0.12: the other tabs are widgets
+    if (!["all", "tracked", ...LIST_MODES].includes(this.data.settings.mode)) this.data.settings.mode = "all";   // 0.11: the other tabs are widgets
     delete this.data.settings.similarTrail;
     delete this.data.settings.historyMonths;   // 0.9.1: the history comes from GitHub
     delete this.data.settings.similarFrom;
@@ -28,7 +28,7 @@ class PluginRadar extends Plugin {
     this.busy = false;
     this.progress = "";             // the running task's progress, shown in the view's status line
     this.readmeJobs = new Set();    // plugin ids whose README is being fetched
-    this.similarCache = new Map();  // "id|limit|excluded" → similarTo result
+    this.similarCache = new Map();  // "id|limit" → similarTo result (cleared when the catalog or the ignored list changes)
 
     this.registerView(VIEW_TYPE, (leaf) => new DiscoveryView(leaf, this));
     this.addRibbonIcon(ICON, t("view.title"), () => this.openView());

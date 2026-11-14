@@ -592,7 +592,7 @@ const tests = {
   "README translation: kept above the original, version read back, split into requests, estimated; release cadence"() {
     core.setLanguage("en");
     const plugin = P("x", { version: "2.0.0", repo: "me/x" });
-    let note = core.replaceReadme(core.noteBody(plugin), core.readmeSection("# Hi\nText", plugin, NOW));
+    let note = core.replaceReadme(core.noteBody(), core.readmeSection("# Hi\nText", plugin, NOW));
     assert.equal(core.readmeText(note), "# Hi\nText");
     assert.equal(core.readmeTranslation(note), null);
     note = core.replaceReadmeTranslation(note, "> Translation (Türkçe) · v2.0.0 · 2026-11-06\n\n# Merhaba", "README (Türkçe)");
@@ -601,7 +601,7 @@ const tests = {
     const again = core.replaceReadmeTranslation(note, "> Translation (Türkçe) · v2.1.0 · 2026-12-01\n\nYeni", "README (Türkçe)");
     assert.equal(core.readmeTranslation(again).version, "2.1.0");
     assert.equal(again.split("README (Türkçe)").length, 2, "replaced, not added twice");
-    assert.ok(core.noteBody(plugin, "Notes").startsWith("# Notes\n"), "your heading");
+    assert.ok(core.noteBody("Notes").startsWith("# Notes\n"), "your heading");
 
     const long = ["# A", "x".repeat(50), "## B", "y".repeat(50), "## C", "z".repeat(50)].join("\n");
     const chunks = core.markdownChunks(long, 70);
@@ -692,7 +692,7 @@ const tests = {
 
   "replaceReadme: only the marked section changes; appended when markers are missing"() {
     const plugin = P("x");
-    const body = core.noteBody(plugin).replace("# Notlarım\n\n", "# Notlarım\nBenim notum\n");
+    const body = core.noteBody().replace("# Notlarım\n\n", "# Notlarım\nBenim notum\n");
     const once = core.replaceReadme(body, core.readmeSection("ESKI-README #tag", plugin, NOW));
     const twice = core.replaceReadme(once, core.readmeSection("YENI-README", plugin, NOW));
     assert.ok(twice.includes("Benim notum") && twice.includes("YENI-README") && !twice.includes("ESKI-README"));
@@ -705,7 +705,7 @@ const tests = {
   },
 
   "noteBody uses H1; migrateHeadings changes only our two headings"() {
-    const body = core.noteBody(P("x"));
+    const body = core.noteBody();
     assert.ok(body.startsWith("# Notlarım\n") && body.includes("\n# README\n"), "no description in the body: it's a property");
     const desc = "Create and use dynamic templates.";
     const old0 = `---\nplugin_id: x\n---\n${desc}\n\n${body}`;
@@ -813,7 +813,7 @@ const tests = {
       assert.equal(core.t("row.hatched", { when: "4 days ago", n: 70 }), "4 days ago (after a 70-day incubation)");
       assert.equal(core.t("status.delta", { added: 5, updated: 23 }), "Since last sync: 5 new · 23 updated");
       assert.equal(core.t("missing.key"), "missing.key");
-      assert.ok(core.noteBody(P("x")).startsWith("# My notes\n"));
+      assert.ok(core.noteBody().startsWith("# My notes\n"));
       assert.equal(core.defaultSettings().folder, "Plugins");
     } finally {
       core.setLanguage("tr");
@@ -831,9 +831,9 @@ const tests = {
 
   "readmeVersion reads the version from the README meta line"() {
     const plugin = { ...P("x"), repo: "o/x", version: "1.2.0" };
-    const note = core.replaceReadme(core.noteBody(plugin), core.readmeSection("# Hi", plugin, NOW));
+    const note = core.replaceReadme(core.noteBody(), core.readmeSection("# Hi", plugin, NOW));
     assert.equal(core.readmeVersion(note), "1.2.0");
-    assert.equal(core.readmeVersion(core.noteBody(plugin)), null);   // markers but no meta yet
+    assert.equal(core.readmeVersion(core.noteBody()), null);   // markers but no meta yet
     assert.equal(core.readmeVersion("no markers"), null);
   },
 

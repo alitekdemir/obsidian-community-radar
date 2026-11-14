@@ -75,17 +75,16 @@ const SERIES_DAILY = 30;
 // Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.
 const README_START = "%% community-radar:readme-start %%";
 const README_END = "%% community-radar:readme-end %%";
-// Markers before 0.6.1 (HTML comments show up in Live Preview); notes are migrated once.
 const README_TR_START = "%% community-radar:readme-translation-start %%";   // the README in your language (on request)
 const README_TR_END = "%% community-radar:readme-translation-end %%";
 const README_CHUNK = 8000;         // characters of README per translation request (fits a 4096-token reply)
+// Markers before 0.6.1 (HTML comments show up in Live Preview); notes are migrated once.
 const LEGACY_README_START = "<!-- plugin-tracker:readme-start -->";
 const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
 const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
-const LIST_MODES = ["excluded", "snoozed", "dismissed"];   // the Hidden page: one kind at a time   // reached from the ⋮ menu and settings, not from a tab
-const SIMILAR_MODE = "similar";                // 0.8's Similar list; the Similar filter replaced it
+const LIST_MODES = ["excluded", "snoozed", "dismissed"];   // the Hidden page, one kind at a time: reached from the ⋮ menu and settings, not from a tab
 // sort keys are what `order by` writes: a field, with its parameter where it takes one
 const SORT_KEYS = ["downloads", "gain(7d)", "gain(30d)", "rise(7d)", "rise(30d)", "released", "name", "listed", "incubated", "hatched", "rating"];
 const SIMILAR_SORT_KEYS = ["relevance", "downloads", "gain(30d)", "released", "name", "listed", "rating"];

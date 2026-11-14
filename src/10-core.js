@@ -115,10 +115,9 @@ function parseCatalog(listing, stats) {
 }
 
 // ─── Release history ────────────────────────────────────────────────────────
-/**
- * Release history: release dates per plugin (`releases`) and the day each plugin first appeared
- * (`firstSeen`). A `firstSeen` of 0 means the plugin was already listed when the archive starts.
- */
+// The timeline: release dates per plugin (`releases`), the day each plugin first appeared (`firstSeen`; 0: it was
+// already listed when the archive starts) and a year of downloads (`series`). Built daily by scripts/metrics/build.py.
+
 /** Calendar days the downloads series keeps, oldest first: Mondays back a year (one before it), then every day of the last SERIES_DAILY. */
 function seriesDays(lastDay) {
   const days = [];
@@ -290,7 +289,7 @@ function isUnreviewed(plugin, note) {
  * @returns {{test: (plugin) => boolean, regex: boolean, error: string}}
  */
 function compileQuery(query, state = null, now = Date.now(), advanced = false) {
-  if (advanced || isAdvancedQuery(String(query || ""))) {   // Query mode reads even plain words as the query language   // the query language (16-query.js)
+  if (advanced || isAdvancedQuery(String(query || ""))) {   // the query language (16-query.js); Query mode reads even plain words as it
     try {
       const q = parseQuery(String(query), { strict: advanced });
       return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, free: q.free, spans: q.spans, fields: q.fields, advanced: true, regex: false, error: "" };
@@ -450,7 +449,6 @@ function extraValueText(key, value) {
   return filter.unit === "days" ? t("filter.days", { n: value }) : formatCount(value);
 }
 
-/** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */
 /**
  * Installed plugins that Obsidian took off its list (they're not in the catalog any more): rows from their own
  * manifest, marked `removed` {at, reason}, so `installed AND removed` finds them. Other removed plugins aren't shown.
@@ -462,6 +460,7 @@ function removedRows(removed = {}, manifests = {}) {
   });
 }
 
+/** Hidden "until the next release": snoozed at a release time that the plugin hasn't passed yet. */
 function isSnoozed(plugin, snoozed) {
   return snoozed != null && plugin.id in snoozed && (plugin.updated || 0) <= snoozed[plugin.id];
 }

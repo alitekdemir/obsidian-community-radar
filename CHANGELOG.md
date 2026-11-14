@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Fixed
+- **Why a list is empty:** in Query mode the status line names the clause that emptied the list again; with `AND` between clauses it always counted 0 and never showed.
+- **Saved views from before 0.10:** upgrading straight to 0.11 turned their query into the word `undefined`, so they found nothing; the upgrade steps now run in order.
+- **Sync:** rewriting the tracking notes redraws the view once, not once per note, so a sync with many tracked plugins no longer stalls Obsidian.
+- **AI errors:** a provider's error page that isn't JSON (a proxy's 502) now shows its status and text instead of "Unexpected token <".
+- **README translation estimate:** choosing another provider clears the old model's price, so the estimate no longer uses it.
+- **Gemini:** a typed model id with `/` or `?` no longer breaks the request.
+
 ## 0.11.2
 
 ### Fixed

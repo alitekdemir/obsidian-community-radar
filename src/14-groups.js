@@ -4,11 +4,11 @@
  * @param {Map<string, string[]>} members  group name → plugin ids
  */
 function closestGroup(target, members, index) {
-  const mine = index.byId.get(target.id) || words(`${target.name} ${target.description}`);
+  const mine = index.byId.get(target.id) || meaningfulWords(`${target.name} ${target.description}`);
   let best = null;
   let bestScore = MIN_SIMILARITY;
   for (const [group, ids] of members) {
-    const profile = words(group);
+    const profile = meaningfulWords(group);
     for (const id of ids) if (id !== target.id) for (const w of index.byId.get(id) || []) profile.add(w);
     const score = overlap(index, mine, profile) / Math.sqrt(Math.max(1, ids.length));
     if (score >= bestScore) { best = group; bestScore = score; }

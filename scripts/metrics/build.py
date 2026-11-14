@@ -7,7 +7,7 @@ downloads the result instead of replaying a year of snapshots itself.
 Usage: python build.py <obsidian-releases clone with full history> <out dir>
 
 Writes:
-  timeline.json  the plugin's timeline format (see newTimeline / mergeSnapshot in src/10-core.js), plus
+  timeline.json  the plugin's timeline format (see newTimeline / mergeTimeline in src/10-core.js), plus
                  `series` {days, points}: downloads over the last year. `days` are calendar days (ms // DAY_MS),
                    oldest first: Mondays, then every day of the last SERIES_DAILY (see series_days; the plugin's
                    seriesDays keeps the same ones); `points` {id: [downloads on the first day, then the change on

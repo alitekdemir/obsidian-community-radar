@@ -287,7 +287,7 @@ class HomePage {
       setTooltip(badge, t("home.freshTip", { n: formatCount(fresh.length) }), { delay: 150 });
       badge.onclick = (event) => { event.stopPropagation(); open(true); };
     }
-    const unit = widget.view ? t("home.view.unitQuery") : widget.tab ? t("home.tabUnit") : t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(id, params));
+    const unit = widget.view ? t("home.view.unitQuery") : widget.tab ? t("home.tabUnit") : t(widget.unit?.(params) || `home.${id}.unit`, this.paramWords(params));
     left.createSpan({ cls: "pdt-home-unit", text: unit });
     const key = Object.keys(widget.params)[0];
     if (key) {
@@ -361,11 +361,11 @@ class HomePage {
   widgetInfo(id, params, widget = homeWidget(this.home, id)) {
     if (widget.view) return this.viewInfo(widget.view);
     if (widget.tab) return t("home.tabInfo", { tab: t(`mode.${widget.tab}`), query: flatQuery(pageQuery(this.plugin.data.settings, widget.tab)) });
-    return t(widget.info?.(params) || `home.${id}.info`, this.paramWords(id, params));
+    return t(widget.info?.(params) || `home.${id}.info`, this.paramWords(params));
   }
 
   /** A widget's settings as words for its info and unit lines. */
-  paramWords(id, params) {
+  paramWords(params) {
     return Object.fromEntries(Object.entries(params).map(([k, v]) => [k, k === "n" ? stepLabel(v) : v]));
   }
 

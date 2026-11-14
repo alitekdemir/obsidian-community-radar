@@ -198,7 +198,7 @@ class Notes {
     const created = !file;
     if (created) {
       if (!this.app.vault.getAbstractFileByPath(this.folder)) await this.app.vault.createFolder(this.folder);
-      file = await this.app.vault.create(this.uniquePath(plugin), noteBody(plugin, this.settings.notesHeading.trim() || undefined));
+      file = await this.app.vault.create(this.uniquePath(plugin), noteBody(this.settings.notesHeading.trim() || undefined));
     }
     let written = {};
     await this.app.fileManager.processFrontMatter(file, (fm) => {

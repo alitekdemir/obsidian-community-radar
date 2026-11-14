@@ -152,7 +152,7 @@ function catalogDelta(before, after) {
 }
 
 /** Body of a new tracking note (properties are written separately with processFrontMatter). */
-function noteBody(plugin, heading = t("note.myNotes")) {
+function noteBody(heading = t("note.myNotes")) {
   return `# ${heading}\n\n\n# README\n${README_START}\n${README_END}\n`;
 }
 

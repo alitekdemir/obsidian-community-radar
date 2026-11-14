@@ -10,14 +10,14 @@ const stem = (w) => (w.length > 4 && w.endsWith("ies") ? `${w.slice(0, -3)}y`
   : w.length > 4 && w.endsWith("s") && !w.endsWith("ss") ? w.slice(0, -1) : w);
 
 /** The words of a text that can carry meaning, in order (generic ones like "note" included). */
-function tokens(text) {
+function termTokens(text) {
   return (String(text || "").toLowerCase().match(/[\p{L}\p{N}]+/gu) || [])
     .map(stem).filter((w) => w.length >= 3 && !FUNCTION_WORDS.has(w));
 }
 
 /** The distinct meaningful words of a text. */
-function words(text) {
-  return new Set(tokens(text).filter((w) => !GENERIC_WORDS.has(w)));
+function meaningfulWords(text) {
+  return new Set(termTokens(text).filter((w) => !GENERIC_WORDS.has(w)));
 }
 
 /** A plugin's terms and their weights: words and word pairs ("daily note"), name ones counting double. */
@@ -29,8 +29,8 @@ function pluginTerms(p) {
     const prev = list[i - 1];
     if (prev && !(GENERIC_WORDS.has(prev) && GENERIC_WORDS.has(w))) bump(`${prev} ${w}`, weight);
   });
-  add(tokens(p.name), NAME_WEIGHT);
-  add(tokens(p.description), 1);
+  add(termTokens(p.name), NAME_WEIGHT);
+  add(termTokens(p.description), 1);
   return tf;
 }
 
@@ -133,7 +133,7 @@ function similarPlugins(target, catalog, index, { exclude = new Set(), limit = S
 function sharedTerms(shared = []) {
   return [...shared].sort((a, b) => b[1] - a[1]).map(([term]) => term)
     .filter((term) => !term.includes(" ") || term.split(" ").some((w) => GENERIC_WORDS.has(w)))   // "manage daily": its words say it
-    .filter((term, i, all) => !all.slice(0, i).some((t) => t.includes(term) || term.includes(t))).slice(0, 4);
+    .filter((term, i, all) => !all.slice(0, i).some((kept) => kept.includes(term) || term.includes(kept))).slice(0, 4);   // no repeats
 }
 
 /**

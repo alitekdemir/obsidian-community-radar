@@ -2491,11 +2491,6 @@ button.pdt-section-head:hover {
   background: var(--background-secondary);
 }
 
-.pdt-banner-title {
-  flex: 1 1 200px;
-  font-weight: var(--font-semibold);
-}
-
 /* Keyboard: the focused row is visible */
 .pdt-row:focus-visible {
   outline: 2px solid var(--interactive-accent);
@@ -2628,29 +2623,6 @@ button.pdt-section-head:hover {
   align-items: center;
   gap: var(--size-4-2);
   container-type: inline-size;   /* a narrow panel hides "Home"'s word, the icon stays */
-}
-
-.pdt-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 28px;
-  padding: 0 var(--size-4-3);
-  border-radius: var(--radius-s);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
-}
-
-.pdt-nav-item:hover {
-  color: var(--text-normal);
-}
-
-.pdt-nav-item.is-active {
-  background: var(--background-primary);
-  color: var(--text-normal);
-  font-weight: var(--font-semibold);
-  box-shadow: var(--shadow-s);
 }
 
 .pdt-nav-spacer {
@@ -3183,8 +3155,7 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
 
 @media (prefers-reduced-motion: reduce) {
   .pdt-view .pdt-home *,
-  .pdt-view .pdt-home .is-in,
-  .pdt-view .pdt-nav-item {
+  .pdt-view .pdt-home .is-in {
     animation: none;
     transition: none;
   }
@@ -3213,19 +3184,6 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
   .pdt-home-info-text,
   .pdt-home-mini .pdt-home-info { display: none; }
 }
-
-/* Settings › Page queries: monospace, a changed one with a yellow edge, one that doesn't parse red */
-.pdt-setting-query textarea {
-  width: 100%;
-  min-width: 22em;
-  font-family: var(--font-monospace);
-  font-size: var(--font-ui-smaller);
-  font-variant-ligatures: none;
-}
-
-.pdt-setting-query textarea.is-changed { border-color: var(--color-yellow); }
-.pdt-setting-query textarea.is-invalid { border-color: var(--text-error); }
-.pdt-setting-query .setting-item-description { color: var(--text-error); }
 
 /* ── Where you are: "⌂ Home | All", one two-part button, the place you're in filled ─── */
 .pdt-place {
@@ -3266,17 +3224,6 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
 
 .pdt-strip .pdt-tab {
   flex: 0 0 auto;
-}
-
-.pdt-strip-sep {
-  flex: none;
-  width: 1px;
-  margin: 4px 2px;
-  background: var(--background-modifier-border);
-}
-
-.pdt-tab.is-view {
-  color: var(--text-accent);
 }
 
 .pdt-tab.is-temp {
