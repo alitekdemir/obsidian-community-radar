@@ -36,7 +36,7 @@ Obsidian's built-in plugin browser is great for installing a plugin when you alr
 
 Instead of dropping you into an endless alphabetical wall, Community Radar opens on **Home**—a live dashboard tailored to your attention.
 
-At the top, the **Not seen yet** strip tracks new arrivals, updates to plugins you follow, newly crossed download milestones, and quiet releases. Counts clear only when you actually open a list—restarting Obsidian never wipes your unread state. Below it, draggable cards answer the questions you actually care about: *New arrivals*, *Milestones* (`1K` to `100K`), *Out of incubation*, *Rising*, *Quiet updates*, and *New releases you track*. Tweak time windows or thresholds right on any card, or click its **N new** pill to jump straight to what arrived since your last check.
+At the top, **What's new** counts new arrivals, updates to plugins you follow, newly crossed download milestones, and quiet releases since your last visit day (or the last 7 / 30 days). Opening a list empties nothing: all day long it shows what came in since the day you last looked, and each list says so in its query (`listed >= 2026-11-11`). Below it, draggable cards answer the questions you actually care about: *New*, *Updated*, *Incubation*, *Rising*, *Milestones*, *New releases you track*, *Plugins you track*, *Hidden* (and *Suggested* to add). Each card is a query and counts exactly the list it opens; the tab strip keeps only *All*, and a card's list opens next to it. Tweak time windows or thresholds right on any card, or click its **N new** pill to jump straight to what arrived since your last check. **+ Add widget** opens a gallery of ready-made queries (*Hidden gems*, *Fast starters*, *Abandoned installs*, *To try*…), each with what it finds, why it helps and a live count: you pick a small or a big card (drawn as it will look) and the group it joins. Home is groups you shape: rename them, put two side by side, reorder them by their grip, all from the ⋯ next to a group's title (or a right click). **⌂ Home | All** at the top tells you where you are; `Esc` steps back to Home.
 
 ---
 
@@ -46,7 +46,7 @@ At the top, the **Not seen yet** strip tracks new arrivals, updates to plugins y
 
 Some of the most exciting moments in the ecosystem happen when an abandoned favorite suddenly ships a major rewrite—yet in a standard "sort by updated" list, it vanishes within hours under daily hotfixes.
 
-- **Incubation** surfaces plugins that shipped a new version after lying dormant for 60 to 360+ days—showing exact context like *"4 days ago (after a 1,462-day incubation)"*. Better yet, a plugin stays visible here proportional to how long it slept, so a huge comeback never slips past you.
+- **Incubation** surfaces plugins that shipped a new version after lying dormant for 60 to 360+ days—showing exact context like *"4 days ago (after a 1,462-day incubation)"*. Better yet, every comeback gets the same 30 days on the tab, the latest on top, and keeps them even if it ships a hotfix the next day.
 - **Updated** automatically sets aside hyper-active plugins (more than 9 update waves in 6 months), giving thoughtful, less frequent releases room to breathe.
 
 ---
@@ -55,16 +55,16 @@ Some of the most exciting moments in the ecosystem happen when an abandoned favo
 
 ![The query box: colors, a change badge and its actions](docs/images/query-save.png)
 
-Prefer visual controls? Stay in **Basic** mode to combine search terms, `/regex/`, and quick filter chips behind the **Filter** menu. Want total precision? Flip to **Query** mode—because under the hood, **every tab in Community Radar is just an editable query**:
+Prefer visual controls? Stay in **Basic** mode to combine search terms, `/regex/`, and quick filter chips behind the **Filter** menu. Want total precision? Flip to **Query** mode—because under the hood, **every list in Community Radar is just an editable query**:
 
 ```sql
-age <= 30d AND downloads >= 50 AND NOT tracked
-order by gain30 desc
+listed <= 30d AND downloads >= 50 AND NOT tracked
+order by gain(30d) desc
 ```
 
-- **27 searchable fields & date functions:** Filter by `gain7`, `rise30` (% growth), `gap`, `milestone`, `installed`, `group`, `rating`, and dynamic dates like `startOfMonth(-1)` or `lastSync()`.
-- **Guided as you type:** Press `Ctrl+Space` for context-aware autocomplete (including your own groups, statuses, and plugin authors), hover over any token to see a plain-English explanation, or hit `?` for an interactive cheat sheet. If a query returns zero results, Community Radar even tells you **which clause emptied the list**.
-- **Saved Views:** Customize any query and save it as a **View**—giving it a permanent tab in your top bar (with a `+N` badge for unseen matches) and its own widget card on Home. → *[Full Query Reference](docs/query.md)*
+- **Fields with a parameter, any window:** `gain(21d)` (downloads gained), `rise(7d)` (% growth), `releases(180d)` (updates), `milestone(10k)` (the day it reached 10K), from a year of daily download history. Plus `incubated`, `hatched`, `installed`, `group`, `rating`, `removed`, and dates like `startOfMonth(-1)` or `lastSync()`.
+- **Guided as you type:** Press `Ctrl+Space` for context-aware autocomplete (including your own groups, statuses, and plugin authors), hover over any token to see a plain-English explanation, or open **Help** (**?**): a Quick start, the Ready-made queries and the Query guide in one window. If a query returns zero results, Community Radar even tells you **which clause emptied the list**.
+- **Saved Views:** Customize any query and save it as a **View**—its own card on Home, with a `+N` badge for unseen matches. → *[Full Query Reference](docs/query.md)*
 
 ---
 
@@ -113,9 +113,9 @@ Community Radar doesn't lock your curation inside a private database. The moment
 ### Up and Running in 60 Seconds
 
 1. **Let the initial sync finish:** Community Radar fetches the public plugin catalog, the 6-year release archive, and the semantic similarity index (~3 MB total).
-2. **Check Home:** Scan *Not seen yet* and click into a discovery card like *Rising* or *Out of incubation*.
+2. **Check Home:** Scan *What's new* and click into a discovery card like *Rising* or *Incubation*.
 3. **Curate your first plugin:** Star (**☆**) or group (**＋**) something interesting—its Markdown note is created instantly in your vault (and you can generate an **Obsidian Bases** view anytime from Settings).
-4. **Make it yours:** Switch any tab from **Basic** to **Query** to inspect its rule, tweak it, and save your own custom view.
+4. **Make it yours:** Open any card's list, switch from **Basic** to **Query** to inspect its rule, tweak it, and save your own custom view.
 
 ---
 

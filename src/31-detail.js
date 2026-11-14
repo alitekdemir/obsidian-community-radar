@@ -32,6 +32,8 @@ class DetailModal extends Modal {
 
   onOpen() {
     this.modalEl.addClass("pdt-detail");
+    this.containerEl?.addClass?.("pdt-detail-container");   // the CSS hides Obsidian's corner ✕ wherever it sits: ours is in the head row
+    this.modalEl.toggleClass("is-full", this.plugin.data.settings.detailFull);
     this.component = new obsidian.Component();
     this.component.load();
     // grow out of the card: the animation starts at the card's centre (no motion if the system asks for less)
@@ -83,6 +85,7 @@ class DetailModal extends Modal {
       return { box, head };
     };
     const about = section(main, t("details.description")).box;
+    if (p.removed) about.createEl("p", { cls: "pdt-detail-removed", text: t("details.removed", { reason: p.removed.reason || "–", date: dayString(p.removed.at) }) });
     about.createEl("p", { text: p.description || "–" });
     const translation = plugin.cachedTranslation(p);
     if (translation) about.createEl("p", { cls: "pdt-detail-trans", text: translation });
@@ -146,7 +149,32 @@ class DetailModal extends Modal {
       if (note.rating) tags.createSpan({ cls: "pdt-detail-stars", text: "★".repeat(note.rating) + "☆".repeat(5 - note.rating) });
       tags.createSpan({ cls: "pdt-detail-muted", text: t("details.tracked") });
     }
-    title.createEl("a", { cls: "pdt-detail-open", text: t("details.openInObsidian"), href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
+    const actions = title.createDiv({ cls: "pdt-detail-head-actions" });
+    const open = actions.createEl("a", { cls: "pdt-detail-open", text: t("details.openInObsidian"), href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
+    setTooltip(open, t("details.openInObsidianTip"));
+    this.renderSizeToggle(actions);
+    const close = actions.createEl("button", { cls: "clickable-icon pdt-detail-close", attr: { type: "button", "aria-label": t("details.close") } });
+    setIcon(close, "x");   // in the row, the size of ⤢ (Obsidian's own ✕ is pinned to the corner, so it's hidden)
+    close.onclick = () => this.close();
+  }
+
+  /** ⤢ / ⤡: fill the screen or go back to the window size; remembered for the next details window. */
+  renderSizeToggle(parent) {
+    const settings = this.plugin.data.settings;
+    const button = parent.createEl("button", { cls: "clickable-icon pdt-detail-size", attr: { type: "button" } });
+    const show = () => {
+      setIcon(button, settings.detailFull ? "minimize-2" : "maximize-2");
+      button.setAttribute("aria-label", t(settings.detailFull ? "details.restore" : "details.maximize"));
+    };
+    show();
+    button.addEventListener("click", async () => {
+      settings.detailFull = !settings.detailFull;
+      this.modalEl.style.removeProperty("width");    // a hand-resized size gives way to the chosen one
+      this.modalEl.style.removeProperty("height");
+      this.modalEl.toggleClass("is-full", settings.detailFull);
+      show();
+      await this.plugin.saveData(this.plugin.data);
+    });
   }
 
   /** Four equal tiles: label, value, and what the value means. */
@@ -161,7 +189,7 @@ class DetailModal extends Modal {
     const seen = firstSeen[p.id];
     const dates = releases[p.id] || [];
     const cadence = releaseCadence(dates, now);
-    const gained = this.plugin.timeline.growth?.[p.id]?.[1];
+    const gained = gainOver(this.plugin.timeline, p.id, 30);
     stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), gained != null ? t("details.growth30", { n: formatShort(gained) }) : t("details.downloadsSub"));
     stat(t("details.lastRelease"), p.updated ? relativeDays(p.updated, now) : "–", p.version);
     // age counts from the day it was listed; 0: it was there before the history starts

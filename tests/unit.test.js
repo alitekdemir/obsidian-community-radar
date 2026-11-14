@@ -12,6 +12,8 @@ const NOW = Date.parse("2026-10-31T12:00:00Z");
 const ago = (d) => NOW - d * DAY_MS;
 const P = (id, extra = {}) => ({ id, name: id.toUpperCase(), author: "a", repo: `a/${id}`, description: `${id} desc`,
   downloads: 1000, updated: ago(1), version: "1.0.0", ...extra });
+/** A timeline's downloads series from {id: downloads at each age}, as the server writes it (changes after the first). */
+const series = (counts, ages = [90, 30, 7, 0]) => ({ days: ages.map((age) => Math.floor(NOW / DAY_MS) - age), points: Object.fromEntries(Object.entries(counts).map(([id, c]) => [id, c.map((x, i) => (i ? x - c[i - 1] : x))])) });
 
 const tests = {
   "parseCatalog: picks the highest version and strips the review note"() {
@@ -32,34 +34,40 @@ const tests = {
 
 
 
-  "discover 0.9: Updated leaves out new and busy plugins; incubation keeps a plugin as long as its pause"() {
+  "discover: Updated leaves out busy plugins (new ones stay: NOT listed <= 14d is yours to add); Incubation lists the latest hatchings"() {
     const busy = Array.from({ length: 25 }, (_, i) => ago(170 - i * 7));
     const catalog = [P("young", { updated: ago(2) }), P("busy", { updated: ago(2) }), P("calm", { updated: ago(2) }),
-      P("hatched", { updated: ago(50) }), P("expired", { updated: ago(80) })];
+      P("hatched", { updated: ago(20) }), P("expired", { updated: ago(80) })];
     const state = {
       catalog, notes: new Map(), excluded: new Set(), dismissed: new Set(), installed: new Set(),
-      releases: { busy: [...busy, ago(2)], calm: [ago(40), ago(2)], hatched: [ago(138), ago(50)], expired: [ago(150), ago(80)] },
+      releases: { busy: [...busy, ago(2)], calm: [ago(40), ago(2)], hatched: [ago(108), ago(20)], expired: [ago(150), ago(80)] },
       firstSeen: { young: ago(10), busy: 0, calm: 0, hatched: 0, expired: 0 },
     };
     // the tabs are their page queries now; the days and Hide busy live in them
     const page = (mode, o) => ({ pageQueries: { [mode]: core.defaultPageQuery(mode, { downloads: 0, ...o }) } });
     const ids = (o) => core.discover(state, { mode: "updated", minDownloads: 0, query: "", sort: "name", ...page("updated"), ...o }, NOW).map((p) => p.id);
-    assert.deepEqual(ids({}), ["calm"]);                          // young is 10 days old, busy updated 25 times
-    assert.deepEqual(ids(page("updated", { busy: false })), ["busy", "calm"]);
+    assert.deepEqual(ids({}), ["calm", "young"]);                 // busy updated 25 times; young (10 days old) stays
+    assert.deepEqual(ids(page("updated", { busy: false })), ["busy", "calm", "young"]);
+    assert.deepEqual(ids({ pageQueries: { updated: "released <= 14d AND NOT listed <= 14d" } }), ["busy", "calm"], "NOT listed <= 14d leaves young out");
+    // New follows the New plugin period, like the badge: 10 days old is new at 14 days, not at 7
+    const fresh = (newDays) => core.discover(state, { mode: "new", minDownloads: 0, query: "", sort: "name", newDays }, NOW).map((p) => p.id);
+    assert.deepEqual(fresh(14), ["young"]);
+    assert.deepEqual(fresh(7), []);
+    assert.equal(core.pageQuery({ newDays: 7 }, "new"), "listed <= 7d AND NOT tracked\norder by listed desc");
     assert.equal(core.updateWaves(state.releases.busy, ago(180), NOW), 25);   // 26 releases, the last two the same day
     // 21 hotfixes in two sittings are two updates, not a busy plugin
     const sittings = [...Array.from({ length: 11 }, (_, i) => ago(120) + i * 6 * 3600e3), ...Array.from({ length: 10 }, (_, i) => ago(10) + i * 6 * 3600e3)];
     assert.equal(core.updateWaves(sittings, ago(180), NOW), 2);
     assert.deepEqual(core.releaseWaves([0, 6 * DAY_MS, 7 * DAY_MS]).map((w) => w.length), [2, 1], "within a week: one update; a week later: the next");
-    assert.deepEqual(ids({ mode: "awakened" }), ["hatched"]);
+    assert.deepEqual(ids({ mode: "awakened" }), ["hatched"], "88 days quiet, back 20 days ago; expired came back 80 days ago");
     // filters added with + Filter work on any tab
-    assert.deepEqual(ids({ mode: "all", extras: { gap: 80 } }), ["hatched"], "incubation ≥ 80 on All");
+    assert.deepEqual(ids({ mode: "all", extras: { incubated: 80 } }), ["hatched"], "incubation ≥ 80 on All");
     assert.deepEqual(ids({ mode: "all", extras: { released: 10 } }), ["busy", "calm", "young"]);
     state.installed = new Set(["calm"]);
     assert.deepEqual(ids({ mode: "all", extras: { installed: true, released: 10 } }), ["calm"]);
     state.installed = new Set();
-    assert.ok(!core.addableFilters({ extraFilters: { all: { gap: 60 } } }, "all").includes("gap"), "added once");
-    assert.ok(!core.addableFilters({}, "awakened").includes("gap"), "Incubation has its own");     // 88-day pause, released 50 days ago; expired: 70-day pause, 80 days ago
+    assert.ok(!core.addableFilters({ extraFilters: { all: { incubated: 60 } } }, "all").includes("incubated"), "added once");
+    assert.ok(!core.addableFilters({}, "awakened").includes("incubated"), "Incubation has its own");
   },
 
   "filterSummary: the changed filters as they are now, merged Downloads"() {
@@ -71,11 +79,190 @@ const tests = {
     assert.equal(core.filterSummary(base, "updated"), core.t("filter.tipNone"));
   },
 
-  "dormantDays: a plugin with releases in between is not 90 days dormant (7/30/40 days example)"() {
-    const plugin = P("x");
-    assert.equal(core.dormantDays({ x: [ago(400), ago(40), ago(30), ago(7), ago(1)] }, plugin), 6);
-    assert.equal(core.dormantDays({ x: [ago(400), ago(1)] }, plugin), 399);
-    assert.equal(core.dormantDays({ x: [ago(1)] }, plugin), null);   // no history
+  "lastHatch: the latest pause of 30+ days between update waves; later releases don't undo it"() {
+    const plugin = P("x", { updated: ago(1) });
+    assert.deepEqual(core.lastHatch({ x: [ago(400), ago(40), ago(30), ago(7), ago(1)] }, plugin), { at: ago(40), days: 360 }, "10 and 23 days are no incubation");
+    assert.deepEqual(core.lastHatch({ x: [ago(400), ago(1)] }, plugin), { at: ago(1), days: 399 });
+    assert.equal(core.lastHatch({ x: [ago(1)] }, plugin), null);   // no history
+    assert.equal(core.lastHatch({ x: [ago(20), ago(1)] }, plugin), null, "19 days: no incubation");
+  },
+
+  "home widgets: the card counts and previews exactly the list it opens (one query each)"() {
+    const day = core.dayString;
+    const catalog = [
+      P("fresh", { downloads: null, updated: null }),                                   // listed, no stats yet
+      P("hidden", { downloads: 12000, updated: ago(2) }),                                // excluded: never on a card
+      P("grow", { downloads: 2000, updated: ago(3) }),
+      P("ms", { downloads: 10200, updated: ago(40) }),
+      P("edge", { downloads: 800, updated: ago(14) }),                                    // released exactly 14 days ago
+      P("tr", { downloads: 300, updated: ago(1) }),
+      P("tr2", { downloads: 500, updated: ago(4) }),
+      P("inst", { downloads: 700, updated: ago(90) }),
+      P("instTracked", { downloads: 900, updated: ago(90) }),
+      P("back", { downloads: 600, updated: ago(1) }),
+    ];
+    const state = {
+      catalog, firstSeen: { hidden: ago(3), grow: ago(5), ms: 0, edge: 0, tr: 0, tr2: 0, inst: 0, instTracked: 0, back: 0 },
+      releases: { back: [ago(200), ago(3)] },
+      notes: new Map([["tr", { reviewed: day(ago(5)), groups: [] }], ["tr2", { reviewed: day(ago(6)), groups: [] }], ["instTracked", { groups: [] }]]),
+      installed: new Set(["inst", "instTracked"]), excluded: new Set(["hidden"]), dismissed: new Set(), snoozed: {},
+    };
+    state.timeline = { to: NOW, milestoneSteps: [1000, 10000], milestones: { ms: [0, ago(5)], hidden: [0, ago(2)] },
+      series: series({ grow: [1300, 1400, 1900, 2000], hidden: [5000, 6000, 11000, 12000], ms: [9000, 9500, 9900, 10200] }, [90, 30, 7, 0]) };
+    const settings = core.defaultSettings();
+    const ctx = { state, timeline: state.timeline, settings, now: NOW };
+    const ids = (rows) => rows.map((p) => p.id);
+    // the list a widget opens: its query on a page of its own (what openPreset shows)
+    const list = (query) => ids(core.discover(state, core.modeOptions({ ...settings, queries: { all: query } }, "all"), NOW));
+    const card = {};
+    for (const [id, widget] of Object.entries(core.HOME_WIDGETS)) {
+      const variants = id === "rising" ? [{ by: "pct" }, { by: "abs" }] : [{}];
+      for (const extra of variants) {
+        const params = { ...widget.defaults, ...extra };
+        const rows = ids(core.widgetRows(ctx, widget, params));
+        assert.deepEqual(rows, list(widget.query(ctx, params)), `${id} ${JSON.stringify(extra)}: card = list`);
+        if (id !== "hidden") assert.ok(!rows.includes("hidden"), `${id}: an excluded plugin stays off the card`);
+        const since = ids(core.widgetRows(ctx, widget, { ...params, since: ago(3) }));
+        assert.ok(since.every((x) => rows.includes(x)), `${id}: "since" is part of the list`);
+        card[id + (extra.by || "")] = rows;
+      }
+    }
+    assert.ok(card.new.includes("fresh"), "a plugin without stats yet is new");
+    assert.deepEqual(card.milestone, ["ms"], "reached 10K within 7 days");
+    assert.deepEqual(card.risingpct, ["grow"]);
+    assert.ok(card.updated.includes("edge"), "the 14th day is in");
+    assert.deepEqual(card.tracked, ["tr", "tr2"], "newest release first, as the list sorts it");
+    assert.deepEqual(card.suggested, ["inst"], "a tracked plugin isn't a suggestion");
+    assert.deepEqual(card.awakened, ["back"]);
+    // a tab's widget is the tab: its card counts the tab's query, saved changes included
+    assert.equal(core.HOME_WIDGETS.updated.query(ctx, {}), core.pageQuery(settings, "updated"));
+    const mine = { ...settings, pageQueries: { updated: "released <= 3d\norder by name asc" } };
+    assert.equal(core.HOME_WIDGETS.updated.query({ ...ctx, settings: mine }, {}), "released <= 3d\norder by name asc");
+    assert.equal(core.HOME_WIDGETS.updated.query({ ...ctx, settings: mine }, { since: ago(3) }), `released >= ${core.dayString(ago(3))}\norder by name asc`, "N new: its own window gives way to the day");
+    const since = `listed >= ${core.dayString(ago(3))}`;
+    assert.equal(core.narrowQuery("listed <= 14d AND NOT tracked\norder by listed desc", "listed", since), `${since} AND NOT tracked\norder by listed desc`);
+    assert.equal(core.narrowQuery("NOT tracked", "listed", since), `NOT tracked AND ${since}`, "no window of its own: joined");
+    assert.equal(core.narrowQuery("tracked OR installed", "listed", since), `(tracked OR installed) AND ${since}`, "an OR keeps its parentheses");
+  },
+
+  "downloads series: kept on calendar days; delta.json joins on to the copy, a gap asks for the whole file"() {
+    const day = Math.floor(NOW / DAY_MS);
+    const days = core.seriesDays(day);
+    const daily = days.indexOf(day - 30);
+    assert.equal(days.length - daily, 31, "every day of the last month");
+    assert.ok(days.slice(0, daily).every((d) => (d + 3) % 7 === 0), "Mondays before it");
+    assert.ok(day - days[0] >= 365 && day - days[0] < 372, "back a year");
+    // a copy two days old, then the last three days from the server: 10 downloads a day for a, b listed yesterday
+    const enc = (c) => c.map((x, i) => (i ? x - c[i - 1] : x));
+    const count = (d) => (d - 20000) * 10;
+    const old = core.seriesDays(day - 2);
+    const copy = { v: 3, from: ago(2000), to: ago(2), releases: { a: [ago(100)] }, firstSeen: { a: 0 }, milestones: {}, removed: {},
+      series: { days: old, points: { a: enc(old.map(count)) } } };
+    const recent = [day - 3, day - 2, day - 1, day];
+    const delta = { v: 3, from: ago(2), to: NOW, releases: { a: [ago(1)] }, firstSeen: { b: ago(1) }, milestones: { a: [ago(1)] }, removed: { x: [ago(1), "gone"] },
+      series: { days: recent, points: { a: enc(recent.map(count)), b: enc([0, 0, 5, 9]) } } };
+    const merged = core.mergeTimeline(copy, delta);
+    assert.deepEqual(merged.series.days, days, "on today's days");
+    assert.deepEqual(merged.series.points.a, enc(days.map(count)), "the copy's days and the new ones, one series");
+    assert.equal(core.gainOver(merged, "a", 7), 70);
+    assert.equal(core.gainOver(merged, "b", 1), 4, "a plugin listed yesterday: 0 before it");
+    assert.deepEqual(merged.releases.a, [ago(100), ago(1)]);
+    assert.ok(merged.to === NOW && merged.firstSeen.b === ago(1) && merged.removed.x && merged.milestones.a);
+    const gap = { ...delta, series: { days: [day - 1, day], points: { a: [1, 1] } } };
+    assert.equal(core.mergeTimeline(copy, gap), null, "the delta doesn't reach the copy: the whole file");
+  },
+
+  "saved queries from before 0.11 move to today's fields; one that doesn't parse finds nothing"() {
+    assert.equal(core.migrateQuery("released <= 14d AND NOT tracked AND NOT busy AND downloads >= 100\norder by downloads asc"),
+      "released <= 14d AND NOT tracked AND releases(180d) <= 9 AND downloads >= 100\norder by downloads asc");
+    assert.equal(core.migrateQuery("busy OR new"), "releases(180d) > 9 OR listed <= 14d");
+    assert.equal(core.migrateQuery("NOT new AND gain30 >= 1k\norder by rise7 desc"), "NOT listed <= 14d AND gain(30d) >= 1k\norder by rise(7d) desc");
+    assert.equal(core.migrateQuery("milestone <= 30d order by milestone desc"), "milestone() <= 30d order by milestone() desc");
+    assert.equal(core.migrateQuery('name ~ new AND "busy" AND milestone(10k) <= 30d AND gain(7d) > 0'), 'name ~ new AND "busy" AND milestone(10k) <= 30d AND gain(7d) > 0', "values and today's fields stay");
+    const state = { catalog: [P("a")], notes: new Map(), excluded: new Set(), dismissed: new Set(), installed: new Set(), snoozed: {}, firstSeen: {}, releases: {} };
+    assert.deepEqual(core.discover(state, { mode: "updated", pageQueries: { updated: "NOT busy" }, minDownloads: 0, query: "" }, NOW), [], "a stale saved query: nothing, not everything");
+  },
+
+  "query edges: before-the-history plugins are old, missing values sort last both ways, milestones sort"() {
+    const catalog = [P("old", { downloads: 50000, updated: ago(500) }), P("young", { downloads: 2000, updated: ago(5) }),
+      P("nostats", { downloads: null, updated: null })];
+    const state = { catalog, notes: new Map(), excluded: new Set(), dismissed: new Set(), installed: new Set(), snoozed: {},
+      firstSeen: { old: 0, young: ago(40) }, releases: { young: [ago(300), ago(5)] },
+      timeline: { from: ago(2000), to: NOW, milestoneSteps: [1000, 10000], milestones: { old: [0, 0], young: [ago(10), null] },
+        series: series({ old: [48000, 49000, 49500, 50000], young: [0, 500, 1500, 2100] }) } };
+    const ids = (q) => core.discover(state, { mode: "all", queries: { all: q }, minDownloads: 0, query: "" }, NOW).map((p) => p.id);
+    assert.deepEqual(ids("listed >= 1y"), ["old"], "listed before the history (2000 days ago): at least that old");
+    assert.deepEqual(ids("listed <= 30d"), ["nostats"], "…and never new");
+    assert.deepEqual(ids("milestone() >= 1y"), ["old"], "passed 10K before the history");
+    assert.deepEqual(ids("milestone(1k) <= 30d"), ["young"], "reached 1K within the series (a week back: weekly points)");
+    assert.deepEqual(ids("milestone(40k) <= 30d"), [], "over 40K when the series starts: long ago");
+    assert.deepEqual(ids("gain(30d) >= 1k"), ["old", "young"]);
+    assert.deepEqual(ids("gain(60d) > 1200"), ["old", "young"], "between two points: in proportion (young: 2100 − 250)");
+    assert.equal(core.gainOver(state.timeline, "young", 60), 1850);
+    assert.equal(core.gainOver(state.timeline, "young", 400), null, "beyond the series");
+    assert.equal(core.compileQuery("gain >= 1k", state, NOW).error, core.t("query.error.param", { field: "gain" }), "a parametric field needs its ( )");
+    assert.ok(core.compileQuery("gain(abc) >= 1k", state, NOW).error);
+    assert.equal(ids("order by incubated asc")[0], "young", "no history goes last, asc too");
+    assert.equal(ids("order by released asc").at(-1), "nostats", "no release date goes last, asc too");
+    assert.deepEqual(ids("downloads > 0 order by milestone() desc"), ["young", "old"], "the latest milestone first");
+    assert.deepEqual(ids("downloads > 0 order by gain(7d) desc"), ["young", "old"]);
+    assert.deepEqual(core.compileQuery("order by gain()", state, NOW).order, { key: "gain(30d)", dir: "desc" }, "() is the default, written out");
+    assert.throws(() => core.parseQuery("passed <= 30d", { strict: true }), "passed is gone: milestone says when, downloads which");
+  },
+
+  "home groups: defaults, the layout before groups becomes groups, each widget once a group"() {
+    assert.deepEqual(core.normalizeHome().groups.map((g) => [g.id, g.look, g.since]), [["news", "small", true], ["state", "small", false], ["discover", "big", false]]);
+    const legacy = core.normalizeHome({
+      order: ["rising", "new", "view:a", "mine"], hidden: ["new"], since: { show: true, period: 7, order: ["updated", "new", "tracked"] },
+      views: [{ id: "a", name: "A", query: "x" }],
+    });
+    assert.deepEqual(legacy.groups.map((g) => [g.id, g.items]), [["news", ["updated", "new", "tracked"]], ["state", ["mine", "suggested", "hidden"]], ["discover", ["rising", "view:a"]]]);
+    assert.equal(legacy.since.period, 7);
+    assert.ok(!("order" in legacy) && !("hidden" in legacy));
+    assert.ok(core.unplacedWidgets(legacy).includes("milestone") && !core.unplacedWidgets(legacy).includes("view:a"));
+    const kept = core.normalizeHome({ groups: [{ id: "x", name: "Mine", look: "odd", items: ["new", "new", "gone"] }] });
+    assert.deepEqual(kept.groups[0], { id: "x", name: "Mine", look: "big", items: ["new"] }, "an unknown look is big; twice and gone drop out");
+    assert.deepEqual(core.normalizeHome({ order: ["new"], since: { show: false } }).groups.map((g) => g.id), ["discover"], "At a glance was off: only the big cards");
+  },
+
+  "visits are days: the first opening of a day moves the last visit back; new counts from that day, opening empties nothing"() {
+    const home = core.normalizeHome();
+    assert.equal(core.recordVisit(home, ago(3)), true);
+    assert.deepEqual(home.visit, { last: core.dayString(ago(3)), before: null });
+    assert.equal(core.sinceMoment(home, NOW), NOW - 7 * core.constants.DAY_MS, "first use: a week back");
+    assert.equal(core.recordVisit(home, NOW), true, "a new day");
+    assert.equal(core.recordVisit(home, NOW + 3600e3 * 2), false, "the same day again: nothing moves");
+    assert.deepEqual(home.visit, { last: core.dayString(NOW), before: core.dayString(ago(3)) });
+    assert.equal(core.sinceMoment(home, NOW), core.dayStart(core.dayString(ago(3))), "from the start of the last visit day");
+    home.since.period = 7;
+    assert.equal(core.sinceMoment(home, NOW), ago(7));
+    // asked "since", a widget's window is in its query, from that day on
+    assert.equal(core.within("listed", core.sinceParams({ days: 30 }, ago(3))), `listed >= ${core.dayString(ago(3))}`);
+    assert.equal(core.within("listed", { days: 30 }), "listed <= 30d");
+    assert.equal(core.HOME_WIDGETS.tracked.query({}, { since: ago(3) }), `unreviewed AND released >= ${core.dayString(ago(3))}\norder by released desc`);
+  },
+
+
+  "presets: every ready-made query parses, has its three texts and a gallery section"() {
+    for (const p of core.QUERY_PRESETS) {
+      assert.doesNotThrow(() => core.parseQuery(p.query, { strict: true }), p.key);
+      for (const suffix of ["", ".desc", ".why"]) assert.notEqual(core.t(`preset.${p.key}${suffix}`), `preset.${p.key}${suffix}`, `${p.key}${suffix} text`);
+      assert.ok(core.GALLERY_SECTIONS[p.cat] && p.cat !== "hidden", `${p.key}: section`);
+    }
+    assert.equal(new Set(core.QUERY_PRESETS.map((p) => p.key)).size, core.QUERY_PRESETS.length, "keys are unique");
+    const guide = require("fs").readFileSync(require("path").join(__dirname, "../docs/query.md"), "utf8");
+    for (const p of core.QUERY_PRESETS) assert.ok(guide.includes(`\`${p.query.replace(/\s*\n\s*/g, " ")}\``), `docs/query.md lists ${p.key}`);
+    for (const q of ['author ~ zsviczian', '"daily note" OR "journal"']) assert.doesNotThrow(() => core.parseQuery(q, { strict: true }), q);
+  },
+
+  "incubation is fair: every hatching gets the same days, a hotfix or a next release doesn't undo it"() {
+    const fields = (rel) => { const p = P("x", { updated: rel.at(-1) }); const st = { releases: { x: rel } };
+      return [core.QUERY_FIELDS.incubated.get(st, p, NOW), Math.round(core.QUERY_FIELDS.hatched.get(st, p, NOW))]; };
+    assert.deepEqual(fields([ago(402), ago(2), ago(0)]), [400, 2], "v2.0 after 400 days, v2.0.1 two days later");
+    assert.deepEqual(fields([ago(425), ago(25), ago(5)]), [400, 25], "back 25 days ago and still releasing: still hatched 25 days ago");
+    assert.deepEqual(fields([ago(660), ago(300)]), [360, 300], "a year asleep earns no longer stay: hatched 300 days ago");
+    const q = core.compileQuery(`incubated >= 60d AND hatched <= ${core.constants.HATCHED_DAYS}d`, { releases: { a: [ago(660), ago(300)], c: [ago(425), ago(25), ago(5)] } }, NOW, true);
+    assert.deepEqual(["a", "c"].filter((id) => q.test(P(id, { updated: id === "a" ? ago(300) : ago(5) }))), ["c"]);
   },
 
   "discover: excluded and tracked plugins stay out of discovery; modes are correct"() {
@@ -91,19 +278,19 @@ const tests = {
     const ids = (o) => core.discover(state, { ...opts, ...o }, NOW).map((p) => p.id);
     const page = (mode, o) => ({ pageQueries: { [mode]: core.defaultPageQuery(mode, o) } });
     assert.deepEqual(ids({}), ["a"]);                       // b old, c excluded, d few downloads, e tracked
-    assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { gap: 90 }) }), ["a"]);     // a was quiet for 299 days
-    assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { gap: 365 }) }), []);
+    assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { incubated: 90 }) }), ["a"]);     // a was quiet for 299 days
+    assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { incubated: 365 }) }), []);
     assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.UPDATES }), ["e"]);   // reviewed 10 days ago, released 1 day ago
     assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.STARRED }), []);
-    assert.deepEqual(ids({ mode: "suggested" }), ["a", "e"]);   // installed and not starred
+    assert.deepEqual(ids({ mode: "suggested" }), ["a"]);   // installed and not tracked (e has a note)
     state.dismissed.add("a");
-    assert.deepEqual(ids({ mode: "suggested" }), ["e"]);
+    assert.deepEqual(ids({ mode: "suggested" }), []);
     state.dismissed.delete("a");
     assert.deepEqual(ids({ mode: "new", filterDownloads: false }), ["d"]);   // listed in the last 14 days
     assert.deepEqual(ids({ mode: "new" }), []);                                // …but below 100 downloads
-    assert.deepEqual(ids({ mode: "new", filterDownloads: false, ...page("new", { days: 3 }) }), []);
+    assert.deepEqual(ids({ mode: "new", filterDownloads: false, newDays: 3 }), []);   // Settings › New plugin period: the New tab follows it
     const counts = core.modeCounts(state, opts, NOW);   // each tab with its default Downloads on/off (New: off)
-    assert.deepEqual(counts, { all: 4, new: 1, updated: 1, awakened: 1, tracked: 1, suggested: 2 });  // all: every plugin but the excluded c (no Downloads ≥ by default)
+    assert.deepEqual(counts, { all: 4, new: 1, updated: 1, awakened: 1, tracked: 1, suggested: 1 });  // all: every plugin but the excluded c (no Downloads ≥ by default)
     const off = core.modeCounts(state, { ...opts, downloadFilter: { all: false } }, NOW);
     assert.equal(off.all, 4);                                 // All with the filter off: d is back
     assert.deepEqual(ids({ query: "a, desc" }), ["a"]);
@@ -118,19 +305,19 @@ const tests = {
     ];
     const state = { catalog, releases: {}, firstSeen: {}, notes: new Map([["mid", { group: "x" }]]),
       excluded: new Set(["gone"]), dismissed: new Set(), installed: new Set() };
-    const ids = (o) => core.discover(state, { mode: "all", days: 7, dormantDays: 90, minDownloads: 0, query: "", sort: "downloads", ...o }, NOW).map((p) => p.id);
+    const ids = (o) => core.discover(state, { mode: "all", days: 7, minDownloads: 0, query: "", sort: "downloads", ...o }, NOW).map((p) => p.id);
     assert.deepEqual(ids({}), ["alpha", "mid", "zeta"]);                        // tracked "mid" stays, "gone" excluded
-    assert.deepEqual(ids({ sort: "updated" }), ["mid", "alpha", "zeta"]);
+    assert.deepEqual(ids({ sort: "released" }), ["mid", "alpha", "zeta"]);
     assert.deepEqual(ids({ sort: "name" }), ["alpha", "mid", "zeta"]);            // case-insensitive
     assert.deepEqual(ids({ sort: "listed" }), ["mid", "alpha", "zeta"]);          // newest in the listing first
     assert.deepEqual(ids({ minDownloads: 100, filterDownloads: true }), ["alpha", "mid"]);
     assert.deepEqual(ids({ minDownloads: 100 }), ["alpha", "mid", "zeta"]);      // filter off: threshold ignored
     assert.deepEqual(ids({ sortDir: "asc" }), ["zeta", "mid", "alpha"]);          // fewest downloads first
     assert.deepEqual(ids({ sort: "name", sortDir: "desc" }), ["zeta", "mid", "alpha"]);   // Z → A
-    assert.deepEqual(ids({ sort: "updated", sortDir: "asc" }), ["zeta", "alpha", "mid"]); // oldest first
+    assert.deepEqual(ids({ sort: "released", sortDir: "asc" }), ["zeta", "alpha", "mid"]); // oldest first
     assert.deepEqual(ids({ query: "/^(al|mi)/" }), ["alpha", "mid"]);
     const releases = { zeta: [ago(900), ago(300)], alpha: [ago(40), ago(5)], mid: [ago(2), ago(1)] };
-    assert.deepEqual(core.sortRows([...catalog.slice(0, 3)], "dormant", "desc", catalog, releases).map((p) => p.id), ["zeta", "alpha", "mid"]);
+    assert.deepEqual(core.sortRows([...catalog.slice(0, 3)], "incubated", "desc", { catalog, releases }).map((p) => p.id), ["zeta", "alpha", "mid"]);
     assert.deepEqual(core.groupSections([catalog[0], catalog[1], catalog[2]], new Map([["zeta", { groups: ["B", "A"] }], ["alpha", { groups: ["A"] }], ["mid", { groups: [] }]]))
       .map((s) => [s.name, s.rows.map((p) => p.id)]), [["A", ["zeta", "alpha"]], ["B", ["zeta"]], [core.UNGROUPED, ["mid"]]]);
     assert.equal(core.groupHue("Task"), core.groupHue("Task"));
@@ -147,7 +334,8 @@ const tests = {
     ];
     const state = {
       notes: new Map([["cal", { groups: ["Görev", "Takvim"], rating: 4, favorite: true, status: "using" }], ["tasks", { groups: ["Görev"], rating: 0 }]]),
-      installed: new Set(["cal"]), firstSeen: { cal: now - 900 * DAY, tasks: now - 5 * DAY, old: 0 }, releases: {}, growth: { cal: [10, 2000, 0] },
+      installed: new Set(["cal"]), firstSeen: { cal: now - 900 * DAY, tasks: now - 5 * DAY, old: 0 }, releases: {},
+      timeline: { to: now, series: series({ cal: [1_990_000, 1_998_000, 1_999_990, 2_000_000], tasks: [600, 600, 600, 600] }) },
     };
     const ids = (q) => { const c = core.compileQuery(q, state, now); if (c.error) throw new Error(c.error); return plugins.filter((p) => c.test(p)).map((p) => p.id); };
     assert.deepEqual(ids("downloads > 500"), ["cal", "tasks"]);
@@ -164,9 +352,11 @@ const tests = {
     assert.deepEqual(ids("downloads > 0 AND tracked"), ["cal", "tasks"], "a yes/no field alone, once the query is advanced");
     assert.deepEqual(ids("(group = takvim OR downloads < 100) favorite = false"), ["old"]);
     assert.deepEqual(ids("name ~ /^t/"), ["tasks"]);
-    assert.deepEqual(ids("gain30 > 1k"), ["cal"]);
-    assert.deepEqual(ids("new = true"), ["tasks"]);
-    assert.deepEqual(core.compileQuery("downloads > 0 order by released asc", state, now).order, { key: "updated", dir: "asc" });
+    assert.deepEqual(ids("gain(30d) > 1k"), ["cal"]);
+    assert.deepEqual(ids("gain() > 1k"), ["cal"], "() is 30 days");
+    assert.deepEqual(ids("gain(21d) > 1k"), ["cal"], "any window: between the points");
+    assert.deepEqual(ids("listed <= 14d"), ["tasks"]);
+    assert.deepEqual(core.compileQuery("downloads > 0 order by released asc", state, now).order, { key: "released", dir: "asc" });
     // errors: not applied (everything passes), with where and why
     const bad = core.compileQuery("author ~ brenan rating = on", state, now);
     assert.ok(bad.error && bad.at === 25 && bad.test(plugins[0]));
@@ -193,15 +383,15 @@ const tests = {
 
     // what the box paints: one span per clause (NOT and order by their own), the broken part, free words
     const spans = (text) => core.compileQuery(text).spans.map((x) => `${x.kind}:${text.slice(x.from, x.to)}`);
-    assert.deepEqual(spans("downloads >= 5k AND\n  NOT installed calendar order by gain30 desc"),
-      ["clause:downloads >= 5k", "clause:installed", "neg:NOT installed", "order:order by gain30 desc"]);
+    assert.deepEqual(spans("downloads >= 5k AND\n  NOT installed calendar order by gain(30d) desc"),
+      ["clause:downloads >= 5k", "clause:installed", "neg:NOT installed", "order:order by gain(30d) desc"]);
     assert.deepEqual(core.compileQuery("downloads >= 5k calendar").free, ["calendar"]);
     assert.deepEqual(spans("author ~ brenan rating = on"), ["clause:author ~ brenan", "bad:rating = on"]);
 
     // syntax colours: each token's role
     const roles = (text) => core.queryHighlight(text).map((x) => `${x.cls || "-"}:${x.text}`).join(" ");
-    assert.equal(roles('name = new AND author in (a, "b c") NOT installed cal order by gain30 desc'),
-      'field:name op:= value:new kw:AND field:author op:in -:( value:a -:, value:b c -:) neg:NOT field:installed -:cal kw:order kw:by field:gain30 value:desc');
+    assert.equal(roles('name = new AND author in (a, "b c") NOT installed cal order by gain(30d) desc'),
+      'field:name op:= value:new kw:AND field:author op:in -:( value:a -:, value:b c -:) neg:NOT field:installed -:cal kw:order kw:by field:gain -:( number:30d -:) value:desc');
     assert.equal(roles("released >= startOfMonth(-1)"), "field:released op:>= fn:startOfMonth -:( number:-1 -:)");
 
     // date functions on date fields: today(), startOfWeek(), startOfMonth(n), startOfYear(), lastSync()
@@ -210,7 +400,7 @@ const tests = {
     assert.deepEqual(ids("released >= startOfMonth()"), plugins.filter((p) => p.updated >= monthStart).map((p) => p.id));
     assert.deepEqual(ids("released >= startOfMonth(-1) released < startOfMonth()"), plugins.filter((p) => p.updated < monthStart && p.updated >= new Date(local.getFullYear(), local.getMonth() - 1, 1).getTime()).map((p) => p.id));
     assert.deepEqual(ids("released >= startOfYear()"), ["cal", "tasks"]);
-    assert.deepEqual(ids("age >= startOfWeek(-1)"), ["tasks"]);
+    assert.deepEqual(ids("listed >= startOfWeek(-1)"), ["tasks"]);
     assert.equal(new Date(core.QUERY_FUNCS.startofweek(now, 0)).getDay(), 1, "weeks start on Monday");
     assert.deepEqual(core.compileQuery("released > lastSync()", { ...state, lastSync: now - 10 * DAY }, now) && plugins.filter((p) => core.compileQuery("released > lastSync()", { ...state, lastSync: now - 10 * DAY }, now).test(p)).map((p) => p.id), ["cal"]);
     assert.ok(core.compileQuery("downloads > today()", state, now).error, "functions only on date fields");
@@ -218,17 +408,19 @@ const tests = {
     assert.ok(sug("released >= ").includes("startOfMonth()"));
     assert.deepEqual(sug("released >= startOfMonth("), [], "nothing inside a function's ( )");
 
-    // the fields behind the tabs and widgets: busy, hatched, dismissed, ignored, rise30, milestone, text
+    // the fields behind the tabs and widgets: releases, incubated/hatched, dismissed, excluded, rise, milestone, text
     const state2 = { ...state, releases: { cal: Array.from({ length: 12 }, (_, k) => now - 3 * DAY - k * 14 * DAY).reverse(), tasks: [now - 200 * DAY, now - 40 * DAY] },
       dismissed: new Set(["old"]), excluded: new Set(["tasks"]), snoozed: {},
-      timeline: { milestoneSteps: [1000, 10000], milestones: { cal: [now - 400 * DAY, now - 5 * DAY] } } };
+      timeline: { ...state.timeline, milestoneSteps: [1000, 10000], milestones: { cal: [now - 400 * DAY, now - 5 * DAY] } } };
     const ids2 = (q) => { const c = core.compileQuery(q, state2, now, true); if (c.error) throw new Error(c.error); return plugins.filter((p) => c.test(p)).map((p) => p.id); };
-    assert.deepEqual(ids2("busy"), ["cal"], "12 update waves in 180 days");
-    assert.deepEqual(ids2("hatched gap >= 60d"), ["tasks"], "released 40 days ago after a 160-day pause");
+    assert.deepEqual(ids2("releases(180d) > 9"), ["cal"], "12 update waves in 180 days");
+    assert.deepEqual(ids2("releases() >= 1"), ["cal"], "() is 30 days: one release 3 days ago");
+    assert.deepEqual(ids2("incubated >= 60d hatched <= 60d"), ["tasks"], "released 40 days ago after a 160-day pause");
     assert.deepEqual(ids2("dismissed"), ["old"]);
-    assert.deepEqual(ids2("ignored"), ["tasks"]);
-    assert.deepEqual(ids2("rise30 > 0"), ["cal"]);
-    assert.deepEqual(ids2("milestone = 10k passed <= 30d"), ["cal"]);
+    assert.deepEqual(ids2("excluded"), ["tasks"]);
+    assert.deepEqual(ids2("snoozed"), []);
+    assert.deepEqual(ids2("rise(30d) > 0"), ["cal"]);
+    assert.deepEqual(ids2("milestone() <= 30d downloads >= 10k"), ["cal"]);
     assert.deepEqual(ids2("text ~ calendar"), ["cal"]);
     assert.deepEqual(ids2('"calendar"'), ["cal"], "quoted words search the text in Query mode");
     const unknown = core.compileQuery("downloads > 0 NOT bussy", state2, now, true);
@@ -247,22 +439,22 @@ const tests = {
     assert.match(core.queryToFilters("NOT installed rating >= 4", settings, "all").reason, /NOT.*rating >= 4/);
     assert.match(core.queryToFilters("released <= 30d", settings, "updated").reason, /released/, "Updated's own days aren't an added filter");
     // a sort from a header or the Sort menu replaces the query's order by, by its field name
-    assert.equal(core.withOrder("installed AND downloads >= 1k\norder by downloads desc", "growth30", "asc"), "installed AND downloads >= 1k\norder by gain30 asc");
-    assert.equal(core.withOrder("", "updated", "desc"), "order by released desc");
-    assert.equal(core.parseQuery(core.withOrder("tracked", "rise7", "desc")).order.key, "rise7");
+    assert.equal(core.withOrder("installed AND downloads >= 1k\norder by downloads desc", "gain(30d)", "asc"), "installed AND downloads >= 1k\norder by gain(30d) asc");
+    assert.equal(core.withOrder("", "released", "desc"), "order by released desc");
+    assert.equal(core.parseQuery(core.withOrder("tracked", "rise(7d)", "desc")).order.key, "rise(7d)");
     // Basic → Query → Basic untouched: no filter counts as changed (your own sort comes back as your sort)
     for (const mode of ["new", "awakened"]) {
-      const st = { query: "", minDownloads: 100, pageQueries: {}, queries: {}, extraFilters: {}, downloadFilter: { awakened: false }, sortBy: { new: { key: "listed", dir: "asc" }, awakened: { key: "dormant", dir: "desc" } } };
+      const st = { query: "", minDownloads: 100, pageQueries: {}, queries: {}, extraFilters: {}, downloadFilter: { awakened: false }, sortBy: { new: { key: "listed", dir: "asc" }, awakened: { key: "incubated", dir: "desc" } } };
       assert.equal(core.changedFilters(st, mode), 0, `${mode}: a saved "off" equal to the default isn't a change`);
       const round = core.queryToBasic(core.joinQuery(core.pageQuery(st, mode), core.filtersToQuery(st, mode)), { ...st, sortBy: {}, downloadFilter: {} }, mode).patch;
       assert.equal(core.changedFilters({ ...st, ...round }, mode), 0, mode);
       assert.deepEqual(round.sortBy[mode], st.sortBy[mode]);
     }
     // what changed, short; a word explained
-    assert.equal(core.queryDiff("released <= 14d AND NOT busy\norder by downloads desc", "released <= 30d AND NOT busy\norder by downloads desc"), "14d → 30d");
+    assert.equal(core.queryDiff("released <= 14d AND NOT tracked\norder by downloads desc", "released <= 30d AND NOT tracked\norder by downloads desc"), "14d → 30d");
     assert.equal(core.queryDiff("name ~ x", "name ~ x AND installed AND tracked\norder by name asc"), "+2 koşul · sıralama");
-    assert.equal(core.queryDiff("NOT busy", "busy"), "NOT busy → busy");
-    const tips = core.queryHighlight("released <= 30d AND NOT busy AND startOfMonth() order by name desc");
+    assert.equal(core.queryDiff("NOT tracked", "tracked"), "NOT tracked → tracked");
+    const tips = core.queryHighlight("released <= 30d AND NOT tracked AND startOfMonth() order by name desc");
     const tip = (i) => core.queryTip(tips[i], tips[i - 1], NOW, {});
     assert.deepEqual(tip(0), { head: "released", kind: "gün / tarih", body: core.t("query.field.released"), example: "released <= 30d" });
     assert.equal(tip(1).body, core.t("query.tip.daysWithin"), "<= on a days field: at most that long ago");
@@ -275,10 +467,11 @@ const tests = {
     assert.equal(tip(10).head, "order by");
     // a view saved before 0.10 (a tab + filters) becomes the query it meant
     const legacy = core.legacyViewQuery({ mode: "new", filters: { query: "kanban", extraFilters: { new: { author: "abbys" } } } }, { pageQueries: {}, sortBy: {} });
-    assert.equal(legacy, 'age <= 14d AND NOT tracked AND "kanban" AND author ~ abbys\norder by age desc');
+    assert.equal(legacy, 'listed <= 14d AND NOT tracked AND "kanban" AND author ~ abbys\norder by listed desc');
     const starters = core.queryStarters("downloads >= 1k");
     assert.equal(starters[0].insert, "downloads >= 1k");
-    assert.ok(starters[0].head && starters[1].head && starters.length === 6);
+    assert.ok(starters[0].head && starters[1].head && starters.length === 1 + core.QUERY_PRESETS.length, "your filters, then the presets");
+    assert.equal(starters[1].insert, core.QUERY_PRESETS[0].query);
   },
 
   "compileQuery: comma terms, /regex/ (case-insensitive, in order), invalid regex never blanks the list"() {
@@ -308,7 +501,7 @@ const tests = {
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "tracked")[k]), ["rating", "desc"]);
     const rated = [{ id: "b", name: "B" }, { id: "a", name: "A" }, { id: "c", name: "C" }];
     const notes = new Map([["c", { rating: 5 }], ["b", { rating: 3 }]]);
-    assert.deepEqual(core.sortRows(rated, "rating", "desc", [], {}, notes).map((p) => p.id), ["c", "b", "a"]);
+    assert.deepEqual(core.sortRows(rated, "rating", "desc", { notes }).map((p) => p.id), ["c", "b", "a"]);
     assert.equal(core.statusKey("🧪 Deneme süreci", []), "deneme-süreci");
     assert.equal(core.statusKey("To try", ["to-try"]), "to-try-2");
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "updated")[k]), ["downloads", "desc"]);

@@ -117,16 +117,23 @@ const vectorRows = { homepage: [120, 30, 0, 0], startpage: [110, 50, 0, 0], home
 const vectorsMeta = { model: "test", dim: 4, count: 6, built: "2026-11-01T04:30:00Z", ids: Object.keys(vectorRows) };
 const vectorsBin = () => Int8Array.from(Object.values(vectorRows).flat()).buffer;
 // the metrics branch: the release history built on GitHub (null: unreachable)
+/** A downloads series from {id: downloads at each age}, as the server writes it (changes after the first). */
+const series = (counts, ages = [90, 30, 7, 5, 0]) => ({ days: ages.map((age) => Math.floor(NOW / DAY) - age), points: Object.fromEntries(Object.entries(counts).map(([id, c]) => [id, c.map((x, i) => (i ? x - c[i - 1] : x))])) });
+// Homepage: +50 in 7 days, +200 (20%) in 30; Dataview reached 10K five days ago
+const grown = series({ homepage: [800, 1000, 1150, 1160, 1200], dataview: [9000, 9900, 9990, 10005, 10020] });
 const serverHistory = {
-  v: 2, months: 72, from: ago(2200), to: ago(1), source: "server",
+  v: 3, months: 72, from: ago(2200), to: ago(1), source: "server",
   releases: { homepage: [ago(120), ago(3)], dataview: [ago(400)], busy: [ago(61), ago(11), ago(2)], fresh: [ago(2)] },
   firstSeen: { homepage: 0, dataview: 0, busy: 0, fresh: ago(1) },
-  growth: {}, milestones: {},
+  series: series({}), milestones: {},
 };
 let serverTimeline = serverHistory;
+let serverDelta = null;   // delta.json: the last days' changes (null: none yet)
+const downloaded = { timeline: 0, delta: 0 };
 fake.network.handlers.push(
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to } } : { status: 404 })],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? { status: 200, json: serverTimeline } : { status: 404 })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to, deltaFrom: serverDelta?.from } } : { status: 404 })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? (downloaded.timeline++, { status: 200, json: serverTimeline }) : { status: 404 })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/delta.json", () => (serverDelta ? (downloaded.delta++, { status: 200, json: serverDelta }) : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.json", () => ({ status: 200, json: vectorsMeta })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.bin", () => ({ status: 200, arrayBuffer: vectorsBin() })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json", () => ({ status: 200, json: listing })],
@@ -185,7 +192,7 @@ const tests = {
     assert.equal(timeline.firstSeen.fresh, ago(1));       // appeared in the last snapshot
     assert.equal(timeline.firstSeen.homepage, 0);         // already there at the start
     const homepage = plugin.pluginById("homepage");
-    assert.equal(core.dormantDays(timeline.releases, homepage), 117);
+    assert.equal(core.lastHatch(timeline.releases, homepage).days, 117);
     const counts = core.modeCounts(plugin.state(), { ...plugin.data.settings, days: 14, query: "" }, NOW);
     assert.equal(counts.new, 1);                          // fresh
     assert.equal(plugin.updatesCount(), 1);               // homepage: reviewed 20 days ago, released 3 days ago
@@ -201,17 +208,18 @@ const tests = {
     Object.assign(plugin.data.settings, { section: "list", mode: "updated", minDownloads: 0 });
     view.render();
     const el = view.contentEl;
-    assert.equal($$(el, ".pdt-tab").length, 6);   // one strip: the five tabs and Tracked
-    assert.ok($$(el, ".pdt-tab").every((tab) => tab.getAttribute("data-tooltip")));
+    // the strip: All, and the page a widget opened (Updated) with ✕ back home; the other pages are Home widgets
+    assert.deepEqual($$(el, ".pdt-tab").map((tab) => tab.dataset.key), ["home", "all", "updated"]);
+    assert.ok($(el, '.pdt-tab[data-key="updated"] .pdt-similar-step'), "a page's tab closes");
     const names = $$(el, ".pdt-name").map((a) => a.textContent);
     assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy excluded, homepage tracked
     assert.ok(!names.includes("Busy Plugin") && !names.includes("Homepage"));
     const sort = $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith("Sırala") || c.textContent.startsWith("Sort"));
     fake.menus.length = 0;
     sort.onclick();
-    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, ...Array(9).fill(false)]);   // same ten sorts on every tab
+    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, ...Array(10).fill(false)]);   // same eleven sorts on every tab
     await fake.menus[0].items[5].click();   // updated (SORT_KEYS order)
-    assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "updated", dir: "desc" });
+    assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "released", dir: "desc" });
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
 
     // All tab: tracked Homepage is listed with its note badge; four sorts; back to Updated shows a valid sort
@@ -223,12 +231,12 @@ const tests = {
     fake.menus.length = 0;
     const sortChip = () => $$(el, ".pdt-chip.is-menu").find((c) => /^(Sırala|Sort)/.test(c.textContent));
     sortChip().onclick();
-    assert.equal(fake.menus[0].items.length, 10);
+    assert.equal(fake.menus[0].items.length, 11);
     await fake.menus[0].items[6].click();                       // name
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
     await view.update("mode", "updated");
     const chipText = sortChip().textContent;
-    assert.ok(chipText.endsWith(core.t("sort.updated")), chipText);   // each tab keeps its own sort
+    assert.ok(chipText.endsWith(core.t("sort.released")), chipText);   // each tab keeps its own sort
     await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
     ctx.view = view;
   },
@@ -382,9 +390,15 @@ const tests = {
     // ? : the cheat sheet; a click puts it at the caret
     box().value = "";
     $(el, ".pdt-qhelp-button").onclick();
-    const help = $$(modals.at(-1).contentEl, ".pdt-qhelp-item").find((b) => b.textContent.startsWith("startOfMonth()"));
+    const helpModal = modals.at(-1);
+    assert.deepEqual($$(helpModal.contentEl, ".pdt-help-tab").map((x) => x.classList.contains("is-on")), [false, false, true], "Help, on the Query guide");
+    assert.ok($$(helpModal.contentEl, ".pdt-help-item code").some((c) => c.textContent === "gain(30d)"), "a parametric field is written as a call");
+    const help = $$(helpModal.contentEl, ".pdt-help-item").find((b) => b.textContent.startsWith("startOfMonth()"));
     help.onclick();
     assert.equal(box().value, "startOfMonth() ");
+    view.openHelp("presets");
+    assert.ok($$(modals.at(-1).contentEl, ".pdt-gallery-row").length >= core.QUERY_PRESETS.length, "Ready-made queries: the gallery");
+    modals.at(-1).close();
     box().value = "";
     box().oninput();
     await tick(10);
@@ -691,7 +705,10 @@ const tests = {
     assert.equal(view.similar, null);
     assert.equal(settings.mode, "tracked");
     assert.ok(rowOf(seed.name).classList.contains("is-flash") && rowOf(seed.name).classList.contains("is-cursor"));
-    assert.equal(esc.fn(), true, "no filter: Esc is left to Obsidian");
+    assert.equal(esc.fn(), false, "no filter: Esc steps back to Home");
+    assert.equal(settings.section, "home");
+    assert.equal(esc.fn(), true, "on Home, Esc is left to Obsidian");
+    settings.section = "list";
     view.cursorId = null;
     plugin.catalog = catalog;
     plugin.vectors = vectors;
@@ -773,9 +790,7 @@ const tests = {
     const settings = plugin.data.settings;
     await plugin.track(plugin.pluginById("homepage"), { groups: ["ai", "Planning"] });
     await view.update("mode", "tracked");
-    const tab = $(el, '.pdt-tab[data-key="tracked"]');                        // Tracked is a tab in the strip
-    assert.ok(tab.classList.contains("is-active"));
-    assert.equal($(tab, ".pdt-n.is-updates").textContent, core.t("tracked.updatesBadge", { n: plugin.updatesCount() }));
+    assert.ok($(el, '.pdt-tab[data-key="tracked"].is-page.is-active'), "Tracked: a page its widget opens, its tab while open");
     fake.menus.length = 0;
     $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith(core.t("tracked.group"))).onclick();
     const titles = fake.menus[0].items.map((i) => i.title);
@@ -932,16 +947,16 @@ const tests = {
     settings.minDownloads = 0;
     await view.update("layout", "table");
     const heads = () => $$(el, ".pdt-table thead th").map((th) => th.textContent.trim()).filter(Boolean);
-    assert.deepEqual(heads().slice(0, 4), [core.t("col.name"), `${core.t("col.downloads")} ↓`, core.t("col.updated"), core.t("col.favorite")]);
+    assert.deepEqual(heads().slice(0, 4), [core.t("col.name"), `${core.t("col.downloads")} ↓`, core.t("col.released"), core.t("col.favorite")]);
     assert.equal($$(el, ".pdt-trow").length, view.rows.length);
     $$(el, ".pdt-table-sort")[0].onclick();   // Name
     await tick();
     assert.equal(core.modeOptions(settings, "all").sort, "name");
     const names = $$(el, ".pdt-trow .pdt-name").map((a) => a.textContent);
     assert.deepEqual(names, [...names].sort((a, b) => a.localeCompare(b)));
-    settings.tableColumns = { all: ["growth30", "author"] };
+    settings.tableColumns = { all: ["gain30", "author"] };
     view.refresh();
-    assert.deepEqual(heads().slice(1, 3), [core.t("col.growth30"), core.t("col.author")]);
+    assert.deepEqual(heads().slice(1, 3), [core.t("col.gain30"), core.t("col.author")]);
     assert.ok($(el, ".pdt-trow td.is-author").textContent.length > 0);
     const box = $(el, ".pdt-trow .pdt-select");
     box.checked = true;
@@ -956,7 +971,7 @@ const tests = {
     $(el, ".pdt-table-cols .pdt-icon").onclick();
     const pop = () => document.querySelector(".pdt-cols-pop");
     const shown = () => [...pop().querySelectorAll(".pdt-cols-list .pdt-cols-row")].map((r) => r.dataset.key);
-    assert.deepEqual(shown(), ["downloads", "updated", "favorite"]);
+    assert.deepEqual(shown(), ["downloads", "released", "favorite"]);
     const first = pop().querySelector(".pdt-cols-list .pdt-cols-row");
     assert.equal(first.querySelector(".pdt-cols-field").textContent, "downloads");
     assert.ok(first.querySelector(".pdt-cols-sorted"), "the sorted column is marked");
@@ -964,16 +979,16 @@ const tests = {
     assert.ok(pop().querySelector(".pdt-cols-foot button").disabled, "already the default");
     [...pop().querySelectorAll(".pdt-cols-chip")].find((c) => c.textContent.includes(core.t("col.rise30"))).onclick();
     await tick();
-    assert.deepEqual(settings.tableColumns.all, ["downloads", "updated", "favorite", "rise30"]);
+    assert.deepEqual(settings.tableColumns.all, ["downloads", "released", "favorite", "rise30"]);
     assert.ok($(el, ".pdt-trow td.is-rise30"), "the table behind changes at once");
-    pop().querySelector(".pdt-cols-list .pdt-cols-row[data-key=updated] .pdt-cols-x").onclick();
+    pop().querySelector(".pdt-cols-list .pdt-cols-row[data-key=released] .pdt-cols-x").onclick();
     await tick();
     assert.deepEqual(shown(), ["downloads", "favorite", "rise30"]);
     document.body.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
     assert.ok(!pop(), "Esc closes it");
     // a page keeps its own columns: another tab still has the default
     await view.update("mode", "new");
-    assert.deepEqual(core.tableColumns(settings, "new"), ["downloads", "updated", "favorite"]);
+    assert.deepEqual(core.tableColumns(settings, "new"), ["downloads", "released", "favorite"]);
     await view.update("mode", "all");
     $(el, ".pdt-table-cols .pdt-icon").onclick();
     pop().querySelector(".pdt-cols-foot button").onclick();
@@ -984,11 +999,11 @@ const tests = {
 
     // Query mode: a header click writes the query's order by (the list follows it, the save bar shows it)
     await view.toQueryMode();
-    $$(el, ".pdt-table-sort").find((b) => b.textContent.startsWith(core.t("col.updated"))).onclick();
+    $$(el, ".pdt-table-sort").find((b) => b.textContent.startsWith(core.t("col.released"))).onclick();
     await tick();
     assert.equal(settings.queries.all, "order by released desc");   // All's query is only its sort
-    assert.deepEqual(view.listSort, { key: "updated", dir: "desc" });
-    assert.ok($$(el, ".pdt-table-sort.is-on")[0].textContent.startsWith(core.t("col.updated")));
+    assert.deepEqual(view.listSort, { key: "released", dir: "desc" });
+    assert.ok($$(el, ".pdt-table-sort.is-on")[0].textContent.startsWith(core.t("col.released")));
     assert.ok($(el, ".pdt-q-changes:not(.is-hidden)"), "the changed query can be saved");
     const typed = $(el, ".pdt-search .pdt-q-input");
     typed.value = "downloads >= 1\norder by name asc";
@@ -1001,40 +1016,49 @@ const tests = {
     await view.update("layout", "list");
   },
 
-  async "ignore, hide until next release, Ignored list with Restore and restore-all; ⋮ menu"({ plugin, view }) {
+  async "ignore, hide until next release: a toast with Undo; the Hidden page, one kind at a time, Restore and restore-all; ⋮ menu"({ plugin, view }) {
     const el = view.contentEl;
     const names = () => $$(el, ".pdt-name").map((a) => a.textContent);
     const dataview = plugin.pluginById("dataview");
     await plugin.snooze(dataview);
-    view.refresh();
     assert.ok(!names().includes("Dataview"));
     assert.ok(core.isSnoozed(dataview, plugin.data.snoozed));
     assert.ok(!core.isSnoozed({ ...dataview, updated: dataview.updated + 1 }, plugin.data.snoozed), "a newer release brings it back");
+    // the toast says it, with Undo (Recent actions has it too)
+    assert.equal($(el, ".pdt-toast span:not(.pdt-toast-icon)").textContent, core.t("notice.snoozed", { name: "Dataview" }));
+    await $(el, ".pdt-toast-undo").onclick();
+    assert.ok(!("dataview" in plugin.data.snoozed) && names().includes("Dataview"), "undone");
+    await plugin.snooze(dataview);
 
+    // ⋮ → Hidden: a page (its tab while open), three kinds, each a query
     const menu = new fake.Menu();
     view.onPaneMenu(menu, "more-options");
-    const titles = menu.items.map((i) => i.title);
-    assert.ok(titles.includes(core.t("list.ignoredTitle", { n: plugin.ignoredCount() })));
-    await menu.items.find((i) => i.title.startsWith(core.t("list.ignoredTitle", { n: "" }).split("(")[0])).click();
-    assert.equal(plugin.data.settings.mode, "ignored");
-    const listed = names();
-    assert.ok(listed.includes("Dataview") && listed.includes("Busy Plugin"), "snoozed and ignored together");
-    assert.ok($$(el, ".pdt-signal.is-snoozed").length >= 1);
+    await menu.items.find((i) => i.title === core.t("hidden.title", { n: 2 })).click();
+    assert.equal(plugin.data.settings.mode, "excluded", "the first kind that holds anything");
+    assert.ok($(el, '.pdt-tab.is-page.is-active[data-key="excluded"]'));
+    assert.equal(view.boxText, "excluded\norder by name asc", "the box says what the list is");
+    assert.deepEqual(names(), ["Busy Plugin"]);
+    assert.ok($(el, ".pdt-signal.is-why").textContent.startsWith(core.t("hidden.when.excluded", { day: "" }).split("·")[0].trim()), "when you hid it");
+    const kinds = () => $$(el, ".pdt-hidden-kind");
+    assert.deepEqual(kinds().map((k) => $(k, ".pdt-n").textContent), ["1", "1", "0"]);
+    await kinds()[1].onclick();
+    assert.equal(plugin.data.settings.mode, "snoozed");
+    assert.deepEqual(names(), ["Dataview"]);
     const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
     await row.querySelector('[data-icon="undo-2"]').onclick();
     await tick();
     assert.ok(!("dataview" in plugin.data.snoozed));
     assert.ok(!names().includes("Dataview"));
 
-    await plugin.snooze(dataview);
-    view.render();
+    // restore all shown asks twice, on this kind only
+    await view.showHidden("excluded");
     const all = $(el, ".pdt-banner .mod-warning");
     await all.onclick();                                                    // first click only arms it
-    assert.ok(plugin.ignoredCount() >= 2);
+    assert.equal(plugin.hiddenCounts().excluded, 1);
     await all.onclick();
-    assert.equal(plugin.ignoredCount(), 0);
     assert.equal(Object.keys(plugin.data.excluded).length, 0);
     await plugin.exclude(plugin.pluginById("busy"));                        // back as the earlier tests expect
+    plugin.data.settings.queries = {};
     await view.update("mode", "all");
   },
 
@@ -1074,26 +1098,41 @@ const tests = {
     view.render();
   },
 
-  async "settings: keychain picker, model buttons, lists"({ plugin }) {
-    plugin.settingTab.display();
-    const el = plugin.settingTab.containerEl;
+  async "settings: tabs; keychain picker, model buttons, lists"({ plugin }) {
+    const tabs = plugin.settingTab;
+    const el = tabs.containerEl;
+    const open = (key) => { tabs.tab = key; tabs.display(); };
+    tabs.tab = null;
+    tabs.display();
+    assert.deepEqual($$(el, ".pdt-settings-tab").map((b) => b.firstChild.textContent ?? b.textContent),
+      ["general", "notes", "data", "ai", "hidden"].map((k) => core.t(`set.tab.${k}`)), "five tabs, General first");
+    assert.ok($(el, ".pdt-settings-tab.is-active").textContent.startsWith(core.t("set.tab.general")));
+    assert.ok(!$$(el, "textarea").length, "no page queries in settings");
+    $$(el, ".pdt-settings-tab")[3].onclick();   // AI
+    assert.equal(tabs.tab, "ai");
     const names = $$(el, ".name").map((n) => n.textContent);
     assert.ok(names.some((n) => n.includes("~google/gemini-flash-latest")));
     assert.ok($$(el, "button").some((b) => b.classList.contains("mod-cta")));
     assert.ok($$(el, ".desc").some((d) => d.textContent.includes("openrouter-api-key")));
+    assert.ok($(el, "details.pdt-settings-advanced textarea"), "the instructions, folded under Advanced");
     const values = (select) => [...select.options].map((o) => o.value).join();
+    assert.ok($$(el, "select").some((d) => values(d) === "ask,off"), "README translation sits with AI");
+    open("data");
     const selects = $$(el, "select");
     assert.equal(selects.find((d) => values(d) === "0,6,24,168").value, "24");
     assert.ok(selects.some((d) => values(d) === "open,sync,manual"));
+    open("hidden");
     assert.ok(!$$(el, "button").some((b) => b.textContent === "Restore"), "no per-plugin list in settings");
     const manage = $$(el, "button").filter((b) => b.textContent === core.t("set.manage"));
-    assert.equal(manage.length, 2);
+    assert.equal(manage.length, 3, "one per kind of the Hidden page");
+    open("general");
+    assert.ok($$(el, "select").some((d) => values(d) === "home,last"), "where it opens, in General too");
     assert.ok(!$$(el, "button").some((b) => b.textContent === core.t("set.sponsor")), "no Support row without fundingUrl");
     plugin.manifest.fundingUrl = "https://github.com/sponsors/x";
-    plugin.settingTab.display();
+    tabs.display();
     assert.ok($$(el, "button").some((b) => b.textContent === core.t("set.sponsor")), "Support row");
     delete plugin.manifest.fundingUrl;
-    plugin.settingTab.display();
+    open("notes");
     assert.equal(plugin.data.settings.statusEnabled, false);
     const statusToggle = $$(el, ".setting").find((x) => $(x, ".name")?.textContent === core.t("set.status"));
     assert.ok(statusToggle, "status field setting");
@@ -1113,6 +1152,7 @@ const tests = {
     const YAML = require("yaml");
     const tab = plugin.settingTab;
     const baseButton = () => $$(tab.containerEl, "button").find((b) => [core.t("set.baseCreate"), core.t("set.baseReset")].includes(b.textContent));
+    tab.tab = "notes";
     tab.display();
     assert.equal(baseButton().textContent, core.t("set.baseCreate"));
     app.workspace.opened.length = 0;
@@ -1134,13 +1174,13 @@ const tests = {
     const ours = plugin.timeline;
     serverTimeline = {
       ...serverHistory, to: NOW,
-      growth: { homepage: [50, 200, 600], dataview: [10, 20, 30] }, milestones: { homepage: [ago(800), ago(5), null] },
+      series: grown, milestones: { homepage: [ago(800), ago(5), null] },
     };
     await plugin.refresh();
     assert.equal(plugin.timeline.to, NOW, "newer: downloaded");
-    assert.deepEqual(plugin.timeline.growth.homepage, [50, 200, 600]);
+    assert.equal(core.gainOver(plugin.timeline, "homepage", 30), 200);
     await view.update("mode", "all");
-    await view.updateTab("sortBy", { key: "growth7", dir: "desc" });            // gained most in 7 days first, with the gain
+    await view.updateTab("sortBy", { key: "gain(7d)", dir: "desc" });            // gained most in 7 days first, with the gain
     const rows = $$(view.contentEl, ".pdt-row");
     assert.equal($(rows[0], ".pdt-name").textContent, "Homepage");
     assert.equal($(rows[0], ".pdt-growth").textContent, "+50");
@@ -1148,9 +1188,21 @@ const tests = {
     assert.equal($(rows[1], ".pdt-name").textContent, "Dataview");
     await view.updateTab("sortBy", { key: "downloads", dir: "desc" });
     assert.ok(!$(view.contentEl, ".pdt-growth"), "the gain shows only when sorting by it");
+    // the next day: only delta.json comes down, and joins on to ours
+    const today = Math.floor(NOW / DAY);
+    serverDelta = { v: 3, from: NOW - DAY, to: NOW + DAY, releases: { homepage: [NOW] }, firstSeen: {}, milestones: {}, removed: {},
+      series: { days: [today - 1, today, today + 1], points: { homepage: [1150, 50, 30], dataview: [10005, 15, 10] } } };
+    serverTimeline = { ...serverTimeline, to: NOW + DAY };
+    const before = { ...downloaded };
+    await plugin.refresh();
+    assert.deepEqual([downloaded.delta - before.delta, downloaded.timeline - before.timeline], [1, 0], "the delta, not the whole file");
+    assert.equal(plugin.timeline.to, NOW + DAY);
+    assert.equal(core.gainOver(plugin.timeline, "homepage", 1), 30, "the new day is in the series");
+    assert.ok(plugin.timeline.releases.homepage.includes(NOW));
+    serverDelta = null;
     serverTimeline = null;                                                     // GitHub down: ours stays
     await plugin.refresh();
-    assert.equal(plugin.timeline.to, NOW);
+    assert.equal(plugin.timeline.to, NOW + DAY);
     await assert.rejects(plugin.downloadHistory().then((r) => { if (r === undefined) throw new Error("failed"); }));
     serverTimeline = serverHistory;
     plugin.timeline = ours;
@@ -1161,59 +1213,140 @@ const tests = {
     const settings = plugin.data.settings;
     serverTimeline = {
       ...serverHistory, to: NOW + 1, milestoneSteps: [1000, 5000, 10000, 25000, 50000, 100000],
-      milestones: { dataview: [0, ago(400), ago(5), null, null, null] }, growth: { homepage: [50, 200, 600] },
+      milestones: { dataview: [0, ago(400), ago(5), null, null, null] }, series: grown,
     };
     await plugin.refresh();
-    settings.home.seen = { new: ago(3) };   // you last opened New arrivals three days ago
+    plugin.pluginById("dataview").downloads = 10200;   // as its history says: past 10K five days ago
     await view.update("section", "home");
     const el = view.contentEl;
     const card = (id) => $(el, `.pdt-home-card[data-id="${id}"]`);
-    assert.ok(card("new") && card("milestone") && card("hatched") && !card("installed"), "Installed waits in + Add");
-    assert.equal($$(el, ".pdt-nav-item")[0].classList.contains("is-active"), true);
+    assert.ok(card("new") && !card("milestone") && card("awakened") && !card("suggested"), "Milestones waits in + Add widget; Suggested is at the top");
+    const groupOf = (gid) => $(el, `.pdt-home-group[data-id="${gid}"]`);
+    const state = (id) => $(groupOf("state"), `.pdt-home-mini[data-id="${id}"]`);
+    assert.deepEqual(settings.home.groups.map((g) => g.id), ["news", "state", "discover"], "three groups: new by period, totals, big cards");
+    assert.ok(state("mine") && state("suggested") && state("hidden"), "where you stand: small cards in their own group");
+    assert.ok($(el, ".pdt-home-quickstart"), "Quick start until you close it");
+    await $(el, ".pdt-home-quickstart .clickable-icon").onclick();
+    assert.ok(!$(el, ".pdt-home-quickstart") && settings.home.quickstart === false);
+
+    // + Add widget: the gallery. Hidden widgets come back from it; a preset becomes a saved view
+    $(el, ".pdt-home-add").onclick();
+    const gallery = modals.at(-1);
+    const row = (title) => $$(gallery.contentEl, ".pdt-gallery-row").find((r) => $(r, ".pdt-gallery-title").textContent === title);
+    assert.ok(!row(core.t("mode.suggested")) && row(core.t("home.milestone")), "hidden widgets first");
+    assert.equal($$(gallery.contentEl, ".pdt-gallery-row").length, 1 + core.QUERY_PRESETS.length);
+    // Add asks where: a small or a big card (each drawn as it will look), then a group of that kind
+    const place = async (button, pick) => {
+      const done = button.onclick();
+      const where = modals.at(-1);
+      assert.equal($$(where.contentEl, ".pdt-place-look").length, 2);
+      assert.ok($(where.contentEl, ".pdt-place-look.is-big .pdt-home-card.is-preview"), "the big card as it will look");
+      assert.ok($(where.contentEl, ".pdt-place-look.is-small .pdt-home-mini.is-new"), "the small one after its group's cards");
+      pick?.(where);
+      $(where.contentEl, ".modal-button-container .mod-cta").onclick();
+      await done;
+    };
+    await place($(row(core.t("home.milestone")), ".pdt-gallery-side button"));
+    assert.ok(card("milestone") && !row(core.t("home.milestone")), "brought back (a big card in Discover), off the hidden list");
+    const month = () => row(core.t("preset.month"));
+    assert.equal($(month(), ".pdt-gallery-query code").textContent, core.QUERY_PRESETS[0].query, "the whole query, unfolded");
+    assert.ok(!month().classList.contains("is-open"), "one line a query");
+    $(month(), ".pdt-gallery-line").onclick({ target: { closest: () => null } });
+    assert.ok(month().classList.contains("is-open"), "a click unfolds why, the query and Try");
+    await place($(month(), ".pdt-gallery-side button"), (where) => $(where.contentEl, ".pdt-place-look.is-small").onclick());
+    const added = settings.home.views.at(-1);
+    assert.equal(added.query, core.QUERY_PRESETS[0].query);
+    assert.ok($(month(), ".pdt-gallery-done").disabled && $(groupOf("news"), `.pdt-home-mini[data-id="view:${added.id}"]`) && !card(`view:${added.id}`),
+      "on Home as a small card in the first small group, and marked so");
+    $(month(), ".pdt-gallery-try").onclick();   // Try in query: the list in Query mode on it
+    assert.equal(settings.section, "list");
+    assert.equal(view.boxText, core.QUERY_PRESETS[0].query);
+    settings.queries = {};
+    await view.home.save((h) => { h.views = []; h.groups[0].items = h.groups[0].items.filter((x) => x !== `view:${added.id}`); delete h.seen[`view:${added.id}`]; });
+    await view.update("section", "home");
+    assert.equal($(el, ".pdt-place .pdt-tab.is-home").classList.contains("is-active"), true, "⌂ Home | All: Home filled");
     assert.ok($$(el, ".pdt-nav .pdt-n").length && $$(el, ".pdt-nav .pdt-n").every((n) => n.textContent !== "…"), "the strip counts on Home too");
     assert.equal(el.getAttribute("lang"), "en", "uppercase headings follow the UI's language, not Obsidian's");
-    assert.equal($(card("new"), ".pdt-home-n").textContent, "1");             // Fresh Plugin, listed yesterday
+    assert.equal($(card("new"), ".pdt-home-n").textContent, "0", "the New tab's query: Fresh Plugin is tracked");
+    // a tab's widget is the tab: save your own query over the tab's and the card follows; ⋮ resets it
+    settings.pageQueries = { ...settings.pageQueries, new: "listed <= 14d\norder by downloads desc" };
+    await view.update("section", "home");
+    assert.equal($(card("new"), ".pdt-home-n").textContent, "1", "Fresh Plugin, listed yesterday");
+    $(card("new"), ".pdt-home-more").onclick({ stopPropagation() {} });
+    const items = fake.menus.at(-1).items.map((i) => i.title);
+    assert.ok(items.includes(core.t("query.resetPage")) && !items.includes(core.t("home.reset")), "reset the query (it's yours), no settings to reset");
     assert.equal($(card("rising"), ".pdt-home-n").textContent, "1");           // by %: Homepage, 1,000 → 1,200
     assert.equal($(card("rising"), ".pdt-home-item-value").textContent, "+20%");
     await view.home.setParam("rising", "by", "abs");
     assert.equal($(card("rising"), ".pdt-home-n").textContent, "+200");        // by count: the biggest 30-day gain
 
-    // "1 new" opens only what came in since the last visit; ✕ goes back home
+    // "1 new" opens the widget's query asked from the last visit day on (the query says it, no chip); ✕ goes back home
+    const since = core.dayString(core.sinceMoment(settings.home, Date.now()));
     $(card("new"), ".pdt-home-fresh").onclick({ stopPropagation() {} });
     assert.equal(settings.section, "list");
-    assert.ok($(el, ".pdt-tab.is-temp.is-active") && $(el, ".pdt-similar-chip.is-fresh"), "a tab of its own in the strip, only the new ones");
-    assert.equal(view.boxText, "age <= 30d\norder by downloads desc", "the widget's list is its query");
+    assert.ok($(el, ".pdt-tab.is-temp.is-active") && !$(el, ".pdt-similar-chip.is-fresh"), "a tab of its own; the query narrows, not a chip");
+    assert.equal(view.boxText, `listed >= ${since}\norder by downloads desc`, "the card's query, its window from that day on");
+    assert.ok($(el, ".pdt-tab.is-temp").textContent.includes(core.t("home.sinceDay", { day: view.home.dayLabel(core.dayStart(since)) })), "the tab names the day");
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Fresh Plugin"]);
     assert.ok($(el, ".pdt-signal.is-fresh"), "marked as new");
     // a widget's list is a page like a tab: Filter and Sort, Basic narrows its query
     assert.ok($(el, ".pdt-filter-head") && $(el, ".pdt-sort"), "Filter and Sort, like a tab");
     await $$(el, ".pdt-qmode-option")[0].onclick();
     assert.equal(view.inQuery, false);
-    assert.ok($(el, ".pdt-q-input").getAttribute("placeholder").startsWith("age <= 30d"), "Basic: its query faint in the box");
+    assert.ok($(el, ".pdt-q-input").getAttribute("placeholder").startsWith(`listed >= ${since}`), "Basic: its query faint in the box");
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Fresh Plugin"]);
     view.scope.keys.find((k) => k.key === "Escape").fn();
     assert.ok($(el, ".pdt-home"));
-    // opened, so seen: no "1 new" any more, the card is done (and a restart doesn't bring it back)
-    assert.ok(settings.home.seen.new > ago(3));
-    assert.ok(!$(card("new"), ".pdt-home-fresh"));
-    assert.equal($(el, '.pdt-home-mini[data-id="new"] .pdt-home-mini-n').textContent, "✓");
+    // opening empties nothing: the same day, the card and "1 new" stay (they count from the last visit day)
+    assert.ok($(card("new"), ".pdt-home-fresh"));
+    assert.equal($(el, '.pdt-home-mini[data-id="new"] .pdt-home-mini-n').textContent, "1");
+    // the "since" card opens the same list; another tab keeps the widget's tab, it resumes, ✕ closes it where you are
+    $(el, '.pdt-home-mini[data-id="new"]').onclick({ target: { closest: () => null } });
+    assert.equal(view.boxText, `listed >= ${since}\norder by downloads desc`);
+    assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Fresh Plugin"], "the card's count, the list's rows");
+    await view.update("mode", "all");
+    assert.ok($(el, ".pdt-tab.is-temp") && !$(el, ".pdt-tab.is-temp.is-active"), "still in the strip");
+    $(el, ".pdt-tab.is-temp").onclick();
+    assert.ok($(el, ".pdt-tab.is-temp.is-active") && $(el, ".pdt-signal.is-fresh"), "back, new ones still marked");
+    await view.update("mode", "all");
+    $(el, ".pdt-tab.is-temp .pdt-similar-step").onclick({ stopPropagation() {} });
+    assert.ok(!$(el, ".pdt-tab.is-temp") && settings.mode === "all" && !("widget:new" in settings.queries), "closed, its box gone");
+    await view.update("section", "home");
+    // the chip says the period it counts, not "Period"
+    assert.equal($(el, ".pdt-home-head .pdt-home-chip").textContent, `${core.t("home.sinceSeen")} ▾`);
 
-    // milestone: 10K passed five days ago; 5K long ago, so not within 30 days
+    // milestone: passed 10K five days ago, so it's on the 10K step (not the 5K one: it passed that long ago and moved on)
     assert.deepEqual($$(card("milestone"), ".pdt-home-item-name").map((x) => x.textContent), ["Dataview"]);
     await view.home.setParam("milestone", "n", 5000);
     assert.equal($(card("milestone"), ".pdt-home-n").textContent, "0");
     assert.deepEqual(settings.home.params.milestone, { n: 5000 });
 
-    // not seen yet: four cards
-    assert.equal($$(el, ".pdt-home-mini").length, 4);
+    // not seen yet: three cards (New, your releases, Updated; Milestones is a widget)
+    assert.equal($$(groupOf("news"), ".pdt-home-mini").length, 3);
 
-    // hide and add back from the page's ⋮
-    await view.home.save((h) => { h.hidden = [...h.hidden, "rising"]; });
-    assert.ok(!card("rising"));
+    // a card comes off its group from its menu, and back with place()
+    const discover = settings.home.groups.find((g) => g.id === "discover");
     fake.menus.length = 0;
-    view.home.pageMenu({});
-    await fake.menus[0].items.find((i) => i.title === core.t("home.add", { name: core.t("home.rising") })).click();
+    view.home.widgetMenu({}, "rising", discover);
+    await fake.menus[0].items.find((i) => i.title === core.t("home.group.remove")).click();
+    assert.ok(!card("rising") && core.unplacedWidgets(settings.home).includes("rising"), "off Home: in the gallery to bring back");
+    await view.home.place("rising", "discover");
     assert.ok(card("rising"));
+
+    // a group's ⋯: side by side, a new group after it, delete
+    fake.menus.length = 0;
+    view.home.groupMenu({}, settings.home.groups[1]);
+    await fake.menus[0].items.find((i) => i.title === core.t("home.group.half")).click();
+    assert.ok(groupOf("state").classList.contains("is-half"), "half width: two groups side by side");
+    assert.equal($(groupOf("state"), "h3").textContent, core.t("home.group.state"), "a built-in group's own name until you rename it");
+    view.home.addGroup("Mine", "small", settings.home, "state");
+    await view.home.save();
+    assert.deepEqual(settings.home.groups.map((g) => g.name || g.id), ["news", "state", "Mine", "discover"]);
+    assert.ok($(groupOf(settings.home.groups[2].id), ".pdt-home-group-empty"), "an empty group says how to fill it");
+    fake.menus.length = 0;
+    view.home.groupMenu({}, settings.home.groups[2]);
+    await fake.menus[0].items.find((i) => i.title === core.t("home.group.delete")).click();
+    assert.equal(settings.home.groups.length, 3);
 
     // a saved view is a widget: its matches so far are seen; a new match shows as "1 new" and opens alone
     settings.query = "home";
@@ -1223,7 +1356,7 @@ const tests = {
     await view.update("section", "home");
     const id = `view:${saved.id}`;
     assert.equal($(card(id), ".pdt-home-title").textContent, "Home pages");
-    assert.equal($(el, ".pdt-tab.is-view").textContent, "Home pages", "a saved view is a tab in the strip too");
+    assert.ok(!$(el, ".pdt-tab.is-view"), "a saved view is a widget, not a tab: the strip keeps All");
     if (process.env.PDT_DUMP) {   // a look at the real DOM in a browser (scripts/look)
       view.openPreset("new", { days: 30 });
       require("fs").writeFileSync(process.env.PDT_DUMP, view.contentEl.outerHTML);
@@ -1241,7 +1374,27 @@ const tests = {
     fake.menus.length = 0;
     view.home.widgetMenu({}, id);
     await fake.menus[0].items.find((i) => i.title === core.t("home.view.delete")).click();
-    assert.ok(!card(id) && !settings.home.views.length && !settings.home.order.includes(id));
+    assert.ok(!card(id) && !settings.home.views.length && !settings.home.groups.some((g) => g.items.includes(id)));
+
+    // a page's widget opens the page itself (Tracked, with its groups); the page's tab ✕ goes back home
+    assert.ok(state("mine") && state("hidden") && !card("mine"), "your tracked plugins and what you hid: at the top, not in the grid");
+    assert.equal(core.HOME_WIDGETS.mine.page, "tracked");
+    await view.openPage("tracked");
+    assert.ok($(el, '.pdt-tab[data-key="tracked"].is-active'));
+    $(el, '.pdt-tab[data-key="tracked"] .pdt-similar-step').onclick({ stopPropagation() {} });
+    assert.equal(settings.section, "home");
+
+    // each widget list keeps its own tab, with its count, until you close it
+    view.openPreset("new", {});
+    view.openPreset("awakened", {});
+    let temps = $$(el, ".pdt-tab.is-temp");
+    assert.deepEqual(temps.map((x) => x.dataset.key), ["widget:new", "widget:awakened"], "the second opens next to the first");
+    assert.ok(temps[1].classList.contains("is-active") && temps.every((x) => /^\d/.test($(x, ".pdt-n").textContent)), "each with its count");
+    $(temps[1], ".pdt-similar-step").onclick({ stopPropagation() {} });
+    temps = $$(el, ".pdt-tab.is-temp");
+    assert.ok(temps.length === 1 && temps[0].classList.contains("is-active"), "closing the one on screen shows its neighbour");
+    $(temps[0], ".pdt-similar-step").onclick({ stopPropagation() {} });
+    assert.ok(!$(el, ".pdt-tab.is-temp") && settings.section === "home", "the last one closed: Home");
 
     settings.home = core.normalizeHome();
     serverTimeline = serverHistory;
@@ -1251,15 +1404,16 @@ const tests = {
 
   async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {
     const tab = plugin.settingTab;
+    tab.tab = "general";
     tab.display();
     const select = () => $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "auto"));
     assert.deepEqual([...select().options].map((o) => o.textContent), ["Auto (English)", "English", "Türkçe"]);
     const choose = async (value) => { select().value = value; await select().onchange(); };
     await choose("tr");
-    assert.ok($(view.contentEl, ".pdt-tab").textContent.startsWith("Tümü"));
+    assert.ok($$(view.contentEl, ".pdt-tab")[1].textContent.startsWith("Tümü"));
     assert.equal($(tab.containerEl, ".name").textContent, "Dil");
     await choose("en");
-    assert.ok($(view.contentEl, ".pdt-tab").textContent.startsWith("All"));
+    assert.ok($$(view.contentEl, ".pdt-tab")[1].textContent.startsWith("All"));
     assert.equal(plugin.data.settings.language, "en");
     await choose("auto");
     assert.equal(core.t("set.language"), "Language");      // the fake Obsidian runs in English
