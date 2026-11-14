@@ -528,7 +528,7 @@ function pageQuery(settings, mode) {
  * The default queries, the tab rules as they were: Updated hides busy plugins, Incubation shows the ones
  * just out of a long pause, and so on. `opts` carry the days and thresholds (older settings, the widgets).
  */
-function defaultPageQuery(mode, { days = 14, newDays = DEFAULT_NEW_DAYS, incubated = INCUBATION_DAYS, busy = true, downloads = 100 } = {}) {
+function defaultPageQuery(mode, { days = UPDATED_DAYS, newDays = DEFAULT_NEW_DAYS, incubated = INCUBATION_DAYS, busy = true, downloads = 100 } = {}) {
   const min = downloads > 0 ? `downloads >= ${queryCount(downloads)}` : "";
   const all = (...parts) => parts.filter(Boolean).join(" AND ");   // AND written out: easier to read than a space
   return {

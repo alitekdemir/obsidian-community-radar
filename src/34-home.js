@@ -349,11 +349,13 @@ class HomePage extends ViewPart {
     return t("filter.days", { n: value });
   }
 
-  /** What a widget lists, in words: a saved view's or a tab's query, else its own text with its settings. */
+  /**
+   * What a widget is for, in words that invite a look (home.<id>.info): its numbers come from its settings, or (a
+   * tab's card, `words`) from its default query. A saved view shows its query: you wrote it, so it says what it is.
+   */
   widgetInfo(id, params, widget = homeWidget(this.home, id)) {
     if (widget.view) return this.viewInfo(widget.view);
-    if (widget.tab) return t("home.tabInfo", { tab: t(`mode.${widget.tab}`), query: flatQuery(pageQuery(this.plugin.data.settings, widget.tab)) });
-    return t(widget.info?.(params) || `home.${id}.info`, this.paramWords(params));
+    return t(widget.info?.(params) || `home.${id}.info`, widget.words ? widget.words(this.settings) : this.paramWords(params));
   }
 
   /** A widget's settings as words for its info and unit lines. */

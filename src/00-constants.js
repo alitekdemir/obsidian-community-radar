@@ -35,12 +35,14 @@ const YEAR_DAYS = 365;
 const MONTH_DAYS = 30.44;          // an average month (365.25 / 12), for spans written in months
 const RELEASES_CAP = 50;           // release dates kept per plugin
 const DEFAULT_NEW_DAYS = 14;       // a plugin counts as new this many days after it was listed (setting: newDays)
+const UPDATED_DAYS = 14;           // Updated lists releases of the last this many days (its default query)
 const HATCHED_DAYS = 30;           // out of incubation: listed this long after hatching, the same for every plugin
 const INCUBATION_DAYS = 60;        // a pause this long is worth telling (the Incubation tab, its widget, a row's label)
 const WAVE_DAYS = 7;               // releases within a week of a wave's first one belong to that update
 const HISTORY_STALE_DAYS = 2;     // the server builds the history daily; older than this, the status line says so
 const RECENT_QUERIES = 10;          // the empty query box remembers this many of your last queries
 const OPS_CAP = 20;                // bulk actions kept for Recent actions (each with what it changed, for Undo)
+const SEEN_AFTER_MS = 10_000;      // a tracked plugin's new release counts as seen after this long in its details window
 const BUSY_DAYS = 180;             // "busy" (Updated hides it: releases(180d) <= 9): update waves counted over this window…
 const BUSY_LIMIT = 9;              // …more than this (about every three weeks) hides it from Updated (setting: hideBusy)
 const PARALLEL = 4;                // snapshots downloaded at once
@@ -177,7 +179,7 @@ function defaultSettings() {
   return {
     folder: t("default.folder"),
     mode: "all",
-    days: 14,
+    days: UPDATED_DAYS,
     newDays: DEFAULT_NEW_DAYS,
     hideBusy: true,       // Updated: hide plugins with more than BUSY_LIMIT releases in BUSY_DAYS
     section: "home",      // home | list (All, a widget's list, or a page a widget opens: Tracked, Hidden)

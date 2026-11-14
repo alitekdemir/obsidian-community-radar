@@ -45,6 +45,8 @@ class DetailModal extends Modal {
   }
 
   onClose() {
+    this.closed = true;
+    clearTimeout(this.seenTimer);
     this.component?.unload();
     this.contentEl.empty();
     this.view.refresh();
@@ -65,10 +67,28 @@ class DetailModal extends Modal {
     this.render();
   }
 
+  /**
+   * A tracked plugin with a new release: after SEEN_AFTER_MS on screen here it counts as seen (a quick look past it,
+   * or closing the window sooner, doesn't).
+   */
+  watchSeen(p, note) {
+    clearTimeout(this.seenTimer);
+    if (!isUnreviewed(p, note)) return;
+    this.seenTimer = setTimeout(async () => {
+      if (this.closed || this.p !== p) return;
+      await this.plugin.markSeen(p);
+      this.render();
+    }, SEEN_AFTER_MS);
+  }
+
   render() {
     const p = this.p;
     const plugin = this.plugin;
     const note = plugin.notes.index.get(p.id);
+    if (this.watching !== p.id) {   // once per plugin shown, not on every redraw
+      this.watching = p.id;
+      this.watchSeen(p, note);
+    }
     const { releases } = plugin.timeline;
     const now = Date.now();
     this.renderHead(p, note);
@@ -211,7 +231,7 @@ class DetailModal extends Modal {
     const star = (icon, tip, fn, cls) => { const b = button(icon, t("details.favorite"), () => this.act(fn), cls); setTooltip(b, tip); return b; };
     this.view.rowRenderer.renderStar(footer, star, p, note, (fn) => this.act(fn));
     button("folder-plus", t("action.group"), () => this.act(() => plugin.chooseGroup(p)));
-    button("eye-off", t("action.snooze"), () => this.drop(() => plugin.snooze(p)));
+    if (!note) button("eye-off", t("action.snooze"), () => this.drop(() => plugin.snooze(p)));   // tracked: opening it is enough
     button("ban", t("action.exclude"), () => this.drop(() => plugin.exclude(p)));
     const nav = footer.createDiv({ cls: "pdt-detail-nav" });
     if (this.rows.length > 1) {

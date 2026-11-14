@@ -84,11 +84,12 @@ class RowRenderer extends ViewPart {
       const note = state.notes.get(p.id);
       const tr = body.createEl("tr", { cls: `pdt-trow${this.view.selected.has(p.id) ? " is-selected" : ""}`, attr: { "data-id": p.id, tabindex: "0" } });
       tr.onclick = (event) => { if (!event.target.closest("a, button, input")) this.openDetails(p); };
+      tr.addEventListener("contextmenu", (event) => { event.preventDefault(); this.showRowMenu(p, event); });
       const box = tr.createEl("td", { cls: "pdt-table-pick" }).createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("bulk.pick", { name: p.name }) } });
       box.checked = this.view.selected.has(p.id);
       box.onclick = (event) => { event.stopPropagation(); this.view.bulkBar.pick(p, box.checked, event.shiftKey); };
       const name = tr.createEl("td", { cls: "pdt-table-name" });
-      name.createEl("a", { cls: "pdt-name", text: p.name, href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
+      this.nameLink(name, p);
       if (p.version) name.createSpan({ cls: "pdt-ver", text: p.version });
       if (p.description) setTooltip(name, p.description, { delay: 300 });
       for (const key of columns) {
@@ -187,6 +188,7 @@ class RowRenderer extends ViewPart {
       hit.onclick = (event) => event.stopPropagation();
       box.onclick = (event) => { event.stopPropagation(); this.view.bulkBar.pick(p, box.checked, event.shiftKey); };
     }
+    if (!LIST_MODES.includes(mode)) row.addEventListener("contextmenu", (event) => { event.preventDefault(); this.showRowMenu(p, event); });
     row.addEventListener("click", (event) => {
       this.view.setCursor(row);
       // a row or card opens its details from anywhere that isn't a control (or selected text)
@@ -195,7 +197,7 @@ class RowRenderer extends ViewPart {
     });
 
     const head = row.createDiv({ cls: "pdt-head" });
-    head.createEl("a", { cls: "pdt-name", text: p.name, href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
+    this.nameLink(head, p);
     if (p.version) head.createSpan({ cls: "pdt-ver", text: p.version });
     if (p.author) head.createSpan({ cls: "pdt-author", text: p.author });
 
@@ -262,36 +264,17 @@ class RowRenderer extends ViewPart {
 
     // body: description (two lines; a click opens the details), its translation, why it's similar
     const body = row.createDiv({ cls: "pdt-body" });
-    const desc = body.createEl("p", { cls: "pdt-desc", text: p.description || "–", attr: { role: "button", tabindex: "0" } });
-    setTooltip(desc, t("details.open"));
-    desc.onclick = () => this.openDetails(p);
-    onActivate(desc, () => this.openDetails(p));
+    const desc = body.createEl("p", { cls: "pdt-desc", text: p.description || "–" });
+    if (p.description) {   // a click translates it (and hides the translation again)
+      Object.assign(desc, { role: "button", tabIndex: 0 });
+      setTooltip(desc, t("row.translateTip"));
+      desc.onclick = () => this.toggleTranslation(p);
+      onActivate(desc, () => this.toggleTranslation(p));
+    }
     const translation = plugin.cachedTranslation(p);
-    const showing = translation != null && this.view.shownTranslations.has(p.id);
-    if (showing) body.createDiv({ cls: "pdt-trans", text: translation });
+    if (translation != null && this.view.shownTranslations.has(p.id)) body.createDiv({ cls: "pdt-trans", text: translation });
     const info = this.view.similar && this.view.similarInfo?.get(p.id);
     if (info) this.renderWhy(body, info);
-
-    const links = row.createDiv({ cls: "pdt-meta" });
-    const link = (cls, text, icon, onClick, href = "#") => {
-      const a = links.createEl("a", { cls, text, href });
-      if (icon) setIcon(a.createSpan({ cls: "pdt-gh-icon" }), icon);
-      if (onClick) a.onclick = (event) => { event.preventDefault(); onClick(); };
-      return a;
-    };
-    if (p.repo) {
-      setTooltip(link("pdt-readme", t("row.readme"), "file-text", () => plugin.openReadme(p)), t(note ? "row.readmeOpen" : "row.readmeCreate"));
-      link("pdt-gh", "GitHub", "external-link", null, `https://github.com/${p.repo}`);
-    }
-    // Similar → filters the list to this plugin's matches (one step further when the filter is already on)
-    setTooltip(link("pdt-readme pdt-similar-link", t("row.similar"), "arrow-right", () => this.view.similarFilter.open(p)), t("row.similarTip"));
-    if (p.description) {
-      link("pdt-readme pdt-tr", showing ? t("translate.hide") : t("translate.row"), "languages", async () => {
-        if (showing) this.view.shownTranslations.delete(p.id);
-        else if (translation != null || (await plugin.translateRows([p]))) this.view.shownTranslations.add(p.id);
-        this.view.refresh();
-      });
-    }
 
     if (this.view.suggest?.ids.has(p.id)) this.renderSuggestions(row.createDiv({ cls: "pdt-extra pdt-grouping-chips pdt-gm-chips" }), p);
     const actions = row.createDiv({ cls: "pdt-actions" });
@@ -309,14 +292,52 @@ class RowRenderer extends ViewPart {
       act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
     }
-    if (isUnreviewed(p, note)) act("check", t("action.reviewed"), () => plugin.bulk("reviewed", [p]), "", true);   // in Recent actions, with Undo
     this.renderStar(actions, act, p, note);
-    act("folder-plus", note?.groups.length ? t("action.groupNamed", { group: note.groups.join(", ") }) : t("action.group"), () => plugin.chooseGroup(p), "", true);
-    if (mode === "suggested") act("x", t("action.dismiss"), () => plugin.dismiss(p));
-    else {
-      act("eye-off", t("action.snooze"), () => plugin.snooze(p));
-      act("ban", t("action.exclude"), () => plugin.exclude(p));
+    iconButton(actions, "more-horizontal", t("row.menu"), "pdt-row-menu").onclick = (event) => this.showRowMenu(p, event);
+  }
+
+  /** The plugin's name, a link to its GitHub page (Obsidian's page when it has no repository). */
+  nameLink(parent, p) {
+    const href = p.repo ? `https://github.com/${p.repo}` : `obsidian://show-plugin?id=${encodeURIComponent(p.id)}`;
+    const name = parent.createEl("a", { cls: "pdt-name", text: p.name, href });
+    setTooltip(name, p.repo ? t("row.github") : t("details.openInObsidian"));
+    return name;
+  }
+
+  /** The description's translation under it, on or off; the first time asks the AI for it. */
+  async toggleTranslation(p) {
+    const shown = this.view.shownTranslations;
+    if (shown.has(p.id)) shown.delete(p.id);
+    else if (this.plugin.cachedTranslation(p) != null || (await this.plugin.translateRows([p]))) shown.add(p.id);
+    this.view.refresh();
+  }
+
+  /**
+   * The row's menu, from ⋯ or a right click: every action besides ★, each saying on hover what it does and why.
+   * Not tracked: hide until the next release. Tracked: nothing to mark, opening its details or note counts as seen.
+   */
+  showRowMenu(p, event) {
+    const plugin = this.plugin;
+    const note = plugin.notes.index.get(p.id);
+    const menu = new Menu();
+    const item = (icon, title, tip, run) => menu.addItem((i) => {
+      i.setIcon(icon).setTitle(title).onClick(run);
+      if (i.dom) setTooltip(i.dom, tip, { placement: "right" });   // MenuItem.dom isn't public API: the tip is a bonus
+    });
+    const thenRefresh = (fn) => async () => { await fn(); this.view.refresh(); };   // the row may leave the list
+    item("folder-plus", t("action.group"), t("menu.groupTip"), () => this.runRowAction(p, () => plugin.chooseGroup(p)));
+    item("star", t("menu.rate"), t("menu.rateTip"), () => menuOf(ratingOptions(), note?.rating || 0,
+      (n) => this.runRowAction(p, () => plugin.setNoteField(p, "rating", n || null))).showAtMouseEvent(event));
+    item("arrow-right", t("menu.similar"), t("menu.similarTip"), () => this.view.similarFilter.open(p));
+    if (p.repo) {
+      item("file-text", t(note ? "menu.readmeOpen" : "menu.readmeDownload"), t(note ? "menu.readmeOpenTip" : "menu.readmeDownloadTip"), () => plugin.openReadme(p));
     }
+    menu.addSeparator();
+    if (this.settings.mode === "suggested") item("x", t("action.dismiss"), t("menu.dismissTip"), thenRefresh(() => plugin.dismiss(p)));
+    else if (!note) item("eye-off", t("action.snooze"), t("menu.snoozeTip"), thenRefresh(() => plugin.snooze(p)));
+    item("ban", t("action.exclude"), t("menu.excludeTip"), thenRefresh(() => plugin.exclude(p)));
+    menu.showAtMouseEvent(event);
+    return menu;
   }
 
   /** Opens the details window of `p`; ←/→ in it walks the current list. */

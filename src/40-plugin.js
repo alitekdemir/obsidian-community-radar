@@ -355,13 +355,24 @@ class PluginRadar extends Plugin {
     });
   }
 
-  /** "When I open the note" mode: an opened tracking note whose README is older than the release gets a fresh one. */
+  /**
+   * An opened tracking note: its new release counts as seen (you are looking at it), and in "When I open the note"
+   * mode a README older than the release gets a fresh one.
+   */
   async onNoteOpen(file) {
-    if (this.data.settings.readmeMode !== "open" || !this.notes.inFolder(file)) return;
+    if (!this.notes.inFolder(file)) return;
     const note = [...this.notes.index.values()].find((n) => n.path === file.path);
     const plugin = note && this.pluginById(note.id);
-    if (!plugin?.version || readmeVersion(await this.app.vault.cachedRead(file)) === plugin.version) return;
+    if (!plugin) return;
+    if (isUnreviewed(plugin, note)) await this.markSeen(plugin);
+    if (this.data.settings.readmeMode !== "open" || !plugin.version || readmeVersion(await this.app.vault.cachedRead(file)) === plugin.version) return;
     await this.refreshReadme(plugin, file);
+  }
+
+  /** A tracked plugin's new release as seen: its note's reviewed date becomes today, so its "new release" goes. */
+  async markSeen(plugin) {
+    await this.track(plugin, { reviewed: dayString(Date.now()) });
+    this.redraw();
   }
 
   /** Fetches one README in the background; a second request for the same plugin is ignored while it runs. */

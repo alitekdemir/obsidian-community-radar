@@ -134,7 +134,7 @@ const downloadsValue = (ctx, p) => formatShort(p.downloads ?? 0);
  */
 const HOME_WIDGETS = {
   mine: tabWidget("tracked", { icon: "bookmark", tone: "yellow" }, null, (ctx, p) => "★".repeat(ctx.state.notes.get(p.id)?.rating || 0) || downloadsValue(ctx, p), true),
-  new: tabWidget("new", { icon: "sparkles", tone: "purple" }, "listed", downloadsValue),
+  new: { ...tabWidget("new", { icon: "sparkles", tone: "purple" }, "listed", downloadsValue), words: (settings) => ({ days: settings.newDays }) },
   // passed n downloads in the period (9,999 → 10K), whatever it reached after
   milestone: {
     icon: "target", tone: "green",
@@ -143,7 +143,7 @@ const HOME_WIDGETS = {
     at: (ctx, p, params) => reachedAt(ctx.timeline, p.id, params.n),
     value: downloadsValue,
   },
-  awakened: tabWidget("awakened", { icon: "egg", tone: "orange" }, "hatched", (ctx, p) => t("filter.days", { n: lastHatch(ctx.state.releases, p)?.days })),
+  awakened: { ...tabWidget("awakened", { icon: "egg", tone: "orange" }, "hatched", (ctx, p) => t("filter.days", { n: lastHatch(ctx.state.releases, p)?.days })), words: () => ({ incubated: INCUBATION_DAYS }) },
   // by "pct": grew by at least RISING_SHARE on a base of RISING_BASE (a big plugin's +900K isn't news); "abs": most gained
   rising: {
     icon: "trending-up", tone: "green",
@@ -162,7 +162,7 @@ const HOME_WIDGETS = {
     query: () => "excluded OR snoozed OR dismissed\norder by name asc",
     value: (ctx, p) => t(`hidden.kind.${LIST_MODES.find((kind) => QUERY_FIELDS[kind].get(ctx.state, p, ctx.now))}`),
   },
-  updated: tabWidget("updated", { icon: "filter", tone: "blue" }, "released", (ctx, p) => relativeDays(p.updated, ctx.now)),
+  updated: { ...tabWidget("updated", { icon: "filter", tone: "blue" }, "released", (ctx, p) => relativeDays(p.updated, ctx.now)), words: () => ({ days: UPDATED_DAYS }) },
   // "since your last visit" asks it without `since`: not reviewed yet is what you haven't seen (see renderSince)
   tracked: {
     icon: "bell-ring", tone: "yellow",

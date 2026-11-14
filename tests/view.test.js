@@ -95,6 +95,14 @@ const { core } = PluginRadar;
 const $ = (root, sel) => root.querySelector(sel);
 const $$ = (root, sel) => [...root.querySelectorAll(sel)];
 const tick = (ms = 0) => new Promise((r) => setTimeout(r, ms));
+/** Right-clicks a row and picks the menu item titled `title` (⋯ opens the same menu). */
+const rowMenu = (row, title) => {
+  fake.menus.length = 0;
+  row.dispatchEvent(new window.MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+  const item = fake.menus.at(-1)?.items.find((i) => i.title === title);
+  assert.ok(item, `the row menu has "${title}"`);
+  return item.click();
+};
 
 // ── Fixture: 4 plugins, 3 snapshots
 const DAY = core.constants.DAY_MS;
@@ -610,12 +618,12 @@ const tests = {
     settings.syncHours = 24;
   },
 
-  async "README: link opens the note's README, creating the note; opening a stale note refreshes it"({ app, plugin, view }) {
+  async "README: the row menu downloads it into a new note and opens it; opening a stale note refreshes it"({ app, plugin, view }) {
     const el = view.contentEl;
     await view.update("mode", "all");
     const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Dataview");
     app.workspace.opened.length = 0;
-    await $(row, ".pdt-readme").onclick({ preventDefault() {} });
+    await rowMenu(row, core.t("menu.readmeDownload"));
     await tick(20);
     assert.deepEqual(app.workspace.opened, [{ link: "Eklentiler/Dataview.md#README", pane: "tab" }]);
     const path = "Eklentiler/Dataview.md";
@@ -739,7 +747,7 @@ const tests = {
     assert.ok(found.length >= 2 && found.every((x) => x.cosine === undefined), "word matching");
 
     // Similar →: the list filters to the matches on the All tab, closest first, with a bar and the shared terms
-    $(rowOf(seed.name), ".pdt-similar-link").onclick({ preventDefault() {} });
+    rowMenu(rowOf(seed.name), core.t("menu.similar"));
     assert.equal(settings.mode, "all");
     assert.equal($(el, ".pdt-tab.is-active").textContent.startsWith(core.t("mode.all")), true);
     const chip = () => $(el, ".pdt-similar-chip");
@@ -787,7 +795,7 @@ const tests = {
 
     // Similar on a result goes one step further; ‹ comes back; ✕ returns to Tracked and lights up the row
     const next = plugin.pluginById($(el, ".pdt-row").dataset.id);
-    $($(el, ".pdt-row"), ".pdt-similar-link").onclick({ preventDefault() {} });
+    rowMenu($(el, ".pdt-row"), core.t("menu.similar"));
     assert.equal($(chip(), ".pdt-chip-value").textContent, next.name);
     assert.equal($$(chip(), ".pdt-similar-step").length, 2, "‹ and ✕");
     $$(chip(), ".pdt-similar-step")[0].onclick();
@@ -895,11 +903,11 @@ const tests = {
     assert.equal($(($$(el, ".pdt-section").find((s) => $(s, ".pdt-section-name").textContent === "ai")), ".pdt-row"), null);   // folded
     view.collapsed.clear();
 
-    // New releases filter: the row has a NEW RELEASE signal and a Reviewed action
+    // New releases filter: the row has a NEW RELEASE signal; no ✓ (opening its details or note marks it seen)
     await view.update("trackedGroup", core.UPDATES);
     const updated = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
     assert.ok($(updated, ".pdt-signal.is-changed"));
-    assert.ok(updated.querySelector('[data-icon="check"]'));
+    assert.ok(!updated.querySelector('[data-icon="check"]'));
 
     // a group pill on a row opens the Tracked tab on that group
     await view.update("mode", "all");
@@ -1496,20 +1504,85 @@ const tests = {
     await view.update("section", "list");
   },
 
-  async "a row's ✓ (reviewed) is a recorded action: Undo takes it back"({ plugin, view }) {
+  async "Home: a tab's card says what it is for, with its numbers, not its query"({ plugin, view }) {
+    const settings = plugin.data.settings;
+    const info = (id) => view.home.widgetInfo(id, {});
+    assert.equal(info("new"), core.t("home.new.info", { days: settings.newDays }));
+    assert.equal(info("updated"), core.t("home.updated.info", { days: 14 }));
+    assert.equal(info("awakened"), core.t("home.awakened.info", { incubated: 60 }));
+    for (const id of ["new", "updated", "awakened", "suggested", "mine"]) assert.ok(!/[{}]|<=|>=|order by/.test(info(id)), `${id}: ${info(id)}`);
+  },
+
+  async "a row: ★ and ⋯ only; the name opens GitHub, the description translates, a right click opens the menu"({ plugin, view }) {
+    const busyExcluded = "busy" in plugin.data.excluded;
+    if (busyExcluded) await plugin.restoreFrom("excluded", ["busy"]);   // a row to look at…
+    const busyNote = plugin.notes.index.get("busy");
+    plugin.notes.index.delete("busy");                                     // …that isn't tracked (every fixture plugin is by now)
+    view.settings.section = "list";
+    await view.update("mode", "all");
+    const rowOf = (id) => $$(view.contentEl, ".pdt-row").find((r) => r.dataset.id === id);
+    const icons = (row) => $$(row, ".pdt-actions [data-icon]").map((b) => b.dataset.icon);
+    assert.deepEqual(icons(rowOf("dataview")), ["star", "more-horizontal"]);
+    assert.equal($(rowOf("dataview"), ".pdt-name").getAttribute("href"), "https://github.com/blacksmithgu/obsidian-dataview");
+    assert.ok(!$(rowOf("dataview"), ".pdt-meta"), "no README · GitHub · Similar · Translate links");
+
+    const titles = (id) => {
+      fake.menus.length = 0;
+      rowOf(id).dispatchEvent(new window.MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+      return fake.menus.at(-1).items.map((i) => i.title);
+    };
+    view.refresh();
+    assert.ok(titles("busy").includes(core.t("action.snooze")), "not tracked: hide until the next release");
+    assert.ok(!titles("homepage").includes(core.t("action.snooze")), "tracked: nothing to hide or mark");
+    assert.ok(titles("homepage").includes(core.t("menu.readmeOpen")) && titles("busy").includes(core.t("menu.readmeDownload")));
+
+    const desc = $(rowOf("busy"), ".pdt-desc");
+    await desc.onclick();
+    assert.equal($(rowOf("busy"), ".pdt-trans").textContent, `TR: ${plugin.pluginById("busy").description}`);
+    await $(rowOf("busy"), ".pdt-desc").onclick();
+    assert.ok(!$(rowOf("busy"), ".pdt-trans"), "a second click hides it");
+    view.openHelp("start");   // Help › Quick start says the same, at the level of someone new to the plugin
+    const help = modals.at(-1).contentEl;
+    assert.deepEqual($$(help, ".pdt-help-card-list li").map((li) => li.textContent),
+      ["star", "name", "desc", "empty", "menu", "seen"].map((k) => core.t(`help.card.${k}`)));
+    modals.at(-1).close();
+    plugin.notes.index.set("busy", busyNote);
+    if (busyExcluded) await plugin.exclude(plugin.pluginById("busy"));   // as the other tests expect
+  },
+
+  async "a tracked plugin's new release counts as seen: at once when its note opens, after 10 s in its details"({ app, plugin, view }) {
     const p = plugin.pluginById("homepage");
     const was = plugin.notes.index.get("homepage").reviewed;
     const old = core.dayString(ago(20));   // reviewed before its latest release
+    const today = core.dayString(Date.now());
+    const reviewed = () => plugin.notes.index.get("homepage").reviewed;
+
     await plugin.track(p, { reviewed: old });
-    view.settings.section = "list";
-    await view.update("mode", "all");
-    const row = $$(view.contentEl, ".pdt-row").find((r) => r.dataset.id === "homepage");
-    await row.querySelector('[data-icon="check"]').onclick();
-    assert.equal(plugin.notes.index.get("homepage").reviewed, core.dayString(Date.now()));
-    const [op] = plugin.data.ops;
-    assert.deepEqual([op.kind, op.changes.map((c) => c.id)], ["reviewed", ["homepage"]], "in Recent actions");
-    await plugin.undo(op);
-    assert.equal(plugin.notes.index.get("homepage").reviewed, old);
+    await app.workspace.trigger("file-open", plugin.notes.file("homepage"));
+    assert.equal(reviewed(), today, "its note opened");
+
+    // the details window: a timer of 10 s, dropped when the window closes sooner
+    const realSetTimeout = globalThis.setTimeout;
+    let wait = null;
+    globalThis.setTimeout = (fn, ms, ...rest) => (ms === 10000 ? (wait = fn, 0) : realSetTimeout(fn, ms, ...rest));
+    try {
+      await plugin.track(p, { reviewed: old });
+      view.rowRenderer.openDetails(p);
+      let modal = modals.at(-1);
+      assert.ok(wait, "a 10 s timer starts");
+      modal.close();
+      await wait();
+      assert.equal(reviewed(), old, "closed sooner: not seen");
+
+      wait = null;
+      view.rowRenderer.openDetails(p);
+      modal = modals.at(-1);
+      await wait();
+      assert.equal(reviewed(), today, "10 s in its details: seen");
+      modal.close();
+    } finally {
+      globalThis.setTimeout = realSetTimeout;
+    }
     await plugin.track(p, { reviewed: was || null });
   },
 

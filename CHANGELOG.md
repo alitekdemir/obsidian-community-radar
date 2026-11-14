@@ -3,7 +3,10 @@
 ## Unreleased
 
 ### Changed
-- **Reviewed (✓ on a row):** now a recorded action like the bulk one: it shows in *Recent actions* and can be undone.
+- **Cards and rows, simpler:** only ★ (track) and ⋯ stay on a card. ⋯ or a right click opens every other action (group, rate, similar plugins, README, hide), and each says on hover what it does. The plugin's name opens its GitHub page, a click on the description translates it, and an empty spot opens the details. The same in the list and the table.
+- **New releases you track, seen by looking:** opening a tracked plugin's note, or keeping its details open for 10 seconds, counts its new release as seen; the ✓ button is gone. *Hide until the next release* is offered for plugins you don't track.
+- **Home speaks plainly:** every card says what it's for and why it's worth a look, not the query behind it.
+- **Help › Quick start:** a new "Get to know a card" part says what each click does, for someone new to the plugin.
 - **Menus:** the Home chips' and the bulk bar's menus open right under their button, like every other chip.
 - **Faster lists:** a refresh counts only the tabs on screen and formats numbers with cached formatters (about 10× less work per refresh on the full directory).
 

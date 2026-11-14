@@ -1,5 +1,4 @@
 // ─── 4. UI ──────────────────────────────────────────────────────────────────
-const $ = (root, selector) => root.querySelector(selector);
 
 /** Obsidian's own tooltip (1.4.4+); falls back to the browser tooltip. */
 const setTooltip = obsidian.setTooltip || ((el, text) => el.setAttribute("title", text));
@@ -34,15 +33,19 @@ function iconButton(parent, icon, tip, cls = "") {
   return button;
 }
 
-/** Obsidian's menu of `options` ([value, title]) right under `anchor`, `current` checked; a pick calls onPick(value). */
-function showMenuBelow(anchor, options, current, onPick) {
+/** Obsidian's menu of `options` ([value, title]), `current` checked; a pick calls onPick(value). Not shown yet. */
+function menuOf(options, current, onPick) {
   const menu = new Menu();
   for (const [value, title] of options) {
     menu.addItem((item) => item.setTitle(title).setChecked(value === current).onClick(() => onPick(value)));
   }
-  const rect = anchor.getBoundingClientRect();
-  menu.showAtPosition({ x: rect.left, y: rect.bottom + 4 });
   return menu;
+}
+
+/** menuOf right under `anchor`. */
+function showMenuBelow(anchor, options, current, onPick) {
+  const rect = anchor.getBoundingClientRect();
+  return menuOf(options, current, onPick).showAtPosition({ x: rect.left, y: rect.bottom + 4 });
 }
 
 /** A filter chip whose options open in Obsidian's own menu. */
@@ -579,6 +582,9 @@ class ModelModal extends PickerModal {
 }
 
 
+/** Help › Quick start: what a click on each part of a card does ([icon, help.card.<key>]), in the order you meet them. */
+const HELP_CARD_TIPS = [["star", "star"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["more-horizontal", "menu"], ["bell-ring", "seen"]];
+
 /** Where the full query guide lives (the Help window's last link). */
 const GUIDE_URL = "https://github.com/alitekdemir/obsidian-community-radar/blob/main/docs/query.md";
 
@@ -652,7 +658,20 @@ class HelpModal extends Modal {
       const go = step.createEl("button", { text: t(`help.step.${key}.cta`), attr: { type: "button" } });
       go.onclick = () => { this.close(); run(); };
     });
+    this.renderCardTips(el);
     el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: GUIDE_URL });
+  }
+
+  /** "Getting to know a card": where to click on a plugin's card or row, and what happens. */
+  renderCardTips(el) {
+    const box = el.createDiv({ cls: "pdt-help-cards" });
+    box.createDiv({ cls: "pdt-help-step-title", text: t("help.card.title") });
+    const list = box.createEl("ul", { cls: "pdt-help-card-list" });
+    for (const [icon, key] of HELP_CARD_TIPS) {
+      const item = list.createEl("li");
+      setIcon(item.createSpan({ cls: "pdt-help-card-icon", attr: { "aria-hidden": "true" } }), icon);
+      item.createSpan({ text: t(`help.card.${key}`) });
+    }
   }
 
   /** The query language in short: fields by group, then operators, date functions and values; a group may carry a hint. */

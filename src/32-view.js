@@ -130,11 +130,11 @@ class DiscoveryView extends ItemView {
       g: () => this.plugin.chooseGroup(p),
       x: () => (listMode ? this.plugin.restoreFrom(this.settings.mode, [p.id]) : this.plugin.exclude(p)),
       h: () => this.plugin.snooze(p),
-      t: () => $(row, ".pdt-tr")?.click(),
+      t: () => this.rowRenderer.toggleTranslation(p),
       r: () => this.plugin.openReadme(p),
-      s: () => $(row, ".pdt-similar-link")?.click(),
-      o: () => $(row, ".pdt-name")?.click(),
-      Enter: () => $(row, ".pdt-desc")?.click(),
+      s: () => this.similarFilter.open(p),
+      o: () => globalThis.open?.(`obsidian://show-plugin?id=${encodeURIComponent(p.id)}`),   // Obsidian's own page of it
+      Enter: () => this.rowRenderer.openDetails(p),
     };
     for (const n of [0, 1, 2, 3, 4, 5]) actions[n] = () => this.rowRenderer.runRowAction(p, () => this.plugin.setNoteField(p, "rating", n || null));
     Promise.resolve(actions[key]()).then(() => {

@@ -605,8 +605,7 @@ button.pdt-filter-clear {
 }
 
 .pdt-search-icon,
-.pdt-dl-icon,
-.pdt-gh-icon {
+.pdt-dl-icon {
   display: inline-flex;
   color: var(--text-faint);
 }
@@ -706,7 +705,7 @@ button.pdt-filter-clear {
     "head metrics"
     "tags tags"
     "body body"
-    "links actions"
+    ". actions"
     "extra extra";
   gap: 0 var(--size-4-4);
   margin: 0 calc(-1 * var(--size-4-3));
@@ -1254,39 +1253,6 @@ button.pdt-table-rating { color: var(--color-yellow); }
   line-height: 1.5;
 }
 
-/* links (left) and actions (right) share the last line */
-.pdt-meta {
-  grid-area: links;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px var(--size-4-3);
-  margin-top: var(--size-4-2);
-  color: var(--text-faint);
-  font-size: var(--font-ui-smaller);
-}
-
-.pdt-gh,
-.pdt-readme {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  color: var(--text-muted);
-  text-decoration: none;
-}
-
-.pdt-gh:hover,
-.pdt-gh:hover .pdt-gh-icon,
-.pdt-readme:hover,
-.pdt-readme:hover .pdt-gh-icon {
-  color: var(--text-accent);
-}
-
-.pdt-gh-icon svg {
-  width: 11px;
-  height: 11px;
-}
-
 .pdt-actions {
   grid-area: actions;
   display: flex;
@@ -1420,7 +1386,6 @@ button.pdt-rate-clear:hover {
     "head head"
     "tags tags"
     "body body"
-    "links links"
     "metrics actions"
     "extra extra";
   margin: 0;
@@ -1483,10 +1448,6 @@ button.pdt-rate-clear:hover {
   margin-top: var(--size-4-3);
   padding-top: var(--size-4-2);
   border-top: 1px solid var(--background-modifier-border);
-}
-
-.pdt-list.is-cards .pdt-meta {
-  margin-top: var(--size-4-3);
 }
 
 /* List / Card switch in the filter bar */
@@ -3332,6 +3293,11 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
 }
 .pdt-help-step-title { font-weight: var(--font-semibold); }
 .pdt-help-step-desc { color: var(--text-muted); font-size: var(--font-ui-small); }
+.pdt-help-cards { margin-top: var(--size-4-5); padding: var(--size-4-3) var(--size-4-4); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); }
+.pdt-help-card-list { margin: var(--size-4-2) 0 0; padding: 0; list-style: none; display: grid; gap: var(--size-4-2); }
+.pdt-help-card-list li { display: flex; align-items: flex-start; gap: var(--size-4-2); color: var(--text-muted); font-size: var(--font-ui-small); }
+.pdt-help-card-icon { display: inline-flex; flex: none; margin-top: 2px; color: var(--text-accent); }
+.pdt-help-card-icon svg { width: 14px; height: 14px; }
 .pdt-help-more { display: inline-block; margin-top: var(--size-4-4); font-size: var(--font-ui-small); }
 
 /* Home: the Quick start card, until you close it */
