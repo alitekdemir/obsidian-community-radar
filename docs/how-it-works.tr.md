@@ -32,6 +32,6 @@ Telemetri yok, hesap yok, kasanız hakkında hiçbir şey hiçbir yere gönderil
 
 | Veri | Nerede |
 |---|---|
-| Gruplarınız, favorileriniz, puanlarınız, durumlarınız, notlarınız, inceleme tarihleri | Takip notlarınız |
+| Gruplarınız, puanlarınız, durumlarınız, notlarınız, inceleme tarihleri | Takip notlarınız |
 | Ayarlar, sayfa sorguları, kayıtlı görünümler, dışlanan eklentiler, çeviriler, son işlemler | `.obsidian/plugins/plugin-radar/data.json` |
 | Katalog, sürüm geçmişi ve vektörler (önbellek, gerektiğinde yeniden oluşturulur) | `.obsidian/plugins/plugin-radar/cache/` |

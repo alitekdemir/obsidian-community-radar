@@ -32,7 +32,6 @@ A clause is `field operator value`. Join clauses with `AND`, `OR` and `NOT`, gro
 | `rating` | number | your rating, 1–5 |
 | `group` | list | a group in your note |
 | `status` | list | the status in your note |
-| `favorite` | yes/no | a favorite |
 | `installed` | yes/no | installed in this vault |
 | `tracked` | yes/no | tracked (has a note) |
 | `unreviewed` | yes/no | tracked, with a release since you reviewed it |

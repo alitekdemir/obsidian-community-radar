@@ -59,7 +59,6 @@ const QUERY_FIELDS = {
     get: (s, p, now, n) => historyDays(s, reachedOrLatest(s, p, n), now), at: (s, p, now, n) => reachedOrLatest(s, p, n) },
   group: { type: "list", get: (s, p) => s.notes.get(p.id)?.groups || [] },
   status: { type: "list", get: (s, p) => { const st = s.notes.get(p.id)?.status; return st ? [st] : []; } },
-  favorite: { type: "bool", get: (s, p) => Boolean(s.notes.get(p.id)?.favorite) },
   installed: { type: "bool", get: (s, p) => s.installed.has(p.id) },
   tracked: { type: "bool", get: (s, p) => s.notes.has(p.id) },
   unreviewed: { type: "bool", get: (s, p) => { const note = s.notes.get(p.id); return Boolean(note) && isUnreviewed(p, note); } },   // tracked, released since you reviewed it

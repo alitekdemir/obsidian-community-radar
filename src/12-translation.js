@@ -9,10 +9,11 @@ const PROVIDERS = {
     chat: (model, key, prompt) => ({
       url: "https://api.anthropic.com/v1/messages",
       headers: { "x-api-key": key, "anthropic-version": "2023-06-01" },
-      body: { model, max_tokens: 4096, messages: [{ role: "user", content: prompt }] },
+      // the reply's ceiling is required here: twice the prompt's tokens (~4 characters each) leaves room for longer languages
+      body: { model, max_tokens: Math.min(MAX_OUTPUT_TOKENS, Math.max(4096, Math.ceil(prompt.length / 2))), messages: [{ role: "user", content: prompt }] },
     }),
     text: (json) => (json.content || []).map((part) => part.text || "").join(""),
-    usage: (json) => ({ input: json.usage?.input_tokens, output: json.usage?.output_tokens }),
+    usage: (json) => ({ input: json.usage?.input_tokens, output: json.usage?.output_tokens, model: json.model }),
     models: (key) => ({ url: "https://api.anthropic.com/v1/models?limit=100", headers: { "x-api-key": key, "anthropic-version": "2023-06-01" } }),
     modelList: (json) => (json.data || []).map((m) => ({ id: m.id, price: null })),
   },
@@ -24,7 +25,7 @@ const PROVIDERS = {
       body: { model, messages: [{ role: "user", content: prompt }] },
     }),
     text: (json) => json.choices?.[0]?.message?.content || "",
-    usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens }),
+    usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens, model: json.model }),
     models: (key) => ({ url: "https://api.openai.com/v1/models", headers: { Authorization: `Bearer ${key}` } }),
     modelList: (json) => (json.data || []).filter((m) => /^(gpt|o\d|chatgpt)/.test(m.id)).map((m) => ({ id: m.id, price: null })),
   },
@@ -36,7 +37,7 @@ const PROVIDERS = {
       body: { contents: [{ parts: [{ text: prompt }] }] },
     }),
     text: (json) => (json.candidates?.[0]?.content?.parts || []).map((part) => part.text || "").join(""),
-    usage: (json) => ({ input: json.usageMetadata?.promptTokenCount, output: json.usageMetadata?.candidatesTokenCount }),
+    usage: (json) => ({ input: json.usageMetadata?.promptTokenCount, output: json.usageMetadata?.candidatesTokenCount, model: json.modelVersion }),
     models: (key) => ({ url: "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", headers: { "x-goog-api-key": key } }),
     modelList: (json) => (json.models || [])
       .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
@@ -50,7 +51,7 @@ const PROVIDERS = {
       body: { model, messages: [{ role: "user", content: prompt }], usage: { include: true } },   // the reply says what it cost
     }),
     text: (json) => json.choices?.[0]?.message?.content || "",
-    usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens, cost: json.usage?.cost }),
+    usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens, cost: json.usage?.cost, model: json.model }),
     models: (key) => ({ url: "https://openrouter.ai/api/v1/models", headers: { Authorization: `Bearer ${key}` } }),
     modelList: (json) => (json.data || []).map((m) => ({ id: m.id, price: tokenPrice(m.pricing) })),
   },
@@ -66,6 +67,17 @@ function addUsage(totals, provider, model, { input, output, cost } = {}) {
   const was = totals?.[key] || { provider, model, requests: 0, input: 0, output: 0, cost: null };
   const priced = typeof cost === "number" ? (was.cost ?? 0) + cost : was.cost;
   return { ...totals, [key]: { ...was, requests: was.requests + 1, input: was.input + (input || 0), output: was.output + (output || 0), cost: priced } };
+}
+
+/**
+ * What a job of several requests used, as the providers reported it: tokens summed, the model that answered (the
+ * reply names it; the asked id when it doesn't), and the cost only when every reply told it.
+ * @param {{input, output, cost, model}[]} usages  one per request
+ */
+function sumUsage(usages, asked) {
+  const cost = usages.every((u) => typeof u.cost === "number") ? usages.reduce((sum, u) => sum + u.cost, 0) : null;
+  const tokens = usages.reduce((sum, u) => sum + (u.input || 0) + (u.output || 0), 0);
+  return { model: usages.findLast((u) => u.model)?.model || asked, tokens, cost: usages.length ? cost : null };
 }
 
 /** OpenRouter price (USD per token, as text) → {input, output} per 1M tokens; null if unreadable. */

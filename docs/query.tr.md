@@ -32,7 +32,6 @@ Sona eklenen `order by alan desc` (ya da `asc`) listeyi sıralar.
 | `rating` | sayı | puanınız, 1–5 |
 | `group` | liste | notunuzdaki bir grup |
 | `status` | liste | notunuzdaki durum |
-| `favorite` | evet/hayır | favori |
 | `installed` | evet/hayır | bu kasada kurulu |
 | `tracked` | evet/hayır | takipte (notu var) |
 | `unreviewed` | evet/hayır | takipte ve incelediğinizden beri yeni sürümü var |

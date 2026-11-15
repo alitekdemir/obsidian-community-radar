@@ -12,7 +12,7 @@ class FilterBar extends ViewPart {
     const options = [
       ["", t("tracked.allCount", { n: notes.length })],
       [UPDATES, t("tracked.updates", { n: this.plugin.updatesCount(state, Date.now()) })],
-      [STARRED, t("tracked.starredCount", { n: notes.filter((n) => n.favorite).length })],
+      [TOP_RATED, t("tracked.topCount", { n: notes.filter((n) => n.rating >= TOP_RATING).length })],
       [UNGROUPED, t("tracked.ungroupedCount", { n: notes.filter((n) => !n.groups.length).length })],
       ...this.plugin.notes.groups().map((g) => [g.name, `${g.name}  ${formatCount(g.count)}`]),
     ];
@@ -96,7 +96,7 @@ class FilterBar extends ViewPart {
         menu.showAtMouseEvent(event);
       };
     }
-    if (this.settings.keyboard) this.renderKeyHelp(bar);
+    if (this.settings.keyboard) renderKeyHelp(bar, KEY_HELP);
     // quick filters (Jira style): the changed and added ones as chips on a row of their own, under the bar
     if (this.quickFilters && !this.view.inQuery) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
     bar.toggleClass("is-query", this.view.inQuery);   // Filter and Sort step back: the query decides
@@ -281,20 +281,6 @@ class FilterBar extends ViewPart {
     return button;
   }
 
-  /** ⌨ icon with a card of the shortcuts, shown on hover or keyboard focus. */
-  renderKeyHelp(bar) {
-    const help = bar.createDiv({ cls: "pdt-keys", attr: { tabindex: "0", "aria-label": t("keys.title") } });
-    setIcon(help.createSpan({ cls: "pdt-keys-icon" }), "keyboard");
-    const card = help.createDiv({ cls: "pdt-keys-card", attr: { role: "tooltip" } });
-    card.createDiv({ cls: "pdt-keys-title", text: t("keys.title") });
-    for (const [keys, label] of KEY_HELP) {
-      const line = card.createDiv({ cls: "pdt-keys-row" });
-      const cell = line.createSpan({ cls: "pdt-keys-keys" });
-      for (const key of keys) cell.createEl("kbd", { text: key });
-      line.createSpan({ text: t(label) });
-    }
-  }
-
   /** "3 filters in effect" for the status line, when quick filters don't show them (so a short list has its reason). */
   activeFilters() {
     const n = changedFilters(this.filterState(), this.view.page);
@@ -310,5 +296,19 @@ class FilterBar extends ViewPart {
       setTooltip(button, t(`layout.${value}`));
       button.onclick = () => this.view.update("layout", value);
     }
+  }
+}
+
+/** ⌨ icon with a card of the shortcuts (`entries`: [keys, help text key], as KEY_HELP), shown on hover or keyboard focus. */
+function renderKeyHelp(parent, entries) {
+  const help = parent.createDiv({ cls: "pdt-keys", attr: { tabindex: "0", "aria-label": t("keys.title") } });
+  setIcon(help.createSpan({ cls: "pdt-keys-icon" }), "keyboard");
+  const card = help.createDiv({ cls: "pdt-keys-card", attr: { role: "tooltip" } });
+  card.createDiv({ cls: "pdt-keys-title", text: t("keys.title") });
+  for (const [keys, label] of entries) {
+    const line = card.createDiv({ cls: "pdt-keys-row" });
+    const cell = line.createSpan({ cls: "pdt-keys-keys" });
+    for (const key of keys) cell.createEl("kbd", { text: key });
+    line.createSpan({ text: t(label) });
   }
 }

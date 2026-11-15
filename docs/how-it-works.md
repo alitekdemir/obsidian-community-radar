@@ -32,6 +32,6 @@ No telemetry, no account, nothing about your vault is sent anywhere. In the vaul
 
 | Data | Where |
 |---|---|
-| Your groups, stars, ratings, statuses, notes, review dates | Your tracking notes |
+| Your groups, ratings, statuses, notes, review dates | Your tracking notes |
 | Settings, page queries, saved views, ignored plugins, translations, recent actions | `.obsidian/plugins/plugin-radar/data.json` |
 | Catalog, release history and vectors (caches, rebuilt on demand) | `.obsidian/plugins/plugin-radar/cache/` |

@@ -266,8 +266,8 @@ class ColumnsPopover extends Popover {
   }
 }
 
-/** A column's name in the picker ("★" reads as "Favorite ★"). */
-const columnLabel = (key) => t(key === "favorite" ? "table.favorite" : `col.${key}`);
+/** A column's name in the picker (the 🔔 column reads as "Tracking 🔔"). */
+const columnLabel = (key) => t(key === "tracked" ? "table.tracked" : `col.${key}`);
 
 /**
  * The search box's suggestions for the query language: fields, then the operators that fit the field, then its
@@ -323,9 +323,10 @@ function namesLine(plugins, max = 5) {
 
 /** Asks before a bulk action: what it does, to which plugins, that it can be undone. `ask()` resolves true or false. */
 class ConfirmModal extends Modal {
-  constructor(app, { title, plugins, text, cta }) {
+  /** @param {string} [footnote]  the faint line under the text; by default that Recent actions can undo it */
+  constructor(app, { title, plugins, text, cta, footnote = t("bulk.undoable") }) {
     super(app);
-    Object.assign(this, { heading: title, plugins, text, cta, answer: false });
+    Object.assign(this, { heading: title, plugins, text, cta, footnote, answer: false });
   }
 
   ask() {
@@ -334,11 +335,13 @@ class ConfirmModal extends Modal {
 
   onOpen() {
     this.titleEl.setText(this.heading);
-    const list = this.contentEl.createEl("ul", { cls: "pdt-confirm-list" });
-    for (const p of this.plugins.slice(0, 5)) list.createEl("li", { text: p.name });
-    if (this.plugins.length > 5) list.createEl("li", { cls: "pdt-detail-muted", text: t("bulk.more", { n: this.plugins.length - 5 }) });
+    if (this.plugins.length) {
+      const list = this.contentEl.createEl("ul", { cls: "pdt-confirm-list" });
+      for (const p of this.plugins.slice(0, 5)) list.createEl("li", { text: p.name });
+      if (this.plugins.length > 5) list.createEl("li", { cls: "pdt-detail-muted", text: t("bulk.more", { n: this.plugins.length - 5 }) });
+    }
     if (this.text) this.contentEl.createEl("p", { text: this.text });
-    this.contentEl.createEl("p", { cls: "pdt-detail-muted", text: t("bulk.undoable") });
+    if (this.footnote) this.contentEl.createEl("p", { cls: "pdt-detail-muted", text: this.footnote });
     const row = this.contentEl.createDiv({ cls: "modal-button-container" });
     row.createEl("button", { text: t("bulk.cancel") }).onclick = () => this.close();
     const go = row.createEl("button", { text: this.cta, cls: "mod-cta" });
@@ -451,12 +454,12 @@ class GroupModal extends Modal {
 
   async loadSuggestions() {
     try {
-      const list = await this.plugin.suggestGroups(this.target);
+      const { list, usage } = await this.plugin.suggestGroups(this.target);
       const known = new Set(this.mine.map((g) => g.name));
       const pick = list.find((g) => known.has(g));
       if (pick) this.closest = pick;   // the model's choice among your groups beats word overlap
       if (!this.touched) this.selected = this.closest ? [this.closest] : [];
-      this.ai = { state: "ready", list: list.filter((g) => !known.has(g)), error: "" };
+      this.ai = { state: "ready", list: list.filter((g) => !known.has(g)), error: "", usage };
     } catch (error) {
       this.ai = { state: "failed", list: [], error: error.message };
     }
@@ -489,9 +492,10 @@ class GroupModal extends Modal {
     const translation = this.plugin.cachedTranslation(this.target);
     if (translation) el.createDiv({ cls: "pdt-trans", text: translation });
 
-    const section = (label) => {
+    const section = (label, aside) => {
       const box = el.createDiv({ cls: "pdt-gm-section" });
-      box.createDiv({ cls: "pdt-gm-label", text: label, attr: { lang: language } });   // uppercase by the UI's rules, not Obsidian's (i → I, not İ)
+      const head = box.createDiv({ cls: "pdt-gm-label", text: label, attr: { lang: language } });   // uppercase by the UI's rules, not Obsidian's (i → I, not İ)
+      aside?.(head);
       return box.createDiv({ cls: "pdt-gm-chips" });
     };
 
@@ -509,8 +513,8 @@ class GroupModal extends Modal {
       }
     }
 
-    const { state, list, error } = this.ai;
-    const ai = section(state === "ready" ? t("groups.aiCount", { n: list.length }) : t("groups.ai"));
+    const { state, list, error, usage } = this.ai;
+    const ai = section(state === "ready" ? t("groups.aiCount", { n: list.length }) : t("groups.ai"), usage && ((head) => usageTag(head, usage)));
     if (state === "loading") ai.createSpan({ cls: "pdt-gm-note is-loading", text: t("groups.aiLoading") });
     if (state === "setup") ai.createSpan({ cls: "pdt-gm-note", text: t("groups.aiSetup") });
     if (state === "failed") ai.createSpan({ cls: "pdt-gm-note is-error", text: t("groups.aiFailed", { error }) });
@@ -583,7 +587,16 @@ class ModelModal extends PickerModal {
 
 
 /** Help › Quick start: what a click on each part of a card does ([icon, help.card.<key>]), in the order you meet them. */
-const HELP_CARD_TIPS = [["star", "star"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["more-horizontal", "menu"], ["bell-ring", "seen"]];
+const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["more-horizontal", "menu"], ["bell-ring", "seen"]];
+
+/**
+ * What an AI request just took, faint at the end of a title row: the cost when the provider told it, else the
+ * tokens; the model on hover. Shown once, not kept (a group suggestion costs next to nothing).
+ */
+function usageTag(parent, usage) {
+  const tag = parent.createSpan({ cls: "pdt-usage-tag", text: typeof usage.cost === "number" ? formatCost(usage.cost) : t("details.tokensUsed", { n: formatShort(usage.tokens) }) });
+  setTooltip(tag, `${usage.model} · ${t("details.tokensUsed", { n: formatShort(usage.tokens) })}`);
+}
 
 /** The docs folder on GitHub; the Help window's last link adds the UI language's guide file (help.guideFile). */
 const DOCS_URL = "https://github.com/alitekdemir/obsidian-community-radar/blob/main/docs/";

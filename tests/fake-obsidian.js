@@ -61,6 +61,7 @@ function makeApp() {
       readBinary: async (p) => disk.get(p),
       writeBinary: async (p, data) => { disk.set(p, data); },
       mkdir: async () => {},
+      remove: async (p) => { disk.delete(p); },
     },
   };
   return {
@@ -72,6 +73,7 @@ function makeApp() {
       trigger(name, ...args) { for (const fn of this.handlers[name] || []) fn(...args); },
     },
     fileManager: {
+      trashFile: async (f) => { files.delete(f.path); },
       processFrontMatter: async (f, fn) => {
         const { fm, body } = splitFrontmatter(files.get(f.path));
         const data = fm || {};
@@ -106,7 +108,8 @@ async function requestUrl({ url, method = "GET", headers = {}, body }) {
       const markdown = prompt.slice(prompt.indexOf("\n\n") + 2);
       const reply = "```markdown\n" + markdown.split("\n").map((line) => (line.trim() ? `TR ${line}` : line)).join("\n") + "\n```";
       if (url.includes("anthropic")) return { status: 200, json: { content: [{ text: reply }] } };
-      return { status: 200, json: { choices: [{ message: { content: reply } }] } };
+      const usage = { prompt_tokens: 100, completion_tokens: 120, ...(url.includes("openrouter") ? { cost: 0.0005 } : {}) };
+      return { status: 200, json: { model: "or/model-001", usage, choices: [{ message: { content: reply } }] } };
     }
     const texts = JSON.parse(prompt.slice(prompt.lastIndexOf("\n[") + 1));
     network.prompts.push(prompt);
@@ -116,7 +119,8 @@ async function requestUrl({ url, method = "GET", headers = {}, body }) {
     const reply = "```json\n" + JSON.stringify(answer) + "\n```";
     if (url.includes("anthropic")) return { status: 200, json: { content: [{ text: reply }] } };
     if (url.includes("generativelanguage")) return { status: 200, json: { candidates: [{ content: { parts: [{ text: reply }] } }] } };
-    return { status: 200, json: { choices: [{ message: { content: reply } }] } };
+    const usage = { prompt_tokens: 300, completion_tokens: 80, ...(url.includes("openrouter") ? { cost: 0.0002 } : {}) };
+    return { status: 200, json: { model: "or/model-001", usage, choices: [{ message: { content: reply } }] } };
   }
   return { status: 404, text: "" };
 }
@@ -167,15 +171,17 @@ module.exports = {
   Menu: class {
     constructor() { this.items = []; menus.push(this); }
     addItem(cb) {
-      const item = { setTitle(x) { this.title = x; return this; }, setIcon(i) { this.icon = i; return this; }, setChecked(c) { this.checked = c; return this; }, setDisabled(d) { this.disabled = d; return this; }, onClick(f) { this.click = f; return this; } };
+      const item = { dom: globalThis.document?.createElement("div"), setTitle(x) { this.title = x; return this; }, setIcon(i) { this.icon = i; return this; }, setChecked(c) { this.checked = c; return this; }, setDisabled(d) { this.disabled = d; return this; }, onClick(f) { this.click = f; return this; } };
       cb(item); this.items.push(item); return this;
     }
     addSeparator() { return this; }
+    onHide(f) { this.hidden = f; return this; }
+    hide() { this.hidden?.(); }
     showAtPosition(pos) { this.shownAt = pos; return this; }
     showAtMouseEvent(event) { this.shownAt = event; return this; }
   },
   ItemView: class {}, Modal: class {}, PluginSettingTab: class {}, Setting: class {},
-  Component: class { load() {} unload() {} },
+  Component: class { load() {} unload() {} registerEvent() {} },
   MarkdownRenderer: { render: async (app, markdown, el) => { el.createDiv({ cls: "md", text: markdown }); } },
   SuggestModal: class { constructor(app) { this.app = app; } setPlaceholder() {} open() {} },
   SecretComponent: class {

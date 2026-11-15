@@ -416,18 +416,75 @@ class PluginRadar extends Plugin {
     await this.app.workspace.openLinkText(path, "", "tab");
   }
 
-  /** The README and its translation as kept in the tracking note: {original, translation}; nulls when missing. */
-  async readmeParts(plugin) {
-    const file = this.notes.file(plugin.id);
-    if (!file) return { original: null, translation: null };
-    const content = await this.app.vault.cachedRead(file);
-    return { original: readmeText(content), translation: readmeTranslation(content) };
+  /** Cache file of an untracked plugin's README and translation: cache/readmes/<id>.json. */
+  readmeCacheName(id) {
+    return `readmes/${safeFileName(id)}`;
   }
 
   /**
-   * Translates a plugin's README into the target language and keeps it in its tracking note, right above
-   * the original (a note is created when there is none; the README is fetched when missing or older than
-   * the release). Asked for only by the user; true when done.
+   * A plugin's README and its translation, from its tracking note when it has one, else from the cache (the note is
+   * the one source once it exists). Missing parts are null.
+   * @returns {Promise<{source: ?string, original: ?{text, version, date, hash}, translation: ?{body, hash, date, model, tokens, cost}}>}
+   *   source: "note", "cache" or null; hash: textHash of the README text (the translation's: of the text it came from)
+   */
+  async readmeParts(plugin) {
+    const file = this.notes.file(plugin.id);
+    if (file) {
+      const content = await this.app.vault.cachedRead(file);
+      const text = readmeText(content);
+      const saved = readmeTranslation(content);
+      const fm = this.app.metadataCache.getFileCache(file)?.frontmatter || {};
+      return {
+        source: "note",
+        original: text && { text, ...readmeMeta(content), hash: textHash(text) },
+        translation: saved && { ...saved, model: fm.translation_model ?? null, tokens: fm.translation_tokens ?? null, cost: fm.translation_cost ?? null },
+      };
+    }
+    const entry = await this.cache.read(this.readmeCacheName(plugin.id), null);
+    const text = entry?.readme != null ? readmeBody(entry.readme, plugin.repo).trim() : null;
+    return {
+      source: entry ? "cache" : null,
+      original: text && { text, version: entry.version, date: entry.fetched, hash: textHash(text) },
+      translation: entry?.translation || null,
+    };
+  }
+
+  /** What of a README goes to the AI: all of it, or without its developer sections when *Settings → AI → Save on README translations* is on. */
+  translationSource(text) {
+    return this.data.settings.readmeSaving ? skipDevSections(text) : { text, skipped: [] };
+  }
+
+  /** Keeps a README fetched from GitHub: in the plugin's tracking note, else in the cache (no note is made; a failed fetch isn't cached). */
+  async keepReadme(plugin, readme) {
+    const file = this.notes.file(plugin.id);
+    if (file) return this.notes.writeReadme(file, plugin, readme);
+    if (readme == null) return;
+    const name = this.readmeCacheName(plugin.id);
+    await this.cache.write(name, { ...(await this.cache.read(name, {})), readme, version: plugin.version ?? null, fetched: dayString(Date.now()) });
+  }
+
+  /** Fetches a plugin's README from GitHub and keeps it (keepReadme); the cached translation stays, its fingerprint tells if it's outdated. */
+  async fetchReadme(plugin) {
+    if (!plugin.repo) return;
+    await this.keepReadme(plugin, await this.github.readme(plugin.repo));
+  }
+
+  /**
+   * The README now on GitHub, when the kept one is from an older release: unchanged text only gets its version
+   * brought up to date (nothing to tell, null); changed text is returned for the details window to offer.
+   */
+  async newerReadme(plugin, original) {
+    const readme = plugin.repo ? await this.github.readme(plugin.repo) : null;
+    if (readme == null) return null;
+    if (textHash(readmeBody(readme, plugin.repo).trim()) !== original.hash) return readme;
+    await this.keepReadme(plugin, readme);
+    return null;
+  }
+
+  /**
+   * Translates a plugin's README into the target language. Kept in its tracking note, right above the original, with
+   * the model, tokens and cost in its properties; an untracked plugin's goes to the cache (no note is made). A missing
+   * README, or one older than the release, is fetched first. Asked for only by the user; true when done.
    */
   async translateReadme(plugin, progress = () => {}) {
     if (!this.translator.ready) {
@@ -435,20 +492,24 @@ class PluginRadar extends Plugin {
       return false;
     }
     try {
-      if (!this.notes.file(plugin.id)) await this.notes.upsert(plugin, {});
-      const file = this.notes.file(plugin.id);
-      let content = await this.app.vault.read(file);
-      if (!readmeText(content) || readmeVersion(content) !== plugin.version) {
+      let { original } = await this.readmeParts(plugin);
+      if (!original || (plugin.version && original.version !== plugin.version)) {
         progress(t("notice.readme"));
-        await this.notes.writeReadme(file, plugin, plugin.repo ? await this.github.readme(plugin.repo) : null);
-        content = await this.app.vault.read(file);
+        await this.fetchReadme(plugin);
+        ({ original } = await this.readmeParts(plugin));
       }
-      const original = readmeText(content);
       if (!original) throw new Error(t("readme.failed"));
-      const lang = this.data.settings.targetLang;
-      const body = await this.translator.translateMarkdown(original, (done, total) => progress(t("readme.translating", { done: done + 1, total })));
-      const section = `${t("readme.translationMeta", { lang, version: plugin.version || "?", date: dayString(Date.now()) })}\n\n${body}`;
-      await this.app.vault.process(file, (text) => replaceReadmeTranslation(text, section, t("readme.translatedHeading", { lang })));
+      progress(t("readme.translating"));
+      const { text, skipped } = this.translationSource(original.text);
+      const done = await this.translator.translateMarkdown(text);
+      if (skipped.length) done.body += `\n\n*${t("readme.skipped", { list: skipped.join(" · ") })}*`;
+      const translation = { ...done, lang: this.data.settings.targetLang, version: original.version, hash: original.hash, date: dayString(Date.now()) };
+      const file = this.notes.file(plugin.id);
+      if (file) await this.notes.writeTranslation(file, translation);
+      else {
+        const name = this.readmeCacheName(plugin.id);
+        await this.cache.write(name, { ...(await this.cache.read(name, {})), translation });
+      }
       return true;
     } catch (error) {
       console.error("[Community Radar] README translation", error);
@@ -522,14 +583,50 @@ class PluginRadar extends Plugin {
   /** Creates or updates the note; a new note gets its README in the background. */
   async track(plugin, patch) {
     const { file, created } = await this.notes.upsert(plugin, patch);
-    if (created) this.refreshReadme(plugin, file);  // not awaited: the note is usable right away
+    if (created) this.adoptReadme(plugin, file);  // not awaited: the note is usable right away
     return created;
   }
 
-  async toggleFavorite(plugin) {
-    const favorite = !this.notes.index.get(plugin.id)?.favorite;
-    const created = await this.track(plugin, { favorite });
-    new Notice(t("notice.favorite", { star: favorite ? "★" : "☆", name: plugin.name }) + (created ? t("notice.noteCreated") : ""));
+  /**
+   * A new note takes the README and translation from the cache (no second download, no second AI bill) and the cache
+   * entry goes: the note is their one source now. A README cached for an older release is fetched fresh instead.
+   */
+  async adoptReadme(plugin, file) {
+    const name = this.readmeCacheName(plugin.id);
+    const entry = await this.cache.read(name, null);
+    if (entry?.readme != null && entry.version === (plugin.version ?? null)) await this.notes.writeReadme(file, plugin, entry.readme);
+    else await this.refreshReadme(plugin, file);
+    if (!entry) return;
+    if (entry.translation) await this.notes.writeTranslation(file, entry.translation);
+    await this.cache.remove(name);
+  }
+
+  /** 🔔: tracks a plugin (it gets its note) or lets it go (untrack). */
+  async toggleTrack(plugin) {
+    if (this.notes.index.has(plugin.id)) return this.untrack(plugin);
+    await this.track(plugin, {});
+    new Notice(t("notice.tracked", { name: plugin.name }));
+  }
+
+  /**
+   * Stops tracking a plugin: its note goes to Obsidian's trash (as your setting says), so it can come back from
+   * there. A note holding something of yours (groups, a rating, a status, a note) is asked about first.
+   * @param {boolean} ask  false: no question (Undo of a bulk Track, whose notes were just made)
+   * @returns {Promise<boolean>} true when the note went
+   */
+  async untrack(plugin, ask = true) {
+    const note = this.notes.index.get(plugin.id);
+    const file = note && this.notes.file(plugin.id);
+    if (!file) return false;
+    const yours = note.groups.length || note.rating || note.status || note.note;
+    if (ask && yours && !(await new ConfirmModal(this.app, {
+      title: t("untrack.title", { name: plugin.name }), plugins: [], text: t("untrack.text"), cta: t("action.untrack"), footnote: "",
+    }).ask())) return false;
+    await this.app.fileManager.trashFile(file);
+    this.notes.forget(file.path);   // the vault's delete event comes later; the list redraws now
+    if (ask) new Notice(t("notice.untracked", { name: plugin.name }));
+    this.redraw();
+    return true;
   }
 
   async chooseGroup(plugin) {
@@ -589,23 +686,30 @@ class PluginRadar extends Plugin {
   /**
    * Group suggestions per plugin id. Saved ones are reused while the description is unchanged; the
    * rest are asked for in requests of AI_BATCH plugins.
+   * @returns {Promise<{lists: Object<string, string[]>, usage: ?object}>} usage: what the requests took (sumUsage),
+   *   null when every suggestion was saved already; shown, not kept
    */
   async groupSuggestions(plugins, progress = () => {}) {
     const saved = this.data.groupSuggestions;
     const missing = plugins.filter((p) => saved[p.id]?.src !== p.description);
     const groups = this.groupExamples();
+    const usages = [];
     for (let i = 0; i < missing.length; i += AI_BATCH) {
       progress(t("batch.requesting", { done: Math.min(i + AI_BATCH, missing.length), total: missing.length }));
       const batch = missing.slice(i, i + AI_BATCH);
-      const found = await this.translator.suggestGroups(batch, groups);
+      const { found, usage } = await this.translator.suggestGroups(batch, groups);
+      usages.push(usage);
       for (const p of batch) saved[p.id] = { src: p.description, list: found[p.id] };
       await this.saveData(this.data);
     }
-    return Object.fromEntries(plugins.map((p) => [p.id, saved[p.id]?.list || []]));
+    const lists = Object.fromEntries(plugins.map((p) => [p.id, saved[p.id]?.list || []]));
+    return { lists, usage: usages.length ? sumUsage(usages, this.data.settings.model) : null };
   }
 
+  /** One plugin's group suggestions: {list, usage} (see groupSuggestions). */
   async suggestGroups(plugin) {
-    return (await this.groupSuggestions([plugin]))[plugin.id];
+    const { lists, usage } = await this.groupSuggestions([plugin]);
+    return { list: lists[plugin.id], usage };
   }
 
   /** Tracked plugins with a release since you reviewed them (the Tracked tab's badge). */
@@ -700,7 +804,7 @@ class PluginRadar extends Plugin {
   /**
    * Runs one action on many plugins and keeps what it changed (each plugin's value before and after) as an
    * operation in Recent actions, so Undo turns back exactly that. Plugins it wouldn't change aren't recorded.
-   * @param {"favorite"|"rating"|"group"|"reviewed"|"snooze"|"exclude"} kind
+   * @param {"track"|"rating"|"group"|"reviewed"|"snooze"|"exclude"} kind
    * @param value  the rating, or the group's name
    */
   async bulk(kind, plugins, value = null) {
@@ -716,6 +820,12 @@ class PluginRadar extends Plugin {
         continue;
       }
       const note = this.notes.index.get(p.id);
+      if (kind === "track") {
+        if (note) continue;
+        changes.push({ id: p.id, before: false, after: true, created: true });
+        await this.track(p, {});
+        continue;
+      }
       if (kind === "reviewed" && !note) continue;   // only tracked plugins have a review date
       const groups = note?.groups || [];
       if (kind === "group") {
@@ -724,7 +834,7 @@ class PluginRadar extends Plugin {
         await this.track(p, { groups: [...groups, value] });
         continue;
       }
-      const after = kind === "favorite" ? true : kind === "reviewed" ? today : value;
+      const after = kind === "reviewed" ? today : value;
       const before = note?.[kind] ?? null;
       if (before === after) continue;
       changes.push({ id: p.id, before, after, created: !note });
@@ -750,6 +860,9 @@ class PluginRadar extends Plugin {
         const store = this.data[op.kind === "snooze" ? "snoozed" : "excluded"];
         still = store[c.id] === c.after;
         if (still) { if (c.before == null) delete store[c.id]; else store[c.id] = c.before; }
+      } else if (op.kind === "track") {
+        still = Boolean(p && note);
+        if (still) await this.untrack(p, false);
       } else if (op.kind === "group") {
         still = Boolean(p && note?.groups.includes(op.value));
         if (still) await this.track(p, { groups: note.groups.filter((g) => g !== op.value) });

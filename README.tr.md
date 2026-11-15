@@ -85,8 +85,8 @@ Aynı işi yapan alternatifleri bulmak için geliştiricinin kullandığı kelim
 O anki işinize en uygun düzende çalışın:
 
 - **Üç farklı görünüm:** Yoğun **Liste**, görsel **Kartlar** veya sürüklenebilir **16 sütunlu Tablo** (7/30 günlük indirme artışı, yüzdesel büyüme, barajlar, sürüm ritmi ve tek tıkla ★/puan değiştirme dahil) arasında geçiş yapın. Her sekme ve kaydedilmiş görünüm kendi sütun düzenini hatırlar.
-- **Akıllı Geri Al destekli toplu işlemler:** Satırları tek tek, `Shift+Tık` aralığıyla veya Gmail tarzı *Listedeki tüm N eklentiyi seç* ile işaretleyip topluca favorileyin, puanlayın, gruplayın, incelendi sayın, sonraki sürüme kadar gizleyin veya dışlayın. **Son işlemler** son 20 toplu değişikliği oturumlar arasında saklar; **Geri Al (Undo)** ise işlemden sonra elle düzenlediğiniz notlara dokunmadan geri kalanları güvenle eski haline döndürür.
-- **Zengin detay penceresi ve klavye akışı:** Herhangi bir satıra tıklayarak (`Enter`) dört temel metriği, duraklama sürelerini renklerle gösteren görsel sürüm şeridini, en yakın 5 alternatifi ve tam README'yi inceleyin. İsterseniz Ayarlardan Vim tarzı kısayolları (`j`/`k`, `f`, `g`, `1`–`5`, `s`, `h`, `x`) açarak fareye dokunmadan çalışın.
+- **Akıllı Geri Al destekli toplu işlemler:** Satırları tek tek, `Shift+Tık` aralığıyla veya Gmail tarzı *Listedeki tüm N eklentiyi seç* ile işaretleyip topluca takibe alın, puanlayın, gruplayın, incelendi sayın, sonraki sürüme kadar gizleyin veya dışlayın. **Son işlemler** son 20 toplu değişikliği oturumlar arasında saklar; **Geri Al (Undo)** ise işlemden sonra elle düzenlediğiniz notlara dokunmadan geri kalanları güvenle eski haline döndürür.
+- **Zengin detay penceresi ve klavye akışı:** Herhangi bir satıra tıklayarak (`Enter`) dört temel metriği, duraklama sürelerini renklerle gösteren görsel sürüm şeridini, en yakın 5 alternatifi ve tam README'yi (istenince çevrilir ve saklanır, bir kez ödersiniz) inceleyin. İsterseniz Ayarlardan Vim tarzı kısayolları (`j`/`k`, `f`, `g`, `1`–`5`, `s`, `h`, `x`) açarak fareye dokunmadan çalışın.
 
 ![Detay penceresi: istatistikler, README, sürüm geçmişi ve benzer eklentiler](docs/images/details.png)
 
@@ -98,7 +98,7 @@ O anki işinize en uygun düzende çalışın:
 
 Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi yıldızladığınız (**☆**) veya bir gruba eklediğiniz (**＋**) anda vault'unuzda temiz bir Markdown notu oluşturur:
 
-- **Yapılandırılmış özellikler + dokunulmayan kişisel notlar:** `groups`, `favorite`, `rating` (1–5), emojili özel `status` alanları ve kişisel notlarınız tamamen size aittir; indirme/sürüm bilgileri ile gömülü **README** ise otomatik güncellenir (`#etiketler` ve `[[bağlantılar]]` grafiğinizi kirletmemesi için güvenli biçimde kaçış karakteriyle korunur).
+- **Yapılandırılmış özellikler + dokunulmayan kişisel notlar:** `groups`, `rating` (1–5), emojili özel `status` alanları ve kişisel notlarınız tamamen size aittir; indirme/sürüm bilgileri ile gömülü **README** ise otomatik güncellenir (`#etiketler` ve `[[bağlantılar]]` grafiğinizi kirletmemesi için güvenli biçimde kaçış karakteriyle korunur).
 - **Tek tıkla Obsidian Bases:** Ayarlardan hazır `.base` görünümünü oluşturarak tüm eklenti koleksiyonunuzu yerleşik bir Obsidian veritabanı tablosunda filtreleyin ve düzenleyin. → *[Takip Notları Rehberi](docs/tracking-notes.tr.md)*
 - **Kendi anahtarınızla AI (tamamen isteğe bağlı):** Obsidian'ın güvenli anahtar deposu üzerinden Anthropic, OpenAI, Gemini veya OpenRouter bağlayarak görünür açıklamaları topluca çevirin, eklenti README'lerini kendi dilinize aktarın (tahmini maliyet hesabı ve eski sürüm uyarısıyla) veya seçtiğiniz satırlar için tek tıkla akıllı grup önerileri alın.
 

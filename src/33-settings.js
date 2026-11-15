@@ -300,6 +300,13 @@ class RadarSettingTab extends PluginSettingTab {
             settings.readmeTranslation = value;
             await save();
           }));
+      new Setting(containerEl)
+        .setName(t("set.readmeSaving"))
+        .setDesc(t("set.readmeSavingDesc"))
+        .addToggle((toggle) => toggle.setValue(settings.readmeSaving).onChange(async (value) => {
+          settings.readmeSaving = value;
+          await save();
+        }));
       // the instructions sent with each translation (folded: rarely changed); the reply format after them stays fixed
       const advanced = containerEl.createEl("details", { cls: "pdt-settings-advanced" });
       advanced.createEl("summary", { text: t("set.advanced") });
@@ -357,7 +364,7 @@ class RadarSettingTab extends PluginSettingTab {
     const sum = (key) => rows.reduce((total, row) => total + (row[key] || 0), 0);
     const priced = rows.some((row) => row.cost != null);
     const total = { model: t("set.usageTotal"), requests: sum("requests"), input: sum("input"), output: sum("output"), cost: priced ? sum("cost") : null };
-    const cost = (value) => (value == null ? "—" : `$${value.toFixed(value < 1 ? 4 : 2)}`);
+    const cost = (value) => (value == null ? "—" : formatCost(value));
 
     const table = containerEl.createEl("table", { cls: "pdt-usage" });
     const head = table.createEl("thead").createEl("tr");

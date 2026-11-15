@@ -16,6 +16,15 @@ function decimal(value, digits = 1) {
   return intl(Intl.NumberFormat, { maximumFractionDigits: digits }).format(value);
 }
 
+/**
+ * A dollar amount at the precision it needs, in the UI language's format: $12.50, $0.0412, $0.00023. Under a cent
+ * it keeps two significant digits, so a cheap request never reads "$0".
+ */
+function formatCost(value) {
+  const digits = value > 0 && value < 0.01 ? { maximumSignificantDigits: 2 } : { minimumFractionDigits: 2, maximumFractionDigits: value < 1 ? 4 : 2 };
+  return intl(Intl.NumberFormat, { style: "currency", currency: "USD", ...digits }).format(value);
+}
+
 /** 1234567 → "1,234,567" (en) / "1.234.567" (tr); missing → "–" */
 function formatCount(value) {
   return value == null ? "–" : intl(Intl.NumberFormat).format(value);
@@ -352,19 +361,17 @@ const TABLE_COLUMNS = {
   listed: { group: "time", field: "listed", sort: "listed", text: (s, p, now) => (s.firstSeen[p.id] > 0 ? ageLabel(s.firstSeen[p.id], now) : "–") },
   incubated: { group: "time", field: "incubated", align: "right", sort: "incubated", text: (s, p) => { const n = lastHatch(s.releases, p)?.days; return n == null ? "–" : t("filter.days", { n }); } },
   cadence: { group: "time", text: (s, p, now) => { const c = releaseCadence(s.releases[p.id], now); return c ? cadenceLabel(c) : "–"; } },
-  favorite: { group: "yours", field: "favorite", align: "center", text: (s, p) => (s.notes.get(p.id)?.favorite ? "★" : "☆") },
+  tracked: { group: "yours", field: "tracked", align: "center", text: (s, p) => (s.notes.has(p.id) ? "🔔" : "") },   // the view shows a 🔔 button
   rating: { group: "yours", field: "rating", sort: "rating", text: (s, p) => { const n = s.notes.get(p.id)?.rating; return n ? ratingStars(n) : "·"; } },
   groups: { group: "yours", field: "group", text: (s, p) => (s.notes.get(p.id)?.groups || []).join(", ") },
   status: { group: "yours", field: "status", text: (s, p) => s.notes.get(p.id)?.status || "" },   // the view shows its label
   author: { group: "info", field: "author", text: (s, p) => p.author || "" },
   description: { group: "info", field: "description", text: (s, p) => p.description || "" },
 };
-const TABLE_DEFAULT = ["downloads", "released", "favorite"];
+const TABLE_DEFAULT = ["downloads", "released", "tracked"];
 const gainText = (n) => (n == null ? "–" : `+${formatCount(n)}`);
 const riseText = (n) => (n == null ? "–" : t("table.percent", { n: formatCount(Math.round(n)) }));
 const ratingStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
-/** The rating menu: Clear, then 5 stars down to 1. */
-const ratingOptions = () => [[0, t("rating.clear")], ...[5, 4, 3, 2, 1].map((n) => [n, ratingStars(n)])];
 
 /** The table's columns on a page (a tab, a saved view, a widget's list): yours (shown, in your order) or the default few. */
 function tableColumns(settings, page) {
@@ -473,7 +480,7 @@ function trackedMatch(note, opts, plugin) {
   switch (opts.trackedGroup) {
     case "": case undefined: return true;
     case UNGROUPED: return !note.groups.length;
-    case STARRED: return note.favorite;
+    case TOP_RATED: return note.rating >= TOP_RATING;
     case UPDATES: return isUnreviewed(plugin, note);
     default: return note.groups.includes(opts.trackedGroup);
   }

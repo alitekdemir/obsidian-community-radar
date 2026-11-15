@@ -85,8 +85,8 @@ You shouldn't have to guess an author's exact wording to find plugins solving th
 Work the way that fits the task at hand:
 
 - **Three layouts:** Scan compact **Lists**, browse visual **Cards**, or switch to **Table** view with **16 draggable columns** (including 7/30-day download gains, percentage growth, milestones, release cadence, and inline star/rating toggles)—remembered independently per tab and saved view.
-- **Batch actions with smart Undo:** Select rows (with `Shift+Click` ranges or Gmail-style *Select all N in this list*) to favorite, rate, group, mark reviewed, snooze until next release, or ignore in bulk. **Recent actions** remembers your last 20 batch operations across restarts—and **Undo** safely skips any plugin you manually edited afterward.
-- **Deep plugin inspector & keyboard flow:** Click any row (or press `Enter`) to inspect four key metrics, a color-coded visual timeline of release pauses, the 5 closest alternatives, and the full rendered README. Prefer keeping your hands on the keyboard? Enable Vim-style shortcuts (`j`/`k`, `f`, `g`, `1`–`5`, `s`, `h`, `x`) in Settings.
+- **Batch actions with smart Undo:** Select rows (with `Shift+Click` ranges or Gmail-style *Select all N in this list*) to track, rate, group, mark reviewed, snooze until next release, or ignore in bulk. **Recent actions** remembers your last 20 batch operations across restarts—and **Undo** safely skips any plugin you manually edited afterward.
+- **Deep plugin inspector & keyboard flow:** Click any row (or press `Enter`) to inspect four key metrics, a color-coded visual timeline of release pauses, the 5 closest alternatives, and the full rendered README (translated on request, and kept so you pay once). Prefer keeping your hands on the keyboard? Enable Vim-style shortcuts (`j`/`k`, `f`, `g`, `1`–`5`, `s`, `h`, `x`) in Settings.
 
 ![Details window: stats, README, release history, similar](docs/images/details.png)
 
@@ -98,7 +98,7 @@ Work the way that fits the task at hand:
 
 Community Radar doesn't lock your curation inside a private database. The moment you star (**☆**) or group (**＋**) a plugin, it creates a clean Markdown note inside your vault:
 
-- **Structured frontmatter + untouched personal notes:** Your `groups`, `favorite`, `rating` (1–5), custom emoji `status`, and personal thoughts stay yours, while catalog stats and the embedded **README** stay fresh automatically (with `#tags` and `[[wikilinks]]` safely escaped so they never pollute your graph).
+- **Structured frontmatter + untouched personal notes:** Your `groups`, `rating` (1–5), custom emoji `status`, and personal thoughts stay yours, while catalog stats and the embedded **README** stay fresh automatically (with `#tags` and `[[wikilinks]]` safely escaped so they never pollute your graph).
 - **One-click Obsidian Bases:** Generate a ready-made `.base` view from Settings to filter, sort, and edit your entire plugin library as a native Obsidian database table. → *[Tracking Notes Guide](docs/tracking-notes.md)*
 - **Bring-your-own-key AI (strictly opt-in):** Connect Anthropic, OpenAI, Gemini, or OpenRouter via Obsidian's native keychain to translate whole pages of descriptions, translate full plugin READMEs (with upfront token/cost estimates and stale-version detection), or get one-click group suggestions for selected plugins.
 

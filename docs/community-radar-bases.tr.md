@@ -2,7 +2,7 @@
 
 *[English](community-radar-bases.md) · Türkçe*
 
-Keşif görünümünü komut paletinden açın (**Community Radar'ı aç**). Bu not yalnızca takip ettiğiniz eklentileri listeler; `groups`, `favorite` ve `note` doğrudan tabloda düzenlenebilir.
+Keşif görünümünü komut paletinden açın (**Community Radar'ı aç**). Bu not yalnızca takip ettiğiniz eklentileri listeler; `groups`, `rating` ve `note` doğrudan tabloda düzenlenebilir.
 
 > Başka bir not klasörü kullanıyorsanız `file.inFolder(...)` içindeki `Community Radar`'ı değiştirin.
 
@@ -16,7 +16,6 @@ views:
     order:
       - file.name
       - groups
-      - favorite
       - status
       - rating
       - note
@@ -27,13 +26,15 @@ views:
       - obsidian
       - github
   - type: table
-    name: Favoriler
+    name: 4★ ve üzeri
     filters:
       and:
-        - favorite == true
+        - rating >= 4
     order:
       - file.name
       - groups
+      - status
+      - rating
       - note
       - downloads
       - updated
@@ -46,7 +47,7 @@ views:
         - groups.isEmpty()
     order:
       - file.name
-      - favorite
+      - rating
       - note
       - downloads
       - updated

@@ -69,9 +69,10 @@ class Cache {
     return `${this.dir}/${name}.${ext}`;
   }
 
-  /** Makes the cache folder on the first write. */
-  async ensureDir() {
-    if (!(await this.adapter.exists(this.dir))) await this.adapter.mkdir(this.dir);
+  /** Makes the folder of `path` (the cache folder, or one inside it such as readmes/) on its first write. */
+  async ensureDir(path) {
+    const dir = path.slice(0, path.lastIndexOf("/"));
+    if (!(await this.adapter.exists(dir))) await this.adapter.mkdir(dir);
   }
 
   async read(name, fallback) {
@@ -84,8 +85,12 @@ class Cache {
   }
 
   async write(name, value) {
-    await this.ensureDir();
+    await this.ensureDir(this.path(name));
     await this.adapter.write(this.path(name), JSON.stringify(value));
+  }
+
+  async remove(name) {
+    if (await this.adapter.exists(this.path(name))) await this.adapter.remove(this.path(name));
   }
 
   async readBinary(name) {
@@ -99,7 +104,7 @@ class Cache {
   }
 
   async writeBinary(name, buffer) {
-    await this.ensureDir();
+    await this.ensureDir(this.path(name, "bin"));
     await this.adapter.writeBinary(this.path(name, "bin"), buffer);
   }
 }
@@ -195,7 +200,7 @@ class Notes {
 
   /**
    * Creates or updates the note.
-   * @param {object} patch  personal fields: {groups?, favorite?, note?, reviewed?}
+   * @param {object} patch  personal fields: {groups?, rating?, status?, note?, reviewed?}
    * @returns {Promise<{file: TFile, created: boolean}>}
    */
   async upsert(plugin, patch) {
@@ -208,7 +213,7 @@ class Notes {
     let written = {};
     await this.app.fileManager.processFrontMatter(file, (fm) => {
       if (created) {
-        Object.assign(fm, { plugin_id: plugin.id, groups: [], favorite: false, note: "", reviewed: dayString(Date.now()) });
+        Object.assign(fm, { plugin_id: plugin.id, groups: [], note: "", reviewed: dayString(Date.now()) });
       }
       Object.assign(fm, patch, sourceFields(plugin));
       for (const [key, value] of Object.entries(patch)) if (value == null) delete fm[key];   // null clears a field
@@ -233,6 +238,22 @@ class Notes {
   async writeReadme(file, plugin, readme) {
     const section = readmeSection(readme, plugin, Date.now());
     await this.app.vault.process(file, (content) => replaceReadme(content, section));
+  }
+
+  /**
+   * Puts a README translation in the note, right above the original, and what it took in its properties:
+   * `translation_model`, `translation_tokens` and `translation_cost` (USD, only when the provider reported it).
+   * @param {{lang, version, hash, date, body, model, tokens, cost}} translation
+   */
+  async writeTranslation(file, translation) {
+    const heading = t("readme.translatedHeading", { lang: translation.lang });
+    await this.app.vault.process(file, (content) => replaceReadmeTranslation(content, translationSection(translation), heading));
+    await this.app.fileManager.processFrontMatter(file, (fm) => {
+      fm.translation_model = translation.model;
+      fm.translation_tokens = translation.tokens;
+      if (typeof translation.cost === "number") fm.translation_cost = Number(translation.cost.toFixed(6));
+      else delete fm.translation_cost;
+    });
   }
 
   /** Applies a one-time text change to every tracking note; writes only the notes that change and returns their count. */
@@ -313,13 +334,19 @@ class Translator {
     return spec.modelList(await this.call(spec.models(key))).sort((a, b) => a.id.localeCompare(b.id));
   }
 
-  /** One prompt to the chosen model: its reply text; what it used goes to `onUsage` (the AI tab's table). */
-  async chat(prompt) {
+  /** One prompt to the chosen model: {text, usage} as the provider reported them; the usage also goes to `onUsage` (the AI tab's table). */
+  async request(prompt) {
     const { provider, model } = this.settings;
     const spec = PROVIDERS[provider];
     const json = await this.call(spec.chat(model, this.key(), prompt));
-    this.onUsage?.(provider, model, spec.usage(json));
-    return spec.text(json);
+    const usage = spec.usage(json);
+    this.onUsage?.(provider, model, usage);
+    return { text: spec.text(json), usage };
+  }
+
+  /** One prompt to the chosen model: its reply text. */
+  async chat(prompt) {
+    return (await this.request(prompt)).text;
   }
 
   /** Translates the texts in one request; output keeps the input order. */
@@ -334,21 +361,20 @@ class Translator {
    * @returns {Promise<Object<string, string[]>>} plugin id → suggestions
    */
   async suggestGroups(plugins, groups) {
-    const reply = await this.chat(groupPrompt(plugins, groups, this.settings.targetLang));
-    return parseGroupSuggestions(reply, plugins.map((p) => p.id), groups.map((g) => g.name));
+    const { text, usage } = await this.request(groupPrompt(plugins, groups, this.settings.targetLang));
+    return { found: parseGroupSuggestions(text, plugins.map((p) => p.id), groups.map((g) => g.name)), usage };
   }
 
-  /** Translates a README into the target language, a few sections per request; progress(done, total). */
-  async translateMarkdown(markdown, progress = () => {}) {
-    const chunks = markdownChunks(markdown);
-    const out = [];
-    for (const [i, chunk] of chunks.entries()) {
-      progress(i, chunks.length);
-      const reply = await this.chat(readmePrompt(chunk, this.settings.targetLang, this.settings.prompts));
-      out.push(reply.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, "$1"));   // some models wrap it in a fence
-    }
-    return out.join("\n\n");
+  /**
+   * Translates a README into the target language, whole, in one request (today's models take it easily).
+   * @returns {Promise<{body: string, model: string, tokens: number, cost: ?number}>} the text and what it took (sumUsage)
+   */
+  async translateMarkdown(markdown) {
+    const { text, usage } = await this.request(readmePrompt(markdown, this.settings.targetLang, this.settings.prompts));
+    const body = text.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, "$1");   // some models wrap it in a fence
+    return { body, ...sumUsage([usage], this.settings.model) };
   }
+
 
   /** A one-line translation to confirm that the provider, key and model work together. */
   async test() {

@@ -505,21 +505,21 @@ const tests = {
     view.render();
   },
 
-  async "row actions: star creates a note with README; double click runs once"({ app, plugin, view }) {
+  async "row actions: 🔔 creates a note with README; double click runs once"({ app, plugin, view }) {
     const el = view.contentEl;
     let calls = 0;
-    const original = plugin.toggleFavorite.bind(plugin);
-    plugin.toggleFavorite = async (p) => { calls++; await tick(20); return original(p); };
+    const original = plugin.toggleTrack.bind(plugin);
+    plugin.toggleTrack = async (p) => { calls++; await tick(20); return original(p); };
     const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Fresh Plugin");
-    const star = row.querySelector('[data-icon="star"]');
-    await Promise.all([star.onclick(), star.onclick()]);
+    const bell = row.querySelector('[data-icon="bell-plus"]');
+    await Promise.all([bell.onclick(), bell.onclick()]);
     await tick(20);
     assert.equal(calls, 1);
     const note = app.vault.files.get("Eklentiler/Fresh Plugin.md");
-    assert.ok(note.includes("favorite: true"));
+    assert.ok(note.includes("plugin_id: fresh") && !note.includes("favorite"), "tracked: a note, no favorite field");
     assert.match(note, /obsidian: ["']\[plugin\]\(obsidian:\/\/show-plugin\?id=fresh\)["']/);  // quoted, so YAML keeps it a string
     assert.ok(note.includes("\\#tag") && note.includes("\n#keep\n"), "tags escaped outside code only");
-    plugin.toggleFavorite = original;
+    plugin.toggleTrack = original;
   },
 
   async "model picker: filters as you type, offers typed aliases, latest-only toggle"({ app, plugin }) {
@@ -660,6 +660,7 @@ const tests = {
     assert.ok($(chip("ai"), ".pdt-gchip-star"));
     const aiChips = () => section(2).querySelectorAll(".pdt-gchip");
     assert.equal(aiChips().length, 5);                                  // 6 new suggestions: 5 shown…
+    assert.ok($(section(2), ".pdt-usage-tag"), "what the request took, at the end of the title row");
     $(el, ".pdt-gm-more").onclick();
     assert.equal(aiChips().length, 6);                                  // …and the rest after "+1 more"
     chip("Planning", 2).onclick();
@@ -678,6 +679,7 @@ const tests = {
     plugin.chooseGroup(target);
     await tick2();
     assert.equal(fake.network.prompts.length, 0);
+    assert.equal($(modals.at(-1).contentEl, ".pdt-usage-tag"), null, "saved suggestions cost nothing: no tag");
     assert.deepEqual(modals.at(-1).selected, ["ai", "Planning", "my tools"]);   // current groups, not the suggestion
     modals.at(-1).close();
   },
@@ -845,30 +847,82 @@ const tests = {
     assert.equal($$(modal.contentEl, ".pdt-detail-stat").length, 4);
     assert.deepEqual($$(modal.contentEl, ".pdt-detail-near-name").slice(0, 2).map((n) => n.textContent), ["Startpage", "Home Tab"]);
     await tick(5);
+    // the README shows by itself, no button; the bottom row says where it came from
+    assert.ok($(modal.contentEl, ".pdt-detail-readme-body .md"), "the README shows without a click");
+    assert.ok($(modal.contentEl, ".pdt-detail-info").textContent.startsWith("README"));
     const tabs = $$(modal.contentEl, ".pdt-detail-tab");
     assert.equal(tabs.length, 2);
     assert.ok(tabs[1].classList.contains("is-dim"), "no translation yet");
     tabs[1].onclick();
     await tick(5);
-    const translate = $(modal.contentEl, ".pdt-detail-readme-body.is-empty button");
-    assert.ok(translate, "a Translate button");
+    assert.ok($(modal.contentEl, ".pdt-detail-readme-body.is-empty button"), "a Translate button");
     assert.ok(plugin.translator.ready, "the earlier tests set up a provider");
     {
-      await modal.translate(homepage);
+      await modal.translate(homepage);                                         // tracked: kept in its note
       await tick(5);
       const text = app.vault.files.get(plugin.notes.index.get("homepage").path);
       const saved = core.readmeTranslation(text);
       assert.ok(saved && saved.body.startsWith("TR "), "kept in the note");
+      assert.equal(saved.hash, core.textHash(core.readmeText(text)), "with the fingerprint of the README it came from");
       assert.ok(text.indexOf(core.constants.README_TR_START) < text.indexOf(core.constants.README_START), "above the original");
+      const fm = app.metadataCache.getFileCache(plugin.notes.file("homepage")).frontmatter;
+      assert.equal(fm.translation_model, "or/model-001", "the model the reply named");
+      assert.ok(fm.translation_tokens > 0 && fm.translation_cost > 0, "tokens and the cost OpenRouter reported");
       assert.match($(modal.contentEl, ".pdt-detail-readme-body .md").textContent, /^TR /);
+      assert.ok($(modal.contentEl, ".pdt-detail-info").textContent.includes("or/model-001"), "what it took, bottom left");
+      assert.equal($(modal.contentEl, ".pdt-detail-tab-dot"), null, "not outdated");
+      const { original } = await plugin.readmeParts(homepage);
+      assert.equal(await plugin.newerReadme(homepage, original), null, "same text on GitHub: nothing to tell");
+      assert.ok(await plugin.newerReadme(homepage, { ...original, hash: "00000000" }), "changed text: offered");
     }
-    const right = modal.scope.keys.find((k) => k.key === "ArrowRight");
-    right.fn();
+    // a click on the description shows its translation, as on a row
+    $(modal.contentEl, ".pdt-detail-desc").onclick();
+    await tick(20);
+    assert.ok($(modal.contentEl, ".pdt-detail-trans").textContent.startsWith("TR: "));
+    // the list's shortcut keys, when they're on
+    const key = (k) => modal.scope.keys.find((x) => x.key === k).fn();
+    assert.equal(key("f"), true, "shortcuts off: the key is left to Obsidian");
+    plugin.data.settings.keyboard = true;
+    modal.render();
+    assert.ok($(modal.contentEl, ".pdt-detail-foot .pdt-keys"), "⌨ at the bottom");
+    const rating = plugin.notes.index.get("homepage").rating;
+    assert.equal(key("3"), false);
+    await tick(20);
+    assert.equal(plugin.notes.index.get("homepage").rating, 3);
+    key(String(rating || 0));
+    await tick(20);
+    // 🔔, ★ and ⋯ sit in the head row
+    assert.ok($(modal.titleEl, '[data-icon="bell-ring"]') && $(modal.titleEl, ".pdt-rate") && $(modal.titleEl, ".pdt-row-menu"));
+    key("j");                                                                    // j walks like →
     const second = $(modal.titleEl, ".pdt-detail-name").textContent;
     assert.notEqual(second, "Homepage");
+    plugin.data.settings.keyboard = false;
+    {
+      // an untracked plugin: its README and translation go to the cache, no note is made; tracking it moves them in
+      const p = modal.p;
+      assert.equal(plugin.notes.file(p.id), null);
+      await tick(5);
+      await modal.translate(p);
+      const cachePath = `${plugin.cache.dir}/readmes/${p.id}.json`;
+      const cached = JSON.parse(app.vault.adapter.disk.get(cachePath));
+      assert.ok(cached.readme && cached.translation.body.startsWith("TR "), "in the cache");
+      assert.equal(plugin.notes.file(p.id), null, "no note made");
+      const asked = fake.network.prompts.length;
+      await plugin.track(p, {});
+      await tick(20);
+      const text = app.vault.files.get(plugin.notes.index.get(p.id).path);
+      assert.ok(core.readmeTranslation(text).body.startsWith("TR "), "tracking it moves the translation into the note");
+      assert.equal(fake.network.prompts.length, asked, "without asking the AI again");
+      assert.ok(!app.vault.adapter.disk.has(cachePath), "the note is the one source now");
+      app.vault.files.delete(plugin.notes.index.get(p.id).path);              // untracked again, as the later tests expect
+      plugin.notes.index.delete(p.id);
+      modal.render();
+      await tick(5);
+    }
     const total = modal.rows.length;
-    const hide = $$(modal.contentEl, ".pdt-detail-actions button").find((b) => b.textContent === core.t("action.snooze"));
-    await hide.onclick();                                                       // Hide: the next plugin shows, the window stays
+    fake.menus.length = 0;
+    modal.modalEl.dispatchEvent(new window.MouseEvent("contextmenu", { bubbles: true, cancelable: true }));   // a right click: the row's menu
+    await fake.menus.at(-1).items.find((i) => i.title === core.t("action.snooze")).click();   // Hide: the next plugin shows, the window stays
     assert.equal(modal.rows.length, total - 1);
     assert.notEqual($(modal.titleEl, ".pdt-detail-name").textContent, second);
     assert.ok($(modal.contentEl, ".pdt-detail-pos").textContent.startsWith(`${modal.index + 1} /`));
@@ -919,24 +973,20 @@ const tests = {
     assert.ok($$(el, ".pdt-name").every((a) => plugin.notes.index.get(a.closest(".pdt-row").dataset.id).groups.includes("Planning")));
 
     // rating from the star's popover; a row that leaves the filter stays (faded) until the view is redrawn
-    await view.update("trackedGroup", core.STARRED);
-    const starredBefore = $$(el, ".pdt-name").map((a) => a.textContent);
+    await view.update("trackedGroup", "");
     const homepageRow = () => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
-    if (!starredBefore.includes("Homepage")) {
-      await view.update("trackedGroup", "");
-    }
     await $$(homepageRow(), ".pdt-rate-star")[1].onclick();                // the second from the left in DOM order is 4
     assert.equal(plugin.notes.index.get("homepage").rating, 4);
     assert.match(app.vault.files.get(plugin.notes.index.get("homepage").path), /\nrating: 4\n/);
-    await view.update("trackedGroup", core.STARRED);
-    const starred = plugin.notes.index.get("homepage").favorite;
-    if (!starred) await plugin.toggleFavorite(plugin.pluginById("homepage"));
-    view.render();
-    await homepageRow().querySelector('[data-icon="star"]').onclick();     // unstar: it no longer matches Starred…
+    assert.equal($(homepageRow(), ".pdt-rate-value").textContent, "4", "the rating sits next to the star");
+    await view.update("trackedGroup", core.TOP_RATED);
+    assert.ok(homepageRow(), "rated 4: under ★ 4+");
+    await $(homepageRow(), ".pdt-rate-clear").onclick();                   // cleared: it no longer matches ★ 4+…
     assert.ok(homepageRow(), "…but stays in place");
     assert.ok(homepageRow().classList.contains("is-stale"));
     view.render();
     assert.equal(homepageRow(), undefined, "gone once the view is redrawn");
+    await plugin.setNoteField(plugin.pluginById("homepage"), "rating", 4);   // as the tests after this one expect
 
     // custom statuses: off by default; when on, chosen from your list and stored by key
     assert.equal(settings.statusEnabled, false);
@@ -1040,14 +1090,14 @@ const tests = {
     await view.update("mode", "all");
   },
 
-  async "table: few columns by default, header sorts, star cell toggles, your columns per tab, picks work"({ plugin, view }) {
+  async "table: few columns by default, header sorts, 🔔 cell, your columns per tab, picks work"({ plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
     await view.update("mode", "all");
     settings.minDownloads = 0;
     await view.update("layout", "table");
     const heads = () => $$(el, ".pdt-table thead th").map((th) => th.textContent.trim()).filter(Boolean);
-    assert.deepEqual(heads().slice(0, 4), [core.t("col.name"), `${core.t("col.downloads")} ↓`, core.t("col.released"), core.t("col.favorite")]);
+    assert.deepEqual(heads().slice(0, 4), [core.t("col.name"), `${core.t("col.downloads")} ↓`, core.t("col.released"), core.t("col.tracked")]);
     assert.equal($$(el, ".pdt-trow").length, view.rows.length);
     $$(el, ".pdt-table-sort")[0].onclick();   // Name
     await tick();
@@ -1071,7 +1121,7 @@ const tests = {
     $(el, ".pdt-table-cols .pdt-icon").onclick();
     const pop = () => document.querySelector(".pdt-cols-pop");
     const shown = () => [...pop().querySelectorAll(".pdt-cols-list .pdt-cols-row")].map((r) => r.dataset.key);
-    assert.deepEqual(shown(), ["downloads", "released", "favorite"]);
+    assert.deepEqual(shown(), ["downloads", "released", "tracked"]);
     const first = pop().querySelector(".pdt-cols-list .pdt-cols-row");
     assert.equal(first.querySelector(".pdt-cols-field").textContent, "downloads");
     assert.ok(first.querySelector(".pdt-cols-sorted"), "the sorted column is marked");
@@ -1079,16 +1129,16 @@ const tests = {
     assert.ok(pop().querySelector(".pdt-cols-foot button").disabled, "already the default");
     [...pop().querySelectorAll(".pdt-cols-chip")].find((c) => c.textContent.includes(core.t("col.rise30"))).onclick();
     await tick();
-    assert.deepEqual(settings.tableColumns.all, ["downloads", "released", "favorite", "rise30"]);
+    assert.deepEqual(settings.tableColumns.all, ["downloads", "released", "tracked", "rise30"]);
     assert.ok($(el, ".pdt-trow td.is-rise30"), "the table behind changes at once");
     pop().querySelector(".pdt-cols-list .pdt-cols-row[data-key=released] .pdt-cols-x").onclick();
     await tick();
-    assert.deepEqual(shown(), ["downloads", "favorite", "rise30"]);
+    assert.deepEqual(shown(), ["downloads", "tracked", "rise30"]);
     document.body.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
     assert.ok(!pop(), "Esc closes it");
     // a page keeps its own columns: another tab still has the default
     await view.update("mode", "new");
-    assert.deepEqual(core.tableColumns(settings, "new"), ["downloads", "released", "favorite"]);
+    assert.deepEqual(core.tableColumns(settings, "new"), ["downloads", "released", "tracked"]);
     await view.update("mode", "all");
     $(el, ".pdt-table-cols .pdt-icon").onclick();
     pop().querySelector(".pdt-cols-foot button").onclick();
@@ -1179,13 +1229,15 @@ const tests = {
     const rows = $$(el, ".pdt-row");
     assert.ok(rows[1].classList.contains("is-cursor"));
     const id = rows[1].dataset.id;
-    const before = Boolean(plugin.notes.index.get(id)?.favorite);
-    key("f");
+    assert.ok(plugin.notes.index.has(id), "a tracked row, its note holding your things");
+    key("f");                                                                // f: stop tracking…
     await tick(20);
-    assert.equal(Boolean(plugin.notes.index.get(id)?.favorite), !before);
+    const ask = modals.at(-1);
+    assert.equal(ask.heading, core.t("untrack.title", { name: plugin.pluginById(id).name }), "…asked first");
+    ask.close();                                                             // cancelled
+    await tick(20);
+    assert.ok(plugin.notes.index.has(id), "still tracked");
     assert.equal($(el, ".pdt-row.is-cursor").dataset.id, id, "the highlight stays on the row");
-    key("f");
-    await tick(20);
     key("4");
     await tick(20);
     assert.equal(plugin.notes.index.get(id).rating, 4);
@@ -1261,7 +1313,7 @@ const tests = {
     await baseButton().onclick();
     const base = YAML.parse(app.vault.files.get("Eklentiler.base"));
     assert.deepEqual(base.filters, { and: ['file.inFolder("Eklentiler")'] });
-    assert.deepEqual(base.views.map((v) => v.name), ["base.all", "base.starred", "base.ungrouped"].map((k) => core.t(k)));
+    assert.deepEqual(base.views.map((v) => v.name), ["base.all", "base.topRated", "base.ungrouped"].map((k) => core.t(k)));
     assert.deepEqual(base.views[2].filters, { and: ["groups.isEmpty()"] });   // Bases can't split a list into groups: no "By group"
     assert.deepEqual(app.workspace.opened, [{ link: "Eklentiler.base", pane: "tab" }]);
 
@@ -1513,7 +1565,7 @@ const tests = {
     for (const id of ["new", "updated", "awakened", "suggested", "mine"]) assert.ok(!/[{}]|<=|>=|order by/.test(info(id)), `${id}: ${info(id)}`);
   },
 
-  async "a row: ★ and ⋯ only; the name opens GitHub, the description translates, a right click opens the menu"({ plugin, view }) {
+  async "a row: 🔔, ★ and ⋯ only; the name opens GitHub, the description translates, a right click opens the menu"({ plugin, view }) {
     const busyExcluded = "busy" in plugin.data.excluded;
     if (busyExcluded) await plugin.restoreFrom("excluded", ["busy"]);   // a row to look at…
     const busyNote = plugin.notes.index.get("busy");
@@ -1522,7 +1574,8 @@ const tests = {
     await view.update("mode", "all");
     const rowOf = (id) => $$(view.contentEl, ".pdt-row").find((r) => r.dataset.id === id);
     const icons = (row) => $$(row, ".pdt-actions [data-icon]").map((b) => b.dataset.icon);
-    assert.deepEqual(icons(rowOf("dataview")), ["star", "more-horizontal"]);
+    assert.deepEqual(icons(rowOf("dataview")), ["bell-ring", "star", "more-horizontal"], "🔔 tracking, ★ rating, ⋯");
+    assert.deepEqual(icons(rowOf("busy")).slice(0, 1), ["bell-plus"]);
     assert.equal($(rowOf("dataview"), ".pdt-name").getAttribute("href"), "https://github.com/blacksmithgu/obsidian-dataview");
     assert.ok(!$(rowOf("dataview"), ".pdt-meta"), "no README · GitHub · Similar · Translate links");
 
@@ -1535,6 +1588,41 @@ const tests = {
     assert.ok(titles("busy").includes(core.t("action.snooze")), "not tracked: hide until the next release");
     assert.ok(!titles("homepage").includes(core.t("action.snooze")), "tracked: nothing to hide or mark");
     assert.ok(titles("homepage").includes(core.t("menu.readmeOpen")) && titles("busy").includes(core.t("menu.readmeDownload")));
+    assert.deepEqual(titles("homepage").slice(0, 2), [core.t("action.untrack"), core.t("rating.set")], "🔔 and ★ first");
+    assert.equal(titles("busy")[0], core.t("action.track"));
+    // the menu's Rate: the same stars beside it, on hover; a click keeps them after the menu closes
+    titles("homepage");
+    const menu = fake.menus.at(-1);
+    const rate = menu.items.find((i) => i.title === core.t("rating.set"));
+    const float = () => window.document.querySelector(".pdt-rate-float");
+    rate.dom.dispatchEvent(new window.Event("mouseenter"));
+    assert.equal(float().querySelectorAll(".pdt-rate-star").length, 5, "hover: the stars, beside the item");
+    menu.hide();
+    assert.equal(float(), null, "unpinned: they go with the menu");
+    titles("homepage");
+    fake.menus.at(-1).items.find((i) => i.title === core.t("rating.set")).click({ clientX: 10, clientY: 10 });
+    fake.menus.at(-1).hide();
+    assert.ok(float(), "a click keeps them after the menu closes");
+    await float().querySelectorAll(".pdt-rate-star")[0].onclick();          // 5
+    await tick(20);
+    assert.equal(plugin.notes.index.get("homepage").rating, 5);
+    assert.equal(float(), null, "a pick closes them");
+    await plugin.setNoteField(plugin.pluginById("homepage"), "rating", 4);
+    // the row's ★: a click opens its stars too, and a second one closes them
+    window.document.body.appendChild(view.contentEl);
+    view.refresh();
+    const star = $(rowOf("homepage"), ".pdt-rate");
+    star.onclick({ target: star });
+    assert.ok(star.classList.contains("is-open"));
+    star.dispatchEvent(new window.Event("pointerdown", { bubbles: true }));
+    assert.ok(star.classList.contains("is-open"), "a click on it keeps it");
+    window.document.body.dispatchEvent(new window.Event("pointerdown", { bubbles: true }));
+    assert.ok(!star.classList.contains("is-open"), "a click elsewhere closes it");
+    star.onclick({ target: star });
+    assert.ok(star.classList.contains("is-open"), "a click on ★ opens it too");
+    star.onclick({ target: star });
+    assert.ok(!star.classList.contains("is-open"), "…and closes it");
+    view.contentEl.remove();
 
     const desc = $(rowOf("busy"), ".pdt-desc");
     await desc.onclick();
@@ -1544,7 +1632,7 @@ const tests = {
     view.openHelp("start");   // Help › Quick start says the same, at the level of someone new to the plugin
     const help = modals.at(-1).contentEl;
     assert.deepEqual($$(help, ".pdt-help-card-list li").map((li) => li.textContent),
-      ["star", "name", "desc", "empty", "menu", "seen"].map((k) => core.t(`help.card.${k}`)));
+      ["track", "rate", "name", "desc", "empty", "details", "menu", "seen"].map((k) => core.t(`help.card.${k}`)));
     modals.at(-1).close();
     plugin.notes.index.set("busy", busyNote);
     if (busyExcluded) await plugin.exclude(plugin.pluginById("busy"));   // as the other tests expect
@@ -1602,6 +1690,23 @@ const tests = {
     await choose("auto");
     assert.equal(core.t("set.language"), "Language");      // the fake Obsidian runs in English
     core.setLanguage("tr");
+  },
+
+  async "stop tracking: the note goes to the trash; Undo of a bulk Track does the same"({ app, plugin }) {
+    const p = plugin.pluginById("fresh");
+    const was = plugin.notes.index.get("fresh");
+    if (!was) await plugin.track(p, {});
+    await tick(20);                                                          // its README lands first
+    const path = plugin.notes.index.get("fresh").path;
+    assert.ok(await plugin.untrack(p, false));
+    assert.ok(!app.vault.files.has(path) && !plugin.notes.index.has("fresh"), "trashed, out of the index");
+    assert.equal(await plugin.untrack(p), false, "nothing to stop");
+    const op = await plugin.bulk("track", [p]);
+    assert.ok(plugin.notes.index.has("fresh") && op.changes.length === 1);
+    await tick(20);
+    await plugin.undo(op);
+    assert.ok(!plugin.notes.index.has("fresh"), "Undo trashes the note it made");
+    if (was) await plugin.track(p, { groups: was.groups, rating: was.rating || null });   // as before
   },
 
 };

@@ -5,6 +5,25 @@
 ### Added
 - **Four new interface languages:** Deutsch, Русский, 日本語 and 简体中文 (Traditional Chinese falls back to Simplified). They use Obsidian's own words for its features (Community plugins, vault, Bases, keychain…), and Russian gets its full plural forms. *Settings → Language* lists them; Auto picks yours from Obsidian.
 - **Turkish documentation:** every guide in `docs/` has a Turkish version, linked from the Turkish README; in Turkish, Help's "full query guide" link opens the Turkish guide.
+- **Details window, keyboard:** with shortcuts on, the list's keys work in the details window too (`f`, `g`, `1`–`5`, `t`, `s`, `h`, `x`…); `j` / `k` go to the previous or next plugin, like ← / →. A ⌨ at the bottom lists them.
+- **Save on README translations** (*Settings → AI*, off by default): sections for developers (installing, building, contributing, licence, privacy, support…) stay out of the translation; its end lists them.
+- **Group suggestions, what they cost:** the AI suggestions' title row shows, faintly at its end, what the request just took (the cost when the provider tells it, else the tokens; the model on hover). Saved suggestions are reused for free, so it shows only after a new request.
+- **What a README translation cost:** the bottom of the details window shows the model, tokens and cost the AI provider reported (the cost when it tells it: OpenRouter does), and a tracking note keeps them in `translation_model`, `translation_tokens` and `translation_cost`.
+
+### Changed
+- **🔔 Track instead of ★ Favorite:** a bell tracks a plugin (it gets its note) and, clicked again or with ⋯ → *Stop tracking*, lets it go: the note goes to Obsidian's trash, and if it holds your groups, rating, status or notes you're asked first. The `favorite` property, query field and table column are gone; the table's column is now 🔔, the bulk bar has *Track*, `f` (follow) tracks / stops tracking, and Undo of a bulk Track trashes the notes it made.
+- **★ is for rating only:** a star of its own, with your rating next to it; hover for 1–5, or click it and the stars stay open until you pick one or click elsewhere. The table's Rating cell and the rating chip open the same stars, and ⋯ → *Rate* shows them right beside the item on hover (a click keeps them after the menu closes): no more menu of five look-alike star rows. ⋯ starts with *Track* / *Stop tracking* and *Rate*. *Tracked → ★ Starred* became *★ 4+* (rated 4 or more), and the Bases view's *Starred* became *Rated 4★ and up* (*Settings → Reset Bases view* rewrites it).
+- **Details window, head row:** 🔔, ★ and ⋯ sit next to *Open in Obsidian*, and a right click anywhere outside the README opens the row's menu. The bottom row keeps ‹ n / total › and tells where the README comes from (your note or the cache) and when it was fetched.
+- **The README opens by itself:** no *Fetch the README* button. It comes from your note, else from the cache, else from GitHub the first time.
+- **README translations are kept without a note:** translating an untracked plugin's README no longer makes a note; it stays in the plugin's cache (`cache/readmes/`), and tracking the plugin later moves it into the new note, with no second AI bill.
+- **README translations in one request:** the whole README goes at once (no more "2/4" parts), so its terms stay consistent; the reply's ceiling grows with the README.
+- **Shortcut help says what each key does:** "add to group", "open the README in your note", "translate the description / hide it", "open in Community plugins"…
+- **A click on the description translates it** in the details window too, as on rows and cards.
+- **Outdated only when it is:** a translation is marked (a yellow dot, then a bar with *Translate again* and its estimate) only when the README's text changed since. A README kept for an older release is compared with GitHub's in the background: unchanged, it's quietly brought up to date; changed, a bar offers *Update*.
+
+### Fixed
+- **Costs under a cent:** estimates and usage show two significant digits ($0.00023) instead of rounding to "$0", in every place a cost appears, in your language's number format.
+- **Details window:** a plugin without a known version showed its README translation as "older" with "translated from v?" every time.
 
 ## 0.11.3
 

@@ -37,7 +37,7 @@ class RowRenderer extends ViewPart {
 
   /**
    * The table: a pick box, Name (its description on hover), then the tab's columns; a header click sorts by it,
-   * the last header opens the column picker. Favorite and Rating cells change on click; a row opens its details.
+   * the last header opens the column picker. Tracking and Rating cells change on click; a row opens its details.
    */
   renderTable(list, rows, now) {
     const page = this.view.page;
@@ -94,13 +94,12 @@ class RowRenderer extends ViewPart {
       if (p.description) setTooltip(name, p.description, { delay: 300 });
       for (const key of columns) {
         const td = tr.createEl("td", { cls: `is-${TABLE_COLUMNS[key].align || "left"} is-${key}` });
-        if (key === "favorite") {
-          const star = td.createEl("button", { cls: `pdt-table-star${note?.favorite ? " is-on" : ""}`, text: note?.favorite ? "★" : "☆", attr: { "aria-label": t(note?.favorite ? "action.unfavorite" : "action.favorite") } });
-          star.onclick = () => this.runRowAction(p, () => this.plugin.toggleFavorite(p));
+        if (key === "tracked") {
+          const bell = td.createEl("button", { cls: `pdt-table-track${note ? " is-on" : ""}`, attr: { type: "button", "aria-label": t(note ? "action.untrack" : "action.track") } });
+          setIcon(bell, note ? "bell-ring" : "bell-plus");
+          bell.onclick = () => this.runRowAction(p, () => this.plugin.toggleTrack(p));
         } else if (key === "rating") {
-          const cell = td.createEl("button", { cls: "pdt-table-rating", text: this.cellText(key, p, state, now) });
-          cell.onclick = () => this.pickFromMenu(cell, ratingOptions(), note?.rating || 0,
-            (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
+          this.renderRating(td, p, note);
         } else {
           td.setText(this.cellText(key, p, state, now));
         }
@@ -292,7 +291,8 @@ class RowRenderer extends ViewPart {
       act("undo-2", t("action.restore"), () => plugin.restoreFrom(mode, [p.id]));
       return;
     }
-    this.renderStar(actions, act, p, note);
+    this.renderTrack(act, p, note);
+    this.renderRating(actions, p, note);
     iconButton(actions, "more-horizontal", t("row.menu"), "pdt-row-menu").onclick = (event) => this.showRowMenu(p, event);
   }
 
@@ -315,8 +315,9 @@ class RowRenderer extends ViewPart {
   /**
    * The row's menu, from ⋯ or a right click: every action besides ★, each saying on hover what it does and why.
    * Not tracked: hide until the next release. Tracked: nothing to mark, opening its details or note counts as seen.
+   * @param {object} [on]  what follows an action (the details window passes its own; see rowEffects)
    */
-  showRowMenu(p, event) {
+  showRowMenu(p, event, on = this.rowEffects(p)) {
     const plugin = this.plugin;
     const note = plugin.notes.index.get(p.id);
     const menu = new Menu();
@@ -324,20 +325,75 @@ class RowRenderer extends ViewPart {
       i.setIcon(icon).setTitle(title).onClick(run);
       if (i.dom) setTooltip(i.dom, tip, { placement: "right" });   // MenuItem.dom isn't public API: the tip is a bonus
     });
-    const thenRefresh = (fn) => async () => { await fn(); this.view.refresh(); };   // the row may leave the list
-    item("folder-plus", t("action.group"), t("menu.groupTip"), () => this.runRowAction(p, () => plugin.chooseGroup(p)));
-    item("star", t("menu.rate"), t("menu.rateTip"), () => menuOf(ratingOptions(), note?.rating || 0,
-      (n) => this.runRowAction(p, () => plugin.setNoteField(p, "rating", n || null))).showAtMouseEvent(event));
-    item("arrow-right", t("menu.similar"), t("menu.similarTip"), () => this.view.similarFilter.open(p));
+    item(note ? "bell-off" : "bell-plus", t(note ? "action.untrack" : "action.track"), t(note ? "menu.untrackTip" : "menu.trackTip"),
+      () => on.change(() => plugin.toggleTrack(p)));
+    this.rateItem(menu, note?.rating || 0, (n) => on.change(() => plugin.setNoteField(p, "rating", n)));
+    item("folder-plus", t("action.group"), t("menu.groupTip"), () => on.change(() => plugin.chooseGroup(p)));
+    item("arrow-right", t("menu.similar"), t("menu.similarTip"), () => { on.away(); this.view.similarFilter.open(p); });
     if (p.repo) {
-      item("file-text", t(note ? "menu.readmeOpen" : "menu.readmeDownload"), t(note ? "menu.readmeOpenTip" : "menu.readmeDownloadTip"), () => plugin.openReadme(p));
+      item("file-text", t(note ? "menu.readmeOpen" : "menu.readmeDownload"), t(note ? "menu.readmeOpenTip" : "menu.readmeDownloadTip"), () => { on.away(); plugin.openReadme(p); });
     }
     menu.addSeparator();
-    if (this.settings.mode === "suggested") item("x", t("action.dismiss"), t("menu.dismissTip"), thenRefresh(() => plugin.dismiss(p)));
-    else if (!note) item("eye-off", t("action.snooze"), t("menu.snoozeTip"), thenRefresh(() => plugin.snooze(p)));
-    item("ban", t("action.exclude"), t("menu.excludeTip"), thenRefresh(() => plugin.exclude(p)));
+    if (this.settings.mode === "suggested") item("x", t("action.dismiss"), t("menu.dismissTip"), () => on.leave(() => plugin.dismiss(p)));
+    else if (!note) item("eye-off", t("action.snooze"), t("menu.snoozeTip"), () => on.leave(() => plugin.snooze(p)));
+    item("ban", t("action.exclude"), t("menu.excludeTip"), () => on.leave(() => plugin.exclude(p)));
     menu.showAtMouseEvent(event);
     return menu;
+  }
+
+  /**
+   * The menu's Rate: the same 1–5 stars as ★, beside the item. Hovering it shows them; a click keeps them (the menu
+   * closes, they stay where they were) until a pick, a click elsewhere or Esc. `pick(n)`: n 1–5, null clears.
+   */
+  rateItem(menu, rating, pick) {
+    let rect = null;   // where the item was: a click may come after the menu let go of it
+    menu.addItem((i) => {
+      i.setIcon("star").setTitle(t("rating.set")).onClick((event) => {
+        const at = rect || i.dom?.getBoundingClientRect() || { left: event.clientX, right: event.clientX, top: event.clientY };   // no hover first: keyboard
+        showRatingFloat(at, rating, pick, true);
+      });
+      if (!i.dom) return;   // MenuItem.dom isn't public API: without it, a click still opens the stars
+      setTooltip(i.dom, t("menu.rateTip"), { placement: "right" });
+      i.dom.addEventListener("mouseenter", () => { rect = i.dom.getBoundingClientRect(); showRatingFloat(rect, rating, pick, false); });
+      i.dom.addEventListener("mouseleave", () => leaveRatingFloat());
+    });
+    menu.onHide?.(() => closeRatingFloat());   // unpinned stars go with the menu
+  }
+
+  /**
+   * What follows an action on a row of the list: `change` keeps the row in place, `leave` redraws (it may leave the
+   * list), `away` (the action opens something else) has nothing to do here. The details window has its own three.
+   */
+  rowEffects(p) {
+    return {
+      change: (fn) => this.runRowAction(p, fn),
+      leave: async (fn) => { await fn(); this.view.refresh(); },
+      away: () => {},
+    };
+  }
+
+  /**
+   * What each shortcut key (KEY_HELP) does to `p`, in the list and in the details window alike.
+   * @param {object} on  rowEffects, plus `translate` (t) and, in the list, `details` (Enter)
+   * @returns {Object<string, function>} key → action
+   */
+  shortcutActions(p, on) {
+    const plugin = this.plugin;
+    const listMode = LIST_MODES.includes(this.settings.mode);
+    const away = (fn) => () => { on.away(); return fn(); };
+    const actions = {
+      f: () => on.change(() => plugin.toggleTrack(p)),   // f: follow
+      g: () => on.change(() => plugin.chooseGroup(p)),
+      x: () => on.leave(() => (listMode ? plugin.restoreFrom(this.settings.mode, [p.id]) : plugin.exclude(p))),
+      h: () => on.leave(() => plugin.snooze(p)),
+      t: () => on.translate(),
+      r: away(() => plugin.openReadme(p)),
+      s: away(() => this.view.similarFilter.open(p)),
+      o: () => globalThis.open?.(`obsidian://show-plugin?id=${encodeURIComponent(p.id)}`),   // Obsidian's own page of it
+    };
+    if (on.details) actions.Enter = on.details;
+    for (const n of [0, 1, 2, 3, 4, 5]) actions[n] = () => on.change(() => plugin.setNoteField(p, "rating", n || null));
+    return actions;
   }
 
   /** Opens the details window of `p`; ←/→ in it walks the current list. */
@@ -355,24 +411,25 @@ class RowRenderer extends ViewPart {
     this.view.refresh();
   }
 
+  /** 🔔: a click tracks the plugin (it gets its note) or lets it go; lit while tracked. */
+  renderTrack(act, p, note) {
+    const bell = act(note ? "bell-ring" : "bell-plus", t(note ? "action.untrack" : "action.track"), () => this.plugin.toggleTrack(p), note ? "is-tracked" : "", true);
+    setTooltip(bell, t(note ? "menu.untrackTip" : "menu.trackTip"), { delay: 300 });   // what a click does, the same words as the menu
+  }
+
   /**
-   * The star: a click toggles the favourite; hovering or focusing it opens 1–5 stars to rate.
-   * `run` applies a rating (a row keeps its place; the details window passes its own).
+   * ★ with your rating beside it: hovering opens 1–5 stars, and a click (or Enter) keeps them open until you pick
+   * one or click elsewhere. Rating a plugin tracks it. `run` applies a rating (a row keeps its place; the details
+   * window passes its own).
    */
-  renderStar(actions, act, p, note, run = (fn) => this.runRowAction(p, fn)) {
-    const box = actions.createDiv({ cls: "pdt-rate" });
-    const star = act("star", t(note?.favorite ? "action.unfavorite" : "action.favorite"), () => this.plugin.toggleFavorite(p), note?.favorite ? "is-favorite" : "", true);
-    box.appendChild(star);
-    const pop = box.createDiv({ cls: "pdt-rate-pop", attr: { role: "group", "aria-label": t("rating.set") } });
-    const stars = pop.createDiv({ cls: "pdt-rate-stars" });   // laid out in reverse so hovering fills a star and those before it
-    for (let n = 5; n >= 1; n--) {
-      const button = stars.createEl("button", { cls: `pdt-rate-star${(note?.rating || 0) >= n ? " is-on" : ""}`, text: "★", attr: { type: "button", "aria-label": t("rating.label", { n }) } });
-      button.onclick = () => run(() => this.plugin.setNoteField(p, "rating", n));
-    }
-    if (note?.rating) {
-      const clear = pop.createEl("button", { cls: "pdt-rate-clear", text: t("rating.clear"), attr: { type: "button" } });
-      clear.onclick = () => run(() => this.plugin.setNoteField(p, "rating", null));
-    }
+  renderRating(actions, p, note, run = (fn) => this.runRowAction(p, fn)) {
+    const box = actions.createDiv({ cls: `pdt-rate${note?.rating ? " is-rated" : ""}`, attr: { role: "button", tabindex: "0", "aria-haspopup": "true", "aria-label": t("rating.set") } });
+    box.onclick = (event) => { if (!event.target.closest(".pdt-rate-pop")) toggleRating(box); };
+    onActivate(box, () => toggleRating(box));
+    setIcon(box.createSpan({ cls: "pdt-rate-icon" }), "star");
+    if (note?.rating) box.createSpan({ cls: "pdt-rate-value", text: String(note.rating) });
+    const pop = box.createDiv({ cls: "pdt-rate-pop" });
+    ratingButtons(pop, note?.rating || 0, (n) => run(() => this.plugin.setNoteField(p, "rating", n)));
   }
 
   /** Status (when the field is on) and rating chips of a tracked plugin; empty ones only on the Tracked tab. */
@@ -387,9 +444,8 @@ class RowRenderer extends ViewPart {
       onActivate(chip, open);
     }
     if (note.rating || always) {
-      const options = ratingOptions();
       const chip = parent.createSpan({ cls: `pdt-pill is-rating${note.rating ? "" : " is-empty"}`, text: note.rating ? ratingStars(note.rating) : t("rating.set"), attr: { role: "button", tabindex: "0", "aria-label": note.rating ? t("rating.label", { n: note.rating }) : t("rating.set") } });
-      const open = () => this.pickFromMenu(chip, options, note.rating, (value) => this.runRowAction(p, () => this.plugin.setNoteField(p, "rating", value || null)));
+      const open = () => toggleRating(chip.closest("[data-id]")?.querySelector(".pdt-rate"), true);   // the row's own ★
       chip.onclick = open;
       onActivate(chip, open);
     }
@@ -402,4 +458,78 @@ class RowRenderer extends ViewPart {
       this.view.refresh();
     });
   }
+}
+
+/**
+ * Opens or closes a ★'s 1–5 stars (`open` forces it). Open, it stays until a click outside it or Esc; a pick
+ * redraws the row, which closes it.
+ */
+function toggleRating(box, open = !box?.hasClass("is-open")) {
+  if (!box) return;
+  box.toggleClass("is-open", open);
+  if (!open) return;
+  const doc = box.ownerDocument;
+  const close = (event) => {
+    if (event.type === "keydown" ? event.key !== "Escape" : box.contains(event.target)) return;
+    box.removeClass("is-open");
+    doc.removeEventListener("pointerdown", close, true);
+    doc.removeEventListener("keydown", close, true);
+  };
+  doc.addEventListener("pointerdown", close, true);
+  doc.addEventListener("keydown", close, true);
+}
+
+/** The 1–5 stars, then Clear when rated, into `pop`; `pick(n)` applies one (null clears). */
+function ratingButtons(pop, rating, pick) {
+  pop.setAttribute("role", "group");
+  pop.setAttribute("aria-label", t("rating.set"));
+  const stars = pop.createDiv({ cls: "pdt-rate-stars" });   // laid out in reverse so hovering fills a star and those before it
+  for (let n = 5; n >= 1; n--) {
+    const button = stars.createEl("button", { cls: `pdt-rate-star${rating >= n ? " is-on" : ""}`, text: "★", attr: { type: "button", "aria-label": t("rating.label", { n }) } });
+    button.onclick = () => pick(n);
+  }
+  if (rating) pop.createEl("button", { cls: "pdt-rate-clear", text: t("rating.clear"), attr: { type: "button" } }).onclick = () => pick(null);
+}
+
+// The one floating set of stars a menu's Rate shows (see RowRenderer.rateItem): {el, pinned, timer, close}
+const ratingFloat = { el: null, pinned: false, timer: 0, close: null };
+
+/**
+ * Shows the stars beside `rect` (on the right; on the left when there's no room), once; `pin` keeps them until a
+ * pick, a click elsewhere or Esc.
+ */
+function showRatingFloat(rect, rating, pick, pin) {
+  clearTimeout(ratingFloat.timer);
+  if (!ratingFloat.el) {
+    const doc = globalThis.activeDocument ?? document;   // Obsidian's: the window the menu is in
+    const el = doc.body.createDiv({ cls: "pdt-rate-pop pdt-rate-float" });
+    ratingButtons(el, rating, (n) => { closeRatingFloat(true); pick(n); });
+    const room = rect.right + 4 + el.offsetWidth <= doc.documentElement.clientWidth;
+    el.setCssProps({ "--pdt-x": `${room ? rect.right + 4 : Math.max(4, rect.left - el.offsetWidth - 4)}px`, "--pdt-y": `${rect.top}px` });
+    el.addEventListener("mouseenter", () => clearTimeout(ratingFloat.timer));
+    el.addEventListener("mouseleave", () => leaveRatingFloat());
+    const outside = (event) => {
+      if (event.type === "keydown" ? event.key !== "Escape" : el.contains(event.target)) return;
+      closeRatingFloat(true);
+    };
+    doc.addEventListener("pointerdown", outside, true);
+    doc.addEventListener("keydown", outside, true);
+    ratingFloat.close = () => { doc.removeEventListener("pointerdown", outside, true); doc.removeEventListener("keydown", outside, true); };
+    ratingFloat.el = el;
+  }
+  if (pin) ratingFloat.pinned = true;
+}
+
+/** The pointer left the item or the stars: unpinned stars go a moment later (time to cross the gap between them). */
+function leaveRatingFloat() {
+  clearTimeout(ratingFloat.timer);
+  ratingFloat.timer = setTimeout(() => closeRatingFloat(), 250);
+}
+
+/** Takes the floating stars away; pinned ones only when `force`d (a pick, a click elsewhere, Esc). */
+function closeRatingFloat(force = false) {
+  if (!ratingFloat.el || (ratingFloat.pinned && !force)) return;
+  ratingFloat.close();
+  ratingFloat.el.remove();
+  Object.assign(ratingFloat, { el: null, pinned: false, close: null });
 }

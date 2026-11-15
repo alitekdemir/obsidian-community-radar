@@ -56,7 +56,7 @@ const SIMILAR_LIMIT = 8;
 const VISIBLE_SUGGESTIONS = 5;     // AI chips shown before "+n more"
 /** Keyboard shortcuts of the view (when enabled in settings): keys → help text key. */
 const KEY_HELP = [
-  [["j", "k"], "keys.move"], [["f"], "keys.star"], [["g"], "keys.groups"], [["x"], "keys.ignore"],
+  [["j", "k"], "keys.move"], [["f"], "keys.track"], [["g"], "keys.groups"], [["x"], "keys.ignore"],
   [["h"], "keys.snooze"], [["t"], "keys.translate"], [["r"], "keys.readme"], [["s"], "keys.similar"],
   [["o"], "keys.open"], [["Enter"], "keys.expand"], [["1", "…", "5"], "keys.rate"], [["0"], "keys.unrate"],
 ];
@@ -82,7 +82,10 @@ const README_START = "%% community-radar:readme-start %%";
 const README_END = "%% community-radar:readme-end %%";
 const README_TR_START = "%% community-radar:readme-translation-start %%";   // the README in your language (on request)
 const README_TR_END = "%% community-radar:readme-translation-end %%";
-const README_CHUNK = 8000;         // characters of README per translation request (fits a 4096-token reply)
+const MAX_OUTPUT_TOKENS = 32000;   // a reply's ceiling where the provider needs one (Anthropic): a whole README in one request
+// README sections the saving setting leaves out of a translation: a heading of up to 4 words with one of these
+// (installing, building, contributing, licence, privacy…: for developers, and the store installs plugins anyway)
+const DEV_SECTION = /\b(install(ation|ing)?|build(ing)?|develop(ment|ing)?|contribut(e|ing|ors?)|change ?log|release notes|licen[cs]e|privacy|metadata|credits?|acknowledge?ments?|support|sponsor(s|ship)?|donat(e|ions?)|funding|roadmap)\b/i;
 // Markers before 0.6.1 (HTML comments show up in Live Preview); notes are migrated once.
 const LEGACY_README_START = "<!-- plugin-tracker:readme-start -->";
 const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
@@ -99,7 +102,8 @@ const MILESTONE_DAYS = 30;         // a row shows a milestone passed within this
 // Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
 const UNGROUPED = "\u0000ungrouped";
 const UPDATES = "\u0000updates";     // tracked plugins with a release since you reviewed them
-const STARRED = "\u0000starred";
+const TOP_RATED = "\u0000starred";   // rated TOP_RATING or more (the old "starred" value: a filter saved with it still works)
+const TOP_RATING = 4;
 const DEFAULT_STATUSES = ["to-try", "watching", "testing", "adopted", "replaced"];   // labels come from the locale
 const LEGACY_STATUS = { candidate: "to-try", trying: "testing", using: "adopted", dropped: "replaced" };   // 0.7.1–0.7.2
 const GROUP_HUES = 8;
@@ -215,6 +219,7 @@ function defaultSettings() {
     notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
     detailFull: false,        // the details window fills the screen (its ⤢ button)
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"
+    readmeSaving: false,      // leave developer sections (DEV_SECTION) out of README translations
   };
 }
 

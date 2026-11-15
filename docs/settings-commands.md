@@ -36,18 +36,18 @@ The view's ⋮ menu (top right): Sync now, Translate visible, Hidden, Download t
 
 ## Keyboard shortcuts
 
-On while *Settings → Keyboard shortcuts* is on and the Community Radar tab is active. The ⌨ icon in the toolbar lists them.
+On while *Settings → Keyboard shortcuts* is on and the Community Radar tab is active, and in the details window too (there `j` / `k`, like ← / →, go to the previous or next plugin). The ⌨ icon in the toolbar, and at the bottom of the details window, lists them.
 
 | Key | |
 |---|---|
 | `j` / `k` | move between rows |
 | `Enter` | open the details |
-| `f` | star |
+| `f` | track / stop tracking (follow) |
 | `g` | groups |
 | `1` … `5` / `0` | rate / clear the rating |
 | `s` | similar plugins |
-| `r` | README |
-| `t` | translate |
+| `r` | open the README in your note |
+| `t` | translate the description / hide it |
 | `o` | open in Obsidian |
 | `h` | hide until the next release |
 | `x` | ignore (a toast offers Undo; restore on the Hidden page) |
@@ -56,4 +56,4 @@ Always on: `/` focuses the search box, `Ctrl+Space` opens suggestions, `Esc` cle
 
 ## Selecting many
 
-Hover a row and tick its box (`Shift`+click ticks a range). **Select the N shown**, then **Select all N in this list**, picks more. The bar at the bottom: Favorite, Rate, Add to group, Suggest groups, Mark reviewed, Hide, Ignore. Each asks before it runs and can be undone right away, or later from **Recent actions** (Undo skips plugins you changed since).
+Hover a row and tick its box (`Shift`+click ticks a range). **Select the N shown**, then **Select all N in this list**, picks more. The bar at the bottom: Track, Rate, Add to group, Suggest groups, Mark reviewed, Hide, Ignore. Each asks before it runs and can be undone right away, or later from **Recent actions** (Undo skips plugins you changed since).

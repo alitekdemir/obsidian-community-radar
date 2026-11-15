@@ -894,7 +894,7 @@ button.pdt-bulk-link {
 .pdt-table td.is-downloads { color: var(--text-normal); font-weight: var(--font-semibold); }
 .pdt-table-pick { width: 28px; }
 .pdt-table .pdt-table-name { width: 100%; }   /* Name takes the room; the other columns fit their content */
-.pdt-table th.is-favorite, .pdt-table td.is-favorite { width: 36px; }
+.pdt-table th.is-tracked, .pdt-table td.is-tracked { width: 36px; }
 .pdt-table th.is-draggable { cursor: grab; }
 .pdt-table-cols { width: 36px; text-align: right; }
 .pdt-table .pdt-select { position: static; }
@@ -902,8 +902,7 @@ button.pdt-bulk-link {
 .pdt-table-name .pdt-ver { margin-left: var(--size-2-3); }
 
 button.pdt-table-sort,
-button.pdt-table-star,
-button.pdt-table-rating {
+button.pdt-table-track {
   height: auto;
   padding: 0;
   border: 0;
@@ -915,9 +914,9 @@ button.pdt-table-rating {
 }
 
 button.pdt-table-sort.is-on { color: var(--text-normal); }
-button.pdt-table-star { color: var(--text-faint); font-size: 15px; }
-button.pdt-table-star.is-on,
-button.pdt-table-rating { color: var(--color-yellow); }
+button.pdt-table-track { color: var(--text-faint); }
+button.pdt-table-track svg { width: 15px; height: 15px; }
+button.pdt-table-track.is-on { color: var(--text-accent); }
 
 .pdt-trow { cursor: pointer; }
 .pdt-trow:hover { background: var(--background-modifier-hover); }
@@ -1241,6 +1240,15 @@ button.pdt-table-rating { color: var(--color-yellow); }
   color: var(--text-normal);
 }
 
+/* the details window's description: a click translates it, as on a row */
+.pdt-detail-desc {
+  cursor: pointer;
+}
+
+.pdt-detail-desc:hover {
+  color: var(--text-accent);
+}
+
 .pdt-trans {
   margin-top: var(--size-4-2);
   padding: var(--size-2-3) var(--size-4-3);
@@ -1267,9 +1275,44 @@ button.pdt-table-rating { color: var(--color-yellow); }
   min-width: 0;
 }
 
-/* The star: hover or focus opens 1–5 stars; the reversed order lets "~" fill a star and those before it */
+/* ★ with your rating: hover or focus opens 1–5 stars; the reversed order lets "~" fill a star and those before it */
 .pdt-rate {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: var(--size-2-2) var(--size-2-3);
+  border-radius: var(--radius-s);
+  color: var(--icon-color);
+  cursor: pointer;
+}
+
+.pdt-rate:hover,
+.pdt-rate:focus-within {
+  background: var(--pdt-accent-bg);
+}
+
+.pdt-rate-icon {
+  display: flex;
+}
+
+.pdt-rate-icon svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.pdt-rate.is-rated {
+  color: var(--color-yellow);
+}
+
+.pdt-rate.is-rated .pdt-rate-icon svg {
+  fill: currentColor;
+}
+
+.pdt-rate-value {
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+  font-variant-numeric: tabular-nums;
 }
 
 .pdt-rate-pop {
@@ -1288,6 +1331,17 @@ button.pdt-table-rating { color: var(--color-yellow); }
   white-space: nowrap;
 }
 
+/* a menu's Rate: the same stars, floating beside the item, above the menu */
+.pdt-rate-float {
+  display: flex;
+  position: fixed;
+  top: var(--pdt-y);
+  right: auto;
+  left: var(--pdt-x);
+  z-index: calc(var(--layer-menu) + 1);
+}
+
+.pdt-rate.is-open .pdt-rate-pop,
 .pdt-rate:hover .pdt-rate-pop,
 .pdt-rate:focus-within .pdt-rate-pop {
   display: flex;
@@ -1353,12 +1407,9 @@ button.pdt-rate-clear:hover {
   pointer-events: none;
 }
 
-.pdt-icon.clickable-icon.is-favorite {
-  color: var(--color-yellow);
-}
-
-.pdt-icon.is-favorite svg {
-  fill: currentColor;
+/* 🔔 lit while the plugin is tracked */
+.pdt-icon.clickable-icon.is-tracked {
+  color: var(--text-accent);
 }
 
 .pdt-more {
@@ -1629,11 +1680,22 @@ button.pdt-gchip.is-on {
 }
 
 .pdt-gm-label {
+  display: flex;
+  align-items: baseline;
   color: var(--text-faint);
   font-size: var(--font-ui-smaller);
   font-weight: var(--font-semibold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+/* what an AI request just took, at the far end of a title row */
+.pdt-usage-tag {
+  margin-left: auto;
+  font-weight: var(--font-normal);
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
 }
 
 .pdt-gm-note {
@@ -1860,6 +1922,7 @@ button.pdt-similar-step svg {
 /* both names: newer Obsidian renamed .modal-close-button to .modal-header-button */
 .pdt-detail-container :is(.modal-close-button, .modal-header-button) { display: none !important; }
 .pdt-detail-head-actions { display: flex; flex-shrink: 0; align-items: center; gap: var(--size-4-1); }
+.pdt-detail-head-actions .pdt-detail-open { margin-left: var(--size-4-2); }   /* ★ ⋯ | Open ⤢ ✕ */
 .pdt-detail-head-actions .pdt-detail-close,
 .pdt-detail-head-actions .pdt-detail-size {
   display: flex;
@@ -2135,10 +2198,12 @@ button.pdt-detail-tab.is-dim {
   font-weight: var(--font-normal);
 }
 
-.pdt-detail-tab-note.is-stale {
-  border-style: solid;
-  border-color: color-mix(in srgb, var(--color-yellow) 50%, transparent);
-  color: var(--color-yellow);
+/* the README changed since the translation (the bar inside the tab says so) */
+.pdt-detail-tab-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-yellow);
 }
 
 .pdt-detail-note-link {
@@ -2268,23 +2333,35 @@ button.pdt-detail-near:hover {
   font-size: var(--font-ui-smaller);
 }
 
-.pdt-detail-actions {
+/* bottom: what the README and its translation are (left), ‹ n / total ›, ⌨ and Esc (right) */
+.pdt-detail-foot {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--size-4-2);
+  gap: var(--size-4-4);
   padding-top: var(--size-4-3);
   border-top: 1px solid var(--background-modifier-border);
 }
 
-.pdt-detail-actions button {
-  display: inline-flex;
+.pdt-detail-info {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
+  gap: 2px var(--size-4-3);
+  min-width: 0;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  font-variant-numeric: tabular-nums;
 }
 
-.pdt-detail-actions button.is-favorite .pdt-detail-icon {
-  color: var(--color-yellow);
+.pdt-detail-info > span + span::before {
+  content: "·";
+  margin-right: var(--size-4-3);
+}
+
+/* the shortcut card opens upward from the bottom row */
+.pdt-detail-foot .pdt-keys-card {
+  top: auto;
+  bottom: calc(100% + 6px);
 }
 
 .pdt-detail-icon {
@@ -2294,17 +2371,6 @@ button.pdt-detail-near:hover {
 .pdt-detail-icon svg {
   width: 15px;
   height: 15px;
-}
-
-.pdt-detail-actions button.is-favorite {
-  border-color: color-mix(in srgb, var(--color-yellow) 45%, transparent);
-}
-
-.pdt-detail-actions .pdt-rate-pop {
-  top: auto;
-  right: auto;
-  bottom: calc(100% + 6px);
-  left: 0;
 }
 
 .pdt-detail-nav {

@@ -36,18 +36,18 @@ Görünümün ⋮ menüsü (sağ üst): Şimdi eşitle, Görünenleri çevir, Gi
 
 ## Klavye kısayolları
 
-*Ayarlar → Klavye kısayolları* açıkken ve Community Radar sekmesi etkinken çalışır. Araç çubuğundaki ⌨ simgesi hepsini listeler.
+*Ayarlar → Klavye kısayolları* açıkken ve Community Radar sekmesi etkinken çalışır; ayrıntılar penceresinde de (orada `j` / `k`, ← / → gibi önceki ya da sonraki eklentiye geçer). Araç çubuğundaki ve ayrıntılar penceresinin altındaki ⌨ simgesi hepsini listeler.
 
 | Tuş | |
 |---|---|
 | `j` / `k` | satırlar arasında gezin |
 | `Enter` | ayrıntıları aç |
-| `f` | favori |
+| `f` | takip et / bırak |
 | `g` | gruplar |
 | `1` … `5` / `0` | puan ver / puanı sil |
 | `s` | benzerleri |
-| `r` | README |
-| `t` | çevir |
+| `r` | README'yi notunda aç |
+| `t` | açıklamayı çevir / gizle |
 | `o` | Obsidian'da aç |
 | `h` | sonraki sürüme kadar gizle |
 | `x` | dışla (bir bildirim Geri al sunar; Gizlenenler sayfasında geri getirin) |
@@ -56,4 +56,4 @@ Her zaman açık: `/` arama kutusuna odaklanır, `Ctrl+Space` önerileri açar, 
 
 ## Toplu seçim
 
-Bir satırın üzerine gelip kutusunu işaretleyin (`Shift`+tıklama bir aralığı işaretler). Önce **Görünen N eklentiyi seç**, ardından **Listedeki N eklentinin hepsini seç** daha fazlasını seçer. Alttaki çubuk: Favori, Puan, Gruba ekle, Grup öner, İncelendi işaretle, Gizle, Dışla. Her biri çalışmadan önce sorar ve hemen ya da daha sonra **Son işlemler**'den geri alınabilir (Geri al, o zamandan beri değiştirdiğiniz eklentileri atlar).
+Bir satırın üzerine gelip kutusunu işaretleyin (`Shift`+tıklama bir aralığı işaretler). Önce **Görünen N eklentiyi seç**, ardından **Listedeki N eklentinin hepsini seç** daha fazlasını seçer. Alttaki çubuk: Takip et, Puan, Gruba ekle, Grup öner, İncelendi işaretle, Gizle, Dışla. Her biri çalışmadan önce sorar ve hemen ya da daha sonra **Son işlemler**'den geri alınabilir (Geri al, o zamandan beri değiştirdiğiniz eklentileri atlar).

@@ -1,7 +1,8 @@
 /**
  * A plugin's details in a large window that grows out of its card or row: the numbers, the whole
  * description and its translation, your note, the README (and its translation, on request), the closest
- * plugins and the release history. ←/→ walk the list it was opened from; Esc closes.
+ * plugins and the release history. ←/→ walk the list it was opened from, the list's shortcut keys work here too
+ * (when turned on), a right click opens the row's menu; Esc closes.
  */
 class DetailModal extends Modal {
   constructor(view, rows, index, origin) {
@@ -12,10 +13,14 @@ class DetailModal extends Modal {
     this.index = Math.max(0, index);
     this.origin = origin;
     this.tab = "readme";
-    this.fetched = new Map();   // README fetched for an untracked plugin (shown, not saved)
+    this.loads = new Map();     // id → "busy" | "done": a README fetched the first time it's shown (once per window)
+    this.newer = new Map();     // id → the README now on GitHub when it changed (null: asked, nothing new)
     this.busy = "";             // progress of a translation in this window
     this.scope.register([], "ArrowLeft", () => { this.step(-1); return false; });
     this.scope.register([], "ArrowRight", () => { this.step(1); return false; });
+    for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "0", "1", "2", "3", "4", "5"]) {
+      this.scope.register([], key, () => this.onKey(key));
+    }
   }
 
   get p() {
@@ -36,11 +41,23 @@ class DetailModal extends Modal {
     this.modalEl.toggleClass("is-full", this.plugin.data.settings.detailFull);
     this.component = new obsidian.Component();
     this.component.load();
+    // a translation's model, tokens and cost reach the note's properties a moment after its text: the bottom row follows
+    this.component.registerEvent(this.app.metadataCache.on("changed", (file) => {
+      const p = this.p;
+      if (!this.infoEl || file.path !== this.plugin.notes.index.get(p.id)?.path) return;
+      this.plugin.readmeParts(p).then((parts) => { if (this.p === p && !this.closed) this.renderInfo(this.infoEl, parts); });
+    }));
     // grow out of the card: the animation starts at the card's centre (no motion if the system asks for less)
     const from = this.origin?.getBoundingClientRect?.();
     const box = this.modalEl.getBoundingClientRect?.();
     if (from && box) this.modalEl.setCssProps({ "--pdt-origin": `${from.left + from.width / 2 - box.left}px ${from.top + from.height / 2 - box.top}px` });
     this.modalEl.addClass("is-growing");
+    // a right click opens the row's menu; links and the README keep the browser's own (copy, open link)
+    this.modalEl.addEventListener("contextmenu", (event) => {
+      if (event.target.closest?.("a, input, textarea, .markdown-rendered")) return;
+      event.preventDefault();
+      this.view.rowRenderer.showRowMenu(this.p, event, this.effects());
+    });
     this.render();
   }
 
@@ -64,6 +81,33 @@ class DetailModal extends Modal {
     if (!this.rows.length) return this.close();
     this.index = Math.min(this.index, this.rows.length - 1);
     this.tab = "readme";
+    this.render();
+  }
+
+  /** What follows an action here (see RowRenderer.rowEffects): a change redraws, leaving shows the next plugin, opening something else closes. */
+  effects() {
+    return { change: (fn) => this.act(fn), leave: (fn) => this.drop(fn), away: () => this.close() };
+  }
+
+  /**
+   * A shortcut key (KEY_HELP), as in the list when shortcuts are on: j/k walk like ←/→, the rest act on the plugin
+   * shown. Returns true to leave the key to Obsidian (shortcuts off, typing in a field, a translation running).
+   */
+  onKey(key) {
+    const typing = globalThis.document?.activeElement?.closest?.("input, textarea, select, [contenteditable]");
+    if (!this.plugin.data.settings.keyboard || typing || this.busy) return true;
+    if (key === "j" || key === "k") {
+      this.step(key === "j" ? 1 : -1);
+      return false;
+    }
+    const p = this.p;
+    this.view.rowRenderer.shortcutActions(p, { ...this.effects(), translate: () => this.toggleTranslation(p) })[key]?.();
+    return false;
+  }
+
+  /** The description's translation under it, on or off (as on a row; the first time asks the AI). */
+  async toggleTranslation(p) {
+    await this.view.rowRenderer.toggleTranslation(p);
     this.render();
   }
 
@@ -106,16 +150,20 @@ class DetailModal extends Modal {
     };
     const about = section(main, t("details.description")).box;
     if (p.removed) about.createEl("p", { cls: "pdt-detail-removed", text: t("details.removed", { reason: p.removed.reason || "–", date: dayString(p.removed.at) }) });
-    about.createEl("p", { text: p.description || "–" });
-    const translation = plugin.cachedTranslation(p);
-    if (translation) about.createEl("p", { cls: "pdt-detail-trans", text: translation });
-    else if (p.description && plugin.translator.ready) {
-      about.createEl("button", { cls: "pdt-link-button", text: t("translate.row") }).onclick = async () => {
-        if (await plugin.translateRows([p])) this.render();
-      };
+    const desc = about.createEl("p", { text: p.description || "–" });
+    if (p.description) {   // a click translates it (and hides the translation again), as on a row
+      Object.assign(desc, { role: "button", tabIndex: 0 });
+      desc.addClass("pdt-detail-desc");
+      setTooltip(desc, t("row.translateTip"));
+      desc.onclick = () => this.toggleTranslation(p);
+      onActivate(desc, () => this.toggleTranslation(p));
     }
+    const translation = plugin.cachedTranslation(p);
+    if (translation != null && this.view.shownTranslations.has(p.id)) about.createEl("p", { cls: "pdt-detail-trans", text: translation });
     if (note?.note) section(main, t("details.yourNote")).box.createEl("p", { text: note.note });
-    this.renderReadme(main, p, note);
+    const footer = el.createDiv({ cls: "pdt-detail-foot" });      // under the columns; made here for the README to fill its info
+    this.infoEl = footer.createDiv({ cls: "pdt-detail-info" });
+    this.renderReadme(main, p, note, this.infoEl);
 
     const side = columns.createDiv({ cls: "pdt-detail-side" });
     const similar = plugin.similarTo(p);
@@ -152,10 +200,13 @@ class DetailModal extends Modal {
       repo.createSpan({ cls: "pdt-detail-head-note", text: "GitHub ↗" });
     }
 
-    this.renderActions(el.createDiv({ cls: "pdt-detail-actions" }), p, note);
+    this.renderNav(footer);
   }
 
-  /** Name, version and author on one line, "Open in Obsidian" on the right; your groups and rating under it, when there are any. */
+  /**
+   * Name, version and author on one line; on the right 🔔 (track), ★ (1–5 on hover) and ⋯ (the row's menu), "Open in Obsidian",
+   * ⤢ and ✕. Your groups and rating under the name, when there are any.
+   */
   renderHead(p, note) {
     const title = this.titleEl;
     title.empty();
@@ -170,6 +221,15 @@ class DetailModal extends Modal {
       tags.createSpan({ cls: "pdt-detail-muted", text: t("details.tracked") });
     }
     const actions = title.createDiv({ cls: "pdt-detail-head-actions" });
+    const rows = this.view.rowRenderer;
+    const act = (icon, tip, fn, cls = "") => {
+      const button = iconButton(actions, icon, tip, cls);
+      button.onclick = () => this.act(fn);
+      return button;
+    };
+    rows.renderTrack(act, p, note);
+    rows.renderRating(actions, p, note, (fn) => this.act(fn));
+    iconButton(actions, "more-horizontal", t("row.menu"), "pdt-row-menu").onclick = (event) => rows.showRowMenu(p, event, this.effects());
     const open = actions.createEl("a", { cls: "pdt-detail-open", text: t("details.openInObsidian"), href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
     setTooltip(open, t("details.openInObsidianTip"));
     this.renderSizeToggle(actions);
@@ -218,21 +278,8 @@ class DetailModal extends Modal {
     stat(t("details.cadence"), cadence ? cadenceLabel(cadence) : t("details.noData"), cadence ? cadenceSub(cadence) : t("details.noDataSub"));
   }
 
-  /** The same actions as a row (star with 1–5 on hover, group, hide, exclude), then ‹ n / total › on the right. */
-  renderActions(footer, p, note) {
-    const plugin = this.plugin;
-    const button = (icon, label, onClick, cls = "") => {
-      const b = footer.createEl("button", { cls, attr: { type: "button" } });
-      setIcon(b.createSpan({ cls: "pdt-detail-icon" }), icon);
-      b.createSpan({ text: label });
-      b.onclick = onClick;
-      return b;
-    };
-    const star = (icon, tip, fn, cls) => { const b = button(icon, t("details.favorite"), () => this.act(fn), cls); setTooltip(b, tip); return b; };
-    this.view.rowRenderer.renderStar(footer, star, p, note, (fn) => this.act(fn));
-    button("folder-plus", t("action.group"), () => this.act(() => plugin.chooseGroup(p)));
-    if (!note) button("eye-off", t("action.snooze"), () => this.drop(() => plugin.snooze(p)));   // tracked: opening it is enough
-    button("ban", t("action.exclude"), () => this.drop(() => plugin.exclude(p)));
+  /** Bottom right: ‹ n / total ›, the shortcut keys (when they're on) and "Esc closes". */
+  renderNav(footer) {
     const nav = footer.createDiv({ cls: "pdt-detail-nav" });
     if (this.rows.length > 1) {
       const arrow = (icon, delta, label) => {
@@ -245,7 +292,28 @@ class DetailModal extends Modal {
       nav.createSpan({ cls: "pdt-detail-pos", text: t("details.position", { n: formatCount(this.index + 1), total: formatCount(this.rows.length) }) });
       arrow("chevron-right", 1, t("details.next"));
     }
+    if (this.plugin.data.settings.keyboard) renderKeyHelp(nav, KEY_HELP.filter(([keys]) => keys[0] !== "Enter"));   // Enter opens this window
     nav.createSpan({ cls: "pdt-detail-muted", text: t("details.escClose") });
+  }
+
+  /**
+   * Bottom left: where the README comes from (your note or the cache), its version and when it was fetched; then
+   * what its translation took, as the provider reported it: model, tokens and the cost (when it tells it).
+   */
+  renderInfo(info, { source, original, translation }) {
+    info.empty();
+    if (original) {
+      info.createSpan({ text: t("details.infoReadme", {
+        version: original.version ? `v${original.version}` : "–",
+        where: t(source === "note" ? "details.inNote" : "details.inCache"),
+        date: original.date || "–",
+      }) });
+    }
+    if (!translation?.model) return;   // made before 0.12: nothing was recorded
+    const took = [translation.model, t("details.tokensUsed", { n: formatShort(translation.tokens || 0) })];
+    if (typeof translation.cost === "number") took.push(formatCost(translation.cost));
+    const item = info.createSpan({ text: t("details.infoTranslation", { took: took.join(" · ") }) });
+    setTooltip(item, t("details.infoTranslationTip", { date: translation.date || "–" }));
   }
 
   /**
@@ -279,14 +347,20 @@ class DetailModal extends Modal {
     if (cadence) box.createDiv({ cls: "pdt-history-note", text: cadenceNote(cadence, dates.at(-1), now) });
   }
 
-  /** README / README · <language> tabs; the translation tab is dim until there is one, and translates on request. */
-  async renderReadme(parent, p, note) {
+  /**
+   * README / README · <language> tabs. The README shows right away: from your note or the cache, fetched the first
+   * time. The translation tab is dim until there is one and translates on request; it is marked outdated only when
+   * the README's text changed since (an unchanged README of a newer release doesn't count).
+   */
+  async renderReadme(parent, p, note, info) {
     const plugin = this.plugin;
     const box = parent.createDiv({ cls: "pdt-detail-section pdt-detail-readme" });
     const translating = plugin.data.settings.readmeTranslation !== "off";
-    const { original, translation } = await plugin.readmeParts(p);
-    if (this.p !== p) return;   // moved on while reading
-    const text = original || this.fetched.get(p.id);
+    const parts = await plugin.readmeParts(p);
+    if (this.p !== p || this.closed) return;   // moved on while reading
+    const { original, translation } = parts;
+    const outdated = Boolean(original && translation?.hash && translation.hash !== original.hash);
+    this.renderInfo(info, parts);
     const tabs = box.createDiv({ cls: "pdt-detail-tabs", attr: { role: "tablist" } });
     const tab = (key, label, extra = "") => {
       const b = tabs.createEl("button", { cls: `pdt-detail-tab${this.tab === key ? " is-active" : ""}${extra}`, attr: { type: "button", role: "tab", "aria-selected": String(this.tab === key) } });
@@ -296,10 +370,9 @@ class DetailModal extends Modal {
     };
     tab("readme", "README");
     if (translating) {
-      const stale = translation && translation.version !== p.version;
       const t2 = tab("translation", t("details.readmeIn", { lang: plugin.data.settings.targetLang }), translation ? "" : " is-dim");
       if (!translation) t2.createSpan({ cls: "pdt-detail-tab-note", text: t("details.none") });
-      else if (stale) t2.createSpan({ cls: "pdt-detail-tab-note is-stale", text: t("details.stale") });
+      else if (outdated) setTooltip(t2.createSpan({ cls: "pdt-detail-tab-dot" }), t("details.outdated"));
     }
     if (note) tabs.createEl("a", { cls: "pdt-detail-note-link", text: t("details.openNote"), href: "#" }).onclick = (event) => {
       event.preventDefault();
@@ -311,24 +384,31 @@ class DetailModal extends Modal {
       body.addClass("markdown-rendered");
       obsidian.MarkdownRenderer.render(this.app, markdown, body, note?.path || "", this.component);
     };
+    const bar = (text, label, onClick) => {
+      const row = body.createDiv({ cls: "pdt-detail-stale" });
+      row.createSpan({ text });
+      row.createEl("button", { cls: "pdt-link-button", text: label, attr: { type: "button" } }).onclick = onClick;
+    };
     if (this.tab === "readme") {
-      if (text) return render(text);
-      if (!p.repo) return body.createEl("p", { cls: "pdt-detail-muted", text: t("readme.failed") });
-      const get = body.createEl("button", { text: t("details.fetchReadme"), attr: { type: "button" } });
-      get.onclick = async () => {
-        get.disabled = true;
-        const readme = await plugin.github.readme(p.repo);
-        this.fetched.set(p.id, readme == null ? t("readme.failed") : escapeOutsideCode(absolutizeLinks(readme.trim(), p.repo)));
-        this.render();
-      };
+      if (original) {
+        const newer = this.checkNewer(p, original);
+        if (newer) bar(t("details.readmeChanged", { version: p.version }), t("details.readmeUpdate"), async () => {
+          await plugin.keepReadme(p, newer);
+          this.newer.set(p.id, null);
+          this.render();
+        });
+        return render(original.text);
+      }
+      body.addClass("is-empty");
+      if (!p.repo || this.loads.get(p.id) === "done") return body.createEl("p", { cls: "pdt-detail-muted", text: t("readme.failed") });
+      body.createEl("p", { cls: "pdt-detail-muted", text: t("details.loadingReadme") });
+      this.loadReadme(p);
       return;
     }
+    const estimate = translationEstimate(plugin.translationSource(original?.text || "").text, plugin.data.settings.modelCost);
+    const price = estimate.cost != null ? ` (${t("details.cost", { cost: formatCost(estimate.cost) })})` : "";
     if (translation && !this.busy) {
-      if (translation.version !== p.version) {
-        const again = body.createDiv({ cls: "pdt-detail-stale" });
-        again.createSpan({ text: t("details.staleNote", { version: translation.version || "?" }) });
-        again.createEl("button", { cls: "pdt-link-button", text: t("details.translateAgain"), attr: { type: "button" } }).onclick = () => this.translate(p);
-      }
+      if (outdated) bar(t("details.outdatedNote"), `${t("details.translateAgain")}${price}`, () => this.translate(p));
       return render(translation.body);
     }
     body.addClass("is-empty");
@@ -338,14 +418,42 @@ class DetailModal extends Modal {
     }
     body.createEl("p", { text: t("details.notTranslated", { lang: plugin.data.settings.targetLang }) });
     body.createEl("button", { cls: "mod-cta", text: t("details.translate"), attr: { type: "button" } }).onclick = () => this.translate(p);
-    const estimate = translationEstimate(text || "", plugin.data.settings.modelCost);
-    if (text) {
+    if (original) {
       body.createEl("p", {
         cls: "pdt-detail-muted",
         text: [t("details.chars", { n: formatCount(estimate.chars) }), t("details.tokens", { n: formatCount(estimate.tokens) }),
-          estimate.cost != null ? t("details.cost", { cost: decimal(estimate.cost, 3) }) : null, plugin.data.settings.model].filter(Boolean).join(" · "),
+          estimate.cost != null ? t("details.cost", { cost: formatCost(estimate.cost) }) : null, plugin.data.settings.model].filter(Boolean).join(" · "),
       });
     }
+  }
+
+  /** A README not seen before: fetched in the background (into your note, else the cache), then shown. Once per window. */
+  async loadReadme(p) {
+    if (this.loads.has(p.id)) return;
+    this.loads.set(p.id, "busy");
+    try {
+      await this.plugin.fetchReadme(p);
+    } catch (error) {
+      console.warn("[Community Radar] couldn't fetch the README", error);
+    }
+    this.loads.set(p.id, "done");
+    if (this.p === p && !this.closed) this.render();
+  }
+
+  /**
+   * The README now on GitHub when the kept one is from an older release and its text changed; null otherwise.
+   * GitHub is asked once per window, in the background; the answer redraws the window when there's something new.
+   */
+  checkNewer(p, original) {
+    if (this.newer.has(p.id)) return this.newer.get(p.id);
+    if (!p.version || original.version === p.version) return null;
+    this.newer.set(p.id, null);
+    this.plugin.newerReadme(p, original).then((readme) => {
+      if (!readme) return;
+      this.newer.set(p.id, readme);
+      if (this.p === p && !this.closed) this.render();
+    }, (error) => console.warn("[Community Radar] couldn't check the README", error));
+    return null;
   }
 
   async translate(p) {

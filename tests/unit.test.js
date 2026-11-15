@@ -273,7 +273,7 @@ const tests = {
       catalog,
       releases: { a: [ago(300), ago(1)], c: [ago(20), ago(1)], e: [ago(200), ago(1)] },
       firstSeen: { a: 0, b: 0, c: 0, d: ago(5), e: 0 },
-      notes: new Map([["e", { group: "ai", favorite: false, reviewed: core.dayString(ago(10)) }]]),
+      notes: new Map([["e", { group: "ai", reviewed: core.dayString(ago(10)) }]]),
       excluded: new Set(["c"]), dismissed: new Set(), installed: new Set(["a", "e"]),
     };
     const opts = { mode: "updated", minDownloads: 100, filterDownloads: true, sort: "downloads", query: "" };
@@ -283,7 +283,7 @@ const tests = {
     assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { incubated: 90 }) }), ["a"]);     // a was quiet for 299 days
     assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { incubated: 365 }) }), []);
     assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.UPDATES }), ["e"]);   // reviewed 10 days ago, released 1 day ago
-    assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.STARRED }), []);
+    assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.TOP_RATED }), []);   // e has no rating
     assert.deepEqual(ids({ mode: "suggested" }), ["a"]);   // installed and not tracked (e has a note)
     state.dismissed.add("a");
     assert.deepEqual(ids({ mode: "suggested" }), []);
@@ -335,7 +335,7 @@ const tests = {
       P("old", { name: "Old Thing", author: "abbys", downloads: 50, updated: now - 400 * DAY }),
     ];
     const state = {
-      notes: new Map([["cal", { groups: ["Görev", "Takvim"], rating: 4, favorite: true, status: "using" }], ["tasks", { groups: ["Görev"], rating: 0 }]]),
+      notes: new Map([["cal", { groups: ["Görev", "Takvim"], rating: 4, status: "using" }], ["tasks", { groups: ["Görev"], rating: 0 }]]),
       installed: new Set(["cal"]), firstSeen: { cal: now - 900 * DAY, tasks: now - 5 * DAY, old: 0 }, releases: {},
       timeline: { to: now, series: series({ cal: [1_990_000, 1_998_000, 1_999_990, 2_000_000], tasks: [600, 600, 600, 600] }) },
     };
@@ -352,7 +352,7 @@ const tests = {
     assert.deepEqual(ids('author in ("ilker çalışkan", abbys)'), ["tasks", "old"], "Turkish İ folds");
     assert.deepEqual(ids("tracked = true calendar"), ["cal"], "words that aren't a clause search the text");
     assert.deepEqual(ids("downloads > 0 AND tracked"), ["cal", "tasks"], "a yes/no field alone, once the query is advanced");
-    assert.deepEqual(ids("(group = takvim OR downloads < 100) favorite = false"), ["old"]);
+    assert.deepEqual(ids("(group = takvim OR downloads < 100) tracked = false"), ["old"]);
     assert.deepEqual(ids("name ~ /^t/"), ["tasks"]);
     assert.deepEqual(ids("gain(30d) > 1k"), ["cal"]);
     assert.deepEqual(ids("gain() > 1k"), ["cal"], "() is 30 days");
@@ -363,7 +363,7 @@ const tests = {
     const bad = core.compileQuery("author ~ brenan rating = on", state, now);
     assert.ok(bad.error && bad.at === 25 && bad.test(plugins[0]));
     assert.ok(core.compileQuery("group > 3", state, now).error, "a list has no >");
-    assert.ok(core.compileQuery("favorite = maybe", state, now).error);
+    assert.ok(core.compileQuery("tracked = maybe", state, now).error);
     assert.ok(core.compileQuery('group in ("a", b', state, now).error);
     assert.equal(core.isAdvancedQuery("task, project"), false, "plain search stays plain");
     // suggestions: fields, then the type's operators, then the field's values
@@ -371,7 +371,7 @@ const tests = {
     const sug = (text) => core.querySuggestions(text, text.length, data).items.map((x) => x.insert);
     assert.ok(sug("dow").includes("downloads"));
     assert.deepEqual(sug("group "), ["=", "!=", "in (", "not in (", "is empty"]);
-    assert.ok(!sug("favorite ").includes(">"), "no number operators for a yes/no field");
+    assert.ok(!sug("tracked ").includes(">"), "no number operators for a yes/no field");
     assert.deepEqual(sug("group in ("), ["Görev", '"Not alma"']);
     assert.deepEqual(sug('group in ("Görev", N'), ['"Not alma"']);
     assert.deepEqual(sug("author = a"), ["abbys"]);
@@ -591,25 +591,37 @@ const tests = {
     assert.equal(core.closeness(0.1), "similar.related");
   },
 
-  "README translation: kept above the original, version read back, split into requests, estimated; release cadence"() {
+  "README translation: kept above the original, source fingerprint read back, split into requests, estimated; release cadence"() {
     core.setLanguage("en");
     const plugin = P("x", { version: "2.0.0", repo: "me/x" });
     let note = core.replaceReadme(core.noteBody(), core.readmeSection("# Hi\nText", plugin, NOW));
     assert.equal(core.readmeText(note), "# Hi\nText");
+    assert.deepEqual(core.readmeMeta(note), { version: "2.0.0", date: core.dayString(NOW) });
     assert.equal(core.readmeTranslation(note), null);
-    note = core.replaceReadmeTranslation(note, "> Translation (Türkçe) · v2.0.0 · 2026-11-06\n\n# Merhaba", "README (Türkçe)");
-    assert.deepEqual(core.readmeTranslation(note), { version: "2.0.0", body: "# Merhaba" });
+    const hash = core.textHash(core.readmeText(note));
+    assert.match(hash, /^[0-9a-f]{8}$/);
+    assert.equal(hash, core.textHash(core.readmeBody("# Hi\nText", "me/x")), "a cached README and the note's give the same fingerprint");
+    assert.notEqual(hash, core.textHash("# Hi\nText!"));
+    const section = core.translationSection({ lang: "Türkçe", version: "2.0.0", hash, date: "2026-11-06", body: "# Merhaba" });
+    assert.match(section, /^> Translation \(Türkçe\) · v2\.0\.0 · 2026-11-06 %% src:\w{8} %%/, "the fingerprint hides in an Obsidian comment");
+    assert.ok(core.translationSection({ lang: "T", version: null, hash, date: "2026-11-06", body: "x" }).includes("· – ·"), "no version: no 'v?'");
+    note = core.replaceReadmeTranslation(note, section, "README (Türkçe)");
+    assert.deepEqual(core.readmeTranslation(note), { hash, date: "2026-11-06", body: "# Merhaba" });
     assert.ok(note.indexOf("# README (Türkçe)") < note.indexOf("# README\n"), "right above the original");
     const again = core.replaceReadmeTranslation(note, "> Translation (Türkçe) · v2.1.0 · 2026-12-01\n\nYeni", "README (Türkçe)");
-    assert.equal(core.readmeTranslation(again).version, "2.1.0");
+    assert.equal(core.readmeTranslation(again).hash, null, "made before 0.12: no fingerprint, never outdated");
     assert.equal(again.split("README (Türkçe)").length, 2, "replaced, not added twice");
     assert.ok(core.noteBody("Notes").startsWith("# Notes\n"), "your heading");
 
-    const long = ["# A", "x".repeat(50), "## B", "y".repeat(50), "## C", "z".repeat(50)].join("\n");
-    const chunks = core.markdownChunks(long, 70);
-    assert.equal(chunks.length, 3);
-    assert.equal(chunks.join("\n"), long, "nothing lost");
-    assert.deepEqual(core.markdownChunks("short"), ["short"]);
+    // the saving setting: developer sections out (down to the next heading of their level), the rest kept as it is
+    const readme = ["# Tool", "Use it.", "## ⚙️ Installation", "Copy files.", "### From source", "npm i", "## Features", "```", "# build", "```",
+      "## Build your own dashboard with widgets", "Steps.", "## License", "MIT"].join("\n");
+    const { text, skipped } = core.skipDevSections(readme);
+    assert.deepEqual(skipped, ["Installation", "License"]);
+    assert.equal(text, ["# Tool", "Use it.", "## Features", "```", "# build", "```", "## Build your own dashboard with widgets", "Steps."].join("\n"),
+      "a heading in a code block or a long one stays");
+    core.setLanguage("en");   // a cheap request never reads "$0"
+    assert.deepEqual([0.000226, 0.0412, 12.5, 0].map(core.formatCost), ["$0.00023", "$0.0412", "$12.50", "$0.00"]);
     const estimate = core.translationEstimate("x".repeat(4000), { input: 1, output: 5 });
     assert.equal(estimate.tokens, 2000);
     assert.ok(Math.abs(estimate.cost - (1000 * 1 + 1200 * 5) / 1e6) < 1e-9);
@@ -773,6 +785,13 @@ const tests = {
     assert.equal(core.formatPrice(free.price), "ücretsiz");
     assert.equal(odd.price, null);
     assert.equal(core.formatPrice({ input: 15, output: 75 }), "$15,0 / $75,0 · 1M token");
+    // what a job took, as the replies told it: the answering model, tokens, and the cost only when every reply had one
+    assert.equal(PROVIDERS.openrouter.usage({ model: "g/f-001", usage: { prompt_tokens: 3, completion_tokens: 4, cost: 0.01 } }).model, "g/f-001");
+    assert.equal(PROVIDERS.gemini.usage({ modelVersion: "gemini-x-001", usageMetadata: {} }).model, "gemini-x-001");
+    assert.deepEqual(core.sumUsage([{ input: 10, output: 20, cost: 0.001, model: "a" }, { input: 5, output: 5, cost: 0.002, model: "a-1" }], "asked"),
+      { model: "a-1", tokens: 40, cost: 0.003 });
+    assert.deepEqual(core.sumUsage([{ input: 10, output: 20 }, { input: 1, output: 1, cost: 0.002 }], "asked"),
+      { model: "asked", tokens: 32, cost: null }, "a reply without a cost: no cost, the asked model");
   },
 
   "filterModels: filters by typed terms, offers unlisted names first, latest filter"() {

@@ -124,19 +124,13 @@ class DiscoveryView extends ItemView {
     const row = rows[index];
     const p = row && this.plugin.pluginById(row.dataset.id);
     if (!p) return true;
-    const listMode = LIST_MODES.includes(this.settings.mode);
-    const actions = {
-      f: () => this.plugin.toggleFavorite(p),
-      g: () => this.plugin.chooseGroup(p),
-      x: () => (listMode ? this.plugin.restoreFrom(this.settings.mode, [p.id]) : this.plugin.exclude(p)),
-      h: () => this.plugin.snooze(p),
-      t: () => this.rowRenderer.toggleTranslation(p),
-      r: () => this.plugin.openReadme(p),
-      s: () => this.similarFilter.open(p),
-      o: () => globalThis.open?.(`obsidian://show-plugin?id=${encodeURIComponent(p.id)}`),   // Obsidian's own page of it
-      Enter: () => this.rowRenderer.openDetails(p),
-    };
-    for (const n of [0, 1, 2, 3, 4, 5]) actions[n] = () => this.rowRenderer.runRowAction(p, () => this.plugin.setNoteField(p, "rating", n || null));
+    const actions = this.rowRenderer.shortcutActions(p, {
+      change: (fn) => this.rowRenderer.runRowAction(p, fn),   // the row keeps its place, as after a click
+      leave: (fn) => fn(),                                   // the redraw below moves the cursor on
+      away: () => {},
+      translate: () => this.rowRenderer.toggleTranslation(p),
+      details: () => this.rowRenderer.openDetails(p),
+    });
     Promise.resolve(actions[key]()).then(() => {
       if (!"fxh012345".includes(key)) return;
       this.refresh();

@@ -13,7 +13,7 @@ class BulkBar extends ViewPart {
     this.view.suggest = suggest;
     this.view.refresh();
     try {
-      suggest.lists = await this.plugin.groupSuggestions(ids.map((id) => this.plugin.pluginById(id)).filter(Boolean));
+      suggest.lists = (await this.plugin.groupSuggestions(ids.map((id) => this.plugin.pluginById(id)).filter(Boolean))).lists;
     } catch (error) {
       suggest.error = error.message;
     }
@@ -88,7 +88,7 @@ class BulkBar extends ViewPart {
       button.createSpan({ text: label });
       button.onclick = () => onClick(button);   // the button: a menu opens under it
     };
-    action("star", t("bulk.favorite"), () => this.runBulk("favorite"));
+    action("bell-plus", t("bulk.track"), () => this.runBulk("track"));
     action("star-half", t("bulk.rate"), (button) => showMenuBelow(button, [1, 2, 3, 4, 5].map((n) => [n, ratingStars(n)]), null, (n) => this.runBulk("rating", n)));
     action("folder-plus", t("bulk.group"), (button) => showMenuBelow(button, [...this.plugin.notes.groups().map((g) => [g.name, g.name]), [null, t("bulk.newGroup")]], undefined,
       async (name) => {

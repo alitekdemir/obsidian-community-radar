@@ -52,12 +52,23 @@ function absolutizeLinks(markdown, repo) {
       isRelative(url) ? `${head}${q}${join(blobBase, url)}${q}` : all);
 }
 
+/** A README as fetched from GitHub → as shown and kept: links pointed to GitHub, tags and wikilinks escaped. */
+function readmeBody(readme, repo) {
+  return readme == null ? t("readme.failed") : escapeOutsideCode(absolutizeLinks(readme.trim(), repo));
+}
+
 /** The README section of a note, markers included. */
 function readmeSection(readme, plugin, now) {
   const version = plugin.version ? `v${plugin.version}` : t("readme.noVersion");
   const meta = t("readme.meta", { repo: plugin.repo, version, date: dayString(now) });
-  const body = readme == null ? t("readme.failed") : escapeOutsideCode(absolutizeLinks(readme.trim(), plugin.repo));
-  return `${README_START}\n${meta}\n\n${body}\n${README_END}`;
+  return `${README_START}\n${meta}\n\n${readmeBody(readme, plugin.repo)}\n${README_END}`;
+}
+
+/** A short fingerprint of a text (FNV-1a, 8 hex digits): tells whether a README changed since it was translated. */
+function textHash(text) {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) hash = Math.imul(hash ^ text.charCodeAt(i), 0x01000193);
+  return (hash >>> 0).toString(16).padStart(8, "0");
 }
 
 /** The README text inside a note (between the markers, without its "README · repo · version" line); null if none. */
@@ -69,13 +80,21 @@ function readmeText(content) {
   return inner.split("\n").slice(1).join("\n").trim() || null;
 }
 
-/** The note's README translation: {version, body} (version: the README it was made from) or null. */
+/**
+ * The note's README translation: {hash, date, body} or null. `hash`: textHash of the README it was made from (kept
+ * hidden in its meta line); null in translations made before 0.12, which then never count as outdated.
+ */
 function readmeTranslation(content) {
   const a = content.indexOf(README_TR_START);
   const b = content.indexOf(README_TR_END);
   if (a === -1 || b < a) return null;
   const [meta, ...body] = content.slice(a + README_TR_START.length, b).trim().split("\n");
-  return { version: meta.match(/· v(\S+) ·/)?.[1] ?? null, body: body.join("\n").trim() };
+  return { hash: meta.match(/%% src:(\w+) %%/)?.[1] ?? null, date: meta.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? null, body: body.join("\n").trim() };
+}
+
+/** The translation's section text: its meta line (the source README's fingerprint hidden in it), then the body. */
+function translationSection({ lang, version, hash, date, body }) {
+  return `${t("readme.translationMeta", { lang, version: version ? `v${version}` : "–", date })} %% src:${hash} %%\n\n${body}`;
 }
 
 /** Puts the translation section in the note: replaces the old one, or goes right above the original README. */
@@ -91,19 +110,30 @@ function replaceReadmeTranslation(content, section, heading) {
   return start !== -1 ? content.slice(0, start) + insert + content.slice(start) : `${content.trimEnd()}\n\n${insert}`;
 }
 
-/** A README cut before headings into requests of at most `max` characters (a longer section stays whole). */
-function markdownChunks(markdown, max = README_CHUNK) {
-  const chunks = [];
-  let current = "";
-  for (const part of markdown.split(/\n(?=#{1,3} )/)) {
-    if (current && current.length + part.length + 1 > max) {
-      chunks.push(current);
-      current = "";
+/**
+ * The README without its developer sections (DEV_SECTION headings, each down to the next heading of its level or
+ * higher; headings inside code blocks don't count): {text, skipped: their titles}.
+ */
+function skipDevSections(markdown) {
+  const kept = [];
+  const skipped = [];
+  let fence = false;
+  let skipLevel = 0;   // the level of the heading being skipped; 0: keeping
+  for (const line of markdown.split("\n")) {
+    if (/^\s*(```|~~~)/.test(line)) fence = !fence;
+    const heading = !fence && line.match(/^(#{1,6})\s+(.+?)\s*#*\s*$/);
+    if (heading) {
+      const level = heading[1].length;
+      if (skipLevel && level <= skipLevel) skipLevel = 0;
+      const title = heading[2].replace(/[^\p{L}\p{N}\s'-]/gu, "").trim();
+      if (!skipLevel && DEV_SECTION.test(title) && title.split(/\s+/).length <= 4) {
+        skipLevel = level;
+        skipped.push(title);
+      }
     }
-    current = current ? `${current}\n${part}` : part;
+    if (!skipLevel) kept.push(line);
   }
-  if (current) chunks.push(current);
-  return chunks;
+  return { text: kept.join("\n").trim(), skipped };
 }
 
 /** Rough request size of translating `text`: tokens in and out (~4 characters a token), and the cost when the price is known. */
@@ -122,12 +152,17 @@ function readmePrompt(markdown, targetLanguage, prompts) {
   ].join("\n");
 }
 
-/** Version the note's README was fetched for ("1.2.0"), read from its meta line; null when unknown. */
-function readmeVersion(content) {
+/** The note's README meta line: {version ("1.2.0"), date ("2026-11-15") it was fetched}; nulls when unknown. */
+function readmeMeta(content) {
   const start = content.indexOf(README_START);
-  if (start === -1) return null;
+  if (start === -1) return { version: null, date: null };
   const meta = content.slice(start + README_START.length).trimStart().split("\n", 1)[0];
-  return meta.match(/· v(\S+) ·/)?.[1] ?? null;
+  return { version: meta.match(/· v(\S+) ·/)?.[1] ?? null, date: meta.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? null };
+}
+
+/** Version the note's README was fetched for ("1.2.0"); null when unknown. */
+function readmeVersion(content) {
+  return readmeMeta(content).version;
 }
 
 /** Replaces the README section; appends one when the markers are missing. Nothing else is touched. */
@@ -200,9 +235,9 @@ function baseFile(folder) {
     "  and:",
     `    - file.inFolder(${q(folder)})`,
     "views:",
-    ...view(t("base.all"), [], ["groups", "favorite", "status", "rating", "note", "downloads", "version", "updated", "reviewed"]),
-    ...view(t("base.starred"), ["    filters:", "      and:", "        - favorite == true"], ["groups", "status", "rating", "note", "downloads", "updated"]),
-    ...view(t("base.ungrouped"), ["    filters:", "      and:", "        - groups.isEmpty()"], ["favorite", "note", "downloads", "updated"]),
+    ...view(t("base.all"), [], ["groups", "status", "rating", "note", "downloads", "version", "updated", "reviewed"]),
+    ...view(t("base.topRated"), ["    filters:", "      and:", `        - rating >= ${TOP_RATING}`], ["groups", "status", "rating", "note", "downloads", "updated"]),
+    ...view(t("base.ungrouped"), ["    filters:", "      and:", "        - groups.isEmpty()"], ["rating", "note", "downloads", "updated"]),
     "",
   ].join("\n");
 }
@@ -243,7 +278,6 @@ function noteFromFrontmatter(path, fm) {
     path,
     id: String(fm.plugin_id),
     groups: groupsOf(fm),
-    favorite: fm.favorite === true,
     status: typeof fm.status === "string" ? fm.status.trim() : "",   // shown only if it's one of your statuses
     rating: Number.isInteger(fm.rating) && fm.rating >= 1 && fm.rating <= 5 ? fm.rating : 0,
     note: fm.note ? String(fm.note) : "",
