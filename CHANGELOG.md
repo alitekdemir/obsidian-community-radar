@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.12.0
 
 ### Added
 - **Four new interface languages:** Deutsch, Русский, 日本語 and 简体中文 (Traditional Chinese falls back to Simplified). They use Obsidian's own words for its features (Community plugins, vault, Bases, keychain…), and Russian gets its full plural forms. *Settings → Language* lists them; Auto picks yours from Obsidian.
