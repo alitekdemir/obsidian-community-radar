@@ -41,7 +41,7 @@ MAX_RETAGS = 100       # tag-only calls per run
 MAX_ATTEMPTS = 3       # a plugin that keeps failing waits for its next release
 MAX_RUN_COST = 0.05    # $: a guard in case a "free" model starts charging
 WORKERS = 3            # free models allow 20 requests a minute
-TIME_BUDGET = 35 * 60  # s: no new calls after this, so the run saves its work before the 50-minute job limit
+TIME_BUDGET = 20 * 60  # s: no new calls after this, so the run saves its work before the 30-minute job limit
 CHANGES_DAYS = 30      # how far back changes.json reaches
 
 RETAG_PROMPT = """\

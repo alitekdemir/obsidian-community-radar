@@ -13,7 +13,7 @@ class AccountError(RuntimeError):
     """Credits, key limit or auth: every later call would fail the same way, so the run stops."""
 
 
-def request(key: str, path: str, body: dict | None = None, timeout: int = 120) -> dict:
+def request(key: str, path: str, body: dict | None = None, timeout: int = 60) -> dict:
     """One GET (no body) or POST to the API; raises with the status and the start of the reply."""
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(f"{API}/{path}", data=data, method="POST" if data else "GET", headers={
