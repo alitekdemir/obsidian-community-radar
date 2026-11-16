@@ -41,7 +41,7 @@ jobs:
         id: update
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: python scripts/profiles/update.py out
+        run: python -u scripts/profiles/update.py out   # -u: log lines appear as they happen
 
       - name: Publish to the profiles branch
         if: steps.update.outputs.changed == 'true'

@@ -17,6 +17,7 @@ import os
 import re
 import sys
 import threading
+import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -40,6 +41,7 @@ MAX_RETAGS = 100       # tag-only calls per run
 MAX_ATTEMPTS = 3       # a plugin that keeps failing waits for its next release
 MAX_RUN_COST = 0.05    # $: a guard in case a "free" model starts charging
 WORKERS = 3            # free models allow 20 requests a minute
+TIME_BUDGET = 35 * 60  # s: no new calls after this, so the run saves its work before the 50-minute job limit
 CHANGES_DAYS = 30      # how far back changes.json reaches
 
 RETAG_PROMPT = """\
@@ -81,22 +83,30 @@ def load(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
 
 
+class Stopped(RuntimeError):
+    """The run stopped starting calls (time budget, spend guard or account error): not the plugin's fault."""
+
+
 class Calls:
-    """Shared by the worker threads: the API key, models, the run's spend and its stop switch."""
+    """Shared by the worker threads: the API key, models, the run's spend, its clock and its stop switch."""
 
     def __init__(self, key: str, models: list[str]):
         self.key, self.models = key, models
         self.cost, self.stop, self.lock = 0.0, threading.Event(), threading.Lock()
+        self.deadline = time.monotonic() + TIME_BUDGET
 
     def ask(self, system: str, user: str) -> dict:
-        """One JSON answer; stops the run on account errors or when the spend guard is reached."""
+        """One JSON answer; stops the run on account errors, the spend guard or the time budget."""
+        if time.monotonic() > self.deadline:
+            self.stop.set()
         if self.stop.is_set():
-            raise RuntimeError("run stopped")
+            raise Stopped("run stopped")
         try:
             answer, info = openrouter.ask_json(self.key, self.models, system, user)
         except openrouter.AccountError:
             self.stop.set()
             raise
+        print(f"   · {info['model']} {info['seconds']}s", flush=True)  # progress, visible in the Actions log
         with self.lock:
             self.cost += info["cost"]
             if self.cost >= MAX_RUN_COST:
@@ -199,6 +209,8 @@ def main(data: Path) -> None:
 
         for (plugin, _raw), result in run_jobs(jobs, lambda job: profile_plugin(calls, *job, schema, system, slugs)):
             pid = plugin["id"]
+            if isinstance(result, Stopped):
+                continue  # not attempted: waits for the next run
             if isinstance(result, Exception):
                 state["failed"][pid] = state["failed"].get(pid, 0) + 1
                 print(f"   ✗ {pid}: {str(result)[:120]}")
@@ -219,7 +231,8 @@ def main(data: Path) -> None:
                 profiles[pid]["tags"] = result
                 index.write_json(data / "profiles" / f"{pid}.json", profiles[pid])
                 retagged += 1
-        print(f"🏷️ retagged {retagged}/{len(retag_ids)} · 💵 run cost ${calls.cost:.4f}")
+        stopped = " · ⏱️ time budget reached, the rest waits for the next run" if calls.stop.is_set() else ""
+        print(f"🏷️ retagged {retagged}/{len(retag_ids)} · 💵 run cost ${calls.cost:.4f}{stopped}")
 
     # ── Outputs ─────────────────────────────────────────────────────────────
     since = (datetime.now(UTC) - timedelta(days=CHANGES_DAYS)).strftime("%Y-%m-%d")
