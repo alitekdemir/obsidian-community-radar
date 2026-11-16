@@ -2,12 +2,16 @@
 
 Each run:
   1. reads the official plugin list and download stats (two requests),
-  2. finds plugins that are new, have a new release, or left the list,
+  2. finds plugins that are new, have a new release, or left the list (kept, marked delisted),
   3. profiles the new ones and those whose README text changed, with free OpenRouter models,
   4. gives vocabulary tags to plugins that have none (a short call, no README),
   5. rewrites index.json and records what changed in changes.json.
 
 Usage:  python update.py DATA_DIR   (DATA_DIR: the profiles branch's files; OPENROUTER_API_KEY set)
+Optional settings (GitHub repository variables, passed as environment variables):
+    PROFILE_MODELS    comma-separated OpenRouter models to use; empty = today's free models
+    REPROFILE_MODEL   re-profile the plugins whose profile was made by this model (prefix match),
+                      MAX_PROFILES per run, until none is left; e.g. particle-ai/particle-1:free
 Writes `changed=true|false` to $GITHUB_OUTPUT so the workflow publishes only when something changed.
 """
 
@@ -39,6 +43,7 @@ UNREVIEWED_NOTE = re.compile(r"\s*-?\s*This plugin has not been manually reviewe
 MAX_PROFILES = 40      # README profiles per run; the rest wait for the next hour
 MAX_RETAGS = 100       # tag-only calls per run
 MAX_ATTEMPTS = 3       # a plugin that keeps failing waits for its next release
+MAX_DELISTS = 50       # more plugins vanishing in one run means a bad download, not a cleanup
 MAX_RUN_COST = 0.05    # $: a guard in case a "free" model starts charging
 WORKERS = 10           # free models allow 20 requests a minute; an answer takes 10-90 s
 TIME_BUDGET = 20 * 60  # s: no new calls after this, so the run saves its work before the 30-minute job limit
@@ -123,16 +128,17 @@ def profile_plugin(calls: Calls, plugin: dict, raw: str | None, schema: dict, sy
     jsonschema.validate(answer, schema)
     profile, _ = profiler.normalize_profile(answer, plugin, slugs)
     return {**profile, "readmeHash": sha1(raw or ""), "textHash": sha1(plugin["text"]),
-            "model": f"{reply['model']}@v{profiler.PROMPT_VERSION}",
+            "model": f"{reply['model']}@v{profiler.PROMPT_VERSION}", "provider": reply["provider"],
             "profiledAt": datetime.now(UTC).strftime("%Y-%m-%d")}
 
 
-def retag(calls: Calls, plugin_id: str, profile: dict, system: str, by_key: dict) -> list[str]:
-    """Vocabulary tags for a profile that has none, from its summary alone."""
+def retag(calls: Calls, plugin_id: str, profile: dict, system: str, by_key: dict) -> tuple[list[str], str]:
+    """Vocabulary tags for a profile that has none, from its summary alone; returns (tags, model)."""
     user = (f"Plugin: {plugin_id}\nSummary: {profile['summary']}\nProblem: {profile['problem']}\n"
             f"Capabilities: {'; '.join(profile['capabilities'])}")
-    tags = calls.ask(system, user)["answer"].get("tags") or []
-    return index.vocabulary_tags([t for t in tags if isinstance(t, str)], by_key)[:8]
+    reply = calls.ask(system, user)
+    tags = reply["answer"].get("tags") or []
+    return index.vocabulary_tags([t for t in tags if isinstance(t, str)], by_key)[:8], reply["model"]
 
 
 def run_jobs(jobs: list, work) -> list:
@@ -163,20 +169,34 @@ def main(data: Path) -> None:
         print(f"🌱 state started from {len(state['updated']):,} profiles")
 
     # ── What changed in the plugin list ─────────────────────────────────────
-    removed = sorted(set(profiles) - set(catalog))
+    # A plugin that leaves the list keeps its profile, marked delisted: the repository usually still
+    # exists and people may have it installed. One that comes back is listed again.
+    delisted = sorted(pid for pid, p in profiles.items() if pid not in catalog and not p.get("delisted"))
+    relisted = sorted(pid for pid, p in profiles.items() if pid in catalog and p.get("delisted"))
+    if len(delisted) > MAX_DELISTS:
+        print(f"⚠️ {len(delisted)} plugins missing from the list: looks like a bad download, nothing delisted")
+        delisted = []
+    events = ([{"at": today, "id": pid, "change": "delisted"} for pid in delisted]
+              + [{"at": today, "id": pid, "change": "relisted"} for pid in relisted])
+    for pid in delisted + relisted:
+        if pid in delisted:
+            profiles[pid]["delisted"] = today
+        else:
+            profiles[pid].pop("delisted")
+        index.write_json(data / "profiles" / f"{pid}.json", profiles[pid])
+
     new = [pid for pid in reversed(list(catalog)) if pid not in profiles]  # newest are listed last
     released = [pid for pid in profiles if pid in catalog
                 and stats.get(pid, {}).get("updated", 0) > state["updated"].get(pid, 0)]
     for pid in released:  # a new release gives a failing plugin new chances
         state["failed"].pop(pid, None)
-    events = [{"at": today, "id": pid, "change": "removed"} for pid in removed]
-    for pid in removed:
-        (data / "profiles" / f"{pid}.json").unlink()
-        profiles.pop(pid)
-        state["updated"].pop(pid, None)
+    prefix = os.environ.get("REPROFILE_MODEL", "").strip()
+    reprofile = {pid for pid, p in profiles.items()
+                 if prefix and pid in catalog and p.get("model", "").startswith(prefix)}
 
     # ── READMEs: new plugins, and released ones whose text changed ─────────
-    candidates = [pid for pid in new + released if state["failed"].get(pid, 0) < MAX_ATTEMPTS]
+    candidates = [pid for pid in dict.fromkeys(new + released + sorted(reprofile))
+                  if state["failed"].get(pid, 0) < MAX_ATTEMPTS]
     jobs = []
     for pid in candidates:
         if len(jobs) >= MAX_PROFILES:
@@ -189,20 +209,22 @@ def main(data: Path) -> None:
             print(f"   ✗ {pid}: README {str(error)[:100]}")
             continue
         old = profiles.get(pid)
-        if old and (sha1(raw or "") == old.get("readmeHash")
+        if old and pid not in reprofile and (sha1(raw or "") == old.get("readmeHash")
                     or sha1(profiler.clean_readme(raw)) == old.get("textHash")):
             state["updated"][pid] = stats.get(pid, {}).get("updated", 0)  # new release, same README
             continue
         description = UNREVIEWED_NOTE.sub(" ", plugin.get("description", "")).strip()
         jobs.append(({"id": pid, "name": plugin["name"], "description": description}, raw))
-    print(f"📋 {len(catalog):,} plugins · {len(new)} new · {len(released)} released · {len(removed)} removed "
-          f"· {len(jobs)} to profile")
+    print(f"📋 {len(catalog):,} plugins · {len(new)} new · {len(released)} released · {len(delisted)} delisted "
+          f"· {len(relisted)} relisted · {len(reprofile)} to re-profile ({prefix or '-'}) · {len(jobs)} to profile")
 
     retag_ids = [pid for pid, p in profiles.items()
                  if not index.vocabulary_tags(p["tags"], by_key) and pid not in state["retagged"]][:MAX_RETAGS]
     if jobs or retag_ids:
-        models = openrouter.free_models(key)
-        print(f"🆓 free requests today: {openrouter.free_requests_left(key)} · models: {models}")
+        chosen = [m.strip() for m in os.environ.get("PROFILE_MODELS", "").split(",") if m.strip()]
+        models = chosen or openrouter.free_models(key)
+        print(f"🤖 models: {models} ({'PROFILE_MODELS' if chosen else 'free'}) · "
+              f"free requests today: {openrouter.free_requests_left(key)}")
         calls = Calls(key, models)
         schema = profiler.build_schema(categories)
         # JSON mode has no schema slot, so the exact shape goes into the instructions
@@ -230,8 +252,9 @@ def main(data: Path) -> None:
             if isinstance(result, Exception):
                 continue  # tried again next run
             state["retagged"].append(pid)
-            if result:
-                profiles[pid]["tags"] = result
+            tags, model = result
+            if tags:
+                profiles[pid].update(tags=tags, tagsBy=model)
                 index.write_json(data / "profiles" / f"{pid}.json", profiles[pid])
                 retagged += 1
         stopped = " · ⏱️ time budget reached, the rest waits for the next run" if calls.stop.is_set() else ""

@@ -41,6 +41,8 @@ jobs:
         id: update
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          PROFILE_MODELS: ${{ vars.PROFILE_MODELS }}     # empty: today's free models
+          REPROFILE_MODEL: ${{ vars.REPROFILE_MODEL }}   # empty: no re-profiling
         run: python -u scripts/profiles/update.py out   # -u: log lines appear as they happen
 
       - name: Publish to the profiles branch

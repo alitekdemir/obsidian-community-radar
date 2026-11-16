@@ -62,6 +62,8 @@ def build_index(profiles: dict[str, dict], categories: list[str], by_key: dict[s
         entry["tags"] = vocabulary_tags(profile["tags"], by_key)
         entry["relations"] = [{"plugin": r["plugin"], "type": r["type"]} for r in profile["relations"]]
         entry["core"] = profile["coreOverlap"]["level"]
+        if profile.get("delisted"):
+            entry["delisted"] = profile["delisted"]  # date it left the community directory
         plugins[pid] = entry
     tag_uses = Counter(tag for entry in plugins.values() for tag in entry["tags"])
     return {
