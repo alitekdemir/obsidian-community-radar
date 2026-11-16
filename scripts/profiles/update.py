@@ -40,7 +40,7 @@ MAX_PROFILES = 40      # README profiles per run; the rest wait for the next hou
 MAX_RETAGS = 100       # tag-only calls per run
 MAX_ATTEMPTS = 3       # a plugin that keeps failing waits for its next release
 MAX_RUN_COST = 0.05    # $: a guard in case a "free" model starts charging
-WORKERS = 3            # free models allow 20 requests a minute
+WORKERS = 10           # free models allow 20 requests a minute; an answer takes 10-90 s
 TIME_BUDGET = 20 * 60  # s: no new calls after this, so the run saves its work before the 30-minute job limit
 CHANGES_DAYS = 30      # how far back changes.json reaches
 
@@ -204,13 +204,16 @@ def main(data: Path) -> None:
         models = openrouter.free_models(key)
         print(f"🆓 free requests today: {openrouter.free_requests_left(key)} · models: {models}")
         calls = Calls(key, models)
-        schema, system = profiler.build_schema(categories), profiler.system_prompt(categories, vocab)
+        schema = profiler.build_schema(categories)
+        # JSON mode has no schema slot, so the exact shape goes into the instructions
+        system = (profiler.system_prompt(categories, vocab)
+                  + "\n\nReturn ONLY one JSON object that matches this JSON Schema:\n" + json.dumps(schema))
         slugs = set(categories)
 
         for (plugin, _raw), result in run_jobs(jobs, lambda job: profile_plugin(calls, *job, schema, system, slugs)):
             pid = plugin["id"]
-            if isinstance(result, Stopped):
-                continue  # not attempted: waits for the next run
+            if isinstance(result, Stopped | TimeoutError):
+                continue  # not the plugin's fault (run stopped, model too slow): waits for the next run
             if isinstance(result, Exception):
                 state["failed"][pid] = state["failed"].get(pid, 0) + 1
                 print(f"   ✗ {pid}: {str(result)[:120]}")

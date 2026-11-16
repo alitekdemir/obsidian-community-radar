@@ -2,11 +2,13 @@
 
 import json
 import re
+import threading
 import time
 import urllib.error
 import urllib.request
 
 API = "https://openrouter.ai/api/v1"
+CALL_DEADLINE = 90  # s for one answer, retries included; socket timeouts alone let a slow stream run on
 
 
 class AccountError(RuntimeError):
@@ -51,6 +53,26 @@ def chat(key: str, body: dict, attempts: int = 2) -> dict:
     raise RuntimeError(problem)
 
 
+def within(seconds: float, fn, *args):
+    """fn(*args), or TimeoutError after `seconds`; a late answer is dropped (its thread is a daemon)."""
+    outcome = {}
+
+    def target():
+        try:
+            outcome["value"] = fn(*args)
+        except BaseException as error:  # handed back to the caller below
+            outcome["error"] = error
+
+    thread = threading.Thread(target=target, daemon=True)
+    thread.start()
+    thread.join(seconds)
+    if thread.is_alive():
+        raise TimeoutError(f"no answer in {seconds}s")
+    if "error" in outcome:
+        raise outcome["error"]
+    return outcome["value"]
+
+
 def free_models(key: str, limit: int = 3) -> list[str]:
     """Free models that accept JSON output, largest context first; the list rotates, so it's read each run."""
     models = request(key, "models")["data"]
@@ -70,7 +92,7 @@ def ask_json(key: str, models: list[str], system: str, user: str) -> tuple[dict,
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
             "response_format": {"type": "json_object"}, "temperature": 0, "usage": {"include": True}}
     started = time.time()
-    data = chat(key, body)
+    data = within(CALL_DEADLINE, chat, key, body)
     content = data["choices"][0]["message"].get("content") or ""
     match = re.search(r"\{.*\}", content, re.S)  # tolerate ```json fences and leading prose
     if not match:
