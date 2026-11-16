@@ -345,6 +345,7 @@ class HomePage extends ViewPart {
     if (key === "since") return t("home.sinceDay", { day: this.dayLabel(value) });
     if (key === "n") return stepLabel(value);
     if (key === "by") return t(`home.by.${value}`);
+    if (key === "category") return value;   // categories.json's own name: one name in every language
     if (key === "incubated") return `≥ ${t("filter.days", { n: value })}`;
     return t("filter.days", { n: value });
   }

@@ -75,7 +75,10 @@ class DiscoveryView extends ItemView {
       if (this.filtersOpen && !event.target.closest?.(".pdt-filter-menu, .menu")) { this.filtersOpen = false; this.render(); }
     });
     this.render();
-    await this.plugin.ensureFresh();
+    // Not awaited: Obsidian restores an open view and waits for onOpen() before the layout is "ready", while
+    // ensureFresh() waits for that very moment (the cache is read then). Awaiting it held Obsidian's startup until its
+    // deferred-view timeout (~10 s, "Failed to load deferred view: Timeout"); a first sync would hold it longer still.
+    this.plugin.ensureFresh().catch((error) => console.error("[Community Radar] sync on open", error));
   }
 
   async onClose() {

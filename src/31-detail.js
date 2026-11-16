@@ -1,7 +1,11 @@
+/** A short tag for the language translations go to: its code when the UI has it ("Türkçe" → TR), else its start. */
+const languageTag = (name) => (Object.keys(STRINGS).find((code) => STRINGS[code]["language.name"] === name) || String(name).slice(0, 2)).toUpperCase();
+
 /**
- * A plugin's details in a large window that grows out of its card or row: the numbers, the whole
- * description and its translation, your note, the README (and its translation, on request), the closest
- * plugins and the release history. ←/→ walk the list it was opened from, the list's shortcut keys work here too
+ * A plugin's details in a large window that grows out of its card or row: the name with the description under it,
+ * the numbers, then Overview (the AI profile, its categories and tags at the bottom) and README tabs, each in the
+ * original or your language; on the side what it needs, the closest plugins and, pinned at the bottom, the release
+ * history. ←/→ walk the list it was opened from, the list's shortcut keys work here too
  * (when turned on), a right click opens the row's menu; Esc closes.
  */
 class DetailModal extends Modal {
@@ -12,7 +16,7 @@ class DetailModal extends Modal {
     this.rows = [...rows];
     this.index = Math.max(0, index);
     this.origin = origin;
-    this.tab = "readme";
+    this.tab = null;            // "overview" | "readme"; null: the first one this plugin has
     this.loads = new Map();     // id → "busy" | "done": a README fetched the first time it's shown (once per window)
     this.newer = new Map();     // id → the README now on GitHub when it changed (null: asked, nothing new)
     this.busy = "";             // progress of a translation in this window
@@ -31,7 +35,7 @@ class DetailModal extends Modal {
     const next = this.index + delta;
     if (next < 0 || next >= this.rows.length || this.busy) return;
     this.index = next;
-    this.tab = "readme";
+    this.tab = null;
     this.render();
   }
 
@@ -44,7 +48,7 @@ class DetailModal extends Modal {
     // a translation's model, tokens and cost reach the note's properties a moment after its text: the bottom row follows
     this.component.registerEvent(this.app.metadataCache.on("changed", (file) => {
       const p = this.p;
-      if (!this.infoEl || file.path !== this.plugin.notes.index.get(p.id)?.path) return;
+      if (!this.infoEl || this.tab !== "readme" || file.path !== this.plugin.notes.index.get(p.id)?.path) return;   // Overview has its own
       this.plugin.readmeParts(p).then((parts) => { if (this.p === p && !this.closed) this.renderInfo(this.infoEl, parts); });
     }));
     // grow out of the card: the animation starts at the card's centre (no motion if the system asks for less)
@@ -80,7 +84,7 @@ class DetailModal extends Modal {
     this.rows.splice(this.index, 1);
     if (!this.rows.length) return this.close();
     this.index = Math.min(this.index, this.rows.length - 1);
-    this.tab = "readme";
+    this.tab = null;
     this.render();
   }
 
@@ -105,10 +109,41 @@ class DetailModal extends Modal {
     return false;
   }
 
-  /** The description's translation under it, on or off (as on a row; the first time asks the AI). */
+  /** The description's translation, on or off (as on a row: the first time asks the AI); shown in its place. */
   async toggleTranslation(p) {
     await this.view.rowRenderer.toggleTranslation(p);
+    this.descLang = null;   // the row's choice again
     this.render();
+  }
+
+  /**
+   * The description, in one language at a time, "EN · <your language>" before it saying which (in bold). A click
+   * anywhere on it swaps the language in place (no second line, nothing moves), as a click on a row's description
+   * translates it; the first time asks the AI. By default your language when you chose it (Original | <language>)
+   * or turned it on for this plugin, and there is a translation.
+   */
+  renderDescription(parent, p) {
+    const desc = parent.createEl("p", { cls: "pdt-detail-about" });
+    if (!p.description) return desc.setText("–");
+    const translation = this.plugin.cachedTranslation(p);
+    const own = this.descLang?.id === p.id ? this.descLang.lang : null;   // your click for this plugin
+    const translated = translation != null && (own ? own === "target" : this.view.shownTranslations.has(p.id) || this.wantsTranslation);
+    Object.assign(desc, { role: "button", tabIndex: 0 });
+    desc.addClass("pdt-detail-desc");
+    setTooltip(desc, t(translated ? "details.descOriginalTip" : "row.translateTip"));
+    const tag = desc.createSpan({ cls: "pdt-detail-desc-lang" });   // which language this is, not a control
+    tag.createSpan({ cls: translated ? "" : "is-on", text: "EN" });
+    tag.createSpan({ text: "·" });
+    tag.createSpan({ cls: translated ? "is-on" : "", text: languageTag(this.plugin.data.settings.targetLang) });
+    const text = desc.createSpan({ text: translated ? translation : p.description });
+    if (!translated) text.setAttribute("lang", "en");
+    const swap = async () => {
+      if (!translated && translation == null) await this.view.rowRenderer.toggleTranslation(p);   // asks the AI once
+      this.descLang = { id: p.id, lang: translated ? "original" : "target" };
+      this.render();
+    };
+    desc.onclick = swap;
+    onActivate(desc, swap);
   }
 
   /**
@@ -142,32 +177,54 @@ class DetailModal extends Modal {
 
     const columns = el.createDiv({ cls: "pdt-detail-columns" });
     const main = columns.createDiv({ cls: "pdt-detail-main" });
-    const section = (parent, title, cls = "") => {
-      const box = parent.createDiv({ cls: `pdt-detail-section${cls}` });
-      const head = box.createDiv({ cls: "pdt-detail-section-head" });
-      head.createEl("h3", { text: title, attr: { lang: language } });
-      return { box, head };
-    };
-    const about = section(main, t("details.description")).box;
-    if (p.removed) about.createEl("p", { cls: "pdt-detail-removed", text: t("details.removed", { reason: p.removed.reason || "–", date: dayString(p.removed.at) }) });
-    const desc = about.createEl("p", { text: p.description || "–" });
-    if (p.description) {   // a click translates it (and hides the translation again), as on a row
-      Object.assign(desc, { role: "button", tabIndex: 0 });
-      desc.addClass("pdt-detail-desc");
-      setTooltip(desc, t("row.translateTip"));
-      desc.onclick = () => this.toggleTranslation(p);
-      onActivate(desc, () => this.toggleTranslation(p));
-    }
-    const translation = plugin.cachedTranslation(p);
-    if (translation != null && this.view.shownTranslations.has(p.id)) about.createEl("p", { cls: "pdt-detail-trans", text: translation });
-    if (note?.note) section(main, t("details.yourNote")).box.createEl("p", { text: note.note });
-    const footer = el.createDiv({ cls: "pdt-detail-foot" });      // under the columns; made here for the README to fill its info
+    if (note?.note) this.section(main, t("details.yourNote")).box.createEl("p", { text: note.note });
+    const footer = el.createDiv({ cls: "pdt-detail-foot" });      // under the columns; made here for the tabs to fill its info
     this.infoEl = footer.createDiv({ cls: "pdt-detail-info" });
-    this.renderReadme(main, p, note, this.infoEl);
+    this.renderTabs(main, p, note, this.infoEl);
 
-    const side = columns.createDiv({ cls: "pdt-detail-side" });
-    const similar = plugin.similarTo(p);
-    const near = section(side, t("details.similar"));
+    const column = columns.createDiv({ cls: "pdt-detail-side" });
+    const side = column.createDiv({ cls: "pdt-detail-side-top" });       // scrolls when it doesn't fit
+    const profile = plugin.profiles?.plugins?.[p.id];
+    if (profile) this.renderNeeds(side, p, profile);
+    this.renderSimilar(side, p);
+
+    // pinned to the bottom of the column, level with the tabs' box: release history, then the repository
+    const history = this.section(column, t("details.history"), " is-bottom");
+    const dates = releases[p.id] || [];
+    // the server keeps the last RELEASES_CAP releases: a busy plugin had more, and its strip starts at the oldest kept one
+    const capped = dates.length >= RELEASES_CAP;
+    if (dates.length) history.head.createSpan({ cls: "pdt-detail-head-note", text: t(capped ? "details.historyCapped" : "details.historyLabel", { n: dates.length }) });
+    this.renderHistory(history.box.createDiv({ cls: "pdt-detail-card" }), dates, now);
+
+    this.renderNav(footer);
+  }
+
+  /** A titled block: {box, head} (the head holds the title and room for a note or a link). */
+  section(parent, title, cls = "") {
+    const box = parent.createDiv({ cls: `pdt-detail-section${cls}` });
+    const head = box.createDiv({ cls: "pdt-detail-section-head" });
+    head.createEl("h3", { text: title, attr: { lang: language } });
+    return { box, head };
+  }
+
+  /** Did you choose your language (Original | <language>)? Remembered between windows; only with translations on. */
+  get wantsTranslation() {
+    const settings = this.plugin.data.settings;
+    return settings.readmeTranslation !== "off" && settings.detailTranslated;
+  }
+
+  /**
+   * Does this tab show your language? When you chose it and there is a translation, or you asked here for this
+   * plugin (then the tab offers to make one): a window opened later doesn't land on an empty translated tab.
+   */
+  inYourLanguage(p, hasTranslation) {
+    return this.wantsTranslation && (hasTranslation || this.asked === p.id);
+  }
+
+  /** The closest plugins: a click shows one here (← comes back); "All (n) →" opens the Similar filter. */
+  renderSimilar(side, p) {
+    const similar = this.plugin.similarTo(p);
+    const near = this.section(side, t("details.similar"));
     if (similar.length) {
       const all = near.head.createEl("a", { cls: "pdt-detail-head-link", text: t("details.similarAll", { n: similar.length }), href: "#" });
       all.onclick = (event) => { event.preventDefault(); this.close(); this.view.similarFilter.open(p); };
@@ -185,22 +242,49 @@ class DetailModal extends Modal {
       };
     }
     if (!similar.length) near.box.createEl("p", { cls: "pdt-detail-muted", text: t("similar.none") });
+  }
 
-    // bottom of the column, level with the README box: release history, then the repository
-    const history = section(side, t("details.history"), " is-bottom");
-    const dates = releases[p.id] || [];
-    // the server keeps the last RELEASES_CAP releases: a busy plugin had more, and its strip starts at the oldest kept one
-    const capped = dates.length >= RELEASES_CAP;
-    if (dates.length) history.head.createSpan({ cls: "pdt-detail-head-note", text: t(capped ? "details.historyCapped" : "details.historyLabel", { n: dates.length }) });
-    this.renderHistory(history.box.createDiv({ cls: "pdt-detail-card" }), dates, now);
-    if (p.repo) {
-      const repo = history.box.createEl("a", { cls: "pdt-detail-card pdt-detail-repo", href: `https://github.com/${p.repo}` });
-      setIcon(repo.createSpan({ cls: "pdt-detail-icon" }), "github");
-      repo.createSpan({ cls: "pdt-detail-repo-name", text: p.repo });
-      repo.createSpan({ cls: "pdt-detail-head-note", text: "GitHub ↗" });
+  /**
+   * What the plugin needs, from its profile: the required ones first, then the optional ones (dimmed), each with its
+   * kind's icon and name; a paid service in orange. Names in your language once the Overview is translated.
+   */
+  renderNeeds(side, p, profile) {
+    const { box } = this.section(side, t("details.needs"));
+    const requires = profile.requires || [];
+    if (!requires.length) return box.createEl("p", { cls: "pdt-detail-muted", text: t("details.needsNone") });
+    const saved = this.inYourLanguage(p, true) ? this.plugin.profileTranslation(p.id) : null;
+    const names = saved?.parts.needs.length === requires.length ? saved.parts.needs : requires.map((r) => r.name);
+    const card = box.createDiv({ cls: "pdt-needs" });
+    if (!saved) card.setAttribute("lang", "en");   // the original names; the group titles say lang themselves
+
+    for (const optional of [false, true]) {
+      const group = requires.map((r, i) => ({ ...r, name: names[i] })).filter((r) => Boolean(r.optional) === optional);
+      if (!group.length) continue;
+      card.createDiv({ cls: "pdt-needs-head", text: t(optional ? "details.needsOptional" : "details.needsRequired"), attr: { lang: language } });
+      for (const need of group) {
+        const row = card.createDiv({ cls: `pdt-needs-row${optional ? " is-optional" : ""}${need.kind === "paidService" ? " is-paid" : ""}` });
+        setIcon(row.createSpan({ cls: "pdt-needs-icon" }), PROFILE_NEEDS[need.kind] || "info");
+        row.createSpan({ cls: "pdt-needs-name", text: need.name });
+        row.createSpan({ cls: "pdt-needs-kind", text: t(`profile.needs.${need.kind}`) });
+      }
     }
+  }
 
-    this.renderNav(footer);
+  /** Its categories (the home one first, marked) and tags, at the bottom of Overview: a click lists their plugins. */
+  renderCategories(parent, profile) {
+    const { box } = this.section(parent, t("details.categories"), " pdt-overview-cats");
+    const chip = (parent, text, cls, query, tip) => {
+      const pill = parent.createSpan({ cls: `pdt-pill ${cls}`, text, attr: { role: "button", tabindex: "0" } });
+      setTooltip(pill, tip);
+      const open = () => { this.close(); this.view.openQuery(query); };
+      pill.onclick = open;
+      onActivate(pill, open);
+    };
+    const cats = box.createDiv({ cls: "pdt-profile-pills" });
+    profileCategories(profile).forEach((c, i) => chip(cats, c, i ? "is-category" : "is-category is-primary", `category = ${quoteValue(c)}\norder by downloads desc`, t(i ? "details.categoryTip" : "details.primaryTip", { name: c })));
+    if (!profile.tags?.length) return;
+    const tags = box.createDiv({ cls: "pdt-profile-tags" });
+    for (const tag of profile.tags) chip(tags, `#${tag}`, "is-tag", `tag = ${quoteValue(tag)}\norder by downloads desc`, t("details.tagTip", { name: tag }));
   }
 
   /**
@@ -213,7 +297,18 @@ class DetailModal extends Modal {
     const left = title.createDiv({ cls: "pdt-detail-title" });
     const line = left.createDiv({ cls: "pdt-detail-line" });
     line.createSpan({ cls: "pdt-detail-name", text: p.name });
-    line.createSpan({ cls: "pdt-detail-by", text: [p.version, p.author].filter(Boolean).join(" · ") });
+    const by = [p.version, p.author].filter(Boolean).join(" · ");
+    if (p.repo) {   // the repository: version · author, with GitHub's mark
+      const repo = line.createEl("a", { cls: "pdt-detail-by pdt-detail-repo", href: `https://github.com/${p.repo}` });
+      setIcon(repo.createSpan({ cls: "pdt-detail-repo-icon" }), "github");
+      repo.createSpan({ text: by });
+      setTooltip(repo, `GitHub: ${p.repo}`);
+    } else line.createSpan({ cls: "pdt-detail-by", text: by });
+    const profile = this.plugin.profiles?.plugins?.[p.id];
+    if (profile?.intent) setTooltip(line.createSpan({ cls: "pdt-badge is-intent", text: t(`profile.intent.${profile.intent}`) }), t(`profile.intent.${profile.intent}.tip`));
+    if (profile?.lifecycle) line.createSpan({ cls: "pdt-badge is-warn", text: t(`profile.lifecycle.${profile.lifecycle}`) });
+    if (p.removed) left.createEl("p", { cls: "pdt-detail-removed", text: t("details.removed", { reason: p.removed.reason || "–", date: dayString(p.removed.at) }) });
+    this.renderDescription(left, p);
     if (note) {
       const tags = left.createDiv({ cls: "pdt-detail-tags" });
       for (const g of note.groups) tags.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g });
@@ -297,6 +392,165 @@ class DetailModal extends Modal {
   }
 
   /**
+   * The tabs' box: Overview (when the plugin has a profile) and README, "open in note" and, with translations on,
+   * Original | <language> for both tabs (remembered for the next window). The body below holds the chosen tab.
+   */
+  renderTabs(main, p, note, info) {
+    const plugin = this.plugin;
+    const keys = [plugin.profiles?.plugins?.[p.id] && "overview", "readme"].filter(Boolean);
+    if (!keys.includes(this.tab)) this.tab = keys[0];
+    const box = main.createDiv({ cls: "pdt-detail-section pdt-detail-readme" });
+    const tabs = box.createDiv({ cls: "pdt-detail-tabs", attr: { role: "tablist" } });
+    for (const key of keys) {
+      const on = this.tab === key;
+      const b = tabs.createEl("button", { cls: `pdt-detail-tab${on ? " is-active" : ""}`, text: t(`details.tab.${key}`), attr: { type: "button", role: "tab", "aria-selected": String(on) } });
+      b.onclick = () => { this.tab = key; this.render(); };
+    }
+    if (note) tabs.createEl("a", { cls: "pdt-detail-note-link", text: t("details.openNote"), href: "#" }).onclick = (event) => {
+      event.preventDefault();
+      this.close();
+      plugin.openReadme(p);
+    };
+    const showLanguage = plugin.data.settings.readmeTranslation !== "off" ? this.renderLanguage(tabs, p) : () => {};
+    const body = box.createDiv({ cls: "pdt-detail-readme-body" });
+    if (this.tab === "overview") this.renderOverview(body, p, info, showLanguage);
+    else this.renderReadme(body, p, note, info, showLanguage);
+  }
+
+  /**
+   * Original | <language>: which text the tabs show. Choosing your language here asks for it for this plugin (the
+   * tab offers a translation when there's none). Returns a setter: the tab marks what it really shows.
+   */
+  renderLanguage(parent, p) {
+    const settings = this.plugin.data.settings;
+    const group = parent.createDiv({ cls: "pdt-detail-lang", attr: { role: "group", "aria-label": t("details.language") } });
+    const buttons = [[false, t("details.original")], [true, settings.targetLang]].map(([on, label]) => {
+      const b = group.createEl("button", { text: label, attr: { type: "button" } });
+      b.onclick = async () => {   // also while a translation runs: it goes on, is kept, and shows when you come back
+        this.asked = on ? p.id : null;
+        if (settings.detailTranslated !== on) {
+          settings.detailTranslated = on;
+          await this.plugin.saveData(this.plugin.data);
+        }
+        this.render();
+      };
+      return [on, b];
+    });
+    const show = (translated) => {
+      for (const [on, b] of buttons) {
+        b.toggleClass("is-on", on === translated);
+        b.setAttribute("aria-pressed", String(on === translated));
+      }
+    };
+    show(false);
+    return show;
+  }
+
+  /**
+   * Overview: what it's for, the problem it solves, what it does, what it isn't and what's worth knowing. The summary
+   * comes with the index and shows at once, the rest from the plugin's own profile file a moment later. In your
+   * language: the saved translation (kept even when the profile changed since: a bar offers a new one), or a button
+   * that makes one.
+   */
+  renderOverview(body, p, info, showLanguage) {
+    const plugin = this.plugin;
+    const profile = plugin.profiles?.plugins?.[p.id];
+    const translated = this.inYourLanguage(p, Boolean(plugin.profileTranslation(p.id)));
+    const saved = translated ? plugin.profileTranslation(p.id) : null;
+    showLanguage(translated);
+    body.addClass("pdt-overview");
+    if (translated && !saved) {
+      this.renderUntranslated(body, t("details.overviewNotTranslated", { lang: plugin.data.settings.targetLang }), t("details.translateOverview"), () => this.translateOverview(p));
+      if (!this.busy) plugin.profileFile(p.id).then((file) => {   // what it would take, once the texts are in
+        if (this.p === p && !this.closed && !this.busy) this.renderEstimate(body, profileTexts(profileParts(profile, file)).join("\n"));
+      });
+      return;
+    }
+    const shown = body.createDiv({ cls: "pdt-overview-parts" });
+    this.renderParts(shown, saved?.parts || profileParts(profile, null), translated);
+    this.renderCategories(body, profile);   // under the parts: they keep their place while the file comes in
+    plugin.profileFile(p.id).then((file) => {
+      if (this.p !== p || this.closed || this.tab !== "overview") return;
+      const parts = profileParts(profile, file);
+      this.renderOverviewInfo(info, file, saved);
+      if (!saved) {
+        shown.empty();
+        return this.renderParts(shown, parts, false);
+      }
+      const outdated = saved.src !== profileTexts(parts).join("\n") || saved.lang !== plugin.data.settings.targetLang;
+      if (outdated) this.staleBar(body, t("details.overviewOutdated"), t("details.translateAgain"), () => this.translateOverview(p), true);
+    });
+  }
+
+  /**
+   * The Overview's sections, each only when the profile has it; titled in the text's language (the original: English,
+   * marked lang="en" so uppercase titles read I, not İ).
+   */
+  renderParts(el, parts, translated) {
+    const label = (key) => (translated ? t(key) : tIn("en", key));
+    el.setAttribute("lang", translated ? language : "en");
+    const part = (title, cls) => {
+      const box = el.createDiv({ cls: `pdt-overview-part${cls ? ` ${cls}` : ""}` });
+      if (title) box.createEl("h4", { text: title });
+      return box;
+    };
+    if (parts.summary) part(label("details.what"), "is-lead").createEl("p", { text: parts.summary });
+    if (parts.problem) part(label("details.problem")).createEl("p", { text: parts.problem });
+    if (parts.capabilities.length) {
+      const list = part(label("details.capabilities")).createEl("ul", { cls: "pdt-overview-caps" });
+      for (const item of parts.capabilities) {
+        const li = list.createEl("li");
+        setIcon(li.createSpan({ cls: "pdt-overview-check" }), "check");
+        li.createSpan({ text: item });
+      }
+    }
+    const note = (label, text, cls) => {
+      const box = part(null, `pdt-overview-note ${cls}`);
+      setIcon(box.createSpan({ cls: "pdt-overview-note-icon" }), "info");
+      const p = box.createEl("p");
+      p.createEl("strong", { text: label });
+      p.createSpan({ text: ` ${text}` });
+    };
+    if (parts.disambiguation) note(label("details.disambiguation"), parts.disambiguation, "is-aside");
+    if (parts.extras) note(label("details.extras"), parts.extras, "is-worth");
+  }
+
+  /** A tab not in your language yet: what's missing and the button that translates it. */
+  renderUntranslated(body, text, label, run) {
+    body.addClass("is-empty");
+    if (this.busy) return body.createEl("p", { text: this.busy });
+    body.createEl("p", { text });
+    body.createEl("button", { cls: "mod-cta", text: label, attr: { type: "button" } }).onclick = run;
+  }
+
+  /** A bar over the tab's text: what's out of date and the button that fixes it. */
+  staleBar(body, text, label, onClick, first = false) {
+    const row = body.createDiv({ cls: "pdt-detail-stale" });
+    row.createSpan({ text });
+    row.createEl("button", { cls: "pdt-link-button", text: label, attr: { type: "button" } }).onclick = onClick;
+    if (first) body.prepend(row);   // a bar added after the text: still on top
+  }
+
+  /** Bottom left on Overview: which model wrote the profile, and what its translation took (as the provider reported it). */
+  renderOverviewInfo(info, file, saved) {
+    info.empty();
+    const model = String(file?.model || "").replace(/@v\d+$/, "");   // "<model>@v<prompt>": the prompt version is ours
+    if (model) setTooltip(info.createSpan({ text: t("details.infoProfile", { model: model.split("/").pop() }) }), file.model);
+    if (!saved?.model) return;
+    const took = [saved.model, t("details.tokensUsed", { n: formatShort(saved.tokens || 0) })];
+    if (typeof saved.cost === "number") took.push(formatCost(saved.cost));
+    setTooltip(info.createSpan({ text: t("details.infoTranslation", { took: took.join(" · ") }) }), t("details.infoTranslationTip", { date: saved.date || "–" }));
+  }
+
+  async translateOverview(p) {
+    this.busy = t("details.translating");
+    this.render();
+    await this.plugin.translateProfile(p);
+    this.busy = "";
+    this.render();
+  }
+
+  /**
    * Bottom left: where the README comes from (your note or the cache), its version and when it was fetched; then
    * what its translation took, as the provider reported it: model, tokens and the cost (when it tells it).
    */
@@ -348,51 +602,27 @@ class DetailModal extends Modal {
   }
 
   /**
-   * README / README · <language> tabs. The README shows right away: from your note or the cache, fetched the first
-   * time. The translation tab is dim until there is one and translates on request; it is marked outdated only when
-   * the README's text changed since (an unchanged README of a newer release doesn't count).
+   * The README tab. The original shows right away: from your note or the cache, fetched the first time. In your
+   * language: the translation, made on request, with a bar when the README's text changed since (an unchanged README
+   * of a newer release doesn't count).
    */
-  async renderReadme(parent, p, note, info) {
+  async renderReadme(body, p, note, info, showLanguage) {
     const plugin = this.plugin;
-    const box = parent.createDiv({ cls: "pdt-detail-section pdt-detail-readme" });
-    const translating = plugin.data.settings.readmeTranslation !== "off";
     const parts = await plugin.readmeParts(p);
     if (this.p !== p || this.closed) return;   // moved on while reading
     const { original, translation } = parts;
+    const translated = this.inYourLanguage(p, Boolean(translation));
+    showLanguage(translated);
     const outdated = Boolean(original && translation?.hash && translation.hash !== original.hash);
     this.renderInfo(info, parts);
-    const tabs = box.createDiv({ cls: "pdt-detail-tabs", attr: { role: "tablist" } });
-    const tab = (key, label, extra = "") => {
-      const b = tabs.createEl("button", { cls: `pdt-detail-tab${this.tab === key ? " is-active" : ""}${extra}`, attr: { type: "button", role: "tab", "aria-selected": String(this.tab === key) } });
-      b.createSpan({ text: label });
-      b.onclick = () => { this.tab = key; this.render(); };
-      return b;
-    };
-    tab("readme", "README");
-    if (translating) {
-      const t2 = tab("translation", t("details.readmeIn", { lang: plugin.data.settings.targetLang }), translation ? "" : " is-dim");
-      if (!translation) t2.createSpan({ cls: "pdt-detail-tab-note", text: t("details.none") });
-      else if (outdated) setTooltip(t2.createSpan({ cls: "pdt-detail-tab-dot" }), t("details.outdated"));
-    }
-    if (note) tabs.createEl("a", { cls: "pdt-detail-note-link", text: t("details.openNote"), href: "#" }).onclick = (event) => {
-      event.preventDefault();
-      this.close();
-      plugin.openReadme(p);
-    };
-    const body = box.createDiv({ cls: "pdt-detail-readme-body" });
     const render = (markdown) => {
       body.addClass("markdown-rendered");
       obsidian.MarkdownRenderer.render(this.app, markdown, body, note?.path || "", this.component);
     };
-    const bar = (text, label, onClick) => {
-      const row = body.createDiv({ cls: "pdt-detail-stale" });
-      row.createSpan({ text });
-      row.createEl("button", { cls: "pdt-link-button", text: label, attr: { type: "button" } }).onclick = onClick;
-    };
-    if (this.tab === "readme") {
+    if (!translated) {
       if (original) {
         const newer = this.checkNewer(p, original);
-        if (newer) bar(t("details.readmeChanged", { version: p.version }), t("details.readmeUpdate"), async () => {
+        if (newer) this.staleBar(body, t("details.readmeChanged", { version: p.version }), t("details.readmeUpdate"), async () => {
           await plugin.keepReadme(p, newer);
           this.newer.set(p.id, null);
           this.render();
@@ -408,23 +638,27 @@ class DetailModal extends Modal {
     const estimate = translationEstimate(plugin.translationSource(original?.text || "").text, plugin.data.settings.modelCost);
     const price = estimate.cost != null ? ` (${t("details.cost", { cost: formatCost(estimate.cost) })})` : "";
     if (translation && !this.busy) {
-      if (outdated) bar(t("details.outdatedNote"), `${t("details.translateAgain")}${price}`, () => this.translate(p));
+      if (outdated) this.staleBar(body, t("details.outdatedNote"), `${t("details.translateAgain")}${price}`, () => this.translate(p));
       return render(translation.body);
     }
-    body.addClass("is-empty");
-    if (this.busy) {
-      body.createEl("p", { text: this.busy });
-      return;
+    this.renderUntranslated(body, t("details.notTranslated", { lang: plugin.data.settings.targetLang }), t("details.translate"), () => this.translate(p));
+    if (this.busy) return;
+    if (original) return this.renderEstimate(body, plugin.translationSource(original.text).text);
+    if (p.repo && this.loads.get(p.id) !== "done") {   // not downloaded yet: fetch it for the estimate (it redraws)
+      body.createEl("p", { cls: "pdt-detail-muted", text: t("details.loadingReadme") });
+      this.loadReadme(p);
     }
-    body.createEl("p", { text: t("details.notTranslated", { lang: plugin.data.settings.targetLang }) });
-    body.createEl("button", { cls: "mod-cta", text: t("details.translate"), attr: { type: "button" } }).onclick = () => this.translate(p);
-    if (original) {
-      body.createEl("p", {
-        cls: "pdt-detail-muted",
-        text: [t("details.chars", { n: formatCount(estimate.chars) }), t("details.tokens", { n: formatCount(estimate.tokens) }),
-          estimate.cost != null ? t("details.cost", { cost: formatCost(estimate.cost) }) : null, plugin.data.settings.model].filter(Boolean).join(" · "),
-      });
-    }
+  }
+
+  /** Under a Translate button: what the translation would take — characters · tokens · cost (with a price set) · model. */
+  renderEstimate(body, text) {
+    const settings = this.plugin.data.settings;
+    const estimate = translationEstimate(text, settings.modelCost);
+    body.createEl("p", {
+      cls: "pdt-detail-muted",
+      text: [t("details.chars", { n: formatCount(estimate.chars) }), t("details.tokens", { n: formatCount(estimate.tokens) }),
+        estimate.cost != null ? t("details.cost", { cost: formatCost(estimate.cost) }) : null, settings.model].filter(Boolean).join(" · "),
+    });
   }
 
   /** A README not seen before: fetched in the background (into your note, else the cache), then shown. Once per window. */

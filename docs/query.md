@@ -19,7 +19,7 @@ A clause is `field operator value`. Join clauses with `AND`, `OR` and `NOT`, gro
 
 | Field | Type | Means |
 |---|---|---|
-| `text` | text | name, author, id and description together |
+| `text` | text | name, author, id, description and AI summary together (what a plain word searches) |
 | `name` | text | the plugin's name |
 | `description` | text | its description |
 | `author` | text | its author |
@@ -41,6 +41,23 @@ A clause is `field operator value`. Join clauses with `AND`, `OR` and `NOT`, gro
 | `removed` | yes/no | taken off the official list by Obsidian; only installed ones show up, and only when the query names `removed` |
 
 Field names are English in every language, so saved queries survive a language switch. Values are yours (your group names, your statuses).
+
+## AI profile fields
+
+An AI reads every plugin's README on GitHub and writes a short profile: what it does, where it belongs, what it needs. The plugin downloads these once a day. A plugin not profiled yet has none of them.
+
+| Field | Type | Means |
+|---|---|---|
+| `category` | list | its categories: its home and up to two more |
+| `primary` | text | its home category, one per plugin |
+| `tag` | list | its tags, from a fixed list of about 500 |
+| `intent` | text | `new` (a new capability), `improve` (makes an Obsidian feature better), `alternative` (another take on an existing plugin) |
+| `lifecycle` | list | `experimental` or `deprecated`; `is empty` for neither |
+| `apikey` | yes/no | needs an API key to work; an optional one doesn't count |
+| `paid` | yes/no | needs a paid service to work; an optional one doesn't count |
+| `summary` | text | the AI summary of its README |
+
+Categories and tags are written as the profiles name them (`project-management`, `daily-notes`), in every language; the query box suggests them with their counts. Examples: `category = ai AND NOT apikey AND NOT paid` (AI plugins that work without a key or a bill), `primary = tasks AND intent = alternative` (other ways to manage tasks), `tag = kanban order by downloads desc`.
 
 ## Fields with a parameter
 
@@ -155,6 +172,8 @@ The same list as **+ Add widget** on Home and the empty query box. **Add** puts 
 | Ungrouped | `tracked AND group is empty order by name asc` | tracked without a group |
 | Unrated | `tracked AND rating is empty order by downloads desc` | tracked, not rated yet |
 | Sleeping tracked plugins | `tracked AND released >= 1y order by released asc` | tracked, no release for a year |
+
+On Home, the **Category watch** widget (in **+ Add widget › Notify**) lists the plugins that call a category home, the most downloaded first, and marks newly listed ones as "+N new": `primary = tasks AND NOT removed order by downloads desc`.
 
 More: `author ~ zsviczian` (everything by one author), `"daily note" OR "journal"` (text search).
 

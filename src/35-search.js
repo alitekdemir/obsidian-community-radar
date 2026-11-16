@@ -250,7 +250,8 @@ class SearchBox extends ViewPart {
       this.view.authors = { at: this.plugin.catalog?.fetchedAt, list: [...byAuthor].sort((a, b) => b[1] - a[1]).map(([name]) => name) };
     }
     const fromFilters = modes && !this.view.inQuery ? joinQuery(pageQuery(this.view.pageSettings, this.view.page), filtersToQuery({ ...this.view.pageSettings, query: "" }, this.view.page)) : "";
-    return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.view.authors.list, fromFilters, recent: this.settings.recentQueries || [] };
+    const { categories, tags } = this.plugin.profileFacets();
+    return { groups: this.plugin.notes.groups(), statuses: this.settings.statuses || [], authors: this.view.authors.list, categories, tags, fromFilters, recent: this.settings.recentQueries || [] };
   }
 
   /**
@@ -273,8 +274,8 @@ class SearchBox extends ViewPart {
 
   /**
    * While the query isn't the page's own: a "● 2 changes" badge in the box (what changed in its tooltip) and a dot on
-   * the tab; the badge opens Discard · New view… · the one save that fits (this tab's query, this view; a widget's
-   * list becomes a view). A broken query shows "● Error" and can only be discarded.
+   * the tab; the badge opens the changes popover (fillChanges). A broken query shows "● Error" and can only be
+   * discarded.
    */
   renderChanges() {
     const badge = this.view.refs.changes;
@@ -298,29 +299,59 @@ class SearchBox extends ViewPart {
     badge.onclick = () => {
       if (this.view.changesPop?.isOpen) return this.view.changesPop.close();
       this.view.changesPop = new Popover(badge, { cls: "pdt-changes-pop", label: t("query.changed"), keep: ".pdt-q-changes", fill: (box, pop) => {
-        box.createDiv({ cls: "pdt-changes-what", text: broken ? t("query.cantSave") : diff || t("query.changed") });
-        const row = box.createDiv({ cls: "pdt-changes-actions" });
-        const button = (label, cls, run) => {
-          const el = row.createEl("button", { cls, text: label, attr: { type: "button" } });
-          el.onclick = async () => { pop.close(); await run(); };
-          return el;
-        };
-        button(t("query.discard"), "pdt-changes-discard", () => this.revertQuery());
-        if (broken) return;
-        const widget = Boolean(preset && !view);
-        if (widget) return button(t("query.saveWidget"), "mod-cta", () => this.saveView());
-        button(t("query.newView"), "", () => this.saveView());
-        if (view) {
-          button(t("query.updateView", { name: this.view.home.title(preset.id) }), "mod-cta", async () => {
-            await this.view.home.updateView(preset.id, text);
-            preset.base = text;   // the view's query now: nothing changed any more
-            this.view.render();
-          });
-        } else {
-          button(t("query.replacePage", { name: t(`mode.${this.settings.mode}`) }), "mod-cta", () => this.view.savePageQuery());
-          box.createDiv({ cls: "pdt-changes-hint", text: t("query.replaceHint") });
-        }
+        this.fillChanges(box, pop, { base, text, broken, preset, view });
       } }).open();
     };
+  }
+
+  /**
+   * The changes popover: what is unsaved and where, the clauses line by line (− went, + came), then the saves
+   * stacked, the one that fits first (this view, this page's query; a built-in widget's list can only become a new
+   * widget), and "Discard changes" as a quiet link at the bottom.
+   */
+  fillChanges(box, pop, { base, text, broken, preset, view }) {
+    const head = box.createDiv({ cls: "pdt-changes-head" });
+    head.createDiv({ cls: "pdt-changes-title", text: t(broken ? "query.cantSave" : "query.unsaved") });
+    const where = view || preset ? t("query.unsavedWidget", { name: this.view.home.title(preset.id) }) : t("query.unsavedPage", { name: t(`mode.${this.settings.mode}`) });
+    if (!broken) head.createDiv({ cls: "pdt-changes-where", text: where });
+
+    const changes = broken ? null : queryChanges(base, text);
+    if (changes) {
+      const lines = box.createDiv({ cls: "pdt-changes-what" });
+      const line = (sign, clause) => {
+        const row = lines.createDiv({ cls: `pdt-changes-line is-${sign === "+" ? "added" : "removed"}` });
+        row.createSpan({ cls: "pdt-changes-sign", text: sign === "+" ? "+" : "−", attr: { "aria-label": t(sign === "+" ? "query.lineAdded" : "query.lineRemoved") } });
+        row.createSpan({ text: clause });
+      };
+      for (const c of changes.removed) line("-", c);
+      for (const c of changes.added) line("+", c);
+      if (changes.order) {
+        if (changes.order[0]) line("-", changes.order[0]);
+        if (changes.order[1]) line("+", changes.order[1]);
+      }
+    }
+
+    const actions = box.createDiv({ cls: "pdt-changes-actions" });
+    const button = (label, cls, run) => {
+      const el = actions.createEl("button", { cls, text: label, attr: { type: "button" } });
+      el.onclick = async () => { pop.close(); await run(); };
+      return el;
+    };
+    if (!broken) {
+      if (view) {
+        button(t("query.updateView"), "mod-cta", async () => {
+          await this.view.home.updateView(preset.id, text);
+          preset.base = text;   // the view's query now: nothing changed any more
+          this.view.render();
+        });
+      } else if (!preset) {
+        button(t("query.replacePage", { name: t(`mode.${this.settings.mode}`) }), "mod-cta", () => this.view.savePageQuery());
+      }
+      button(t("query.newView"), view || !preset ? "" : "mod-cta", () => this.saveView());   // a built-in widget's list: the only save
+    }
+    const foot = box.createDiv({ cls: "pdt-changes-foot" });
+    const discard = foot.createEl("button", { cls: "pdt-changes-discard", text: t("query.discard"), attr: { type: "button" } });
+    discard.onclick = async () => { pop.close(); await this.revertQuery(); };
+    if (!broken && !preset) foot.createSpan({ cls: "pdt-changes-hint", text: t("query.replaceHint") });
   }
 }

@@ -6,7 +6,8 @@
  *
  * Layers (each depends only on the ones above it):
  *   00     Constants and i18n
- *   10–19  Core: pure functions (dates, catalog, release history, discovery, README, translation, similarity)
+ *   10–19  Core: pure functions (dates, catalog, release history, discovery, README, translation, similarity,
+ *          home widgets, query language, AI profiles)
  *   20     Services: GitHub client, cache, notes, translator
  *   30–39  UI: modals, details window, the view (32) and its parts (34 Home, 35 search box, 36 filter bar,
  *          37 rows, 38 bulk bar, 39 Similar filter), settings tab
@@ -48,11 +49,14 @@ const BUSY_LIMIT = 9;              // …more than this (about every three weeks
 const PARALLEL = 4;                // snapshots downloaded at once
 const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
 const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sync is due (no network)
+const SYNC_DELAY_MS = 60_000;      // at startup Obsidian loads every plugin at once: a due sync waits until it has settled
 const README_MODES = ["open", "sync", "manual"];
 const PAGE_SIZE = 50;
 const AI_BATCH = 50;               // plugins per group-suggestion request
 const AI_GROUPS = 10;              // group suggestions asked per plugin
 const SIMILAR_LIMIT = 8;
+/** The details window's icon for what a plugin needs (a profile's requires[].kind). */
+const PROFILE_NEEDS = { apiKey: "key-round", paidService: "credit-card", account: "user-round", externalApp: "app-window", plugin: "puzzle" };
 const VISIBLE_SUGGESTIONS = 5;     // AI chips shown before "+n more"
 /** Keyboard shortcuts of the view (when enabled in settings): keys → help text key. */
 const KEY_HELP = [
@@ -72,6 +76,8 @@ const WORD_SHARE = 0.03;           // semantic Similar: how much the best word m
 // Semantic vectors of every plugin's name and description, rebuilt daily by .github/workflows/embeddings.yml
 const VECTORS_URL = `${RAW}/alitekdemir/obsidian-community-radar/embeddings/granite-311m`;
 const METRICS_URL = `${RAW}/alitekdemir/obsidian-community-radar/metrics`;   // built daily by .github/workflows/metrics.yml
+const PROFILES_URL = `${RAW}/alitekdemir/obsidian-community-radar/profiles`;   // AI profiles, .github/workflows/profiles.yml (hourly)
+const PROFILES_CHECK_HOURS = 24;   // the profiles' index (~5.6 MB) is asked for at most once a day, and only if it changed (ETag)
 const TIMELINE_VERSION = 3;        // 2: first-seen dates added; 3: downloads series and removed plugins
 // the downloads series keeps calendar days (as scripts/metrics/build.py writes them): Mondays back a year, then daily
 const SERIES_DAYS = 365;
@@ -165,7 +171,12 @@ function obsidianLanguage() {
 
 /** Looks up a UI string (falling back to English, then to the key) and fills its {placeholders}. */
 function t(key, vars = {}) {
-  let value = STRINGS[language]?.[key] ?? STRINGS.en[key] ?? key;
+  return tIn(language, key, vars);
+}
+
+/** t() in a given language: labels that go with a text in that language (the details window's Original). */
+function tIn(lang, key, vars = {}) {
+  let value = STRINGS[lang]?.[key] ?? STRINGS.en[key] ?? key;
   if (typeof value === "object") value = value[intl(Intl.PluralRules).select(Number(vars.n))] ?? value.other;
   return value.replace(/\{(\w+)\}/g, (all, name) => (name in vars ? String(vars[name]) : all));
 }
@@ -218,6 +229,7 @@ function defaultSettings() {
     tableColumns: {},         // tab → the table's columns in order (TABLE_COLUMNS); missing tabs use TABLE_DEFAULT
     notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
     detailFull: false,        // the details window fills the screen (its ⤢ button)
+    detailTranslated: false,  // the details window shows the Overview and the README in your language (Original | <language>)
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"
     readmeSaving: false,      // leave developer sections (DEV_SECTION) out of README translations
   };

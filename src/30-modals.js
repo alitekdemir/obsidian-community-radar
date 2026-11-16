@@ -587,7 +587,7 @@ class ModelModal extends PickerModal {
 
 
 /** Help › Quick start: what a click on each part of a card does ([icon, help.card.<key>]), in the order you meet them. */
-const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["more-horizontal", "menu"], ["bell-ring", "seen"]];
+const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["sparkles", "profile"], ["more-horizontal", "menu"], ["bell-ring", "seen"]];
 
 /**
  * What an AI request just took, faint at the end of a title row: the cost when the provider told it, else the
@@ -603,6 +603,7 @@ const DOCS_URL = "https://github.com/alitekdemir/obsidian-community-radar/blob/m
 
 /** The query guide's field groups, from each field's own type (no second list to keep): which group a field is in. */
 function fieldGroup(field) {
+  if (field.profile) return "profile";
   if (field.param) return "params";
   if (field.days) return "days";
   return { text: "text", number: "numbers" }[field.type] || "flags";   // flags: yes/no and your note's lists
@@ -704,7 +705,7 @@ class HelpModal extends Modal {
     };
     // a field as it's written: gain(30d) for one with a parameter
     const written = (k) => { const p = QUERY_FIELDS[k].param; return p ? `${k}(${p.fallback ?? "10k"})` : k; };
-    for (const key of ["text", "numbers", "days", "params", "flags"]) {
+    for (const key of ["text", "numbers", "days", "params", "flags", "profile"]) {
       const fields = Object.keys(QUERY_FIELDS).filter((k) => fieldGroup(QUERY_FIELDS[k]) === key);
       group(key, fields.map((k) => [written(k), written(k), t(`query.field.${k}`)]));
     }
@@ -735,15 +736,16 @@ class GalleryPanel {
   /** The rows of every section, worked out now: [{section, rows: [{title, desc, why, query, count, action, done, run}]}]. */
   sections(ctx) {
     const home = this.home.home;
-    const hidden = unplacedWidgets(home).map((id) => {
+    // a built-in widget with a `cat` is offered in that section, the rest you removed under Hidden
+    const unplaced = unplacedWidgets(home).map((id) => {
       const widget = homeWidget(home, id);
       const params = widgetParams(home, id);
       const title = this.home.title(id);
       const query = widget.query(ctx, params);
       return {
-        title,
+        title, cat: widget.cat || "hidden",
         desc: widget.view ? "" : this.home.widgetInfo(id, params),
-        query, count: this.count(ctx, query), action: t("gallery.restore"),
+        query, count: this.count(ctx, query), action: t(widget.cat ? "gallery.add" : "gallery.restore"),
         run: async () => {
           const at = await this.home.ask({ id, widget, name: title, groupId: this.target });
           if (at) await this.home.place(id, at.group);
@@ -762,7 +764,7 @@ class GalleryPanel {
         } };
     };
     return Object.keys(GALLERY_SECTIONS)
-      .map((section) => ({ section, rows: section === "hidden" ? hidden : QUERY_PRESETS.filter((p) => p.cat === section).map(preset) }))
+      .map((section) => ({ section, rows: [...unplaced.filter((w) => w.cat === section), ...QUERY_PRESETS.filter((p) => p.cat === section).map(preset)] }))
       .filter((s) => s.rows.length);
   }
 

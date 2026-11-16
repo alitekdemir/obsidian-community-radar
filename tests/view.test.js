@@ -137,13 +137,29 @@ const serverHistory = {
 };
 let serverTimeline = serverHistory;
 let serverDelta = null;   // delta.json: the last days' changes (null: none yet)
-const downloaded = { timeline: 0, delta: 0 };
+const downloaded = { timeline: 0, delta: 0, profiles: 0, profiles304: 0 };
+// the profiles branch: the AI profiles' index (its ETag tells GitHub we have it) and one plugin's own file
+const profilesEtag = '"e1"';
+const profilesIndex = {
+  categories: ["data", "navigation"], tags: { queries: 2, startup: 1 },
+  plugins: {
+    dataview: { primary: "data", also: ["navigation"], tags: ["queries"], intent: "new", lifecycle: null, summary: "Queries notes like a database.",
+      requires: [{ kind: "apiKey", name: "Demo key", optional: true }] },
+    homepage: { primary: "navigation", also: [], tags: ["startup", "queries"], intent: "improve", lifecycle: "experimental", summary: "Opens a chosen note at startup.",
+      requires: [{ kind: "apiKey", name: "OpenAI API key", optional: false }, { kind: "paidService", name: "OpenAI", optional: false }] },
+  },
+};
 fake.network.handlers.push(
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to, deltaFrom: serverDelta?.from } } : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? (downloaded.timeline++, { status: 200, json: serverTimeline }) : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/delta.json", () => (serverDelta ? (downloaded.delta++, { status: 200, json: serverDelta }) : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.json", () => ({ status: 200, json: vectorsMeta })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.bin", () => ({ status: 200, arrayBuffer: vectorsBin() })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/index.json", ({ headers }) => (headers["If-None-Match"] === profilesEtag
+    ? (downloaded.profiles304++, { status: 304, headers: {} })
+    : (downloaded.profiles++, { status: 200, json: profilesIndex, headers: { ETag: profilesEtag } }))],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/profiles/dataview.json", () => ({ status: 200, json: {
+    problem: "Notes can't be queried like a database.", capabilities: ["Query notes by metadata"], disambiguation: "Not the core Bases plugin.", model: "z-ai/glm-5.3-flash@v3" } })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json", () => ({ status: 200, json: listing })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugin-stats.json", () => ({ status: 200, json: snapshots[2].stats })],
   ["https://raw.githubusercontent.com/", () => ({ status: 200, text: "# Readme\nUse #tag here.\n```\n#keep\n```" })],
@@ -425,17 +441,19 @@ const tests = {
     assert.ok($(el, '.pdt-tab[data-key="updated"] .pdt-tab-dot'), "the tab shows it's unsaved");
     changes().onclick();
     const pop = () => document.querySelector(".pdt-changes-pop");
-    assert.equal(pop().querySelector(".pdt-changes-what").textContent, "14d → 30d", "what changed, short");
+    assert.equal(pop().querySelector(".pdt-changes-where").textContent, core.t("query.unsavedPage", { name: core.t("mode.updated") }), "where it is unsaved");
+    assert.deepEqual([...pop().querySelectorAll(".pdt-changes-line")].map((l) => l.textContent), ["−released <= 14d", "+released <= 30d"], "the clause that went, the one that came");
     const actions = () => [...pop().querySelectorAll(".pdt-changes-actions button")];
-    assert.deepEqual(actions().map((b) => b.textContent), [core.t("query.discard"), core.t("query.newView"), core.t("query.replacePage", { name: core.t("mode.updated") })]);
+    assert.deepEqual(actions().map((b) => b.textContent), [core.t("query.replacePage", { name: core.t("mode.updated") }), core.t("query.newView")], "the save that fits first, stacked");
+    assert.equal(pop().querySelector(".pdt-changes-discard").textContent, core.t("query.discard"), "Discard: a quiet link at the bottom");
     if (process.env.PDT_DUMP2) require("fs").writeFileSync(process.env.PDT_DUMP2, el.outerHTML + pop().outerHTML);
-    await actions()[2].onclick();
+    await actions()[0].onclick();
     assert.ok(!pop(), "the popover closes");
     assert.equal(settings.pageQueries.updated, wider, "the page's query now");
     assert.ok(!changes() && !$(el, ".pdt-tab-dot"));
     fake.menus.length = 0;
     $(el, ".pdt-list-more").onclick({});
-    assert.equal(fake.menus[0].items[0].title, core.t("query.saveWidget"), "⋯ saves the list as a view (the Save button is gone)");
+    assert.equal(fake.menus[0].items[0].title, core.t("query.newView"), "⋯ saves the list as a new widget (the Save button is gone)");
     assert.ok(!$(el, ".pdt-filter-save"));
     await modeButton(0).onclick();
     assert.equal(settings.queries.updated, undefined);
@@ -616,6 +634,27 @@ const tests = {
     assert.equal(syncs(), 1);                              // due
     assert.equal(fake.Notice.all.length, notices);         // quiet: no notice
     settings.syncHours = 24;
+  },
+
+  async "startup: a view restored before the layout is ready waits for the cache instead of syncing"({ app, plugin }) {
+    const syncs = () => fake.network.calls.filter((c) => c.url.endsWith("community-plugins.json")).length;
+    await plugin.cache.write("catalog", plugin.catalog);   // what the last session left
+    let ready;
+    const later = { ...app, workspace: { ...app.workspace, onLayoutReady: (cb) => { ready = cb; } } };
+    const restarted = new PluginRadar(later, { dir: plugin.manifest.dir });
+    restarted._data = plugin._data;
+    await restarted.onload();
+    fake.network.calls.length = 0;
+    const view = restarted.viewFactory({ app: later });
+    // Obsidian restores the open view first and waits for onOpen() before the layout is ready: it must not wait for
+    // the layout (that deadlocked startup until Obsidian's ~10 s timeout)
+    const opened = await Promise.race([view.onOpen().then(() => true), tick(50).then(() => false)]);
+    assert.ok(opened, "onOpen() returns before the layout is ready");
+    assert.equal(syncs(), 0, "no sync while the cache is unread");
+    await ready();                   // …then the layout is ready and the cache is read
+    await tick(10);
+    assert.equal(syncs(), 0, "the cached catalog was there: nothing to sync");
+    assert.ok(restarted.catalog?.plugins.length);
   },
 
   async "README: the row menu downloads it into a new note and opens it; opening a stale note refreshes it"({ app, plugin, view }) {
@@ -847,14 +886,17 @@ const tests = {
     assert.equal($$(modal.contentEl, ".pdt-detail-stat").length, 4);
     assert.deepEqual($$(modal.contentEl, ".pdt-detail-near-name").slice(0, 2).map((n) => n.textContent), ["Startpage", "Home Tab"]);
     await tick(5);
-    // the README shows by itself, no button; the bottom row says where it came from
-    assert.ok($(modal.contentEl, ".pdt-detail-readme-body .md"), "the README shows without a click");
-    assert.ok($(modal.contentEl, ".pdt-detail-info").textContent.startsWith("README"));
+    // a profiled plugin opens on Overview; README is the next tab and shows by itself, the bottom row says where it came from
     const tabs = $$(modal.contentEl, ".pdt-detail-tab");
-    assert.equal(tabs.length, 2);
-    assert.ok(tabs[1].classList.contains("is-dim"), "no translation yet");
+    assert.deepEqual(tabs.map((x) => x.textContent), [core.t("details.tab.overview"), core.t("details.tab.readme")]);
     tabs[1].onclick();
     await tick(5);
+    assert.ok($(modal.contentEl, ".pdt-detail-readme-body .md"), "the README shows without a button");
+    assert.ok($(modal.contentEl, ".pdt-detail-info").textContent.startsWith("README"));
+    // Original | <language>: none yet, so a Translate button
+    await $$(modal.contentEl, ".pdt-detail-lang button")[1].onclick();
+    await tick(5);
+    assert.ok(plugin.data.settings.detailTranslated, "remembered for the next window");
     assert.ok($(modal.contentEl, ".pdt-detail-readme-body.is-empty button"), "a Translate button");
     assert.ok(plugin.translator.ready, "the earlier tests set up a provider");
     {
@@ -870,15 +912,26 @@ const tests = {
       assert.ok(fm.translation_tokens > 0 && fm.translation_cost > 0, "tokens and the cost OpenRouter reported");
       assert.match($(modal.contentEl, ".pdt-detail-readme-body .md").textContent, /^TR /);
       assert.ok($(modal.contentEl, ".pdt-detail-info").textContent.includes("or/model-001"), "what it took, bottom left");
-      assert.equal($(modal.contentEl, ".pdt-detail-tab-dot"), null, "not outdated");
+      assert.equal($(modal.contentEl, ".pdt-detail-stale"), null, "not outdated");
       const { original } = await plugin.readmeParts(homepage);
       assert.equal(await plugin.newerReadme(homepage, original), null, "same text on GitHub: nothing to tell");
       assert.ok(await plugin.newerReadme(homepage, { ...original, hash: "00000000" }), "changed text: offered");
     }
-    // a click on the description shows its translation, as on a row
-    $(modal.contentEl, ".pdt-detail-desc").onclick();
+    // EN · <language> before the description swaps it in place: one line, the shown language in bold
+    const wanted = plugin.data.settings.detailTranslated;
+    plugin.data.settings.detailTranslated = false;   // the original first: Original | <language> also picks it
+    modal.render();
+    const shown = () => $$(modal.titleEl, ".pdt-detail-desc-lang span").map((x) => x.classList.contains("is-on"));
+    assert.deepEqual($(modal.titleEl, ".pdt-detail-desc-lang").textContent, "EN·EN", "English UI: the target tag is its code");
+    assert.deepEqual(shown(), [true, false, false], "EN in bold: the original shows");
+    await $(modal.titleEl, ".pdt-detail-desc").onclick();   // a click on the description swaps its language
     await tick(20);
-    assert.ok($(modal.contentEl, ".pdt-detail-trans").textContent.startsWith("TR: "));
+    assert.ok($(modal.titleEl, ".pdt-detail-about").textContent.includes("TR: "), "the translation, in the description's place");
+    assert.equal($(modal.titleEl, ".pdt-detail-trans"), null, "no second line");
+    assert.deepEqual(shown(), [false, false, true]);
+    await $(modal.titleEl, ".pdt-detail-desc").onclick();
+    assert.ok(!$(modal.titleEl, ".pdt-detail-about").textContent.includes("TR: "), "again: the original");
+    plugin.data.settings.detailTranslated = wanted;
     // the list's shortcut keys, when they're on
     const key = (k) => modal.scope.keys.find((x) => x.key === k).fn();
     assert.equal(key("f"), true, "shortcuts off: the key is left to Obsidian");
@@ -919,6 +972,7 @@ const tests = {
       modal.render();
       await tick(5);
     }
+    plugin.data.settings.detailTranslated = false;   // back to the original for the tests after
     const total = modal.rows.length;
     fake.menus.length = 0;
     modal.modalEl.dispatchEvent(new window.MouseEvent("contextmenu", { bubbles: true, cancelable: true }));   // a right click: the row's menu
@@ -1388,7 +1442,10 @@ const tests = {
     const gallery = modals.at(-1);
     const row = (title) => $$(gallery.contentEl, ".pdt-gallery-row").find((r) => $(r, ".pdt-gallery-title").textContent === title);
     assert.ok(!row(core.t("mode.suggested")) && row(core.t("home.milestone")), "hidden widgets first");
-    assert.equal($$(gallery.contentEl, ".pdt-gallery-row").length, 1 + core.QUERY_PRESETS.length);
+    const watch = row(core.t("home.category"));
+    assert.equal(watch?.dataset.section, "notify", "the category watch is offered under Notify, not with what you hid");
+    assert.equal($(watch, ".mod-cta").textContent, core.t("gallery.add"));
+    assert.equal($$(gallery.contentEl, ".pdt-gallery-row").length, 2 + core.QUERY_PRESETS.length);
     // Add asks where: a small or a big card (each drawn as it will look), then a group of that kind
     const place = async (button, pick) => {
       const done = button.onclick();
@@ -1632,7 +1689,7 @@ const tests = {
     view.openHelp("start");   // Help › Quick start says the same, at the level of someone new to the plugin
     const help = modals.at(-1).contentEl;
     assert.deepEqual($$(help, ".pdt-help-card-list li").map((li) => li.textContent),
-      ["track", "rate", "name", "desc", "empty", "details", "menu", "seen"].map((k) => core.t(`help.card.${k}`)));
+      ["track", "rate", "name", "desc", "empty", "details", "profile", "menu", "seen"].map((k) => core.t(`help.card.${k}`)));
     modals.at(-1).close();
     plugin.notes.index.set("busy", busyNote);
     if (busyExcluded) await plugin.exclude(plugin.pluginById("busy"));   // as the other tests expect
@@ -1672,6 +1729,95 @@ const tests = {
       globalThis.setTimeout = realSetTimeout;
     }
     await plugin.track(p, { reviewed: was || null });
+  },
+
+  async "AI profiles: downloaded once a day (304 when unchanged), query fields, the category TOP10 and the details window"({ plugin, view }) {
+    plugin.profiles = null;
+    await plugin.cache.remove("profiles-meta");
+    Object.assign(downloaded, { profiles: 0, profiles304: 0 });   // earlier syncs fetched it too
+    await plugin.syncProfiles(() => {});
+    assert.equal(downloaded.profiles, 1, "no copy yet: the whole index");
+    assert.equal(plugin.profiles.plugins.dataview.primary, "data");
+    await plugin.syncProfiles(() => {});
+    assert.equal(downloaded.profiles + downloaded.profiles304, 1, "checked today: no request");
+    await plugin.cache.write("profiles-meta", { etag: profilesEtag, checkedAt: Date.now() - 25 * 3600_000 });
+    await plugin.syncProfiles(() => {});
+    assert.deepEqual([downloaded.profiles, downloaded.profiles304], [1, 1], "a day later: asked with the ETag, unchanged");
+
+    const ids = (q) => core.widgetRows(view.home.context(Date.now()), { query: () => q }, {}).map((p) => p.id).sort();
+    assert.deepEqual(ids("category = navigation"), ["dataview", "homepage"], "category: the home and the others");
+    assert.deepEqual(ids("primary = navigation"), ["homepage"], "primary: the home only");
+    assert.deepEqual(ids("tag in (startup)"), ["homepage"]);
+    assert.deepEqual(ids("intent = improve"), ["homepage"]);
+    assert.deepEqual(ids("lifecycle is empty AND category = data"), ["dataview"]);
+    assert.deepEqual(ids("apikey"), ["homepage"], "an optional key isn't a need");
+    assert.deepEqual(ids("paid AND summary ~ startup"), ["homepage"]);
+    assert.deepEqual(ids("text ~ database"), ["dataview"], "the plain-word field searches the summary too…");
+    const search = core.compileQuery("database", plugin.state());
+    assert.deepEqual(plugin.catalog.plugins.filter((p) => search.test(p)).map((p) => p.id), ["dataview"], "…and so does the search box");
+
+    const ctx = view.home.context(Date.now());
+    const top = core.HOME_WIDGETS.category;
+    assert.deepEqual(top.params.category(ctx), ["data", "navigation"], "the categories to pick from");
+    assert.equal(top.query(ctx, { category: "navigation" }), "primary = navigation AND NOT removed\norder by downloads desc");
+    assert.deepEqual(core.widgetRows(ctx, top, { category: "navigation" }).map((p) => p.id), ["homepage"]);
+    assert.equal(top.query(ctx, { category: "navigation", since: Date.UTC(2026, 0, 5) }), "primary = navigation AND NOT removed AND listed >= 2026-01-05\norder by downloads desc", "its \"N new\": newly listed ones");
+
+    view.rowRenderer.openDetails(plugin.pluginById("dataview"));
+    const modal = modals.at(-1);
+    await tick(10);   // the plugin's own file
+    const settings = plugin.data.settings;
+    settings.detailTranslated = false;
+    modal.render();
+    await tick(10);   // the plugin's own file
+    const overview = () => $(modal.contentEl, ".pdt-overview").textContent;
+    assert.ok(overview().includes("Queries notes like a database.") && overview().includes("Notes can't be queried like a database.") && overview().includes("Query notes by metadata"));
+    assert.ok(overview().includes("Not the core Bases plugin."), "what it isn't");
+    assert.ok($(modal.contentEl, ".pdt-detail-info").textContent.includes("glm-5.3-flash"), "which model wrote it, bottom left");
+    assert.equal($(modal.titleEl, ".pdt-badge.is-intent").textContent, core.t("profile.intent.new"), "the intent next to the name");
+    assert.deepEqual($$(modal.contentEl, ".pdt-needs-head").map((x) => x.textContent), [core.t("details.needsOptional")], "an optional key: under Optional");
+    assert.equal($(modal.contentEl, ".pdt-needs-row.is-optional .pdt-needs-name").textContent, "Demo key");
+    assert.deepEqual($$(modal.contentEl, ".pdt-pill.is-category").map((x) => x.textContent), ["data", "navigation"]);
+    assert.ok($(modal.contentEl, ".pdt-pill.is-category").classList.contains("is-primary"), "its home first, marked");
+    core.setLanguage("tr");
+    modal.render();
+    await tick(10);
+    assert.equal($(modal.contentEl, ".pdt-overview-part h4").textContent, "What it's for", "the original's titles in its language, whatever the UI's");
+    core.setLanguage("en");
+
+    // in your language: translated in one request, kept in data.json with what it took; the needs follow
+    await $$(modal.contentEl, ".pdt-detail-lang button")[1].onclick();
+    await tick(10);
+    assert.ok($(modal.contentEl, ".pdt-overview.is-empty .pdt-detail-muted").textContent.includes("tokens"), "what it would take, before the click");
+    $(modal.contentEl, ".pdt-overview.is-empty button").onclick();
+    await $$(modal.contentEl, ".pdt-detail-lang button")[0].onclick();   // back to the original while it translates
+    assert.ok(overview().includes("Queries notes like a database.") && !overview().includes("TR: "), "the original at once");
+    await tick(30);
+    assert.ok(plugin.data.profileTranslations.dataview, "the translation went on and is kept");
+    await $$(modal.contentEl, ".pdt-detail-lang button")[1].onclick();
+    const saved = plugin.data.profileTranslations.dataview;
+    assert.equal(saved.parts.summary, "TR: Queries notes like a database.");
+    assert.deepEqual(saved.parts.needs, ["TR: Demo key"]);
+    assert.ok(saved.model && saved.tokens > 0, "what it took, as the provider reported it");
+    assert.ok(overview().includes("TR: Notes can't be queried like a database."));
+    assert.equal($(modal.contentEl, ".pdt-needs-name").textContent, "TR: Demo key");
+    assert.equal($(modal.contentEl, ".pdt-detail-stale"), null, "up to date");
+    saved.src += " (older)";   // the profile changed since: the old translation stays, a bar offers a new one
+    modal.render();
+    await tick(10);
+    assert.ok($(modal.contentEl, ".pdt-overview .pdt-detail-stale") && overview().includes("TR: Queries notes"));
+    // the choice is remembered, but another plugin with no translation opens in the original, not on an empty tab
+    view.rowRenderer.openDetails(plugin.pluginById("homepage"));
+    const next = modals.at(-1);
+    await tick(10);
+    assert.ok(settings.detailTranslated);
+    assert.ok($(next.contentEl, ".pdt-overview-parts").textContent.includes("Opens a chosen note at startup."));
+    assert.equal($(next.contentEl, ".pdt-detail-lang .is-on").textContent, core.t("details.original"), "the switch says what it shows");
+    settings.detailTranslated = false;
+
+    $$(modal.contentEl, ".pdt-pill.is-tag")[0].onclick();
+    assert.equal(view.settings.queries.all, "tag = queries\norder by downloads desc", "a tag opens its list");
+    plugin.profiles = null;   // the tests after this one run without profiles
   },
 
   async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {
@@ -1720,5 +1866,5 @@ const tests = {
   }
   const total = Object.keys(tests).length;
   console.log(failed ? `✖ ${failed}/${total} view tests failed` : `✅ ${total}/${total} view tests passed`);
-  process.exitCode = failed ? 1 : 0;
+  process.exit(failed ? 1 : 0);   // the plugins' startup timers (SYNC_DELAY_MS) would keep Node waiting
 })();

@@ -43,6 +43,25 @@ class GitHub {
     return res.arrayBuffer;
   }
 
+  /**
+   * The AI profiles' index, unless it is still `etag` (then null: GitHub answers 304 and sends nothing).
+   * @returns {Promise<{index: object, etag: string|null}|null>}
+   */
+  async profiles(etag) {
+    const url = `${PROFILES_URL}/index.json`;
+    const res = await requestUrl({ url, throw: false, headers: etag ? { "If-None-Match": etag } : {} });
+    if (res.status === 304) return null;
+    if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${url}`);
+    const header = Object.entries(res.headers || {}).find(([name]) => name.toLowerCase() === "etag");   // the header's case varies
+    return { index: res.json, etag: header?.[1] ?? null };
+  }
+
+  /** One plugin's whole profile (problem, capabilities…); null when there's none. */
+  async profile(id) {
+    const res = await requestUrl({ url: `${PROFILES_URL}/profiles/${encodeURIComponent(id)}.json`, throw: false });
+    return res.status < 400 ? res.json : null;
+  }
+
   /** README: tries raw file names first (no rate limit), then falls back to the API (60/hour). */
   async readme(repo) {
     for (const name of ["README.md", "readme.md", "Readme.md", "README.MD"]) {
@@ -344,14 +363,15 @@ class Translator {
     return { text: spec.text(json), usage };
   }
 
-  /** One prompt to the chosen model: its reply text. */
-  async chat(prompt) {
-    return (await this.request(prompt)).text;
-  }
-
   /** Translates the texts in one request; output keeps the input order. */
   async translate(texts) {
-    return parseTranslations(await this.chat(translationPrompt(texts, this.settings.targetLang, this.settings.prompts)), texts.length);
+    return (await this.translateWithUsage(texts)).texts;
+  }
+
+  /** translate(), with what it took: {texts, model, tokens, cost} as the provider reported them (sumUsage). */
+  async translateWithUsage(texts) {
+    const { text, usage } = await this.request(translationPrompt(texts, this.settings.targetLang, this.settings.prompts));
+    return { texts: parseTranslations(text, texts.length), ...sumUsage([usage], this.settings.model) };
   }
 
   /**

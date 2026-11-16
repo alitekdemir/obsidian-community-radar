@@ -160,6 +160,7 @@ module.exports = {
     addSettingTab(tab) { this.settingTab = tab; }
     addCommand(c) { (this.commands ||= {})[c.id] = c; }
     registerEvent() {}
+    register() {}
     registerInterval(id) { globalThis.window?.clearInterval?.(id); return id; }  // tests never wait for the timer
     async loadData() { return this._data; }
     async saveData(d) { this._data = JSON.parse(JSON.stringify(d)); }

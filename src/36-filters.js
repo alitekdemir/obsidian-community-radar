@@ -89,7 +89,7 @@ class FilterBar extends ViewPart {
       const more = iconButton(bar, "more-horizontal", t("list.moreActions"), "pdt-list-more");
       more.onclick = (event) => {
         const menu = new Menu();
-        menu.addItem((item) => item.setTitle(t("query.saveWidget")).setIcon("bookmark-plus").onClick(() => this.view.searchBox.saveView()));
+        menu.addItem((item) => item.setTitle(t("query.newView")).setIcon("bookmark-plus").onClick(() => this.view.searchBox.saveView()));
         if (!this.view.preset && this.settings.pageQueries?.[mode] != null) {   // only once you saved your own over the tab's
           menu.addItem((item) => item.setTitle(t("query.resetPage")).setIcon("rotate-ccw").onClick(() => this.view.resetPageQuery(mode)));
         }

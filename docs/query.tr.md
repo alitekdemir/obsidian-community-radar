@@ -19,7 +19,7 @@ Sona eklenen `order by alan desc` (ya da `asc`) listeyi sıralar.
 
 | Alan | Tür | Anlamı |
 |---|---|---|
-| `text` | metin | ad, yazar, id ve açıklama birlikte |
+| `text` | metin | ad, yazar, id, açıklama ve AI özeti birlikte (düz bir kelimenin aradığı yer) |
 | `name` | metin | eklentinin adı |
 | `description` | metin | açıklaması |
 | `author` | metin | yazarı |
@@ -41,6 +41,23 @@ Sona eklenen `order by alan desc` (ya da `asc`) listeyi sıralar.
 | `removed` | evet/hayır | Obsidian'ın resmi listeden çıkardıkları; yalnızca kurulu olanlar ve yalnızca sorgu `removed` dediğinde görünür |
 
 Alan adları her dilde İngilizcedir; böylece kayıtlı sorgular dil değişikliğinden etkilenmez. Değerler sizindir (grup adlarınız, durumlarınız).
+
+## AI profili alanları
+
+Bir yapay zekâ, GitHub'da her eklentinin README'sini okuyup kısa bir profil yazar: ne yaptığı, nereye ait olduğu, neye ihtiyaç duyduğu. Eklenti bu profilleri günde bir kez indirir. Henüz profillenmemiş bir eklentide bu alanların hiçbiri yoktur.
+
+| Alan | Tür | Anlamı |
+|---|---|---|
+| `category` | liste | kategorileri: asıl kategorisi ve en çok iki tane daha |
+| `primary` | metin | asıl kategorisi, her eklentinin bir tane |
+| `tag` | liste | etiketleri, yaklaşık 500'lük sabit bir listeden |
+| `intent` | metin | `new` (yeni bir yetenek), `improve` (bir Obsidian özelliğini iyileştirir), `alternative` (var olan bir eklentiye alternatif) |
+| `lifecycle` | liste | `experimental` (deneysel) ya da `deprecated` (bırakılmış); ikisi de değilse `is empty` |
+| `apikey` | evet/hayır | çalışmak için API anahtarı ister; isteğe bağlı olan sayılmaz |
+| `paid` | evet/hayır | çalışmak için ücretli bir hizmet ister; isteğe bağlı olan sayılmaz |
+| `summary` | metin | README'sinin AI özeti |
+
+Kategoriler ve etiketler her dilde profillerdeki adlarıyla yazılır (`project-management`, `daily-notes`); sorgu kutusu bunları sayılarıyla önerir. Örnekler: `category = ai AND NOT apikey AND NOT paid` (anahtar ve fatura istemeyen AI eklentileri), `primary = tasks AND intent = alternative` (görev yönetiminin başka yolları), `tag = kanban order by downloads desc`.
 
 ## Parametreli alanlar
 
@@ -155,6 +172,8 @@ Ana sayfadaki **Widget ekle** ve boş sorgu kutusuyla aynı liste. **+ Ekle** bi
 | Grupsuzlar | `tracked AND group is empty order by name asc` | takipte, grubu yok |
 | Puansızlar | `tracked AND rating is empty order by downloads desc` | takipte, henüz puanlanmamış |
 | Takipte uyuyanlar | `tracked AND released >= 1y order by released asc` | takipte, bir yıldır sürüm yok |
+
+Ana sayfadaki **Kategori izleme** widget'ı (**+ Widget ekle › Bildirim** içinde) asıl kategorisi o olan eklentileri, en çok indirilen üstte listeler; listeye yeni girenleri "+N yeni" ile işaretler: `primary = tasks AND NOT removed order by downloads desc`.
 
 Daha fazlası: `author ~ zsviczian` (bir yazarın tüm eklentileri), `"daily note" OR "journal"` (metin arama).
 

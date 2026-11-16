@@ -96,16 +96,21 @@ function cleanDescription(text) {
  * @returns {{id,name,author,repo,description,downloads,updated,version}[]}
  */
 function parseCatalog(listing, stats) {
+  // the highest version among a plugin's stats keys; each key is split once (a sort split them ~2·n·log n times)
+  const key = (tag) => tag.replace(/^v/i, "").split(/[.-]/).map((p) => (/^\d+$/.test(p) ? Number(p) : -1));
+  const newer = (x, y) => {   // is x a higher version than y?
+    for (let i = 0; i < Math.max(x.length, y.length); i++) if ((x[i] ?? 0) !== (y[i] ?? 0)) return (x[i] ?? 0) > (y[i] ?? 0);
+    return false;
+  };
   const versionOf = (stat) => {
-    const tags = Object.keys(stat).filter((k) => k !== "downloads" && k !== "updated" && /\d/.test(k));
-    const key = (tag) => tag.replace(/^v/i, "").split(/[.-]/).map((p) => (/^\d+$/.test(p) ? Number(p) : -1));
-    return tags.sort((a, b) => {
-      const [x, y] = [key(a), key(b)];
-      for (let i = 0; i < Math.max(x.length, y.length); i++) {
-        if ((x[i] ?? 0) !== (y[i] ?? 0)) return (x[i] ?? 0) - (y[i] ?? 0);
-      }
-      return 0;
-    }).pop() ?? null;
+    let best = null;
+    let bestKey = null;
+    for (const tag in stat) {
+      if (tag === "downloads" || tag === "updated" || !/\d/.test(tag)) continue;
+      const k = key(tag);
+      if (!bestKey || !newer(bestKey, k)) [best, bestKey] = [tag, k];   // on a tie the later key wins, as the sort's pop() did
+    }
+    return best;
   };
   return listing.filter((e) => e && e.id).map((entry) => {
     const stat = stats[entry.id];
@@ -307,7 +312,7 @@ function compileQuery(query, state = null, now = Date.now(), advanced = false) {
       return { test: () => true, advanced: true, regex: false, error: error.message, at: error.at ?? 0, from: error.from, to: error.to, spans: [...(error.spans || []), bad] };
     }
   }
-  const text = (p) => QUERY_FIELDS.text.get(null, p);   // what a plain word searches (one rule for every box)
+  const text = (p) => QUERY_FIELDS.text.get(state, p);   // what a plain word searches (one rule for every box)
   const pattern = String(query || "").trim().match(/^\/(.+)\/$/);
   if (pattern) {
     try {

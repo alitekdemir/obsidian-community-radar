@@ -34,7 +34,8 @@ const reachedOrLatest = (s, p, n) => (n == null ? milestoneAt(s, p) : reachedAt(
  * one, written like a function: `kind` days or count, `fallback` what `()` means (null: the field's own default).
  */
 const QUERY_FIELDS = {
-  text: { type: "text", get: (s, p) => `${p.id} ${p.name} ${p.author} ${p.description}` },   // what a plain word searches
+  // what a plain word searches: the listing's texts and the AI summary
+  text: { type: "text", get: (s, p) => `${p.id} ${p.name} ${p.author} ${p.description} ${profileOf(s, p)?.summary ?? ""}` },
   name: { type: "text", sort: "name", get: (s, p) => p.name },
   description: { type: "text", get: (s, p) => p.description },
   author: { type: "text", get: (s, p) => p.author },
@@ -68,7 +69,18 @@ const QUERY_FIELDS = {
   snoozed: { type: "bool", get: (s, p) => isSnoozed(p, s.snoozed || {}) },
   // taken off the official list (only the installed ones are rows: see removedRows); lists leave them out unless asked
   removed: { type: "bool", get: (s, p) => Boolean(p.removed) },
+  // AI profiles (17-profiles): empty for a plugin not profiled yet, and until the profiles are loaded
+  category: { type: "list", profile: true, get: (s, p) => profileCategories(profileOf(s, p)) },   // its home and up to two more
+  primary: { type: "text", profile: true, get: (s, p) => profileOf(s, p)?.primary ?? null },        // its home: one per plugin
+  tag: { type: "list", profile: true, get: (s, p) => profileOf(s, p)?.tags || [] },
+  intent: { type: "text", profile: true, get: (s, p) => profileOf(s, p)?.intent ?? null },          // new, improve, alternative
+  lifecycle: { type: "list", profile: true, get: (s, p) => { const v = profileOf(s, p)?.lifecycle; return v ? [v] : []; } },   // a list for `is empty`
+  apikey: { type: "bool", profile: true, get: (s, p) => profileNeeds(profileOf(s, p), "apiKey") },
+  paid: { type: "bool", profile: true, get: (s, p) => profileNeeds(profileOf(s, p), "paidService") },
+  summary: { type: "text", profile: true, get: (s, p) => profileOf(s, p)?.summary ?? null },
 };
+/** What intent and lifecycle can be (the profiler's closed lists). */
+const PROFILE_VALUES = { intent: ["new", "improve", "alternative"], lifecycle: ["experimental", "deprecated"] };
 
 /** A field name as a clause, not as a value (`name ~ busy` stays): after neither an operator nor a word or quote. */
 const asClause = (word) => new RegExp(`(?<![=~<>!]\\s*)(?<![\\w"])${word}(?![\\w(])`, "gi");
@@ -348,13 +360,13 @@ function parseQuery(query, { strict = false } = {}) {
       if (strict && token.kind === "word") fail("unknown", { text: token.text }, token.at);
       take();
       free.push(token.text);
-      const text = (p) => QUERY_FIELDS.text.get(null, p);
+      const text = (s, p) => QUERY_FIELDS.text.get(s, p);
       if (token.kind === "regex") {
         const re = regexOf(token);
-        return (s, p) => re.test(text(p));
+        return (s, p) => re.test(text(s, p));
       }
       const want = fold(token.text);
-      return (s, p) => fold(text(p)).includes(want);
+      return (s, p) => fold(text(s, p)).includes(want);
     }
     return fail("unexpected", { text: token.text }, token.at);
   };
@@ -435,6 +447,9 @@ function querySuggestions(text, caret, data) {
     if (name === "group") return data.groups.map((g) => ({ label: g.name, insert: quoteValue(g.name), hint: t("query.count", { n: g.count }) }));
     if (name === "status") return data.statuses.map((st) => ({ label: st.label, insert: quoteValue(st.key), hint: st.key }));
     if (name === "author") return data.authors.map((a) => ({ label: a, insert: quoteValue(a) }));
+    if (name === "category" || name === "primary") return (data.categories || []).map((c) => ({ label: c.name, insert: c.name, hint: t("query.count", { n: c.count }) }));
+    if (name === "tag") return (data.tags || []).map((x) => ({ label: x.name, insert: x.name, hint: t("query.count", { n: x.count }) }));
+    if (PROFILE_VALUES[name]) return PROFILE_VALUES[name].map((v) => ({ label: v, insert: v, hint: t(`profile.${name}.${v}`) }));
     if (name === "rating") return [5, 4, 3, 2, 1].map((n) => ({ label: String(n), insert: String(n), hint: "★".repeat(n) }));
     if (field.type === "bool") return ["true", "false"].map((v) => ({ label: v, insert: v }));
     if (field.days) {
@@ -470,7 +485,7 @@ function querySuggestions(text, caret, data) {
   if (!isAdvancedQuery(text) && partial.length < 2) return { from, items: [] };
   const fields = Object.keys(QUERY_FIELDS).map(fieldItem);
   const words = (prev && prev.kind !== "(" && !["and", "or", "not"].includes(fold(prev.text)) ? ["AND", "OR", "order by"] : ["NOT"]).map((w) => ({ label: w, insert: w }));
-  return { from, items: pick([...fields, ...words]) };
+  return { from, items: pick([...words, ...fields]) };   // AND / OR first: past 30 fields they were cut off
 }
 
 /** A value as the query reads it: quoted when it has spaces or would read as a keyword or a field. */
@@ -677,10 +692,10 @@ function queryStarters(fromFilters, recent = []) {
 const sameQuery = (a, b) => String(a).replace(/\s+/g, " ").trim() === String(b).replace(/\s+/g, " ").trim();
 
 /**
- * What changed from query `a` to `b`, short: "14d → 30d" when one clause changed, else "+1 clause · −2 clauses",
- * "sort". Empty when it can't tell (a query that doesn't parse).
+ * The clauses that went and came from query `a` to `b` (their top-level clauses, spacing ignored) and the two sorts:
+ * {removed, added, order: [a's, b's] or null when the sort is the same}. Null when either doesn't parse.
  */
-function queryDiff(a, b) {
+function queryChanges(a, b) {
   const clauses = (q) => {
     try {
       const { spans } = parseQuery(q, { strict: true });
@@ -689,9 +704,19 @@ function queryDiff(a, b) {
     } catch (error) { return null; }
   };
   const [ca, cb] = [clauses(a), clauses(b)];
-  if (!ca || !cb) return "";
-  const removed = ca.filter((c) => !cb.includes(c));
-  const added = cb.filter((c) => !ca.includes(c));
+  if (!ca || !cb) return null;
+  const [oa, ob] = [splitOrder(a).order, splitOrder(b).order];
+  return { removed: ca.filter((c) => !cb.includes(c)), added: cb.filter((c) => !ca.includes(c)), order: sameQuery(oa, ob) ? null : [oa, ob] };
+}
+
+/**
+ * What changed from query `a` to `b`, short: "14d → 30d" when one clause changed, else "+1 clause · −2 clauses",
+ * "sort". Empty when it can't tell (a query that doesn't parse).
+ */
+function queryDiff(a, b) {
+  const changes = queryChanges(a, b);
+  if (!changes) return "";
+  const { removed, added, order } = changes;
   const parts = [];
   if (removed.length === 1 && added.length === 1) {   // one clause changed: only what differs ("14d → 30d")
     const [wa, wb] = [removed[0].split(" "), added[0].split(" ")];
@@ -702,7 +727,7 @@ function queryDiff(a, b) {
     if (added.length) parts.push(t("query.diffAdded", { n: added.length }));
     if (removed.length) parts.push(t("query.diffRemoved", { n: removed.length }));
   }
-  if (!sameQuery(splitOrder(a).order, splitOrder(b).order)) parts.push(t("query.diffSort"));
+  if (order) parts.push(t("query.diffSort"));
   return parts.join(" · ");
 }
 

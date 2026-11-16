@@ -2,7 +2,7 @@
 class PluginRadar extends Plugin {
   async onload() {
     addIcon(ICON, ICON_SVG);
-    this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, groupSuggestions: {}, migrations: {}, aiUsage: {} }, await this.loadData());
+    this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, profileTranslations: {}, groupSuggestions: {}, migrations: {}, aiUsage: {} }, await this.loadData());
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.data.settings.query = "";   // filters are remembered, the search isn't
@@ -24,6 +24,10 @@ class PluginRadar extends Plugin {
     };
     this.catalog = null;                                      // {fetchedAt, plugins}
     this.vectors = null;                                      // semantic Similar (parseVectors); null → word matching
+    this.profiles = null;                                     // AI profiles' index.json ({categories, tags, plugins}); null → none yet
+    this.extras = null;                                       // loadExtras(), once
+    this.profileFiles = new Map();                            // id → a plugin's whole profile (a promise), this session only
+    this.settled = false;                                     // Obsidian's startup is over (see onLayoutReady): syncs may run
     this.timeline = newTimeline();
     this.busy = false;
     this.progress = "";             // the running task's progress, shown in the view's status line
@@ -58,18 +62,51 @@ class PluginRadar extends Plugin {
 
     this.registerEvent(this.app.workspace.on("file-open", (file) => this.onNoteOpen(file)));
 
+    // A view left open is restored before the layout is ready, i.e. before the cache is read: ensureFresh() waits for
+    // `started`, else it would take the empty catalog for a first install and sync at every startup
+    let started;
+    this.started = new Promise((resolve) => { started = resolve; });
     this.app.workspace.onLayoutReady(async () => {
-      await this.importLegacyPlugin();
-      this.notes.rebuild();
-      this.catalog = await this.cache.read("catalog", null);
-      const cached = await this.cache.read("timeline", null);   // only the history built on GitHub (0.9.1+)
-      if (cached?.v === TIMELINE_VERSION && cached.source === "server") this.timeline = cached;
-      this.vectors = parseVectors(await this.cache.read("vectors", null), await this.cache.readBinary("vectors"));
-      await this.runMigrations();
+      try {
+        await this.importLegacyPlugin();
+        this.notes.rebuild();
+        // everything the lists show, read at once and drawn once: a second full redraw (the vectors and profiles a
+        // few seconds later, ~80 ms to read) repainted the list and pushed Obsidian's LCP to ~5 s
+        const [catalog, cached] = await Promise.all([this.cache.read("catalog", null), this.cache.read("timeline", null), this.loadExtras()]);
+        this.catalog = catalog;
+        if (cached?.v === TIMELINE_VERSION && cached.source === "server") this.timeline = cached;   // only the history built on GitHub (0.9.1+)
+        await this.runMigrations();
+      } finally {
+        started();
+      }
       this.redraw();
-      this.registerInterval(window.setInterval(() => this.syncIfDue(), SYNC_CHECK_MS));
-      await this.syncIfDue();
+      // Obsidian is still starting: a due sync waits a little
+      this.later(() => {
+        this.settled = true;
+        this.registerInterval(window.setInterval(() => this.syncIfDue(), SYNC_CHECK_MS));
+        this.syncIfDue();
+      }, SYNC_DELAY_MS);
     });
+  }
+
+  /** Runs `fn` after `ms`, unless the plugin is unloaded first. */
+  later(fn, ms) {
+    const id = window.setTimeout(fn, ms);
+    this.register(() => window.clearTimeout(id));
+  }
+
+  /**
+   * The semantic vectors and the AI profiles from the cache, once (~8 MB, ~80 ms): with the catalog at startup, or
+   * first by a sync that compares them. The caller redraws.
+   */
+  loadExtras() {
+    this.extras ||= (async () => {
+      const [meta, bin, profiles] = await Promise.all([this.cache.read("vectors", null), this.cache.readBinary("vectors"), this.cache.read("profiles", null)]);
+      this.vectors = parseVectors(meta, bin);
+      this.profiles = profiles;
+      this.similarCache.clear();
+    })();
+    return this.extras;
   }
 
   uiLanguage() {
@@ -188,6 +225,8 @@ class PluginRadar extends Plugin {
       installed: this.installed(),
       lastSync: this.catalog?.prevAt ?? null,
       timeline: this.timeline,   // milestones for the query's milestone fields
+      profiles: this.profiles?.plugins || {},   // AI profiles by id: the category, tag, intent… fields
+      categories: this.profiles?.categories || [],
     };
   }
 
@@ -245,10 +284,11 @@ class PluginRadar extends Plugin {
     }
   }
 
-  /** On opening the view: sync when there is no data yet, otherwise follow the sync frequency. */
+  /** On opening the view: sync when there is no data yet, otherwise follow the sync frequency (not during startup). */
   async ensureFresh() {
+    await this.started;   // the cache first: an empty catalog before it is read isn't a first install
     if (!this.catalog) await this.refresh();
-    else await this.syncIfDue();
+    else if (this.settled) await this.syncIfDue();
   }
 
   /** Quietly syncs when the chosen interval has passed; makes no request otherwise or when set to manual. */
@@ -259,6 +299,7 @@ class PluginRadar extends Plugin {
   }
 
   async ensureCatalog() {
+    await this.started;
     if (!this.catalog) await this.refresh();
     return Boolean(this.catalog);
   }
@@ -275,6 +316,7 @@ class PluginRadar extends Plugin {
 
       const history = await this.syncServerTimeline(progress);
       await this.syncVectors(progress);
+      await this.syncProfiles(progress);
 
       progress(t("notice.updatingNotes"));
       const released = [];
@@ -291,6 +333,7 @@ class PluginRadar extends Plugin {
 
   /** Downloads the semantic vectors when a newer build is out; a failure only leaves Similar on word matching. */
   async syncVectors(progress) {
+    await this.loadExtras();   // compared with the copy we have
     try {
       const meta = await this.github.vectorsMeta();
       if (this.vectors && meta.built === this.vectors.built) return;
@@ -304,6 +347,78 @@ class PluginRadar extends Plugin {
     } catch (error) {
       console.warn("[Community Radar] couldn't update the semantic vectors; Similar uses words", error);
     }
+  }
+
+  /**
+   * The AI profiles, at most once a day (PROFILES_CHECK_HOURS): GitHub sends the index only when it changed since
+   * ours (ETag), else a bodiless 304. `profiles-meta` keeps the ETag and the check's time, so a 304 rewrites only that
+   * small file. A failure keeps the profiles we have.
+   */
+  async syncProfiles(progress) {
+    await this.loadExtras();   // compared with the copy we have
+    try {
+      const meta = await this.cache.read("profiles-meta", {});
+      if (this.profiles && Date.now() - (meta.checkedAt || 0) < PROFILES_CHECK_HOURS * HOUR_MS) return;
+      progress(t("notice.profiles"));
+      const fresh = await this.github.profiles(this.profiles ? meta.etag : null);   // no copy: ask for the whole file
+      if (fresh) {
+        if (!fresh.index?.plugins) throw new Error("unexpected profiles file");
+        await this.cache.write("profiles", fresh.index);
+        this.profiles = fresh.index;
+        this.profileFiles.clear();
+      }
+      await this.cache.write("profiles-meta", { etag: fresh ? fresh.etag : meta.etag, checkedAt: Date.now() });
+    } catch (error) {
+      console.warn("[Community Radar] couldn't update the plugin profiles", error);
+    }
+  }
+
+  /** A plugin's whole profile (the details window's long texts), downloaded once a session; null when there's none. */
+  profileFile(id) {
+    if (!this.profileFiles.has(id)) this.profileFiles.set(id, this.github.profile(id).catch(() => null));
+    return this.profileFiles.get(id);
+  }
+
+  /** A plugin's Overview in your language as saved: {src, lang, parts, model, tokens, cost, date}, or null. */
+  profileTranslation(id) {
+    return this.data.profileTranslations[id] ?? null;
+  }
+
+  /**
+   * Translates a plugin's Overview (summary, problem, what it does, what it isn't, worth knowing, what it needs) in
+   * one request and keeps it in data.json with what it took, as the provider reported it. Categories and tags stay
+   * as they are. True when done.
+   */
+  async translateProfile(plugin) {
+    if (!this.translator.ready) {
+      new Notice(t("notice.translateSetup"));
+      return false;
+    }
+    try {
+      const parts = profileParts(this.profiles?.plugins?.[plugin.id], await this.profileFile(plugin.id));
+      if (!parts) return false;
+      const all = profileTexts(parts);
+      const asked = all.map((text, i) => (text ? i : -1)).filter((i) => i >= 0);   // empty ones aren't sent
+      const done = await this.translator.translateWithUsage(asked.map((i) => all[i]));
+      const texts = [...all];
+      asked.forEach((i, k) => { texts[i] = done.texts[k]; });
+      this.data.profileTranslations[plugin.id] = {
+        src: all.join("\n"), lang: this.data.settings.targetLang, parts: profileFromTexts(parts, texts),
+        model: done.model, tokens: done.tokens, cost: done.cost, date: dayString(Date.now()),
+      };
+      await this.saveData(this.data);
+      return true;
+    } catch (error) {
+      console.error("[Community Radar] Overview translation", error);
+      new Notice(t("notice.translateFailed", { error: error.message }), 12000);
+      return false;
+    }
+  }
+
+  /** Categories and tags with their counts, for the query box (worked out again only when the profiles change). */
+  profileFacets() {
+    if (this.facetsOf !== this.profiles) [this.facetsOf, this.facets] = [this.profiles, profileFacets(this.profiles)];
+    return this.facets;
   }
 
   /**

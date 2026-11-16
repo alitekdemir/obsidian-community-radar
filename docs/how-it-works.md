@@ -14,6 +14,10 @@ Releases within a week of each other count as one **update wave**, so a plugin t
 
 *Similar* compares meanings. Once a day, a [GitHub Actions workflow](../.github/workflows/embeddings.yml) turns every plugin's name and description into a vector with IBM's open [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) model (Apache 2.0; only new or edited plugins are re-encoded) and publishes them on the `embeddings` branch. Community Radar downloads that file and ranks plugins by cosine similarity on your device, adding a small share of shared-word matching (BM25) so a rare common word still counts. No AI provider is involved.
 
+## AI profiles
+
+Every hour a [GitHub Actions workflow](../.github/workflows/profiles.yml) has a free AI model read the README of each new or changed plugin and write a short profile: a summary, the problem it solves, what it does, its category (from a fixed list of 78) and tags (a fixed list of about 500), and what it needs (an API key, a paid service, an account…). The profiles are published on the `profiles` branch; each one records the model that wrote it. Community Radar downloads their index once a day, only when it changed, and reads a plugin's whole profile when you open its details (the Overview tab). Your device makes no AI request for them, unless you ask for the Overview in your language: that goes to your AI provider once and is kept in `data.json`.
+
 ## Network
 
 Community Radar only makes these requests:
@@ -24,7 +28,8 @@ Community Radar only makes these requests:
 | `api.github.com` | Only when a README isn't at a usual path | The README. Unauthenticated, 60 requests an hour |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/` | Sync, when a newer build is out | Release history and download metrics (~600 KB) |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/` | Sync, when a newer build is out | The vectors for Similar (~2.5 MB) |
-| Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider set up | Plugin names and descriptions, the names of your groups, and a README you ask to translate |
+| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/` | Sync, at most once a day and only when changed; the details window | The AI profiles' index (~5.6 MB), one plugin's profile (~2 KB) |
+| Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider set up | Plugin names and descriptions, the names of your groups, a README or an Overview you ask to translate |
 
 No telemetry, no account, nothing about your vault is sent anywhere. In the vault, Community Radar only reads and writes notes in its own notes folder; it never lists your other files. API keys are kept in Obsidian's keychain (SecretStorage) on each device, never in `data.json`; the plugin stores only the key's name (e.g. `anthropic-api-key`), so other plugins using the same name share it. The list of installed plugins comes from Obsidian's internal `app.plugins`.
 
@@ -34,4 +39,4 @@ No telemetry, no account, nothing about your vault is sent anywhere. In the vaul
 |---|---|
 | Your groups, ratings, statuses, notes, review dates | Your tracking notes |
 | Settings, page queries, saved views, ignored plugins, translations, recent actions | `.obsidian/plugins/plugin-radar/data.json` |
-| Catalog, release history and vectors (caches, rebuilt on demand) | `.obsidian/plugins/plugin-radar/cache/` |
+| Catalog, release history, vectors and AI profiles (caches, rebuilt on demand) | `.obsidian/plugins/plugin-radar/cache/` |

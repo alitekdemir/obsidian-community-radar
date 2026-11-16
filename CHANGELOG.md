@@ -1,5 +1,24 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- **AI plugin profiles:** an AI reads every plugin's README on GitHub and writes a short profile: what it does, its category and tags, what it needs. The plugin downloads them with Sync, at most once a day and only when they changed (~5.6 MB the first time, a few bytes after).
+- **New query fields:** `category` (its home and up to two more), `primary` (its home), `tag`, `intent` (new, improve, alternative), `lifecycle` (experimental, deprecated), `apikey` and `paid` (needs an API key or a paid service; an optional one doesn't count) and `summary`. The query box suggests categories and tags with their counts, and Help's guide lists them under *AI profile*.
+- **Category watch widget** (*+ Add widget › Notify*): the plugins that call a category home, the most downloaded first; its chip picks the category, and a newly listed plugin in it shows as "+N new". Its list is `primary = <category> AND NOT removed order by downloads desc`.
+- **Details window, Overview tab:** what the plugin is for, the problem it solves, what it does, what it isn't and what's worth knowing, next to the README tab, with its categories and tags at the bottom (a click lists their plugins). The side column shows what it needs (required, then optional; a paid service in orange), the closest plugins and, pinned at the bottom, the release history. The bottom row names the model that wrote the profile.
+- **Original | your language** beside the tabs: the Overview and the README in your language. The Overview is translated in one request and kept in `data.json` with what it took (model, tokens, cost, as the provider reported them); categories and tags stay as they are. When the profile changes later, the old translation stays and a bar offers a new one.
+
+### Changed
+- **Details window, redesigned:** the name carries the intent (new capability, improves Obsidian, alternative), and its version · author is the link to the repository (the GitHub card is gone). The description sits under it with **EN · your language** in front: the language shown in bold, a click swaps the text in place, so nothing moves. The tabs are Overview and README, with Original | your language instead of a separate translation tab; a window opened later doesn't land on an empty translation.
+- **The changes popover:** says what is unsaved and where, shows the clauses line by line (− went, + came), stacks the saves (the one that fits first) and moves Discard to a quiet link. "New view…" is now **Save as a new widget…**, "Update the view" **Update the widget**.
+- **Plain search reads the AI summary too:** a word finds plugins whose summary has it, not only their name and description.
+- **A faster startup:** the plugin reads its cache (catalog, release history, semantic index, profiles) at once and draws the list once; a due sync waits a minute after startup (the first sync after installing still runs right away). Measured: Obsidian ready at 1.2 s instead of 11 s, largest paint at 1.95 s instead of 11–14 s.
+
+### Fixed
+- **Startup held for ~10 s with the plugin's tab open:** Obsidian waits for a restored tab to open before the layout is ready, and the tab waited for the layout (to read the cache): each waited for the other until Obsidian's timeout ("Failed to load deferred view: Timeout"). Before that the tab synced on opening, taking the unread cache for a first install. The tab now opens at once and fills in when the cache is read.
+- **Faster sync:** reading the plugin list takes about a quarter of the time (each plugin's newest version is found without sorting).
+
 ## 0.12.0
 
 ### Added

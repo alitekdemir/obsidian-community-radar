@@ -172,6 +172,18 @@ const HOME_WIDGETS = {
     value: (ctx, p) => p.version || "",
   },
   suggested: tabWidget("suggested", { icon: "package-check", tone: "gray" }, null, downloadsValue),
+  // a category to watch: the plugins whose home (primary) it is, the most downloaded first; "N new": newly listed
+  // ones. `cat`: the gallery offers it under Notify (not with the widgets you hid)
+  category: {
+    icon: "layout-list", tone: "blue", cat: "notify",
+    params: { category: (ctx) => ctx.state.categories }, defaults: { category: "ai" },
+    query: (ctx, params) => {
+      const all = `primary = ${quoteValue(params.category)} AND NOT removed\norder by downloads desc`;
+      return params.since ? narrowQuery(all, "listed", within("listed", params)) : all;
+    },
+    at: (ctx, p) => QUERY_FIELDS.listed.at(ctx.state, p, ctx.now),
+    value: downloadsValue,
+  },
 };
 const VIEW_PREFIX = "view:";   // a saved view's widget id: "view:<id>"
 const VIEW_SEEN_CAP = 5000;    // a view's matches you've seen are kept as ids, up to this many
