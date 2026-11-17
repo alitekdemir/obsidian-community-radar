@@ -16,7 +16,8 @@ Usage:
     python build.py --profiles DIR --vectors DIR [--gold FILE]
 
     --profiles  the profiles branch (index.json, profiles/<id>.json); similar.json is written here
-    --vectors   the embeddings branch (granite-311m.bin/.json); plugins without a vector score 0 on it
+    --vectors   the embeddings branch (granite-311m.bin/.json, built daily); a plugin listed since has no vector
+                yet: it scores 0 on the description and is left out of the description's min–max
 
 Output, similar.json: {"built", "top", "ids": [...], "lists": [[index into ids, ...], ...]}
 Writes `changed=true|false` to $GITHUB_OUTPUT when the lists differ from the file already there.
@@ -75,7 +76,7 @@ def name_text(name):
 
 
 def load_vectors(vectors_dir, ids):
-    """Unit "name: description" vectors in `ids` order; zero rows for plugins without one yet."""
+    """Unit "name: description" vectors in `ids` order; zero rows for plugins without one yet (listed since)."""
     meta = json.loads((vectors_dir / f"{VECTORS}.json").read_text(encoding="utf-8"))
     raw = np.fromfile(vectors_dir / f"{VECTORS}.bin", dtype=np.int8).reshape(-1, meta["dim"])
     row = {k: i for i, k in enumerate(meta["ids"])}
@@ -94,6 +95,7 @@ class Signals:
     def __init__(self, ids, listing, index, profiles_dir, vectors):
         self.n = len(ids)
         self.desc = vectors
+        self.has_vector = np.linalg.norm(vectors, axis=1) > 0
         tfidf = {"sublinear_tf": True}
         self.overview = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), min_df=2, **tfidf).fit_transform(
             [overview_text(k, listing, index, profiles_dir) for k in ids])
@@ -118,6 +120,14 @@ class Signals:
         self.idf = np.log(self.n / np.maximum(self.tags.sum(axis=0), 1)).astype(np.float32)
         self.tag_mass = self.tags @ self.idf   # each plugin's summed tag IDF
 
+    def description(self, rows):
+        """Cosines of the description vectors. Plugins without a vector are NaN, so the min–max ignores them (their
+        zeros would set every plugin's floor and squeeze the real cosines together); a target without one gets 0s."""
+        cos = self.desc[rows] @ self.desc.T
+        cos[:, ~self.has_vector] = np.nan
+        cos[~self.has_vector[rows]] = 0
+        return cos
+
     def category(self, rows):
         """cat_sim of `rows` against all: same primary 1 · primary in the other's set 0.6 · any shared 0.3."""
         p = self.primary[rows][:, None]
@@ -136,7 +146,7 @@ class Signals:
     def scores(self, rows):
         """The weighted score of `rows` (a batch) against every plugin; a plugin's own column is −inf."""
         parts = {
-            "desc": self.desc[rows] @ self.desc.T,
+            "desc": self.description(rows),
             "name": (self.name[rows] @ self.name.T).toarray(),
             "overview": (self.overview[rows] @ self.overview.T).toarray(),
             "cat": self.category(rows),
