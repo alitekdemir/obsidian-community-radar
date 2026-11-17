@@ -120,10 +120,16 @@ const snapshots = [
   { sha: "b".repeat(40), date: ago(10), stats: { homepage: stat(1100, ago(120)), dataview: stat(5100, ago(400)), busy: stat(320, ago(11)) } },
   { sha: "c".repeat(40), date: ago(1), stats: { homepage: stat(1200, ago(3)), dataview: stat(5200, ago(400)), busy: stat(350, ago(2)), fresh: stat(5, ago(2)) } },
 ];
-// semantic vectors: start pages close together, the rest apart (not unit length, but cosines keep the order)
-const vectorRows = { homepage: [120, 30, 0, 0], startpage: [110, 50, 0, 0], hometab: [100, 70, 0, 0], dataview: [0, 0, 127, 0], busy: [0, 0, 0, 127], fresh: [0, 60, 0, 110] };
-const vectorsMeta = { model: "test", dim: 4, count: 6, built: "2026-11-01T04:30:00Z", ids: Object.keys(vectorRows) };
-const vectorsBin = () => Int8Array.from(Object.values(vectorRows).flat()).buffer;
+// the Similar lists (similar.json, built on GitHub): start pages close together, the rest after them
+const similarIdsList = ["homepage", "startpage", "hometab", "dataview", "busy", "fresh"];
+const similarList = (...ids) => ids.map((id) => similarIdsList.indexOf(id));
+const similarFile = {
+  built: "2026-11-17T20:00:00Z", top: 4, ids: similarIdsList,
+  lists: [similarList("startpage", "hometab", "dataview", "busy"), similarList("homepage", "hometab", "fresh", "busy"),
+    similarList("startpage", "homepage", "busy", "fresh"), similarList("homepage", "busy", "fresh", "startpage"),
+    similarList("fresh", "dataview", "homepage", "hometab"), similarList("busy", "startpage", "dataview", "hometab")],
+};
+const similarEtag = '"s1"';
 // the metrics branch: the release history built on GitHub (null: unreachable)
 /** A downloads series from {id: downloads at each age}, as the server writes it (changes after the first). */
 const series = (counts, ages = [90, 30, 7, 5, 0]) => ({ days: ages.map((age) => Math.floor(NOW / DAY) - age), points: Object.fromEntries(Object.entries(counts).map(([id, c]) => [id, c.map((x, i) => (i ? x - c[i - 1] : x))])) });
@@ -137,7 +143,7 @@ const serverHistory = {
 };
 let serverTimeline = serverHistory;
 let serverDelta = null;   // delta.json: the last days' changes (null: none yet)
-const downloaded = { timeline: 0, delta: 0, profiles: 0, profiles304: 0 };
+const downloaded = { timeline: 0, delta: 0, profiles: 0, profiles304: 0, similar: 0, similar304: 0 };
 // the profiles branch: the AI profiles' index (its ETag tells GitHub we have it) and one plugin's own file
 const profilesEtag = '"e1"';
 const profilesIndex = {
@@ -153,8 +159,9 @@ fake.network.handlers.push(
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to, deltaFrom: serverDelta?.from } } : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? (downloaded.timeline++, { status: 200, json: serverTimeline }) : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/delta.json", () => (serverDelta ? (downloaded.delta++, { status: 200, json: serverDelta }) : { status: 404 })],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.json", () => ({ status: 200, json: vectorsMeta })],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/granite-311m.bin", () => ({ status: 200, arrayBuffer: vectorsBin() })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/similar.json", ({ headers }) => (headers["If-None-Match"] === similarEtag
+    ? (downloaded.similar304++, { status: 304, headers: {} })
+    : (downloaded.similar++, { status: 200, json: similarFile, headers: { etag: similarEtag } }))],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/index.json", ({ headers }) => (headers["If-None-Match"] === profilesEtag
     ? (downloaded.profiles304++, { status: 304, headers: {} })
     : (downloaded.profiles++, { status: 200, json: profilesIndex, headers: { ETag: profilesEtag } }))],
@@ -765,19 +772,14 @@ const tests = {
     await view.update("mode", "all");
   },
 
-  async "similar plugins by words (no vectors yet): the Similar filter, ‹ back, ✕ returns to the tab and row, sort and search"({ plugin, view }) {
+  async "Similar filter: the list built on GitHub, ‹ back, ✕ returns to the tab and row, sort and search"({ plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
-    const vectors = plugin.vectors;
-    plugin.vectors = null;
-    const index = core.textIndex(plugin.catalog.plugins);
-    assert.ok(index.byId.get("homepage").has("startup"));
+    plugin.similar = core.parseSimilar(similarFile);
     const catalog = plugin.catalog;
     plugin.catalog = { ...catalog, plugins: [...catalog.plugins,   // two more start pages, so Homepage has company
       { id: "startpage", name: "Startpage", author: "a", repo: "a/startpage", description: "A workspace on startup with quick access to recent notes.", downloads: 900, updated: Date.now() },
-      { id: "hometab", name: "Home Tab", author: "b", repo: "b/hometab", description: "A homepage tab on startup, like a browser.", downloads: 500, updated: Date.now() },
-      // rarity needs a catalog of some size: words used by 2 of 6 plugins aren't rare
-      ...Array.from({ length: 40 }, (_, i) => ({ id: `filler${i}`, name: `Filler ${i}`, author: "f", repo: `f/f${i}`, description: `Unrelated thing ${i}`, downloads: 0 }))] };
+      { id: "hometab", name: "Home Tab", author: "b", repo: "b/hometab", description: "A homepage tab on startup, like a browser.", downloads: 500, updated: Date.now() }] };
     await view.update("mode", "tracked");
     await plugin.track(plugin.pluginById("homepage"), {});
     view.render();
@@ -785,23 +787,25 @@ const tests = {
     const seed = plugin.pluginById("homepage");
     assert.ok(rowOf(seed.name), "Homepage is listed on Tracked");
     const found = plugin.similarTo(seed);
-    assert.ok(found.length >= 2 && found.every((x) => x.cosine === undefined), "word matching");
+    assert.ok(plugin.data.excluded.busy, "Busy is ignored (an earlier test)");
+    assert.deepEqual(found.map((x) => x.p.id), ["startpage", "hometab", "dataview"], "the list's order, without the ignored plugin");
+    assert.deepEqual(found.find((x) => x.p.id === "dataview").shared, ["navigation", "queries"], "why: shared categories, then tags");
 
-    // Similar →: the list filters to the matches on the All tab, closest first, with a bar and the shared terms
+    // Similar →: the list filters to the matches on the All tab, closest first, with a bar and what they share
     rowMenu(rowOf(seed.name), core.t("menu.similar"));
     assert.equal(settings.mode, "all");
     assert.equal($(el, ".pdt-tab.is-active").textContent.startsWith(core.t("mode.all")), true);
     const chip = () => $(el, ".pdt-similar-chip");
     assert.equal($(chip(), ".pdt-chip-value").textContent, seed.name);
     assert.equal($$(chip(), ".pdt-similar-step").length, 1, "only ✕: nothing to go back to");
-    assert.ok($(el, ".pdt-status-text").textContent.includes(core.t("similar.byWords")));
+    assert.ok($(el, ".pdt-status-text").textContent.includes(core.t("similar.how")));
     const allTab = $(el, ".pdt-tab.is-active");
     assert.equal(allTab.firstChild.textContent, core.t("similar.tab"));
     assert.equal($(allTab, ".pdt-n").textContent, String(found.length));
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), found.map((x) => x.p.name));
     const first = $(el, ".pdt-row");
     assert.equal($(first, ".pdt-why-label").textContent, core.t("similar.veryClose"));
-    assert.equal($$(el, ".pdt-why-fill")[1].style.getPropertyValue("--pdt-match"), `${Math.max(6, Math.round(found[1].match * 100))}%`);
+    assert.equal($$(el, ".pdt-why-fill")[1].style.getPropertyValue("--pdt-match"), `${Math.round(core.closenessShare(2) * 100)}%`);
 
     // the same bar as All: Filters first (its Downloads ≥ applies), then the Similar chip
     assert.equal($(el, ".pdt-filters").firstElementChild, $(el, ".pdt-filter-menu"));
@@ -819,7 +823,7 @@ const tests = {
     await view.update("similarSort", { key: "downloads", dir: "desc" });
     assert.ok(view.similar, "sorting keeps the filter");
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...found].sort((a, b) => (b.p.downloads ?? 0) - (a.p.downloads ?? 0)).map((x) => x.p.name));
-    view.similar.query = "tab";
+    view.similar.query = "browser";
     view.refresh();
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), ["Home Tab"]);
     const before = core.changedFilters({ ...settings, query: "" }, "all");        // what earlier tests left changed
@@ -852,28 +856,35 @@ const tests = {
     settings.section = "list";
     view.cursorId = null;
     plugin.catalog = catalog;
-    plugin.vectors = vectors;
-    plugin.similarCache.clear();
     await view.update("mode", "all");
   },
 
-  async "similar plugins by meaning: vectors download on sync, closest by cosine, details window with README tabs"({ app, plugin, view }) {
+  async "Similar lists: downloaded once a day (304 when unchanged), a plugin without a list, details window with README tabs"({ app, plugin, view }) {
     const el = view.contentEl;
-    plugin.vectors = null;
-    await plugin.syncVectors(() => {});
-    assert.equal(plugin.vectors?.rows.size, 6, "downloaded and parsed");
-    assert.ok(app.vault.adapter.disk.has(`${plugin.cache.dir}/vectors.bin`), "cached");
+    plugin.similar = null;
+    await plugin.cache.remove("similar-meta");
+    Object.assign(downloaded, { similar: 0, similar304: 0 });   // earlier syncs fetched it too
+    await plugin.syncSimilar(() => {});
+    assert.equal(downloaded.similar, 1, "no copy yet: the whole file");
+    assert.equal(plugin.similar?.row.size, 6, "downloaded and parsed");
+    assert.ok(app.vault.adapter.disk.has(`${plugin.cache.dir}/similar.json`), "cached");
+    await plugin.syncSimilar(() => {});
+    assert.equal(downloaded.similar + downloaded.similar304, 1, "checked today: no request");
+    await plugin.cache.write("similar-meta", { etag: similarEtag, checkedAt: Date.now() - 25 * 3600_000 });
+    await plugin.syncSimilar(() => {});
+    assert.deepEqual([downloaded.similar, downloaded.similar304], [1, 1], "a day later: asked with the ETag, unchanged");
+    assert.deepEqual(plugin.similarTo({ id: "listed-today" }), [], "no list yet");
+    const homepageGroup = [...plugin.notes.members()].find(([, ids]) => ids.includes("homepage"))?.[0] ?? null;
+    assert.equal(plugin.closestGroupFor(plugin.pluginById("dataview")), homepageGroup, "the group of its closest tracked plugin");
+    assert.equal(plugin.closestGroupFor({ id: "listed-today" }), null);
     const catalog = plugin.catalog;
     plugin.catalog = { ...catalog, plugins: [...catalog.plugins,
       { id: "startpage", name: "Startpage", author: "a", repo: "a/startpage", description: "Opens a page at launch.", downloads: 900, updated: Date.now() },
       { id: "hometab", name: "Home Tab", author: "b", repo: "b/hometab", description: "A tab to start from.", downloads: 500, updated: Date.now() }] };
     const homepage = plugin.pluginById("homepage");
     const found = plugin.similarTo(homepage);
-    assert.deepEqual(found.slice(0, 2).map((x) => x.p.id), ["startpage", "hometab"], "closest by meaning even without shared words");
-    assert.ok(found[0].cosine > found[2].cosine);
-    view.similarFilter.open(homepage);
-    assert.ok($(el, ".pdt-status-text").textContent.includes(core.t("similar.byMeaning")));
-    view.similarFilter.close();
+    assert.deepEqual(found.slice(0, 2).map((x) => x.p.id), ["startpage", "hometab"], "the list's order");
+    assert.deepEqual(found.map((x) => x.rank), [1, 2, 3], "places in the whole list (Busy, 4th, is ignored)");
     await view.update("mode", "all");
 
     // the details window: numbers, description, similar, README tabs; ← → walk the list
@@ -990,7 +1001,6 @@ const tests = {
     modals.at(-1).close();
     view.cursorId = null;
     plugin.catalog = catalog;
-    plugin.similarCache.clear();
   },
 
   async "Tracked tab: Group menu, sections per group, new releases, rows stay after an action, rating and custom statuses"({ app, plugin, view }) {

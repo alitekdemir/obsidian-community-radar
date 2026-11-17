@@ -1,17 +1,15 @@
 /**
- * The user's group that fits `target` best, judged by the words of the plugins already in it (and the
- * group's own name); null when nothing is close enough.
+ * The user's group that fits `targetId` best: the one with the most plugins among its GROUP_HINT_RANK closest (a
+ * member counts 1/rank, so a closer one weighs more); null when none of its closest is in a group.
  * @param {Map<string, string[]>} members  group name → plugin ids
  */
-function closestGroup(target, members, index) {
-  const mine = index.byId.get(target.id) || meaningfulWords(`${target.name} ${target.description}`);
+function closestGroup(targetId, members, similar) {
+  const rank = new Map(similarIds(similar, targetId).slice(0, GROUP_HINT_RANK).map((id, i) => [id, i + 1]));
   let best = null;
-  let bestScore = MIN_SIMILARITY;
+  let bestScore = 0;
   for (const [group, ids] of members) {
-    const profile = meaningfulWords(group);
-    for (const id of ids) if (id !== target.id) for (const w of index.byId.get(id) || []) profile.add(w);
-    const score = overlap(index, mine, profile) / Math.sqrt(Math.max(1, ids.length));
-    if (score >= bestScore) { best = group; bestScore = score; }
+    const score = ids.reduce((sum, id) => sum + (rank.has(id) ? 1 / rank.get(id) : 0), 0);
+    if (score > bestScore) { best = group; bestScore = score; }
   }
   return best;
 }

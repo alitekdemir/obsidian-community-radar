@@ -23,7 +23,7 @@ class PluginRadar extends Plugin {
       this.saveData(this.data);
     };
     this.catalog = null;                                      // {fetchedAt, plugins}
-    this.vectors = null;                                      // semantic Similar (parseVectors); null → word matching
+    this.similar = null;                                      // Similar lists built on GitHub (parseSimilar); null → none yet
     this.profiles = null;                                     // AI profiles' index.json ({categories, tags, plugins}); null → none yet
     this.extras = null;                                       // loadExtras(), once
     this.profileFiles = new Map();                            // id → a plugin's whole profile (a promise), this session only
@@ -32,7 +32,6 @@ class PluginRadar extends Plugin {
     this.busy = false;
     this.progress = "";             // the running task's progress, shown in the view's status line
     this.readmeJobs = new Set();    // plugin ids whose README is being fetched
-    this.similarCache = new Map();  // "id|limit" → similarTo result (cleared when the catalog or the ignored list changes)
 
     this.registerView(VIEW_TYPE, (leaf) => new DiscoveryView(leaf, this));
     this.addRibbonIcon(ICON, t("view.title"), () => this.openView());
@@ -70,8 +69,8 @@ class PluginRadar extends Plugin {
       try {
         await this.importLegacyPlugin();
         this.notes.rebuild();
-        // everything the lists show, read at once and drawn once: a second full redraw (the vectors and profiles a
-        // few seconds later, ~80 ms to read) repainted the list and pushed Obsidian's LCP to ~5 s
+        // everything the lists show, read at once and drawn once: a second full redraw (the Similar lists and profiles
+        // a few seconds later, ~80 ms to read) repainted the list and pushed Obsidian's LCP to ~5 s
         const [catalog, cached] = await Promise.all([this.cache.read("catalog", null), this.cache.read("timeline", null), this.loadExtras()]);
         this.catalog = catalog;
         if (cached?.v === TIMELINE_VERSION && cached.source === "server") this.timeline = cached;   // only the history built on GitHub (0.9.1+)
@@ -96,15 +95,14 @@ class PluginRadar extends Plugin {
   }
 
   /**
-   * The semantic vectors and the AI profiles from the cache, once (~8 MB, ~80 ms): with the catalog at startup, or
+   * The AI profiles and the Similar lists from the cache, once (~8 MB, ~80 ms): with the catalog at startup, or
    * first by a sync that compares them. The caller redraws.
    */
   loadExtras() {
     this.extras ||= (async () => {
-      const [meta, bin, profiles] = await Promise.all([this.cache.read("vectors", null), this.cache.readBinary("vectors"), this.cache.read("profiles", null)]);
-      this.vectors = parseVectors(meta, bin);
+      const [profiles, similar] = await Promise.all([this.cache.read("profiles", null), this.cache.read("similar", null)]);
       this.profiles = profiles;
-      this.similarCache.clear();
+      this.similar = parseSimilar(similar);
     })();
     return this.extras;
   }
@@ -176,6 +174,8 @@ class PluginRadar extends Plugin {
       ["viewQueriesRepair", () => {
         if (st.home?.views) st.home.views = st.home.views.map((v) => (v.query === "undefined" && v.mode ? { id: v.id, name: v.name, query: legacyViewQuery(v, st) } : v));
       }],
+      // 0.14: Similar comes as lists built on GitHub; the semantic vectors (~2.5 MB) aren't needed any more
+      ["dropVectors", () => Promise.all([this.cache.remove("vectors"), this.cache.remove("vectors", "bin")])],
     ];
     for (const [key, run] of steps) {
       if (done[key]) continue;
@@ -230,7 +230,7 @@ class PluginRadar extends Plugin {
     };
   }
 
-  /** A catalog plugin by id; the lookup is rebuilt when the catalog's list changes (like textIndex). */
+  /** A catalog plugin by id; the lookup is rebuilt when the catalog's list changes. */
   pluginById(id) {
     const plugins = this.catalog?.plugins;
     if (this.byIdPlugins !== plugins) {
@@ -315,8 +315,8 @@ class PluginRadar extends Plugin {
       await this.cache.write("catalog", this.catalog);
 
       const history = await this.syncServerTimeline(progress);
-      await this.syncVectors(progress);
       await this.syncProfiles(progress);
+      await this.syncSimilar(progress);
 
       progress(t("notice.updatingNotes"));
       const released = [];
@@ -331,46 +331,43 @@ class PluginRadar extends Plugin {
     }, { quiet });
   }
 
-  /** Downloads the semantic vectors when a newer build is out; a failure only leaves Similar on word matching. */
-  async syncVectors(progress) {
+  /**
+   * A file of the profiles branch, at most once a day (PROFILES_CHECK_HOURS): GitHub sends it only when it changed
+   * since ours (ETag), else a bodiless 304. `<name>-meta` keeps the ETag and the check's time, so a 304 rewrites only
+   * that small file. Returns the new content to use, or null (not due, unchanged, or failed: we keep what we have).
+   * @param {() => any} current  what we have now (read after the cache is loaded)
+   * @param {(json: object) => boolean} valid  a check of the downloaded content
+   */
+  async syncProfilesFile(name, file, current, valid, progress) {
     await this.loadExtras();   // compared with the copy we have
     try {
-      const meta = await this.github.vectorsMeta();
-      if (this.vectors && meta.built === this.vectors.built) return;
-      progress(t("notice.vectors"));
-      const vectors = parseVectors(meta, await this.github.vectorsData());
-      if (!vectors) throw new Error("vector file doesn't match its index");
-      await this.cache.write("vectors", meta);
-      await this.cache.writeBinary("vectors", vectors.data.buffer);
-      this.vectors = vectors;
-      this.similarCache.clear();
+      const meta = await this.cache.read(`${name}-meta`, {});
+      const have = current();
+      if (have && Date.now() - (meta.checkedAt || 0) < PROFILES_CHECK_HOURS * HOUR_MS) return null;
+      progress(t(`notice.${name}`));
+      const fresh = await this.github.profilesFile(file, have ? meta.etag : null);   // no copy: ask for the whole file
+      if (fresh && !valid(fresh.json)) throw new Error(`unexpected ${file}`);
+      if (fresh) await this.cache.write(name, fresh.json);
+      await this.cache.write(`${name}-meta`, { etag: fresh ? fresh.etag : meta.etag, checkedAt: Date.now() });
+      return fresh?.json ?? null;
     } catch (error) {
-      console.warn("[Community Radar] couldn't update the semantic vectors; Similar uses words", error);
+      console.warn(`[Community Radar] couldn't update ${file}`, error);
+      return null;
     }
   }
 
-  /**
-   * The AI profiles, at most once a day (PROFILES_CHECK_HOURS): GitHub sends the index only when it changed since
-   * ours (ETag), else a bodiless 304. `profiles-meta` keeps the ETag and the check's time, so a 304 rewrites only that
-   * small file. A failure keeps the profiles we have.
-   */
+  /** The AI profiles' index (categories, tags, summaries); a new one drops the session's plugin files. */
   async syncProfiles(progress) {
-    await this.loadExtras();   // compared with the copy we have
-    try {
-      const meta = await this.cache.read("profiles-meta", {});
-      if (this.profiles && Date.now() - (meta.checkedAt || 0) < PROFILES_CHECK_HOURS * HOUR_MS) return;
-      progress(t("notice.profiles"));
-      const fresh = await this.github.profiles(this.profiles ? meta.etag : null);   // no copy: ask for the whole file
-      if (fresh) {
-        if (!fresh.index?.plugins) throw new Error("unexpected profiles file");
-        await this.cache.write("profiles", fresh.index);
-        this.profiles = fresh.index;
-        this.profileFiles.clear();
-      }
-      await this.cache.write("profiles-meta", { etag: fresh ? fresh.etag : meta.etag, checkedAt: Date.now() });
-    } catch (error) {
-      console.warn("[Community Radar] couldn't update the plugin profiles", error);
-    }
+    const index = await this.syncProfilesFile("profiles", "index.json", () => this.profiles, (json) => Boolean(json?.plugins), progress);
+    if (!index) return;
+    this.profiles = index;
+    this.profileFiles.clear();
+  }
+
+  /** The Similar lists built on GitHub (similar.json). */
+  async syncSimilar(progress) {
+    const file = await this.syncProfilesFile("similar", "similar.json", () => this.similar, (json) => Boolean(parseSimilar(json)), progress);
+    if (file) this.similar = parseSimilar(file);
   }
 
   /** A plugin's whole profile (the details window's long texts), downloaded once a session; null when there's none. */
@@ -762,37 +759,22 @@ class PluginRadar extends Plugin {
   }
 
   // ── Groups and similarity ────────────────────────────────────────────────
-  /** Word index of the current catalog, built once per catalog. */
-  textIndex() {
-    if (this.indexedCatalog !== this.catalog) {
-      this.indexedCatalog = this.catalog;
-      this.wordIndex = textIndex(this.catalog?.plugins || []);
-    }
-    return this.wordIndex;
-  }
-
   closestGroupFor(plugin) {
-    return closestGroup(plugin, this.notes.members(), this.textIndex());
+    return closestGroup(plugin.id, this.notes.members(), this.similar);
   }
 
   /**
-   * [{p, score, match, shared, cosine?}], best match first: by meaning when the vectors are in
-   * (semanticPlugins), by words otherwise (similarPlugins). Cached per plugin until the data changes.
+   * The plugins most like `plugin`, best first: [{p, rank, shared}] — its list built on GitHub, without the ignored
+   * plugins and those no longer in the catalog. `rank` is the place in the whole list; `shared` says why (categories,
+   * then tags in common). [] while the plugin has no list yet.
    */
-  similarTo(plugin, limit = SIMILAR_MAX) {
-    const key = `${plugin.id}|${limit}`;
-    if (this.similarCatalog !== this.catalog) {
-      this.similarCatalog = this.catalog;
-      this.similarCache.clear();
-    }
-    if (!this.similarCache.has(key)) {
-      const catalog = this.catalog?.plugins || [];
-      const options = { exclude: new Set(Object.keys(this.data.excluded)), limit };
-      const found = (this.vectors && semanticPlugins(plugin, catalog, this.vectors, this.textIndex(), options))
-        || similarPlugins(plugin, catalog, this.textIndex(), options);
-      this.similarCache.set(key, found);
-    }
-    return this.similarCache.get(key);
+  similarTo(plugin) {
+    const profiles = this.profiles?.plugins;
+    const mine = profiles?.[plugin.id];
+    return similarIds(this.similar, plugin.id)
+      .map((id, i) => ({ id, rank: i + 1, p: this.pluginById(id) }))
+      .filter((x) => x.p && !(x.id in this.data.excluded))
+      .map(({ p, rank }) => ({ p, rank, shared: sharedFacets(mine, profiles?.[p.id]) }));
   }
 
   /** Tracked plugins that have no group yet. */
@@ -891,7 +873,6 @@ class PluginRadar extends Plugin {
   /** Brings plugins back from one kind of the Hidden page (its store has the same name: excluded, snoozed, dismissed). */
   async restoreFrom(mode, ids) {
     for (const id of ids) delete this.data[mode][id];
-    this.similarCache.clear();
     await this.saveData(this.data);
     this.redraw();
   }
@@ -962,7 +943,6 @@ class PluginRadar extends Plugin {
       changes.push({ id: p.id, before, after, created: !note });
       await this.track(p, { [kind]: after });
     }
-    if (kind === "exclude") this.similarCache.clear();
     const op = { at: Date.now(), kind, value, changes };
     this.data.ops = [op, ...(this.data.ops || [])].slice(0, OPS_CAP);
     await this.saveData(this.data);
@@ -995,7 +975,6 @@ class PluginRadar extends Plugin {
       }
       if (still) restored++; else skipped++;
     }
-    if (op.kind === "exclude") this.similarCache.clear();
     op.undone = Date.now();
     await this.saveData(this.data);
     this.redraw();

@@ -12,7 +12,15 @@ Birbirine bir hafta içinde çıkan sürümler tek bir **güncelleme dalgası** 
 
 ## Benzerler
 
-*Benzerleri* anlamları karşılaştırır. Günde bir kez bir [GitHub Actions iş akışı](../.github/workflows/embeddings.yml) her eklentinin adını ve açıklamasını IBM'in açık [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) modeliyle (Apache 2.0; yalnızca yeni ya da düzenlenmiş eklentiler yeniden kodlanır) bir vektöre çevirir ve `embeddings` dalında yayımlar. Community Radar bu dosyayı indirir ve eklentileri cihazınızda kosinüs benzerliğine göre sıralar; nadir ama ortak bir kelime de sayılsın diye küçük bir pay ortak kelime eşleşmesi (BM25) ekler. Hiçbir yapay zekâ sağlayıcısı devreye girmez.
+*Benzerleri* aynı işi yapan eklentileri listeler. Her eklentinin en yakın 50 eklentisi GitHub'da hesaplanır ([scripts/similar](../scripts/similar/build.py), saatlik [profil iş akışıyla](../.github/workflows/profiles.yml)); beş şeye bakılır, ağırlıklar 2-1-3-1-1:
+
+- **açıklaması**: IBM'in açık [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) modeliyle (Apache 2.0, [embeddings iş akışı](../.github/workflows/embeddings.yml)) her gün vektöre çevrilir; farklı kelimeler ve diller arasında anlam eşleşir,
+- **adı**,
+- **AI genel bakışı** (özet, çözdüğü sorun, yaptıkları), kelime kelime,
+- **kategorisi** ve
+- **etiketleri**; nadir bir ortak etiket daha çok sayılır.
+
+Bu ağırlıklar elle puanlanmış 50 eklentiyle yapılan kör bir testi kazandı: ilk 5, yalnızca açıklama vektörüne göre yaklaşık üçte bir daha yüksek puan aldı (nDCG@5 0,77 / 0,56). Aynı test her yayından önce çalışır; daha düşük puan alan liste yayımlanmaz. Listeler `profiles` dalında `similar.json` olarak durur; Community Radar onları Eşitleme ile indirir ve yalnızca içlerine bakar. *Çok yakın* ilk 5, *yakın* sonraki 10, *ilgili* gerisidir; "Ortak" iki eklentinin paylaştığı kategori ve etiketleri gösterir. Son saatlerde listelenen bir eklentinin listesi bir sonraki hesaplamaya kadar olmaz. Hiçbir yapay zekâ sağlayıcısı devreye girmez.
 
 ## AI profilleri
 
@@ -27,8 +35,7 @@ Community Radar yalnızca şu istekleri yapar:
 | `raw.githubusercontent.com` | Eşitleme, README güncellemeleri | Herkese açık eklenti listesi ve istatistikleri, eklenti README'leri |
 | `api.github.com` | Yalnızca README alışılmış bir yolda değilse | README. Kimlik doğrulamasız, saatte 60 istek |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/` | Eşitleme, daha yeni bir derleme çıktığında | Sürüm geçmişi ve indirme metrikleri (~600 KB) |
-| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/` | Eşitleme, daha yeni bir derleme çıktığında | Benzerler için vektörler (~2,5 MB) |
-| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/` | Eşitleme, günde en fazla bir kez ve yalnızca değiştiyse; ayrıntılar penceresi | AI profillerinin dizini (~5,6 MB), tek eklentinin profili (~2 KB) |
+| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/` | Eşitleme, günde en fazla bir kez ve yalnızca değiştiyse; ayrıntılar penceresi | AI profillerinin dizini (~5,6 MB), Benzerleri listeleri (~2,8 MB, sıkıştırılmış ~1,2 MB gelir), tek eklentinin profili (~2 KB) |
 | Yapay zekâ sağlayıcınız (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` ya da `openrouter.ai`) | **Yalnızca** bir sağlayıcı ayarlıyken çeviri yaptığınızda ya da grup önerisi istediğinizde | Eklenti adları ve açıklamaları, gruplarınızın adları ve çevirmesini istediğiniz README ya da Genel bakış |
 
 Telemetri yok, hesap yok, kasanız hakkında hiçbir şey hiçbir yere gönderilmez. Community Radar kasada yalnızca kendi not klasöründeki notları okuyup yazar; diğer dosyalarınızı hiç listelemez. API anahtarları her cihazda Obsidian'ın anahtar deposunda (SecretStorage) tutulur, asla `data.json`'da değil; eklenti yalnızca anahtarın adını (örn. `anthropic-api-key`) saklar, böylece aynı adı kullanan diğer eklentiler anahtarı paylaşır. Kurulu eklentilerin listesi Obsidian'ın dahili `app.plugins` nesnesinden gelir.

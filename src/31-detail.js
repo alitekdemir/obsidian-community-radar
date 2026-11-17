@@ -249,8 +249,8 @@ class DetailModal extends Modal {
       const item = near.box.createEl("button", { cls: "pdt-detail-near", attr: { type: "button" } });
       item.createSpan({ cls: "pdt-detail-near-name", text: x.p.name });
       const meter = item.createSpan({ cls: "pdt-why-meter" });
-      meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${Math.max(6, Math.round(x.match * 100))}%` });
-      item.createSpan({ cls: "pdt-detail-near-close", text: t(closeness(x.match)) });
+      meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${Math.max(6, Math.round(closenessShare(x.rank) * 100))}%` });
+      item.createSpan({ cls: "pdt-detail-near-close", text: t(closeness(x.rank)) });
       setTooltip(item, x.p.description || x.p.name);
       item.onclick = () => {   // look at it here; ← comes back
         this.rows.splice(this.index + 1, 0, x.p);

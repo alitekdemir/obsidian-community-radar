@@ -54,7 +54,6 @@ const README_MODES = ["open", "sync", "manual"];
 const PAGE_SIZE = 50;
 const AI_BATCH = 50;               // plugins per group-suggestion request
 const AI_GROUPS = 10;              // group suggestions asked per plugin
-const SIMILAR_LIMIT = 8;
 /** The details window's icon for what a plugin needs (a profile's requires[].kind). */
 const PROFILE_NEEDS = { apiKey: "key-round", paidService: "credit-card", account: "user-round", externalApp: "app-window", plugin: "puzzle" };
 const VISIBLE_SUGGESTIONS = 5;     // AI chips shown before "+n more"
@@ -64,20 +63,14 @@ const KEY_HELP = [
   [["h"], "keys.snooze"], [["t"], "keys.translate"], [["r"], "keys.readme"], [["s"], "keys.similar"],
   [["o"], "keys.open"], [["Enter"], "keys.expand"], [["1", "…", "5"], "keys.rate"], [["0"], "keys.unrate"],
 ];
-const MIN_SIMILARITY = 5;          // summed rarity of shared words; ~one rare word or two common ones
-const SIMILAR_LIST = 30;           // closeness labels are set by the best this many; the details window shows the top 5
-const SIMILAR_MAX = 300;           // the Similar filter lists matches down to here, in pages; further down it's noise
+const SIMILAR_TOP = 50;            // a Similar list's length (scripts/similar/build.py); the details window shows the top 5
+const VERY_CLOSE_RANK = 5;         // closeness labels by place in the list: 1–5 very close, 6–15 close, the rest related
+const CLOSE_RANK = 15;
+const GROUP_HINT_RANK = 10;        // the group window stars a group when one of its plugins is among the 10 most similar
 const SIMILAR_STEPS = 10;          // Similar → Similar steps that ‹ can go back through (this session only)
-const NAME_WEIGHT = 2;             // a word in the name counts as much as two in the description
-const BM25_K1 = 1.2;               // BM25: how fast repeating a term stops adding
-const BM25_B = 0.75;               // BM25: how much a long description is evened out
-const MMR_LAMBDA = 0.75;           // relevance vs. variety when picking similar plugins
-const WORD_SHARE = 0.03;           // semantic Similar: how much the best word match adds to a cosine (~0.85–0.97)
-// Semantic vectors of every plugin's name and description, rebuilt daily by .github/workflows/embeddings.yml
-const VECTORS_URL = `${RAW}/alitekdemir/obsidian-community-radar/embeddings/granite-311m`;
 const METRICS_URL = `${RAW}/alitekdemir/obsidian-community-radar/metrics`;   // built daily by .github/workflows/metrics.yml
 const PROFILES_URL = `${RAW}/alitekdemir/obsidian-community-radar/profiles`;   // AI profiles, .github/workflows/profiles.yml (hourly)
-const PROFILES_CHECK_HOURS = 24;   // the profiles' index (~5.6 MB) is asked for at most once a day, and only if it changed (ETag)
+const PROFILES_CHECK_HOURS = 24;   // the profiles branch's files (index ~5.6 MB, similar ~2.8 MB) are asked for at most once a day, and only if they changed (ETag)
 const TIMELINE_VERSION = 3;        // 2: first-seen dates added; 3: downloads series and removed plugins
 // the downloads series keeps calendar days (as scripts/metrics/build.py writes them): Mondays back a year, then daily
 const SERIES_DAYS = 365;

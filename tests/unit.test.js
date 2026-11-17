@@ -534,61 +534,34 @@ const tests = {
     assert.ok(prompt.includes("Türkçe") && prompt.includes('"examples":["Tasks"]') && prompt.trim().endsWith("]"));
   },
 
-  "similarPlugins: BM25 on names and descriptions, word pairs, why it matches, near-copies spread out; closestGroup"() {
-    const catalog = [
-      P("kanban", { name: "Kanban", description: "Markdown kanban boards for tasks", downloads: 900 }),
-      P("board", { name: "Task Board", description: "A kanban board for your tasks and projects", downloads: 500 }),
-      P("tasks", { name: "Tasks", description: "Track tasks with due dates and recurring tasks", downloads: 2000 }),
-      P("draw", { name: "Excalidraw", description: "Sketch drawings and diagrams", downloads: 3000 }),
-      P("cal", { name: "Calendar", description: "Explore your daily notes", downloads: 100 }),
-      P("daily", { name: "Daily Notes Plus", description: "Better daily notes with templates", downloads: 50 }),
-      P("dupe1", { name: "Kanban Lite", description: "Markdown kanban boards", downloads: 10 }),
-      P("dupe2", { name: "Kanban Lite 2", description: "Markdown kanban boards", downloads: 9 }),
-      ...Array.from({ length: 40 }, (_, i) => P(`filler${i}`, { name: `Filler ${i}`, description: `Unrelated thing number ${i} for markdown`, downloads: i })),
-    ];
-    const index = core.textIndex(catalog);
-    assert.ok(index.byId.get("tasks").has("task"), "plural folded");
-    assert.ok(index.byId.get("cal").has("daily note"), "word pairs, even with a generic word");
-    assert.ok(!index.byId.get("cal").has("note"), "a generic word alone doesn't count");
+  "Similar: lists built on GitHub, closeness by rank, why two plugins match, the group to star"() {
+    const file = { built: "2026-11-17T20:00:00Z", top: 3, ids: ["kanban", "board", "tasks", "draw"], lists: [[1, 2, 3], [0, 2, 3], [1, 0, 3], [2, 1, 0]] };
+    const similar = core.parseSimilar(file);
+    assert.equal(similar.row.get("tasks"), 2);
+    assert.deepEqual(core.similarIds(similar, "kanban"), ["board", "tasks", "draw"], "best first");
+    assert.deepEqual(core.similarIds(similar, "new"), [], "listed today: no list yet");
+    assert.deepEqual(core.similarIds(null, "kanban"), [], "not downloaded yet");
+    assert.equal(core.parseSimilar({ ids: ["a"], lists: [] }), null, "lists must match ids");
+    assert.equal(core.parseSimilar(null), null);
 
-    const similar = core.similarPlugins(catalog[1], catalog, index);
-    const ids = similar.map((x) => x.p.id);
-    assert.ok(ids.includes("kanban") && !ids.includes("draw") && !ids.includes("board"));
-    assert.ok(similar.every((x, i) => i === 0 || x.match <= 1) && similar[0].match > 0);
-    assert.ok(similar.find((x) => x.p.id === "kanban").shared.includes("kanban"), "why: the shared terms");
-    assert.equal(core.similarPlugins(catalog[1], catalog, index, { exclude: new Set(["kanban"]) }).some((x) => x.p.id === "kanban"), false);
-    assert.equal(core.similarPlugins(catalog[1], catalog, index, { limit: 2 }).length, 2);
-    assert.deepEqual(core.similarPlugins(catalog[4], catalog, index).map((x) => x.p.id), ["daily"]);
+    assert.equal(core.closeness(1), "similar.veryClose");
+    assert.equal(core.closeness(5), "similar.veryClose");
+    assert.equal(core.closeness(6), "similar.close");
+    assert.equal(core.closeness(15), "similar.close");
+    assert.equal(core.closeness(16), "similar.related");
+    assert.equal(core.closenessShare(1), 1);
+    assert.ok(core.closenessShare(50) > 0 && core.closenessShare(50) < core.closenessShare(2));
 
-    // two identical copies: the second one waits behind a different idea (maximal marginal relevance)
-    const top = core.similarPlugins(catalog[0], catalog, index, { limit: 3 }).map((x) => x.p.id);
-    assert.ok(top.includes("dupe1") || top.includes("dupe2"));
-    assert.ok(!(top[0].startsWith("dupe") && top[1].startsWith("dupe")), `near-copies not side by side: ${top}`);
+    const a = { primary: "tasks", also: ["productivity"], tags: ["kanban", "boards", "tasks"] };
+    const b = { primary: "productivity", also: ["tasks"], tags: ["kanban", "calendar"] };
+    assert.deepEqual(core.sharedFacets(a, b), ["tasks", "productivity", "kanban"], "categories first, then tags; a tag named like a category once");
+    assert.deepEqual(core.sharedFacets(a, null), [], "no profile: nothing to say");
 
-    const members = new Map([["Task", ["tasks", "kanban"]], ["Visual", ["draw"]]]);
-    assert.equal(core.closestGroup(catalog[1], members, index), "Task");
-    assert.equal(core.closestGroup(P("x", { name: "Weather", description: "Shows the forecast" }), members, index), null);
-  },
-
-  "semantic Similar: cosine order with a little word help, closeness within the list, the vectors file"() {
-    const catalog = [P("a", { name: "Alpha", description: "kanban board" }), P("b", { name: "Beta", description: "board for tasks" }),
-      P("c", { name: "Gamma", description: "drawing" }), P("d", { name: "Delta", description: "kanban" }), P("new", { name: "New" })];
-    const index = core.textIndex(catalog);
-    const rows = { a: [127, 0, 0], b: [100, 78, 0], c: [0, 0, 127], d: [90, 0, 90] };
-    const meta = { model: "m", dim: 3, count: 4, built: "x", ids: Object.keys(rows) };
-    const vectors = core.parseVectors(meta, Int8Array.from(Object.values(rows).flat()).buffer);
-    assert.equal(vectors.rows.get("c"), 2);
-    assert.equal(core.parseVectors({ ...meta, count: 5 }, new ArrayBuffer(12)), null, "size must match");
-    const found = core.semanticPlugins(catalog[0], catalog, vectors, index, { limit: 3 });
-    assert.deepEqual(found.map((x) => x.p.id), ["b", "d", "c"]);
-    assert.equal(found[0].match, 1);
-    assert.equal(found.at(-1).match, 0);
-    assert.ok(found.find((x) => x.p.id === "d").shared.includes("kanban"), "shared words still explain it");
-    assert.equal(core.semanticPlugins(catalog[4], catalog, vectors, index), null, "no vector yet: fall back to words");
-    assert.deepEqual(core.semanticPlugins(catalog[0], catalog, vectors, index, { exclude: new Set(["b"]) }).map((x) => x.p.id), ["d", "c"]);
-    assert.equal(core.closeness(0.9), "similar.veryClose");
-    assert.equal(core.closeness(0.5), "similar.close");
-    assert.equal(core.closeness(0.1), "similar.related");
+    // the group window's star: the group with the most (and closest) plugins among the target's closest
+    const members = new Map([["Visual", ["draw"]], ["Task", ["tasks", "board"]]]);
+    assert.equal(core.closestGroup("kanban", members, similar), "Task");
+    assert.equal(core.closestGroup("draw", new Map([["Visual", ["x"]]]), similar), null, "none of its closest is grouped");
+    assert.equal(core.closestGroup("new", members, similar), null, "no list yet");
   },
 
   "README translation: kept above the original, source fingerprint read back, split into requests, estimated; release cadence"() {

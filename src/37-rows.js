@@ -155,14 +155,14 @@ class RowRenderer extends ViewPart {
     for (const term of terms) box.createSpan({ cls: "pdt-term", text: term });
   }
 
-  /** A Similar-list row's reason: how close it is within the list (bar and word) and what it shares. */
-  renderWhy(parent, { match, shared, cosine }) {
-    const pct = Math.round(match * 100);
-    const label = t(closeness(match));
+  /** A Similar-list row's reason: its place in the list (bar and word) and what the two profiles share. */
+  renderWhy(parent, { rank, shared }) {
+    const pct = Math.round(closenessShare(rank) * 100);
+    const label = t(closeness(rank));
     const why = parent.createDiv({ cls: "pdt-why" });
     const meter = why.createSpan({ cls: "pdt-why-meter", attr: { role: "meter", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(pct), "aria-label": label } });
     meter.createSpan({ cls: "pdt-why-fill" }).setCssProps({ "--pdt-match": `${Math.max(pct, 6)}%` });
-    setTooltip(meter, cosine != null ? t("similar.cosineTip", { cosine: decimal(cosine, 2) }) : t("similar.match", { pct }));
+    setTooltip(meter, t("similar.rankTip", { rank, n: SIMILAR_TOP }));
     why.createSpan({ cls: "pdt-why-label", text: label });
     if (shared.length) why.createSpan({ cls: "pdt-why-common", text: t("similar.why") });
     this.renderTerms(why, shared);

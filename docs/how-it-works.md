@@ -12,7 +12,15 @@ Releases within a week of each other count as one **update wave**, so a plugin t
 
 ## Similar
 
-*Similar* compares meanings. Once a day, a [GitHub Actions workflow](../.github/workflows/embeddings.yml) turns every plugin's name and description into a vector with IBM's open [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) model (Apache 2.0; only new or edited plugins are re-encoded) and publishes them on the `embeddings` branch. Community Radar downloads that file and ranks plugins by cosine similarity on your device, adding a small share of shared-word matching (BM25) so a rare common word still counts. No AI provider is involved.
+*Similar* lists the plugins that do the same job. Each plugin's 50 closest are worked out on GitHub ([scripts/similar](../scripts/similar/build.py), with the hourly [profiles workflow](../.github/workflows/profiles.yml)) from five things, weighted 2-1-3-1-1:
+
+- its **description**, as a vector made daily by IBM's open [granite-embedding-311m-multilingual-r2](https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2) model (Apache 2.0, [embeddings workflow](../.github/workflows/embeddings.yml)), so meanings match across wordings and languages,
+- its **name**,
+- its **AI overview** (summary, the problem it solves, what it does), word by word,
+- its **category**, and
+- its **tags**, a rare shared tag counting more.
+
+These weights won a blind test against 50 hand-graded plugins: its top 5 scored about a third higher (nDCG@5 0.77 vs 0.56) than with the description vector alone. The same test runs before every publish, and a list that scores lower isn't published. The lists go on the `profiles` branch as `similar.json`; Community Radar downloads them with Sync and only looks them up. *Very close* is the first 5, *close* the next 10, *related* the rest; "In common" shows the categories and tags two plugins share. A plugin listed in the last hours has no list until the next build. No AI provider is involved.
 
 ## AI profiles
 
@@ -27,8 +35,7 @@ Community Radar only makes these requests:
 | `raw.githubusercontent.com` | Sync, README updates | The public plugin list and stats, and plugin READMEs |
 | `api.github.com` | Only when a README isn't at a usual path | The README. Unauthenticated, 60 requests an hour |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/` | Sync, when a newer build is out | Release history and download metrics (~600 KB) |
-| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/embeddings/` | Sync, when a newer build is out | The vectors for Similar (~2.5 MB) |
-| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/` | Sync, at most once a day and only when changed; the details window | The AI profiles' index (~5.6 MB), one plugin's profile (~2 KB) |
+| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/` | Sync, at most once a day and only when changed; the details window | The AI profiles' index (~5.6 MB), the Similar lists (~2.8 MB, ~1.2 MB sent compressed), one plugin's profile (~2 KB) |
 | Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider set up | Plugin names and descriptions, the names of your groups, a README or an Overview you ask to translate |
 
 No telemetry, no account, nothing about your vault is sent anywhere. In the vault, Community Radar only reads and writes notes in its own notes folder; it never lists your other files. API keys are kept in Obsidian's keychain (SecretStorage) on each device, never in `data.json`; the plugin stores only the key's name (e.g. `anthropic-api-key`), so other plugins using the same name share it. The list of installed plugins comes from Obsidian's internal `app.plugins`.

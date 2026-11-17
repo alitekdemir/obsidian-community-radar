@@ -32,28 +32,18 @@ class GitHub {
     return this.json(`${METRICS_URL}/delta.json`);
   }
 
-  /** The semantic vectors' index (ids, build time) and, when asked, the vectors themselves. */
-  vectorsMeta() {
-    return this.json(`${VECTORS_URL}.json`);
-  }
-
-  async vectorsData() {
-    const res = await requestUrl({ url: `${VECTORS_URL}.bin`, throw: false });
-    if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${VECTORS_URL}.bin`);
-    return res.arrayBuffer;
-  }
-
   /**
-   * The AI profiles' index, unless it is still `etag` (then null: GitHub answers 304 and sends nothing).
-   * @returns {Promise<{index: object, etag: string|null}|null>}
+   * A JSON file of the profiles branch (index.json, similar.json), unless it is still `etag` (then null: GitHub
+   * answers 304 and sends nothing).
+   * @returns {Promise<{json: object, etag: string|null}|null>}
    */
-  async profiles(etag) {
-    const url = `${PROFILES_URL}/index.json`;
+  async profilesFile(file, etag) {
+    const url = `${PROFILES_URL}/${file}`;
     const res = await requestUrl({ url, throw: false, headers: etag ? { "If-None-Match": etag } : {} });
     if (res.status === 304) return null;
     if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${url}`);
     const header = Object.entries(res.headers || {}).find(([name]) => name.toLowerCase() === "etag");   // the header's case varies
-    return { index: res.json, etag: header?.[1] ?? null };
+    return { json: res.json, etag: header?.[1] ?? null };
   }
 
   /** One plugin's whole profile (problem, capabilities…); null when there's none. */
@@ -108,23 +98,8 @@ class Cache {
     await this.adapter.write(this.path(name), JSON.stringify(value));
   }
 
-  async remove(name) {
-    if (await this.adapter.exists(this.path(name))) await this.adapter.remove(this.path(name));
-  }
-
-  async readBinary(name) {
-    const path = this.path(name, "bin");
-    try {
-      return (await this.adapter.exists(path)) ? await this.adapter.readBinary(path) : null;
-    } catch (error) {
-      console.warn(`[Community Radar] couldn't read the ${name} cache; it will be downloaded again`, error);
-      return null;
-    }
-  }
-
-  async writeBinary(name, buffer) {
-    await this.ensureDir(this.path(name, "bin"));
-    await this.adapter.writeBinary(this.path(name, "bin"), buffer);
+  async remove(name, ext = "json") {
+    if (await this.adapter.exists(this.path(name, ext))) await this.adapter.remove(this.path(name, ext));
   }
 }
 

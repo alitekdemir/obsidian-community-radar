@@ -420,9 +420,7 @@ class DiscoveryView extends ItemView {
     } else if (this.preset) {
       text.createDiv({ text: t("home.status", { n: formatCount(this.matched ?? this.presetRows().length), name: this.home.title(this.preset.id) }) });
     } else if (this.similar) {   // one line about the filter instead of the sync line
-      const seed = this.plugin.pluginById(this.similar.steps.at(-1).id);
-      const found = seed ? this.plugin.similarTo(seed) : [];
-      text.createDiv({ text: t("similar.status", { n: formatCount(this.similarFilter.count()), how: t(found[0]?.cosine != null ? "similar.byMeaning" : "similar.byWords") }) });
+      text.createDiv({ text: t("similar.status", { n: formatCount(this.similarFilter.count()), how: t("similar.how") }) });
     } else {
       text.createDiv({
         text: [

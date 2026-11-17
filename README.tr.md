@@ -68,13 +68,13 @@ order by gain(30d) desc
 
 ---
 
-### ≈ Anlamca Benzer Eklentileri Bulun — %100 Cihazınızda
+### ≈ Aynı İşi Yapan Eklentileri Bulun
 
 ![Templater'a anlamca en yakın eklentiler](docs/images/similar.png)
 
-Aynı işi yapan alternatifleri bulmak için geliştiricinin kullandığı kelimeleri tahmin etmek zorunda değilsiniz. Herhangi bir eklentide **Benzerleri →** bağlantısına tıklayın; ortak kelimeleri olmasa bile işlevce en yakın 300 eklenti (*çok yakın*, *yakın*, *ilgili* dereceleri ve ortak terimleriyle) anında sıralansın.
+Aynı işi yapan alternatifleri bulmak için geliştiricinin kullandığı kelimeleri tahmin etmek zorunda değilsiniz. Herhangi bir eklentide **Benzerleri →** bağlantısına tıklayın; işlevce en yakın 50 eklenti *çok yakın*, *yakın*, *ilgili* dereceleri ve ortak kategori ile etiketleriyle sıralansın.
 
-> **API anahtarı yok, bulut sorgusu yok:** Çok dilli anlam vektörleri her gün GitHub Actions üzerinde açık kaynaklı bir modelle hazırlanır. Cihazınız eşitleme sırasında yalnızca ~2,5 MB'lık özet dizini indirir ve kosinüs benzerliği ile BM25 kelime eşleşmesini **tamamen çevrimdışı olarak kendi üzerinde** hesaplar. Keşif zincirinde eklentiden eklentiye atlayabilir, `Esc` ile başladığınız noktaya anında dönebilirsiniz.
+> **API anahtarı yok, bulut sorgusu yok:** Her eklentinin listesi GitHub'da açıklamasından, AI genel bakışından, kategorisinden ve etiketlerinden hesaplanır; yayımlanmadan önce elle puanlanmış örneklerle sınanır. Cihazınız listeleri eşitlemeyle indirir (~1,2 MB, günde en fazla bir kez) ve yalnızca içlerine bakar. Keşif zincirinde eklentiden eklentiye atlayabilir, `Esc` ile başladığınız noktaya anında dönebilirsiniz.
 
 ---
 

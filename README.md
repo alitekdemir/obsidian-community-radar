@@ -68,13 +68,13 @@ order by gain(30d) desc
 
 ---
 
-### ≈ Discover Alternatives by Meaning—100% On-Device
+### ≈ Discover Alternatives by What They Do
 
 ![Plugins similar to Templater, closest first](docs/images/similar.png)
 
-You shouldn't have to guess an author's exact wording to find plugins solving the same problem. Click **Similar →** on any plugin to uncover up to 300 conceptually related tools—ranked from *very close* to *related* alongside the key terms they share.
+You shouldn't have to guess an author's exact wording to find plugins solving the same problem. Click **Similar →** on any plugin to see its 50 closest alternatives—ranked from *very close* to *related*, with the categories and tags they share.
 
-> **Zero API keys, zero cloud queries:** Multilingual semantic embeddings are prebuilt daily via GitHub Actions. Your device downloads a compact ~2.5 MB index during sync and blends vector cosine similarity with BM25 lexical matching **entirely offline**. Hop from one plugin to another down a discovery chain, then hit `Esc` to snap right back to where you started.
+> **Zero API keys, zero cloud queries:** Every plugin's list is built on GitHub from its description, its AI overview, its category and tags, and checked against hand-graded examples before it ships. Your device downloads the lists with sync (~1.2 MB, at most once a day) and only looks them up. Hop from one plugin to another down a discovery chain, then hit `Esc` to snap right back to where you started.
 
 ---
 
