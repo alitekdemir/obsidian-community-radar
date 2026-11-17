@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.13.0
 
 ### Added
 - **AI plugin profiles:** an AI reads every plugin's README on GitHub and writes a short profile: what it does, its category and tags, what it needs. The plugin downloads them with Sync, at most once a day and only when they changed (~5.6 MB the first time, a few bytes after).
