@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.14.0
+
+### Changed
+- **Similar finds plugins that do the same job:** each plugin's list is now built on GitHub from its description, name, AI overview, category and tags (weighted 2-1-3-1-1), the mix that won a blind test against 50 hand-graded plugins (its top 5 scored about a third higher than meaning alone: nDCG@5 0.77 vs 0.56). The lists are checked against the same examples before they publish. Your device downloads them with Sync (~1.2 MB, at most once a day, only when changed) instead of the ~2.5 MB semantic index, and no longer works anything out: opening Similar is instant.
+- **Similar shows the 50 closest** (was up to 300): *very close* is the first 5, *close* the next 10, *related* the rest. "In common" now shows the categories and tags two plugins share. A plugin listed in the last hours says its list is on the way.
+- **The group window's ★** goes to your group with the most plugins among the 10 most similar ones (was shared words).
+
+### Removed
+- The semantic index download and the word matching behind Similar; their cache files are deleted once.
+
 ## 0.13.0
 
 ### Added
