@@ -1,7 +1,8 @@
 # AI plugin profiles: every hour, profiles new community plugins and those whose README changed with
-# free OpenRouter models, tags untagged ones from the closed vocabulary, and rebuilds index.json on the
-# `profiles` branch, which the plugin downloads. Publishes only when something changed. The branch holds
-# a single commit, replaced on each publish, so the repository doesn't grow.
+# free OpenRouter models, tags untagged ones from the closed vocabulary, rebuilds index.json, then the
+# "Similar" lists (similar.json, see scripts/similar) on the `profiles` branch, which the plugin
+# downloads. Publishes only when something changed. The branch holds a single commit, replaced on each
+# publish, so the repository doesn't grow.
 name: Profiles
 
 on:
@@ -35,7 +36,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install
-        run: pip install --quiet markdown-it-py jsonschema
+        run: pip install --quiet markdown-it-py jsonschema numpy scikit-learn
 
       - name: Update
         id: update
@@ -45,8 +46,18 @@ jobs:
           REPROFILE_MODEL: ${{ vars.REPROFILE_MODEL }}   # empty: no re-profiling
         run: python -u scripts/profiles/update.py out   # -u: log lines appear as they happen
 
+      - name: Description vectors (embeddings branch, built daily)
+        run: |
+          mkdir -p vectors
+          git fetch --depth 1 origin embeddings
+          git --work-tree=vectors checkout FETCH_HEAD -- granite-311m.bin granite-311m.json && git reset -q
+
+      - name: Similar lists
+        id: similar
+        run: python -u scripts/similar/build.py --profiles out --vectors vectors
+
       - name: Publish to the profiles branch
-        if: steps.update.outputs.changed == 'true'
+        if: steps.update.outputs.changed == 'true' || steps.similar.outputs.changed == 'true'
         working-directory: out
         run: |
           git init -q -b profiles
