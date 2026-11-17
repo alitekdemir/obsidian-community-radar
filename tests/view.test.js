@@ -917,19 +917,19 @@ const tests = {
       assert.equal(await plugin.newerReadme(homepage, original), null, "same text on GitHub: nothing to tell");
       assert.ok(await plugin.newerReadme(homepage, { ...original, hash: "00000000" }), "changed text: offered");
     }
-    // EN · <language> before the description swaps it in place: one line, the shown language in bold
+    // the language chip before the description swaps it in place: "EN", then the target's code (blue)
     const wanted = plugin.data.settings.detailTranslated;
     plugin.data.settings.detailTranslated = false;   // the original first: Original | <language> also picks it
     modal.render();
-    const shown = () => $$(modal.titleEl, ".pdt-detail-desc-lang span").map((x) => x.classList.contains("is-on"));
-    assert.deepEqual($(modal.titleEl, ".pdt-detail-desc-lang").textContent, "EN·EN", "English UI: the target tag is its code");
-    assert.deepEqual(shown(), [true, false, false], "EN in bold: the original shows");
-    await $(modal.titleEl, ".pdt-detail-desc").onclick();   // a click on the description swaps its language
+    const chip = () => $(modal.titleEl, ".pdt-lang-chip");
+    const shown = () => [chip().textContent, chip().classList.contains("is-on"), chip().getAttribute("aria-pressed")];
+    assert.deepEqual(shown(), ["EN", false, "false"], "the original shows");
+    await chip().onclick();   // a click on the chip swaps the description's language
     await tick(20);
     assert.ok($(modal.titleEl, ".pdt-detail-about").textContent.includes("TR: "), "the translation, in the description's place");
     assert.equal($(modal.titleEl, ".pdt-detail-trans"), null, "no second line");
-    assert.deepEqual(shown(), [false, false, true]);
-    await $(modal.titleEl, ".pdt-detail-desc").onclick();
+    assert.deepEqual(shown(), ["EN", true, "true"], "English UI: the target tag is its code, in blue");
+    await chip().onclick();
     assert.ok(!$(modal.titleEl, ".pdt-detail-about").textContent.includes("TR: "), "again: the original");
     plugin.data.settings.detailTranslated = wanted;
     // the list's shortcut keys, when they're on
@@ -1077,7 +1077,9 @@ const tests = {
     box(2).onclick({ stopPropagation() {}, shiftKey: true });
     assert.equal(view.selected.size, 3, "Shift picks the range");
     assert.ok($(el, ".pdt-list").classList.contains("is-selecting") && rows()[1].classList.contains("is-selected"));
-    assert.equal($(el, ".pdt-bulk-bar b").textContent, core.t("bulk.selected", { n: 3 }));
+    assert.equal($(el, ".pdt-bulk-bar .pdt-bulk-badge").textContent, "3");
+    assert.deepEqual($$(el, ".pdt-bulk-bar button.pdt-bulk-action").map((b) => b.textContent),
+      ["bulk.track", "bulk.rate", "bulk.group", "bulk.suggest", "bulk.translate", "bulk.snooze", "bulk.exclude"].map((k) => core.t(k)), "the same names as the menu, in groups");
     // like Gmail: the shown rows first, then every row of the list
     view.bulkBar.clearSelection();
     view.selected.add(view.rows[0].id);
@@ -1162,6 +1164,14 @@ const tests = {
     view.refresh();
     assert.deepEqual(heads().slice(1, 3), [core.t("col.gain30"), core.t("col.author")]);
     assert.ok($(el, ".pdt-trow td.is-author").textContent.length > 0);
+    assert.ok(!$(el, ".pdt-table").classList.contains("is-described"), "no Description: Name takes the room");
+    settings.tableColumns = { all: ["description", "downloads"] };   // Description takes it, Name fits its text
+    view.refresh();
+    assert.ok($(el, ".pdt-table").classList.contains("is-described"));
+    const cell = $$(el, ".pdt-trow td.is-description").find((td) => $(td, ".pdt-lang-chip"));
+    assert.equal($(cell, ".pdt-lang-chip").textContent, "EN", "with the same language chip");
+    settings.tableColumns = { all: ["gain30", "author"] };
+    view.refresh();
     const box = $(el, ".pdt-trow .pdt-select");
     box.checked = true;
     box.onclick({ stopPropagation() {}, shiftKey: false });
@@ -1681,15 +1691,19 @@ const tests = {
     assert.ok(!star.classList.contains("is-open"), "…and closes it");
     view.contentEl.remove();
 
-    const desc = $(rowOf("busy"), ".pdt-desc");
-    await desc.onclick();
-    assert.equal($(rowOf("busy"), ".pdt-trans").textContent, `TR: ${plugin.pluginById("busy").description}`);
-    await $(rowOf("busy"), ".pdt-desc").onclick();
-    assert.ok(!$(rowOf("busy"), ".pdt-trans"), "a second click hides it");
+    // the description's language chip swaps it in place, as in the details window: no second line
+    const chip = () => $(rowOf("busy"), ".pdt-desc .pdt-lang-chip");
+    const text = () => $(rowOf("busy"), ".pdt-desc .pdt-lang-text").textContent;
+    assert.deepEqual([chip().textContent, chip().classList.contains("is-on"), text()], ["EN", false, plugin.pluginById("busy").description]);
+    await chip().onclick();
+    assert.deepEqual([chip().classList.contains("is-on"), text()], [true, `TR: ${plugin.pluginById("busy").description}`], "blue: the translation");
+    assert.ok(!$(rowOf("busy"), ".pdt-trans"), "in place, not under it");
+    await chip().onclick();
+    assert.equal(text(), plugin.pluginById("busy").description, "a second click: the original again");
     view.openHelp("start");   // Help › Quick start says the same, at the level of someone new to the plugin
     const help = modals.at(-1).contentEl;
     assert.deepEqual($$(help, ".pdt-help-card-list li").map((li) => li.textContent),
-      ["track", "rate", "name", "desc", "empty", "details", "profile", "menu", "seen"].map((k) => core.t(`help.card.${k}`)));
+      ["track", "rate", "name", "desc", "empty", "details", "profile", "menu", "bulk", "seen"].map((k) => core.t(`help.card.${k}`)));
     modals.at(-1).close();
     plugin.notes.index.set("busy", busyNote);
     if (busyExcluded) await plugin.exclude(plugin.pluginById("busy"));   // as the other tests expect
@@ -1818,6 +1832,95 @@ const tests = {
     $$(modal.contentEl, ".pdt-pill.is-tag")[0].onclick();
     assert.equal(view.settings.queries.all, "tag = queries\norder by downloads desc", "a tag opens its list");
     plugin.profiles = null;   // the tests after this one run without profiles
+  },
+
+  async "bulk: Translate menu (descriptions, Overviews, READMEs) with estimates, progress with Stop, Rate with Clear, Esc"({ plugin, view }) {
+    await plugin.syncProfiles(() => {});
+    await view.update("section", "list");
+    await view.update("mode", "all");
+    const ids = ["dataview", "homepage"];
+    const plugins = ids.map((id) => plugin.pluginById(id));
+    for (const id of ids) { delete plugin.data.translations[id]; delete plugin.data.profileTranslations[id]; }
+    const pick = () => { view.bulkBar.clearSelection(); ids.forEach((id) => view.selected.add(id)); view.bulkBar.syncSelection(); };
+    const asked = [];
+    view.bulkBar.confirm = async (o) => { asked.push(o); return true; };
+    pick();
+
+    // the menu over Çevir: four items, the descriptions with what they'd take, the Overviews with how many have one
+    const bar = () => $(view.contentEl, ".pdt-bulk-bar");
+    const button = (key) => $$(bar(), "button.pdt-bulk-action").find((b) => b.textContent === core.t(key));
+    button("bulk.translate").onclick();
+    const menu = $(document.body, ".pdt-bulk-menu");
+    const items = $$(menu, ".pdt-bulk-item");
+    assert.deepEqual(items.map((i) => $(i, ".pdt-bulk-item-text span").textContent), ["bulk.tr.desc", "bulk.tr.overview", "bulk.tr.fetch", "bulk.tr.readme"].map((k) => core.t(k)));
+    assert.ok($(items[0], ".pdt-bulk-item-hint").textContent.includes("tokens"), "an estimate before anything is asked");
+    assert.equal($(items[1], ".pdt-bulk-item-hint").textContent, core.t("bulk.tr.profiled", { n: 2 }));
+    items[0].onclick();
+    await tick(30);
+    assert.ok(!$(document.body, ".pdt-bulk-menu"), "a pick closes the menu");
+    assert.ok(asked.at(-1).text.includes("tokens"), "asked first, with the estimate");
+    assert.ok(ids.every((id) => plugin.data.translations[id]?.text.startsWith("TR: ")), "short descriptions: translated and kept");
+    assert.ok(ids.every((id) => view.shownTranslations.has(id)), "and shown in the list");
+    assert.equal(view.selected.size, 0, "the selection goes");
+    assert.ok($(view.contentEl, ".pdt-toast").textContent.includes(core.t("bulk.tr.done", { n: 2 })));
+
+    // Overviews: each one translated in its own request, kept like the details window's
+    await view.bulkBar.translateOverviews(plugins);
+    assert.equal(asked.at(-1).title, core.t("bulk.tr.ask.overview", { n: 2, lang: plugin.data.settings.targetLang }));
+    assert.equal(plugin.data.profileTranslations.dataview.parts.summary, "TR: Queries notes like a database.");
+    assert.ok(plugin.data.profileTranslations.homepage);
+    const before = asked.length;
+    await view.bulkBar.translateOverviews(plugins);
+    assert.equal(asked.length, before, "up to date: nothing to ask");
+    assert.equal($(view.contentEl, ".pdt-toast span:nth-child(2)").textContent, core.t("bulk.tr.upToDate"));
+
+    // READMEs: downloaded without AI (no note for an untracked one), then translated whole, one after another
+    const untracked = plugins.find((p) => !plugin.notes.file(p.id));
+    await view.bulkBar.downloadReadmes(plugins);
+    for (const p of plugins) assert.ok((await plugin.readmeParts(p)).original, `${p.id}: README kept`);
+    if (untracked) assert.ok(!plugin.notes.file(untracked.id), "no note is made");
+    await view.bulkBar.translateReadmes(plugins);
+    const readmeAsk = asked.at(-1);   // an earlier test translated one already: only the others are asked
+    assert.equal(readmeAsk.title, core.t("bulk.tr.ask.readme", { n: readmeAsk.plugins.length, lang: plugin.data.settings.targetLang }));
+    assert.ok(readmeAsk.text.includes("tokens"), "with the estimate, after the download");
+    for (const p of plugins) {
+      const { original, translation } = await plugin.readmeParts(p);
+      assert.equal(translation?.hash, original.hash, `${p.id}: translated, its fingerprint kept`);
+    }
+
+    // a run shows in the bar's place; Stop lets the one in hand finish and starts no more
+    let stopAt = null;
+    const result = await view.bulkBar.runEach("Run", plugins, async () => {
+      if (!stopAt) {
+        stopAt = $(view.contentEl, ".pdt-bulk-run").textContent;
+        $(view.contentEl, ".pdt-bulk-bar.is-running button").onclick();
+      }
+      return true;
+    });
+    assert.equal(stopAt, "Run · 0 / 2");
+    assert.deepEqual(result, { ok: 1, failed: 0, left: 1 });
+    assert.equal(view.bulkBar.summary(result), `${core.t("bulk.tr.done", { n: 1 })} · ${core.t("bulk.tr.left", { n: 1 })}`);
+
+    // Puanla: the row's stars over the button, Clear once any of them is rated
+    pick();
+    button("bulk.rate").onclick();
+    $$(document.body, ".pdt-bulk-pop .pdt-rate-star").find((b) => b.getAttribute("aria-label") === core.t("rating.label", { n: 3 })).onclick();
+    await tick(30);
+    assert.ok(ids.every((id) => plugin.notes.index.get(id)?.rating === 3));
+    pick();
+    button("bulk.rate").onclick();
+    $(document.body, ".pdt-bulk-pop .pdt-rate-clear").onclick();
+    await tick(30);
+    assert.equal(asked.at(-1).title, core.t("bulk.ask.unrate", { n: 2 }));
+    assert.ok(ids.every((id) => !plugin.notes.index.get(id)?.rating));
+    assert.equal($(view.contentEl, ".pdt-toast span:nth-child(2)").textContent, core.t("bulk.done.unrate", { n: 2 }), "the toast says it was cleared");
+
+    // Esc drops what's picked before it leaves the list
+    pick();
+    view.scope.keys.find((k) => k.key === "Escape").fn();
+    assert.equal(view.selected.size, 0);
+    assert.equal(view.settings.section, "list", "still on the list");
+    plugin.profiles = null;
   },
 
   async "language: the setting switches the UI right away; auto follows Obsidian"({ plugin, view }) {

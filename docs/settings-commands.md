@@ -56,4 +56,6 @@ Always on: `/` focuses the search box, `Ctrl+Space` opens suggestions, `Esc` cle
 
 ## Selecting many
 
-Hover a row and tick its box (`Shift`+click ticks a range). **Select the N shown**, then **Select all N in this list**, picks more. The bar at the bottom: Track, Rate, Add to group, Suggest groups, Mark reviewed, Hide, Ignore. Each asks before it runs and can be undone right away, or later from **Recent actions** (Undo skips plugins you changed since).
+Hover a row and tick its box (`Shift`+click ticks a range). **Select the N shown**, then **Select all N in this list**, picks more. The bar at the bottom: **Track**, **Rate**, **Add to group**, **Group with AI**, (on Tracked) **Reviewed**, **Translate**, **Hide for now** (comes back with a new release), **Hide for good** (comes back from Hidden). Each asks before it runs and can be undone right away, or later from **Recent actions** (Undo skips plugins you changed since). `Esc` clears the selection.
+
+The **Translate** menu does four things for the picked plugins: **Translate short descriptions** (one request, shown in place in the list), **Translate Overviews** (the profiled ones, kept), **Download READMEs** (no AI; into the note when tracked, else the cache) and **Translate READMEs** (missing or older READMEs are downloaded first, each is translated whole in one request). AI jobs show the estimated tokens and cost and ask before they start; while one runs, the bar shows `12 / 50` and **Stop**. No notes are made for plugins you don't track.

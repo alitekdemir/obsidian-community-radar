@@ -837,30 +837,126 @@ button.pdt-toast-undo {
   text-decoration: underline;
 }
 
+/* the bar for what's picked: floating at the list's foot, in the middle; groups split by thin lines */
 .pdt-bulk-bar {
-  align-self: stretch;
+  align-self: center;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+  margin-bottom: var(--size-4-4);
+  padding: var(--size-2-3) var(--size-4-2) var(--size-2-3) var(--size-4-4);
+  border: 1px solid var(--background-modifier-border-hover);
+  border-radius: var(--radius-l);
+  background: var(--background-secondary);
+  box-shadow: var(--shadow-l);
+  font-size: var(--font-ui-small);
+}
+
+.pdt-bulk-count {
+  display: inline-flex;
   align-items: center;
   gap: var(--size-4-2);
-  margin: 0 calc(-1 * var(--size-4-4)) calc(-1 * var(--size-4-6));
-  padding: var(--size-4-2) var(--size-4-4);
-  border-top: 1px solid var(--background-modifier-border-hover);
-  background: var(--background-secondary);
+  margin-right: var(--size-4-1);
+  white-space: nowrap;
+}
+
+.pdt-bulk-badge {
+  min-width: 26px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  font-weight: var(--font-bold);
+  font-size: var(--font-ui-smaller);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdt-bulk-divider {
+  width: 1px;
+  height: 22px;
+  margin: 0 var(--size-4-1);
+  background: var(--background-modifier-border);
 }
 
 button.pdt-bulk-action {
   display: inline-flex;
   align-items: center;
-  gap: var(--size-2-3);
+  gap: 7px;
+  height: 34px;
+  padding: 0 var(--size-4-3);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-normal);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
 }
+
+button.pdt-bulk-action:hover { background: var(--background-modifier-hover); }
+
+.pdt-bulk-icon,
+.pdt-bulk-caret { display: inline-flex; color: var(--text-muted); }
+.pdt-bulk-icon svg { width: 16px; height: 16px; }
+.pdt-bulk-caret svg { width: 14px; height: 14px; }
 
 button.pdt-bulk-link {
   border: 0;
   background: transparent;
   box-shadow: none;
   color: var(--text-accent);
+  white-space: nowrap;
 }
+
+/* a run in the bar's place: label · x / n over a thin line, then Stop */
+.pdt-bulk-bar.is-running { padding-left: var(--size-4-3); gap: var(--size-4-3); }
+.pdt-bulk-bar.is-running .pdt-bulk-icon { animation: pdt-spin 1.2s linear infinite; }
+.pdt-bulk-run { display: flex; flex-direction: column; gap: var(--size-2-2); min-width: 240px; }
+.pdt-bulk-track { height: 4px; border-radius: 2px; background: var(--background-modifier-border); overflow: hidden; }
+.pdt-bulk-fill { width: var(--pdt-done); height: 100%; background: var(--interactive-accent); transition: width 0.2s; }
+
+/* Puanla and Çevir open over the bar */
+.pdt-bulk-pop { padding: var(--size-2-3); }
+.pdt-bulk-pop .pdt-rate-stars { font-size: 1.4em; }
+.pdt-bulk-menu { width: 400px; display: flex; flex-direction: column; gap: 2px; }
+
+.pdt-bulk-menu-head {
+  padding: var(--size-2-3) var(--size-4-3) var(--size-2-2);
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pdt-bulk-menu-sep { height: 1px; margin: var(--size-2-2) var(--size-2-3); background: var(--background-modifier-border); }
+
+button.pdt-bulk-item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  width: 100%;
+  height: auto;
+  padding: var(--size-4-2) var(--size-4-3);
+  border: 0;
+  border-radius: var(--radius-s);
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-normal);
+  text-align: left;
+}
+
+button.pdt-bulk-item:hover,
+button.pdt-bulk-item:focus-visible { background: var(--background-modifier-hover); }
+.pdt-bulk-item-text { flex: 1; display: flex; flex-direction: column; gap: 2px; font-weight: var(--font-medium); }
+.pdt-bulk-item-sub,
+.pdt-bulk-item-hint { color: var(--text-faint); font-size: var(--font-ui-smaller); font-weight: var(--font-normal); }
+.pdt-bulk-item-hint { white-space: nowrap; }
 
 /* table layout */
 .pdt-table-wrap {
@@ -890,10 +986,13 @@ button.pdt-bulk-link {
 
 .pdt-table .is-right { text-align: right; }
 .pdt-table .is-center { text-align: center; }
-.pdt-table td.is-description { max-width: 28em; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); }
+.pdt-table td.is-description { max-width: 28em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); }
 .pdt-table td.is-downloads { color: var(--text-normal); font-weight: var(--font-semibold); }
 .pdt-table-pick { width: 28px; }
 .pdt-table .pdt-table-name { width: 100%; }   /* Name takes the room; the other columns fit their content */
+/* with a Description column, it takes the room (one line, cut with …) and Name fits its text */
+.pdt-table.is-described .pdt-table-name { width: 1%; white-space: nowrap; }
+.pdt-table.is-described td.is-description { width: 100%; max-width: 0; }
 .pdt-table th.is-tracked, .pdt-table td.is-tracked { width: 36px; }
 .pdt-table th.is-draggable { cursor: grab; }
 .pdt-table-cols { width: 36px; text-align: right; }
@@ -1233,12 +1332,21 @@ button.pdt-table-track.is-on { color: var(--text-accent); }
   color: var(--text-muted);
   font-size: var(--font-ui-small);
   line-height: 1.5;
-  cursor: pointer;
 }
 
-.pdt-desc:hover {
-  color: var(--text-normal);
+/* the language chip in a row or a table cell: smaller, so the line keeps its height */
+.pdt-desc button.pdt-lang-chip,
+.pdt-table button.pdt-lang-chip {
+  height: 18px;
+  gap: 4px;
+  margin-right: var(--size-2-3);
+  padding: 0 6px;
+  font-size: 11px;
+  vertical-align: 0;
 }
+
+.pdt-desc .pdt-lang-chip-icon svg,
+.pdt-table .pdt-lang-chip-icon svg { width: 12px; height: 12px; }
 
 .pdt-trans {
   margin-top: var(--size-4-2);
@@ -2118,32 +2226,38 @@ a.pdt-detail-repo:hover {
 }
 
 /* head: the description, a click swaps its language; "EN · TR" before it says which one shows (in bold) */
-.pdt-detail-desc {
+/* the description's language chip: "文A EN", blue "文A TR" when translated */
+button.pdt-lang-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  margin-right: var(--size-4-2);
+  padding: 0 var(--size-4-2);
+  border: 1px solid var(--background-modifier-border-hover);
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+  vertical-align: 1px;
   cursor: pointer;
 }
 
-.pdt-detail-desc:hover {
-  color: var(--text-accent);
-}
-
-.pdt-detail-desc-lang {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin-right: var(--size-4-2);
-  color: var(--text-faint);
-  font-size: var(--font-ui-smaller);
-  vertical-align: 1px;
-}
-
-.pdt-detail-desc-lang .is-on {
+button.pdt-lang-chip:hover {
+  border-color: var(--interactive-accent);
   color: var(--text-normal);
-  font-weight: var(--font-bold);
 }
 
-.pdt-detail-desc:hover .pdt-detail-desc-lang .is-on {
+button.pdt-lang-chip.is-on {
+  border-color: color-mix(in srgb, var(--interactive-accent) 60%, transparent);
+  background: color-mix(in srgb, var(--interactive-accent) 16%, transparent);
   color: var(--text-accent);
 }
+
+.pdt-lang-chip-icon { display: inline-flex; }
+.pdt-lang-chip-icon svg { width: 14px; height: 14px; }
 
 /* Overview: categories and tags close it, under a line */
 .pdt-overview-cats {
@@ -3817,3 +3931,11 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
 .pdt-hidden-kind .pdt-n { margin-left: var(--size-2-3); opacity: 0.75; }
 .pdt-signal.is-why { background: var(--background-modifier-hover); color: var(--text-muted); }
 .pdt-tab.is-hidden-tab { margin-inline-start: auto; }
+
+@keyframes pdt-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdt-bulk-bar.is-running .pdt-bulk-icon { animation: none; }
+}

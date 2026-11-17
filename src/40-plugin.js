@@ -389,7 +389,7 @@ class PluginRadar extends Plugin {
    * one request and keeps it in data.json with what it took, as the provider reported it. Categories and tags stay
    * as they are. True when done.
    */
-  async translateProfile(plugin) {
+  async translateProfile(plugin, quiet = false) {   // quiet: a bulk run reports once, at the end
     if (!this.translator.ready) {
       new Notice(t("notice.translateSetup"));
       return false;
@@ -410,7 +410,7 @@ class PluginRadar extends Plugin {
       return true;
     } catch (error) {
       console.error("[Community Radar] Overview translation", error);
-      new Notice(t("notice.translateFailed", { error: error.message }), 12000);
+      if (!quiet) new Notice(t("notice.translateFailed", { error: error.message }), 12000);
       return false;
     }
   }
@@ -601,7 +601,7 @@ class PluginRadar extends Plugin {
    * the model, tokens and cost in its properties; an untracked plugin's goes to the cache (no note is made). A missing
    * README, or one older than the release, is fetched first. Asked for only by the user; true when done.
    */
-  async translateReadme(plugin, progress = () => {}) {
+  async translateReadme(plugin, progress = () => {}, quiet = false) {   // quiet: a bulk run reports once, at the end
     if (!this.translator.ready) {
       new Notice(t("notice.translateSetup"));
       return false;
@@ -628,7 +628,7 @@ class PluginRadar extends Plugin {
       return true;
     } catch (error) {
       console.error("[Community Radar] README translation", error);
-      new Notice(t("notice.translateFailed", { error: error.message }), 12000);
+      if (!quiet) new Notice(t("notice.translateFailed", { error: error.message }), 12000);
       return false;
     }
   }

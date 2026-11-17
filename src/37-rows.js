@@ -45,7 +45,8 @@ class RowRenderer extends ViewPart {
     const columns = tableColumns(this.settings, page);
     const { key: sort, dir: sortDir } = this.view.filterBar.listSort;
     const wrap = list.createDiv({ cls: "pdt-table-wrap" });
-    const table = wrap.createEl("table", { cls: "pdt-table" });
+    const described = columns.includes("description");   // then Description takes the room and Name fits its text
+    const table = wrap.createEl("table", { cls: `pdt-table${described ? " is-described" : ""}` });
     const head = table.createEl("thead").createEl("tr");
     const all = head.createEl("th", { cls: "pdt-table-pick" }).createEl("input", { type: "checkbox", cls: "pdt-select", attr: { "aria-label": t("table.pickShown") } });
     all.checked = rows.length > 0 && rows.every((p) => this.view.selected.has(p.id));
@@ -91,7 +92,7 @@ class RowRenderer extends ViewPart {
       const name = tr.createEl("td", { cls: "pdt-table-name" });
       this.nameLink(name, p);
       if (p.version) name.createSpan({ cls: "pdt-ver", text: p.version });
-      if (p.description) setTooltip(name, p.description, { delay: 300 });
+      if (p.description && !described) setTooltip(name, p.description, { delay: 300 });
       for (const key of columns) {
         const td = tr.createEl("td", { cls: `is-${TABLE_COLUMNS[key].align || "left"} is-${key}` });
         if (key === "tracked") {
@@ -100,6 +101,9 @@ class RowRenderer extends ViewPart {
           bell.onclick = () => this.runRowAction(p, () => this.plugin.toggleTrack(p));
         } else if (key === "rating") {
           this.renderRating(td, p, note);
+        } else if (key === "description") {
+          const text = this.renderDescription(td, p);
+          if (text) setTooltip(text, text.textContent, { delay: 300 });   // one line here: the whole text on hover
         } else {
           td.setText(this.cellText(key, p, state, now));
         }
@@ -261,17 +265,9 @@ class RowRenderer extends ViewPart {
     }
     if (!tags.childElementCount) tags.remove();
 
-    // body: description (two lines; a click opens the details), its translation, why it's similar
+    // body: description (two lines, its language chip in front; a click elsewhere opens the details), why it's similar
     const body = row.createDiv({ cls: "pdt-body" });
-    const desc = body.createEl("p", { cls: "pdt-desc", text: p.description || "–" });
-    if (p.description) {   // a click translates it (and hides the translation again)
-      Object.assign(desc, { role: "button", tabIndex: 0 });
-      setTooltip(desc, t("row.translateTip"));
-      desc.onclick = () => this.toggleTranslation(p);
-      onActivate(desc, () => this.toggleTranslation(p));
-    }
-    const translation = plugin.cachedTranslation(p);
-    if (translation != null && this.view.shownTranslations.has(p.id)) body.createDiv({ cls: "pdt-trans", text: translation });
+    this.renderDescription(body.createEl("p", { cls: "pdt-desc" }), p);
     const info = this.view.similar && this.view.similarInfo?.get(p.id);
     if (info) this.renderWhy(body, info);
 
@@ -305,6 +301,20 @@ class RowRenderer extends ViewPart {
   }
 
   /** The description's translation under it, on or off; the first time asks the AI for it. */
+  /**
+   * A description in `el` behind its language chip (languageChip): the translation once you've asked for it.
+   * @returns {HTMLElement|undefined} the text's span (none without a description)
+   */
+  renderDescription(el, p) {
+    if (!p.description) return void el.setText("–");
+    const translation = this.plugin.cachedTranslation(p);
+    return languageChip(el, {
+      original: p.description, translation, target: this.plugin.data.settings.targetLang,
+      translated: translation != null && this.view.shownTranslations.has(p.id), swap: () => this.toggleTranslation(p),
+    });
+  }
+
+  /** Shows a row's description in your language (the first time asks the AI) or back in the original. */
   async toggleTranslation(p) {
     const shown = this.view.shownTranslations;
     if (shown.has(p.id)) shown.delete(p.id);

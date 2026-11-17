@@ -146,18 +146,23 @@ class TextModal extends Modal {
   }
 }
 
-/** A small box under a button, over the view; Esc or a click outside closes it. */
+/** A small box under a button (or over it: `above`), over the view; Esc or a click outside closes it. */
 class Popover {
   /** `keep`: a selector a click on doesn't close it (its own button, which toggles); `fill(box)` draws it. */
-  constructor(anchor, { cls, label, keep, fill } = {}) {
-    Object.assign(this, { anchor, cls, label, keep, fillWith: fill });
+  constructor(anchor, { cls, label, keep, fill, above = false } = {}) {
+    Object.assign(this, { anchor, cls, label, keep, above, fillWith: fill });
   }
 
   open() {
     this.el = document.body.createDiv({ cls: `pdt-popover ${this.cls || ""}`, attr: { role: "dialog", "aria-label": this.label || "" } });
     const at = this.anchor.getBoundingClientRect();
-    this.el.style.top = `${at.bottom + 4}px`;
-    this.el.style.right = `${Math.max(8, window.innerWidth - at.right)}px`;
+    if (this.above) {   // opens upward from the button, its left edge on the button's
+      this.el.style.bottom = `${window.innerHeight - at.top + 6}px`;
+      this.el.style.left = `${Math.max(8, at.left)}px`;
+    } else {
+      this.el.style.top = `${at.bottom + 4}px`;
+      this.el.style.right = `${Math.max(8, window.innerWidth - at.right)}px`;
+    }
     this.outside = (event) => { if (!this.el.contains(event.target) && !(this.keep && event.target.closest?.(this.keep))) this.close(); };
     this.esc = (event) => { if (event.key === "Escape") { event.stopPropagation(); this.close(); } };
     document.addEventListener("mousedown", this.outside, true);
@@ -402,7 +407,12 @@ class RecentModal extends Modal {
 
 /** What an operation did, in a sentence: "3 plugins hidden", "12 plugins added to Tasks". */
 function opLabel(op) {
-  return t(`bulk.done.${op.kind}`, { n: op.changes.length, value: op.value ?? "" });
+  return t(`bulk.done.${opKey(op)}`, { n: op.changes.length, value: op.value ?? "" });
+}
+
+/** The texts an operation goes by: its kind, but "unrate" for a rating cleared. */
+function opKey({ kind, value }) {
+  return kind === "rating" && value == null ? "unrate" : kind;
 }
 
 /** A group chip: a button you switch on and off. */
@@ -587,7 +597,7 @@ class ModelModal extends PickerModal {
 
 
 /** Help › Quick start: what a click on each part of a card does ([icon, help.card.<key>]), in the order you meet them. */
-const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["sparkles", "profile"], ["more-horizontal", "menu"], ["bell-ring", "seen"]];
+const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["sparkles", "profile"], ["more-horizontal", "menu"], ["square-check", "bulk"], ["bell-ring", "seen"]];
 
 /**
  * What an AI request just took, faint at the end of a title row: the cost when the provider told it, else the

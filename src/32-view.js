@@ -28,7 +28,8 @@ class DiscoveryView extends ItemView {
     this.widgetTabs = [];         // every widget list you opened: each keeps its tab until you close it
     this.selected = new Set();    // ids picked for a bulk action (a tab, filter or search change clears them)
     this.lastPicked = null;       // row index of the last pick, for Shift+click ranges
-    this.toast = null;            // the last bulk action's result: {text, op} (op: Undo turns it back)
+    this.toast = null;            // the last bulk action's result: {text, op, icon} (op: Undo turns it back)
+    this.bulkRun = null;          // a bulk translation or download under way: {label, done, total, stop}
     this.home = new HomePage(this);
     this.searchBox = new SearchBox(this);
     this.filterBar = new FilterBar(this);
@@ -53,7 +54,8 @@ class DiscoveryView extends ItemView {
     // Esc steps back one level: the Similar filter, then a widget's tab, then the list itself → Home
     this.scope.register([], "Escape", () => {
       if (this.settings.section === "home" || globalThis.document?.activeElement?.closest?.("input, textarea, select")) return true;
-      if (this.similar) this.similarFilter.close();
+      if (this.selected.size) { this.bulkBar.clearSelection(); this.bulkBar.syncSelection(); }   // first what's picked
+      else if (this.similar) this.similarFilter.close();
       else if (this.preset) this.closePreset();
       else this.update("section", "home");
       return false;

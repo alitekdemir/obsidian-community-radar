@@ -2,6 +2,33 @@
 const languageTag = (name) => (Object.keys(STRINGS).find((code) => STRINGS[code]["language.name"] === name) || String(name).slice(0, 2)).toUpperCase();
 
 /**
+ * A text in one language at a time behind its language chip: "文A EN", or "文A TR" (blue) when it shows the
+ * translation. A click on the chip calls `swap` (it asks the AI the first time, then redraws); the text swaps in
+ * place, so nothing moves. Used by the details window, the list's rows and cards, and the table's Description.
+ * @returns {HTMLElement} the text's span
+ */
+function languageChip(parent, { original, translation, translated, target, swap }) {
+  const chip = parent.createEl("button", { cls: `pdt-lang-chip${translated ? " is-on" : ""}`, attr: { type: "button", "aria-pressed": String(translated) } });
+  setIcon(chip.createSpan({ cls: "pdt-lang-chip-icon" }), "languages");
+  chip.createSpan({ text: translated ? languageTag(target) : "EN" });
+  setTooltip(chip, t(translated ? "details.descOriginalTip" : "row.translateTip"));
+  chip.onclick = swap;
+  const text = parent.createSpan({ cls: "pdt-lang-text", text: translated ? translation : original });
+  if (!translated) text.setAttribute("lang", "en");
+  return text;
+}
+
+/**
+ * What translating `text` will take, roughly: "12,400 characters · ≈ 6,200 tokens · ≈ $0.01 · model".
+ * `short` keeps only tokens and cost (for a menu's hint).
+ */
+function estimateLine(text, settings, short = false) {
+  const estimate = translationEstimate(text, settings.modelCost);
+  return [short ? null : t("details.chars", { n: formatCount(estimate.chars) }), t("details.tokens", { n: formatCount(estimate.tokens) }),
+    estimate.cost != null ? t("details.cost", { cost: formatCost(estimate.cost) }) : null, short ? null : settings.model].filter(Boolean).join(" · ");
+}
+
+/**
  * A plugin's details in a large window that grows out of its card or row: the name with the description under it,
  * the numbers, then Overview (the AI profile, its categories and tags at the bottom) and README tabs, each in the
  * original or your language; on the side what it needs, the closest plugins and, pinned at the bottom, the release
@@ -117,10 +144,9 @@ class DetailModal extends Modal {
   }
 
   /**
-   * The description, in one language at a time, "EN · <your language>" before it saying which (in bold). A click
-   * anywhere on it swaps the language in place (no second line, nothing moves), as a click on a row's description
-   * translates it; the first time asks the AI. By default your language when you chose it (Original | <language>)
-   * or turned it on for this plugin, and there is a translation.
+   * The description, in one language at a time behind its language chip (see languageChip), as in the list; the
+   * first time asks the AI. By default your language when you chose it (Original | <language>) or turned it on for
+   * this plugin in the list, and there is a translation.
    */
   renderDescription(parent, p) {
     const desc = parent.createEl("p", { cls: "pdt-detail-about" });
@@ -128,22 +154,12 @@ class DetailModal extends Modal {
     const translation = this.plugin.cachedTranslation(p);
     const own = this.descLang?.id === p.id ? this.descLang.lang : null;   // your click for this plugin
     const translated = translation != null && (own ? own === "target" : this.view.shownTranslations.has(p.id) || this.wantsTranslation);
-    Object.assign(desc, { role: "button", tabIndex: 0 });
     desc.addClass("pdt-detail-desc");
-    setTooltip(desc, t(translated ? "details.descOriginalTip" : "row.translateTip"));
-    const tag = desc.createSpan({ cls: "pdt-detail-desc-lang" });   // which language this is, not a control
-    tag.createSpan({ cls: translated ? "" : "is-on", text: "EN" });
-    tag.createSpan({ text: "·" });
-    tag.createSpan({ cls: translated ? "is-on" : "", text: languageTag(this.plugin.data.settings.targetLang) });
-    const text = desc.createSpan({ text: translated ? translation : p.description });
-    if (!translated) text.setAttribute("lang", "en");
-    const swap = async () => {
+    languageChip(desc, { original: p.description, translation, translated, target: this.plugin.data.settings.targetLang, swap: async () => {
       if (!translated && translation == null) await this.view.rowRenderer.toggleTranslation(p);   // asks the AI once
       this.descLang = { id: p.id, lang: translated ? "original" : "target" };
       this.render();
-    };
-    desc.onclick = swap;
-    onActivate(desc, swap);
+    } });
   }
 
   /**
@@ -652,13 +668,7 @@ class DetailModal extends Modal {
 
   /** Under a Translate button: what the translation would take — characters · tokens · cost (with a price set) · model. */
   renderEstimate(body, text) {
-    const settings = this.plugin.data.settings;
-    const estimate = translationEstimate(text, settings.modelCost);
-    body.createEl("p", {
-      cls: "pdt-detail-muted",
-      text: [t("details.chars", { n: formatCount(estimate.chars) }), t("details.tokens", { n: formatCount(estimate.tokens) }),
-        estimate.cost != null ? t("details.cost", { cost: formatCost(estimate.cost) }) : null, settings.model].filter(Boolean).join(" · "),
-    });
+    body.createEl("p", { cls: "pdt-detail-muted", text: estimateLine(text, this.plugin.data.settings) });
   }
 
   /** A README not seen before: fetched in the background (into your note, else the cache), then shown. Once per window. */

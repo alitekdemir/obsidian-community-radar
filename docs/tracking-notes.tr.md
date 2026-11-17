@@ -52,6 +52,6 @@ Bir eklenti birden fazla grupta olabilir (`groups` bir listedir). `reviewed`, ye
 *Ayarlar → Yapay zekâ*'da bir sağlayıcı ve anahtar varsa Community Radar şunları yapabilir:
 
 - Bir açıklamayı (satırda, kartta ya da ayrıntılar penceresinde üzerine tıklayarak ya da görünümün ⋮ menüsündeki *Görünenleri çevir* ile) ya da bir README'yi (ayrıntılar penceresinde ya da *Bu notun README'sini çevir* komutuyla) **çevirmek**. README çevirisi önce tahmini maliyetini gösterir; ne tuttuğunu ayrıntılar penceresinin en altı söyler. Çeviriler kaydedilir ve yeniden kullanılır: README çevirisi notuna, takip etmediğiniz bir eklentide eklentinin önbelleğine gider; eklentiyi sonradan takip ederseniz yeni nota taşınır, ikinci kez ödemezsiniz. Çeviri sekmesindeki sarı nokta, README'nin o çeviriden sonra değiştiği anlamına gelir.
-- Seçtiğiniz satırlar için (seçim çubuğundaki **Grup öner** düğmesi) ya da grubu olmayan takip edilen eklentiler için (komut) **grup önermek**. Bir öneriye tıklamak onu ekler.
+- Seçtiğiniz satırlar için (seçim çubuğundaki **AI ile grupla** düğmesi) ya da grubu olmayan takip edilen eklentiler için (komut) **grup önermek**. Bir öneriye tıklamak onu ekler.
 
 Modele gönderilen talimatları *Ayarlar → Yapay zekâ*'da yeniden yazabilirsiniz.

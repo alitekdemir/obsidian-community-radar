@@ -52,6 +52,6 @@ A plugin can be in several groups (`groups` is a list). `reviewed` is set when y
 With a provider and key in *Settings → AI*, Community Radar can:
 
 - **Translate** a description (click it on a row, a card or in the details window, or *Translate visible* in the view's ⋮ menu) or a README (in the details window, or the command *Translate the README of this note*). A README translation shows its estimated cost first, and the bottom of the details window shows what it took. Translations are saved and reused: a README's goes into its note, or, for a plugin you don't track, into the plugin's cache; tracking it later moves it into the new note, with no second bill. A yellow dot on the translation tab means the README has changed since.
-- **Suggest groups** for the rows you select (the **Suggest groups** button in the selection bar), or for ungrouped tracked plugins (command). Click a suggestion to add it.
+- **Suggest groups** for the rows you select (the **Group with AI** button in the selection bar), or for ungrouped tracked plugins (command). Click a suggestion to add it.
 
 You can rewrite the instructions sent to the model in *Settings → AI*.
