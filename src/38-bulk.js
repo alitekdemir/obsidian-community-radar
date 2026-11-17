@@ -124,7 +124,7 @@ class BulkBar extends ViewPart {
     const bar = footer.createDiv({ cls: "pdt-bulk-bar is-running", attr: { role: "status" } });
     setIcon(bar.createSpan({ cls: "pdt-bulk-icon" }), "loader");
     const info = bar.createDiv({ cls: "pdt-bulk-run" });
-    info.createSpan({ text: `${run.label} · ${run.done} / ${run.total}` });
+    info.createSpan({ text: [run.label, `${run.done} / ${run.total}`, run.usage ? spentText(run.usage) : null].filter(Boolean).join(" · ") });
     info.createDiv({ cls: "pdt-bulk-track" }).createDiv({ cls: "pdt-bulk-fill" }).setCssProps({ "--pdt-done": `${Math.round((run.done / Math.max(1, run.total)) * 100)}%` });
     const stop = bar.createEl("button", { cls: "pdt-bulk-action", text: run.stop ? t("bulk.stopping") : t("bulk.stop"), attr: { type: "button" } });
     stop.disabled = run.stop;
@@ -150,7 +150,7 @@ class BulkBar extends ViewPart {
   openTranslate(button) {
     const plugins = this.picked();
     const settings = this.plugin.data.settings;
-    const descriptions = plugins.filter((p) => p.description && this.plugin.cachedTranslation(p) == null);
+    const descriptions = this.untranslated(plugins);
     const profiled = plugins.filter((p) => this.plugin.profiles?.plugins?.[p.id]).length;
     new Popover(button, { cls: "pdt-bulk-pop pdt-bulk-menu", label: t("bulk.translate"), above: true, fill: (box, pop) => {
       box.setAttribute("role", "menu");
@@ -165,7 +165,7 @@ class BulkBar extends ViewPart {
         row.onclick = () => { pop.close(); run(); };
       };
       item("type", t("bulk.tr.desc"), t("bulk.tr.descSub"),
-        descriptions.length ? estimateLine(descriptions.map((p) => p.description).join("\n"), settings, true) : t("bulk.tr.allDone"), () => this.translateDescriptions(descriptions));
+        descriptions.length ? estimateLine(descriptions.map((p) => p.description).join("\n"), settings, true) : t("bulk.tr.allDone"), () => this.translateDescriptions(plugins));
       item("list", t("bulk.tr.overview"), t("bulk.tr.overviewSub"), t("bulk.tr.profiled", { n: profiled }), () => this.translateOverviews(plugins));
       box.createDiv({ cls: "pdt-bulk-menu-sep" });
       item("download", t("bulk.tr.fetch"), t("bulk.tr.fetchSub"), t("bulk.tr.noAi"), () => this.downloadReadmes(plugins));
@@ -173,14 +173,26 @@ class BulkBar extends ViewPart {
     } }).open();
   }
 
-  /** Short descriptions: in requests of up to 50 (translateRows), shown in the list at once. */
+  /** The plugins with a description and no translation of it yet. */
+  untranslated(plugins) {
+    return plugins.filter((p) => p.description && this.plugin.cachedTranslation(p) == null);
+  }
+
+  /**
+   * Short descriptions: in requests of up to PAGE_SIZE (translateBatch), a few at once, then shown in the list in
+   * your language. The bar counts plugins ("50 / 93"), not requests.
+   */
   async translateDescriptions(plugins) {
-    if (!plugins.length) return this.finish(t("bulk.tr.upToDate"));
-    const text = plugins.map((p) => p.description).join("\n");
-    if (!(await this.askTranslate("desc", plugins, text))) return;
+    const pending = this.untranslated(plugins);
+    if (!pending.length) return this.finish(t("bulk.tr.upToDate"));
+    if (!this.translatorReady()) return;
+    if (!(await this.askTranslate("desc", pending, pending.map((p) => p.description).join("\n")))) return;
     this.clearSelection();
-    if (await this.plugin.translateRows(plugins)) plugins.forEach((p) => this.view.shownTranslations.add(p.id));
-    this.finish(t("bulk.tr.done", { n: plugins.filter((p) => this.plugin.cachedTranslation(p) != null).length }));
+    const batches = [];
+    for (let i = 0; i < pending.length; i += PAGE_SIZE) batches.push(pending.slice(i, i + PAGE_SIZE));
+    const result = await this.runEach(t("bulk.tr.descRun"), batches, (batch) => this.plugin.translateBatch(batch), (batch) => batch.length);
+    pending.filter((p) => this.plugin.cachedTranslation(p) != null).forEach((p) => this.view.shownTranslations.add(p.id));
+    this.finish(this.summary(result));
   }
 
   /** Overviews: each profile fetched first (for what's out of date and the estimate), then one request a plugin. */
@@ -251,34 +263,47 @@ class BulkBar extends ViewPart {
   }
 
   /**
-   * Runs `work(p)` for the plugins one after another, the bar showing how far it got (with Stop).
-   * @param {function(object): Promise<boolean>} work  true when it's done for that plugin
-   * @returns {Promise<{ok: number, failed: number, left: number}>} left: not started because of Stop
+   * Runs `work(item)` for the items, PARALLEL at once, the bar showing how far it got, what it cost so far and Stop
+   * (no new request starts; the ones under way finish and are kept).
+   * @param {function(*): Promise<boolean|{model, tokens, cost}>} work  false: failed; true: done without AI;
+   *   a usage: done with an AI request, as the provider reported it
+   * @param {function(*): number} [weight]  how many plugins an item is (a batch of descriptions is many)
+   * @returns {Promise<{ok, failed, left, requests, usage}>} plugins done, failed, not started (Stop); AI requests
+   *   and their usage summed (sumUsage: the cost only when every reply told it)
    */
-  async runEach(label, plugins, work) {
-    const run = { label, done: 0, total: plugins.length, stop: false };
-    const result = { ok: 0, failed: 0, left: 0 };
+  async runEach(label, items, work, weight = () => 1) {
+    const run = { label, done: 0, total: items.reduce((n, item) => n + weight(item), 0), stop: false, usage: null };
+    const result = { ok: 0, failed: 0, left: 0, requests: 0, usage: null };
+    const usages = [];
     this.view.bulkRun = run;
     this.renderBulk();
-    for (const p of plugins) {
-      if (run.stop) break;
+    await mapLimit(items, PARALLEL, async (item) => {
+      if (run.stop) return;
+      const n = weight(item);
       try {
-        result[(await work(p)) ? "ok" : "failed"]++;
+        const done = await work(item);
+        result[done ? "ok" : "failed"] += n;
+        if (done?.tokens != null) {   // an AI request: add up what it took
+          usages.push({ input: done.tokens, cost: done.cost, model: done.model });
+          result.requests++;
+          run.usage = result.usage = sumUsage(usages, this.plugin.data.settings.model);
+        }
       } catch (error) {
-        console.error("[Community Radar] bulk", p.id, error);
-        result.failed++;
+        console.error("[Community Radar] bulk", error);
+        result.failed += n;
       }
-      run.done++;
+      run.done += n;
       this.renderBulk();
-    }
-    result.left = plugins.length - run.done;
+    });
+    result.left = run.total - run.done;
     this.view.bulkRun = null;
     return result;
   }
 
-  /** "12 done · 1 failed · 3 stopped" for the toast. */
-  summary({ ok, failed, left }, key = "bulk.tr.done") {
-    return [t(key, { n: ok }), failed ? t("bulk.tr.failed", { n: failed }) : null, left ? t("bulk.tr.left", { n: left }) : null].filter(Boolean).join(" · ");
+  /** "93 translated · 2 requests · 18,420 tokens · $0.0021 · model" (+ failed, stopped) for the toast. */
+  summary({ ok, failed, left, requests, usage }, key = "bulk.tr.done") {
+    return [t(key, { n: ok }), failed ? t("bulk.tr.failed", { n: failed }) : null, left ? t("bulk.tr.left", { n: left }) : null,
+      requests ? t("bulk.tr.requests", { n: requests }) : null, usage ? spentText(usage) : null, usage?.model].filter(Boolean).join(" · ");
   }
 
   /** Ends a run: what it did in the toast, the list redrawn with the new translations. */

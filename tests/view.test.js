@@ -1862,7 +1862,18 @@ const tests = {
     assert.ok(ids.every((id) => plugin.data.translations[id]?.text.startsWith("TR: ")), "short descriptions: translated and kept");
     assert.ok(ids.every((id) => view.shownTranslations.has(id)), "and shown in the list");
     assert.equal(view.selected.size, 0, "the selection goes");
-    assert.ok($(view.contentEl, ".pdt-toast").textContent.includes(core.t("bulk.tr.done", { n: 2 })));
+    const toast = $(view.contentEl, ".pdt-toast").textContent;
+    assert.ok(toast.includes(core.t("bulk.tr.done", { n: 2 })) && toast.includes(core.t("bulk.tr.requests", { n: 1 })), "how many, in how many requests");
+    assert.ok(toast.includes(core.t("details.tokensUsed", { n: "" }).trim()), "and what it spent, as the provider reported it");
+
+    // a run with AI requests: the bar adds up what they spent as they come back
+    let shown = null;
+    const spent = await view.bulkBar.runEach("Run", [1, 2], async (n) => {
+      if (n === 2) { await tick(5); shown = $(view.contentEl, ".pdt-bulk-run").textContent; }   // after the first came back (they run at once)
+      return { model: "m", tokens: 100, cost: 0.001 };
+    });
+    assert.deepEqual([spent.requests, spent.usage.tokens, spent.usage.cost], [2, 200, 0.002]);
+    assert.ok(shown.includes(core.t("details.tokensUsed", { n: 100 })), `the bar shows the spend so far: ${shown}`);
 
     // Overviews: each one translated in its own request, kept like the details window's
     await view.bulkBar.translateOverviews(plugins);
@@ -1898,7 +1909,7 @@ const tests = {
       return true;
     });
     assert.equal(stopAt, "Run · 0 / 2");
-    assert.deepEqual(result, { ok: 1, failed: 0, left: 1 });
+    assert.deepEqual(result, { ok: 1, failed: 0, left: 1, requests: 0, usage: null }, "no AI asked: nothing spent");
     assert.equal(view.bulkBar.summary(result), `${core.t("bulk.tr.done", { n: 1 })} · ${core.t("bulk.tr.left", { n: 1 })}`);
 
     // Puanla: the row's stars over the button, Clear once any of them is rated

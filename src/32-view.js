@@ -105,10 +105,9 @@ class DiscoveryView extends ItemView {
     item("settings", t("menu.settings"), () => plugin.openSettings());
   }
 
-  async translateVisible() {
-    const rows = (this.rows || []).slice(0, this.visible);
-    if (await this.plugin.translateRows(rows)) rows.forEach((p) => this.shownTranslations.add(p.id));
-    this.refresh();
+  /** ⋮ › Translate the shown ones: the bulk run for short descriptions (estimate first, progress, what it cost). */
+  translateVisible() {
+    return this.bulkBar.translateDescriptions((this.rows || []).slice(0, this.visible));
   }
 
   /**

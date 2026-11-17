@@ -389,6 +389,7 @@ class PluginRadar extends Plugin {
    * one request and keeps it in data.json with what it took, as the provider reported it. Categories and tags stay
    * as they are. True when done.
    */
+  /** The Overview in your language, kept in data.json; its usage ({model, tokens, cost}) when done, else false. */
   async translateProfile(plugin, quiet = false) {   // quiet: a bulk run reports once, at the end
     if (!this.translator.ready) {
       new Notice(t("notice.translateSetup"));
@@ -407,7 +408,7 @@ class PluginRadar extends Plugin {
         model: done.model, tokens: done.tokens, cost: done.cost, date: dayString(Date.now()),
       };
       await this.saveData(this.data);
-      return true;
+      return { model: done.model, tokens: done.tokens, cost: done.cost };   // what it took (a bulk run adds them up)
     } catch (error) {
       console.error("[Community Radar] Overview translation", error);
       if (!quiet) new Notice(t("notice.translateFailed", { error: error.message }), 12000);
@@ -625,7 +626,7 @@ class PluginRadar extends Plugin {
         const name = this.readmeCacheName(plugin.id);
         await this.cache.write(name, { ...(await this.cache.read(name, {})), translation });
       }
-      return true;
+      return { model: done.model, tokens: done.tokens, cost: done.cost };   // what it took (a bulk run adds them up)
     } catch (error) {
       console.error("[Community Radar] README translation", error);
       if (!quiet) new Notice(t("notice.translateFailed", { error: error.message }), 12000);
@@ -669,6 +670,17 @@ class PluginRadar extends Plugin {
   }
 
   /** Translates untranslated descriptions in single requests of up to 50 and saves them. True on success. */
+  /**
+   * One request: the short descriptions of up to PAGE_SIZE plugins, kept in data.json.
+   * @returns {Promise<{model, tokens, cost}>} what it took, as the provider reported it
+   */
+  async translateBatch(batch) {
+    const { texts, ...usage } = await this.translator.translateWithUsage(batch.map((p) => p.description));
+    batch.forEach((p, k) => { this.data.translations[p.id] = { src: p.description, text: texts[k] }; });
+    await this.saveData(this.data);
+    return usage;
+  }
+
   async translateRows(plugins) {
     const pending = plugins.filter((p) => p.description && this.cachedTranslation(p) == null);
     if (!pending.length) return true;
@@ -678,12 +690,7 @@ class PluginRadar extends Plugin {
     }
     const notice = new Notice(t("notice.translating", { n: pending.length }), 0);
     try {
-      for (let i = 0; i < pending.length; i += PAGE_SIZE) {
-        const batch = pending.slice(i, i + PAGE_SIZE);
-        const texts = await this.translator.translate(batch.map((p) => p.description));
-        batch.forEach((p, k) => { this.data.translations[p.id] = { src: p.description, text: texts[k] }; });
-        await this.saveData(this.data);
-      }
+      for (let i = 0; i < pending.length; i += PAGE_SIZE) await this.translateBatch(pending.slice(i, i + PAGE_SIZE));
       notice.hide();
       return true;
     } catch (error) {

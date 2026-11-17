@@ -599,6 +599,11 @@ class ModelModal extends PickerModal {
 /** Help › Quick start: what a click on each part of a card does ([icon, help.card.<key>]), in the order you meet them. */
 const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["sparkles", "profile"], ["more-horizontal", "menu"], ["square-check", "bulk"], ["bell-ring", "seen"]];
 
+/** What AI requests spent, as the provider reported it: "18,420 tokens · $0.0021" (the cost only when it told it). */
+function spentText(usage) {
+  return [t("details.tokensUsed", { n: formatCount(usage.tokens) }), typeof usage.cost === "number" ? formatCost(usage.cost) : null].filter(Boolean).join(" · ");
+}
+
 /**
  * What an AI request just took, faint at the end of a title row: the cost when the provider told it, else the
  * tokens; the model on hover. Shown once, not kept (a group suggestion costs next to nothing).
