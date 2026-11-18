@@ -8,10 +8,10 @@ Settings come in five tabs, one at a time:
 
 | Tab | Settings |
 |---|---|
-| General | Language (Auto follows Obsidian's), where the view opens (Home or where you left off), New plugin period (days a plugin counts as new: the badge and the New card's `listed <= 14d`; default 14), keyboard shortcuts (see below), support |
+| General | Language (Auto follows Obsidian's), where the view opens (Home or where you left off), New plugin period (days a plugin counts as new: the badge and the New card's `listed <= 14d`; default 14), keyboard shortcuts (see below), Animations (*As in the system* follows your operating system's reduce-motion setting; *On* / *Off* override it), Translation effect (how the details window shows a text while the AI translates it, with a preview under it; default Highlighter), support |
 | Notes | Notes folder, the heading above your own notes, the Bases table of your tracking notes (**Create** or reset), the status field and your statuses (add, reorder, remove) |
 | Data | Sync frequency (Manual · Every 6 hours · **Daily** · Weekly; nothing is downloaded between syncs), **Sync now**, README updates (**When I open the note** · On every sync · Manually), the release history (**Download again**) |
-| AI | Provider (Anthropic, OpenAI, Google, OpenRouter), API key from Obsidian's keychain, model, target language, README translation (*On request* or *Off*), the translation instructions (folded under *Advanced*), usage per model (requests, tokens, cost; Reset), saved translations |
+| AI | Provider (Anthropic, OpenAI, Google, OpenRouter), API key from Obsidian's keychain, model, target language, README translation (*On request* or *Off*), saving on README translations, AI group suggestions (on by default; off: no group request, the ★ still comes from similar plugins), the translation instructions (folded under *Advanced*), usage per model (requests, tokens, cost; Reset), saved translations |
 | Hidden | How many plugins you ignored, hid until their next release, or took off Suggested; **Manage** opens that kind on the Hidden page |
 
 A list's query is changed in the list itself (**Query**), not here.
@@ -29,7 +29,7 @@ A list's query is changed in the list itself (**Query**), not here.
 | Translate the README of this note | Needs an AI provider |
 | Show plugins similar to this note's plugin | In a tracking note |
 | Create or reset the Bases view | |
-| Suggest groups for ungrouped plugins | Needs an AI provider |
+| Suggest groups for ungrouped plugins | Needs an AI provider and *AI group suggestions* on |
 | Recent actions | The last 20 bulk actions, with Undo |
 
 The view's ⋮ menu (top right): Sync now, Translate visible, Hidden, Download the release history again, Settings. The **⋯** button at the end of the list's toolbar: **Save as a view…**
@@ -47,7 +47,7 @@ On while *Settings → Keyboard shortcuts* is on and the Community Radar tab is 
 | `1` … `5` / `0` | rate / clear the rating |
 | `s` | similar plugins |
 | `r` | open the README in your note |
-| `t` | translate the description / hide it |
+| `t` | translate the description / hide it; in the details window, the Overview too (one request) |
 | `o` | open in Obsidian |
 | `h` | hide until the next release |
 | `x` | ignore (a toast offers Undo; restore on the Hidden page) |

@@ -1415,9 +1415,9 @@ button.pdt-table-track.is-on { color: var(--text-accent); }
 }
 
 .pdt-rate-pop {
-  display: none;
+  display: flex;
   position: absolute;
-  top: 30px;
+  top: calc(100% + 4px);
   right: -6px;
   z-index: 5;
   align-items: center;
@@ -1440,10 +1440,27 @@ button.pdt-table-track.is-on { color: var(--text-accent); }
   z-index: calc(var(--layer-menu) + 1);
 }
 
-.pdt-rate.is-open .pdt-rate-pop,
-.pdt-rate:hover .pdt-rate-pop,
-.pdt-rate:focus-within .pdt-rate-pop {
-  display: flex;
+/* a ★'s own stars: hidden until hover, focus or a click; going, they wait a moment so the pointer can reach them */
+.pdt-rate > .pdt-rate-pop {
+  visibility: hidden;
+  transition: visibility 0s linear 0.2s;
+}
+
+/* an invisible bridge over the gap between ★ and its stars: the pointer crossing it still hovers the ★ */
+.pdt-rate > .pdt-rate-pop::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: 6px;
+}
+
+.pdt-rate.is-open > .pdt-rate-pop,
+.pdt-rate:hover > .pdt-rate-pop,
+.pdt-rate:focus-within > .pdt-rate-pop {
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 .pdt-rate-stars {
@@ -2005,9 +2022,6 @@ button.pdt-similar-step svg {
   to { transform: none; opacity: 1; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .modal.pdt-detail.is-growing { animation: none; }
-}
 
 .pdt-detail .modal-title {
   display: flex;
@@ -2337,6 +2351,276 @@ button.pdt-lang-chip.is-on {
   gap: var(--size-4-5);
 }
 
+/*
+ * Being translated (details window, t or the Overview's Translate): the original stays where it is, shown as being read
+ * with the effect from Settings › Translation effect (.pdt-fx-<key>, TRANSLATE_FX; showReading adds the class, and what
+ * CSS can't do: the snake's outline, the scan's timing, the Matrix rain). Everything is drawn outside the flow
+ * (::before / ::after / an absolute svg or canvas) or as backgrounds and colours: no text moves.
+ * Line effects work on the texts' inline spans (.pdt-ln, .pdt-lang-text), each visual line on its own
+ * (box-decoration-break: clone); --i is a text's place in the stagger. Animations off (body.pdt-still): every effect
+ * stands still, the text dimmed.
+ */
+@property --pdt-ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.pdt-detail-about,
+.pdt-overview-parts {
+  position: relative;   /* the frame's and the band's box; moves nothing */
+}
+
+.pdt-detail-about { --pdt-fx-y: 6px; --pdt-fx-x: 10px; }   /* how far a frame stands off the text */
+.pdt-overview-parts { --pdt-fx-y: 10px; --pdt-fx-x: 10px; }   /* inside the tab body's 12 px sides: it scrolls, so wider is cut */
+
+/* Settings › Translation effect: the preview under the setting, a small details window (fxPreview) */
+.pdt-fx-preview {
+  margin: 0 0 var(--size-4-4);
+  padding: var(--size-4-3) var(--size-4-5);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-primary);
+  font-size: var(--font-ui-small);
+}
+
+.pdt-fx-preview .pdt-detail-about {
+  margin: 0 0 var(--size-4-4);
+}
+
+.pdt-fx-preview-tag {
+  margin-right: var(--size-4-2);
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+}
+
+/* ── Highlighter (default): a gradient marker fills each line, text after text, then fades ── */
+.pdt-fx-marker.is-translating :is(.pdt-ln, .pdt-lang-text) {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  border-radius: 3px;
+  background-image: linear-gradient(90deg, rgba(var(--color-blue-rgb), 0.32), rgba(var(--color-purple-rgb), 0.3) 60%, rgba(var(--color-cyan-rgb), 0.24));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  color: var(--text-muted);
+  animation: pdt-mark 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 450ms - 3.6s);
+}
+
+@keyframes pdt-mark {
+  0% { background-size: 0% 100%; color: var(--text-muted); }
+  16%, 34% { background-size: 100% 100%; color: var(--text-normal); }
+  56%, 100% { background-size: 100% 100%; background-image: linear-gradient(transparent, transparent); color: var(--text-muted); }
+}
+
+/* ── Light sweep: the text dimmed, a light band sweeps each line ── */
+.pdt-fx-shimmer.is-translating :is(.pdt-ln, .pdt-lang-text) {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background: linear-gradient(100deg, var(--text-faint) 0 34%, var(--color-blue) 42%, var(--text-normal) 47%, var(--color-purple) 52%, var(--color-cyan) 57%, var(--text-faint) 66% 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pdt-sweep 2.4s linear infinite;
+  animation-delay: calc(var(--i, 0) * 180ms - 1.2s);
+}
+
+@keyframes pdt-sweep {
+  from { background-position: 110% 0; }
+  to { background-position: -40% 0; }
+}
+
+/* ── Line glow: a soft gradient flows behind each line, the text breathes ── */
+.pdt-fx-line.is-translating :is(.pdt-ln, .pdt-lang-text) {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  border-radius: 4px;
+  background-image: linear-gradient(90deg, rgba(var(--color-blue-rgb), 0.06), rgba(var(--color-blue-rgb), 0.26) 25%, rgba(var(--color-purple-rgb), 0.3) 50%, rgba(var(--color-cyan-rgb), 0.22) 75%, rgba(var(--color-blue-rgb), 0.06));
+  background-size: 200% 100%;
+  animation: pdt-line 2.2s linear infinite, pdt-breathe 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -260ms), calc(var(--i, 0) * 160ms - 1.2s);
+}
+
+@keyframes pdt-line {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+/* ── Scanner: a band moves down the text; each line lights up as it passes (showReading times --pdt-d, --pdt-h) ── */
+.pdt-fx-scan.is-translating::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: calc(-1 * var(--pdt-fx-x));
+  left: calc(-1 * var(--pdt-fx-x));
+  height: 56px;   /* SCAN_BAND */
+  background: linear-gradient(180deg, transparent, rgba(var(--color-blue-rgb), 0.12) 45%, rgba(var(--color-purple-rgb), 0.2) 85%, rgba(var(--color-cyan-rgb), 0.45));
+  animation: pdt-scan 3s linear infinite;   /* SCAN_MS */
+  pointer-events: none;
+}
+
+.pdt-fx-scan.is-translating {   /* the band stays within the frame's margin (a short description is lower than the band) */
+  clip-path: inset(calc(-1 * var(--pdt-fx-y)) calc(-1 * var(--pdt-fx-x)));
+}
+
+.pdt-fx-scan.is-translating :is(.pdt-ln, .pdt-lang-text) {
+  color: var(--text-faint);
+  animation: pdt-lit 3s linear infinite;
+  animation-delay: var(--pdt-d, 0s);
+}
+
+@keyframes pdt-scan {
+  0% { transform: translateY(-56px); opacity: 0; }
+  6%, 90% { opacity: 1; }
+  100% { transform: translateY(var(--pdt-h, 200px)); opacity: 0; }
+}
+
+@keyframes pdt-lit {
+  0%, 100% { color: var(--text-faint); text-shadow: none; }
+  8% { color: var(--text-normal); text-shadow: 0 0 12px rgba(var(--color-blue-rgb), 0.6); }
+  24% { color: var(--text-muted); text-shadow: none; }
+}
+
+/* ── Frames: a ring around the text, a faint light inside, the text breathes ── */
+:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::before,
+:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--pdt-fx-y)) calc(-1 * var(--pdt-fx-x));
+  border-radius: var(--radius-m);
+  pointer-events: none;
+}
+
+:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::before {
+  padding: 1.5px;   /* the ring's width: the mask keeps only this band */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::after {
+  background: radial-gradient(120% 70% at 50% 0%, rgba(var(--color-blue-rgb), 0.1), transparent 70%);
+}
+
+:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating :is(.pdt-ln, .pdt-lang-text) {
+  animation: pdt-breathe 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 160ms - 1.2s);
+}
+
+/* Glowing frame: the gradient ring turns */
+.pdt-fx-ring.is-translating::before {
+  background: conic-gradient(from var(--pdt-ang), var(--color-blue), var(--color-purple), var(--color-cyan), var(--color-blue));
+  animation: pdt-turn 3s linear infinite;
+}
+
+/* Still glowing frame: the ring stands; its colours drift and its light pulses, nothing moves */
+.pdt-fx-pulse.is-translating::before {
+  background: conic-gradient(from 200deg, var(--color-blue), var(--color-purple), var(--color-cyan), var(--color-blue));
+  animation: pdt-hue 3s ease-in-out infinite alternate, pdt-pulse-light 1.6s ease-in-out infinite;
+}
+
+.pdt-fx-pulse.is-translating::after {
+  animation: pdt-pulse-light 1.6s ease-in-out infinite;
+  animation-delay: -0.8s;
+}
+
+/* Snake: a faint ring, and a dash with a fading tail running round it (showReading's svg, pathLength 100) */
+:is(.pdt-fx-snake, .pdt-fx-snakes).is-translating::before {
+  background: var(--background-modifier-border);
+}
+
+.pdt-snake {
+  position: absolute;
+  top: calc(-1 * var(--pdt-fx-y));
+  left: calc(-1 * var(--pdt-fx-x));
+  width: calc(100% + 2 * var(--pdt-fx-x));
+  height: calc(100% + 2 * var(--pdt-fx-y));
+  overflow: visible;
+  pointer-events: none;
+}
+
+.pdt-snake rect {
+  x: 1px;
+  y: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  rx: 7px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: calc(var(--len) * 1px) calc((100 - var(--len)) * 1px);
+  animation: pdt-snake 3.2s linear infinite;
+}
+
+.pdt-fx-snakes .pdt-snake rect {   /* two dashes, half a lap apart */
+  stroke-dasharray: calc(var(--len) * 1px) calc((50 - var(--len)) * 1px);
+}
+
+.pdt-overview-parts .pdt-snake rect { animation-duration: 4.4s; }   /* a longer lap: about the description's speed */
+.pdt-snake .t1 { --len: 20; stroke: var(--color-blue); stroke-width: 1.5; opacity: 0.18; }
+.pdt-snake .t2 { --len: 13; stroke: var(--color-blue); stroke-width: 1.5; opacity: 0.4; }
+.pdt-snake .mid { --len: 7; stroke: var(--color-purple); stroke-width: 1.5; opacity: 0.8; }
+.pdt-snake .head { --len: 2.2; stroke: var(--color-cyan); stroke-width: 2; filter: drop-shadow(0 0 3px var(--color-cyan)); }
+
+@keyframes pdt-snake {   /* each dash ends at the head: its offset runs len → len − 100 */
+  from { stroke-dashoffset: calc(var(--len) * 1px); }
+  to { stroke-dashoffset: calc((var(--len) - 100) * 1px); }
+}
+
+/* ── Matrix: the letters change where they are (showReading splits them into .pdt-ch). A glyph is drawn over its
+   letter (the letter turns transparent, keeping its width), so no line moves. ── */
+.pdt-ch {
+  position: relative;
+}
+
+.is-translating .pdt-ch.is-glyph {   /* over the effects' own letter colours, at once (no fade under the glyph) */
+  color: transparent;
+  transition: none;
+}
+
+.is-translating .pdt-ch.is-glyph::after {
+  content: attr(data-g);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-green);
+  text-shadow: 0 0 6px rgba(var(--color-green-rgb), 0.6);
+}
+
+.pdt-fx-decode .pdt-ch.is-todo {   /* Decode: the letters still to resolve wait dimmed green */
+  color: rgba(var(--color-green-rgb), 0.55);
+}
+
+.pdt-fx-wave .pdt-ch {   /* Wave: --pdt-g is the band's green share (0–100) at this letter */
+  color: color-mix(in srgb, var(--color-green) calc(var(--pdt-g, 0) * 1%), currentColor);
+  transition: color 0.25s;
+}
+
+@keyframes pdt-turn {
+  to { --pdt-ang: 360deg; }
+}
+
+@keyframes pdt-hue {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(70deg); }
+}
+
+@keyframes pdt-pulse-light {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+@keyframes pdt-breathe {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+/* animations off: every effect stands still (the global rule at the end), the text dimmed */
+body.pdt-still .is-translating :is(.pdt-ln, .pdt-lang-text) {
+  opacity: 0.6;
+}
+
 .pdt-overview-part h4 {
   margin: 0 0 var(--size-4-1);
   color: var(--text-muted);
@@ -2578,7 +2862,7 @@ button.pdt-detail-tab.is-active {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: var(--size-4-4) var(--size-2-2) var(--size-4-2);   /* no box: the tab bar's line frames it */
+  padding: var(--size-4-4) var(--size-4-3) var(--size-4-2);   /* no box: the tab bar's line frames it; 12 px at the sides hold the translating ring */
 }
 
 .pdt-detail-readme-body.is-empty {
@@ -3539,12 +3823,9 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
   transition: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pdt-view .pdt-home *,
-  .pdt-view .pdt-home .is-in {
-    animation: none;
-    transition: none;
-  }
+body.pdt-still .pdt-view .pdt-home *,
+body.pdt-still .pdt-view .pdt-home .is-in {   /* animations off: Home's entrances are transitions too */
+  transition: none;
 }
 
 /* a widget's list: what it is, and "only new" */
@@ -3936,6 +4217,15 @@ button.pdt-home-fresh:hover .pdt-home-fresh-go { transform: translate(2px, -2px)
   to { transform: rotate(360deg); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pdt-bulk-bar.is-running .pdt-bulk-icon { animation: none; }
+/*
+ * Animations off (Settings › Animations: Off, or System while the OS asks for reduced motion): the plugin puts
+ * pdt-still on <body> and every plugin animation stops here, in one place. Transitions stay (short state changes; the
+ * rating stars' close delay is one); Home's entrances, which are transitions, stop in their own rule.
+ * !important: the running rules are more specific than one rule for all.
+ */
+body.pdt-still [class*="pdt-"],
+body.pdt-still [class*="pdt-"] *,
+body.pdt-still [class*="pdt-"]::before,
+body.pdt-still [class*="pdt-"]::after {
+  animation: none !important;
 }

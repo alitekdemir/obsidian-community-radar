@@ -431,8 +431,10 @@ function groupChip(parent, { name, on, removable = false, star = false, starTip 
 }
 
 /**
- * One plugin's groups: the selected ones, your groups (the closest starred), AI suggestions and a box
- * for a new name. `result` resolves with the chosen groups on Confirm, or null when closed.
+ * One plugin's groups: the selected ones, your groups (the closest starred), AI suggestions (unless turned off in
+ * Settings) and a box for a new name. The ★ comes at once from the Similar lists (picked too when they're sure) and
+ * moves to the model's choice among your groups when it answers: it has read what the plugin does. `result` resolves
+ * with the chosen groups on Confirm, or null when closed.
  */
 class GroupModal extends Modal {
   constructor(plugin, target) {
@@ -441,10 +443,12 @@ class GroupModal extends Modal {
     this.target = target;
     const note = plugin.notes.index.get(target.id);
     this.mine = plugin.notes.groups();
-    this.closest = plugin.closestGroupFor(target);
+    const hint = plugin.closestGroupFor(target);
+    this.closest = hint?.name ?? null;
     this.touched = Boolean(note?.groups.length);
-    this.selected = this.touched ? [...note.groups] : this.closest ? [this.closest] : [];
-    this.ai = { state: plugin.translator.ready ? "loading" : "setup", list: [], error: "" };
+    this.selected = this.touched ? [...note.groups] : hint?.sure ? [hint.name] : [];   // a category guess is only starred
+    const aiState = !plugin.data.settings.aiGroups ? "off" : plugin.translator.ready ? "loading" : "setup";
+    this.ai = { state: aiState, list: [], error: "" };
     this.showAll = false;
     this.draft = "";
     this.saved = null;
@@ -467,8 +471,10 @@ class GroupModal extends Modal {
       const { list, usage } = await this.plugin.suggestGroups(this.target);
       const known = new Set(this.mine.map((g) => g.name));
       const pick = list.find((g) => known.has(g));
-      if (pick) this.closest = pick;   // the model's choice among your groups beats word overlap
-      if (!this.touched) this.selected = this.closest ? [this.closest] : [];
+      if (pick) {   // the model's choice among your groups beats the lists'
+        this.closest = pick;
+        if (!this.touched) this.selected = [pick];
+      }
       this.ai = { state: "ready", list: list.filter((g) => !known.has(g)), error: "", usage };
     } catch (error) {
       this.ai = { state: "failed", list: [], error: error.message };
@@ -492,6 +498,25 @@ class GroupModal extends Modal {
       this.touched = true;
     }
     this.render();
+  }
+
+  /** The AI suggestions' section: loading, setup, failed or the new names (VISIBLE_SUGGESTIONS, then "+N more"). */
+  renderAi(section) {
+    const { state, list, error, usage } = this.ai;
+    const ai = section(state === "ready" ? t("groups.aiCount", { n: list.length }) : t("groups.ai"), usage && ((head) => usageTag(head, usage)));
+    if (state === "loading") ai.createSpan({ cls: "pdt-gm-note is-loading", text: t("groups.aiLoading") });
+    if (state === "setup") ai.createSpan({ cls: "pdt-gm-note", text: t("groups.aiSetup") });
+    if (state === "failed") ai.createSpan({ cls: "pdt-gm-note is-error", text: t("groups.aiFailed", { error }) });
+    if (state === "ready") {
+      for (const name of this.showAll ? list : list.slice(0, VISIBLE_SUGGESTIONS)) {
+        groupChip(ai, { name, on: this.selected.includes(name), onToggle: () => this.toggle(name) });
+      }
+      if (list.length > VISIBLE_SUGGESTIONS) {
+        const more = ai.createEl("button", { cls: "pdt-gm-more", attr: { type: "button", "aria-expanded": String(this.showAll) } });
+        more.setText(this.showAll ? t("groups.less") : t("groups.more", { n: list.length - VISIBLE_SUGGESTIONS }));
+        more.onclick = () => { this.showAll = !this.showAll; this.render(); };
+      }
+    }
   }
 
   render() {
@@ -523,21 +548,7 @@ class GroupModal extends Modal {
       }
     }
 
-    const { state, list, error, usage } = this.ai;
-    const ai = section(state === "ready" ? t("groups.aiCount", { n: list.length }) : t("groups.ai"), usage && ((head) => usageTag(head, usage)));
-    if (state === "loading") ai.createSpan({ cls: "pdt-gm-note is-loading", text: t("groups.aiLoading") });
-    if (state === "setup") ai.createSpan({ cls: "pdt-gm-note", text: t("groups.aiSetup") });
-    if (state === "failed") ai.createSpan({ cls: "pdt-gm-note is-error", text: t("groups.aiFailed", { error }) });
-    if (state === "ready") {
-      for (const name of this.showAll ? list : list.slice(0, VISIBLE_SUGGESTIONS)) {
-        groupChip(ai, { name, on: this.selected.includes(name), onToggle: () => this.toggle(name) });
-      }
-      if (list.length > VISIBLE_SUGGESTIONS) {
-        const more = ai.createEl("button", { cls: "pdt-gm-more", attr: { type: "button", "aria-expanded": String(this.showAll) } });
-        more.setText(this.showAll ? t("groups.less") : t("groups.more", { n: list.length - VISIBLE_SUGGESTIONS }));
-        more.onclick = () => { this.showAll = !this.showAll; this.render(); };
-      }
-    }
+    if (this.ai.state !== "off") this.renderAi(section);
 
     const add = el.createDiv({ cls: "pdt-gm-new" });
     const input = add.createEl("input", { type: "text", placeholder: t("groups.newPlaceholder"), value: this.draft, attr: { "aria-label": t("groups.newPlaceholder") } });

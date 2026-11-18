@@ -557,11 +557,16 @@ const tests = {
     assert.deepEqual(core.sharedFacets(a, b), ["tasks", "productivity", "kanban"], "categories first, then tags; a tag named like a category once");
     assert.deepEqual(core.sharedFacets(a, null), [], "no profile: nothing to say");
 
-    // the group window's star: the group with the most (and closest) plugins among the target's closest
+    // the group window's star: the group with the most (and closest) plugins among the target's closest, both ways
     const members = new Map([["Visual", ["draw"]], ["Task", ["tasks", "board"]]]);
-    assert.equal(core.closestGroup("kanban", members, similar), "Task");
-    assert.equal(core.closestGroup("draw", new Map([["Visual", ["x"]]]), similar), null, "none of its closest is grouped");
+    assert.deepEqual(core.closestGroup("kanban", members, similar), { name: "Task", sure: true });
+    const linked = core.parseSimilar({ ids: ["a", "b", "c"], lists: [[2], [0], [1]] });   // a → c, b → a: only b lists a
+    assert.deepEqual(core.closestGroup("a", new Map([["Mine", ["b"]]]), linked), { name: "Mine", sure: true }, "it is in a member's list");
+    assert.equal(core.closestGroup("draw", new Map([["Visual", ["x"]]]), similar), null, "nothing links it, no profiles");
     assert.equal(core.closestGroup("new", members, similar), null, "no list yet");
+    const profiles = { new: { primary: "tasks" }, tasks: { primary: "tasks" }, board: { primary: "tasks" }, draw: { primary: "canvas" } };
+    assert.deepEqual(core.closestGroup("new", members, similar, profiles), { name: "Task", sure: false }, "no list: its home category, only a hint");
+    assert.equal(core.closestGroup("new", members, null, { ...profiles, new: { primary: "pdf" } }), null, "no group shares its home");
   },
 
   "README translation: kept above the original, source fingerprint read back, split into requests, estimated; release cadence"() {

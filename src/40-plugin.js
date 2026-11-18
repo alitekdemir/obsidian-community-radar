@@ -7,6 +7,7 @@ class PluginRadar extends Plugin {
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.data.settings.query = "";   // filters are remembered, the search isn't
     this.data.settings.home = normalizeHome(this.data.settings.home);
+    if (!TRANSLATE_FX.includes(this.data.settings.translateFx)) this.data.settings.translateFx = "marker";   // an effect that's gone
     if (this.data.settings.start === "home") this.data.settings.section = "home";
     delete this.data.lastVisit;   // before 0.9.2: "new" counted from the last load, so every restart zeroed it
     if (!["all", "tracked", ...LIST_MODES].includes(this.data.settings.mode)) this.data.settings.mode = "all";   // 0.11: the other tabs are widgets
@@ -36,6 +37,7 @@ class PluginRadar extends Plugin {
     this.registerView(VIEW_TYPE, (leaf) => new DiscoveryView(leaf, this));
     this.addRibbonIcon(ICON, t("view.title"), () => this.openView());
     this.addSettingTab(new RadarSettingTab(this.app, this));
+    this.watchMotion();
     this.addCommands();
 
     // Only changes inside the notes folder refresh the view, so typing elsewhere stays quiet. A sync rewrites every
@@ -193,7 +195,14 @@ class PluginRadar extends Plugin {
     command("readme-current", t("cmd.readmeCurrent"), () => this.updateCurrentReadme());
     command("readme-all", t("cmd.readmeAll"), () => this.updateReadmes([...this.notes.index.keys()]));
     command("bases-view", t("cmd.base"), () => this.writeBase());
-    command("group-ungrouped", t("cmd.groupUngrouped"), () => this.groupUngrouped());
+    this.addCommand({   // listed only while AI group suggestions are on (Settings › AI)
+      id: "group-ungrouped", name: t("cmd.groupUngrouped"),
+      checkCallback: (checking) => {
+        if (!this.data.settings.aiGroups) return false;
+        if (!checking) this.groupUngrouped();
+        return true;
+      },
+    });
     command("readme-translate", t("cmd.readmeTranslate"), () => this.translateCurrentReadme());
     command("similar-current", t("cmd.similarCurrent"), () => this.similarOfCurrent());
     command("recent-actions", t("bulk.recent"), () => new RecentModal(this, async (op) => { await this.undo(op); }).open());
@@ -381,13 +390,20 @@ class PluginRadar extends Plugin {
     return this.data.profileTranslations[id] ?? null;
   }
 
+  /** Is `id`'s saved Overview translation in your language and made from these parts (profileParts)? */
+  overviewTranslated(id, parts) {
+    const saved = this.profileTranslation(id);
+    return Boolean(saved) && saved.src === profileTexts(parts).join("\n") && saved.lang === this.data.settings.targetLang;
+  }
+
   /**
    * Translates a plugin's Overview (summary, problem, what it does, what it isn't, worth knowing, what it needs) in
    * one request and keeps it in data.json with what it took, as the provider reported it. Categories and tags stay
-   * as they are. True when done.
+   * as they are. `withDescription`: its short description rides along in the same request when it has no
+   * translation yet (kept like any other; the request's usage is the Overview's).
+   * @returns {Promise<object|false>} what it took ({model, tokens, cost}) when done, else false
    */
-  /** The Overview in your language, kept in data.json; its usage ({model, tokens, cost}) when done, else false. */
-  async translateProfile(plugin, quiet = false) {   // quiet: a bulk run reports once, at the end
+  async translateProfile(plugin, quiet = false, withDescription = false) {   // quiet: a bulk run reports once, at the end
     if (!this.translator.ready) {
       new Notice(t("notice.translateSetup"));
       return false;
@@ -397,9 +413,13 @@ class PluginRadar extends Plugin {
       if (!parts) return false;
       const all = profileTexts(parts);
       const asked = all.map((text, i) => (text ? i : -1)).filter((i) => i >= 0);   // empty ones aren't sent
-      const done = await this.translator.translateWithUsage(asked.map((i) => all[i]));
+      const description = withDescription && plugin.description && this.cachedTranslation(plugin) == null;
+      const sent = [...(description ? [plugin.description] : []), ...asked.map((i) => all[i])];
+      const done = await this.translator.translateWithUsage(sent);
+      const got = [...done.texts];
+      if (description) this.data.translations[plugin.id] = { src: plugin.description, text: got.shift() };   // the first one sent
       const texts = [...all];
-      asked.forEach((i, k) => { texts[i] = done.texts[k]; });
+      asked.forEach((i, k) => { texts[i] = got[k]; });
       this.data.profileTranslations[plugin.id] = {
         src: all.join("\n"), lang: this.data.settings.targetLang, parts: profileFromTexts(parts, texts),
         model: done.model, tokens: done.tokens, cost: done.cost, date: dayString(Date.now()),
@@ -411,6 +431,18 @@ class PluginRadar extends Plugin {
       if (!quiet) new Notice(t("notice.translateFailed", { error: error.message }), 12000);
       return false;
     }
+  }
+
+  /**
+   * The details window's `t`: the description and the Overview in your language, whatever of them is missing or out
+   * of date, in one request. Only the description when the plugin has no profile or its Overview is up to date.
+   * True when both are there.
+   */
+  async translateWithOverview(plugin) {
+    const profile = this.profiles?.plugins?.[plugin.id];
+    const parts = profile && profileParts(profile, await this.profileFile(plugin.id));
+    if (parts && !this.overviewTranslated(plugin.id, parts)) return Boolean(await this.translateProfile(plugin, false, true));
+    return this.translateRows([plugin]);
   }
 
   /** Categories and tags with their counts, for the query box (worked out again only when the profiles change). */
@@ -759,8 +791,31 @@ class PluginRadar extends Plugin {
   }
 
   // ── Groups and similarity ────────────────────────────────────────────────
+  /**
+   * Settings › Animations, on <body> as one class (STILL_CLASS) that every still rule in styles.css hangs on: "off", or
+   * "system" while the OS asks for reduced motion. Follows the OS's switch while it's "system"; gone when the plugin is.
+   */
+  watchMotion() {
+    this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const follow = () => this.applyMotion();
+    this.reducedMotion.addEventListener("change", follow);
+    this.register(() => {
+      this.reducedMotion.removeEventListener("change", follow);
+      document.body.classList.remove(STILL_CLASS);
+    });
+    this.applyMotion();
+  }
+
+  /** Still or moving, as Settings › Animations and (on "system") the OS say. */
+  applyMotion() {
+    const { motion } = this.data.settings;
+    const still = motion === "off" || (motion === "system" && this.reducedMotion.matches);
+    document.body.classList.toggle(STILL_CLASS, still);
+  }
+
+  /** The group window's ★: {name, sure} or null (see closestGroup). */
   closestGroupFor(plugin) {
-    return closestGroup(plugin.id, this.notes.members(), this.similar);
+    return closestGroup(plugin.id, this.notes.members(), this.similar, this.profiles?.plugins);
   }
 
   /**

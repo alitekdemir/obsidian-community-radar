@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- **AI group suggestions can be turned off** (*Settings → AI*, on by default): off, the group window has no AI section and sends no request, the selection bar has no *Group with AI* and the *Suggest groups for ungrouped plugins* command isn't listed.
+- **`t` in the details window translates the Overview too:** the description and the Overview in one request (only what's missing or out of date), and the window switches to your language; `t` again shows both in the original. The language chip and Original | your language keep doing one thing each, with their cost shown.
+- **While a translation runs in the details window, the text stays:** the description and the Overview are no longer replaced by "Translating…"; they stay as they are, shown as being read by the AI until the translation arrives. Pick the effect in *Settings → General → Translation effect*: Highlighter (default), Light sweep, Line glow, Scanner, Glowing frame, Still glowing frame, Snake frame, Two snakes, or one of three Matrix effects where the letters change in place (decode, sparks, green wave); a preview under the setting plays the one you pick. Nothing on the page moves (every effect is drawn outside the text or as its colours); with animations off, the effect stands still and the text is dimmed.
+- **Animations setting** (*Settings → General*): *As in the system* (default) follows your operating system's reduce-motion setting, *On* and *Off* override it, so you can see the effects even with reduced motion on in Windows, or stop them all. One switch for every animation of the plugin.
+
+### Fixed
+- **The group window's ★ waited for the AI:** it only looked at the plugin's 10 closest, so it was empty for most plugins until the model answered. It now looks at the whole Similar list, both ways (the plugin's closest, and the plugins that list it), and when nothing links them it stars the group sharing its home category (starred only, not picked). The model's choice among your groups still replaces it when it answers.
+- **The rating stars closed before the pointer reached them:** a 4 px gap under ★ dropped the hover. An invisible bridge covers the gap, and the stars wait 0.2 s before going.
+
 ## 0.14.0
 
 ### Changed

@@ -9,6 +9,13 @@ globalThis.HTMLElement = window.HTMLElement;
 globalThis.Event = window.Event;
 globalThis.requestAnimationFrame = (fn) => fn();
 globalThis.window = window;
+let reducedMotion = false;   // the OS's reduce-motion switch, as Electron reports it
+const motionListeners = new Set();
+window.matchMedia = (query) => ({
+  get matches() { return reducedMotion; }, media: query,
+  addEventListener: (type, fn) => motionListeners.add(fn), removeEventListener: (type, fn) => motionListeners.delete(fn),
+});
+const setReducedMotion = (on) => { reducedMotion = on; for (const fn of motionListeners) fn(); };
 const P = window.HTMLElement.prototype;
 P.createEl = function (tag, o = {}) {
   const el = window.document.createElement(tag);
@@ -728,6 +735,55 @@ const tests = {
     assert.equal($(modals.at(-1).contentEl, ".pdt-usage-tag"), null, "saved suggestions cost nothing: no tag");
     assert.deepEqual(modals.at(-1).selected, ["ai", "Planning", "my tools"]);   // current groups, not the suggestion
     modals.at(-1).close();
+
+    plugin.data.settings.aiGroups = false;   // Settings › AI group suggestions off: no AI section, no request
+    fake.network.prompts.length = 0;
+    plugin.chooseGroup(plugin.pluginById("homepage"));
+    await tick2();
+    assert.equal(fake.network.prompts.length, 0);
+    assert.equal($$(modals.at(-1).contentEl, ".pdt-gm-section").length, 2, "selected and your groups only");
+    modals.at(-1).close();
+    plugin.data.settings.aiGroups = true;
+  },
+
+  async "animations: System follows the OS's reduce motion, On and Off override it"({ plugin }) {
+    const still = () => document.body.classList.contains("pdt-still");
+    const settings = plugin.data.settings;
+    assert.equal(settings.motion, "system");
+    assert.ok(!still(), "the OS moves: so do we");
+    setReducedMotion(true);
+    assert.ok(still(), "the OS asks for reduced motion: still, at once");
+    settings.motion = "on";
+    plugin.applyMotion();
+    assert.ok(!still(), "On beats the OS");
+    settings.motion = "off";
+    setReducedMotion(false);
+    plugin.applyMotion();
+    assert.ok(still(), "Off beats it too");
+    settings.motion = "system";
+    plugin.applyMotion();
+    assert.ok(!still());
+  },
+
+  async "Translation effect: a preview under the setting plays the chosen effect, still when animations are off"({ plugin }) {
+    const tab = plugin.settingTab;
+    const settings = plugin.data.settings;
+    tab.tab = "general";
+    tab.display();
+    const preview = () => $(tab.containerEl, ".pdt-fx-preview");
+    assert.ok($(preview(), ".pdt-detail-about.pdt-fx-marker.is-translating") && $(preview(), ".pdt-overview-parts.pdt-fx-marker"), "the default, on a description and an Overview part");
+    const pick = $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "decode"));
+    pick.value = "decode";
+    await pick.onchange();
+    assert.equal(settings.translateFx, "decode");
+    assert.ok($(preview(), ".pdt-fx-decode .pdt-ch"), "redrawn with the new one: Matrix splits the letters");
+    const motion = $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "off"));
+    motion.value = "off";
+    await motion.onchange();
+    assert.ok(document.body.classList.contains("pdt-still") && !$(preview(), ".pdt-ch"), "animations off: still, no changing letters");
+    motion.value = "system";
+    await motion.onchange();
+    settings.translateFx = "marker";
   },
 
   async "suggest groups for the picked rows: one request, chips under the rows, a click saves at once"({ app, plugin, view }) {
@@ -875,7 +931,7 @@ const tests = {
     assert.deepEqual([downloaded.similar, downloaded.similar304], [1, 1], "a day later: asked with the ETag, unchanged");
     assert.deepEqual(plugin.similarTo({ id: "listed-today" }), [], "no list yet");
     const homepageGroup = [...plugin.notes.members()].find(([, ids]) => ids.includes("homepage"))?.[0] ?? null;
-    assert.equal(plugin.closestGroupFor(plugin.pluginById("dataview")), homepageGroup, "the group of its closest tracked plugin");
+    assert.equal(plugin.closestGroupFor(plugin.pluginById("dataview"))?.name ?? null, homepageGroup, "the group of its closest tracked plugin");
     assert.equal(plugin.closestGroupFor({ id: "listed-today" }), null);
     const catalog = plugin.catalog;
     plugin.catalog = { ...catalog, plugins: [...catalog.plugins,
@@ -1838,6 +1894,36 @@ const tests = {
     assert.ok($(next.contentEl, ".pdt-overview-parts").textContent.includes("Opens a chosen note at startup."));
     assert.equal($(next.contentEl, ".pdt-detail-lang .is-on").textContent, core.t("details.original"), "the switch says what it shows");
     settings.detailTranslated = false;
+
+    // t in the details window: the description and the Overview in one request; t again: both in the original
+    settings.keyboard = true;
+    delete plugin.data.translations.homepage;
+    fake.network.prompts.length = 0;
+    const seen = {};   // what the window shows while the request runs
+    const ask = plugin.translateWithOverview.bind(plugin);
+    plugin.translateWithOverview = (p) => {
+      const reading = $(next.contentEl, ".pdt-overview-parts.is-translating");
+      Object.assign(seen, { marker: reading?.classList.contains("pdt-fx-marker") && reading.querySelector(".pdt-ln")?.style.getPropertyValue("--i") === "1", overview: reading?.textContent, desc: Boolean($(next.modalEl, ".pdt-detail-about.is-translating")) });
+      return ask(p);
+    };
+    next.onKey("t");
+    await tick(30);
+    delete plugin.translateWithOverview;
+    assert.ok(seen.overview?.includes("Opens a chosen note at startup."), "while it translates, the original stays, shown as being read");
+    assert.ok(seen.desc, "the description too");
+    assert.equal(settings.translateFx, "marker", "the default effect: highlighter");
+    assert.ok(seen.marker, "drawn line by line: each text an inline unit in the stagger");
+    assert.equal($(next.modalEl, ".is-translating"), null, "done: no effect left");
+    assert.equal(fake.network.prompts.length, 1, "one request for both");
+    assert.ok(plugin.data.translations.homepage && plugin.data.profileTranslations.homepage, "each kept as its own");
+    assert.ok($(next.modalEl, ".pdt-detail-about").textContent.includes("TR: "), "the description in your language");
+    assert.ok($(next.contentEl, ".pdt-overview-parts").textContent.includes("TR: Opens a chosen note"), "the Overview too");
+    assert.ok(view.shownTranslations.has("homepage"), "the list's row follows");
+    next.onKey("t");
+    await tick(10);
+    assert.ok(!$(next.modalEl, ".pdt-detail-about").textContent.includes("TR: ") && !settings.detailTranslated, "both back in the original");
+    assert.equal(fake.network.prompts.length, 1, "no request to go back");
+    settings.keyboard = false;
 
     $$(modal.contentEl, ".pdt-pill.is-tag")[0].onclick();
     assert.equal(view.settings.queries.all, "tag = queries\norder by downloads desc", "a tag opens its list");

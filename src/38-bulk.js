@@ -87,7 +87,7 @@ class BulkBar extends ViewPart {
         const group = name ?? await new TextModal(this.app, { title: t("bulk.newGroup"), cta: t("bulk.go.group", { n: this.view.selected.size }) }).ask();
         if (group) this.runBulk("group", group);
       }), { caret: true });
-    action("sparkles", t("bulk.suggest"), () => this.suggestGroups(), { tip: t("bulk.suggestTip", { n: Math.min(this.view.selected.size, AI_BATCH) }) });
+    if (this.settings.aiGroups) action("sparkles", t("bulk.suggest"), () => this.suggestGroups(), { tip: t("bulk.suggestTip", { n: Math.min(this.view.selected.size, AI_BATCH) }) });
     if (this.settings.mode === "tracked") action("check-check", t("bulk.reviewed"), () => this.runBulk("reviewed"));
     divider();
     action("languages", t("bulk.translate"), (button) => this.openTranslate(button), { caret: true });
@@ -204,10 +204,8 @@ class BulkBar extends ViewPart {
     const texts = new Map();   // id → what goes to the AI, for the ones without an up-to-date translation
     await this.runEach(t("bulk.tr.preparing"), profiled, async (p) => {
       const parts = profileParts(this.plugin.profiles.plugins[p.id], await this.plugin.profileFile(p.id));
-      const text = parts && profileTexts(parts).join("\n");
-      const saved = this.plugin.profileTranslation(p.id);
-      if (text && !(saved?.src === text && saved.lang === this.plugin.data.settings.targetLang)) texts.set(p.id, text);
-      return Boolean(text);
+      if (parts && !this.plugin.overviewTranslated(p.id, parts)) texts.set(p.id, profileTexts(parts).join("\n"));
+      return Boolean(parts);
     });
     const pending = profiled.filter((p) => texts.has(p.id));
     if (!pending.length) return this.finish(t("bulk.tr.upToDate"));

@@ -52,6 +52,12 @@ const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sy
 const SYNC_DELAY_MS = 60_000;      // at startup Obsidian loads every plugin at once: a due sync waits until it has settled
 const README_MODES = ["open", "sync", "manual"];
 const PAGE_SIZE = 50;
+const TRANSLATE_FX = ["marker", "shimmer", "line", "scan", "ring", "pulse", "snake", "snakes", "decode", "sparks", "wave"];   // Settings › Translation effect; styles.css .pdt-fx-<key>
+const FX_PREVIEW = {   // Settings › Translation effect's sample: an original, so English in every UI language
+  description: "Run Claude Code as a local AI collaborator in your vault.",
+  summary: "Runs agent CLIs in the vault for sidebar chat and inline editing; publishes notes to social platforms.",
+};
+const STILL_CLASS = "pdt-still";   // on <body> while animations are off (Settings › Animations, or the OS on "system")
 const AI_BATCH = 50;               // plugins per group-suggestion request
 const AI_GROUPS = 10;              // group suggestions asked per plugin
 /** The details window's icon for what a plugin needs (a profile's requires[].kind). */
@@ -66,7 +72,6 @@ const KEY_HELP = [
 const SIMILAR_TOP = 50;            // a Similar list's length (scripts/similar/build.py); the details window shows the top 5
 const VERY_CLOSE_RANK = 5;         // closeness labels by place in the list: 1–5 very close, 6–15 close, the rest related
 const CLOSE_RANK = 15;
-const GROUP_HINT_RANK = 10;        // the group window stars a group when one of its plugins is among the 10 most similar
 const SIMILAR_STEPS = 10;          // Similar → Similar steps that ‹ can go back through (this session only)
 const METRICS_URL = `${RAW}/alitekdemir/obsidian-community-radar/metrics`;   // built daily by .github/workflows/metrics.yml
 const PROFILES_URL = `${RAW}/alitekdemir/obsidian-community-radar/profiles`;   // AI profiles, .github/workflows/profiles.yml (hourly)
@@ -214,6 +219,8 @@ function defaultSettings() {
     targetLang: t("language.name"),
     prompts: {},              // your translation instructions: {description, readme}; empty uses DEFAULT_PROMPTS
     language: "auto",
+    translateFx: "marker",   // how a text being translated is shown in the details window (TRANSLATE_FX)
+    motion: "system",       // animations: "system" follows the OS's reduce-motion setting; "on" / "off" override it
     syncHours: 24,        // 0 = manual
     readmeMode: "open",   // open | sync | manual
     keyboard: false,      // single-letter shortcuts in the view
@@ -225,6 +232,7 @@ function defaultSettings() {
     detailTranslated: false,  // the details window shows the Overview and the README in your language (Original | <language>)
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"
     readmeSaving: false,      // leave developer sections (DEV_SECTION) out of README translations
+    aiGroups: true,           // AI group suggestions: the group window's AI section, Group with AI, its command
   };
 }
 

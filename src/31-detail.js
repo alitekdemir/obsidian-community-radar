@@ -47,6 +47,7 @@ class DetailModal extends Modal {
     this.loads = new Map();     // id → "busy" | "done": a README fetched the first time it's shown (once per window)
     this.newer = new Map();     // id → the README now on GitHub when it changed (null: asked, nothing new)
     this.busy = "";             // progress of a translation in this window
+    this.working = null;        // {id, desc, overview}: the texts an AI request is translating now (shown as being read)
     this.scope.register([], "ArrowLeft", () => { this.step(-1); return false; });
     this.scope.register([], "ArrowRight", () => { this.step(1); return false; });
     for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "0", "1", "2", "3", "4", "5"]) {
@@ -136,11 +137,42 @@ class DetailModal extends Modal {
     return false;
   }
 
-  /** The description's translation, on or off (as on a row: the first time asks the AI); shown in its place. */
+  /**
+   * `t`: the description and the Overview in your language, or both back in the original. Turning it on asks for
+   * whatever is missing in one request (the Overview only while translations are on); Original | <language> follows,
+   * so the tabs show it. The language chip and those buttons keep doing one thing each, with their costs shown.
+   */
   async toggleTranslation(p) {
-    await this.view.rowRenderer.toggleTranslation(p);
+    const on = !this.descriptionTranslated(p);
+    const tabs = this.plugin.data.settings.readmeTranslation !== "off";   // Original | <language> is there
+    if (tabs) await this.setLanguage(p, on);   // first: the Overview tab shows the request's progress
+    if (on) {
+      this.busy = t("details.translating");
+      this.working = { id: p.id, desc: this.plugin.cachedTranslation(p) == null, overview: tabs };
+      this.render();
+      const done = await (tabs ? this.plugin.translateWithOverview(p) : this.plugin.translateRows([p]));
+      this.busy = "";
+      this.working = null;
+      if (!done) return this.render();
+    }
+    const shown = this.view.shownTranslations;   // the list's rows follow, as with the chip
+    if (on) shown.add(p.id);
+    else shown.delete(p.id);
     this.descLang = null;   // the row's choice again
+    this.view.refresh();
     this.render();
+  }
+
+  /** Is `part` ("desc" | "overview") of `p` being translated right now? Then it stays as it is, shown as being read. */
+  isWorking(p, part) {
+    return this.working?.id === p.id && this.working[part];
+  }
+
+  /** Is the description shown in your language here? Your click on its chip, else the list's choice or Original | <language>. */
+  descriptionTranslated(p) {
+    if (this.plugin.cachedTranslation(p) == null) return false;
+    const own = this.descLang?.id === p.id ? this.descLang.lang : null;
+    return own ? own === "target" : this.view.shownTranslations.has(p.id) || this.wantsTranslation;
   }
 
   /**
@@ -152,14 +184,19 @@ class DetailModal extends Modal {
     const desc = parent.createEl("p", { cls: "pdt-detail-about" });
     if (!p.description) return desc.setText("–");
     const translation = this.plugin.cachedTranslation(p);
-    const own = this.descLang?.id === p.id ? this.descLang.lang : null;   // your click for this plugin
-    const translated = translation != null && (own ? own === "target" : this.view.shownTranslations.has(p.id) || this.wantsTranslation);
+    const translated = this.descriptionTranslated(p);
     desc.addClass("pdt-detail-desc");
     languageChip(desc, { original: p.description, translation, translated, target: this.plugin.data.settings.targetLang, swap: async () => {
       if (!translated && translation == null) await this.view.rowRenderer.toggleTranslation(p);   // asks the AI once
       this.descLang = { id: p.id, lang: translated ? "original" : "target" };
       this.render();
     } });
+    if (this.isWorking(p, "desc")) this.showReading(desc, 0);
+  }
+
+  /** A text being translated: it stays, shown as being read with the effect from Settings (showReading). */
+  showReading(box, first) {
+    showReading(box, this.plugin.data.settings.translateFx, first, document.body.classList.contains(STILL_CLASS));
   }
 
   /**
@@ -443,11 +480,7 @@ class DetailModal extends Modal {
     const buttons = [[false, t("details.original")], [true, settings.targetLang]].map(([on, label]) => {
       const b = group.createEl("button", { text: label, attr: { type: "button" } });
       b.onclick = async () => {   // also while a translation runs: it goes on, is kept, and shows when you come back
-        this.asked = on ? p.id : null;
-        if (settings.detailTranslated !== on) {
-          settings.detailTranslated = on;
-          await this.plugin.saveData(this.plugin.data);
-        }
+        await this.setLanguage(p, on);
         this.render();
       };
       return [on, b];
@@ -460,6 +493,15 @@ class DetailModal extends Modal {
     };
     show(false);
     return show;
+  }
+
+  /** Original | <language>: `on` shows the tabs in your language (remembered between windows) and asks for it for `p`. */
+  async setLanguage(p, on) {
+    this.asked = on ? p.id : null;
+    const settings = this.plugin.data.settings;
+    if (settings.detailTranslated === on) return;
+    settings.detailTranslated = on;
+    await this.plugin.saveData(this.plugin.data);
   }
 
   /**
@@ -475,7 +517,8 @@ class DetailModal extends Modal {
     const saved = translated ? plugin.profileTranslation(p.id) : null;
     showLanguage(translated);
     body.addClass("pdt-overview");
-    if (translated && !saved) {
+    const working = this.isWorking(p, "overview");   // being translated: the original stays, shown as being read
+    if (translated && !saved && !working) {
       this.renderUntranslated(body, t("details.overviewNotTranslated", { lang: plugin.data.settings.targetLang }), t("details.translateOverview"), () => this.translateOverview(p));
       if (!this.busy) plugin.profileFile(p.id).then((file) => {   // what it would take, once the texts are in
         if (this.p === p && !this.closed && !this.busy) this.renderEstimate(body, profileTexts(profileParts(profile, file)).join("\n"));
@@ -483,7 +526,11 @@ class DetailModal extends Modal {
       return;
     }
     const shown = body.createDiv({ cls: "pdt-overview-parts" });
-    this.renderParts(shown, saved?.parts || profileParts(profile, null), translated);
+    const fill = (parts) => {   // the parts, shown as being read while they're translated
+      this.renderParts(shown, parts, Boolean(saved));
+      if (working) this.showReading(shown, 1);
+    };
+    fill(saved?.parts || profileParts(profile, null));
     this.renderCategories(body, profile);   // under the parts: they keep their place while the file comes in
     plugin.profileFile(p.id).then((file) => {
       if (this.p !== p || this.closed || this.tab !== "overview") return;
@@ -491,10 +538,9 @@ class DetailModal extends Modal {
       this.renderOverviewInfo(info, file, saved);
       if (!saved) {
         shown.empty();
-        return this.renderParts(shown, parts, false);
+        return fill(parts);
       }
-      const outdated = saved.src !== profileTexts(parts).join("\n") || saved.lang !== plugin.data.settings.targetLang;
-      if (outdated) this.staleBar(body, t("details.overviewOutdated"), t("details.translateAgain"), () => this.translateOverview(p), true);
+      if (!plugin.overviewTranslated(p.id, parts)) this.staleBar(body, t("details.overviewOutdated"), t("details.translateAgain"), () => this.translateOverview(p), true);
     });
   }
 
@@ -510,14 +556,15 @@ class DetailModal extends Modal {
       if (title) box.createEl("h4", { text: title });
       return box;
     };
-    if (parts.summary) part(label("details.what"), "is-lead").createEl("p", { text: parts.summary });
-    if (parts.problem) part(label("details.problem")).createEl("p", { text: parts.problem });
+    const para = (box, value) => box.createEl("p").createSpan({ cls: "pdt-ln", text: value });   // inline: line effects (showReading)
+    if (parts.summary) para(part(label("details.what"), "is-lead"), parts.summary);
+    if (parts.problem) para(part(label("details.problem")), parts.problem);
     if (parts.capabilities.length) {
       const list = part(label("details.capabilities")).createEl("ul", { cls: "pdt-overview-caps" });
       for (const item of parts.capabilities) {
         const li = list.createEl("li");
         setIcon(li.createSpan({ cls: "pdt-overview-check" }), "check");
-        li.createSpan({ text: item });
+        li.createSpan({ cls: "pdt-ln", text: item });
       }
     }
     const note = (label, text, cls) => {
@@ -525,7 +572,7 @@ class DetailModal extends Modal {
       setIcon(box.createSpan({ cls: "pdt-overview-note-icon" }), "info");
       const p = box.createEl("p");
       p.createEl("strong", { text: label });
-      p.createSpan({ text: ` ${text}` });
+      p.createSpan({ cls: "pdt-ln", text: ` ${text}` });
     };
     if (parts.disambiguation) note(label("details.disambiguation"), parts.disambiguation, "is-aside");
     if (parts.extras) note(label("details.extras"), parts.extras, "is-worth");
@@ -558,11 +605,14 @@ class DetailModal extends Modal {
     setTooltip(info.createSpan({ text: t("details.infoTranslation", { took: took.join(" · ") }) }), t("details.infoTranslationTip", { date: saved.date || "–" }));
   }
 
+  /** The Overview's Translate button: the original stays on screen, shown as being read, until the translation comes. */
   async translateOverview(p) {
     this.busy = t("details.translating");
+    this.working = { id: p.id, desc: false, overview: true };
     this.render();
     await this.plugin.translateProfile(p);
     this.busy = "";
+    this.working = null;
     this.render();
   }
 

@@ -1,17 +1,31 @@
 /**
- * The user's group that fits `targetId` best: the one with the most plugins among its GROUP_HINT_RANK closest (a
- * member counts 1/rank, so a closer one weighs more); null when none of its closest is in a group.
+ * The user's group that fits `targetId` best, and how sure that is: {name, sure}, or null when nothing links it.
+ * Sure: the Similar lists link them, both ways (its closest plugins, and the plugins whose closest include it); a
+ * match at rank r counts 1/r, so closer ones weigh more. Not sure: no list links them, so the group with the most
+ * plugins sharing its home category (profiles' `primary`): a hint to star, not a group to pick for you.
  * @param {Map<string, string[]>} members  group name → plugin ids
+ * @param {object} [profiles]  the AI profiles' `plugins` (id → profile)
  */
-function closestGroup(targetId, members, similar) {
-  const rank = new Map(similarIds(similar, targetId).slice(0, GROUP_HINT_RANK).map((id, i) => [id, i + 1]));
+function closestGroup(targetId, members, similar, profiles) {
+  const own = new Map(similarIds(similar, targetId).map((id, i) => [id, i + 1]));
+  const linked = (id) => {
+    const back = similarIds(similar, id).indexOf(targetId) + 1;   // 0: the target isn't in its list
+    return (own.has(id) ? 1 / own.get(id) : 0) + (back ? 1 / back : 0);
+  };
+  const home = profiles?.[targetId]?.primary;
+  const sameHome = (id) => (home && profiles[id]?.primary === home ? 1 : 0);
+  return bestGroup(members, linked, true) || bestGroup(members, sameHome, false);
+}
+
+/** The group whose plugins weigh most by `weigh(id)`, as {name, sure}; null when every group weighs 0. */
+function bestGroup(members, weigh, sure) {
   let best = null;
   let bestScore = 0;
-  for (const [group, ids] of members) {
-    const score = ids.reduce((sum, id) => sum + (rank.has(id) ? 1 / rank.get(id) : 0), 0);
-    if (score > bestScore) { best = group; bestScore = score; }
+  for (const [name, ids] of members) {
+    const score = ids.reduce((sum, id) => sum + weigh(id), 0);
+    if (score > bestScore) [best, bestScore] = [name, score];
   }
-  return best;
+  return best && { name: best, sure };
 }
 
 /** One request that suggests groups for many plugins, preferring the user's own groups. */

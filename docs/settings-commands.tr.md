@@ -8,10 +8,10 @@ Ayarlar beş sekmede, her seferinde biri görünecek şekilde gelir:
 
 | Sekme | Ayarlar |
 |---|---|
-| Genel | Dil (Otomatik, Obsidian'ınkini izler), görünümün nerede açılacağı (Ana sayfa ya da kaldığınız yer), Yeni eklenti süresi (bir eklentinin yeni sayıldığı gün sayısı: rozet ve Yeni kartının `listed <= 14d` sorgusu; varsayılan 14), klavye kısayolları (aşağıya bakın), destek |
+| Genel | Dil (Otomatik, Obsidian'ınkini izler), görünümün nerede açılacağı (Ana sayfa ya da kaldığınız yer), Yeni eklenti süresi (bir eklentinin yeni sayıldığı gün sayısı: rozet ve Yeni kartının `listed <= 14d` sorgusu; varsayılan 14), klavye kısayolları (aşağıya bakın), Animasyonlar (*Sistemdeki gibi* işletim sisteminizdeki hareketi azaltma ayarına uyar; *Açık* / *Kapalı* onu geçersiz kılar), Çeviri efekti (yapay zekâ çevirirken detay penceresinin metni nasıl gösterdiği, altında önizlemesiyle; varsayılan Fosforlu kalem), destek |
 | Notlar | Not klasörü, kendi notlarınızın üstündeki başlık, takip notlarınızın Bases tablosu (**Oluştur** ya da sıfırla), durum alanı ve durumlarınız (ekleme, sıralama, kaldırma) |
 | Veri | Eşitleme sıklığı (Elle · 6 saatte bir · **Günde bir** · Haftada bir; eşitlemeler arasında hiçbir şey indirilmez), **Şimdi eşitle**, README güncelleme (**Notu açtığımda** · Her eşitlemede · Elle), sürüm geçmişi (**Yeniden indir**) |
-| Yapay zekâ | Sağlayıcı (Anthropic, OpenAI, Google, OpenRouter), Obsidian'ın anahtar deposundan API anahtarı, model, hedef dil, README çevirisi (*İstenince* ya da *Kapalı*), çeviri talimatları (*Gelişmiş* altında katlı), model başına kullanım (istek, token, maliyet; Sıfırla), kayıtlı çeviriler |
+| Yapay zekâ | Sağlayıcı (Anthropic, OpenAI, Google, OpenRouter), Obsidian'ın anahtar deposundan API anahtarı, model, hedef dil, README çevirisi (*İstenince* ya da *Kapalı*), README çevirisinde tasarruf, yapay zekâ ile grup önerisi (varsayılan açık; kapalıyken grup için istek gitmez, ★ yine benzer eklentilerden gelir), çeviri talimatları (*Gelişmiş* altında katlı), model başına kullanım (istek, token, maliyet; Sıfırla), kayıtlı çeviriler |
 | Gizlenenler | Kaç eklentiyi dışladığınız, sonraki sürümlerine kadar gizlediğiniz ya da Önerilerden çıkardığınız; **Yönet** o türü Gizlenenler sayfasında açar |
 
 Bir listenin sorgusu burada değil, listenin kendisinde (**Sorgu**) değiştirilir.
@@ -29,7 +29,7 @@ Bir listenin sorgusu burada değil, listenin kendisinde (**Sorgu**) değiştiril
 | Bu notun README'sini çevir | Yapay zekâ sağlayıcısı gerekir |
 | Bu notun eklentisine benzeyenleri göster | Bir takip notunda |
 | Bases görünümünü oluştur ya da sıfırla | |
-| Grubu olmayan eklentilere grup öner | Yapay zekâ sağlayıcısı gerekir |
+| Grubu olmayan eklentilere grup öner | Yapay zekâ sağlayıcısı ve *Yapay zekâ ile grup önerisi* açık olmalı |
 | Son işlemler | Geri al seçeneğiyle son 20 toplu işlem |
 
 Görünümün ⋮ menüsü (sağ üst): Şimdi eşitle, Görünenleri çevir, Gizlenenler, Sürüm geçmişini yeniden indir, Ayarlar. Listenin araç çubuğunun sonundaki **⋯** düğmesi: **Görünüm olarak kaydet…**
@@ -47,7 +47,7 @@ Görünümün ⋮ menüsü (sağ üst): Şimdi eşitle, Görünenleri çevir, Gi
 | `1` … `5` / `0` | puan ver / puanı sil |
 | `s` | benzerleri |
 | `r` | README'yi notunda aç |
-| `t` | açıklamayı çevir / gizle |
+| `t` | açıklamayı çevir / gizle; detay penceresinde Genel bakışı da (tek istek) |
 | `o` | Obsidian'da aç |
 | `h` | sonraki sürüme kadar gizle |
 | `x` | dışla (bir bildirim Geri al sunar; Gizlenenler sayfasında geri getirin) |

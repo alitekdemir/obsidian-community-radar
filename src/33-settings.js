@@ -1,5 +1,24 @@
 const SETTING_TABS = ["general", "notes", "data", "ai", "hidden"];   // the settings, one tab at a time
 
+/**
+ * Settings › Translation effect's preview: a small copy of the details window (the description, one Overview part) in
+ * English, as an original is, shown as being read with `fx` by the same showReading the window uses. Redrawn on every
+ * change; its effect ends with it (a Matrix one stops when the box leaves the page).
+ */
+function fxPreview(box, fx) {
+  box.empty();
+  const desc = box.createEl("p", { cls: "pdt-detail-about", attr: { lang: "en" } });
+  desc.createSpan({ cls: "pdt-fx-preview-tag", text: "EN" });
+  desc.createSpan({ cls: "pdt-lang-text", text: FX_PREVIEW.description });
+  const parts = box.createDiv({ cls: "pdt-overview-parts", attr: { lang: "en" } });
+  const part = parts.createDiv({ cls: "pdt-overview-part is-lead" });
+  part.createEl("h4", { text: tIn("en", "details.what") });
+  part.createEl("p").createSpan({ cls: "pdt-ln", text: FX_PREVIEW.summary });
+  const still = document.body.classList.contains(STILL_CLASS);
+  showReading(desc, fx, 0, still);
+  showReading(parts, fx, 1, still);
+}
+
 class RadarSettingTab extends PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
@@ -82,6 +101,32 @@ class RadarSettingTab extends PluginSettingTab {
         await save();
         plugin.redraw(true);
       }));
+
+    new Setting(containerEl)
+      .setName(t("set.motion"))
+      .setDesc(t("set.motionDesc"))
+      .addDropdown((d) => d.addOption("system", t("set.motionSystem")).addOption("on", t("set.motionOn")).addOption("off", t("set.motionOff"))
+        .setValue(settings.motion).onChange(async (value) => {
+          settings.motion = value;
+          await save();
+          plugin.applyMotion();
+          playPreview();   // the preview below shows it at once: moving or still
+        }));
+
+    new Setting(containerEl)
+      .setName(t("set.translateFx"))
+      .setDesc(t("set.translateFxDesc"))
+      .addDropdown((d) => {
+        for (const key of TRANSLATE_FX) d.addOption(key, t(`set.translateFx.${key}`));
+        d.setValue(settings.translateFx).onChange(async (value) => {
+          settings.translateFx = value;
+          await save();
+          playPreview();
+        });
+      });
+    const preview = containerEl.createDiv({ cls: "pdt-fx-preview" });
+    const playPreview = () => fxPreview(preview, settings.translateFx);
+    playPreview();
 
     if (plugin.manifest.fundingUrl) {
       new Setting(containerEl)
@@ -306,6 +351,14 @@ class RadarSettingTab extends PluginSettingTab {
         .addToggle((toggle) => toggle.setValue(settings.readmeSaving).onChange(async (value) => {
           settings.readmeSaving = value;
           await save();
+        }));
+      new Setting(containerEl)
+        .setName(t("set.aiGroups"))
+        .setDesc(t("set.aiGroupsDesc"))
+        .addToggle((toggle) => toggle.setValue(settings.aiGroups).onChange(async (value) => {
+          settings.aiGroups = value;
+          await save();
+          this.plugin.redraw(true);   // the selection bar's Group with AI
         }));
       // the instructions sent with each translation (folded: rarely changed); the reply format after them stays fixed
       const advanced = containerEl.createEl("details", { cls: "pdt-settings-advanced" });
