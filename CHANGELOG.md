@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.15.0
 
 ### Added
 - **AI group suggestions can be turned off** (*Settings → AI*, on by default): off, the group window has no AI section and sends no request, the selection bar has no *Group with AI* and the *Suggest groups for ungrouped plugins* command isn't listed.
