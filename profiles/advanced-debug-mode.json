@@ -1,0 +1,65 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preserve long stack traces across callback and async boundaries",
+  "Toggle debug messages for any installed plugin from a view, commands, or settings",
+  "Open DevTools in the mobile app and manage debug library namespaces",
+  "Disable task timeouts while paused on a breakpoint and abort runaway operations",
+  "Diagnose out-of-memory crashes with heap readouts, on-disk samples, and heap snapshots"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not just a toggle for Obsidian's debug mode; it is a full toolkit of debugging aids for plugin development.",
+ "extras": "Documentation is a demo vault included with each release and browsable on GitHub; async long stack traces and memory troubleshooting are desktop-only; beta versions install via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's own debug mode, toggled from a command instead of the console",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Debugging an Obsidian plugin meant guesswork because errors thrown inside callbacks or awaits lost their stack frames before reaching the console.",
+ "primary": "developers",
+ "problem": "Errors thrown inside callbacks or await chains arrive in the console with most of their stack trace missing, mobile Obsidian has no DevTools, and enabling per-plugin debug messages requires typing console commands.",
+ "readmeHash": "8335992bcb53cf13aac19f35bb359c4fa4fe6081",
+ "relations": [
+  {
+   "evidence": "Alternative mobile DevTools through eruda; long stacks, debug namespaces, switches and task timeouts",
+   "plugin": "vConsole",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Complementary console tooling; changes console output; no log file",
+   "plugin": "Logstravaganza",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Logstravaganza fork; external log files; UTC/local timestamps; plain text",
+   "plugin": "Logcollector",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Debugging toolkit that preserves stack traces across async boundaries, toggles plugin debug messages from a UI, adds mobile DevTools, and helps diagnose memory crashes.",
+ "tags": [
+  "plugin-management",
+  "android",
+  "ios",
+  "javascript"
+ ],
+ "tagsBy": "particle-ai/particle-1:free"
+}

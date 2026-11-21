@@ -1,0 +1,88 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "read notes aloud as chapters split by headings, with a floating player",
+  "cache chapter recordings and re-record only chapters you edited",
+  "speak with an offline natural voice, the system voice, OpenAI, Google Gemini, or your own server",
+  "translate non-English notes to English before reading",
+  "export a note as a single MP3 file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Windows, macOS, Linux). Licensed under GNU AGPL v3.0. The manifest notes it has not been manually reviewed by Obsidian staff. The built-in natural voice and translation models are free and offline; OpenAI and Gemini voices bill your account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to a note read aloud, so users must copy text into other TTS tools or lose their place when re-reading edited notes.",
+ "readmeHash": "ca8cf0703a468adaa4d9ce07081c9822bb1d146d",
+ "relations": [
+  {
+   "evidence": "The idea of reading Obsidian notes aloud with a floating player came from Obsidian Edge TTS",
+   "plugin": "Obsidian Edge TTS",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Kokoro-82M",
+   "type": "extends"
+  },
+  {
+   "evidence": null,
+   "plugin": "Kokoro-FastAPI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For OpenAI itself choose Quick setup → OpenAI and add your API key.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Create an API key in Google AI Studio.",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "own OpenAI-compatible voice server",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Text-to-speech player that reads notes aloud like an audiobook, splitting them into chapters by heading, with an offline natural voice and MP3 export.",
+ "tags": [
+  "text-to-speech",
+  "audiobook",
+  "kokoro",
+  "openai",
+  "google-gemini",
+  "mp3-export",
+  "self-hosted-server",
+  "offline-voice"
+ ]
+}

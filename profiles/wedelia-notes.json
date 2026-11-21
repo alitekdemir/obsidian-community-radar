@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "answer Wedelia's search requests with up to 5 matching excerpts and note paths",
+  "open a shared note and send it, capped at 40,000 characters",
+  "serve read-only search and fetch tools to allowed AI apps via a remote MCP server",
+  "exclude private folders, dot-paths and Wedelia's own mirrored files from search",
+  "connect the vault using a connection password from the Wedelia app"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-taking or editing tool; it only lets the Wedelia app (and allowed AI apps) search and read the vault.",
+ "extras": "Plugin is MIT-licensed but the Wedelia app, API and relay are closed-source. Free accounts are limited to 50 searches a day. The README is candid that sent excerpts and opened notes are visible to the AI model provider handling the request, and it documents search limits: body-only terms in old notes may not be found since only names, headings, tags and aliases are matched before falling back to the 400 most recently modified notes within an 8-second budget. The plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI apps cannot use the notes in a local Obsidian vault, and giving them access usually means uploading the whole vault rather than just what a question needs.",
+ "readmeHash": "9630af0e8318821fbe5e8315ad4788f9407aa636",
+ "relations": [
+  {
+   "evidence": "Lets Wedelia, an AI companion app, search your Obsidian vault while she answers you.",
+   "plugin": "Wedelia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The same plugin also answers AI apps you allow, through a remote MCP server",
+   "plugin": "Claude, ChatGPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Wedelia account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Wedelia app (for the connection password); Claude or ChatGPT for MCP access",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bridge that lets the Wedelia AI companion app search the local vault, returning only matching excerpts or a single opened note.",
+ "tags": [
+  "claude",
+  "chatgpt",
+  "mcp",
+  "privacy",
+  "excerpts"
+ ]
+}

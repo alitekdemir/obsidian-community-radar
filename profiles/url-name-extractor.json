@@ -1,0 +1,71 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch HTML titles and rewrite selected raw URLs as Markdown links",
+  "Configure the URL-matching regex pattern in settings",
+  "Define site-specific title regex patterns for non-standard HTML",
+  "Fall back to Archive.org or Microlink API for bot-protected sites",
+  "Decode HTML entities in fetched page titles"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a link checker or bookmark manager; it only rewrites raw URLs in the selected text as Markdown links using fetched page titles.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Microlink fallback sends URLs to a third-party service and its free tier is limited to 50 requests/day; both fallback services are disabled by default.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from: obsidian-url-namer by zfei",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked obsidian-url-namer to add configurable settings, multiple fallback methods for bot-protected sites, and improved URL handling.",
+ "primary": "links",
+ "problem": "Obsidian leaves pasted URLs as raw text, and naming each link manually means opening every page to copy its title.",
+ "readmeHash": "0c0d5b1d142482a9feb40d1d374fd180e7fc020c",
+ "relations": [
+  {
+   "evidence": "Forked from: obsidian-url-namer by zfei",
+   "plugin": "obsidian-url-namer by zfei",
+   "type": "fork"
+  },
+  {
+   "evidence": "the plugin uses Microlink API to fetch titles from protected sites",
+   "plugin": "Microlink",
+   "type": "integrates"
+  },
+  {
+   "evidence": "fetch titles from Archive.org's Wayback Machine if a site blocks direct access",
+   "plugin": "Archive.org",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Microlink API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Microlink paid plan",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "URL-to-link converter that fetches webpage titles and rewrites raw URLs in selected text as titled Markdown links.",
+ "tags": [
+  "microlink",
+  "archive-org",
+  "webpage-titles",
+  "regex",
+  "bot-protection",
+  "doi"
+ ]
+}

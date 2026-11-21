@@ -1,0 +1,62 @@
+{
+ "also": [
+  "charts",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render dashboard blocks (stats, progress, heatmap, chart, countdown, today, tiles) from note frontmatter",
+  "Generate and edit dashboard blocks as plain YAML via an installable AI agent skill",
+  "Insert working example blocks without an agent via a command",
+  "Redraw blocks automatically when notes change and resolve note dates from names or properties",
+  "Report broken blocks with line numbers and did-you-mean suggestions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns that your AI agent reads notes and sends them to its model provider, and that .dashy/vault-profile.md holds sample property values; Dashy itself makes no network requests apart from https tile images. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Plain YAML, no JavaScript, no Dataview.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no built-in dashboards, and existing approaches rely on JavaScript or Dataview queries that are hard to write and often don't work on mobile.",
+ "readmeHash": "6804f9dc7c1aac24763ec96f58106f407958db22",
+ "relations": [
+  {
+   "evidence": "Plain YAML, no JavaScript, no Dataview.",
+   "plugin": "Dataview",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Works with Claude Code, Codex, Cursor and other agents.",
+   "plugin": "Claude Code, Codex, Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AI coding agent (Claude Code, Codex, Cursor or similar)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "YAML-block dashboard builder that renders charts, streaks, heatmaps and goals from note properties, with an AI agent to write the blocks for you.",
+ "tags": [
+  "yaml",
+  "heatmap",
+  "habit-tracker",
+  "claude-code",
+  "codex",
+  "cursor"
+ ]
+}

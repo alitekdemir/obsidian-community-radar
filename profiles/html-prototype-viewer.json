@@ -1,0 +1,50 @@
+{
+ "also": [
+  "files",
+  "developers"
+ ],
+ "audience": [
+  "designers",
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview vault HTML files in an isolated iframe",
+  "Switch render width between desktop, tablet, and mobile presets",
+  "Reload the preview when the file changes on disk",
+  "Embed previews in notes with html-preview code blocks",
+  "Open files in the system browser"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest carries the unreviewed-plugin notice. README warns that only one view can own the .html extension, so conflicting HTML-rendering plugins like HTML Reader must be disabled, and that strict isolation trades localStorage and relative file loading for a sandboxed opaque origin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author explains that DOM-injecting plugins leak prototype CSS into Obsidian's interface and must block scripts, so loading files in an iframe avoids both problems.",
+ "primary": "html",
+ "problem": "Other HTML-preview plugins inject HTML into Obsidian's DOM, leaking global CSS into the app and blocking scripts, so prototypes do not render or run correctly.",
+ "readmeHash": "942790289a02a5fc6f5a070c56788944cf0b819e",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Previews local HTML files in an isolated iframe with device widths and live reload, and embeds previews in notes via html-preview blocks.",
+ "tags": [
+  "iframe",
+  "sandbox",
+  "prototype",
+  "live-reload",
+  "device-widths",
+  "html-preview-block"
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-reveal the active file in the File Explorer on tab or file switch",
+  "Reveal files without transferring keyboard focus from the editor",
+  "Configure a debounce delay for reveals",
+  "Run a manual reveal command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet published to the Obsidian community plugin store; the README only covers installing from source (clone, build, symlink).",
+ "intent": "alternative",
+ "intentEvidence": "The existing obsidian-reveal-active-file plugin uses Obsidian's built-in file-explorer:reveal-active-file command, which transfers focus",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that the existing obsidian-reveal-active-file plugin's focus transfer creates a race condition where pressing Delete after a file switch can delete the revealed file instead of editor content.",
+ "primary": "navigation",
+ "problem": "Obsidian's built-in reveal-active-file command transfers keyboard focus to the File Explorer, so keys pressed right after switching files can act on the wrong file.",
+ "readmeHash": "949e22bc9f3f5e168b9fb1167c1240ae82c065c8",
+ "relations": [
+  {
+   "evidence": "The existing obsidian-reveal-active-file plugin uses Obsidian's built-in file-explorer:reveal-active-file command",
+   "plugin": "obsidian-reveal-active-file",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "File Explorer plugin that auto-reveals the active file in the sidebar when switching files, without moving keyboard focus out of the editor.",
+ "tags": [
+  "file-explorer",
+  "keyboard-focus",
+  "debounce"
+ ]
+}

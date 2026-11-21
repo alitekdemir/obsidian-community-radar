@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Pi beside your notes on desktop or mobile",
+  "Attach notes and images to conversations",
+  "Switch models and reasoning effort from plugin settings",
+  "Pair devices with the computer bridge via code or QR scan",
+  "Resume earlier conversations from history after restarts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Default permission preset is full access, allowing file edits and shell commands; the README warns permission presets are not filesystem sandboxes. The computer bridge must keep running in a terminal; deeper connection help and advanced configuration live in a separate user guide. No telemetry or hosted relay; messages route through your computer to the model provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with a self-hosted AI agent and pass note context to it, especially from mobile.",
+ "readmeHash": "97620fb37925427a7b948fb9f6903b3f265181e5",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Pi Durable",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For remote access, use Tailscale on both devices.",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pi with Node.js 22.19+ on a computer on the same network",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Sign-in to a model provider configured in Pi",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bridge plugin that chats with Pi, an AI agent running on your computer, from Obsidian on desktop or mobile, with note and image attachments.",
+ "tags": [
+  "pi",
+  "pi-durable",
+  "tailscale",
+  "sqlite",
+  "qr-pairing",
+  "chat-history"
+ ]
+}

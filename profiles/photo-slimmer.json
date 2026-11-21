@@ -1,0 +1,43 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert oversized images to WebP in user-started bulk runs",
+  "Rewrite all links to converted images, including links inside fenced code blocks",
+  "Scale down images beyond a longest-edge limit and apply per-format quality settings",
+  "Move originals to the system trash or replace them",
+  "Report skipped and failed images by name and reason, with a retry command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' The README notes that on iCloud vaults trashed originals still count against iCloud storage for 30 days, and that WebP images will not show if notes are exported to software without WebP support.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for the existing image backlog rather than new pastes, after seeing in live vaults that code-block links go unupdated and rename-plugins can race file creation.",
+ "primary": "images",
+ "problem": "Paste-time image compressors do nothing for images already stored in a vault, and Obsidian's link index misses image links written inside code blocks when files are renamed.",
+ "readmeHash": "66ddb51fe148fe675cbea840d467d8ea03e80ced",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bulk converter that turns oversized images already in the vault into WebP, rewriting every link to them, including links inside code blocks.",
+ "tags": [
+  "webp",
+  "png",
+  "jpeg",
+  "image-compression",
+  "batch-conversion"
+ ]
+}

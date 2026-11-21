@@ -1,0 +1,65 @@
+{
+ "also": [
+  "properties",
+  "data"
+ ],
+ "audience": [
+  "security-analysts",
+  "threat-intelligence-analysts"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Enrich notes with VirusTotal data for files, URLs, IPs, and domains",
+  "Detect indicators in the open note's content",
+  "Configure which VirusTotal fields are saved as properties",
+  "Toggle a page-type property on enriched notes",
+  "Query enriched metadata with Dataview"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a malware scanner; it only fetches existing VirusTotal report data into notes.",
+ "extras": "Setup requires obtaining a VirusTotal API key; enrichment runs via the 'Enrich Current Note' command palette command.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because they 'was hoping someone else would develop' such a plugin and a friend pushed them to learn NodeJS.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull malware/indicator report data from VirusTotal into note metadata for querying.",
+ "readmeHash": "dfee6190ab12a176c1c94b3912f5423e471f852e",
+ "relations": [
+  {
+   "evidence": "querying VirusTotal directly within Obsidian",
+   "plugin": "VirusTotal",
+   "type": "integrates"
+  },
+  {
+   "evidence": "utilized within the note's body or as metadata for advanced querying capabilities, particularly with plugins like dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "VirusTotal API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "VirusTotal integration that enriches notes with file, URL, IP, and domain report data stored as note properties.",
+ "tags": [
+  "virustotal",
+  "threat-intelligence",
+  "indicators-of-compromise",
+  "malware",
+  "api-key",
+  "dataview"
+ ]
+}

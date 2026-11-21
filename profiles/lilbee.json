@@ -1,0 +1,84 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer vault questions with click-to-source citations via local RAG",
+  "Download, run, and place local models across GPUs, or reuse Ollama and LM Studio",
+  "Crawl websites into the vault as offline markdown notes",
+  "Generate a citation-checked wiki from indexed content",
+  "Index PDFs, Office files, ebooks, code, and scanned pages via OCR"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "First launch downloads a server binary (a few hundred MB) plus models of hundreds of MB to several GB each; the macOS binary is unsigned and the plugin clears the quarantine flag. Server and model cache live outside the vault and need a manual uninstall step. The manifest notes the plugin has not been manually reviewed by Obsidian staff, and the README explains why the store's automated review flags shell and filesystem access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author argues a vault is already a curated document set, ideal for a local retrieval-augmented search engine you build yourself.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask questions across the vault with verifiable citations or to run and manage local LLMs from inside the app.",
+ "readmeHash": "007c3b4d1e59f915baf70628d3577e19a7a06f9b",
+ "relations": [
+  {
+   "evidence": "No Ollama required, but lilbee uses your Ollama, LM Studio, or cloud models if you have them.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If your models already live in Ollama or LM Studio, point lilbee at the running server.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install a coding-agent plugin like Claudian alongside lilbee and pair them in one click",
+   "plugin": "Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It browses featured picks or searches Hugging Face Hub.",
+   "plugin": "Hugging Face Hub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud model API endpoint",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Claudian (coding agent)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local AI search engine and LLM manager that indexes the vault for cited RAG chat, and adds a web crawler, model catalog, and auto-generated wiki.",
+ "tags": [
+  "rag",
+  "local-llm",
+  "ollama",
+  "lm-studio",
+  "hugging-face",
+  "web-crawler",
+  "citations"
+ ]
+}

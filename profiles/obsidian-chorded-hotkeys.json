@@ -1,0 +1,68 @@
+{
+ "also": [
+  "commands",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Trigger actions by pressing two to four keys simultaneously",
+  "Insert text snippets and place the cursor with a {c} tag",
+  "Paste file contents as a chord action",
+  "Run commands and insert Templater templates via chords",
+  "Limit chords to the editor or allow them in other text fields"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that the plugin works through text replacement and advises backing up the vault before installing; a demo image is referenced but not included in the text.",
+ "intent": "alternative",
+ "intentEvidence": "Compare with similar plugins",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "hotkeys",
+ "problem": "Obsidian hotkeys require modifier keys (Ctrl, Alt, Shift) and are limited to commands, so frequently repeated text or template insertion lacks a fast trigger.",
+ "readmeHash": "0b2dd1184bee195a145651558a4257454bcddc42",
+ "relations": [
+  {
+   "evidence": "Template: (Requires Templater) Pastes the contents of a template.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Limited to commands.",
+   "plugin": "Key sequence shortcut",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Limited to commands.",
+   "plugin": "Sequence hotkeys, Hotkeys chords",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Chord-based trigger plugin that inserts text, pastes file contents, or runs commands when several keys are pressed at once.",
+ "tags": [
+  "key-chords",
+  "text-replacement",
+  "text-insertion",
+  "templater",
+  "modifier-free"
+ ]
+}

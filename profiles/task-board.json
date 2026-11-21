@@ -1,0 +1,79 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan tasks from all Markdown files in the vault",
+  "Edit, complete and delete tasks from the board in real time",
+  "Add tasks via modal, commands or a board button",
+  "Apply filters to boards and columns",
+  "Attach sub-tasks and descriptions to tasks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns the Map view feature stores user data in LocalStorage (called a bad design choice) and should be avoided until version 2.0.0; full documentation lives on an external docs site rather than in the README.",
+ "intent": "alternative",
+ "intentEvidence": "there are few important features this plugin is lacking and it's development has been on halt",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author used Kanban and then CardBoard, but CardBoard lacked important features and its development had been on halt; unfamiliar with its Elm codebase, they started their own plugin combining the best of Kanban, CardBoard and GitHub Projects.",
+ "primary": "tasks",
+ "problem": "Managing tasks requires opening individual Markdown files, and existing boards (Kanban) tie tasks to a single board file instead of collecting vault-wide tasks in one place.",
+ "readmeHash": "92210214ed780492100849ee4b5c6c16178a02bc",
+ "relations": [
+  {
+   "evidence": "I immediately switched to the CardBoard plugin after I came across it",
+   "plugin": "CardBoard",
+   "type": "inspired"
+  },
+  {
+   "evidence": "took inspirations from CardBoard and Kanban plugin as well as many feature ideas from GitHub Project Kanban board",
+   "plugin": "Kanban",
+   "type": "inspired"
+  },
+  {
+   "evidence": "can scan all kinds of task formats which are supported by the Tasks plugin",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "With the integration of QuickAdd plugin, this feature can become a very powerful tool",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Inspired by the GitHub Projects Board Layout",
+   "plugin": "GitHub Projects",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "QuickAdd",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Kanban-style task board that scans all tasks across the vault's Markdown files and lets you add, edit, complete and filter them from one centralized board.",
+ "tags": [
+  "kanban",
+  "gtd",
+  "cardboard",
+  "kanban-plugin",
+  "quickadd",
+  "github-projects",
+  "subtasks"
+ ]
+}

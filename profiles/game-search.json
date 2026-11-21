@@ -1,0 +1,72 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search games by title via the RAWG API",
+  "Create game notes from a selected note template",
+  "Sync Steam library and wishlist games into the vault",
+  "Inject Steam metadata such as playtime and steamId into game notes",
+  "Regenerate metadata of existing game notes from the template"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault search tool; it searches the RAWG game database to create new game notes.",
+ "extras": "Steam sync is described as slow for large libraries; the Steam wishlist must be set to Public for wishlist sync, and synced games keep a steamId property that should not be removed.",
+ "intent": "alternative",
+ "intentEvidence": "Forked From",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up video game metadata or import a Steam library into game notes.",
+ "readmeHash": "b772b4f03dfa7af7ef9d211520d344f767013a34",
+ "relations": [
+  {
+   "evidence": "uses RAWG Game API to get the game information",
+   "plugin": "RAWG Game API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally, you can auto-sync your Steam Library and Wishlist.",
+   "plugin": "Steam",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It is recommended to pair this plugin with Templater",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "RAWG API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Steam API key and SteamId",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Game note creator that queries the RAWG API by title, fills notes with game metadata, and optionally syncs a Steam library and wishlist.",
+ "tags": [
+  "rawg",
+  "steam",
+  "video-games",
+  "game-library",
+  "metacritic"
+ ]
+}

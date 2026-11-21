@@ -1,0 +1,53 @@
+{
+ "also": [
+  "links",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert person links from a mobile picker (people, groups, ghosts, create-new)",
+  "Insert location links from a picker",
+  "Append deduplicated wikilinks to people: and locations: frontmatter lists on insert",
+  "Expand inserted groups into their member links in frontmatter",
+  "Migrate flat people notes into a per-person folder structure"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a journaling or daily-notes tool; it only inserts entity wikilinks, tracks mentions, and migrates a people folder.",
+ "extras": "Commands register only on phones/tablets, not desktop. Data access is limited to configured entity folders and the active note; nothing is sent to external servers. Pre-release builds are installable via BRAT, and release assets include GitHub artifact attestations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Adding wikilinks to people and places while journaling on a phone is slow, and keeping frontmatter mention lists up to date must be done by hand.",
+ "readmeHash": "d621f747a6aeb77f1010bc211e126b11840422da",
+ "relations": [
+  {
+   "evidence": "Works with Obsidian Properties and Dataview (FLATTEN people, contains(people, [[Joy]]), etc.).",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Mobile-only plugin that inserts person, group, and location wikilinks via pickers and auto-tracks mentions in frontmatter lists.",
+ "tags": [
+  "mobile-toolbar",
+  "wikilinks",
+  "picker",
+  "mention-tracking",
+  "ghost-links",
+  "dataview"
+ ]
+}

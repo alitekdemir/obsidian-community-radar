@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize vault files bidirectionally with Mail.ru Cloud via WebDAV",
+  "Encrypt notes and attachments client-side with AES-256-GCM before upload",
+  "Transfer plugin settings between devices via encrypted link",
+  "Pause sync when mass deletions exceed a threshold",
+  "Resolve sync conflicts with configurable strategies and scheduled intervals"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README warns users to back up their vault before first sync and stresses that a dedicated Mail.ru application password (not the account password) is required. Developed with 'Superintelligence technologies (SI pair programming)' per the credits. Interface is localized in English and Russian.",
+ "intent": "alternative",
+ "intentEvidence": "built upon the open-source Yandex Disk Sync plugin by Nikolay Eltsov, adapted for Mail.ru Cloud WebDAV protocol",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README credits the Yandex Disk Sync plugin's sync engine, three-way merge logic, and queue implementation as the basis for this Mail.ru adaptation.",
+ "primary": "syncing",
+ "problem": "Obsidian's paid Sync service doesn't cover Mail.ru Cloud, so users of that service lack a way to sync their vault with it, let alone with client-side encryption.",
+ "readmeHash": "4b1683157948b94ae04d53f6543464f6759127e2",
+ "relations": [
+  {
+   "evidence": "This project is built upon the open-source Yandex Disk Sync plugin by Nikolay Eltsov",
+   "plugin": "Yandex Disk Sync by Nikolay Eltsov",
+   "type": "fork"
+  },
+  {
+   "evidence": "Connects directly to official Mail.ru Cloud servers without third-party proxies",
+   "plugin": "Mail.ru Cloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Mail.ru account with a WebDAV application password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Vault sync plugin that synchronizes notes and attachments with Mail.ru Cloud over WebDAV, with AES-256-GCM end-to-end encryption.",
+ "tags": [
+  "webdav",
+  "mail-ru-cloud",
+  "e2e-encryption",
+  "aes-256-gcm",
+  "conflict-resolution"
+ ]
+}

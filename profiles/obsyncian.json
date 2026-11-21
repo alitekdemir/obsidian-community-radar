@@ -1,0 +1,79 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs vault files across Windows, macOS, Linux, iOS and Android",
+  "Encrypts file contents and names with AES-256-GCM before upload",
+  "Saves losing edits as conflict copies instead of merging",
+  "Keeps version history and reversible deletes for 30-90 days",
+  "Shares vaults via Telegram bot on paid plans"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Plugin is MIT open source including encryption code, but the server implementation is closed-source; self-hosting guide planned. No telemetry. Lost passphrase makes synced data unrecoverable. Mobile syncs only while the app is open. Free tier 25 MB / 1 vault; sync stops accepting new data over quota.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": "Built for people priced out of other options: twice the storage per dollar, payable by bank card, crypto or rubles.",
+ "primary": "syncing",
+ "problem": "Official Obsidian Sync is priced out of reach for some users, and DIY sync via Git, VPS or cloud storage requires setup they do not want.",
+ "profiledAt": "2026-11-16",
+ "readmeHash": "517efa434ef13fc91fb0e342dc1ed7dfdac8aa11",
+ "relations": [
+  {
+   "evidence": "Same model as official Obsidian Sync.",
+   "plugin": "official Obsidian Sync",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Log in with Telegram: press Continue with Telegram, open the bot, and enter the code it sends you.",
+   "plugin": "Telegram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "transfers encrypted file data directly to Cloudflare R2 object storage via short-lived signed URLs",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Obsyncian account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Obsyncian paid plan (more storage, vaults, sharing)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Telegram (login bot; email codes also work)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "End-to-end encrypted sync and backup for Obsidian vaults, with Telegram login, conflict copies, version history and paid vault sharing.",
+ "tags": [
+  "end-to-end-encryption",
+  "telegram",
+  "freemium",
+  "privacy",
+  "cloudflare"
+ ],
+ "textHash": "43afa92c869285560d5c1c007df9f2467a4d99e2"
+}

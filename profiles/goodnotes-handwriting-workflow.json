@@ -1,0 +1,64 @@
+{
+ "also": [
+  "attachments",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start a Goodnotes handwriting session from the active note via an Apple Shortcut",
+  "Detect PDF, PNG, or JPEG exports arriving in the configured Inbox folder",
+  "File confirmed exports next to the source note's folder with versioned names and a metadata sidecar note",
+  "Insert an embed of the exported file into the source note at a tracked position",
+  "Reopen the original Goodnotes document from a saved share link and replace the stored artifact"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No network requests or telemetry; warns that Goodnotes share links are public to anyone with the URL; Apple Shortcut setup lives in docs/SHORTCUTS.md, not the README; interface follows Obsidian's language setting (Russian or English).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to hand off a note to Goodnotes for handwriting and file the resulting export next to the source note.",
+ "readmeHash": "5831214aea726eac6a6b14531de2967bef60b94e",
+ "relations": [
+  {
+   "evidence": "It relies only on the standard Goodnotes export and share-link features",
+   "plugin": "Goodnotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "then runs an Apple Shortcut that opens Goodnotes",
+   "plugin": "Apple Shortcuts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Goodnotes and Apple Shortcuts",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Handwriting bridge that starts a Goodnotes session from a note and imports the exported PDF or image back with preview and confirmation.",
+ "tags": [
+  "goodnotes",
+  "apple-shortcuts",
+  "handwriting",
+  "png",
+  "share-link",
+  "ipad"
+ ]
+}

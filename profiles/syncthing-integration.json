@@ -1,0 +1,60 @@
+{
+ "also": [
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show Syncthing synchronization status in the status bar",
+  "Detect Syncthing conflict files in the vault",
+  "Diff and resolve conflicting files",
+  "Configure the connection to a Syncthing instance"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not synchronize files itself; it reads from a running Syncthing instance and surfaces sync status and conflict resolution inside Obsidian.",
+ "extras": "The README warns users to back up their vault because some features can modify files. The configuration panel and file-ignoring features are marked 'coming soon', and the author notes the initial vision evolved because some features proved infeasible. The README points users wanting full in-app Syncthing sync to the Anytype note-taking app instead.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to view the status of a Syncthing sync or to manage and resolve the conflict files Syncthing creates.",
+ "readmeHash": "65d25f6804ee0d591c9a69ff7fd68fb798ece9ba",
+ "relations": [
+  {
+   "evidence": "integrate tools in your Obsidian vault for managing synchronization using Syncthing",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Obsidian version history diff by kometenstaub",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Syncthing",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Syncthing integration that shows synchronization status and helps detect, diff, and resolve Syncthing conflict files in the vault.",
+ "tags": [
+  "syncthing",
+  "file-conflicts",
+  "diff",
+  "peer-to-peer"
+ ]
+}

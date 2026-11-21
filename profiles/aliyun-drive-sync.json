@@ -1,0 +1,72 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Two-way sync a vault with a selected Aliyun Drive cloud folder",
+  "Plan incremental transfers using local state, sync history, and SHA-1 hashes",
+  "Run automatic sync on startup, on a timer, and after saves",
+  "Resolve Markdown conflicts with three-way merge and keep unresolved copies",
+  "Block abnormal mass deletions and skip auto-renamed duplicate folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README strongly warns to back up the vault before first sync, use a dedicated remote folder per vault, and clean up legacy duplicate folders when upgrading; the refresh token is a long-lived credential kept only in local plugin data.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian users who store files in Aliyun Drive have no built-in way to sync a vault across devices without the desktop client or a mirrored local folder.",
+ "readmeHash": "c8de71249f563fbae52091fb6142198eecd99892",
+ "relations": [
+  {
+   "evidence": "sync with a selected folder in the personal Aliyun Drive cloud app",
+   "plugin": "Aliyun Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It uses the Aliyun Drive open file APIs through an OpenList refresh token flow",
+   "plugin": "OpenList",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Aliyun Drive account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Aliyun Drive Open refresh_token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenList token and renewal service",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync plugin that mirrors an Obsidian vault to a selected folder in the personal Aliyun Drive cloud app via its open file APIs.",
+ "tags": [
+  "aliyun-drive",
+  "openlist",
+  "refresh-token",
+  "sha1",
+  "conflict-resolution",
+  "delete-protection",
+  "multi-device"
+ ]
+}

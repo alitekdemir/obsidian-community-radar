@@ -1,0 +1,74 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display vault tasks as cards on kanban boards",
+  "Organize columns by dates or tags",
+  "Complete, delete, and re-date tasks from the board",
+  "Filter tasks per board by file, path, or tag",
+  "Customize card colors and styling with CSS snippets"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Tasks are not moved into the plugin; they stay in their original markdown files and the board edits them in place.",
+ "extras": "README warns the plugin parses all markdown files at startup with no cache, so it may perform poorly on large vaults or files; recurring tasks are not supported from the board; settings are stored in .obsidian and older versions are backed up automatically.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian tasks are scattered across notes with no visual board for tracking them by due date or status.",
+ "readmeHash": "9b7ad115cbb67d4308334d9b1cd507e3a5fb6e79",
+ "relations": [
+  {
+   "evidence": "Cardboard is compatible with the Due and Completion date formats used in both Tasks and Dataview.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cardboard is compatible with the Due and Completion date formats used in both Tasks and Dataview.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You will get the best out of these if you are using the (core) Daily Notes or the (community) Periodic Notes plugins",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "I have to recommend using the wonderful Colorful Tag plugin",
+   "plugin": "Colorful Tag",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Kanban-style board view that displays Markdown tasks from across the vault in date-based or tag-based columns.",
+ "tags": [
+  "kanban",
+  "due-dates",
+  "daily-notes",
+  "periodic-notes",
+  "dataview",
+  "completion-timestamps"
+ ]
+}

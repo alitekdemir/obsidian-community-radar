@@ -1,0 +1,92 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "read EPUB, PDF, MOBI, FB2, AZW3, CBZ and text files with progress tracking and bookmarks",
+  "aggregate highlights and comments into a per-book Markdown note with links back to the source passage",
+  "chat with configured AI services about selections, pages or full text PDFs and save replies as notes",
+  "translate or look up selections, save vocabulary entries, and review them via Spaced Repetition or sync to Anki",
+  "send ebooks to a jailbroken Kindle over Wi-Fi and browse or download books from Gutenberg and Hacker Books"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Optional 'Qiaomu Library' book downloads require an activation code with per-device and daily quotas; reading itself is local and offline. The README includes a detailed privacy table of what each optional feature sends and notes limits such as no OCR for scanned PDFs. Six public-domain starter books ship with the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to keep reading, in-place questioning, note saving and returning to the source in one workflow, reducing back-and-forth between reader, chat and note apps.",
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in book reader, so reading, asking questions about a text, and saving highlights means copying between a reader app, a chat window and notes.",
+ "readmeHash": "c4f7f964b174f96fa5eabc8b41ed56f87d73675b",
+ "relations": [
+  {
+   "evidence": "项目含有改编自 Elton Reader 的代码，感谢 Elton Labs 的工作",
+   "plugin": "Elton Reader",
+   "type": "fork"
+  },
+  {
+   "evidence": "先备份仓库并禁用旧版 Qiaomu Book Reader，再启用新版",
+   "plugin": "Qiaomu Book Reader",
+   "type": "replaces"
+  },
+  {
+   "evidence": "生词本直接采用 Spaced Repetition 插件的卡片格式，安装该插件即可复习",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "通过 Anki 桌面版的 AnkiConnect 插件（代码 2055492159）把新词加入指定牌组",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "On desktop, Add from Calibre copies selected books from a local Calibre library into the vault.",
+   "plugin": "Calibre",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Spaced Repetition (vocabulary review) and AnkiConnect (Anki sync)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Calibre (book import) and a jailbroken Kindle with KOReader (book transfer)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI model services and cloud TTS providers",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "CLI logins such as Codex CLI, Claude Code CLI, Grok CLI, Kimi Code CLI, ZCode CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Ebook reader for EPUB, PDF, MOBI, FB2, AZW3, CBZ and text formats that ties highlights, per-book Markdown notes, optional AI chat, translation, vocabulary review and read-aloud into one reading workflow.",
+ "tags": [
+  "epub",
+  "kindle",
+  "calibre",
+  "anki",
+  "google-translate",
+  "tts",
+  "chinese"
+ ]
+}

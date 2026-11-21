@@ -1,0 +1,65 @@
+{
+ "also": [
+  "links",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search notes by meaning with merged keyword, semantic, and fuzzy-title ranking",
+  "Suggest wikilinks between semantically related but unlinked notes via dismissible pairs",
+  "Draw relation graphs, semantic paths, and in-place graph expansions as Canvas files",
+  "Surface long-untouched Cold notes related to your recent focus and export MOCs",
+  "Generate note descriptions, tags, and topic-grouped MOCs with an optional LLM"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it does not reorganize your notes; every suggested connection waits for your yes or no before anything is written.",
+ "extras": "README includes audit disclosures (vault enumeration, bundled transformers library), privacy notes on API-key storage, a BRAT install path, and a mobile availability table; mobile devices act as read-only consumers of the desktop-built index.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author kept unable to find notes without their original keywords, found manually linking scattered related notes tedious, and watched years of notes turn into 'lost memories'; they also did not want AI to reorganize the vault into 'the AI's memory, not mine'.",
+ "primary": "search",
+ "problem": "Obsidian's keyword search fails when you phrase things differently, and related notes stay unlinked and forgotten unless you connect and revisit them by hand.",
+ "readmeHash": "5f1c656dafea8af46f15a97dfa2bff351472e935",
+ "relations": [
+  {
+   "evidence": "For other languages, switch to Ollama or any OpenAI-compatible service.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or an OpenAI-compatible endpoint",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key for remote endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local-first semantic search plugin that finds notes by meaning, suggests wikilinks between unlinked notes on Canvas, and resurfaces forgotten notes.",
+ "tags": [
+  "embeddings",
+  "webgpu",
+  "ollama",
+  "chinese",
+  "bm25",
+  "moc",
+  "rag"
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Register system-wide hotkeys for individual pop-out windows",
+  "Toggle a window's visibility from any application",
+  "Slide a window in from a screen edge in Quake mode",
+  "Configure per-window hotkeys, edges, size, and animation",
+  "Expose toggle, move, and reset commands per window"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Windows only, desktop, Obsidian 1.13.1+; works in only one vault per computer; relies on undocumented Obsidian internals, so future updates may break it; no network requests or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "hotkeys",
+ "problem": "Obsidian pop-out windows can only be reached from inside the app, so you cannot summon one with a keystroke while working in another program.",
+ "readmeHash": "c3a6614ae32f97eddf8f72899b8c44a9c83cb0da",
+ "relations": [
+  {
+   "evidence": "Tray keeps handling the main window; Hideaway only handles its own windows.",
+   "plugin": "Tray",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Gives Obsidian pop-out windows their own system-wide hotkeys, with optional Quake-style slide-in from a screen edge (Windows only).",
+ "tags": [
+  "system-wide-hotkeys",
+  "quake",
+  "popout-windows",
+  "windows-only",
+  "electron"
+ ]
+}

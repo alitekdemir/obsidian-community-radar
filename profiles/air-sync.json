@@ -1,0 +1,59 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync the vault across devices via the user's Google Drive, OneDrive, or Dropbox",
+  "process only changed files instead of rescanning the whole vault",
+  "resolve edit conflicts with auto merge, prefer local, or duplicate strategies",
+  "connect through a custom OAuth app per provider",
+  "run manual sync via a command or status-bar icon"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns against running another sync tool on the same vault, against opening the managed cloud folder as a vault, and documents a Google Drive limitation where files added on the cloud side are invisible unless a custom OAuth app with full Drive scope is used; notes that OAuth tokens are stored in Obsidian's secret storage accessible to other plugins, and recommends backing up the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README opens with 'Like air, sync should simply be there' — sync should be invisible and require nothing to start, watch, or manage.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service and there is no built-in way to sync a vault across devices using the user's existing cloud storage.",
+ "readmeHash": "b3ed29790c230e9d9f2d188c26e80f6b75ce6e64",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google Drive, OneDrive, or Dropbox account",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "custom OAuth app registered with the provider (needed for OneDrive work/school accounts or cloud-side Drive files)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that keeps notes in step across devices through the user's own Google Drive, OneDrive, or Dropbox storage.",
+ "tags": [
+  "google-drive",
+  "onedrive",
+  "dropbox",
+  "oauth",
+  "conflict-resolution",
+  "three-way-merge",
+  "delta-sync",
+  "incremental-sync"
+ ]
+}

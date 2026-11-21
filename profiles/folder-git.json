@@ -1,0 +1,67 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track any folder (or the vault root) as its own Git repository",
+  "Stage, commit, discard and diff changes from a Source Control panel",
+  "Create, switch, merge and delete branches, and stash changes",
+  "Push, pull, sync and fetch, with per-repository auto-commit and auto-push schedules",
+  "Browse commit history and restore files to earlier versions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (mobile is unsupported). Access tokens are stored unencrypted in the plugin's data.json, and the README devotes a detailed privacy section to this risk, including a migration note about a plaintext credential file in versions up to 1.0.4. The manifest notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Unlike plugins that treat the whole vault as a single repository, Folder Git lets you manage multiple independent Git repositories, one per folder.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian Git plugins treat the whole vault as a single repository, so users who want separate repositories per folder have no way to manage them inside Obsidian.",
+ "readmeHash": "78547f11f2cc532b04b0e9d88ada46c3e9259cd9",
+ "relations": [
+  {
+   "evidence": "It works with GitHub and Forgejo / Gitea (including Codeberg and self-hosted instances).",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Create a new remote repository while adding a folder: under your account or one of your organizations, private or public.",
+   "plugin": "Forgejo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git installed on the system or a configured Git binary path",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token or Forgejo/Gitea access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Git source control that manages an independent Git repository for each folder, with staging, commits, branches, push/pull, history and GitHub or Forgejo remotes.",
+ "tags": [
+  "version-control",
+  "source-control",
+  "github",
+  "forgejo",
+  "gitea",
+  "codeberg",
+  "commit-history"
+ ]
+}

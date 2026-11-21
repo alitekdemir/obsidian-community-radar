@@ -1,0 +1,67 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Control the Spotify desktop app with play/pause, previous and next commands",
+  "Display a mini player or fullscreen cover with three themes and an e-ink dither filter",
+  "Search tracks via Deezer and play results or paste a Spotify track link",
+  "Keep a list of the last 50 played tracks for one-click replay",
+  "Expose panel and playback commands for hotkey assignment"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Works with Spotify Free; no account login or API key needed because search uses Deezer's public API and playback goes through local D-Bus. Includes a documented fix for Flatpak-installed Obsidian (a dbus-send permission command) and states there is no telemetry. Not affiliated with Spotify AB.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to see or control desktop music playback without leaving the window.",
+ "readmeHash": "c5411aa18ee62f768fdadb6bb7db74b45b9effe5",
+ "relations": [
+  {
+   "evidence": "the plugin runs dbus-send to read the current track and send play/pause, next, previous",
+   "plugin": "Spotify desktop app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Search results come from Deezer's public catalog (Spotify's own search API requires a Premium account)",
+   "plugin": "Deezer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Spotify desktop app",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "dbus-send",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Linux panel that controls the Spotify desktop app over MPRIS, showing the current track with a mini or fullscreen player, plus track search and recent-track replay.",
+ "tags": [
+  "spotify",
+  "mpris",
+  "dbus",
+  "deezer",
+  "e-ink",
+  "linux",
+  "music-player"
+ ]
+}

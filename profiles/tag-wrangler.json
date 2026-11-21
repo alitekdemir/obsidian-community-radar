@@ -1,0 +1,64 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rename tags and their child tags across the vault",
+  "Merge tags into existing tags with a confirmation warning",
+  "Create and open tag pages linked by tag aliases",
+  "Add tags to or exclude tags from the current search",
+  "Collapse and expand tag hierarchies in the tags view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that renames are irreversible, especially merges into existing tags, and recommends backing up the vault first; it also documents workspace events other plugins can hook into. Tag renaming does not work in Canvas files. Requires the core Tags View plugin to be enabled.",
+ "intent": "improve",
+ "intentEvidence": "This plugin adds a context menu to the pane provided by that plugin, and does not have any UI of its own.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Obsidian's tags view only lets you click a tag to search for it, with no way to rename, merge, reorganize, or act on tags from the view.",
+ "readmeHash": "c7f9da128119c6e3d9dd52b7f1d381b71eaa512c",
+ "relations": [
+  {
+   "evidence": "Open a random note with that tag (if you have the Smart Random Note plugin installed and enabled)",
+   "plugin": "Smart Random Note",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For users of Quickadd and other plugins that allow user-defined Javascript",
+   "plugin": "Quickadd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Smart Random Note",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Tag management tool that adds a context menu to the tags view for renaming, merging, and searching tags, plus creating tag pages.",
+ "tags": [
+  "tag-pages",
+  "hierarchical-tags",
+  "context-menu",
+  "aliases",
+  "rename",
+  "drag-and-drop"
+ ]
+}

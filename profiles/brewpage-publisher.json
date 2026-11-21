@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "publish the active note to BrewPage as a web page",
+  "publish a text selection as a new page",
+  "copy the shareable link after publishing",
+  "strip vault-only syntax (frontmatter, comments, embeds, wikilinks) before sending",
+  "update the same page on republish via a stored owner token"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free and accountless, but pages expire after BrewPage's default retention period unless extended on brewpage.app. The owner token is stored in the plugin's data.json inside the vault, which the README warns to treat like a password. Images and attachments are not uploaded. Listed as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian notes are local files, so sharing a single note as a web page normally means manual copying or setting up a full publishing pipeline.",
+ "readmeHash": "9e7976cb77ced53d1c9f0310dcb2561b8c06a1ce",
+ "relations": [
+  {
+   "evidence": "brewpage.app: the hosting service; API guide; OpenAPI docs",
+   "plugin": "brewpage.app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "brewpage-action: GitHub Action that publishes CI artifacts (Marketplace)",
+   "plugin": "brewpage-action",
+   "type": "integrates"
+  },
+  {
+   "evidence": "browser extension that publishes pages, selections and files",
+   "plugin": "brewpage-browser-extension",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAPI contract and the brewpage-mcp MCP server (npm)",
+   "plugin": "brewpage-mcp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-click publisher that sends the active note or a text selection to BrewPage as a styled web page and copies the shareable link.",
+ "tags": [
+  "share-links",
+  "hosted-pages",
+  "wikilinks"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a new node from nearby nodes via the OpenAI API",
+  "Connect the generated node to the selected node with an outgoing edge",
+  "Configure the OpenAI API key in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README states it is in Alpha, only works on text nodes, and lists basic setup steps; it warns a user-provided OpenAI API key or local service is required. A TODO list includes error handling and support for non-text nodes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "canvas",
+ "problem": "Obsidian Canvas has no built-in way to have an LLM generate and attach new nodes to an existing canvas graph.",
+ "readmeHash": "72bc95c15e01d7646170c3e0cfd63e01a130a8ee",
+ "relations": [
+  {
+   "evidence": "Let the OpenAI LLM add nodes to your canvas.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI API or local service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "AI canvas helper that generates a new text node connected by an edge, using the OpenAI API and nearby nodes as context.",
+ "tags": [
+  "openai",
+  "llm",
+  "gpt",
+  "text-nodes"
+ ]
+}

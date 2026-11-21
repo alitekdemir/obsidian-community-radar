@@ -1,0 +1,58 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the whole vault bidirectionally with a Proton Drive folder, including attachments and settings",
+  "Detect and resolve sync conflicts by keeping both copies, merging edits, or picking a side",
+  "Compare note versions side by side and restore an earlier version from Drive history",
+  "Create read-only, optionally password-protected Proton Drive share links for notes",
+  "List, pause, resume and remove the devices syncing a shared vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Marked as alpha and self-described as 'vibe-coded'; not in the community plugin store, so it must be built and installed manually or via BRAT. Depends on a pre-release Proton SDK that may break interoperability in late 2026/early 2027. Polling is capped at Proton's 30-second rate limit; the README warns the plugin can delete vault files and recommends testing on a vault copy.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync through Proton Drive, an end-to-end encrypted storage service, leaving Proton users without a native sync path.",
+ "readmeHash": "f04334af21e2f81014d0edf83f502ca09301108e",
+ "relations": [
+  {
+   "evidence": "built on Proton's official Drive SDK",
+   "plugin": "Proton Drive SDK",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Proton account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bidirectional sync of an Obsidian vault with a Proton Drive folder, with end-to-end encryption, conflict merging, and per-note version history.",
+ "tags": [
+  "proton-drive",
+  "end-to-end-encryption",
+  "three-way-merge",
+  "diff-view",
+  "version-history",
+  "device-management"
+ ]
+}

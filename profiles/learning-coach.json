@@ -1,0 +1,69 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Extract and confirm knowledge points from a notes folder organized as a course",
+  "Generate practice questions (single choice, multiple choice, true/false, short answer) from your material",
+  "Plan study sessions around available time, due reviews, and learning gaps",
+  "Grade answers locally or via the model and schedule independent re-review a day or more apart",
+  "Run unit assessments with feedback held until submission, including reassessment and question invalidation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Pre-release (0.9.4) not yet published in the community directory; manual installation required. Stores the API key unencrypted in config.json, which the README says to exclude from sync and Git. Study progress lives in data.json, so cross-device sync of progress depends on the user's sync service, with no conflict merging.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian stores study material but offers no way to practice it, get feedback on answers, or schedule reviews over time.",
+ "readmeHash": "99def2babce33151bf2b6a8766faef7393d96e04",
+ "relations": [
+  {
+   "evidence": "Use an OpenAI-compatible chat endpoint or the native Ollama API.",
+   "plugin": "OpenAI-compatible chat endpoints",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama requires an already running, reachable service and an installed model.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI study coach that turns course notes into confirmed knowledge points, generated practice questions, planned sessions, and spaced review.",
+ "tags": [
+  "openai-compatible",
+  "ollama",
+  "spaced-repetition",
+  "question-generation",
+  "knowledge-extraction",
+  "agent-traces",
+  "self-assessment"
+ ]
+}

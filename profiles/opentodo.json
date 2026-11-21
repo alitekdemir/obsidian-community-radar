@@ -1,0 +1,72 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send note lines as OpenTodo tasks",
+  "Link tasks back to origin notes",
+  "Parse Tasks plugin and quick-add syntax",
+  "Sync a vault folder two-way with OpenTodo",
+  "Queue offline sends and encrypt account data"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task manager inside Obsidian; it only sends lines to, and syncs a folder with, your own OpenTodo server.",
+ "extras": "Sets no hotkeys; the API token is kept in Obsidian's device storage, not the vault; no analytics or update checks; not yet listed in the community directory (install by hand or with BRAT).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to turn note lines into tasks on your own server with links back to the note, or to keep a folder of task files in sync with it.",
+ "profiledAt": "2026-11-19",
+ "provider": "Ant Digital",
+ "readmeHash": "be2d0351baabb4622b49b05072afa6ee61eb3974",
+ "relations": [
+  {
+   "evidence": "Send a line, or a selection of lines, from any note to your own OpenTodo server as tasks",
+   "plugin": "OpenTodo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "is read like the Tasks plugin and OpenTodo's vault",
+   "plugin": "Tasks plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenTodo server 0.19.1+ (self-hosted)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenTodo API token with Full scope",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Bridge to a self-hosted OpenTodo server that sends note lines as tasks linked back to the note and syncs a folder of task files two-way.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "two-way-sync",
+  "tasks-plugin",
+  "offline",
+  "api-key",
+  "obsidian-uri"
+ ],
+ "textHash": "bc0b85e1c6a5048a5a7a846d2698a70d5b61eda4"
+}

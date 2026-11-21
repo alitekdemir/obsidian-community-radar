@@ -1,0 +1,65 @@
+{
+ "also": [
+  "html",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview .qmd files live in a side pane while editing",
+  "Convert supported Quarto and Pandoc syntax to Obsidian-renderable Markdown or HTML",
+  "Run quarto render to check official HTML output",
+  "Export a shareable single-file HTML with inlined local images",
+  "Apply CSS from QMD frontmatter or _metadata.yml scoped to the preview pane"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Quarto CLI integration and local file access need desktop APIs). The plugin UI is currently Chinese. The manifest notes it has not been manually reviewed by Obsidian staff. Live preview never executes document code; manual Quarto render and HTML export can execute code and ask for confirmation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for people who write Quarto Markdown but want Obsidian's editing workflow, backlinks, vault navigation, and fast local feedback.",
+ "primary": "formats",
+ "problem": "Obsidian does not natively render Quarto Markdown, so .qmd authors lack live writing feedback inside their vault workflow.",
+ "readmeHash": "0d7e6922c60b3300f6e11cf4cde826be1899b2c8",
+ "relations": [
+  {
+   "evidence": "The plugin calls quarto render, displays the generated HTML, and keeps it separate from the live preview mode.",
+   "plugin": "Quarto",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "QMD Preview",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Quarto CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Side-pane live preview for Quarto Markdown (.qmd) files that converts supported QMD and Pandoc syntax into Obsidian-rendered Markdown or HTML.",
+ "tags": [
+  "quarto",
+  "pandoc",
+  "qmd",
+  "code-cells",
+  "cross-references"
+ ]
+}

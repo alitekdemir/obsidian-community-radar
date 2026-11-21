@@ -1,0 +1,74 @@
+{
+ "also": [
+  "properties",
+  "tags"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Suggest tags, aliases, and a summary for the current note using an AI provider",
+  "Review and edit suggestions in a modal before applying them",
+  "Batch process a folder, opening the review modal per note",
+  "Configure any OpenAI-compatible endpoint with presets for OpenAI, Ollama, and OpenRouter",
+  "Control what is sent to the API via excluded folders, code-block stripping, and content length limits"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires building from source (npm install && npm run build) and copying the folder into .obsidian/plugins/. The README notes that truncated note content is sent to the configured API endpoint, recommending a local Ollama model for full privacy.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Filling in frontmatter metadata like tags, aliases, and summaries by hand is tedious, and Obsidian has no built-in way to generate them from note content.",
+ "readmeHash": "0c56add39ad757eb439f60851c93c948f85d7420",
+ "relations": [
+  {
+   "evidence": "Configurable OpenAI-compatible endpoint with quick presets (OpenAI, Ollama, OpenRouter)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use a local model (Ollama preset) for full privacy",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Configurable OpenAI-compatible endpoint with quick presets (OpenAI, Ollama, OpenRouter)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API endpoint",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local alternative)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI plugin that suggests tags, aliases, and a short summary for the current note, reviewed in a modal before being written to frontmatter.",
+ "tags": [
+  "openai",
+  "ollama",
+  "openrouter",
+  "aliases",
+  "summarization",
+  "local-models"
+ ]
+}

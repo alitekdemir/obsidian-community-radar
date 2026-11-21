@@ -1,0 +1,63 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [
+  "english-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Extract highlights from Markdown articles (native ==highlights==, <mark>, Highlightr spans)",
+  "Analyze highlights with context via an OpenAI-compatible Chat Completions endpoint",
+  "Generate or update one aggregated learning note per source article",
+  "Add bidirectional links between the source article and its learning note",
+  "Preserve user-written content outside the AUTO-LEARNING-START/END block"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "API key is stored as plain text in data.json when persistence is enabled; the README warns to use a restricted, revocable key. Includes troubleshooting for 401/403, 404, 429/5xx errors. Bilingual README (English and Chinese).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Reading English articles in Obsidian requires manually looking up and organizing words, phrases, and sentence patterns into study notes.",
+ "readmeHash": "5d89ad1382d50da845dc19accc61c11fe1e6a3ac",
+ "relations": [
+  {
+   "evidence": "Recognizes Obsidian ==highlights==, HTML <mark> elements, and Highlightr spans.",
+   "plugin": "Highlightr",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "third-party model service account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI-powered study-note generator that sends highlighted English text from an article to an OpenAI-compatible API and builds one updateable learning note per article.",
+ "tags": [
+  "openai",
+  "chat-completions",
+  "structured-output",
+  "vocabulary",
+  "highlights",
+  "language-learning"
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render mermaid blocks as themed cards in reading view and live preview",
+  "Switch diagrams between ELK and Dagre layout engines globally or per diagram",
+  "Zoom and pan diagrams with Ctrl/Cmd+scroll and drag, plus an expanded resizable viewer",
+  "Export diagrams as 2x PNG or SVG and copy image or source",
+  "Define custom themes as Mermaid themeVariables JSON and per-diagram directives"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a diagram editor or Mermaid code formatter; it only changes how existing ```mermaid blocks are rendered.",
+ "extras": "Desktop only (isDesktopOnly) and verified against Obsidian 1.14.4 only; live preview takeover relies on undocumented Obsidian internals. Bundles its own mermaid 12 build, making main.js several MB. Warns that only one plugin taking over mermaid blocks should be enabled.",
+ "intent": "improve",
+ "intentEvidence": "Reading view uses the standard mermaid code block processor (registered ahead of Obsidian's own)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian's built-in Mermaid rendering uses Dagre and a plain look, pins flowcharts to the reading-column width, and offers no zoom, export, or per-diagram theming.",
+ "readmeHash": "c4b788f6aeea50fcd812291597ed882d0030730e",
+ "relations": [
+  {
+   "evidence": "Disabling the plugin restores Obsidian's own Mermaid rendering.",
+   "plugin": "Obsidian's own Mermaid renderer",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Mermaid renderer replacement that draws mermaid code blocks as styled cards with ELK layout, zoom and pan, an expanded viewer, and PNG/SVG export.",
+ "tags": [
+  "mermaid",
+  "elk",
+  "dagre",
+  "diagrams",
+  "png-export",
+  "svg-export",
+  "flowchart"
+ ]
+}

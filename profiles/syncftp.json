@@ -1,0 +1,55 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "push local vault files to an SFTP server",
+  "pull files from the SFTP server on open or on demand",
+  "configure host, port, credentials and remote vault path",
+  "connect through a SOCKS proxy",
+  "toggle verbose sync notifications"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that syncing is destructive on the SFTP side: local file changes move replaced remote files, and local originals go to the .trash folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync is a hosted service, and some users want to sync their vault to their own FTP/SFTP server instead.",
+ "readmeHash": "3726d1a3d269d6d197d2abe450bc9a9134971013",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "personal SFTP server",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "SOCKS proxy",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Plugin that pushes and pulls vault files to a personal SFTP server, with optional SOCKS proxy support.",
+ "tags": [
+  "sftp",
+  "ssh",
+  "socks-proxy",
+  "file-transfer"
+ ]
+}

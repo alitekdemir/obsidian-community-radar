@@ -1,0 +1,61 @@
+{
+ "also": [
+  "syncing",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload attachments from monitored folders or the current file to cloud storage",
+  "Update note links to point to cloud-stored files",
+  "Filter uploads by file extension whitelist/blacklist and maximum file size",
+  "Move or delete local files after successful upload",
+  "Manage and delete cloud files through a web interface"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a full-vault sync tool; it uploads attachments and embedded media files, not the notes themselves.",
+ "extras": "Freemium: advanced features (file filtering, max file size, cloud renaming) are subscription-only; free accounts have storage and egress limits. Custom S3-compatible storage is listed as 'coming soon'.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps attachments as local files, which fills up vault storage and makes sharing or accessing files across devices difficult.",
+ "readmeHash": "8f0ae55ac41e40a6a4d391763887a0919c15cd6f",
+ "relations": [
+  {
+   "evidence": "We would like to express our sincere gratitude to the Remotely Save project for their inspiration",
+   "plugin": "Remotely Save",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloud Storage account (email verification)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Premium subscription for file filtering, size limits, and renaming",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Attachment uploader that moves embedded files to cloud storage (plugin-hosted or S3), rewrites note links to cloud URLs, and frees local vault space.",
+ "tags": [
+  "s3",
+  "resumable-uploads",
+  "attachment-offloading"
+ ]
+}

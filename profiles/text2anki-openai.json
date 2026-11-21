@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "generate flashcards from note bullet points via the OpenAI API",
+  "push generated flashcards to a locally running Anki app",
+  "set a custom Anki deck name per note",
+  "choose the OpenAI GPT model used for generation",
+  "customize the prompt used for flashcard generation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires AnkiConnect installed in a locally running Anki app; troubleshooting points to the GitHub issues page.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to turn notes into flashcards or push them into Anki for spaced-repetition study.",
+ "readmeHash": "9919b0fd5425a07309a06ae8064d8c862fa53bf0",
+ "relations": [
+  {
+   "evidence": "Anki app running locally with AnkiConnect installed",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "automatically generates flashcards from your Obsidian notes using the OpenAI API",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Anki with AnkiConnect",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "OpenAI-powered flashcard generator that extracts flashcards from note bullet points and sends them to a local Anki deck.",
+ "tags": [
+  "openai",
+  "anki",
+  "ankiconnect",
+  "gpt",
+  "spaced-repetition",
+  "api-key"
+ ]
+}

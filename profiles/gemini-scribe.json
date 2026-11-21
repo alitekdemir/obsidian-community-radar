@@ -1,0 +1,81 @@
+{
+ "also": [
+  "automation",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run an AI agent that searches, reads, creates, edits, moves, and renames vault notes via tool calling",
+  "Route chat, summarization, completions, rewrite, web search, deep research, and image generation to per-feature providers",
+  "Insert IDE-style inline text completions while typing",
+  "Summarize notes into frontmatter and rewrite selected text from custom instructions",
+  "Schedule recurring agent tasks and trigger agent runs from vault events"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not Gemini-only; chat, agent, and other features can be routed to Ollama, OpenAI, Anthropic, or OpenRouter providers.",
+ "extras": "MCP server support is marked experimental; the plugin requires Obsidian 1.13.1 or later, and detailed guides live on a separate documentation site referenced from the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to use large language models to chat with, search, rewrite, or act on vault notes.",
+ "readmeHash": "5149254e010d1d0ec44e1cad80ebd1f52e7e0084",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini, OpenAI, Anthropic, or OpenRouter key (or an OpenAI-compatible server)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI assistant and tool-calling agent that chats over, searches, and edits your vault using Gemini, Ollama, OpenAI, Anthropic, or OpenRouter models.",
+ "tags": [
+  "gemini",
+  "ollama",
+  "openai",
+  "anthropic",
+  "openrouter",
+  "mcp",
+  "tool-calling",
+  "rag"
+ ]
+}

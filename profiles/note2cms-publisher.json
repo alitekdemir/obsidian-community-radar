@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes to a note2cms backend",
+  "Queue publications offline and retry failures",
+  "Bulk publish multiple notes",
+  "Validate and normalize note frontmatter",
+  "Manage published posts (search, edit, delete)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README calls base64 encoding 'encryption' for API tokens, which is obfuscation only; publishing targets GitHub Pages via backend env vars GITHUB_TOKEN and GITHUB_REPO.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to a self-hosted note2cms CMS with offline queuing, bulk publishing, or frontmatter validation.",
+ "profiledAt": "2026-11-20",
+ "provider": "Ant Digital",
+ "readmeHash": "5bc190c4d36532048ba056551cc3321b43e33906",
+ "relations": [
+  {
+   "evidence": "The plugin requires a note2cms backend instance",
+   "plugin": "note2cms",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "note2cms backend (FastAPI Cloud / Neon / self-hosted)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "note2cms API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "One-click publisher that sends Obsidian notes to a note2cms backend, with offline queue, bulk publish, and frontmatter repair.",
+ "tags": [
+  "api-key",
+  "github-pages",
+  "yaml",
+  "offline",
+  "batch-processing"
+ ],
+ "textHash": "f5f9f13ceda452ef68e87f337a6f782239513fcb"
+}

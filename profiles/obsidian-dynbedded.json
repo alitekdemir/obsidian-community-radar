@@ -1,0 +1,79 @@
+{
+ "also": [
+  "dates",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Embed notes, sections, or headers with dynamic content executing in the current note's context",
+  "Substitute dates into note names and headers using Moment.js formats with relative day offsets",
+  "Embed text ranges using after, from, and to anchors that support date substitution",
+  "Render deprecated Quoth code blocks and convert them to dynbedded blocks",
+  "Auto-refresh embeds at a configurable interval and style or attribute embedded content"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Checkbox checking inside embeds is fake and does not update the original note; links inside embed blocks are not real links, so renaming target notes breaks them. Additional documentation on the author's website (MMoMM.org, English and German) and YouTube videos; installable via BRAT; accepts Ko-Fi support.",
+ "intent": "alternative",
+ "intentEvidence": "Full Quoth replacement. Dynbedded renders Quoth code blocks directly",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says plugins like Dataview and Buttons 'were one of the reasons this plugin was created', and the plugin is based on the general idea from Dynamic Embed.",
+ "primary": "markdown",
+ "problem": "Obsidian's built-in embeds are static and run embedded content in the embedded note's own context, so dynamic blocks like Dataview queries resolve against the wrong note, and note names cannot vary by date.",
+ "readmeHash": "1c903011d4ef4252e159a35d1ae8e61742d2ba1e",
+ "relations": [
+  {
+   "evidence": "Full Quoth replacement. Dynbedded renders Quoth code blocks directly",
+   "plugin": "Quoth",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Based on the general idea from Dynamic Embed.",
+   "plugin": "Dynamic Embed",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Dataview will not only be able to show information referenced from the current note",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Buttons also works quite well with Dynbedded",
+   "plugin": "Buttons",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Buttons",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Dynamic embed plugin that embeds notes, sections, or ranges and executes dynamic content in the current note's context, with date-based name substitution.",
+ "tags": [
+  "quoth",
+  "dataview",
+  "buttons",
+  "transclusion",
+  "moment-js",
+  "code-blocks"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "zettlab-memo-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize vault files over WebDAV with Zettlab Memo",
+  "Authenticate with WebDAV Basic or Digest and test the connection",
+  "Run sync manually, on a schedule, or after saving a note",
+  "Resolve conflicts by keeping the newer or larger file",
+  "Exclude files by size or path pattern"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a general multi-cloud sync tool; it only syncs with Zettlab Memo or a manually configured WebDAV server.",
+ "extras": "Manual WebDAV configuration works with any WebDAV server; one-click setup needs Zettlab Memo. The README warns to back up the vault before the first sync and that files are sent as plaintext, so HTTPS is advised for public endpoints.",
+ "intent": "alternative",
+ "intentEvidence": "It does not include cloud providers, OAuth, QR pairing, a paid tier, or end-to-end encryption.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian users who use Zettlab Memo need a way to sync their vault to it over WebDAV, keeping files as indexable plaintext Markdown.",
+ "readmeHash": "8e07e0ed0cbfcaf59454bd46d524df471dd4f954",
+ "relations": [
+  {
+   "evidence": "One-click setup requires Zettlab Memo; manual WebDAV configuration remains available.",
+   "plugin": "Zettlab Memo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It retains and modifies Apache-2.0 code from the pre-license-split Remotely Save snapshot",
+   "plugin": "Remotely Save",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zettlab Memo",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "WebDAV-only sync plugin that keeps an Obsidian vault synchronized with Zettlab Memo as plaintext Markdown files.",
+ "tags": [
+  "webdav",
+  "zettlab-memo",
+  "basic-auth",
+  "digest-auth",
+  "conflict-resolution",
+  "plaintext"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "files",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload dropped or pasted files to S3-compatible storage, WebDAV or a Keyhole server",
+  "Store credentials in the device keychain and fetch files through keyhole:// links",
+  "Render images, PDFs, audio and video from remote storage in notes",
+  "Cache viewed files offline with a configurable size limit",
+  "Move existing local attachments to storage and restore them back into the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a backup or sync plugin; it moves attachment files to your own private storage and rewrites embeds as keyhole:// links.",
+ "extras": "Not in the community plugin directory yet; install via BRAT or manually. Tested on macOS and iPhone, Android untested. Obsidian Publish cannot display Keyhole files, and embeds appear broken without the plugin installed. S3 providers are often paid beyond a free tier.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian stores attachments inside the vault, which bloats it and gets synced or committed to Git along with your notes.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "768f37f5b08de17b42fa568428f640816a1f77ab",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3-compatible storage provider or your own server",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Attachment storage plugin that uploads pasted or dropped files to your own S3 bucket, WebDAV server or self-hosted Keyhole server and keeps credentials off-device.",
+ "tags": [
+  "s3",
+  "webdav",
+  "minio",
+  "cloudflare",
+  "nextcloud",
+  "image-compression",
+  "offline",
+  "self-hosted"
+ ],
+ "textHash": "d1ddef86d9117bc0efcb45987b56a24825b2551d"
+}

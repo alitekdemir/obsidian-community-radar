@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "find liked Spotify tracks missing from all playlists",
+  "authenticate with Spotify via OAuth",
+  "save the results as a dated note with Spotify links",
+  "configure output folder and Spotify app credentials"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; the Obsidian mobile app is not supported. Requires manually creating a Spotify Developer app and setting a redirect URI. The listing notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Spotify's own app offers no easy way to see which Liked Songs are missing from every playlist, and Obsidian has no way to pull that list into a note.",
+ "readmeHash": "647b663b568ece3d45aecfa54a3661c3238aa818",
+ "relations": [
+  {
+   "evidence": "finds Liked Songs in your Spotify library that aren't in any of your playlists",
+   "plugin": "Spotify",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Spotify",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Spotify Developer account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Spotify Client ID and Client Secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Spotify integration that finds liked songs not in any playlist and saves them as a dated vault note.",
+ "tags": [
+  "spotify",
+  "playlists",
+  "oauth",
+  "liked-songs"
+ ]
+}

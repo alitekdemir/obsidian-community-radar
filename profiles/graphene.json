@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "generate vector embeddings for notes via Ollama or OpenAI",
+  "visualize content similarity as dotted edges in a graph",
+  "combine wikilinks and semantic similarity in one view",
+  "tune physics, thresholds, and display options per graph",
+  "track and update embeddings only for changed files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation only (clone into .obsidian/plugins); the README notes the plugin is not yet listed in the official community plugin directory.",
+ "intent": "improve",
+ "intentEvidence": "Unlike the standard graph view which only shows explicit links",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's built-in graph view only shows explicitly linked notes, so content-related notes that are not linked to each other stay invisible.",
+ "readmeHash": "d6b368849f02618137db2095a4209c95307916c8",
+ "relations": [
+  {
+   "evidence": "You can choose between Ollama (local, free) or OpenAI (cloud, paid).",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select OpenAI (API key required) as the embedding provider",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Powered by D3.js, featuring a responsive force-directed layout you can tweak in real-time.",
+   "plugin": "D3.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Semantic graph view that draws dotted similarity edges between notes using vector embeddings generated locally with Ollama or via OpenAI.",
+ "tags": [
+  "vector-embeddings",
+  "ollama",
+  "openai",
+  "d3js",
+  "force-directed-graph",
+  "semantic-similarity"
+ ]
+}

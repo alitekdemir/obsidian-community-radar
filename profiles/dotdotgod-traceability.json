@@ -1,0 +1,86 @@
+{
+ "also": [
+  "graph",
+  "code"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Map project memory",
+  ": Load bounded context",
+  ": Identify file impact",
+  ": Track durable task plans",
+  ": Visualize traceability in the graph"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "delisted": "2026-11-20",
+ "disambiguation": "Not a general note-linking tool; it provides project-memory maps and impact analysis for AI agents.",
+ "extras": "Licensed under Elastic License 2.0.",
+ "intent": "new",
+ "intentEvidence": "Change a file, know what else must be checked.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI coding agents struggle to maintain project context, understand file dependencies, or track changes across large codebases or documentation sets.",
+ "readmeHash": "dd07ff51f74727ff0ca25e212b66210741ce1753",
+ "relations": [
+  {
+   "evidence": "You use Claude Code and want /dd:* workflows plus local context MCP tools.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You use Codex and want dotdotgod skills, local context MCP tools, and reviewed hooks.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open Pi in the target repository and ask:",
+   "plugin": "Pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The source checkout also includes @dotdotgod/hermes for Hermes CLI/gateway",
+   "plugin": "Hermes Agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "dotdotgod-traceability",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI coding agents",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "npm",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Provides AI coding agents with a project-memory map, bounded context loading, and changed-file impact review using the native graph.",
+ "tags": [
+  "ai-agents",
+  "coding",
+  "project-memory",
+  "impact-analysis",
+  "bounded-context"
+ ]
+}

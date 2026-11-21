@@ -1,0 +1,65 @@
+{
+ "also": [
+  "tasks",
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "visualize markdown tasks as an interactive infinite canvas graph with connections",
+  "auto-arrange the graph with a smart layout algorithm",
+  "change task status by dragging between sidebar columns and write changes back to files",
+  "create, edit, and nest task groups and sticky notes on the canvas",
+  "filter boards by tags or paths and jump to source files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin has not been manually reviewed by Obsidian staff. It caches parsed tasks in task-cache.json inside the plugin folder, which uses extra disk space and stores copies of task text; the README states no data leaves the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Tasks in Obsidian live as linear markdown lists, making dependencies and workflow status hard to see and manage spatially.",
+ "readmeHash": "a239c64b20f1688ca2c881222e0b724d79ee10da",
+ "relations": [
+  {
+   "evidence": "The change is immediately written to your markdown file with a timestamp (Tasks plugin format).",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TaskNotes configuration changes invalidate the cache.",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Task visualization plugin that renders markdown tasks as an interactive infinite canvas graph with auto-layout, nesting, and two-way sync with files.",
+ "tags": [
+  "kanban",
+  "auto-layout",
+  "task-dependencies",
+  "mind-map",
+  "sticky-notes",
+  "infinite-canvas"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record income, expenses, and transfers using accounts and reference lists synced from Finance desktop",
+  "queue transactions as JSON files with linked, read-only Markdown cards",
+  "view synced account balances and a forecast including eligible pending transactions",
+  "insert independent capture, balance, and queue-management panels into notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone personal-finance tracker; it depends on the Finance Windows desktop app and Syncthing to work.",
+ "extras": "The plugin makes no network requests and stores all data in the vault; Finance desktop itself fetches exchange rates from the Central Bank of Russia. Requires Obsidian 1.14.0 or later, and the directory listing notes it has not been manually reviewed by Obsidian staff. Supports English and Russian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Users of the Finance desktop app have no mobile way to record transactions against accounts and see synced balances from inside Obsidian.",
+ "readmeHash": "998760cd64fa05951b6734b44f7c99a04749e2d4",
+ "relations": [
+  {
+   "evidence": "Finance Capture is the Obsidian companion to Finance, a local Windows app for personal finance.",
+   "plugin": "Finance desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Syncthing transfers them to Finance desktop for import.",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Finance desktop (Windows x64)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Syncthing",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Companion to the Finance Windows desktop app that captures income, expenses, and transfers in Obsidian and syncs them for desktop import.",
+ "tags": [
+  "syncthing",
+  "personal-finance",
+  "transactions",
+  "excel-workbook",
+  "windows-desktop"
+ ]
+}

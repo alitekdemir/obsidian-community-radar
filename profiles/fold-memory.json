@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Copy a Fold space's notes into the vault's inbox/ and managed/ folders",
+  "Check for changes on an interval or via a Sync notes now command",
+  "Send edits and new inbox notes back to Fold when sending is enabled",
+  "Keep refused or conflicting edits as separate local-edit files",
+  "Connect a vault to a space using a Fold address and personal access token"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI or memory plugin; it only keeps a vault in sync with a Fold memory space.",
+ "extras": "Requires Obsidian 1.13.4+; mobile is untested. README warns to disable script-running plugins like Dataview and Templater in vaults holding untrusted shared spaces, and notes releases are build-attested on GitHub.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Notes that agents write in a Fold memory space cannot be read, searched or browsed with Obsidian's graph, backlinks and search from inside a vault.",
+ "readmeHash": "626c4315bd6fe40edc150af050db6026b79fc4cb",
+ "relations": [
+  {
+   "evidence": "If another sync tool, such as Obsidian Sync, brings changes into the vault, they count as your edits",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Fold",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "1p account with access to a Fold memory space",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fold personal access token (fold:read to copy, fold:write to send edits)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that copies a Fold memory space's notes into a vault and can send your edits and new inbox notes back to Fold.",
+ "tags": [
+  "fold",
+  "ai-agents",
+  "memory-space",
+  "conflict-resolution",
+  "personal-access-token"
+ ]
+}

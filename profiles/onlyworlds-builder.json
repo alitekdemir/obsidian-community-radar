@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ttrpg"
+ ],
+ "audience": [
+  "ttrpg-game-masters",
+  "worldbuilders"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create and edit OnlyWorlds elements as Markdown notes with typed fields and [[wikilink]] relationships",
+  "Sync elements and whole worlds between the vault and onlyworlds.com via Save element, Upload world and Download world",
+  "Draw an element's relationships on an Obsidian canvas with labelled arrows",
+  "Generate Bases table and card views for each element type",
+  "Import and export worlds as OnlyWorlds folders or clipboard JSON"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a graphical world editor; the world lives as plain Markdown notes you edit in Obsidian, with an optional sync to onlyworlds.com.",
+ "extras": "Auto-sync only hears edits typed in Obsidian; notes changed by other tools (Atlas, scripts, sync clients) need a manual Upload world. The API key and PIN are stored in the vault's plugin data. Worlds can be used fully local-only with no account and nothing sent anywhere. Docs live outside the README on the OnlyWorlds site; the README also covers edge cases such as hidden and known-of elements, conflict guarding, and format migration with backups.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no structured way to store worldbuilding elements with typed fields and links between them, nor any connection to OnlyWorlds world data.",
+ "readmeHash": "233706e9d3b25acb9fae58ea6acad42be25079b9",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that keeps an OnlyWorlds world as notes in your vault",
+   "plugin": "OnlyWorlds",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Atlas, which opens the same world as a folder",
+   "plugin": "Atlas",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "onlyworlds.com account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Worldbuilding toolset that keeps an OnlyWorlds world as one Markdown note per element and syncs it with onlyworlds.com.",
+ "tags": [
+  "worldbuilding",
+  "onlyworlds",
+  "wikilinks",
+  "schema",
+  "element-types"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "nextcloud-users",
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render Nextcloud task lists in a note via a code block",
+  "Create, edit, complete and delete tasks directly on the server",
+  "Filter tasks by list, due date, preview count and completion status",
+  "Connect with an app password and configure, reorder and colour task lists"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a local task manager; it only shows and edits tasks stored on a Nextcloud server and writes nothing to the vault.",
+ "extras": "Only fields the plugin shows are written back, so server-side repeat rules, reminders, descriptions and subtasks are preserved; moving a task between lists must be done in Nextcloud itself; English and German interfaces.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted exactly one copy of every task, living in Nextcloud, after seeing other CalDAV plugins mirror markdown checkboxes into notes where the two copies risk drifting apart.",
+ "primary": "integrations",
+ "problem": "Other CalDAV plugins mirror tasks as markdown checkboxes in notes, creating a second copy that can drift out of sync with the server.",
+ "readmeHash": "bc356dd572922f52a3e949fe9e20625a1e5921b9",
+ "relations": [
+  {
+   "evidence": "Read, create, edit and complete your Nextcloud Tasks right inside a note — over CalDAV",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Nextcloud account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "phone CalDAV reminders app",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "CalDAV client that displays and manages tasks stored on a Nextcloud server inside notes, without writing any task data to the vault.",
+ "tags": [
+  "nextcloud",
+  "caldav",
+  "app-password",
+  "due-dates",
+  "priorities",
+  "german"
+ ]
+}

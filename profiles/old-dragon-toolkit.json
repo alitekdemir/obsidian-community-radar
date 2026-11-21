@@ -1,0 +1,91 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "ttrpg-players",
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render interactive od2-ficha character sheets from YAML code blocks with auto-calculated modifiers, AC, attack bonuses and saves",
+  "Roll OD2-specific tests, attacks, initiative and HP with roll-under rules and HP counters that write back to the file",
+  "Edit sheets and statblocks through forms that rewrite the underlying YAML",
+  "Import public characters from Old Dragon Online into od2-ficha blocks",
+  "Generate an SRD reference compendium and export the bestiary as JSON for Fantasy Statblocks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet manually reviewed by Obsidian staff. Fan-made and unofficial; rule content is adapted from the CC BY-SA 4.0 Old Dragon 2 SRD and code is MIT-licensed. Beta versions available via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Obsidian has no built-in way to run a specific tabletop RPG at the table: no interactive character sheets, no roll-under dice mechanics, and no reference data for a game system.",
+ "readmeHash": "36039cdd59cfaf364f129373beb3b27fd01355e2",
+ "relations": [
+  {
+   "evidence": "cole o link (ou o ID) de uma ficha pública em olddragon.com.br e o plugin baixa o personagem",
+   "plugin": "Old Dragon Online (ODO)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "quando instalado, as rolagens de dano passam por ele",
+   "plugin": "Dice Roller",
+   "type": "integrates"
+  },
+  {
+   "evidence": "adiciona o personagem/criatura ao combate (nome, PV, CA e modificador de iniciativa)",
+   "plugin": "Initiative Tracker",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Fantasy Statblocks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dice Roller",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Initiative Tracker",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Old Dragon Online (olddragon.com.br)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Fantasy Statblocks plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "TTRPG toolkit for Old Dragon 2 that renders interactive YAML character sheets and monster statblocks with system-aware rolls, plus an SRD compendium generator.",
+ "tags": [
+  "character-sheets",
+  "statblocks",
+  "dice",
+  "srd",
+  "homebrew",
+  "bestiary",
+  "old-dragon-online",
+  "yaml-blocks"
+ ]
+}

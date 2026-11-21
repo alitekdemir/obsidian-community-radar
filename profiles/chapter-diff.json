@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [
+  "writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "List the Git history of the active note",
+  "Replace the note's tab with a two-column diff against a chosen commit",
+  "Highlight removed and added text inline with collapsible unchanged ranges",
+  "Edit the current note in the diff pane and save changes automatically",
+  "Follow older versions of notes renamed in Git"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (needs Node child_process); requires a vault inside a Git working tree and git on the system PATH. Distribution is via BRAT or manual installation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian has no built-in way to see what changed between a note and its earlier Git revisions while continuing to edit it.",
+ "readmeHash": "42cb81f2cc188b572238f213c95e29254fd3e548",
+ "relations": [
+  {
+   "evidence": "The Obsidian Git plugin is optional. It is a convenient way to create and sync commits",
+   "plugin": "obsidian-git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "obsidian-git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Side-by-side Git diff view that compares the note you are editing against any past commit, with an editable current-version pane.",
+ "tags": [
+  "git-diff",
+  "version-history",
+  "side-by-side",
+  "revision-comparison",
+  "long-form-writing"
+ ]
+}

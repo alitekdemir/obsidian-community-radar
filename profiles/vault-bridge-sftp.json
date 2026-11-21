@@ -1,0 +1,70 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault bidirectionally with a server-side manifest using 3-way diffing",
+  "Preserve both versions of a file as a conflict copy when two devices edit the same file",
+  "Guard against bulk deletions and server resets with confirmation dialogs and recovery options",
+  "Trigger syncs automatically on startup, quit, and debounced vault changes",
+  "Manage SSH connections with password or key auth, host-key pinning, and encrypted secrets"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not yet available in the Obsidian community plugin store (listed as coming soon); install from source or GitHub releases. Desktop only — mobile Obsidian cannot open raw SSH sockets. No end-to-end encryption of file content; files are stored as-is on the server. README documents detailed troubleshooting and recovery scenarios.",
+ "intent": "alternative",
+ "intentEvidence": "You want multi-device sync without paying for Obsidian Sync.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync is a paid service and cloud drives (Dropbox, Google Drive, iCloud) don't offer transparent, self-hosted sync for users who already run their own SSH server.",
+ "readmeHash": "9c92aeb54d86b0a6aee5ec595fb9f94e9c03e700",
+ "relations": [
+  {
+   "evidence": "You want multi-device sync without paying for Obsidian Sync.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Use Obsidian Sync or an OS-level sync (Syncthing) for mobile.",
+   "plugin": "Syncthing",
+   "type": "alternative"
+  },
+  {
+   "evidence": "You don't want Dropbox / Google Drive / iCloud touching your notes.",
+   "plugin": "Dropbox / Google Drive / iCloud",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an SSH/SFTP server (own server, VPS, NAS, or home machine)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bidirectional vault sync over the user's own SSH/SFTP server, with 3-way diffing, conflict-copy resolution, and bulk-delete protection.",
+ "tags": [
+  "sftp",
+  "ssh",
+  "self-hosted",
+  "conflict-resolution",
+  "three-way-merge",
+  "host-key-pinning",
+  "nas",
+  "vps"
+ ]
+}

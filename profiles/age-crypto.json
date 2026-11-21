@@ -1,0 +1,48 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt and decrypt the current note or selected text",
+  "Generate a local age identity key per device",
+  "Encrypt to multiple age recipients",
+  "Store encrypted content as ASCII-armored blocks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that encrypted blocks break inside Markdown tables, that plaintext stays visible after decryption, and that lost identity keys make notes unrecoverable. Notes are encrypted with the age file format, not with a different scheme.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to encrypt note content at rest, and existing encryption workflows typically require external CLI tools that don't run on mobile.",
+ "readmeHash": "19faa27c4e67a3516a5a74bc7bd84fc3d801eaf7",
+ "relations": [
+  {
+   "evidence": "uses a bundled TypeScript implementation of age instead of calling external age / age-keygen binaries",
+   "plugin": "age",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Encryption plugin that encrypts and decrypts notes or selected text using the age format with a bundled implementation, on desktop and mobile.",
+ "tags": [
+  "age",
+  "encryption",
+  "cryptography",
+  "key-management",
+  "ascii-armor"
+ ]
+}

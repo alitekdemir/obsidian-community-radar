@@ -1,0 +1,83 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe m4a and mp3 files locally with Whisper.cpp or via OpenAI and Groq cloud APIs",
+  "Detect spoken language and transcribe in any Whisper-supported language",
+  "Extract summaries, key points, action items, and follow-up questions from transcripts",
+  "Run AI analysis locally with Ollama or in the cloud with OpenRouter",
+  "Label distinct speakers in multi-person recordings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and Windows-only (Windows 10/11 64-bit); no mobile support yet. OpenRouter appears in the transcription-mode dropdown but cannot transcribe audio — it powers only the analysis step. Speaker diarization is currently limited, with full support planned via Assembly AI or local pyannote. Local transcription requires 4GB+ RAM and 2-3GB of disk space for models. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian stores audio recordings but has no built-in way to transcribe them or turn them into structured notes.",
+ "readmeHash": "c096f7cfca3ce49c7bc1a92bcb7863ad54cffc6d",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Whisper.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select \"Cloud (OpenAI Whisper)\" as processing mode",
+   "plugin": "OpenAI Whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select \"Cloud (Groq)\" as processing mode",
+   "plugin": "Groq",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key (required for analysis in all modes); OpenAI or Groq keys for cloud transcription",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama for local AI analysis",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Audio transcription plugin that converts m4a/mp3 recordings into markdown transcripts and extracts summaries, key points, and action items using AI.",
+ "tags": [
+  "whisper",
+  "whisper-cpp",
+  "openai",
+  "groq",
+  "openrouter",
+  "ollama",
+  "speech-to-text",
+  "speaker-diarization"
+ ]
+}

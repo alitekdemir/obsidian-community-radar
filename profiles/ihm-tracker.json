@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "List, create, edit and delete bills in IHateMoney or Cospend projects",
+  "Auto-categorize bills from their titles with trainable keyword matching",
+  "Show statistics by category, person and month plus a settle-up view",
+  "Export filtered or full bill data to PDF and Excel inside the vault",
+  "Connect via IHateMoney credentials, Nextcloud login, or a local vault-only project"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone budgeting app; bills normally live in an IHateMoney or Nextcloud Cospend project, though a serverless local-vault backend is also supported.",
+ "extras": "Marked beta by the author, who asks users to report bugs on GitHub Issues and provides no warranty; the built-in keyword list for auto-categorization is tuned for German-speaking households. The plugin is flagged as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "IHateMoney has lacked a category field for bills since 2011, so the author added client-side categorization stored in the vault.",
+ "primary": "finance",
+ "problem": "Obsidian offers no way to view or edit bills from shared-expense services, and IHateMoney itself has no category field for bills.",
+ "readmeHash": "1887fc5263337b879e5eec8c8534d59f7547af4d",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin for IHateMoney — view and edit shared-expense bills",
+   "plugin": "IHateMoney",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or a self-hosted Nextcloud Cospend project",
+   "plugin": "Nextcloud Cospend",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the fork modularidea/ihatemoney-cat adds them to the server, wire-compatible with Cospend/MoneyBuster",
+   "plugin": "modularidea/ihatemoney-cat",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "IHateMoney server or self-hosted Nextcloud with Cospend",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "IHateMoney project credentials or Nextcloud login",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Client for IHateMoney and Nextcloud Cospend that manages shared-expense bills with auto-categorization, statistics and PDF/Excel export.",
+ "tags": [
+  "ihatemoney",
+  "cospend",
+  "nextcloud",
+  "shared-expenses",
+  "split-bills",
+  "expense-tracking",
+  "settle-up"
+ ]
+}

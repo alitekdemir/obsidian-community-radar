@@ -1,0 +1,72 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect file and folder renames made outside Obsidian",
+  "Restore file identity, open tabs, and file explorer position after an external rename",
+  "Recognize renames made while Obsidian was closed on next startup",
+  "Offer to install Advanced Rename and Delete Handler for link updating"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a bulk rename tool; it only recognizes renames made outside Obsidian, and since 4.0.0 it does not rewrite links itself — Advanced Rename and Delete Handler does that.",
+ "extras": "Warning: detection relies on the file system preserving the file's inode, which not every file system does; the docs include a per-filesystem measurement section. The documentation itself is a demo vault, shipped with each release and openable via a command or GitHub.",
+ "intent": "alternative",
+ "intentEvidence": "Alternative detection: inodes; catches offline renames too; delegates link updates",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "When a file is renamed by a file manager, script, or sync client, Obsidian sees a delete followed by a create, so links to it are not updated.",
+ "readmeHash": "4c7074e3bd46d3965f6f2ab9c4ff2ae2d80c5bcb",
+ "relations": [
+  {
+   "evidence": "Advanced Rename and Delete Handler owns rename and delete handling for the whole vault.",
+   "plugin": "Advanced Rename and Delete Handler",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Alternative detection: inodes; catches offline renames too; delegates link updates",
+   "plugin": "Link Keeper",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Polls selected folders; adds externally created files",
+   "plugin": "Auto Refresh Explorer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Polls for externally added/changed files; Flatpak/network-drive use",
+   "plugin": "Vault File Refresh",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced Rename and Delete Handler",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Detects renames made outside Obsidian and reports them to Obsidian as a single rename so the file keeps its identity and links stay intact.",
+ "tags": [
+  "rename",
+  "file-explorer",
+  "backlinks",
+  "broken-links",
+  "filenames"
+ ],
+ "tagsBy": "particle-ai/particle-1:free"
+}

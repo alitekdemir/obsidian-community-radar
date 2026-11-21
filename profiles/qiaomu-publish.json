@@ -1,0 +1,75 @@
+{
+ "also": [
+  "export",
+  "integrations"
+ ],
+ "audience": [
+  "content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview notes in searchable WeChat-style themes with per-note typography settings",
+  "Copy formatted HTML with inlined styles and embedded local images",
+  "Export articles as standalone HTML files or long PNG images",
+  "Generate title covers and send drafts to WeChat Official Accounts via direct, relay or Bridge connections",
+  "Hand off content to X, Zhihu, Xiaohongshu and Weibo through the Qiaomu Clipper browser extension"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a web-hosting publisher like Obsidian Publish; it formats notes and sends them as drafts to WeChat and other platforms.",
+ "extras": "The plugin interface is Chinese (an English guide is linked). Previewing, formatting, copying and exporting work without any account; the optional shared Qiaomu relay limits free users to 200 relay requests per day. Sending creates drafts only, never mass-publishes; dark themes may differ from the WeChat client rendering.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author states a note should not have to be formatted twice, so the formatting and draft steps are kept at the writing site instead of a separate editor.",
+ "primary": "publishing",
+ "problem": "Obsidian has no way to preview and format a note for WeChat Official Account publishing, so authors must copy text into another editor and redo headings, spacing, quotes and code by hand.",
+ "readmeHash": "a81bf9beff19fbd6e7990f2e8985d754d4035fb4",
+ "relations": [
+  {
+   "evidence": "需要在同一台电脑的 Chrome 中安装 Qiaomu Clipper 1.18.7 或更新版",
+   "plugin": "Qiaomu Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "首次启用且尚无本插件设置时，会只读同一库中旧版 Qiaomu Agent 的公众号配置来迁移",
+   "plugin": "Qiaomu Agent",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account with API access, for sending drafts",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "WeChat AppID and AppSecret, for sending drafts",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Qiaomu Clipper Chrome extension 1.18.7+, for X, Zhihu, Xiaohongshu and Weibo",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Formats Obsidian notes as WeChat Official Account articles with live theme previews, copy/export, and draft sending to WeChat, X, Zhihu and more.",
+ "tags": [
+  "wechat",
+  "xiaohongshu",
+  "zhihu",
+  "weibo",
+  "mathjax",
+  "mermaid",
+  "cover-image"
+ ]
+}

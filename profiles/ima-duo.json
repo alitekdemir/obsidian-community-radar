@@ -1,0 +1,60 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push vault files and folders to IMA knowledge bases or personal notes",
+  "Pull IMA knowledge base notes and file attachments into the vault",
+  "Generate sync-difference and cleanup reports (old versions, duplicates, deleted items)",
+  "Schedule automatic daily push and pull runs at set times",
+  "Download note images locally or inline local images as base64 on push"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general cross-device vault sync; it only syncs content between the vault and the IMA service.",
+ "extras": "Desktop-only (isDesktopOnly: true). Unofficial third-party plugin with no affiliation to Tencent/IMA. Because IMA's write API only supports creation, changed files are pushed as new @vN versions and deletions are handled by moving entries to a recycle-bin folder in the knowledge base rather than deleting them. Credentials are stored in Obsidian's secret storage, with plaintext fallback below version 1.11.4.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to exchange notes with IMA, and IMA's write API lacks update and delete operations, making reliable syncing hard.",
+ "readmeHash": "ba93271194219a7c5434dfab7fe64261185d1df0",
+ "relations": [
+  {
+   "evidence": "把 Obsidian 里的文件/文件夹推送到 IMA 知识库或个人笔记",
+   "plugin": "IMA (ima.qq.com)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "IMA API Key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "IMA account with knowledge bases",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync plugin that pushes Obsidian files and folders to IMA knowledge bases or personal notes and pulls IMA content back into the vault.",
+ "tags": [
+  "ima",
+  "knowledge-base",
+  "two-way-sync",
+  "versioning",
+  "tencent-cos"
+ ]
+}

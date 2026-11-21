@@ -1,0 +1,71 @@
+{
+ "also": [
+  "publishing",
+  "integrations"
+ ],
+ "audience": [
+  "sanity-cms-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes to Sanity as published documents",
+  "Pull published Sanity documents into the vault as notes",
+  "Map Sanity schema fields to note frontmatter and back",
+  "Upload embedded body images and cover-image fields to Sanity",
+  "Publish site announcements to a Sanity singleton"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Sanity is the name of the CMS it syncs with, not a note-validation or sanity-check tool.",
+ "extras": "Not installed from the Community Plugins marketplace and marked as not manually reviewed by Obsidian staff; installed manually or via BRAT. README includes a detailed section on setting up a reverse proxy (Tencent EdgeOne) for users in mainland China where the Sanity API host is unreachable.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is a fork of drewlyton/sanity-obsidian-plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to publish notes to a Sanity CMS project and round-trip edits between the vault and Sanity documents.",
+ "readmeHash": "7407153d4bc9919a4c1cd176af323e827d11f7d0",
+ "relations": [
+  {
+   "evidence": "This plugin is a fork of drewlyton/sanity-obsidian-plugin.",
+   "plugin": "drewlyton/sanity-obsidian-plugin",
+   "type": "fork"
+  },
+  {
+   "evidence": "publish and pull documents between your Obsidian vault and your Sanity Studio",
+   "plugin": "Sanity",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Sanity project",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Sanity API token with Editor or Admin role",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bidirectional sync plugin that publishes Obsidian notes to a Sanity Studio and pulls Sanity documents back into the vault.",
+ "tags": [
+  "sanity-studio",
+  "groq",
+  "headless-cms",
+  "image-upload",
+  "reverse-proxy",
+  "edgeone"
+ ]
+}

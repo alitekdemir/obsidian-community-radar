@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate regex, replacement and explanation from plain-language instructions via a local or hosted LLM",
+  "Preview each match before and after and apply only the checked ones",
+  "Undo an applied replacement in one step, with a vault-wide snapshot before vault runs",
+  "Refine rules with follow-up instructions and rerun saved rules from a library",
+  "Screen generated patterns for catastrophic backtracking and time them before running"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general vault-hygiene toolkit like Alchemist; it only turns a plain-language instruction into a reviewed, applied regex replacement.",
+ "extras": "Requires Obsidian 1.8.7+; with the optional Claude endpoint, a text sample of the scope is sent to Anthropic, while a local server keeps everything on-machine.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Writing regular expressions for find-and-replace is error-prone, and Obsidian's built-in search cannot turn a plain-language description into a checked replacement.",
+ "readmeHash": "50ec74908980c6717567566ef0c55434dad03f36",
+ "relations": [
+  {
+   "evidence": "shares the alchemy/transmutation imagery but a different job: it is a general vault-hygiene toolkit",
+   "plugin": "ksawl/obsidian-alchemist",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local server (e.g. LM Studio or Ollama)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for hosted or Anthropic endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Natural-language search and replace: a local LLM writes the regex, and every match is previewed before it is applied.",
+ "tags": [
+  "regex",
+  "local-llm",
+  "ollama",
+  "lm-studio",
+  "anthropic",
+  "search-and-replace"
+ ]
+}

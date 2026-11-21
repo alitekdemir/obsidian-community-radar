@@ -1,0 +1,67 @@
+{
+ "also": [
+  "images",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload images to a Cloudflare R2 bucket",
+  "Insert uploaded images as inline embeds at the cursor",
+  "Set a note's image frontmatter property to the uploaded URL",
+  "Downscale and re-encode images before upload (JPEG, PNG, WebP)",
+  "Upload images from the command line via Obsidian's CLI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that without append or property flags the CLI upload's URL is lost, and documents plaintext vs keychain credential storage tradeoffs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores images as local vault attachments, so image-heavy notes grow the vault and there is no built-in way to host images externally.",
+ "readmeHash": "159c0ea50321557ce6bf0fbcb2e16afe4363a872",
+ "relations": [
+  {
+   "evidence": "upload it to Cloudflare R2, and drop it into the current note",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add rocketBANG/obsidian-image-attachment-upload as a beta plugin in BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare R2",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "R2 access key ID and secret access key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Image uploader that sends picked images to Cloudflare R2 and inserts an inline embed or sets the note's image property.",
+ "tags": [
+  "cloudflare-r2",
+  "image-hosting",
+  "image-resizing",
+  "command-line",
+  "keychain",
+  "webp"
+ ]
+}

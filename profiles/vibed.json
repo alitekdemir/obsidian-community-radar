@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse agent sessions in note-embedded dashboards or a dedicated view",
+  "Stream live OpenCode sessions and send prompts, stop runs, and answer approvals",
+  "Read Claude Code, Codex CLI, and Cursor transcripts read-only",
+  "Attach tagged markdown notes to sessions",
+  "Configure and start sessions via vibed code blocks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (spawns sqlite3 and optional zstd and talks to local servers). Read-only connectors work from local history files with no server; live chat, prompts, and approvals require an OpenCode v2 server. The only writes outside the vault happen through snippet session config after explicit user consent; the plugin states it contains no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no way to view or interact with AI coding-agent session histories from inside the vault.",
+ "readmeHash": "c847f8c584a941c5ff7db90ebd476eee64c0e645",
+ "relations": [
+  {
+   "evidence": "OpenCode v2 remains the first-class citizen; everything else is a read-only companion.",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can add read-only connectors for OpenCode v1, Claude Code, Codex CLI, and Cursor Agent histories",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can add read-only connectors for OpenCode v1, Claude Code, Codex CLI, and Cursor Agent histories",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can add read-only connectors for OpenCode v1, Claude Code, Codex CLI, and Cursor Agent histories",
+   "plugin": "Cursor Agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenCode server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Agent-session browser that lists OpenCode, Claude Code, Codex and Cursor sessions in dashboards or a dedicated view, with live chat for OpenCode.",
+ "tags": [
+  "opencode",
+  "claude-code",
+  "codex-cli",
+  "cursor-agent",
+  "agent-transcripts",
+  "sqlite",
+  "jsonl",
+  "sse"
+ ]
+}

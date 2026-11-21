@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export subscriptions, playlists, Watch Later, and liked lists to Markdown notes",
+  "Sync data through the YouTube Data API v3 with user-supplied OAuth credentials",
+  "Track removed and unavailable videos across syncs",
+  "Download or link channel avatars, banners, and video thumbnails",
+  "Render dashboard and per-note views driven by Dataview"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (OAuth loopback redirect); users must create their own Google Cloud OAuth client; manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because YouTube accounts get terminated and videos disappear without notice, while an Obsidian vault is local and under the user's control.",
+ "primary": "backup",
+ "problem": "YouTube accounts get terminated, playlists get emptied, and videos disappear without notice, and YouTube offers no durable local export of that data.",
+ "readmeHash": "081de4aca547f8e9b9bf16486703e633d0f7f161",
+ "relations": [
+  {
+   "evidence": "It needs the community Dataview plugin.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "opens the playlists page in Obsidian's built-in Web viewer core plugin",
+   "plugin": "Web viewer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Own Google Cloud OAuth client ID and secret",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Backs up YouTube subscriptions, playlists, Watch Later, and liked lists into Dataview-queryable Markdown notes in the vault.",
+ "tags": [
+  "youtube",
+  "youtube-data-api",
+  "youtube-music",
+  "dataview",
+  "oauth",
+  "thumbnails",
+  "watch-later"
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [
+  "gamers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "search RAWG, Steam, and VNDB databases and create notes from results",
+  "edit personal playthrough stats, ratings, and reviews via a modal",
+  "refresh remote metadata while preserving custom frontmatter",
+  "manually catalog unlisted games and visual novels",
+  "organize notes into configurable subfolder patterns"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Steam and VNDB lookups work without an API key; only RAWG requires a free one. Beta testing via BRAT is documented. Listed as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README does not state a motivation.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull video game and visual novel metadata, cover art, and playtime info into notes or track personal playthrough stats.",
+ "readmeHash": "3db7cecd3e8ab77b4a2bafb5e3a0d27a3996be07",
+ "relations": [
+  {
+   "evidence": "Banners Integration: Auto-populates banner: \"url\" and banner_y: 0.5 frontmatter properties.",
+   "plugin": "Banners",
+   "type": "integrates"
+  },
+  {
+   "evidence": "100% standard YAML frontmatter serialization for Dataview use.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the Obsidian42 - BRAT plugin.",
+   "plugin": "Obsidian42 - BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "RAWG API key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Banners",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Metadata fetcher that searches game and visual novel databases (RAWG, Steam, VNDB, HowLongToBeat) and creates catalog notes with artwork, stats, and Dataview-ready frontmatter.",
+ "tags": [
+  "rawg",
+  "steam",
+  "vndb",
+  "howlongtobeat",
+  "video-games",
+  "visual-novels",
+  "banners",
+  "dataview"
+ ]
+}

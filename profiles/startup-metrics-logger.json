@@ -1,0 +1,50 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture startup and per-plugin load times automatically on boot",
+  "Write startup-metrics.json, startup-metrics.md, and startup-history.jsonl logs",
+  "Run an isolation benchmark of all active plugins",
+  "Copy a pre-formatted AI diagnostic summary to the clipboard",
+  "Keep the plugin first in community-plugins.json load order"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Recommends enabling Obsidian's built-in \"Debug startup time\" setting for exact cold-start numbers; the plugin automatically rewrites community-plugins.json to load before all other plugins.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian already has a built-in \"Debug startup time\" option",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted persistent, structured startup measurements that AI assistants and external scripts can inspect, since the built-in debug option provides none of that.",
+ "primary": "developers",
+ "problem": "Obsidian's built-in Debug startup time option only shows a transient popup and does not persist data to disk or provide historical logs that scripts and AI assistants can analyze.",
+ "readmeHash": "ff5f10ad4923e87d3ec4fc1a5686b9daf6bfa514",
+ "relations": [
+  {
+   "evidence": "Capturing Obsidian's startup measurements automatically.",
+   "plugin": "Debug startup time (Obsidian built-in)",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Diagnostics plugin that measures Obsidian startup time and per-plugin load times, writing JSON, Markdown, and JSONL logs for AI analysis.",
+ "tags": [
+  "startup-time",
+  "performance-profiling",
+  "benchmarking",
+  "jsonl",
+  "ai-agents",
+  "diagnostics"
+ ]
+}

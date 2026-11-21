@@ -1,0 +1,65 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Bangumi collections into subject notes with status, rating, tags, comment, and cover fields",
+  "Push episode progress and collection status back to Bangumi from a note or a grid board",
+  "Write newly added or updated in-progress subjects into a Daily Note sync block",
+  "Generate a weekly On Air broadcast note grouped by weekday",
+  "Sync a single subject by URL, ID, or title search"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Only the Bangumi write-back feature is described as experimental; the plugin overall is desktop-first with limited mobile support (clipboard, token page, DNS fix). OAuth is not supported, so users must create a manual access token. Installation via BRAT is documented for beta builds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull media collection data and watching progress from Bangumi into notes, or push episode progress back to Bangumi.",
+ "readmeHash": "359397aa3e9a2f1b225d08d1b31ddc5d7c874350",
+ "relations": [
+  {
+   "evidence": "Bangumi API: the foundation for Bangumi data access.",
+   "plugin": "Bangumi API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "obsidian-weread-plugin: design reference for collection and reading sync plugins.",
+   "plugin": "obsidian-weread-plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Bangumi account with manual access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs Bangumi media collections and episode progress into local notes, with a progress board, write-back, Daily Note blocks, and templates.",
+ "tags": [
+  "bangumi",
+  "bgm-tv",
+  "anime",
+  "episode-tracking",
+  "media-collection",
+  "access-token",
+  "dns-over-https"
+ ]
+}

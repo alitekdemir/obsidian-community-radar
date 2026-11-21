@@ -1,0 +1,64 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the whole vault to Confluence as nested pages under a root page",
+  "Convert wiki links, embeds, callouts, and code blocks to Confluence links and macros",
+  "Update only changed pages incrementally while preserving version history",
+  "Find and review orphaned Confluence pages left by earlier syncs",
+  "View sync status, logs, and repair a stale page-mapping cache"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the official Community Plugins directory; install via BRAT or manual download. The sync is one-way: it never modifies or deletes vault files, and page cleanup happens only on the Confluence side. Images embed as links; image upload is not yet supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish a vault to Confluence, so moving notes there means manually recreating page trees and rewriting wiki links, callouts, and code blocks.",
+ "readmeHash": "6fd3a3e0b7285efb8cb51c81b88d4689b21bf0ad",
+ "relations": [
+  {
+   "evidence": "Push an entire Obsidian vault into a custom Confluence parent page using Confluence REST API.",
+   "plugin": "Confluence (Atlassian)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Atlassian account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Confluence API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way exporter that pushes an entire Obsidian vault to Confluence as a nested page hierarchy, converting wiki links, callouts, and code blocks.",
+ "tags": [
+  "confluence",
+  "atlassian",
+  "rest-api",
+  "wiki-links",
+  "callouts",
+  "page-hierarchy",
+  "api-token"
+ ]
+}

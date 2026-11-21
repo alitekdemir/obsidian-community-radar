@@ -1,0 +1,81 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with any OpenAI-compatible provider across five persistent sessions",
+  "Create, edit, rename, and find/replace notes through tool actions with confirmation prompts",
+  "Run ranked vault search weighted by title, heading, tag, and body",
+  "Search the web, fetch pages, and download files into the vault",
+  "Attach, compress, and OCR images, routing vision input to a multimodal model"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Full documentation lives on an external wiki rather than the README. The manifest notes the plugin has not been manually reviewed by Obsidian staff. File-changing actions prompt for confirmation unless YOLO mode is enabled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, so users who want an LLM assistant acting on their notes must supply their own key and interface.",
+ "readmeHash": "8835efdcad90a01c39d1a4f9ec96c55f4ea5d1ea",
+ "relations": [
+  {
+   "evidence": "works with any OpenAI-compatible API — DeepSeek, OpenRouter (300+ models including Claude, GPT and Gemini)",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter (live model list, per-model pricing, favourites)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DuckDuckGo needs no key; add a Brave or Tavily key for better search",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "add a Brave or Tavily key for better search",
+   "plugin": "Brave",
+   "type": "integrates"
+  },
+  {
+   "evidence": "add a Brave or Tavily key for better search",
+   "plugin": "Tavily",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider API key (DeepSeek, OpenRouter, or own endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Brave or Tavily key for improved web search",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Chat sidebar for any OpenAI-compatible API (DeepSeek, OpenRouter) that can read, search, and edit vault notes, fetch web pages, and process images.",
+ "tags": [
+  "deepseek",
+  "openrouter",
+  "bring-your-own-key",
+  "chat-sidebar",
+  "vision",
+  "web-search"
+ ]
+}

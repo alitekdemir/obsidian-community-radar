@@ -1,0 +1,91 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe microphone speech to text in real time (local SenseVoice or cloud)",
+  "Boost recognition of custom hot words and apply error=>correction rules",
+  "Translate non-Chinese transcripts and polish spoken text into written prose with AI",
+  "Generate rolling AI summaries and an aggregate summary at character thresholds",
+  "Export transcripts as Markdown notes with timestamp, AI, or manual naming"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Cloud-hosted mode is a paid service with server-side billing; the README warns that data.json may contain API keys or tokens and should not be committed to Git; local mode keeps audio on-device while cloud mode sends audio to the chosen ASR provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in live speech recognition, so users cannot dictate directly into notes or automatically turn spoken audio into text.",
+ "readmeHash": "e7d3266e6b4ebaee6223866269240cebe9f95178",
+ "relations": [
+  {
+   "evidence": "本地实时转写 | SenseVoice-Small + Silero VAD + sherpa-onnx",
+   "plugin": "SenseVoice",
+   "type": "integrates"
+  },
+  {
+   "evidence": "海外默认使用 Deepgram Nova-3",
+   "plugin": "Deepgram Nova-3",
+   "type": "integrates"
+  },
+  {
+   "evidence": "中国大陆默认使用腾讯云",
+   "plugin": "腾讯云",
+   "type": "integrates"
+  },
+  {
+   "evidence": "自动调用 OpenAI 兼容 API 翻译成中文",
+   "plugin": "OpenAI 兼容 API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "支持 OpenAI 兼容 API、Claude Code CLI、Codex CLI 和 OpenCode CLI",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "plugin cloud account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10–3.12 and ~240 MB local model (local mode)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key (for AI features)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Real-time speech-to-text plugin that transcribes microphone audio via local SenseVoice or cloud services, with hot words, correction rules, translation, polishing and AI summaries.",
+ "tags": [
+  "speech-to-text",
+  "sensevoice",
+  "deepgram",
+  "tencent-cloud",
+  "silero-vad",
+  "sherpa-onnx",
+  "ollama",
+  "whisper-alternative"
+ ]
+}

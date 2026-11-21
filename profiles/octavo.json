@@ -1,0 +1,81 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read EPUB, PDF, MOBI, AZW3, FB2 and CBZ books with themes, fonts, page turns and a focus mode",
+  "Save highlights as Markdown notes with deep links back to the exact passage",
+  "Import highlights from Kindle, KOReader, Annotator, Weave, Elton and Readest",
+  "Maintain a library with covers, shelves, collections and reading progress built on notes",
+  "Read aloud with system voices or optional AI voices from your own API key or Ollama"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: all reader features are free and offline; Octavo Cloud is an optional paid subscription adding cloud library, send-to-email inbox, OCR, neural voices, KOReader sync and hosted AI. The settings tab contains three static, bundled promotional links (Octavo Cloud, LightningPDF, developer site). Open source under AGPL-3.0-or-later; full guide is on an external website.",
+ "intent": "alternative",
+ "intentEvidence": "Moving from PDF++ or Annotator",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in reader for EPUB and other ebook formats, and highlights made in separate reader apps do not live in the vault as linked notes.",
+ "readmeHash": "7828fd81e37179689488b6f6a945903ab9ed3f8c",
+ "relations": [
+  {
+   "evidence": "Moving from PDF++ or Annotator",
+   "plugin": "PDF++",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Annotator highlights come across with Import highlights → Annotator (colours and comments included).",
+   "plugin": "Annotator",
+   "type": "alternative"
+  },
+  {
+   "evidence": "optional AI (your own API key or a local model through Ollama)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the BRAT plugin, choose \"Add beta plugin\" and enter meaLuda/OctavoRelease.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Octavo Cloud",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Octavo account (Cloud features only)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or OpenAI key for AI features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Book reader for EPUB, PDF, MOBI and other formats that saves highlights as Markdown notes in the vault with deep links back to the passage.",
+ "tags": [
+  "epub",
+  "ebook",
+  "kindle",
+  "koreader",
+  "text-to-speech",
+  "ollama"
+ ]
+}

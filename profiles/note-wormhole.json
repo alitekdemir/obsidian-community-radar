@@ -1,0 +1,56 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Share the current note as a temporary public URL",
+  "Serve the rendered note from a local server via a Cloudflare tunnel",
+  "Show a live viewer count for the shared page",
+  "Toggle anti-copy mode for visitors",
+  "Stop sharing to tear down the tunnel and server"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not static-site publishing; the URL exists only while the session is open and serves just the one shared note.",
+ "extras": "Desktop only (needs a local Node.js server and child process); requires internet to establish the tunnel; the README warns anti-copy mode is a deterrent, not real protection, and that anyone with the URL can read the note. No account, token, or telemetry needed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian offers no way to give someone a temporary read-only web link to a single note without storing it on a third-party server.",
+ "readmeHash": "210103072b2c6f8fb092b0ec72950096d94ef696",
+ "relations": [
+  {
+   "evidence": "Note Wormhole opens its tunnel by running Cloudflare's cloudflared.",
+   "plugin": "Cloudflare cloudflared",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "cloudflared",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Temporary note sharing that serves the current note from a local HTTP server through a Cloudflare quick tunnel, with no cloud upload.",
+ "tags": [
+  "cloudflared",
+  "cloudflare",
+  "quick-tunnel",
+  "http-server",
+  "ephemeral-sharing",
+  "read-only-viewers"
+ ]
+}

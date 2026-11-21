@@ -1,0 +1,76 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [
+  "magic-the-gathering-players"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render decklist code blocks as styled deck panels with grouping, sorting, and deck stats",
+  "Fetch public Moxfield and Archidekt decks into decklist blocks",
+  "Preview Scryfall card images on hover or tap",
+  "Render inline mana symbols and mtg: card links in notes",
+  "Document combos with structured combo blocks including loops and variants"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes it has not been manually reviewed by Obsidian staff. The README warns that Moxfield and Archidekt APIs are undocumented and could change without notice, and only public decks are supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Obsidian shows decklists as plain text with no card images, grouping, deck stats, legality checks, or structured way to document combos.",
+ "readmeHash": "763dcd84dc734869ff6ee3bea3345a14abb6643b",
+ "relations": [
+  {
+   "evidence": "Card data and images are fetched from the public Scryfall API.",
+   "plugin": "Scryfall",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Drop a public Moxfield or Archidekt deck URL into a decklist block and the plugin fetches the cards",
+   "plugin": "Moxfield",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works the same way as Moxfield, but for a public Archidekt deck",
+   "plugin": "Archidekt",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Scryfall API",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Moxfield",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Archidekt",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders Magic: The Gathering decklists, combo blocks, inline mana symbols, and hoverable card previews in notes, using data from the Scryfall API.",
+ "tags": [
+  "code-blocks",
+  "hover-preview",
+  "card-view"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "calendar",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log transactions as tags in daily notes via URL capture, GitHub gist, inbox files or quick add",
+  "Track pace-aware budgets and recurring bills from a markdown table and bill notes",
+  "Manage savings goals, trips and split expenses with sinking-fund maths",
+  "Track share portfolio, account balances and net worth with optional price feeds",
+  "Render dashboard, review, forecast and query blocks in any note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Deliberately no bank connections, receipt OCR or telemetry by design; Android capture paths are reasoned from documentation but untested by the author; MIT licensed with a Buy Me a Coffee donation link; documentation of limitations and migration steps included in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Obsidian has no built-in way to record spending in daily notes or turn plain-text transaction bullets into budgets, bills, goals and financial dashboards.",
+ "readmeHash": "042eecaae54245f79da744af3a43ba1da9c88454",
+ "relations": [
+  {
+   "evidence": "@date (ISO, yesterday, weekday, or anything the Natural Language Dates plugin parses)",
+   "plugin": "Natural Language Dates plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "detected from the Journals community plugin or the core Daily notes plugin when present",
+   "plugin": "Journals community plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Shortcuts (or Tasker/MacroDroid on Android)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account and fine-grained token (gist capture only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Personal finance tracker that logs spending as tags in daily notes and builds pace-aware budgets, bills, goals, trips, portfolio and forecast dashboards from them.",
+ "tags": [
+  "apple-shortcuts",
+  "github-gist",
+  "wise",
+  "yahoo-finance",
+  "budgeting",
+  "sinking-funds",
+  "exchange-rates",
+  "net-worth"
+ ]
+}

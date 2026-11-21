@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish individual notes to a self-hosted Quartz site via a right-click command that writes frontmatter",
+  "Publish folders as bundles with a landing page and persistent sidebar navigation",
+  "Generate, copy, and rotate cryptographically random slug URLs for notes and folders",
+  "Strip wikilinks to unpublished notes and rename embeds to content hashes to prevent enumeration",
+  "Configure base URL, slug length, and frontmatter keys for the publish flag and slug"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin itself makes zero network calls; all publishing is done server-side by a Deno stager watching a synced copy of the vault, with Caddy serving the Quartz build and automatic Let's Encrypt HTTPS. The README warns that without a VPS and domain, Obsidian Publish may be a better fit.",
+ "intent": "alternative",
+ "intentEvidence": "Obsidian Publish costs $8/month and pins you to their domain.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted opt-in publishing with privacy: \"That was the catalyst for this project: I wanted opt-in publishing, with privacy.\"",
+ "primary": "publishing",
+ "problem": "Obsidian Publish costs money and locks you to its domain, while Quartz's defaults publish every Markdown file in the vault with no per-note privacy.",
+ "readmeHash": "31c81ab914f6dbb12081789f4e6c38d72639e443",
+ "relations": [
+  {
+   "evidence": "Quartz by Jacky Zhao — the static site generator this builds on.",
+   "plugin": "Quartz",
+   "type": "extends"
+  },
+  {
+   "evidence": "Self-hosted LiveSync by vrtmrz — the sync layer this is designed to pair with.",
+   "plugin": "Self-hosted LiveSync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Publish costs $8/month and pins you to their domain.",
+   "plugin": "Obsidian Publish",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Self-hosted server with Docker, a domain, and the bundled Quartz/Caddy stack",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Opt-in publishing of individual notes or folders to a self-hosted Quartz site using unguessable random-slug URLs.",
+ "tags": [
+  "quartz",
+  "self-hosted",
+  "privacy",
+  "random-slugs",
+  "docker",
+  "static-site-generator"
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record microphone and system audio from the sidebar or import existing audio clips",
+  "Transcribe audio via any OpenAI-compatible speech endpoint such as vLLM Whisper or whisper.cpp",
+  "Summarize transcripts with a local LLM, optionally steered by vault context notes",
+  "Edit the summary, transcript, memo, title and tags in the sidebar before saving",
+  "Save a single note with frontmatter, anarlog-style summary and collapsible transcript callouts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the nautical 'ship's gossip' name, it is not a chat or social tool; it records, transcribes and summarizes meetings.",
+ "extras": "Desktop only, since recording uses the microphone. Installed from source rather than the community store; release builds have GitHub Actions provenance attestations. Explains a macOS limitation: system audio capture needs a loopback device such as BlackHole.",
+ "intent": "alternative",
+ "intentEvidence": "A local-first meeting companion that lives in your Obsidian sidebar, inspired by anarlog.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Turning meeting recordings into notes normally requires cloud transcription services or separate apps; Obsidian has no built-in record-transcribe-summarize workflow.",
+ "readmeHash": "48335130d4ea2878564e20b3f43b79260ba86ba1",
+ "relations": [
+  {
+   "evidence": "A local-first meeting companion that lives in your Obsidian sidebar, inspired by anarlog.",
+   "plugin": "anarlog",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Transcribe via any OpenAI-compatible speech endpoint (vLLM Whisper, whisper.cpp server, etc.).",
+   "plugin": "vLLM",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Transcribe via any OpenAI-compatible speech endpoint (vLLM Whisper, whisper.cpp server, etc.).",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local Whisper/vLLM transcription and chat servers",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for configured endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar-based meeting recorder that transcribes audio with a local Whisper server and summarizes it into a tagged note via a local LLM.",
+ "tags": [
+  "transcription",
+  "whisper",
+  "whisper-cpp",
+  "vllm",
+  "llm",
+  "meetings",
+  "speech-to-text",
+  "openai-compatible"
+ ]
+}

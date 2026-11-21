@@ -1,0 +1,98 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "generate images from text prompts with built-in SD-Turbo / SDXL-Turbo models running on WebGPU",
+  "connect to local Draw Things, AUTOMATIC1111, Forge, SD.Next servers or a ComfyUI workflow for generation",
+  "create image variations from a reference image (img2img) with a denoising slider and crop tool",
+  "save results as vault attachments or notes with recipe frontmatter, and revisit past generations in a history tab",
+  "expose a generate/save API so other Obsidian plugins can trigger image generation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest warns the plugin has not been manually reviewed by Obsidian staff. Built-in models are Stability AI Community License — commercial use of generated images is limited; check before commercial use. Model weights (~2.6–7.1 GB) download on demand to the Obsidian profile cache, outside the vault, and are never synced. Mobile only works via the Image Playground mode; full guides live at jkaindl.de/uplink/apple-shortcuts.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no way to generate images in-vault, and cloud generators require sending prompts and results to outside services instead of keeping generation private and on-device.",
+ "readmeHash": "dae93d6e6ecf9b5b0479100a6f82c7efb6dcb089",
+ "relations": [
+  {
+   "evidence": "a local image server you run yourself — Draw Things, AUTOMATIC1111, Forge, or SD.Next over their shared A1111-compatible HTTP API",
+   "plugin": "Draw Things",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AUTOMATIC1111 (stable-diffusion-webui): Launch it with the --api flag",
+   "plugin": "AUTOMATIC1111",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Forge (stable-diffusion-webui-forge): Same A1111-compatible API — launch with --api",
+   "plugin": "Forge",
+   "type": "integrates"
+  },
+  {
+   "evidence": "SD.Next: Same A1111-compatible API family — check its docs for the equivalent launch flag",
+   "plugin": "SD.Next",
+   "type": "integrates"
+  },
+  {
+   "evidence": "point it at your own running ComfyUI server and hand it a workflow you exported in the API format",
+   "plugin": "ComfyUI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs entirely on-device through Apple's Image Playground via a Shortcut you install once",
+   "plugin": "Apple Image Playground",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Recommended — via AnySource Sideloader, which installs and updates plugins from any git forge",
+   "plugin": "AnySource Sideloader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Draw Things / AUTOMATIC1111 / Forge / SD.Next / ComfyUI server",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Apple Shortcut (Image Playground) requiring iOS/macOS 26+ and Apple Intelligence",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "AnySource Sideloader for recommended install/updates",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local AI image generator that runs Stable Diffusion models on your GPU via WebGPU, a local A1111-compatible server, ComfyUI, or Apple Image Playground.",
+ "tags": [
+  "stable-diffusion",
+  "sd-turbo",
+  "sdxl-turbo",
+  "comfyui",
+  "draw-things",
+  "automatic1111",
+  "webgpu",
+  "img2img"
+ ]
+}

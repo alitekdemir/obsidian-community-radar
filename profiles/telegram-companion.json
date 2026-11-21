@@ -1,0 +1,90 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture Telegram text, photos, links and voice messages into the daily note",
+  "Chat with an AI companion that reads the last week of daily notes and a profile note",
+  "Maintain a profile note with approved long-term facts and a weekly rewritten recent section",
+  "Define custom trigger commands that save to notes or prompt the model",
+  "Send chat replies as voice messages through a configurable text-to-speech command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Telegram sync or messaging client for Obsidian; it only talks to a bot you create yourself.",
+ "extras": "Desktop only and Obsidian must be running for the bot to answer. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Chat transcripts are deleted after the weekly profile update by design. Voice replies need OGG Opus output from the TTS command.",
+ "intent": "alternative",
+ "intentEvidence": "It is a modified version of the community plugin Telegram Inbox",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture thoughts from a phone via Telegram, and AI chats answer without knowing what is in your vault or daily notes.",
+ "readmeHash": "228a7607aa2773b00176eb5c8a2ed644a8b3907c",
+ "relations": [
+  {
+   "evidence": "Based on the community plugin Telegram Inbox by icealtria.",
+   "plugin": "Telegram Inbox",
+   "type": "fork"
+  },
+  {
+   "evidence": "Together with Nautilus Spiral, a plugin by the same author that draws today's events and to-dos",
+   "plugin": "Nautilus Spiral",
+   "type": "integrates"
+  },
+  {
+   "evidence": "done 写稿 2h and doing 写稿 update the matching task in today's note (this one also needs the done-to-top plugin)",
+   "plugin": "done-to-top",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Telegram account and own bot from @BotFather",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key or OpenAI-compatible endpoint key (or Claude Code CLI login / local Ollama)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI for that backend; a local TTS program for voice replies",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Nautilus Spiral and done-to-top for schedule and task phrases",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Telegram bot that saves messages you send it into today's daily note and chats as an AI companion that has read your recent notes.",
+ "tags": [
+  "telegram",
+  "chatbot",
+  "llm",
+  "claude",
+  "ollama",
+  "deepseek",
+  "text-to-speech"
+ ]
+}

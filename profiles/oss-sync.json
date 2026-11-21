@@ -1,0 +1,60 @@
+{
+ "also": [
+  "publishing",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync notes, attachments, and optional .obsidian configuration across devices via a self-hosted server",
+  "resolve sync conflicts with revision-based CAS, keep-local/remote/both, and three-way Markdown merge",
+  "share individual notes and folders via links and publish a public blog from the server",
+  "collaborate on Markdown notes through invitations with SSE or long-polling delivery",
+  "manage vault files through a web console with previews, history, diffs, restore, and a recycle bin"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns that WASM server plugins are not guaranteed safe, that failed upgrades cannot reverse database migrations, and that /readyz is not a complete end-to-end sync health check; detailed deployment and development guides live outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to self-host multi-device sync, file sharing, and publishing on your own server.",
+ "readmeHash": "83a1588a35cfade3615649af190eda0e2e382239",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OSS Sync Go server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "account on the configured OSS Sync server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Self-hosted sync and share system with a single-binary Go server for multi-device note sync, conflict resolution, sharing links, blogs, and Markdown collaboration.",
+ "tags": [
+  "self-hosted",
+  "single-binary",
+  "docker",
+  "sqlite",
+  "postgresql",
+  "three-way-merge",
+  "sse"
+ ]
+}

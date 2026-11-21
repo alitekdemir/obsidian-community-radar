@@ -1,0 +1,70 @@
+{
+ "also": [
+  "tasks",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan vault tasks and reminder lines into a scheduled notification queue",
+  "Deliver reminders as ntfy scheduled messages shown by the Android ntfy app",
+  "Send and receive messages across Telegram, Feishu, WeCom, Discord, Slack, Matrix, QQ Bot and email accounts",
+  "Manage pending, completed and vault-wide todos in an in-app manager panel",
+  "Forward reminder events to an optional AI webhook"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the ntfy-focused name, it is a multi-channel notification hub that also sends and receives messages through Telegram, Feishu, WeCom, Discord, Slack, Matrix, QQ Bot and email.",
+ "extras": "Warns that data sent to ntfy or AI webhooks passes through the configured server and recommends private topics, tokens or self-hosting. Changelog is largely in Chinese with English summaries; the built-in manager opens as a main editor tab rather than a web page.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it around ntfy because Obsidian mobile plugins cannot directly create Android system notifications, so delivery is delegated to the ntfy app.",
+ "primary": "integrations",
+ "problem": "Obsidian plugins, especially on mobile, cannot post Android system notifications directly, so task reminders do not fire outside the app.",
+ "readmeHash": "1f2148f4005f610ec78a58b5e6d592e6d06953ce",
+ "relations": [
+  {
+   "evidence": "It also understands Obsidian Tasks plugin Emoji Format on open task lines.",
+   "plugin": "Tasks plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cancip can register its own handler without Ntfy Notifications importing Cancip",
+   "plugin": "Cancip",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Android ntfy app",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider accounts or credentials for non-ntfy channels",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Notification hub that scans vault tasks and reminder lines and pushes them to ntfy, plus Telegram, Feishu, Discord, Slack, Matrix and other channels.",
+ "tags": [
+  "ntfy",
+  "telegram",
+  "feishu",
+  "discord",
+  "slack",
+  "matrix",
+  "push-notifications"
+ ]
+}

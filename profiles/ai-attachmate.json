@@ -1,0 +1,56 @@
+{
+ "also": [
+  "attachments",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe PDFs and images to Markdown via Google Gemini",
+  "Transcribe Canvas files locally without an API key",
+  "Filter which files are transcribed with glob patterns",
+  "Customize the Gemini prompt and output template for transcripts",
+  "Place transcripts in a configurable folder and clean up orphans when attachments are deleted"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an attachment manager; it generates Markdown transcripts of PDF, image, and Canvas attachments using AI.",
+ "extras": "Only Google Gemini is supported as the AI provider. The Gemini free tier has a daily request cap, so a large vault may take days to fully process on first run. Includes a companion agent skill for transcribing files with the plugin's settings. The plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian stores PDFs, images, and Canvas files as binary attachments whose contents cannot be searched or read as notes.",
+ "readmeHash": "5661f477e51cc652a01cae3e06491f1e55dd3a3d",
+ "relations": [
+  {
+   "evidence": "PDFs and images are processed by Google Gemini.",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI-powered transcriber that converts PDFs, images, and Canvas files in a vault into searchable Markdown notes using Google Gemini.",
+ "tags": [
+  "gemini",
+  "transcription",
+  "glob-patterns",
+  "output-templates",
+  "agent-skill"
+ ]
+}

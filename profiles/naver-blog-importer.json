@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "naver-blog-readers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import all posts from a Naver blog by blog ID",
+  "Import individual blog or cafe articles by URL",
+  "Subscribe to blogs with auto-sync",
+  "Download images locally and convert YouTube links to native embeds",
+  "Generate tags and excerpts via OpenAI, Anthropic, Google, or Ollama"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an 'unreviewed by Obsidian staff' notice; private cafe access requires manually extracting Naver session cookies from the browser, and AI features are optional.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to pull posts from Naver Blog or Naver Cafe into a vault as Markdown files.",
+ "readmeHash": "822ceddf96237c1bdc99cd2acef2d15b077c43a5",
+ "relations": [
+  {
+   "evidence": "Inspired by betarixm/naver-blog.md and Jeongseup/naver-blog-backer.",
+   "plugin": "betarixm/naver-blog.md",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Inspired by betarixm/naver-blog.md and Jeongseup/naver-blog-backer.",
+   "plugin": "Jeongseup/naver-blog-backer",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Auto-generate tags and excerpts using OpenAI, Anthropic, Google, or Ollama",
+   "plugin": "OpenAI / Anthropic / Google / Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Naver login cookies (NID_AUT / NID_SES) for private cafes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Imports Naver Blog and Cafe posts into the vault as Markdown, with optional AI-generated tags and excerpts.",
+ "tags": [
+  "naver",
+  "openai",
+  "anthropic",
+  "ollama",
+  "youtube",
+  "korean"
+ ]
+}

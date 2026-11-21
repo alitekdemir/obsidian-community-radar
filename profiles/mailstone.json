@@ -1,0 +1,72 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Convert mail folders to notes",
+  ": Sync email messages to vault",
+  ": Send emails via SMTP",
+  ": Manage mail notes via commands",
+  ": Import local .eml files"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": files",
+   ": tasks",
+   ": links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It is a note conversion tool, not a standard email client.",
+ "extras": "Requires desktop operation for full functionality; mobile only reads notes already synced by desktop.",
+ "intent": "new",
+ "intentEvidence": "Mailstone turns a mail folder on your server into notes in your vault",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "It addresses the difficulty of integrating email correspondence directly into a structured note-taking system without losing the original message data.",
+ "readmeHash": "8d4c80ddead9a8fa602088bd2440d1c53b313a92",
+ "relations": [
+  {
+   "evidence": "delivers iMIP calendar invitations on behalf of the sister plugin calendar-notes.",
+   "plugin": "calendar-notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "once TaskNotes is installed — Create task.",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "IMAP/SMTP account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.13.0 or newer",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "app password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Mailstone converts specific server-side email folders into Markdown notes within the vault, keeping original email files intact.",
+ "tags": [
+  "imap",
+  "smtp",
+  "email",
+  "eml",
+  "calendar-notes"
+ ]
+}

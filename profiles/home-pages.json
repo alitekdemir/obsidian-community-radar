@@ -1,0 +1,79 @@
+{
+ "also": [
+  "workspaces",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Arrange draggable, resizable widgets on a 12-column grid across multiple homepage tabs",
+  "Track habits, pomodoro sessions, countdowns, and anniversaries from dashboard cards",
+  "Turn markdown tasks into a drag-and-drop kanban board",
+  "Show vault statistics, recent notes, on-this-day notes, and embedded note sections",
+  "Write custom widgets as hot-reloaded JavaScript files in a vault folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Support community is a QQ group communicating mainly in Simplified Chinese. Several widgets (Duowei Table tasks, WeChat inbox, annotations) only work with companion plugins or synced data from outside apps.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian has no built-in start page or dashboard, so users must open individual notes or views to see recent files, tasks, and vault statistics.",
+ "readmeHash": "31f66933342bbd67e18162935d8747a42a6b9f5f",
+ "relations": [
+  {
+   "evidence": "Duowei Table (duowei-table-pro ≥ 1.4.0) registers duowei-view via the Host API.",
+   "plugin": "duowei-table-pro",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connects to Mobile Ink Annotation Pro to show inbox annotations, daily reviews, and collections.",
+   "plugin": "Mobile Ink Annotation Pro",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open-Meteo and QWeather only connect when explicitly selected and configured.",
+   "plugin": "Open-Meteo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "duowei-table-pro",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Mobile Ink Annotation Pro",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Open-Meteo / QWeather / CMA Station (weather)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Dashboard plugin that turns a homepage into a configurable grid of widgets: greeting banner, recent notes, pomodoro, habits, task kanban, and vault stats.",
+ "tags": [
+  "dashboard",
+  "widgets",
+  "pomodoro",
+  "habit-tracker",
+  "kanban",
+  "rss",
+  "weather",
+  "wechat"
+ ]
+}

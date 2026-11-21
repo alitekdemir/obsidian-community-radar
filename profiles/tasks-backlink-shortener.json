@@ -1,0 +1,52 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Shorten Tasks backlinks to the note basename",
+  "Choose among four display modes (filename, heading, both, custom)",
+  "Replace all backlink text with a fixed custom string"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Only shortens backlinks rendered by the Tasks plugin; it does not affect Obsidian's own Backlinks view or other links.",
+ "extras": "Relies on Tasks' internal backlink markup (.tasks-backlink a.internal-link), so a future Tasks update could break it; verified working against Tasks 8.2.2. Filenames containing ' > ' can be shortened incorrectly.",
+ "intent": "improve",
+ "intentEvidence": "This plugin only shortens backlinks that Tasks itself renders (e.g. in a tasks query block)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to scratch a personal itch with Claude Code, doing exactly one small thing, and released it in case others wanted the same fix.",
+ "primary": "tasks",
+ "problem": "The Tasks plugin shows long backlinks under each task with full file path, heading, and .md extension, which clutters task query results.",
+ "readmeHash": "756e80f1028cf6eb71696b0eec9e2bfb5c651eb4",
+ "relations": [
+  {
+   "evidence": "The Tasks plugin, installed and enabled.",
+   "plugin": "Tasks",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Display tweak that shortens the backlinks the Tasks plugin renders under each task, from full path and heading to a compact format.",
+ "tags": [
+  "tasks-plugin",
+  "display-modes",
+  "custom-text",
+  "query-blocks"
+ ]
+}

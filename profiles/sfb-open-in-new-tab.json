@@ -1,0 +1,55 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Force files to open in new tabs from any opening method",
+  "Focus an existing tab instead of opening a duplicate",
+  "Open new tabs in the background so focus stays on the current note",
+  "Keep same-file heading and block navigation in the current tab",
+  "Create a synced split view with an edit pane and a reading view pane"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README explains that it monkey-patches Workspace.getLeaf() and openLinkText(), and exposes a window.openInNewTabAPI for other plugins.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "By default Obsidian reuses the current tab when opening files from the Quick Switcher, search, backlinks, or links, so navigation replaces the note you were reading.",
+ "readmeHash": "675d5af88d4ff3ad63a69583bde9721b2262c91b",
+ "relations": [
+  {
+   "evidence": "Note Toolbar helpers button (if obsidian-note-toolbar is installed)",
+   "plugin": "obsidian-note-toolbar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian-note-toolbar",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Tab-behavior plugin that forces files to open in new tabs instead of replacing the current tab, across all of Obsidian's opening methods.",
+ "tags": [
+  "tabs",
+  "monkey-patching",
+  "reading-view",
+  "split-panes",
+  "background-tabs"
+ ]
+}

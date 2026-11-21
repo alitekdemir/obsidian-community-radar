@@ -1,0 +1,89 @@
+{
+ "also": [
+  "integrations",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate daily news briefing notes with source-backed citations",
+  "Schedule automatic daily generation at a set time",
+  "Choose among 11 AI provider pipelines or RSS retrieval",
+  "Apply briefing presets and custom topic lists",
+  "Organize generated notes into monthly subfolders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documentation lives partly on an external site; README warns that agentic connection tests may incur API/search charges and that the legacy Google Custom Search integration closes to new customers on January 1, 2027, with existing setups preserved.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to pull current news into the vault, so users must gather, filter, and summarize sources manually or outside the app.",
+ "readmeHash": "6ac39e9424234833f8d1fa1ba3f6841116941982",
+ "relations": [
+  {
+   "evidence": "11 AI Pipelines + RSS: Google, Anthropic, OpenAI, Grok, Perplexity, OpenRouter, RSS Retriever",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "11 AI Pipelines + RSS: Google, Anthropic, OpenAI, Grok, Perplexity, OpenRouter, RSS Retriever",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Free summaries: RSS + Gemini, with the Model field blank, defaults to gemini-3.8-flash.",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Perplexity: perplexity.ai",
+   "plugin": "Perplexity",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter: openrouter.ai",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Grok (xAI): x.ai",
+   "plugin": "xAI Grok",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (or free RSS + Gemini route)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid provider tier (e.g. Perplexity, OpenAI) for non-Gemini or search-grounded models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI-powered news plugin that generates scheduled daily briefing notes in your vault from LLM search providers and RSS feeds.",
+ "tags": [
+  "news-briefings",
+  "openai",
+  "anthropic",
+  "gemini",
+  "perplexity",
+  "openrouter",
+  "rss",
+  "citations"
+ ]
+}

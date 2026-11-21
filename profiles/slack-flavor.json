@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render slack code blocks as Slack mrkdwn, including threads, replies and reactions",
+  "Display custom emoji from registered Slack workspaces in preview and live editing",
+  "Copy a note or selection as Slack text in slack/texty, HTML and plain mrkdwn formats",
+  "Import a Slack thread from a message link as a slack block or Markdown callout",
+  "Refresh an imported thread block to pick up new replies and reactions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4 or later; the Slack token is kept in Obsidian's secret storage and emoji images are cached in the plugin folder with a default 50 MB limit. Formatted clipboard copy may fall back to plain mrkdwn on some platforms such as mobile. README documents its network use and states there is no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian has no way to preview Slack mrkdwn with a workspace's custom emoji or to convert notes into formatting that pastes correctly into Slack.",
+ "readmeHash": "669d4403bff13a23ed29d48fbd7a77fb76bafaa0",
+ "relations": [
+  {
+   "evidence": "Register one or more Slack workspaces; :party_parrot: shows that workspace's image in code blocks",
+   "plugin": "Slack",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The format is Slack's internal one, found via slackfmt",
+   "plugin": "slackfmt",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Slack workspace user OAuth token (xoxp-)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Slack mrkdwn previewer that renders slack code blocks with workspace custom emoji, copies notes as Slack-formatted text, and imports Slack threads.",
+ "tags": [
+  "slack-mrkdwn",
+  "custom-emoji",
+  "thread-import",
+  "clipboard",
+  "slack-texty",
+  "callout",
+  "japanese"
+ ]
+}

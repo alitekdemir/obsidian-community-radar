@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync IMA personal notes into the vault as Markdown",
+  "Download and localize inline images and file attachments",
+  "Convert knowledge-base webpages and WeChat articles to Markdown",
+  "Run incremental syncs automatically on a configurable interval",
+  "Handle IMA-side deletions with delete, keep, or mark modes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way sync: content only flows from IMA to Obsidian, and each sync overwrites local files with IMA server content.",
+ "extras": "Full WeChat article extraction requires the desktop app with 'download enhancement' enabled (headless browser); mobile falls back to text-only meta tag extraction. Subscribed/public knowledge bases are limited to ~300-character note previews and AI summaries of files. The manifest notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to import notes and knowledge-base items stored in Tencent IMA, including WeChat articles, webpages, and file attachments.",
+ "readmeHash": "5c6aa0867d8de9f9b47be5a6de642dbd8049c69d",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin to sync notes from Tencent IMA personal notebook and knowledge base into your Obsidian vault.",
+   "plugin": "Tencent IMA",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Tencent IMA account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "IMA OpenAPI Client ID and API Key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that pulls Tencent IMA personal notes and knowledge-base content into an Obsidian vault as Markdown.",
+ "tags": [
+  "tencent-ima",
+  "wechat-articles",
+  "one-way-sync",
+  "incremental-sync",
+  "openapi",
+  "headless-browser"
+ ]
+}

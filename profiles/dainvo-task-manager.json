@@ -1,0 +1,78 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Obsidian checkbox tasks with a Dainvo account and Dainvo mobile",
+  "Complete, reopen, create and delete tasks from Dainvo with queued write-back to Markdown",
+  "Preserve task hierarchy, priorities, tags and due dates in snapshots",
+  "Pair with Dainvo desktop for planning, Daily Notes, project notes and item notes",
+  "Add stable task markers (^d- IDs) so tasks stay identifiable when moved"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README includes detailed privacy and network disclosures (task metadata only, no note bodies, WebSocket notification channel), and warns that a stable marker such as ^d-A7k2Pq is inserted into task lines. Cloud relay and Dainvo accounts are third-party services; Obsidian has not manually reviewed the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Checkbox tasks written in Obsidian Markdown are hard to see and complete from a phone, and there is no built-in way to keep them in sync with a companion planner app.",
+ "readmeHash": "4edfc2067a6703f4d4aee69557a1d2f7c1cb5916",
+ "relations": [
+  {
+   "evidence": "Syncs normal Obsidian checkbox tasks with Dainvo.",
+   "plugin": "Dainvo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Completing a recurring (🔁) task uses the Tasks plugin 7.2.0 or later when it is installed",
+   "plugin": "Tasks plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Dainvo account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Dainvo mobile app",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Dainvo desktop app",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks plugin (7.2.0+)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Task sync plugin that relays Obsidian checkbox tasks to a Dainvo account, viewable and editable in Dainvo mobile, with optional pairing to Dainvo desktop.",
+ "tags": [
+  "dainvo",
+  "checkbox-tasks",
+  "task-markers",
+  "recurring-tasks",
+  "supabase",
+  "websockets"
+ ]
+}

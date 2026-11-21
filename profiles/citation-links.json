@@ -1,0 +1,68 @@
+{
+ "also": [
+  "links",
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render wikilink citekeys as APA 7 in-text citations",
+  "Group adjacent citations into one parenthetical citation",
+  "List cited works in a sidebar APA 7 reference list",
+  "Autocomplete citekeys while typing @ links",
+  "Open or create literature notes from citations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.13.0+), not available on mobile. The README's disclaimer states the code was written by Claude Code from the owner's specification. Reads files outside the vault and makes local-only network calls to Zotero's JSON-RPC endpoint; no telemetry. Known limits: no rendering inside tables/callouts in Live Preview, no frontmatter support, no Pandoc [@key] syntax, APA 7 English (US) only, no citation export.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian shows citation wikilinks as raw @citekey links instead of formatted in-text citations, breaking academic writing flow.",
+ "readmeHash": "aa32ebafa5f4d5365fc709d9b29f281e4c856d02",
+ "relations": [
+  {
+   "evidence": "reads its bibliography from CSL JSON files that Zotero and Better BibTeX write to a folder on disk",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "closely inspired by Pandoc Reference List by mgmeyers; no code was copied from it",
+   "plugin": "Pandoc Reference List by mgmeyers",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero with the Better BibTeX add-on (needed to export the CSL JSON bibliography; running Zotero is only needed for the reference list's Zotero button)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders wikilinks to Better BibTeX citekeys as formatted APA 7 in-text citations in Live Preview and Reading mode, while keeping them clickable vault links.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "citekey",
+  "csl-json",
+  "apa",
+  "citeproc-js",
+  "citations"
+ ]
+}

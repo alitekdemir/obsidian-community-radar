@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a local CodeBuddy CLI or Hermes agent from a sidebar or editor tab",
+  "Reference notes, files, MCP servers and subagents via @ mentions",
+  "Approve or reject Write/Edit/Bash/MCP tool calls through in-bubble approval cards",
+  "Show line-level diffs of agent edits and undo vault changes with one click",
+  "Manage MCP servers, subagents, sessions and installed skills from the UI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Windows/macOS, no Linux), requires Obsidian 1.7.2+. README documents extensive limits and open issues, e.g. the WorkBuddy native path buffers output (~50s, ~640 KiB per request) rather than streaming token-by-token, Windows support is unverified, and Issue #10 stays open; install also possible via BRAT or manual release files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to drive a local AI agent CLI, so users must switch to a terminal or external app to chat with, or let an agent edit, their notes.",
+ "readmeHash": "71614e031e98465ffcf1e484a950d0d6aeb9cf61",
+ "relations": [
+  {
+   "evidence": "早期版本的部分基础设施代码曾参考/使用其实现；当前版本已独立重构",
+   "plugin": "BuddyBridge",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Workbuddian 的 UI 参考其设计模式(仅设计模式,无代码拷贝)",
+   "plugin": "Claudian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "CodeBuddy / WorkBuddy — 本插件的后端 CLI,本地编程 agent",
+   "plugin": "CodeBuddy / WorkBuddy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CodeBuddy CLI, WorkBuddy desktop (>= 5.0.5), or Hermes gateway",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "CodeBuddy/WorkBuddy login (Hermes uses an auto-discovered API key)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI agent chat that runs a local CodeBuddy CLI or Hermes agent inside Obsidian, with streaming replies, tool approval cards, diffs and @-references.",
+ "tags": [
+  "codebuddy",
+  "workbuddy",
+  "hermes",
+  "mcp",
+  "agent",
+  "acp",
+  "approval-cards",
+  "skills"
+ ]
+}

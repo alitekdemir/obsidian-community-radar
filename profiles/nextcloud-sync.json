@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault bidirectionally with a Nextcloud server",
+  "Merge text conflicts with diff3 and per-file-type strategies",
+  "Restore past revisions from Nextcloud version history",
+  "Authenticate via Nextcloud Login Flow v2",
+  "Sync selected community plugins across devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Settings are being streamlined with options removed in favour of automatic behaviour. Warns against double-managing the vault with another cloud sync such as iCloud Drive, and marks community-plugin sync as dangerous since it copies executable code. Requires Obsidian 1.13.0+; a Japanese README is available.",
+ "intent": "alternative",
+ "intentEvidence": "Most \"WebDAV sync\" plugins treat the server as a dumb file store: they compare modification times",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because most WebDAV sync plugins treat the server as a dumb file store, comparing modification times and hoping for the best, while Nextcloud's APIs allow safe, fast syncing.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync with a self-hosted Nextcloud server, and generic WebDAV sync plugins risk lost updates and irreversible deletes because they rely on modification times.",
+ "readmeHash": "d871b0d1f4ee6c25fa9aabecb0eebdff3ab202c0",
+ "relations": [
+  {
+   "evidence": "Bidirectional sync between your Obsidian Vault and Nextcloud — built specifically for Nextcloud, not just generic WebDAV.",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Most \"WebDAV sync\" plugins treat the server as a dumb file store: they compare modification times",
+   "plugin": "WebDAV sync plugins",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Nextcloud account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Nextcloud server (Hub 26+ recommended)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bidirectional vault sync with Nextcloud using hash-based change detection, file-ID rename tracking, diff3 conflict merging, and a plain-WebDAV fallback.",
+ "tags": [
+  "nextcloud",
+  "webdav",
+  "self-hosted",
+  "diff3",
+  "conflict-resolution",
+  "chunked-upload",
+  "login-flow-v2"
+ ]
+}

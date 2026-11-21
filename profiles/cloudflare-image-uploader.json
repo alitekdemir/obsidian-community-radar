@@ -1,0 +1,68 @@
+{
+ "also": [
+  "attachments",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Download web images in notes to a Cloudflare R2 bucket and rewrite links",
+  "Upload pasted, dropped, and existing vault images to R2",
+  "Restore original web links from stored original addresses",
+  "Convert images to WebP and deduplicate by content hash",
+  "Retry failed uploads and run bulk jobs per note or whole vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest carries the note 'This plugin has not been manually reviewed by Obsidian staff.' Docs cover security caveats: keys stored per device, unencrypted in data.json if synced with the vault, and uploaded images are publicly viewable by link. A Chinese-language README is also referenced.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the gap directly: 'If the author deletes the post, the images in your note are gone.'",
+ "primary": "integrations",
+ "problem": "Images in clipped web articles remain on the original site and disappear if the author deletes the post or the site blocks hotlinking.",
+ "readmeHash": "831c121652206bc7ee089669ba917049b89196b8",
+ "relations": [
+  {
+   "evidence": "keeps them in your own Cloudflare R2 (Cloudflare's cloud storage: free up to 10 GB",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "R2 Account API token (two keys)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare R2 bucket with custom domain",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Image uploader that stores web-clipped and pasted images in your own Cloudflare R2 bucket and rewrites note links to your copies.",
+ "tags": [
+  "cloudflare-r2",
+  "image-hosting",
+  "web-clipper",
+  "webp",
+  "link-rewriting",
+  "paste-images",
+  "object-storage"
+ ]
+}

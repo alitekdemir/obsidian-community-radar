@@ -1,0 +1,82 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Launch detected local agent CLIs from note menus, ribbon icon, or command palette",
+  "Fill prompt templates for optimizing content, fixing layout, correcting typos, or summarizing",
+  "Send the note's absolute path and instructions as the agent's initial terminal message",
+  "Detect installed CLIs and configure executable paths and extra arguments per agent",
+  "Add custom agents that accept a prompt argument"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI agent or chat plugin itself; it only launches externally installed agent CLIs and never edits note content directly.",
+ "extras": "Not yet listed in the Obsidian community plugin directory; manual install from GitHub Releases. Desktop only (minimum Obsidian 1.5.0). README is in Chinese. Writes a short-lived prompt script to the system temp directory that self-deletes; may leave the file on abnormal exit. No telemetry, ads, or API keys in the plugin itself; MIT licensed. macOS/Linux launch paths still await real-platform validation per the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to hand the note you are editing to a local AI agent CLI as an initial prompt in its own terminal.",
+ "readmeHash": "46313c3429e89cc87e856f8ea2ad71a6ebc46307",
+ "relations": [
+  {
+   "evidence": "直接调用本机 Claude Code、Codex、Gemini CLI 或 OpenCode",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "直接调用本机 Claude Code、Codex、Gemini CLI 或 OpenCode",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "直接调用本机 Claude Code、Codex、Gemini CLI 或 OpenCode",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "直接调用本机 Claude Code、Codex、Gemini CLI 或 OpenCode",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex, Gemini CLI, OpenCode, or a custom CLI agent",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Account or login with the chosen agent service",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key, depending on the chosen agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Launcher that opens locally installed AI agent CLIs (Claude Code, Codex, Gemini CLI, OpenCode) in a terminal with the current note as context.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "gemini-cli",
+  "opencode",
+  "terminal",
+  "cli",
+  "prompt-templates"
+ ]
+}

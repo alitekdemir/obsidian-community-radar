@@ -1,0 +1,58 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search the vault with fused keyword and semantic results",
+  "run deep search with LLM query expansion",
+  "show a related-notes panel that follows the active note",
+  "refresh and manage the qmd index on a schedule",
+  "exclude folders from the index and purge removed notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Windows untested); requires creating an index with 'qmd init' and 'qmd collection add .' before the plugin works. Embedding and query models are downloaded by qmd on first use. The manifest notes the plugin has not been manually reviewed by Obsidian staff; beta versions install via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search is keyword-only and cannot surface notes that are semantically similar to the current note or to a loose query.",
+ "readmeHash": "df3b9c60b1be97688851dfbfff69075d9524fa4b",
+ "relations": [
+  {
+   "evidence": "The plugin runs qmd inside the vault folder, so qmd uses <vault>/.qmd/index.sqlite",
+   "plugin": "qmd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "qmd",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault search plugin that runs a local qmd index for hybrid keyword and semantic search, on-demand deep search, and a related-notes panel.",
+ "tags": [
+  "qmd",
+  "semantic-search",
+  "hybrid-search",
+  "embeddings",
+  "vector-search",
+  "local-llm"
+ ]
+}

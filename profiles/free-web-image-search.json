@@ -1,0 +1,63 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search public image APIs such as Wikimedia Commons, Openverse, museums, NASA, PubChem, and RCSB PDB",
+  "Insert remote image URLs as Markdown with optional alt text, captions, and attribution",
+  "Filter results by provider-supplied rights and license metadata, including an open-license-only mode",
+  "Build IIIF image URLs with resizing, regions, rotation, and format options",
+  "Scan notes, folders, or the vault for remote image links and report their HTTP status and MIME type"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "\"Free\" means no user key or cost, not copyright-free images; results carry provider-supplied rights metadata that must still be checked.",
+ "extras": "Not manually reviewed by Obsidian staff. Images are never downloaded; inserted links stay remote, so hotlinking blocks or removed assets can break them, and the README says the Library of Congress provider may be unavailable in some network environments.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian has no built-in way to search the open web for educational or reference images and insert them as remote URLs without downloading files into the vault.",
+ "readmeHash": "22f8e2144d37ba050c184f396073ed1eae26ddfd",
+ "relations": [
+  {
+   "evidence": "Wikimedia Commons | Public, no user key | Original file URL and thumbnail",
+   "plugin": "Wikimedia Commons",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Openverse | Public, no user key | Returned image URL and thumbnail",
+   "plugin": "Openverse",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Internet Archive | Public Advanced Search | Archive image-service URL for image items",
+   "plugin": "Internet Archive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Web image search that queries public APIs (Wikimedia, Openverse, museums, NASA) and inserts remote image URLs with rights metadata into notes.",
+ "tags": [
+  "wikimedia-commons",
+  "openverse",
+  "iiif",
+  "internet-archive",
+  "public-domain",
+  "remote-images",
+  "pubchem"
+ ]
+}

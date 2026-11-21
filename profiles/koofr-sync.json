@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally with a chosen Koofr mount and folder",
+  "Resolve sync conflicts via last-write-wins, duplicates, or a manual diff review pane",
+  "Exclude files from sync with glob patterns saved to a .syncIgnore file",
+  "Sync Obsidian settings, plugins, and CSS snippets across devices",
+  "Run commands for manual, full, or destructive cloud-recovery syncs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not affiliated with Koofr; uses Koofr's REST API v2 with an app-specific password. Large vaults produce larger listing payloads per sync since Koofr has no incremental-change endpoint, and very large file uploads are not resumable. Beta versions installable via BRAT; English strings only.",
+ "intent": "alternative",
+ "intentEvidence": "Why this over Koofr's native client or a WebDAV mount?",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault with Koofr storage, and using Koofr's native client or a WebDAV mount means filesystem polling and no conflict handling.",
+ "readmeHash": "041babaedabe1b3b450c7a322aa248fd91adee0b",
+ "relations": [
+  {
+   "evidence": "Its architecture (sync engine, conflict resolution, settings UI) is adapted from obsidian-onedrive",
+   "plugin": "obsidian-onedrive",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Sync your Obsidian vault with Koofr cloud storage. Event-driven, bidirectional, mobile-friendly.",
+   "plugin": "Koofr",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Koofr account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync with Koofr cloud storage, triggered by file-change events, with configurable conflict resolution and optional settings sync.",
+ "tags": [
+  "koofr",
+  "webdav",
+  "two-way-sync",
+  "conflict-resolution",
+  "app-password",
+  "syncignore"
+ ]
+}

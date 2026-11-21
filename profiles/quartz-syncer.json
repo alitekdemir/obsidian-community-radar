@@ -1,0 +1,102 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish marked notes and media to a Quartz repository over Git",
+  "Precompile changes on vault updates so publishing is instant",
+  "Preview compiled diffs before publishing in split or unified view",
+  "Manage a Quartz v5 site's configuration, plugins, and upgrades",
+  "Automate publishing and site tasks with 22 CLI commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-sync tool; the name refers to syncing notes one-way from the vault to a Quartz website repository, never back into the vault.",
+ "extras": "Setup, usage, and troubleshooting guides live in an external documentation site rather than the README. Quartz v4 repositories get publishing only; site management, custom task characters, and URL casing behavior are v5-only. Writes are one-way from vault to repository, and access tokens are encrypted with electron.safeStorage on desktop.",
+ "intent": "alternative",
+ "intentEvidence": "Obsidian Publish, for inspiring me to create a similar solution for Quartz.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author credits Obsidian Publish for inspiring 'a similar solution for Quartz' and built most of the plugin on top of Obsidian Digital Garden.",
+ "primary": "publishing",
+ "problem": "Obsidian Publish only serves notes on Obsidian's own hosting, so Quartz site owners need a way to select, compile, and push vault notes to their own Quartz repository.",
+ "readmeHash": "1f1b4a6f589e529cf34498bb129610d551579e22",
+ "relations": [
+  {
+   "evidence": "managing and publishing notes to Quartz, the fast, batteries-included static-site generator",
+   "plugin": "Quartz",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Digital Garden, on top of which most of this plugin was initially built.",
+   "plugin": "Obsidian Digital Garden",
+   "type": "extends"
+  },
+  {
+   "evidence": "Obsidian Publish, for inspiring me to create a similar solution for Quartz.",
+   "plugin": "Obsidian Publish",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Isomorphic-git, for enabling Git operations directly in JavaScript.",
+   "plugin": "Isomorphic-git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview, for their great API integration, allowing me to properly integrate it in Quartz.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Datacore, for their wonderful integration despite its infancy, allowing easy integration into Quartz.",
+   "plugin": "Datacore",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fantasy Statblocks, for their extensible functionality and easy-to-integrate API.",
+   "plugin": "Fantasy Statblocks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Linter, for inspiring the tabbed settings UI.",
+   "plugin": "Obsidian Linter",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Git provider account (GitHub, GitLab, Bitbucket, etc.)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Quartz v5 site repository (v4 supported for publishing only)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian42 Brat (alternative install method)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Publishing manager that sends marked vault notes to a Quartz static-site repository over Git, with diff preview, site management, and CLI automation.",
+ "tags": [
+  "quartz",
+  "static-site-generator",
+  "github",
+  "digital-garden",
+  "cli"
+ ]
+}

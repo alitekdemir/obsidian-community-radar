@@ -1,0 +1,55 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build graph filters as structured include/exclude lines",
+  "Autocomplete tag, path, and file values per clause",
+  "Toggle include/exclude per line",
+  "Write the generated filter string into the native graph filter input"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because it queries the graph view's internal DOM; uses non-public APIs, so an Obsidian update could break it. Not reverse-parseable: the panel always starts empty rather than reading back a manually typed filter.",
+ "intent": "improve",
+ "intentEvidence": "It does not replace the native filter — it generates the filter string and writes it into the existing input.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why' section states the native filter's single text input makes long expressions hard to read and edit and its syntax is friction.",
+ "primary": "graph",
+ "problem": "The native graph filter is a single text input whose syntax (path:, tag:, -tag:) is hard to remember and long expressions are hard to read and edit.",
+ "readmeHash": "468f6472c7a188b33b11560e5e2c58c99845524d",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Structured filter panel for Obsidian's graph view that builds include/exclude filter lines with type selection and autocomplete.",
+ "tags": [
+  "filter-builder",
+  "graph-controls",
+  "bookmark-filters",
+  "desktop-only"
+ ]
+}

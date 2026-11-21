@@ -1,0 +1,75 @@
+{
+ "also": [
+  "syncing",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Commit, pull and push changes on a schedule",
+  "Stage, unstage, diff and commit files from a source control view",
+  "Browse commit history and changed files",
+  "Resolve merge conflicts with highlighted versions in the editor",
+  "Initialize, clone, branch and manage remotes for repositories"
+ ],
+ "coreOverlap": {
+  "features": [
+   "syncing"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Mobile support is explicitly experimental and very unstable, using isomorphic-git with limits such as no SSH, no submodules and possible crashes on clone or pull; the README points to external full documentation for setup, authentication and troubleshooting, and notes that desktop needs shell and filesystem access to run the installed Git binary.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian has no built-in way to track note history, resolve merge conflicts, or back up and sync a vault through a Git repository.",
+ "readmeHash": "7aa8188a4cb22f20f4fb6c118ba383612987989a",
+ "relations": [
+  {
+   "evidence": "The Git plugin works on mobile thanks to isomorphic-git, a JavaScript-based re-implementation of Git",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "consider pairing this plugin with the Version History Diff plugin",
+   "plugin": "Version History Diff",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One such alternative is GitSync, which is available on both Android and iOS",
+   "plugin": "GitSync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git installation (desktop)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Git remote service for authentication, push and pull",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git integration that commits, pulls and pushes a vault on a schedule and adds source control, history, diff and conflict-resolution views inside Obsidian.",
+ "tags": [
+  "isomorphic-git",
+  "github",
+  "source-control",
+  "commits",
+  "branches",
+  "conflict-resolution",
+  "diffs"
+ ]
+}

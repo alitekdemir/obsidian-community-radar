@@ -1,0 +1,77 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with multiple local CLI agents and switch between them and models",
+  "Attach vault files and convert PDF, Word, and Excel documents to Markdown",
+  "Inspect streaming responses, reasoning blocks, and tool input/output payloads",
+  "Manage multiple chat sessions with context bars and token/cost statistics",
+  "Trigger agents and prompt templates through slash commands and file mentions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Detailed privacy section: chat history stored in plain text in data.json and may be synced with the vault; hosted OCR via Firecrawl Parse is off by default; auto-approve lets agents run shell commands and edit files without confirmation and is disabled by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run AI CLI agents against notes, so users must switch to a terminal to work with agents on their vault.",
+ "readmeHash": "3fff24d4a396c797fa00161426d419e5ed88b285",
+ "relations": [
+  {
+   "evidence": "connects local AI CLI agents (Antigravity, OpenCode, Hermes Agent, and Pi) directly to your vault",
+   "plugin": "Antigravity, OpenCode, Hermes Agent, Pi Coding Agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional automatic conversion of PDF, Word, and Excel attachments to Markdown via anydoc",
+   "plugin": "anydoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "scanned documents are uploaded to the external Firecrawl Parse service",
+   "plugin": "Firecrawl Parse",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "at least one supported agent CLI (agy, opencode, hermes, or pi) on PATH, plus sqlite3",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Google AI Pro subscription for Antigravity",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "anydoc for PDF/Office document conversion",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Desktop plugin that connects local AI CLI agents to the vault for chatting, analyzing notes, attaching files, and inspecting tool calls.",
+ "tags": [
+  "cli-agents",
+  "antigravity",
+  "opencode",
+  "hermes",
+  "anydoc",
+  "token-usage",
+  "chat-panes"
+ ]
+}

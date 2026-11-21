@@ -1,0 +1,68 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import journal entries from Rosebud exports, folders of notes, or Obsidian daily notes / Journals",
+  "Discover candidate values from your writing and confirm or edit their definitions",
+  "Run isolated per-value LLM agents over the same journal corpus",
+  "Compile tension bulletins via a three-pass pipeline and write them as vault markdown",
+  "Schedule recurring bulletin runs and edit agent prompt files in the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Local-first by default: the default backend is Ollama on localhost and the README states the plugin does not phone home or bundle remote code. The listing notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because daily-journal LLMs 'tend to validate' and are 'terrible at' telling users where their stated goals and commitments conflict; Synod is 'a small bet that the more useful pattern is the opposite'.",
+ "primary": "ai",
+ "problem": "Journaling LLM tools tend to validate the user and rarely point out contradictions between what they say they value and what they actually do.",
+ "readmeHash": "82f772432d3b04f9557e82db1416ede24b57a525",
+ "relations": [
+  {
+   "evidence": "rosebud | Rosebud .md or .zip export | You're migrating off Rosebud.",
+   "plugin": "Rosebud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "pull from a Rosebud export, a folder of free-form notes, or your daily-notes / Journals plugin",
+   "plugin": "Journals plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama (default backend) or another OpenAI-compatible endpoint",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for OpenRouter or hosted endpoint, if not using local Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "LLM value-agent council that reads your journal and writes markdown bulletins surfacing unresolved tensions between your stated values.",
+ "tags": [
+  "ollama",
+  "openrouter",
+  "llama-swap",
+  "llm-agents",
+  "journaling",
+  "rosebud",
+  "values",
+  "schwartz-values"
+ ]
+}

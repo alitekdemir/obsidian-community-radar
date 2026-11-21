@@ -1,0 +1,72 @@
+{
+ "also": [
+  "import",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse components, xdbjs, and forms Feishu bitable libraries in a tabbed card view",
+  "Download attachment files from bitable records into configured vault folders",
+  "Resolve wiki links and fetch tenant_access_tokens using Feishu app credentials",
+  "Handle duplicate files with skip, rename, or overwrite choices",
+  "Sync download paths from the components and form-flow plugins"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general file downloader; it only fetches attachments from the three built-in Feishu libraries (components, xdbjs, forms).",
+ "extras": "Desktop-only (isDesktopOnly = true), requires Obsidian 1.11.0 or later. Credentials are stored locally in plugin settings. Manual and BRAT installation only; no community plugin store listing mentioned.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to browse Feishu wiki bitable records or pull their attachment files into vault folders.",
+ "readmeHash": "4dd26523b45544c3e5eb4fd2b2e60151e18f83a6",
+ "relations": [
+  {
+   "evidence": "The sync button beside each path can copy values from other installed and enabled plugins",
+   "plugin": "components",
+   "type": "integrates"
+  },
+  {
+   "evidence": "components library ← components.folder",
+   "plugin": "form-flow",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu Open Platform custom app",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Feishu App ID and App Secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Feishu integration that browses wiki bitable libraries and downloads their attachment files into configured folders in the vault.",
+ "tags": [
+  "feishu",
+  "bitable",
+  "wiki",
+  "lightbox",
+  "tenant-access-token",
+  "duplicate-handling"
+ ]
+}

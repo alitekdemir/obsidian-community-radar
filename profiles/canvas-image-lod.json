@@ -1,0 +1,47 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build downscaled proxy copies of canvas images in multiple resolution tiers",
+  "Swap original images for size-matched proxies while zooming and restore originals when zoomed in",
+  "Cache proxies in IndexedDB with LRU eviction under a configurable memory budget",
+  "Restore original images on the current canvas or clear the proxy cache via commands",
+  "Prewarm proxies by reading the canvas JSON for off-screen nodes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; the author explains mobile is unsupported because WebKit canvas WebP encoding and WebView memory limits need separate work. Installation is manual file copying. Proxies (roughly 100 MB on a large vault) are stored in IndexedDB outside the vault so they are not synced; the cache self-invalidates when an image is edited.",
+ "intent": "improve",
+ "intentEvidence": "Removes zoom lag in Obsidian Canvas on boards with many large images.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "canvas",
+ "problem": "Obsidian Canvas re-rasterizes every image from full source resolution on each zoom step, so boards with many large images stutter while zooming.",
+ "readmeHash": "0b09eeaf3958a9a2f9e9eee9b9aaf0586976731c",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Performance plugin that swaps large Canvas images for downscaled proxies matched to zoom level, removing zoom lag on image-heavy boards.",
+ "tags": [
+  "performance",
+  "zoom",
+  "level-of-detail",
+  "image-proxy",
+  "webp",
+  "indexeddb",
+  "cache"
+ ]
+}

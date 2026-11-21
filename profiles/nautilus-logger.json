@@ -1,0 +1,73 @@
+{
+ "also": [
+  "tasks",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a spiral day-planner chart from a plan written below a nautilus code block in a note",
+  "Pin fixed events to clock times and flow flexible tasks into remaining time by line order",
+  "Show capacity figures including planned demand, available time, and tasks that won't fit today",
+  "Track actual work time with Org-style CLOCK entries and a planned-vs-actual review view",
+  "Complete tasks with a timestamp and view charts for past or future days"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a time-logging or journaling tool despite the name; its core job is a visual day planner, and the CLOCK-based execution layer is optional and off by default.",
+ "extras": "Not in the Obsidian community plugin store yet; installs via BRAT, manual download, or a shell one-liner. Contains no network code, but with the execution layer on it scans every Markdown file in the vault for CLOCK lines. Includes a Diagnose execution layer command for troubleshooting.",
+ "intent": "alternative",
+ "intentEvidence": "What this project adds is the Obsidian side: the same engine, fed from Markdown files instead of a Roam graph.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to bring the Roam Nautilus Log planning engine to Obsidian, reusing the upstream code unchanged and feeding it from Markdown files instead of a Roam graph.",
+ "primary": "calendar",
+ "problem": "Obsidian has no day planner that shows explicit time capacity, so an overcommitted day's overload stays invisible instead of being flagged as work that won't fit.",
+ "readmeHash": "5972d249c3e8e7794c926ad7f9060c2d8a5b206a",
+ "relations": [
+  {
+   "evidence": "The direct source of this port is 404KSG/roam-nautilus-log",
+   "plugin": "404KSG/roam-nautilus-log",
+   "type": "fork"
+  },
+  {
+   "evidence": "The Roam extension scaffolding the whole lineage descends from",
+   "plugin": "roam-depot-render-template by Matt Vogel",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The original spiral-planning concept",
+   "plugin": "Nautilus by Tomáš Baránek",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Fixed the timer memory leak, and added bilingual settings, Bézier connectors and CJK typography fixes",
+   "plugin": "Nautilus Enhanced by hopeserena",
+   "type": "inspired"
+  },
+  {
+   "evidence": "What upstream drew on for compatible CLOCK tracking",
+   "plugin": "Roam Logbook by forrestchang",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Spiral day planner that turns a Daily Note into a capacity-aware schedule where fixed events hold their times and flexible tasks fill the gaps.",
+ "tags": [
+  "time-blocking",
+  "time-capacity",
+  "clock-tracking",
+  "pomodoro",
+  "daily-note",
+  "spiral",
+  "org-mode",
+  "ynab"
+ ]
+}

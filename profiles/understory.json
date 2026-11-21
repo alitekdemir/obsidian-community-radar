@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate candidate relations between notes in a sidebar review queue",
+  "Accept, ignore, or insert suggested links with persistent decision states",
+  "Detect conflicts, stale suggestions, broken links, and orphan notes",
+  "Strengthen discovery using a maintained entity-relationship layer",
+  "Export an MCP server file so AI agents can query and update relations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Hosted service via Bondie with a Free membership and optional payments; desktop-only, targets Obsidian 1.8.7+; advanced local engine may require a Python runtime; further documentation lives in PRIVACY.md, SECURITY.md, and an Engineering README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian offers no automated way to discover candidate relationships between notes, track human review of those suggestions, or flag conflicts, stale links, and orphan notes as a vault grows.",
+ "readmeHash": "37e2289846ad8b2d1517759e06f41130947004be",
+ "relations": [
+  {
+   "evidence": "The default experience starts with Continue with Bondie. Sign in once, use the managed Understory service",
+   "plugin": "Bondie",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open Settings -> Understory -> AI agents when Claude, ChatGPT, Codex, or another assistant should query the current vault.",
+   "plugin": "Claude, ChatGPT, Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Bondie account for hosted mode",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "own API key for advanced bring-your-own-key mode",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP-capable assistant such as Claude or ChatGPT for agent access",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Relation-discovery and review system that proposes related notes, records your accept/ignore decisions, and surfaces vault maintenance risks.",
+ "tags": [
+  "bondie",
+  "mcp",
+  "llm",
+  "entity-relationship",
+  "semantic-matching",
+  "review-queue"
+ ]
+}

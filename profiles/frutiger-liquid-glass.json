@@ -1,0 +1,73 @@
+{
+ "also": [
+  "appearance"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render WebGL2 glass surfaces and a blue-sky landscape behind the workspace",
+  "Adjust refraction strength, edge thickness, color dispersion, and reflection brightness",
+  "Toggle the shader from the command palette or plugin settings",
+  "Switch wallpapers and styles through the Style Settings plugin",
+  "Fall back to the theme's CSS appearance when WebGL2 is unavailable"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires WebGL2; the effect is limited to the main workspace and pop-out windows keep the CSS appearance. The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README states the plugin makes no network requests and does not read or write notes.",
+ "intent": "improve",
+ "intentEvidence": "The WebGL shader is adapted from Liquid Glass Studio by Charles Yin (MIT).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "theming",
+ "problem": "Obsidian themes are CSS-only, so they cannot produce shader-based glass refraction or a rendered landscape backdrop behind the interface.",
+ "readmeHash": "5640bc70c39580dd863696d8e045c9e5facef9d7",
+ "relations": [
+  {
+   "evidence": "A desktop companion for the Frutiger Obsidian theme.",
+   "plugin": "Frutiger theme",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The WebGL shader is adapted from Liquid Glass Studio by Charles Yin (MIT).",
+   "plugin": "Liquid Glass Studio",
+   "type": "inspired"
+  },
+  {
+   "evidence": "With the Style Settings plugin installed, choose a Frutiger wallpaper or the DORFic style",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Frutiger theme",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "WebGL2 renderer that draws a Frutiger Aero glass landscape behind Obsidian's text and controls, as a companion to the Frutiger theme.",
+ "tags": [
+  "webgl2",
+  "shaders",
+  "frutiger-aero",
+  "glassmorphism",
+  "wallpapers",
+  "style-settings"
+ ]
+}

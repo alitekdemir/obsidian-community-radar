@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [
+  "static-site-publishers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Filter notes with full Dataview queries",
+  "Export selected notes to a folder outside the vault",
+  "Build output file paths from metadata with JS template expressions and ternaries",
+  "Re-point internal links between exported notes and copy referenced assets",
+  "Run a user-defined shell command after each export"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README explains why community review flags direct filesystem access, shell execution, and eval; also documents settings export/import between vaults and manual installation steps.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author blogs with 11ty and keeps in-progress posts in PARA project folders, so they wanted one source of truth: output files placed by metadata regardless of where the note lives in the vault.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to output a subset of notes into a restructured folder layout that static site generators like Hugo or Jekyll can consume.",
+ "readmeHash": "d34ab6df31eb2ff2886df6f8ad78ee37a2b79a91",
+ "relations": [
+  {
+   "evidence": "Uses the powerful Obsidian Dataview plugin's language to find the files you want to export.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "run your custom static site generators on a subset of your notes, like 11ty, Hugo, Jekyll",
+   "plugin": "11ty, Hugo, Jekyll",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Exports Dataview-filtered notes to a folder outside the vault using metadata-driven paths, with rewritten links and copied assets.",
+ "tags": [
+  "dataview",
+  "static-site-generators",
+  "11ty",
+  "hugo",
+  "jekyll",
+  "para"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Dispatch selected note text to a Claude Code skill via right-click context menu",
+  "Stream skill responses into a persistent side panel",
+  "Continue multi-turn conversations with follow-up questions",
+  "Run freeform chat from the ribbon icon or command palette",
+  "Export full conversation transcripts as vault notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Does not create or manage Claude skills; it only dispatches selected text to skills already defined in ~/.claude/skills/.",
+ "extras": "Desktop-only (uses Node.js child_process); on Linux the subprocess is wrapped in systemd-run --scope with IPAddressDeny=any for network isolation; manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Using Claude Code skills normally means switching to a terminal; there is no way to invoke them on note text from inside Obsidian.",
+ "readmeHash": "240b765eeada78d35cc6e404ad5581677bcef4ae",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that connects your notes to the Claude Code CLI.",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (claude binary on PATH)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Authenticated Claude Code CLI (Anthropic account)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Anthropic API usage (per-query spend cap configurable)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI bridge that sends selected note text to Claude Code CLI skills and streams responses into a persistent side panel.",
+ "tags": [
+  "claude-code",
+  "anthropic",
+  "cli",
+  "streaming",
+  "context-menu",
+  "subprocess"
+ ]
+}

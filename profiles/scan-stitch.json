@@ -1,0 +1,57 @@
+{
+ "also": [
+  "pdf",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Watch a scanner output folder for new PDF, JPEG or PNG files during a session",
+  "Merge scanned pages into one PDF in a vault folder",
+  "Review pages with rotation, reordering, deletion and undo",
+  "Append new pages to an existing vault PDF with a backup of the original",
+  "Name output files from saved templates with date, counter and page-count placeholders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (needs Node fs); Windows fully tested, macOS and Linux untested. No OCR and no TIFF support. Community plugin listing still pending review; releases carry GitHub artifact attestations for verification. No network access or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says turning a stack of per-page files into one correctly rotated PDF \"is tedious by hand\" and the plugin makes it a short session.",
+ "primary": "import",
+ "problem": "Scanners that write one file per page leave you to manually collect, order, rotate and combine those files into a single PDF inside your vault.",
+ "readmeHash": "2b22e3174fb55f3b2ac4affdd39ff36079676035",
+ "relations": [
+  {
+   "evidence": "pdf-lib for merging and writing PDFs (MIT).",
+   "plugin": "pdf-lib",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a scanner or scanner app that saves one file per page to a folder",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Folder-watching scanner tool that merges one-file-per-page scanner output into a single PDF in the vault, with a keyboard-first rotation and reorder review.",
+ "tags": [
+  "scanners",
+  "watch-folder",
+  "page-rotation",
+  "pdf-lib",
+  "exif-orientation",
+  "filename-templates"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [
+  "omarchy-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Keep Obsidian running in the system tray when the window is closed",
+  "Adapt the tray icon color to the active Omarchy theme, updating live on theme switches",
+  "Show, hide, relaunch, and quit Obsidian from the tray icon menu",
+  "Restore the hidden window when relaunching instead of opening the vault picker",
+  "Override the tray icon with a custom icon path in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; Linux (Wayland/SNI) is the primary target while Windows and macOS work without Omarchy-specific theme detection. Falls back to Obsidian's built-in app icon when Omarchy or rsvg-convert is unavailable. Install is manual or via BRAT; not in the community plugin store listing flow described.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from Background Tray (Synaphi, MIT). All original close-to-tray features are preserved",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Background Tray because its static icon looked out of place on Omarchy when switching themes, so the fork reads the theme's bar text color and regenerates the icon automatically.",
+ "primary": "utilities",
+ "problem": "Closing Obsidian quits the app, and tray icons stay a static color that clashes with the Omarchy bar when switching between light and dark themes.",
+ "readmeHash": "74a5ee2812e15d6cabf3811fd1c988c66ca8ff94",
+ "relations": [
+  {
+   "evidence": "Forked from Background Tray (Synaphi, MIT).",
+   "plugin": "Background Tray (Synaphi)",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Omarchy",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "rsvg-convert",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "System tray plugin, forked from Background Tray, that keeps Obsidian running in the tray with an icon whose color auto-adapts to the Omarchy theme.",
+ "tags": [
+  "system-tray",
+  "omarchy",
+  "linux",
+  "wayland",
+  "theme-detection",
+  "background-window"
+ ]
+}

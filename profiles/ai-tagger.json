@@ -1,0 +1,69 @@
+{
+ "also": [
+  "tags"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Analyze the current note to suggest relevant tags",
+  "Prefer previously used tags to avoid duplicates",
+  "Generate tags for highlighted text via the command palette",
+  "Batch tag multiple files or folders from the context menu",
+  "Choose among LLM providers and custom API endpoints"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Supports many providers; only Ollama models run locally without an API key, others require a paid provider account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian offers no built-in way to automatically suggest tags based on a note's content and the tags already used in the vault.",
+ "readmeHash": "cf56e0607f73a2d2c443877afaaa76dd03b46ee9",
+ "relations": [
+  {
+   "evidence": "OpenAI | GPT-4o mini | 128K | Closed Source",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional: Configure custom API endpoint (useful for Ollama or proxies)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Provider API key (OpenAI, Mistral, Anthropic, Google, or Groq)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "LLM-powered tagging plugin that analyzes the open note and previously used tags to suggest up to five existing and three new tags in one click.",
+ "tags": [
+  "llm",
+  "gpt-4o",
+  "claude",
+  "gemini",
+  "ollama",
+  "groq",
+  "auto-tagging"
+ ]
+}

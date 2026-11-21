@@ -1,0 +1,65 @@
+{
+ "also": [
+  "properties",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert word, character, reading-time, image, and block counts into a note's first or last three lines",
+  "Write computed values into frontmatter fields with leave/write/delete/clear policies",
+  "Insert edit marks, author name, custom text, images, and fixed link/image slots",
+  "Generate an SVG mind map of the article outline in horizontal, vertical, or radial layouts",
+  "Replace the previous insertion in place on update so nothing is duplicated"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It writes its own computed values into Frontmatter; it does not read or display your existing properties.",
+ "extras": "Desktop only (uses Node crypto and fs for image MD5 de-duplication); no automatic refresh — updating is always an explicit action; bilingual Chinese/English UI; full Chinese walkthrough kept in docs/ rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no one-click way to insert and keep updated document statistics, edit marks, or an outline diagram inside a note's body or frontmatter.",
+ "readmeHash": "bd2732d3a78fd7f06a05579f7f41c5085de78114",
+ "relations": [
+  {
+   "evidence": "This lets tools that read Frontmatter — the built-in Bases, Dataview, and similar — query the numbers",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an optional Pandoc filter pack shipped in optional/word-export/",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Inserts auto-counted statistics, edit marks, custom content, and an outline mind map at the head or tail of a note, refreshed on demand.",
+ "tags": [
+  "word-count",
+  "reading-time",
+  "mind-map",
+  "svg",
+  "pandoc",
+  "docx",
+  "md5-deduplication"
+ ]
+}

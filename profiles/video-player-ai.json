@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Play YouTube and local videos with playlists and watch progress",
+  "Display embedded CC, SRT, or VTT captions and translate transcripts with AI",
+  "Chat with an AI backend about the video and save answers to notes",
+  "Capture timestamped frames and create transcript notes with clickable timestamp links",
+  "Transcribe caption-less videos through a separate audio service"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web Viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "AI is optional: playlists and basic playback need no key, but transcription may incur extra provider charges and AI requests send captions and conversation to the chosen provider. API keys are stored unencrypted in the vault's plugin settings. Desktop only; mobile is not supported. README points translation of selected text to a separate AI Translation Assistant plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian has no built-in way to watch videos with synchronized, translatable captions and turn them into timestamped notes without switching to an external player.",
+ "readmeHash": "eb0e24898d974654241746b1c0f0a3799bf61732",
+ "relations": [
+  {
+   "evidence": "Open a video in the desktop Web viewer core plugin and enable captions on the website.",
+   "plugin": "Web Viewer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose Codex, Claude Code, OpenAI-compatible API, or Anthropic.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose Codex, Claude Code, OpenAI-compatible API, or Anthropic.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg/ffprobe, yt-dlp, Codex or Claude Code CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Video player for YouTube and local files with bilingual captions, timestamped screenshots, transcript notes, and AI chat about the content.",
+ "tags": [
+  "youtube",
+  "subtitles",
+  "srt",
+  "vtt",
+  "ffmpeg",
+  "yt-dlp",
+  "transcription",
+  "bilingual"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "find semantically similar notes via cosine similarity over embeddings",
+  "insert and maintain a managed related-links block in notes",
+  "deduplicate suggestions across chunked embeddings",
+  "configure result count, similarity threshold, and excluded folders",
+  "reload the embeddings index after reindexing"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin itself performs no AI inference; it only reads the embeddings data.json file that the Vector Search plugin produces, so both plugins (and Ollama) must be set up first.",
+ "intent": "improve",
+ "intentEvidence": "This plugin requires Vector Search plugin to generate embeddings for your notes.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's linking is manual and keyword-based, so meaningful connections between notes that don't share words go undiscovered.",
+ "readmeHash": "6ad06f055c45db24f8e8d4495af9e21e479fdbea",
+ "relations": [
+  {
+   "evidence": "Uses embeddings from Vector Search by @ashwin271",
+   "plugin": "Vector Search",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Vector Search",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Inserts a managed block of semantically related note links at the end of a note, computed from pre-computed AI embeddings.",
+ "tags": [
+  "embeddings",
+  "semantic-search",
+  "cosine-similarity",
+  "ollama",
+  "nomic-embed-text"
+ ]
+}

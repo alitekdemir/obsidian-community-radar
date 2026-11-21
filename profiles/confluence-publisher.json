@@ -1,0 +1,60 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert Obsidian Markdown to Confluence storage HTML",
+  "Update existing Confluence pages by frontmatter page ID or title lookup",
+  "Create new pages under an optional parent page",
+  "Upload image embeds and local image links as Confluence attachments",
+  "Write the Confluence page ID back into note frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires building from source (npm install, npm run build) and copying files to the plugin folder; the README also includes a community plugin release checklist. Non-image embeds are not uploaded and become plain text markers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push a note's content into a Confluence space as a page.",
+ "readmeHash": "19b82ef632bd5937bcfab12e0adbd8e792da8743",
+ "relations": [
+  {
+   "evidence": "Sync the active note from Obsidian to Confluence using the REST API.",
+   "plugin": "Confluence",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Confluence",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Confluence API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Confluence publisher that syncs the active note to Confluence via REST API, converting Markdown to Confluence storage HTML and creating or updating pages.",
+ "tags": [
+  "confluence",
+  "atlassian",
+  "rest-api",
+  "wiki",
+  "storage-format"
+ ]
+}

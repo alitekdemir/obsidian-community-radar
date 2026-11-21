@@ -1,0 +1,67 @@
+{
+ "also": [
+  "import",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture a browser tab as a vector PDF with selectable, searchable text",
+  "Create a Markdown note containing the page's text with the PDF embedded under its properties",
+  "Connect to the Page Scanner browser extension through a local helper process",
+  "Configure the target folder, page size, theme, page width and clutter hiding"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a scanner for paper documents or images; it captures open browser tabs into the vault.",
+ "extras": "Marked as not manually reviewed by Obsidian staff. Setup requires installing the browser extension, an npm CLI, and Node.js 22+; the plugin never downloads or installs code itself and all traffic stays on 127.0.0.1 with no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture a whole browser tab as a searchable PDF and a Markdown note of its text in one step.",
+ "readmeHash": "76cda72d0fc5f7d77ee40dbf3fa76f1ff50213e1",
+ "relations": [
+  {
+   "evidence": "It works through Page Scanner, a Chrome and Edge extension that captures whole pages",
+   "plugin": "Page Scanner",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin runs Page Scanner's command-line tool, the @page-scanner/cli package",
+   "plugin": "@page-scanner/cli",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Page Scanner browser extension (Chrome Web Store or Edge Add-ons)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "@page-scanner/cli installed with npm on Node.js 22 or newer",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Web page clipper that saves a browser tab into the vault as a vector PDF and a Markdown note, via the Page Scanner browser extension.",
+ "tags": [
+  "web-clipper",
+  "browser-extension",
+  "nodejs",
+  "vector-pdf",
+  "chrome",
+  "edge",
+  "native-messaging"
+ ]
+}

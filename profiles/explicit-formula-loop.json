@@ -1,0 +1,65 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Refine prompts by looping between a brain-dump and the AI's line-by-line interpretation",
+  "Lock correct lines so they are enforced verbatim in later rounds",
+  "Import ChatGPT and Claude conversation histories into vault archive notes",
+  "Wire imported archive stubs into topic hub notes visible in the graph view",
+  "Save loop sessions as linked notes and copy a context pack to the clipboard"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a math or LaTeX plugin; 'formula' here refers to iteratively refining AI prompts.",
+ "extras": "README has a prominent network-use warning: typed dump text goes to explicitformula.com; vault context is off by default and opt-in via a folder allowlist, with a per-round log of what left the machine. No telemetry claimed. Install is manual (build from repo, copy files). Features ship in phased scope (P1–P5) with some phases still listed as coming.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says the product is aimed at people for whom reading dense text, fine motor control, or instant-response pressure are the obstacle, so the loop is built for that from the start.",
+ "primary": "ai",
+ "problem": "Obsidian gives no way to see exactly how an AI interpreted your prompt and to correct only the wrong parts before sending it.",
+ "readmeHash": "d6981d9f55554fc976c6cd2b3e719929f7e1d2f6",
+ "relations": [
+  {
+   "evidence": "Powered by rpcs1.dev — the receiver engine behind Explicit Formula.",
+   "plugin": "rpcs1.dev",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "ChatGPT / Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Explicit Formula - The Loop",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "explicitformula.com service (default endpoint, configurable in settings)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Iterative prompt-refinement loop: brain-dump a request, see the AI's line-by-line interpretation, lock the correct lines, and redo the rest.",
+ "tags": [
+  "prompts",
+  "chatgpt",
+  "claude",
+  "accessibility",
+  "voice-input",
+  "screen-readers",
+  "graph-clusters"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "ai",
+  "sidebar"
+ ],
+ "audience": [
+  "claude-code-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "list notes with source: claude-code frontmatter in a sidebar grouped by project",
+  "open a listed note by clicking it",
+  "generate a note from the current selection by spawning the CLI binary",
+  "refresh the sidebar shortly after writes via an opt-in loopback bridge",
+  "share folder pattern and port settings through .claude-notes.json"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI note-writing tool itself; the plugin only reads and invokes notes written by the external CLI and never writes note content.",
+ "extras": "Desktop only, since the generate command spawns a child process unavailable on mobile. The README discloses that the plugin can read/enumerate the vault and execute a configured shell binary, and the manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Claude Code can write notes into the vault as plain files, but Obsidian offers no built-in way to browse them or trigger note generation from a selection.",
+ "readmeHash": "21ba2a1d4dc350e7c279c93e5bc58e3916d48d48",
+ "relations": [
+  {
+   "evidence": "obsidian-notes-cli — writes the notes; this plugin reads them.",
+   "plugin": "obsidian-notes-cli",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code plugin that shells out to the CLI.",
+   "plugin": "claude-code-obsidian-notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsidian-notes CLI (Claude Code)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sidebar and generate-note command for Markdown notes written into the vault by the Claude Code obsidian-notes CLI.",
+ "tags": [
+  "claude-code",
+  "cli",
+  "child-process",
+  "localhost",
+  "metadata-cache"
+ ]
+}

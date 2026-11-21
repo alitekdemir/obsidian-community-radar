@@ -1,0 +1,97 @@
+{
+ "also": [
+  "integrations",
+  "tasks"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Track local AI agent sessions in a sidebar",
+  "Delegate tasks to agents from note lines",
+  "Show agent status in the macOS menu bar",
+  "Review token usage with a heatmap dashboard",
+  "Turn notes into fractal kanban boards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (no mobile); Windows partially adapted (no menu bar, terminal handoff, or desktop session tracking). Local-first: reads local session files without uploading; open source under Apache 2.0. Delegation needs local agent clients and cannot run via remote API; the in-Obsidian conversation view is read-only. Requires Obsidian 1.4.0+ desktop.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI coding agent sessions are scattered across separate clients, so it is hard to see which agent is running, waiting, or finished from inside Obsidian.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "5f30f6777fe3c95965c4f4153d8990ce4497cf7e",
+ "relations": [
+  {
+   "evidence": "统一收拢 11 类本地 Agent：Claude Code、Codex、WorkBuddy、DeepSeek Harness、Antigravity",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "统一收拢 11 类本地 Agent：Claude Code、Codex、WorkBuddy、DeepSeek Harness、Antigravity",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "统一收拢 11 类本地 Agent：Claude Code、Codex、WorkBuddy、DeepSeek Harness、Antigravity",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  },
+  {
+   "evidence": "与 Logseq Style Tasks 一致",
+   "plugin": "Logseq Style Tasks",
+   "type": "inspired"
+  },
+  {
+   "evidence": "可搭配 螺旋日程 Nautilus Spiral 使用",
+   "plugin": "螺旋日程 Nautilus Spiral",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local AI agent client (Claude Code, Codex, Antigravity, OpenCode, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Xcode Command Line Tools (macOS menu bar helper)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key or logged-in local CLI (auto-diary, summary, Dreaming)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plugin that tracks local AI coding agents like Claude Code and Codex from Obsidian, delegates tasks from notes, and shows status in the macOS menu bar.",
+ "tags": [
+  "ai-agents",
+  "claude",
+  "codex",
+  "kanban",
+  "token-usage",
+  "daily-notes",
+  "macos",
+  "local-first"
+ ],
+ "textHash": "78afcb50d271f22913e768562af8e2461276b009"
+}

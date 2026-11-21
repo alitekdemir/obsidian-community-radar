@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run semantic, multilingual search over vault notes",
+  "Expose active file, cursor position, and selection to agents",
+  "Create, read, edit, move, and delete notes via MCP tools",
+  "Patch note metadata and refresh the semantic index",
+  "Fall back to direct file read/write when Obsidian is closed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an in-app AI assistant; it exposes MCP tools to external clients like Claude Desktop, which do the actual agent work.",
+ "extras": "Install is manual (copy dist/plugin-release into the plugins folder). The semantic model (~110MB) and vector index are stored inside the vault at .obsidian/plugins/companion-mcp/. Without an MCP client configured, the plugin alone does little.",
+ "intent": "new",
+ "intentEvidence": "A hybrid Model Context Protocol (MCP) ecosystem for Obsidian, providing vault-wide semantic intelligence and real-time editor context awareness.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI agents have no structured access to Obsidian's vault or live editor context, and Obsidian search is keyword-based rather than semantic.",
+ "readmeHash": "67588551e950b4fdd9dd73f090d811ff4d4f8e03",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Obsidian Excalidraw MCP",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add the following to your claude_desktop_config.json",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MCP client such as Claude Desktop, Claude Code, Codex, or Gemini CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js >= 20 with the companion MCP npm package",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "MCP plugin plus Node.js server that lets external AI agents semantically search the vault, read editor state, and edit notes via structured tools.",
+ "tags": [
+  "mcp",
+  "semantic-search",
+  "embeddings",
+  "claude-desktop",
+  "gemini-cli",
+  "codex",
+  "multilingual",
+  "local-privacy"
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "also": [
+  "sidebar",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "List notes that most recently arrived in the vault via external sync",
+  "Sort arrivals by arrival time, pinyin initials, created time, modified time, or size",
+  "Open the list from a sidebar tab, command palette, mobile quick action, or file context menu",
+  "Exclude folders from arrival scanning with a folder picker or wildcard rules",
+  "Export and import settings as a JSON file stored in the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Still awaiting directory review; the README documents installing via BRAT or manual file copy in the meantime. No network access, telemetry, or self-updating. Interface also available in Simplified and Traditional Chinese.",
+ "intent": "alternative",
+ "intentEvidence": "Relationship to Recently Added Files. This project is not a fork and contains no code from it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because existing 'recently added files' plugins miss files that arrive via sync tools while Obsidian is closed.",
+ "primary": "files",
+ "problem": "Recent-file plugins rely on Obsidian's create event, so files written by a sync tool while Obsidian is closed are picked up by the startup scan and never noticed.",
+ "readmeHash": "0a351de85434c267e622fcf5922ad2bbcc1c780b",
+ "relations": [
+  {
+   "evidence": "Plugins such as Recently Added Files listen only to Obsidian's create event",
+   "plugin": "Recently Added Files",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar list and commands that surface notes most recently synced into the vault by external tools, sortable by arrival time, dates, size, or pinyin initials.",
+ "tags": [
+  "syncthing",
+  "resilio",
+  "pinyin",
+  "chinese",
+  "file-arrival",
+  "first-seen-tracking"
+ ]
+}

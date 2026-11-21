@@ -1,0 +1,48 @@
+{
+ "also": [
+  "properties",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Watch configured folders for new or changed notes",
+  "Read a frontmatter property from each note",
+  "Create target pages from a template, replacing {{title}} with the property value",
+  "Detect duplicate source URLs and mark, trash, or ignore them",
+  "Optionally clean up target pages whose property value no longer appears"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a tagging or search tool; it only creates or cleans up target pages named after a frontmatter property value.",
+ "extras": "README documents privacy posture (no network access, single-file source), SLSA build provenance verification, and requires Obsidian 1.14.5 or newer; flagged as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian does not automatically create index or topic pages for notes based on a property value, so clippings inboxes and similar folders need manual upkeep of index notes.",
+ "readmeHash": "9f03271f97e92873d0bc05f4a4cc414161794279",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Rule-driven automation that watches folders, reads a frontmatter property on each note, and keeps a matching topic page alive in a target folder.",
+ "tags": [
+  "topic-pages",
+  "clippings",
+  "inbox",
+  "duplicate-detection",
+  "read-later",
+  "idempotent",
+  "mtime-polling"
+ ]
+}

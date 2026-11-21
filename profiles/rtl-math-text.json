@@ -1,0 +1,49 @@
+{
+ "also": [
+  "latex",
+  "math"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert strictly RTL text inside math expressions using \\R{\\text{...}}",
+  "Nest strictly LTR text inside RTL using \\L{...}",
+  "Nest math inside RTL/LTR text using $...$ or \\(...\\)",
+  "Configure the names of the \\R and \\L commands in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns that languages with combining letters such as Arabic are not supported, pending MathJax 4.0 (mathjax/MathJax#3041).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "rtl",
+ "problem": "Obsidian's math rendering offers no built-in way to write RTL text (e.g. Hebrew) inside math expressions, and nesting LTR or math inside it breaks directionality.",
+ "readmeHash": "bcc91ca12381600ae5dd41dcac9dd482efeae355",
+ "relations": [
+  {
+   "evidence": "mixing right-to-left (RTL) and left-to-right (LTR) text in MathJax expressions",
+   "plugin": "MathJax",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Adds configurable LaTeX commands to mix right-to-left and left-to-right text inside Obsidian's MathJax math expressions.",
+ "tags": [
+  "hebrew",
+  "mathjax",
+  "bidi-text"
+ ]
+}

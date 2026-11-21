@@ -1,0 +1,88 @@
+{
+ "also": [
+  "ai",
+  "writing"
+ ],
+ "audience": [
+  "academics",
+  "medical-researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search PubMed and add papers as Markdown notes with CSL-JSON frontmatter",
+  "Import libraries from BibTeX, RIS, nbib, CSL-JSON, or a running Zotero 7",
+  "Generate LLM section summaries and MeSH topic tags for each reference",
+  "Insert [@citekey] via @ autocomplete and build CSL-style bibliographies and .docx manuscripts",
+  "Chat with and semantically search the library, with citation graphs and retraction checks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only as of 0.6.0 (mobile unsupported). Requires a contact e-mail in settings for OpenAlex, Unpaywall, and PubMed lookups. Hosted cross-encoder reranker costs about $0.0002 per search. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "a Zotero / EndNote replacement inside Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in reference manager, so researchers must run Zotero or EndNote alongside their vault to collect papers and cite while writing.",
+ "readmeHash": "637ee0c99330aadfa0c3edf7fc79ddca194ace1b",
+ "relations": [
+  {
+   "evidence": "a Zotero / EndNote replacement inside Obsidian",
+   "plugin": "Zotero / EndNote",
+   "type": "alternative"
+  },
+  {
+   "evidence": "straight from a running Zotero 7 (whole library or one collection)",
+   "plugin": "Zotero 7",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It uses this plugin's MCP server as its reference library",
+   "plugin": "manuwright",
+   "type": "integrates"
+  },
+  {
+   "evidence": "let an external AI search the live library, find, add, and summarize papers",
+   "plugin": "Claude Code / Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "runs Pandoc with the bundled academic template",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter/OpenAI-compatible or Anthropic key for chat, summaries, and embeddings",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI / OpenCode CLI as keyless LLM providers; Pandoc for .docx export; Zotero 7 for import; Claude Code/Codex for MCP",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Citation manager that keeps references as Markdown notes: PubMed search, AI summaries, MeSH tags, CSL bibliographies, and chat with your library.",
+ "tags": [
+  "pubmed",
+  "zotero",
+  "csl",
+  "bibtex",
+  "openalex",
+  "mesh",
+  "mcp"
+ ]
+}

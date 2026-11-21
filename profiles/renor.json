@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Share chosen folders with the Renor service for agent recall",
+  "Live-sync note edits, renames and deletions to Renor",
+  "Pull agent-saved memories into the vault as notes in the Renor folder",
+  "Ask Renor from the command palette and insert the answer into the current note",
+  "Configure shared and private folders via a renor.json file or Settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4 or later (secret storage). Not yet in the community-plugins listing, so it is installed unpacked. API key is stored in Obsidian's secret storage, not data.json; server must be https except localhost. Self-hosted Renor setups do not need the plugin. No telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to expose selected folders as recallable memory for external AI agents or to receive what those agents save back as notes.",
+ "readmeHash": "56dcb554d8b20d6ae6e4ddab00102b21e423ff18",
+ "relations": [
+  {
+   "evidence": "The plugin uses Renor's existing import tools over MCP. It does not have an importer of its own.",
+   "plugin": "Renor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "renor sync in the setup CLI (PR #786) is the command-line path to the same tools",
+   "plugin": "renor sync CLI",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Renor account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Renor API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Service connector that shares chosen vault folders with AI agents as memory, syncs edits live, pulls agent-saved notes, and answers questions from memory.",
+ "tags": [
+  "claude",
+  "chatgpt",
+  "cursor",
+  "codex",
+  "mcp",
+  "agent-memory",
+  "self-hosted"
+ ]
+}

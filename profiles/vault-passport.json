@@ -1,0 +1,59 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes to PDF via Pandoc running in a Docker container",
+  "Resolve wiki-links into Pandoc citations with auto-derived or front-matter cite keys",
+  "Build a BibTeX bibliography from note metadata on the fly",
+  "Convert Obsidian callouts to styled LaTeX boxes",
+  "Apply Pandoc templates such as Eisvogel with configurable variables"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Docker integration was developed on Linux; the README asks Windows and macOS users to report path or permission issues. Installable via BRAT before community-store approval.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because shared documents fall apart outside the vault, where linked notes and citations lose their meaning.",
+ "primary": "export",
+ "problem": "Documents shared outside a vault break down: wiki-links are meaningless to readers, embedded files become broken references, and citations look like raw [[Smith 2023]] links instead of bibliography entries.",
+ "readmeHash": "868628523d8af5f30a4191e73c2e907b16a760c3",
+ "relations": [
+  {
+   "evidence": "passes everything to Pandoc with --citeproc so the final PDF has a proper reference list",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Docker",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Pandoc-based exporter that turns notes into self-contained PDFs, resolving wiki-links into citations with a generated BibTeX bibliography.",
+ "tags": [
+  "pandoc",
+  "bibtex",
+  "citations",
+  "docker",
+  "eisvogel"
+ ]
+}

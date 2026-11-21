@@ -1,0 +1,78 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pair devices by scanning a connection QR code",
+  "Sync encrypted note records through a self-hosted host or relay",
+  "Merge nonoverlapping Markdown edits automatically",
+  "Hold conflicting versions and binary replacements for review",
+  "Restore recovery copies into a Helenite Recovered folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Development alpha not yet in the community listing; closed source with a private development repository. Sync needs an active subscription (USD 3/month or USD 24/year) and a host computer kept running; the plan includes 10 GB of relay transfers per month. Local notes and recovery copies are not encrypted at rest by the plugin, and mobile sync only runs while Obsidian is active.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Keeping a vault in sync across devices normally means handing notes to a third-party service, and self-hosted options are hard to set up securely.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "813b0c45ec19941eaea0e641e0e5c99100f22be2",
+ "relations": [
+  {
+   "evidence": "does not include or depend on the Obsidian LiveSync repository",
+   "plugin": "Obsidian LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Cloudflare Workers and Durable Objects carry encrypted note records and manage routing",
+   "plugin": "Cloudflare Workers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Helenite desktop host application",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Helenite subscription",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Helenite account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Encrypted vault sync that pairs devices through a host computer you run, with relay transfer, conflict review and recovery copies.",
+ "tags": [
+  "end-to-end-encryption",
+  "device-pairing",
+  "qr-code",
+  "self-hosted",
+  "conflict-resolution",
+  "cloudflare-workers",
+  "encryption"
+ ],
+ "textHash": "9b356b34accfb6cf8b8614da77aef25713ce1002"
+}

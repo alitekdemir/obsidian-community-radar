@@ -1,0 +1,72 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save an Obsidian Markdown note as a draft on supported platforms",
+  "Update existing drafts via platform bindings written to note frontmatter",
+  "Pair with a Chromium extension that fills the logged-in editor on browser platforms",
+  "Convert Markdown with themes and inline styles for WeChat-safe output",
+  "Store the WeChat AppSecret in Obsidian SecretStorage"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only WeChat Official Account works with the Obsidian plugin alone; the other twelve platforms require installing the separate Chromium extension ZIP. The plugin is awaiting Obsidian community directory review, and several browser platforms have passed only offline fixture tests, not real-account verification. README is provided in both English and Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push a single Markdown note as drafts to multiple external publishing platforms while keeping the note as the source of truth.",
+ "readmeHash": "b8fbc7db64ac645415522e424948b53e210b1202",
+ "relations": [
+  {
+   "evidence": "The platform list, Markdown/HTML output differences, and draft-idempotency approach were informed by wechatsync/Wechatsync.",
+   "plugin": "wechatsync/Wechatsync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Crosspost Studio",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Chromium extension (Chrome or Edge) for the twelve browser platforms",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "WeChat Official Account AppID and AppSecret",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "logged-in accounts on the target platforms",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local-first plugin plus companion Chromium extension that creates or updates drafts of a Markdown note on Chinese content platforms; it saves drafts only.",
+ "tags": [
+  "wechat",
+  "zhihu",
+  "juejin",
+  "csdn",
+  "crossposting",
+  "drafts",
+  "browser-extension"
+ ]
+}

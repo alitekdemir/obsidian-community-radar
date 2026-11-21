@@ -1,0 +1,65 @@
+{
+ "also": [
+  "automation",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render a watched source-note section into a target file using configurable rules and templates",
+  "extract fields, checkbox items, scores and frontmatter as template variables with defaults",
+  "carry over unfinished checkbox tasks into the next day's diary",
+  "insert task/completion line pairs via Enter and Shift+Enter in ruled files",
+  "create tomorrow's daily note from core Daily Notes settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a template inserter for new notes; it continuously derives and maintains separate output files from sections of existing notes.",
+ "extras": "Desktop only (atomic writes need Node fs; mobile unsupported). Manual installation from Releases is the only install method. Ships with preset diary rules that can be deleted or edited. Keyboard enhancements are optional and can be disabled in settings. Includes documented research citations for the preset diary defaults.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author kept diary reflections mixed with daily logs; manually copying them to a separate folder was abandoned after a few days, so the derivation was automated.",
+ "primary": "templating",
+ "problem": "Obsidian notes often mix day-to-day logging with cumulative records (like reflections), and manually copying those sections to other files is unsustainable.",
+ "readmeHash": "78b91e5798c07486a6bd9ea2cf3797a74acf034d",
+ "relations": [
+  {
+   "evidence": "它照抄核心 Daily Notes 自己的配置（直接读 .obsidian/daily-notes.json）",
+   "plugin": "Daily Notes (core)",
+   "type": "extends"
+  },
+  {
+   "evidence": "打开日历视图 — 把 Calendar 插件的日历面板叫出来",
+   "plugin": "Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Calendar",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Rule engine that watches sections of source notes and renders them into separate target files with templates, creating output only when the section has content.",
+ "tags": [
+  "diary",
+  "template-variables",
+  "carry-over",
+  "atomic-writes",
+  "checkbox-tasks",
+  "reflection"
+ ]
+}

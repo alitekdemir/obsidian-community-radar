@@ -1,0 +1,61 @@
+{
+ "also": [
+  "code",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render tikz and luatikz fenced code blocks in reading and live preview",
+  "Preview diagrams live while editing, with coordinate picking and hover-to-locate",
+  "Draw and edit TikZ visually with shapes, circuits, freehand ink, and touch/stylus support",
+  "Render Hebrew and Arabic labels with script-specific fonts and shaping",
+  "Export rendered diagrams as SVG or PNG"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Local rendering is opt-in and involves shell execution and temporary files; the plugin links out to a detailed security guide. Sample diagrams are included in the repository. The manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian cannot render TikZ diagrams from code blocks, and doing so normally requires a local TeX toolchain, which mobile devices lack.",
+ "readmeHash": "401d5314feca8beb363fe8078ece307151cb57f2",
+ "relations": [
+  {
+   "evidence": "Desktop can use local LuaLaTeX or TikZJax; mobile uses TikZJax.",
+   "plugin": "TikZJax",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LuaLaTeX (MacTeX or TeX Live) and pdftocairo",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "TikZ renderer that compiles tikz and luatikz code blocks via local LuaLaTeX or bundled TikZJax, with a visual editor and SVG/PNG export.",
+ "tags": [
+  "tikz",
+  "lualatex",
+  "tikzjax",
+  "hebrew",
+  "arabic",
+  "diagram-editor",
+  "stylus",
+  "svg-export"
+ ]
+}

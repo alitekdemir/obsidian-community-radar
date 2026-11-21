@@ -1,0 +1,59 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "answer natural-language questions grounded in retrieved note context",
+  "run semantic search over the vault by meaning rather than keywords",
+  "chunk and embed Markdown notes into a local incremental vector index",
+  "cite and link the source notes used in each answer",
+  "add specific notes to the chat prompt via a note picker"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; does not work on Obsidian mobile. Full documentation lives on a separate site (artemiadze.github.io/prometheus). Requires installing Ollama and downloading models before use.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in natural-language question answering or meaning-based search, and most AI plugins rely on cloud APIs that would expose note contents.",
+ "readmeHash": "f74847ba21eb8a6deb523af525ba54f861d7e990",
+ "relations": [
+  {
+   "evidence": "sends that context to a local LLM via Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Local-first AI assistant that runs semantic search over the vault and answers questions from retrieved notes via a local Ollama LLM, with cited sources.",
+ "tags": [
+  "ollama",
+  "rag",
+  "embeddings",
+  "vector-index",
+  "local-llm",
+  "offline-first",
+  "sidecar"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a local pi agent over a WebSocket relay",
+  "Attach the active note path, selection, or body as context to every message",
+  "Write agent answers back into the current note at the cursor or replacing the selection",
+  "Attach images and vault or phone files to messages",
+  "Switch model and thinking level live and manage pi sessions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Raspberry Pi utility; 'pi' here is the coding agent running in Termux that the panel drives.",
+ "extras": "The relay token is stored in plain text in data.json; the agent is not sandboxed by the plugin and runs with Termux user privileges; setup for the Termux side lives in relay/README.en.md rather than the main README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "A mobile Obsidian plugin cannot spawn a process, so the agent has to live outside, and pi's RPC mode rejects @file arguments, so the active note is embedded in each message instead.",
+ "primary": "ai",
+ "problem": "A mobile Obsidian plugin cannot spawn a process, so running an AI agent from inside Obsidian on a phone requires an outside helper plus a way to pass note context.",
+ "readmeHash": "2c4ffc428ac58dc6f17b34ebcd1de3187bdd3b25",
+ "relations": [
+  {
+   "evidence": "The agent runs in Termux (where it can spawn processes, use skills, MCP servers and your vault index)",
+   "plugin": "pi",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pi and the pi-relay relay running in Termux",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Chat panel that talks to a local pi agent running in Termux, sending the active note as context and writing answers back into it.",
+ "tags": [
+  "pi",
+  "termux",
+  "websocket",
+  "relay",
+  "mcp",
+  "rpc",
+  "local-agent"
+ ]
+}

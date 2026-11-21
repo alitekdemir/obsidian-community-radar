@@ -1,0 +1,87 @@
+{
+ "also": [
+  "visualization",
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Build citation-graph canvases from Zotero collections, tags, DOIs or arXiv IDs",
+  "Expand papers with references and citing works filtered by year and keyword",
+  "Group papers into tagged, overlapping clusters and track reading status",
+  "Download arXiv PDFs or link Zotero-stored PDFs from paper notes",
+  "Summarize papers and get paper recommendations from an LLM"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free, no telemetry; desktop only and requires Obsidian 1.13.0 or later. LLM summaries and recommendations bill your LLM account or Claude subscription; the full guide, changelog and contributing docs live outside the README. A guide warns to keep downloaded PDFs out of git or Obsidian Sync via .gitignore or excluded folders.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to lay out papers as a citation graph on a canvas or pull and grow a literature collection from a reference manager.",
+ "readmeHash": "2878081c4854134624bd986c09ed60f5b982ac77",
+ "relations": [
+  {
+   "evidence": "Build a canvas from a Zotero collection or tag, or add papers one at a time by DOI or arXiv ID.",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Faster citation lookups | A free Semantic Scholar API key. Without one, a large collection takes minutes",
+   "plugin": "Semantic Scholar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Semantic Scholar API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI or Google Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Zotero API key and user ID for syncing",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Claude subscription (Claude CLI provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Canvas-based literature graph builder that turns Zotero collections or DOIs into citation graphs with reference expansion, PDFs and LLM summaries.",
+ "tags": [
+  "zotero",
+  "semantic-scholar",
+  "citations",
+  "doi",
+  "arxiv",
+  "llm",
+  "literature"
+ ]
+}

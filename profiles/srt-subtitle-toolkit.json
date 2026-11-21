@@ -1,0 +1,69 @@
+{
+ "also": [
+  "video",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "download Bilibili videos from links, short links, watch-later lists, or BV ids",
+  "fetch CC and AI subtitles with cc/auto/ai preference",
+  "transcribe local videos with whisper and export txt/srt/json",
+  "segment subtitles into standardized note entries",
+  "manage a serial task queue with progress, cancellation, and retry"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not clip or trim video files; it produces subtitle text notes from videos.",
+ "extras": "macOS-first (Apple Metal whisper acceleration); installed via BRAT or manually; manifest notes it has not been reviewed by Obsidian staff; MIT licensed; deliberately excludes LLM-dependent features like speaker labeling and translation to keep its zero-cloud promise.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn video content, specifically Bilibili videos, into subtitle-based notes, and doing so usually requires cloud APIs or manual transcription.",
+ "readmeHash": "736a94526b6cf0595923be389e8ef61e59485c2d",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "whisper-cli",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built-in environment check (python3 / yt-dlp / ffmpeg / whisper-cli / model)",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "python3 / yt-dlp / ffmpeg / whisper-cli / model",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili cookie",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Turns Bilibili videos into structured subtitle notes with a one-command local pipeline: download, subtitle fetch or whisper transcription, and sentence segmentation.",
+ "tags": [
+  "bilibili",
+  "whisper",
+  "yt-dlp",
+  "ffmpeg",
+  "subtitles",
+  "srt",
+  "transcription",
+  "apple-metal"
+ ]
+}

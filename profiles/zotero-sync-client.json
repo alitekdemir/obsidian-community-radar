@@ -1,0 +1,82 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror a Zotero library as markdown files in a vault folder",
+  "Sync and cache Zotero data incrementally via the Zotero web API",
+  "Optionally sync through a locally installed Zotero app",
+  "Customize generated note templates with item, collection and library data"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, the sync is one-way and read-only; edits to the generated markdown files are never written back to Zotero.",
+ "extras": "The plugin is desktop-only; generated markdown files then reach mobile clients through ordinary vault sync. Initial synchronization may take a while and is designed to minimize API usage.",
+ "intent": "alternative",
+ "intentEvidence": "Check out the following alternatives if you are interested in: - Taking notes directly within Zotero",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted seamless Zotero integration via note linking and search while keeping all literature data within Zotero.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to link to and search the contents of a Zotero reference library from within the vault.",
+ "readmeHash": "18e8a5743c03fb7bef6aa91fd138f593daf803c2",
+ "relations": [
+  {
+   "evidence": "Taking notes directly within Zotero (with two-way sync to Obsidian): Zotero Better Notes",
+   "plugin": "Zotero Better Notes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Importing citations on-demand into Obsidian: Obsidian Zotero Integration or Obsidian Citation Plugin",
+   "plugin": "Obsidian Zotero Integration",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Importing citations on-demand into Obsidian: Obsidian Zotero Integration or Obsidian Citation Plugin",
+   "plugin": "Obsidian Citation Plugin",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Integrating with Zotero via the ZotServer API: Zotero Bridge",
+   "plugin": "Zotero Bridge",
+   "type": "alternative"
+  },
+  {
+   "evidence": "This plugin uses the excellent retorquere/zotero-sync package for the Zotero API integration.",
+   "plugin": "retorquere/zotero-sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Zotero API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Zotero App (for local API sync)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Zotero API client that mirrors a Zotero library into the vault as read-only markdown notes, synced from the web API or a local Zotero app.",
+ "tags": [
+  "zotero",
+  "citations",
+  "literature-notes",
+  "read-only",
+  "reference-manager",
+  "api"
+ ]
+}

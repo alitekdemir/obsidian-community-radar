@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe audio files into Markdown notes with per-speaker timestamps",
+  "Generate template-based AI summaries backlinked to transcripts via Gemini",
+  "Edit Markdown summary templates with prompt and placeholder placeholders",
+  "Rename speakers across transcript bodies and frontmatter",
+  "Auto-create a VoxNote workspace folder with gitignore rules"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an audio recorder; it transcribes audio files you already have, via external APIs.",
+ "extras": "Relisted under a new id (voxnote) in v2.0.0; users of the withdrawn \"Deepgram Meeting STT\" listing must manually uninstall and reinstall, and re-enter API keys. Full placeholder reference and accuracy guide live in a separate FEATURES.md. Warns to obtain participant consent before recording, and notes free-tier Gemini requests may be used to train Google's models.",
+ "intent": "new",
+ "intentEvidence": "Migrating from \"Deepgram Meeting STT\"? The plugin was relisted as VoxNote in v2.0.0 (id voxnote).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to turn meeting or interview recordings into per-speaker transcripts and structured summary notes.",
+ "readmeHash": "33e16dc927e6f2bc7faa39bbf47d88da950dd88e",
+ "relations": [
+  {
+   "evidence": "speech-to-text via Deepgram with per-speaker timestamps",
+   "plugin": "Deepgram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an optional AI summary step via Google Gemini",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Deepgram API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Deepgram Growth or higher plan for guaranteed Zero Retention",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Speech-to-text plugin that transcribes audio files via Deepgram into timestamped Markdown notes, with optional template-based AI summaries via Gemini.",
+ "tags": [
+  "deepgram",
+  "gemini",
+  "speech-to-text",
+  "transcription",
+  "speaker-diarization",
+  "meeting-notes"
+ ]
+}

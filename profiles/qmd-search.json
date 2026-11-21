@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search notes semantically via local vector embeddings",
+  "Fall back to BM25 keyword search when semantic search fails",
+  "Index and embed notes automatically in the background",
+  "Generate or force-rebuild embeddings from commands",
+  "Configure QMD binary path, file masks, and indexing intervals"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (macOS, Windows, Linux); no mobile support. Requires ~300MB disk for the embedding model, downloaded from HuggingFace on first use. Marked as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search only matches keywords, so finding notes by meaning requires a tool that can compute vector embeddings over the vault.",
+ "readmeHash": "e90f6a054082fc427e57dca2b407079c68910e25",
+ "relations": [
+  {
+   "evidence": "QMD by Tobi Lütke - The underlying search engine",
+   "plugin": "QMD (Quick Markdown Search)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "QMD CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Bun runtime (>= 1.0.0)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Internet connection for first-time model download from HuggingFace",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Semantic-first vault search powered by the local QMD CLI, with BM25 keyword fallback, automatic background indexing, and embedding generation.",
+ "tags": [
+  "qmd",
+  "semantic-search",
+  "embeddings",
+  "vector-search",
+  "bm25",
+  "local-llm",
+  "bun"
+ ]
+}

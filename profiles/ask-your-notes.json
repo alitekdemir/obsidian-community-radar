@@ -1,0 +1,67 @@
+{
+ "also": [
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the active note, a selected passage, or @-referenced notes as context",
+  "Configure OpenAI-compatible providers, endpoints, models, and API keys",
+  "Copy, insert, or regenerate replies, or replace the active note with a reply",
+  "Resume the last conversation from locally stored history",
+  "Stop or retry generation and see request status"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "API key and chat history are stored unencrypted in data.json inside the vault; the README advises excluding that file from sync, Git, and backups. Third-party providers may charge for requests, and the connection test may consume API quota.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask an LLM questions about the note you are working on without leaving the app.",
+ "readmeHash": "51090fbe953b419944378eddad1a6da8d7a4d6c9",
+ "relations": [
+  {
+   "evidence": "The plugin connects Obsidian to an OpenAI-compatible chat API.",
+   "plugin": "OpenAI-compatible chat APIs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For Ollama, start the local service and install a model first.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Provider API key (OpenAI, DeepSeek, OpenRouter, or custom endpoint)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (for local models)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar chat that sends the active note, a selection, or @-referenced notes as context to an OpenAI-compatible LLM.",
+ "tags": [
+  "llm",
+  "chat",
+  "openai",
+  "ollama",
+  "deepseek",
+  "openrouter",
+  "streaming"
+ ]
+}

@@ -1,0 +1,89 @@
+{
+ "also": [
+  "templating",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create a new movie note from a ribbon command",
+  "Search movies by keywords and pick a result",
+  "Fill the note with TMDB movie data via templates",
+  "Configure file location, name format, and template",
+  "Render movie lists with Dataview queries"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The TMDB API key can be provided either as 'Access Token Auth' (JWT) or 'API Key Auth'; adult content inclusion is a toggleable setting.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author shares a personal template ('Personally I use the following template to create movie notes ;)'), implying they built it for their own movie note workflow.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search for movies and pull their details into a new note.",
+ "readmeHash": "c4628ba190c19c2a2af4bd83e0ddcbddfce8013c",
+ "relations": [
+  {
+   "evidence": "Use the Dataview plugin to render the movie notes.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use the Templater plugin with.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The idea of the template was taken from the OB_Template.",
+   "plugin": "OB_Template",
+   "type": "inspired"
+  },
+  {
+   "evidence": "I use the Obsidian plugin Banners (in the note properties) to display the backdrop image.",
+   "plugin": "Banners",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDB API key",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Banners",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Movie note creator that searches TMDB by keyword and fills a template with movie metadata.",
+ "tags": [
+  "tmdb",
+  "movies",
+  "api-key",
+  "poster-images",
+  "trailers",
+  "dataview"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview converted article content with live refresh while editing",
+  "Upload note images, Obsidian embeds, and downloadable web images to X",
+  "Crop and set a 5:2 cover image from note or local files",
+  "Save the note as an X Article draft via the logged-in Chrome session",
+  "Resume an interrupted save with its existing draft and uploaded images"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "The plugin only saves drafts in X; you finish editing and publish the article there yourself.",
+ "extras": "Listed as not manually reviewed by Obsidian staff. Requires nontrivial external setup (Node.js, Playwright MCP, Chrome extension, connection token) and does not support Obsidian mobile. Free and open source (AGPL-3.0-only); explicitly needs no X developer API key or AI service. README is in Chinese. Format support is limited: code blocks, tables, nested lists, Dataview and video are not converted.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "X has no Markdown import for Articles, so turning a note into a long-form post means manually reformatting text and re-uploading every image.",
+ "readmeHash": "fe5225dfcc9a6ee8e1c71f8a1f42cfa88cbef02c",
+ "relations": [
+  {
+   "evidence": "插件启动本机已安装的 Playwright MCP 来连接 Chrome",
+   "plugin": "Playwright MCP",
+   "type": "integrates"
+  },
+  {
+   "evidence": "沿用登录状态：连接日常使用的 Chrome，使用其中已登录的 X 账号",
+   "plugin": "Chrome",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Chrome",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Playwright MCP and Chrome extension",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "X account with Articles permission",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publishing tool that converts Markdown notes into X long-form Article drafts, uploading images and reusing your Chrome X login session.",
+ "tags": [
+  "x-articles",
+  "chrome",
+  "playwright-mcp",
+  "cover-crop",
+  "draft-saving",
+  "image-upload"
+ ]
+}

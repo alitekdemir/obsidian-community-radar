@@ -1,0 +1,63 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize the vault with a Git remote",
+  "Auto-commit and push on file changes with debouncing",
+  "Pull from the remote on vault startup",
+  "Clone a remote into the vault or initialize a repository",
+  "Write a detailed sync audit log to _System/SyncLog.md"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the all-in-one name, the README currently documents only a Git Sync module.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; installation requires manually copying release files into the plugins folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Vault syncing options either use proprietary cloud services or need native Git binaries, and existing Git approaches often fail on Android.",
+ "readmeHash": "4288526cefb21e6426fcfd6ddbcab5c0bae7e9a2",
+ "relations": [
+  {
+   "evidence": "isomorphic-git — pure JavaScript Git engine",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect with GitHub OAuth or paste a Personal Access Token",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 1
+ },
+ "summary": "All-in-one plugin whose current module provides Git-based vault synchronization using isomorphic-git, with auto commit-push, startup pull, and a sync log.",
+ "tags": [
+  "isomorphic-git",
+  "github",
+  "android",
+  "auto-commit",
+  "personal-access-token",
+  "audit-log"
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "also": [
+  "templating",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open named or inline forms from JavaScript and receive the submitted data",
+  "Collect input through typed fields including text, number, date, slider, toggle, selects, and note-name autocompletion",
+  "Create notes or insert text from templates after form submission",
+  "Register command palette commands to trigger forms directly",
+  "Format form results as frontmatter YAML, dataview properties, or templated strings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full documentation is hosted separately via mkdocs; several sections (FormResult details, Dataview integration, template syntax) link out. Installable through BRAT.",
+ "intent": "new",
+ "intentEvidence": "rather than offering an alternative, this plugin is designed as a complement to them",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that Templater and QuickAdd ease creating notes with predefined structure but require manual data entry with limited inputs, so they built a complement offering form-based building blocks for existing workflows.",
+ "primary": "automation",
+ "problem": "Obsidian has no convenient way to capture multiple structured fields at once; Templater and QuickAdd prompt for one value at a time, without labels or the ability to skip fields.",
+ "readmeHash": "883422763dff8b324c63d3b78cebc17315902197",
+ "relations": [
+  {
+   "evidence": "Templater to open modals from templates",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "QuickAdd to quickly capture data from a modal",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dataview to provide values for auto-completion",
+   "plugin": "dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "QuickAdd",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that defines reusable modal forms for capturing structured data, callable via a JavaScript API from Templater, QuickAdd, Dataview, or commands.",
+ "tags": [
+  "templater",
+  "quickadd",
+  "dataview",
+  "javascript-api",
+  "modal-dialog",
+  "structured-data",
+  "form-builder"
+ ]
+}

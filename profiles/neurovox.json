@@ -1,0 +1,82 @@
+{
+ "also": [
+  "audio",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record voice notes from a mic button or command",
+  "transcribe recordings using Whisper, Groq or Deepgram",
+  "apply custom AI prompts to transcriptions",
+  "embed audio files and outputs as callouts in notes",
+  "retry transcription of saved audio files after failures"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Callouts"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README includes detailed API key setup steps and notes that transcription providers require billing information on the account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to record voice notes, transcribe them, or run AI prompts on the transcription inside a note.",
+ "readmeHash": "bec31363c8a547b7c2b783fd843d3c70fe18321b",
+ "relations": [
+  {
+   "evidence": "Automatically transcribes your voice recordings using the OpenAI Whisper API along with Groq.",
+   "plugin": "OpenAI Whisper API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using the OpenAI Whisper API along with Groq",
+   "plugin": "Groq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Input your OpenAI, Deepgram and/or Groq API Key (instructions below).",
+   "plugin": "Deepgram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Groq or Deepgram API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "account with the chosen transcription provider",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "billing set up with the API provider",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Voice transcription plugin that records audio, transcribes it via OpenAI Whisper, Groq or Deepgram, and applies custom AI prompts to the output.",
+ "tags": [
+  "voice-recording",
+  "speech-to-text",
+  "whisper",
+  "openai",
+  "groq",
+  "deepgram",
+  "api-key",
+  "callouts"
+ ]
+}

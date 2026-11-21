@@ -1,0 +1,64 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Author basic, reversed, cloze, heading, and reminder cards in Markdown",
+  "Create or update matching Anki notes via AnkiConnect and link them back to sources",
+  "Sync the current note or the whole vault with include/exclude folder and note rules",
+  "Support card callouts, cards in lists, atomic note cards, math, wikilinks, and media",
+  "Start Anki automatically when closed and test the AnkiConnect connection"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Complete card syntax for callouts, lists, and atomic notes is deferred to an external v2 wiki; legacy v1 documentation lives on a separate branch; the repo includes an optional skill for coding agents.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to author flashcards and push them to Anki for spaced-repetition review while keeping notes as the source of content.",
+ "readmeHash": "0faf65da960508c7d6ee43f551775012e20d2030",
+ "relations": [
+  {
+   "evidence": "The plugin creates or updates the matching notes in Anki.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Flashcards 2.0.1 and later work with AnkiConnect's default settings.",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki desktop with the AnkiConnect add-on",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AnkiConnect API key, if one is configured",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Flashcard authoring plugin that creates and updates Anki notes from Markdown cards via AnkiConnect, keeping Obsidian as the source of truth.",
+ "tags": [
+  "anki",
+  "ankiconnect",
+  "spaced-repetition",
+  "cloze"
+ ]
+}

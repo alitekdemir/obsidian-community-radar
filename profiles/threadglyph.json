@@ -1,0 +1,71 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Anchor comment threads to selected text passages and image embeds",
+  "Reply, edit, resolve, delete and search comments in a side panel",
+  "Store threads and anchors in sidecar JSON files without modifying notes",
+  "Request AI replies from Ollama, Gemini or Claude with a send preview",
+  "Import inline {==highlight==}{>>comment<<} markup into threads"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Alpha (0.3.1), desktop only, no mobile support; flagged as not manually reviewed by Obsidian staff. Extensive disclosures on network use and CLI isolation; further compatibility details live in docs/compatibility.md. README describes the project as written by AI coding agents (OpenAI Codex, Anthropic Claude Code) with Gitar and SonarQube review.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in way to attach threaded, resolvable comments to passages or images without editing the note's own content.",
+ "readmeHash": "ba518da6e49be57730c2b5ad23d4e009a7246d6a",
+ "relations": [
+  {
+   "evidence": "Mention @Local, @Gemini or @Claude in a comment, or press Ask AI.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the Gemini and Claude assistants start the gemini and claude command-line tools you installed",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the Gemini and Claude assistants start the gemini and claude command-line tools you installed",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama, Gemini CLI or Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GEMINI_API_KEY for Gemini assistant",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Comment-thread system that anchors threaded comments to text passages and images in notes and stores them in sidecar JSON files.",
+ "tags": [
+  "ollama",
+  "gemini",
+  "claude",
+  "comment-threads",
+  "sidecar-files",
+  "inline-comments"
+ ]
+}

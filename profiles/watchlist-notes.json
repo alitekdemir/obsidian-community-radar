@@ -1,0 +1,84 @@
+{
+ "also": [
+  "data",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search movies, TV shows, and anime across TMDB, TVmaze, OMDb, and MyAnimeList sources",
+  "Create notes from built-in or custom templates with posters saved into the vault",
+  "Maintain a library note with Dataview tables of movies, TV shows, and anime",
+  "Toggle watched status on open notes",
+  "Refresh TMDB-based notes and posters to comply with TMDB's six-month data limit"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires Obsidian 1.13.0 or later. TV shows and anime need no API key; movies need a free TMDB or OMDb key. TMDB's API terms require refreshing TMDB-sourced notes every six months, which the plugin supports with a refresh command.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search media databases and turn the results into notes with posters and an overview table of what you watch.",
+ "readmeHash": "a9a01550ff448433e26f4a4c968130b8869a01d8",
+ "relations": [
+  {
+   "evidence": "Built from Library Notes (same author) and the Obsidian sample plugin.",
+   "plugin": "Library Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Media DB covers many more kinds of media (games, music, board games, and others)",
+   "plugin": "Media DB",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The library tables use Dataview by Michael Brenan.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This product uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.",
+   "plugin": "TMDB",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "TMDB or OMDb key for movie searches",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "free TMDB account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Media note creator that searches TMDB, TVmaze, and MyAnimeList to build movie, TV, and anime notes with posters and a Dataview library note.",
+ "tags": [
+  "tmdb",
+  "tvmaze",
+  "omdb",
+  "myanimelist",
+  "jikan",
+  "tenrai",
+  "posters",
+  "dataview"
+ ]
+}

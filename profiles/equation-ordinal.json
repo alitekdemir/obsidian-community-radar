@@ -1,0 +1,54 @@
+{
+ "also": [
+  "math"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Number display equations by the source order of \\label declarations",
+  "Resolve \\ref and \\eqref references to parenthesised numbers in inline and display math",
+  "Set the counter to explicit values like 5.1.10 or A.1 with \\label{name}[N]",
+  "Report labeling errors in place with codes, file name and line number",
+  "Configure the reference template, refresh behavior and debug logging"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Install is manual or via BRAT; the README documents limitations (single-note references, pane numbering quirks) and includes a full Chinese translation of the documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's Why section says hand-numbering with \\tag forces renumbering everything whenever a formula is inserted in the middle, so the author moved the job into the rendering layer.",
+ "primary": "latex",
+ "problem": "MathJax in Obsidian has no per-note equation counter and does not make \\label/\\ref work as in LaTeX, forcing users to hand-type \\tag{1}, \\tag{2} and renumber after every insertion.",
+ "readmeHash": "395db8c0a85aac666d9163ea5c4d80ef1a29a422",
+ "relations": [
+  {
+   "evidence": "The plugin calls loadMathJax(), then wraps MathJax.tex2chtml",
+   "plugin": "MathJax",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Math rendering plugin that automatically numbers display equations and resolves LaTeX \\label/\\ref cross-references without writing tags into the note.",
+ "tags": [
+  "mathjax",
+  "cross-references",
+  "label",
+  "eqref",
+  "equation-numbering",
+  "display-math"
+ ]
+}

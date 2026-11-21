@@ -1,0 +1,58 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Connect to a Unabyss account via OAuth 2.0 + PKCE",
+  "Push changed notes to Unabyss using a hash-based delta sync",
+  "Pull Unabyss exports into a vault folder as Markdown files",
+  "Configure folder scopes, direction toggles, and deletion handling",
+  "Force a full resync that rebuilds the local hash cache"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that OAuth tokens are stored as plaintext in data.json and can leak through other sync layers covering .obsidian/; OS-keychain support is on the roadmap. Self-hosted backends are supported via a configurable API base URL.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync notes with an external Unabyss memory service or bring its exports back into the vault.",
+ "readmeHash": "dd5636ffcf53683840c79815c02ada2e1200d133",
+ "relations": [
+  {
+   "evidence": "Install the BRAT community plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Unabyss account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that pushes vault notes to the Unabyss service as incremental deltas and pulls Unabyss exports back as Markdown files.",
+ "tags": [
+  "oauth",
+  "pkce",
+  "bidirectional-sync",
+  "delta-sync",
+  "brat",
+  "hash-cache"
+ ]
+}

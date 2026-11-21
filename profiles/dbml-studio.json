@@ -1,0 +1,57 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render DBML models as ER diagrams from code blocks in notes",
+  "Read .dbml files from disk, including paths outside the vault",
+  "Filter which tables a diagram shows by name",
+  "Set each block's height and light or dark theme",
+  "Re-read on-screen models with a Refresh diagrams command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a DBML editor; it only renders existing .dbml files as diagrams and never writes them.",
+ "extras": "Desktop only (reads files with Node's fs). The bundled diagram frame is about 16.4 MB of HTML and each loaded diagram costs roughly 70 MB of memory. Reader-facing text is English or Russian depending on Obsidian's language. Sends nothing over the network.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The models a documentation vault draws usually live beside the documentation they describe (an Antora or MkDocs site's models/), and copying them into the vault would leave two versions to drift apart.",
+ "primary": "visualization",
+ "problem": "Obsidian cannot draw DBML database models, and diagram tools that embed a web renderer usually need the model copied into the vault or fetched over the network.",
+ "readmeHash": "99ef8ebd4e3b3e2b45a51a64a079b6ddabf20afa",
+ "relations": [
+  {
+   "evidence": "frame/embed.html is DBML Studio's frame (the dbml-frame package)",
+   "plugin": "DBML Studio (dbml-frame package)",
+   "type": "extends"
+  },
+  {
+   "evidence": "The keys are the MkDocs plugin's (DBML Studio's packages/mkdocs-dbml)",
+   "plugin": "DBML Studio's MkDocs plugin (packages/mkdocs-dbml)",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders DBML database models as ER diagrams in note code blocks, reading .dbml files from disk, including files outside the vault.",
+ "tags": [
+  "dbml",
+  "er-diagram",
+  "database-schema",
+  "mkdocs",
+  "antora",
+  "docs-as-code"
+ ]
+}

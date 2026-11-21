@@ -1,0 +1,78 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Summarize how each backlinked note relates to the active note",
+  "Locate the paragraph containing each inbound link",
+  "Cache explanations keyed by both notes' modification times",
+  "Explain backlinks automatically after a debounce or on demand",
+  "Open or expand linking notes from the panel"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Obsidian community plugin store; must be installed manually by copying the plugin folder into .obsidian/plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's backlinks panel lists notes that link to the current one but doesn't say why or how each one relates.",
+ "readmeHash": "b8ac6766053f604e9d76ed7fd1bd94e86a072ac7",
+ "relations": [
+  {
+   "evidence": "standard OpenAI-compatible LLM settings (works with OpenAI, Ollama, LM Studio, etc.)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local Ollama or LM Studio works fully offline",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local Ollama or LM Studio works fully offline",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "hosted LLM provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI panel that shows one-line LLM explanations of how each note linking to the current note relates to it.",
+ "tags": [
+  "llm",
+  "openai",
+  "ollama",
+  "lm-studio",
+  "relationship-summaries",
+  "in-memory-cache"
+ ]
+}

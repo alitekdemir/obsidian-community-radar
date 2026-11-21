@@ -1,0 +1,77 @@
+{
+ "also": [
+  "tags",
+  "outlining"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Generate MOCs for folders",
+  "Tag notes using LLMs",
+  "Recommend similar notes via embeddings",
+  "Update MOCs automatically on file changes",
+  "Manage AI provider settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy First: Notes and embeddings are local unless cloud providers are explicitly configured.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Manually maintaining organized Maps of Content and consistently tagging notes across a large knowledge base is time-consuming.",
+ "readmeHash": "8b7fc4482028388ff4e46ae49643d0b54822c604",
+ "relations": [
+  {
+   "evidence": "Local Ollama endpoints keep these requests local",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send notes to Ollama, OpenAI, or Anthropic",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send notes to Ollama, OpenAI, or Anthropic",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Automatically generates Maps of Content (MOCs) for specified folders and uses LLMs and vector embeddings to tag notes and suggest related content.",
+ "tags": [
+  "llm",
+  "vector-embeddings",
+  "maps-of-content",
+  "ollama",
+  "openai",
+  "anthropic"
+ ]
+}

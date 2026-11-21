@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit marimo notebook cells with Obsidian-native UI",
+  "Run reactive cells through a local marimo Python runtime",
+  "Render interactive widgets, Markdown previews and Plotly/Vega charts",
+  "Inspect variables and cell dependencies in side panels",
+  "Generate or refactor cells via an OpenAI-compatible endpoint"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. Connecting to the runtime executes notebook Python unsandboxed with user permissions; the AI key is saved in plaintext in the plugin's data.json. Requires exactly marimo 0.25.2; other versions are rejected. Windows and Linux GUI behavior is unverified.",
+ "intent": "alternative",
+ "intentEvidence": "The main notebook view does not embed a website or webview.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian has no way to edit or execute marimo notebooks, so users must switch to the official browser editor to work with .py notebook files.",
+ "readmeHash": "548eb7c689eb93037fa9175aa75bae6d4db33fe7",
+ "relations": [
+  {
+   "evidence": "connect to the real local marimo runtime",
+   "plugin": "marimo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ruff 0.17.3 supplies the Format action",
+   "plugin": "Ruff",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use inline completion through an OpenAI-compatible endpoint you configure",
+   "plugin": "OpenAI-compatible endpoint",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.12 with marimo 0.25.2 in a virtual environment",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Native editor for reactive marimo Python notebooks that runs cells through a local marimo runtime inside Obsidian.",
+ "tags": [
+  "marimo",
+  "python",
+  "plotly",
+  "altair",
+  "vega",
+  "openai"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Group frontmatter rows under collapsible headers matched by name, prefix wildcard, or regex",
+  "Pin chosen keys to the top of the panel in a fixed order",
+  "Insert folder-scoped default fields with type-aware seed values and date markers",
+  "Reconcile notes on open or leave by inserting defaults, scrubbing flagged nulls, and reordering keys",
+  "Catalog, remove, and rename frontmatter fields across the vault with a recoverable scrub log"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Community Plugins directory; must be installed via BRAT. Recovery of scrubbed fields is manual (no one-click restore). Verified working on iPhone as well as desktop.",
+ "intent": "improve",
+ "intentEvidence": "Adds collapsible group headers to the native Properties panel",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because metadata conventions (AI fields, hidden fields, CRM fields, content fields) pile up with no structure in the native panel, and the clutter grows as conventions are adopted.",
+ "primary": "properties",
+ "problem": "The native Properties panel shows every frontmatter key as a flat, unordered list, which becomes unmanageable clutter in metadata-rich vaults.",
+ "readmeHash": "866098e6246703b38652e2946527f756f1369d1f",
+ "relations": [
+  {
+   "evidence": "optional note-body scaffolding (evaluated through Templater when installed)",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install it via BRAT.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Properties-panel extension that adds collapsible frontmatter groups, canonical key ordering, folder-scoped field templates, and cleanup tools.",
+ "tags": [
+  "templater",
+  "lucide",
+  "regex",
+  "brat",
+  "scrub-log"
+ ]
+}

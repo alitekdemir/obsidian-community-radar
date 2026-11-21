@@ -1,0 +1,67 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Correct spelling, grammar, and punctuation in selected text",
+  "Run corrections on whole notes or multiple Markdown files",
+  "Review highlighted corrections with batch stop and retry",
+  "Manage a Constance account and buy credits in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not limited to spelling; it also rewrites grammar and punctuation, and includes account and credit purchasing.",
+ "extras": "Requires Obsidian 1.5.0 or later. Account requests send authentication and billing data to Constance; error reports go to Datadog and may include file paths or content. There is a free allowance; pricing is verified at purchase time in USD via Paddle.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's built-in spellcheck flags errors but doesn't apply grammar and punctuation corrections across selections, notes, or multiple files.",
+ "readmeHash": "5387eb72cc72871cf099d768ab4f32a181bc86d1",
+ "relations": [
+  {
+   "evidence": "Connect your Constance account in plugin settings.",
+   "plugin": "Constance",
+   "type": "integrates"
+  },
+  {
+   "evidence": "New purchases use Paddle and USD.",
+   "plugin": "Paddle",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Constance",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "credit balance for AI actions",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "AI spell corrector that fixes spelling, grammar, and punctuation in selected text, notes, and Markdown files via OpenRouter.",
+ "tags": [
+  "openrouter",
+  "grammar",
+  "punctuation",
+  "constance",
+  "paddle",
+  "batch-correction"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "export",
+  "files"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Upload the current note or any vault file to a Plik server",
+  "Render a Markdown note to PDF and upload it",
+  "Zip and upload a folder from the file explorer context menu",
+  "Browse local upload history with expiry indicators",
+  "Delete uploads remotely and set share options (TTL, one-shot, password)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "PDF export works only on Obsidian desktop; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to share vault files as temporary upload links on a self-hosted file-sharing server.",
+ "readmeHash": "1b922f912ca1d15390a8fdc3add45e56af0ace93",
+ "relations": [
+  {
+   "evidence": "Upload notes, files, and folders from your vault to a self-hosted Plik server and copy the share link",
+   "plugin": "Plik",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Plik instance",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Plik API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Uploader that sends the current note, vault files, or zipped folders to a self-hosted Plik server and copies the share link.",
+ "tags": [
+  "file-sharing",
+  "self-hosted",
+  "ttl",
+  "one-shot-links",
+  "password-protection",
+  "zip",
+  "upload-history"
+ ]
+}

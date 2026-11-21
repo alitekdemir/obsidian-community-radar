@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run Claude Code, Codex and OpenCode sessions in Obsidian terminal tabs",
+  "Keep sessions running after closing a tab and resume ended sessions",
+  "Track session state, cost, tokens and 5-hour/7-day usage limits",
+  "Start, rename, categorize, fork, compact and restart sessions from a side panel",
+  "Analyze transcripts for wasted tokens and suggest fixes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a chat panel or an agent that edits the open note; each session is the agent's own CLI running in an Obsidian tab.",
+ "extras": "Writes hooks and status lines into ~/.claude/settings.json and other agent config files outside the vault, with backups; discloses all network behavior in detail and states it has no telemetry or account. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Not supported on Windows with agents in WSL unless Obsidian also runs in WSL through WSLg.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Using coding agents means switching to a separate terminal, with no way to keep sessions next to your notes, resume them later, or see usage limits and costs in one place.",
+ "readmeHash": "4f26cf407779b3d929ed4810417f83cb417fe039",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or ollama launch opencode if you choose Ollama to launch OpenCode in the settings.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex or OpenCode CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.9-3.14",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Agent account or API key (agent's own subscription)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Terminal-tab manager that runs Claude Code, Codex and OpenCode coding agents inside Obsidian, with session state, usage and cost tracking.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "opencode",
+  "terminal",
+  "usage-limits",
+  "cost-tracking",
+  "python"
+ ]
+}

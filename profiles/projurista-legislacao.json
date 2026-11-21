@@ -1,0 +1,71 @@
+{
+ "also": [
+  "research",
+  "search"
+ ],
+ "audience": [
+  "lawyers",
+  "legal-researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up a provision by reference and get literal text with a ready citation",
+  "Search statute wording to locate relevant articles",
+  "Verify all statutory citations in a note by code, flagging revoked or mismatched text",
+  "Expose four lookup and verification tools through a local MCP server",
+  "Save chosen statutes into the vault as notes with literal text and hash"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a legal research or summarization tool; it returns only literal statutory text from its embedded base and does not use a language model.",
+ "extras": "Desktop only (uses Node.js). main.js is about 11 MB because the legislation base is embedded as readable text; it is only parsed on first use. The base is a snapshot (version 2026.11.17) and does not reflect later legislative changes; state, municipal and less common federal laws are not included. The MCP server listens only on 127.0.0.1 with a token, default port 27190, and Obsidian must stay open. No network access, no telemetry. Interface is in Brazilian Portuguese; MIT license.",
+ "intent": "new",
+ "intentEvidence": "É o irmão do Projurista MCP, que faz o mesmo com súmulas e precedentes qualificados.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author's stated idea is that the wording of an article is not written from memory but copied from a checked base.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to retrieve or check exact statutory wording, so legal citations in notes must be written from memory and cannot be verified against a source.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "6533182a3ef900a2209cc4b21aceaec2831be1ae",
+ "relations": [
+  {
+   "evidence": "É o irmão do Projurista MCP, que faz o mesmo com súmulas e precedentes qualificados.",
+   "plugin": "Projurista MCP",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Desktop or Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plugin that embeds 60 Brazilian federal statutes as literal text to look up, cite and verify legal provisions in notes and via a local MCP server.",
+ "tags": [
+  "mcp",
+  "claude",
+  "claude-code",
+  "local-server",
+  "citations",
+  "plain-text",
+  "verification"
+ ],
+ "textHash": "96cf804ba43c444cb5c96376b85c34abddeb320b"
+}

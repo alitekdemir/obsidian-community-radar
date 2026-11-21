@@ -1,0 +1,53 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Resolve [[alias]] links, hover previews, embeds, and backlinks to the page holding the alias",
+  "Delete empty pages whose names are aliases of another page",
+  "List alias conflicts where a name points to multiple pages",
+  "Configure per-page case-sensitive alias matching via a property"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Logseq integration or importer; it only changes how alias links resolve inside Obsidian.",
+ "extras": "Install is manual (copy main.js and manifest.json) or via BRAT; the listing notes it has not been manually reviewed by Obsidian staff. Redirection only works where the plugin is installed; tools reading Markdown files directly still see unresolved links.",
+ "intent": "improve",
+ "intentEvidence": "makes [[alias]] links open the page that has the alias, the way Logseq does",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted Logseq's behavior, where an alias and the page name are the same thing, brought to Obsidian.",
+ "primary": "links",
+ "problem": "Obsidian only uses aliases for link suggestions, so a manually typed [[alias]] stays unresolved and clicking it creates an empty page that then captures all future links.",
+ "readmeHash": "b8f461b7242418580b183430d285a16b0d0e4374",
+ "relations": [
+  {
+   "evidence": "open the page that has the alias, the way Logseq does",
+   "plugin": "Logseq",
+   "type": "inspired"
+  },
+  {
+   "evidence": "other plugins that use the same API (Dataview, backlink plugins)",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Alias link resolver that makes [[alias]] links open the page holding that alias, Logseq-style, instead of creating empty unresolved pages.",
+ "tags": [
+  "logseq",
+  "aliases",
+  "unresolved-links",
+  "link-resolution"
+ ]
+}

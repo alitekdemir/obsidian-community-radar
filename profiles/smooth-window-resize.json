@@ -1,0 +1,41 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Defer Reading view redraws until window resizing settles",
+  "Combine repeated intermediate resize updates into one final update",
+  "Leave note content and Editing view untouched during the drag"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (requires Obsidian 1.13.4+); uses an internal Reading view resize callback not exposed by the public API, so Obsidian updates may require a compatibility update. No settings, network requests, or telemetry.",
+ "intent": "improve",
+ "intentEvidence": "it only avoids repeating the same expensive work for sizes that are immediately superseded",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author traced the slowdown in a real 150 KB chapter and wanted resizing to feel immediate without changing how notes look or how Obsidian works after the drag.",
+ "primary": "utilities",
+ "problem": "Resizing the desktop window with a long note open in Reading view triggers repeated expensive recalculations that make the drag feel sluggish.",
+ "readmeHash": "2eef891c9c863a2c2d873fd079121875b114e2cc",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Performance plugin that delays Reading view redraws during window resizing so long notes resize responsively.",
+ "tags": [
+  "performance",
+  "reading-view",
+  "debounce",
+  "window-resize",
+  "desktop-only"
+ ]
+}

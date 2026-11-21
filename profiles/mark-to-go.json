@@ -1,0 +1,62 @@
+{
+ "also": [
+  "images",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload referenced local images via PicList CLI or directly to Alibaba Cloud OSS or AWS S3",
+  "Copy Markdown with image links rewritten to online URLs while leaving the original note unchanged",
+  "Copy an exported .md file or save it to Downloads on Windows",
+  "Reuse uploads through a content-hash cache stored in the vault",
+  "Verify local configuration (paths, secrets, fields) without network requests"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; Windows tested, macOS and Linux untested. The plugin is free but the chosen image host may require an account or payment. Secrets are stored via Obsidian secret storage, not in settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Sharing an Obsidian note with images requires sending the images separately or leaving broken local links; Obsidian has no built-in way to produce a shareable Markdown copy with hosted images.",
+ "readmeHash": "e0b92fe66bc6ebc4ed376e886dcfca633c0635e6",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "PicList",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PicList desktop + Node.js LTS (PicList upload method)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Image host, Alibaba Cloud OSS bucket, or AWS S3 bucket with access keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Share tool that uploads a note's local images to PicList, Alibaba Cloud OSS or AWS S3 and copies Markdown with online image links.",
+ "tags": [
+  "piclist",
+  "aws-s3",
+  "alibaba-cloud-oss",
+  "image-hosting",
+  "clipboard",
+  "content-hash"
+ ]
+}

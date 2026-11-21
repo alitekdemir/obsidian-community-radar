@@ -1,0 +1,80 @@
+{
+ "also": [
+  "tasks",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run customizable work and break interval timers",
+  "Play audible alerts at the end of each session",
+  "Display timer progress in the status bar",
+  "Log finished sessions into daily notes with simple, verbose, or Templater-based templates",
+  "Update a pomodoro count inline field on the task in focus"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Custom notification sounds require placing an audio file in the vault and setting its vault-relative path; task tracking needs an inline pomodoros field placed before Tasks plugin fields to avoid rendering issues.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in timer for focus sessions, so users doing the Pomodoro Technique must leave the app or track sessions manually.",
+ "readmeHash": "1dd8290fe496d755c7baabb69b0b716f93bfdcc7",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This DataView script generates a table showing Pomodoro sessions with their durations",
+   "plugin": "DataView",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ensure to add this inline-field before the Tasks plugin's fields",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "DataView",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Pomodoro timer that runs customizable work/break sessions with audio alerts, status bar display, daily note logging, and task tracking.",
+ "tags": [
+  "pomodoro",
+  "focus-timer",
+  "time-tracking",
+  "dataview",
+  "templater",
+  "tasks-plugin",
+  "notification-sound"
+ ]
+}

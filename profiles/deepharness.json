@@ -1,0 +1,66 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a DeepSeek Harness agent from a side panel",
+  "Let the agent run bash, read and write files, and search the web in the vault",
+  "Reference the current note or @mention vault notes in prompts",
+  "Archive, resume, pin, and rename chat sessions with automatic context refill",
+  "Configure models, reasoning effort, tool execution mode, and security mode"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Security caveat: the agent's bash tool runs with user-level permissions and headless DSH has no file sandbox by default; persona rules only ask the agent to stay in the vault. Security mode offers read-only / workspace write / full access. Requires installing the DSH CLI and configuring DeepSeek credentials; a 'Run check' diagnostics button verifies the environment.",
+ "intent": "alternative",
+ "intentEvidence": "designed based on an analysis of Enigmora/claudian; the key difference is that execution is pushed down",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run an autonomous AI agent that can execute commands and modify vault files from a chat interface.",
+ "readmeHash": "d1c290777e6f0a73e5a2fff7b2723bf0483732fe",
+ "relations": [
+  {
+   "evidence": "This repo was designed based on an analysis of Enigmora/claudian",
+   "plugin": "Enigmora/claudian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "it calls DeepSeek Harness directly from the side panel",
+   "plugin": "DeepSeek Harness (DSH CLI)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DSH CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key or DSH credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Chat panel that runs a DeepSeek Harness (DSH) agent in your vault, letting it execute bash, edit files, and search the web on your notes.",
+ "tags": [
+  "deepseek",
+  "dsh-cli",
+  "ai-agent",
+  "bash",
+  "web-search",
+  "chat"
+ ]
+}

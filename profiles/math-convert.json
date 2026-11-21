@@ -1,0 +1,52 @@
+{
+ "also": [
+  "latex",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert a whole image or a drawn rectangular region to LaTeX",
+  "Load images by drag-and-drop, file browse, or clipboard paste",
+  "Copy the resulting LaTeX to the clipboard",
+  "Cache the ~100 MB model locally so repeat conversions work offline",
+  "Swap in any compatible Hugging Face VisionEncoderDecoder model via settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a math renderer or calculator; it only extracts LaTeX from image regions using OCR.",
+ "extras": "The model (~100 MB) is downloaded from Hugging Face on first use, so one-time internet access is needed; the manifest notes the plugin has not been manually reviewed by Obsidian staff. The README limits accuracy to clean, isolated formulas rather than dense multi-formula pages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because retyping equations is tedious and error-prone, and online converters are slow, require accounts, and send images to someone else's server.",
+ "primary": "ocr",
+ "problem": "Retyping equations is tedious and error-prone, and online image-to-LaTeX converters need accounts, send data to third-party servers, and require leaving Obsidian.",
+ "readmeHash": "ce3f2feed927c75d0404aa216a6a77b5f8ed8d1b",
+ "relations": [
+  {
+   "evidence": "Math-Convert embeds FormulaNet, a 20 M-parameter vision-to-sequence model, and runs it locally",
+   "plugin": "FormulaNet (alephpi/FormulaNet, via Hugging Face)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Converts selected regions of images into LaTeX formulas using a small OCR model that runs offline in WebAssembly.",
+ "tags": [
+  "image-to-latex",
+  "formula-recognition",
+  "webassembly",
+  "huggingface",
+  "formula-net",
+  "offline-inference",
+  "sketch-to-latex"
+ ]
+}

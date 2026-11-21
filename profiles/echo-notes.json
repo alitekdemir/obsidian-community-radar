@@ -1,0 +1,95 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe real-time microphone input or vault audio files into Markdown transcript files",
+  "Run configurable AI analysis templates on transcripts and write structured results back",
+  "Extract, review, and compile evidence-backed candidate memories into managed profiles",
+  "Automate transcription of new audio links and newly created audio files",
+  "Configure cloud and local transcription, analysis, and memory providers with local checks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. Sends audio and transcript text to external cloud services whenever transcription, analysis, or memory extraction runs; the README includes an explicit privacy notice and per-provider data-use details. Real-time transcription requires Obsidian desktop with a local filesystem vault. Documentation is heavily oriented toward Chinese-language providers and workflows; contact is via WeChat.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because generic transcription tools produce one output for all scenarios, and because meeting content kept outside Obsidian loses context and never enters the existing knowledge workflow.",
+ "primary": "audio",
+ "problem": "Transcription and meeting-minutes products keep output in separate platforms, so recordings, transcripts, and action items stay disconnected from the vault's daily notes, projects, and knowledge workflow.",
+ "readmeHash": "2a7c1926095b1594d27ba3d82882352ecc1a8f1a",
+ "relations": [
+  {
+   "evidence": "Real-time mode continuously sends microphone PCM to Volcengine AgentPlan.",
+   "plugin": "Volcengine AgentPlan",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Alibaba Bailian qwen3-asr-flash: local files are encoded as Base64 Data URLs.",
+   "plugin": "Alibaba Bailian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "SiliconFlow: each request must stay within both 50 MB and one hour.",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "MOSI with selectable moss-transcribe plain transcription or moss-transcribe-diarize speaker diarization",
+   "plugin": "MOSI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama through its local OpenAI-compatible /audio/transcriptions endpoint",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LM Studio through its local OpenAI-compatible /audio/transcriptions endpoint",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI analysis uploads the transcript text and template instructions using your separate analysis API key.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian's Audio recorder core plugin is used only by the offline workflow: it saves a complete recording after stop",
+   "plugin": "Obsidian Audio recorder",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Transcription, analysis, or memory provider API key (Volcengine AgentPlan, Alibaba Bailian, SiliconFlow, MOSI, OpenAI, DeepSeek, OpenCode Go)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Audio transcription plugin that converts recordings into Markdown transcripts, applies configurable AI analysis templates, and optionally builds a reviewed personal memory system.",
+ "tags": [
+  "speech-to-text",
+  "diarization",
+  "meeting-notes",
+  "volcengine",
+  "siliconflow",
+  "ollama",
+  "personal-memory"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to a private GitHub repository via the REST API",
+  "Preserve both versions of concurrently edited files as timestamped conflict files",
+  "Batch changes into atomic commits with rate-limit throttling and cooldowns",
+  "Exclude folders or files via comma-separated patterns",
+  "Run connectivity diagnostics and health checks on the repository"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Free and open source; errors are logged locally with tokens redacted and must be shared manually.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service and Git-based community sync plugins need a local Git CLI or heavy WebAssembly modules, which is awkward especially on mobile.",
+ "readmeHash": "85f4b7b816b32f8474fc318b32d0ecff38f3ef9c",
+ "relations": [
+  {
+   "evidence": "transmitted directly and exclusively to the official GitHub REST API (api.github.com)",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained Personal Access Token with Contents read/write",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "GitHub-based vault synchronization plugin that syncs notes across desktop and mobile via the GitHub REST API with 3-way merge and conflict-file preservation.",
+ "tags": [
+  "github",
+  "three-way-merge",
+  "conflict-resolution",
+  "personal-access-token",
+  "rest-api",
+  "cross-device"
+ ]
+}

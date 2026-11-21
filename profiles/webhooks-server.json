@@ -1,0 +1,69 @@
+{
+ "also": [
+  "automation",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "receive webhooks from Zapier, Make, n8n, AI agents, or any HTTP client",
+  "create vault notes from JSON payloads with YAML frontmatter",
+  "deliver events in real time via SSE with polling fallback",
+  "guarantee exactly-once delivery through an ACK system",
+  "encrypt event data at rest with AES-256-GCM"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Self-hosting a server is required: deployment uses Docker, Nginx, PostgreSQL (Supabase), and Mailgun for magic-link email. The listing notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian cannot receive events from external services (automation platforms, AI agents, custom APIs) and turn them into notes on its own.",
+ "readmeHash": "1a1e492b6b7122866841f2cecc156aea54acc365",
+ "relations": [
+  {
+   "evidence": "Inspired by obsidian-webhooks by @trashhalo — the original proof of concept",
+   "plugin": "obsidian-webhooks",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "email account for passwordless magic-link registration",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "webhook senders such as Zapier, Make, n8n, or a custom HTTP client",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted dependencies (Docker, PostgreSQL/Supabase, Mailgun) to run the server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted webhook server with an Obsidian companion plugin that turns incoming HTTP events from external services into vault notes in real time.",
+ "tags": [
+  "webhook",
+  "sse",
+  "self-hosted",
+  "zapier",
+  "make",
+  "n8n",
+  "docker",
+  "magic-links"
+ ]
+}

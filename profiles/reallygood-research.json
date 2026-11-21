@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Run deep research",
+  "Generate Markdown notes",
+  "Generate HTML reports",
+  "Integrate Tavily API",
+  "Utilize local AI CLIs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Users need a structured and automated way to conduct deep research and integrate the resulting content directly into their Obsidian vault.",
+ "readmeHash": "861f9ad655bfe6b36d1e0444e0a4d56cacd9c6c1",
+ "relations": [
+  {
+   "evidence": "Install the BRAT Obsidian plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tavily requests are sent to Tavily's API to create research reports, search, extract, and test usage.",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "NotebookLM requests are handled by your configured local notebooklm-mcp command, which uses your own NotebookLM/Google login.",
+   "plugin": "NotebookLM",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional AI synthesis calls a local CLI you select, such as Claude Code, Codex, Gemini, Grok, Antigravity, or a custom command.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "NotebookLM/AI provider CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A deep research publisher that automates research using services like Tavily and NotebookLM, outputting structured Markdown and HTML notes into the vault.",
+ "tags": [
+  "tavily",
+  "notebooklm",
+  "cli",
+  "mcp",
+  "deep-research"
+ ]
+}

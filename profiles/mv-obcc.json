@@ -1,0 +1,89 @@
+{
+ "also": [
+  "integrations",
+  "git"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Bridge current file, selection and editor state to Claude Code, Codex CLI, MCP and DeepSeek Harness agents",
+  "Provide a selection assistant and inline ghost-text completion through configurable API providers",
+  "Run real system terminals and sequential mv-run command lists inside Obsidian",
+  "Supply a standalone Vim engine with modes, motions, registers, macros, Ex commands and vault-level .vimrc",
+  "Manage the vault's Git repository with staging, diff views and three-way conflict editing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Maintenance note says frequent DeepSeek Harness breaking updates may break mv-agent compatibility; API keys are stored in plaintext in data.json; full manuals (Chinese and English), platform matrices and troubleshooting live outside the README; the Web Viewer context-menu injection is labeled experimental.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it so agents stay aware of what the user is reading and editing instead of working detached from the live context, and so AI, source code, terminal, Vim and desktop file workflows share one interface.",
+ "primary": "ai",
+ "problem": "Obsidian gives coding agents no live view of the current file, selection or terminal output, and offers no built-in terminal, Vim engine, non-Markdown source tooling or Git frontend.",
+ "readmeHash": "6f42c0a97b4134f6d51cf742006292cd7cbc615c",
+ "relations": [
+  {
+   "evidence": "mv-agent 把 DSH Web 界面直接放进 Obsidian",
+   "plugin": "DeepSeek Harness",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code、Codex CLI 和任意 MCP Agent 可以读取当前标签、选区、诊断、终端输出和笔记关系",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Source Assist 的 Code Suite 内核基于 obsidian-latex-suite 1.11.5，保留 MIT 声明",
+   "plugin": "obsidian-latex-suite",
+   "type": "extends"
+  },
+  {
+   "evidence": "Git 集成的命令设计与测试思路参考了 Obsidian Git（MIT）",
+   "plugin": "Obsidian Git",
+   "type": "inspired"
+  },
+  {
+   "evidence": "行内补全的 CodeMirror 架构参考了 obsidian-github-copilot 的公开思路",
+   "plugin": "obsidian-github-copilot",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API provider keys",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex CLI, DeepSeek Harness, local Git, Node.js/pnpm",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 1
+ },
+ "summary": "AI IDE toolkit that bridges coding agents (Claude Code, Codex CLI, DeepSeek Harness) into the vault, adding terminal, Vim, source editing and Git tools.",
+ "tags": [
+  "claude-code",
+  "codex-cli",
+  "deepseek-harness",
+  "mcp",
+  "inline-completion",
+  "ghost-text",
+  "terminal",
+  "tex"
+ ]
+}

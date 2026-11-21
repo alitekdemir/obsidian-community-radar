@@ -1,0 +1,73 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync frontmatter-flagged Markdown files to Cloudflare KV on modification",
+  "Auto-generate unique document IDs when missing",
+  "Organize KV keys with optional collection prefixes",
+  "Remove old KV keys when collections change or sync is disabled",
+  "Run manual syncs via ribbon icon and commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Stores a persistent error log file in the vault root; uploads are debounced (default 60 seconds) to limit API calls.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says the plugin is for pulling content into a static site generator such as Eleventy, using Cloudflare KV as a bare bones CMS.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to push selected notes into external storage like Cloudflare KV to serve as a bare-bones CMS for static site generators.",
+ "readmeHash": "24914bfab972b05639f8649bbb0608c695fb654a",
+ "relations": [
+  {
+   "evidence": "automatically syncs markdown files to Cloudflare KV storage based on Frontmatter configuration",
+   "plugin": "Cloudflare KV",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Perfect for pulling content into a static site generator such as Eleventy",
+   "plugin": "Eleventy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Cloudflare KV Sync",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloudflare API token with Workers KV Storage:Edit permission",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sync plugin that automatically uploads frontmatter-flagged Markdown files to a Cloudflare KV namespace for use as a static-site content source.",
+ "tags": [
+  "cloudflare",
+  "cloudflare-kv",
+  "eleventy",
+  "static-site-generator",
+  "cms",
+  "uuid"
+ ]
+}

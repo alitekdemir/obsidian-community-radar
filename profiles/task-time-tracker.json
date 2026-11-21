@@ -1,0 +1,85 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [
+  "freelancers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Start and stop timers on checkbox tasks from commands, icons, or the status bar",
+  "Browse, search, and edit tracked sessions by day, week, or custom date range",
+  "Assign clients and projects to tasks and filter history by them",
+  "View a 30-day dashboard of time totals by project, client, day, and task",
+  "Export sessions as generic, Toggl-formatted, or Clockify-formatted CSV"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Status bar"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Explains limits in detail (identifier placement breaks Tasks queries, duplicated tt-ids, read-only views don't show controls). Warns about multi-device sync version mismatches that can lose client data. Harvest and Everhour export formats are planned. Nothing is ever transmitted externally; export files are written locally for manual upload.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because he needed it himself and couldn't find a plugin that did what he wanted.",
+ "primary": "tasks",
+ "problem": "Obsidian has no native way to track time spent on tasks, and existing trackers focus on Pomodoro-style sessions or don't integrate with checkbox-based task formats.",
+ "readmeHash": "fac40d0be8c85431f04fa4eb5d12dc1898c38ace",
+ "relations": [
+  {
+   "evidence": "If you use the Tasks plugin, where the identifier sits on the line matters.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview is entirely optional: tracking, history, and export all work exactly the same without it.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Toggl-formatted CSV — matches the exact columns expected by Toggl's official importer.",
+   "plugin": "Toggl",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Clockify-formatted CSV — matches the exact columns expected by Clockify's Timesheets importer.",
+   "plugin": "Clockify",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Clockify paid plan (for importing CSVs)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Time tracker that records work sessions on checkbox tasks inside the vault and exports CSVs formatted for Toggl and Clockify importers.",
+ "tags": [
+  "timer",
+  "time-tracking",
+  "toggl",
+  "clockify",
+  "inline-fields"
+ ]
+}

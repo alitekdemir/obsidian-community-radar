@@ -1,0 +1,55 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Replace real names with custom aliases in a selection, note, or folder",
+  "Restore aliases back to real names in AI replies, including bare aliases without wrappers",
+  "Auto-restore pasted AI replies with ask/always/never modes",
+  "Import and export mapping tables as JSON via the clipboard",
+  "Copy a safe AI prompt prefix that instructs the model to keep aliases intact"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI assistant or chat plugin; it never contacts an AI itself, it only masks and restores names around your own AI usage.",
+ "extras": "The manifest warns the plugin has not been manually reviewed by Obsidian staff. The mapping table with real names is stored in plain data.json, so the README advises excluding it from public git repos and backing it up before reinstalling or switching machines. The plugin runs fully offline with no network access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because pasting real names into any public AI is a leak risk, and relying on the AI itself to substitute names would be lossy and error-prone.",
+ "primary": "ai",
+ "problem": "Sending notes containing real project, company, or people names to public AI assistants leaks sensitive information, and Obsidian has no built-in way to mask and unmask them.",
+ "readmeHash": "8b4f70a61e9be6e6915f74cb1fa5a5d7c0e8cf37",
+ "relations": [
+  {
+   "evidence": "an in-Obsidian assistant (Copilot, Editing Toolbar, etc.) or an external tool such as Codex, Claude Code",
+   "plugin": "Copilot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an external tool such as Codex, Claude Code, Doubao, DeepSeek, etc.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Local privacy tool that deterministically masks sensitive names with aliases before text goes to any AI, then restores them in the reply.",
+ "tags": [
+  "privacy",
+  "anonymization",
+  "pseudonyms",
+  "data-masking",
+  "deterministic-replacement",
+  "bilingual"
+ ]
+}

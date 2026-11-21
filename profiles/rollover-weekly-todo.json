@@ -1,0 +1,64 @@
+{
+ "also": [
+  "calendar",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "roll over unchecked todos from the previous weekly note into the current one",
+  "trigger rollover via command palette, ribbon icon, or automatically on new note creation",
+  "roll todos into a chosen template heading or the end of the note",
+  "optionally delete rolled-over todos from the previous weekly note",
+  "undo the last rollover within two minutes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installation before official release requires the BRAT beta plugin installer. The undo command only works within a 2-minute window after rollover.",
+ "intent": "alternative",
+ "intentEvidence": "Since the existing plugin only allows rollover of daily notes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author prefers working with weekly notes because daily notes are too granular for their workflow, so they built a weekly variant of an existing daily-todos plugin.",
+ "primary": "tasks",
+ "problem": "Existing rollover plugins only carry incomplete todos between daily notes, leaving users who plan around weekly notes without automated task rollover.",
+ "readmeHash": "a69ef87f90f6cbe353076229a5cc6a3b55874e41",
+ "relations": [
+  {
+   "evidence": "It's heavily inspired from the  obsidian-rollover-daily-todos",
+   "plugin": "obsidian-rollover-daily-todos",
+   "type": "inspired"
+  },
+  {
+   "evidence": "You must have Periodic Notes plugin installed AND the Weekly Notes setting toggled on",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "A weekly-note task rollover plugin that copies or moves unchecked todos from the previous weekly note into the current one.",
+ "tags": [
+  "weekly-notes",
+  "periodic-notes",
+  "checkboxes",
+  "undo",
+  "rollover"
+ ]
+}

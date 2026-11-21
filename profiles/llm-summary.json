@@ -1,0 +1,63 @@
+{
+ "also": [
+  "pdf",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Batch-summarize PDF files into structured markdown notes using OpenAI GPT models",
+  "Create new concept notes from selected text with a command",
+  "Initialize a working folder structure in the vault",
+  "Optionally delete processed PDF files after summarization"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Recommends starting a new vault to avoid conflicts; summarization actually runs through an external Python script (summary_pdf_folder.py) configured via terminal environment variables, not purely inside Obsidian; recommends the Image Converter plugin for image compression.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Minimize efforts for lazy note-takers: summarize all PDFs in a folder before readings and define concepts during readings.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate LLM summaries of PDF files or to turn selected text into linked concept notes automatically.",
+ "readmeHash": "f06482dbb4bcd262935be50736ea9a4edfddc745",
+ "relations": [
+  {
+   "evidence": "summarize all PDF files in a folder to your vault with the power of LLMs (like GPTs from OpenAI)",
+   "plugin": "OpenAI GPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python environment (with openai, arxiv, pymupdf packages)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI plugin that batch-summarizes PDFs into structured markdown notes via OpenAI GPT and creates concept notes from selected text.",
+ "tags": [
+  "openai",
+  "gpt",
+  "python",
+  "summarization",
+  "academic-papers",
+  "concept-notes"
+ ]
+}

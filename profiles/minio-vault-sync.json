@@ -1,0 +1,50 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the whole vault two-way with a MinIO bucket on startup, quit or an interval",
+  "Push changed files debounced as vault events fire",
+  "Propagate deletions via tombstones",
+  "Handle conflicts by renaming the local copy aside and re-downloading",
+  "Configure and test the S3 endpoint, credentials and bucket in a setup dialog"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README states there is no test suite or linter yet; it also notes conflict handling renames files aside rather than merging. Listed as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's paid Sync service does not cover users who want to sync via their own self-hosted S3-compatible storage, including on mobile.",
+ "readmeHash": "510ddc834bd0d7626e64d065db848e25d6acdef3",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MinIO (S3-compatible) bucket",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync to a MinIO (S3-compatible) bucket, working on desktop and mobile with scheduled, event-driven and manual syncs.",
+ "tags": [
+  "minio",
+  "s3",
+  "self-hosted",
+  "object-storage",
+  "two-way-sync",
+  "tombstones"
+ ]
+}

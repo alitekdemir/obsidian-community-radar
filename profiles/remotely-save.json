@@ -1,0 +1,67 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync vault files with cloud storage services",
+  "encrypt files end-to-end before upload",
+  "schedule auto sync or sync on save",
+  "detect and handle sync conflicts",
+  "skip large files or paths by regex rules"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a backup tool; it keeps a vault in sync across devices through a cloud service acting as broker.",
+ "extras": "Freemium: Google Drive, Box, pCloud, Yandex Disk, Koofr, Azure Blob Storage, OneDrive full access and smart conflict merging are PRO (paid) features. Users supply their own cloud accounts, whose API and storage costs are their responsibility; the plugin is source-available rather than fully open source.",
+ "intent": "alternative",
+ "intentEvidence": "This is yet another unofficial sync plugin for Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, so users who want to sync vaults across mobile and desktop need a way to use their own cloud storage as the relay.",
+ "readmeHash": "011fbc6fe5d4b5550f2591c4287381bfd0f249ec",
+ "relations": [
+  {
+   "evidence": "You can also use Obsidian42 - BRAT to install this plugin.",
+   "plugin": "Obsidian42 - BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "cloud storage service account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 credentials (endpoint, region, access keys)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Remotely Save PRO for extra services and smart conflict",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that mirrors notes to user-chosen cloud storage (S3, Dropbox, OneDrive, WebDAV, Google Drive and more) with encryption and conflict handling.",
+ "tags": [
+  "s3",
+  "webdav",
+  "dropbox",
+  "onedrive",
+  "google-drive",
+  "end-to-end-encryption",
+  "conflict-resolution"
+ ]
+}

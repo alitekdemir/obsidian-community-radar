@@ -1,0 +1,58 @@
+{
+ "also": [
+  "ai",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "> Pushes selection context to Claude Code",
+  "> Inlines linked note content",
+  "> Summarizes wikilinks",
+  "> Includes heading path and backlinks",
+  "> Exposes MCP tools"
+ ],
+ "coreOverlap": {
+  "features": [
+   "links",
+   "properties"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uses Node's fs module outside the vault API to manage lock files for Claude Code discovery.",
+ "intent": "improve",
+ "intentEvidence": "This plugin instead does the resolution server-side, inside Obsidian, using Obsidian's own metadataCache link resolver",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Existing integrations require Claude to make multiple round-trips to resolve linked content, leading to inefficient context delivery.",
+ "readmeHash": "0bdee77a4dbcd87fee1ce5bd4fee1d7f843de8fd",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Provides Claude Code with expanded knowledge graph context by pushing resolved links, summaries, and note metadata during text selection.",
+ "tags": [
+  "claude-code",
+  "ide",
+  "knowledge-graph",
+  "mcp-protocol",
+  "websocket"
+ ]
+}

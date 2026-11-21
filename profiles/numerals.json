@@ -1,0 +1,89 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Evaluate math expressions in code blocks and inline code with a trigger prefix",
+  "Calculate with units, unit conversions, currency symbols, functions, and number bases",
+  "Define note-wide variables, reference previous results, and compute totals",
+  "Use frontmatter, Dataview fields, and cross-note metadata as variables in calculations",
+  "Insert results back into notes as Dataview-style inline metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a LaTeX math typesetting tool; it evaluates calculations and renders the results, including an optional TeX-style render mode.",
+ "extras": "The README documents features split between stable 1.10.2 and an unpublished 1.11.0 'recovery preview' (inline TeX triggers, currency precision, @format directives); several features described are not yet available in the published release. Numerals treats currencies as units and does not fetch exchange rates.",
+ "intent": "new",
+ "intentEvidence": "Numerals is also inspired by calculator-as-notes apps such as Numi, Numbr, and Soulver.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "math",
+ "problem": "Obsidian has no built-in way to evaluate calculations inside notes; math blocks are static and cannot compute units, currencies, or values from note metadata.",
+ "readmeHash": "4d964c89bc915ebb646c2bf6ea2d243747b8ee65",
+ "relations": [
+  {
+   "evidence": "Numerals uses mathjs for calculations and adds Obsidian-friendly preprocessing for currency symbols",
+   "plugin": "mathjs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "obsidian-calc for calculator-style expression evaluation and result insertion",
+   "plugin": "obsidian-calc",
+   "type": "alternative"
+  },
+  {
+   "evidence": "obsidian-mathpad for a fuller computer algebra system inside Obsidian",
+   "plugin": "obsidian-mathpad",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Dataview inline fields and metadata can also be used in calculations when Dataview is installed",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "inspired by calculator-as-notes apps such as Numi, Numbr, and Soulver",
+   "plugin": "Numi",
+   "type": "inspired"
+  },
+  {
+   "evidence": "inspired by calculator-as-notes apps such as Numi, Numbr, and Soulver",
+   "plugin": "Numbr",
+   "type": "inspired"
+  },
+  {
+   "evidence": "inspired by calculator-as-notes apps such as Numi, Numbr, and Soulver",
+   "plugin": "Soulver",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Math calculator plugin that turns code blocks and inline expressions into live calculations with units, currency symbols, variables, and note metadata.",
+ "tags": [
+  "mathjs",
+  "calculator",
+  "units",
+  "currency",
+  "dataview",
+  "tex",
+  "variables"
+ ]
+}

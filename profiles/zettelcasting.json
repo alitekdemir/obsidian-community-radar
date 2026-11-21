@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assemble a post by recursively inlining standalone links and embeds",
+  "Upload embedded images and videos and attach them to the post",
+  "Reflow wrapped lines and short paragraphs into running prose with smart formatting",
+  "Schedule posts to a connected platform at a chosen date and time",
+  "Write a record copy of the sent post beside the source note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a blog or static-site publisher; it schedules posts only to social platforms connected through the ZettelCasting service.",
+ "extras": "Desktop-only and requires Obsidian 1.13.0 or later. The README documents exactly which requests go to zettelcasting.com and states nothing is sent until a publish command runs. The plugin is unreviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian notes built from wikilinks and embeds don't translate to social posts, and Obsidian offers no way to schedule posts to connected social platforms.",
+ "readmeHash": "2f880edd287ef1a3c6c9c147eeb3b87c04226290",
+ "relations": [
+  {
+   "evidence": "The ZettelCasting plugin fully supports Santi Younger's Branch Writing plugin for Obsidian",
+   "plugin": "Branch Writing",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The note assembly logic (bake() and most of src/util.ts) is derived from Easy Bake",
+   "plugin": "Easy Bake",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ZettelCasting account with a connected social platform",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "ZettelCasting API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publishing client that assembles a note with its linked and embedded notes and media, then schedules it to social platforms via the ZettelCasting service.",
+ "tags": [
+  "social-media",
+  "scheduling",
+  "wikilinks",
+  "atomic-notes",
+  "media-upload",
+  "api-key"
+ ]
+}

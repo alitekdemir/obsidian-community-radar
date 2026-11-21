@@ -1,0 +1,48 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "watch the app, insider (Catalyst) and installer release streams",
+  "show outdated streams in a status bar item with an installed-versus-published panel",
+  "announce each new version once with a changelog link",
+  "warn when the bundled Electron is below Obsidian's minimum version",
+  "check for updates on demand via a command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a plugin update tracker; it only watches Obsidian app, insider and installer releases, never community plugin updates.",
+ "extras": "Documentation is a plain-markdown demo vault (also downloadable from Releases) with buttons that run real checks; each check makes four requests including one against GitHub's API, so hourly checks use one of GitHub's sixty per-hour requests. Beta versions install via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Turning off Obsidian's automatic updates also turns off its checking, so from then on nothing tells you a release happened",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because turning off auto-update leaves no notice of new releases, and nothing in the interface connects an old installer's Electron version to features being withheld.",
+ "primary": "utilities",
+ "problem": "Disabling Obsidian's automatic updates also disables its release checking, and the installer version that carries Electron is never checked at all, so users silently miss releases and gated features.",
+ "readmeHash": "74eab24221d12ed48e5647338f7a5ed096ec3436",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Update watcher that reports new Obsidian app, Catalyst insider and installer releases in the status bar with changelog links, without installing anything.",
+ "tags": [
+  "catalyst",
+  "insider-build",
+  "electron",
+  "installer",
+  "changelog",
+  "github-api"
+ ]
+}

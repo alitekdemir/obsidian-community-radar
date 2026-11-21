@@ -1,0 +1,81 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert PMID, PMCID, DOI, arXiv IDs or article URLs into metadata cards via paste, commands or context menu",
+  "Create one note per paper with metadata as properties, status, rating and tags",
+  "Generate a Bases overview of paper notes with table and shelf views",
+  "Add personal reading status, rating, tags and notes to cards",
+  "Refresh fetched paper metadata without overwriting user notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Sends identifiers to PubMed, Europe PMC, Crossref, arXiv and publisher pages only when converting; no telemetry and no clipboard access. Warns that some publishers (e.g. Elsevier) block automated page requests, and that Auto Card Link's paste enhancement can conflict with paste-to-card.",
+ "intent": "alternative",
+ "intentEvidence": "Think Auto Card Link, but for papers: instead of a generic web preview, metadata comes from scholarly databases.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Pasting a paper link into Obsidian yields a generic web preview without scholarly fields like authors, journal, abstract, MeSH terms and identifiers.",
+ "readmeHash": "5adb39bfe77f8feda5fb257a8a20b5986a1b8d30",
+ "relations": [
+  {
+   "evidence": "Think Auto Card Link, but for papers: instead of a generic web preview",
+   "plugin": "Auto Card Link",
+   "type": "alternative"
+  },
+  {
+   "evidence": "NCBI E-utilities / PubMed — article metadata by PMID",
+   "plugin": "PubMed (NCBI E-utilities)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Europe PMC REST API — metadata by DOI / PMCID / PMID",
+   "plugin": "Europe PMC REST API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Crossref REST API — metadata for DOIs not indexed in Europe PMC",
+   "plugin": "Crossref REST API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "arXiv API — arXiv preprints",
+   "plugin": "arXiv API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "NCBI API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Converts a PMID, PMCID, DOI, arXiv ID or article URL into a rich metadata card and per-paper notes with reading status.",
+ "tags": [
+  "pubmed",
+  "doi",
+  "arxiv",
+  "crossref",
+  "europe-pmc",
+  "citation",
+  "mesh"
+ ]
+}

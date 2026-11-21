@@ -1,0 +1,82 @@
+{
+ "also": [
+  "data",
+  "visualization"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Detects installed skills in configured skill directories",
+  "Mines agent session transcripts for skill usage signals",
+  "Ingests new transcript lines incrementally",
+  "Visualizes usage, sessions, and skill revision history",
+  "Scopes mining to sessions belonging to the current vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy-focused: no vault writes, no network calls, all parsing local. Desktop only; .zst-compressed transcripts are skipped; global transcript scan is off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian gives no view of which AI agent skills are installed or how often agent sessions actually use and revise them.",
+ "profiledAt": "2026-11-19",
+ "provider": "Ant Digital",
+ "readmeHash": "39b35f2be88d7b02d01371235da3152b19e70fbc",
+ "relations": [
+  {
+   "evidence": "Usage mining reads only sessions registered by the Claudian plugin for the current vault",
+   "plugin": "Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Only Codex CLI and Claude Code transcripts are mined today",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Only Codex CLI and Claude Code transcripts are mined today",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Claudian",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Dashboard that detects installed agent skills and mines Claude Code and Codex CLI transcripts to chart skill usage, sessions, and revisions.",
+ "tags": [
+  "ai-agents",
+  "agent-skills",
+  "claude-code",
+  "codex",
+  "dashboard",
+  "activity-log"
+ ],
+ "textHash": "9fbfbaf8021001ee33d44a2b59443babbc7b38e4"
+}

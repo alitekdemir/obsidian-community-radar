@@ -1,0 +1,53 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Set a vault-wide Mermaid layout engine (ELK or Dagre) and node placement",
+  "Configure edge corner styles and node/layer spacing",
+  "Run ELK layout in a Web Worker so diagram rendering does not freeze the editor",
+  "Re-render diagrams in open notes with a command",
+  "Override layout settings per diagram on its first line"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "delisted": "2026-11-17",
+ "disambiguation": null,
+ "extras": "ELK (~2.6 MB) is bundled into main.js and loads only when a diagram is first shown; the plugin makes no network requests and is manually installed from GitHub releases rather than the community plugin store.",
+ "intent": "improve",
+ "intentEvidence": "sets how Mermaid diagrams are laid out across your vault: the ELK layout engine with right-angle edges",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian offers no settings to change how Mermaid diagrams are laid out, so every vault is stuck with the default Dagre layout and its default spacing.",
+ "readmeHash": "778aa4810f31b392c9eb1e2800937382fb783065",
+ "relations": [
+  {
+   "evidence": "merges its settings into Mermaid's configuration after Obsidian has initialised it",
+   "plugin": "Mermaid",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault-wide Mermaid settings plugin that sets diagram layout to the ELK engine with right-angle edges, plus edge and spacing options.",
+ "tags": [
+  "mermaid",
+  "elk",
+  "dagre",
+  "diagrams",
+  "flowcharts",
+  "web-worker"
+ ]
+}

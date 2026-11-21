@@ -1,0 +1,88 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run real zsh/bash terminals in tabs, splits and windows",
+  "Review Claude Code edits as diffs with accept, reject and undo",
+  "Explain failed commands and suggest fixes via Claude",
+  "Track multiple Claude sessions with groups and an agent inbox",
+  "Let agents open terminals, message sessions and drive a local browser"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS/Linux only (Windows unsupported); needs Python 3.9+ and a logged-in Claude CLI; session logs, agent control and the agent browser are opt-in; session log prompts are written to disk (up to 2,000 characters each).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Running Claude Code in a separate terminal leaves you hunting for what it changed, pasting errors into chat, and babysitting sessions with no visibility inside Obsidian.",
+ "readmeHash": "ea6672d8f84697addd0233e85418cde7c945cfa1",
+ "relations": [
+  {
+   "evidence": "You type claude (or anything else) exactly like you would in any other terminal, with nothing wrapped or intercepted",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The terminal UI is xterm.js.",
+   "plugin": "xterm.js",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.9+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude Code login",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Claude Code auth token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "PTY-backed terminal for Obsidian with Claude Code integration: failure explanations, per-file diff review with accept/reject, and multi-session agent management.",
+ "tags": [
+  "claude-code",
+  "terminal",
+  "pty",
+  "xterm-js",
+  "shell-integration",
+  "diff-review",
+  "agent-browser"
+ ]
+}

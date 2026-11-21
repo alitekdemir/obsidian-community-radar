@@ -1,0 +1,65 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "book-authors",
+  "technical-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Extract highlights, strikethroughs, sticky notes and caret marks from annotated PDFs",
+  "Map each annotation to a source line via fuzzy matching with AsciiDoc syntax stripped",
+  "Navigate, re-link and resolve review items from a panel with line highlights and gutter badges",
+  "Apply editor-suggested deletions and replacements to the source as undoable edits",
+  "Manage review rounds and mappings, export Markdown reports, and stamp replies into freshly rendered PDFs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a PDF annotation or reading tool; it reads PDFs an editor has already marked up and maps those marks back onto AsciiDoc source lines.",
+ "extras": "Also ships as a VS Code extension and an npm CLI (@eddie-doc/cli) sharing the same v3 review sidecar format. Obsidian plugin is BRAT-installable; semantic-matching fallback is desktop-only and off by default; all processing is local with no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Reconciling an editor's PDF annotations against the original .adoc by hand is slow and error-prone, and Asciidoctor rebuilds lose all marks, so review state has nowhere to live.",
+ "readmeHash": "0510616a5fbf6e64c6ce41102ee162b8fad324fd",
+ "relations": [
+  {
+   "evidence": "Rescue unmatched items via a local embedding model served by Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Extracts highlights, strikethroughs, underlines, sticky-note comments, and caret/insert marks from the PDF (via pdfjs)",
+   "plugin": "pdfjs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Maps an editor's annotated PDF back onto your AsciiDoc source as navigable, resolvable review items, with rounds, replies, reports and stamped PDFs.",
+ "tags": [
+  "asciidoc",
+  "ollama",
+  "embeddings",
+  "copyedit",
+  "proofreading",
+  "manuscript",
+  "sidecar"
+ ]
+}

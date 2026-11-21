@@ -1,0 +1,65 @@
+{
+ "also": [
+  "syncing",
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Co-edit notes in real time with multi-cursor support via Yjs CRDTs",
+  "Draw collaboratively on Excalidraw files at 30+ FPS",
+  "Connect to self-hosted relay servers with password authentication",
+  "Administer collaboration rooms (create, view, switch, delete) from plugin settings",
+  "Keep shared notes synchronized in the background"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installation is via BRAT or manual file placement (no community plugin store listing yet); README states it has not been manually reviewed by Obsidian staff and includes a privacy section noting no third-party telemetry.",
+ "intent": "improve",
+ "intentEvidence": "Draw simultaneously with peers on .excalidraw and .excalidraw.md drawings at 30+ FPS.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in way for several people to edit the same note or drawing simultaneously in real time.",
+ "readmeHash": "502608f0fef45576c7fab48cafad2478417db47c",
+ "relations": [
+  {
+   "evidence": "Excalidraw Live Canvas: Draw simultaneously with peers on .excalidraw and .excalidraw.md drawings",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Multi-cursor, real-time collaboration powered by conflict-free Yjs CRDTs.",
+   "plugin": "Yjs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Synqra relay server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Real-time collaboration plugin that lets multiple users co-edit notes and Excalidraw drawings through a self-hosted relay server using Yjs CRDTs.",
+ "tags": [
+  "yjs",
+  "crdt",
+  "excalidraw",
+  "websocket",
+  "self-hosted",
+  "real-time"
+ ]
+}

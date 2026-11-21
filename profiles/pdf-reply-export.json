@@ -1,0 +1,66 @@
+{
+ "also": [
+  "annotation",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview a PDF's comments and replies before export",
+  "Write a Markdown review note beside the PDF",
+  "Link each comment to its source PDF page",
+  "Filter comments by author and saved date (Pro)",
+  "Batch-export a folder of PDFs to one note each (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a PDF export of notes; it extracts comments and replies from PDFs into a Markdown note.",
+ "extras": "Freemium: free mode exports the active PDF only; Pro (author/date filters and folder export) requires a $5/month or $15 GitHub Sponsors payment. Sign-in uses the GitHub device flow and stores the token via Obsidian's secret storage. Requires Obsidian 1.13.4 or later. The README lists untested environments (mobile, Windows/Linux desktop, password-protected PDFs, scanned OCR).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian can display PDFs but offers no way to pull their embedded annotation discussions out as review notes alongside project notes.",
+ "readmeHash": "2f14db13c6f5b76ee9c12389550a3475ec60950f",
+ "relations": [
+  {
+   "evidence": "The active PDF command reads the local PDF with the PDF.js library supplied by Obsidian.",
+   "plugin": "PDF.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "PDF Reply Export",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "PDF comment export tool that turns a PDF's native review comments and reply threads into a new Markdown note in the vault.",
+ "tags": [
+  "pdf-annotations",
+  "review-comments",
+  "pdfjs",
+  "github-sponsors",
+  "freemium"
+ ]
+}

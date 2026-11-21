@@ -1,0 +1,64 @@
+{
+ "also": [
+  "import",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search external APIs by title or ID",
+  "import search results as notes with template tags",
+  "download poster images to a chosen folder",
+  "bulk import preexisting media notes by folder",
+  "remap or remove generated metadata fields"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a local media catalog; it fetches metadata from external APIs to create new notes.",
+ "extras": "Some APIs work without keys while others need a free key or account; Moby Games support was removed (no longer free) and Giant Bomb support was temporarily removed because its API is non-functional.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up media metadata in external databases, so users must create movie, game, or book notes by hand.",
+ "readmeHash": "4143b4a89fc6880dd23491a7b81914fc598ec5ef",
+ "relations": [
+  {
+   "evidence": "Tenrai is an API that uses My Anime List and offers metadata for anime.",
+   "plugin": "My Anime List",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OMDb, TMDB, Comic Vine, Boardgame Geek",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "TMDB, Comic Vine, Boardgame Geek",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Queries multiple external media APIs (movies, series, anime, games, books, comics, music, wiki articles) and imports the metadata as notes into the vault.",
+ "tags": [
+  "tmdb",
+  "omdb",
+  "steam",
+  "wikipedia",
+  "musicbrainz",
+  "open-library",
+  "comic-vine",
+  "poster-images"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations",
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create, edit, move, and trash notes through reviewed diff patches",
+  "Connect OpenAI-compatible providers, Gemini, or Anthropic and switch models",
+  "Attach external MCP tools and reusable skills to the assistant",
+  "Generate and edit Canvas diagrams with mandatory JSON validation",
+  "Transcribe audio files and voice input on desktop"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a CLI coding agent or background automation tool; it is a chat assistant that works only inside Obsidian.",
+ "extras": "README warns the plugin is still evolving and recommends trying it in a test vault with regular backups. Requires Obsidian 1.5.0+; Keychain secret storage needs Obsidian 1.11.4+. Detailed logging requires per-session confirmation and rotates at 1024 KiB.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with language models about your vault and apply their suggested note changes with per-tool approval and rollback.",
+ "readmeHash": "d39ff3ffd9c2606ab29d011419cb381567afdaee",
+ "relations": [
+  {
+   "evidence": "Trigger these Obsidian commands from the command palette or plugins such as QuickAdd, Templater, and Meta Bind",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Trigger these Obsidian commands from the command palette or plugins such as QuickAdd, Templater, and Meta Bind",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Trigger these Obsidian commands from the command palette or plugins such as QuickAdd, Templater, and Meta Bind",
+   "plugin": "Meta Bind",
+   "type": "integrates"
+  },
+  {
+   "evidence": "describe extensions from plugins such as Advanced Canvas or adapt the instructions to your model",
+   "plugin": "Advanced Canvas",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (OpenAI-compatible, Gemini, or Anthropic)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP servers (HTTP or stdio with Node for desktop)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Sidebar AI chat assistant that reads and edits vault notes, Canvas boards, and attachments through user-reviewed patches from connected LLM providers.",
+ "tags": [
+  "mcp",
+  "llm",
+  "chat",
+  "diff-review",
+  "voice-input",
+  "audio-transcription",
+  "skills"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "research",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search books by title or ISBN across multiple providers with fallback",
+  "Download and cache book cover images into the vault",
+  "Create book notes from customizable frontmatter and body templates",
+  "Track reading status, ratings and progress as YAML properties",
+  "Browse the library as a card gallery or an Obsidian Base card view"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet published to the Community Plugins directory; the README documents manual installation from a GitHub release. A roadmap lists future improvements such as better rate-limit messaging and additional providers.",
+ "intent": "alternative",
+ "intentEvidence": "I tried a few existing community plugins for this first, and kept running into the same wall: broken searches, covers that never actually downloaded",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a native visual library of their books and found existing community plugins had broken searches, covers that never downloaded, and templates incompatible with Bases.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search book metadata, download covers, and track reading status in one flow that works with Bases card views.",
+ "readmeHash": "edb5f8b3fc9812881524302ce0bcca1bb414ef8f",
+ "relations": [
+  {
+   "evidence": "Multi-provider search — queries Open Library, Google Books, and OpenAlex, with configurable provider order",
+   "plugin": "Open Library",
+   "type": "integrates"
+  },
+  {
+   "evidence": "queries Open Library, Google Books, and OpenAlex, with configurable provider order and per-provider enable/disable toggles",
+   "plugin": "Google Books",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAlex is primarily a scholarly/academic metadata fallback and rarely returns cover images.",
+   "plugin": "OpenAlex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Templater syntax if you have that plugin installed.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenAlex contact email for polite-pool rate limits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Book library plugin that searches Open Library, Google Books and OpenAlex, caches covers locally, and creates frontmatter-based book notes with status and ratings.",
+ "tags": [
+  "google-books",
+  "open-library",
+  "openalex",
+  "isbn",
+  "book-covers",
+  "reading-tracker",
+  "dataview"
+ ]
+}

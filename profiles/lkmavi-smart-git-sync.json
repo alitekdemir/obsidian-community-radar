@@ -1,0 +1,68 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "commit and push vault changes automatically after each save",
+  "pull remote changes on a background interval or via a webhook",
+  "initialize a repository, set a remote, and generate a .gitignore",
+  "pause, resume, and toggle sync from a ribbon menu",
+  "show sync state in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; installed by manually copying main.js and manifest.json into the plugins folder. Real rebase conflicts must be resolved manually in a terminal.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault through Git normally requires running commit, push and pull commands by hand, and Obsidian has no built-in way to automate that.",
+ "readmeHash": "c80ee7a3fe04c33bfe351a98f5134922a112b88c",
+ "relations": [
+  {
+   "evidence": "The plugin can detect your Tailscale IP automatically",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git CLI in $PATH",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub repository used as the git remote",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale, cloudflared, or ngrok tunnel to expose the webhook externally",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git-based sync plugin that auto-commits and pushes the vault on every save and pulls remote changes on an interval or webhook trigger.",
+ "tags": [
+  "github",
+  "webhook",
+  "tailscale",
+  "ngrok",
+  "cloudflared",
+  "rebase"
+ ]
+}

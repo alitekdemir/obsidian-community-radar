@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run one local Codex app-server process over stdio",
+  "Expose a versioned API for text and image tasks",
+  "Keep persistent Codex threads across requests",
+  "Stream progress and partial response text to callers",
+  "Allow or block MCP servers and Codex apps for full access"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI chat or agent plugin itself; it provides no user-facing interface and only serves an API to other plugins.",
+ "extras": "Desktop only. Tested against Codex CLI 0.162.0-alpha.2; the app-server API can change and incompatible versions error out. Settings UI is English and Russian. Documentation includes SECURITY.md and full types in src/api.ts. Local server execution still uses the upstream Codex service, subject to account model availability and usage limits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian plugins that want Codex text or image results have no shared way to start, sign in to, and manage a single local Codex server process.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "5092ffd6386fadcd4923ccfb3658de0971db9e8e",
+ "relations": [
+  {
+   "evidence": "Consumers such as the Readwise Reading Tracker or Daily Infographic then find the bridge automatically",
+   "plugin": "Readwise Reading Tracker",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Consumers such as the Readwise Reading Tracker or Daily Infographic then find the bridge automatically",
+   "plugin": "Daily Infographic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Codex / ChatGPT sign-in",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bridge plugin that runs one local Codex app-server process and exposes a versioned API for other plugins to run text and image tasks.",
+ "tags": [
+  "codex",
+  "openai",
+  "mcp",
+  "local-server",
+  "api-key",
+  "oauth",
+  "code-blocks"
+ ],
+ "textHash": "02f83562fcbfc304931db3acc97a8693d0d139d7"
+}

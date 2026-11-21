@@ -1,0 +1,70 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "technical-teams",
+  "enterprise-evaluators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pull Confluence pages into Markdown notes on manual trigger",
+  "Preview a read-only diff and choose Pull & Replace or Keep Local",
+  "Convert Confluence tables to Markdown or sanitized HTML",
+  "Download Confluence attachment images into the vault with limits and allowlists",
+  "Record the pulled page version in confluence-version frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way Confluence sync or publisher; it has no write capability and only pulls pages into the vault.",
+ "extras": "Desktop only (minAppVersion 1.13.0). Warns that the API token is stored unencrypted in data.json. Pre-1.0.8 versions had a push-to-Confluence feature that was removed entirely; since then the plugin is strictly one-way. Additional docs (FAQ, troubleshooting, workflow comparison) live in the repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Teams whose documentation lives in Confluence have no built-in way to bring specific pages into Obsidian as local, searchable, offline Markdown.",
+ "readmeHash": "1b4a313da1ab25b1a9b6def04a26e96cb8420e7f",
+ "relations": [
+  {
+   "evidence": "imports Confluence pages into local Markdown notes",
+   "plugin": "Confluence",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Confluence (Cloud or self-hosted)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Confluence API token or personal access token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Atlassian account to create the API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "One-way importer that pulls Confluence pages into local Markdown notes, showing a read-only diff preview before anything is written.",
+ "tags": [
+  "confluence",
+  "atlassian",
+  "api-token",
+  "diff-preview",
+  "one-way-pull",
+  "html-tables",
+  "attachment-download"
+ ]
+}

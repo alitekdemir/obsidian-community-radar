@@ -1,0 +1,63 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes bidirectionally with a Feishu Wiki space",
+  "Convert Markdown to editable Feishu documents in document mode",
+  "Mirror notes as original .md files in file-mirror mode",
+  "Preview the sync plan before executing uploads, pulls and deletions",
+  "Keep both copies and report conflicts when content differs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is written in Chinese; the manifest notes the plugin has not been manually reviewed by Obsidian staff. Installation is manual from a GitHub release (no community store listing yet). The README warns that App Secret, tokens and sync mappings are stored unencrypted in data.json, that revoking local authorization does not delete documents already in Feishu, and that it works only with the China Feishu endpoint (open.feishu.cn), not international Lark, Notion, or Feishu Bitable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to keep notes synchronized with a Feishu Wiki space for reading and collaboration there.",
+ "readmeHash": "32e5bcb776a690c86a89ea6eabbf8e5273c5582b",
+ "relations": [
+  {
+   "evidence": "接口实现参考了 Lark CLI 的请求格式与素材处理流程",
+   "plugin": "Lark CLI",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Feishu self-built app App ID and App Secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that mirrors vault Markdown notes to a Feishu Wiki space, either as editable Feishu documents or as original .md files.",
+ "tags": [
+  "feishu",
+  "wiki",
+  "document-mode",
+  "file-mirror",
+  "conflict-copies",
+  "user-authorization"
+ ]
+}

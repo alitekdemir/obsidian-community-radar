@@ -1,0 +1,86 @@
+{
+ "also": [
+  "flashcards",
+  "integrations"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up words in a local ECDICT dictionary with optional Youdao enrichment",
+  "Create and refresh structured vocabulary notes from editable Markdown templates",
+  "Preview and add virtual or real WikiLinks for known vocabulary words",
+  "Synchronize Eudic wordbooks with matching local subfolders",
+  "Export vocabulary notes one-way to Anki through AnkiConnect"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Listed as a beta plugin installed via BRAT and not manually reviewed by Obsidian staff. Dictionary data is stored in IndexedDB outside the vault; the Eudic token is stored as plain text in the plugin's data.json. No telemetry; offline lookup needs no account or key, and Youdao/Eudic/Anki features stay inactive until configured.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in dictionary or vocabulary-note workflow, so language learners must keep definitions in separate apps and maintain word notes by hand.",
+ "readmeHash": "8aa1615e4f611997f6b5bab5e78c44222109cb80",
+ "relations": [
+  {
+   "evidence": "LexiBridge downloads ecdict.csv from skywind3000/ECDICT, converts it locally, and imports the entries into IndexedDB.",
+   "plugin": "ECDICT (skywind3000/ECDICT)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally enrich one word at a time with Youdao.",
+   "plugin": "Youdao",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally synchronize selected Eudic wordbooks with matching local subfolders.",
+   "plugin": "Eudic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally send vocabulary notes one way to Anki through AnkiConnect.",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Lemmatization uses the MIT-licensed wink-lemmatizer.",
+   "plugin": "wink-lemmatizer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki Desktop with AnkiConnect (for Anki export)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Eudic Open API token (for wordbook sync)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local-first English-Chinese dictionary toolkit that looks up words, builds vocabulary notes, links them in text, syncs Eudic wordbooks, and exports to Anki.",
+ "tags": [
+  "ecdict",
+  "youdao",
+  "eudic",
+  "anki",
+  "ankiconnect",
+  "english-chinese",
+  "lemmatization",
+  "dictionary"
+ ]
+}

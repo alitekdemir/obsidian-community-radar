@@ -1,0 +1,81 @@
+{
+ "also": [
+  "pdf",
+  "search"
+ ],
+ "audience": [
+  "stylus-users",
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Write handwriting in fixed-size, paginated notebooks with pen, highlighter and shape tools",
+  "Recognize handwriting on-device with the Grape model for search, titles and links",
+  "Annotate imported PDFs and insert pictures, scans and text boxes",
+  "Record audio and replay it from any written word",
+  "Export notebooks or selected pages as PDF"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Handwriting lives in separate .notebook.md files and cannot be embedded in other notes; only links can point to notebooks and pages.",
+ "extras": "Free with optional GitHub Sponsors donations. The Grape model (3.5 MB) is downloaded once from GitHub; AI features are optional and need the user's own API key. Warns not to run InkedMark in the same vault, as both open .ink.md files.",
+ "intent": "alternative",
+ "intentEvidence": "The purpose of this plugin is to be a complete alternative to those note-taking apps.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was tired of paid note-taking apps (Goodnotes, Notability), Apple Notes' poor performance, companies holding notes in their cloud, and sync problems between Windows and Apple devices.",
+ "primary": "drawing",
+ "problem": "Obsidian has no handwriting support, and dedicated note-taking apps like Goodnotes store notes in paid, cloud-locked formats that do not sync well across platforms.",
+ "readmeHash": "ea78397ea9c5271852fd697bd6b1bd22ddf5c9e6",
+ "relations": [
+  {
+   "evidence": "tired of all the paid note-taking apps on the App Store, such as Goodnotes and Notability",
+   "plugin": "Goodnotes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "tired of all the paid note-taking apps on the App Store, such as Goodnotes and Notability",
+   "plugin": "Notability",
+   "type": "alternative"
+  },
+  {
+   "evidence": "FineNotes began as a fork of InkedMark by Pascal Crausaz, and has since been rewritten",
+   "plugin": "InkedMark",
+   "type": "fork"
+  },
+  {
+   "evidence": "FineNotes reads your handwriting with its own model, Grape, on your device and offline",
+   "plugin": "Grape",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PDFs are rendered with the PDF.js that Obsidian ships",
+   "plugin": "PDF.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI services (Anthropic, OpenAI, Google, OpenRouter or a custom endpoint)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Paginated handwriting notebooks for any stylus, with on-device handwriting recognition, PDF annotation, audio recording and PDF export, stored as plain vault files.",
+ "tags": [
+  "stylus",
+  "apple-pencil",
+  "s-pen",
+  "handwriting-recognition",
+  "pdf-annotation",
+  "audio-recording",
+  "goodnotes"
+ ]
+}

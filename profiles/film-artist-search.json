@@ -1,0 +1,60 @@
+{
+ "also": [
+  "templating",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search TMDb for film artists as you type",
+  "create structured artist notes in a configured folder",
+  "insert [[Name]] wikilinks at the cursor",
+  "replace note content with a rendered TMDb template",
+  "download profile images into the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The 'Insert film artist metadata' command replaces the entire content of the current note, which the README flags with a warning. API key is stored in Obsidian's built-in Secret storage. Not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up film industry people (actors, directors, writers) on TMDb and turn them into note content or links.",
+ "readmeHash": "59f179d6cca216478af59981ff2dc4bf3d544a7c",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDb v3 API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "TMDb account (free, to obtain the API key)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "TMDb search plugin that creates structured notes for film artists, inserts wikilinks, or fills the current note from a rendered template.",
+ "tags": [
+  "tmdb",
+  "film",
+  "actors",
+  "directors",
+  "api-key",
+  "wikilink",
+  "profile-images",
+  "yaml"
+ ]
+}

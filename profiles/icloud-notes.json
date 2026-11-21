@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Bind a single vault folder to your Apple Notes account",
+  "Pull remote changes and push local edits via commands, ribbon, or status bar",
+  "Schedule automatic pull-then-push syncs on a fixed interval",
+  "Sign in to an Apple ID through Apple's browser pages and reauthenticate when needed",
+  "Locate the icloud-md binary and configure PATH entries for spawning it"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README carries a prominent warning that this is an unofficial Apple integration with real data-loss risk (it reverse-engineers CloudKit), recommends version-controlling the synced folder, notes desktop-only support, that sign-in needs a one-off ~150 MB Chromium download, and that the account likely needs Advanced Data Protection disabled. The manifest states the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a folder of notes in sync with an Apple Notes account, particularly from Linux or Windows.",
+ "readmeHash": "19c28eb725902688f0ff31684bd321629186052b",
+ "relations": [
+  {
+   "evidence": "This plugin is a thin Obsidian front-end for the icloud-md CLI",
+   "plugin": "icloud-md",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20+ and the icloud-md CLI on PATH",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Apple ID with browser-based sign-in",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs one vault folder bidirectionally with Apple Notes by wrapping the icloud-md CLI, on any desktop OS.",
+ "tags": [
+  "apple-notes",
+  "icloud",
+  "icloud-md",
+  "node",
+  "cli",
+  "bidirectional-sync"
+ ]
+}

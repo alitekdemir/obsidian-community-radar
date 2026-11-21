@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert PST emails into Markdown notes",
+  "Save email attachments into the vault",
+  "Preserve PST folder structure in the vault",
+  "Generate YAML frontmatter with sender, date, and other fields",
+  "Incrementally sync new mail from a staging PST with duplicate protection"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (Chinese and English) with import-time estimates for large PST files; installable via BRAT as well as the community plugin store.",
+ "intent": "alternative",
+ "intentEvidence": "an alternative for workflows where Microsoft Copilot is not in use",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no way to read Outlook PST email archives, so past email cannot become searchable, linkable vault content.",
+ "readmeHash": "8371039afa3db34ea5637b7302fb2d776b59152c",
+ "relations": [
+  {
+   "evidence": "process it with AI plugins such as Claudian",
+   "plugin": "Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an alternative for workflows where Microsoft Copilot is not in use",
+   "plugin": "Microsoft Copilot",
+   "type": "alternative"
+  },
+  {
+   "evidence": "In Outlook, create a staging PST and use rules to copy new mail into it",
+   "plugin": "Microsoft Outlook",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Microsoft Outlook",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Email importer that converts Outlook PST archives into Markdown notes with YAML metadata, attachments, wikilinks, and incremental sync via a staging PST.",
+ "tags": [
+  "outlook",
+  "pst",
+  "email",
+  "wikilink"
+ ]
+}

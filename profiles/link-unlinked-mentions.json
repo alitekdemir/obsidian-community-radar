@@ -1,0 +1,42 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "scan the active note for plain-text occurrences of other notes' titles and aliases",
+  "show a preview of every match with surrounding context before changing anything",
+  "convert confirmed matches into wikilinks pointing to the right notes",
+  "skip text inside frontmatter, code blocks, math, existing links, tags, and HTML comments",
+  "report and skip terms whose title or alias is ambiguous"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the manifest's wording, it edits only the currently open note, not every note in the vault.",
+ "extras": "The README warns that edits are not reversible without a vault backup and recommends backing up before first use.",
+ "intent": "improve",
+ "intentEvidence": "When you write a note and mention another note by name without linking it, Obsidian calls that an \"unlinked mention.\"",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian marks unlinked mentions in the backlinks pane, but turning each one into a wikilink by hand is tedious.",
+ "readmeHash": "756e8c334111bdb168a31413525b464ef1c47fed",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bulk-linking tool that converts plain-text mentions of other notes and their aliases in the active note into wikilinks, with a confirmable preview.",
+ "tags": [
+  "wikilinks",
+  "aliases",
+  "bulk-edit",
+  "unlinked-mentions"
+ ]
+}

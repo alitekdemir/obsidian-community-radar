@@ -1,0 +1,56 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize notes and small attachments through a private GitHub repository branch",
+  "Detect three-way changes from the last successful common commit",
+  "Preserve both versions of conflicting notes as conflict copies",
+  "Run syncs manually, at startup, in the foreground, or on an interval",
+  "Exclude .obsidian, .trash, .git, oversized files, and custom globs from sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns not to run it alongside Obsidian Sync, iCloud vault sync, Remotely Save, or Self-hosted LiveSync; automatic sync is off by default and sync only runs while Obsidian is open; default file-size cap is 25 MB; no payments, ads, analytics, or telemetry; tokens stored in Obsidian Secret Storage; privacy and security details are in separate PRIVACY.md and SECURITY.md files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it is designed for desktop and mobile Obsidian without Git CLI, Node file-system, or Electron dependencies.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync across desktop and mobile devices using only a GitHub account and no Git tooling or other sync services.",
+ "readmeHash": "8258be36accf73a37b41d70c17a37cc5b750b7c6",
+ "relations": [
+  {
+   "evidence": "connects directly to api.github.com to read and update the configured repository",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with a private repository and fine-grained personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault synchronization plugin that pushes notes and small attachments to a branch of a private GitHub repository without Git CLI.",
+ "tags": [
+  "github",
+  "conflict-resolution",
+  "personal-access-token",
+  "mobile"
+ ]
+}

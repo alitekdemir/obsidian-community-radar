@@ -1,0 +1,65 @@
+{
+ "also": [
+  "graph",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit a tag dictionary with parents, children, related tags, aliases, and facets from a sidebar tab",
+  "Extend the core Graph view with a collapsible tag hierarchy, multiple parents, and related-tag links",
+  "Explore the hierarchy in force, mind map, tree, 3D, and ontology-explorer layouts",
+  "Run a dictionary check for unregistered, unused, aliased, or redundant tags",
+  "Color tags by custom color or hierarchy depth with a palette"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; hooks into undocumented core Graph view internals so future Obsidian updates may break it. The 3D view and ontology explorer are labeled beta and can be turned off in settings. Also ships as an npm CLI/library (tag-ontology) and installs via BRAT for beta releases. Notes that Obsidian Sync does not sync dot-folders, so a visible dictionary path is advised.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author had to choose one path when organizing concepts with folders or nested tags, which hid their other relationships, and wanted to manage and explore concept relationships separately.",
+ "primary": "tags",
+ "problem": "Obsidian tags sit in a single nesting path or folders, so a concept relating to several fields can't show all its relationships or have multiple parents.",
+ "readmeHash": "d19e25c33c1f2f6d648743f9ae2af200b01aed09",
+ "relations": [
+  {
+   "evidence": "The approach of feeding custom data to the core graph renderer was inspired by Nested tags graph.",
+   "plugin": "Nested tags graph",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "TOW (Tag Ontology Wiki)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Graph view (core, with Filters → Tags on)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Tag hierarchy manager that gives tags parents, children, and related tags, explored in the core Graph view plus 3D and canvas views.",
+ "tags": [
+  "tag-dictionary",
+  "ontology",
+  "3d-graph",
+  "three-js",
+  "cytoscape",
+  "mind-map",
+  "kebab-case"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two-way with a GitHub repo on a background timer",
+  "Resolve merge conflicts automatically with AI, with a three-pane fallback UI",
+  "Diagnose and navigate git errors like non-fast-forward pushes",
+  "Draft semantic commit messages from diffs using DeepSeek or Gemini",
+  "Browse per-file commit history with inline diffs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. README is available in multiple languages (English, Simplified/Traditional Chinese, Japanese). Credentials are designed to stay out of the repo via .obsidian/ storage and a token-free .github-sync.json schema.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian users who don't know git have no easy way to keep their vault synced with GitHub when branches diverge or pushes fail.",
+ "readmeHash": "77d9687f503eb6dca158619c4ffcf5e37e282de5",
+ "relations": [
+  {
+   "evidence": "A GitHub two-way sync plugin for Obsidian users who don't know git.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek or Gemini reads the diff and produces a semantic message",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek or Gemini reads the diff and produces a semantic message",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub Personal Access Token (alternative to GitHub App)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Git-based two-way sync plugin that uses an AI agent to resolve merge conflicts, diagnose git errors, and draft commit messages for GitHub backups.",
+ "tags": [
+  "github",
+  "ai-agent",
+  "conflict-resolution",
+  "submodules",
+  "deepseek",
+  "gemini",
+  "commit-messages"
+ ]
+}

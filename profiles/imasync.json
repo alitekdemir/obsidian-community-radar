@@ -1,0 +1,61 @@
+{
+ "also": [
+  "syncing",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync multiple IMA knowledge bases into mirrored folder structures",
+  "Convert notes and web articles to Markdown with source links preserved",
+  "Download images locally and rewrite links to wikilinks",
+  "Save PDF/Word/PPT attachments as-is with generated .md stubs",
+  "Run scheduled incremental syncs keyed by doc_id and modify_time"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "One-way sync only (IMA to Obsidian, never writes back); deletions on IMA are kept locally; wiki items use skip-if-exists due to an API limitation; manual installation from release files is described.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull Tencent IMA knowledge base content, web clippings, and attachments into the vault as searchable Markdown files.",
+ "readmeHash": "722d46bfb46fc170f8224fb492c33598fd91a985",
+ "relations": [
+  {
+   "evidence": "All requests go to ima.qq.com exclusively.",
+   "plugin": "Tencent IMA",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "IMA API Key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Tencent IMA account / Open Platform credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "One-way sync plugin that imports Tencent IMA knowledge bases and notes into Obsidian as Markdown with localized images and frontmatter.",
+ "tags": [
+  "tencent-ima",
+  "web-clipping",
+  "incremental-sync",
+  "rate-limiting",
+  "offline-search"
+ ]
+}

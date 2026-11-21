@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync encrypted notes and attachments to a WebDAV server",
+  "Create or join an encrypted vault with a shared passphrase",
+  "Resolve conflicts from immutable encrypted revisions",
+  "Pair devices through the post-quantum encryption mode",
+  "Reach the home server remotely through an SSH tunnel and HTTPS gateway"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README is mostly Chinese with partial English sections. PQC mode is a beta preview with its own plugin ID and remote directory; it needs a separate per-vault submission service and its own backup of the database snapshot plus recovery package. A lost vault passphrase cannot be reset, and the encryption format has not undergone an external security audit. Migrating from Remotely Save requires decrypting, backing up, and re-uploading to a new remote directory.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault to a self-hosted WebDAV server with encrypted contents, file names and paths.",
+ "readmeHash": "cef0e44e18680fc668abb1635e4e90c17d63ddaf",
+ "relations": [
+  {
+   "evidence": "Existing Remotely Save vaults use another format, including rclone crypt.",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a WebDAV server with HTTPS",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted HTTPS submission service (witness/server.py) for PQC mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "End-to-end encrypted vault sync to your own WebDAV server, using a shared passphrase or post-quantum device pairing.",
+ "tags": [
+  "webdav",
+  "end-to-end-encryption",
+  "post-quantum",
+  "self-hosted",
+  "ssh-tunnel",
+  "pbkdf2",
+  "conflict-resolution"
+ ]
+}

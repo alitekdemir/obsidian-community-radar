@@ -1,0 +1,59 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "pull pending notes from a Moltn install into a chosen vault folder on a timer and at startup",
+  "acknowledge received notes so Moltn deletes them from its outbox",
+  "add a numeric suffix instead of overwriting on name clashes",
+  "push a chosen folder to Moltn as citable context"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not sync the vault between devices; notes travel between devices only via your own sync service afterward.",
+ "extras": "Not manually reviewed by Obsidian staff; sideloaded by copying manifest.json, main.js and styles.css into the plugins folder. Full architecture docs live outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Notes produced in Moltn (dictations, meeting notes) need a way to land in an Obsidian vault without manual copying.",
+ "readmeHash": "9e147907880c3e1d60392f9cb1becb8c15f836fa",
+ "relations": [
+  {
+   "evidence": "Pulls finished notes from your Moltn install into this vault",
+   "plugin": "Moltn",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Moltn",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "vault token from Moltn admin settings",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Integration that pulls finished notes from a Moltn install into a vault folder and can push a chosen folder back to Moltn as context.",
+ "tags": [
+  "self-hosted",
+  "vault-token",
+  "dictation",
+  "meeting-notes",
+  "context-sharing"
+ ]
+}

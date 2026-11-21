@@ -1,0 +1,63 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import single, multiple, or folder batches of xxl-job XML exports",
+  "Mirror the three-level job tree (flow, task, component) as one note per job",
+  "Generate Mermaid dependency graphs and parent-link sections with wikilinks",
+  "Apply configurable Markdown templates to the three generated note types",
+  "Resolve re-import conflicts by skipping, updating frontmatter, or creating renamed copies"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "UI, settings, and generated notes are in Chinese (built for a Chinese-language vault), though parsing is language-agnostic. Actively developed source now lives in the Schema Studio repository; this repo remains the standalone distribution. No network access, telemetry, accounts, or paid tiers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn xxl-job job-definition XML exports into linked, templated Markdown notes.",
+ "readmeHash": "1ad39f1ff11d1aa868e0f18a494d7cb3177cbeb2",
+ "relations": [
+  {
+   "evidence": "The same importer is integrated as a third domain tab (“xxl-job”) in Schema Studio.",
+   "plugin": "Schema Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Samples are in templates/fileclasses/ for vaults using the Fileclass plugin",
+   "plugin": "Fileclass",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Fileclass",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports xxl-job admin console XML exports into structured task flow, task, and task component notes with parent links and Mermaid graphs.",
+ "tags": [
+  "xxl-job",
+  "xml",
+  "mermaid",
+  "job-scheduling"
+ ]
+}

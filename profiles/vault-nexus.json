@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "List related notes with matching excerpts and relevance scores",
+  "Insert suggested links under a See also heading, at the end, or at the cursor",
+  "Dismiss suggestions and clear or expire dismissals",
+  "Undo the last link that was added",
+  "Optionally explain each relation with a local LLM"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; does not work on Obsidian mobile. The manifest notes the plugin has not been manually reviewed by Obsidian staff. The Miyo Relay fallback and LLM rationale features are opt-in and off by default; the relay token is stored in plain text in the plugin data folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian offers no built-in way to surface notes worth linking while writing; finding related notes relies on memory or manual search, and this suggests candidates with excerpts and relevance scores.",
+ "readmeHash": "a92c2de3bbb3ec2531e6212bb4c65ac939b87adb",
+ "relations": [
+  {
+   "evidence": "Vault Nexus needs the Miyo desktop app running on the same computer",
+   "plugin": "Miyo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Miyo desktop app",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Miyo Relay token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Link-suggestion panel that finds notes related to the one you are writing via a local Miyo index and inserts links you accept or dismiss.",
+ "tags": [
+  "miyo",
+  "semantic-search",
+  "link-suggestions",
+  "local-llm",
+  "lm-studio",
+  "privacy"
+ ]
+}

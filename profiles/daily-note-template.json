@@ -1,0 +1,55 @@
+{
+ "also": [
+  "dates",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Expand DNT expressions in existing daily notes",
+  "Evaluate expressions relative to the note's parsed date",
+  "Detect daily-note paths via Daily notes settings",
+  "Support repeating date fields in path formats"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a daily-notes creator or template applier; it only expands DNT expressions in notes that already exist.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README specifies sync-safe behavior: it never waits on Obsidian Sync and uses atomic vault processing so concurrent edits are preserved.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's Daily notes and Templates plugins remain responsible for creating notes and applying the normal note template.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "templating",
+ "problem": "Daily-note templates are static, so expressions in a note cannot reference the specific date the note belongs to.",
+ "readmeHash": "097c8547f7551a7cdba7b38dfbd7b8fe0896cd15",
+ "relations": [
+  {
+   "evidence": "It uses Obsidian's Daily notes settings to identify daily-note paths.",
+   "plugin": "Daily notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Obsidian's Daily notes and Templates plugins remain responsible for creating notes and applying the normal note template.",
+   "plugin": "Templates",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Date-aware template expander that fills <% dnt %> expressions in existing daily notes, evaluated against the date parsed from the note path.",
+ "tags": [
+  "daily-notes",
+  "journals",
+  "date-math"
+ ]
+}

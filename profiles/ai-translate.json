@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up English words with phonetics, definitions, and pronunciation audio",
+  "Translate selected note text with automatic Chinese-English direction detection",
+  "Fall back from built-in Youdao services to a user-configured OpenAI-compatible endpoint",
+  "Run lookup and translation from the Command Palette or editor menu",
+  "Save successful word lookups to an external vocabulary API"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general AI assistant; it only performs dictionary lookups and Chinese-English translation via Youdao and OpenAI-compatible endpoints.",
+ "extras": "Part of a multi-platform toolkit with Chrome, Edge, Firefox, and VS Code extensions sharing the same version; the Obsidian plugin was awaiting Community plugins approval at the time of writing, with full documentation on a separate docs site.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in dictionary lookup or translation, so users must leave their note to check a word's meaning or translate selected text.",
+ "readmeHash": "4bbb70cb4bde38c72fa626906ab2b07ef555677a",
+ "relations": [
+  {
+   "evidence": "Use built-in Youdao mobile services first and an OpenAI-compatible endpoint as fallback.",
+   "plugin": "Youdao",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Configure multiple OpenAI-compatible model profiles with priority-based fallback.",
+   "plugin": "OpenAI-compatible endpoints",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint (fallback translation)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "External vocabulary API",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Dictionary lookup and translation plugin that looks up English words and translates selected note text using Youdao and OpenAI-compatible services.",
+ "tags": [
+  "youdao",
+  "openai",
+  "dictionary",
+  "translation",
+  "pronunciation",
+  "vocabulary"
+ ]
+}

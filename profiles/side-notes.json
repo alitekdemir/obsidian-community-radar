@@ -1,0 +1,72 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert numbered sidenotes into the left or right margin",
+  "Add unnumbered margin notes anchored to text",
+  "Edit sidenotes and margin notes directly in the margin",
+  "Configure numbering styles, spacing, and responsive margin layout",
+  "Export notes to PDF with sidenotes laid out in the margin"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Footnotes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not side-panel comments; the notes render in the page margin next to the anchored text.",
+ "extras": "PDF export is labeled experimental. The README lists known issues: the 'Restart numbering after each heading' feature does not work, and changing style settings can make editing-mode sidenotes disappear until restart. Editing in Reading mode was removed because edits could silently fail to save.",
+ "intent": "alternative",
+ "intentEvidence": "FelixHT's Obsidian Sidenotes Plugin - hasn't been updated in a while - one user reported it doesn't fully function any longer",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted sidenotes that survive web publishing, choosing HTML spans because it was simple to make them work in web-published notes; existing callout-based approaches were rejected for that reason.",
+ "primary": "footnotes",
+ "problem": "Obsidian renders Markdown footnotes at the bottom of the note, with no built-in way to place asides in the margin next to the text that references them.",
+ "readmeHash": "e115fe1695c6b12a3d98bcf9554e8cea0ac12587",
+ "relations": [
+  {
+   "evidence": "I did build some of the functionality in my plugin based on this.",
+   "plugin": "FelixHT's Obsidian Sidenotes Plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "allows you to add comments to a piece of text, and this is viewable in the side panel",
+   "plugin": "SideNote Plugin",
+   "type": "alternative"
+  },
+  {
+   "evidence": "I did not use a custom callout like this because I wanted the sidenotes to also be publishable",
+   "plugin": "Obsidian-sidenote-callout",
+   "type": "alternative"
+  },
+  {
+   "evidence": "I use Digital Garden to publish a subset of my notes to a website",
+   "plugin": "Digital Garden",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Digital Garden",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Tufte-style sidenote plugin that renders numbered sidenotes and unnumbered margin notes in the page margin, editable in place.",
+ "tags": [
+  "tufte",
+  "margin-notes",
+  "typography",
+  "pdf-export",
+  "digital-garden"
+ ]
+}

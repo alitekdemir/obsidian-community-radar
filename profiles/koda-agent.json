@@ -1,0 +1,86 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with an assistant that searches, reads and lists notes, folders, Bases and Canvas files",
+  "require approval before any write, move, edit or delete outside its own folder",
+  "manage memory and skills as editable Markdown notes, including pinned and on-demand skills",
+  "carry working context such as the open note, open tabs or meaning-related notes into a conversation",
+  "run per-conversation tasks with chosen skills, tools and context"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Canvas",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Local model servers need CORS enabled (the connection test passes without it but chat fails); full documentation, getting-started guide and troubleshooting live on an external documentation site; models without native tool calling work only through a less reliable text fallback.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in chat assistant that can look up, read and edit vault notes itself while keeping writes under user control and data local.",
+ "readmeHash": "bc8b6589c26e067b9a5764bd792bc37c0d144807",
+ "relations": [
+  {
+   "evidence": "With Vault Retrieval installed, Koda adds search by meaning",
+   "plugin": "Vault Retrieval",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any other model gets the text recognised by Image to Markdown",
+   "plugin": "Image to Markdown",
+   "type": "integrates"
+  },
+  {
+   "evidence": "generate_image asks Local Image Generator for a picture",
+   "plugin": "Local Image Generator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude (Anthropic API) works through the LLM Endpoint Manager",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible chat endpoint (e.g. LM Studio, Ollama, or a hosted provider)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for a hosted provider or Anthropic Claude",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Vault Retrieval, Image to Markdown, Local Image Generator, LLM Endpoint Manager",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Agentic chat companion that searches, reads and, with your approval, writes vault notes using an OpenAI-compatible model you choose.",
+ "tags": [
+  "agent",
+  "chat",
+  "tool-calling",
+  "local-llm",
+  "lm-studio",
+  "ollama",
+  "privacy"
+ ]
+}

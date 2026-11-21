@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Install and launch the DSH service in the background",
+  "Embed the DSH web UI in an iframe panel",
+  "Bridge note selections into DSH chat and open DSH artifacts in Obsidian",
+  "Update DSH, repair sessions, and rescue a broken install via dsh-fix",
+  "Set up HTTPS certificates and LAN access from phones"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI chatbot itself; it installs, launches and embeds the separate DeepSeek Harness (DSH) agent framework rather than implementing one.",
+ "extras": "Desktop-only (Windows/macOS), Obsidian 1.7.2+; bilingual English/Chinese README; the plugin is listed as not yet reviewed by Obsidian staff; README warns that binding a non-loopback address exposes DSH to the LAN and that network access to model providers depends on the configured task.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Running the DSH agent against vault notes normally requires command-line setup and service management, with no connection between the agent and the editor.",
+ "readmeHash": "4c3b2e0334363d36a3693f0a42961c0ad09f5f6c",
+ "relations": [
+  {
+   "evidence": "An Obsidian desktop plugin that embeds the native DeepSeek Harness (DSH) Web UI into your vault",
+   "plugin": "DeepSeek Harness (DSH)",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Claudian",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness (DSH)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model API key (default DeepSeek API; OpenAI/Anthropic-compatible or local model)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop plugin that installs and runs the DeepSeek Harness (DSH) AI agent service, embeds its web UI in Obsidian, and bridges note selections to its chat.",
+ "tags": [
+  "deepseek",
+  "ai-agent",
+  "ollama",
+  "vllm",
+  "iframe",
+  "https",
+  "self-signed-certificate",
+  "lan-access"
+ ]
+}

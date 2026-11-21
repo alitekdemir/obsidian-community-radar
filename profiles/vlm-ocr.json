@@ -1,0 +1,83 @@
+{
+ "also": [
+  "ai",
+  "latex"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extract text, LaTeX math, and tables from images and PDFs into Markdown",
+  "Generate structured descriptions of charts, diagrams, and infographics",
+  "OCR images pasted from the clipboard at the cursor via hotkey",
+  "Run inference locally through llama.cpp or Ollama, or via the Hugging Face API",
+  "Downscale images and configure presets to fit low-VRAM GPUs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not only a text-transcription tool; it can also turn charts, plots, and diagrams into structured written descriptions.",
+ "extras": "Desktop-only plugin (isDesktopOnly: true); the README documents shell execution and filesystem access under Obsidian Developer Policies. GLM-OCR GGUF weights (~1 GB total) must be downloaded separately for local use.",
+ "intent": "improve",
+ "intentEvidence": "Based on and inspired by the original obsidian-latex-ocr by lucasvanmol.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Obsidian has no built-in way to convert images, screenshots, or scanned PDFs into editable Markdown, LaTeX math, or tables.",
+ "readmeHash": "5f55912ebcdcd48f4fc54f4d3955c5be7cb17091",
+ "relations": [
+  {
+   "evidence": "Based on and inspired by the original obsidian-latex-ocr by lucasvanmol.",
+   "plugin": "obsidian-latex-ocr",
+   "type": "extends"
+  },
+  {
+   "evidence": "Ollama: Connects to your local Ollama instance with auto-start support.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "llama.cpp: Native, blazing-fast GGUF execution with optional GPU offloading.",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Hugging Face API: Free cloud inference with zero local dependencies or GPU requirements.",
+   "plugin": "Hugging Face Inference API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "llama.cpp or Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Hugging Face token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "huggingface.co account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Multimodal OCR plugin that extracts text, LaTeX formulas, and tables from images and PDFs using local VLMs or the Hugging Face API.",
+ "tags": [
+  "ollama",
+  "llama-cpp",
+  "hugging-face",
+  "glm-ocr",
+  "gguf",
+  "vision-language-models",
+  "clipboard"
+ ]
+}

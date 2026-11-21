@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [
+  "supernote-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "import .snbak digest backup files",
+  "generate notes from highlighted digests",
+  "organize notes as atomic or per-document",
+  "embed extracted handwritten mark images",
+  "skip already-imported digests on re-import"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, since the backup file is read from disk. The plugin requests access to one file outside the vault and sends nothing over the network. Not yet manually reviewed by Obsidian staff. Switching note organization style deletes previously generated notes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no way to read Supernote digest backup files, so users must manually export or extract highlights from PDFs to get their handwritten digests into notes.",
+ "readmeHash": "13d2f5b327db86b632388cde5207612bdb830245",
+ "relations": [
+  {
+   "evidence": "The Dataview community plugin — Atlas notes use a Dataview query to list their linked digests",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Supernote device",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Supernote digest backups (.snbak) and converts highlighted digests into atomic or per-document notes with embedded handwritten mark images.",
+ "tags": [
+  "supernote",
+  "snbak",
+  "handwriting",
+  "digests",
+  "highlights",
+  "e-ink"
+ ]
+}

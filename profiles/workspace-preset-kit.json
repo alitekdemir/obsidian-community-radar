@@ -1,0 +1,88 @@
+{
+ "also": [
+  "templating",
+  "backup"
+ ],
+ "audience": [
+  "content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Install bundled report templates and database views",
+  "Apply optional vault settings for editor, appearance, hotkeys, graph and core plugins",
+  "Back up and restore installed resources with journaled import",
+  "Generate writing with optional AI providers",
+  "Look up video metadata from YouTube or Bilibili"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Daily notes",
+   "Hotkeys",
+   "Themes and CSS snippets",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "delisted": "2026-11-19",
+ "disambiguation": "Not an editor or dashboard UI of its own; it installs bundled templates, views, styles and vault settings.",
+ "extras": "Desktop-only; mobile compatibility not verified and a real Obsidian UI installation has not been tested. Applied settings are global to the vault and installation does not sync devices. Backups stay inside the vault, so a separate external backup is advised. Optional AI and video lookup send selected context to external services.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "workspaces",
+ "problem": "Building a structured creator workspace in Obsidian means creating templates, views, styles and editor settings by hand, one at a time.",
+ "profiledAt": "2026-11-16",
+ "provider": "Particle AI",
+ "readmeHash": "c5299d7dcd06248a4df61220d7d851aad4ab4e93",
+ "relations": [
+  {
+   "evidence": "Optional AI writing uses DeepSeek, Alibaba Cloud Qwen, OpenAI, or the compatible API endpoint you configure.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional AI writing uses DeepSeek, Alibaba Cloud Qwen, OpenAI, or the compatible API endpoint you configure.",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Video metadata lookup uses YouTube or Bilibili.",
+   "plugin": "YouTube",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Video metadata lookup uses YouTube or Bilibili.",
+   "plugin": "Bilibili",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (DeepSeek, Qwen, OpenAI or compatible endpoint)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "AI provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Desktop workspace preset that installs blank report templates, database views, a style snippet and optional vault settings into a vault.",
+ "tags": [
+  "dashboard",
+  "chinese",
+  "local-first",
+  "privacy",
+  "byok"
+ ],
+ "textHash": "f2feffdf9567a72699aa78d84e6075e44c0ac43b"
+}

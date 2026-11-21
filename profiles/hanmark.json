@@ -1,0 +1,89 @@
+{
+ "also": [
+  "export",
+  "formats"
+ ],
+ "audience": [
+  "korean-public-sector-writers",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "import HWP, HWPX, HWPML, PDF, DOCX, XLS and XLSX files as Markdown notes",
+  "export notes to HWPX, DOCX, self-contained HTML and PDF",
+  "generate Korean official documents from note properties and reusable HWPX templates",
+  "compare two document versions into a change-table note",
+  "fill HWPX forms from note properties without modifying the original"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires Obsidian 1.8.9 or newer; all conversion runs offline with the Kordoc engine bundled, and scanned PDFs are not OCRed. Optional CMDS Eagle image upload can send image bytes to a user-configured Cloudflare Worker with a session-only API key.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to read Korean HWP/HWPX office documents into notes or produce the HWPX, DOCX and PDF files that Korean institutions require.",
+ "readmeHash": "234d7eb05bb6202dbee1637b393356c458406f24",
+ "relations": [
+  {
+   "evidence": "Kordoc 4.15.7 built in: imports, generates, validates, compares, and fills documents without external setup.",
+   "plugin": "kordoc",
+   "type": "extends"
+  },
+  {
+   "evidence": "Extracted images can stay as Vault attachments, be sent to the active CMDS Eagle cloud provider",
+   "plugin": "CMDS Eagle",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DOCX | Styled Word document | Pandoc + HanMark Word template",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "No pypandoc-hwpx HWPX workflow: old Python installation and executable-path setup are retired",
+   "plugin": "msjang/pypandoc-hwpx",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CMDS Eagle",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Microsoft Word",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Converter that imports HWP, HWPX, PDF, DOCX and XLSX files as Markdown and exports notes to HWPX, DOCX, HTML or PDF, including Korean official documents.",
+ "tags": [
+  "hwpx",
+  "hwp",
+  "hancom-office",
+  "docx",
+  "xlsx",
+  "pandoc",
+  "korean-official-documents",
+  "form-filling"
+ ]
+}

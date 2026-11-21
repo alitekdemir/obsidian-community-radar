@@ -1,0 +1,58 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault across desktop and mobile via a private GitHub repository",
+  "Encrypt file contents and file names with a password-derived AES-256-GCM key",
+  "Merge non-overlapping edits and keep both versions of clashing edits",
+  "Sign in to GitHub with a one-time code and set up the repository from settings",
+  "Pause, resume, and run sync manually via commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the name, it is not a git version-control plugin for commits and branches; it uses a GitHub repository only as encrypted sync storage.",
+ "extras": "Marked 'Beta' with a warning to back up the vault before the first sync; the manifest notes it has not been reviewed by Obsidian staff; full detailed guide exists only in Russian (docs/README.ru.md); files over 50 MB are skipped and the plugin warns near 700 MB of repo size; losing the password makes the GitHub data permanently undecryptable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted sync with 'Your storage, no middleman' — no third-party server, no subscription, and no plaintext on anyone else's servers.",
+ "primary": "syncing",
+ "problem": "Keeping a vault in sync across devices usually means a paid sync service or a third-party server that can read your notes; this syncs through the user's own GitHub repo so the server only ever sees ciphertext.",
+ "readmeHash": "b6b4886206665851e036844039bfd3dc75a36691",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian vault across desktop and mobile devices through your own private GitHub repository.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault sync through your own private GitHub repository, with password-based end-to-end encryption and conflict-safe merging.",
+ "tags": [
+  "github",
+  "end-to-end-encryption",
+  "aes-256-gcm",
+  "pbkdf2",
+  "conflict-resolution",
+  "encryption"
+ ]
+}

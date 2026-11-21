@@ -1,0 +1,66 @@
+{
+ "also": [
+  "project-management",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track tasks with due dates, owners, effort estimates and sub-items in plain Markdown files",
+  "Lay out each day as a time-block timeline and slot tasks into calendar days",
+  "Organize projects and milestones as one Markdown file per project with ## sections",
+  "Compute team workload from person-day estimates and capacity profiles",
+  "Publish and subscribe to message feeds via vault sync or an optional local Python service"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Distributed via BRAT as a beta plugin; ships a sample-data generator, a Python message service, and a migration script for replacing ```tasks queries. Known limits include no drag-to-reschedule, no recurring-task parsing, and session-only read state.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no timeline-first view that ties tasks, daily schedules, project milestones and team workload together without a side database.",
+ "readmeHash": "0633532c3fbbf9a6e55ec619d5e9cfcc836d67cb",
+ "relations": [
+  {
+   "evidence": "It coexists with obsidian-tasks, dataview, kanban, calendar and friends: TLT reads plain - [ ] lines",
+   "plugin": "obsidian-tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It coexists with obsidian-tasks, dataview, kanban, calendar and friends",
+   "plugin": "dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "message service (services-py/tlt_service.py) or vault sync (iCloud / Dropbox / Syncthing / Git)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Timeline-first workbench for tasks, calendar scheduling, project milestones, team workload and a standalone message center, all in plain Markdown.",
+ "tags": [
+  "timeline",
+  "milestones",
+  "workload",
+  "subtasks",
+  "message-feeds",
+  "rss",
+  "atom"
+ ]
+}

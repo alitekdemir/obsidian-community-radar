@@ -1,0 +1,61 @@
+{
+ "also": [
+  "images",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run OCR on pasted images with Tesseract",
+  "Insert the recognized text into a details box",
+  "Configure the Tesseract executable path in settings",
+  "Make image contents searchable via the OCR text"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Depends on the external Tesseract executable being installed and available on the command line; setup requires editing environment variables or the plugin's Tesseract Path setting, and the author invites users to open issues for setup help.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Obsidian search cannot find text that only exists inside images, so pasted screenshots are invisible to search.",
+ "readmeHash": "e24b617fd02290407fcfe095e7cd5591ce477020",
+ "relations": [
+  {
+   "evidence": "Install the 'Local Images Plus' plugin so that all pasted images get copied to a local folder",
+   "plugin": "Local Images Plus",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "tesseract",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Local Images Plus",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Runs Tesseract OCR on pasted images and inserts the recognized text into a details box, making image contents searchable.",
+ "tags": [
+  "tesseract",
+  "text-recognition",
+  "local-images-plus",
+  "screenshots"
+ ]
+}

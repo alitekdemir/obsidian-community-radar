@@ -1,0 +1,89 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault with hybrid, BM25, or vector-only modes via a local qmd daemon",
+  "Narrow searches with #tag, folder, date, and frontmatter scope tokens with autocomplete",
+  "Chat with an agent that searches and reads notes and answers with footnote citations",
+  "Consult external qmd reference collections alongside the vault in search and chat",
+  "Optionally search the web via Perplexity or Exa and write captured notes or daily-note appends"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (shells out to the qmd binary); requires Obsidian 1.7.2+ and a vault on the local filesystem. Windows is untested. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Web search is the only feature that sends anything off the machine, and the README documents in detail what is and isn't sent to providers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because a large vault 'gets dark' — you know a note exists but not where or what you called it — and wanted plain-language answers with citations to find your own thinking again.",
+ "primary": "ai",
+ "problem": "Obsidian's built-in search is keyword-based, so large vaults are hard to query in plain language and nothing answers questions with citations back to your notes.",
+ "readmeHash": "775594e6ee64cde18e1172caee8cd062240b34fc",
+ "relations": [
+  {
+   "evidence": "qmd by Tobi Lütke — the search engine Lantern drives.",
+   "plugin": "qmd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local OpenAI-compatible LLM server — llama-server (run with --jinja for tool calling) or LM Studio",
+   "plugin": "llama-server",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local OpenAI-compatible LLM server — llama-server (run with --jinja for tool calling) or LM Studio",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the agent can search the public web — via Perplexity (needs a key) or Exa",
+   "plugin": "Perplexity",
+   "type": "integrates"
+  },
+  {
+   "evidence": "via Perplexity (needs a key) or Exa (key optional; without one it uses Exa's free keyless endpoint)",
+   "plugin": "Exa",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "qmd CLI 2.8.3+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "local OpenAI-compatible LLM server (llama-server or LM Studio)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Perplexity or Exa API key for web search",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Desktop-only plugin that drives the qmd search engine for hybrid semantic vault search and a grounded, cited chat agent over a local LLM.",
+ "tags": [
+  "qmd",
+  "semantic-search",
+  "rag",
+  "local-llm",
+  "citations",
+  "perplexity",
+  "exa"
+ ]
+}

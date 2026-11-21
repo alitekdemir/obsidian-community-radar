@@ -1,0 +1,81 @@
+{
+ "also": [
+  "search",
+  "attachments"
+ ],
+ "audience": [
+  "medical-students",
+  "clinicians"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search medical reference images for selected or entered text",
+  "Filter results by category such as atlas, radiology, histology, and clinical",
+  "Copy result images to the clipboard for pasting into notes or other apps",
+  "Download images into vault attachments and insert embeds under the selected text",
+  "Preview full-size images in a docked sidebar with a zoomable modal"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Windows-only plugin. README warns not to search confidential patient information, notes that result images remain under their original licenses, and that provider quotas and charges may change.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian has no built-in way to search the web for reference images matching selected text and insert them directly while writing.",
+ "readmeHash": "030144e4145f3cb3e08a45d89d225dcb9686de70",
+ "relations": [
+  {
+   "evidence": "Uses DuckDuckGo Image Search by default — no API keys, accounts, or subscriptions needed.",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Wikimedia Commons: Images from Wikimedia Commons; check each image license.",
+   "plugin": "Wikimedia Commons",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Custom Search Engine (CSE): Optional Google Cloud API Key + Search Engine ID",
+   "plugin": "Google Custom Search",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Images via SerpApi: Optional SerpApi key for direct Google Images scraping results.",
+   "plugin": "SerpApi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Brave Search API: Optional Brave Image search subscription token.",
+   "plugin": "Brave Search",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud API key and Search Engine ID, SerpApi key, or Brave Search token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Finds medical reference images for selected note text via search providers, with sidebar previews, clipboard copy, and offline insertion into notes.",
+ "tags": [
+  "duckduckgo",
+  "wikimedia-commons",
+  "google-custom-search",
+  "serpapi",
+  "brave-search",
+  "clipboard-copy",
+  "radiology"
+ ]
+}

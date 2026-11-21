@@ -1,0 +1,74 @@
+{
+ "also": [
+  "developers",
+  "export"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create exercise projects via a five-step workflow that generates a .exercise.yml manifest and inserts a viewer block",
+  "Render read-only viewers with a file tree, syntax highlighting, line annotations, media previews, and expected-output comparison",
+  "Copy exercises to a local destination outside the vault with injected comments and optional IDE launch",
+  "Insert viewers for existing exercises and manage copy-destination ignore rules",
+  "Configure preview size limits and Quartz exclusion patterns"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only: it writes outside the vault only after a copy destination is chosen and makes no network requests. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian has no way to author, render, and hand off self-contained programming exercises with per-file notes, expected outputs, and a path into a local coding environment.",
+ "readmeHash": "629d30003137cbf0312fdcf4a5a63505d86a9fc5",
+ "relations": [
+  {
+   "evidence": "The companion Quartz plugin reads the generated contract.",
+   "plugin": "Quartz",
+   "type": "integrates"
+  },
+  {
+   "evidence": "offer VS Code for Python-only projects or IntelliJ IDEA for Java-only projects",
+   "plugin": "VS Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "offer VS Code for Python-only projects or IntelliJ IDEA for Java-only projects",
+   "plugin": "IntelliJ IDEA",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "VS Code or IntelliJ IDEA (optional launcher on PATH)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Quartz site (optional for root index panels)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Desktop-only plugin for creating, previewing, and copying read-only programming exercise projects with annotated files and generated YAML manifests.",
+ "tags": [
+  "code-exercises",
+  "syntax-highlighting",
+  "quartz",
+  "line-annotations",
+  "vscode",
+  "intellij-idea"
+ ]
+}

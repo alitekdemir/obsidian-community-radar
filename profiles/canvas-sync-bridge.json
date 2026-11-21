@@ -1,0 +1,79 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Canvas LMS courses, modules, assignments, discussions, grades, and calendars into Markdown notes",
+  "Receive course data from a companion browser extension over localhost without an API token",
+  "Generate typed YAML frontmatter, wikilinks, callouts, and hub notes (Announcements.md, Grades.md, Calendar.md)",
+  "Download embedded images, attachments, and course documents with size and extension filters",
+  "Schedule background resyncs at configurable intervals and probe token permissions via diagnostics"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Unrelated to Obsidian's Canvas whiteboard feature; it syncs course data from the Canvas LMS education platform.",
+ "extras": "Marked as not manually reviewed by Obsidian staff. The companion browser extension is maintained in a separate repository and installed from the Chrome Web Store or Firefox Add-ons. Tokens are stored locally in data.json; the local listener runs only when toggled on. Installation via BRAT is supported for beta releases.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull Canvas LMS course content, deadlines, grades, and files into a vault as organized notes.",
+ "readmeHash": "c585ba500b158b633172f70b664376f56030c712",
+ "relations": [
+  {
+   "evidence": "fully compatible with Obsidian Dataview, Tasks, and Canvas cards",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "fully compatible with Obsidian Dataview, Tasks, and Canvas cards",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The browser extension source code, pre-packaged .zip release files, and store deployment pipelines are maintained in a dedicated repository",
+   "plugin": "Canvas to Obsidian Sync (browser extension)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Canvas LMS account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Canvas API access token (for direct REST API mode)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Companion browser extension (for zero-token bridge mode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Canvas LMS courses, assignments, discussions, grades, and calendars into the vault as structured Markdown notes via REST API or a browser extension bridge.",
+ "tags": [
+  "canvas-lms",
+  "rest-api",
+  "browser-extension",
+  "dataview",
+  "zoom"
+ ]
+}

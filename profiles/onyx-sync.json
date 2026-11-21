@@ -1,0 +1,51 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes and attachments across devices over WebSockets",
+  "Encrypt file contents, paths, and attachments locally with AES-256-GCM before upload",
+  "Self-host the backend on a VPS via Docker or serverless on Cloudflare Workers",
+  "Upload only changed blocks using content-addressed chunk deduplication",
+  "Queue edits offline in an IndexedDB outbox and retry with exponential backoff"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Deployment guides for the required server live in a separate Onyx main repository linked from the README; the README also includes a Chinese-language summary. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README frames the goal as giving users full ownership over their notes with client-side encryption, so the server stores only ciphertext and hashes.",
+ "primary": "syncing",
+ "problem": "Syncing a vault usually means trusting a server operator with plaintext content; users who want to keep notes private even from the server admin have no built-in option.",
+ "readmeHash": "d8d5b8a07b88f3f4664f93983cd9da1221fc57c0",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Onyx backend server (Docker/VPS or Cloudflare Workers deployment)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Self-hosted zero-knowledge sync engine that end-to-end encrypts notes and attachments before they reach your own VPS or Cloudflare Workers server.",
+ "tags": [
+  "e2ee",
+  "encryption",
+  "self-hosted",
+  "cloudflare-workers",
+  "docker",
+  "websockets",
+  "offline-first"
+ ]
+}

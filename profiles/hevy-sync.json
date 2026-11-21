@@ -1,0 +1,65 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Hevy workouts as one note per workout",
+  "Write workout frontmatter queryable with Dataview",
+  "Sync only new workouts or re-import and overwrite all",
+  "Configure API key, target folder, and bodyweight for volume calculation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not device or vault syncing; 'sync' here means a one-way import of workouts from the Hevy service into notes.",
+ "extras": "Notes are named by Hevy workout id, so renamed notes are re-imported on the next sync; sets without a logged weight display as nullkg.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to pull workout history from the Hevy app into queryable vault notes.",
+ "readmeHash": "a1a21f3aed37377e02fccb772541d03d578dab1b",
+ "relations": [
+  {
+   "evidence": "one note per workout, with frontmatter you can query with Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Hevy API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Hevy Pro",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Hevy account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Imports Hevy workout-tracking data into Obsidian as one note per workout with Dataview-queryable frontmatter.",
+ "tags": [
+  "hevy",
+  "workouts",
+  "fitness",
+  "strength-training",
+  "dataview",
+  "exercise"
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "also": [
+  "editing",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert markup and wikilink templates with Alt shortcuts and Tab through link parts",
+  "Jump between the starts and ends of adjacent lines with repeat on hold",
+  "Extend the selection one character in either direction while keeping the anchor",
+  "Clear the current line in two stages and discard pending IME composition safely",
+  "Go back and forward between notes while restoring each note's scroll position"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop app only (isDesktopOnly: true) and requires Obsidian 1.4.0 or newer. No settings tab, no data file, no network access; some keys cannot be remapped because they are handled on raw keydown. README is duplicated in Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "hotkeys",
+ "problem": "Obsidian has no Alt-layer editing shortcuts, so moving the mouse to insert symbols or jump lines takes multiple steps, and going back to a note lands at the top instead of the previous scroll position.",
+ "readmeHash": "2130ed223f2e820f38ca685ecea998269712bae1",
+ "relations": [
+  {
+   "evidence": "Keys must be caught before CodeMirror sees them.",
+   "plugin": "CodeMirror",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Alt-key editing shortcuts that insert markup, jump between lines, extend selections character by character, fill wikilink templates, and navigate history.",
+ "tags": [
+  "multi-cursor",
+  "ime",
+  "scroll-restore",
+  "wikilink-template",
+  "alt-key"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "data",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Incrementally fetch new scrobbles since the last sync",
+  "Create artist and album notes with playcounts and cover images",
+  "Backlink scrobbled tracks into their artist and album notes",
+  "Adjust UTC timestamps to a custom timezone and re-stamp existing track files",
+  "Backfill historical tracks, artists and albums up to custom limits"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires a free Last.fm API key the user must create; the README discloses network usage per community plugin policies, notes the plugin is unofficial and not affiliated with Last.fm, and states documentation and code were AI-assisted.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull a user's Last.fm listening history and artist/album data into notes automatically.",
+ "readmeHash": "4e4a846926a74bc94b619895aff65b4f4f9f9033",
+ "relations": [
+  {
+   "evidence": "It makes outbound requests exclusively to the official Last.fm API",
+   "plugin": "Last.fm",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "sync-lastfm",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Last.fm API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Last.fm account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Last.fm",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Last.fm sync plugin that fetches scrobbles, top artists, albums and cover art into notes with properties for Bases.",
+ "tags": [
+  "lastfm",
+  "scrobbles",
+  "cover-art",
+  "playcounts",
+  "timezones",
+  "backfill"
+ ]
+}

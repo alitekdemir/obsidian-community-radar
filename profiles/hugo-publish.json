@@ -1,0 +1,55 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert wiki links and aliases to Markdown links",
+  "Copy embedded images to the Hugo static directory and rewrite embeds",
+  "Auto-write YAML headers with title, date and lastmod",
+  "Sync tagged notes via a button or the Hugo Publish: Sync blog command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not Obsidian Publish; it exports notes to a self-hosted Hugo static site instead.",
+ "extras": "User must run hugo server manually in the site directory to preview; settings require configuring a blog tag and Hugo site path.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian's wiki links, image embeds and missing YAML headers are not directly usable when publishing notes with the Hugo static site generator.",
+ "readmeHash": "a6dc64151330726fff8f5e0a6dd68761da93b4a5",
+ "relations": [
+  {
+   "evidence": "This plugin will convert the .md file and related images in obsidian to the hugo site dir.",
+   "plugin": "Hugo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hugo",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Converts Obsidian notes with wiki links and image embeds into Hugo-compatible Markdown inside a Hugo site directory.",
+ "tags": [
+  "hugo",
+  "static-site",
+  "blog",
+  "wiki-links"
+ ]
+}

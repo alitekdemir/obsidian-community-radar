@@ -1,0 +1,64 @@
+{
+ "also": [
+  "tags",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Draw a graph where tags, folders and note properties act as hub nodes",
+  "Tag notes, set properties, merge and rename tags by dragging or right-clicking",
+  "Show a details panel with usage counts, folders, co-occurring values and look-alike tags",
+  "Hide rarely used values and split tag hubs by folder",
+  "Use Bases filters and the standard graph controls to scope what is drawn"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Makes no network requests and works on desktop and mobile. After an update, a one-time message asks users to star the GitHub repository. Built for bases of up to a few thousand notes; undo covers only the last edit.",
+ "intent": "improve",
+ "intentEvidence": "It is a Bases view: the base's filters decide what is drawn.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author collected still-open graph and tag feature requests from six months of Obsidian forum threads and built the plugin to answer them.",
+ "primary": "graph",
+ "problem": "Obsidian's graph view is read-only and shows only links, so notes held together by tags or properties have no visual structure and tagging or merging tags means editing each note by hand.",
+ "readmeHash": "50f919c1e7615ebbf603de8489f0d76af5d2489e",
+ "relations": [
+  {
+   "evidence": "The gear button in the graph's toolbar opens the controls you know from Obsidian's own graph view",
+   "plugin": "Obsidian graph view",
+   "type": "extends"
+  },
+  {
+   "evidence": "d3-force is bundled into main.js",
+   "plugin": "d3-force",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases core plugin",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A graph view for Bases where tags, folders and properties become hub nodes, and dragging lets you tag, merge and reorganize notes.",
+ "tags": [
+  "drag-and-drop",
+  "d3-force",
+  "duplicate-tags",
+  "undo",
+  "multilingual"
+ ]
+}

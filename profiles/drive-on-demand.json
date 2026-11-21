@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse a lazy Google Drive tree without downloading files",
+  "Selectively sync chosen folders and files for offline use",
+  "Automatically push and pull edits between the vault and Drive",
+  "Open Google Docs, Sheets and Slides as clickable link notes",
+  "Trash or locally free space for synced files with confirmation safeguards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free during beta with a paid subscription (~1–2 €/month) planned; a free tier is intended to remain. Authentication goes through a hosted Real-IT broker rather than an embedded Google client secret; users can instead plug in their own Google Cloud credentials. Beta install is via BRAT, and the plugin is not staff-reviewed by Obsidian.",
+ "intent": "new",
+ "intentEvidence": "Google Drive's official desktop app keeps your files in sync on macOS/Windows, but there is no such thing on iOS.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because Google Drive's official desktop app only covers macOS/Windows and \"there is no such thing on iOS\", so Drive content was unreachable from Obsidian on mobile.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to reach Google Drive files, and Google's own desktop app does not cover iOS, so mobile vaults cannot pull Drive content.",
+ "readmeHash": "f3a23d93e628ea568fa33888dab291a0dbd65066",
+ "relations": [
+  {
+   "evidence": "Google Drive API (googleapis.com) — to list, download and upload the files you choose to sync.",
+   "plugin": "Google Drive API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Real-IT subscription (planned)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Google Drive client that browses your Drive in a side panel, downloads selected files on demand into the vault, and keeps both directions in sync.",
+ "tags": [
+  "google-drive",
+  "files-on-demand",
+  "selective-sync",
+  "two-way-sync",
+  "offline",
+  "oauth",
+  "google-docs"
+ ]
+}

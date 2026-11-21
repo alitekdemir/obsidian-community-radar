@@ -1,0 +1,43 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track aggregate vault metrics (file count, note count, size) as a baseline",
+  "Warn when file count, note count, or vault size falls below thresholds",
+  "Check the vault after startup, periodically, and after file events",
+  "Exclude folders from monitoring",
+  "Run commands to check the vault now or reset the baseline"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a backup tool; it only raises an alert and explicitly tells you to keep separate backups or version history for recovery.",
+ "extras": "README states it is local-first with no network requests or telemetry, only stores aggregate metrics (not note contents), requires Obsidian 1.13.0+, and defaults to Japanese UI strings with English available. Not manually reviewed by Obsidian staff. BRAT is mentioned only as an install method for pre-release builds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Large-scale file loss from a sync mistake, broken automation, or another tool can go unnoticed for hours or days, and Obsidian has no built-in alert for it.",
+ "readmeHash": "6299bc41396325480ba00a7e6ca4e70d8938d576",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "A vault monitoring plugin that warns when visible file count, Markdown note count, or vault size drops beyond configurable thresholds.",
+ "tags": [
+  "data-loss",
+  "early-warning",
+  "baseline",
+  "vault-monitoring",
+  "japanese"
+ ]
+}

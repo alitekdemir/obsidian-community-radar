@@ -1,0 +1,56 @@
+{
+ "also": [
+  "code",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "pick a code block language from a floating two-column panel",
+  "filter candidates by prefix and fuzzy match while typing",
+  "scan installed plugins for registerMarkdownCodeBlockProcessor names and tips.json identifiers",
+  "insert reusable code block body templates triggered by ?",
+  "import and export template sets as tips.json"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a tips-and-tricks or documentation helper; despite the name it is a code block language picker with a template inserter.",
+ "extras": "Not manually reviewed by Obsidian staff. The plugin scan reads every installed plugin's main.js and can be slow on mobile with large vaults. Known limits: edit mode only (reading mode unsupported), regex-based fence detection may misread extreme nesting, and documents over 3000 lines are only scanned around the cursor. Documentation is also available in Simplified Chinese, and the UI ships in six languages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted code blocks to be as handy as in Typora and to surface the activation names that plugins like sketch-mechanisms and word-cloud register via code blocks.",
+ "primary": "autocomplete",
+ "problem": "Obsidian has no language picker on code blocks, so users must type the info string by hand and forget the code block names registered by plugins.",
+ "readmeHash": "c13681758551f6d6be64cb739d6dfeaa1275ccc6",
+ "relations": [
+  {
+   "evidence": "Code blocks in Obsidian, as handy as they are in Typora",
+   "plugin": "Typora",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "sketch-mechanisms",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Code block language picker that opens a two-column floating panel of built-in languages and plugin-registered processors, plus reusable code block templates.",
+ "tags": [
+  "code-blocks",
+  "info-string",
+  "mermaid",
+  "typora",
+  "codemirror",
+  "plugin-scan"
+ ]
+}

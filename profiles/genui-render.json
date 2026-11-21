@@ -1,0 +1,74 @@
+{
+ "also": [
+  "import",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render chatgpt-ui JSON blocks as widgets (maps, choice chips, math, source lists)",
+  "Draw JSX-like markup as layouts, charts, code blocks, icons and inline cite chips",
+  "Convert ChatGPT data exports into one Markdown note per conversation",
+  "Save user answers from choice chips back into the code block",
+  "Fetch images for AsyncImage queries from Openverse and Wikimedia Commons"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It only draws markup already saved from a ChatGPT data export; it does not generate UIs, run ChatGPT, or execute HTML apps or templated drawings.",
+ "extras": "Installed manually by copying main.js, manifest.json and styles.css into the plugins folder. Image fetching is off by default; network requests go only to OpenStreetMap and Openverse when triggered, with no telemetry, accounts or keys. Save answers rewrites the code block, which a re-run importer would overwrite.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian shows ChatGPT conversation exports as raw code blocks and inline markup, hiding the widgets, layouts and sources the answers originally displayed.",
+ "readmeHash": "dc41d8b743141d61da3d4fe018e022bcae94edfc",
+ "relations": [
+  {
+   "evidence": "the place names and addresses of that block go to OpenStreetMap Nominatim",
+   "plugin": "OpenStreetMap Nominatim",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the query of each image is sent to Openverse (api.openverse.org)",
+   "plugin": "Openverse",
+   "type": "integrates"
+  },
+  {
+   "evidence": "then Wikimedia Commons if nothing is found",
+   "plugin": "Wikimedia Commons",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ChatGPT",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders ChatGPT answer UI — maps, choice questions, stat cards, charts and source chips — inside Obsidian from notes holding a ChatGPT export's markup.",
+ "tags": [
+  "chatgpt",
+  "chat-export",
+  "generative-ui",
+  "openstreetmap",
+  "nominatim",
+  "openverse",
+  "wikimedia-commons",
+  "cite-chips"
+ ]
+}

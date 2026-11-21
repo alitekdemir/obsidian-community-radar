@@ -1,0 +1,78 @@
+{
+ "also": [
+  "search",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "ingest open notes into wiki pages with guarded section patches",
+  "query the wiki and answer questions in the sidebar with cross-links",
+  "lint wiki pages for gaps, outdated content, and broken links",
+  "format open markdown notes without adding or removing facts",
+  "export domains as Google Open Knowledge Format bundles"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not reviewed by Obsidian staff. Mobile supports only Query; Ingest, Lint, Init, Format, and Export OKF are desktop-only. local.json stores API keys and must be excluded from sync. Extensive performance reference and developer release-validation documentation included.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian notes stay as loose files; keeping a structured, up-to-date reference wiki derived from them requires manual writing and maintenance.",
+ "readmeHash": "5e351863365f4b64f240cb7f8328512bf7005b16",
+ "relations": [
+  {
+   "evidence": "Supported transport: OpenAI-compatible, with local Ollama and remote services supported.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Base URL | OpenAI-compatible endpoint. Ollama:",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "ai-wiki",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local) or a remote OpenAI-compatible service",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for remote OpenAI-compatible services",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "remote OpenAI-compatible services may require payment",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI wiki builder that reads your notes and maintains a structured local knowledge base using an OpenAI-compatible LLM such as local Ollama.",
+ "tags": [
+  "ollama",
+  "openai-compatible-api",
+  "llm",
+  "embeddings",
+  "knowledge-base",
+  "rag",
+  "open-knowledge-format"
+ ]
+}

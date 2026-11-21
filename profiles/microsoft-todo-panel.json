@@ -1,0 +1,63 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "List Microsoft To Do tasks by list or by date",
+  "Drag a task into a note as a Markdown task line",
+  "Insert a task at the cursor with a + button",
+  "Mark tasks the active note already contains",
+  "Show recently completed tasks and a task's notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task manager: it only reads Microsoft To Do tasks and inserts them into notes.",
+ "extras": "Read-only: it never creates, changes or completes tasks in To Do. Requires Obsidian 1.11.4 or newer for secret storage; the sign-in token is kept per vault and per device, and cached lists stay in local storage. Not affiliated with Microsoft.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Microsoft To Do itself does not let you drag tasks into other apps, so the drag starts in this panel instead.",
+ "primary": "integrations",
+ "problem": "Microsoft To Do cannot drag tasks into other apps, and Obsidian gives no view of which To Do tasks a note already contains.",
+ "profiledAt": "2026-11-17",
+ "provider": "Particle AI",
+ "readmeHash": "5a1b51710cc9fd31e2d75930067b41df0d0fe633",
+ "relations": [
+  {
+   "evidence": "A sidebar in Obsidian that lists your Microsoft To Do tasks.",
+   "plugin": "Microsoft To Do",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account with Microsoft To Do",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Microsoft Entra app registration (client ID)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar that lists Microsoft To Do tasks and inserts them into notes as Markdown task lines by drag or button.",
+ "tags": [
+  "drag-and-drop",
+  "read-only",
+  "oauth"
+ ],
+ "textHash": "53a00918e7fbbfcf3fd4ec397f4062732116babf"
+}

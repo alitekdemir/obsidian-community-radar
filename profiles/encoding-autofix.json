@@ -1,0 +1,64 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "korean-language-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Detect encodings via create/rename events plus startup and periodic scans",
+  "Convert UTF-16, UTF-8 BOM, and EUC-KR/CP949 files to UTF-8",
+  "Wait for sync writes to finish before reading files",
+  "Leave already-clean or unidentifiable files untouched with a warning",
+  "Convert the current file or scan the whole vault via commands"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a text formatter; it only converts file character encoding and changes nothing else in file contents.",
+ "extras": "Already-corrupted files cannot be recovered; the plugin must be installed on every device that adds files since .obsidian/plugins/ is not always synced. A beta version is available via BRAT, and the README includes a full Korean-language section.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author lost a meeting transcript: a UTF-16 .txt synced through Self-hosted LiveSync was blocked as corrupted, and force-receiving it turned every Korean character into . They built the plugin so importing files 'just works'.",
+ "primary": "formats",
+ "problem": "Obsidian assumes every note is UTF-8, so text files in other encodings get permanently corrupted ( or mojibake) the moment Obsidian or a sync plugin touches them.",
+ "readmeHash": "ec92ff7c1da5ec68c544e30f299205f845de7ec6",
+ "relations": [
+  {
+   "evidence": "With a sync plugin like Self-hosted LiveSync, the damage gets worse",
+   "plugin": "Self-hosted LiveSync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "handles the temp-file-then-rename pattern used by Resilio, Dropbox, and friends",
+   "plugin": "Resilio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT → Add beta plugin → enter kathar0s/obsidian-encoding-autofix",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Encoding converter that detects non-UTF-8 text files (UTF-16, UTF-8 BOM, EUC-KR/CP949) added to the vault and rewrites them as clean UTF-8.",
+ "tags": [
+  "character-encoding",
+  "utf-16",
+  "euc-kr",
+  "cp949",
+  "mojibake",
+  "bom",
+  "self-hosted-livesync",
+  "resilio"
+ ]
+}

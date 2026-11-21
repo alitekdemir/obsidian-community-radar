@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create posts in dated folders from a server-downloaded frontmatter template",
+  "lint frontmatter against the live server schema before publishing",
+  "publish posts and upload folder assets, rewriting wiki-links and cross-post links",
+  "pull and sync published posts and metadata between vault and server",
+  "generate covers and suggest excerpts, tags, and alt text with AI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4 or newer for secret storage; the API token lives in secret storage, not the vault. The plugin only talks to the production Valeon backend and only recognises posts in YYYY-MM-DD-{slug}/post.md folder layout. Also covers conflict handling with automatic local backups.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to the Valeon blogging platform or keep local post files matched with their remote counterparts.",
+ "readmeHash": "8a4bf1e88cd7718345573f64361b30b1ce9d0d90",
+ "relations": [
+  {
+   "evidence": "Install Victor Tao's Linter plugin (community plugin id obsidian-linter) and enable Lint on save.",
+   "plugin": "Victor Tao's Linter (obsidian-linter)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "translates either form into a stable valeon:post:{id} URI before sending the body to Convex",
+   "plugin": "Convex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Valeon author dashboard (invite-only)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Valeon API token stored in Obsidian secret storage",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishing client that creates, lints, publishes, and syncs posts with the Valeon author dashboard, handling assets, links, and AI helpers.",
+ "tags": [
+  "convex",
+  "blog",
+  "slugify",
+  "cross-post-links",
+  "cover-image",
+  "secret-storage",
+  "api-token"
+ ]
+}

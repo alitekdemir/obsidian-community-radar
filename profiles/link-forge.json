@@ -1,0 +1,56 @@
+{
+ "also": [
+  "automation",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create note files for unresolved wikilinks when the cursor leaves a line",
+  "Create missing parent folders for new files",
+  "Shorten links to the shortest unique path after creation",
+  "Preserve headings and aliases when shortening links",
+  "Restrict auto-creation to configured watched folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a link checker or link rewriter; it only creates missing note files for unresolved wikilinks.",
+ "extras": "Releases include GitHub Artifact Attestations (Sigstore) so builds can be verified against the repo source; the author notes the Obsidian plugin ecosystem lacks build verification.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian leaves unresolved wikilinks as dead links until you manually create the target file, interrupting writing flow.",
+ "readmeHash": "5132d84ac74de0252fed577558472a691a7f974f",
+ "relations": [
+  {
+   "evidence": "Link Forge works seamlessly with Templater. When Link Forge creates a new file, Templater's built-in",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Auto-creates note files from unresolved wikilinks when you leave a line, creating missing folders and optionally shortening the link.",
+ "tags": [
+  "wikilinks",
+  "templater",
+  "codemirror",
+  "auto-create",
+  "supply-chain-security"
+ ]
+}

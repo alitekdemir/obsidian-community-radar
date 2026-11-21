@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two-way with a WebDAV server or Nextcloud on a schedule, at startup, and on demand",
+  "Provide a free read-only demo vault that works before any configuration",
+  "Download .obsidian settings and plugins from the server without uploading them",
+  "Keep deleted files in the vault's .trash folder and preserve conflicting edits as .sync-conflict copies",
+  "Export recent sync plans as notes for diagnostics"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not limited to NextClaw accounts: it syncs with any WebDAV server, while NextClaw accounts only sync on iPad and Android tablets.",
+ "extras": "Freemium: the read-only demo vault is free, but syncing your own vault requires an account on a WebDAV server, and a NextClaw account is a paid service that does not sync on desktop. Release notes state 24-hour resource stability testing and real-device acceptance are incomplete. The stored password is obfuscated, not encrypted. The first sync after entering a username moves existing vault contents (except .obsidian) into .trash, so the README warns to install it in a new, empty vault.",
+ "intent": "alternative",
+ "intentEvidence": "NextClaw Sync started as a fork of Remotely Save (Apache License 2.0). The sync engine has been rewritten",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, and setting up most third-party sync plugins requires configuring several fields before anything works.",
+ "readmeHash": "c429b274c06247161f4fd7cd6d846d424aef2c57",
+ "relations": [
+  {
+   "evidence": "NextClaw Sync started as a fork of Remotely Save (Apache License 2.0).",
+   "plugin": "Remotely Save",
+   "type": "fork"
+  },
+  {
+   "evidence": "Sync your Obsidian vault with Nextcloud or any other WebDAV server, on desktop and mobile.",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a WebDAV server such as Nextcloud",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "NextClaw or WebDAV account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "NextClaw account (paid, tablet-only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way vault sync plugin over WebDAV, built for NextClaw accounts but working with Nextcloud or any WebDAV server on desktop and mobile.",
+ "tags": [
+  "webdav",
+  "nextcloud",
+  "two-way-sync",
+  "conflict-resolution",
+  "etag",
+  "app-password"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rate media entries with five-star and 10-point scores",
+  "Set two-state planned/completed status with configurable labels",
+  "Search TMDB and Open Library to create new media notes",
+  "Browse the library as a cover-based Bookshelf view with filters, search, and sorting",
+  "Track comments, status history, and finished/updated dates in note properties"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a media file player or embed manager; it manages a catalog of media notes (books, movies, TV) inside Bases.",
+ "extras": "Warns users to back up the vault before enabling a version that performs a schema migration (media notes are migrated to schema 2). Notes TMDB attribution requirements and that the plugin is not endorsed by TMDB. Open Library search needs no API key.",
+ "intent": "improve",
+ "intentEvidence": "turns Obsidian Bases into an editable media library",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Obsidian Bases tables are not directly editable and building a media library requires manually editing properties and looking up movie and book metadata elsewhere.",
+ "readmeHash": "678c0758a109a8f0462be166ca04e091a79b15fe",
+ "relations": [
+  {
+   "evidence": "Movie and TV metadata is provided by The Movie Database (TMDB).",
+   "plugin": "TMDB (The Movie Database)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Book metadata and covers are provided by Open Library, a project of the Internet Archive.",
+   "plugin": "Open Library (Internet Archive)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDB v3 API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "TMDB account to obtain the API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Editable media library built on Obsidian Bases, with a table view, a cover-based Bookshelf view, ratings, statuses, and TMDB/Open Library entry creation.",
+ "tags": [
+  "tmdb",
+  "open-library",
+  "media-tracker",
+  "bookshelf",
+  "star-ratings",
+  "cover-images",
+  "reading-status"
+ ]
+}

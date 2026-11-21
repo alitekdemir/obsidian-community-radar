@@ -1,0 +1,75 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat about the current note or selected text from editing, reading, and Web Viewer contexts",
+  "Search vault notes locally with BM25 and send the highest-ranked excerpts as context",
+  "Fetch web search results via DuckDuckGo or Tavily and combine them with note context",
+  "Display which selections, notes, vault results, and web candidates were sent to the model",
+  "Connect to any OpenAI-compatible service, including local endpoints"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web Viewer",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault search tool; the local BM25 search exists to supply context for AI conversations.",
+ "extras": "The interface is currently available only in Simplified Chinese. The Web Viewer selection hook is desktop-only, though the rest works on mobile. Keys are stored in Obsidian SecretStorage rather than data.json. The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes a privacy disclosure: questions and enabled note excerpts are sent directly to the configured model endpoint, and search queries go to DuckDuckGo or Tavily.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and existing AI plugins typically require an embedding service or a specific provider instead of an arbitrary OpenAI-compatible endpoint.",
+ "readmeHash": "dca59c7961e5cc565ba62f10235056f0acd812ba",
+ "relations": [
+  {
+   "evidence": "Connect to OpenAI-compatible services, including local endpoints.",
+   "plugin": "OpenAI-compatible model APIs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use DuckDuckGo without a search API key, or configure Tavily.",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If web search is enabled, the query is sent to DuckDuckGo or Tavily",
+   "plugin": "Tavily",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible model API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily key (if Tavily web search is chosen)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI sidebar that chats with selected text, the current note, BM25-ranked vault notes, and web results using your own OpenAI-compatible API.",
+ "tags": [
+  "openai",
+  "bm25",
+  "duckduckgo",
+  "tavily",
+  "chinese",
+  "secret-storage",
+  "local-endpoint"
+ ]
+}

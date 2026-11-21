@@ -1,0 +1,71 @@
+{
+ "also": [
+  "automation",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with an AI assistant that reads, searches, creates, and edits vault notes",
+  "approve or reject AI write operations with diff previews and rollback checkpoints",
+  "run workflows, hooks, and event-driven circuits from vault notes and schedules",
+  "connect MCP tool servers and author custom tools as Markdown files",
+  "maintain persistent memory as standard vault notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.11.4+); install is recommended via BRAT as a beta plugin; the Circuits feature is gated behind a toggle and off by default; full setup docs live in the repository's docs/ directory; manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, so using an LLM to safely read and modify vault notes requires a third-party plugin.",
+ "readmeHash": "a7e3ce88985f39cb2a68e46622896995db67b5f1",
+ "relations": [
+  {
+   "evidence": "run circuits, workflows, and tools from Templater scripts and other plugins",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider credentials (Anthropic, OpenAI, Bedrock, or search APIs)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "a running LLM provider (local Ollama/LM Studio or cloud)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT for recommended installation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Vault-aware AI chat assistant that reads, searches, creates, and edits notes with approval gates, checkpoints, memory, workflows, and MCP tool support.",
+ "tags": [
+  "mcp",
+  "ollama",
+  "anthropic",
+  "openai",
+  "sub-agents",
+  "voice-mode",
+  "checkpoints"
+ ]
+}

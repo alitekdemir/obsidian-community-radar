@@ -1,0 +1,69 @@
+{
+ "also": [
+  "research",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search books live by title, author, or ISBN across Google Books, Open Library, and Apple Books",
+  "Create book notes from customizable templates with variables for metadata, frontmatter, body, and file name",
+  "Link or download high-resolution cover images into the vault",
+  "Fetch or replace covers on existing book notes, including notes created by hand or by other plugins",
+  "Prevent duplicate notes by asking before creating an existing book's note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Without a Google Books API key, search falls back to Open Library, which has a smaller catalog and less metadata; the key is stored locally in data.json and the plugin sends no telemetry.",
+ "intent": "alternative",
+ "intentEvidence": "Book Search, the plugin that inspired this one. I used it for a while, but it is not actively maintained",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author used the Book Search plugin but found it unmaintained and wanted high-quality covers and a modern user experience for their book library.",
+ "primary": "integrations",
+ "problem": "Keeping a book library in a vault means hand-writing notes with small or missing cover images, and the existing book search plugin is no longer maintained.",
+ "readmeHash": "08d36d2ac48169d0e3ca50e4961af06273286187",
+ "relations": [
+  {
+   "evidence": "Book Search, the plugin that inspired this one. I used it for a while, but it is not actively maintained",
+   "plugin": "Book Search",
+   "type": "inspired"
+  },
+  {
+   "evidence": "If you enabled Templater's \"Trigger Templater on new file creation\" setting, your commands in the template run",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Book search and note creator that builds templated book notes with high-resolution covers from Google Books, Open Library, and Apple Books.",
+ "tags": [
+  "google-books",
+  "openlibrary",
+  "apple-books",
+  "isbn",
+  "book-covers",
+  "book-library"
+ ]
+}

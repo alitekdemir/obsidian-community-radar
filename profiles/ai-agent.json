@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with an AI agent from the sidebar or a hotkey",
+  "create, read, and edit notes and folders via agent tools",
+  "search vault content and filter notes by date range",
+  "search the web from the chat",
+  "store and rename chats as Obsidian notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Detailed disclosure section on network usage: messages, attached notes and images, and tool-read note content are sent to the selected provider (or stay local with Ollama); the bundled LangChain library may fetch token-counting data from tiktoken.pages.dev. Edits can be reviewed before applying via a 'Review changes' setting; web search is unavailable with Ollama models; chat history files should not be modified or moved.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant that can act on the vault by creating, editing, searching, and organizing notes on the user's behalf.",
+ "readmeHash": "eeb62c8bd7fe6842bc08bcc95742819cc49c5051",
+ "relations": [
+  {
+   "evidence": "Connect Google Gemini, Anthropic Claude, OpenAI, or a local Ollama model",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect Google Gemini, Anthropic Claude, OpenAI, or a local Ollama model",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect Google Gemini, Anthropic Claude, OpenAI, or a local Ollama model",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For Ollama, no API key is needed, just make sure your local Ollama server is running",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini / Anthropic Claude / OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local server with a pulled model)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI chat agent that reads, writes, and edits notes and folders in your vault, powered by Google Gemini, Anthropic Claude, OpenAI, or a local Ollama model.",
+ "tags": [
+  "google-gemini",
+  "anthropic",
+  "openai",
+  "ollama",
+  "langchain",
+  "web-search",
+  "chat"
+ ]
+}

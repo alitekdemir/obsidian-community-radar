@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai",
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "translate selected text with streaming typewriter output",
+  "look up short words with phonetics, multi-domain definitions and examples",
+  "generate parallel AI explanations in an independent language",
+  "read translations aloud with Volcano Engine neural voices, including cloned voices",
+  "cache translations, explanations and TTS audio locally across sessions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (Chinese and English); the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in translation, so users must leave the app to look up words or translate selected text.",
+ "readmeHash": "2bfcc142772be0e94fd893fb880e06aa07c68982",
+ "relations": [
+  {
+   "evidence": "DeepSeek (default) | platform.deepseek.com",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Volcano Engine big model, 16 voices (10 zh + 3 en + 3 multi); voice cloning (S_xxx ID)",
+   "plugin": "Volcano Engine",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Any OpenAI-compatible endpoint (Ollama, local LLM…)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Translation API key (DeepSeek, Qwen, Doubao, Kimi, Zhipu, or OpenAI-compatible endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Volcano Engine TTS AppID and Access Token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Select-to-translate plugin that looks up short words in a dictionary, streams long-text translations with AI explanations, and reads results via Volcano TTS.",
+ "tags": [
+  "dictionary",
+  "tts",
+  "deepseek",
+  "volcano-engine",
+  "voice-cloning",
+  "streaming",
+  "openai-compatible"
+ ]
+}

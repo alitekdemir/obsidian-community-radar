@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import selected books from a Calibre Content Server as one note per book with frontmatter metadata and cover image",
+  "Fetch Kobo highlights grouped by chapter into the book notes",
+  "Re-import or sync books while preserving user-written content and fields like status and reading dates",
+  "Generate a Bases library overview with Reading, Unread, Read, and Did Not Finish views"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that a Calibre password is stored in plaintext in the plugin's data file, and that Calibre-sourced tags are overwritten on re-import (use a separate field for your own tags). Pre-release versions installable via BRAT (P24L/calibre-bridge).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to pull a Calibre library's book metadata, covers, and Kobo highlights into vault notes.",
+ "readmeHash": "d382af56a6533379ce66a443f199ca393bbacb4d",
+ "relations": [
+  {
+   "evidence": "The plugin connects only to the Calibre Content Server you configure",
+   "plugin": "Calibre (Content Server)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Kobo highlights, if you've fetched them into Calibre — quoted passages grouped by chapter",
+   "plugin": "Kobo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calibre Content Server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports books from a Calibre Content Server as Markdown notes with metadata, covers, and Kobo highlights, and re-syncs them on demand.",
+ "tags": [
+  "calibre",
+  "kobo",
+  "ebooks",
+  "highlights",
+  "reading-status",
+  "content-server"
+ ]
+}

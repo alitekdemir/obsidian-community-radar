@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Narrow core Search to notes a trigram index cannot rule out",
+  "Keep a persistent index in IndexedDB that survives restarts and crashes",
+  "Preserve core Search's query syntax and exact results",
+  "Toggle narrowing on and off with the shouldNarrowSearch setting",
+  "Expose a typed search(query) API for other plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a separate search engine or search box; it only narrows which files core Search reads, leaving core's pane, syntax and results untouched.",
+ "extras": "Documentation ships as a demo vault included with every release and browsable on GitHub; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Indexed Search keeps core Search and makes it fast.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to keep core Search's pane, query language and exact results while making it fast, since existing fast search plugins answer in their own boxes with different results.",
+ "primary": "search",
+ "problem": "Core Search has no index and reads every note on every query, which is slow on vaults of tens of thousands of notes, while fast third-party search plugins replace core's pane, syntax and results.",
+ "readmeHash": "e514fbf9c4b1e50d20784d51bf1f3ca5da981aad",
+ "relations": [
+  {
+   "evidence": "its own fuzzy, ranked search box over a persistent index, with PDFs and OCR",
+   "plugin": "Omnisearch",
+   "type": "alternative"
+  },
+  {
+   "evidence": "its own search box over a worker-powered index, with typo-tolerant fuzzy matching",
+   "plugin": "CFR Find",
+   "type": "alternative"
+  },
+  {
+   "evidence": "its own quick search with precise matching and frecency ranking",
+   "plugin": "Lean Search",
+   "type": "alternative"
+  },
+  {
+   "evidence": "answers from the operating system's index (macOS Spotlight) in its own view",
+   "plugin": "Native Search",
+   "type": "alternative"
+  },
+  {
+   "evidence": "adds VS Code-like search controls to core Search",
+   "plugin": "Advanced search",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Search accelerator that builds a trigram index in IndexedDB so core Search reads only candidate notes, returning core's exact results faster.",
+ "tags": [
+  "trigram",
+  "indexeddb",
+  "full-text-search",
+  "large-vaults",
+  "query-performance"
+ ]
+}

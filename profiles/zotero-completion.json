@@ -1,0 +1,63 @@
+{
+ "also": [
+  "research",
+  "links"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "search Zotero annotations by comment or highlighted text",
+  "search PDFs by citation and filename",
+  "insert zotero://open-pdf links with page numbers",
+  "refresh and clear the persisted Zotero cache",
+  "configure the local Zotero API URL and retrieval limit"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not autocomplete citations; it searches Zotero data and inserts links via a command-palette command.",
+ "extras": "Desktop-only: it talks to Zotero Desktop over localhost only and rejects non-loopback API URLs. It reads from Zotero without modifying the library, stores a normalized cache in plugin data, and has no telemetry, accounts, or third-party requests.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search Zotero annotations or PDFs and insert deep links to them while writing notes.",
+ "readmeHash": "2c3be3b16d95b51645514f87715b408fe1f75eca",
+ "relations": [
+  {
+   "evidence": "Search Zotero PDF attachments and annotations from Obsidian and insert a Markdown link",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For beta testing before directory approval, install BRAT from Community plugins",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7 or newer desktop, running on the same computer with its local API enabled",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Searches a local Zotero library's PDF attachments and annotations and inserts zotero://open-pdf links into the current note.",
+ "tags": [
+  "zotero",
+  "pdf-annotations",
+  "citation-links",
+  "local-api",
+  "desktop-only"
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "also": [
+  "calendar",
+  "integrations"
+ ],
+ "audience": [
+  "macos-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Index Markdown tasks (- [ ] / - [x]) and planning date tokens across the vault",
+  "Filter, search, complete, edit, and reschedule tasks in a list view",
+  "Plan dated tasks and events in month, week, and day calendar views with drag-rescheduling",
+  "Read and optionally write back Apple Reminders and Apple Calendar data on macOS via a local helper",
+  "Sync Dida/TickTick tasks through the Open API and read public ICS calendars read-only"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (no mobile). Apple Reminders/Calendar integration requires macOS 14 Sonoma or later and uses a local helper; writeback to any external source is opt-in in settings. Manifest notes the plugin has not been manually reviewed by Obsidian.",
+ "intent": "new",
+ "intentEvidence": "Full Obsidian Tasks plugin grammar is not implemented.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it so users don't need to move tasks into a separate task manager to see what is due and where it came from.",
+ "primary": "tasks",
+ "problem": "Obsidian tasks are scattered across daily, meeting, and project notes with no unified place to review, filter, reschedule, or complete them alongside external task and calendar sources.",
+ "readmeHash": "5f66e18f9309732bcac31b60e3f3272d8a80e224",
+ "relations": [
+  {
+   "evidence": "Read Apple Reminders and Apple Calendar data on macOS through the local helper.",
+   "plugin": "Apple Reminders",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Apple Calendar events, Apple Reminders, public ICS feeds, and Dida/TickTick tasks",
+   "plugin": "Apple Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync Dida/TickTick tasks through the Open API when configured.",
+   "plugin": "Dida / TickTick",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple helper + macOS permissions",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Dida/TickTick Open API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Task workspace that indexes Markdown tasks from the vault alongside Apple Reminders, Apple Calendar, ICS feeds, and Dida/TickTick in list, calendar, and tag views.",
+ "tags": [
+  "apple-reminders",
+  "apple-calendar",
+  "ics",
+  "ticktick",
+  "dida",
+  "recurring-tasks",
+  "drag-reschedule"
+ ]
+}

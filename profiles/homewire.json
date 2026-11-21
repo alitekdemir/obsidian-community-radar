@@ -1,0 +1,76 @@
+{
+ "also": [
+  "calendar",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a homepage note with weather, news, market tickers and a date banner",
+  "Show unchecked tasks from today's daily note plus open items from the last 7 days",
+  "Track bills with due dates, late highlighting and paid checkboxes",
+  "List recent notes in a web clippings folder with links to originals",
+  "Configure feeds, buttons, weather location and symbols through a YAML config note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Makes several network requests (RSS feeds, Yahoo Finance, Open-Meteo, CNN Fear & Greed endpoint with a spoofed browser User-Agent); the detailed setup guide lives outside the README; the CNN endpoint is unofficial and may stop working. The marketplace listing is not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in start page that gathers live external data and your own daily notes into one glanceable view.",
+ "readmeHash": "c74c1470eb6fde628f843fab1d2874bef3c03d0a",
+ "relations": [
+  {
+   "evidence": "A Glance-style homepage for Obsidian",
+   "plugin": "Glance",
+   "type": "inspired"
+  },
+  {
+   "evidence": "to open the page on startup, install the Homepage plugin, point it at Home.md",
+   "plugin": "Homepage",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the newest notes in your clippings folder (Obsidian Web Clipper saves to Clippings by default)",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This uses the core Daily notes plugin's folder, date format and template",
+   "plugin": "Daily notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Homepage plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Dashboard plugin that turns a note into a homepage with weather, news and market feeds, daily-note tasks, bills and a calendar.",
+ "tags": [
+  "dashboard",
+  "rss",
+  "news-feeds",
+  "weather",
+  "markets",
+  "bills",
+  "glance",
+  "open-meteo"
+ ]
+}

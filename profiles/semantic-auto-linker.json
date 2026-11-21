@@ -1,0 +1,63 @@
+{
+ "also": [
+  "ai",
+  "graph"
+ ],
+ "audience": [
+  "researchers",
+  "pkm-enthusiasts"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Suggest missing inline wiki-links for the current note or whole vault",
+  "Preview graph impact of accepted links before writing them",
+  "Explore the vault as a semantic vector space with PCA note and concept views",
+  "Choose exact matches, AI matches, or both per vault-wide scan",
+  "Exclude or retarget noisy suggestions from review rows"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a fully automatic linker; AI suggestions start unselected and require acceptance in review before anything is written.",
+ "extras": "Desktop-only. The default embedding model downloads from Hugging Face on first use and then runs on-device; no cloud service or telemetry is involved. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's graph view shows the links you already made. Semantic Auto-Linker also shows the relationships your vault implies.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian's graph only shows links you already made, so implied relationships between unlinked notes in large vaults stay hidden and must be found manually.",
+ "readmeHash": "69290fdac06072ede915d8113c39ffb2d4f35b12",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Link suggestion plugin that finds missing wiki-links with review-before-write and explores the vault as a semantic vector space.",
+ "tags": [
+  "embeddings",
+  "wiki-links",
+  "vector-search",
+  "ollama",
+  "transformers-js",
+  "pca",
+  "cross-encoder"
+ ]
+}

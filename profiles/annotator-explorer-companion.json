@@ -1,0 +1,55 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create an Annotator note from a right-click on a PDF or EPUB",
+  "Generate the annotation-target frontmatter automatically",
+  "Open the note directly in the annotation view",
+  "Protect existing notes containing annotation-json from modification"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an annotation tool itself; it only sets up and opens notes for the separate Annotator plugin, which does the actual highlighting.",
+ "extras": "Requires installing Annotator first; does not work on iOS 16.3 or later; remote https:// targets still need a hand-written note; unaffiliated with and not endorsed by the Annotator project; release assets carry GitHub artifact attestations.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was reading through a folder of research papers and kept hitting the same friction of hand-writing Annotator notes and its undocumented frontmatter requirements.",
+ "primary": "annotation",
+ "problem": "Annotator requires manually creating a markdown note with a vault-relative annotation-target path and switching views through a menu, and several frontmatter mistakes silently produce a blank pane.",
+ "readmeHash": "5d174852402c960ed8d193f64d7ebaa1042934b7",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Annotator",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Annotator",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Adds a right-click action on PDF and EPUB files that creates the Annotator note with correct frontmatter and opens it in the annotation view.",
+ "tags": [
+  "hypothesis",
+  "epub",
+  "context-menu",
+  "annotation-target"
+ ]
+}

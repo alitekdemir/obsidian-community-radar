@@ -1,0 +1,58 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "wispr-flow-notetaker-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Wispr Flow meeting notes into the vault as Markdown notes with wispr_id frontmatter",
+  "Write companion transcript files alongside or inside meeting notes",
+  "Schedule automatic syncing on an interval or run manual and full re-syncs",
+  "Filter meetings by date range, title keyword, and finalization status",
+  "Configure destination folders, subfolder layouts, and filename patterns"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault or device sync tool; 'sync' here means copying Wispr Flow meeting data from local app storage into the vault.",
+ "extras": "Desktop-only and macOS-supported (the Windows path is implemented but untested); works with Wispr Flow's free tier; the manifest carries an unreviewed-plugin notice; the README includes extensive disclosures on file, vault, clipboard, network, and telemetry access, and documents known limitations such as unbounded debug log growth and a possible schema break from future Wispr Flow updates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Wispr Flow's Notetaker stores meeting notes and transcripts only inside its own application data folder with no local API, so there is no built-in way to get them into an Obsidian vault.",
+ "readmeHash": "eeee89ea260804ceaae25e6b45ebe948d0b5b726",
+ "relations": [
+  {
+   "evidence": "reads meeting notes and transcripts that Wispr Flow's desktop app has already recorded locally",
+   "plugin": "Wispr Flow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Wispr Flow (Notetaker)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Wispr Flow integration that reads locally recorded meeting notes and transcripts from Wispr Flow's app data and writes them into the vault as Markdown.",
+ "tags": [
+  "wispr-flow",
+  "meeting-notes",
+  "transcripts",
+  "notetaker",
+  "ndjson",
+  "sqlite"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "csv"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render interactive Plotly charts from plotly code blocks in YAML or JSON",
+  "Fit chart width to the note and to the page when exporting to PDF",
+  "Draw charts computed from vault data via DataviewJS blocks",
+  "Expose read-only agent tools to build, validate and read plotly blocks",
+  "Profile and analyze CSV files for distribution and correlation summaries"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The listing note says the plugin has not been manually reviewed by Obsidian staff. The agentinterop v1 provider is the author's own convention, not an official standard. Charts require Plotly and D3 to load on first render, which the README says can take a moment.",
+ "intent": "alternative",
+ "intentEvidence": "It is a fork of obsidian-plotly by Dmitriy Shulha (MIT), updated to Plotly.js 4 and D3 7.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian has no built-in way to render Plotly charts from code blocks, and writing valid Plotly blocks without JavaScript is error-prone.",
+ "readmeHash": "d9d6ff850e153ccd3728a229a060712802cf75e3",
+ "relations": [
+  {
+   "evidence": "It is a fork of obsidian-plotly by Dmitriy Shulha (MIT), updated to Plotly.js 4 and D3 7.",
+   "plugin": "obsidian-plotly",
+   "type": "fork"
+  },
+  {
+   "evidence": "This needs the Dataview plugin with Enable JavaScript queries turned on in its settings.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a compatible HWPX Exporter renders it to PNG from its data",
+   "plugin": "HWPX Exporter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "compatible agent host",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plotly chart renderer that draws interactive charts from YAML or JSON code blocks, fits them to note and PDF width, and exposes tools for LLM agents.",
+ "tags": [
+  "plotly",
+  "dataviewjs",
+  "d3",
+  "eda",
+  "agentinterop",
+  "yaml"
+ ]
+}

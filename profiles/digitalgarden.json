@@ -1,0 +1,97 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "digital-gardeners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes marked with dg-publish: true to a GitHub repository and deployed site",
+  "Render Obsidian content (Dataview, Canvas, transclusions, callouts, MathJax, Mermaid, PlantUML) on the published site",
+  "Customize the site's styling, CSS variables, and Nunjucks template components",
+  "Export the garden to a local folder for self-hosting or preview",
+  "Update the site template via an automatically created pull request"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Setup takes about 10 minutes and requires creating a repository and a fine-grained GitHub token; Forestry.md managed hosting is described as being in open beta; local export performs a full export each time without publish status tracking or diffing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in free way to publish selected notes as a public website that the user fully controls and customizes.",
+ "readmeHash": "394b297ec8588fb50fbc686924b2ee9eb4ab36b1",
+ "relations": [
+  {
+   "evidence": "built directly on this plugin's codebase",
+   "plugin": "Flowershow's Obsidian plugin",
+   "type": "extends"
+  },
+  {
+   "evidence": "initially built on top of this plugin",
+   "plugin": "Quartz Syncer",
+   "type": "extends"
+  },
+  {
+   "evidence": "created using parts of this plugin's code",
+   "plugin": "Enveloppe",
+   "type": "extends"
+  },
+  {
+   "evidence": "the plugin can add new notes to the repo on your behalf",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This will open Vercel which in turn will create a copy of this repository",
+   "plugin": "Vercel",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a managed hosting service for digital gardens",
+   "plugin": "Forestry.md",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Style Settings plugin support",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub and Vercel accounts",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Publishing plugin that turns selected vault notes into a personal website (digital garden) hosted on GitHub/Vercel, Netlify, or Forestry.md.",
+ "tags": [
+  "github",
+  "vercel",
+  "netlify",
+  "eleventy",
+  "forestry-md",
+  "dataview",
+  "excalidraw",
+  "plantuml"
+ ]
+}

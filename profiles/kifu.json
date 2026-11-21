@@ -1,0 +1,77 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "go-players"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Draw print-style Go diagrams from code blocks, SGF files or embedded links",
+  "Play and edit boards interactively with captures, variations, marks and a move tree panel",
+  "Build interactive problems with correct/incorrect lines, hints and shuffling",
+  "Import games and problems from OGS, goproblems.com, Josekipedia and Sensei's Library",
+  "Show boards from links to Go sites and render SGF files as Bases cards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13 or later. Goes online only to fetch games, problems or SGF files you embed or import; an optional goproblems.com token is kept in Obsidian's secret storage. Games on Tygem, WBaduk and PlayGo and problems on sites requiring sign-in cannot be shown. Includes extensive notes on how board edits are matched to code blocks and how failures are handled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no way to draw, play or judge Go game records and problems; SGF files have nowhere to live or be shown in notes.",
+ "readmeHash": "567b940684596f4ea8175add24ebcb65ba3c99e2",
+ "relations": [
+  {
+   "evidence": "Run Kifu: Import a game or puzzle from online-go.com",
+   "plugin": "OGS (online-go.com)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run Kifu: Import a problem from goproblems.com (or right-click in the editor",
+   "plugin": "goproblems.com",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Josekipedia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or run Kifu: Import a diagram from Sensei's Library (right-click in the editor",
+   "plugin": "Sensei's Library",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "goproblems.com API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Code-block renderer that draws print-style Go (baduk) boards — positions, numbered figures and clickable problems — stored as SGF.",
+ "tags": [
+  "go",
+  "baduk",
+  "weiqi",
+  "sgf",
+  "tsumego",
+  "joseki",
+  "ogs",
+  "goproblems"
+ ]
+}

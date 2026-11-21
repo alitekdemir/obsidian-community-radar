@@ -1,0 +1,82 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run OpenCode, Claude Code, and Codex agents on vault notes with user-controlled permissions",
+  "Organize ongoing work into Projects with instructions, context, and chat history",
+  "Save repeatable prompts as Commands runnable from the editor and command palette",
+  "Ask questions about selected text with Quick Ask without leaving the note",
+  "Choose between hosted, bring-your-own-key, or local models"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: the plugin frontend is open source and usable free with your own agent accounts or keys, but hosted models, cloud-backed tools, and multi-agent mode require paid Brevilabs licenses. Agent runs only on desktop because its backends are local processes; Quick Chat and Quick Ask work on mobile. Detailed privacy disclosure explains where prompts and context are processed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run AI agents that can read notes, use tools, create files, and carry out multi-step tasks across a vault.",
+ "readmeHash": "58d1645ce1780ff455a38631ac5fba76d076d659",
+ "relations": [
+  {
+   "evidence": "Copilot V4 brings OpenCode, Claude Code, and Codex into Obsidian",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code: Connect an existing installation. Copilot detects common install locations",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect Codex through the @agentclientprotocol/codex-acp adapter",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or Codex installation",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Provider API key for BYOK models",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Copilot account for hosted features and paid plans",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Copilot Plus or higher license for hosted models and multi-agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI assistant plugin that runs agents such as Claude Code, Codex, and OpenCode inside the vault for multi-step research, writing, and knowledge work.",
+ "tags": [
+  "agents",
+  "claude-code",
+  "codex",
+  "opencode",
+  "byok",
+  "local-models",
+  "llm-providers"
+ ]
+}

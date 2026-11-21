@@ -1,0 +1,50 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "lint vault Markdown files with markdownlint rules",
+  "read rules from .markdownlint.jsonc, .json, .yaml, or .yml config files",
+  "highlight lint issues in the editor for fixing as you type"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only .markdownlint.jsonc, .json, .yaml, and .yml config formats are supported; other markdownlint config formats are not. Installation via the BRAT beta plugin installer is documented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "markdown",
+ "problem": "Obsidian has no built-in Markdown linting, so files across a vault can drift into inconsistent style with nothing flagging the problems.",
+ "readmeHash": "099dfc916d538ec2ac34cd7607a4b3375b845e1b",
+ "relations": [
+  {
+   "evidence": "This plugin uses the markdownlint library to lint files in your vault.",
+   "plugin": "markdownlint",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin supports a subset of files supported by markdownlint-cli2.",
+   "plugin": "markdownlint-cli2",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Linting plugin that uses the markdownlint library to flag Markdown style and consistency issues in vault files.",
+ "tags": [
+  "markdownlint",
+  "linting",
+  "style-rules"
+ ]
+}

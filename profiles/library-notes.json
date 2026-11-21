@@ -1,0 +1,66 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search books by title, author, or ISBN",
+  "create book notes from a built-in or custom template",
+  "download and store book cover images in the vault",
+  "maintain a library overview note with a Dataview table",
+  "toggle read status on book notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note-organization or note-library manager; it catalogs books as notes fetched from online book databases.",
+ "extras": "The library overview table requires the Dataview plugin, which the plugin does not install. Google Books search needs a free API key from Google Cloud; Open Library works without any account. The README includes a migration guide for users coming from the Book Search plugin and a privacy section describing its network requests.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up books online and turn them into notes with metadata, covers, and a running overview of the collection.",
+ "readmeHash": "5d15e97a67d7ebcd5299c2bebd6f10827c372d4b",
+ "relations": [
+  {
+   "evidence": "Inspired by Book Search by anpigon (MIT License). Library Notes follows its idea of book notes from templates",
+   "plugin": "Book Search by anpigon",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The library table uses Dataview by Michael Brenan.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Book cataloger that searches Open Library (and optionally Google Books), creates a templated note per book with a saved cover, and maintains a Dataview library overview table.",
+ "tags": [
+  "open-library",
+  "google-books",
+  "isbn",
+  "covers",
+  "dataview",
+  "book-catalog"
+ ]
+}

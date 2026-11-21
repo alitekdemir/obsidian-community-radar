@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "import GitLab issues as vault notes",
+  "refresh imported issues automatically on a 15-minute schedule",
+  "remove notes for issues no longer returned by GitLab",
+  "filter issues using GitLab Issues List API queries",
+  "customise issue note format with a Handlebars template"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Notes are read-only and will be deleted from the vault if they stop being returned by GitLab; imports start 30 seconds after Obsidian launches.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to pull GitLab issues into the vault as notes or keep them up to date with the tracker.",
+ "readmeHash": "43faa961b87139f520bcee9be3bb5eb054ca9f5e",
+ "relations": [
+  {
+   "evidence": "You can then use the excellent DataView Plugin to create lists of upcoming issues",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitLab account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitLab Personal Access Token with API scope",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports GitLab issues into a vault as read-only notes, refreshed every 15 minutes and formatted with custom Handlebars templates.",
+ "tags": [
+  "gitlab",
+  "handlebars",
+  "dataview",
+  "api-query",
+  "personal-access-token",
+  "read-only-notes"
+ ]
+}

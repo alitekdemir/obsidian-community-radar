@@ -1,0 +1,75 @@
+{
+ "also": [
+  "ai",
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault with blended semantic and keyword (BM25) ranking",
+  "Visualize results as a relevance map grouped by topic",
+  "Show a panel of notes similar to the one being read",
+  "Narrow searches with tag, folder, property, and date filters",
+  "Extract text from images via OCR so screenshots become searchable"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Downloads the ~100 MB embedding model and OCR language packs once per device; works fully offline afterward. Relevance-tuning and developer docs live outside the README in the original Seek documentation. Indexes OCR only on desktop; mobile devices consume the synced cache.",
+ "intent": "alternative",
+ "intentEvidence": "Seeker is a fork of Obsidian-Seek by Ryan Manor",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The fork was started to add Canvas and image OCR support and to flag clearly when indexing is not using the GPU, since the original does not take outside contributions.",
+ "primary": "search",
+ "problem": "Obsidian's built-in search matches only exact keywords, so buried notes are hard to find when you cannot remember the exact wording.",
+ "readmeHash": "97b7cbcaf8b2f2ab37c14aa09bfda023f82252d3",
+ "relations": [
+  {
+   "evidence": "Seeker is a fork of Obsidian-Seek by Ryan Manor",
+   "plugin": "Obsidian-Seek",
+   "type": "fork"
+  },
+  {
+   "evidence": "transformers.js (Apache-2.0) — on-device model inference",
+   "plugin": "transformers.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "IBM Granite embedding models (Apache-2.0) — the embedding model",
+   "plugin": "IBM Granite embedding models",
+   "type": "integrates"
+  },
+  {
+   "evidence": "MiniSearch (MIT) — keyword (BM25) search",
+   "plugin": "MiniSearch",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tesseract.js (Apache-2.0) — on-device image OCR (desktop only)",
+   "plugin": "tesseract.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Hybrid semantic and keyword vault search powered by a local embedding model, with a result map, similar-notes panel, inline filters, and image OCR.",
+ "tags": [
+  "semantic-search",
+  "embeddings",
+  "bm25",
+  "ibm-granite",
+  "transformers-js",
+  "tesseract",
+  "webgpu"
+ ]
+}

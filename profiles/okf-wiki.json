@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Serve vault folders to AI agents over a local MCP server",
+  "Route agent writes into drafts for approval or rejection in a review queue",
+  "Record provenance and detect unattested edits to note status",
+  "Restrict agents with scoped, hashed access tokens and rate limits",
+  "Lint OKF bundles from the command line or in CI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not a wiki editor or publishing tool; it serves existing vault folders to AI agents over MCP.",
+ "extras": "Desktop only (Obsidian 1.13.1+), runs a loopback-only local MCP server with no telemetry, and the README defers step-by-step guides to an external user manual. Status is described as '0.7.0, early'.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says agents that remember things in your notes should say where each fact came from, you should decide which knowledge counts as reviewed, and notes should stay plain Markdown.",
+ "primary": "ai",
+ "problem": "Obsidian offers no built-in way to let AI agents read and write notes while keeping track of where facts came from and letting the user decide what counts as reviewed.",
+ "readmeHash": "d8f961ea7d33173ac05cc39eadb89700c7686bd7",
+ "relations": [
+  {
+   "evidence": "obsidian-local-rest-api for the design of a local server inside Obsidian",
+   "plugin": "obsidian-local-rest-api",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Model Context Protocol and its TypeScript SDK",
+   "plugin": "Model Context Protocol",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an MCP client such as Claude Code",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "MCP server that serves vault folders to AI agents as Open Knowledge Format bundles with draft-first writes, provenance and reviewable trust.",
+ "tags": [
+  "mcp",
+  "claude-code",
+  "open-knowledge-format",
+  "provenance",
+  "ai-agents",
+  "access-tokens",
+  "review-queue"
+ ]
+}

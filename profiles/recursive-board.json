@@ -1,0 +1,56 @@
+{
+ "also": [
+  "tasks",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a folder of work-item Markdown files as a board or checklist from frontmatter",
+  "Create, claim, assign, and move cards between statuses via the plugin or wi commands",
+  "Run work-item commands through the Obsidian CLI or a standalone wi CLI for agents and scripts",
+  "Route cards to people for review using depends_on waits and approve by moving to done",
+  "Validate a vault with wi doctor and optional Git pre-commit hooks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README says the plugin is at an early stage and commands and behaviour can change between releases. It includes an install prompt meant to be pasted into a coding agent, and the Obsidian CLI path requires Obsidian installer 1.12.7 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no built-in way to view and manage a hierarchy of work items spread across separate Markdown files as a status board.",
+ "readmeHash": "1b8c7f87a87d27ebd5b2455486a04a91e70d3762",
+ "relations": [
+  {
+   "evidence": "Recursive Board works with local vaults and with vaults that Obsidian Sync or another sync client synchronizes.",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20.12+ (only for the standalone wi CLI on machines without Obsidian)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Hierarchical work board that renders Markdown files with parent links and status frontmatter as Kanban columns or checklists, editable from files or a CLI.",
+ "tags": [
+  "kanban",
+  "work-items",
+  "cli",
+  "agents",
+  "wikilinks"
+ ]
+}

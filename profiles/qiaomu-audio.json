@@ -1,0 +1,76 @@
+{
+ "also": [
+  "export",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "read notes or selections aloud with sentence highlighting and seeking",
+  "export text as MP3 or subtitled MP4 with voice, speed and share info",
+  "dictate speech into notes via local or cloud recognition",
+  "configure system, offline and cloud speech providers with stored keys",
+  "import reading settings and keys from Qiaomu Reader"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet manually reviewed by Obsidian staff. Mac-only features (Apple on-device recognition, system audio transcription) are on a development branch without a released signed installer. Mobile device playback and microphone acceptance are unverified. Browser system speech cannot be exported; cloud voices bill by character and tests may incur small charges.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in text-to-speech playback, audio or video export of notes, or speech-to-text dictation.",
+ "readmeHash": "6a5eea705f91eabff1f031e8504bc6e6daad2283",
+ "relations": [
+  {
+   "evidence": "Reading code is adapted from Qiaomu Reader (GPL-3.0)",
+   "plugin": "Qiaomu Reader",
+   "type": "fork"
+  },
+  {
+   "evidence": "cloud recognition provider protocols from Qiaomu Clipper (MIT)",
+   "plugin": "Qiaomu Clipper",
+   "type": "fork"
+  },
+  {
+   "evidence": null,
+   "plugin": "Qiaomu AI RSS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "cloud TTS/STT providers",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Sherpa/Python runtime installer for local SenseVoice",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Speech plugin that reads notes aloud with highlighted sentences, exports MP3/MP4 with subtitles, and dictates via local or cloud speech recognition.",
+ "tags": [
+  "text-to-speech",
+  "dictation",
+  "edge-tts",
+  "elevenlabs",
+  "openai",
+  "subtitles",
+  "sensevoice",
+  "kokoro"
+ ]
+}

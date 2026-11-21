@@ -1,0 +1,73 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect the first image, YouTube link, or Auto Card Link in a note",
+  "Set a frontmatter property with the featured image path or link",
+  "Download external images and generate resized thumbnails locally",
+  "Bulk set, update, or remove featured images across the vault",
+  "Delete downloaded images and thumbnails no longer referenced by notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README states that since Notebook Navigator 2.0, thumbnail generation is built into that plugin and Featured Image is no longer needed for it; the author solicits donations via Buy Me a Coffee and GitHub Sponsors.",
+ "intent": "improve",
+ "intentEvidence": "Show image previews in database table views without network delays (Obsidian 1.9+)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "It was originally built to generate image thumbnails for Notebook Navigator, though that plugin now handles thumbnails itself.",
+ "primary": "properties",
+ "problem": "Obsidian offers no built-in way to automatically give every note an image property for image previews in Bases tables, Dataview queries, or file browsers.",
+ "readmeHash": "85ad157314b7bab426a18fedabb22cfe35d3b921",
+ "relations": [
+  {
+   "evidence": "Before Notebook Navigator version 2.0 was released this was the preferred way",
+   "plugin": "Notebook Navigator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview - Include thumbnails in custom queries with fast local image access",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Bases - Show image previews in database table views without network delays",
+   "plugin": "Obsidian Bases",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Notebook Navigator",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Plugin that automatically sets a featured image frontmatter property from a note's first image, YouTube link, or Auto Card Link, with optional thumbnails.",
+ "tags": [
+  "youtube",
+  "thumbnails",
+  "dataview",
+  "auto-card-link",
+  "wiki-links"
+ ]
+}

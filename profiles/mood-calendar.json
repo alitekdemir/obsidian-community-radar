@@ -1,0 +1,66 @@
+{
+ "also": [
+  "dates",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display daily notes in a sidebar calendar with mood emojis beneath each date",
+  "Create daily notes via a mood picker that writes the mood to frontmatter",
+  "Embed the calendar in notes with a mood-calendar code block",
+  "Edit a note's mood property through a hover picker",
+  "Show per-date status dots for missing notes and unfinished tasks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general calendar plugin; it is a mood-tracking view built specifically around daily notes.",
+ "extras": "Works on mobile (isDesktopOnly: false); bilingual UI (English/Chinese); written in plain JavaScript with no build step; README includes a star request but no screenshots in the stripped text.",
+ "intent": "improve",
+ "intentEvidence": "Automatically reads the date format, folder, and template from the built-in Daily Notes or Periodic Notes plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian's daily notes workflow has no calendar view that visualizes each day's mood or lets you log a mood while creating the note.",
+ "readmeHash": "24beefbc80977ad8e2d4e39056ae2534206c29dc",
+ "relations": [
+  {
+   "evidence": "Automatically reads the date format, folder, and template from the built-in Daily Notes or Periodic Notes plugin",
+   "plugin": "Daily Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Automatically reads the date format, folder, and template from the built-in Daily Notes or Periodic Notes plugin",
+   "plugin": "Periodic Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "templates containing <% ... %> Templater syntax won't cause errors",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar calendar that shows daily notes with a mood emoji read from frontmatter, and creates mood-tagged daily notes in one click.",
+ "tags": [
+  "mood-tracking",
+  "journaling",
+  "daily-log"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "visualization",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Browse book notes as cover cards",
+  "Fetch metadata from WeRead",
+  "Fetch metadata from Douban",
+  "Generate book templates",
+  "Track reading statistics"
+ ],
+ "coreOverlap": {
+  "features": [
+   ", Files",
+   "Search",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Data sources (WeRead/Douban) are undocumented endpoints and may change or rate-limit. Metadata coverage for English books is limited.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Users lack a visual way to organize book notes and must manually gather covers and metadata for their reading list.",
+ "readmeHash": "24a1c307a680f61db01cc3f32346820d91c6c00b",
+ "relations": [
+  {
+   "evidence": "Search WeRead by title and write the cover, author, publisher, description and rating into the note with one click.",
+   "plugin": "WeRead",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally enrich the note from Douban with ISBN, page count, publication year and publisher.",
+   "plugin": "Douban",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeRead/Douban data sources",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "A cover shelf plugin that displays book notes visually and fetches metadata and covers from WeRead and Douban.",
+ "tags": [
+  "we-read",
+  "douban",
+  "metadata",
+  "book-notes",
+  "reading-stats"
+ ]
+}

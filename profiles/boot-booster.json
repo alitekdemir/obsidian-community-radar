@@ -1,0 +1,48 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [
+  "android-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Reuse a saved file inventory to open the vault sooner",
+  "Verify cached file lists in the background after startup",
+  "Cut work from workspace restoration and large plugin file reads",
+  "Compare local startup times across launches",
+  "Fall back to normal behavior when verification fails"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Workspaces"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uses internal Obsidian APIs and has not been manually reviewed by Obsidian staff. Only affects Android; caches no note contents and contacts only localhost. Search and query results may be incomplete during background verification, and external apps' writes are not locked.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian can take a long time to open large vaults on Android because it rebuilds the file list and restores the workspace on every startup.",
+ "readmeHash": "683f33c9a66a2866ff29789510e7d55bf072b174",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Startup performance plugin that opens large Android vaults faster by reusing a cached file list, workspace display hints, and background file verification.",
+ "tags": [
+  "android",
+  "startup-time",
+  "performance",
+  "file-index-cache",
+  "deferred-views"
+ ]
+}

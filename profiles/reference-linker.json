@@ -1,0 +1,76 @@
+{
+ "also": [
+  "autocomplete",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "autocomplete deep links to external documents, including their sections and pages",
+  "preview documents on hover and embed them inline in notes",
+  "detect and repair links whose section or file has moved or gone",
+  "match citation keys from BibTeX or CSL-JSON bibliographies to indexed documents",
+  "write portable links using a {ref-root} token that resolves per machine"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a citation manager; it reads bibliography keys to keep links working but does not render formatted citations or write bibliographies.",
+ "extras": "Desktop-only, since it reads external files through Node's filesystem API. Beta builds are available via BRAT; the interface ships in English and Russian.",
+ "intent": "new",
+ "intentEvidence": "It's the document counterpart to Code Linker, which does the same for source code.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author notes that reference material usually lives in project folders, download folders or a research library, and wanted it as linkable as a note.",
+ "primary": "links",
+ "problem": "Obsidian links only resolve to files inside the vault, so reference material kept in external folders can't be linked, previewed or embedded from notes.",
+ "readmeHash": "4347c54c7d6862eceebee3f0b44bc622e669cf99",
+ "relations": [
+  {
+   "evidence": "It's the document counterpart to Code Linker, which does the same for source code.",
+   "plugin": "Code Linker",
+   "type": "inspired"
+  },
+  {
+   "evidence": "a UI for everything the plugin draws: the stale/broken marks, the size of an embed",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "query the index from DataviewJS through the public API",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Autocompletes deep links to documents outside the vault (PDF, Office, EPUB, media), previews them on hover, embeds them inline, and repairs drifted links.",
+ "tags": [
+  "docx",
+  "epub",
+  "xlsx",
+  "pptx",
+  "bibtex",
+  "csl-json"
+ ]
+}

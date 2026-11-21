@@ -1,0 +1,105 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log films and series as notes with TMDB metadata, posters and watch history in frontmatter",
+  "Browse a filterable, searchable poster library with detail views and inline editing",
+  "Rate titles and individual episodes and track episode progress and rewatches",
+  "Show diary, stats, up-next queues and personalised recommendations computed from frontmatter",
+  "Publish reviews from notes to Trakt or Mastodon"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a video player; it logs and rates films and series you watch, it does not play or download them.",
+ "extras": "API keys are encrypted at rest with a passphrase. Optional services (OMDb, DoesTheDogDie, OpenRouter, Trakt, Mastodon) are off by default. The README candidly documents content-filtering limits, exactly what data leaves the vault, and undo limitations; it also states the plugin is not yet in the community store.",
+ "intent": "alternative",
+ "intentEvidence": "a viewing isn't a row in someone else's database, it's a note you can link to",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted each viewing to be a linkable, editable note in the vault rather than an entry in an external tracker's database.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to track watched films and shows or pull their metadata, and external trackers like Letterboxd keep viewing history outside the vault as rows in someone else's database.",
+ "readmeHash": "3529bda14e734843f839fc0d3f854894d297fb1f",
+ "relations": [
+  {
+   "evidence": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
+   "plugin": "TMDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the whole reason to do this in Obsidian rather than in Letterboxd",
+   "plugin": "Letterboxd",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The index replaces Dataview. Built once at load from metadataCache",
+   "plugin": "Dataview",
+   "type": "replaces"
+  },
+  {
+   "evidence": "the button beside it sends it to Trakt or Mastodon",
+   "plugin": "Trakt",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the button beside it sends it to Trakt or Mastodon",
+   "plugin": "Mastodon",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OMDb (optional) | Enrichment | An IMDb id and your key",
+   "plugin": "OMDb",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "DoesTheDogDie",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Needs an OpenRouter key and is off until you add one",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDB",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OMDb / DoesTheDogDie / OpenRouter",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Trakt / Mastodon",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Film and series tracker that logs titles as notes with TMDB metadata, a poster library, episode ratings, stats, diary and recommendations, all from frontmatter.",
+ "tags": [
+  "tmdb",
+  "letterboxd",
+  "trakt",
+  "mastodon",
+  "omdb",
+  "doesthedogdie",
+  "openrouter",
+  "media-tracker"
+ ]
+}

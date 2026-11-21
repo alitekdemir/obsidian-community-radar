@@ -1,0 +1,74 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "feishu-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Markdown checkbox tasks and project notes to Feishu task lists",
+  "Complete or reopen tasks from either side with two-way state updates",
+  "Configure sync scope by project folder, extra folders, tags, and daily notes",
+  "Resolve conflicting edits and recover unconfirmed task associations",
+  "Export and import a transfer package to move sync settings between devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin interface is currently Chinese-only. It is not in the community plugin directory: users must manually download main.js, manifest.json, and styles.css from GitHub releases, and the manifest notes it has not been reviewed by Obsidian staff. Requires Obsidian desktop 1.7.2 or later; automatic sync should run on only one device per vault.",
+ "intent": "alternative",
+ "intentEvidence": "These rename steps apply to JH Wang's 飞书任务联动 releases 1.3.x–1.4.x.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to keep its Markdown tasks in step with Feishu task lists, so completions made on one side go unnoticed on the other.",
+ "readmeHash": "5d4d9f5f54292e330a0382b38b53bb70fe5d0d01",
+ "relations": [
+  {
+   "evidence": "It calls  to sync task titles, descriptions, times, states, and association identifiers",
+   "plugin": "Feishu",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Existing Components dashboards can call the plugin as optional entry points.",
+   "plugin": "Components",
+   "type": "integrates"
+  },
+  {
+   "evidence": "These rename steps apply to JH Wang's 飞书任务联动 releases 1.3.x–1.4.x.",
+   "plugin": "飞书任务联动",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Feishu custom enterprise app credentials (App ID, App Secret, Open ID)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way sync that pushes Obsidian projects and Markdown checkbox tasks into Feishu task lists and mirrors completion state back.",
+ "tags": [
+  "feishu",
+  "two-way-sync",
+  "task-lists",
+  "projects",
+  "enterprise-app"
+ ]
+}

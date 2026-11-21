@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render YouTube links in notes as native players with seek, speed, quality, and picture-in-picture controls",
+  "Search YouTube and list videos, playlists, and channels from a sidebar panel",
+  "Download offline copies of videos into the vault's attachment folder",
+  "Play offline video and audio files together without a connection",
+  "Replace empty captions with real video titles fetched from YouTube"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an official YouTube integration; an independent client that may stop working when YouTube changes its service.",
+ "extras": "Desktop only. Includes extensive disclaimers about legality, YouTube's terms of service, and no liability; the built-in engine may fail on age-restricted, private, live, or very long videos.",
+ "intent": "alternative",
+ "intentEvidence": "Starnote's YouTube features as an Obsidian plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian's YouTube embeds load the official iframe, which depends on YouTube's player and offers no search panel or offline copies inside the vault.",
+ "readmeHash": "042793ddd1b234a169218054af64e2d6af6aa34d",
+ "relations": [
+  {
+   "evidence": "Starnote's YouTube features as an Obsidian plugin.",
+   "plugin": "Starnote",
+   "type": "alternative"
+  },
+  {
+   "evidence": "yt-dlp is strictly optional and user-installed",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a bundled JavaScript library, youtubei.js",
+   "plugin": "youtubei.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT then updates it with every release.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "YouTube player plugin that renders note links as native in-note players, searches YouTube from a sidebar panel, and saves offline copies using yt-dlp or a built-in engine.",
+ "tags": [
+  "youtube",
+  "yt-dlp",
+  "video-player",
+  "offline-playback",
+  "downloads",
+  "youtubei-js",
+  "search-panel"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror Claude Code sessions into the vault as Markdown notes",
+  "Render tool calls and Claude's thinking as collapsed callouts",
+  "Sync automatically on launch, on a set interval, or on demand",
+  "Filter out subagent (sidechain) transcripts, system noise, and empty sessions",
+  "Configure the source path, target folder, and which callouts are included"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a cross-device sync tool; it one-way mirrors local Claude Code session files into the vault, and synced notes are read-only.",
+ "extras": "Desktop-only (needs Node's filesystem APIs), so it will not run on Obsidian mobile. Not yet in the community plugin directory; install via BRAT or manually from release files. No network requests or accounts; nothing leaves the machine.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Claude Code stores session transcripts as JSONL files on disk that are not readable, searchable, or linkable from within Obsidian.",
+ "readmeHash": "5eff704cf5048561a20070c2b568bf6f4b5f9ea2",
+ "relations": [
+  {
+   "evidence": "mirrors every Claude Code session on your machine into your vault as Markdown notes",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Mirrors local Claude Code CLI session transcripts into the vault as read-only Markdown notes, one per session, regenerated on each sync.",
+ "tags": [
+  "claude-code",
+  "cli",
+  "jsonl",
+  "transcripts",
+  "callouts",
+  "ai-assistant"
+ ]
+}

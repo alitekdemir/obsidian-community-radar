@@ -1,0 +1,65 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse the vault repository's full commit history via git log",
+  "Read per-commit diffs with file collapsing, line numbers, and rename detection",
+  "Tick per-file review circles and approve commits individually or in bulk up to a date",
+  "Filter commits by review state and search by message, hash, or author",
+  "Keep approval state out of git history by auto-managing .gitignore for the plugin's data.json"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; requires a git repository at the vault root. Review-state sync via Obsidian Sync is whole-file, last-writer-wins and is only read at startup, so the README warns to review on one device at a time and reload before switching.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for the classic Obsidian Git auto-commit setup, where commits pile up faster than you can read them.",
+ "primary": "git",
+ "problem": "Auto-commit setups like Obsidian Git pile up commits faster than anyone can read them, and there is no way to track which commits have already been reviewed.",
+ "readmeHash": "74be7bfb4db4d8141f61a0c49c47cbb68f7c2061",
+ "relations": [
+  {
+   "evidence": "Built for the classic Obsidian Git auto-commit setup",
+   "plugin": "Obsidian Git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can opt in to syncing it with Obsidian Sync",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Obsidian Sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git history review tool that walks through vault commits with a dark-mode diff view and tracks which commits and files you have reviewed and approved.",
+ "tags": [
+  "git-log",
+  "diff-view",
+  "commit-review",
+  "obsidian-git",
+  "obsidian-sync"
+ ]
+}

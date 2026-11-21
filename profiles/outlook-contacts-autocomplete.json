@@ -1,0 +1,76 @@
+{
+ "also": [
+  "integrations",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync saved contacts and work colleagues from Microsoft 365",
+  "Import contacts from CSV or vCard files",
+  "Autocomplete people inside [[ and after @",
+  "Create a minimal person note on first mention",
+  "Match nicknames and aliases to people"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Microsoft 365 access is read-only and needs your own Entra app registration; the session is kept in Obsidian's secret storage outside the vault. CSV/vCard import works without signing in, and re-importing updates contacts by email instead of duplicating them.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Obsidian's link suggestions only know notes that already exist, so mentioning a new person means creating their note and typing the full name by hand.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "69c188b300013c9a81db58de34a1a3edc1760a9d",
+ "relations": [
+  {
+   "evidence": "The plugin signs in to Microsoft the same way as the Outlook Calendar Panel and Microsoft To Do Panel plugins",
+   "plugin": "Outlook Calendar Panel",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The plugin signs in to Microsoft the same way as the Outlook Calendar Panel and Microsoft To Do Panel plugins",
+   "plugin": "Microsoft To Do Panel",
+   "type": "inspired"
+  },
+  {
+   "evidence": "It syncs your Outlook contacts and the people you work with",
+   "plugin": "Microsoft 365",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Microsoft 365",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Microsoft Entra app registration",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Microsoft 365 contacts or imports CSV/vCard files, then autocompletes people as links and creates a minimal person note on first mention.",
+ "tags": [
+  "contacts",
+  "outlook",
+  "aliases",
+  "auto-linking",
+  "oauth"
+ ],
+ "textHash": "53958ce876e29e3d80c06c858e87497e94c054b8"
+}

@@ -1,0 +1,61 @@
+{
+ "also": [
+  "writing"
+ ],
+ "audience": [
+  "quantified-self"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Count words in the selected text of the active note",
+  "Post the count to a Beeminder goal via the 'Send word count to Beeminder' command",
+  "Configure Beeminder username, goal name, and auth token in plugin settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README includes boilerplate release and manual-install instructions from the plugin template; it only counts the actively selected text, not the whole file, to avoid over-reporting when editing a file over multiple days.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author only wants to report new words, not re-count edits to the same file across multiple days.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to report writing progress to a Beeminder commitment goal.",
+ "readmeHash": "794cb1c59d1e574c42e7ded589ecd99c40263f3d",
+ "relations": [
+  {
+   "evidence": "This is a small plugin for Obsidian -> Beeminder word count integration.",
+   "plugin": "Beeminder",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Beeminder account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Beeminder auth_token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Beeminder integration that posts the word count of the selected text in the active note to a Beeminder goal via a command.",
+ "tags": [
+  "beeminder",
+  "word-count",
+  "quantified-self",
+  "progress-tracking"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "data",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Copy Dataview inline field values into frontmatter properties",
+  "Evaluate DQL and DataviewJS queries before insertion",
+  "Synchronize frontmatter automatically on a configurable interval or via a manual command",
+  "Clean up frontmatter properties when the corresponding field is removed",
+  "Exclude files by path, regex, or frontmatter key"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Only string, number and date values are supported in frontmatter; HTML results are converted to markdown, and widgets and functions are skipped.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian Dataview as a dependecies.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Dataview inline fields are not stored as frontmatter properties, so their values cannot be used as file metadata without manual copying.",
+ "readmeHash": "9855ca00c903edc21acc050ca7e360162e9cd081",
+ "relations": [
+  {
+   "evidence": "The Dataview plugin must be installed and activated in your Obsidian vault.",
+   "plugin": "Obsidian Dataview",
+   "type": "extends"
+  },
+  {
+   "evidence": "Obsidian Digital Garden for the first version of the Dataview compiler/evaluator.",
+   "plugin": "Obsidian Digital Garden",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that evaluates Dataview inline fields and copies their calculated values into frontmatter properties on a configurable interval.",
+ "tags": [
+  "dataview",
+  "dql",
+  "dataviewjs",
+  "inline-fields",
+  "regex"
+ ]
+}

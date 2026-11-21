@@ -1,0 +1,86 @@
+{
+ "also": [
+  "backup",
+  "ai"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize the vault across desktop and mobile devices through a self-hosted Syncidian server",
+  "Back up each user's vault to a private GitHub repository as the durable source of truth",
+  "Expose vault search, reading, writing, and organizing to AI tools through a built-in MCP server",
+  "Detect and resolve sync conflicts with a keep-local/keep-remote/merge UI",
+  "Monitor devices, sync activity, and server health in a web dashboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The project is under active development; the README warns not to use early builds for critical or highly sensitive vaults. A managed hosted service is planned at $2/month but not yet available; self-hosting is free. The manifest notes the plugin has not been manually reviewed by Obsidian. Install is also possible via BRAT or sideloading.",
+ "intent": "alternative",
+ "intentEvidence": "Syncidian isn't trying to reproduce every feature of Obsidian Sync.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it so that a vault belongs to its owner, is backed up by the owner, and is accessible to the AI tools the owner chooses, with self-hosting simple enough for anyone comfortable with Docker.",
+ "primary": "syncing",
+ "problem": "Obsidian Sync is a paid closed service, and Git-based sync plugins depend on Node or a local git binary, so they never run on Android or iOS.",
+ "readmeHash": "f322996f39f93a46ed708e9e73450531bad3148b",
+ "relations": [
+  {
+   "evidence": "Syncidian isn't trying to reproduce every feature of Obsidian Sync.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "that is why Obsidian Git and similar plugins never run on Android or iOS, and why this one can",
+   "plugin": "Obsidian Git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "GitHub is the durable, versioned source of truth for that user's vault.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a controlled interface between your Obsidian knowledge base and AI tools (Cursor, Claude, and other MCP clients)",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a controlled interface between your Obsidian knowledge base and AI tools (Cursor, Claude, and other MCP clients)",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a running Syncidian server (self-hosted via Docker or the hosted service)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account and repository (for GitHub sign-in and backup); email sign-up on self-hosted instances",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Self-hosted vault sync system: the Obsidian plugin is the client that connects to a Syncidian server for multi-device sync, optional GitHub backup, and an MCP server for AI tools.",
+ "tags": [
+  "github",
+  "mcp",
+  "self-hosted",
+  "docker",
+  "conflict-resolution",
+  "multi-user"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "syncing",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync shared team libraries backed by GitHub repos silently in the background",
+  "Share folders or notes as new libraries with a right-click",
+  "Resolve merge conflicts with AI merges or a three-pane review UI",
+  "View change history and inline diffs for synced notes",
+  "Back up personal notes to a private repo with opt-in sharing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (isDesktopOnly). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Credentials are stored outside the vault, and GitHub access uses a GitHub App with short-lived, repository-scoped tokens.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it is built for teams where most members are not engineers, so the UI uses knowledge-base language (share / update / resolve) instead of git terminology.",
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in way for teams, especially non-engineers, to share and keep notes in sync without working directly with git.",
+ "readmeHash": "a25d54944c346eb501b1ef5d3b16683d7de97b1d",
+ "relations": [
+  {
+   "evidence": "subfolders in your vault backed by your organization's GitHub repos",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account (organization for team features)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key for AI conflict resolution",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Team knowledge base client that syncs shared vault folders through GitHub repos, with an LLM agent handling all git operations and conflict merges.",
+ "tags": [
+  "github",
+  "llm",
+  "conflict-resolution",
+  "diff"
+ ]
+}

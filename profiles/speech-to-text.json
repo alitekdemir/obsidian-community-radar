@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe audio files using OpenAI Whisper or Deepgram APIs",
+  "Separate and label speakers in transcripts (diarization)",
+  "Insert transcripts at the cursor, note start, or note end, or into a new note",
+  "Automatically select a provider based on file size, format, and cost",
+  "Detect language automatically across 40+ supported languages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Live microphone transcription and recovery is a development preview not included in the published 1.0.20 release; transcription costs are metered per minute by the providers (e.g. Nova-3 at $0.0043/min), and settings include monthly budget limits and alerts.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian can store and record audio but cannot transcribe recordings into note text without an external service.",
+ "readmeHash": "ecd77c18428d2498e37844df450ff253becb2c31",
+ "relations": [
+  {
+   "evidence": "OpenAI Whisper: High accuracy, stable performance",
+   "plugin": "OpenAI Whisper API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Deepgram: Fast speed, large file support",
+   "plugin": "Deepgram Speech-to-Text API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key (for Whisper) and/or Deepgram API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI Platform and/or Deepgram Console accounts to obtain API keys",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Audio transcription plugin that converts audio files in the vault to text via OpenAI Whisper or Deepgram, with speaker diarization and text insertion.",
+ "tags": [
+  "whisper",
+  "deepgram",
+  "openai",
+  "transcription",
+  "speech-recognition",
+  "speaker-diarization",
+  "api-key"
+ ]
+}

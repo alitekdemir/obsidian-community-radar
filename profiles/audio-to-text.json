@@ -1,0 +1,64 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe audio embeds into Markdown transcripts via a speech-to-text service",
+  "Insert the transcript directly below the audio reference in the editor",
+  "Split transcripts into one-minute sections using returned timestamps",
+  "Auto-transcribe audio references when typed, pasted, or dropped into a note",
+  "Upload local audio files to Litterbox as temporary public download URLs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy warning: before transcription, local audio is uploaded to Litterbox as a public download URL that anyone with the URL can access until it expires; the author advises against uploading sensitive or confidential recordings. The plugin has not been manually reviewed by Obsidian staff and is still being prepared for community publication.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian lets you embed audio recordings in notes but offers no way to turn those recordings into text transcripts.",
+ "readmeHash": "0648bd6346d3b50cb76137f3a9f7a132e9dd3fb2",
+ "relations": [
+  {
+   "evidence": "The default model is qwen3-asr-flash-filetrans from Alibaba Cloud Model Studio (DashScope).",
+   "plugin": "Alibaba Cloud Model Studio (DashScope)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uploads local audio to Litterbox as a temporary public download URL before submitting the asynchronous task.",
+   "plugin": "Litterbox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DashScope API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Speech-to-text plugin that transcribes audio embeds into timestamped Markdown sections via configurable cloud transcription services.",
+ "tags": [
+  "speech-to-text",
+  "transcription",
+  "asr",
+  "dashscope",
+  "alibaba-cloud",
+  "litterbox",
+  "timestamps",
+  "audio-embeds"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "stub",
+ "capabilities": [
+  "Resolve search terms to place suggestions and coordinates (POI search)",
+  "Resolve a coordinate to the nearest named feature (reverse geocoding)",
+  "Query OpenStreetMap-based POI data for the Places plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README documents which network requests the plugin makes (POI search and reverse geocoding) but gives no usage instructions; it lists places-shared as a code dependency and contains no screenshots or examples.",
+ "intent": "improve",
+ "intentEvidence": "Search provider for Places using Photon",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "The Places plugin needs a way to turn search terms into place suggestions and coordinates, and coordinates back into named features.",
+ "readmeHash": "83a2bb6e9139a018cfea402c4a35d649697a647e",
+ "relations": [
+  {
+   "evidence": "Search provider for Places using Photon",
+   "plugin": "Places",
+   "type": "extends"
+  },
+  {
+   "evidence": "using Photon, with POI search over OpenStreetMap data",
+   "plugin": "Photon",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Photon (OpenStreetMap search service)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "Search provider for the Places plugin that resolves search terms and coordinates through the Photon geocoder over OpenStreetMap data.",
+ "tags": [
+  "photon",
+  "openstreetmap",
+  "geocoding",
+  "reverse-geocoding",
+  "poi",
+  "maps"
+ ]
+}

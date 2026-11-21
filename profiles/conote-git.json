@@ -1,0 +1,65 @@
+{
+ "also": [
+  "collaboration",
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync selected vault subfolders with GitHub repos",
+  "Auto-commit and push after edits and auto-pull on an interval",
+  "Resolve merge conflicts in a side-by-side modal",
+  "Sign in with GitHub via OAuth device flow",
+  "Map each shared folder to its own repo"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires manually copying main.js, manifest.json, and styles.css into the plugins folder. A planned MCP server would let Claude act as a collaborator; sync logic is designed to be reusable outside Obsidian.",
+ "intent": "alternative",
+ "intentEvidence": "Why not Obsidian Git? Obsidian Git tracks your entire vault as one repo.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted collaboration without third-party servers, subscriptions, or manual git work, keeping notes under the user's own GitHub ownership.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in collaboration, and syncing a whole vault through git forces collaborators to share everything and manage commits manually.",
+ "readmeHash": "8238b82a98e6a815c07a5f67ad0a85e68c29b02f",
+ "relations": [
+  {
+   "evidence": "Why not Obsidian Git? Obsidian Git tracks your entire vault as one repo.",
+   "plugin": "Obsidian Git",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "GitHub repository per shared folder",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "GitHub-based collaboration plugin that syncs individual vault subfolders with automatic push/pull and a side-by-side conflict resolution modal.",
+ "tags": [
+  "github",
+  "subfolders",
+  "conflict-resolution",
+  "oauth-device-flow",
+  "merge-modal",
+  "open-source"
+ ]
+}

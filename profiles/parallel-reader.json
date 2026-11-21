@@ -1,0 +1,71 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate LLM summary cards for note sections with adaptive segmentation",
+  "Sync editor scrolling with highlighted cards on the right",
+  "Navigate between cards and source lines by click or keyboard",
+  "Edit, copy, delete, or export cards as a Markdown note",
+  "Configure 20+ AI providers including local backends and CLI backends"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a side-by-side document comparison tool; it pairs one note with AI summary cards rather than showing two notes.",
+ "extras": "Cached summaries are keyed by content SHA-1 plus settings fingerprint; edits or config changes show a stale banner. Local model providers (Ollama, LM Studio) need no API key.",
+ "intent": "new",
+ "intentEvidence": "Inspired by this reading workflow demo.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted both overview and scannable detail: \"pure prose felt like a wall of text, pure bullets felt fragmented.\"",
+ "primary": "ai",
+ "problem": "Long notes are hard to navigate; Obsidian has no built-in way to read a note alongside automatically generated, section-linked summaries.",
+ "readmeHash": "90aa3434112af4359e1e56a6307f13d02fb7683e",
+ "relations": [
+  {
+   "evidence": "If you have Claude Code or Codex installed locally, you can use them as backends",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama / LM Studio | Local models, no API key needed",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian community plugin install",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for cloud providers",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or Codex CLI (optional backends)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI split-view reader that shows LLM-generated summary cards beside the source note with scroll-sync highlighting.",
+ "tags": [
+  "anthropic",
+  "openai",
+  "gemini",
+  "openrouter",
+  "ollama",
+  "claude-code-cli",
+  "streaming",
+  "scroll-sync"
+ ]
+}

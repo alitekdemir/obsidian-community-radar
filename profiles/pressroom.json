@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish, update and unpublish individual notes to Quartz 5 sites via the GitHub API",
+  "Manage published pages from a per-site panel with bulk update, move and cleanup actions",
+  "Rewrite wiki links, embeds and upload attachments in the published copy",
+  "Publish or unpublish several selected notes at once",
+  "Track per-note status (synced, modified, moved, source deleted) across sites"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Stores the GitHub token in Obsidian's secret storage. Recommends keeping site repositories private because .pressroom/manifest.json reveals vault folder names. Not yet listed in Obsidian's community plugins at the time of writing; installation is via release downloads.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish selected notes to your own Quartz site without publishing the whole vault or adding frontmatter and markers to note files.",
+ "readmeHash": "15a8b18c738f7cd280f50266c4325647b0700d49",
+ "relations": [
+  {
+   "evidence": "Publish individual Obsidian notes to one or more Quartz 5 sites hosted in GitHub repositories.",
+   "plugin": "Quartz 5",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pressroom is desktop-only and works with Quartz 5 sites stored in GitHub repositories.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub token (fine-grained, Contents: Read and write)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "A deployed Quartz 5 site in a GitHub repository",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing tool that sends individual Obsidian notes to Quartz 5 sites hosted in GitHub repositories, with a management panel and no changes to note files.",
+ "tags": [
+  "quartz",
+  "github",
+  "static-site",
+  "cloudflare-pages",
+  "github-pages"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "also": [
+  "code",
+  "markdown"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Extract blocks of lines that start with a configurable pattern from text files outside the vault",
+  "Write extracted blocks into Markdown files at a user-defined folder path such as EPIC.ITEM.TEST",
+  "Insert blocks at numbered positions within destination files",
+  "Configure start pattern, file extensions, root folder and working folder",
+  "Switch between Version 1 and Version 2 scanners via a startup dialog"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires manually downloading and placing platform-specific executables in the config directory and marking them executable; the disclosure notes the plugin scans files outside the vault. Version 1 setup is documented separately in 'README V1.md'.",
+ "intent": "improve",
+ "intentEvidence": "Version 2 represents an evolution with several key improvements.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built Version 2 because Version 1 dropped extracted comments into the vault without a folder structure and WASM parsing was computationally expensive due to character encoding differences.",
+ "primary": "developers",
+ "problem": "Comments embedded in source code stay locked in the codebase; Obsidian has no built-in way to pull them into structured vault documentation.",
+ "readmeHash": "32a804137b24e0f57fad0603a95054ba745cc9c8",
+ "relations": [
+  {
+   "evidence": "The previous plugin Source Scanner Version 1 extracted marked comment blocks and placed them in the vault",
+   "plugin": "Source Scanner Version 1",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Rust executables (get-comments-linux/macos/.exe) downloaded from GitHub and placed in the plugin config dir",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Code documentation extractor that scans text files for marked comment blocks and writes them into Markdown notes in a user-defined folder hierarchy.",
+ "tags": [
+  "code-comments",
+  "documentation",
+  "agile",
+  "user-stories",
+  "rust-executables",
+  "epic-item-test"
+ ]
+}

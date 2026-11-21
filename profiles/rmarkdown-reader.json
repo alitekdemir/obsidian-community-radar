@@ -1,0 +1,71 @@
+{
+ "also": [
+  "editing",
+  "code"
+ ],
+ "audience": [
+  "academics",
+  "data-scientists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse and edit .rmd/.Rmd files with Obsidian's native markdown editor",
+  "Display labeled headers above R code chunks and badges on inline R code",
+  "Open the current file in RStudio",
+  "Render documents via rmarkdown::render() and open the output",
+  "Create new .rmd documents from RStudio's default html_document template"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an R runtime; it displays RMarkdown files and delegates code execution to RStudio or rmarkdown::render().",
+ "extras": "Desktop only (uses Node child_process/Electron APIs). Reading and editing work without R installed; RStudio/R/pandoc are needed only for the launch and render commands. README documents render-error troubleshooting and a Pandoc smart-quote parsing limitation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian does not recognize .rmd or .Rmd files, so RMarkdown documents cannot be browsed, searched, or edited in the vault without converting them to .md.",
+ "readmeHash": "8398f18ee636ee7f685530c11f967224d767820d",
+ "relations": [
+  {
+   "evidence": "Open in RStudio | Launches RStudio with the current file.",
+   "plugin": "RStudio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Render document | Runs rmarkdown::render() via Rscript, then opens the generated output",
+   "plugin": "rmarkdown",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "RStudio",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "R with rmarkdown package and pandoc",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "RMarkdown (.rmd/.Rmd) reader and editor for Obsidian that displays R chunk headers, inline R badges, and adds RStudio/render commands.",
+ "tags": [
+  "rmarkdown",
+  "rstudio",
+  "r-language",
+  "pandoc",
+  "knitr"
+ ]
+}

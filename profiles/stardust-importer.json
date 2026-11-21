@@ -1,0 +1,74 @@
+{
+ "also": [
+  "templating",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch new watched movies from Trakt history and create movie notes",
+  "Reconstruct full-album listens from Last.fm scrobbles with a session detector",
+  "Render imported data through user-supplied Templater templates via a payload handshake",
+  "Mark re-watches and re-listens instead of creating duplicate notes",
+  "Flag low-confidence MusicBrainz album matches with needs_review and a warning callout"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires building from source (npm install && npm run build) and symlinking the repo into the vault. Last.fm only records listens from first run forward (no backfill), while Trakt offers a one-time backfill. The README warns it depends on Templater's internal API, so a Templater rewrite could break it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to automatically pull watch and listen history from Trakt or Last.fm into templated notes.",
+ "readmeHash": "e91428abb651c7c83cb62e67e27ce97d89086f3b",
+ "relations": [
+  {
+   "evidence": "Uses Templater's internal write_template_to_file",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Trakt (device auth)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Last.fm",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Trakt client ID/secret and Last.fm API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Imports Trakt movie watches and Last.fm full-album listens into vault notes rendered through your own Templater movie and album templates.",
+ "tags": [
+  "trakt",
+  "lastfm",
+  "tmdb",
+  "musicbrainz",
+  "scrobbles",
+  "movies",
+  "albums",
+  "device-auth"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync #todo task lines with Todoist, including subtasks, priorities, sections, and dates",
+  "Answer questions from the vault using semantic search with links back to source notes",
+  "Turn notes, selections, or forwarded emails into main tasks and subtasks",
+  "Schedule open tasks across a workday with a preview and undo",
+  "Draft or rewrite text directly into the open note, citing vault sources"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not only a task sync; it also includes an AI chat sidebar, email-to-task processing, day planning, and in-note writing.",
+ "extras": "Free, open source under GPLv3, no telemetry; requires Obsidian 1.5.0 or later and works on desktop, iPhone, and iPad; email processing needs a self-hosted Cloudflare Worker URL and token.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes and Todoist tasks live in separate tools, so turning written work into synced, deduplicated Todoist tasks takes manual copying.",
+ "readmeHash": "39c4e8ff460cdaca2892b7ba04bb7974a7b69acf",
+ "relations": [
+  {
+   "evidence": "You need a Todoist account and token for Todoist jobs",
+   "plugin": "Todoist",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI, Gemini, Anthropic, OpenRouter, a self-hosted Open WebUI with Ollama, or any OpenAI-compatible endpoint",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a self-hosted Open WebUI with Ollama, or any OpenAI-compatible endpoint",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Todoist",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider (OpenAI, Gemini, Anthropic, OpenRouter, or OpenAI-compatible)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare Worker for email processing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Todoist sync and AI assistant that turns note lines into tasks, answers questions from your vault, and plans tasks across a workday.",
+ "tags": [
+  "todoist",
+  "rag",
+  "semantic-search",
+  "email-to-task",
+  "embeddings",
+  "ollama",
+  "openrouter",
+  "day-planning"
+ ]
+}

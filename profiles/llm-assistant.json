@@ -1,0 +1,85 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with LLM providers via a streaming chat panel with Markdown rendering",
+  "Inject relevant vault notes as context using TF-IDF RAG and embedding search with RRF ranking",
+  "Attach notes as context and let the LLM read or propose edits to vault files",
+  "Run quick actions (summarize, translate, proofread, explain, expand) on selected text",
+  "Save, browse, resume, and delete past conversations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; beta versions can be installed via BRAT. Requires Obsidian v1.11.4+ for SecretStorage key storage. A previous plugin ID (obsidian-llm-assistant) requires renaming the plugin folder when migrating. Google Gemini offers a free tier and Ollama runs locally without an API key.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found existing Obsidian LLM plugins feature-heavy with cluttered UI, small prompt and output areas, and poor mobile support, so built this with a simple chat UI, full-platform support, multi-provider access, secure key storage, and RAG-based note retrieval.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and per the author many existing LLM plugins have cluttered interfaces, cramped input/output areas, and often do not work on iPhone or iPad.",
+ "readmeHash": "e62404ed16e02394d4dca87ad02c5637576ab23b",
+ "relations": [
+  {
+   "evidence": "OpenAI | GPT-5, GPT-5.2 | Required | Yes",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic | Claude Opus 4.6, Sonnet 4.6, Haiku 4.5 | Required | Chunked",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini | Gemini 2.5 Flash/Pro | Required | Yes",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Unified access to multiple provider models",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama | Llama 3.3, Gemma 3, Qwen 3 | Not required",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama installed on desktop (for Ollama provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Chat panel for multiple LLM providers (OpenAI, Anthropic, Gemini, OpenRouter, Ollama) with RAG vault search, note context, and text quick actions.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "gemini",
+  "openrouter",
+  "ollama",
+  "rag",
+  "embeddings",
+  "api-key"
+ ]
+}

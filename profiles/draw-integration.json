@@ -1,0 +1,81 @@
+{
+ "also": [
+  "drawing",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create project files from empty image embed links",
+  "Open an external drawing application on the linked project file",
+  "Export the drawing project to a PNG at the embed's path",
+  "Configure per-app shell commands with {this.file} and {this.dest} templates",
+  "Run create, open, and export in sequence with one Draw (All) command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a plugin for drawing inside Obsidian; it shells out to external applications like Krita or MyPaint.",
+ "extras": "Shell-command knowledge is expected; exporting twice may not refresh the embedded image because Obsidian's file cache cannot be forced to update, requiring reopening the file or re-pasting the link. Flatpak users need Flatseal to grant Obsidian D-Bus session bus access. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian can embed images but has no way to create or edit them in an external drawing application from within a note.",
+ "readmeHash": "18c4422d1847546fba08bbba50939d54546eb954",
+ "relations": [
+  {
+   "evidence": "If you wish to use Krita, you first might need to create a template file",
+   "plugin": "Krita",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you want an infinite canvas, you can use MyPaint.",
+   "plugin": "MyPaint",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Integrate a draw application into your obsidian workflow, Krita, MyPaint, GIMP, etc.",
+   "plugin": "GIMP",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install: - MyPaint. - ImageMagick (its for image manipulation).",
+   "plugin": "ImageMagick",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Krita, MyPaint, GIMP, or another drawing application",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ImageMagick (for MyPaint export)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "External drawing-app bridge that creates, opens, and exports drawings from empty image embeds via configurable shell commands.",
+ "tags": [
+  "krita",
+  "mypaint",
+  "gimp",
+  "imagemagick",
+  "shell-commands",
+  "flatpak",
+  "png",
+  "openraster"
+ ]
+}

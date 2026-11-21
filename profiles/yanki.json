@@ -1,0 +1,67 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Markdown notes from watched folders to Anki decks matching the vault folder hierarchy",
+  "Infer Anki note types (Basic, reversed, type-in-the-answer, Cloze) from Markdown structure",
+  "Sync embedded images, videos, and audio assets to Anki's media library",
+  "Rename note files automatically from card prompt or response content",
+  "Push synced notes onward to AnkiWeb and convert WikiLinks to obsidian:// deep links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Anki must be running for syncs; Obsidian mobile is not supported. Editing or removing watched folders deletes cards and review stats from Anki on the next sync, and automatic sync plus automatic note renaming are flagged as risky. A stand-alone yanki CLI offers the same features outside Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants tools that are \"Markdown first\" and context-agnostic, avoiding Obsidian lock-in; the plugin is a thin wrapper over a stand-alone yanki CLI so notes stay portable.",
+ "primary": "integrations",
+ "problem": "Creating Anki flashcards from Obsidian normally requires Anki-specific templating syntax or export plugins, which makes notes hard to read and maintain inside the vault.",
+ "readmeHash": "4618ec20c3f7adff30d5cccacbb645bcd794a803",
+ "relations": [
+  {
+   "evidence": "The Yanki plugin is built on yanki, a command line tool and TypeScript library",
+   "plugin": "yanki CLI",
+   "type": "extends"
+  },
+  {
+   "evidence": "none are as robust as what's provided by AnkiConnect, which is where this requirement comes from",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki desktop application (with AnkiConnect add-on)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "AnkiWeb",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Flashcard syncer that converts Markdown notes in chosen vault folders into Anki notes and decks through AnkiConnect, using pure Markdown structure instead of Anki markup.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "spaced-repetition",
+  "cloze-deletion",
+  "furigana",
+  "mathjax",
+  "shiki"
+ ]
+}

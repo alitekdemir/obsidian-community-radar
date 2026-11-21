@@ -1,0 +1,68 @@
+{
+ "also": [
+  "editing",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Claude or ChatGPT using note context from a file, folder, or whole vault",
+  "Let the assistant create and edit notes with per-change approval",
+  "Search past conversations in natural language and resume a saved chat",
+  "Select provider, model, and effort, and refresh the model list from your API key",
+  "Store chat history locally in history.json with an option to clear it"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns that API keys are stored in the plugin's data.json and should not be synced publicly; chats and selected note context are sent to the provider, and history search sends a digest of up to 200 saved conversations. Settings support Obsidian 1.7.2+, with settings search indexing from 1.13.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with an LLM about your notes or have one draft and edit notes under your approval.",
+ "readmeHash": "7ec7d72af478ef66fa8b8f2953a83dff8b42909d",
+ "relations": [
+  {
+   "evidence": "Chat with Claude or ChatGPT about your notes, limited to the current file, folder, or whole vault.",
+   "plugin": "Claude (Anthropic API)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requests use the selected provider's API and may incur charges under that provider's pricing.",
+   "plugin": "ChatGPT (OpenAI API)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Anthropic or OpenAI account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic and/or OpenAI API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Chat panel for Claude or ChatGPT that reads note context at file, folder or vault scope and drafts note edits for your approval.",
+ "tags": [
+  "anthropic",
+  "openai",
+  "claude",
+  "chatgpt",
+  "llm",
+  "chat-history",
+  "api-key"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render plantuml and puml code blocks in preview",
+  "Render embedded .puml files",
+  "Cache include dependency trees and re-render when included files change",
+  "Align diagrams left, center, or right with per-diagram overrides",
+  "Render via a remote endpoint or a locally run PlantUML PicoWeb server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an integration with other apps or a diagram editor; it renders existing PlantUML source into images.",
+ "extras": "Manifest states the plugin has not been manually reviewed by Obsidian staff. In local jar mode the plugin cannot spawn Java itself; the user must start and can register the server at login via generated commands for Windows, macOS, and Linux.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian natively renders Mermaid diagrams only, so PlantUML source in notes and .puml files stays as raw code without external tooling.",
+ "readmeHash": "cb77ab5fecff506bad1090558be2dfbaec42c39c",
+ "relations": [
+  {
+   "evidence": "Runs a local PlantUML PicoWeb server and sends requests to it.",
+   "plugin": "PlantUML",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uses a remote PlantUML-compatible HTTP endpoint (e.g. kroki.io).",
+   "plugin": "kroki.io",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PlantUML server (Java PicoWeb server started by the user) for local jar mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "PlantUML renderer that turns plantuml/puml code blocks and embedded .puml files into diagrams via a remote or local PlantUML server.",
+ "tags": [
+  "plantuml",
+  "uml",
+  "kroki",
+  "diagrams",
+  "svg",
+  "dependency-cache"
+ ]
+}

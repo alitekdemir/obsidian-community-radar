@@ -1,0 +1,69 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display an iBooks-style bookshelf of Douban and Fanqie entries with covers and progress",
+  "Search Douban (books, movies, TV, music) and Fanqie and add entries to the shelf",
+  "Read Fanqie chapters with per-chapter progress, bookmarks, and keyboard navigation",
+  "Insert excerpts with source, chapter, and obsidian:// back-jump links into notes",
+  "Export single chapters or whole books to notes on demand"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a read-later list or a book downloader; it shelves, reads, and excerpts books you add yourself, and chapter text only enters the vault when you export it.",
+ "extras": "Windows desktop only (the Fanqie sidecar is an exe); the sidecar must be downloaded manually from a separate repository (Yolkbun/ex-libris-sidecar) and is never auto-installed or updated; the manifest notes the plugin has not been manually reviewed by Obsidian staff; GPL-3.0-or-later, for personal study and research, not affiliated with ByteDance/Fanqie, Douban, Obsidian, or Clarivate/Ex Libris; no telemetry, and Douban public search is rate-limited.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author sees the shelf as more than file storage: it is a way to walk back to the world of books you have read, and the plugin exists so read books can be found again when needed.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to shelve Douban books and media or read Fanqie novels and pull excerpts with back-links into your notes.",
+ "readmeHash": "084bf1eba313169a99bd3edec647b5b762b45111",
+ "relations": [
+  {
+   "evidence": "optional read-only linkage with obsidian-douban can be toggled in settings",
+   "plugin": "obsidian-douban",
+   "type": "integrates"
+  },
+  {
+   "evidence": "侧车复用了它的 Rust core（GPL-3.0）",
+   "plugin": "ch6vip/fqapp",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "fqsidecar.exe (Fanqie sidecar)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "obsidian-douban",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bookshelf plugin that turns Douban books/media and Fanqie novels into an iBooks-style shelf with a reader, excerpts, and exports.",
+ "tags": [
+  "douban",
+  "fanqie",
+  "bookshelf",
+  "excerpts",
+  "reading-progress",
+  "sidecar",
+  "backlinks"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Match path queries segment by segment against note aliases and folder-note aliases",
+  "Rank and render matches with markers explaining how each row matched",
+  "Add aliases to notes from a command or the file explorer menu",
+  "Search notes by frontmatter property values using core Search term syntax",
+  "Insert links to notes found by property terms while typing [["
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is itself a demo vault that ships with every release and can be opened with a command, downloaded as a zip, or browsed on GitHub; beta versions install via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "this plugin extends that shape to the rest of the path rather than inventing a second one to learn",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian's quick switcher matches a query against the path or the note's alias but never a mixture of the two, and no switcher consults folder-note aliases.",
+ "readmeHash": "215db434b928e20f689af3dd0aee438e30ac67ec",
+ "relations": [
+  {
+   "evidence": "This plugin requires Advanced Metadata Cache: it loads nothing until that plugin is installed and enabled",
+   "plugin": "Advanced Metadata Cache",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If the Folder notes plugin is installed, its live configuration decides which note belongs to a folder",
+   "plugin": "Folder notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced Metadata Cache",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Folder notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Alias-aware quick switcher that matches aliases in every path segment, including folder-note aliases, and finds notes by frontmatter property terms.",
+ "tags": [
+  "aliases",
+  "folder-notes",
+  "path-matching",
+  "property-search",
+  "link-texts",
+  "titles"
+ ]
+}

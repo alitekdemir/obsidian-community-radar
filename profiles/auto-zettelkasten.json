@@ -1,0 +1,64 @@
+{
+ "also": [
+  "thinking"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate atomic notes from conversations, files, clipboard text, and web article URLs via an LLM",
+  "Generate metadata, keywords, tags, and timestamps for each note automatically",
+  "Create bidirectional wikilinks between related notes using embedding-based nearest-neighbor retrieval",
+  "Answer questions over the notes with a sidebar chatbot that cites its sources",
+  "Maintain a MOC file and a persisted semantic index in the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. The README warns that source text and note metadata are sent to the configured chat/embedding services, that API keys are stored in plugin data rather than the system keychain, and that long files can trigger many billed API requests; it recommends testing in a scratch vault first. The README is bilingual (English and Chinese).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Building a Zettelkasten by hand is slow: extracting atomic notes, writing tags and metadata, and finding which existing notes each new note should link to all require manual effort.",
+ "readmeHash": "a46e4cbbd1ee1cb58251fe9bcb6469dd1fb663dc",
+ "relations": [
+  {
+   "evidence": "Inspired by A-MEM: Agentic Memory for LLM Agents, it automatically generates metadata and tags",
+   "plugin": "A-MEM: Agentic Memory for LLM Agents",
+   "type": "inspired"
+  },
+  {
+   "evidence": "no local ChromaDB or sentence-transformers service is required",
+   "plugin": "ChromaDB",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible chat and embedding API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI plugin that uses an LLM to turn conversations, vault files, clipboard text, and web articles into linked atomic notes with A-mem-style retrieval and evolution.",
+ "tags": [
+  "zettelkasten",
+  "atomic-notes",
+  "embeddings",
+  "rag",
+  "openai-compatible",
+  "chatbot",
+  "memory-agents"
+ ]
+}

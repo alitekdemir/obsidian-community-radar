@@ -1,0 +1,71 @@
+{
+ "also": [
+  "research",
+  "templating"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up citation metadata from Crossref, OpenAlex, arXiv, and Europe PMC for a DOI",
+  "Create a Markdown literature note from a configurable template",
+  "Download and save an accessible paper PDF into the vault",
+  "Show import progress and report PDF save results",
+  "Configure note folder, PDF folder, and template paths"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "PDF download is explicitly best-effort; paywalled or blocked publishers still get a note but no PDF. Installation is a manual folder copy, not a community plugin store install. Manifest notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn a DOI into a formatted literature note with citation metadata.",
+ "readmeHash": "10a8c9f9bdc27fb3b917047b4564c5a16c56c14f",
+ "relations": [
+  {
+   "evidence": "Looks up citation metadata from Crossref and OpenAlex.",
+   "plugin": "Crossref",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Looks up citation metadata from Crossref and OpenAlex.",
+   "plugin": "OpenAlex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uses arXiv metadata for 10.48550/arXiv.<id> DOIs, including the abstract",
+   "plugin": "arXiv",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tries Europe PMC for abstracts and keywords",
+   "plugin": "Europe PMC",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "DOI importer that creates literature notes from Crossref, OpenAlex, and arXiv metadata, with configurable note paths and optional PDF download.",
+ "tags": [
+  "doi",
+  "crossref",
+  "openalex",
+  "arxiv",
+  "europe-pmc",
+  "pdf-download",
+  "citations",
+  "literature-notes"
+ ]
+}

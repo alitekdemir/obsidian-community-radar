@@ -1,0 +1,78 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate AI responses inline via the /ai slash command",
+  "Stream responses into the editor",
+  "Switch between local (Ollama) and cloud providers (OpenAI, Anthropic, Gemini)",
+  "Search the web and feed results to the AI as context",
+  "Customize system prompts and temperature"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; generation cannot be cancelled once started; only one provider active at a time; the /ai trigger is fixed; prompts are sent to the provider's API when using cloud models.",
+ "intent": "new",
+ "intentEvidence": "Inline AI removes that workflow.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why Inline AI?' section explains the author built it to remove the copy-out/copy-back workflow of using AI outside the editor.",
+ "primary": "ai",
+ "problem": "Using AI normally means leaving Obsidian, copying note content into a chat app, and pasting the result back into the note.",
+ "readmeHash": "89c77ec0c029bb7ab5ac76b01d95eec6d5390ca5",
+ "relations": [
+  {
+   "evidence": "Inline AI supports Ollama. With Ollama, your prompts can be processed locally",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can also connect Inline AI to cloud providers such as OpenAI, Anthropic, and Google Gemini",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can also connect Inline AI to cloud providers such as OpenAI, Anthropic, and Google Gemini",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can also connect Inline AI to cloud providers such as OpenAI, Anthropic, and Google Gemini",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI / Anthropic / Google Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Slash-command AI assistant that turns /ai <prompt> into a streamed response written inline in the note, via Ollama or cloud providers.",
+ "tags": [
+  "ollama",
+  "openai",
+  "anthropic",
+  "gemini",
+  "llm",
+  "streaming",
+  "web-search",
+  "system-prompt"
+ ]
+}

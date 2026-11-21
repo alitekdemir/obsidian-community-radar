@@ -1,0 +1,72 @@
+{
+ "also": [
+  "integrations",
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Excalidraw drawings to ExcaliDash instances using frontmatter opt-in metadata",
+  "Configure sync per drawing or per folder via the Excalidash Sync command",
+  "Sync drawings into ExcaliDash collections",
+  "Run one-way (default) or bidirectional sync with conflict detection",
+  "Authenticate with username/password or API keys against ExcaliDash's /api routes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "ExcaliDash does not yet support API keys; the author offers forked Docker images until an upstream PR merges. Bidirectional pulls into compressed-json Excalidraw notes are unsupported. Sync is currently manual only; automatic syncing (on save, periodic) is a future plan.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Excalidraw drawings stored in the vault have no built-in way to be synced or published to an ExcaliDash instance.",
+ "readmeHash": "a6559e832cc78872ef944b32f66b506bdf48e621",
+ "relations": [
+  {
+   "evidence": "Sync the current Obsidian Excalidraw note to ExcaliDash by using frontmatter opt-in metadata.",
+   "plugin": "ExcaliDash",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use Obsidian-to-ExcaliDash sync for those files",
+   "plugin": "Obsidian-to-ExcaliDash sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ExcaliDash instance",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ExcaliDash username/password",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "ExcaliDash API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Obsidian Excalidraw notes to ExcaliDash instances via frontmatter metadata, with one-way or bidirectional sync and collection support.",
+ "tags": [
+  "excalidraw",
+  "excalidash",
+  "bidirectional-sync",
+  "conflicts",
+  "collections",
+  "docker"
+ ]
+}

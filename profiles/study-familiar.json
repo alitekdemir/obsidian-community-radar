@@ -1,0 +1,68 @@
+{
+ "also": [],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Rate concepts on a five-button scale that writes confidence and last_reviewed frontmatter",
+  "Rank which concepts to study next from unrated, weak, and stale notes",
+  "Run timed study sprints that end with a recall prompt",
+  "Award XP, levels, streaks, and badges for study actions",
+  "Suggest unlinked concept references and convert Better BibTeX citekeys to Zotero links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Personal plugin, not yet in the community catalogue; install via BRAT or by copying files manually. Requires vault notes using a specific frontmatter schema (type: concept / type: source) or the dashboard stays empty. No network, account, or telemetry; English or Swedish interface.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because most study gamification has a failure mode: \"rate everything 5, feel great, learn nothing\"; this design pays the same XP for any rating and rewards downgrades.",
+ "primary": "review",
+ "problem": "Obsidian has no built-in way to track which concepts need studying, and gamified study tools typically reward inflated self-ratings instead of study work.",
+ "readmeHash": "964f0839f240bb0c771ebe306551374c59f36c15",
+ "relations": [
+  {
+   "evidence": "Turns a Better BibTeX citekey: into a clickable zotero://select/items/@key",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add Zotero link to this source | Turns a Better BibTeX citekey: into a clickable zotero://select/items/@key",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Study companion that gamifies reviewing concept notes: rates confidence in one keystroke, ranks what to study, runs timed sprints, and pays XP for the act of studying.",
+ "tags": [
+  "gamification",
+  "xp",
+  "badges",
+  "pomodoro",
+  "zotero",
+  "better-bibtex",
+  "confidence-tracking",
+  "retrieval-practice"
+ ]
+}

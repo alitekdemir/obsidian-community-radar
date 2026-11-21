@@ -1,0 +1,62 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Receive article links submitted from the 同步链接 WeChat Mini Program",
+  "Fetch and convert web articles to Markdown on the desktop",
+  "Download article images into the vault",
+  "Manage a processing queue with pending, processing, done, failed and trash records",
+  "Paste links directly for local-only import without a server record"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not limited to WeChat articles; it also extracts Weibo, Xiaohongshu, Douban and other public pages via a generic extractor.",
+ "extras": "Desktop only (Windows and macOS); the Mini Program, server and database are not in the public repo; links requiring login, CAPTCHA or strong anti-bot protection may fail to parse; PRIVACY.md covers what is synced (link, note, tags, status) versus kept local (article bodies).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to receive article links sent from a phone (WeChat) and convert them into local Markdown notes on the desktop.",
+ "readmeHash": "c0ec25ff10322f1d08066debfe78a96188164d80",
+ "relations": [
+  {
+   "evidence": "WeChat Link Sync connects Obsidian Desktop with the companion WeChat Mini Program “同步链接”",
+   "plugin": "同步链接 (WeChat Mini Program)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "同步链接 WeChat Mini Program",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "WeChat Link Sync service (device binding)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Web-clipper companion that receives article links from a WeChat Mini Program and saves them as local Markdown notes with images.",
+ "tags": [
+  "wechat",
+  "web-clipper",
+  "article-extraction",
+  "inbox",
+  "weibo",
+  "xiaohongshu",
+  "douban"
+ ]
+}

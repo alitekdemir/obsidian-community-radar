@@ -1,0 +1,74 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run SQL queries against indexed vault content, frontmatter, tables, tasks, and links",
+  "Apply INSERT, UPDATE, and DELETE changes to files with before/after preview",
+  "Render results as SlickGrid tables, Chart.js charts, FullCalendar calendars, or Markdown tables",
+  "Turn natural-language requests into SQL queries via a configured provider",
+  "Define reusable SQL views and custom SQL functions in JavaScript"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation site is referenced but its content is not included. Natural-language queries send the database schema and property names to a user-configured provider URL. The README details network requests: WASM download for sql.js, optional CDN-only loading via jsDelivr, and read-only CSV/JSON downloads for remote data blocks. Includes an API guide for third-party plugin developers and an Obsidian CLI command. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian's search cannot run structured queries across note content and metadata, nor write query results back into files.",
+ "readmeHash": "dfdae79322f89f5d979ec30a4477f018572b03eb",
+ "relations": [
+  {
+   "evidence": "Render query results as Chart.js visualizations",
+   "plugin": "Chart.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Render query results as a FullCalendar calendar",
+   "plugin": "FullCalendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Results render in a sortable SlickGrid table.",
+   "plugin": "SlickGrid",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Downloads the WASM for the sql.js version installed when this plugin was built.",
+   "plugin": "sql.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "natural-language provider URL configured in settings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "SQL engine that runs SELECT, INSERT, UPDATE, and DELETE statements on notes, properties, tasks, and links, rendering results as tables, charts, or calendars.",
+ "tags": [
+  "sqlite",
+  "sql",
+  "slickgrid",
+  "chartjs",
+  "fullcalendar",
+  "natural-language",
+  "sql-js"
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload and download file changes between devices",
+  "Propagate file deletions in both directions",
+  "Preserve local conflict copies on two-sided changes",
+  "Run automatic synchronization at a configurable interval",
+  "Exclude .obsidian settings and plugin data from sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Early release with explicit warnings to back up the vault before first sync; each user must register their own Microsoft Entra app and enter its client ID; files up to 250 MB supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, and the plugin offers OneDrive-based cross-device syncing without the OneDrive desktop client.",
+ "readmeHash": "1fca2ef98114227e377d50096cb82de51e96a85f",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Microsoft Entra application registration by the user",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sync plugin that synchronizes vault files across devices via a private OneDrive app folder using Microsoft Graph directly.",
+ "tags": [
+  "onedrive",
+  "microsoft-graph",
+  "entra",
+  "conflict-resolution",
+  "etag"
+ ]
+}

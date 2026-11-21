@@ -1,0 +1,83 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render Markdown notes to standalone HTML pages",
+  "Build multi-page folder sites with breadcrumbs and searchable, filterable lists from frontmatter",
+  "Upload images alongside published pages",
+  "Share links and QR codes and log every publication in a journal note",
+  "Delete expired publications from the bucket on startup"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync plugin; it publishes one-way copies of notes as public web pages that expire after a chosen TTL.",
+ "extras": "Not yet manually reviewed by Obsidian staff; installed via BRAT or by manually copying files. Published pages may load KaTeX from a public CDN in the viewer's browser.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to share notes or folders as self-hosted web pages that automatically expire.",
+ "readmeHash": "932477e84b7e22cf5dc1c01f95c1e90afb3245a5",
+ "relations": [
+  {
+   "evidence": "The plugin talks directly to your bucket (AWS SigV4, signed in‑app) — just like Remotely Save.",
+   "plugin": "Remotely Save",
+   "type": "inspired"
+  },
+  {
+   "evidence": "dataview (query executed at publish time)",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "excalidraw (drawing → inline SVG)",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tasks (Tasks‑plugin items → cards)",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible bucket (Yandex Cloud Object Storage, AWS S3, etc.)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key and secret",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian42 - BRAT (for beta install)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes notes and folders as temporary (TTL) static websites on your own S3-compatible bucket, with images, filtering, QR codes and a link journal.",
+ "tags": [
+  "s3",
+  "yandex-cloud",
+  "static-site",
+  "ttl",
+  "qr-code",
+  "aws-sigv4"
+ ]
+}

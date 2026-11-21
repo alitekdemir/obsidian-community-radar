@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai",
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "extract ingredients from recipe notes (table or list format)",
+  "normalize ingredient names, units and quantities with an LLM",
+  "sum and round duplicate ingredients across recipes",
+  "review and edit the list before sending",
+  "send items to a Bring! shopping list"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that Bring! has no public API: the plugin uses the unofficial web API of the Bring! app, which may break at any time and may violate Bring!'s terms. Ingredient lines and the unit dictionary are sent to the configured LLM endpoint, which receives your recipe text if it is a cloud service. Passwords and API keys are stored in Obsidian's secret storage; requires Obsidian 1.11.4 or newer; no telemetry or payments.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian recipe notes have no way to consolidate their ingredients into an external shopping list, and ingredient lines like \"2 tbsp finely chopped dill\" need cleanup before shopping.",
+ "readmeHash": "77d3f975ffda74e779d77b51fed66622b38ae238",
+ "relations": [
+  {
+   "evidence": "Turn the ingredients of your recipe notes into a ready shopping list in Bring!, in a few clicks.",
+   "plugin": "Bring!",
+   "type": "integrates"
+  },
+  {
+   "evidence": "modeled on the open-source node-bring-api",
+   "plugin": "node-bring-api",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Bring! account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible LLM endpoint (e.g. Ollama)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM API key (for cloud endpoints)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Recipe-to-shopping-list tool that sends ingredients from recipe notes to a Bring! list, using an LLM to normalize units and sum quantities.",
+ "tags": [
+  "bring",
+  "ollama",
+  "openai",
+  "openrouter",
+  "recipes",
+  "unit-conversion",
+  "unofficial-api"
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Augment GitHub issue IDs with issue titles linked to the repository",
+  "Fetch issue titles from GitHub using a personal access token",
+  "Map issue IDs to titles from a custom CSV file",
+  "Configure repository owner, repository filter, and default repository",
+  "Prefer custom CSV titles over fetched GitHub titles"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a GitHub issue tracker or manager; it only rewrites issue IDs in notes with titles and links.",
+ "extras": "The GitHub source requires a personal access token; a CSV mapping file can be used instead of or alongside it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian shows bare issue references like #1234 without context, so readers cannot tell which GitHub issue an ID refers to.",
+ "readmeHash": "cb9b8dbc6266c0ab8bf538c50d2a453791d283cc",
+ "relations": [
+  {
+   "evidence": "For fetching information about issue IDs from GitHub, specify the repository owner in the plugin settings.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Plugin that augments GitHub issue IDs in notes with their issue titles, rendered as links to the GitHub repository.",
+ "tags": [
+  "github",
+  "issues",
+  "personal-access-token"
+ ]
+}

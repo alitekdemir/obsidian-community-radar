@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish a note or folder as a website from the right-click menu",
+  "Preview a site before publishing",
+  "Apply a selected theme to published notes",
+  "Publish a folder as a wiki or digital garden",
+  "Host sites on Cloudflare with optional custom domains"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: guest tier is free, no account, 100 MB storage cleared daily at 00:00 UTC; Free tier is 200 MB; Personal is $5/month or $50-60/year with 5 GB and custom domains. Publishing requires network access to api.mdfriday.com and cdn.mdfriday.com and sends fire-and-forget diagnostic events (build metadata only, no note content). Desktop only. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Full documentation lives on an external site.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Obsidian is great for creating knowledge but sharing it is hard; the author wanted to remove that complexity with direct one-click publishing.",
+ "primary": "publishing",
+ "problem": "Publishing Obsidian content normally requires Git, GitHub, static site generators, deployment workflows and theme configuration.",
+ "readmeHash": "46d75de246745762c3fc6d5c1e06f90166e2c384",
+ "relations": [
+  {
+   "evidence": "uploads your built site to Cloudflare R2 using short-lived, per-release credentials",
+   "plugin": "Cloudflare",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "MDFriday account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "MDFriday Personal plan",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "One-click publisher that turns Obsidian notes or folders into hosted websites via a guest session on Cloudflare, without Git or an account.",
+ "tags": [
+  "cloudflare",
+  "static-site",
+  "digital-garden",
+  "wiki"
+ ]
+}

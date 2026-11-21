@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Reveal files that Obsidian forcefully hides, including dotfiles",
+  "Toggle visibility of hidden files on and off",
+  "Exclude specific files or folders such as .git and .venv in settings",
+  "Interact with unhidden files like normal vault files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns of serious risks: enabling the plugin with large dot-folders can freeze Obsidian, and in vaults using Obsidian Sync it can permanently delete hidden files on all synced devices; the author states 'Do not use this plugin if your data is very important.' It also requires enabling Files & links > Detect all file extensions and warns other plugins may misinterpret exposed hidden files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian forcibly hides files like dotfiles, so vault content in dot-directories (e.g. attachment folders) is invisible and uneditable.",
+ "readmeHash": "28ba98dca3751e6ddd27e1d0e8204851fa802e53",
+ "relations": [
+  {
+   "evidence": "When the vault base is synced with Nextcloud, this lets embedded images display in both Obsidian and Nextcloud Notes.",
+   "plugin": "Nextcloud Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Using this plugin in a vault with Obsidian Sync can permanently delete hidden files on all your synced devices.",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Nextcloud",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File-visibility plugin that reveals hidden files, such as dotfiles and dot-folders, in the vault and lets you interact with them like normal files.",
+ "tags": [
+  "dotfiles",
+  "hidden-files",
+  "file-visibility",
+  "nextcloud"
+ ]
+}

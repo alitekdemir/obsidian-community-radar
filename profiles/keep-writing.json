@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Draw a daily question into your daily note from three choices or your own prompt",
+  "Generate follow-up questions from marked answers with an AI model",
+  "Turn any highlighted paragraph in your vault into a new question",
+  "Install and edit Markdown question banks with over 3,000 questions",
+  "Graduate a question thread from the daily note into a standalone piece"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a text generator; it never writes your prose, only adds questions, frontmatter, and block ids.",
+ "extras": "AI features need an OpenAI-compatible server, but bank-only mode works with no network call; the README states nothing written leaves the computer unless the endpoint is pointed elsewhere. Some topics (bank creation, model jobs) are covered in an external guide rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "A blank page stops you; a question doesn't.",
+ "primary": "writing",
+ "problem": "A blank daily note gives you nothing to react to, so journaling stalls; this adds a question to answer instead.",
+ "readmeHash": "a2b3eb346124eb0cccaafa9215c3726e0a72dc66",
+ "relations": [
+  {
+   "evidence": "The default expects one already running on your device. For Ollama:",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "finds Ollama or LM Studio on this device.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible server (e.g. Ollama or LM Studio)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key, only if your server needs one",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Journaling prompt plugin that writes a question into your daily note and builds follow-up questions from the writing already in your vault.",
+ "tags": [
+  "journaling",
+  "writing-prompts",
+  "question-banks",
+  "daily-journal",
+  "ollama",
+  "lm-studio",
+  "openai-compatible"
+ ]
+}

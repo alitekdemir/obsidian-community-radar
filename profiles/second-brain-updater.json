@@ -1,0 +1,63 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search and read notes in approved folders for ChatGPT",
+  "Preview and stage proposed note updates before applying them",
+  "Back up existing files and block overwrites with source hashes",
+  "Pair ChatGPT to the vault with a pairing code",
+  "Enforce folder-scoped access and scheduled automation policies"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a tool for a specific 'second brain' vault method; it works on any user-approved folders.",
+ "extras": "Manifest warns the plugin has not been manually reviewed by Obsidian staff. Desktop-only (loopback local bridge); Obsidian must be running and connected when ChatGPT accesses the vault. Public relay mode uses outbound encrypted connections hosted by Cloudflare. No OpenAI API key, ads, telemetry, or payment flow; deletion is intentionally unsupported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "ChatGPT has no safe way to search, read, or edit notes in a local Obsidian vault without unrestricted file access or risk of overwriting newer edits.",
+ "readmeHash": "ae90b66f5460d90a15e24a76a1c79ea6dbf2808c",
+ "relations": [
+  {
+   "evidence": "Second Brain Updater connects the @Obsidian ChatGPT plugin to user-approved folders",
+   "plugin": "@Obsidian (ChatGPT plugin)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ChatGPT with the @Obsidian plugin installed",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "MyPlusApps account connected via Auth0",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Bridge that connects the ChatGPT @Obsidian plugin to approved vault folders for scoped reading, previewed updates, backups, and conflict checks.",
+ "tags": [
+  "chatgpt",
+  "auth0",
+  "local-bridge",
+  "pairing-code",
+  "conflict-detection"
+ ]
+}

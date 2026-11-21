@@ -1,0 +1,69 @@
+{
+ "also": [
+  "languages",
+  "annotation"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up selected words and sentences in enabled dictionaries while reading a note",
+  "Capture vocabulary with surrounding sentence context into flashcards stored in Markdown",
+  "Review cards with a built-in FSRS engine, including audio, daily limits, undo, and pause/resume",
+  "Translate captured context automatically via Youdao or enter translations manually",
+  "Import legacy SR cards through a migration preview that creates backups"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires desktop Obsidian 1.14.4 or later. Privacy note: enabled dictionaries receive the selected word or sentence, and optional context translation sends captured paragraphs to Youdao; notes and review data stay in the vault with no remote sync. Review state is stored as append-only events under LinguaLeafData/review/ and users must synchronize the whole data folder and resolve sync conflicts before continuing review. Existing data from the old Language Learner plugin is not automatically migrated.",
+ "intent": "alternative",
+ "intentEvidence": "This project is derived from Language Learner by the_tree, retains dictionary and Vue panel code",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in dictionary lookup or spaced-repetition review for vocabulary captured in place while reading notes.",
+ "readmeHash": "4d1f986c23a335bf942a3e34d9ca6b509b1a9109",
+ "relations": [
+  {
+   "evidence": "This project is derived from Language Learner by the_tree, retains dictionary and Vue panel code",
+   "plugin": "Language Learner",
+   "type": "fork"
+  },
+  {
+   "evidence": "The built-in review engine uses ts-fsrs 5.4.1, licensed under MIT",
+   "plugin": "ts-fsrs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional context translation sends captured original paragraphs, including expanded neighboring context, to Youdao",
+   "plugin": "Youdao",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Youdao",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Vocabulary learning tool that looks up selected words and sentences while reading Markdown and saves them as FSRS-reviewed flashcards.",
+ "tags": [
+  "vocabulary",
+  "fsrs",
+  "youdao",
+  "dictionaries",
+  "text-to-speech",
+  "sm-2"
+ ]
+}

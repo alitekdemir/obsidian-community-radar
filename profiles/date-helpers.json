@@ -1,0 +1,65 @@
+{
+ "also": [
+  "autocomplete",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "parse natural-language date expressions typed after a trigger and replace them with the date",
+  "insert dates in built-in or user-defined format presets",
+  "turn a text selection into an aliased daily note wikilink",
+  "pick a date in a calendar picker and insert it as text, a link, or by opening the daily note",
+  "parse date expressions in six languages including relative phrases and times"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a calendar or journaling plugin; it only inserts dates and daily note links at the cursor.",
+ "extras": "Requires Obsidian 1.13.0 or later. States no network connections or telemetry; parsing and formatting run locally via chrono-node and Luxon. Four settings require a plugin reload to take effect. BRAT and manual installation, the full user guide, and troubleshooting are documented outside the README. Some languages have known parsing gaps (Portuguese, Japanese, Dutch).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "Writing a date mid-sentence means counting on your fingers, consulting a calendar, or hand-typing wikilink syntax with the pipe and alias.",
+ "readmeHash": "a1f49ff1e0fce14f83b6cd9f341e6198926ae94f",
+ "relations": [
+  {
+   "evidence": "Prior art — what the @ trigger owes to Natural Language Dates by Argenos",
+   "plugin": "Natural Language Dates by Argenos",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the core Daily Notes plugin, which Date Helpers relies on for the path and format of every daily note link",
+   "plugin": "Daily Notes (core plugin)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily Notes (Obsidian core)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Keyboard-first date insertion plugin that parses natural-language expressions like @next monday inline and inserts them as text or daily note links.",
+ "tags": [
+  "chrono-node",
+  "luxon",
+  "natural-language",
+  "date-parsing",
+  "iso-8601",
+  "daily-notes",
+  "keyboard-first"
+ ]
+}

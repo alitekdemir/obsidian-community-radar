@@ -1,0 +1,65 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize vault flashcards to Anki in one direction",
+  "Define flashcards with standard Markdown including images, audio, LaTeX, and tables",
+  "Preserve existing Anki learning progress across syncs",
+  "Set deck names vault-wide or per file and tags per card or per file",
+  "Quickly link from an Anki card back to the source Obsidian note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "One-way sync only: it pushes flashcards from notes to Anki and never imports Anki content back into the vault.",
+ "extras": "Setup requires editing the AnkiConnect add-on config in Anki and restarting Anki; Anki must be running whenever the vault is scanned.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn notes into Anki flashcards or keep them synchronized with an Anki collection.",
+ "readmeHash": "982909a469721e91af81a1ec808f8b141d0c1d21",
+ "relations": [
+  {
+   "evidence": "Ensure that you've installed AnkiConnect.",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Plugin to sync flashcards in your Obsidian notes to Anki.",
+   "plugin": "Anki",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AnkiConnect",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Anki sync plugin that sends flashcards written in standard Markdown from your Obsidian notes to Anki, one direction only.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "spaced-repetition",
+  "one-way-sync",
+  "hash-based-diff"
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Full-text search Claude Code and Codex session transcripts with filters by agent, project, topic and date",
+  "Monitor running agent sessions as live cards and answer prompts, plans and questions from Obsidian",
+  "Track tokens, cost, active time and cache hit rate per agent, model, session and tool",
+  "Run Claude Code and Codex in terminal tabs that resume their session after an Obsidian restart",
+  "Resume a session in the other agent by copying the conversation into a new session file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It indexes AI coding agent session transcripts stored outside the vault, not the notes of your vault.",
+ "extras": "macOS-only (12+), needs Obsidian desktop 1.8.7+ and python3 3.8+ with SQLite FTS5 trigram tokenizer; runs a local Python server on 127.0.0.1:8787. Optional AI features send session text through your own claude or codex CLI and are on by default; the README has extensive disclosures on network, clipboard, and file access outside the vault, plus a troubleshooting table.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian gives no way to search, monitor, resume or measure the AI coding agent sessions a developer runs throughout the day, since those transcripts live outside the vault.",
+ "readmeHash": "1a7e8b36325e56147729b32d2c8b00f2dc37026d",
+ "relations": [
+  {
+   "evidence": "It indexes the session transcripts of both agents (~/.claude/projects and Codex's ~/.codex/sessions) into one searchable catalog",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Search, Active, Statistics, terminal tabs, Copy session and deletion work for Codex sessions too.",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic or OpenAI login (via the agent CLIs) for AI features and usage limits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Indexes Claude Code and Codex session transcripts into a searchable catalog with live session cards, usage statistics, and resumable agent terminal tabs.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "terminal",
+  "token-costs",
+  "session-transcripts",
+  "local-server"
+ ]
+}

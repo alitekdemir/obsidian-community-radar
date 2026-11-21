@@ -1,0 +1,68 @@
+{
+ "also": [
+  "syncing",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push notes and their linked attachments from chosen vault folders to a trip2g server",
+  "Pull server-side edits back into the vault with optional two-way sync and live pull",
+  "Resolve sync conflicts by keeping the local version, the server version or both",
+  "Filter pushed notes by a frontmatter field such as publish: true",
+  "Open or copy a note's published URL from the status bar, note menu or command palette"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the name, it is not a general vault-sync tool; syncing is the means to publish notes on a trip2g server.",
+ "extras": "The README warns to back up the vault before enabling two-way sync, notes the API key is stored in plain text in data.json, and says to install only one of the two plugin copies (ttgsync or trip2g) in a vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish selected vault notes to a self-hosted website with private subscribers, version history and editing from the server side.",
+ "readmeHash": "bd7dfe34f0d36c1e0227e1e33ece74068b500878",
+ "relations": [
+  {
+   "evidence": "This plugin syncs a folder of your Obsidian vault with your own trip2g server, which publishes the notes as a website.",
+   "plugin": "trip2g",
+   "type": "integrates"
+  },
+  {
+   "evidence": "So the Obsidian Git plugin can do part of this plugin's job.",
+   "plugin": "Obsidian Git",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "trip2g server (self-hosted or free sandbox)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key from the server's admin panel",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs vault folders with a self-hosted trip2g server that publishes the notes as a website, with two-way sync, conflict resolution and live pull.",
+ "tags": [
+  "cms",
+  "self-hosted",
+  "graphql",
+  "two-way-sync",
+  "website"
+ ]
+}

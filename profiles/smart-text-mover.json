@@ -1,0 +1,55 @@
+{
+ "also": [
+  "outlining"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move selected text or links to a chosen heading in the file",
+  "Rank target headings by proximity using a Naive Bayes classifier",
+  "Classify target headings with LLMs such as gpt3.5",
+  "List target sections by their position when no classification is used"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Naive Bayes mode is recommended by the author and improves with use; roadmap lists a bulk classifier as not yet done.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian offers no help deciding which existing section of a file a selected text or link belongs under, so organizing long files means scanning headings manually.",
+ "readmeHash": "ca1f52ca0a55ca474dc50227207f3c7606061ead",
+ "relations": [
+  {
+   "evidence": "Performs best when used with url-namer",
+   "plugin": "url-namer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM API (e.g. gpt3.5)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Text mover that suggests headings to move selected text or links under, ranked by Naive Bayes classification or LLM prediction.",
+ "tags": [
+  "naive-bayes",
+  "llm",
+  "classification",
+  "text-movement",
+  "headings",
+  "bookmarks-sorting"
+ ]
+}

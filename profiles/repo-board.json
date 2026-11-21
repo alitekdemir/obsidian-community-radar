@@ -1,0 +1,74 @@
+{
+ "also": [
+  "developers",
+  "tasks"
+ ],
+ "audience": [
+  "obsidian-plugin-and-theme-publishers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Show each GitHub repo as a card with open issues that can be closed and reopened",
+  "Check whether the latest release meets Obsidian community directory requirements",
+  "Create new issues on a repo with labels",
+  "Display a year of commits per repo as a grid with streaks and weekly bars",
+  "Filter repos and tasks by label, release status and done state"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Without a token the board is read-only and refreshes are limited to GitHub's 60 requests per hour. The token and cached repo data (including private repo names and issue titles if enabled) are stored in the plugin's data.json inside the vault, so the README warns not to use it in a shared or published vault. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian plugin and theme publishers must leave the app and check GitHub manually to track issues and verify their releases meet community directory requirements.",
+ "readmeHash": "05b64d3d37025ef83825489af1bf875f2c294244",
+ "relations": [
+  {
+   "evidence": "Repo Board talks only to api.github.com, and only to read your repos, issues, releases, commit counts",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Made for the Static Aurora theme. The board shows the theme's drifting aurora glows",
+   "plugin": "Static Aurora",
+   "type": "integrates"
+  },
+  {
+   "evidence": "When Static FM, Aurora MP3 or Hi-Fi Tuner recolour the theme, the board changes with it",
+   "plugin": "Static FM, Aurora MP3, Hi-Fi Tuner",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub user or organisation name",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "GitHub repository board in an Obsidian tab: open issues as tickable tasks and release readiness checks for the Obsidian community directory.",
+ "tags": [
+  "github",
+  "issues",
+  "releases",
+  "commit-activity",
+  "community-directory",
+  "personal-access-token"
+ ]
+}

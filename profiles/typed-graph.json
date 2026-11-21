@@ -1,0 +1,79 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Write typed, signed edges with properties between notes",
+  "Define node types and schemas via frontmatter and schema notes",
+  "Run read-only openCypher queries that render as graphs or tables",
+  "Explore a full-pane graph view that follows the active note",
+  "Serve a read-only sidecar with MCP tools, vector search and GraphRAG"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not graph-view styling; it stores typed, signed edges with properties and answers openCypher queries over them.",
+ "extras": "Directory page notes it has not been manually reviewed by Obsidian staff; full guide lives at typedgraph.org, and a demo vault zip is offered. Queries are read-only and the plugin states it never modifies notes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian links only say that two notes are related, not how; edges cannot carry types, signs or properties, and links cannot be queried.",
+ "readmeHash": "771b0e30f632848f13e474f54c81539e418b01d3",
+ "relations": [
+  {
+   "evidence": "type:: [[Target]] {props} works like Graph Link Types, so your existing lines keep working",
+   "plugin": "Graph Link Types",
+   "type": "extends"
+  },
+  {
+   "evidence": "a drop-in replacement for lat.md that also links code into the typed graph",
+   "plugin": "lat.md",
+   "type": "replaces"
+  },
+  {
+   "evidence": "local vector search (Ollama), GraphRAG with citations, and an MCP server for agents",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A LadybugDB mirror for full Cypher, local vector search",
+   "plugin": "LadybugDB",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Docker",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Typed property graph over notes: typed, signed edges with properties, openCypher queries, schema notes and a separate graph view.",
+ "tags": [
+  "opencypher",
+  "property-graph",
+  "graph-rag",
+  "mcp",
+  "vector-search",
+  "asciidoc",
+  "ladybugdb"
+ ]
+}

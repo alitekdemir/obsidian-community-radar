@@ -1,0 +1,54 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Merge note blocks quoting the same highlight, using the quoted text as identity",
+  "Preserve comments written under quotes, keeping both when copies differ",
+  "Fold appended highlight sections back into the main highlights section",
+  "Back up notes to a backups/ folder before rewriting, pruned to the most recent 30",
+  "Run automatically after a clip, sweep all clippings on startup, or on a manual command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community catalog; installed by copying files or via BRAT. Includes a matching Web Clipper create+append template pair with Japanese variants, and Japanese settings guidance.",
+ "intent": "improve",
+ "intentEvidence": "merges duplicate highlights appended by the official Obsidian Web Clipper",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The clipper intentionally has no knowledge of the vault and cannot append only new highlights (obsidian-clipper#180), so the author built a vault-side merge.",
+ "primary": "files",
+ "problem": "The Web Clipper appends all highlights on a page at every clip, so reading an article in multiple sittings duplicates quotes already saved in the note.",
+ "readmeHash": "833857a8d93f02e2df4fb9185ee567347909b98d",
+ "relations": [
+  {
+   "evidence": "merges duplicate highlights appended by the official Obsidian Web Clipper",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Web Clipper",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Merges duplicate highlights that Obsidian Web Clipper appends when re-clipping a page, while preserving comments written under each quote.",
+ "tags": [
+  "web-clipper",
+  "highlights",
+  "deduplication",
+  "web-clipping"
+ ]
+}

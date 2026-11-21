@@ -1,0 +1,70 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan skill folders (SKILL.md format) and subagent definition folders into a catalog",
+  "Serve an ARD registry over localhost HTTP with bearer-token endpoints",
+  "Rank skills by natural-language search and facet exploration",
+  "Expose an MCP endpoint with sandboxed JavaScript execution against the catalog",
+  "Serve skill and subagent file bodies directly to requesting agents"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It doesn't run agents or chat with your notes; it only publishes and serves a searchable catalog of skill files that other agents fetch.",
+ "extras": "Not yet in the community plugin catalog; manual build and install required. Desktop-only (needs Node HTTP server and filesystem access). Detailed user and technical docs live outside the README. The default BM25 search needs no model or network and works offline.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for people who have accumulated dozens or hundreds of AI Skills and don't want to register everything everywhere — publish them to a local catalog and let agents search it.",
+ "primary": "ai",
+ "problem": "Agents that use many AI skills and MCP servers must load them all into context; there is no local registry they can search to fetch only the skill they need.",
+ "readmeHash": "2a77d54f06413541b092d11e0394fccf0e75f1c1",
+ "relations": [
+  {
+   "evidence": "the Claude Code .claude/agents/ shape — becomes an entry of type application/ai-agent+md",
+   "plugin": "Claude Code",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Optionally, point it at a local embedding server you already run (Ollama, LM Studio, …)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "point it at a local embedding server you already run (Ollama, LM Studio, …)",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local embedding server (e.g. Ollama or LM Studio)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Local HTTP and MCP server that indexes AI skill and subagent files from your machine and serves them as a searchable catalog for AI agents.",
+ "tags": [
+  "mcp",
+  "ard",
+  "agent-skills",
+  "bm25",
+  "embeddings",
+  "ollama",
+  "lm-studio",
+  "bearer-token"
+ ]
+}

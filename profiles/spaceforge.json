@@ -1,0 +1,74 @@
+{
+ "also": [
+  "flashcards",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "schedule notes and Anki-style decks for review using FSRS or SM-2",
+  "generate multiple-choice questions from notes via AI providers",
+  "tutor a single note adaptively through explain-recall-apply sessions",
+  "track review statistics with heatmaps, retention and due forecasts",
+  "run a Pomodoro timer and manage calendar events"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README states there is no telemetry, ads or crash reporting, and everything except AI features works offline; review data is stored centrally rather than in note frontmatter, and the update notes warn users to preserve data.json and describe automatic migration from legacy storage paths.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in spaced repetition or review scheduling, so retaining note content over time requires external tools like Anki or manual tracking.",
+ "readmeHash": "e8319a4da83c4cd782c2db7f183b0ef5d2361ecf",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "turn on Sync with Anki in the background, which needs the AnkiConnect add-on",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the way Anki and SuperMemo present cards",
+   "plugin": "SuperMemo",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (OpenAI, Gemini, Claude, OpenRouter, Ollama, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Anki with the AnkiConnect add-on for background deck sync, or a local agent CLI provider",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Spaced repetition for notes and Anki-style decks with FSRS or SM-2, plus AI-generated MCQs, an adaptive tutor, a Pomodoro timer and a calendar.",
+ "tags": [
+  "fsrs",
+  "sm-2",
+  "anki",
+  "apkg",
+  "ankiconnect",
+  "mcq",
+  "pomodoro",
+  "active-recall"
+ ]
+}

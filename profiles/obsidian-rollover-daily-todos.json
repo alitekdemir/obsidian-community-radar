@@ -1,0 +1,69 @@
+{
+ "also": [
+  "calendar",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rollover unchecked todos from the previous daily note into today's note",
+  "Trigger rollover automatically when a new daily note is created",
+  "Run manual rollover and undo commands from the command palette",
+  "Optionally delete rolled-over todos from the previous note and skip empty ones",
+  "Customize which checkbox markers count as done, including Unicode and emoji markers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that automatic rollover can conflict with Templater and recommends manual triggering in that case; commands are destructive with only a single 2-minute undo, and regex-based matching has known inconsistencies with spaces and rapid triggers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian daily notes leave unfinished tasks stranded in old notes, so incomplete todos are easy to lose track of day to day.",
+ "readmeHash": "a23cd92f9c9b698c51eb1dedb95d38ec49d51403",
+ "relations": [
+  {
+   "evidence": "triggered automatically when a new daily note is created via the internal Daily notes plugin",
+   "plugin": "Daily notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or the Periodic Notes plugin",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "useful for users of custom status markers like the Obsidian Tasks plugin",
+   "plugin": "Obsidian Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily notes or Periodic Notes (with Daily Notes setting on)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Task rollover plugin that copies unchecked checkbox items from the previous daily note into today's note, automatically or via command.",
+ "tags": [
+  "checkboxes",
+  "periodic-notes",
+  "templater",
+  "custom-status-markers",
+  "undo"
+ ]
+}

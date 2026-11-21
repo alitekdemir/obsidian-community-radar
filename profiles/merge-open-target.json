@@ -1,0 +1,65 @@
+{
+ "also": [
+  "editing",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Merge the whole note or the current selection into a chosen target note",
+  "Open and focus the target note with the cursor at the merged content",
+  "Strip source frontmatter and optionally trash the source file after a whole-note merge",
+  "Redirect wikilinks and embeds pointing to the source note to the target",
+  "Rank target candidates by name match, similarity, recency, aliases, and optional AI suggestion"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Note Composer",
+   "Backlinks"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README is mostly Chinese with an English brief section; the optional AI recommendation is off by default, 100% offline otherwise, and when enabled sends the note title, a 600-character body summary, and up to 30 BM25-screened candidate titles to the TypeSafe API. Installable via BRAT or manual download.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian 自带的 Note Composer（笔记合并器）功能很实用",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to fix the workflow breaks in Obsidian's merge flow: losing focus, whole-note-only granularity, frontmatter pollution, and hard-to-find targets in large vaults.",
+ "primary": "files",
+ "problem": "Obsidian's built-in Note Composer leaves you on the source note after a merge, requires moving whole files, pastes in source frontmatter, and forces manual searching for the target note.",
+ "readmeHash": "58f9583a547efc667531134b321e6684b7a7747c",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Note Composer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "内置新一代 TypeSafe AI 的 Jev (System One) 快速直觉模型",
+   "plugin": "TypeSafe AI (Jev)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TypeSafe API Key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Merges the current note or selected text into another note and immediately opens the target, placing the cursor at the merged content.",
+ "tags": [
+  "backlinks",
+  "aliases",
+  "bm25",
+  "trash",
+  "typesafe-ai",
+  "selection-merge"
+ ]
+}

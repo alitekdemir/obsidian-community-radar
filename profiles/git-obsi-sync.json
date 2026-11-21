@@ -1,0 +1,63 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault across devices through a private GitHub repo",
+  "Connect a GitHub account using OAuth device flow",
+  "Resolve conflicting edits with a side-by-side Keep Mine / Keep Theirs modal",
+  "Show sync state in the status bar and trigger manual syncs",
+  "Exclude files and folders from syncing with wildcard patterns"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a general Git version-control plugin for making manual commits; it uses Git only as the engine to sync the vault across devices.",
+ "extras": "Most of the README covers building from source (Node.js, npm, registering a GitHub OAuth App); end users can install via BRAT. Uses isomorphic-git so no native binary is needed on mobile, and stores the GitHub token only in local plugin data. Repo soft limit of 1 GB noted.",
+ "intent": "alternative",
+ "intentEvidence": "It's designed to replace, not complement, Obsidian Sync. Using both at once is not recommended",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices normally requires a paid service or self-managed servers; this gives free cross-device sync using only the user's own GitHub account.",
+ "readmeHash": "ce9def234ec3e4596b550da309789b67a635c6ed",
+ "relations": [
+  {
+   "evidence": "It's designed to replace, not complement, Obsidian Sync.",
+   "plugin": "Obsidian Sync",
+   "type": "replaces"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault sync service that automatically commits and pushes changes to your own private GitHub repo and pulls them on every desktop and mobile device.",
+ "tags": [
+  "github",
+  "isomorphic-git",
+  "oauth-device-flow",
+  "private-repo",
+  "conflict-resolution",
+  "version-control"
+ ]
+}

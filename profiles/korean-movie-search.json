@@ -1,0 +1,63 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search KOBIS for a movie by the note filename",
+  "Fetch TMDB poster images and ratings",
+  "Fill frontmatter with movie metadata",
+  "Toggle optional metadata fields and add custom fields",
+  "Rename the file to a safe title"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a movie search browser; it fills frontmatter for a note whose filename is a Korean movie title.",
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": "Inspired by: korean-book-search by lazerfit",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up movie data from Korean and international film databases, so users must enter movie metadata by hand.",
+ "readmeHash": "1571fd528b0399c6d7897838a76a27615d6d0c5c",
+ "relations": [
+  {
+   "evidence": "Inspired by: korean-book-search by lazerfit",
+   "plugin": "Korean Book Search",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "KOBIS API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "TMDB API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Fetches Korean movie metadata from KOBIS and TMDB APIs using the note filename and auto-fills the frontmatter.",
+ "tags": [
+  "kobis",
+  "tmdb",
+  "movies",
+  "korean",
+  "posters",
+  "api-key"
+ ]
+}

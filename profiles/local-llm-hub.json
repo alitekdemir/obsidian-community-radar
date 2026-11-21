@@ -1,0 +1,85 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with local LLM servers (Ollama, LM Studio, vLLM, AnythingLLM) with @note mentions, voice input and read-aloud",
+  "Create and modify workflows and agent skills with AI, run them in a visual node editor with event triggers and hotkeys",
+  "Index the vault with local embeddings for RAG search, including hybrid BM25 + vector retrieval and PDF extraction",
+  "Extend the model with vault function-calling tools and local stdio MCP servers with per-call approval",
+  "Encrypt notes with passwords and track AI-made changes with diff view and restore"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slash commands"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a chat client; it also bundles AI-generated workflow automation, RAG indexing, file encryption and AI edit history.",
+ "extras": "Recommended installation is via BRAT as a beta plugin. Cloud LLMs (OpenAI, Gemini) work through the OpenAI-compatible framework, but cloud models need a local Ollama endpoint for RAG embeddings. Agent Plugin packages are pinned to a reviewed commit and validated before use; MCP tool calls require approval by default.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is the local-only sibling of obsidian-gemini-helper.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for environments where cloud APIs are not an option, as a local counterpart for users who use Gemini Helper at home but need something for work.",
+ "primary": "ai",
+ "problem": "Cloud AI services are often blocked by security policies or unacceptable for privacy, so users need AI-powered vault automation that keeps all data on their own machine.",
+ "readmeHash": "5d677a457ee51bf31839843f9b974b5644f718f7",
+ "relations": [
+  {
+   "evidence": "This plugin is the local-only sibling of obsidian-gemini-helper.",
+   "plugin": "obsidian-gemini-helper",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Dashboard functionality is provided by the separate Dashboard Hub plugin.",
+   "plugin": "Dashboard Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Discussion Hub brings multiple AI providers into a shared conversation.",
+   "plugin": "Discussion Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install speech-popup and a microphone button appears above the send button.",
+   "plugin": "speech-popup",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama, LM Studio, vLLM, or AnythingLLM",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "speech-popup (voice conversation), Dashboard Hub, Discussion Hub",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Gemini key for cloud OpenAI-compatible endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Local AI chat client for Ollama, LM Studio, vLLM and AnythingLLM with AI-built workflow automation, local-embedding RAG, MCP tools and agent skills.",
+ "tags": [
+  "ollama",
+  "lm-studio",
+  "vllm",
+  "anythingllm",
+  "mcp",
+  "rag",
+  "embeddings",
+  "function-calling"
+ ]
+}

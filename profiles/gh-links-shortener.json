@@ -1,0 +1,52 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "capture pasted text and detect GitHub URLs",
+  "rewrite link titles to short GitHub ref text",
+  "handle repo, issue, and pull request links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a URL-shortening service; it only rewrites the title of pasted GitHub links, it does not create short URLs.",
+ "extras": "README is minimal: one example and a list of related plugins; the acknowledgements section names no complete plugin name.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Pasting a GitHub URL into a note leaves a long, unreadable URL or generic title instead of a compact reference like owner/repo#1.",
+ "readmeHash": "298d3e423d1ff653190d6255b5e4d42883e42082",
+ "relations": [
+  {
+   "evidence": "GitHub Link offers a different mechanism to enrich GitHub links",
+   "plugin": "GitHub Link",
+   "type": "alternative"
+  },
+  {
+   "evidence": "JIRA links shortener does the same thing but for JIRA issue URLs",
+   "plugin": "JIRA links shortener",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "Paste handler that rewrites pasted GitHub repo, issue, and pull request URLs to use short GitHub ref text as the link title.",
+ "tags": [
+  "github",
+  "paste",
+  "link-titles",
+  "pull-requests",
+  "issues"
+ ]
+}

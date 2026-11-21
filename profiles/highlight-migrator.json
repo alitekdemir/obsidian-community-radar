@@ -1,0 +1,52 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan the vault for legacy <mark> highlights and group them by colour",
+  "Map each colour to a native highlight colour with suggestions and live preview",
+  "Back up affected notes to a timestamped folder before converting",
+  "Revert a migration from its backups",
+  "Write an optional scan report note with a JSON mapping block"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Does not add or style highlights; it only converts existing legacy highlight markup to native syntax.",
+ "extras": "Conversion needs Obsidian 1.7.2 or later; on older builds the emoji marker shows as literal text. The plugin is listed as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formatting",
+ "problem": "Vaults contain old HTML highlight markup from plugins like Highlightr that Obsidian's native coloured highlights don't use, and no built-in way converts it safely.",
+ "readmeHash": "3df4ad2da2d20db81a53c19128b24b1a5e53c0e4",
+ "relations": [
+  {
+   "evidence": "converts legacy <mark> HTML highlights — like those written by the Highlightr plugin",
+   "plugin": "Highlightr",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Add the repository grub-basket/Highlight-Migrator in the BRAT plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Migration tool that converts legacy HTML <mark> highlights into Obsidian's native emoji-marker highlight colours, with backup and revert.",
+ "tags": [
+  "highlightr",
+  "html-mark",
+  "colour-mapping",
+  "revert",
+  "vault-migration"
+ ]
+}

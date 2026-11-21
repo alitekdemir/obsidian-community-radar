@@ -1,0 +1,72 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save LINE text messages as notes automatically or on demand",
+  "Download LINE photos into the vault",
+  "Transcribe LINE voice messages to text via Whisper",
+  "Organize notes with date-based folders and filename templates",
+  "Check plan, quota, and upgrade status through LINE bot commands"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Sync is one-way only: messages flow from LINE to Obsidian, never the reverse.",
+ "extras": "Freemium: Free plan allows 10 images and 10 transcriptions total; Premium is ¥300/month via Stripe. Desktop only (no mobile). Text and images are end-to-end encrypted but voice transcription is not, since audio is processed server-side. Includes a rate-limit mechanism for accounts listed in a Worker secret.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Messages sent in LINE cannot be automatically captured as searchable notes in an Obsidian vault.",
+ "readmeHash": "5b69b4a3ad1ff89e3d24c5ea1e3f422a536daf86",
+ "relations": [
+  {
+   "evidence": "A plugin that connects Obsidian with LINE.",
+   "plugin": "LINE",
+   "type": "integrates"
+  },
+  {
+   "evidence": "voice messages are sent to Cloudflare Workers AI (Whisper) for transcription",
+   "plugin": "Cloudflare Workers AI (Whisper)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LINE Official Account / LINE app",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "LINE User ID registration with the plugin",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Premium plan (¥300/month) for unlimited images and voice transcription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs LINE chat messages into Obsidian notes, with image saving, voice transcription via Cloudflare Workers AI, and folder/naming templates.",
+ "tags": [
+  "line",
+  "line-bot",
+  "whisper",
+  "cloudflare-workers",
+  "e2e-encryption",
+  "voice-transcription",
+  "stripe"
+ ]
+}

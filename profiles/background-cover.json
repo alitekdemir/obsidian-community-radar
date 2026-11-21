@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Set a local image folder (inside or outside the vault) as the workspace background",
+  "Adjust opacity, blur, size mode and blend mode of the background layer",
+  "Rotate images automatically at a fixed interval or switch manually",
+  "Shuffle playback so no image repeats within a round",
+  "Scan image headers to filter the folder by aspect ratio"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (reads images through Node's fs); requires Obsidian 1.13.0 or later. Not yet in the community directory; early access via BRAT. Development was AI-assisted (Doubao, DeepSeek), disclosed in the README. Makes no network requests.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted wallpaper folders of thousands of images (5,000+, tens of GB) to work without a performance cost, so only the image currently on screen is ever read into memory.",
+ "primary": "appearance",
+ "problem": "Obsidian offers no built-in way to use a local image folder as an app background without hand-editing theme CSS, and loading a large wallpaper library would normally cost memory.",
+ "readmeHash": "493f3be8e7197a956de1e36d18ff0cacaef7fcec",
+ "relations": [
+  {
+   "evidence": "follows vscode-background-cover, minus its particle effects, desktop pet and online gallery",
+   "plugin": "vscode-background-cover",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The Obsidian-side layering approach was informed by obsidian-dynamic-theme-background.",
+   "plugin": "obsidian-dynamic-theme-background",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the project scaffold this repository is derived from",
+   "plugin": "obsidian-sample-plugin",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Wallpaper plugin that shows images from a local folder behind the workspace, with opacity, blur, blend modes and shuffled rotation.",
+ "tags": [
+  "wallpaper",
+  "shuffle",
+  "crossfade",
+  "blend-modes",
+  "opacity",
+  "blur"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "utilities",
+  "interface"
+ ],
+ "audience": [
+  "chinese-speakers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "display Chinese aliases and descriptions next to installed plugins",
+  "add custom aliases, notes and groups to plugins",
+  "search and sort installed plugins by Chinese alias",
+  "translate missing plugin names and descriptions via free or AI services",
+  "translate recognized labels on plugin settings pages into Chinese"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not install, update or uninstall plugins; it only annotates and organizes the existing installed-plugin list.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Interface and generated output are Chinese only; desktop only (Obsidian 1.14.5+), mobile unverified. Free translation uses MyMemory with a 4,500-character daily local budget; AI analysis can incur provider costs. Manual installation via GitHub releases is documented if the directory entry is still under review.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian's plugin list shows only original English names and descriptions, which is hard for Chinese-speaking users to browse and understand.",
+ "readmeHash": "b869eee7b14d46aa0d4317a50719ef8799951e2e",
+ "relations": [
+  {
+   "evidence": "The bundled Chinese reference dataset derives from miaoziguan/obsidian-chinese-plugin-market, fixed commit c14006e74c678cf63174ae4de72a2a8e9832e253",
+   "plugin": "miaoziguan/obsidian-chinese-plugin-market",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "AI provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Chinese localization layer for the installed-plugin list that shows Chinese aliases and descriptions, adds custom notes and groups, and translates missing entries.",
+ "tags": [
+  "chinese",
+  "machine-translation",
+  "mymemory",
+  "deepseek",
+  "ollama",
+  "settings-translation",
+  "offline-dataset"
+ ]
+}

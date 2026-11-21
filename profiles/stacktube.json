@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull AI-analyzed YouTube notes from the StackTube API on a schedule or on demand",
+  "Write Markdown notes with YAML frontmatter (video_id, channel, title, video_url, tags)",
+  "Avoid duplicate notes by identifying each video by video_id and resuming after restart",
+  "Capture a video frame at a timestamp and embed it in the note's frame slot",
+  "Show sync status and last-sync time via ribbon icon and status bar"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "All video analysis runs on StackTube's servers; the plugin only fetches and writes files. A 'plan' is shown on connection test, suggesting a freemium service. Setup instructions include one Korean-language label (연결 테스트 / Test connection). Beta install via BRAT is available alongside a pending community-plugins listing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author's stated idea is that 'Videos stream by. Knowledge should stack up.' — turning transient video watching into accumulated, owned notes.",
+ "primary": "integrations",
+ "problem": "Watching YouTube produces knowledge that streams by and is lost; Obsidian has no built-in way to turn monitored channels' videos into structured, searchable notes.",
+ "readmeHash": "f4c9193e3b61039d7aff5028709554bde9185649",
+ "relations": [
+  {
+   "evidence": "This plugin is a thin client: all analysis happens on the StackTube server.",
+   "plugin": "StackTube",
+   "type": "integrates"
+  },
+  {
+   "evidence": "runs each new video through an AI pipeline (Gemini + Claude)",
+   "plugin": "Gemini + Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "StackTube account with monitored channels",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "StackTube API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sync client that pulls AI-structured YouTube video notes from the StackTube service into the vault as Markdown files.",
+ "tags": [
+  "youtube",
+  "gemini",
+  "claude",
+  "video-notes",
+  "frame-capture",
+  "scheduled-sync"
+ ]
+}

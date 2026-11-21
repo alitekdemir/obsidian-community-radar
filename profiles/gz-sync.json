@@ -1,0 +1,73 @@
+{
+ "also": [
+  "export",
+  "publishing"
+ ],
+ "audience": [
+  "wechat-content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Parse Markdown and generate WeChat-compatible inline HTML",
+  "Upload body images and cover images to WeChat",
+  "Create a WeChat Official Account draft",
+  "Import the note into a Feishu cloud document",
+  "Run one-click or one-sided syncs from the Obsidian command palette or the gz CLI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault or device syncing tool; it exports the current note to WeChat drafts and Feishu docs.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README stresses it only creates WeChat drafts and never auto-publishes, and warns against committing AppSecrets or config files to GitHub.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to send notes to WeChat Official Accounts, whose draft API requires inline HTML and uploaded images, or to import them as Feishu cloud documents.",
+ "readmeHash": "5dba48ab1de4954840c0a7180ab47018ea19163b",
+ "relations": [
+  {
+   "evidence": "syncs the current Markdown note to WeChat Official Account drafts and Feishu Docs",
+   "plugin": "WeChat Official Account",
+   "type": "integrates"
+  },
+  {
+   "evidence": "imports the same article into an online Feishu document",
+   "plugin": "Feishu",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "gz CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "WeChat Official Account AppID / AppSecret",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Feishu self-built app App ID / App Secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs the current Markdown note to a WeChat Official Account draft and a Feishu doc, converting Markdown to WeChat-compatible HTML via a local CLI.",
+ "tags": [
+  "wechat",
+  "feishu",
+  "cli",
+  "inline-html",
+  "drafts"
+ ]
+}

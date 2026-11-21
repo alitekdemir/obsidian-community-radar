@@ -1,0 +1,69 @@
+{
+ "also": [
+  "calendar",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create, update, read and delete events on a CalDAV calendar collection",
+  "expose an API that QuickAdd or Templater scripts call to manage events",
+  "collect event data with reusable task and form-builder dialogs",
+  "set relative or absolute reminders and SEQUENCE-based updates",
+  "test the server connection and credentials from settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It has no calendar view of its own; events are created and managed through script API calls and dialogs, not a visual calendar or two-way sync.",
+ "extras": "The README warns that the password is stored as plain text in data.json inside the vault and travels with the vault when synced; it recommends provider-issued application passwords. Releases include a build attestation for verification. Works on desktop and mobile via Obsidian's requestUrl.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says the dialogs' option names were kept in Spanish 'for backwards compatibility with the scripts this plugin was written for', indicating it was built around the author's own QuickAdd/Templater workflows.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push events to CalDAV calendar servers (Nextcloud, iCloud, Fastmail and others) from notes or scripts.",
+ "readmeHash": "c3eb24d70bf380e9a1a2bd5b0458b0e8cfc61a14",
+ "relations": [
+  {
+   "evidence": "exposes a small API that your QuickAdd or Templater scripts can call",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "exposes a small API that your QuickAdd or Templater scripts can call",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CalDAV server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "username and application password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bridge that creates, updates, reads and deletes events on any CalDAV calendar server from notes, via a script API and dialogs.",
+ "tags": [
+  "caldav",
+  "nextcloud",
+  "icloud",
+  "fastmail",
+  "radicale",
+  "quickadd",
+  "templater",
+  "reminders"
+ ]
+}

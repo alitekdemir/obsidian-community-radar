@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "hexo-bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview and publish single or batch articles and images to a Hexo repository via the GitHub Git Data API",
+  "Select Fluid theme cover and banner images from local thumbnails",
+  "Set web categories and target directories from a read-only scan of the Hexo repo",
+  "Track local publishing status and GitHub Actions deployment workflows",
+  "Withdraw published posts and compare, merge, and recover publishing conflicts across devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation only (manifest.json, main.js, styles.css from releases); bilingual English/Chinese documentation; carries the notice 'This plugin has not been manually reviewed by Obsidian staff'; warns users to back up notes and publishing records before important operations; states it collects no telemetry and stores the GitHub token in Obsidian SecretStorage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to centralize article conversion, image upload, cover setting, category selection, status checks, withdrawal, and conflict recovery into one control center, so publishing can be completed without leaving the vault.",
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to a self-hosted Hexo blog, so users must manually convert articles, upload images, and commit files to GitHub.",
+ "readmeHash": "d1728ef48c6fe8b73401bc84708070b9e265f50a",
+ "relations": [
+  {
+   "evidence": "publishes Markdown notes and referenced images to a Hexo source repository through GitHub",
+   "plugin": "Hexo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses api.github.com to read the configured repository, branch, and Actions status",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "实际显示效果取决于 Fluid 主题配置",
+   "plugin": "Fluid",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub repository containing Hexo source files",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Hexo blog",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishing plugin that sends selected Markdown notes and referenced images from Obsidian to a Hexo blog repository through the GitHub API.",
+ "tags": [
+  "hexo",
+  "github",
+  "github-actions",
+  "fluid-theme",
+  "static-site",
+  "git-data-api"
+ ]
+}

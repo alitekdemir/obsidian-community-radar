@@ -1,0 +1,67 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "connect to OpenAI-compatible LLM providers (OpenAI, Anthropic via proxy, Ollama, LM Studio)",
+  "read, write, edit, append, and search notes through agent tools",
+  "list notes and manage frontmatter and links",
+  "confirm destructive writes with per-action dialogs and diff previews",
+  "run on desktop and mobile with a user-supplied API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Self-described as a hackathon build (Gemma 4) with a separate hackathon/README covering setup, eval results, and demo assets. Roadmap items (MCP support, Anthropic native, audit log) are not yet implemented. Privacy section warns that note contents are sent to the configured endpoint and that the API key is stored in data.json and travels with synced .obsidian folders.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent that can act on the vault (read, edit, search notes) while letting users choose their own provider and API key.",
+ "readmeHash": "403bf525ee6fa2efae913097990f89c60377e28b",
+ "relations": [
+  {
+   "evidence": "OpenAI-compatible provider — works with OpenAI, Anthropic (via proxy), Ollama, LM Studio, or any OpenAI-compatible endpoint",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "works with OpenAI, Anthropic (via proxy), Ollama, LM Studio, or any OpenAI-compatible endpoint",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Vault-aware AI agent that reads, writes, and searches notes via vault tools, using any OpenAI-compatible LLM endpoint the user configures.",
+ "tags": [
+  "byok",
+  "openai-compatible",
+  "ollama",
+  "lm-studio",
+  "llm",
+  "tool-calling",
+  "agent"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "validate frontmatter against Astro collection schemas",
+  "browse and filter posts in a dashboard with stats",
+  "pre-flight drafts for deployment by editing frontmatter",
+  "create new posts from configurable track templates",
+  "configure tracks, statuses, and validation rules"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general-purpose CMS; it only manages Astro content collections and does not deploy by itself.",
+ "extras": "Pre-flight only changes frontmatter; deploying requires a separate Git sync tool such as Obsidian Git. Release assets include artifact attestations for provenance; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for their own isHistory Astro project on the history of artificial intelligence, and notes it works with any Astro project using content collections.",
+ "primary": "publishing",
+ "problem": "Astro content collections require strict, schema-compliant frontmatter that Obsidian does not validate, and the publish workflow lives outside the editor.",
+ "readmeHash": "de056e5d4ab0762ff1a7bfbb4a7209b7306e7bb8",
+ "relations": [
+  {
+   "evidence": "This plugin is designed for the isHistory Astro project — a deep-dive into the history of Artificial Intelligence.",
+   "plugin": "Astro",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Obsidian Git",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Astro project with Content Collections",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian Git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Content dashboard for Astro sites that validates collection frontmatter and pre-flights drafts for Git-based publishing workflows.",
+ "tags": [
+  "astro",
+  "content-collections",
+  "static-site",
+  "validation",
+  "dashboard",
+  "pre-flight"
+ ]
+}

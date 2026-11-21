@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload local attachments from the current note to public or private S3 buckets",
+  "Replace local links with public HTTPS/CDN links or private s3-bridge:// references",
+  "Preview private S3 files inside Obsidian after SSO authentication",
+  "Authenticate with IAM Identity Center (SSO) temporary credentials",
+  "Archive uploaded originals to _s3-archive and restore them later"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not sync the vault to S3; it only uploads note attachments and stores references, leaving notes themselves local.",
+ "extras": "Preview release 0.1.3; not manually reviewed by Obsidian staff. Detailed specifications live in docs/ rather than the README. Desktop only (tested on macOS, Obsidian 1.14.5); S3-compatible storage and static credentials are unsupported in this preview.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps attachments as local vault files and has no built-in way to offload them to cloud storage or preview private cloud-hosted files inside notes.",
+ "readmeHash": "27432b284d6d83f125700ab4acc03dfade667f60",
+ "relations": [
+  {
+   "evidence": "Manage Obsidian attachments on AWS S3.",
+   "plugin": "AWS S3",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "AWS account with IAM Identity Center (SSO) profile and bucket permissions",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "AWS storage, requests, data transfer and delivery charges",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Attachment manager that uploads note attachments to AWS S3, replaces links with public URLs or private s3-bridge references, and previews private files.",
+ "tags": [
+  "aws",
+  "s3",
+  "iam-identity-center",
+  "sso",
+  "cdn",
+  "file-hosting"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Manage tasks on a board grouped by configurable time-sector tags",
+  "Capture and edit tasks with an own editor, quick capture, snooze and undo",
+  "Run guided daily, weekly and monthly reviews with summary notes",
+  "Plan appointments and milestones in a quarterly year plan",
+  "Show iCal calendar events and time blocks alongside today's tasks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README states all code was AI-generated (Claude) with human direction and testing, and advises reviewing the code. It notes a Google Calendar 'secret address' grants read access to anyone holding it and is stored in the vault's data.json. Detailed setup lives in INSTALL.md, not the README. The manifest still says it requires the Task plugin, which the README contradicts as of 1.5.0.",
+ "intent": "alternative",
+ "intentEvidence": "The Tasks plugin is no longer needed since 1.5.0 (you can keep it installed; the file format is the same)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a task manager that keeps everything as plain, readable lines in one Markdown file, since many task plugins manage their own data format.",
+ "primary": "tasks",
+ "problem": "Many task plugins store tasks in their own data format; this one keeps tasks as readable Tasks-syntax lines in a single Markdown file so the file stays editable and searchable without the plugin.",
+ "readmeHash": "c0efae9336bea14f0e60b6e352c5510a685fa4a0",
+ "relations": [
+  {
+   "evidence": "The Tasks plugin is no longer needed since 1.5.0 (you can keep it installed; the file format is the same)",
+   "plugin": "Tasks",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Add a calendar's iCal address under Settings → Calendars (for Google Calendar: the calendar's settings → Secret address",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "iCal/Google Calendar feed",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Task board and year planner that manages tasks as plain lines in one Markdown file, grouped by configurable time-sector tags.",
+ "tags": [
+  "carl-pullein",
+  "time-sector-system",
+  "ical",
+  "google-calendar",
+  "time-blocking",
+  "reviews",
+  "year-planner"
+ ]
+}

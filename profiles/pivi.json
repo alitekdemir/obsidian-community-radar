@@ -1,0 +1,82 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault notes in a multi-tab sidebar with file context and slash commands",
+  "Read, edit, create, move, and delete notes through vault-native tools",
+  "Delegate tasks to concurrent subagents with configurable permissions",
+  "Extend the agent with vault-local Agent Skills and remote MCP servers",
+  "Search the web and generate images into notes from chat"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian v1.13.0+); macOS supported, Windows and Linux in preview, mobile unsupported. Pre-release builds install via BRAT. Bash, command execution, external file access, and the Obsidian CLI are off by default with approval gates. Development is funded through Patreon and Afdian.",
+ "intent": "alternative",
+ "intentEvidence": "no desktop app, no terminal, no Claude Code / Codex mode",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a vault-native AI for knowledge work rather than a repurposed coding agent, built for writers who want precise collaboration instead of black-box generation.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent, and coding-oriented agents treat notes as plain file paths instead of understanding wikilinks, frontmatter, and backlinks.",
+ "readmeHash": "f5d9375ef39191a94ff2dd2dd2b4c13ae73e4eee",
+ "relations": [
+  {
+   "evidence": "Pi agent core — The Pi agent runtime that powers Pivi",
+   "plugin": "Pi agent core",
+   "type": "extends"
+  },
+  {
+   "evidence": "Claudian — Code lineage this version is adapted from",
+   "plugin": "Claudian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Install kepano/obsidian-skills or other Agent Skills into .pivi/skills/",
+   "plugin": "kepano/obsidian-skills",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With the Style Settings plugin installed, customize chat typography",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add the current editor selection or a custom Pivi command to an installed Note Toolbar selected-text toolbar",
+   "plugin": "Note Toolbar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Hosted AI provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Official Obsidian CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI agent sidebar that chats with vault notes, edits them with vault-native tools, and extends through skills, MCP servers, and concurrent subagents.",
+ "tags": [
+  "mcp",
+  "subagents",
+  "agent-skills",
+  "ollama",
+  "lm-studio",
+  "web-search",
+  "image-generation"
+ ]
+}

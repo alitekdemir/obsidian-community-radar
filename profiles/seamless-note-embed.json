@@ -1,0 +1,89 @@
+{
+ "also": [
+  "outlining",
+  "css"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Shift embedded note headings to match the parent note's heading hierarchy",
+  "Show embedded headings in the Outline view and the metadata cache",
+  "Navigate from outline entries to the exact rendered heading",
+  "Hide embed line, indentation, filename, scrollbar, and height limit via CSS settings",
+  "Align PDF bookmarks with the shifted outline when exporting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.5.0 or later; Outline support relies on internal Obsidian APIs that may change in future versions. The plugin writes no note files and makes no network requests.",
+ "intent": "improve",
+ "intentEvidence": "Show embedded headings in Obsidian's built-in Outline view, at their shifted levels",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian renders embedded notes with their original heading levels and separate embed styling, so transcluded content breaks the parent note's heading hierarchy and outline.",
+ "readmeHash": "d72080e873661d294e2b51dbcfa90d0e554c30b0",
+ "relations": [
+  {
+   "evidence": "Keep the PDF bookmarks created by Better Export PDF aligned with the Obsidian outline",
+   "plugin": "Better Export PDF",
+   "type": "extends"
+  },
+  {
+   "evidence": "Expose embedded headings to metadata-cache-based outline and search plugins, including Quiet Outline, Subtle TOC",
+   "plugin": "Quiet Outline",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Quiet Outline and Subtle TOC also show the embedded headings",
+   "plugin": "Subtle TOC",
+   "type": "integrates"
+  },
+  {
+   "evidence": "heading search commands such as Another Quick Switcher's Header search in file",
+   "plugin": "Another Quick Switcher",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Better Export PDF",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Quiet Outline",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Subtle TOC",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Another Quick Switcher",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders embedded notes as part of the containing note by shifting their heading levels, adding them to the outline, and hiding embed chrome.",
+ "tags": [
+  "transclusion",
+  "heading-levels",
+  "metadata-cache",
+  "pdf-bookmarks",
+  "table-of-contents"
+ ]
+}

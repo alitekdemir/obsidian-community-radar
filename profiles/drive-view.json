@@ -1,0 +1,58 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mount a Google Drive folder as the vault backend",
+  "Serve vault files from an in-memory and IndexedDB cache",
+  "Upload rapid edits via a single debounced request",
+  "Poll remote Drive changes and reconcile them into the vault and open editors",
+  "Sign in with Google on desktop or via an auth bundle on mobile"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a viewer for Drive files; it replaces the vault's storage adapter so a Google Drive folder acts as the vault itself.",
+ "extras": "Setup involves manually building the plugin and copying main.js and manifest.json into the vault's plugin directory; the manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian vaults are local folders, so using a Google Drive folder as the vault storage with fast access and cross-device sync is not supported natively.",
+ "readmeHash": "07d7c31e0d46d5308781dfebca11e985fe6b3d20",
+ "relations": [
+  {
+   "evidence": "mounts a Google Drive folder as a virtual vault backend",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Mounts a Google Drive folder as the vault backend, serving files through an in-memory and IndexedDB cache on desktop and mobile.",
+ "tags": [
+  "google-drive",
+  "virtual-filesystem",
+  "indexeddb",
+  "cache",
+  "oauth"
+ ]
+}

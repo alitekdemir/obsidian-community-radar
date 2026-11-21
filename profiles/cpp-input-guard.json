@@ -1,0 +1,50 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Escape Markdown trigger characters as you type or paste",
+  "Repair the current note, file, or entire vault with idempotent rules",
+  "Back up notes before repair and restore previous versions",
+  "Suppress Markdown rendering of directives, italics, and == highlights via settings",
+  "Skip fenced code blocks, inline code, and genuine link syntax"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a C++ syntax highlighter or code formatter; it only escapes Markdown trigger characters and repairs the resulting note source.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README is bilingual (English and Chinese) and includes a detailed changelog and a Limitations section covering frontmatter breakage and Live Preview fence-line behavior.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because Markdown's second meaning for C++ characters swallows content into tags, breaks brackets, and turns code notation into emphasis or highlights.",
+ "primary": "editing",
+ "problem": "Markdown assigns syntax meaning to characters C++ uses constantly, so angle brackets become HTML tags, array subscripts become links, and == or * create unwanted highlighting and emphasis.",
+ "readmeHash": "1c56eec5326cb734d67e821b6f11ea918ae280cc",
+ "relations": [
+  {
+   "evidence": "Or add Yaki-Blake/Cpp-Input-Guard as a beta plugin via BRAT.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Input guard for C++ notes that escapes Markdown trigger characters (<, [, *, _, ==, #include) as you type or paste, and repairs existing notes.",
+ "tags": [
+  "autocorrect",
+  "code-blocks",
+  "batch-processing",
+  "version-history"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync tasks bidirectionally with CalDAV servers as VTODO items",
+  "Map task metadata (dates, priority, recurrence, tags, notes) to CalDAV fields",
+  "Filter which tasks sync per calendar by Obsidian tag and server category",
+  "Detect and resolve sync conflicts manually or automatically",
+  "Preview syncs with dry-run mode and schedule auto-sync at set intervals"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not vault or device syncing; it syncs individual obsidian-tasks items with external CalDAV servers as VTODO entries.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. iCloud Reminders is not supported directly because Apple does not expose it as standard CalDAV/VTODO; the README documents a workaround via a standards-compliant CalDAV account such as fruux. Priority mapping is lossy in the CalDAV-to-Obsidian direction, and the plugin depends on obsidian-tasks' internal getTasks() API, which could break in future updates.",
+ "intent": "improve",
+ "intentEvidence": "Works with the obsidian-tasks plugin — syncs task status, dates, priorities, recurrence, tags, and notes as standard VTODO",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Tasks in Obsidian are locked inside the vault; there is no built-in way to push or pull them to calendar and task servers like Nextcloud or Fastmail.",
+ "readmeHash": "c4b30c928d7f90a35f628a76dfdf90370dc078eb",
+ "relations": [
+  {
+   "evidence": "Works with the obsidian-tasks plugin — syncs task status, dates, priorities, recurrence, tags",
+   "plugin": "obsidian-tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "Bidirectional sync between obsidian-tasks and any CalDAV server (Nextcloud, Radicale, Baïkal, Fastmail, etc.)",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian-tasks",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "CalDAV server with VTODO support",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "CalDAV username and password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "CalDAV sync plugin that mirrors obsidian-tasks tasks bidirectionally with CalDAV servers as standard VTODO items.",
+ "tags": [
+  "caldav",
+  "vtodo",
+  "nextcloud",
+  "radicale",
+  "fastmail",
+  "obsidian-tasks",
+  "recurrence"
+ ]
+}

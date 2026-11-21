@@ -1,0 +1,52 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Update all references to a block ID from the selected line",
+  "Bulk-fix invalid outgoing and incoming block references in the current note",
+  "Preview proposed changes in a confirmation modal before applying",
+  "Log all link updates (optional)",
+  "Find and update references in both markdown notes and canvas files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Note composer",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a link checker or note splitter; it only rewrites existing block references after content has moved, it does not split notes itself.",
+ "extras": "Operations are irreversible; the README warns users to review the confirmation dialog and back up the vault before bulk updates. Full documentation is hosted on an external site.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian provides ways to extract text into a new note, either through its native features or various community plugins. However, there's a catch",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author keeps long notes in a PTKM system and regularly promotes sections into their own notes, which invalidates block links, so they built this tool to update them.",
+ "primary": "links",
+ "problem": "When a section with a block ID is extracted into a new note, references in other notes keep pointing at the original file and become broken with no automatic fix.",
+ "readmeHash": "a02f14144ccf251da0b0f4c09f0c3c45f2512548",
+ "relations": [
+  {
+   "evidence": "just like renaming tags in Obsidian (e.g., with Tag Wrangler), once links are updated, there is no automatic way to revert",
+   "plugin": "Tag Wrangler",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Block-reference repair tool that updates broken links across markdown and canvas files after you split or reorganize notes.",
+ "tags": [
+  "block-references",
+  "canvas-files",
+  "link-integrity",
+  "note-splitting",
+  "long-notes"
+ ]
+}

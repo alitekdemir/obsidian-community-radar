@@ -1,0 +1,64 @@
+{
+ "also": [
+  "syncing",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync selected folders of Markdown notes to a Day & Age account on a schedule",
+  "Pair the vault with the account using a one-time pairing code",
+  "Choose folders, subfolders, and root-level notes to include in the sync",
+  "Save conflicted local edits to timestamped .dayage-conflict files",
+  "Report skipped oversized notes and compare scanned versus cloud note counts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "The AI chat itself runs in the Day & Age app, not in Obsidian; the plugin only syncs notes and pairs the vault.",
+ "extras": "Workspace access is invite-only; notes over 100,000 characters are skipped; sync runs on open, on foreground return, on reconnect, and every three minutes; the README states iOS retesting is still needed and the Android checklist remains untested.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes stay local, so there is no built-in way to make selected vault folders available to an outside AI chat service.",
+ "readmeHash": "1f1b4156b3abdd0035e7c48cdcd763640619382e",
+ "relations": [
+  {
+   "evidence": "only relevant excerpts may be sent to Anthropic to answer that request",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Day & Age AI Gurus account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Day & Age app (creates the pairing code)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Folder-scoped sync of Markdown notes to a Day & Age AI Gurus account so the service's AI chat can retrieve note excerpts.",
+ "tags": [
+  "cloud-sync",
+  "pairing-code",
+  "excerpts",
+  "chat-assistant",
+  "anthropic",
+  "conflict-copies"
+ ]
+}

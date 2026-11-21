@@ -1,0 +1,76 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI providers inside Obsidian",
+  "Connect external MCP agents like Claude Desktop and Codex CLI to the vault",
+  "Search notes semantically with local embeddings",
+  "Convert PDF and audio files to Markdown notes",
+  "Manage agent workspaces, tasks, and skills"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README contains a detailed network-use disclosure listing every external request the plugin can make and what triggers it; legacy Claudesidian installs in .obsidian/plugins/claudesidian-mcp/ keep working; several sub-features (web capture, PDF/audio ingestion, data analysis, mobile) are marked experimental; links to Synaptic Labs' paid 'Your AI Second Brain' course.",
+ "intent": "alternative",
+ "intentEvidence": "Nexus is the successor to Claudesidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way for AI agents to read, search, and manage vault notes, and wiring up external assistants like Claude Desktop normally takes manual configuration.",
+ "readmeHash": "20eafe7b0035ec075eea407910cc95e3a5b0408b",
+ "relations": [
+  {
+   "evidence": "Nexus is the successor to Claudesidian.",
+   "plugin": "Claudesidian",
+   "type": "replaces"
+  },
+  {
+   "evidence": null,
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API keys (OpenAI, Anthropic, Gemini, OpenRouter, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT or GitHub Copilot sign-in",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client such as Claude Desktop, Cursor, or Codex CLI for external-agent use",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "AI agent hub that adds native chat with multiple providers and exposes the vault to MCP clients and CLI agents for reading, searching, and editing notes.",
+ "tags": [
+  "mcp",
+  "claude",
+  "chatgpt",
+  "gemini",
+  "openrouter",
+  "ollama",
+  "embeddings",
+  "text-to-speech"
+ ]
+}

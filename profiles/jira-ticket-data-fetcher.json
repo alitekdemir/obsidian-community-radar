@@ -1,0 +1,70 @@
+{
+ "also": [
+  "properties",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "fetch Jira issue fields using the note filename as the issue key",
+  "write Jira field values into note frontmatter via configurable mappings",
+  "build note aliases from fetched Jira fields using templates",
+  "insert the Jira issue URL into note content",
+  "sync frontmatter for notes in a custom Bases view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian can't pull Jira issue data into note properties, so users must manually copy fields like summary and status into frontmatter.",
+ "readmeHash": "a6ede0e7ce35e064c873f26438d4ce29e9383982",
+ "relations": [
+  {
+   "evidence": "Fetches Jira issue fields for a note based on the note's filename.",
+   "plugin": "Jira",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Jira",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Atlassian account email",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Atlassian API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Jira integration that fetches issue fields for notes named after issue keys and writes them into frontmatter.",
+ "tags": [
+  "jira",
+  "atlassian",
+  "issue-tracker",
+  "api-token",
+  "alias-templates",
+  "bases-view"
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse SQLite tables and schemas in a dedicated view",
+  "Run read-only SELECT queries with configurable row limits",
+  "Embed live query results in notes via sqlite-query code blocks",
+  "Convert live query blocks into static Markdown table snapshots",
+  "Export result grids as CSV or Markdown"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Strictly read-only: the database is loaded into memory and never written back to disk. Architecture details are deferred to a separate ARCHITECTURE.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian cannot open or display SQLite database files stored in a vault, so users must leave the app to inspect or query them.",
+ "readmeHash": "2fe896d52fbab40ca57925d15e753e3237099d46",
+ "relations": [
+  {
+   "evidence": "The plugin uses sql.js (SQLite compiled to WebAssembly) rather than native bindings",
+   "plugin": "sql.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "SQLite database browser that opens .sqlite/.db files from the vault, inspects tables and schemas, and embeds read-only query results in notes.",
+ "tags": [
+  "sqlite",
+  "sql",
+  "sqljs",
+  "wasm",
+  "database-browser",
+  "read-only"
+ ]
+}

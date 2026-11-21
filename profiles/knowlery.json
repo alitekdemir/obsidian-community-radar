@@ -1,0 +1,80 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "compile free-form notes into a structured knowledge base (entities, concepts, comparisons, queries)",
+  "query the knowledge base with deterministic, cited answers",
+  "serve knowledge bases to agents over MCP and a CLI",
+  "report stale notes and knowledge-base health",
+  "share and install knowledge bundles"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (needs local CLI tools and Electron APIs). Claims no telemetry and is free; the optional Jev cook triage sends note paths, titles, frontmatter, and the first 15 non-empty lines to api.typesafe.ai when an API key is configured. Full documentation lives outside the README.",
+ "intent": "alternative",
+ "intentEvidence": "BYOAO is archived — its role is fully superseded.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author had built BYOAO, a predecessor that turned Obsidian into an LLM-Wiki-style knowledge base, and wanted the same ideas as a first-class Obsidian plugin.",
+ "primary": "ai",
+ "problem": "Obsidian vaults hold free-form notes that AI agents can only re-read from scratch, with no persistent structure, measured retrieval, or cited answers.",
+ "readmeHash": "44d4a086dd1e2c9bab4f66f6c299e5b674c957db",
+ "relations": [
+  {
+   "evidence": "BYOAO is archived — its role is fully superseded.",
+   "plugin": "BYOAO",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Knowlery operationalizes that maintenance story",
+   "plugin": "Andrej Karpathy's LLM Wiki",
+   "type": "inspired"
+  },
+  {
+   "evidence": "consider installing one of these in addition to Knowlery",
+   "plugin": "Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "consider installing one of these in addition to Knowlery",
+   "plugin": "obsidian-agent-client",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or OpenCode (to run installed skills from the dashboard); Node.js/npm for the optional skills registry",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "TypeSafe AI API key (Jev cook triage)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Local-first knowledge base system that compiles plain Markdown notes into a structured, citable layer AI agents query via an MCP server, CLI, and an Obsidian dashboard.",
+ "tags": [
+  "mcp",
+  "ai-agents",
+  "retrieval",
+  "rag",
+  "cli",
+  "claude-code",
+  "opencode",
+  "citations"
+ ]
+}

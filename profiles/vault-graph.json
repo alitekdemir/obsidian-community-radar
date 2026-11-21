@@ -1,0 +1,59 @@
+{
+ "also": [
+  "visualization",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render the whole vault as a disc with one wedge per top-level folder",
+  "Filter and search the graph by folder, tags, and query",
+  "Scrub a date ribbon to watch vault growth as a heatmap and timeline",
+  "Colour, show, and hide folders, including unlinked-note grouping",
+  "Export the graph as a single self-contained offline HTML file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The exported HTML contains note titles, paths, tags, dates and the link graph (not bodies), so the README warns to treat it as private. Releases carry GitHub build provenance attestations; the plugin makes zero network requests. Some helper scripts are Windows-only.",
+ "intent": "improve",
+ "intentEvidence": "Deterministic, not force-directed - the same vault always draws the same picture",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's force-directed graph view rearranges on every open and tangles everything together, so the vault's overall shape is hard to learn and recognise over time.",
+ "readmeHash": "f224a659c68de84a3cc76c374697abb5f3052d9a",
+ "relations": [
+  {
+   "evidence": "the renderer is a port of Sigma.js 3.0.2 under MIT",
+   "plugin": "Sigma.js",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18+",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Deterministic disc graph of the whole vault: notes packed into folder wedges, sized by links, with a growth heatmap, timeline, and standalone HTML export.",
+ "tags": [
+  "deterministic-layout",
+  "sigma-js",
+  "webgl",
+  "html-export",
+  "para",
+  "heatmap"
+ ]
+}

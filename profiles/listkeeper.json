@@ -1,0 +1,85 @@
+{
+ "also": [
+  "data",
+  "tables"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import a GitHub awesome or best-of list as a view note and an entries note",
+  "Compute an ok, caution, check or unknown verdict per repository from documented rules",
+  "Fetch published security advisories with severity and version ranges",
+  "Track star additions and local net star change over time",
+  "Sync vault edits with changes in the source list, accepting or dismissing each change"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a to-do or checklist manager; it imports curated GitHub project lists into table notes in the vault.",
+ "extras": "The GitHub token is stored in the plugin's data.json inside the vault and the README warns not to share that file. The verdict is described as a review aid, not a security guarantee. Without a token, runs are limited to about 55 requests against GitHub's anonymous limits. Full reference documentation lives outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Curated GitHub lists give no signal about which projects are maintained, deprecated or insecure, and checking each repository by hand is slow.",
+ "readmeHash": "64497fd6bbce259605bfd0c2463462a1a2334aa1",
+ "relations": [
+  {
+   "evidence": "The entries note keeps every value in inline fields that Dataview can read.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub Stars | Repository links in your own notes | Those links | Star counts",
+   "plugin": "GitHub Stars",
+   "type": "alternative"
+  },
+  {
+   "evidence": "GitHub Stars Manager | The repositories you starred | Your star list",
+   "plugin": "GitHub Stars Manager",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Import GitHub Readme | One README | One file | The README text",
+   "plugin": "Import GitHub Readme",
+   "type": "alternative"
+  },
+  {
+   "evidence": "GitHub Repo Tools | A local clone of one repository | One repository",
+   "plugin": "GitHub Repo Tools",
+   "type": "alternative"
+  },
+  {
+   "evidence": "GitHub Embeds | An issue, a pull request or a code snippet",
+   "plugin": "GitHub Embeds",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Turns a GitHub awesome or best-of list into a sortable table note with verdicts, security advisories and star history for each repository.",
+ "tags": [
+  "github",
+  "awesome-lists",
+  "dataview",
+  "star-history",
+  "security-advisories",
+  "cve",
+  "openssf"
+ ]
+}

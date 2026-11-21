@@ -1,0 +1,40 @@
+{
+ "also": [
+  "hotkeys"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record command executions from hotkeys and the command palette",
+  "show per-command usage counts, daily counts, and last-use dates in a dedicated view",
+  "identify frequently used commands to assign hotkeys and rarely used ones to free up hotkeys",
+  "limit recorded data by maximum record count and retention period"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only executions via hotkeys or the command palette are tracked; ribbon and UI-triggered commands are not. Recorded data (stored in IndexedDB) is deleted when the plugin is updated, disabled, or uninstalled unless protected in desktop settings; old records are also dropped past a configurable count (default 2000) or retention period (default 60 days). README lists known bugs where hotkeys fail to appear in the table after restart.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "commands",
+ "problem": "Obsidian gives no visibility into which commands you actually use, so deciding which commands deserve hotkeys or which plugins to uninstall is guesswork.",
+ "readmeHash": "449230b1c9e4116c619397f1080fe5003176140f",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Command usage tracker that records how many times each command runs and shows counts and last-use dates in a view.",
+ "tags": [
+  "command-history",
+  "usage-statistics",
+  "indexeddb"
+ ]
+}

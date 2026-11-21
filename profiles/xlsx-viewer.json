@@ -1,0 +1,60 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open .xlsx and .ods files in a dedicated read-only table view",
+  "Switch between sheets via sheet tabs",
+  "Filter visible rows by searching across cells",
+  "Show cached/formatted formula values without evaluating formulas",
+  "Render the first 10,000 rows with warnings about omitted content"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README states it makes no network requests, and ODS previews enforce size limits (32 MiB archive, 4,096 entries, 8 MiB content.xml).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for quick inspection of AI-generated spreadsheets, exports, and reference files inside a vault, to avoid leaving the vault for a quick look.",
+ "primary": "csv",
+ "problem": "Obsidian cannot display spreadsheet files, so inspecting a workbook's values requires leaving the vault for Excel or LibreOffice Calc.",
+ "readmeHash": "dc36d12fb3de0a19e313241e2865070ee6078f58",
+ "relations": [
+  {
+   "evidence": "XLSX Viewer uses read-excel-file to read .xlsx workbook data.",
+   "plugin": "read-excel-file",
+   "type": "integrates"
+  },
+  {
+   "evidence": ".ods files are read with fflate to unpack the archive",
+   "plugin": "fflate",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For beta testing, install the plugin with BRAT using this repository URL",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens .xlsx and .ods workbooks as value tables with sheet tabs, cell search, and row limits inside Obsidian.",
+ "tags": [
+  "xlsx",
+  "ods",
+  "spreadsheets",
+  "excel",
+  "libreoffice",
+  "read-only"
+ ]
+}

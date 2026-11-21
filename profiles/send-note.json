@@ -1,0 +1,62 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Share a note by uploading it to an AWS S3 bucket and creating a share URL",
+  "Import a shared note into the vault by opening its URL in Obsidian",
+  "Encrypt shared note content with a key embedded in the link",
+  "Delete a shared note from the S3 backend from within Obsidian",
+  "Configure a custom S3 bucket, IAM credentials, bucket policy and CORS policy"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin is supported by advertisements. The README notes it is still in development with possible bugs. It inconsistently refers to a Pastebin backend in the frontmatter instructions while the rest describes S3.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is based on the share-note plugin by @alangrainger.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to hand a single note to another Obsidian user via a link without publishing services or manually copying files.",
+ "readmeHash": "0b6988610e969447b02698275dc183212d201ee4",
+ "relations": [
+  {
+   "evidence": "I used all of the code from that plugin, added just the AWS backend",
+   "plugin": "share-note by @alangrainger",
+   "type": "fork"
+  },
+  {
+   "evidence": "This plugin complements s3-image-uploader, because it allows you to share notes with other users",
+   "plugin": "s3-image-uploader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "AWS account with an existing S3 bucket and an IAM user with write access",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Shares a note by uploading encrypted Markdown to your own AWS S3 bucket and generating a URL that imports it into another user's vault.",
+ "tags": [
+  "aws-s3",
+  "encryption",
+  "url-sharing",
+  "iam",
+  "cors"
+ ]
+}

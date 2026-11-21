@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the vibe CLI in a streaming sidebar panel with insert/copy and stop controls",
+  "Run note commands that summarize, extract Tasks-plugin action items, rewrite, or translate the current note or selection",
+  "Register custom skills from .agents/skills/ as commands via auto-discovery",
+  "Persist chat history and resume vibe sessions across Obsidian reloads",
+  "Show per-turn cost, turn count, and duration telemetry from vibe session metadata"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Must be installed manually by copy or symlink since it is not in the community plugin store; README warns that note content and chat messages are sent to Mistral's API by vibe and that the auto-approve agent setting allows arbitrary shell execution.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to use the Mistral Vibe CLI for in-vault AI chat or one-shot note commands.",
+ "readmeHash": "718c5c1023554fbb66641b6be7f76df815db8e37",
+ "relations": [
+  {
+   "evidence": "Drives the vibe CLI as a subprocess to add chat and predefined tasks to your vault.",
+   "plugin": "vibe",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Extract action items (Obsidian Tasks plugin syntax)",
+   "plugin": "Obsidian Tasks plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Mistral Vibe CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Mistral account (via authenticated vibe CLI)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Mistral Vibe CLI integration that adds a streaming chat panel and predefined note commands (summarize, extract tasks, rewrite, translate) driven by the vibe subprocess.",
+ "tags": [
+  "mistral",
+  "vibe-cli",
+  "chat",
+  "subprocess",
+  "skills",
+  "session-resume",
+  "cost-tracking"
+ ]
+}

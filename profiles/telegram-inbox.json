@@ -1,0 +1,61 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "receive messages from a Telegram bot",
+  "append received messages to the daily note",
+  "restrict incoming messages to allowed usernames or Telegram IDs",
+  "queue messages on Telegram servers for up to 24 hours when the plugin is not running"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Setup depends on third-party Telegram bots (@BotFather for bot creation, @Get_UIDbot for getting your user ID); README includes manual build/install instructions requiring Node.js and pnpm.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture incoming Telegram messages, so thoughts sent from a phone or chat must be copied into notes by hand.",
+ "readmeHash": "79d40713a66687fc57bbbbe9b1505aa08a1cf170",
+ "relations": [
+  {
+   "evidence": "This plugin can receive messages from Telegram bots and add them to Obsidian's daily note.",
+   "plugin": "Telegram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Telegram bot created via @BotFather",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Telegram user ID for the Allowed Users list",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Telegram integration that receives messages sent to a Telegram bot and appends them to the Obsidian daily note.",
+ "tags": [
+  "telegram",
+  "telegram-bot",
+  "botfather",
+  "inbox",
+  "quick-capture"
+ ]
+}

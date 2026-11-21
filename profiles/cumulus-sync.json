@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault with a pCloud folder in both directions",
+  "Detect changed files via the pCloud change feed instead of listing the whole vault",
+  "Keep both versions when the same note changes on two devices and send deletions to trash",
+  "Trigger sync on app open, after typing pauses, and before switching apps on mobile",
+  "Halt and ask before a sync would remove a large part of the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Free and open source; no servers or analytics (files go directly between Obsidian and the pCloud API). Known limits: files over 20 MB skipped on mobile (200 MB on desktop), .obsidian settings not synced yet, pCloud Crypto folders unsupported, no end-to-end encryption; automatic Markdown conflict merging and opt-in settings sync are planned. Requires a pCloud access token that grants account-wide access. Sync engine is written in Rust compiled to WebAssembly.",
+ "intent": "alternative",
+ "intentEvidence": "Is Cumulus an alternative to Obsidian Sync? Yes, if you already store your notes in pCloud.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wrote it for the common situation where a vault lives in pCloud and works on the computer through pCloud Drive, but Obsidian on the phone cannot open it.",
+ "primary": "syncing",
+ "problem": "Obsidian on mobile cannot open vaults stored in pCloud because pCloud does not expose its folders as a regular file system, so vaults that live in pCloud have no way to sync to phones.",
+ "readmeHash": "8513e5b1af5139ef386c18163372794c7dfe6269",
+ "relations": [
+  {
+   "evidence": "Is Cumulus an alternative to Obsidian Sync? Yes, if you already store your notes in pCloud.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Cumulus uses the official pCloud API, not WebDAV (which requires a paid plan).",
+   "plugin": "pCloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "pCloud account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that keeps an Obsidian vault in sync with a folder in the user's pCloud account on Android, iOS and desktop.",
+ "tags": [
+  "pcloud",
+  "conflict-resolution",
+  "mobile",
+  "rust",
+  "wasm",
+  "no-middleman"
+ ]
+}

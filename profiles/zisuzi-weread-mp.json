@@ -1,0 +1,72 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Archive WeChat Official Account articles from the WeRead shelf as Markdown notes",
+  "Log in once via QR code and poll for new articles on a configurable schedule",
+  "Download images, audio and video locally and embed them in notes",
+  "Bulk-archive an account's full article history with batch controls and retries",
+  "Optionally summarize or process articles via an LLM endpoint or a local agent CLI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a WeRead book-highlights syncer like the existing obsidian-weread-plugin; it archives WeChat Official Account (公众号) articles, and the README says the two can be installed together.",
+ "extras": "Desktop only (Electron webview login; needs Obsidian 1.13.0+). Stores WeRead credentials in plaintext in data.json inside the vault. Uses private WeRead APIs; the README documents strict rate-limit budgets because over-polling can get the user's WeRead account temporarily blocked. The plugin itself is free; AI processing is optional and uses the user's own key.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says these articles are '读完就散' (scattered after reading) and wanted to keep long-form pieces permanently in one's own notes instead of losing them to dead links.",
+ "primary": "integrations",
+ "problem": "WeChat Official Account articles live in feeds and chats as links that eventually die, and Obsidian has no built-in way to archive them with their media intact.",
+ "readmeHash": "e63ecb90e0c23b780bbc0bb4c153ae09f3ced45b",
+ "relations": [
+  {
+   "evidence": "微信读书接口与登录方式参考 zhaohongxuan/obsidian-weread-plugin（MIT）：扫码登录采用同一条路线",
+   "plugin": "zhaohongxuan/obsidian-weread-plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "交互与阅读面范式参考 joeseesun/qiaomu-ai-rss（GPL-3.0-only）",
+   "plugin": "joeseesun/qiaomu-ai-rss",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeRead account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM endpoint key (for AI processing)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local agent CLI (Hermes, Claude Code, Codex, Gemini, CodeBuddy, Cursor)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Archives WeChat Official Account articles from your WeRead shelf into the vault as local Markdown, with images and audio/video downloaded locally.",
+ "tags": [
+  "weread",
+  "wechat",
+  "wechat-official-accounts",
+  "qrcode-login",
+  "rate-limiting",
+  "html-to-markdown",
+  "local-agents"
+ ]
+}

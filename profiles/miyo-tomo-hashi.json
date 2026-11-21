@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a running Tomo Docker container from a tab inside Obsidian",
+  "Stream active file, cursor position and selection to Claude Code over a localhost WebSocket",
+  "Preview and apply Tomo _instructions.json files as batch vault edits",
+  "Resume interrupted applies idempotently and write per-run markdown logs",
+  "Extend applies with optional .cjs hooks and repair failed actions in an Instruction Fixer"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Contains no AI itself; it only bridges to the external Tomo agent and runs the instruction files Tomo emits.",
+ "extras": "Desktop-only (isDesktopOnly: true); macOS is the regularly tested platform, Linux is experimental, Windows user-contributed. Documentation lives on separate pages (installation, configuration, action reference, etc.). No telemetry; nothing leaves the machine.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says that if you already use Tomo for inbox processing or daily-note summaries, Hashi turns its review output into one click, automating the apply step with preview and idempotent re-runs.",
+ "primary": "integrations",
+ "problem": "Running an AI agent like Tomo produces vault changes (MOCs, note moves, log updates) that must be reviewed and applied by hand, and the agent has no view of what note or selection you have open.",
+ "readmeHash": "fc07f1c83a45d7b0b0bdc518231de259fef00da4",
+ "relations": [
+  {
+   "evidence": "MiYo Tomo — Claude Code AI workflows. The session you talk to from Hashi's chat view",
+   "plugin": "MiYo Tomo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Kado is the only external-inbound vault surface in the MiYo family",
+   "plugin": "MiYo Kado",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code IDE protocol — gives Claude Code in your Tomo container live ambient context",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "MiYo Tomo",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Docker (for the Tomo container and chat/context components)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Bridge to the MiYo Tomo Claude Code agent: a chat tab for its Docker container, an editor-context feed, and an executor for its batch vault-edit instruction files.",
+ "tags": [
+  "claude-code",
+  "docker",
+  "websocket",
+  "terminal-emulator",
+  "batch-editing",
+  "hooks",
+  "xterm"
+ ]
+}

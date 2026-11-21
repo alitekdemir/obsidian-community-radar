@@ -1,0 +1,74 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Incrementally sync Flomo memos into Obsidian with deduplication and deletion handling",
+  "Push Obsidian notes or selected text to Flomo via private API, webhook, or URL scheme",
+  "Import Flomo HTML/ZIP backups manually or through Playwright browser automation",
+  "Download and organize memo attachments with extension inference for Android uploads",
+  "Generate optional Flomo Canvas and Moments overview files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the 'Importer' name, it also pushes Obsidian notes back to Flomo, not only importing them.",
+ "extras": "README is mostly in Chinese (an English version is linked). Requires installing the Playwright browser binary (npx playwright@1.43.1 install). Push and pull rely in part on Flomo's reverse-engineered private API and WAF bypass, which may break when Flomo changes its site. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "增强版分支，源自 jia6y/flomo-to-obsidian，包含重大改进",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked jia6y/flomo-to-obsidian to add major improvements, including fixing Playwright module loading failures that broke automated export in Obsidian's Electron environment.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to import notes from the Flomo memo service or keep them in sync, and Flomo's official export is a manual ZIP download.",
+ "readmeHash": "d4a1dd85528aed43252284953b4f7d789dd241f1",
+ "relations": [
+  {
+   "evidence": "增强版分支，源自 jia6y/flomo-to-obsidian，包含重大改进",
+   "plugin": "jia6y/flomo-to-obsidian",
+   "type": "fork"
+  },
+  {
+   "evidence": "get-to-obsidian 项目提供的模块加载器方案启发",
+   "plugin": "get-to-obsidian",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Flomo account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Flomo Bearer Token or Webhook URL (for push)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Flomo Pro membership (for official webhook push)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync plugin that imports Flomo memos into Obsidian and pushes Obsidian notes back to Flomo via its private API, webhook, or ZIP backups.",
+ "tags": [
+  "flomo",
+  "playwright",
+  "webhook",
+  "bearer-token",
+  "incremental-sync",
+  "zip-import",
+  "url-scheme"
+ ]
+}

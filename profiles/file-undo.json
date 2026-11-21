@@ -1,0 +1,44 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Undo the last file or folder deletion by restoring it from the .trash folder",
+  "Undo and redo file and folder renames and moves",
+  "Cap the undo history length in settings (10-999 entries)",
+  "Skip its own restore operations via a timed event-ignore window"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an editor undo; it only reverses file deletions and moves, not text changes.",
+ "extras": "Deletion restore requires Obsidian's 'Deleted files' setting to use the vault .trash folder, not the system trash; same-basename entries in .trash collide; history is cleared on reload or disable; a registered debug command ('A1 Debug: Dump all commands') writes commands_dump.txt to the vault root and is marked temporary in source.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian has no undo for vault operations, so a mistaken file move or deletion must be fixed by hand.",
+ "readmeHash": "88faa46c876fd7512f08d484c9cd9ba8f9db0bb6",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault-history plugin that records file and folder deletions and renames so they can be undone and redone from the command palette.",
+ "tags": [
+  "undo",
+  "redo",
+  "trash",
+  "rename",
+  "deletion"
+ ]
+}

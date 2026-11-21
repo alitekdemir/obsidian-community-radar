@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pair with a companion WeChat Mini Program using a pairing code",
+  "Pull pending article links on demand from the ribbon or command palette",
+  "Convert web articles into Markdown notes with YAML frontmatter",
+  "Download article images locally and rewrite links for offline use",
+  "Sort imported notes into folders by account or keyword rules, with reusable topic profiles"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not a device-sync tool; syncing is manual only and means pulling queued article links into the vault.",
+ "extras": "The plugin has not been manually reviewed by Obsidian staff. The service applies a daily sync quota; paid plans or invite codes raise it. On mobile, writing to another local vault is disabled because Node.js file-system APIs are unavailable. Chinese-language documentation is included.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to capture WeChat articles (or other web pages) as Markdown notes with images stored locally for offline use.",
+ "readmeHash": "ab806e118d06cc5fba8721a000503d5b0d3c0f54",
+ "relations": [
+  {
+   "evidence": "Pair with the companion WeChat Mini Program by entering a short pairing code.",
+   "plugin": "WeChat Mini Program",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built on the Obsidian sample plugin (0BSD, Dynalist Inc.).",
+   "plugin": "Obsidian sample plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "SyncBridge paid plan (raises the daily sync quota)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Web clipper that pulls article links queued in a WeChat Mini Program and archives them as Markdown notes with locally saved images.",
+ "tags": [
+  "wechat",
+  "web-clipper",
+  "article-archiving",
+  "image-download",
+  "offline-reading",
+  "pairing-code"
+ ]
+}

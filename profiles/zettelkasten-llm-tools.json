@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ai",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate OpenAI embeddings for the current note or batches of notes matched by filename patterns",
+  "Semantic-search notes similar to the active note via a command or sidebar",
+  "Suggest note improvements (titles, links, tags, splitting) with the copilot sidebar view",
+  "Skip re-embedding notes whose content has not changed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a full Zettelkasten workflow plugin; it only adds embedding-based semantic search and a copilot that suggests revisions.",
+ "extras": "The README requires setting an OpenAI API key (and an Anthropic API key) in the plugin settings before use, meaning requests cost money; it also includes manual developer installation steps and mentions the folder name obsidian-gpt-zettelkasten from an earlier identity.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search matches exact text, so it cannot find notes that are semantically similar to the one you are reading.",
+ "readmeHash": "1548ad929d5cb572a27253c09ce34fd00af198f5",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "OpenAI API usage",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "LLM-powered Zettelkasten toolkit that creates embeddings for notes to enable semantic search and offers a copilot that suggests note improvements.",
+ "tags": [
+  "embeddings",
+  "openai",
+  "anthropic",
+  "zettelkasten",
+  "cosine-similarity",
+  "copilot"
+ ]
+}

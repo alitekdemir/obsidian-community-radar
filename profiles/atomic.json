@@ -1,0 +1,78 @@
+{
+ "also": [
+  "syncing",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes to a self-hosted Atomic server in the background",
+  "Search the vault semantically with hybrid keyword and vector search",
+  "Surface similar notes in a sidebar",
+  "Generate LLM wiki articles organized by tag hierarchy",
+  "Chat with the vault using an agentic RAG assistant"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Search",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Privacy notes: synced notes leave the vault to the configured server and its LLM provider; the API token is stored in plaintext in data.json. Mobile support depends on server reachability.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian search is keyword-based and offers no semantic search, related-note suggestions, or LLM-driven summaries and chat over vault content.",
+ "readmeHash": "c834733fb67a067332f11c3865ec899938cfa8ea",
+ "relations": [
+  {
+   "evidence": "Atomic needs an LLM provider (OpenRouter or a local Ollama) configured on the server side",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "pair it with a local Ollama — nothing leaves your machine",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Atomic server (Atomic desktop app or self-hosted atomic-server)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Atomic API token",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider (OpenRouter key or local Ollama) on the server side",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Client for a self-hosted Atomic server that syncs vault notes for semantic search, similar-note discovery, AI wiki articles, chat, and a graph canvas.",
+ "tags": [
+  "semantic-search",
+  "rag",
+  "embeddings",
+  "vector-search",
+  "openrouter",
+  "ollama",
+  "self-hosted",
+  "knowledge-graph"
+ ]
+}

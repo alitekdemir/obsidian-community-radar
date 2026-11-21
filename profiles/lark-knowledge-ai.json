@@ -1,0 +1,80 @@
+{
+ "also": [
+  "search",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask natural-language questions over notes and PDFs with cited answers",
+  "Scope questions to the open file, current PDF page, or time ranges",
+  "Rewrite selected text with presets shown as a confirmable line-level diff",
+  "Build and incrementally update a local vector index of the vault",
+  "Ask about pasted screenshots using a vision model"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not an integration with the Lark/Feishu app; it is a fully local alternative to Lark's cloud knowledge-QA product.",
+ "extras": "Desktop only (isDesktopOnly); scanned PDFs without a text layer are not supported (no OCR); the vector index is stored outside the vault by default and the home page conflicts with Beautitab or Home tab; no telemetry and fully offline by default.",
+ "intent": "alternative",
+ "intentEvidence": "A local alternative to enterprise knowledge-QA products like Feishu/Lark",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted Feishu's centered search-box knowledge-QA experience inside Obsidian: \"hit a shortcut, a search box appears, type the question\" instead of opening a sidebar and picking files.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask questions in natural language and get cited answers, and existing AI plugins are sidebar-shaped and often cloud-dependent.",
+ "readmeHash": "db96f692ed4848355f94c1bc315482648c338056",
+ "relations": [
+  {
+   "evidence": "A local alternative to enterprise knowledge-QA products like Feishu/Lark",
+   "plugin": "Feishu/Lark Knowledge QA",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Copilot — this plugin is narrower on purpose (QA + citations)",
+   "plugin": "Copilot for Obsidian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Want AI to restructure notes at scale | Claudian / Claude Code",
+   "plugin": "Claudian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Ollama runs the models locally. Download from ollama.com/download.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for cloud OpenAI-compatible endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local AI assistant that answers natural-language questions about your vault with hybrid semantic and keyword search over notes and PDFs and clickable citations, running via Ollama.",
+ "tags": [
+  "ollama",
+  "rag",
+  "local-llm",
+  "embeddings",
+  "vector-index",
+  "citations",
+  "hybrid-search"
+ ]
+}

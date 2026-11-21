@@ -1,0 +1,72 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture selected settings, plugins and snippets into a portable store",
+  "apply captured items explicitly on another device",
+  "encrypt shared fields with a per-device passphrase",
+  "push and pull the store to git or another-vault remotes",
+  "install, update or enable plugins during Apply"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-sync tool; it distributes settings and plugin configs, riding whatever note sync you already use to carry the store.",
+ "extras": "Full user guide, changelog, upgrade notes and architecture docs live outside the README; the manifest notes the plugin has not been manually reviewed by Obsidian staff. Git remotes are the plugin's only network access, desktop-only, and tokens are stored in Obsidian's keychain.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian keeps settings per device and per vault, with no built-in way to selectively move configuration items between them.",
+ "readmeHash": "117376c600cd784cb3620f11c18ff9262dac78e3",
+ "relations": [
+  {
+   "evidence": "The data rides your existing note sync (remotely-save, Obsidian Sync, iCloud…)",
+   "plugin": "remotely-save",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The data rides your existing note sync (remotely-save, Obsidian Sync, iCloud…)",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Beta builds: via BRAT, add xooooooooox/obsidian-config-sync",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Obsidian Sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Selective settings-sync plugin that captures hotkeys, themes, snippets and plugin configs into a store and applies them on other devices or vaults.",
+ "tags": [
+  "css-snippets",
+  "remotely-save",
+  "icloud",
+  "multi-device",
+  "encryption"
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Review #card flashcards and cloze blocks in a side panel with Again/Hard/Good/Easy grading handled by Anki",
+  "Expand a card's context through breadcrumbs and browse a history of answered cards",
+  "Filter cards by subject, recency and a daily goal with progress from Anki's review log",
+  "Sync phone answers to Anki on the computer through an Upstash Redis relay with per-answer status",
+  "Remove card markers from a line while keeping the text, with undo"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; the free Upstash plan is enough for sync; no telemetry and only card IDs and ratings are uploaded, never card content; without sync the phone can read cards but not answer them.",
+ "intent": "improve",
+ "intentEvidence": "The Flashcards plugin, which syncs cards to Anki and records each block's Anki note ID",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "The Flashcards plugin syncs cards to Anki but offers no in-vault review interface, and progress made on a phone doesn't reach Anki on the computer.",
+ "readmeHash": "45d50882b8a3bc0d3e69df2516127e917059c56a",
+ "relations": [
+  {
+   "evidence": "The Flashcards plugin, which syncs cards to Anki and records each block's Anki note ID",
+   "plugin": "Flashcards",
+   "type": "extends"
+  },
+  {
+   "evidence": "Anki with AnkiConnect, running on the computer.",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Card Walk uses an Upstash Redis database as a relay",
+   "plugin": "Upstash Redis",
+   "type": "integrates"
+  },
+  {
+   "evidence": "as in Roam's linked references, click a parent in the breadcrumbs",
+   "plugin": "Roam",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with AnkiConnect running on the computer",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Flashcards (syncs cards to Anki and stores note IDs)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Upstash Redis database for phone sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Side panel that reviews #card and ==cloze== flashcards from your notes using Anki scheduling, with phone-to-computer answer sync via a Redis relay.",
+ "tags": [
+  "anki",
+  "ankiconnect",
+  "spaced-repetition",
+  "cloze",
+  "upstash-redis"
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "also": [
+  "code",
+  "css"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render pikchr-fenced code blocks as inline SVG",
+  "Run the Pikchr compiler in-browser as WebAssembly, offline",
+  "Post-process diagram output with CSS rules and SVG selectors",
+  "Fetch a shared collection of example diagram notes from GitHub releases"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README labels the plugin an 'Experimental bloated ugly wrapper' and warns against using it for CAD/CAM drawings, marketing presentations, spreadsheet charts, function plots, or specialized STEM charts. Build instructions for emsdk/Node are included for developers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian cannot render Pikchr diagrams, and using Pikchr normally requires compiling and installing the tool yourself.",
+ "readmeHash": "950ea4a3fd021e4fde4e63c1c9f174de21d0ffc3",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Pikchr",
+   "type": "integrates"
+  },
+  {
+   "evidence": "preprocess the Pikchr + Markdown input then convert it to PDF or HTML with Pandoc",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Pikchr diagram renderer that converts pikchr-fenced code blocks into inline SVG entirely client-side and offline via a bundled WebAssembly build.",
+ "tags": [
+  "pikchr",
+  "svg",
+  "webassembly",
+  "emscripten",
+  "offline"
+ ]
+}

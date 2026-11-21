@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Toggle notes public or private from the file explorer, writing a public field into frontmatter",
+  "Push public notes and site source to a GitHub repository and enable Pages automatically",
+  "Auto-publish changed, added, or deleted notes a few seconds after edits",
+  "Track GitHub Actions build status and deploy progress with logs and diagnostics",
+  "Restyle the site with CSS presets and a custom CSS editor"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Stores connections, tokens, and repo working copies outside the vault in a system data directory; on Linux the GitHub token falls back to plain-text storage. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish a chosen subset of notes as a free static site while keeping private notes in the same vault.",
+ "readmeHash": "566b7b03d80c461472b2ff1034619766aa0f0623",
+ "relations": [
+  {
+   "evidence": "git clone / git push to upload your notes and the site source",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account with personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishes selected notes as a static blog on GitHub Pages, with per-note public toggles in the file explorer, one-click git push, and build tracking.",
+ "tags": [
+  "github-pages",
+  "github-actions",
+  "static-site",
+  "nextjs",
+  "katex"
+ ]
+}

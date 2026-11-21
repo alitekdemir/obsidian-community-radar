@@ -1,0 +1,85 @@
+{
+ "also": [
+  "review",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Promote ideas through Socratic, Devil's Advocate and Feynman gates",
+  "Track due and stuck ideas in an Incubator side panel with review dates",
+  "Flag unexplained terms and long sentences in Feynman explanations",
+  "Capture web selections as seed notes via a companion Chrome extension",
+  "Generate gate questions with optional AI providers (Claude CLI, Ollama, OpenAI-compatible APIs)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Pre-release v0.8.4, not yet in Community Plugins (manual install only); untested on mobile. AI is off by default and the API key is stored as plain text in data.json, so it syncs with the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "thinking",
+ "problem": "Obsidian collects ideas but offers no structured process to challenge them or test your understanding before treating them as finished.",
+ "readmeHash": "1bb08da2e9aa92342b719c7fae9c5064e24f22c8",
+ "relations": [
+  {
+   "evidence": "Using the Templater plugin instead of the core one? Use its own date syntax in a copy of the template",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Your own Dataview queries or templates that use bengkel-* names need updating after you migrate.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs the claude program you are already signed in to. Desktop only.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local model (Ollama, LM Studio) | Requests to a server on your machine (localhost).",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Seedbed Capture is a companion Chrome extension that plants them straight into your Incubator.",
+   "plugin": "Seedbed Capture",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude CLI, Ollama or LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Idea incubation plugin that moves notes from seed to mature through Socratic, Devil's Advocate and Feynman gates, with optional question-only AI.",
+ "tags": [
+  "socratic-method",
+  "feynman-technique",
+  "devils-advocate",
+  "active-recall",
+  "ollama",
+  "claude-code",
+  "browser-extension"
+ ]
+}

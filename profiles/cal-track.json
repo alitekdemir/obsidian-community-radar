@@ -1,0 +1,75 @@
+{
+ "also": [
+  "tables",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search USDA and Open Food Facts by text or barcode",
+  "Log foods with quantity, unit and meal to a CSV food log",
+  "Render daily food tables with calorie and macro totals in daily notes",
+  "Save custom foods, portions, and multi-food combos in a My foods note",
+  "Show exercise calories and net intake from imported activity notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installation is manual (copy files into .obsidian/plugins) and the README says 'from the latest release once there is one'. Warns in detail about CSV sync conflicts with Obsidian Sync, iCloud, Dropbox, Syncthing and Git. Without a USDA key it uses the shared DEMO_KEY, limited to about 10 lookups per hour per network. Includes a disclaimer that nutrition data may be wrong and the plugin is not medical or dietary advice.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to log what you eat or see daily calorie and macro totals inside your notes.",
+ "readmeHash": "3ee605d7926f54a64a2b2bbc2084e62ffbfcb463",
+ "relations": [
+  {
+   "evidence": "Turn on daily notes in the Periodic Notes plugin or Obsidian's core Daily notes plugin.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you import workouts with Physical Activity Importer, each day's log also shows Exercise and Net rows",
+   "plugin": "Physical Activity Importer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily notes (core or Periodic Notes)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "USDA FoodData Central key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Physical Activity Importer",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Food tracker that searches USDA and Open Food Facts, logs meals to a CSV file, and renders daily calorie and macro totals in daily notes.",
+ "tags": [
+  "usda",
+  "open-food-facts",
+  "calories",
+  "macros",
+  "nutrition",
+  "barcode",
+  "food-log"
+ ]
+}

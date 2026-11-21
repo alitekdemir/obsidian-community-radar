@@ -1,0 +1,66 @@
+{
+ "also": [
+  "review",
+  "ai"
+ ],
+ "audience": [
+  "students",
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule flashcards and note reviews with FSRS spaced repetition",
+  "Create cloze, basic, reversed, multiple-choice, and image-occlusion flashcards inside notes",
+  "Generate quizzes and flashcards from notes with an AI assistant",
+  "Import and export Anki decks, media, and scheduling data",
+  "Track study analytics with charts, heatmaps, and retention trends"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a collection of tutorials for learning Obsidian; it converts your own notes into flashcards, reviews, and quizzes.",
+ "extras": "Explains an accepted Obsidian review warning about runtime domain assembly (caused by bundled Redux in Recharts, not an actual endpoint). Anki image-occlusion cards are skipped on import and not exported. Plugin is free and open source; AI features use the user's own API key with no subscription. Automated-review disclosures list every external host contacted.",
+ "intent": "new",
+ "intentEvidence": "Instead of splitting your workflow across multiple study apps, LearnKit keeps learning inside your vault.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Flashcards were the starting point, but the stated goal was to connect notes, review, and long-term retention in one workflow instead of splitting it across multiple study apps.",
+ "primary": "flashcards",
+ "problem": "Obsidian is built for capturing knowledge but has no built-in workflow for reviewing it later, so retention requires separate study apps.",
+ "readmeHash": "c4d738eff3e931a60a5c3a03b5da92a333653847",
+ "relations": [
+  {
+   "evidence": "LearnKit supports Anki import and export for decks, media, and scheduling-related data",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "FSRS scheduling in LearnKit is powered by FSRS-6 via open-spaced-repetition/ts-fsrs",
+   "plugin": "open-spaced-repetition/ts-fsrs",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI model provider (Google, OpenRouter, Anthropic, OpenAI, DeepSeek, xAI, Perplexity, or custom)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Study system that turns vault notes into flashcards, spaced-repetition note reviews, and AI-generated tests, with Anki import and export.",
+ "tags": [
+  "fsrs",
+  "spaced-repetition",
+  "anki",
+  "cloze",
+  "image-occlusion",
+  "text-to-speech",
+  "quizzes"
+ ]
+}

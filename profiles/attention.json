@@ -1,0 +1,76 @@
+{
+ "also": [
+  "review",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight and comment on text and images without modifying the original file",
+  "Track repeated encounters with a passage as hit counts",
+  "Resurface unvisited marks in a review panel grouped by time",
+  "Store annotations in one sidecar file per annotated file",
+  "Open notes in reading mode by folder or frontmatter exception"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a focus-tracking or time-management tool; 'attention' means marks and comments on passages you can revisit.",
+ "extras": "No further updates; install Media One instead, which takes over Attention's settings. Design details are in docs/architecture.md, not the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "deprecated",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian's highlight syntax edits the note to exist, can't carry comments or a revisit history, and review tools resurface whole notes rather than the specific passages you marked.",
+ "readmeHash": "f397222400cc7dbf2ba9681f082d8cc8e2d98a52",
+ "relations": [
+  {
+   "evidence": "Attention is now part of Media One, as its Annotations module.",
+   "plugin": "Media One",
+   "type": "replaces"
+  },
+  {
+   "evidence": "PDFs, when PDF++ is installed: select text and Mark or 💬 it",
+   "plugin": "PDF++",
+   "type": "integrates"
+  },
+  {
+   "evidence": "markdown notes and — when Media Transcript is installed — its transcript panel",
+   "plugin": "Media Transcript",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using the same keys as the Force note view mode plugin",
+   "plugin": "Force note view mode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": "Media One",
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "PDF++",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Media Transcript",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Annotation plugin that records highlights and comments on notes, PDFs and transcripts in sidecar files, then resurfaces marked passages.",
+ "tags": [
+  "sidecar",
+  "resurfacing",
+  "transcripts",
+  "subtitles",
+  "reading-mode"
+ ]
+}

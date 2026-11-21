@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Chat with the agent",
+  ": Edit notes using word-level diff",
+  ": Manage vault files via @mentions",
+  ": View agent's thinking process",
+  ": Diagnose connection issues"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": editing",
+   ": files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "The plugin is a client that requires a locally running DSH instance to function.",
+ "extras": "Requires a local DSH instance to be running and accessible.",
+ "intent": "new",
+ "intentEvidence": "Most Obsidian ↔ agent bridges wrap a web UI or shell out to a CLI. This one is a native client: it speaks DSH's own RPC and event stream, then renders everything with Obsidian's own UI.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To create a native client that speaks DSH's own RPC and event stream, rendering interactions using Obsidian's native UI instead of embedding a web UI or shell out to a CLI.",
+ "primary": "ai",
+ "problem": "Existing Obsidian-agent bridges typically rely on web UIs or command-line interfaces, lacking native integration and UI fidelity.",
+ "readmeHash": "4adc5b0926bad871f6a03b2a9756e251e7b9a135",
+ "relations": [
+  {
+   "evidence": "the Obsidian-based project management skill that governs this plugin's development workflow",
+   "plugin": "obsidian-project-management",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness (DSH)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian Desktop Build",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A native client that embeds a local DeepSeek Harness (DSH) agent into Obsidian, allowing it to chat, edit, and manage vault notes.",
+ "tags": [
+  "deepseek-harness",
+  "dsh",
+  "rpc",
+  "ai-agent",
+  "native-client",
+  "diff-editor"
+ ]
+}

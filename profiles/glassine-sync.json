@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mark notes for sync with a glassine frontmatter property",
+  "Push edits to Glassine shortly after typing stops",
+  "Pull server-side changes back on note open and on a timer",
+  "Upload and download embedded images in either direction",
+  "Pair multiple vaults as revocable devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that the long-lived device token is stored in plain text in the plugin's local data and should be treated like a stored credential; the protocol is documented in the Glassine server repository (documentation/sync-api.md), not in this README.",
+ "intent": "alternative",
+ "intentEvidence": "an alternative to Glassine's git/obsidian-git adapter that works the same way on desktop and mobile",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync selected notes with a self-hosted Glassine server, and the git-based adapter route does not work the same way on mobile.",
+ "readmeHash": "f567b12f41068aff65a0220b786335bfce8be0a1",
+ "relations": [
+  {
+   "evidence": "syncs selected notes with a self-hosted Glassine instance over its REST sync API",
+   "plugin": "Glassine",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an alternative to Glassine's git/obsidian-git adapter",
+   "plugin": "obsidian-git",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Glassine server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Glassine author account (browser approval during pairing)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs notes marked with a glassine frontmatter property to a self-hosted Glassine server over its REST API, on desktop and mobile.",
+ "tags": [
+  "glassine",
+  "rest-api",
+  "self-hosted",
+  "last-write-wins",
+  "image-embeds",
+  "device-pairing"
+ ]
+}

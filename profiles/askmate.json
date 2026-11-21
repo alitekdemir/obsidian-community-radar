@@ -1,0 +1,80 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions about the current note or selection with @ mentions and saved conversations",
+  "Generate and render checked Mermaid diagrams from note content",
+  "Apply AI edits through diff previews, Insert, or New note",
+  "Connect MCP servers and approve each tool call with full arguments shown",
+  "Run built-in and custom workflow prompts, including summaries and flashcards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an autonomous vault-wide agent; it works on the open note or selection and writes to notes only after explicit approval.",
+ "extras": "Desktop only (no mobile support). The plugin itself is free; AI usage is billed directly by the chosen provider, or runs free on a local model. Detailed docs live on a separate docs site.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant for asking questions about the open note and applying AI-suggested edits with user-controlled, diff-previewed writes.",
+ "readmeHash": "532508115f2e15a703e6e404b8ea07a1a065c007",
+ "relations": [
+  {
+   "evidence": "OpenAI, Azure OpenAI, Azure AI Foundry, OpenRouter, Anthropic Claude, Google Gemini, or a local OpenAI-compatible server.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Using a local model such as Ollama? Check the address, leave the model empty",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "paste the mcpServers JSON from Claude Desktop, Cursor or VS Code to import",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Every diagram is parsed and rendered with the Mermaid that ships in Obsidian",
+   "plugin": "Mermaid",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (OpenAI, Anthropic, Gemini, Azure, OpenRouter)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid OpenAI API account for image generation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI sidebar that answers questions about the current note, renders Mermaid diagrams, calls approved MCP tools, and applies edits only after review.",
+ "tags": [
+  "mermaid",
+  "mcp",
+  "openai",
+  "anthropic",
+  "gemini",
+  "ollama",
+  "openrouter",
+  "bring-your-own-key"
+ ]
+}

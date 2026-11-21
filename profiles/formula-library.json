@@ -1,0 +1,79 @@
+{
+ "also": [
+  "math",
+  "visualization"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "edit LaTeX formulas in a WYSIWYG MathLive editor with source-mode toggle",
+  "search and insert formulas from a 2,216-entry built-in library with usage-frequency sorting",
+  "fill parameterized templates and paste spreadsheet rows as matrix LaTeX",
+  "plot y = f(x) with parameter sliders and insert or export the figure as SVG",
+  "edit Mermaid diagrams visually with templates and export SVG"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math",
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a browsable reference list of formulas; it also edits, converts, plots, and inserts them.",
+ "extras": "AGPL-3.0-only since 1.6.3 (MIT through 1.5.0); conversion is bundled as a pinned Core WASM binary with detailed privacy and security disclosures; installable manually or via BRAT; ASCII formula inputs require 1.6.3+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian renders LaTeX and Mermaid but offers no WYSIWYG formula editing, no reusable formula library, and no visual diagram or function-plotting tools, so users write notation by hand and hunt for snippets.",
+ "readmeHash": "e6be2e209d77f78b71e42b3dcafd8a82fd40f958",
+ "relations": [
+  {
+   "evidence": "The mathematical editor and diagram features rely on MathLive and Obsidian's rendering environment.",
+   "plugin": "MathLive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "When Excalidraw is installed, the toolbar exposes a shortcut for freehand and drag-and-drop drawing",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Formula library extracted from LaTeXSnipper Office Plugin",
+   "plugin": "LaTeXSnipper Office Plugin",
+   "type": "fork"
+  },
+  {
+   "evidence": "copied as standalone MathML for Word's own importer",
+   "plugin": "Word",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Visual LaTeX formula editor with a searchable library of 2,216 formulas, parameterized templates, matrix pasting, function plotting, and Mermaid diagram editing.",
+ "tags": [
+  "mathlive",
+  "mermaid",
+  "typst",
+  "mathml",
+  "omml",
+  "word",
+  "function-plotting",
+  "wysiwyg"
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up selected or typed words in Wiktionary or installed offline dictionary packs",
+  "Create vocabulary notes from editable templates using dictionary values",
+  "Study vocabulary as flashcards with deck management and review intervals",
+  "Upgrade legacy flashcards and export decks to Anki, CSV, or JSON",
+  "Translate selected text and read text aloud via optional local services"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Translation and TTS require separately installed local servers; offline dictionary packs are downloaded separately, checksum-verified, and carry third-party licenses (CC BY-SA 3.0/4.0, GFDL 1.3). The README states there is no telemetry or account system and that Anki export is file-based only, with no AnkiWeb connection.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in dictionary lookup or vocabulary-note workflow, so learners must leave the app and assemble definitions and flashcards manually.",
+ "readmeHash": "acb3087c7d3fe9fd735c63d73119a795a02e7595",
+ "relations": [
+  {
+   "evidence": "Mynary uses Wiktionary by default and can also use optional local dictionary packs",
+   "plugin": "Wiktionary",
+   "type": "integrates"
+  },
+  {
+   "evidence": "In Anki, choose File → Import, select the exported .txt file",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Translation uses a locally running MTranServer.",
+   "plugin": "MTranServer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local Supertonic server sends speech text to the endpoint you configure",
+   "plugin": "Supertonic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dictionary data comes from Wiktionary extracts supplied by Kaikki.org.",
+   "plugin": "Kaikki.org",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MTranServer (local translation server)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Supertonic server (local TTS runtime)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Dictionary plugin that looks up words via Wiktionary or offline packs, saves vocabulary notes from templates, and studies them as flashcards.",
+ "tags": [
+  "wiktionary",
+  "dictionary",
+  "vocabulary",
+  "spaced-repetition",
+  "anki",
+  "tts",
+  "offline-packs"
+ ]
+}

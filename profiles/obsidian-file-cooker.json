@@ -1,0 +1,79 @@
+{
+ "also": [
+  "automation",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Batch move, rename, delete, and merge files from search, clipboard, current file, Dataview, or Bases sources",
+  "Add, modify, delete, and rename frontmatter properties across many files",
+  "Create files from unresolved links and copy Dataview/Bases result links",
+  "Sync file links, content, or selection to flomo and batch-add files, text, or tasks to a canvas",
+  "Undo batch operations from automatic backup snapshots with per-file revert"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "AI features are marked experimental and disabled by default; the backup folder (.file-cooker/backups) is created inside the vault and can be excluded from search and graph; Canvas operations and flomo sync are not covered by backup/undo; Obsidian >= 1.12.3 required since v2.0.0; UI supports Chinese and English.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian has no built-in way to apply one operation (move, rename, property edit, delete, merge) to a whole set of files gathered from different sources in a single confirmed step.",
+ "readmeHash": "2c4d39d9ea189431a5e8bed3a950479a63dc4f6d",
+ "relations": [
+  {
+   "evidence": "Requires the Dataview plugin; DataviewJS supported since v1.7.1",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "no MetaEdit plugin needed (built-in since v1.8.0)",
+   "plugin": "MetaEdit",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Sync to flomo: sync file links, file content, or current selection (requires flomoAPI)",
+   "plugin": "flomo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "flomoAPI endpoint",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key (DeepSeek, Kimi, GLM, OpenRouter, Ollama) for AI features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Batch file operations plugin that moves, renames, edits properties, deletes, or merges many files selected from search, clipboard, Dataview, or Bases results.",
+ "tags": [
+  "flomo",
+  "dataview",
+  "unresolved-links",
+  "openai-compatible",
+  "natural-language-search",
+  "undo-history",
+  "context-menu",
+  "batch-limits"
+ ]
+}

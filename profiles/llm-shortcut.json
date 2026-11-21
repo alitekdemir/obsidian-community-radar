@@ -1,0 +1,70 @@
+{
+ "also": [
+  "commands",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Map a folder of Markdown prompt files to command palette entries",
+  "Stream LLM responses into the editor selection or cursor",
+  "Configure per-prompt behavior with frontmatter (info-mode popup, selection-only, context size)",
+  "Run ad-hoc one-off prompts through a built-in custom prompt command",
+  "Manage multiple OpenAI-compatible provider and model presets with capability checks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The author notes results depend heavily on the user's prompting skill, and the demo used OpenRouter's google/gemini-3-flash-preview model.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because repeatedly reusing prompts such as 'improve writing', 'translate', or 'make this a bullet-list' by copy-pasting gets tedious quickly.",
+ "primary": "ai",
+ "problem": "Reusing common prompts like translate or improve writing requires copy-pasting text into an external chat tool, which is tedious inside Obsidian.",
+ "readmeHash": "b62b05726e5ac7d4e9ba963fbcf24fea9be1bcca",
+ "relations": [
+  {
+   "evidence": "Use your own OpenAI-compatible providers (OpenAI, OpenRouter, and others with compatible endpoints)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "I used OpenRouter's google/gemini-3-flash-preview for demo",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenRouter or other provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Turns Markdown prompt files in a vault folder into Obsidian commands that run the prompt against the active note via any OpenAI-compatible LLM provider.",
+ "tags": [
+  "llm",
+  "openai",
+  "openrouter",
+  "streaming",
+  "prompt-library",
+  "chat-completions",
+  "reasoning-effort"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "export",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export vault settings, hotkeys, workspace, and plugin manifests to a single .nix file",
+  "Import a .nix file and write config and plugin settings back to .obsidian/",
+  "Toggle which config files (app, appearance, core plugins, graph, workspace, hotkeys, plugin data) are included",
+  "Generate an obsidian-activate.sh script that evaluates the .nix file with nix and applies it for NixOS or home-manager",
+  "Strip machine-specific workspace fields such as last-open files and active panel state"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault-content sync tool; it only round-trips settings and plugin configs as Nix data, not notes or plugin JS files.",
+ "extras": "Import accepts only literal Nix values; hand-edited files with interpolation, function calls, or let/in will fail or corrupt values. Plugin JS files are not exported, so Obsidian still downloads plugins itself. Plugin data.json may contain secrets, so plugin-settings export can be disabled. The plugin has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian stores config in .obsidian/ JSON files that are hard to version-control or apply declaratively on machines managed with Nix.",
+ "readmeHash": "045e858fe7a6d0b10c6e60973bc425f54b210a01",
+ "relations": [
+  {
+   "evidence": "The script takes the exported .nix file, evaluates it with nix eval --json",
+   "plugin": "Nix",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requires nix and jq",
+   "plugin": "jq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "### home-manager [code example]",
+   "plugin": "home-manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Generate NixOS integration files | off | Also exports obsidian-activate.sh",
+   "plugin": "NixOS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "nix",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "jq",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Exports Obsidian vault settings and plugin configs to a .nix file and imports them back, with an optional NixOS/home-manager activation script.",
+ "tags": [
+  "nix",
+  "nixos",
+  "home-manager",
+  "jq",
+  "declarative-config",
+  "settings-backup"
+ ]
+}

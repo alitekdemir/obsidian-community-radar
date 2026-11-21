@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask questions about the active note with context reused across follow-ups",
+  "Query across the whole vault in whole-vault mode",
+  "Save conversations as Markdown notes in a Codex chats folder",
+  "Configure the Codex model and reasoning effort",
+  "Locate and connect to the Codex executable automatically or by explicit path"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Part of the README is written in Chinese. Explicitly does not use or store an OpenAI API key; it relies on ChatGPT-plan Codex usage. Sessions are read-only (no file edits or shell approvals). Includes connection troubleshooting (codex --version, codex login, proxy settings, macOS executable path). Warns maintainers not to distribute data.json because it contains machine-specific paths.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask AI questions grounded in the current note or across vault files.",
+ "readmeHash": "e3a63488d9a4cc0e44d627394c3752f148227a5c",
+ "relations": [
+  {
+   "evidence": "ask questions about the current note or the entire vault through your locally installed OpenAI Codex CLI",
+   "plugin": "OpenAI Codex CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI (0.133.0+)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT-authenticated Codex login",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Chat sidebar that answers questions about the active note or whole vault through a locally installed OpenAI Codex CLI.",
+ "tags": [
+  "openai",
+  "codex",
+  "chatgpt",
+  "chat-sidebar",
+  "question-answering",
+  "read-only",
+  "cli"
+ ]
+}

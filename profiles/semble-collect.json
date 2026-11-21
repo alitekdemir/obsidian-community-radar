@@ -1,0 +1,62 @@
+{
+ "also": [
+  "links",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "list web links, plain URLs and remote images in the current note in a sidebar pane",
+  "save links to a Semble library and collections with notes",
+  "browse related links and add typed connections between links",
+  "filter the link list and jump to links in the note",
+  "check save counts and collection membership from Semble"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a web clipper; it doesn't save page content into the vault, it manages links in a Semble account.",
+ "extras": "The API key is stored in Obsidian's Keychain rather than the settings file so it isn't synced with the vault. The link list works offline; without an API key the plugin makes no network requests and only the web links themselves are sent, never note text. Known limitations include no Canvas or PDF support, no links from frontmatter, and caps of 100 collections and 50 recent connections shown.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian offers no way to see all web links in a note at a glance or to save and organize them into an external link library with collections and connections.",
+ "readmeHash": "8b8e8eaf6515be073f6f72a196e8b709d11eb6b3",
+ "relations": [
+  {
+   "evidence": "the plugin talks to Semble's API (api.semble.so), sending your key with each request",
+   "plugin": "Semble",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Semble account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Semble API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar pane that lists every web link in the current note and lets you save, organize and connect them in your Semble library without leaving Obsidian.",
+ "tags": [
+  "semble",
+  "link-saving",
+  "web-links",
+  "collections",
+  "connections",
+  "api-key"
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "also": [
+  "automation",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Install a Markdown instruction module with agent modes into the vault",
+  "Generate a seven-day menu and keep menu history via Copilot Agent Chat",
+  "Record purchases, consumption, waste and stock corrections to update inventory",
+  "Create recipe and product cards catalogued with Dataview",
+  "Assemble a shopping list from missing or low ingredients"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a recipe database; the package ships empty working notes and card templates, and recipes and product cards are created as you use the assistant.",
+ "extras": "Module scenarios and instructions are currently in Russian only. The plugin is still awaiting Obsidian community directory review, so beta installs go through BRAT. MVP limits: the plugin cannot programmatically send the prompt (Copilot offers no public API for that), store shopping is an external MCP tool, and consumption forecasts require accumulated history.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in food and meal-planning workflows, and AI chat plugins come without ready-made domain scenarios for recipes, stock and shopping.",
+ "readmeHash": "99899d097a22d4af139a4f885c923a346862049b",
+ "relations": [
+  {
+   "evidence": "Copilot and Dataview are separate community plugins that must be installed and configured independently.",
+   "plugin": "Copilot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "community plugin Dataview для живых каталогов",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Установите community plugin BRAT в тестовый vault.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Copilot with Codex backend",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT account for Codex sign-in",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "ChatGPT subscription suitable for Codex",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Module installer that sets up local Markdown-based recipe cards, inventory, weekly menus and shopping lists driven by an AI agent in Copilot Agent Chat.",
+ "tags": [
+  "recipes",
+  "meal-planning",
+  "inventory",
+  "shopping-list",
+  "codex",
+  "chatgpt",
+  "dataview",
+  "russian"
+ ]
+}

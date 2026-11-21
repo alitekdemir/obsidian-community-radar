@@ -1,0 +1,78 @@
+{
+ "also": [],
+ "audience": [
+  "mainland-china-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "chat with agents that call tools to search, read, create, append and edit notes",
+  "configure multiple agents with per-agent providers, keys, models and system prompts",
+  "search the web via provider-native search or a bundled Tavily-backed tool",
+  "save conversations to a single memory note scheduled for review on a forgetting curve",
+  "route AI requests through a local HTTP proxy or a Magpie gateway template"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Write actions ask for confirmation by default; the agent has no delete, move or shell tools. The optional local proxy and SQLite history importer are desktop-oriented, and the memory note's <!-- memory:data --> comment must not be hand-edited or review progress is lost.",
+ "intent": "alternative",
+ "intentEvidence": "The closest equivalent overseas (Claudian) requires the Claude Code CLI and an overseas subscription",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because the overseas equivalent (Claudian) depends on the Claude Code CLI and foreign payment, while this plugin needs only a pasted API key from a Chinese provider.",
+ "primary": "ai",
+ "problem": "Existing agent plugins like Claudian require a Claude Code CLI and an overseas subscription, which mainland China users find hard to set up and pay for.",
+ "readmeHash": "44cbca68a6f3141e4a87f704c712a9417b33d9e5",
+ "relations": [
+  {
+   "evidence": "The closest equivalent overseas (Claudian) requires the Claude Code CLI and an overseas subscription",
+   "plugin": "Claudian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "To this plugin it is a single provider, not one configuration per vendor.",
+   "plugin": "Magpie",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the bundled web_search tool backed by Tavily",
+   "plugin": "Tavily",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (DeepSeek, GLM, Kimi, Qwen, etc.)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily API key for the plugin web search tool",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Magpie local gateway",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI agent chat plugin that connects to China-accessible LLM APIs (DeepSeek, GLM, Kimi, Qwen) and autonomously searches, reads, creates and edits vault notes.",
+ "tags": [
+  "deepseek",
+  "glm",
+  "kimi",
+  "qwen",
+  "tavily",
+  "magpie",
+  "anthropic-protocol",
+  "chinese"
+ ]
+}

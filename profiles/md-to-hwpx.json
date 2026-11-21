@@ -1,0 +1,59 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes and folders to HWPX files",
+  "Format output through editable HWPX templates with markers",
+  "Capture Mermaid diagrams and SVG files as images",
+  "Inspect templates for markers and typos",
+  "Expose export tools to AI agent plugins via agentinterop"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only because it reads and writes files with Node's fs module. No network access, telemetry or account. Third-party code-block renderers are opt-in with a warning to enable them only for trusted notes. Bundles marked, JSZip, fast-xml-parser and gray-matter under MIT licenses.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to produce Hangul (Hancom Office) HWPX documents, which Korean report and submission workflows require.",
+ "readmeHash": "7490069c1245df0a63de19fab2a09e4897eb9eaf",
+ "relations": [
+  {
+   "evidence": "The converter is derived from pypandoc-hwpx (MIT)",
+   "plugin": "pypandoc-hwpx",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hangul (Hancom Office) or another HWPX viewer",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Exports Markdown notes to Hancom HWPX documents formatted by editable HWPX templates, with an MCP-like API for AI agent plugins.",
+ "tags": [
+  "hwpx",
+  "hancom",
+  "hangul",
+  "pandoc",
+  "mcp",
+  "mermaid",
+  "agentinterop"
+ ]
+}

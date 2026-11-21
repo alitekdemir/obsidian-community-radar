@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Share the open note, cursor and selection with the pi agent",
+  "Inject formatted editor context into every pi prompt automatically",
+  "Manage per-project rules files that exclude files from context injection",
+  "Show connected editor and selection status in pi's status line or Starline pill"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Exclusion rules are defaults, not a security boundary; agents can still read excluded files. The plugin has not been manually reviewed by Obsidian staff. Companion clients exist for Neovim, VS Code and JetBrains IDEs; full protocol documented in docs/protocol.md.",
+ "intent": "alternative",
+ "intentEvidence": "like Claude Code's IDE integration, but for Neovim, VS Code, Obsidian and JetBrains IDEs",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Using pi on vault notes means manually copying file paths, cursor positions and selected text into prompts, because the agent has no view of what you are looking at.",
+ "readmeHash": "9d3c4e96a9a1859a964a309d566406d7aa1596a7",
+ "relations": [
+  {
+   "evidence": "/ide for pi — like Claude Code's IDE integration, but for Neovim, VS Code, Obsidian and JetBrains IDEs.",
+   "plugin": "pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With pi-starline 0.13 or newer it goes on the right end of the editor's top rule",
+   "plugin": "pi-starline",
+   "type": "extends"
+  },
+  {
+   "evidence": "like Claude Code's IDE integration, but for Neovim, VS Code, Obsidian and JetBrains IDEs",
+   "plugin": "Claude Code",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pi",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Connects Obsidian to the pi coding agent, sharing the open note, cursor position and selection so every prompt automatically includes editor context.",
+ "tags": [
+  "pi",
+  "claude-code",
+  "neovim",
+  "context-injection",
+  "selection-sharing",
+  "cursor"
+ ]
+}

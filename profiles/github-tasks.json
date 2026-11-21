@@ -1,0 +1,70 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import assigned issues and opened/assigned PRs into a note as tasks",
+  "Import GitHub labels and repository names as tags",
+  "Mark closed issues and PRs as completed automatically",
+  "Refresh tasks on a configurable interval",
+  "Clear completed tasks from the note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Sync is one-way: completing or editing tasks in Obsidian does not update GitHub, and edited tasks keep their local changes on refresh; the ^gh-####### tag must not be removed or tasks duplicate.",
+ "intent": "improve",
+ "intentEvidence": "Import tasks in Tasks Emoji format or Dataview format (see: Tasks documentation)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull issues and pull requests from GitHub into task lists, so tracking assigned work means checking GitHub separately.",
+ "readmeHash": "3aafc9f31d5598f84f37bde9ba8a9259b7bcb5ad",
+ "relations": [
+  {
+   "evidence": "Import tasks in Tasks Emoji format or Dataview format (see: Tasks documentation)",
+   "plugin": "Tasks plugin",
+   "type": "extends"
+  },
+  {
+   "evidence": "Tasks Emoji format or Dataview format",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Fine-grained GitHub Personal Access Token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports GitHub issues and pull requests assigned to or opened by you into a note as tasks, with automatic refreshing.",
+ "tags": [
+  "github",
+  "issues",
+  "pull-requests",
+  "personal-access-token",
+  "dataview",
+  "tasks-emoji-format"
+ ]
+}

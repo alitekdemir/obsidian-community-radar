@@ -1,0 +1,76 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs vault files two-way with S3-compatible storage",
+  "Propagates uploads, downloads, and deletes across devices",
+  "Creates conflict copies when both sides edit the same file",
+  "Runs sync manually, on an interval, or on vault load",
+  "Skips paths with ignore globs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Files are stored in the bucket in plain form; v1 has no end-to-end encryption. Credentials stay in each device's plugin data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault through your own S3-compatible storage normally means running a server or VPS yourself.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "44261a02e47c80aa8ded297f76b9b73b585d8309",
+ "relations": [
+  {
+   "evidence": "Works with Cloudflare R2, AWS S3, Backblaze B2, MinIO, and other SigV4 S3 APIs.",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with Cloudflare R2, AWS S3, Backblaze B2, MinIO, and other SigV4 S3 APIs.",
+   "plugin": "AWS S3",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with Cloudflare R2, AWS S3, Backblaze B2, MinIO, and other SigV4 S3 APIs.",
+   "plugin": "Backblaze B2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with Cloudflare R2, AWS S3, Backblaze B2, MinIO, and other SigV4 S3 APIs.",
+   "plugin": "MinIO",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible storage bucket (Cloudflare R2, AWS S3, Backblaze B2, MinIO)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access keys with list/get/put/delete permissions",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync over S3-compatible storage (R2, S3, B2, MinIO) with conflict copies, tombstone deletes, and manual or scheduled sync.",
+ "tags": [
+  "two-way-sync",
+  "obsidian-sync",
+  "cloudflare"
+ ],
+ "textHash": "b106d8b9aae7de0983ed137afd558bb1a29a48f0"
+}

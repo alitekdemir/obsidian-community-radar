@@ -1,0 +1,57 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault with its folder in a shared GitHub repository",
+  "Save conflicting edits alongside the original as sync-conflict files",
+  "Restore recently deleted files from a hidden sync folder",
+  "Include plugins, themes and settings in the sync with an ignore list",
+  "Sync automatically on startup and every few minutes, or manually"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a full Git client; it syncs this vault only with its own folder in a shared repository and never touches other vaults' folders.",
+ "extras": "The GitHub token is stored in plain text in data.json inside the synced repository; the README advises limiting the token to that one repository and keeping the repo private. Manual install requires copying main.js and manifest.json from a release.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in free way to keep several vaults in sync across devices through one Git repository without installing Git.",
+ "readmeHash": "524085b5f4747e6cd77cd96c2f355556d95476d9",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained token with Contents access",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs one Obsidian vault with its own folder in a shared GitHub repository, on desktop and Android, without a Git install.",
+ "tags": [
+  "github",
+  "conflict-resolution",
+  "fine-grained-token",
+  "brat",
+  "android"
+ ]
+}

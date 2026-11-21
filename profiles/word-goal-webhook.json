@@ -1,0 +1,54 @@
+{
+ "also": [
+  "calendar",
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "track daily net new words per note and folder",
+  "send a webhook when the daily word goal is reached",
+  "display a heatmap sidebar with streaks and goal shading",
+  "open the matching daily note from a heatmap day",
+  "import past word counts from daily notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Word count",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns that file-sync services (iCloud, Dropbox, OneDrive) can make data.json appear missing or stale and overwrite history; the plugin keeps three guarded local backups and mentions Obsidian Sync as an option. Manifest notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian's word count measures total file length, so it cannot track how many new words you write each day, streaks, or goal completion.",
+ "readmeHash": "169d3a38c020f993d968c34e3a6df3a87ab2eff7",
+ "relations": [
+  {
+   "evidence": "The plugin uses your Periodic Notes daily settings first, then Obsidian's core Daily Notes settings",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Daily word-goal tracker that counts net new words per day, fires a webhook when the goal is met, and shows a heatmap sidebar with detailed stats.",
+ "tags": [
+  "webhook",
+  "heatmap",
+  "streaks",
+  "word-count",
+  "daily-goal",
+  "chinese-word-count"
+ ]
+}

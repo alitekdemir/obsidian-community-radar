@@ -1,0 +1,78 @@
+{
+ "also": [
+  "search",
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search note names and recent note contents from the new tab",
+  "Show recently edited notes with folder and time since change",
+  "Show Obsidian bookmarks for notes, headings and blocks",
+  "Replay or copy recent ecu-terminal commands",
+  "Show clock and date, with per-section toggles"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Quick switcher",
+   "Bookmarks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual install only: copy main.js, manifest.json and styles.css into .obsidian/plugins/ecu-newtab/. Makes no network requests. Content search covers the 3,000 (desktop) or 800 (mobile) most recently edited notes. Commands containing words like password, token or secret are not recorded, and credential-looking text is hidden. Interface in English and Turkish.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian's empty new tab gives no quick way to search notes or return to recently edited work.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "179a64ffd5c88316d3eec0505904f6ebe12fad7a",
+ "relations": [
+  {
+   "evidence": "Optional companions: ecu-terminal for the Terminal panel button and recent commands",
+   "plugin": "ecu-terminal",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ecu-codekit, which runs commands with a safety check for risky ones",
+   "plugin": "ecu-codekit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bookmarks from Obsidian's Bookmarks core plugin: notes, headings and blocks",
+   "plugin": "Bookmarks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "ecu-terminal",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "ecu-codekit",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "New tab page with a search box, recently edited notes, Obsidian bookmarks, recent terminal commands, and a clock.",
+ "tags": [
+  "start-page",
+  "bookmarks",
+  "recent-files",
+  "terminal",
+  "clock"
+ ],
+ "textHash": "14ffcbe67e70e2c317402184d55001ba8060eca9"
+}

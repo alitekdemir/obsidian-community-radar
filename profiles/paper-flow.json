@@ -1,0 +1,75 @@
+{
+ "also": [
+  "research",
+  "visualization"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Detect paper URLs in modified Markdown files",
+  "Resolve paper metadata from Semantic Scholar, arXiv, Crossref, and OpenAlex",
+  "Download open-access PDFs into the vault",
+  "Refresh citation counts on a schedule or on demand",
+  "Generate a Mermaid paper map for the current note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Sends paper identifiers, URLs, and titles to public metadata services (though not full note content); inserts managed blocks between HTML comments and saves PDFs to a papers/ folder by default; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to resolve paper URLs into metadata, download open-access PDFs, or track citation counts inside notes.",
+ "readmeHash": "feb1e720bde19039d72cc3ff72d1d101d2d48c02",
+ "relations": [
+  {
+   "evidence": "Resolves metadata from Semantic Scholar, arXiv, Crossref, OpenAlex, and citation meta tags.",
+   "plugin": "Semantic Scholar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Citation counts prefer Semantic Scholar. If Semantic Scholar is rate limited, OpenAlex and Crossref are used as fallbacks.",
+   "plugin": "arXiv",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Resolves metadata from Semantic Scholar, arXiv, Crossref, OpenAlex, and citation meta tags.",
+   "plugin": "Crossref",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Resolves metadata from Semantic Scholar, arXiv, Crossref, OpenAlex, and citation meta tags.",
+   "plugin": "OpenAlex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Semantic Scholar API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Research assistant that detects paper URLs in notes, fetches metadata and PDFs, refreshes citation counts, and draws Mermaid literature maps.",
+ "tags": [
+  "semantic-scholar",
+  "arxiv",
+  "crossref",
+  "openalex",
+  "doi",
+  "citation-counts",
+  "mermaid"
+ ]
+}

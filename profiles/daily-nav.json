@@ -1,0 +1,65 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "open yesterday's daily note via command",
+  "open tomorrow's daily note via command",
+  "reuse settings from the daily notes and periodic notes plugins",
+  "pair with Note Toolbar buttons for a yesterday/today/tomorrow bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installation is described only via BRAT; the README includes an importable Note Toolbar configuration for a yesterday/today/tomorrow button bar.",
+ "intent": "improve",
+ "intentEvidence": "This plugin depends on obsidian-daily-notes-interface which reads settings from the daily notes plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Daily notes only opens today's note, so moving to adjacent days requires manually finding and opening those notes.",
+ "readmeHash": "c2e08ed2611038efb588734910412f77427d8f5d",
+ "relations": [
+  {
+   "evidence": "It is recommended to use with Note Toolbar",
+   "plugin": "Note Toolbar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin depends on obsidian-daily-notes-interface which reads settings from the daily notes plugin",
+   "plugin": "obsidian-daily-notes-interface",
+   "type": "extends"
+  },
+  {
+   "evidence": "reads settings from the daily notes plugin and periodic notes plugin if you are using",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "periodic-notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Navigation commands that open yesterday's or tomorrow's daily note based on the file explorer sorting order.",
+ "tags": [
+  "daily-notes",
+  "periodic-notes",
+  "note-toolbar",
+  "command-palette"
+ ]
+}

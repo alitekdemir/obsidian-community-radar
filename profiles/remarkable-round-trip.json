@@ -1,0 +1,69 @@
+{
+ "also": [
+  "annotation",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send notes, folders or selections to a reMarkable tablet as PDF or EPUB with layout presets",
+  "Import pen annotations back into the vault as strike-through, bold, highlights, quotes and remark images",
+  "Send notes as editable text, type on the device, and pull the edited text back with change safeguards",
+  "Track each note with a stable remarkable-id so moves and renames keep the device link",
+  "Point the sync at a self-hosted rmfakecloud endpoint instead of the official cloud"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Handwriting is never converted to text — it comes back as cropped images in callouts. Images render as placeholders in the generated PDF, and PDF fonts cover only Latin-1 with ASCII fallback for other scripts. The stroke reader works against an undocumented device format, so unusual pens or firmware updates may break imports. The README explains each capability the plugin scan flags and states there is no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to write and edit in Markdown with a keyboard, then switch to the reMarkable to slow down, review and think, and get the resulting remarks back where they belong.",
+ "primary": "integrations",
+ "problem": "Reviewing and marking up notes is more comfortable on an e-ink tablet with a pen, but Obsidian has no built-in way to send notes there and bring the resulting marks back into the original note.",
+ "readmeHash": "464daf718f672edb0575244ff54359e436b895e8",
+ "relations": [
+  {
+   "evidence": "Your notes go directly from Obsidian to the endpoint you configure — the official reMarkable cloud",
+   "plugin": "reMarkable cloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Self-hosting rmfakecloud instead? Toggle Self-hosted endpoint and give your base URL.",
+   "plugin": "rmfakecloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "reMarkable tablet",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "reMarkable cloud pairing code",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sends notes to a reMarkable tablet as PDF or EPUB and imports pen annotations back into the source note as Markdown edits.",
+ "tags": [
+  "remarkable",
+  "rmfakecloud",
+  "epub",
+  "handwriting",
+  "pen-strokes",
+  "e-ink"
+ ]
+}

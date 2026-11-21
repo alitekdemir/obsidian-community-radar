@@ -1,0 +1,43 @@
+{
+ "also": [
+  "workspaces"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Intercept the core \"New tab\" command from the palette and ribbon plus button",
+  "Capture the configured \"New tab\" hotkey via a document-level keydown listener",
+  "Insert the new leaf next to the active tab using Workspace.createLeafInParent",
+  "Fall back to creating the tab at the end and repositioning it if the public API fails",
+  "Log which interception path handled each new tab when debug logging is enabled"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation only (copy manifest.json and main.js into .obsidian/plugins/); the fallback reposition path relies on undocumented internals and may break after major Obsidian UI rewrites.",
+ "intent": "improve",
+ "intentEvidence": "Rather than building an independent new-tab feature with its own hotkey, this hooks the single command Obsidian already uses",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian always opens new tabs at the end of the tab strip, with no setting to place them beside the tab you are working in.",
+ "readmeHash": "cc6912f068085adc548e016fd780b1f458d8e94c",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Tab-placement plugin that makes new tabs open directly next to the active tab instead of at the end of the tab strip.",
+ "tags": [
+  "tabs",
+  "tab-groups",
+  "workspace-api",
+  "monkey-patching",
+  "keydown-interception"
+ ]
+}

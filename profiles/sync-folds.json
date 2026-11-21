@@ -1,0 +1,62 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Store fold states in the plugin's data.json inside the vault",
+  "Apply saved folds when the plugin loads or when data.json changes from another device",
+  "Save fold and unfold changes with a 150 ms debounce",
+  "Export fold states from local storage to data.json via a command",
+  "Import fold states from data.json into local storage via a command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault sync plugin itself; it only saves fold states inside the vault so existing sync services carry them.",
+ "extras": "Requires no configuration; install it on every device that shares the vault. Export/import commands exist for devices that get out of step. Works on desktop and mobile, requires Obsidian 0.15.0 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian keeps fold states in each device's localStorage, so folds made on one device never appear on another.",
+ "readmeHash": "1b79a9de56dfd120e34446cf9e361f0fe5c4bab8",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Fold Properties",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Sync: turn on Installed community plugins under Settings → Sync → Vault configuration sync.",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "any vault sync service (Obsidian Sync, iCloud, Dropbox, OneDrive, Google Drive, Git, Syncthing, Nextcloud, CouchDB)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Stores heading, list and property fold states in the vault's data.json so they stay the same across devices via any sync service.",
+ "tags": [
+  "fold-states",
+  "local-storage",
+  "obsidian-sync",
+  "icloud",
+  "dropbox",
+  "syncthing",
+  "data-json"
+ ]
+}

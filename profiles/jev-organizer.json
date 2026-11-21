@@ -1,0 +1,66 @@
+{
+ "also": [
+  "automation",
+  "folders"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Select target folders and describe what belongs in each",
+  "Classify the active note via the TypeSafe Jev API",
+  "Move the note to the chosen folder, preserving its filename",
+  "Route ambiguous or low-confidence results to a review folder",
+  "Undo the last move during the current session"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Early release, desktop only, not yet in the community directory (manual install required). Interface is currently in Spanish. Free under MIT, but TypeSafe API usage may incur charges. README includes detailed privacy and network disclosures.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian offers no built-in way to classify a note by its content and file it into a chosen folder on demand.",
+ "readmeHash": "5d4e073fc88fe6996828999c2b3e3543ea0cd08c",
+ "relations": [
+  {
+   "evidence": "Classify the active Markdown note with TypeSafe's Jev and move it to one of your selected folders",
+   "plugin": "TypeSafe (Jev)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "TypeSafe account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "TypeSafe API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "TypeSafe API usage may incur charges",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI note classifier that sends the active note's text to TypeSafe's Jev and moves it into one of your described folders, with a review folder and undo.",
+ "tags": [
+  "typesafe",
+  "jev",
+  "classification",
+  "confidence-threshold",
+  "undo"
+ ]
+}

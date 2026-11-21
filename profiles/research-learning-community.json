@@ -1,0 +1,82 @@
+{
+ "also": [
+  "ai",
+  "pdf"
+ ],
+ "audience": [
+  "researchers",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Drafts domain-level literature reviews with AI and verifies candidate papers via Crossref DOIs",
+  "Creates a per-paper literature workspace with metadata, skim report, and deep-read cards",
+  "Generates five-part deep-read cards with concept value and an executable action",
+  "OCR-converts PDFs to Markdown with layout repair and paragraph-level Chinese translation",
+  "Generates reader-profile science posters with AI illustrations and publishes cards to a community server"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a social community platform; the name refers to a personal research reading workflow with optional publishing to a self-hosted server.",
+ "extras": "Marked as not manually reviewed by Obsidian staff. README warns API keys are stored in plain text in the plugin's local data.json. The optional publishing server is not required for local use.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in pipeline that turns a research domain into an AI-drafted literature review, verified sources, and structured deep-reading notes in one traceable chain.",
+ "readmeHash": "7dcb96b6537af1063407355e61c65c80ea3e9e3f",
+ "relations": [
+  {
+   "evidence": "candidates carry DOIs and are verified with Crossref",
+   "plugin": "Crossref",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OCR (DeepSeek OCR) turns a PDF into Markdown",
+   "plugin": "DeepSeek OCR",
+   "type": "integrates"
+  },
+  {
+   "evidence": "draws an illustration with seedream, and composes a 1080×1440 poster locally",
+   "plugin": "seedream",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible AI endpoint",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Volcengine Ark seedream image endpoint",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "self-hosted community server device token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Research reading workflow plugin that chains AI literature reviews, Crossref-verified sources, skim reports, and deep-read cards into traceable study folders.",
+ "tags": [
+  "literature-review",
+  "crossref",
+  "doi-verification",
+  "deepseek-ocr",
+  "seedream",
+  "openai-compatible",
+  "translation",
+  "poster-generation"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI agent that reads, searches and edits vault files",
+  "Stream live reasoning and tool calls while tasks run",
+  "Run multiple parallel sessions with queue, interject and cancel",
+  "Attach notes to requests with @-mentions or the active note",
+  "Export conversations as Markdown notes with frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone AI chat client; it shells out to the locally installed dsh CLI rather than calling an AI API itself.",
+ "extras": "Desktop-only (spawns a local node process). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Provider is fixed to deepseek-official, and a 'danger-full-access' permission mode gives the agent unrestricted file access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent that can act on vault files directly, so working with notes via AI normally means copying content in and out manually.",
+ "readmeHash": "a9355114901ba02aa77a8609c64dc4f91ba593fb",
+ "relations": [
+  {
+   "evidence": "Embed DSH (DeepSeek Harness) as the single AI agent inside your Obsidian vault.",
+   "plugin": "DSH (DeepSeek Harness)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DSH CLI (dsh command or @deepseek-ai/dsh package)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "DEEPSEEK_API_KEY via ~/.dsh/.credentials.yaml",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI agent wrapper that embeds the DeepSeek Harness (dsh) CLI in the vault, offering multi-session chat that can read, search and edit notes.",
+ "tags": [
+  "deepseek",
+  "agent",
+  "chat",
+  "cli-wrapper",
+  "reasoning",
+  "tool-calls"
+ ]
+}

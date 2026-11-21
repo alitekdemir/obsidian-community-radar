@@ -1,0 +1,75 @@
+{
+ "also": [
+  "visualization",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a monthly calendar over daily notes with photo covers, mood marks, and weather icons",
+  "Browse and full-text search entries in a timeline filtered by date, mood, tags, and media type",
+  "Record five-level moods with notes, tags, trend charts, and reports",
+  "Fetch weather from Open-Meteo and show on-this-day past-year recaps",
+  "Back up, restore, and export mood metadata as JSON or CSV"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Also installable via BRAT (Haoo-7/Obsidian-Dayline) or manual download. Mood data is stored by default in a separate Calendar/journal-metadata.json, not in the notes; EXIF GPS coordinates are only sent to OpenStreetMap Nominatim if the user enables it. Weather needs no API key. Requires Obsidian v1.5.0+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Daily notes are plain files, so Obsidian offers no calendar or timeline view for browsing past entries with mood, weather, and media context.",
+ "readmeHash": "f45081a8a0ebb035ae4f96f94b6054a8f1f1172d",
+ "relations": [
+  {
+   "evidence": "缺少笔记时，确认一次就会按 Daily Notes 模板创建（支持 Templater）",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "天气功能可选，使用 Open-Meteo 且不需要 API Key",
+   "plugin": "Open-Meteo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "先使用 Day One Importer 或 Obsidian Importer，再把输出目录添加为 Journal source",
+   "plugin": "Day One Importer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "将 EXIF GPS 坐标发送到 OpenStreetMap Nominatim 以显示地名",
+   "plugin": "OpenStreetMap Nominatim",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dayline 会迁移旧 dayline 或 Calendar Sidebar 1.x 的设置",
+   "plugin": "Calendar Sidebar",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Visual journal that turns a folder of Markdown daily notes into a monthly calendar and searchable timeline with mood, weather, and photo views.",
+ "tags": [
+  "mood-tracking",
+  "weather",
+  "open-meteo",
+  "on-this-day",
+  "timeline",
+  "exif",
+  "heic",
+  "templater"
+ ]
+}

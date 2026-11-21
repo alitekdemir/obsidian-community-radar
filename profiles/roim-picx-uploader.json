@@ -1,0 +1,65 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted and drag-and-dropped images to a Roim PicX instance",
+  "Detect and upload external image URLs in notes, including Web Clipper output",
+  "Rewrite original image URLs with PicX URLs in the note",
+  "Decode camo.githubusercontent.com URLs and skip non-content images like badges",
+  "Configure API endpoint, token, image prefix, and post-upload behavior"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation from GitHub Releases is required; no community plugin store install is described.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian keeps pasted images as local vault files and leaves external image URLs untouched, with no built-in way to host images on a self-hosted PicX service.",
+ "readmeHash": "6a026786484e4358a90a5e83eb9f0a1b27262fac",
+ "relations": [
+  {
+   "evidence": "Auto-upload images to your Roim PicX instance from Obsidian.",
+   "plugin": "Roim PicX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Automatically uploads external images when you clip articles using Obsidian Web Clipper",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Roim PicX instance",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "PicX API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Image uploader that sends pasted, dropped, or externally linked images to a Roim PicX instance and rewrites note URLs to the hosted copies.",
+ "tags": [
+  "roim-picx",
+  "image-hosting",
+  "web-clipper",
+  "paste-images",
+  "github-camo"
+ ]
+}

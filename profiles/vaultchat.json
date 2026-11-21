@@ -1,0 +1,70 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with local or hosted AI models from one provider dropdown",
+  "Attach notes and folders as composable context with a token budget and inspector",
+  "Apply AI-proposed edits, creations, renames and deletions as reviewable plans with undo",
+  "Search vault notes in natural language via indexed agent tools",
+  "Branch conversations by editing or regenerating messages"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest states the plugin has not been manually reviewed by Obsidian staff. README warns that Claude Code OAuth tokens (sk-ant-oat01-...) do not work and that using them in third-party tools violates Anthropic's terms.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and existing AI plugins typically default to hosted API keys and apply model changes without per-edit review or undo.",
+ "readmeHash": "d34d9aa13070705d5b1571f772765e0e06078965",
+ "relations": [
+  {
+   "evidence": "Tested with Ollama and LM Studio; llama.cpp, vLLM, LocalAI, and Jan expose the same API",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tested with Ollama and LM Studio; llama.cpp, vLLM, LocalAI, and Jan expose the same API",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or any OpenAI-compatible local server",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, Google Gemini, or OpenRouter",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local-first multi-provider AI chat that reads vault files and applies note edits, creations and deletions through reviewable, undoable plans.",
+ "tags": [
+  "ollama",
+  "lm-studio",
+  "openrouter",
+  "anthropic",
+  "gemini",
+  "diff-review",
+  "undo",
+  "agent-tools"
+ ]
+}

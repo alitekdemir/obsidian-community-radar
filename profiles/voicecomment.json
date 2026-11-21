@@ -1,0 +1,63 @@
+{
+ "also": [
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record microphone audio as MP3 files in a vault folder",
+  "plot a self-contained audio-player rectangle onto Excalidraw drawings",
+  "serve generated player pages through a local HTTP server",
+  "regenerate the HTML player pages for every MP3 in the recordings folder",
+  "replot the last recording if the drawing view was closed first"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian 1.4.0+); the plotted rectangle only loads while the plugin's local server runs on the same PC, though the MP3 and HTML files stay valid elsewhere. Listed as not staff-reviewed and installable via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Neither Excalidraw nor its plugin can record audio",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to fix Excalidraw's unresolved lack of audio recording (issue #2278) by automating card creation with the recording included.",
+ "primary": "audio",
+ "problem": "Excalidraw cannot record audio, and even embedding an existing audio file in a drawing requires a manual workaround with a card and an audio link.",
+ "readmeHash": "66cebb4ea1da6dd07d495a11259ce39a5779dbbf",
+ "relations": [
+  {
+   "evidence": "the ExcalidrawAutomate API that makes the drawing part possible",
+   "plugin": "Excalidraw for Obsidian by Zsolt Viczián",
+   "type": "extends"
+  },
+  {
+   "evidence": "lamejs (LGPL-3.0) — MP3 encoding, bundled unmodified",
+   "plugin": "lamejs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw plugin (version 2.x)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Records voice notes as MP3 files and plots a self-contained audio player where you recorded, in a note or on an Excalidraw drawing.",
+ "tags": [
+  "mp3",
+  "excalidraw",
+  "voice-recording",
+  "microphone",
+  "local-server",
+  "lamejs"
+ ]
+}

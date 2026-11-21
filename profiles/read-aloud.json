@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read the current note aloud sentence by sentence with a local Piper voice",
+  "Highlight and scroll to the sentence being read in the editor and reading view",
+  "Download Piper voices in 58 languages from the settings",
+  "Control playback with commands and status bar buttons (pause, resume, next/previous sentence and paragraph)",
+  "Adjust speed, sentence length, and paragraph pauses in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Windows, macOS, Linux); does not work on phones or tablets. Requires the free, open-source calibre app installed outside the vault. Voice downloads come from huggingface.co/rhasspy/piper-voices; reading itself works offline and no notes are sent anywhere. Step-by-step setup lives in HELP.md, also available via the Help command inside Obsidian. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to a note read aloud, so users must leave the app or rely on cloud TTS services.",
+ "readmeHash": "5133a9bc0929a2f3478574eea9c9069136502fd3",
+ "relations": [
+  {
+   "evidence": "The speaking is done by the Piper built into calibre (8.8 or newer)",
+   "plugin": "Piper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Read Aloud starts calibre's calibre-debug in the background to run the speech engine",
+   "plugin": "calibre",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "calibre (8.8 or newer, with calibre-debug)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Text-to-speech reader that reads notes aloud sentence by sentence with a local Piper voice, highlighting the sentence currently being read.",
+ "tags": [
+  "text-to-speech",
+  "piper",
+  "calibre"
+ ]
+}

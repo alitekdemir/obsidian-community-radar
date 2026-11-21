@@ -1,0 +1,59 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Forward emails to a personal mail2note address",
+  "Poll the mail2note service on a set interval for new messages",
+  "Create Markdown notes with attachments in a target folder",
+  "Configure filename templates using date, subject, and message ID",
+  "Trigger an immediate sync from the ribbon or command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; the README includes a privacy section stating no telemetry and that the API key and note contents are never logged or shared.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to get email content into the vault automatically; this bridges an email inbox to vault notes.",
+ "readmeHash": "4f32efe3ca24ff846e4c9988174188c366850788",
+ "relations": [
+  {
+   "evidence": "Forward emails to your personal mail2note address and have them appear automatically in your vault",
+   "plugin": "mail2note",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "mail2note",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "mail2note API key (m2n_...)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Email-to-vault sync that polls a mail2note inbox and saves incoming emails as Markdown notes with attachments.",
+ "tags": [
+  "email",
+  "inbox",
+  "polling",
+  "api-key"
+ ]
+}

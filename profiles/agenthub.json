@@ -1,0 +1,85 @@
+{
+ "also": [
+  "sidebar",
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with coding agents from a sidebar with streaming Markdown responses",
+  "Attach notes, selections, folders, and images as agent context with @ mentions",
+  "Approve, deny, or queue agent permission requests and queued messages",
+  "Run multiple agent conversations in tabs with session history and resume",
+  "Export conversations to Markdown notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (mobile unsupported). Manifest notes the plugin has not been manually reviewed by Obsidian staff. README carries extensive security disclosures: agents run as local child processes that can read, write, and execute commands per their permission mode, sessions are stored under .obsidian/plugins/agenthub/sessions/ and may be picked up by sync or Git, and dangerous modes like bypassPermissions require repeated confirmation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run coding agents against your vault; you have to leave the app and work in a terminal without note context.",
+ "readmeHash": "c5624a079e1ba4ad7d2a97a363bd6fbfc649e7d9",
+ "relations": [
+  {
+   "evidence": "A desktop Obsidian plugin for working with Claude Code, Codex, GitHub Copilot, Grok, Gemini CLI, OpenCode",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "working with Claude Code, Codex, GitHub Copilot, Grok, Gemini CLI, OpenCode, and other coding agents",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use BRAT to try beta versions before they reach the community directory.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "coding agent CLIs (Claude Code, Codex, OpenCode, GitHub Copilot, Grok, Gemini CLI)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider account signed in through each agent's CLI",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "provider subscription or API usage, depending on provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js with npx for the Claude Code and Codex ACP adapters",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar chat client for coding agents (Claude Code, Codex, Copilot, Gemini CLI and others) that runs them as local processes with your notes as context.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "github-copilot",
+  "gemini-cli",
+  "opencode",
+  "acp",
+  "coding-agents"
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish marked notes to a GitHub repository via the GitHub API",
+  "Batch publish and delete notes based on the pub-blog frontmatter mark",
+  "Manage publish states with a visual Publication Center including diff view",
+  "Upload images to the repo and rewrite image links to a configured URL prefix",
+  "Map vault folder paths to different blog repo paths with rewrite rules"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is written primarily in Chinese with a full English section included; publishing requires the user to already have a blog repo with a deployment workflow such as GitHub Actions.",
+ "intent": "alternative",
+ "intentEvidence": "基于 Obsidian Digital Garden 修改。",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to a self-hosted GitHub-based blog, forcing users to copy and reformat files manually.",
+ "readmeHash": "1fbe3b0e14b9927e3d75dba34c70bbce57086937",
+ "relations": [
+  {
+   "evidence": "基于 Obsidian Digital Garden 修改。",
+   "plugin": "Obsidian Digital Garden",
+   "type": "fork"
+  },
+  {
+   "evidence": "Notes and images are pushed to your GitHub repo via the GitHub API",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained token with repo read/write access",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that pushes notes marked pub-blog: true to a GitHub repository, so GitHub Pages, Vercel, or Netlify blogs update automatically.",
+ "tags": [
+  "github",
+  "github-actions",
+  "github-pages",
+  "vercel",
+  "netlify",
+  "dataview",
+  "excalidraw"
+ ]
+}

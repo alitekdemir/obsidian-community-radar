@@ -1,0 +1,83 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [
+  "strava-users",
+  "runners",
+  "cyclists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "authenticate with Strava via OAuth2",
+  "append an Activities section to daily notes on a configurable interval",
+  "write distance and time metrics to frontmatter fields",
+  "backfill up to 90 days of historical activities",
+  "detect daily notes from Periodic Notes or Daily Notes plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-syncing tool; 'sync' here means pulling Strava activities into daily notes, not syncing notes between devices.",
+ "extras": "Not yet in the community plugin store (under review); install via BRAT or manually. README warns not to clone the repo into the vault (node_modules breaks iCloud sync) and to keep data.json when updating.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Daily notes don't automatically capture your Strava workouts, so activity data has to be copied into notes by hand.",
+ "readmeHash": "9b2b3597c62253723ba51f5cae4b8eeba88b0954",
+ "relations": [
+  {
+   "evidence": "Sync your Strava activities to Obsidian daily notes with OAuth2 authentication.",
+   "plugin": "Strava",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Detects daily notes from Periodic Notes or Daily Notes plugin",
+   "plugin": "Periodic Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Detects daily notes from Periodic Notes or Daily Notes plugin",
+   "plugin": "Daily Notes",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Strava account with a registered API application",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes or Daily Notes (for daily note detection)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT (for installation until store approval)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Strava sync plugin that adds workout activities to daily notes via OAuth2, with frontmatter metrics and interval-based auto-sync.",
+ "tags": [
+  "strava",
+  "oauth2",
+  "fitness",
+  "exercise",
+  "activities",
+  "backfill",
+  "secret-storage"
+ ]
+}

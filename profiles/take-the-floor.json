@@ -1,0 +1,87 @@
+{
+ "also": [
+  "pdf",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Present a note as slides split by --- lines",
+  "Show %%comment%% text as speaker notes on the presenter's screen",
+  "Render wiki links as citations with full references at the slide foot",
+  "Preview slides in a tab while editing the note",
+  "Export slides to a PDF without speaker notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13 or later on desktop. Offers to download a built-in pandoc (17 MB) if none is installed. Detailed network and file disclosure section; code lives on Codeberg with a GitHub copy; free, with donations via Liberapay. Wayland desktops other than niri need manual window dragging; untested on real second screens outside niri.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it so a talk written in the vault, with citations as links and thoughts next to them, does not have to be typed again in another program where the links mean nothing and the reference list is manual.",
+ "primary": "writing",
+ "problem": "Obsidian has no way to present a note as slides with real citations and hidden speaker notes, so talks written in the vault have to be retyped in a separate slide program with references done by hand.",
+ "readmeHash": "2ba6f050bcf3981e096e3e1b47a27a385517d369",
+ "relations": [
+  {
+   "evidence": "It reads a note the same way Take the Floor does, with the same code.",
+   "plugin": "Due Credit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Paper Trail turns your Zotero library into a reading queue, with a note for each paper.",
+   "plugin": "Paper Trail",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A template with presentation: true in its properties gives every new talk its Present button.",
+   "plugin": "Loose Ends",
+   "type": "integrates"
+  },
+  {
+   "evidence": "export a .bib file from Zotero with Better BibTeX's auto-export turned on",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pandoc makes the slides. If you have it installed, Take the Floor uses it.",
+   "plugin": "pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pandoc",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Zotero with Better BibTeX",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Turns a note into a slide deck via pandoc, rendering wiki links as formatted citations and showing speaker notes on the presenter's own screen.",
+ "tags": [
+  "pandoc",
+  "zotero",
+  "better-bibtex",
+  "citations",
+  "speaker-notes",
+  "second-screen",
+  "slide-deck"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "folders"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sort folders and files together in a single list",
+  "Sort by modified time, created time, or name",
+  "Choose how a folder gets its timestamp (newest descendant, newest direct child, or filesystem)",
+  "Toggle mixing on and off via commands or settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Incompatible with other plugins that patch the same File Explorer sorting method (Custom File Explorer sorting, Flexplorer, Folder Sort Rules); requires Obsidian 1.7.2 or later.",
+ "intent": "improve",
+ "intentEvidence": "Core File Explorer always lists every folder, then every file. This plugin removes that split.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's Why section says the split between folders and files is the reason: the author wanted recently edited notes and folders to sit next to each other.",
+ "primary": "files",
+ "problem": "The core File Explorer always groups all folders before all files, so a recently edited note can appear below an older folder regardless of time order.",
+ "readmeHash": "b35305378b39800d084c92f38dcd304dbe65dfb0",
+ "relations": [
+  {
+   "evidence": "Do not enable this together with Custom File Explorer sorting, Flexplorer, or Folder Sort Rules.",
+   "plugin": "Custom File Explorer sorting",
+   "type": "alternative"
+  },
+  {
+   "evidence": "They patch the same File Explorer method; last one wins.",
+   "plugin": "Flexplorer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "No YAML. No sortspec. No per-folder index notes. One global setting.",
+   "plugin": "Folder Sort Rules",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "File Explorer sorter that interleaves folders and files in one list by modified time, created time, or name instead of listing folders first.",
+ "tags": [
+  "sort-order",
+  "mtime",
+  "filesystem-timestamps"
+ ]
+}

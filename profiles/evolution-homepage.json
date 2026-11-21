@@ -1,0 +1,75 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display a configurable homepage with banner, calendar, shortcuts, and two-column module layout",
+  "Add, edit, complete, and schedule recurring tasks that rewrite the source Markdown",
+  "Open or create daily notes from a calendar with fallback to core Daily notes settings",
+  "List active notes filtered by configured folders and tags",
+  "Apply theme presets to dashboard text, borders, and module accents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-wide theme; its theme presets color only the dashboard and leave vault CSS snippets untouched.",
+ "extras": "Desktop-only (isDesktopOnly: true); it cannot be installed on mobile. Not yet in the community plugin market — install manually from Releases or via BRAT. No third-party plugins, network, account, or telemetry required.",
+ "intent": "alternative",
+ "intentEvidence": "Evolution replaces what a dataviewjs calendar plus a dataview TASK query used to do",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it partly so the homepage no longer depends on Dataview, replacing dataviewjs calendars and dataview TASK queries.",
+ "primary": "interface",
+ "problem": "Obsidian has no built-in start page, so users assemble dashboards from Dataview queries, embedded calendars, and manual layouts.",
+ "readmeHash": "6b520a117dc5f71e9d6a4df68cd30312494ed5f2",
+ "relations": [
+  {
+   "evidence": "Evolution replaces what a dataviewjs calendar plus a dataview TASK query used to do",
+   "plugin": "Dataview",
+   "type": "replaces"
+  },
+  {
+   "evidence": "the composer writes the same emoji metadata Tasks writes, and Evolution reads that text back itself",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the matching value is read from the core Daily notes plugin instead",
+   "plugin": "Daily notes (core)",
+   "type": "extends"
+  },
+  {
+   "evidence": "four presets ported from the obsidian-color-boost skill",
+   "plugin": "obsidian-color-boost",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily notes (core plugin)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Configurable homepage dashboard with a banner, daily-note calendar, shortcuts, task list, and active-note list, writing all edits back to source notes.",
+ "tags": [
+  "dashboard",
+  "start-page",
+  "recurring-tasks",
+  "tasks-emoji-format",
+  "chinese-holidays"
+ ]
+}

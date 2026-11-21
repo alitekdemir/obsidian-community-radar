@@ -1,0 +1,63 @@
+{
+ "also": [
+  "calendar",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a scrollable, zoomable timeline of vault records from detected dates, content dates, and tracked edits",
+  "Filter and fuzzy-search timeline records across filenames, content, summaries, and attributes",
+  "Manage records through review states, pinning, marking, renaming, moving, and daily note creation",
+  "Generate AI summaries and zoomable Epoch timemaps via a local AI bridge (Pro)",
+  "Find related notes through links, tags, title and semantic similarity, and sync ICS calendar feeds (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: core timeline is free, but tracked changes, Epochs, similarity, AI summaries, and calendar sync require a paid Pro license validated against a cloud server. The AI bridge starts a local server and, in native mode, uses Chrome's built-in Gemini Nano Summarizer API (desktop-only, needs ~22 GB free disk). The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Vaults fill up with quick capture notes, and users lose track of when things happened and which notes belong to the same theme or activity.",
+ "readmeHash": "5ade16152feb6f85471a3c351531b12bce98dba6",
+ "relations": [
+  {
+   "evidence": "Use Obsidian protocol to add Epochgram.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Epochgram Pro license",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud summarization provider key for AI bridge cloud mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Interactive, zoomable timeline that turns vault notes into dated records, with search, review states, and optional AI summaries and similarity marking.",
+ "tags": [
+  "timeline",
+  "ics",
+  "rrule",
+  "embeddings",
+  "gemini-nano",
+  "hugging-face",
+  "jaro-winkler"
+ ]
+}

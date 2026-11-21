@@ -1,0 +1,63 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse the web in a tabbed panel alongside notes",
+  "Persist logins per vault between sessions",
+  "Manage bookmarks and import them from Chrome or a bookmarks HTML export",
+  "Clip the current page or selection into the vault as a Markdown note",
+  "Open web links from notes in the browser panel"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (uses Electron's webview, does not work on mobile); requires Obsidian 1.13.7 or newer; logins are stored per vault in app data and do not sync between devices; Google sign-in is best effort; Windows untested; manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Viewing web pages while working in Obsidian means leaving the app or using the limited core Web viewer, with no persistent logins, bookmark management or reader-mode clipping.",
+ "readmeHash": "d09ec599e3e5bfafa6dd97ebb147bcd90ffef8e9",
+ "relations": [
+  {
+   "evidence": "it takes priority over the core Web viewer plugin's \"Open external links\" option",
+   "plugin": "Web viewer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Import bookmarks from Chrome (in the menu or the plugin settings) asks you to pick a file",
+   "plugin": "Chrome",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Chrome (or another Chromium-based browser) for optional bookmark import",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Embedded web browser that shows tabbed web pages inside Obsidian, with persistent per-vault logins, bookmarks, Chrome bookmark import and page clipping to Markdown notes.",
+ "tags": [
+  "web-clipper",
+  "reader-mode",
+  "chromium",
+  "electron-webview",
+  "logins",
+  "search-engines"
+ ]
+}

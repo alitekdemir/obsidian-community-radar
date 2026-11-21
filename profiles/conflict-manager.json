@@ -1,0 +1,69 @@
+{
+ "also": [
+  "files",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Alert on unresolved conflicts in the active file",
+  "Review differences in a split-pane diff viewer",
+  "List all files with conflict copies in a Conflict Hub",
+  "Resolve conflicts in the open file",
+  "Merge conflicting copies of config, plugin, theme and snippet files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync service itself; it only cleans up conflict copies that an existing sync service creates.",
+ "extras": "Warns that merged settings files may contain private tokens; old versions go to system trash or vault .trash, which sync or Git may upload. README includes unrelated developer release instructions.",
+ "intent": "new",
+ "intentEvidence": "A simple plugin for conflict resolution. No more hunting through your file system.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Cloud sync services (Dropbox, Google Drive, Syncthing) create duplicate conflict copies of notes and settings that users must find and fix manually in the file system.",
+ "readmeHash": "7c05847de7ed3e52f43c28e2baef8703277dc50d",
+ "relations": [
+  {
+   "evidence": "Sync services like Dropbox, Google Drive or Syncthing can also create conflict copies",
+   "plugin": "Dropbox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync services like Dropbox, Google Drive or Syncthing can also create conflict copies",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You don't need this with Obsidian Sync: it never creates conflict copies of settings",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a third-party sync service that creates conflict file copies",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sync conflict resolver that detects conflict file copies, shows split-pane diffs, and merges or resolves them, including Obsidian config files.",
+ "tags": [
+  "dropbox",
+  "google-drive",
+  "syncthing",
+  "conflict-resolution",
+  "diff-viewer",
+  "merge"
+ ]
+}

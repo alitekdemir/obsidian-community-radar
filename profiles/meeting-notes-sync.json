@@ -1,0 +1,71 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync meeting transcripts, notes, and AI summaries from MacParakeet via its CLI",
+  "Poll Fellow's REST API for cloud AI recaps",
+  "Merge meetings captured by both sources into one folder by interval overlap",
+  "Build per-meeting folder paths from configurable date and title tokens",
+  "Run sync on a schedule, on demand, or as a forced full re-sync"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a meeting note-taking tool; it only syncs and merges artifacts from MacParakeet and Fellow into meeting folders in the vault.",
+ "extras": "Pending community-store review; install via BRAT or manually from releases. Formerly distributed under the id \"macparakeet-sync\" with a documented migration path. Warns that the Fellow API key is stored in plaintext in data.json and should be excluded from git or synced folders. Desktop-only; the MacParakeet source uses shell execution and filesystem access and is off by default. Further details in PLAN.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Meeting recordings, transcripts, and AI summaries live in outside meeting tools, so getting them into an Obsidian vault means manual copying and exports.",
+ "readmeHash": "d1569cab6d9b0f0436a781adbd6b10bc983f03b6",
+ "relations": [
+  {
+   "evidence": "Reads meetings from macparakeet-cli (no network, no accounts, no database access)",
+   "plugin": "MacParakeet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Polls Fellow's REST Developer API for cloud AI recaps",
+   "plugin": "Fellow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "macparakeet-cli (MacParakeet app or standalone CLI, macOS)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "paid Fellow plan with API access enabled",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fellow personal API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs meeting transcripts, notes, and AI summaries from MacParakeet and Fellow into the vault, one folder per meeting.",
+ "tags": [
+  "macparakeet",
+  "fellow",
+  "meeting-transcripts",
+  "ai-summaries",
+  "meeting-recordings",
+  "rest-api"
+ ]
+}

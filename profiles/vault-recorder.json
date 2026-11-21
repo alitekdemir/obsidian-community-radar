@@ -1,0 +1,75 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record microphone audio into the daily log or at the cursor",
+  "Record meetings by mixing system audio with the microphone",
+  "Transcribe recordings on-device, via an OpenAI-style service, or by hand-off to an external program",
+  "Run an AI agent over transcripts to summarize or tidy them, and name speakers",
+  "Remove recordings and auto-delete audio after a keep time"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Daily notes"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a recorder of vault or screen activity; it records microphone and system audio into notes.",
+ "extras": "main.js is about 9.5 MB because the on-device speech engine is bundled, which trips Obsidian Sync Standard's 5 MB file limit (install the plugin separately on each device). Uses an undocumented Obsidian API for Daily Notes settings. Closing Obsidian mid-recording loses that recording by design; the meeting mode has a known audio-device bug on Windows.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian's built-in audio recorder only records the microphone and embeds a file; it cannot capture the other side of a call, place recordings under a chosen heading, transcribe them, or act on the transcript.",
+ "readmeHash": "69cea917dba37ce8bcc845cf2fa447b2f86d78eb",
+ "relations": [
+  {
+   "evidence": "reads the daily-log folder and filename pattern from the core Daily Notes plugin's configuration",
+   "plugin": "Daily Notes (core plugin)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One model that has done the daily-log job well is Anthropic's Claude Haiku 5.5",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Transcription or agent service key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "e.g. OpenAI, Groq, Together AI, Mistral, Anthropic",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "External program for hand-off transcriber or agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Audio recorder that captures microphone or meeting (system audio) into the daily log or notes, with optional on-device or service transcription and AI agents.",
+ "tags": [
+  "whisper",
+  "speech-to-text",
+  "openai",
+  "anthropic-claude",
+  "system-audio",
+  "hugging-face",
+  "meetings"
+ ]
+}

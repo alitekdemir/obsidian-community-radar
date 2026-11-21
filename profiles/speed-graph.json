@@ -1,0 +1,51 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a force-directed graph that stays smooth on vaults with tens of thousands of notes",
+  "Save and restore the graph layout between sessions",
+  "Filter the graph by search, tags, orphans, attachments and excluded folders, with colour groups and hover cards",
+  "Show a local graph of a note and its neighbours",
+  "Arrange notes into shape layouts (honeycomb, spiral galaxy, solar system and others) and add optional 3D and motion effects"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Benchmarks come from one MacBook on synthetic vaults with random links, one run each, and the author lists caveats in docs/comparison.md. Not tested on mobile; tested on macOS only. Formerly named Fast Graph (releases 0.1.0–0.2.0); old settings do not carry over. Needs Obsidian 1.13.4 or newer.",
+ "intent": "improve",
+ "intentEvidence": "How fast is it, compared with Obsidian's built-in graph?",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's built-in graph view becomes slow, janky and memory-hungry on vaults with tens of thousands of notes.",
+ "readmeHash": "e4de4b988d6cf8be46250a8d5cae5284b647dc72",
+ "relations": [
+  {
+   "evidence": "The layout follows the d3-force model, written from its public description (no d3 code is included).",
+   "plugin": "d3-force",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Graph view plugin that renders very large vaults smoothly, with saved layouts, filters, a local graph, shape layouts and optional 3D.",
+ "tags": [
+  "rust",
+  "webassembly",
+  "d3-force",
+  "3d",
+  "performance"
+ ]
+}

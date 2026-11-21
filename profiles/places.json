@@ -1,0 +1,67 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render interactive maps with markers, tracks, and overlays from notes",
+  "import GPX, GeoJSON, CSV, and polyline overlay data",
+  "generate heatmaps from map data",
+  "query vault notes as map data sources via VaultQuery or Dataview",
+  "display elevation, speed, and pace charts for tracks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Map rendering requires installing at least one companion provider plugin; the README lists a capability table of provider plugins and offers a sandbox to try it. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no built-in way to visualize geographic data such as GPX tracks or POI lists on a map inside notes.",
+ "readmeHash": "3effba6c756633fcc3a96f083cc48674088bccd1",
+ "relations": [
+  {
+   "evidence": "VaultQuery | SQL queries over vault notes as a map data source",
+   "plugin": "VaultQuery",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview | Dataview queries as a map data source",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "a map-capable provider plugin (e.g. places-leaflet, places-mapbox)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "VaultQuery or Dataview for query-based data sources",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Maps plugin that renders points of interest, GPX and GeoJSON data from notes on interactive maps with overlays, heatmaps, and charts.",
+ "tags": [
+  "gpx",
+  "geojson",
+  "heatmaps",
+  "geocoding",
+  "isochrones",
+  "track-matching",
+  "map-providers"
+ ]
+}

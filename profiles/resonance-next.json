@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record from a main microphone plus optional additional audio inputs",
+  "Transcribe audio live and write transcript updates during recording",
+  "Generate a summary note after the recording stops",
+  "Store sessions with audio, transcript, summary, and diagnostics",
+  "Preview, recover, clean up, and bulk-delete session artifacts in a library"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; the README documents manual installation steps (npm run build and copying dist files) and includes a Common Failures troubleshooting section with symptoms and fixes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian's core Audio recorder only records audio files; it does not transcribe speech or produce summary notes from recordings.",
+ "readmeHash": "1c82df99f5c67b82d2499fd849ad00befcb71b5b",
+ "relations": [
+  {
+   "evidence": "Whisper for transcription",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama or an optional cloud provider for summaries",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "whisper.cpp with a local ggml model",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud provider API credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local-first AI recorder that captures microphone audio, transcribes live with whisper.cpp, generates summaries with Ollama or cloud providers, and stores sessions in a library.",
+ "tags": [
+  "whisper-cpp",
+  "ollama",
+  "speech-to-text",
+  "transcription",
+  "audio-recording",
+  "ggml"
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Translate selected text in Markdown, PDFs, and Web Viewer pages",
+  "Explain vocabulary using surrounding context",
+  "Insert translations below selections or translate whole notes in batch",
+  "Save excerpts and translations to a chosen note",
+  "Read selected text aloud with adjustable language and speed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web Viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires desktop Obsidian 1.13.7 or later; mobile is not supported. API keys are stored in plugin settings inside the vault, so users are warned to keep them private when sharing or syncing. Scanned PDF pages need OCR before text selection works. The author points YouTube/subtitle use to a separate plugin, Video Player (AI integrated).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Translating while reading in Obsidian usually means copying text into a separate chat app or translation site.",
+ "readmeHash": "1fa409ac4e515d4d615b9ad2c43a83c957929635",
+ "relations": [
+  {
+   "evidence": "For OpenAI or Anthropic, enter your own API key.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For OpenAI or Anthropic, enter your own API key.",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For local Codex or Claude Code, install and sign in to that application first",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "set Codex command or Claude command if it is not found automatically",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For YouTube/local playback, subtitles and screenshot notes, use Video Player (AI integrated).",
+   "plugin": "Video Player (AI integrated)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex or Claude Code CLI for local backends",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI translation assistant that translates selected text, PDFs, web pages, and notes, explains vocabulary in context, and saves bilingual notes.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "codex",
+  "claude-code",
+  "text-to-speech",
+  "bilingual"
+ ]
+}

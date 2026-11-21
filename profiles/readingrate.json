@@ -1,0 +1,72 @@
+{
+ "also": [
+  "import",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync books, authors, quotes, journal entries, insights, and domain mastery from ReadingRate as Markdown notes",
+  "Insert quotes anywhere while writing via fuzzy-search commands",
+  "Generate Bases and Dataview dashboards for the synced library",
+  "Build a reading Canvas grouping books by genre",
+  "Link journal entries and insights to daily notes and color-code graph view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Canvas",
+   "Bases",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Account required (free tier covers all sync features; a paid subscription adds AI synthesis sections and a monthly wiki page). The plugin has not been manually reviewed by Obsidian staff. Sync is one-directional (ReadingRate → vault) over HTTPS to a Supabase-hosted API; no vault data is uploaded.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull a user's reading data from the ReadingRate service into linked, searchable vault notes.",
+ "readmeHash": "9e318104cc3c7072ec21ea83f10232be05421252",
+ "relations": [
+  {
+   "evidence": "Dataview pages — for vaults that already use the Dataview plugin.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Via BRAT: add simonsbookclub/readingrate-obsidian in BRAT and it will install and update automatically.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ReadingRate account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "ReadingRate subscription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs ReadingRate reading data — books, authors, quotes, journal entries, insights — into the vault as interconnected Markdown notes with frontmatter and wikilinks.",
+ "tags": [
+  "quotes",
+  "embeddings",
+  "block-references",
+  "supabase",
+  "reading-log",
+  "wikilinks"
+ ]
+}

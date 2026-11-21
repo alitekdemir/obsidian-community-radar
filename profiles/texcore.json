@@ -1,0 +1,64 @@
+{
+ "also": [
+  "pdf",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-number equations with custom IDs and reference them via \\eqref with fuzzy autocomplete",
+  "Render TikZ code blocks asynchronously in a Web Worker using a WebAssembly TeX engine",
+  "Download and cache TeX packages from a CDN for offline re-rendering",
+  "Export single notes or whole folders to PDF with configurable headers, footers, and page styles"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a full LaTeX toolchain; the TeX compiler runs inside Obsidian as WebAssembly and packages are fetched from a CDN rather than installed locally.",
+ "extras": "The manifest carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' Full documentation and guides are hosted outside the README; the README also notes that bundled TeX binaries and packages are GPL-3.0+ / LPPL v1.3c licensed.",
+ "intent": "improve",
+ "intentEvidence": "A minimalistic, high-performance LaTeX assistant for automatic equation numbering, referencing, and TikZ rendering",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian's math rendering does not number equations or support \\\\eqref references, cannot render TikZ diagrams, and offers little control over PDF output.",
+ "readmeHash": "73221d948aa5792d8daaa9fe962f402c9aeb3d1d",
+ "relations": [
+  {
+   "evidence": "The original browser-based TeX-in-Wasm compiler.",
+   "plugin": "kisonecat/tikzjax",
+   "type": "extends"
+  },
+  {
+   "evidence": "Added Web Worker support, along with additional TeX library and package compilations.",
+   "plugin": "drgrice1/tikzjax",
+   "type": "extends"
+  },
+  {
+   "evidence": "Inspiration for Obsidian integration wrapper that packaged these components.",
+   "plugin": "artisticat1/obsidian-tikzjax",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 3
+ },
+ "summary": "LaTeX assistant that auto-numbers and cross-references equations and renders TikZ diagrams via an in-app WebAssembly TeX engine, plus configurable PDF export.",
+ "tags": [
+  "tikz",
+  "tex",
+  "webassembly",
+  "tikzjax",
+  "circuitikz",
+  "equation-numbering"
+ ]
+}

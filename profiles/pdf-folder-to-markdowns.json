@@ -1,0 +1,59 @@
+{
+ "also": [
+  "pdf",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "convert a folder of PDFs into individual Markdown notes",
+  "embed each source PDF inside its generated note",
+  "move PDFs according to Obsidian attachment settings",
+  "apply a template to each generated note",
+  "rename the input folder with a configurable suffix after conversion"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Conversion is triggered from the file explorer context menu; it embeds the original PDF rather than extracting its text. Installation is manual by placing the plugin in the plugins folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to bulk-convert a folder of PDFs into linked Markdown notes, for example when migrating PDF notes from other apps.",
+ "readmeHash": "4cf36319f8256e09b9f16bfcf6b7b8835095e8f1",
+ "relations": [
+  {
+   "evidence": "The plugin prefers the community Templater plugin when available, otherwise it falls back to the core Templates plugin.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Batch converter that turns a folder of PDFs into one Markdown note per PDF, embedding the PDF in each note.",
+ "tags": [
+  "boox",
+  "batch-conversion",
+  "pdf-embedding",
+  "templater",
+  "context-menu"
+ ]
+}

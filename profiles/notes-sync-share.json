@@ -1,0 +1,70 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes across devices via a self-hosted backend service",
+  "Publish and share selected notes from the private service",
+  "Sync the vault to a remote Git repository (GitHub or GitLab)",
+  "Deploy the backend server with Docker, including HTTPS and registration settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The author offers a hosted backend instance to try before deploying, though self-hosting is recommended for privacy; FAQ covers manual sync-lock unlocking and nginx upload-size limits; the backend components are separate repositories (obsidian-sync-share-server, obsidian-sync-share-web).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid hosted service, and users who want to keep their notes on their own server lack a first-party option for sync and sharing.",
+ "readmeHash": "b2524e334111e0225168d4b95f9bc7aeb158151e",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obtaining GitLab Access Token",
+   "plugin": "GitLab",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted backend server (Docker or source deployment)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub or GitLab access token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub or GitLab account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Self-hosted sync and publishing plugin that syncs vault notes across devices and publishes selected notes to a private server you deploy.",
+ "tags": [
+  "self-hosted",
+  "docker",
+  "github",
+  "gitlab"
+ ]
+}

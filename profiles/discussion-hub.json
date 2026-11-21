@@ -1,0 +1,67 @@
+{
+ "also": [
+  "thinking"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run multi-model discussions with turns, conclusions, and voting",
+  "Solve riddles, mysteries, and logic puzzles collaboratively",
+  "Play Keyword Wolf social deduction with AI and human players",
+  "Aggregate text models from provider plugins like LLM Hub and Gemini Helper",
+  "Save transcripts, votes, and outcomes as Markdown notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a community forum or note commenting tool; it stages AI and human participants in structured activities like debates and a deduction game.",
+ "extras": "The marketplace listing notes it has not been manually reviewed by Obsidian staff. Requires Obsidian 1.10.0 or later. Documents a developer-facing workspace-event contract (discussion-hub:register-integration) for third-party provider plugins; provider credentials stay inside the provider plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian AI plugins each expose their own models in isolation, so models from different providers cannot take part in one shared structured discussion.",
+ "readmeHash": "a26f01c35c29912980c95a3e7b25b2762b4910b5",
+ "relations": [
+  {
+   "evidence": "Mix models supplied by LLM Hub, Gemini Helper, and Local LLM Hub in one discussion.",
+   "plugin": "LLM Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Providers register a protocolVersion: 1 integration through the discussion-hub:register-integration workspace event",
+   "plugin": "Gemini Helper",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Local LLM Hub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "At least one supported AI provider plugin (LLM Hub, Gemini Helper, or Local LLM Hub)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Multi-model discussion hub that stages structured debates, riddle solving, and Keyword Wolf games between AI models from connected provider plugins.",
+ "tags": [
+  "multi-model",
+  "llm",
+  "debate",
+  "riddles",
+  "social-deduction",
+  "voting",
+  "gemini"
+ ]
+}

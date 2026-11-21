@@ -1,0 +1,73 @@
+{
+ "also": [
+  "folders",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Merge notes or folders with frontmatter reconciliation and carried attachments",
+  "Extract a selection, heading or block into its own note, leaving a link, embed or nothing",
+  "Split a note by heading level or turn its heading hierarchy into a folder tree",
+  "Bulk rename notes and folders with find-and-replace, case changes and numbering",
+  "Mark a selection in one note and drop it at an exact cursor position in another"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Note composer"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is an interactive demo vault shipped with every release, browsable on GitHub without installing anything; folder-wide bulk operations can optionally be recorded as individual git commits so they can be reverted.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's core Note composer moves text between notes, but it moves it bluntly",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found the core Note composer too limited for real restructuring work, so the plugin fixes its link, title and placement shortcomings and adds folder-level merge, split, rename and swap operations.",
+ "primary": "files",
+ "problem": "Obsidian's core Note composer moves text bluntly: extracted content breaks relative links, headings with characters invalid in file names are refused, and extracted text can only be appended to the target, with no control over placement and no way to restructure whole folders.",
+ "readmeHash": "410fe0da2e71be769d9596e71f9e2828c71351b3",
+ "relations": [
+  {
+   "evidence": "Merges also preserve keys from Permanent Links when it is enabled",
+   "plugin": "Permanent Links",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Extracts selections; splits notes | Broader editing scope: also merges, swaps and moves",
+   "plugin": "Note Refactor",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Merges selected notes | Broader merge scope: folders, frontmatter strategies and attachments",
+   "plugin": "Merge Notes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Overlaps on text moves; also handles whole notes, headings and folders",
+   "plugin": "Text Transporter",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Note restructuring toolkit that merges, splits and extracts notes, reorders headings, swaps files, and bulk renames notes and folders while keeping links working.",
+ "tags": [
+  "bulk-rename",
+  "heading-hierarchy",
+  "folder-note",
+  "smart-cut-paste",
+  "git-commits"
+ ]
+}

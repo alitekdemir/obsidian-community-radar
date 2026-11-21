@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "compare vault files against the latest scaffold manifest",
+  "report missing, edited, and upstream-changed files with changelog links",
+  "check folder structure, enabled plugins, and saved view targets",
+  "assess note quality such as orphans, dangling links, and inbox captures",
+  "generate a prompt for an AI to propose fixes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-21",
+ "disambiguation": "Not a scaffolding or update tool; it never modifies the vault and only writes a single report note for manual or AI-driven fixes.",
+ "extras": "Beta software with rough edges expected; only works on the device where the scaffold was installed, since Obsidian Sync does not carry dot folders. Part of the ICOR for Life suite; makes at most two network GET requests for manifests and sends nothing about the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Vaults drift silently as folders move, plugins get disabled, and updates change edited files, with no way to tell later what broke.",
+ "readmeHash": "f798094936529d63d3d5231afa41eb5c433d775f",
+ "relations": [
+  {
+   "evidence": "the AI team is its own product, myPKA, with its own version folder",
+   "plugin": "myPKA",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Which of Claude Code, Codex, Gemini CLI and Cursor this vault is actually wired to",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Which of Claude Code, Codex, Gemini CLI and Cursor this vault is actually wired to",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Which of Claude Code, Codex, Gemini CLI and Cursor this vault is actually wired to",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Which of Claude Code, Codex, Gemini CLI and Cursor this vault is actually wired to",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only auditor that compares a vault against the latest ICOR for Life Scaffold release and writes a report of missing, changed and moved files.",
+ "tags": [
+  "scaffold",
+  "vault-drift",
+  "read-only-report",
+  "claude-code",
+  "codex",
+  "gemini-cli",
+  "cursor"
+ ]
+}

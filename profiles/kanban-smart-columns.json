@@ -1,0 +1,82 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-fill Kanban columns with tasks from vault-wide Tasks filter rules",
+  "Complete tasks by dragging cards into a done column",
+  "Write completion status and date back to the task's source note",
+  "Generate the next instance of recurring tasks on completion",
+  "Auto-archive cards completed before today into Kanban's native archive"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone kanban board; it only adds auto-filled query columns to boards created with the existing Kanban plugin.",
+ "extras": "Distributed via BRAT or manual download; README includes a full Chinese translation; cards inside smart columns must not be edited manually, and disabling source links disables write-back and drag-out undo.",
+ "intent": "improve",
+ "intentEvidence": "It augments the Kanban plugin you may already use, turning selected columns into live views of your Tasks queries.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Kanban boards in Obsidian hold only manually added cards, so tasks spread across the vault never appear on a board and completing them there does not touch the source note.",
+ "readmeHash": "cc02372fb5a1b07b992863533ea03ec3316f808c",
+ "relations": [
+  {
+   "evidence": "It augments the Kanban plugin you may already use, turning selected columns into live views of your Tasks queries.",
+   "plugin": "Kanban",
+   "type": "integrates"
+  },
+  {
+   "evidence": "automatically filled with tasks pulled from across your vault by the Tasks plugin",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose Tasks Kanban if you want a brand-new, query-driven board with rich grouping, sorting, and multiple saved views.",
+   "plugin": "Tasks Kanban",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Tickban | Standalone board | Fixed TODO / DOING / DONE from - [ ] / [/] / [x]",
+   "plugin": "Tickban",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Task List Kanban | Standalone board | #column-tag on the task line",
+   "plugin": "Task List Kanban",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Property Kanban | Standalone board | Note frontmatter properties",
+   "plugin": "Property Kanban",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Kanban and Tasks plugins",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Augments the Kanban plugin so chosen columns auto-fill with tasks filtered by the Tasks plugin, with drag-to-done write-back to source notes.",
+ "tags": [
+  "tasks-plugin",
+  "kanban-plugin",
+  "drag-to-done",
+  "recurring-tasks",
+  "auto-archive",
+  "write-back",
+  "time-buckets"
+ ]
+}

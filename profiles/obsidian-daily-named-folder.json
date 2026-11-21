@@ -1,0 +1,54 @@
+{
+ "also": [
+  "dates",
+  "folders"
+ ],
+ "audience": [
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create daily notes inside their own dated folders",
+  "Append one-line summaries to daily note filenames",
+  "Navigate to the nearest previous or next daily note",
+  "Apply Moment.js-formatted templates to new daily notes",
+  "Rename a daily folder and its note together"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a folder-management tool; it creates daily notes that each live in their own folder named after the day.",
+ "extras": "The README warns that plugins relying on the daily-notes implementation, such as Calendar, will likely break with named folders, and recommends the core daily-notes plugin instead if per-day folders are not needed. Known limitations listed: only fixed-length date formats, no nested folder locations, and previous/next navigation scans all markdown files, which may not scale to large vaults.",
+ "intent": "alternative",
+ "intentEvidence": "exactly like the official daily-note plugin, except for the fact (1) that the daily note is created inside",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author uses Obsidian as a lab journal for research and needed to keep experimental images together with each daily note and to summarize each day in the filename, which the official daily-notes plugin could not do.",
+ "primary": "calendar",
+ "problem": "Core daily notes create one date-named file, so attachments for a day cannot be kept in a matching per-day folder and filenames cannot carry a short description.",
+ "readmeHash": "993269725164e2c230a7650022f0705c0b5b2cda",
+ "relations": [
+  {
+   "evidence": "exactly like the official daily-note plugin, except for the fact (1) that the daily note is created",
+   "plugin": "daily-notes",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Daily notes plugin that creates each daily note inside its own dated folder, with an optional one-line summary appended to the filename.",
+ "tags": [
+  "momentjs",
+  "journaling",
+  "filenames",
+  "lab-notebook",
+  "attachments-per-day"
+ ]
+}

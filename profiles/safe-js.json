@@ -1,0 +1,50 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run safe-js code blocks and vault .js files in sandboxed Web Workers",
+  "Prompt for script permissions and remember approvals per source hash",
+  "Render script output as text, markdown, or HTML behind a render permission",
+  "Run configured vault scripts as commands and after workspace startup",
+  "Expose a permission-gated API with custom permissions to other plugins"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an unrestricted script runner; scripts get no direct DOM, Node.js, Electron, or Obsidian API access and must declare permissions in leading comments.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns the sandbox should not be trusted as perfect, points to SECURITY.md for security reporting, and states parts of the plugin were written with AI assistance.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian offers no built-in way to run JavaScript from notes without giving scripts full access to the app, vault, and Electron environment.",
+ "readmeHash": "c3092a28232e20eccd87c636145455d8bf7c2c08",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Safe JS API helper package",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sandboxed JavaScript runner that executes note code blocks and vault scripts in Web Workers behind a permission-gated RPC API.",
+ "tags": [
+  "javascript",
+  "sandboxing",
+  "web-workers",
+  "permissions",
+  "rpc",
+  "temporal"
+ ]
+}

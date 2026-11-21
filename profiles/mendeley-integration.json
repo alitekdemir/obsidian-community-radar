@@ -1,0 +1,65 @@
+{
+ "also": [
+  "research",
+  "import"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Mendeley references into one note per document via incremental or full resync",
+  "Generate citekeys from Mendeley citation keys or author-year-title with disambiguation",
+  "Write reference metadata (title, authors, year, DOI, abstract, tags, folders) to frontmatter",
+  "Mirror the Mendeley folder hierarchy into subfolders in the vault",
+  "Preserve user-written content outside a delimited generated block on every sync"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Each user must register their own Mendeley application to get Client ID/Secret; tokens and secret are stored unencrypted in data.json, so users sharing or syncing their vault should exclude that file. Phase 2 (citation insertion, PDF annotation import) and Phase 3 features are not yet implemented. Manifest notes the plugin has not been manually reviewed by Obsidian staff. Desktop-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull bibliographic metadata and citekeys from a Mendeley library into vault notes.",
+ "readmeHash": "569b3002615e824a589ce57a628579938d346b35",
+ "relations": [
+  {
+   "evidence": "syncs your Mendeley library into reading notes in your vault, using the official Mendeley API",
+   "plugin": "Mendeley",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Mendeley account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "User-created Mendeley application Client ID and Client Secret from dev.mendeley.com",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Mendeley integration that syncs a Mendeley reference library into one reading note per reference, with frontmatter metadata and generated citekeys.",
+ "tags": [
+  "mendeley",
+  "citekeys",
+  "pandoc",
+  "bibliography",
+  "oauth2",
+  "doi"
+ ]
+}

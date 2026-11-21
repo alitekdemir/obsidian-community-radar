@@ -1,0 +1,50 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run TABLE, LIST and TASK query blocks over frontmatter, inline fields, tags and file metadata",
+  "Evaluate inline expressions and inline JavaScript in Reading view and Live Preview",
+  "Script queries and custom rendering through a JavaScript API (cfr/dv)",
+  "Toggle tasks and record completion dates from query results",
+  "Query CSV files as sources and expose the index to other plugins via window.CfrJsAPI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that cfrjs blocks and $= inline expressions run JavaScript with Obsidian's own permissions and can be disabled in settings; mobile is marked compatible but not extensively tested; development/benchmark instructions included.",
+ "intent": "alternative",
+ "intentEvidence": "Its query language, API names and field names follow Dataview's conventions so existing queries keep working.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Vault-wide queries over note metadata get slow on large vaults, and query rendering and indexing do not adapt to what is actually visible or changed.",
+ "readmeHash": "8a426ae29d829d5c64c5be009e82169ef229ae06",
+ "relations": [
+  {
+   "evidence": "Dataview-compatible syntax, written from scratch with a focus on performance on large vaults.",
+   "plugin": "Dataview",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Dataview-compatible vault query engine that renders TABLE, LIST and TASK blocks, inline expressions and a JavaScript API, focused on large-vault performance.",
+ "tags": [
+  "query-language",
+  "dql",
+  "javascript-api",
+  "inline-fields",
+  "web-workers"
+ ]
+}

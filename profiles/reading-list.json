@@ -1,0 +1,60 @@
+{
+ "also": [
+  "research",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the browser reading list into a sidebar dashboard panel",
+  "Search, filter, and sort items by title, URL, and read state",
+  "Open items in the core Web Viewer or the default browser",
+  "Read reading lists from Chrome, Edge, Chromium browsers, Safari, and Firefox",
+  "Store imported items locally in the plugin's data.json"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web Viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not manage its own to-read list; it only displays the reading list or bookmarks folder your browser already keeps.",
+ "extras": "Desktop only (macOS, Windows, Linux) because it reads browser data files outside the vault; Safari may require a file-permission grant or Full Disk Access. Fully offline with no network requests or telemetry. It never writes reading-list items into vault notes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to browse the browser reading list inside Obsidian without turning every item into its own note.",
+ "primary": "integrations",
+ "problem": "Obsidian has no way to view a browser's reading list, and clipping plugins turn every saved page into its own note, cluttering the vault.",
+ "readmeHash": "c6c1a01423e2d6f8b0e991fb06b1e6ba9f4de5c1",
+ "relations": [
+  {
+   "evidence": "Selecting an item opens the page as a new tab in the main workspace using the core Web Viewer",
+   "plugin": "Web Viewer (core plugin)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a supported desktop browser (Chrome, Edge, Chromium-based, Safari, or Firefox)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Browser reading list viewer that syncs Chrome, Edge, Safari, or Firefox reading lists into a searchable sidebar dashboard without creating notes.",
+ "tags": [
+  "chrome",
+  "edge",
+  "safari",
+  "firefox",
+  "read-later",
+  "bookmarks",
+  "read-state"
+ ]
+}

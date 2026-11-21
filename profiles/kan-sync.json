@@ -1,0 +1,76 @@
+{
+ "also": [
+  "tasks",
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push note checklists to Kan.bn as boards, lists, and cards",
+  "Pull card completion, due dates, labels, and members back into notes",
+  "Browse and drag-and-drop Kan boards in a sidebar view",
+  "Edit cards, comments, checklists, and attachments from a detail modal",
+  "Manage Kan workspaces, invites, webhooks, and Trello/GitHub imports"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a local kanban board editor; boards live on Kan.bn (or a self-hosted Kan instance) and the note remains the source of truth for the plan.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that data.json contains the API key and syncs with the vault, so it should be gitignored in public repos; installation via BRAT is also documented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian checklists are static text, so tracking execution state (in progress, done) across a team requires duplicating plan data in an external board tool.",
+ "readmeHash": "f1cd057a6a12664300df83e512270675560ed5e7",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian checklists with Kan.bn kanban boards",
+   "plugin": "Kan.bn",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import boards from Trello",
+   "plugin": "Trello",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import projects from GitHub",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Kan.bn or self-hosted Kan instance",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Kan API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs Obsidian note checklists with Kan.bn kanban boards, pushing checklist items as cards and pulling board status back into notes.",
+ "tags": [
+  "kan-bn",
+  "kanban",
+  "trello",
+  "github-import",
+  "self-hosted",
+  "api-key",
+  "drag-and-drop",
+  "two-way-sync"
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "also": [
+  "ocr",
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extract text from PDF, Office, HTML, and image files, with vision OCR fallback",
+  "Generate reviewed LLM change plans that build and update wiki pages",
+  "Chat with the wiki using index-first retrieval and optional embeddings",
+  "Lint the wiki for stale claims, contradictions, and missing pages",
+  "Auto-commit wiki changes to a local or SSH git remote"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not a vault-wide AI assistant; it maintains a wiki derived from one configured raw-source folder.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes a detailed privacy section: vault content is sent to the configured endpoint, keys are stored locally, and there is no telemetry. Auto-ingest is disabled by default and undo history covers only the last 20 change sets.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to synthesize scattered raw documents into a maintained wiki or to query it with an LLM before changes are written.",
+ "readmeHash": "379f1e07fe761f9b006a7222804d37cd6e4690c1",
+ "relations": [
+  {
+   "evidence": "Supports OpenAI, Anthropic, Gemini, DeepSeek, Groq, Ollama, and any OpenAI-compatible endpoint.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports OpenAI, Anthropic, Gemini, DeepSeek, Groq, Ollama, and any OpenAI-compatible endpoint.",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama | Uses a local Ollama embedding model (e.g. mxbai-embed-large).",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Qdrant | Full vector database via Qdrant Cloud.",
+   "plugin": "Qdrant",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Automatically commit wiki changes to a local or remote (SSH) git repository, with auto-generated SSH keys",
+   "plugin": "git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (OpenAI, Anthropic, Gemini, DeepSeek, Groq, or OpenAI-compatible)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git (for commits), Ollama or Qdrant (optional embeddings backends)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "LLM-powered plugin that ingests raw files (PDF, Office, images, code) into a git-backed curated wiki, with grounded chat and lint commands.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "ollama",
+  "qdrant",
+  "embeddings",
+  "rag"
+ ]
+}

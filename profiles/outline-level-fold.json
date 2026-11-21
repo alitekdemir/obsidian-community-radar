@@ -1,0 +1,69 @@
+{
+ "also": [
+  "editing",
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fold the outline to level 1 through 6 with absolute commands",
+  "Unfold the entire outline",
+  "Fold only the selected lines, with levels relative to the selection",
+  "Show the current fold depth (Uniform, Mixed, All) in a status-bar item"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. Requires Obsidian's core \"Fold indent\" and \"Fold heading\" settings to be enabled. Not reviewed by Obsidian staff. Does not work in reading mode or inside fenced code blocks; it never edits note text.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's core folding is otherwise all-or-nothing plus a per-node toggle; this plugin fills the gap",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to fill the gap in Obsidian's core folding, so users can move through large nested outlines fast.",
+ "primary": "outlining",
+ "problem": "Obsidian's native folding is all-or-nothing plus a per-node toggle, with no way to collapse an entire outline down to a chosen level.",
+ "readmeHash": "60981c05c2d5a92327df37291cb9e5ef9ae5b2bb",
+ "relations": [
+  {
+   "evidence": "Built on Obsidian's native CodeMirror 6 code-folding API (@codemirror/language).",
+   "plugin": "@codemirror/language",
+   "type": "extends"
+  },
+  {
+   "evidence": null,
+   "plugin": "OmniOutliner",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Workflowy",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Dynalist",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Folds the active note's outline to a chosen depth (levels 1-6) via hotkey commands, with a status-bar item showing the current fold depth.",
+ "tags": [
+  "folding",
+  "nested-lists",
+  "headings",
+  "indentation",
+  "codemirror",
+  "omnioutliner",
+  "workflowy",
+  "dynalist"
+ ]
+}

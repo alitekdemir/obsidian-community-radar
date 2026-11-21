@@ -1,0 +1,70 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Connect the vault to Claude Code via an MCP server over WebSocket",
+  "Share open files and the current selection with the CLI in real time",
+  "Send selected text to Claude as explicit context",
+  "Authenticate local connections with a per-session token"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a coding IDE; despite the name it only passes open-file and selection context to Claude Code, which edits files directly with no diff view.",
+ "extras": "Desktop only — it needs Node.js APIs Obsidian mobile lacks. The FAQ warns that Claude Code sends prompts and context to Anthropic's API, so private vaults should use a separate project vault. The WebSocket server is localhost-only with per-session auth and read-only context sharing.",
+ "intent": "alternative",
+ "intentEvidence": "obsidian-claude-code-mcp — all-in-one alternative: embedded terminal, Claude Desktop support",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Claude Code can already read and edit vault files, but it cannot see which note is open or what text is selected in the Obsidian editor.",
+ "readmeHash": "fd61df25e822556d302cb7e856e14ca672ac3b1c",
+ "relations": [
+  {
+   "evidence": "Minimal bridge between Obsidian and Claude Code — shares real-time editor context with the CLI",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Neovim integration, protocol documentation that made this plugin possible",
+   "plugin": "claudecode.nvim",
+   "type": "inspired"
+  },
+  {
+   "evidence": "all-in-one alternative: embedded terminal, Claude Desktop support",
+   "plugin": "obsidian-claude-code-mcp",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Obsidian CLI lets Claude Code run commands — open files, search the vault, rename with automatic link updates",
+   "plugin": "Obsidian CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bridge that connects Obsidian to the Claude Code CLI, sharing real-time editor context such as open files and text selections over a local MCP server.",
+ "tags": [
+  "claude-code",
+  "mcp",
+  "websocket",
+  "anthropic",
+  "cli",
+  "editor-context"
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "also": [
+  "charts",
+  "csv"
+ ],
+ "audience": [
+  "fitness-enthusiasts"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Log sets with reps, weight, duration, distance or custom fields via forms and phone-friendly rows",
+  "Render workout-log tables, charts, dashboards, muscle heat maps and duration estimates as code blocks",
+  "Run rest timers and a guided session that walks through a workout note exercise by exercise",
+  "Store every set as a row in workout_logs.csv queryable from Dataview and Templater",
+  "Import sets from Strong or Hevy CSV exports"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not just a workout planner; it also logs sets during training and analyzes past performance.",
+ "extras": "On first install the plugin creates example notes and opens a getting-started guide. The README warns of a code-block and CSV filename conflict with Workout Block (workout-block). Timer sound and vibration on phones use browser APIs that the author says have not yet been verified on physical devices.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to record workout sets, track progress over time, or run training sessions from workout notes.",
+ "readmeHash": "f257e891b28d25ecd7e796b979fd4a3aa1d7e62e",
+ "relations": [
+  {
+   "evidence": "You can query your sets from Dataview.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Every set in one plain CSV file, readable from Dataview and Templater",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Charts use Chart.js (MIT).",
+   "plugin": "Chart.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import from Strong or Hevy | Add the sets of a Strong or Hevy CSV export to the log",
+   "plugin": "Strong",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import from Strong or Hevy | Add the sets of a Strong or Hevy CSV export to the log",
+   "plugin": "Hevy",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Disable one of the two plugins before using the other.",
+   "plugin": "Workout Block (workout-block)",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Workout tracker that logs sets into one CSV file and renders tables, charts, rest timers, a guided session, a dashboard and a muscle heat map in notes.",
+ "tags": [
+  "fitness",
+  "strength-training",
+  "rest-timer",
+  "personal-records",
+  "muscle-heat-map",
+  "progressive-overload",
+  "chart-js"
+ ]
+}

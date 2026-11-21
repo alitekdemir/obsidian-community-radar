@@ -1,0 +1,83 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask questions about the current note or editor selection in a sidebar chat",
+  "Rewrite selected passages or files and review per-turn changes with undo",
+  "Attach vault files, folders, web pages and images as context with @ references",
+  "Switch between local CLI agents (Codex, Claude Code) and model API providers",
+  "Extend agents with skills, MCP tools, and configurable search providers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is primarily in Chinese with an English section; mobile API chat is unverified on real devices and local CLI/MCP connections are desktop-only; settings page loads images from the author's server; no free model quota is included.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with an AI about your notes or let an agent edit files with per-turn diffs and undo.",
+ "readmeHash": "8c00002f39060540ac7c954e766c1dfa59649d90",
+ "relations": [
+  {
+   "evidence": "连接 Magpie 网关，或使用自己的模型 API Key",
+   "plugin": "Magpie",
+   "type": "integrates"
+  },
+  {
+   "evidence": "你可以接入本机已有的 Codex、Claude Code 等 Agent",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "你可以接入本机已有的 Codex、Claude Code 等 Agent",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local CLI agent (Codex, Claude Code, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "model provider API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider accounts (OpenRouter, Magpie, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "cloud model usage may incur provider fees",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI chat sidebar that answers questions about notes, rewrites selected text, and reviews file changes using local CLI agents or model API keys.",
+ "tags": [
+  "codex",
+  "claude-code",
+  "ollama",
+  "magpie",
+  "brave-search",
+  "mcp",
+  "openai",
+  "deepseek"
+ ]
+}

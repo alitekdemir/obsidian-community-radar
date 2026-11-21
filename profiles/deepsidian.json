@@ -1,0 +1,80 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with notes by attaching the current note, a selection, or files as context",
+  "Inspect sources, citations, and outgoing context before sending messages",
+  "Fork conversations into independent chats linked back to their parent",
+  "Manage vault memory with local editing and AI extraction or proposals",
+  "Generate local article catalogs as an Obsidian Base and Markdown navigation page"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "An independent community project, not an official DeepSeek or Obsidian product, despite the DeepSeek branding and icon.",
+ "extras": "Interface is currently primarily Chinese with no English UI yet; Obsidian labels the listing as not manually reviewed; desktop only (Obsidian 1.13.7+, no mobile); inline completion has rate limits of 10 calls/minute and 200/UTC day per vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with an AI model grounded in your notes, inspect what context was sent, or keep chat and memory stored locally in the vault.",
+ "readmeHash": "7b4f4b5f634c765d57b4ecd13681e14b49cfc9fe",
+ "relations": [
+  {
+   "evidence": "powered by a locally installed DeepSeek Harness (DSH) runtime",
+   "plugin": "DeepSeek Harness (DSH)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "sidebar interaction design draws inspiration from Claudian",
+   "plugin": "Claudian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The README organization takes inspiration from dsh-TUI",
+   "plugin": "dsh-TUI",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness runtime and Node.js 24+",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model provider credentials configured in DSH",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cloud AI or search provider accounts",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid DeepSeek providers used by inline completion",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Desktop AI chat assistant that runs a local DeepSeek Harness runtime to answer questions with note context, citations, conversation forks, vault memory, and catalogs.",
+ "tags": [
+  "deepseek",
+  "local-llm",
+  "chatbot",
+  "citations",
+  "inline-completion",
+  "conversation-forks",
+  "memory-extraction"
+ ]
+}

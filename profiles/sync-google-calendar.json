@@ -1,0 +1,76 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "synchronize Google Calendar events into notes as tasks",
+  "push Obsidian tasks with a start date to Google Calendar",
+  "render event lists in notes via a query code block",
+  "configure query time range, title template, and auto-refresh interval"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Early alpha and subject to change; community-plugin installation was not available at time of writing. README warns to exclude the token credentials file (calendar.sync.token.json) from vault syncing for security reasons. Sync is one-way after the initial push: later edits happen in the calendar and sync back to Obsidian, not the other way. Sort, filter, and group query features are announced for a future version.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to see or manage Google Calendar events alongside its own task lists.",
+ "readmeHash": "171dc05bb37a90e8089dff67d60d20ac8107c208",
+ "relations": [
+  {
+   "evidence": "this plugin relies on the Dataview plugin to list tasks within a specific date range",
+   "plugin": "obsidian-dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Our task format is borrowed from tasks",
+   "plugin": "obsidian-tasks",
+   "type": "inspired"
+  },
+  {
+   "evidence": "This plugin has borrowed a lot of valuable experience from the above plugins",
+   "plugin": "obsidian-todoist",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Calendar (via Google Cloud API credentials file)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google Cloud project with Calendar API enabled",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "obsidian-dataview",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Google Calendar integration that pulls calendar events into notes as tasks and pushes tasks with start dates back to the calendar.",
+ "tags": [
+  "google-calendar",
+  "google-cloud",
+  "dataview",
+  "oauth",
+  "task-sync"
+ ]
+}

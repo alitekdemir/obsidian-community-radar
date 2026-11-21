@@ -1,0 +1,62 @@
+{
+ "also": [
+  "import",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import one or up to 10 Douyin share links into notes",
+  "Search Douyin by keyword and select results for import",
+  "Discover related content from a source link",
+  "Extract captions via OCR with local Whisper speech recognition as fallback",
+  "Skip duplicates by stable douyin_id"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only Windows 10/11 is supported in the first release, and the plugin is a frontend to a separately installed local companion service that performs the Douyin access, OCR, and transcription. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": "It does not inherit source code or Git history from existing Douyin plugins.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture Douyin content such as video captions, search results, or related recommendations into the vault.",
+ "readmeHash": "e95dbaf3fad1a12d6561524ed5e5c5b071392f07",
+ "relations": [
+  {
+   "evidence": "Companion service: yuegu7800/yue-douyin-knowledge-backend.",
+   "plugin": "yuegu7800/yue-douyin-knowledge-backend",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Yue Douyin Knowledge companion service",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "user-initiated Douyin login via local browser profile",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Imports Douyin video captions, keyword search results, and related recommendations into local Markdown notes via a companion service.",
+ "tags": [
+  "douyin",
+  "whisper",
+  "speech-recognition",
+  "ffmpeg",
+  "share-links",
+  "carousel-images"
+ ]
+}

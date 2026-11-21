@@ -1,0 +1,63 @@
+{
+ "also": [
+  "search",
+  "templating"
+ ],
+ "audience": [
+  "japanese-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search a local offline Japanese dictionary by written form, reading, or alternate form",
+  "Insert selected senses into notes via a configurable Markdown template",
+  "Render per-kanji furigana above kanji in Live Preview and Reading view",
+  "Generate vocabulary notes with an OpenAI-compatible AI provider and preview before inserting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "AI lookups send the entered term and selected prompt to the configured provider and can incur charges; dictionary lookups are local after installation. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to look up Japanese words from a local dictionary and insert vocabulary entries with per-kanji furigana as editable note content.",
+ "readmeHash": "a63d3d429a7754194a1e9f419f3cb3f8a746b356",
+ "relations": [
+  {
+   "evidence": "Kotoba Insert renders {word|reading} itself, so no separate Furigana plugin is required.",
+   "plugin": "Furigana plugin",
+   "type": "replaces"
+  },
+  {
+   "evidence": "inserting Japanese vocabulary from an offline JMdict-derived dictionary",
+   "plugin": "JMdict",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible AI provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Japanese vocabulary lookup plugin that searches an offline JMdict-derived dictionary and inserts templated vocabulary notes with rendered furigana.",
+ "tags": [
+  "japanese",
+  "jmdict",
+  "furigana",
+  "dictionary",
+  "vocabulary",
+  "openai"
+ ]
+}

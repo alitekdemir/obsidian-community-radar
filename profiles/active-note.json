@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Write the active note path and text selection to a JSON pointer file",
+  "Provide copy-pasteable CLAUDE.md instructions for Claude Code integration",
+  "Display active note and selection state in Claude Code's status bar",
+  "Configure pointer file path and selection debounce interval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; it is installed via BRAT or manually from GitHub releases.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "External tools, scripts, and CLI assistants have no way to know which note is currently open in Obsidian, since that is UI state.",
+ "readmeHash": "0ac3adda196254a886802e9434571716754bc5a7",
+ "relations": [
+  {
+   "evidence": "Two pieces of configuration bring the pointer file into Claude's awareness",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Writes the active note path and selection to a JSON pointer file for external tool integration (e.g. Claude Code, Gemini CLI etc.)",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the BRAT plugin if you haven't already",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Gemini CLI, or other external tools",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Writes the active note's path and text selection to a JSON pointer file so external CLI tools like Claude Code can read your current context.",
+ "tags": [
+  "claude-code",
+  "gemini-cli",
+  "cli-assistants",
+  "pointer-file",
+  "selection-tracking",
+  "statusline",
+  "context-sharing"
+ ]
+}

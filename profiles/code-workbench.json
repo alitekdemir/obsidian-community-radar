@@ -1,0 +1,83 @@
+{
+ "also": [
+  "code",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Launch and connect the Claude Code CLI in the vault",
+  "Give Claude vault tools for link-preserving note edits with approval",
+  "Edit and format non-Markdown code files with highlighting and diagnostics",
+  "Connect to language servers for completion, navigation, and semantic highlighting",
+  "Show git branch, history graph, and inline blame"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. API keys for Kimi/GLM backends are stored in a local 0600 file, not in synced settings. Language grammars and formatters are downloaded on demand from the project's GitHub releases; no telemetry.",
+ "intent": "new",
+ "intentEvidence": "Other Claude plugins for Obsidian give you a chat in a sidebar. This gives Claude tools to maintain the vault",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author keeps notes, projects, and research in Obsidian and wanted help keeping the vault organized as it grows, so built this to give Claude tools to maintain it.",
+ "primary": "ai",
+ "problem": "Obsidian cannot edit non-Markdown files, and running Claude Code against a vault gives no in-app way to review AI edits or query the resolved link graph.",
+ "readmeHash": "d773707827f0ba305e0f871ed74430ce73db30fb",
+ "relations": [
+  {
+   "evidence": "It speaks the Claude Code CLI protocol, not a model API",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It works with other Claude Code compatible models too, like Kimi K2",
+   "plugin": "Kimi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It works with other Claude Code compatible models too, like Kimi K2 or DeepSeek",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "To run the same CLI on a Kimi or GLM subscription, open Settings",
+   "plugin": "GLM",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for Kimi or GLM backends",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Claude Code IDE integration that runs the Claude Code CLI in the vault, gives Claude vault tools, and edits code files with LSP features.",
+ "tags": [
+  "claude-code",
+  "mcp",
+  "language-server",
+  "tree-sitter",
+  "git-blame",
+  "kimi",
+  "deepseek",
+  "diff-review"
+ ]
+}

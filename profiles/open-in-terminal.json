@@ -1,0 +1,95 @@
+{
+ "also": [
+  "commands",
+  "git"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open the terminal at the vault root or the active note's folder",
+  "Launch coding-agent CLIs with an optional prompt containing the current note path",
+  "Run Git commit-and-push and pull commands from the vault root",
+  "Configure per-platform terminal applications, including WSL on Windows"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only and requires Obsidian 1.5.0 or later. Agent and Git commands are off by default and must be enabled in settings. Uses child_process and direct fs access (temp launch scripts) as disclosed under Obsidian developer policies; makes no network requests of its own.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author notes that a vault is a folder of Markdown files, which is what coding agents and Git work best with, and that getting there normally means opening a terminal, finding the vault path and typing cd.",
+ "primary": "integrations",
+ "problem": "Obsidian offers no built-in way to open a terminal at the vault path or hand the current note to a coding-agent CLI, so users must find the folder and type cd manually.",
+ "readmeHash": "723314d78078485d6d86de58259ba49a6df08a8f",
+ "relations": [
+  {
+   "evidence": "Launch coding agents in your vault: dedicated commands for Claude Code, Codex CLI",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dedicated commands for Claude Code, Codex CLI, GitHub Copilot, Cursor CLI",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dedicated commands for Claude Code, Codex CLI, GitHub Copilot, Cursor CLI",
+   "plugin": "GitHub Copilot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub Copilot, Cursor CLI, Gemini CLI and OpenCode",
+   "plugin": "Cursor CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cursor CLI, Gemini CLI and OpenCode. Turn on only the ones you use.",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Gemini CLI and OpenCode. Turn on only the ones you use.",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One-command Git: Git: commit and push and Git: pull run from the vault root.",
+   "plugin": "git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "terminal application",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "matching CLI (claude, codex, git, ...) installed on PATH",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Terminal launcher that opens the vault in a terminal and runs coding-agent CLIs (Claude Code, Codex, Gemini) and Git commands from the command palette.",
+ "tags": [
+  "claude-code",
+  "codex-cli",
+  "gemini-cli",
+  "github-copilot",
+  "cursor-cli",
+  "opencode",
+  "wsl",
+  "terminal"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Query Google Calendar data.",
+  "Render events as agenda, list, or table.",
+  "Filter events by date, account, or title.",
+  "Create meeting notes from events.",
+  "Auto-refresh calendar blocks."
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Credentials (OAuth client ID/secret/tokens) are stored unencrypted in the vault's data.json file. Requires manual setup via Google Cloud Console.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Users need a way to view and reference external Google Calendar events directly within their Obsidian notes without manually copying data.",
+ "readmeHash": "a6880da4b4f390f596beccf0e704307bd54505fb",
+ "relations": [
+  {
+   "evidence": "If Templater is installed it then runs <% %> commands over the result.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google Account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OAuth Client ID and Secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A plugin that reads Google Calendar data via a fenced code block and renders upcoming events as an agenda, list, or table within Obsidian notes.",
+ "tags": [
+  "google-calendar",
+  "oauth",
+  "agenda",
+  "yaml",
+  "meeting-notes"
+ ]
+}

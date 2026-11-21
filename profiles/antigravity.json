@@ -1,0 +1,57 @@
+{
+ "also": [
+  "automation",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run agent tasks such as refactoring, link auditing, frontmatter cleanup, and MOC generation from the command palette",
+  "Embed the Antigravity web hub UI in an Obsidian tab",
+  "Inject an AGENTS.md rules file so the agent follows vault conventions like wikilinks and YAML frontmatter",
+  "Pass the active note, selection, or folder as context to the agent automatically",
+  "Cancel running agent tasks via the status bar indicator"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not manually reviewed by Obsidian staff. Reads ~/.gemini/ OAuth credentials to bootstrap the hub without a second login. Unrestricted autonomous execution (--dangerously-skip-permissions) is gated behind a setting, per-path confirmations, and a persistent risk banner. Desktop only.",
+ "intent": "new",
+ "intentEvidence": "It builds on Antigravity's agentic filesystem access instead of a multi-provider chat framework.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it deliberately avoids wrapping Antigravity in a chat interface, offering discrete tasks and an optional embedded hub instead.",
+ "primary": "ai",
+ "problem": "Using agentic AI on a vault normally means a chat-style plugin; there was no way to run an agent as discrete vault-maintenance commands with permission gating.",
+ "readmeHash": "7e580d80bdb320ccc54a4dfcb4bb6e68832b4d3d",
+ "relations": [
+  {
+   "evidence": "connects your vault to Google Antigravity's agy CLI, letting an agent read, reorganize, and maintain your notes",
+   "plugin": "Google Antigravity (agy CLI)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "agy CLI installed and authenticated",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI agent bridge that runs Google Antigravity's agy CLI to reorganize, audit, and maintain vault notes through discrete tasks and an embedded web hub.",
+ "tags": [
+  "agy-cli",
+  "google-antigravity",
+  "gemini",
+  "agent",
+  "wikilinks",
+  "moc"
+ ]
+}

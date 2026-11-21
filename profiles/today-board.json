@@ -1,0 +1,53 @@
+{
+ "also": [
+  "project-management",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show due, overdue, done, and upcoming tasks in four board sections",
+  "Check tasks in place and write a done date back to the source line",
+  "Group tasks by project file with overdue and pending counts",
+  "Display milestone badges counting days from a start date",
+  "Jump from a task row to its source note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a daily-notes or journaling tool; it is a sidebar dashboard that reads and checks off task lines already written in your notes.",
+ "extras": "Bilingual English/Chinese README with Chinese notes under each setting label; the listing notes it has not been manually reviewed by Obsidian staff; uses Dataview inline field syntax but does not require the Dataview plugin, network access, or a database.",
+ "intent": "alternative",
+ "intentEvidence": "Diary / note templates often embed a dataviewjs dashboard in the note body.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author moved the dashboard logic out of note templates into a native panel so it opens instantly without the Dataview index wait.",
+ "primary": "tasks",
+ "problem": "Embedding a dataviewjs dashboard in a diary note forces a wait for Dataview to build its index and re-render on every open.",
+ "readmeHash": "2a9ee454c3fce098aa265f87d44ab4c8f957e2bf",
+ "relations": [
+  {
+   "evidence": "Daily Overview moves that logic into a native plugin view: it reads your Markdown with the Obsidian API",
+   "plugin": "Dataview",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Right-sidebar dashboard that lists today's due, overdue, done, and upcoming tasks plus per-project progress, read directly from Markdown task lines.",
+ "tags": [
+  "dataview",
+  "dashboard",
+  "due-dates",
+  "milestones",
+  "inline-fields",
+  "mobile"
+ ]
+}

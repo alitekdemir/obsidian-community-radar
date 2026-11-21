@@ -1,0 +1,76 @@
+{
+ "also": [
+  "search",
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions with cited sources from vault notes",
+  "Search notes by meaning with hybrid keyword and semantic search",
+  "Run editable AI skill prompt templates stored as notes",
+  "Generate daily reviews with spaced repetition and weekly reports",
+  "Organize notes with health checks and AI suggestions before applying changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-writing tool; it works over your existing vault with AI Q&A, search, review and organization suggestions.",
+ "extras": "Freemium: all plugin features are free without an account, but some skill packs in the built-in skill market require a paid EduAIoT membership. The README is bilingual (English and Chinese) and includes a detailed network-use and privacy section.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to question your vault with verifiable citations, find notes by meaning, or get automated review, reporting and cleanup suggestions.",
+ "readmeHash": "66ead434f1a59f95c6f721e5f35d583cbf045e4a",
+ "relations": [
+  {
+   "evidence": "when the desktop app is running, the plugin can use its model and its shared search index",
+   "plugin": "EduAIoT desktop app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an API key from a model provider you choose, or a local model via Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "EduAIoT desktop app (optional, shares model and search index)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama for local models (optional)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI assistant that answers questions from your notes with cited sources, semantic search, daily review, weekly reports, topic maps and vault organization.",
+ "tags": [
+  "llm",
+  "rag",
+  "ollama",
+  "deepseek",
+  "qwen",
+  "semantic-search",
+  "spaced-repetition",
+  "embeddings"
+ ]
+}

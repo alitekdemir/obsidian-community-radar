@@ -1,0 +1,82 @@
+{
+ "also": [
+  "integrations",
+  "ocr"
+ ],
+ "audience": [
+  "academics",
+  "islamic-studies-researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import classical Arabic texts from curated public repositories as linked notes",
+  "Transcribe scanned PDFs via Gemini OCR and translate the transcriptions",
+  "Transliterate Arabic passages through a local CAMeL-based server",
+  "Annotate imported sources with annotations stored separately from generated notes",
+  "Export imported works as auto-updated Zotero items"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; runs local Python scripts and reads and writes files outside the vault, including absolute paths. Full documentation is bundled in-app via an Open documentation command. The plugin was submitted for community review at the time of writing, so BRAT installation is offered as an alternative. No fonts are downloaded; it relies on locally installed Arabic and Latin typefaces with documented fallback chains. Collects no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for research on Islam and the Arabic language — Qurʾān commentaries, ḥadīth, the Qurʾān in its riwāyāt, and the classical dictionaries.",
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to bring digitized Arabic corpora and scanned Arabic PDFs into the vault as searchable, annotatable, linkable notes, or to romanize Arabic for English writing.",
+ "readmeHash": "912e419c534ac3e09b1d518b433b3637bc1493ad",
+ "relations": [
+  {
+   "evidence": "Midad Arabic Sources’ ETA templating, managed-region merge, and note conventions follow ScholarWeft",
+   "plugin": "ScholarWeft",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Zotero (optional) for sending imported works to your library.",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "normally created by ScholarWeft or ZotLit; Midad does not create those notes",
+   "plugin": "ZotLit",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3 with PyMuPDF, requests, and CAMeL Tools",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Research toolkit that imports classical Arabic sources, OCRs scanned PDFs, transliterates Arabic, and exports references to Zotero.",
+ "tags": [
+  "quran",
+  "hadith",
+  "tafsir",
+  "arabic-dictionaries",
+  "transliteration",
+  "gemini",
+  "camel-tools",
+  "zotero"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "also": [
+  "editing",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "underline spelling and grammar errors as you type with click-to-apply fixes",
+  "run grammar checks through cloud or local language models",
+  "check paragraphs in different languages while skipping LaTeX formulas",
+  "maintain custom dictionaries as ordinary notes per language",
+  "suggest a better wording for a paragraph on command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Grammar checking requires a language model: a cloud API (paid per use) or a local server needing roughly 8-12 GB of GPU memory. Manifest notes the plugin has not been manually reviewed by Obsidian staff. LM Studio support is untested and flagged experimental; macOS and iOS spelling are not yet tested.",
+ "intent": "alternative",
+ "intentEvidence": "On our test sentences models found far more errors than LanguageTool",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian's built-in spellcheck and dictionary-based checkers look at single words, missing sentence-level grammar errors and breaking on inline math or multilingual notes.",
+ "readmeHash": "a6b908398a18d67661e35ff8094572845cf7270f",
+ "relations": [
+  {
+   "evidence": "models found far more errors than LanguageTool",
+   "plugin": "LanguageTool",
+   "type": "alternative"
+  },
+  {
+   "evidence": "In the cloud: OpenAI, Anthropic (Claude), Google Gemini or DeepSeek",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama: install Ollama and run ollama pull qwen3:14b",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, Google Gemini or DeepSeek",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama, llama.cpp or LM Studio",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Language-model spelling and grammar checker that underlines errors as you type, keeps LaTeX formulas untouched, and checks each paragraph in its own language.",
+ "tags": [
+  "grammar-checking",
+  "spellcheck",
+  "ollama",
+  "hunspell",
+  "openai"
+ ]
+}

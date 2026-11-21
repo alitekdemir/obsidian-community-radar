@@ -1,0 +1,73 @@
+{
+ "also": [
+  "review",
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate practice questions from notes and PDFs using a chosen AI provider",
+  "Schedule daily review sessions with spaced repetition and skill-aware queues",
+  "Track recall fluency from correctness, skips, and response time",
+  "Manage providers and API keys via settings and secret storage",
+  "Show a dashboard with streak, due notes, and scan status"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Per the manifest, this plugin has not been manually reviewed by Obsidian staff. On desktop it downloads and launches a checksum-verified native helper process, which triggers security scanner warnings; mobile avoids this entirely. PDF generation requires Anthropic or Gemini and is capped at 10 MB per file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn notes into active practice material with AI-generated questions and adaptive review scheduling.",
+ "readmeHash": "03aecbd07acb085c7b034d15fbfd06f66e34098b",
+ "relations": [
+  {
+   "evidence": "Via the BRAT plugin (recommended for tracking this repo)",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs against your local Ollama server. No API key, free, fully offline.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "this plugin runs a native helper program (the open-source Whetstone engine) as a separate process",
+   "plugin": "Whetstone engine",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (Gemini, Anthropic, OpenAI, DeepSeek, Qwen, OpenRouter, or custom endpoint)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or Codex CLI signed in, or a local Ollama server, for those providers; Whetstone engine binary on desktop",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI-powered plugin that generates practice questions from notes and PDFs with spaced repetition scheduling and adaptive difficulty.",
+ "tags": [
+  "byok",
+  "gemini",
+  "openrouter",
+  "ollama",
+  "claude-code",
+  "codex-cli",
+  "fluency-tracking"
+ ]
+}

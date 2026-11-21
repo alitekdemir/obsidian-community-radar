@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate the active note into one of 11 languages",
+  "Generate translation-only or paragraph-interleaved bilingual copies in new files",
+  "Preserve Markdown structure while skipping code blocks, frontmatter, links and inline code",
+  "Store and switch between Google, DeepL and OpenAI-compatible translation providers",
+  "Open the translation beside the original in a split pane with chunked progress and per-block failure handling"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Interface and commands are Chinese only with no language switch yet. The Google engine uses an unofficial public endpoint that may be rate-limited or stop working. Existing translation files are overwritten silently. API keys are stored in plain data.json in the vault, which syncs to the cloud with iCloud or Obsidian Sync. Not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to read English material collected in Obsidian without machine translation mangling the originals, so translation output goes to separate files displayed next to the source.",
+ "primary": "languages",
+ "problem": "Reading foreign-language papers, documentation and newsletters in Obsidian is slow, and translating notes in place rewrites the original file.",
+ "readmeHash": "a9448fa6a8fad502a21bd98e232552d8de98f36f",
+ "relations": [
+  {
+   "evidence": "Three engines: Google (no key required), DeepL, and any OpenAI-compatible LLM.",
+   "plugin": "DeepL",
+   "type": "integrates"
+  },
+  {
+   "evidence": "可添加任意兼容服务：OpenAI、OpenRouter、阿里云百炼、本机 Ollama / vLLM 等",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepL API key or LLM provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Translation plugin that renders the active note into one of 11 languages as a new file opened side-by-side, leaving the original note untouched.",
+ "tags": [
+  "deepl",
+  "google-translate",
+  "machine-translation",
+  "openai",
+  "deepseek",
+  "split-pane",
+  "language-learning"
+ ]
+}

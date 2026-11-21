@@ -1,0 +1,90 @@
+{
+ "also": [],
+ "audience": [
+  "ttrpg-players",
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create and edit interactive 5e character sheets embedded as code blocks in notes",
+  "Compute rules-derived values such as AC, HP, saves, skills, spell slots and spell DC",
+  "Roll dice from the sheet with advantage and disadvantage modifiers",
+  "Import rules data from 5etools JSON folders and 5etools-format homebrew files",
+  "Link races, classes, spells and items to compendium notes with hover previews"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been reviewed by Obsidian staff. It ships only SRD 5.1 and SRD 5.2.1 content; book content must be imported by users from data they own. Mobile support works but is less tested, and it requires Obsidian 1.4+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Obsidian has no built-in way to create, maintain, and roll from D&D 5e character sheets inside a player's vault of campaign notes.",
+ "readmeHash": "c23a4ae1fc8690ca6872e8cac02f854ebd14475f",
+ "relations": [
+  {
+   "evidence": "Uses the Dice Roller plugin when it is installed, a built-in roller otherwise.",
+   "plugin": "Dice Roller",
+   "type": "integrates"
+  },
+  {
+   "evidence": "name, level, hp, ac and modifier in the note's properties, which Initiative Tracker reads",
+   "plugin": "Initiative Tracker",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or import the books you own and 5etools homebrew.",
+   "plugin": "5etools",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ttrpg-convert-cli turns the same 5etools data into notes for your vault",
+   "plugin": "ttrpg-convert-cli",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dice Roller",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Initiative Tracker",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "5etools data (JSON files you own)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ttrpg-convert-cli",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Interactive D&D 5e character sheets that live in notes, with automatic rules, built-in SRD data, optional 5etools import, and in-sheet dice rolls.",
+ "tags": [
+  "dnd5e",
+  "character-sheet",
+  "5etools",
+  "srd",
+  "homebrew",
+  "point-buy",
+  "dice-rolling"
+ ]
+}

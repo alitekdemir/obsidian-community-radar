@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Correct double-capital words as they are typed",
+  "Capitalize sentence beginnings and list/task items",
+  "Exclude words and folders from correction",
+  "Pause and resume auto correction via a command",
+  "Skip protected text such as code, math, links and email addresses"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a spellchecker; it only fixes double-capital words and applies optional sentence/list capitalization rules.",
+ "extras": "Correction only fires for words typed character by character in the current editor; pasted text, programmatic edits, IME composition, mobile keyboards and swipe input are deliberately left uncorrected. Additional test and acceptance docs live in tests/README.md and docs/OBSIDIAN_ACCEPTANCE.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian does not correct double-capital typos as you type, and naive correction would damage code, links, URLs and addresses.",
+ "readmeHash": "2988b682253d4a2b8040f1e70c547de5dfe4f036",
+ "relations": [
+  {
+   "evidence": "CodeMirror applies the delimiter and correction in one transaction, preserving selection mapping and normal undo grouping.",
+   "plugin": "CodeMirror",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Typing-time autocorrect that fixes double initial capitals (HAllo → Hallo), with optional rules to capitalize sentences and list items.",
+ "tags": [
+  "capitalization",
+  "typos",
+  "ime",
+  "exclusion-list",
+  "unicode"
+ ]
+}

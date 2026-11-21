@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Expose full CRUD on vault files over an authenticated HTTPS REST API",
+  "Patch targeted note sections (headings, blocks, frontmatter) without rewriting whole files",
+  "Serve a built-in MCP server so AI agents can read, write, search, and run commands",
+  "Stream vault events as Server-Sent Events with JsonLogic filters",
+  "Let other plugins register custom routes, MCP tools, and events via an extension API"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Extensive security hardening: configuration-directory access blocked by default (CVE/GHSA-documented), failed authentication throttled, locally generated CA certificate. The header-based PATCH targeting format is deprecated and will be removed in version 6.0.",
+ "intent": "alternative",
+ "intentEvidence": "Inspired by Vinzent03's advanced-uri plugin, with the goal of expanding automation options beyond the constraints of custom URL schemes.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was inspired by Vinzent03's advanced-uri plugin and wanted automation options beyond the constraints of custom URL schemes.",
+ "primary": "developers",
+ "problem": "Obsidian has no built-in way for outside programs or AI agents to programmatically read and modify vault notes.",
+ "readmeHash": "ea0c7457c4d9cf719cf159f9c8c92a30e48ffcac",
+ "relations": [
+  {
+   "evidence": "Inspired by Vinzent03's advanced-uri plugin, with the goal of expanding automation options beyond the constraints of custom URL schemes.",
+   "plugin": "advanced-uri (Vinzent03)",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Several third-party MCP servers for Obsidian exist, but they are no longer necessary",
+   "plugin": "third-party MCP servers for Obsidian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Periodic Notes: Adds support for periodic notes",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MCP client (e.g. Claude Code, Claude Desktop, Cursor)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "REST API and MCP server that lets external scripts, browser extensions, and AI agents read, search, and edit notes in the vault.",
+ "tags": [
+  "mcp",
+  "rest-api",
+  "claude",
+  "cursor",
+  "jsonlogic",
+  "server-sent-events",
+  "https"
+ ]
+}

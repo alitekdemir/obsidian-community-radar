@@ -1,0 +1,73 @@
+{
+ "also": [
+  "annotation",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export vault notes to reMarkable as typed-text notebooks",
+  "Import device documents back as clean markdown, including footnotes",
+  "Send PDFs and pull back ink-annotated copies plus extracted text highlights",
+  "Check out vault notes until pulled back to prevent divergent copies",
+  "Watch for device edits and offer or perform automatic pulls"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory; manual install only. Flagged by Obsidian review tooling for direct filesystem access outside the vault, which the README explains in detail. Beta, tested only on macOS with a reMarkable Paper Pro; Windows/Linux store paths are untested. Plugin is unofficial and not affiliated with reMarkable AS; accepts donations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "There is no supported way to send Obsidian notes to a reMarkable tablet, edit them there, and pull the changes back without the paid Connect subscription or the unofficial cloud API.",
+ "readmeHash": "0958dff16d5b526fb1b149fcd0bfd90ecfaa756c",
+ "relations": [
+  {
+   "evidence": "a TypeScript port of rmscene's logic, cross-checked against it on hundreds of real pages",
+   "plugin": "rmscene",
+   "type": "inspired"
+  },
+  {
+   "evidence": "pen rendering calibration follows reMarkable Sync",
+   "plugin": "reMarkable Sync",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the official desktop app does all the syncing",
+   "plugin": "reMarkable desktop app",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "reMarkable desktop app (installed, paired, synced)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "reMarkable tablet with Type Folio for typed editing",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Round-trips notes and PDFs between Obsidian and a reMarkable tablet through the official desktop app's local document store.",
+ "tags": [
+  "remarkable-tablet",
+  "type-folio",
+  "rm-v6",
+  "rmscene",
+  "handwritten-ink",
+  "pdf-annotation",
+  "crdt"
+ ]
+}

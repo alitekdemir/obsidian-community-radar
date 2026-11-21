@@ -1,0 +1,54 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "color graph nodes by metric (recency, links, word count, file size)",
+  "filter the graph to subsets like orphans, hubs, stale notes, and stubs",
+  "show a hover tooltip with each node's metric value and rank",
+  "blend recently modified nodes toward a configurable halo color",
+  "switch metric, palette, scale, and focus mode from an in-graph control panel"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uses undocumented Obsidian internals (renderer.nodes[].color), so colors may silently stop updating after Obsidian updates; install currently via BRAT or manually until accepted into the official community list.",
+ "intent": "improve",
+ "intentEvidence": "hooks Obsidian's layout-change, active-leaf-change, and vault.modify events, plus a 2-second tick",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's graph view has no way to color nodes by metadata-driven metrics or to isolate subsets like unlinked or stale notes.",
+ "readmeHash": "1f500d86f9a7dd4bd9a54c7a694d37c80ee6df7c",
+ "relations": [
+  {
+   "evidence": "the same pattern as other graph plugins like Extended Graph",
+   "plugin": "Extended Graph",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that colors graph view nodes by recency, connectedness, word count, or file size and filters the graph to orphans, hubs, stale notes, or stubs.",
+ "tags": [
+  "heatmap",
+  "color-palette",
+  "recency",
+  "word-count",
+  "file-size",
+  "orphans",
+  "hover-tooltip",
+  "gradient"
+ ]
+}

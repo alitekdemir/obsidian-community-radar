@@ -1,0 +1,87 @@
+{
+ "also": [
+  "editing",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite, translate, summarize, and continue selected text or whole notes via streaming AI actions",
+  "Fill daily-note template property fields from one quick-log sentence and write weekly AI reviews",
+  "Answer questions about the vault with [[links]] and save answers as notes",
+  "Auto-tag, summarize into properties, and suggest folders or related-note links",
+  "Add Notion-style workflow features: homepage, header buttons, kanban view for Bases, calendar, table formatting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires Obsidian 1.10.2+ (Bases view API). The README warns the API key is stored locally in .obsidian/plugins/notewise-ai/data.json and should be excluded from vault sync; selected text and note excerpts are sent to the configured endpoint only when a command is run.",
+ "intent": "alternative",
+ "intentEvidence": "An AI writing assistant and note manager for Obsidian, inspired by Notion AI.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README describes the workflow features as \"Notion-style basics, so you need fewer plugins\" for desktop and mobile.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI writing or vault-questioning features, and Notion-style workflow conveniences (homepage, kanban, header buttons) require installing several separate plugins.",
+ "readmeHash": "ec9aa9840775dee0ddfab75e3e2c34a3b6d7978b",
+ "relations": [
+  {
+   "evidence": "inspired by Notion AI",
+   "plugin": "Notion AI",
+   "type": "inspired"
+  },
+  {
+   "evidence": "works with Daily notes, Templater folder templates and Spaced Repetition",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "turns the selection into cards using your Spaced Repetition separator and tag",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with DeepSeek out of the box and with any OpenAI-compatible API",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any OpenAI-compatible API (Qwen, Kimi, OpenAI, Ollama, …)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for an OpenAI-compatible provider",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "paid API provider (e.g. DeepSeek, OpenAI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "AI writing assistant and note manager that uses DeepSeek or any OpenAI-compatible API to rewrite, summarize, log, tag, link, and organize notes.",
+ "tags": [
+  "deepseek",
+  "openai-compatible",
+  "ollama",
+  "qwen",
+  "notion",
+  "kanban",
+  "chinese"
+ ]
+}

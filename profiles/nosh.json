@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log meals and ingredients from tagged notes with per-serving nutrient frontmatter",
+  "Score a day, week or month against editable nutrient floors, ceilings and food-group ranges",
+  "Write daily log notes and export day, week or month reports as Markdown",
+  "Send nutrient totals to Apple Health through an iPhone Shortcut",
+  "Draft meals, suggest dishes and answer questions with Claude (optional, billed)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Core tracking works fully offline with no accounts or payments; the optional AI features send selected text and photos to api.anthropic.com and bill each request at API rates, with web searches costing extra. The README includes extensive privacy, keychain and Shortcut-setup warnings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to turn food notes into nutrient totals or to judge them against a dietary pattern, so diet tracking means leaving the vault.",
+ "readmeHash": "0ff325d3932d71a9067174e879a5adb99979bee9",
+ "relations": [
+  {
+   "evidence": "The totals are also written to frontmatter for Dataview and anyone reading the note.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Nosh can send each day's nutrient totals to Apple Health through a Shortcut on your iPhone.",
+   "plugin": "Apple Health",
+   "type": "integrates"
+  },
+  {
+   "evidence": "What you type into a draft, the line you select for Add to log, the note you ask about",
+   "plugin": "Claude (Anthropic API)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic developer platform account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Apple Health via an iOS Shortcut",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Nutrition tracker that logs meals and ingredients from tagged notes and charts daily, weekly and monthly totals against DASH nutrient and food-group targets.",
+ "tags": [
+  "nutrition",
+  "dash-diet",
+  "food-logging",
+  "anthropic",
+  "claude",
+  "apple-health",
+  "usda-fooddata-central"
+ ]
+}

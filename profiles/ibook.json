@@ -1,0 +1,56 @@
+{
+ "also": [
+  "import",
+  "annotation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export all Apple Books highlights and annotations into the vault",
+  "Search and export a single book by name or author",
+  "Look up book info on Goodreads and insert it at the cursor",
+  "Customize exports with Handlebars templates"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "macOS-only: the plugin reads Apple Books' local SQLite3 database and needs permission for Obsidian to access Mac data (issue #63). Templating uses handlebars-helpers and handlebars-group-by; template parameters are documented in docs/parameters.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Highlights and annotations made in Apple Books stay locked in a local SQLite database with no built-in way to get them into Obsidian notes.",
+ "readmeHash": "a57953278dc4436c83c315688416c38a46f1e3d9",
+ "relations": [
+  {
+   "evidence": "search book info by goodreads",
+   "plugin": "goodreads",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Books on macOS",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Export tool that copies Apple Books (macOS iBook) highlights and annotations from the local SQLite database into vault notes.",
+ "tags": [
+  "apple-books",
+  "sqlite3",
+  "highlights",
+  "annotations",
+  "goodreads",
+  "handlebars"
+ ]
+}

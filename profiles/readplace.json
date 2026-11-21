@@ -1,0 +1,60 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync saved Readplace articles into the vault as one Markdown note each",
+  "Write properties, the AI summary and full article text into each note",
+  "Run scheduled syncs every 60 minutes plus manual Sync now and Refresh all notes commands",
+  "Sign in to and out of a Readplace account from the plugin settings",
+  "Detect edited or renamed notes via a SHA-256 hash before each write"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a read-later client or reader; it only copies Readplace articles into the vault, and edits never flow back to Readplace.",
+ "extras": "Free plugin, but the required Readplace account has a 14-day trial then needs a subscription; a lapsed account still syncs read-only. The README documents limitations (no highlights, no tags or author, never deletes notes) and an iOS sign-in bug that was fixed; requires Obsidian 1.11.4+ on desktop or mobile.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull articles saved in a Readplace read-later account into the vault as notes.",
+ "readmeHash": "133c431d05fe107860403638b4c4a4fc363ebec7",
+ "relations": [
+  {
+   "evidence": "Copies the articles you've saved in Readplace into your vault as Markdown notes.",
+   "plugin": "Readplace",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Readplace account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Readplace subscription after 14-day trial",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs articles saved in Readplace into the vault as Markdown notes with properties, the AI summary, reading status and full text.",
+ "tags": [
+  "read-later",
+  "ai-summary",
+  "one-way-sync",
+  "reading-status",
+  "article-sync"
+ ]
+}

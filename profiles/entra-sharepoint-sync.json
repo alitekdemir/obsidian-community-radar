@@ -1,0 +1,77 @@
+{
+ "also": [
+  "collaboration",
+  "integrations"
+ ],
+ "audience": [
+  "microsoft-365-organizations"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vaults across devices via personal OneDrive, SharePoint document libraries, or Teams Files",
+  "Share individual vaults with colleagues granting read/write or read-only access",
+  "Automatically 3-way merge concurrent edits using eTags instead of creating conflict files",
+  "Browse and restore previous note revisions with author, email, and timestamp",
+  "Optionally sync shared themes, snippets, hotkeys, and plugins while excluding OAuth tokens and workspace layout"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; deeper technical details are deferred to an ARCHITECTURE.md file rather than the README.",
+ "intent": "alternative",
+ "intentEvidence": "Official Obsidian Sync requires a separate subscription and stores vault data outside your organization's Microsoft 365 tenant.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to bring a OneNote-on-SharePoint workflow to Obsidian, where notebooks live inside Microsoft 365 teams with access control and built-in version history.",
+ "primary": "syncing",
+ "problem": "Obsidian's own sync requires a paid subscription and stores data outside the Microsoft 365 tenant, while OneDrive desktop syncing creates duplicate conflict files.",
+ "readmeHash": "121af75f1442f916a8d6db878ae6f08b61a31102",
+ "relations": [
+  {
+   "evidence": "Official Obsidian Sync requires a separate subscription and stores vault data outside your organization's Microsoft 365 tenant.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "talks directly to the Microsoft Graph API from Obsidian—no extra servers to host",
+   "plugin": "Microsoft Graph API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "frequently creates Note (Work PC's conflicted copy).md duplicates whenever two people edit a note",
+   "plugin": "OneDrive desktop client",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account (personal or corporate Entra ID)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Entra ID app registration created by an organization admin (enterprise use)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vault sync backed by OneDrive, SharePoint, and Microsoft Teams via Microsoft Graph, with per-vault sharing, 3-way merge, and version history.",
+ "tags": [
+  "microsoft-graph",
+  "onedrive",
+  "sharepoint",
+  "microsoft-teams",
+  "entra-id",
+  "oauth2",
+  "diff3"
+ ]
+}

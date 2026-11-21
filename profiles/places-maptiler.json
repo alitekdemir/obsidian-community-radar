@@ -1,0 +1,60 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render vector maps from MapTiler styles and tiles",
+  "search place names and points of interest",
+  "fetch elevation for coordinates",
+  "load terrain DEM tiles for 3D relief"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone map view; it only works as a provider for the Places plugin.",
+ "extras": "The README discloses network requests to MapTiler (tiles, POI search, elevation, 3D terrain) and lists code dependencies, but gives no usage instructions.",
+ "intent": "improve",
+ "intentEvidence": "Map provider for Places using MapTiler",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The Places plugin needs a map backend, and this supplies one backed by the MapTiler service.",
+ "readmeHash": "7f69ca2f8c14dfe60a1219d07f77566a652eab95",
+ "relations": [
+  {
+   "evidence": "Map provider for Places using MapTiler",
+   "plugin": "Places",
+   "type": "extends"
+  },
+  {
+   "evidence": "Map styles, geocoding, and the map surface",
+   "plugin": "MapTiler",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "MapTiler-based map provider for the Places plugin, adding vector maps, POI search, and elevation data.",
+ "tags": [
+  "maptiler",
+  "maplibre",
+  "vector-maps",
+  "geocoding",
+  "elevation",
+  "3d-terrain"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "chat with locally installed agent CLI providers as subprocesses",
+  "check provider readiness, CLI version and model discovery in settings",
+  "display a live provider capability matrix (images, forking, rewind, steering)",
+  "meter per-turn token usage by day and session",
+  "archive and reopen conversations locally with all saved turns"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, its default provider is Oh My Pi, not Claude; the claude, codex, grok, opencode and pi providers were removed in 1.9.0.",
+ "extras": "Desktop only (spawns subprocesses via Node APIs); can coexist with upstream Claudian using separate storage folders; installable via BRAT; detailed security/network disclosures; session transcripts and usage logs stored in the vault under .super-useful-claudian/.",
+ "intent": "alternative",
+ "intentEvidence": "An independent fork of Claudian by Yishen Tu.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Claudian to make Oh My Pi the default provider, keep DeepSeek Harness as the second, and add a local transcript archive, provider readiness panel, token meter and other enhancements.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to drive locally installed AI agent CLIs as chat collaborators, or to check whether those CLIs are installed, working and configured.",
+ "readmeHash": "630ee9b90ba4f8224a88b97294fefaa8e87c9075",
+ "relations": [
+  {
+   "evidence": "An independent fork of Claudian by Yishen Tu.",
+   "plugin": "Claudian",
+   "type": "fork"
+  },
+  {
+   "evidence": null,
+   "plugin": "oh-my-claudian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "OMP (Oh My Pi) provider, now the default harness.",
+   "plugin": "Oh My Pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Upstream's maintained DeepSeek Harness provider (deepseek) remains as the optional second.",
+   "plugin": "DeepSeek Harness",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "at least one provider CLI (omp or dsh) installed locally",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek account or API key for the DeepSeek Harness CLI",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "subscription or API access required by the chosen CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Fork of Claudian that runs Oh My Pi and DeepSeek Harness agent CLIs as chat collaborators inside the vault, with readiness checks, a capability matrix and token usage tracking.",
+ "tags": [
+  "oh-my-pi",
+  "deepseek",
+  "agent-clis",
+  "cli-subprocess",
+  "token-usage",
+  "session-archive",
+  "mcp-servers",
+  "fork"
+ ]
+}

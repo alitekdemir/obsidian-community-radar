@@ -1,0 +1,60 @@
+{
+ "also": [
+  "code"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render PlantUML code blocks into diagrams",
+  "Render diagrams as high-resolution SVG or ASCII art",
+  "Link to vault notes from within diagrams",
+  "Include external .puml files in local rendering",
+  "Point rendering at an online, local, or self-hosted server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Known issues are documented: ASCII output only supports sequence diagrams, PicoWeb servers do not support clickable links in png diagrams, and some languages render incorrectly unless SVG is used. Local rendering is noted as less performant than server rendering. Links to plantuml.com for full PlantUML documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian's built-in diagram support covers Mermaid but cannot render PlantUML code, so PlantUML users have no way to embed their diagrams.",
+ "readmeHash": "ed51d58df5d9d19aa4dea5272933e433ad95c613",
+ "relations": [
+  {
+   "evidence": "This plugin uses either the PlantUML Online Server, or a local .jar file for rendering.",
+   "plugin": "PlantUML",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PlantUML server or local .jar",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders PlantUML diagrams from fenced plantuml code blocks via the PlantUML server, a local .jar, or a self-hosted server.",
+ "tags": [
+  "plantuml",
+  "uml",
+  "sequence-diagrams",
+  "svg",
+  "ascii-art",
+  "docker"
+ ]
+}

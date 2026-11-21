@@ -1,0 +1,72 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Sync Gmail messages into notes",
+  ": Create thread indexes per label",
+  ": Sync Google Calendar events",
+  ": Download optional attachments",
+  ": Manage sync state"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": files",
+   ": markdown",
+   ": attachments"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "OAuth refresh token and client secret are stored in plain text in the vault's data.json.",
+ "intent": "new",
+ "intentEvidence": "Built as a sibling to the Outlook Mailbox plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Manually tracking and organizing emails and calendar events within Obsidian is time-consuming.",
+ "readmeHash": "766041b7c72a4fefb263ea3be518ee9f128d33ae",
+ "relations": [
+  {
+   "evidence": "Built as a sibling to the Outlook Mailbox plugin",
+   "plugin": "Outlook Mailbox",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Cloud OAuth client",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Client ID",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Client secret",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sync Gmail messages and Google Calendar events into Obsidian notes, creating one note per email and a thread index per label.",
+ "tags": [
+  "gmail",
+  "google-cloud",
+  "oauth",
+  "pkce",
+  "mailbox"
+ ]
+}

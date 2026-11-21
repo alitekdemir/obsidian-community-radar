@@ -1,0 +1,54 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault to a WebDAV server in upload-only, download-only, or bidirectional direction",
+  "Transfer incrementally (changes only) or force full alignment",
+  "Auto-sync after local changes and on an optional polling interval",
+  "Preview pending transfers and abort sync when deletions exceed a threshold",
+  "Diagnose connection issues and sync state with a generated report"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Password is stored encrypted in data.json, but the README warns the key ships in the plugin source, so this is obfuscation rather than strong encryption; it also documents server-specific pitfalls like Chinese directory names returning 404 on Synology.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service and doesn't connect to your own WebDAV server, leaving self-hosters without a direct device-to-NAS sync option.",
+ "readmeHash": "81e870fc97be5bcd23c6fea1a3ae262cb61bebd1",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server (fnOS, Synology DSM, Nextcloud, or generic WebDAV)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Lightweight WebDAV sync plugin that mirrors a vault to a NAS or self-hosted server with upload-only, download-only, or bidirectional modes.",
+ "tags": [
+  "webdav",
+  "nextcloud",
+  "synology",
+  "fnos",
+  "incremental-sync",
+  "self-hosted"
+ ]
+}

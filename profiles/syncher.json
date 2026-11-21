@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync the vault live with a remote folder over SSH/SFTP",
+  "resolve simultaneous edits with last-writer-wins and report remote deletions",
+  "protect a device from deletions with a per-device permanent-save switch",
+  "relay encrypted SSH traffic through a WebSocket for Android devices",
+  "exclude paths and prepare devices with a local config file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Obsidian community store and not reviewed by Obsidian staff; it is installed via BRAT or manually from GitHub releases, which is where the docs live.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync relies on a paid cloud service; self-hosters want to sync their vault across devices through their own SSH server without any third party.",
+ "readmeHash": "b6b4a7abf85bc158e21cd1b04fd0a84284fd9e1e",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Obsyncher",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an SSH server (OpenSSH) on an always-on machine, plus a small Python relay for phones",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Live two-way vault sync with a folder on your own server over SSH/SFTP, with conflict handling, deletion protection and Android support via a relay.",
+ "tags": [
+  "ssh",
+  "sftp",
+  "self-hosted",
+  "websocket-relay",
+  "nas",
+  "last-writer-wins",
+  "server-key-pinning"
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Query QB Reader API",
+  ": Separate sentences by highlights",
+  ": Parse sentences into Anki-ready format",
+  ": Set categories in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "commands"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Does not support bonuses; subcategory behavior is strange when retrieving tossups.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The difficulty of importing and formatting tossups from QB Reader into Anki via Obsidian.",
+ "readmeHash": "704e2e4f4aed26b1c1e2f9700638bf5f4ccb9942",
+ "relations": [
+  {
+   "evidence": "into a format readable by the Obsidian_to_Anki plugin.",
+   "plugin": "Obsidian_to_Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "allow you to query the QB Reader API.",
+   "plugin": "QB Reader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian_to_Anki",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AnkiConnect Add-on",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "QB Reader",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Automatically parses tossups from QB Reader into a format compatible with the Obsidian_to_Anki plugin.",
+ "tags": [
+  "qb-reader",
+  "anki",
+  "tossups",
+  "cloze",
+  "regex"
+ ]
+}

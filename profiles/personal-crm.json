@@ -1,0 +1,69 @@
+{
+ "also": [
+  "data",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Derive contact history from links in dated notes",
+  "Assign cadence tiers and flag people whose contact rhythm is drifting",
+  "Queue overdue people for reach-outs and log contacts",
+  "Track open follow-up tasks per person",
+  "Import contact details from a Google Contacts CSV or vCard export"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a business CRM; it manages personal relationships by reading mentions in your own dated notes rather than storing contact records.",
+ "extras": "Release assets are built in CI with build provenance; no hotkeys are bound by default, including undo; documentation covers performance figures, known limits, and the Google import is a file import, not a live connection.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "People already record interactions with others in daily and meeting notes, but nothing in Obsidian reads those mentions as a contact log, so keeping in touch relies on memory or manual tracking.",
+ "readmeHash": "7e0de4300deaf336e362acfe40b318306d4e20c0",
+ "relations": [
+  {
+   "evidence": "Import contact details from a Google Contacts export",
+   "plugin": "Google Contacts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Due dates are read if the task carries one, in the Tasks plugin's",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater's tp.date.now, tp.file.title and tp.file.cursor are translated to their result",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it reads your Daily Notes or Periodic Notes configuration for the dated folder",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Personal CRM that derives contact history from [[wikilinks]] in dated notes, tracks a cadence per person, and queues who to reach out to.",
+ "tags": [
+  "google-contacts",
+  "wikilinks",
+  "daily-notes",
+  "contact-calendar",
+  "drift-detection",
+  "tiered-cadence"
+ ]
+}

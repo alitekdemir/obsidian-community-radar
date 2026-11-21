@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with Claude Code in a streaming right-sidebar panel",
+  "auto-mention the active note, folder, selection, or picked files in prompts",
+  "choose tool approval modes and confirm or auto-run Claude Code actions",
+  "run slash commands like /clear, /model, /mcp, and /usage",
+  "view Claude plan, organization, and rate-limit consumption"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (no mobile). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Japanese documentation is in README.ja.md; BRAT can be used for sideloading or pre-release builds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to let an AI agent read, write, search, and run commands against notes directly from inside the app.",
+ "readmeHash": "24ae1248db1964eee038fa1082e47bb46ad53339",
+ "relations": [
+  {
+   "evidence": "spawns the claude CLI as a subprocess with the active vault as its working directory",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "claude CLI (plus Node.js, Git, PowerShell 7 on Windows)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude sign-in via browser auth",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude Pro / Max subscription or Anthropic API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Right-sidebar chat panel that runs the Claude Code CLI as a subprocess with the active vault as its working directory.",
+ "tags": [
+  "claude-code",
+  "anthropic",
+  "mcp",
+  "cli-subprocess",
+  "token-usage",
+  "clipboard-images"
+ ]
+}

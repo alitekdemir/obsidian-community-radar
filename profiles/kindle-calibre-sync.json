@@ -1,0 +1,72 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Kindle highlights and personal notes into Author-Title Markdown notes with deep links",
+  "Match books against a Calibre library and auto-convert non-EPUB formats via ebook-convert",
+  "Write annotations back into Calibre's metadata.db",
+  "Read EPUBs in an embedded side-by-side pane scrolled to the quoted location",
+  "Cache the Kindle annotation database for offline syncs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly: true); README warns to close Calibre during sync or conversion because SQLite may lock metadata.db. A standalone Python CLI is retained in the repository for headless automation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull Kindle highlights into notes or link them to book locations, and Kindle/Calibre workflows need external scripts.",
+ "readmeHash": "6b5b2570bdb537ee590b8671e573c5cf732ec91a",
+ "relations": [
+  {
+   "evidence": "Matches books in Calibre's metadata.db.",
+   "plugin": "Calibre",
+   "type": "integrates"
+  },
+  {
+   "evidence": "opens the book directly in a split ePub.js pane scrolled to the exact quote",
+   "plugin": "ePub.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calibre library with metadata.db",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Calibre ebook-convert CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Kindle device or local clippings/annotation files",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Desktop plugin that syncs Kindle highlights and notes into Markdown book notes and Calibre, with an embedded side-by-side EPUB reader.",
+ "tags": [
+  "kindle",
+  "calibre",
+  "epub",
+  "highlights",
+  "ebook-reader",
+  "mtp",
+  "cfi"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "music"
+ ],
+ "audience": [
+  "music-collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate one note per song from the local MusicLyricApp cache, including interleaved bilingual lyrics",
+  "Pull the full Discogs collection via the official API and enrich each release with tracklist, label and community data",
+  "Render notes from swappable .md templates with placeholders for each field",
+  "Deduplicate notes by netease_id or discogs_release_id, with an overwrite mode that preserves hand-filled fields",
+  "Optionally download cover images locally and show a live sync progress panel that can be stopped"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is in Chinese with an English summary for non-Chinese readers; the author states the plugin is 100% AI-generated, and the manifest notes it has not been manually reviewed by Obsidian staff. NetEase sync is desktop-only because it reads a cache directory outside the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author separates digital songs (managed via NetEase, read from MusicLyricApp's cache) from physical records (managed via Discogs), stating this two-path setup is enough for their needs.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn streamed songs or a physical record collection into structured notes with metadata, lyrics and tracklists.",
+ "readmeHash": "0fd7f0c46794395a3dd42bd9a062c63ccb55313d",
+ "relations": [
+  {
+   "evidence": "NetEase Cloud Music — reads the local cache of MusicLyricApp (metadata + timestamped lyrics)",
+   "plugin": "MusicLyricApp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "genre/region come from Last.fm",
+   "plugin": "Last.fm",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Discogs — uses the official API + a personal token to pull your entire collection",
+   "plugin": "Discogs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MusicLyricApp",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Discogs personal token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Last.fm API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Syncs NetEase Cloud Music songs and Discogs record collections into Obsidian as one note per song or record, with metadata, lyrics and tracklists.",
+ "tags": [
+  "netease-cloud-music",
+  "discogs",
+  "lastfm",
+  "musiclyricapp",
+  "lyrics",
+  "vinyl"
+ ]
+}

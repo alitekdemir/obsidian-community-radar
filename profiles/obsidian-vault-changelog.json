@@ -1,0 +1,63 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a changelog note listing recently edited notes",
+  "Update automatically on note creation, modification, rename, or deletion",
+  "Format entries as wiki-links or plain titles with a configurable datetime format",
+  "Exclude folders from tracking",
+  "Prepend an optional heading and cap tracked files up to 500"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a version-history tool; the changelog note is overwritten in full on each update rather than keeping a historical record.",
+ "extras": "In maintenance mode: bug fixes and user-requested changes only, no new features. Originally created by Badr Bouslikhin and now maintained by someone else. Requires Obsidian 1.13 or later; older versions install 1.8.0. States it reads only note names, paths, and modification times, makes no network requests, and collects nothing. Includes detailed troubleshooting for install/update failures on Windows.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian tracks file changes internally but offers no persistent note that lists recently created, modified, renamed, or deleted notes.",
+ "readmeHash": "dfd85e805be1786c0257fc1431bc13709e54e7f2",
+ "relations": [
+  {
+   "evidence": "Bases — built-in Obsidian feature for querying and displaying vault data",
+   "plugin": "Bases",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Recent Files — sidebar pane of recently opened files",
+   "plugin": "Recent Files",
+   "type": "alternative"
+  },
+  {
+   "evidence": "List Modified — links modified files to daily, weekly, or monthly notes",
+   "plugin": "List Modified",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Dataview — dynamic query: TABLE dateformat(file.mtime, \"yyyy-MM-dd HH:mm\") SORT file.mtime DESC LIMIT 25",
+   "plugin": "Dataview",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Changelog generator that writes a Markdown note listing recently edited notes, updated manually or automatically on vault file changes.",
+ "tags": [
+  "recent-files",
+  "changelog",
+  "modified-notes",
+  "momentjs"
+ ]
+}

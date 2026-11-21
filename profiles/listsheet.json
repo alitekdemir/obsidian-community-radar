@@ -1,0 +1,51 @@
+{
+ "also": [],
+ "audience": [
+  "bengali-speakers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "compute sums, averages, min/max and counts over markdown lists",
+  "evaluate If() conditions and math functions like sqrt, LCM and GCD",
+  "count checked and unchecked checkbox items at every nesting level",
+  "resolve single values with dot paths such as Trip.Food.Dinner",
+  "export list data as JSON from a side panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a visual spreadsheet editor; calculations run on ordinary markdown lists via ```listsheet``` formula blocks, with no table UI.",
+ "extras": "Known bug: dots inside quoted text (e.g. \"Mr.Smith\") are misread as list references. V1.0.1 changes some results compared with V1.0.0 for nested lists and checkboxes. Loads the Hind Siliguri Bangla font from Google Fonts at startup; falls back to the system font offline.",
+ "intent": "alternative",
+ "intentEvidence": "CListCalc plugin is officially disconnected (after August 30, 2026). Please migrate to ListSheet.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author rebuilt the earlier ClistCalc plugin's regex-based list parsing as a Markdown-parsing engine that splits items into label, value, prefix and suffix, avoiding token mistakes and easing migration.",
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to compute values from lists inside a note, so budgets, totals and checklist tallies must be calculated by hand.",
+ "readmeHash": "34c9cdab7714e78c433d3b2f30be3a4ac041a650",
+ "relations": [
+  {
+   "evidence": "CListCalc plugin is officially disconnected (after August 30, 2026). Please migrate to ListSheet.",
+   "plugin": "ClistCalc",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Formula engine that turns markdown bullet, numbered and checkbox lists into live calculations with sums, conditions, dot-notation lookups, and Bengali digit support.",
+ "tags": [
+  "spreadsheet",
+  "calculator",
+  "formulas",
+  "checkboxes",
+  "bengali",
+  "dot-notation",
+  "nested-lists"
+ ]
+}

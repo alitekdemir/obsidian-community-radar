@@ -1,0 +1,88 @@
+{
+ "also": [
+  "integrations",
+  "syncing"
+ ],
+ "audience": [
+  "wordpress-bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish Markdown notes to WordPress as native Gutenberg blocks or classic HTML",
+  "Control post metadata (slugs, excerpts, categories, tags, featured images, schedules, post types) from front matter properties",
+  "Reuse unchanged media by content hash and update attachment metadata",
+  "Inspect, pull, compare, and merge remote WordPress changes with a reviewed three-way merge and guarded undo",
+  "Save per-profile defaults and reusable publishing templates for single-site and multi-site publishing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not related to Obsidian's Publish core feature; it publishes and synchronizes notes with WordPress sites only.",
+ "extras": "Warns that Wordfence can block WordPress Application Passwords, that WordPress.com connections are unsupported in the current release, and that the Companion plugin is distributed via GitHub Releases rather than the WordPress.org directory. README is provided in English and Chinese.",
+ "intent": "alternative",
+ "intentEvidence": "This project is an independently maintained fork of devbean/obsidian-wordpress.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked devbean/obsidian-wordpress and expanded it from a one-way publishing tool into a guarded editorial workflow.",
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to WordPress or to keep a note and its remote WordPress post in reviewed, conflict-safe synchronization.",
+ "readmeHash": "7329c6714583a6e70b9fe1f581908bde6aec214c",
+ "relations": [
+  {
+   "evidence": "This project is an independently maintained fork of devbean/obsidian-wordpress.",
+   "plugin": "devbean/obsidian-wordpress",
+   "type": "fork"
+  },
+  {
+   "evidence": "Install WP Publisher Companion on self-hosted WordPress when you need protected Rank Math fields, legacy Secondary Title",
+   "plugin": "WP Publisher Companion",
+   "type": "integrates"
+  },
+  {
+   "evidence": "subtitle writes WP Title Layer's canonical wptl_subtitle field when the selected post type exposes it.",
+   "plugin": "WP Title Layer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "when you need protected Rank Math fields, legacy Secondary Title, or XML-RPC attachment metadata",
+   "plugin": "Rank Math",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WordPress site",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WordPress account with Application Password or XML-RPC access",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "WP Publisher Companion (WordPress-side plugin for Rank Math, Secondary Title, or XML-RPC metadata)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "WordPress publishing plugin that sends Markdown notes as Gutenberg blocks and syncs posts through explicit, reviewed pull and merge workflows.",
+ "tags": [
+  "wordpress",
+  "gutenberg",
+  "xml-rpc",
+  "rest-api",
+  "application-password",
+  "rank-math",
+  "wp-title-layer",
+  "three-way-merge"
+ ]
+}

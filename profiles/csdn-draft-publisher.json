@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the current note to a CSDN draft from the command palette or ribbon",
+  "Read title, description, tags, and cover from YAML frontmatter",
+  "Browse, search, paginate, and delete existing drafts in a draft manager panel",
+  "Open drafts in the CSDN editor for write-back editing",
+  "Manage multiple CSDN accounts with isolated browser profiles"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it never publishes posts; automation only looks for the save draft button.",
+ "extras": "Full usage documentation lives in an external Wiki; the manifest notes the plugin has not been manually reviewed by Obsidian staff. Local image references are only detected and reported, not uploaded.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to save notes as CSDN blog drafts or manage those drafts without leaving the vault.",
+ "readmeHash": "022ab73682fefdf019a0de6ebe678afc6e0355fd",
+ "relations": [
+  {
+   "evidence": "syncs the current Markdown note to a CSDN blog draft",
+   "plugin": "CSDN",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The bridge drives a Playwright Chromium browser to fill the CSDN Markdown editor",
+   "plugin": "Playwright",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.11+ with Playwright installed",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "CSDN account with one-time manual login per profile",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs Markdown notes to CSDN blog drafts via a local Python/Playwright bridge, with a draft manager, multi-account support, and write-back editing.",
+ "tags": [
+  "csdn",
+  "playwright",
+  "python",
+  "chromium",
+  "blog-drafts"
+ ]
+}

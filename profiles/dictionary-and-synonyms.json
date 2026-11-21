@@ -1,0 +1,67 @@
+{
+ "also": [
+  "writing",
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show synonyms for a selected word or phrase and replace the selection on click",
+  "Show definitions by part of speech in a popover on Ctrl/Cmd-select",
+  "Cache every lookup as a properties-only note read before the network is asked again",
+  "Download whole dictionaries (Open English WordNet, Wiktionary) for offline lookups",
+  "Look up words in several languages using Wiktionary's per-language sections"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (downloads use Node modules). Datamuse will require an API key from early 2027, which the plugin does not yet support, possibly breaking new synonym lookups; definitions are unaffected. Free, MIT, no account or telemetry; sends only the selected word to the lookup services.",
+ "intent": "new",
+ "intentEvidence": "a separate program, written from scratch in Rust, and shares no code with it",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian has no built-in thesaurus or dictionary, so checking a word's synonyms or meaning means leaving the editor or an external site.",
+ "readmeHash": "b4c0c87f8c78cc025b5e628f5bbd572c0f5d503a",
+ "relations": [
+  {
+   "evidence": "Inspired by Dictionary by phibr0.",
+   "plugin": "Dictionary by phibr0",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Synonyms | The Datamuse API (/words?ml=…, the entries tagged syn;",
+   "plugin": "Datamuse",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Definitions | Wiktionary through the MediaWiki Action API",
+   "plugin": "Wiktionary",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Definitions Wiktionary lacks | Wikipedia's summary (TextExtracts)",
+   "plugin": "Wikipedia",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Editor tool that shows synonyms for a selected word and replaces it on click, or definitions on Ctrl-select, keeping each lookup as a note.",
+ "tags": [
+  "datamuse",
+  "wiktionary",
+  "wikipedia",
+  "wordnet",
+  "thesaurus",
+  "definitions",
+  "offline-dictionary"
+ ]
+}

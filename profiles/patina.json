@@ -1,0 +1,58 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "score each note's staleness from edit, open, and inbound-link recency",
+  "work through a ranked review queue with snoozing",
+  "dim stale notes in the file explorer and show scores in the status bar",
+  "set per-note decay half-lives via a frontmatter key",
+  "export all decay scores as CSV"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: the free tier covers scoring and the queue; Pro ($29 one-time, shared across the author's five Second Read add-ons) adds topic grouping and superseded-note detection. Both Pro features are currently switched off because the local semantic engine has no published build yet. The plugin logs which notes you open to a local file and discloses this; Pro engine features are desktop-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author notes that every vault accumulates notes that were true when written and are not now, and nothing tells you which ones.",
+ "primary": "review",
+ "problem": "Vaults accumulate outdated notes with no signal of which ones are stale, and Obsidian does not even record when a note was last opened.",
+ "readmeHash": "b45fde0e3a1e25fc2ea28a5b12bf0e892b86895a",
+ "relations": [
+  {
+   "evidence": "Effort Index writes editing time into the same log",
+   "plugin": "Effort Index",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Second Read Pro license ($29 one-time) for topic grouping and superseded-note detection",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Note-staleness scorer that ranks every note by edit, open, and inbound-link recency into a decay-ranked review queue.",
+ "tags": [
+  "staleness",
+  "decay",
+  "half-life",
+  "review-queue",
+  "csv-export",
+  "embeddings"
+ ]
+}

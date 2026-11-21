@@ -1,0 +1,84 @@
+{
+ "also": [
+  "integrations",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search cover images by note title across media providers",
+  "Download covers into the vault or write remote URLs to frontmatter",
+  "Map note Type values to provider categories (books, movies, anime, games)",
+  "Fall back to Google Images search when no category or key matches",
+  "Configure download folder, destination property, and result count"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README notes every line except the first was written by an AI. SerpAPI has a free tier of about 100 searches per month; TMDb and SteamGridDB keys are free. The README warns that downloaded images, especially Google Images results, may be copyrighted and that licensing is the user's responsibility. Covers are stored locally in .obsidian/plugins/get-covers/data.json and never sent elsewhere.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian has no built-in way to find and attach a cover image (book, movie, game poster) for a note and store it in frontmatter.",
+ "readmeHash": "31c7da8d68277865f92def3fe1d27e9a6bc56602",
+ "relations": [
+  {
+   "evidence": "This product uses the TMDb API but is not endorsed or certified by TMDb.",
+   "plugin": "TMDb",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Book covers come from Open Library, which needs no API key.",
+   "plugin": "Open Library",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AniList's public GraphQL API needs no key for search.",
+   "plugin": "AniList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sign in at steamgriddb.com (you can use your Steam account).",
+   "plugin": "SteamGridDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "this plugin uses SerpAPI (an API, not scraping) to keep the feature reliable",
+   "plugin": "SerpAPI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDb / SteamGridDB / SerpAPI",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "themoviedb.org / steamgriddb.com / serpapi.com accounts to obtain keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Cover image finder that searches media providers by note title and writes the chosen cover to a configurable frontmatter property, with a mobile-friendly result grid.",
+ "tags": [
+  "tmdb",
+  "open-library",
+  "anilist",
+  "steamgriddb",
+  "serpapi",
+  "cover-art",
+  "posters",
+  "google-images"
+ ]
+}

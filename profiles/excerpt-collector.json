@@ -1,0 +1,58 @@
+{
+ "also": [
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Collect selected text into preset target notes via command, hotkey, context menu, or ribbon",
+  "Insert collected text at the end, start, or under a specified heading using custom templates",
+  "Undo the last collection by removing the exact inserted fragment",
+  "Track per-target collection statistics such as entry counts and last collection time",
+  "Restrict collection commands to specific folder paths using glob rules"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Note Composer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.5.0 or newer; target notes must already exist since the plugin never creates notes. Reads selections only and never writes to the source note, rejecting collections that would target the same file.",
+ "intent": "alternative",
+ "intentEvidence": "Similar plugins (Note Refactor, Note Composer, etc.) usually follow an extract-and-replace workflow that cuts text from the source note",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for the copy-and-append need that extract-and-replace plugins like Note Refactor and Note Composer do not serve.",
+ "primary": "editing",
+ "problem": "Obsidian's extract-style plugins cut text out of the source note or replace it with a link, but collecting excerpts into another note without modifying the source has no dedicated workflow.",
+ "readmeHash": "4119a5de1ed375d86d8d8bac938cd89ecd270c8b",
+ "relations": [
+  {
+   "evidence": "Similar plugins (Note Refactor, Note Composer, etc.) usually follow an extract-and-replace workflow",
+   "plugin": "Note Refactor",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Similar plugins (Note Refactor, Note Composer, etc.) usually follow an extract-and-replace workflow",
+   "plugin": "Note Composer",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Copy-append collector that sends selected text from any note to preset target notes while leaving the source note untouched.",
+ "tags": [
+  "excerpts",
+  "copy-append",
+  "undo",
+  "multi-cursor",
+  "glob",
+  "timestamp",
+  "bilingual"
+ ]
+}

@@ -1,0 +1,93 @@
+{
+ "also": [
+  "video",
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Summarize video links, local media files and pasted transcripts into notes with key points and timestamped transcripts",
+  "Fetch platform subtitles or run speech-to-text when a video has none",
+  "Play videos beside their transcript with click-to-seek and highlights",
+  "Generate flashcards and questions with a local review schedule",
+  "Search across transcripts and compare claims between multiple videos"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.11.4+); plugin and backend are free, the summary model is billed per token. Includes a bundled Chromium browser extension for capturing videos. Warns that the webhook secret is stored unencrypted in data.json and that evidence/learning data under the plugin's data/ folder should be backed up or removed before sharing a vault. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn videos into structured notes, so users must transcribe and summarize them by hand.",
+ "readmeHash": "8370a1144cc1a465be00a558ec765ac5926c40f7",
+ "relations": [
+  {
+   "evidence": "n8n with yt-dlp and ffmpeg in Docker on your own computer, started by the script",
+   "plugin": "n8n",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek deepseek-flash by default, or any OpenAI-compatible model",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "SiliconFlow SenseVoiceSmall, used only for videos without subtitles and for local audio or video",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Docker Desktop or OrbStack running the bundled n8n backend",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Summary model key (e.g. DeepSeek)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "SiliconFlow speech-to-text key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "SiliconFlow account with non-zero balance",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili login for subtitles",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Summary model billed per token by provider",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Turns video links, local recordings and pasted transcripts into notes with a summary, key points and a timestamped transcript, via a local Docker backend.",
+ "tags": [
+  "youtube",
+  "bilibili",
+  "deepseek",
+  "n8n",
+  "yt-dlp",
+  "docker",
+  "speech-to-text"
+ ]
+}

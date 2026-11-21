@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two ways with a Google Drive folder",
+  "Link phones to the account via an encrypted setup token",
+  "Sync with a Drive folder someone shared with you",
+  "Keep both versions as conflict copies when a note changes on two devices",
+  "Stop syncing and warn when many files disappear at once"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Free, no payments or tracking. Requires a one-time manual Google Cloud setup (about 15 minutes); Google shows an unverified-app warning on first sign-in because the OAuth client is the user's own. Android is untested; Docs/Sheets/Slides files are skipped; do not combine with iCloud Drive or another sync service on the same vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Keeping the same vault consistent across devices normally requires a paid sync service or risky manual copies; this uses a Google account you already have.",
+ "readmeHash": "03b01f9012ce312d4834f9a0b9acbc66a5af6469",
+ "relations": [
+  {
+   "evidence": "Your notes now sync to a Google Drive folder with the same name as your vault.",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Your own Google Cloud OAuth client ID and secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync to your own Google Drive using your own Google OAuth credentials, with conflict copies and deletion safeguards.",
+ "tags": [
+  "google-drive",
+  "oauth",
+  "conflict-resolution",
+  "drive-api"
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "also": [
+  "data",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render line, area, bar, scatter and table views from CSV, JSON and JSON Lines files",
+  "Filter, aggregate and compute series with expressions, rolling averages and grouping",
+  "Zoom, pan and switch time ranges on a chart",
+  "Draw reference bands and one small chart per field value",
+  "Show a weather forecast table for a place and a span of days"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Chart data stays in the vault; only weather blocks use the network, sending the place name and coordinates to Open-Meteo. No API key or paid account is needed. MIT licence.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Data files kept in a vault can only be read as raw text, with no way to plot them as charts inside a note.",
+ "profiledAt": "2026-11-16",
+ "readmeHash": "ae0cd5bb7dfe444b625598b0ab31bae7060cafdc",
+ "relations": [
+  {
+   "evidence": "The forecast comes from Open-Meteo, free and without a key.",
+   "plugin": "Open-Meteo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Open-Meteo",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Renders interactive charts from CSV, JSON and JSON Lines files in the vault through YAML blocks, and shows weather forecasts for a place and date span.",
+ "tags": [
+  "weather",
+  "yaml"
+ ],
+ "textHash": "abfd1fb565cda597f469824dca50db1fd9b3a549"
+}

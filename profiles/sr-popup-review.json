@@ -1,0 +1,58 @@
+{
+ "also": [
+  "review",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show due flashcards in a frameless always-on-top popup at a configurable interval",
+  "Reveal answers and rate cards (Again/Hard/Good/Easy) through Spaced Repetition's review pipeline",
+  "Filter decks and mix in new cards with daily limits, do-not-disturb windows, pausing and snoozing",
+  "Mirror the popup to a local web page for OBS browser sources or screen sharing",
+  "Expose CLI commands so external tools can check whether editing a note would disturb an open card"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (uses an Electron window; no mobile). Depends on internals of the Spaced Repetition plugin, so updates to that plugin can disable popup reviews; tested with v1.15.4. Documents a known Spaced Repetition 1.15.4 bug affecting the Start of day setting. Japanese README available.",
+ "intent": "improve",
+ "intentEvidence": "Companion plugin for the Spaced Repetition plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Reviewing flashcards requires opening Obsidian and its review modal, so reviews get skipped when the app is not in the foreground; this plugin reviews due cards from a small popup while Obsidian stays minimized.",
+ "readmeHash": "a7818b507e39f82d2d147d83506c555951aedef1",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Spaced Repetition",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Spaced Repetition",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Always-on-top desktop popup that shows due Spaced Repetition flashcards at set intervals and saves ratings through the Spaced Repetition plugin.",
+ "tags": [
+  "spaced-repetition",
+  "sm-2",
+  "fsrs",
+  "cloze",
+  "obs-browser-source",
+  "claude-code",
+  "popup-window"
+ ]
+}

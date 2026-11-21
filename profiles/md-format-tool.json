@@ -1,0 +1,64 @@
+{
+ "also": [
+  "formatting",
+  "latex"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Repair LaTeX math formatting on paste",
+  "Review ambiguous formula repairs before inserting",
+  "Repair formulas in a selection or the whole note",
+  "Convert pasted rich HTML into Markdown",
+  "Export notes to Word, WeChat or Markdown through a companion web app"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Markdown formatter or linter; it repairs LaTeX math in pasted content.",
+ "extras": "Companion web app (Vite) handles preview, formula review and Word/WeChat/Markdown export; all conversion runs locally. Recovering formulas from pasted HTML needs LaTeX annotations or data-latex/data-tex attributes, and complex embeds and attachment folders have limited support.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "math",
+ "problem": "LaTeX pasted from other apps arrives with broken delimiters and parentheses, so every formula has to be cleaned up by hand.",
+ "profiledAt": "2026-11-16",
+ "readmeHash": "05ae79c3577bcf09b3c08faae47eb4ca4d1f37b6",
+ "relations": [
+  {
+   "evidence": "Word export requires Pandoc.",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Obsidian plugin that repairs LaTeX math formatting when pasting and lets you review ambiguous formula repairs before inserting them.",
+ "tags": [
+  "clipboard",
+  "html-to-markdown",
+  "docx",
+  "wechat"
+ ],
+ "textHash": "e94e829f2115055b6ab71351297971a3a458e355"
+}

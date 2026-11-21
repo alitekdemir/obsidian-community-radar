@@ -1,0 +1,66 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send full notes or selected text to configured webhook endpoints",
+  "Include YAML frontmatter, inline fields, and base64 attachments in the payload",
+  "Insert webhook responses back into notes with append, new-note, or overwrite modes",
+  "Send rendered HTML of the active note in Reading View",
+  "Attach reusable context notes and parameters to webhook requests"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README links to external n8n workflow templates for its use cases (email, Airtable queries, podcast feed) rather than including them inline.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push note content to external automation services, so connecting notes to workflows requires manual copying.",
+ "readmeHash": "c908451ace0eb5cdfbf512ab46e9d6fe1f5a2cb7",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "n8n, Make.com, Zapier",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Each webhook has a unique command ID that can be used with Templater templates",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "useful for notes that contain data from the Dataview or Bases plugin",
+   "plugin": "Dataview, Bases",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "A webhook endpoint such as n8n, Make.com, or Zapier",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Webhook sender that posts notes, selections, frontmatter, inline fields, and attachments to endpoints like n8n, Make.com, and Zapier.",
+ "tags": [
+  "n8n",
+  "zapier",
+  "make-com",
+  "webhooks",
+  "airtable",
+  "base64"
+ ]
+}

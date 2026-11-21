@@ -1,0 +1,76 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [
+  "vim-users",
+  "cjk-language-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "switch the system input method when entering Vim normal mode",
+  "restore the default input method per Vim mode",
+  "configure commands to obtain the current input method",
+  "configure commands to switch to a target input method",
+  "set separate settings for Windows and other platforms"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an input method or IME itself; it only runs configured commands to detect and switch the current system input method when Vim mode changes.",
+ "extras": "README exists in English and Chinese; requires the user to enable Obsidian's built-in Vim key bindings and to supply executable obtain/switch commands themselves; restart of Obsidian is needed after first setup.",
+ "intent": "new",
+ "intentEvidence": "Inspired from vscodevim",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the plugin exists to prevent non-English input methods from causing key binding failure in Vim normal mode.",
+ "primary": "vim",
+ "problem": "When Vim key bindings are on, a non-English input method makes normal-mode key presses fail because letters are consumed as text input instead of commands.",
+ "readmeHash": "e375ef4ff2bd4b84a957c7eb2ceadaa65fb2ee5a",
+ "relations": [
+  {
+   "evidence": "Inspired from vscodevim",
+   "plugin": "vscodevim",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The solution for switching input method on Windowsim-select",
+   "plugin": "im-select",
+   "type": "integrates"
+  },
+  {
+   "evidence": "obsidian-vimrc-support",
+   "plugin": "obsidian-vimrc-support",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Vim key bindings in Obsidian",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "im-select (for Windows switching)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Vim companion plugin that switches the system input method automatically when moving between Vim modes, so non-English IMEs don't break normal-mode keys.",
+ "tags": [
+  "input-method",
+  "ime",
+  "vim-mode",
+  "normal-mode",
+  "chinese",
+  "im-select"
+ ]
+}

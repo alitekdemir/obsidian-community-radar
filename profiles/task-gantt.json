@@ -1,0 +1,78 @@
+{
+ "also": [
+  "tasks",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a folder of notes as an editable Gantt timeline with drag-to-reschedule bars and milestones",
+  "Show the same tasks as a Kanban board with one column per status and drag-to-change-status",
+  "Create FS/SS/FF dependencies and push late predecessors' successors to the next workday",
+  "Filter, group, sort tasks and save multiple Gantt, Table, and Kanban views per board",
+  "Sync tasks two-way with Google Calendar and send due-date reminders to Discord or Slack webhooks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Google Calendar sync is desktop-only and requires the user's own Google Cloud project with an unverified-app OAuth warning during consent; notifications fire only while Obsidian is running and date-only tasks are never notified.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no visual project-management view that shows a folder of notes as scheduled tasks on a timeline or a status board.",
+ "readmeHash": "7b5e5a228360a423574d2e997f42af2b8a802572",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Discord",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Slack",
+   "type": "integrates"
+  },
+  {
+   "evidence": "shown as tabs above the toolbar, like Wrike's views",
+   "plugin": "Wrike",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth client ID and secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Gantt and Kanban project board that treats each Markdown note in a folder as a task, with drag-to-reschedule bars, dependencies, and saved views.",
+ "tags": [
+  "gantt-chart",
+  "kanban",
+  "dependencies",
+  "google-calendar",
+  "discord",
+  "slack",
+  "wrike"
+ ]
+}

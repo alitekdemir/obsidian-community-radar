@@ -1,0 +1,83 @@
+{
+ "also": [
+  "calendar",
+  "ai"
+ ],
+ "audience": [
+  "neurodivergent-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Compute XP and levels from daily-note checkboxes, completion bonuses and frontmatter habits",
+  "Maintain streaks with monthly freeze tokens, tier bonuses and configurable day-off rules",
+  "Award deterministic loot drops and reveal lore fragments on level-up, with swappable packs",
+  "Show progress via a sidebar widget, status-bar item or kuro-status code block embedded in notes",
+  "Chat with a self-configured OpenAI-compatible endpoint (LM Studio, Ollama) about your day"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task manager or habit tracker; it only awards XP for tasks and habits your daily notes already record.",
+ "extras": "The optional AI chat is off by default and the plugin makes no network connection while it is disabled; all XP, streak, loot and lore logic runs locally. Extended documentation (manual, troubleshooting, customization) is hosted outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for ADHD and autism, because most gamification plugins for note apps are built for neurotypical brains: punishing streaks, exponential XP curves and nagging notifications.",
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in progress or habit gamification, and existing gamification tools use hard streaks and nagging that penalise a missed day.",
+ "readmeHash": "cba8329fb936811ed0c55c7776eda22c20af5821",
+ "relations": [
+  {
+   "evidence": "If TaskNotes is installed and configured differently, Kuro offers to adopt its configuration with one click.",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you have the LLM Endpoint Manager plugin installed, the chat takes its endpoints and model from there",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible endpoint (LM Studio or Ollama)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for the chat endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Gamification engine that computes XP, levels, streaks with freeze tokens, loot and lore from your daily notes, with an optional local AI chat.",
+ "tags": [
+  "gamification",
+  "adhd",
+  "xp",
+  "streaks",
+  "loot",
+  "pomodoro",
+  "tasknotes"
+ ]
+}

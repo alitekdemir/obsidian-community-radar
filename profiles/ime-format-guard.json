@@ -1,0 +1,51 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [
+  "korean-and-cjk-typists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "defer bold and italic commands until the compositionend event fires",
+  "cancel deferred commands on editor focus loss, file change, or a 1.5-second timeout",
+  "cover custom hotkeys bound to the built-in bold and italic commands",
+  "preserve intentional repeated characters such as doubled Hangul syllables"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general IME or CJK fix; it only defers the built-in bold and italic commands, not other formatting such as highlight, inline code or links.",
+ "extras": "Early public release, not yet listed in the Obsidian community directory; manual installation from GitHub releases is required. Desktop only (isDesktopOnly: true), verified only on macOS with a Korean IME and Obsidian 1.14.5; Windows, Linux, other IMEs and mobile are unverified or unsupported. It accesses internal command callbacks and editor.cm, so Obsidian updates or other plugins wrapping the same commands may break it.",
+ "intent": "improve",
+ "intentEvidence": "The plugin wraps Obsidian's existing bold and italic command callbacks.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it after reproducing a Korean input issue on macOS where formatting applied during composition duplicated the final Hangul syllable.",
+ "primary": "editing",
+ "problem": "Applying bold or italic while a Korean IME is still composing the final visible syllable inserts an extra duplicate character into the note.",
+ "readmeHash": "b2b83c3f20a2471a8109f5085af9403c3aba2c2b",
+ "relations": [
+  {
+   "evidence": "Disable the earlier private Local IME Format Guard before enabling this version.",
+   "plugin": "Local IME Format Guard",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Input-method guard that delays Obsidian's bold and italic commands until IME composition finishes, preventing duplicate characters in Korean input.",
+ "tags": [
+  "ime",
+  "korean",
+  "hangul",
+  "cjk",
+  "composition-events",
+  "macos"
+ ]
+}

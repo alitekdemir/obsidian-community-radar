@@ -1,0 +1,57 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pair a vault with a Zima account and Topic via a single-use connection link",
+  "Mirror file creates, edits, renames, and deletions from Obsidian to Zima",
+  "Choose between continuous syncing and a one-time snapshot",
+  "Manually paste a connection link when protocol links are unavailable",
+  "Disconnect by forgetting the local device credential and revoking it in Zima"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README details exactly what data is sent to the Zima server (file contents, paths, sizes, vault and device names) and states there is no analytics or telemetry; plain HTTP is only accepted for localhost servers, otherwise HTTPS is required. Disconnecting does not delete already-mirrored files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes live in local files that Zima cannot access, so there is no built-in way to make vault content available in a Zima Topic.",
+ "readmeHash": "aca192f11892c6e3a530daba1dd961e09b289257",
+ "relations": [
+  {
+   "evidence": "mirrors an Obsidian vault into the currently selected Zima Topic",
+   "plugin": "Zima",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zima",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that mirrors an Obsidian vault, including attachments, into a selected Zima Topic.",
+ "tags": [
+  "zima",
+  "one-way-sync",
+  "connection-link",
+  "device-credential",
+  "https"
+ ]
+}

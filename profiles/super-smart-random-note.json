@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "(verb) Open random notes",
+  "(verb) Define custom filters",
+  "(verb) Parse search queries",
+  "(verb) Match note content",
+  "(verb) Match file metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Tags",
+   "Properties"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It uses its own parser and evaluator, which is a close but not pixel-perfect clone of core search.",
+ "extras": "Large vaults may experience brief delays during note requests.",
+ "intent": "new",
+ "intentEvidence": "Obsidian doesn't expose its internal search engine through the public plugin API — there's no documented way to hand it a query string and get back a list of matching files.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because Obsidian doesnt expose its internal search engine through the public plugin API, requiring a custom parser/evaluator.",
+ "primary": "search",
+ "problem": "Obsidian does not expose its internal search engine via the public API, making it difficult to randomly select notes based on complex search queries.",
+ "readmeHash": "0aa029a83cd0dd4b7f04e477a7c05d4aa885346b",
+ "relations": [
+  {
+   "evidence": "The command-row-plus-modal editing UX is modeled after obsidian-advanced-random-note.",
+   "plugin": "obsidian-advanced-random-note",
+   "type": "inspired"
+  },
+  {
+   "evidence": "obsidian-lottery was also a reference for the general idea of filtered random-note picking.",
+   "plugin": "obsidian-lottery",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "A random note opener that allows users to define custom commands using Obsidian's search query syntax to find and open notes.",
+ "tags": [
+  "search-query",
+  "custom-commands",
+  "note-selection",
+  "metadata-cache",
+  "regex",
+  "frontmatter"
+ ]
+}

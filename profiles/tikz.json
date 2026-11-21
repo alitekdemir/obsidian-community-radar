@@ -1,0 +1,58 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compile tikz code blocks with a local TeX distribution and dvisvgm",
+  "Show the real compiler log when a diagram fails to compile",
+  "Open rendered diagrams in a zoomable, pannable viewer",
+  "Cache compiled SVGs inside the plugin folder",
+  "Share rendered diagrams with mobile devices through a synced vault folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "delisted": "2026-11-21",
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Compilation only works on desktop; mobile devices can only display diagrams shared from a desktop. Shell escape is off by default and flagged as dangerous, and the README documents SVG sanitisation and file-read caveats.",
+ "intent": "alternative",
+ "intentEvidence": "A rewrite of artisticat1/obsidian-tikzjax, see License.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Existing in-app TikZ rendering relies on limited browser WASM engines and hides real compiler errors when a diagram fails.",
+ "readmeHash": "ce05bb196b028ffca4c98dc673d79a52b34d98ba",
+ "relations": [
+  {
+   "evidence": "A rewrite of artisticat1/obsidian-tikzjax, see License.",
+   "plugin": "artisticat1/obsidian-tikzjax",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TeX distribution with dvisvgm (TeX Live, MacTeX or MiKTeX)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Renders TikZ code blocks by compiling them with a locally installed TeX distribution instead of a browser WASM engine.",
+ "tags": [
+  "tikz",
+  "dvisvgm",
+  "texlive",
+  "miktex",
+  "diagrams"
+ ]
+}

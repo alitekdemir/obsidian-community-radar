@@ -1,0 +1,56 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "store secrets in KeePass v3/v4 (.kdbx) databases inside the vault",
+  "insert {{vc:...}} tokens that render as masked chips in Live Preview and Reading mode",
+  "copy secret values to the clipboard with a configurable auto-clear timeout",
+  "lock and unlock profiles per session with auto-lock timers",
+  "create and edit KeePass entries through plugin settings and editor commands"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not encrypt notes or the vault itself; notes stay plaintext and only referenced secret values live in a .kdbx database.",
+ "extras": "No network calls and no vault contents in settings or logs, per the README security section.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian notes are plain Markdown files, so writing passwords or API keys directly into notes leaves them exposed in plaintext.",
+ "readmeHash": "7083013809943bd70db88b600f7edd2db72d0598",
+ "relations": [
+  {
+   "evidence": "Store secrets in KeePass v3/v4 (.kdbx) databases inside your vault",
+   "plugin": "KeePass",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Passwords wrapped in ProtectedValue (kdbxweb) — never stored as plaintext",
+   "plugin": "kdbxweb",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Secret manager that stores values in KeePass-compatible .kdbx databases and inserts masked {{vc:...}} token chips into notes.",
+ "tags": [
+  "keepass",
+  "kdbx",
+  "encryption",
+  "secrets",
+  "passwords",
+  "argon2id",
+  "clipboard"
+ ]
+}

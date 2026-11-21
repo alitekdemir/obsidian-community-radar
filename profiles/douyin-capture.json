@@ -1,0 +1,61 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Douyin share links or pasted share text via a modal, ribbon icon, or clipboard command",
+  "Download no-watermark videos and all carousel images into an attachments folder",
+  "Transcribe video captions to Simplified Chinese with a local Whisper model",
+  "Generate structured notes with frontmatter, hashtag callout, embedded media, and caption sections",
+  "Check connection to the local Python backend from settings and the command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general web clipper; it only imports Douyin share links and pasted share text.",
+ "extras": "Desktop only (Obsidian 1.4.0+; mobile unsupported). Manifest notes the plugin has not been manually reviewed by Obsidian staff. README includes a disclaimer restricting use to personal learning and research; no Douyin cookie or paid API is needed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn Douyin share links into notes with no-watermark media, caption text, and metadata saved locally.",
+ "readmeHash": "570dad8627dc4e6f54449baa6679ea8a29e6b87a",
+ "relations": [
+  {
+   "evidence": "This plugin depends on the local Python service obsidian-content-capture-backend",
+   "plugin": "obsidian-content-capture-backend",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsidian-content-capture-backend (local Python 3.10+ service)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "FFmpeg",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Imports Douyin share links into Obsidian as structured notes with downloaded videos, carousel images, captions, and optional local Whisper transcription.",
+ "tags": [
+  "douyin",
+  "whisper",
+  "transcription",
+  "ffmpeg",
+  "video-download",
+  "no-watermark"
+ ]
+}

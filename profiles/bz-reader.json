@@ -1,0 +1,75 @@
+{
+ "also": [
+  "annotation",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "read EPUB, TXT, MOBI/AZW3, FB2, CBZ and PDF files in a bookshelf view",
+  "highlight passages and save them as wikilinks that jump back to the source",
+  "browse PDFs with page thumbnails, page links, backlinks, and page-to-image export",
+  "ask AI questions about the whole book using an OpenAI-compatible endpoint",
+  "read books aloud with system, online, or local speech engines"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a PDF viewer; it is a full reading shelf for EPUB, TXT, MOBI, AZW3, FB2, comics and PDF.",
+ "extras": "Freemium: base reading is free; Pro features (most formats, PDF tools, stats, AI, offline audio) need a paid license key verified locally. Several listed 'Explorations' features (OCR, PDF reflow, manga mode, chapter translation, review, E Ink optimization) are marked as not yet available at any tier. Community listing was still pending review at time of writing; BRAT or manual install offered meanwhile.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian has no built-in way to read books or PDFs as books, with progress, highlights, and links back into your notes.",
+ "readmeHash": "5445f80db68497b935e3b0ea1078b3e54bf8a223",
+ "relations": [
+  {
+   "evidence": "Embeddings come from the bz (second brain) plugin: without it there is no vector search",
+   "plugin": "bz",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "foliate-js",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "bz",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Pro license key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "In-vault ebook reader with a bookshelf that opens EPUB, TXT, MOBI, CBZ and PDF, with highlights as wikilinks, text-to-speech, and AI Q&A.",
+ "tags": [
+  "epub",
+  "mobi",
+  "cbz",
+  "bookshelf",
+  "text-to-speech",
+  "openai",
+  "embeddings"
+ ]
+}

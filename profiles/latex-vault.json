@@ -1,0 +1,63 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render latex-vault, tikz, tikzcd and pgfplots code blocks to SVG in Reading and Edit mode",
+  "Compile blocks with any locally installed LaTeX package via preamble lines or an extra preamble setting",
+  "Auto-detect environments and commands to load matching packages like pgfplots, circuitikz or nicematrix",
+  "Cache compiled images on disk with pdflatex/latex plus dvisvgm fallback",
+  "Configure TeX engine, binary paths, shell-escape and interface language in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math",
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a LaTeX editor or exporter; it renders fenced LaTeX code blocks in notes to SVG images.",
+ "extras": "Shell-escape is off by default; the README warns it lets code blocks execute commands and should only be enabled for trusted vaults. Desktop only; a full TeX distribution is recommended to avoid missing-package errors.",
+ "intent": "alternative",
+ "intentEvidence": "with any installed package, including the ones TikZJax cannot load",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian's built-in math rendering cannot compile TikZ diagrams, pgfplots or arbitrary LaTeX packages inside code blocks.",
+ "readmeHash": "ad29fc0fc658b0850814e03007cf9731589ad649",
+ "relations": [
+  {
+   "evidence": "Supports any LaTeX package (pgfplots, circuitikz, tikz-cd, forest, nicematrix, algorithmicx, listings, ...), unlike TikZJax.",
+   "plugin": "TikZJax",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local TeX installation (MiKTeX / TeX Live / MacTeX) with latex/pdflatex and dvisvgm",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "LaTeX code-block renderer that compiles latex-vault, tikz, tikzcd and pgfplots blocks to SVG using a local TeX installation.",
+ "tags": [
+  "tikz",
+  "pgfplots",
+  "tikz-cd",
+  "dvisvgm",
+  "texlive",
+  "miktex",
+  "pdflatex",
+  "svg"
+ ]
+}

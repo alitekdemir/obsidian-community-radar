@@ -1,0 +1,62 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Split multi-link property values into separate real links",
+  "Make frontmatter links clickable in Source mode, Live Preview and Reading",
+  "Count frontmatter links as backlinks on their targets",
+  "Support paths with spaces, embeds, and external links",
+  "Delegate rename handling to Advanced Rename and Delete Handler"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a link repair tool; it makes existing frontmatter links work without rewriting note text.",
+ "extras": "Documentation doubles as a demo vault shipped with every release and viewable on GitHub; beta versions installable via BRAT; since 3.0.0 rename handling was moved to a separate plugin, offered as a one-time install.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian treats a property whose whole value is one link, [[wikilink]] or [text](note.md), as a real link.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Multi-link frontmatter values was a feature long-requested on the Obsidian forum.",
+ "primary": "properties",
+ "problem": "Obsidian treats a property value containing several links as one broken link that neither resolves, opens, nor counts as a backlink, and frontmatter links are not clickable in Source mode.",
+ "readmeHash": "611cea0fb7f290fccab2ed8211931c122e2e26b1",
+ "relations": [
+  {
+   "evidence": "rename and delete handling belongs to Advanced Rename and Delete Handler instead",
+   "plugin": "Advanced Rename and Delete Handler",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Complementary repair: makes existing links work without rewriting note text",
+   "plugin": "Frontmatter Link Repair",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Broader link support: splits multi-link values; resolves each target and counts backlinks",
+   "plugin": "Frontmatter Links",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that turns links inside frontmatter property values into real, individually resolved links that are clickable and count as backlinks.",
+ "tags": [
+  "wikilink",
+  "markdown-links",
+  "source-mode",
+  "multi-link-values",
+  "rename"
+ ]
+}

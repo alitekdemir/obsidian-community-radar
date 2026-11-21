@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio from the ribbon icon or command palette",
+  "auto-transcribe recordings to Markdown via a chosen AI provider",
+  "play back recordings in a floating auto-hiding mini-player",
+  "save .webm audio files to a configurable vault folder",
+  "configure provider API keys, auto-transcription, and language"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: recording is limited to 1 minute in the free version, with a premium 5-minute tier listed as coming soon. A roadmap lists planned features (offline Whisper, mobile UI). The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": "Most Obsidian voice note tools record audio only. SpeakNote converts your audio automatically into clean, usable notes.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian can record audio clips but cannot turn them into searchable Markdown text, so voice notes stay unsearchable and unusable for writing workflows.",
+ "readmeHash": "99072de561dfc088064355f4b71fe4695e2b3bab",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "OpenAI Whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using AI transcription providers such as OpenAI Whisper, Deepgram Nova, and AssemblyAI",
+   "plugin": "Deepgram Nova",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using AI transcription providers such as OpenAI Whisper, Deepgram Nova, and AssemblyAI",
+   "plugin": "AssemblyAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Deepgram, or AssemblyAI API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider account for transcription",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Voice recorder that captures audio in Obsidian and auto-transcribes it to Markdown via OpenAI Whisper, Deepgram, or AssemblyAI.",
+ "tags": [
+  "whisper",
+  "deepgram",
+  "assemblyai",
+  "openai",
+  "transcription",
+  "speech-to-text",
+  "voice-memos"
+ ]
+}

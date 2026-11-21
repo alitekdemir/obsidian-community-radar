@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio into a configurable vault folder via floating or ribbon microphone or command",
+  "capture spoken task lists saved as audio plus a .voice.json metadata companion file",
+  "retry failed saves and preserve complete audio under a new UUID name after write errors",
+  "transfer recordings to a computer using any vault sync tool for later transcription"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "The Recorder itself never transcribes or calls an API; transcription happens only in the separate desktop Voice Diary Processor.",
+ "extras": "Not yet manually reviewed by Obsidian staff. The plugin makes no network requests and performs no transcription itself; it also replaces the mobile half of an old combined plugin, with a documented upgrade path that does not migrate old settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian's built-in audio recorder offers no workflow for getting recordings off a phone and transcribed locally on a computer.",
+ "readmeHash": "17f425e2a60404c06002c75d55a2ca033e5996e6",
+ "relations": [
+  {
+   "evidence": "Use the companion Voice Diary Processor on a Windows computer for local transcription.",
+   "plugin": "Voice Diary Processor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Voice Diary Processor",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Mobile audio recorder that saves voice recordings to a configurable vault folder, pairing with a desktop processor for optional local transcription.",
+ "tags": [
+  "voice-memo",
+  "syncthing",
+  "sensevoice",
+  "voice-json",
+  "spoken-tasks"
+ ]
+}

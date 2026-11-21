@@ -1,0 +1,90 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync agent memories into the vault as Markdown notes with type, confidence and provenance frontmatter",
+  "Skip locally edited notes on later syncs and list skipped files",
+  "Search stored memories in a chat sidebar with recall modes for dates and changes",
+  "Answer questions from stored memories and insert results into the current note",
+  "Start, stop and connect to a local Memanto server"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note-taking or spaced-repetition memory tool; it imports and queries memories created by external coding agents.",
+ "extras": "Not manually reviewed by Obsidian staff. Chat requires a desktop client because the local server listens on 127.0.0.1, though synced notes open on mobile. Cloud backend stores memories with the third-party Moorcheh service; on-prem backend keeps everything local via Docker.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Memories that coding agents accumulate (decisions, preferences, facts, mistakes) live inside tools like Claude Code and are not searchable or reusable from the vault.",
+ "readmeHash": "b888cfb36294b26b6f69ddbc3b00ba919537cf87",
+ "relations": [
+  {
+   "evidence": "stores what your coding agents learn (decisions, preferences, facts and mistakes) from tools like Claude Code",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from tools like Claude Code, Cursor and Codex",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from tools like Claude Code, Cursor and Codex",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "frontmatter for its type, confidence and provenance, so you can query them with Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The chat needs a Memanto server running on 127.0.0.1",
+   "plugin": "Memanto",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Memanto (Python 3.11+)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Moorcheh API key for cloud backend",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Moorcheh account (free)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Agent-memory bridge that syncs coding-agent memories into the vault as Markdown notes and lets you recall or question them from a chat sidebar.",
+ "tags": [
+  "claude-code",
+  "cursor",
+  "codex",
+  "agent-memory",
+  "dataview",
+  "moorcheh",
+  "docker",
+  "python"
+ ]
+}

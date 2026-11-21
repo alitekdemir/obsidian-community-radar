@@ -1,0 +1,82 @@
+{
+ "also": [
+  "import",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch Telegram messages into a target note via a sync server",
+  "Deploy a personal sync server on Amvera or use the default shared one",
+  "Save message media to an attachments folder",
+  "Transcribe voice and audio files via ProxyAPI",
+  "Render each message from a template file with variables"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not sync a vault across devices; it imports Telegram messages into a target note.",
+ "extras": "Offers a default shared bot and server so users can sync without deploying anything; messages are deleted from the server after a successful sync; audio transcription is limited to 25 MB files; documentation is provided in both English and Russian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture messages sent to Telegram, including voice messages and photos, as notes in the vault.",
+ "readmeHash": "e0caf6083f52e181be9281b9189b1ff9039d312c",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that syncs messages from your personal Telegram bot into your vault.",
+   "plugin": "Telegram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Messages first go to your sync server on Amvera, where they are stored until you sync them",
+   "plugin": "Amvera",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally, voice and audio can be transcribed via ProxyAPI.",
+   "plugin": "ProxyAPI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can bind this command to a Buttons plugin button.",
+   "plugin": "Buttons",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Telegram bot",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Amvera hosting (for a custom server; a default shared server is available)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "ProxyAPI key for audio transcription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Pulls messages from a personal Telegram bot into vault notes via an Amvera-hosted sync server, with optional voice transcription via ProxyAPI.",
+ "tags": [
+  "telegram-bot",
+  "proxyapi",
+  "amvera",
+  "transcription",
+  "voice-messages",
+  "botfather"
+ ]
+}

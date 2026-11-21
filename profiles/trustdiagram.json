@@ -1,0 +1,64 @@
+{
+ "also": [],
+ "audience": [
+  ": developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Render YAML into diagrams",
+  ": Validate diagrams against JSON Schema",
+  ": Edit diagrams using a graphical editor",
+  ": Generate SVG/PNG exports",
+  ": Run layout verification checks"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": visualization",
+   ": properties"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It is a code-based system for generating and verifying architecture diagrams, not a general drawing tool.",
+ "extras": "The plugin is closed source and also available as a Confluence app.",
+ "intent": "alternative",
+ "intentEvidence": "A drawing can say anything. Boxes get copied, arrows point to systems that were renamed long ago, and nobody can tell what is real.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To ensure diagrams are verifiable evidence by enforcing that every visual element is derived from and validated against a strict data model.",
+ "primary": "visualization",
+ "problem": "Traditional architecture diagrams are prone to manual errors and inconsistencies, making them unreliable evidence in reviews.",
+ "readmeHash": "480b64663c45f6b29b531e998c06b0287a0ce570",
+ "relations": [
+  {
+   "evidence": "a macro renders a code block of the page live and edits it with the same editor.",
+   "plugin": "Confluence",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TrustDiagram",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Atlassian Forge",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "TrustDiagram converts YAML code blocks into verifiable architecture diagrams, ensuring the visual representation matches the underlying data model.",
+ "tags": [
+  "architecture",
+  "c4",
+  "yaml",
+  "schema",
+  "confluence",
+  "ci-cd"
+ ]
+}

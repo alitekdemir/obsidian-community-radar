@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Link local .lark.md notes to existing Lark/Feishu documents or Bases by URL",
+  "Open linked Lark/Feishu documents and Bases in an embedded WebView",
+  "Create remote Lark/Feishu documents or Bases from Obsidian commands",
+  "Sync remote document titles to local filenames",
+  "Browse linked documents in a generated Lark Documents.base view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a wiki builder inside Obsidian; .lark.md notes are thin proxies to remote Lark/Feishu documents, whose content stays in the cloud.",
+ "extras": "Desktop-only because it uses WebView; supports English and Simplified Chinese UI; background title sync is off by default; the README notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes and Lark/Feishu cloud documents live in separate places, with no way to open or manage the remote documents from inside the vault.",
+ "readmeHash": "1046fc32dc09206c3ce8be3453ddddad16dec0fe",
+ "relations": [
+  {
+   "evidence": "A working authenticated lark-cli installation.",
+   "plugin": "lark-cli",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "lark-cli (authenticated)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Lark/Feishu account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Integration that links local .lark.md proxy notes to Lark/Feishu documents and Bases and opens them in an embedded WebView.",
+ "tags": [
+  "feishu",
+  "lark-cli",
+  "webview",
+  "proxy-notes",
+  "cloud-documents"
+ ]
+}

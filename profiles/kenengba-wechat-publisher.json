@@ -1,0 +1,65 @@
+{
+ "also": [
+  "publishing",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render the current note or selection as WeChat Official Account HTML in a live preview",
+  "Copy the rendered HTML to the clipboard for pasting into the WeChat editor",
+  "Strip YAML frontmatter and support headings, tables, footnotes, code highlighting, and custom containers",
+  "Configure themes, fonts, code themes, and a reading-time module",
+  "Upload drafts, cover and avatar images, and local images to WeChat via its API (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general HTML exporter; output is styled specifically for pasting into the WeChat Official Account editor.",
+ "extras": "Freemium: preview and copy are free; draft upload and image upload require a paid license. Desktop-only (isDesktopOnly: true). Warns that AppSecret is stored in plaintext in the vault's plugin data and that WeChat API use requires IP whitelist configuration. Free users must install manually from a zip or via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author liked the restrained typography of the Kenengba WeChat formatter and moved that post-writing formatting workflow into Obsidian.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to convert notes into the styled HTML the WeChat Official Account editor accepts, so authors must reformat posts by hand before pasting.",
+ "readmeHash": "f98ca73da241785bdce62dc995af0e01aefe16dd",
+ "relations": [
+  {
+   "evidence": "本插件的排版风格参考 可能吧公众号排版器",
+   "plugin": "可能吧公众号排版器",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Pro 用户还可以一键上传到公众号草稿箱",
+   "plugin": "WeChat Official Account (微信公众号)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "如果你已经安装 BRAT，也可以用 BRAT 添加仓库",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Pro license key (19 CNY/year or 58 CNY lifetime)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Markdown-to-WeChat publisher that renders notes as WeChat Official Account styled HTML with live preview, clipboard copy, and Pro draft upload.",
+ "tags": [
+  "wechat",
+  "shiki",
+  "clipboard",
+  "emoji-shortcodes"
+ ]
+}

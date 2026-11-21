@@ -1,0 +1,62 @@
+{
+ "also": [
+  "autocomplete",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate fill-in-the-middle suggestions from surrounding text using LLMs",
+  "Display and partially accept inline suggestions via keyboard",
+  "Support multiple API providers including OpenAI, Azure OpenAI, and Ollama",
+  "Customize triggers, few-shot examples, system prompt, and generation settings",
+  "Ignore files matching gitignore-like patterns for privacy"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI chat assistant; it only suggests text inline at the cursor and accepts no conversations.",
+ "extras": "Sends note content to external API providers; README includes a privacy disclaimer and suggests local Ollama models, ignore patterns, or manual disable for sensitive documents. Uses triggered (not continuous) predictions to reduce API cost.",
+ "intent": "improve",
+ "intentEvidence": "This plugin adds a Copilot-like auto-completion to Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README explains it adapts LLMs, which are not trained for fill-in-the-middle, to auto-completion via prompt engineering and few-shot examples, while minimizing API calls and costs.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI text completion while typing; users want inline suggestions as they write without leaving the editor.",
+ "readmeHash": "5a3e6d84af8aa07d644052b85ca368d0b52bbcc7",
+ "relations": [
+  {
+   "evidence": "Unlike Copilot, this plugin does not activate after each character you type",
+   "plugin": "Copilot",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Azure OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI auto-completion plugin that shows LLM-generated fill-in-the-middle suggestions as transparent text at the cursor, accepting them with Tab or arrow keys.",
+ "tags": [
+  "openai",
+  "azure-openai",
+  "ollama",
+  "fill-in-the-middle",
+  "few-shot-examples",
+  "inline-suggestions"
+ ]
+}

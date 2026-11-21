@@ -1,0 +1,56 @@
+{
+ "also": [
+  "graph",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "find the shortest path between two notes",
+  "list all paths between two notes",
+  "render paths as an interactive directed graph",
+  "filter files in paths with a regex",
+  "adjust graph force settings and keybindings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not about file system paths; it finds chains of links between notes.",
+ "extras": "Warns that setting path length to 0 in a large vault may crash Obsidian due to mass node rendering; also installable via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian's graph view shows the whole link network but does not answer which paths connect one specific note to another.",
+ "readmeHash": "01cc309325d34d3a4f77e444439154fde8273da7",
+ "relations": [
+  {
+   "evidence": "genericTextSuggester.ts and suggest.ts are taken from phibr0/obsidian-dictionary",
+   "plugin": "phibr0/obsidian-dictionary",
+   "type": "extends"
+  },
+  {
+   "evidence": "d3ForceGraphWithLabels.tsis taken and adapted from examples in d3Gallery",
+   "plugin": "d3 Gallery",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Path finder that computes the shortest path and all paths between two notes and renders them as a list or directed graph.",
+ "tags": [
+  "shortest-path",
+  "force-directed-graph",
+  "d3",
+  "regex-filter"
+ ]
+}

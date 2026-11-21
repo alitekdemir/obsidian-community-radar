@@ -1,0 +1,88 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with DeepSeek inline inside any note, with history stored in %% comment markers",
+  "Run 21 AI tools that search the vault, create and edit notes, browse the web, and query Wikipedia and arXiv",
+  "Stream AI responses into the note and capture DeepSeek reasoning in collapsible comment blocks",
+  "Fill text between a +++ prefix and suffix marker with FIM completion from a separate model",
+  "Configure vault-wide AI instructions via an auto-created NOTEBRAIN.md file and per-tool permission settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian. DeepSeek API use is pay-per-use. UI language defaults to Chinese. Optional headless browser endpoint can be set for JS-rendered page fetching.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with an AI model inside a note, let one that reads the note's context or acts on the vault with tools.",
+ "readmeHash": "caeda16b525f984450dc51d3856e00e489557f07",
+ "relations": [
+  {
+   "evidence": "chat with DeepSeek directly in any note, with 21 tools",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tavilySearch | AI-curated web search with titles, URLs, snippets, and relevance scores",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "arxivSearch | Search arXiv preprints. Supports fielded search",
+   "plugin": "arXiv",
+   "type": "integrates"
+  },
+  {
+   "evidence": "wikipedia | Search Wikipedia or get full article content. Supports 300+ languages",
+   "plugin": "Wikipedia",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Baidu AppBuilder key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI agent that chats with DeepSeek inline in any note, using 21 tools for vault search, note editing, web research, and academic paper lookups.",
+ "tags": [
+  "deepseek",
+  "inline-chat",
+  "tool-calling",
+  "fim-completion",
+  "tavily",
+  "arxiv",
+  "wikipedia",
+  "streaming"
+ ]
+}

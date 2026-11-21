@@ -1,0 +1,68 @@
+{
+ "also": [
+  "links",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "compile raw/ notes into structured wiki pages with concepts, entities and sources",
+  "browse the wiki via card index, page viewer, backlinks and SVG mind map",
+  "chat with the knowledge base and get answers citing wiki-links",
+  "run embedding-based vector search with keyword fallback",
+  "detect broken links, generate stub pages and auto-link related pages"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (streaming chat needs the fetch API). Free and open source (MIT); API calls go directly from the device to the configured provider. Developer/build docs live in a separate CONTRIBUTING.md. Wiki cleanup requires typing CONFIRM.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Scattered, unconnected notes are hard to navigate and reuse; it automates extracting concepts and building the linked wiki structure manually linking would require.",
+ "readmeHash": "688355357ba87ec9ffe94303c62e42b5a41cf6cf",
+ "relations": [
+  {
+   "evidence": "Multi-LLM | DeepSeek, OpenAI, Claude, OpenRouter, any OpenAI-compatible API",
+   "plugin": "DeepSeek, OpenAI, Claude, OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM API key (DeepSeek recommended; OpenAI-compatible providers supported)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "LLM provider usage billed per token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI knowledge compiler that turns notes in a raw/ folder into a linked wiki with concept pages, backlinks, semantic search and cited AI chat.",
+ "tags": [
+  "llm",
+  "deepseek",
+  "openai",
+  "claude",
+  "openrouter",
+  "embeddings",
+  "wiki",
+  "semantic-search"
+ ]
+}

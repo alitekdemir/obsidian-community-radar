@@ -1,0 +1,76 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Infomaniak Euria models in a sidebar with tabs, history and streaming",
+  "Read, search, create, append and overwrite notes via function-calling tools with confirmation and diff preview",
+  "Extract text from PDF, DOCX and PPTX files in the vault",
+  "Run optional web search through DuckDuckGo or the Brave Search API",
+  "Edit selected text inline with AI and review a word diff before accepting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Infomaniak offers a free tier, but usage beyond it is billed by Infomaniak; the plugin itself is free. There is no delete tool for the vault agent, and overwrite replaces a note's entire content. The API key is stored in plain text in data.json.",
+ "intent": "alternative",
+ "intentEvidence": "Both plugins share the same core; Euridian used to include those backends up to version 0.3.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and users who want the Swiss GDPR-compliant Infomaniak Euria service have no plugin connecting to it.",
+ "readmeHash": "a160ed391c9ccfb0799a274d2e75ec605a13d1c4",
+ "relations": [
+  {
+   "evidence": "Both plugins share the same core; Euridian used to include those backends up to version 0.3.",
+   "plugin": "Self-hosted LLM Vault Agent",
+   "type": "fork"
+  },
+  {
+   "evidence": "Chat with Infomaniak Euria (Swiss cloud AI, GDPR-compliant) in an Obsidian sidebar",
+   "plugin": "Infomaniak Euria",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Brave Search API — more stable, needs a free API key from brave.com/search/api",
+   "plugin": "Brave Search API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Infomaniak account with AI Tools product",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Infomaniak API token and Product ID",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Brave Search API key (only for Brave web search)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI chat sidebar for Infomaniak Euria with a vault agent that reads, searches, creates and edits notes via function calling.",
+ "tags": [
+  "infomaniak",
+  "euria",
+  "chat",
+  "function-calling",
+  "web-search",
+  "duckduckgo",
+  "brave-search",
+  "swiss-cloud"
+ ]
+}

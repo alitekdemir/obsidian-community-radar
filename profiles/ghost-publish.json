@@ -1,0 +1,63 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes to Ghost posts via configured presets",
+  "Triage and queue candidate notes in a side panel",
+  "Upload embedded images and rewrite them as Ghost image cards",
+  "Convert wikilinks, YouTube links, LINK blocks and footnotes to Ghost cards and anchors",
+  "Record Ghost post ids and hash note bodies to skip unchanged notes during sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires Obsidian 1.13.0 or later (declarative settings API); full user and technical documentation live on GitHub Pages rather than in the README; stores the Admin API key in device-local secret storage with an optional GHOST_ADMIN_KEY environment fallback.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish notes to a Ghost blog with configurable tags, newsletter dispatch and conflict-free updates.",
+ "readmeHash": "03cedf890396b93ab8cde05f355966e7610cb508",
+ "relations": [
+  {
+   "evidence": "Ghost Admin API at your configured Ghost URL — for creating / updating posts, fetching tags & newsletters",
+   "plugin": "Ghost",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ghost site",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Ghost Admin API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing tool that sends vault notes to a Ghost blog using per-preset tags, newsletters, triage queues and idempotent syncing.",
+ "tags": [
+  "ghost",
+  "newsletter",
+  "canonical-url",
+  "oembed",
+  "image-upload",
+  "secret-storage"
+ ]
+}

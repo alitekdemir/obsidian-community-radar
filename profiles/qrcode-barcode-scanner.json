@@ -1,0 +1,44 @@
+{
+ "also": [
+  "images",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan images for QR codes and barcodes",
+  "Insert decoded text into notes",
+  "Copy decoded text to clipboard",
+  "Report each code's format and exact text"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The scan blocks Obsidian's UI while it runs (about half a second on a recent Mac for the test image). main.js is about 3 MB because it embeds the WebAssembly engine. The plugin source is MIT, but the embedded engine @qrcode-ai-com/qrcode-barcode-scanner-wasm 0.11.0 is AGPL-3.0-or-later with some Apache-2.0 parts. Decoded text is inserted inside code spans (or a fenced block for multi-line text) so links, embeds or HTML stay plain text. Reads PNG, JPEG, WebP and GIF; a code whose bytes are not all text is marked incomplete.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Obsidian has no built-in way to decode QR codes or barcodes from images stored in the vault.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "567a497831ef4511de3dffaeac14a3f3365df0e0",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "On-device scanner that reads QR codes and barcodes from vault images and inserts or copies their decoded text into a note.",
+ "tags": [
+  "qr-code",
+  "offline",
+  "privacy"
+ ],
+ "textHash": "6fe4bf7dc87e731fbb574b556e5c52a758ebe29d"
+}

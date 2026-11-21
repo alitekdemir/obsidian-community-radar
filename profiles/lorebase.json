@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Catalog games, anime, movies, TV shows, books, and manga in six independent libraries",
+  "Fetch metadata and posters from providers such as Steam, TMDB, and MyAnimeList",
+  "Track status, rating, favorite, and season/episode, page, chapter, or volume progress",
+  "Browse collections in customizable card grids with search, filters, sorts, and saved views",
+  "Visualize collection statistics with status and rating distribution charts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a worldbuilding or lore-keeping tool; it catalogs entertainment media like games, films, and books.",
+ "extras": "README states privacy-first local storage with no accounts, cloud sync, or telemetry; remote poster fetching via URL is marked experimental; some provider names appear only as removed links in the integration tables.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to track and browse entertainment media collections, so users must manage statuses, ratings, and progress by hand across plain notes.",
+ "readmeHash": "9f3acf93f15302488d92cc341e34fb23f315e8f0",
+ "relations": [
+  {
+   "evidence": "Import your Steam library and wishlist directly",
+   "plugin": "Steam",
+   "type": "integrates"
+  },
+  {
+   "evidence": "MyAnimeList metadata through the Jikan API",
+   "plugin": "MyAnimeList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Enter API keys where required (RAWG, IGDB, SteamGridDB, TMDB, OMDb, Hardcover)",
+   "plugin": "TMDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Enter API keys where required (RAWG, IGDB, SteamGridDB, TMDB, OMDb, Hardcover)",
+   "plugin": "Hardcover",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "RAWG, IGDB, SteamGridDB, TMDB, OMDb, or Hardcover API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Steam profile URL for library import",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Media library tracker that catalogs games, anime, movies, TV shows, books, and manga as Markdown notes with card grids, progress tracking, and statistics.",
+ "tags": [
+  "media-tracker",
+  "card-grid",
+  "steam",
+  "tmdb",
+  "myanimelist",
+  "igdb",
+  "hardcover"
+ ]
+}

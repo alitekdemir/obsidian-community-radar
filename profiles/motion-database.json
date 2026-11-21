@@ -1,0 +1,64 @@
+{
+ "also": [
+  "bases",
+  "csv"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create and query SQL databases stored as JSON files under motion-databases/",
+  "Embed read-only or interactive tables and SQL query results in notes",
+  "Run SQL from DataviewJS blocks using the window.motiondb global API",
+  "Call the API from other plugins with select, query, subscribe, and flushSave",
+  "Configure column display formats shared by the database view and embeds"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that database files live in motion-databases/ and must be backed up separately from the plugin release, and that detailed SQL compatibility rules are in separate documentation. Not a networked database: no PostgreSQL server or multi-process access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to store structured relational data with tables, foreign keys, and SQL queries inside a vault.",
+ "readmeHash": "a357231d4c241d6f6f16a4ab686741bd8d5090a6",
+ "relations": [
+  {
+   "evidence": "Install and enable Dataview as well as Motion Database.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "on Obsidian 1.10 or later, select the Motion Database query layout",
+   "plugin": "Bases",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Relational database plugin that stores tables as JSON files in the vault, queries them with a PostgreSQL-inspired SQL subset, and embeds results in notes.",
+ "tags": [
+  "sql",
+  "relational-database",
+  "dataviewjs",
+  "foreign-keys",
+  "json-files",
+  "bound-parameters"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse, filter, and paginate issues in a ready-first pane with Ready/In progress/Blocked/Closed tabs",
+  "Edit beads in a tab with typed properties and markdown fields saved back via bd update",
+  "Embed live, clickable issue queries in notes with beads code blocks",
+  "Visualize a bead's dependency lineage as a navigable graph",
+  "Manage multiple bd workspaces and follow changes live via bd's events journal"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (shells out to bd via child_process). Detailed security model section: no network requests, untrusted bead text escaped, shell-injection-safe argument arrays, and provenance-attested releases. Live updates require bd 1.3.0+ with the events journal, which the user must enable.",
+ "intent": "new",
+ "intentEvidence": "No Obsidian + Beads plugin existed before this one",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author notes no Obsidian + Beads plugin existed before and built one for people who track work in bd and live in Obsidian.",
+ "primary": "integrations",
+ "problem": "Obsidian has no way to view, filter, or edit issues tracked in the bd CLI without leaving the vault for a terminal.",
+ "readmeHash": "cca284020baf79d21f9654adac59480f3b6cc75f",
+ "relations": [
+  {
+   "evidence": "Beads — bd --help, bd list --json, bd show --json, bd close.",
+   "plugin": "Beads (bd)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the canonical desktop-only child_process pattern",
+   "plugin": "Taitava/obsidian-shellcommands",
+   "type": "inspired"
+  },
+  {
+   "evidence": "High-star pane/view plugins (Kanban, Tasks, Dataview) for ItemView and workspace-leaf conventions.",
+   "plugin": "Kanban, Tasks, Dataview",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "bd CLI on PATH (or an explicit binary path)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Live pane and editor for the Beads (bd) issue tracker, with inline editing, query embeds, dependency graphs, and live updates.",
+ "tags": [
+  "beads",
+  "bd-cli",
+  "issue-tracker",
+  "code-block-queries",
+  "dependency-graph",
+  "terminal"
+ ]
+}

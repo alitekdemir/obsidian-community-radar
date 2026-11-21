@@ -1,0 +1,82 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes across devices through a self-hosted Postgres database fronted by PostgREST",
+  "Embed every note into a pgvector column via a llama.cpp-compatible embedding server",
+  "Query the embedded notes as a semantic search index from outside Obsidian",
+  "Pull remote changes and reconcile local notes on startup or on demand",
+  "Apply SQL schema and version migrations to the backend database"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that HTTP exposes note content and API keys in transit, that PostgREST's max-rows must not be set below 100, and that the 0.1.1 migration needs a maintenance window because it can block reads and writes. Sync is last-write-wins with no conflict resolution and is not built for real-time collaboration.",
+ "intent": "alternative",
+ "intentEvidence": "instead of Obsidian Sync, iCloud, or a CouchDB setup",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync options are a paid service or a CouchDB setup, and neither leaves you with a queryable embedding index of your notes.",
+ "readmeHash": "ed81b9d422a9d5f19ec3b4afc20f339696202503",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian vault across devices using a self-hosted Postgres database instead of Obsidian Sync",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Obsidian Sync, CouchDB, Syncthing - none of that is needed.",
+   "plugin": "CouchDB",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Obsidian Sync, CouchDB, Syncthing - none of that is needed.",
+   "plugin": "Syncthing",
+   "type": "alternative"
+  },
+  {
+   "evidence": "An embedding server that speaks the llama.cpp /embedding endpoint",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Postgres with pgvector plus PostgREST and an embedding server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "PostgREST API key set in app_settings.bearer_token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted sync plugin that replicates a vault to a Postgres database via PostgREST and embeds every note for semantic search.",
+ "tags": [
+  "postgres",
+  "postgrest",
+  "pgvector",
+  "embeddings",
+  "semantic-search",
+  "self-hosted",
+  "llama-cpp"
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "also": [
+  "data",
+  "files"
+ ],
+ "audience": [
+  "retro-gamers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search retro and modern game databases and create notes with box art, details, and properties",
+  "Sort game notes into status folders and update links when status changes",
+  "Fetch game info for existing notes without overwriting your data",
+  "View a dashboard library grouped by status with a beaten log and yearly charts",
+  "Log completed games with date, rating, and hours played"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Retro search works offline after the first per-system download (cached, refreshed every 90 days); the RAWG key is stored in data.json and should not be committed or published.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to track played games or pull game metadata and cover art into notes automatically.",
+ "readmeHash": "77cc8079ad8df81c5a199cda4fec9d974fbb892f",
+ "relations": [
+  {
+   "evidence": "It borrows from how RetroArch identifies games",
+   "plugin": "RetroArch",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Game lists and details come from the libretro database, the same data RetroArch uses",
+   "plugin": "libretro database",
+   "type": "integrates"
+  },
+  {
+   "evidence": "switch the source to Modern games (RAWG) in the search window",
+   "plugin": "RAWG",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Descriptions for systems where libretro has none are looked up on Wikipedia",
+   "plugin": "Wikipedia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "All plain properties, so Dataview and Bases can use them too",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "RAWG API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Media tracker for video games that searches retro and modern game databases to create notes with box art, and logs play status on a dashboard.",
+ "tags": [
+  "rawg",
+  "libretro",
+  "retroarch",
+  "wikipedia",
+  "retrogaming",
+  "box-art",
+  "game-library",
+  "dashboard"
+ ]
+}

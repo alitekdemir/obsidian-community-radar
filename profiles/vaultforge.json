@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run a localhost MCP server exposing vault_read, vault_patch, and search_query tools",
+  "Chat with Claude in a sidebar using your existing claude CLI login",
+  "Discover, scaffold, and manage Claude Skills stored as SKILL.md folders in the vault",
+  "Connect external MCP clients such as Claude Desktop or Claude Code with bearer-token auth",
+  "Mask and rotate the MCP API key stored in device-local storage"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not a vault-building or templating tool; note template generation is only a planned roadmap item.",
+ "extras": "Not yet in the Obsidian community plugin registry (manual install only) and desktop-only. The README lists open end-to-end TODOs, including tool round-trips through the chat UI and cross-platform verification. The MCP server binds to 127.0.0.1 only; the chat sidebar is the one feature that sends vault content to Anthropic. UI is available in English and German.",
+ "intent": "alternative",
+ "intentEvidence": "Existing options each cover part of the problem",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author writes: \"I didn't want another AI plugin where it's unclear where my notes actually end up once I use it.\" VaultForge keeps its server local, and chat rides on an existing Claude Pro/Max login instead of a new key.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way for Claude or MCP clients to access the vault locally, and existing AI plugins can be unclear about where note data goes or require a separate pay-per-token API key.",
+ "readmeHash": "1e3afcc8254218893a8f640566ff474bb9d09107",
+ "relations": [
+  {
+   "evidence": "Claudian | ✅ | ❌ | ❌",
+   "plugin": "Claudian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "no HTTP hop to a separate REST API layer like in the Local REST API + MCP reference setup",
+   "plugin": "Local REST API + MCP (coddingtonbear)",
+   "type": "alternative"
+  },
+  {
+   "evidence": "gives Claude Code / Claude Desktop live read, write, and search access to your notes",
+   "plugin": "Claude Code / Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (for the chat assistant)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Claude Pro/Max subscription or ANTHROPIC_API_KEY configured on the CLI",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "ANTHROPIC_API_KEY, as an alternative to Claude account login",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Claude integration for Obsidian: a localhost MCP server giving Claude clients vault read/write/search, an in-app chat sidebar, and Claude Skills management.",
+ "tags": [
+  "claude",
+  "anthropic",
+  "mcp",
+  "model-context-protocol",
+  "claude-code",
+  "claude-skills",
+  "localhost-server",
+  "agent-sdk"
+ ]
+}

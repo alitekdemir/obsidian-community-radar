@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Theme Web viewer pages with bundled Dark Reader",
+  "Match Obsidian theme background, text color and font",
+  "Follow Obsidian light/dark switching without reloading",
+  "Adjust Dark Reader brightness, contrast and sepia",
+  "Reapply or toggle theming via commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not the Dark Reader browser extension; it only themes pages inside Obsidian's Web viewer and does not include the extension's per-site rules.",
+ "extras": "Desktop only (mobile unsupported, relies on the desktop app's <webview>); needs Obsidian 1.8.3 or newer with the Web viewer core plugin on; manual installation only; listed as not manually reviewed by Obsidian staff; Dark Reader is bundled so nothing is fetched at run time; uses internal Web viewer APIs that may break on Obsidian updates.",
+ "intent": "improve",
+ "intentEvidence": "Dark Reader for Obsidian's built-in Web viewer.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "theming",
+ "problem": "Web pages opened in Obsidian's Web viewer keep their own colors and fonts, so bright white pages clash with dark themes and the vault's appearance.",
+ "readmeHash": "1983efe3b453bc4cc2366284d05c4097ef002d11",
+ "relations": [
+  {
+   "evidence": "The plugin bundles Dark Reader's public API and installs it into each page opened in Obsidian's Web viewer.",
+   "plugin": "Dark Reader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Web viewer core plugin (1.8.3+ desktop)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Dark theme injector that applies Dark Reader to pages opened in Obsidian's built-in Web viewer, using the vault theme's colors and font.",
+ "tags": [
+  "dark-reader",
+  "web-viewer",
+  "dark-mode",
+  "webview",
+  "css-injection",
+  "electron",
+  "font-matching"
+ ]
+}

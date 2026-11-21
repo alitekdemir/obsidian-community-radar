@@ -1,0 +1,74 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "rank notes similar to the one being read using an on-device embedding index",
+  "search the vault by meaning rather than keywords",
+  "chat with the vault via RAG answers grounded in retrieved notes",
+  "reformat selected text into lists, tables, callouts or Mermaid diagrams",
+  "restructure notes into templates and suggest missing links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Distributed through its own catalog rather than the community directory; the plugin API contract is marked experimental until a second consumer confirms it; a few UI strings are still German.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's search matches keywords, so finding notes by meaning or surfacing similar notes requires external services or per-note manual linking.",
+ "readmeHash": "c683b5901f9bcfd2f369e6ef93f38f83e5cf3167",
+ "relations": [
+  {
+   "evidence": "If the LLM Lab plugin is installed, Vault Retrieval reports its LLM calls to it",
+   "plugin": "LLM Lab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin's embedding index doubles as a retrieval backend for MCP clients (Claude Code, OpenClaw, …)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible embedding and chat endpoint (e.g. Ollama or LM Studio)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "AnySource Sideloader (only for catalog install)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Provider API key for hosted endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "On-device semantic retrieval over a vault: related notes, semantic search, and grounded RAG chat using a configurable LLM endpoint.",
+ "tags": [
+  "rag",
+  "embeddings",
+  "local-llm",
+  "ollama",
+  "lm-studio",
+  "mcp",
+  "cosine-similarity"
+ ]
+}

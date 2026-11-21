@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "reveal allowed dotfiles and dotfolders in the native File Explorer",
+  "hide .obsidian, .trash, .git, and SQLite sidecars by default",
+  "temporarily reveal SQLite WAL/SHM sidecars for diagnostics",
+  "manually rescan the vault for hidden paths",
+  "sync Obsidian's unsupported-file visibility setting on enable and disable"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a custom file manager or sidebar; it only toggles which hidden paths appear in the native File Explorer.",
+ "extras": "Desktop-only because it patches the desktop file-system adapter via internal APIs that may need maintenance after Obsidian updates; listed in the community directory but not manually reviewed by Obsidian staff; no telemetry or network requests.",
+ "intent": "improve",
+ "intentEvidence": "reveals safe dotfiles and dotfolders in Obsidian's native File Explorer",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's File Explorer hides all dot-prefixed files and folders, so users cannot see or manage useful files like .gitignore, .env, or AI-agent config folders.",
+ "readmeHash": "714fd819166412aa0ef128c0fe72c3f6b489a5cc",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Show Hidden Files",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Obsidian sample plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reveals safe dotfiles and dotfolders like .env and .claude/ in Obsidian's native desktop File Explorer, with configurable denylists and rescan.",
+ "tags": [
+  "dotfiles",
+  "hidden-files",
+  "file-explorer",
+  "sqlite-sidecars",
+  "env-files"
+ ]
+}

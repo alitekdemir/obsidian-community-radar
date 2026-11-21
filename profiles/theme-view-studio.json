@@ -1,0 +1,71 @@
+{
+ "also": [
+  "appearance",
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Define named appearance themes with per-theme width, font, spacing, background and color settings",
+  "Assign themes to folders with longest-path rule matching",
+  "Toggle an e-ink mode that grayscales the workspace and removes motion and shadows",
+  "Build a dashboard from grid blocks showing vault statistics, note fields, embedded notes, GitHub files or Dataview queries",
+  "Show the active theme in the status bar and add commands for settings, dashboard and temporary e-ink mode"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets",
+   "Status bar"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a theme installer or switcher; it applies its own appearance settings per folder through CSS variables rather than managing community themes.",
+ "extras": "Requires Obsidian 1.13.0 or later; warns that the GitHub token is stored in plaintext in data.json and recommends a fine-grained read-only token or leaving it empty for public repositories.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "theming",
+ "problem": "Obsidian themes and CSS snippets apply vault-wide, so users cannot give different folders different reading widths, backgrounds or colors without hand-written snippets.",
+ "readmeHash": "8eee48990c15cbdbf742717ab9ba3117b767aa69",
+ "relations": [
+  {
+   "evidence": "Requires the Dataview plugin; if it is missing the block says so instead of failing.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub file — a file from a repository, refreshed on a schedule.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Folder-scoped appearance presets that vary reading width, typography, background, transparency and e-ink mode per folder, plus a custom dashboard.",
+ "tags": [
+  "e-ink",
+  "wallpaper",
+  "typography",
+  "dashboard",
+  "css-variables",
+  "dataview",
+  "github"
+ ]
+}

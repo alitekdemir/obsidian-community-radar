@@ -1,0 +1,62 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sort completed tasks to the bottom of a list",
+  "Sort incomplete tasks by due or scheduled date",
+  "Clear completed tasks at a list level or across a document",
+  "Recognise cancelled statuses from the Tasks plugin",
+  "Adjust sorting and clearing rules via settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task manager; it only sorts and clears items in existing Markdown task lists and does not create or track tasks.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents unhandled cases (ordered lists, multiple cursors) and a manual upgrade path from the former Todo Sorting plugin ID.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in commands to sort task lists by completion or date, or to remove completed tasks from a list or note.",
+ "readmeHash": "1bb907fa9a60db4fa7898d42157277758986abf4",
+ "relations": [
+  {
+   "evidence": "When the Tasks plugin is installed, symbols with type CANCELLED in its core or custom status settings also count as cancelled.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Version 2.0.0 changed the plugin ID from todo-sort-completed to organise-tasks.",
+   "plugin": "Todo Sorting",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Command-based task organiser that sorts completed tasks to the bottom, orders tasks by due or scheduled date, and clears completed items.",
+ "tags": [
+  "due-dates",
+  "scheduled-dates",
+  "sorting",
+  "list-cleanup",
+  "cancelled-tasks"
+ ]
+}

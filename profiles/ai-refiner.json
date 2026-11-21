@@ -1,0 +1,78 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Refine selected text through a floating prompt anchored to the cursor",
+  "Preview results as a word-level diff with Apply, Retry, Copy, or Discard",
+  "Route requests to cloud APIs, local model servers, or locally installed AI CLIs",
+  "Pin a specific provider and model to individual quick prompts",
+  "Dictate instructions through a Whisper-compatible transcription endpoint"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general AI chat or note-generation assistant; it only rewrites the current text selection in place.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. On Obsidian versions before 1.11.4, API and voice tokens are stored unencrypted in the plugin's data.json, which a synced vault would propagate.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to apply an AI instruction to a text selection, so users must copy text out to an AI tool and paste the result back.",
+ "readmeHash": "2437a70d1837ff57f89ac68c71582ec8d09f519f",
+ "relations": [
+  {
+   "evidence": "Runs the Gemini CLI as a child process.",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs the Codex CLI as a child process.",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "for Ollama set OLLAMA_ORIGINS=app://obsidian.md*",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama and OpenAI-compatible local servers (LM Studio, etc.).",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API provider token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Locally installed AI CLI (Codex CLI or Gemini CLI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Selection refiner that rewrites selected text in place via a floating prompt backed by cloud APIs, local models, or AI CLIs.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "ollama",
+  "gemini-cli",
+  "codex-cli",
+  "whisper",
+  "diff-preview",
+  "streaming"
+ ]
+}

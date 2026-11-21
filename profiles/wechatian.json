@@ -1,0 +1,65 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record incoming WeChat messages into daily conversation notes",
+  "Decrypt received media into an attachments folder and embed it in notes",
+  "Fetch linked articles in full as markdown notes grouped by official account",
+  "Send files dropped into an outbox folder as WeChat text messages or attachments",
+  "Maintain an Agent.md protocol file so AI agents can send notifications"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (mobile not supported). The gateway throttles proactive sends (a notification channel, not a chat tool), cannot receive forwarded articles/files, keeps offline messages for an undocumented period, and supports only one device per account. Listing is not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "WeChat conversations are trapped in the app — unsearchable, unlinkable, and lost when switching phones — so they never make it into your knowledge base.",
+ "readmeHash": "63aafa84db815df5a1e84186a690bda928260284",
+ "relations": [
+  {
+   "evidence": "bridges WeChat and your vault through Tencent's official ilink bot gateway",
+   "plugin": "WeChat",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeChat",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WeChat account (QR scan to bind)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "WeChat bridge that writes incoming messages, media, and articles into vault notes and sends outbox files as WeChat messages via Tencent's ilink bot gateway.",
+ "tags": [
+  "wechat",
+  "ilink",
+  "bot-gateway",
+  "qr-login",
+  "inbox-outbox",
+  "ai-agents",
+  "notifications",
+  "personal-crm"
+ ]
+}

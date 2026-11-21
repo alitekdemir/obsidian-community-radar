@@ -1,0 +1,79 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Receive obsidian://zotero-note links carrying a citekey",
+  "Run a Zotero Integration import for that citekey",
+  "Open the imported Markdown note in a new tab",
+  "Accept a format query parameter to pick the import format"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Needs a Zotero Integration import format named Paper Note (or a format= URL parameter) and matching vault/folder settings; relies on Zotero Integration's runImport(), which the README notes is not a formally stable public API. Part of the paired Zotero Obsidian Bridge, with a Chinese README.",
+ "intent": "improve",
+ "intentEvidence": "Citekey Import Bridge calls Zotero Integration's runImport() method.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Getting from a Zotero item to its literature note in Obsidian otherwise means copying the citekey and starting the Zotero Integration import by hand.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "16b5fee8ce960af6cc97515e3d11ffddaa633900",
+ "relations": [
+  {
+   "evidence": "The Obsidian plugin receives the citekey and calls Zotero Integration's runImport(format, citekey, library).",
+   "plugin": "Zotero Integration",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Zotero 7 or later.",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Better BibTeX for Zotero, unless your Zotero version exposes a native citationKey field.",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7 or later",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Zotero Integration (obsidian-zotero-desktop-connector)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX for Zotero",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Obsidian desktop plugin that receives obsidian://zotero-note citekey links, runs a Zotero Integration import, and opens the resulting note.",
+ "tags": [
+  "zotero",
+  "citations",
+  "literature-notes",
+  "obsidian-uri",
+  "bibtex"
+ ],
+ "textHash": "1c6e7dbcab783faf9209f5cf38800b9f39541d74"
+}

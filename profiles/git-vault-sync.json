@@ -1,0 +1,75 @@
+{
+ "also": [
+  "git",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the whole vault to a GitHub remote with one click",
+  "Resolve merge conflicts per file in a dialog",
+  "Preview changes and selectively stage files before a commit",
+  "Auto-sync on startup or on a timer",
+  "Exclude paths by glob pattern and .gitignore"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warning: the Personal Access Token is stored in plaintext in the plugin's data.json and should be gitignored. Commit preview/selective sync works only on the desktop git engine, not the mobile GitHub API engine.",
+ "intent": "alternative",
+ "intentEvidence": "Pure JavaScript, no system Git required.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is paid and proprietary, and Git-based sync on mobile is hard because system Git is unavailable and large packfiles exhaust memory.",
+ "readmeHash": "2d998b573ea5a4c859a0e291a4e80785d593cf8f",
+ "relations": [
+  {
+   "evidence": "All Git operations go through isomorphic-git over Obsidian's own filesystem and HTTP",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT installs plugins straight from a GitHub repo and keeps them updated.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub Personal Access Token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Git repository on GitHub (or any HTTPS Git host)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Git sync plugin that pushes and pulls the whole vault to a GitHub remote with one click, including interactive conflict resolution and commit preview.",
+ "tags": [
+  "github",
+  "isomorphic-git",
+  "personal-access-token",
+  "conflict-resolution",
+  "selective-sync",
+  "status-bar-indicator",
+  "mobile"
+ ]
+}

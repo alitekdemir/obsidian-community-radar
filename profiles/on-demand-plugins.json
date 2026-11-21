@@ -1,0 +1,47 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assign a loading mode (lazy on demand, lazy on layout ready, always enabled, always disabled) to each plugin",
+  "Register dummy commands that cache plugin command metadata and load the real plugin on first use",
+  "Bulk-edit loading modes in a searchable, sortable plugin table",
+  "Rebuild cached command and view type data via a maintenance action",
+  "Back up and reconcile changes to community-plugins.json made by Sync, Git, or manual edits"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not provide on-demand content itself; it controls when other already-installed plugins get loaded.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns it monkey-patches Obsidian's core, so Obsidian updates may break it; inline/embedded views such as Dataview inline queries are unsupported; plugins using setInterval/setTimeout or global hooks should use Lazy on layout ready.",
+ "intent": "alternative",
+ "intentEvidence": "This project is based on the work by Alan Grainger",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian loads every enabled community plugin at startup, so a large plugin collection slows startup even when most plugins are rarely used.",
+ "readmeHash": "d4ddd3e760e7305b03f6bc21cc1618a63b0edc78",
+ "relations": [
+  {
+   "evidence": "This project is based on the work by Alan Grainger",
+   "plugin": "Alan Grainger",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin manager that delays loading of installed plugins until their commands, views, or files are used, keeping Obsidian startup fast.",
+ "tags": [
+  "lazy-loading",
+  "startup-performance",
+  "plugin-manager",
+  "dummy-commands",
+  "monkey-patching"
+ ]
+}

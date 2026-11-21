@@ -1,0 +1,61 @@
+{
+ "also": [
+  "math"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render $...$ and $$...$$ formulas in outline headings",
+  "Preserve native heading navigation, search highlighting, and collapse/expand",
+  "Keep note files unchanged and restore original labels when disabled",
+  "Fall back to plain text when formulas cannot be matched safely"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a LaTeX editor or math renderer for note content; it only changes how headings appear in the Outline pane.",
+ "extras": "Not yet listed in the Obsidian community plugin directory and not manually reviewed by Obsidian staff; manual installation or BRAT required. Works only on desktop (tested on macOS 1.14.4) and relies on the native Outline pane's internal structure, so Obsidian updates may break it, in which case it leaves the pane unchanged and logs a warning.",
+ "intent": "improve",
+ "intentEvidence": "Render LaTeX formulas inside Obsidian's built-in Outline pane.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "outlining",
+ "problem": "The native Outline pane shows raw LaTeX source in headings instead of rendered formulas, making math-heavy outlines hard to read.",
+ "readmeHash": "1ce294446cb0b077064d0dfb69f6b30f3c15cd86",
+ "relations": [
+  {
+   "evidence": "Formula rendering uses the MathJax engine already bundled with Obsidian.",
+   "plugin": "MathJax",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can also install the repository using BRAT.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian core Outline plugin",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders LaTeX formulas from headings inside Obsidian's built-in Outline pane without modifying note files.",
+ "tags": [
+  "mathjax",
+  "headings",
+  "formula-rendering",
+  "dom-manipulation",
+  "desktop-only"
+ ]
+}

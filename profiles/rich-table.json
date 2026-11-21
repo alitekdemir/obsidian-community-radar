@@ -1,0 +1,81 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit tables inline with cell merges, typed columns and rich Markdown cell content",
+  "Compute cell formulas and summary rows with sorting and filtering",
+  "View and edit external .xlsx files, and export tables as .xlsx",
+  "Render Tasks-plugin queries as read-only tables",
+  "Insert tables via commands, templates and Markdown-table conversion"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Listing states the plugin has not been manually reviewed by Obsidian staff. Docs are unusually complete, including keyboard reference, known gaps for xlsx support, and a bundled Claude Code skill with a Node CLI editor for tables. Blocks only render inside Obsidian, not on GitHub or standard Markdown editors.",
+ "intent": "alternative",
+ "intentEvidence": "A detailed comparison against Obsidian's native Markdown tables and several community table plugins",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tables",
+ "problem": "Native Markdown tables are static text that cannot merge cells, compute formulas, sort, filter, or be edited inline cell by cell.",
+ "readmeHash": "f045fa5ef1c0c8152bc14300f775cfe7bee27bc8",
+ "relations": [
+  {
+   "evidence": "A detailed comparison against Obsidian's native Markdown tables and several community table plugins",
+   "plugin": "Advanced Tables",
+   "type": "alternative"
+  },
+  {
+   "evidence": "When the Rich Search plugin is installed, opening a hit in an .xlsx file goes to its sheet and cell",
+   "plugin": "Rich Search",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A table can show the tasks that a Tasks plugin style query finds across your vault",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": ".xlsx parsing/writing is powered by @office-kit/xlsx.",
+   "plugin": "@office-kit/xlsx",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Rich Search",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Excel / LibreOffice",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Spreadsheet-like tables in a fenced code block: merged cells, typed columns, formulas, sort/filter, .xlsx import and editing, and Tasks-query table views.",
+ "tags": [
+  "xlsx",
+  "excel",
+  "spreadsheet",
+  "formulas",
+  "kanban",
+  "claude-code"
+ ]
+}

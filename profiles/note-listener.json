@@ -1,0 +1,86 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read the current Markdown note aloud with online TTS voices",
+  "Control playback with pause, paragraph skipping, retry, and 0.75x-2x speed",
+  "Save and restore the last playback position per note",
+  "Configure alternative speech providers (Azure, SiliconFlow, Doubao, OpenAI-compatible) with per-session keys",
+  "Play randomly selected notes from explicitly allowed folders without repeats"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; playback is validated on Windows Obsidian 1.14.4 while macOS/Linux acceptance is pending and Android/iOS are unsupported. A consent dialog precedes any online speech request, keys stay in memory only for the session, and default Edge TTS needs no account or key. Includes a full Chinese-language section and build/release documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to notes read aloud or to review folder contents by audio playback.",
+ "readmeHash": "35159b20c9259547cc9565bd3145544051baca4b",
+ "relations": [
+  {
+   "evidence": "Edge TTS is the default and needs no API key.",
+   "plugin": "Edge TTS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Azure Speech, SiliconFlow, Doubao V3 SSE, and OpenAI-compatible endpoints are optional.",
+   "plugin": "Azure Speech",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Azure Speech, SiliconFlow, Doubao V3 SSE, and OpenAI-compatible endpoints are optional.",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Azure Speech, SiliconFlow, Doubao V3 SSE, and OpenAI-compatible endpoints are optional.",
+   "plugin": "Doubao",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Edge networking uses a pinned MIT-licensed MsEdgeTTS dependency.",
+   "plugin": "MsEdgeTTS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "provider API keys for Azure, SiliconFlow, Doubao, or OpenAI-compatible endpoints",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider accounts for the optional paid speech services",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": " billed usage on non-Edge speech providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Text-to-speech reader that plays Markdown notes aloud with selectable online voices, playback controls, saved progress, and randomized folder review.",
+ "tags": [
+  "text-to-speech",
+  "edge-tts",
+  "azure-speech",
+  "siliconflow",
+  "doubao",
+  "openai-compatible"
+ ]
+}

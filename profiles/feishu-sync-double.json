@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations",
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull shared Feishu wiki trees and single /docx/ documents into the vault as Markdown with images",
+  "Check for remote updates fetch-only and pull one wiki or all flagged updates",
+  "Sync notes bidirectionally or push-only into Feishu docs, with conflict copies and backups",
+  "Convert Feishu highlight blocks to Obsidian callouts and bookmark blocks to links",
+  "Manage multiple wikis, sync directions, and re-authorization from a status-bar panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is mostly Chinese with the full illustrated setup guide in docs/使用步骤.md. Free and open source (MIT). Desktop-only (Obsidian 1.13.7+) and connects to China Feishu (open.feishu.cn) only, not international Lark. Tables, Bitable, and PDF attachments are not synced yet; single-document mode only supports new /docx/ links. Stores tokens and sync mappings unencrypted in data.json.",
+ "intent": "alternative",
+ "intentEvidence": "本仓库是 chenqaq123/ObsidianSync 的二次开发版本。在上游 0.1.2 的基础上做了若干增强；感谢上游作者的工作。",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author consumes most material in Feishu wikis and wanted it in Obsidian for use with AI; manual copy-paste was slow and stale, and Feishu's native export is PDF only.",
+ "primary": "syncing",
+ "problem": "Feishu wikis offer no bulk export to Markdown, and the upstream plugin only handled one wiki at a time, missed subtree images, could not fetch shared /docx/ links, and pushed to read-only wikis.",
+ "readmeHash": "8495720b5c5772731f0c993a28804ff8b70e9e4b",
+ "relations": [
+  {
+   "evidence": "本仓库是 chenqaq123/ObsidianSync 的二次开发版本。",
+   "plugin": "feishu-wiki-sync (chenqaq123/ObsidianSync)",
+   "type": "fork"
+  },
+  {
+   "evidence": "飞书文档和图片接口实现参考了 Lark CLI 的请求格式与素材处理流程",
+   "plugin": "Lark CLI",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Feishu self-built app credentials (App Secret, OAuth tokens)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs Obsidian notes with multiple Feishu wikis: pulls shared wiki trees and single docs as Markdown, tracks updates, and publishes notes back as Feishu docs.",
+ "tags": [
+  "feishu",
+  "wiki-tree",
+  "docx-links",
+  "callout-conversion",
+  "conflict-copies",
+  "folder-note"
+ ]
+}

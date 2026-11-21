@@ -1,0 +1,64 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize the vault through a private GitHub repository without a local Git binary",
+  "Route conflicting or rejected pushes into verified obsyncer-recovery branches instead of overwriting",
+  "Automatically push edits after inactivity and poll for remote changes",
+  "Optionally synchronize safe files under the .obsidian configuration folder",
+  "Validate remote paths and SHA-verify downloaded blobs before use"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. Public beta. Warns not to run alongside Obsidian Git, GitHub Gitless Sync, Obsidian Sync, Syncthing, or other tools writing the same vault. No telemetry or paid features.",
+ "intent": "alternative",
+ "intentEvidence": "Oppsyncer is a fork of GitHub Gitless Sync by Silvano Cerza.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault across devices via GitHub without a local Git binary, and naive sync tools can lose edits when two devices conflict.",
+ "readmeHash": "b2071bc5e4751a5fd79ee81ac07931ec30dad0b5",
+ "relations": [
+  {
+   "evidence": "Oppsyncer is a fork of GitHub Gitless Sync by Silvano Cerza.",
+   "plugin": "GitHub Gitless Sync",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "fine-grained GitHub token with Contents: Read and write",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that synchronizes a vault through a private GitHub repository on desktop and mobile without a local Git binary, routing conflicting edits into recovery branches.",
+ "tags": [
+  "github",
+  "conflict-recovery",
+  "recovery-branches",
+  "fast-forward-push",
+  "etag-polling",
+  "device-pairing"
+ ]
+}

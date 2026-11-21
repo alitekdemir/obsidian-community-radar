@@ -1,0 +1,63 @@
+{
+ "also": [
+  "import",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "read RSS and Atom feeds in a docked sidebar with read/unread, favorite and archive states",
+  "follow WeChat official accounts via WeChat Read login and an optional local collection engine",
+  "save articles as Markdown notes with dated filenames and cloud image links",
+  "manage subscriptions with groups, refresh intervals, OPML and JSON import/export",
+  "expose a local RSS address that other readers can subscribe to"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is a full RSS/Atom reader; WeChat official account support is an optional engine that must be installed separately.",
+ "extras": "The WeChat engine only supports macOS Apple Silicon; the plugin downloads a fixed ~45.5 MiB engine from GitHub after explicit user confirmation (SHA-256 verified) and the README notes that whether user-initiated executable downloads meet community directory policy is not officially confirmed. Plain RSS/Atom works with the standard three plugin files and no engine.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to subscribe to RSS/Atom feeds or WeChat official accounts and turn articles into Markdown notes.",
+ "readmeHash": "475b63c277dd03dcb0335d67a1f07c61009748e0",
+ "relations": [
+  {
+   "evidence": "旧版采集实现参考并保留 wechat-mp-tools 的 MIT 许可",
+   "plugin": "wechat-mp-tools",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Read (微信读书) account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "local Chrome or Edge (browser fallback)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "RSS reader sidebar that manages RSS, Atom and WeChat official account feeds, reads articles in a modal, and archives them as Markdown notes.",
+ "tags": [
+  "rss",
+  "atom",
+  "wechat",
+  "wechat-read",
+  "opml",
+  "sqlite",
+  "feed-reader"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "navigation",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Navigate a structured graph neighborhood around the current note (Compass, Mind Map, Facets views)",
+  "Create, reclassify, unlink and hide Parent, Child, Friend, Challenger, Previous and Next relationships",
+  "Filter and restyle the canvas with Quick Filter and Graph Lenses",
+  "Edit notes beside the graph in a companion Sidecar pane or embedded editor node",
+  "Import ontology and styling from classic ExcaliBrain"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README carries an explicit warning that the plugin is new and may modify relationships, recommending backups and testing on a small note set first; development is funded via Ko-fi and a downloadable sample Help vault is provided.",
+ "intent": "alternative",
+ "intentEvidence": "K-Plex uses its own plugin ID, so you can keep ExcaliBrain installed while migrating your settings.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because large graph views become dense and hard to navigate, and wanted a structured neighborhood that works as a day-to-day surface for moving through notes rather than staring at the entire vault.",
+ "primary": "graph",
+ "problem": "Obsidian's graph view renders the whole vault as a dense force-directed layout where connections have no consistent spatial meaning, making it hard to reason about the current note's relationships.",
+ "readmeHash": "ac36b80d65af6c3d667db5855c7fbb6b79976f5b",
+ "relations": [
+  {
+   "evidence": "If classic ExcaliBrain is installed and running, K-Plex can import its ontology and graph, node and link styling.",
+   "plugin": "ExcaliBrain",
+   "type": "alternative"
+  },
+  {
+   "evidence": "optional Excalidraw note creation when Excalidraw is installed",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Plain Markdown, core template variables and supported Templater code are processed before relationship properties are written.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "ExcaliBrain",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Ontology-driven graph navigator that shows a structured neighborhood of the current note (parents, children, friends, challengers) on an interactive canvas.",
+ "tags": [
+  "ontology",
+  "excalibrain",
+  "excalidraw",
+  "dataview-inline-fields",
+  "note-types",
+  "touch"
+ ]
+}

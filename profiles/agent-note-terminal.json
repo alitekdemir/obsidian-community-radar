@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run system shells and installed CLI tools (OpenCode, Claude Code, Codex) in tabbed terminals",
+  "Continuously save each terminal session to a per-tab Markdown backup beside the current document",
+  "Toggle per-tab note syncing and recover from conflicts using raw JSONL session logs",
+  "Export readable Markdown and generate compact copies of older records",
+  "Customize fonts, colors, line height and layout for the terminal and note panes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI agent itself; it runs whatever CLI you have installed in a plain shell and only records the session output to notes.",
+ "extras": "Interface labels are currently Chinese-only. The Windows graphical interface has not been manually tested (macOS is verified; Windows backend runs in CI). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Raw logs in .agent-note-terminal/ can contain echoed drafts or sensitive values even when omitted from the readable note.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian has no built-in terminal, and terminal or CLI agent sessions normally vanish when closed, leaving no searchable record inside the vault.",
+ "readmeHash": "8f9dfb26fc8cc0524015232f2b26abde5aefd9f4",
+ "relations": [
+  {
+   "evidence": "type any installed CLI, including OpenCode, Claude Code or Codex",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "type any installed CLI, including OpenCode, Claude Code or Codex",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "type any installed CLI, including OpenCode, Claude Code or Codex",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.9+ (pywinpty on Windows)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "CLI tools such as OpenCode, Claude Code or Codex",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "CLI tool authentication",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Desktop terminal sidebar that runs system shells and CLI agents in tabs and continuously saves each session as a readable Markdown note.",
+ "tags": [
+  "terminal",
+  "cli",
+  "shell",
+  "claude-code",
+  "opencode",
+  "codex"
+ ]
+}

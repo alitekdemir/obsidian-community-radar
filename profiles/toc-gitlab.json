@@ -1,0 +1,53 @@
+{
+ "also": [
+  "markdown"
+ ],
+ "audience": [
+  "gitlab-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "create managed tables of contents at the cursor or for the next heading level",
+  "update managed TOCs automatically as headings are added, renamed, removed, or reordered",
+  "exclude headings from TOCs via a hidden HTML comment marker",
+  "generate GitLab-compatible anchors for Unicode, punctuation, and duplicate headings",
+  "navigate GitLab fragment links natively inside Obsidian without changing the Markdown"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin intercepts Obsidian's native link router at runtime and uses temporary in-memory block targets to resolve GitLab fragments, so no separate compatibility plugin is needed; managed TOCs from older versions must be recreated once.",
+ "intent": "alternative",
+ "intentEvidence": "This is a GitLab-focused fork of obsidian-plugin-toc by Andrew Lisowski.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked obsidian-plugin-toc specifically to produce GitLab-compatible heading links.",
+ "primary": "outlining",
+ "problem": "Obsidian's own heading-link and WikiLink conventions do not match GitLab's anchor rules (Unicode lowercasing, punctuation removal, duplicate suffixes), so TOCs pasted into GitLab break.",
+ "readmeHash": "90d45b4379defd5a8621ed0cb084a9e39a414c74",
+ "relations": [
+  {
+   "evidence": "This is a GitLab-focused fork of obsidian-plugin-toc by Andrew Lisowski.",
+   "plugin": "obsidian-plugin-toc by Andrew Lisowski",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Creates managed tables of contents whose Markdown links follow GitLab 17+ heading-anchor rules, with automatic updates and heading exclusion.",
+ "tags": [
+  "gitlab",
+  "table-of-contents",
+  "anchor-links",
+  "unicode",
+  "duplicate-headings"
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect conflict-copy filenames from common sync services",
+  "Show a line-based diff of changed blocks between copy and original",
+  "Merge chosen blocks into the original and delete the resolved copy",
+  "Optionally auto-delete copies fully contained in the original",
+  "Show a conflict counter on the File Explorer"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a git merge-conflict tool; it targets conflict copies created by file-sync services.",
+ "extras": "The manifest carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' All processing is local; no network requests, telemetry, or automatic deletion without opt-in.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Sync services like Dropbox, Syncthing and iCloud Drive leave duplicate conflict copies in the vault, and Obsidian has no built-in way to detect or merge them.",
+ "readmeHash": "6cf5e588231b1793f974e276d30df39c546c0492",
+ "relations": [
+  {
+   "evidence": "designed for vaults synchronized through Yandex Disk, iCloud Drive, Dropbox, Google Drive for desktop, Syncthing",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dropbox, Nextcloud, Resilio-style clients | Plan (Alice's conflicted copy 2026-09-04).md",
+   "plugin": "Dropbox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "designed for vaults synchronized through Yandex Disk, iCloud Drive, Dropbox, Google Drive for desktop, Syncthing",
+   "plugin": "iCloud Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Drive for desktop | Budget_conf(1).xlsx",
+   "plugin": "Google Drive for desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dropbox, Nextcloud, Resilio-style clients | Plan (Alice's conflicted copy 2026-09-04).md",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Finder, Yandex Disk, and similar clients | Note (2).md, workspace (3).json",
+   "plugin": "Yandex Disk",
+   "type": "integrates"
+  },
+  {
+   "evidence": "designed for vaults synchronized through Yandex Disk, iCloud Drive, Dropbox, Google Drive for desktop, Syncthing, Nextcloud, Resilio Sync",
+   "plugin": "Resilio Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a file-sync service that produces conflict copies",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Finds sync-conflict file copies created by desktop sync tools and resolves them against the original file block by block.",
+ "tags": [
+  "syncthing",
+  "dropbox",
+  "icloud-drive",
+  "yandex-disk",
+  "diff",
+  "conflict-copies"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight text and attach inline comment cards that align and scroll with the passage",
+  "@ mention running Claude Code or Codex sessions, or start a new one, to answer a comment",
+  "Track comment delivery status in a mailbox with retry and one-click fixes",
+  "Accept or decline suggested edits to the highlighted passage",
+  "Track unread replies, resolve threads, and react with emoji"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI chat plugin; the comments work on their own and @ mentions of agent sessions are an optional delivery path.",
+ "extras": "The plugin never talks to the network; letters and replies are local files. Requires Obsidian 1.8+. Beta builds are distributed via BRAT. The @ mention hook modifies ~/.claude/settings.json (with backup and uninstall). On Linux and Windows terminal-opening buttons copy commands instead.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in way to leave anchored, threaded comments beside a passage, let alone have people or AI agents reply to them inside the note itself.",
+ "readmeHash": "902678f907282a0482a5e8db3b90a7587f5434cc",
+ "relations": [
+  {
+   "evidence": "Type @ in a comment to pick a running Claude Code / Codex session on your machine",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex and Gemini CLI answer in the background, each comment resuming the same session",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex and Gemini CLI answer in the background, each comment resuming the same session",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pre-release builds: BRAT → Add a beta plugin → IvyYang1999/obsidian-inline-comments",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code / Codex / Gemini CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Inline comment plugin that anchors comment cards to highlighted passages and stores them as CriticMarkup-style plain text in the note, with optional @ mentions of local AI coding sessions.",
+ "tags": [
+  "criticmarkup",
+  "claude-code",
+  "codex",
+  "gemini-cli",
+  "unread-badge",
+  "margin-cards"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "search",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate Markdown index files for Canvas, PDF, and image attachments",
+  "Extract text content from PDFs and images using the Google Gemini API",
+  "Synchronize index files automatically when attachments change or are deleted",
+  "Make attachment links visible in graph, backlinks, and outgoing links panels",
+  "Expose attachment content to Markdown-only plugins and AI chat plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Search",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an attachment organizer or converter; it only generates synchronized Markdown index copies next to the original files.",
+ "extras": "Initial indexing of large vaults can take days and may restart Obsidian when processing big files; mobile auto-indexing should be enabled only after desktop indexing completes; a Google API key is required for PDF and image text extraction, while Canvas files work without it.",
+ "intent": "improve",
+ "intentEvidence": "This plugin enhances Obsidian's ability to manage various attachment types",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian attachments like Canvas files, PDFs, and images are invisible in the graph view, unsearchable by content, and inaccessible to plugins that only work with Markdown files.",
+ "readmeHash": "bea8c81e7eb97646a5d7edc0e86c1ee2128cee08",
+ "relations": [
+  {
+   "evidence": "Works particularly well with plugins like Smart Connections and Copilot",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works particularly well with plugins like Smart Connections and Copilot",
+   "plugin": "Copilot",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Attachment indexer that creates searchable Markdown index files for Canvas, PDF, and image files so they surface in search, graph, and backlinks.",
+ "tags": [
+  "google-gemini",
+  "text-extraction",
+  "vision-api",
+  "canvas-files",
+  "ai-chat"
+ ]
+}

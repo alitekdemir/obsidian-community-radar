@@ -1,0 +1,52 @@
+{
+ "also": [
+  "latex"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render math blocks with Typst syntax",
+  "override inline and block math delimiters",
+  "fall back to MathJax for LaTeX-only constructs",
+  "toggle LaTeX fallback on rendering errors"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The fallbackToLatexOnError setting is explicitly labeled experimental; bug reports are directed to the GitHub repo 0xpapercut/obsidian-wypst.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "math",
+ "problem": "Obsidian's math blocks only render LaTeX, so users who prefer Typst's math syntax cannot write math in that notation.",
+ "readmeHash": "86b2c9c3bce20e31b72a05bb48e9c558a7a7ee1a",
+ "relations": [
+  {
+   "evidence": "High quality rendering of Typst in Obsidian, powered by wypst.",
+   "plugin": "wypst",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the rendering backend switches to MathJax when certain structures like \\begin{environment}<...>\\end{environment}",
+   "plugin": "MathJax",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Math renderer that displays $...$ and $$...$$ blocks as Typst math instead of LaTeX, falling back to MathJax for LaTeX-only structures.",
+ "tags": [
+  "typst",
+  "mathjax"
+ ]
+}

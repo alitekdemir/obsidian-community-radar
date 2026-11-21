@@ -1,0 +1,49 @@
+{
+ "also": [
+  "html"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render math in HTML table cells with MathJax",
+  "Support inline and display dollar-sign delimiters plus escaped dollar signs",
+  "Leave plain text and unbalanced dollar signs untouched",
+  "Toggle rendering in Live Preview separately from Reading View",
+  "Choose fallback behavior for formulas that fail to render"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13.0 or newer because the plugin uses the declarative settings API; installable from the community catalog or manually from GitHub releases.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian renders $...$ math in regular markdown, but not inside raw HTML tables. This plugin fills that gap",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "math",
+ "problem": "Obsidian's math rendering skips raw HTML tables, so $...$ formulas typed in td/th cells stay as plain text.",
+ "readmeHash": "dd15e60fa300c13c2fd704739af17b9cdfe28afc",
+ "relations": [
+  {
+   "evidence": "math in <table> cells is rendered with MathJax in both Reading View and Live Preview",
+   "plugin": "MathJax",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders LaTeX math ($...$ and $$...$$) inside raw HTML table cells using MathJax, in Reading View and optionally Live Preview.",
+ "tags": [
+  "live-preview",
+  "reading-view"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Speak selected or highlighted note text aloud with streaming sentence-by-sentence playback",
+  "Highlight the active sentence during playback and skip between sentences",
+  "Configure voices and models from multiple TTS providers with an API key",
+  "Cache generated audio in the vault or locally and export or embed audio files",
+  "Play text from the clipboard or OS media controls on desktop and mobile"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Pricing information for OpenAI audio is included; supports self-hosted OpenAI-compatible TTS servers as an alternative to paid APIs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to note text as spoken audio without external tools.",
+ "readmeHash": "4327c6162a0ce66fb2994db9175c92b6a2e9d3ef",
+ "relations": [
+  {
+   "evidence": "OpenAI compatible API server that has an /v1/audio/speech endpoint. For example openedai-speech.",
+   "plugin": "openedai-speech",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": ": OpenAI, Google Gemini, Hume AI, ElevenLabs, Fish Audio, Azure, MiniMax, or AWS Polly; optional=true when only some features need it.",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "; providers like OpenAI charge per character",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Text-to-speech plugin that reads highlighted or selected note text aloud using voices from multiple TTS providers.",
+ "tags": [
+  "text-to-speech",
+  "openai",
+  "elevenlabs",
+  "azure-speech",
+  "aws-polly",
+  "gemini",
+  "hume-ai",
+  "audio-caching"
+ ]
+}

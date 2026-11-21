@@ -1,0 +1,72 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Embed note text and cache vectors per file",
+  "Pair notes by cosine similarity above a threshold",
+  "Verify candidate pairs with an LLM chat model",
+  "Show confirmed contradictions in a side panel with clickable note links",
+  "Connect to any OpenAI-compatible endpoint including local servers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not in the community plugin store; requires building from source and manual installation. Privacy warning: note titles and the first part of each note body are sent to the configured LLM endpoint, so a local endpoint is advised for sensitive vaults; a hosted provider may require a paid account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because knowledge bases drift and two notes written months apart can end up asserting opposite things.",
+ "primary": "ai",
+ "problem": "Knowledge bases drift, so notes written months apart can assert opposite things and Obsidian gives no way to surface those conflicts.",
+ "readmeHash": "a64b92cb4e91ee4c04ef506d0bf5f6748dc4e420",
+ "relations": [
+  {
+   "evidence": "Works with any OpenAI-compatible endpoint — OpenAI, Ollama, LM Studio.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "leave the key empty for local servers such as Ollama or LM Studio",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with any OpenAI-compatible endpoint — OpenAI, Ollama, LM Studio.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio (local endpoint)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault scanner that pairs similar notes via embeddings and uses an LLM to verify and report contradictory claims between them.",
+ "tags": [
+  "embeddings",
+  "llm",
+  "openai",
+  "ollama",
+  "lm-studio",
+  "semantic-similarity",
+  "gpt-4o-mini"
+ ]
+}

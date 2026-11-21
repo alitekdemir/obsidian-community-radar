@@ -1,0 +1,62 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize a vault across desktop and mobile through a private Cloudflare R2 bucket",
+  "Encrypt file contents, filenames, paths, and sync history end-to-end before upload",
+  "Show a plan of pending changes and apply the sync only after user confirmation",
+  "Merge safe text changes and keep both versions on unsafe conflicts",
+  "Pair new devices with a reusable secret pairing code"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Warns against running it alongside any other sync solution on the same vault; requires Obsidian 1.13.0 or newer; sync history is informational only and cannot restore older revisions; README notes plugin settings including credentials are stored in plaintext data.json.",
+ "intent": "alternative",
+ "intentEvidence": "If you want an Obsidian Sync alternative with storage in your own Cloudflare account, but do not want to run a self-hosted server",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync uses the developer's service, and DIY sync options either rely on someone else's backend or require running a self-hosted server.",
+ "readmeHash": "504ceda8160713e0f10adb7cde9319ce91b5548d",
+ "relations": [
+  {
+   "evidence": "Is this the official Obsidian Sync service? No. Isomite is an independent community plugin and is not affiliated",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account with an R2 bucket and API token",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloudflare R2 storage usage and billing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Encrypted vault-sync plugin that syncs desktop and mobile through the user's own private Cloudflare R2 bucket with confirmation before every sync.",
+ "tags": [
+  "cloudflare-r2",
+  "e2ee",
+  "aes-256-gcm",
+  "self-hosted-storage",
+  "zero-knowledge"
+ ]
+}

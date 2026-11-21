@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize the vault with a Nas Server over the home intranet",
+  "Test the connection from the plugin settings",
+  "Run a manual update command to pull or push vault differences by timestamp",
+  "Register the NAS with a central server to obtain a NAT.ID"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires registering the NAS with a central server to get a NAT.ID and setting a connection password on the NAS Server; some settings labels appear untranslated in Chinese (唯一标识, 连接密码), and the Nas Server deployment itself is documented elsewhere (Docs link).",
+ "intent": "alternative",
+ "intentEvidence": "If you simply want to synchronize multiple Vaults between multiple Obsidians, use the official synchronization service.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Users who keep their vault on a home NAS have no built-in way to synchronize the vault between the NAS and Obsidian clients.",
+ "readmeHash": "bdb4002fe7f397aa1495fdc434a25251b0ff1639",
+ "relations": [
+  {
+   "evidence": "If you simply want to synchronize multiple Vaults between multiple Obsidians, use the official synchronization service.",
+   "plugin": "official synchronization service",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a NAS with Nas Server installed",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Github account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault synchronization service that keeps an Obsidian vault in sync with a Nas Server on a home intranet NAS via P2P.",
+ "tags": [
+  "nas",
+  "self-hosted",
+  "p2p",
+  "hole-punching",
+  "intranet"
+ ]
+}

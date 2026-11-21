@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI about the current note or attached notes, text files, and images",
+  "Let the AI edit notes while approving or rejecting permission requests",
+  "Switch between configured models, reasoning levels, and plan/build modes",
+  "Resume previous conversations from a session history list",
+  "Export conversations to Markdown notes in a chosen folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin provides only the chat interface; opencode handles model calls, tool execution, and sessions, and must be installed with a model provider configured via 'opencode auth login'. If opencode is not found, its executable path must be set in plugin settings.",
+ "intent": "alternative",
+ "intentEvidence": "Originally forked from obsidian-yolo. OpenYOLO is now developed independently",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and users want an agent that can read their notes, make edits, and ask permission before changing files.",
+ "readmeHash": "bb01944152f7a7315fca6b3ced56c62dc850b360",
+ "relations": [
+  {
+   "evidence": "It connects to a local opencode backend through the Agent Client Protocol (ACP).",
+   "plugin": "opencode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Originally forked from obsidian-yolo.",
+   "plugin": "obsidian-yolo",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "opencode",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar AI chat client that connects to a local opencode backend to ask about, edit, and organize notes.",
+ "tags": [
+  "opencode",
+  "acp",
+  "chat",
+  "llm",
+  "agent",
+  "permissions"
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run Tabula transformation scripts on csv, table, and include code blocks in Markdown files",
+  "Auto-execute transformations when a file is saved",
+  "Execute Tabula manually via command palette commands",
+  "Toggle auto-execution and column/row name visibility",
+  "Configure the Tabula executable path and output auto-formatting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Markdown table editor; it executes an external Tabula CLI script against CSV code blocks and writes the transformed output back.",
+ "extras": "Requires installing the separate Tabula CLI and making it accessible in PATH or via a configured path; complete Tabula documentation lives on the external Tabula website, not in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "csv",
+ "problem": "Obsidian has no built-in way to compute over or transform CSV data embedded in notes; edits to CSV blocks stay static without an external transformation step.",
+ "readmeHash": "515cbdb05e7f71f731b283437ec07d84f1d72d83",
+ "relations": [
+  {
+   "evidence": "Obsidian plugin for Tabula - a spreadsheet-inspired CSV transformation tool.",
+   "plugin": "Tabula",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tabula CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Wrapper for the Tabula CLI that transforms CSV code blocks in Markdown files using spreadsheet-style formulas, running on save or on demand.",
+ "tags": [
+  "spreadsheet-formulas",
+  "cell-references",
+  "cli",
+  "code-blocks",
+  "data-transformation"
+ ]
+}

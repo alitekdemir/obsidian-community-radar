@@ -1,0 +1,52 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "china-based-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Install a plugin from a pasted directory or manifest.json URL",
+  "Validate manifest, id, version and files before writing to disk",
+  "Enable the installed plugin and confirm it loaded",
+  "Fill and install from three built-in example endpoints",
+  "Clean up a stale styles.css only on a real 404/410"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It cannot install ready-made zip links; the host must serve the plugin files unpacked at their own paths.",
+ "extras": "README is bilingual (English and Chinese). It warns that installing code is executing code and accepts only HTTPS (localhost excepted); it also documents the four undocumented app.plugins members it uses and that it never self-updates. Release assets carry GitHub Actions build provenance attestations.",
+ "intent": "alternative",
+ "intentEvidence": "Inspired by BRAT, it does one thing only: fetch a plugin's files from a directory URL",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian has no built-in way to install a plugin from an arbitrary URL, and on slow or restricted networks existing installers fail before the files come through.",
+ "readmeHash": "01ed87fa29f146669979c1ac68412b19f8f04989",
+ "relations": [
+  {
+   "evidence": "Inspired by BRAT, it does one thing only: fetch a plugin's files",
+   "plugin": "BRAT",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Plugin installer that fetches another Obsidian plugin's manifest.json, main.js and styles.css from a plain directory URL and enables it.",
+ "tags": [
+  "brat",
+  "plugin-installer",
+  "https",
+  "cdn",
+  "undocumented-api",
+  "github-releases"
+ ]
+}

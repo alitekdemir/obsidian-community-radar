@@ -1,0 +1,69 @@
+{
+ "also": [
+  "tasks",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "File incoming Telegram messages into notes using ordered filter rules with variables",
+  "Download and embed message attachments into a media folder",
+  "Answer /tasks commands with tasks due today and in the days ahead",
+  "Restrict the bot to an allowlist of Telegram chats",
+  "Map topic code words to folders or notes the commands search"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin list, so it must be installed manually; desktop-only and needs Obsidian 1.11.0+. The README warns the bot token is stored in plain text in the vault and documents limits (20 MB file cap, no albums grouping, no scheduled pushes, long polling only).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture messages sent from a phone via Telegram or to query due tasks from a chat.",
+ "readmeHash": "66436ac0a0c67ecbb3631241a1ebb278abf5449a",
+ "relations": [
+  {
+   "evidence": "Tasks are read in the Tasks plugin's emoji format",
+   "plugin": "Tasks plugin",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Telegram bot",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Telegram account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Bot token from @BotFather",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Telegram bot bridge that files your Telegram messages into vault notes by rules and answers /tasks commands about due tasks.",
+ "tags": [
+  "telegram",
+  "botfather",
+  "quick-capture",
+  "momentjs",
+  "emoji-shorthand",
+  "allowlist"
+ ]
+}

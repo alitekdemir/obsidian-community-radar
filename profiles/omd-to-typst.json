@@ -1,0 +1,58 @@
+{
+ "also": [
+  "pdf",
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export the active note as PDF or Typst source from the command palette or right-click menu",
+  "Generate a cover page from YAML frontmatter fields (title, author, date, version, status)",
+  "Build a numbered table of contents plus revision and approval tables from named sections",
+  "Convert Obsidian Markdown features (callouts, checkboxes, wikilink images, Mermaid, Bases embeds) to Typst",
+  "Register custom .typ templates and insert a configurable frontmatter block into notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "PDF export requires a locally installed Typst binary; without it only .typ source export works. All conversion and compilation run locally with no network requests. The full feature reference is kept in the project's own README, and the manifest notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to produce professionally typeset PDF documents with cover pages, revision/approval tables and a numbered table of contents.",
+ "readmeHash": "5aacd5a39c553400d18c0a9eb0fb8cf060a04d67",
+ "relations": [
+  {
+   "evidence": "PDF compilation runs the locally installed typst binary via child_process",
+   "plugin": "Typst",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Typst",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Typst-based exporter that converts notes to typeset PDFs or .typ source with cover page, revision tables, TOC and callouts.",
+ "tags": [
+  "typst",
+  "pdf-generation",
+  "cover-page",
+  "table-of-contents",
+  "document-compiler",
+  "local-processing",
+  "mermaid"
+ ]
+}

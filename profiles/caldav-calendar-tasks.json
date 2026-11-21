@@ -1,0 +1,77 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync events and tasks both ways with a CalDAV server",
+  "Edit events and tasks (times, location, categories, reminders, recurrence) inline",
+  "Filter the task list by overdue, today, priority, and category",
+  "Insert a day's, week's, or month's events and tasks into the daily note",
+  "Show in-app and desktop reminders at reminder time"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes a detailed privacy and network-use disclosure and states that the encrypted password and its decryption key are both stored inside the vault, so anyone with vault access via a sync service can obtain the credentials.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because existing community plugins mostly cover events only, are read-only, or borrow another plugin's credentials, and none synced VTODO task lists both ways without depending on other plugins.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in calendar or task sync with CalDAV servers, and most community plugins that touch calendars handle events only, are read-only, or reuse another plugin's credentials.",
+ "readmeHash": "b1d5db9b680a8dd13c0cf20d15045e10290b6255",
+ "relations": [
+  {
+   "evidence": "Verified working against Radicale, Nextcloud, Baikal, and other standard CalDAV implementations.",
+   "plugin": "Radicale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Verified working against Radicale, Nextcloud, Baikal, and other standard CalDAV implementations.",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Verified working against Radicale, Nextcloud, Baikal, and other standard CalDAV implementations.",
+   "plugin": "Baikal",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a CalDAV server (Radicale, Nextcloud, Baikal, or another standard implementation)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "server username and password (can be left empty for anonymous access)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync of calendar events and VTODO tasks with a CalDAV server, with year/month/week/day views, a task list, and daily note agenda export.",
+ "tags": [
+  "caldav",
+  "radicale",
+  "nextcloud",
+  "baikal",
+  "vtodo",
+  "recurrence-rules",
+  "self-hosted"
+ ]
+}

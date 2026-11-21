@@ -1,0 +1,58 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Archive remote media referenced in markdown to a content-addressed local cache",
+  "Redirect rendered img, video and audio sources to local or WebDAV copies at display time",
+  "Share the archive across devices via WebDAV servers with upload and retry",
+  "Scan the vault manually or on file modify to archive new remote URLs",
+  "Apply domain policies deciding which URLs to archive or skip"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a web-page archiver; it caches only the image, video and audio files a note embeds, never the pages themselves.",
+ "extras": "Prominently warns that attachment-cleanup plugins (oz-clear-unused-images, Local Images Plus) may delete the archive folder and cause vault wipes; desktop only; previously installed via BRAT while awaiting community review.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "deprecated",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because quoted articles, tweets and research embed remote media whose hosts can vanish, breaking every embed in the vault.",
+ "primary": "attachments",
+ "problem": "Remote media embedded in notes silently breaks when the original host disappears (deleted accounts, removed tweets, expired CDN URLs), leaving notes without their visual context.",
+ "readmeHash": "65e73fbae59fd48ebadbe5a3279e72d5e5843136",
+ "relations": [
+  {
+   "evidence": "Archive Redirect is now part of Media One, as its Web image archive module",
+   "plugin": "Media One",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": "Media One",
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV servers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Archives remote images, video and audio embedded in notes to a local content-addressed cache and serves them at render time to stop link rot.",
+ "tags": [
+  "caching",
+  "webdav",
+  "link-rot",
+  "wechat",
+  "twitter",
+  "content-addressed"
+ ]
+}

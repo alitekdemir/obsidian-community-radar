@@ -1,0 +1,65 @@
+{
+ "also": [
+  "autocomplete"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render transparent ghost-text suggestions at the cursor while typing",
+  "Send surrounding text (2000 chars before, 500 after the cursor) to an OpenAI-compatible API",
+  "Accept suggestions with Tab and dismiss with Esc",
+  "Configure API endpoint, model, system prompt, provider routing, and trigger delay",
+  "Detect and continue text in Chinese or English"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README says the plugin is 6KB with no dependencies and is 'insight-oriented', able to surface questions, reframes, and reframings rather than only continuations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in inline AI autocomplete, so writers who want Copilot-style suggestions while typing must switch tools or use chat-based AI separately.",
+ "readmeHash": "96f7314ee815bd26286801482d7769491e9a9101",
+ "relations": [
+  {
+   "evidence": "defaults to OpenRouter's Groq provider with throughput-prioritized routing",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The default setup routes through OpenRouter to the Groq provider for fast inference",
+   "plugin": "Groq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "transparent suggestions appear at your cursor, like GitHub Copilot",
+   "plugin": "GitHub Copilot",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key (or any OpenAI-compatible endpoint)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Inline AI ghost-text writing completion powered by OpenAI-compatible APIs, with Tab to accept and Esc to dismiss suggestions.",
+ "tags": [
+  "openrouter",
+  "groq",
+  "ghost-text",
+  "chat-completions",
+  "copilot-style"
+ ]
+}

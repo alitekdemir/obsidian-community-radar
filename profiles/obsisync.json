@@ -1,0 +1,85 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files between devices in real time over WebSocket or HTTPS",
+  "Encrypt notes, keystrokes, and file names on the device with AES-256-GCM",
+  "Edit the same open note on two devices with merged CRDT edits and per-device cursors",
+  "Pair new devices with a one-time QR code or invite code and a recovery phrase",
+  "Revoke lost devices and resolve edit-versus-delete conflicts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README warns not to run two sync tools on one vault and warns that an older plugin named Vaultbridge is a different project. Creating a vault on the hosted server requires requesting a one-time setup token from the maintainer via a GitHub issue. Limits include 25 MB per attachment and 1 MB for live-editing notes.",
+ "intent": "alternative",
+ "intentEvidence": "Pick Sealed Sync for encrypted, live sync across your own devices without running a server or paying a subscription.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync costs money and other sync options either lack always-on end-to-end encryption, real-time merging, or need a paid plan or self-run infrastructure.",
+ "readmeHash": "5be278ce7027ee602d419d0ec97143de29f0d4cf",
+ "relations": [
+  {
+   "evidence": "Pick Obsidian Sync for the official app, version history, and support.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Pick Relay to edit live with other people.",
+   "plugin": "Relay",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Pick LiveSync or Remotely Save to keep the ciphertext in storage you already control.",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Pick LiveSync or Remotely Save to keep the ciphertext in storage you already control.",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Pick Syncthing when every device can reach the others and you want no server at all.",
+   "plugin": "Syncthing",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Edits are applied through Yjs, a CRDT.",
+   "plugin": "Yjs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Turso database",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Realtime end-to-end-encrypted vault sync with live co-editing of open notes and QR-code device pairing.",
+ "tags": [
+  "end-to-end-encryption",
+  "crdt",
+  "yjs",
+  "qr-pairing",
+  "self-hosting",
+  "cloudflare-workers",
+  "turso",
+  "websocket"
+ ]
+}

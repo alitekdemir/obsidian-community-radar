@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with local LLM agents rooted at the vault via Pi and Ollama",
+  "Attach vault context with @-mentions, @search, @semantic, @vault-index, and @links",
+  "Review and approve proposed Markdown edits as visible diffs before any write",
+  "Maintain .agent.md agent profiles, prompt files, and memory files in a Sidekick/ folder",
+  "Suggest internal links between notes and export chats to Markdown"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Alpha software and not manually reviewed by Obsidian staff. Extensive safety section: reads the vault by default, blocks deletes and shell commands, web fetch off by default, no telemetry, and warns that chat data in .obsidian/plugins/local-sidekick/data.json is private. Requires manual Pi model configuration in ~/.pi/agent/models.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to use local LLM agents through a simple interactive chat sidebar in Obsidian via Ollama and the Pi agent harness.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with a local, vault-aware LLM agent without sending data to a cloud service or installing a heavy dashboard-style plugin.",
+ "readmeHash": "89cb1bbbcf61c9207c974a256ec063c4f519674a",
+ "relations": [
+  {
+   "evidence": "Local Sidekick is a local-first LLM sidebar for Obsidian, for Pi and Ollama users",
+   "plugin": "Pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Prompts go to your local Ollama and nowhere else.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use the terminal plugin alongside this so you never have to leave Obsidian!",
+   "plugin": "terminal plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama and Pi",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local LLM agent chat sidebar that runs Pi and Ollama models against your vault with read-only tools and approval-gated edit proposals.",
+ "tags": [
+  "ollama",
+  "pi",
+  "local-llm",
+  "agent-profiles",
+  "diff-review",
+  "chat-sidebar",
+  "pdf-extraction",
+  "offline"
+ ]
+}

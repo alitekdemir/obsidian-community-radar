@@ -1,0 +1,71 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [
+  "bible-study"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview verse text on hover or click in Reading view and Live Preview",
+  "Open the full chapter in a distraction-free reader with chapter navigation",
+  "Switch Bible translations from the popover",
+  "Detect full book names and abbreviations with or without verse ranges",
+  "Jump to any chapter via the 'Open Bible reference…' command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README documents network use: verse text is fetched on demand from public Bible APIs (api.nlt.to, bolls.life, bible-api.com) and cached for the session; only the hovered reference is sent. No API key or setup required. Scripture credits and copyright notice included.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian gives no content when hovering a Bible reference in a note, so readers must leave their notes to look the passage up.",
+ "readmeHash": "a5ed7b9cebd3909bde12c22f83c215e4be21b4c3",
+ "relations": [
+  {
+   "evidence": "bolls.life — NIV, ESV, NKJV, NASB and most others (also the NLT fallback).",
+   "plugin": "bolls.life",
+   "type": "integrates"
+  },
+  {
+   "evidence": "bible-api.com — public-domain texts (WEB, KJV, …).",
+   "plugin": "bible-api.com",
+   "type": "integrates"
+  },
+  {
+   "evidence": "api.nlt.to — Tyndale's official NLT API, which carries the NLT's real section headings",
+   "plugin": "api.nlt.to",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Every preview and the chapter reader link to the passage on Bible Gateway.",
+   "plugin": "Bible Gateway",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bible reference previewer that shows verse text in a hover or tap popover and opens full chapters in a reader, with an inline translation switcher.",
+ "tags": [
+  "scripture",
+  "bible-gateway",
+  "bolls-life",
+  "bible-api",
+  "esv",
+  "niv",
+  "kjv",
+  "reference-popover"
+ ]
+}

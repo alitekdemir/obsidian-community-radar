@@ -1,0 +1,53 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render in-vault .html/.htm files with relative CSS, images, fonts and scripts inlined as data URIs",
+  "Navigate between in-vault .html and .md files with back/forward history",
+  "Search (Ctrl/⌘+F), zoom and toggle fullscreen in rendered pages",
+  "Toggle in-document JavaScript execution on or off",
+  "Show an outline/table of contents and restore scroll position across tab switches"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a web browser or local web server; it only renders in-vault .html files and their relative resources.",
+ "extras": "Bilingual English/Chinese README; mobile support is marked experimental and Android-tested, while iOS fullscreen is limited by the OS; remote http(s) resources and file:// absolute paths are not inlined; failed inlines are listed in a report; the plugin is read-only and never modifies original files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "html",
+ "problem": "Obsidian cannot display local .html files with their relative resources: the app://local origin makes the browser block CSS, images and fonts, so files show broken or as source code.",
+ "readmeHash": "986ea18ac57dc6c6fffec765977f33a14014f76c",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "HTML Direct Reader",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders in-vault .html files inside Obsidian by inlining local CSS, images, fonts and scripts as data URIs to bypass cross-origin limits.",
+ "tags": [
+  "cross-origin",
+  "data-uri",
+  "webview",
+  "srcdoc",
+  "in-page-search",
+  "script-toggle",
+  "offline-html"
+ ]
+}

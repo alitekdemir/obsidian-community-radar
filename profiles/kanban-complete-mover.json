@@ -1,0 +1,60 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move checked cards to the Complete lane automatically",
+  "Create the Complete lane when a board has none",
+  "Restore unchecked cards to their origin lane",
+  "Stamp cards with a completion date and time",
+  "Scan the vault or a single board to adopt existing checked cards"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Kanban board plugin itself; it only automates card movement inside boards made by the Kanban plugin.",
+ "extras": "README warns that automatic moves bypass Obsidian's undo history, that rapid checking can rarely leave one card behind, and that mobile testing covered only one Android device (iOS untested). It also states the plugin makes no network calls or telemetry.",
+ "intent": "improve",
+ "intentEvidence": "This plugin watches your Kanban boards (the Kanban plugin by mgmeyers)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "The Kanban plugin leaves completed cards where they are, so users must drag each checked card to a Complete lane by hand.",
+ "readmeHash": "5f232122a181d0a36fad7fe0ea3aae7a31fdcf22",
+ "relations": [
+  {
+   "evidence": "This plugin watches your Kanban boards (the Kanban plugin by mgmeyers)",
+   "plugin": "Kanban",
+   "type": "extends"
+  },
+  {
+   "evidence": "Fixed in 1.0.2: compatibility with the Tasks plugin.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Kanban (mgmeyers)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Automation for the Kanban plugin that moves checked cards to a Complete lane, with optional completion-date stamps and restore on uncheck.",
+ "tags": [
+  "kanban",
+  "checkboxes",
+  "completion-date",
+  "timestamp",
+  "momentjs"
+ ]
+}

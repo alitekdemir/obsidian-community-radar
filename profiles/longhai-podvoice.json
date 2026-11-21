@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert whole notes, selections, or folders to speech via cloud or local TTS providers",
+  "Save generated audio in the vault and link it to the source note via an audio property",
+  "Play audio in a floating dock with speed control, seeking, and sentence highlighting",
+  "Align audio to note sentences locally using SenseVoice speech recognition timestamps",
+  "Batch-generate audio for folders on a daily schedule with incremental catch-up"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (macOS tested; Windows and Linux untested this cycle). Pending Obsidian community directory review, so it must be installed manually or via BRAT. Cloud providers may charge fees; credentials are stored unencrypted in data.json and may be copied by vault sync. No voice models or reference audio are bundled with the local presets.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to turn notes into listenable audio or to follow playback against the note text.",
+ "readmeHash": "7485a90bb942486ee917cd2595a37de3c92a2175",
+ "relations": [
+  {
+   "evidence": "安装并启用社区插件 BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Providers include Volcengine, MiniMax, Replicate, a separately deployed GPT-SoVITS server, and custom HTTP endpoints.",
+   "plugin": "GPT-SoVITS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Volcengine, MiniMax, or Replicate account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud provider credentials (App ID / Access Token / API Key)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Separately deployed GPT-SoVITS server for local synthesis",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js, FFmpeg, sherpa-onnx-node, and a SenseVoice model for offline alignment",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Text-to-speech plugin that converts Markdown notes into audio files saved in the vault, plays them in a floating player, and highlights sentences during playback.",
+ "tags": [
+  "text-to-speech",
+  "volcengine",
+  "minimax",
+  "replicate",
+  "gpt-sovits",
+  "sensevoice",
+  "ffmpeg"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "switch the input method when leaving insert mode",
+  "restore the previous input method when entering insert mode",
+  "configure per-platform switch and query commands",
+  "show error and warning messages on the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README notes Obsidian must be restarted after installing, and that on Linux Snap and Flatpak installs are unsupported (AppImage or deb required). Defaults rely on im-select (macOS/Windows) or fcitx5-remote (Linux).",
+ "intent": "improve",
+ "intentEvidence": "Control Input Method (IM) when InsertLeave and InsertEnter in Vim mode.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "In Vim mode, leaving insert mode while a non-English input method is active forces manual switching between typing systems.",
+ "readmeHash": "fda127272a3cb4bedb0d431153d3b3ff7f2bc17c",
+ "relations": [
+  {
+   "evidence": "- Obsidian Vimrc Support Plugin",
+   "plugin": "Obsidian Vimrc Support Plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "- Obsidian Vim IM Select Plugin",
+   "plugin": "Obsidian Vim IM Select Plugin",
+   "type": "alternative"
+  },
+  {
+   "evidence": "- Obsidian Vim IM Switch Plugin",
+   "plugin": "Obsidian Vim IM Switch Plugin",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an IM controller command such as im-select, fcitx5-remote, fcitx-remote or ibus",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vim mode companion that runs configurable input-method switch commands on InsertLeave and InsertEnter, supporting macOS, Windows and Linux.",
+ "tags": [
+  "input-method",
+  "im-select",
+  "fcitx5-remote",
+  "fcitx",
+  "ibus",
+  "insert-mode"
+ ]
+}

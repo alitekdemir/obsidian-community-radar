@@ -1,0 +1,64 @@
+{
+ "also": [
+  "latex",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "evaluate LaTeX expressions inline via trigger suffixes (=, \\approx, @diff, @solve)",
+  "plot interactive 2D and 3D graphs, vector fields, contours, and ODE phase portraits",
+  "perform symbolic CAS operations including derivatives, integrals, and factoring",
+  "expand LaTeX Suite snippets with tabstops, conceal, and bracket coloring in notes and Excalidraw",
+  "snapshot and restore Excalidraw drawing element positions and sizes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Advanced CAS features (@limit, @taylor, @partfrac, @expand, @steps) need a separate ~19 MB Giac WASM file manually downloaded into the plugin folder; Excalidraw OD features are inert without the Excalidraw plugin.",
+ "intent": "improve",
+ "intentEvidence": "It also extends into Excalidraw: canvas text auto-renders into equation images",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "math",
+ "problem": "Obsidian renders LaTeX but cannot evaluate expressions, solve equations, or plot graphs, and LaTeX snippet tools do not work inside Excalidraw canvases.",
+ "readmeHash": "4a2e3d30b23986ac27820f853c858bfd84dbe95e",
+ "relations": [
+  {
+   "evidence": "Excalidraw OD features require the Excalidraw community plugin to also be installed and enabled",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The full LaTeX Suite snippet-expansion engine is vendored directly into the editor — no separate plugin required",
+   "plugin": "LaTeX Suite",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Engineering math plugin that evaluates LaTeX inline, plots 2D/3D graphs, runs CAS operations, and adds LaTeX snippets to notes and Excalidraw.",
+ "tags": [
+  "cas",
+  "excalidraw",
+  "giac",
+  "mathjax",
+  "desmos",
+  "graphing"
+ ]
+}

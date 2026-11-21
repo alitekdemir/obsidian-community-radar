@@ -1,0 +1,61 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extract X bookmarks from the bookmarks page via an embedded webview",
+  "Import selected bookmarks as Markdown notes with frontmatter, images and quoted tweets",
+  "Sync incrementally, stopping at already-imported bookmarks",
+  "Import the full body of native X articles into notes",
+  "Copy the focal tweet or article to the clipboard as Markdown"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync for Obsidian's own Bookmarks feature; it imports bookmarks from X (Twitter) into notes.",
+ "extras": "Desktop only (relies on Electron's <webview> tag); uses X's internal data API with a scraping fallback, so X.com changes may break it; video files are not downloaded and embedded images remain on X's CDN.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture X bookmarks as notes, and doing it manually or via the API requires copying content or managing OAuth tokens.",
+ "readmeHash": "cd1ba42a27b4daf1747871dde17e98ff1e03110a",
+ "relations": [
+  {
+   "evidence": "Sync your X (Twitter) bookmarks directly into your Obsidian vault",
+   "plugin": "X (Twitter)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "clipboard-copy the focal tweet/article with replies stripped, powered by Defuddle",
+   "plugin": "Defuddle",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "X (Twitter) account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs X (Twitter) bookmarks into Markdown notes through an embedded webview, with selective, incremental import and no API key.",
+ "tags": [
+  "twitter",
+  "webview",
+  "defuddle",
+  "scraping"
+ ]
+}

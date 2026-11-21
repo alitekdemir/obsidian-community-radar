@@ -1,0 +1,65 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render briefs from path-based templates matched by ordered regex rules",
+  "extract unchecked tasks from the current note",
+  "substitute template variables with file metadata, frontmatter, content, selection, and date",
+  "preview the rendered brief in a modal",
+  "copy the brief to the clipboard via a command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin makes no API calls or network requests; installation is from the GitHub repo via BRAT or manual file copy rather than from the community plugin catalog.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to assemble a structured, template-based prompt from a note's content, metadata, and open tasks for handing to an AI agent.",
+ "readmeHash": "3a0e89cb7ae882eba4b40d6bb3df9aef6de062dd",
+ "relations": [
+  {
+   "evidence": "Paste the brief into Codex (or another AI code agent).",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the community plugin \"BRAT\".",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex or another AI code agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Prompt renderer that builds an AI agent brief from the current note using regex-matched path templates and copies it to the clipboard.",
+ "tags": [
+  "regex",
+  "codex",
+  "clipboard",
+  "prompt-templates",
+  "unchecked-tasks"
+ ]
+}

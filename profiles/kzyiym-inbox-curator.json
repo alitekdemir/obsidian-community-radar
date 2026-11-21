@@ -1,0 +1,86 @@
+{
+ "also": [
+  "automation",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Review notes with an AI provider and produce structured verdicts with scores, summaries, tags, and action recommendations",
+  "Auto-move reviewed notes into Archive, Read Later, or Tasks folders based on confidence thresholds",
+  "Batch-process a watched folder with rate limiting, a queue monitor, and undoable auto-sort runs",
+  "Fetch URL-only notes' article text and send images or extracted PDF text to multimodal models",
+  "Run cross-note collection reviews of selected notes or folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly: true). AI API usage may incur provider costs. The optional FAQ page loads a Ko-fi donation widget and opt-in Google Analytics 4; the plugin core is telemetry-free. PDF text extraction is experimental.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README describes an intended clip-to-review-to-organize pipeline where every clipped note is automatically queued for AI review the moment it lands in the Inbox.",
+ "primary": "ai",
+ "problem": "Obsidian users accumulate unprocessed notes in an inbox folder and must manually read, summarize, and file each one, which is slow for large daily intake like clipped web articles.",
+ "readmeHash": "2ec27956c3ed5a098d59128f9e08bd29042d2e2d",
+ "relations": [
+  {
+   "evidence": "OpenAI (or any OpenAI-compatible endpoint)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini (Native Gemini API)",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic Claude (Native Anthropic API)",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin pairs perfectly with Obsidian Web Clipper",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Google Gemini, or Anthropic API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Developer account with an AI provider",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI (ChatGPT provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI-powered plugin that reviews, summarizes, and auto-sorts inbox notes into Archive, Read Later, or Tasks folders using LLM APIs.",
+ "tags": [
+  "openai",
+  "gemini",
+  "anthropic",
+  "llm",
+  "summarization",
+  "prompt-injection",
+  "inbox-processing",
+  "web-clipping"
+ ]
+}

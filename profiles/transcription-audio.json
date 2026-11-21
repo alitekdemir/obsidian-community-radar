@@ -1,0 +1,57 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "transcribe audio files linked in notes with Gemini's speech-to-text model",
+  "summarize transcripts with a selectable Gemini model and category-specific prompts",
+  "insert transcript links and summary embeds at the cursor position",
+  "handle long audio with speech-aware chunking and per-chunk retry",
+  "show upload, transcription and summary progress in a sidebar panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Audio and transcripts are sent to Google's Gemini API; the Privacy & Data section covers this. Free Tier keys are limited to about 7 minutes of audio per minute. Run history is written to progress-sessions.json inside the plugin folder. API key storage requires Obsidian 1.11.4+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to turn audio files into structured, timestamped Markdown transcripts inside a note.",
+ "readmeHash": "2e363b6c4aa73ed48ad5636b60172cbeec7efe6e",
+ "relations": [
+  {
+   "evidence": "transcribes it with Gemini's dedicated speech-to-text model",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google AI API key for Gemini",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Audio transcription plugin that converts audio files linked in notes into Markdown transcripts and optional AI summaries using Gemini.",
+ "tags": [
+  "gemini",
+  "speech-to-text",
+  "speaker-labels",
+  "timestamps",
+  "summarization",
+  "chunking"
+ ]
+}

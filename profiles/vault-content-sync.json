@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compare vault notes, YAML metadata and attachments with a WebDAV folder by content",
+  "Inspect local changes, remote changes and conflicts in a sidebar",
+  "Open read-only local/remote file comparisons in the main editor",
+  "Merge independent line edits with a three-way merge while stopping on overlaps",
+  "Test the configured WebDAV connection from settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "delisted": "2026-11-18",
+ "disambiguation": null,
+ "extras": "Version 0.5.0 is experimental: external WebDAV connections are read-only, writes only work against a bundled localhost simulation, settings labels are currently in Chinese (with English search keywords), testing was done on macOS only, mobile is unsupported, and the author recommends starting in an isolated test vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to compare vault files against a remote WebDAV folder by content and resolve conflicts without blindly overwriting either side.",
+ "readmeHash": "a45824a1f5701025e3c236ecceb349cf989e3197",
+ "relations": [
+  {
+   "evidence": "the project's MDSync development origins are documented in THIRD_PARTY_NOTICES.md",
+   "plugin": "MDSync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Content-level comparison and conflict inspection between a vault and a WebDAV folder, with a conservative line-level three-way merge when a baseline exists.",
+ "tags": [
+  "webdav",
+  "three-way-merge",
+  "conflict-resolution",
+  "diff",
+  "checksums"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "canvas",
+  "science"
+ ],
+ "audience": [
+  "web3-developers",
+  "decentralized-science-researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pull content from IPFS by CID or DAG",
+  "Fetch DeSci nodes from dpid.org",
+  "Run compute jobs (cowsay, Stable Diffusion) through smart contracts",
+  "Add JSON objects to IPFS",
+  "Splay IPFS DAG child CIDs into canvas nodes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Must be built from source (clone repo, npm install, run docker compose); documentation links and tutorial videos live outside the README; several features are listed only as future plans; the blockchain commands run on a testnet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author states that 'The science tech stacks is due for an upgrade' and wants to enable collaboration in the decentralized science ecosystem inside Obsidian.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to interact with IPFS content, decentralized science nodes, or blockchain-executed compute jobs.",
+ "readmeHash": "46f1bf09f6d06b707d1aea1fc456c5a613b912e0",
+ "relations": [
+  {
+   "evidence": "runSDXL - run stable diffusion by executing a transation through lilypad",
+   "plugin": "Lilypad",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run an IPFS Daemon in the background, set the gateway default here to use IPFS",
+   "plugin": "IPFS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Ethereum private key with LILETH on the lalechuza testnet",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "IPFS daemon (Kubo) and docker gateway API",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 2
+ },
+ "summary": "Web3 toolkit that pulls content from IPFS, fetches DeSci nodes, and runs compute jobs like Stable Diffusion via smart contracts on canvas nodes.",
+ "tags": [
+  "ipfs",
+  "web3",
+  "ethereum",
+  "blockchain",
+  "stable-diffusion",
+  "lilypad",
+  "kubo"
+ ]
+}

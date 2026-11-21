@@ -1,0 +1,53 @@
+{
+ "also": [
+  "status-bar",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show branch, change counts and ahead/behind state in a status bar indicator",
+  "Run status, fetch, pull, commit, push and sync commands from the command palette",
+  "Auto-fetch and auto-sync the vault on configurable intervals",
+  "Build commit messages from a template with datetime substitution",
+  "Locate the Git executable in PATH or a user-configured path"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (requires Obsidian Desktop v1.8.7+); the vault must already be inside an initialized Git repository; installable via BRAT or manually; UI supports English and Russian.",
+ "intent": "new",
+ "intentEvidence": "By avoiding bundled JavaScript/Wasm Git reimplementations, it ensures maximum performance, security, and native Git semantics.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to delegate operations to the system's installed Git executable instead of bundled JavaScript/Wasm Git reimplementations, for performance, security and native Git semantics.",
+ "primary": "git",
+ "problem": "Obsidian has no native Git support, so vaults in Git repositories need a plugin to run status, commit and sync operations from inside the app.",
+ "readmeHash": "54201a02a05baf30e3d824c222478fb0b204a9bf",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git integration plugin that runs status, fetch, pull, commit, push and sync through the system Git executable, with a status bar branch indicator.",
+ "tags": [
+  "version-control",
+  "git-cli",
+  "auto-fetch",
+  "auto-sync",
+  "commit-template",
+  "branch-indicator"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault incrementally to a self-hosted LiteSync server",
+  "Encrypt note contents end-to-end with AES-256-GCM before upload",
+  "Merge conflicting edits with three-way diff3 and a conflict resolver UI",
+  "Browse, compare, and restore immutable per-file versions",
+  "Pair new devices via expiring QR links and share notes via revocable encrypted links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in Community Plugins; manual installation from release files is documented. The server component is a separate open-source project. Chinese documentation is available. The README includes an unusually detailed threat model with explicitly listed undetected attacks and metadata leaks.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault normally means trusting a third-party cloud or hosted service; this runs sync through a server you control, so notes never leave your infrastructure unencrypted.",
+ "readmeHash": "120ce09623458105bd18f8deb22fbc62fe547e5b",
+ "relations": [
+  {
+   "evidence": "and optional Restic → Cloudflare R2 disaster backup",
+   "plugin": "Restic → Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LiteSync Server (self-hosted Docker container)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Restic and Cloudflare R2 for off-site disaster backup",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted sync that sends your vault to your own LiteSync server with end-to-end encryption, version history, and automatic Markdown merge.",
+ "tags": [
+  "e2ee",
+  "self-hosted",
+  "diff3",
+  "aes-256-gcm",
+  "qr-pairing",
+  "version-history"
+ ]
+}

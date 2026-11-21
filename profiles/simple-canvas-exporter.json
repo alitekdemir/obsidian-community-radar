@@ -1,0 +1,59 @@
+{
+ "also": [
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "export the current Canvas to a single offline HTML file",
+  "search exported HTML with highlighting and card navigation",
+  "filter cards by badges and inline custom field annotations",
+  "read card contents in a reflowable side panel",
+  "add a title, author, timestamp, and background watermark to exports"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires Obsidian 1.13.7 or later; file cards, web cards, embedded notes, PDFs, and remote images become placeholders in exports. No network access or account needed. Older exports must be re-exported to gain newer viewer features.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian Canvas files can only be viewed inside Obsidian, so canvases cannot be shared as standalone, viewable documents with people who don't use the app.",
+ "readmeHash": "9b46eade4bde4c261196e579e7838847842e0552",
+ "relations": [
+  {
+   "evidence": "Existing standard span.badge markup works even without SimpleBadge installed, using the exporter's built-in fallback styling.",
+   "plugin": "SimpleBadge",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "SimpleBadge",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Exports an Obsidian Canvas to a single standalone HTML file that preserves card layout and adds offline search, reading, and filters.",
+ "tags": [
+  "single-file-html",
+  "standalone-html",
+  "offline-viewing",
+  "watermark",
+  "simple-badge",
+  "footnote-navigation",
+  "static-export"
+ ]
+}

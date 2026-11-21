@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vaults between desktop and mobile via S3, Dropbox, OneDrive, or WebDAV",
+  "Encrypt files end-to-end with a password using AES-256 GCM",
+  "Run scheduled auto sync, sync on save, or manual sync from the ribbon or command palette",
+  "Sync bookmarks and optionally other Obsidian configuration files",
+  "Import and export plugin settings via QR code"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not the official Obsidian Sync service; it uses the user's own cloud storage accounts as the sync broker.",
+ "extras": "README repeatedly warns to back up the vault before use, notes the plugin is not backwards compatible with Remotely Save data, states it may be less stable than Remotely Save, and documents that conflicts are resolved purely by last-modified time with no content merge. Setup details for CORS and debugging are partly in external docs.",
+ "intent": "alternative",
+ "intentEvidence": "Remotely Sync is a fork of Remotely Save, the unofficial sync plugin for Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Remotely Save because it was not actively maintained and had security issues in its encryption implementation.",
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid service, and the popular community sync plugin Remotely Save was unmaintained with identified weaknesses in its end-to-end encryption.",
+ "readmeHash": "3bdd98e6ab0b110c4b7731b86a997f532695fa25",
+ "relations": [
+  {
+   "evidence": "Remotely Sync is a fork of Remotely Save, the unofficial sync plugin for Obsidian.",
+   "plugin": "Remotely Save",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3, Dropbox, OneDrive, or WebDAV service",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "cloud storage operations and storage may cost money",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Fork of Remotely Save that syncs a vault across devices via S3, Dropbox, OneDrive, or WebDAV, with hardened end-to-end encryption.",
+ "tags": [
+  "s3",
+  "dropbox",
+  "onedrive",
+  "webdav",
+  "end-to-end-encryption",
+  "aes-gcm",
+  "nextcloud",
+  "minio"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "project-management",
+  "dates"
+ ],
+ "audience": [
+  "engineering-managers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Read goal and historical Jira tickets with configurable JQL",
+  "Reconstruct stage durations from Jira status changelogs",
+  "Match comparable tickets by type, component, labels, priority, and summary",
+  "Run a capacity-aware Monte Carlo simulation for P50, P80, and P95 dates",
+  "Apply holidays, crew leave, focus factor, and release weekdays to the schedule"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a deployment or release pipeline tool; it only forecasts milestone dates from Jira history and calendar capacity.",
+ "extras": "Credentials, token-holder variable, project key, and private calendar URLs are stored in the vault's local plugin data file; the README advises using a dedicated, revocable token. The roadmap lists Google Calendar and Microsoft 365 OAuth, Jira OAuth 2.0, dependency simulation, and forecast backtesting as planned.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Jira does not say when a goal will actually reach production, and story points are often missing or unreliable as a basis for estimating.",
+ "profiledAt": "2026-11-16",
+ "provider": "Particle AI",
+ "readmeHash": "c144c1599db175147ce4e62e8514478f74286a15",
+ "relations": [
+  {
+   "evidence": "Path to Prod makes network requests only to the configured Jira site and optional HTTPS ICS calendar feeds.",
+   "plugin": "Jira",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Jira",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Jira API token, OAuth/Bearer token, or personal access token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Atlassian account email (for Cloud API tokens)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Jira delivery forecaster that predicts development, staging, and production dates from historical stage durations and team capacity.",
+ "tags": [
+  "jira",
+  "ics",
+  "scheduling",
+  "statistics"
+ ],
+ "textHash": "7feef8c994b01d8bb72c873af4dbba8abf7c77ed"
+}

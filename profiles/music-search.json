@@ -1,0 +1,74 @@
+{
+ "also": [
+  "search",
+  "templating"
+ ],
+ "audience": [
+  "music-collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "search MusicBrainz for music releases by artist, title, or both",
+  "create notes with release metadata, genres, and tracklists",
+  "download cover art locally to the vault",
+  "customize note output via template variables, custom fields, or a template file",
+  "add configurable tags and file name templates to generated notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general in-vault search tool; it queries the external MusicBrainz database and creates new release notes.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. README documents all template variables, including date-format tokens, and describes both custom-field and template-file modes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up music release metadata from an external database and generate structured notes for albums, EPs, or singles.",
+ "readmeHash": "bad61999e6ac39a29e4df48b4efb8fc9bebd2369",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that searches the MusicBrainz database and creates structured notes for music releases.",
+   "plugin": "MusicBrainz",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Rich metadata: genres, tracklist, release date, cover art, MusicBrainz/Discogs/Wikipedia links",
+   "plugin": "Discogs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Wikidata / Wikipedia — Wikipedia article links via Wikidata sitelinks",
+   "plugin": "Wikipedia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cover Art Archive — album artwork",
+   "plugin": "Cover Art Archive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MusicBrainz",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Searches the MusicBrainz database for music releases and creates notes with metadata, cover art, and links to Discogs and Wikipedia.",
+ "tags": [
+  "musicbrainz",
+  "discogs",
+  "wikipedia",
+  "cover-art",
+  "music-releases",
+  "cataloging"
+ ]
+}

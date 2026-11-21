@@ -1,0 +1,59 @@
+{
+ "also": [
+  "links",
+  "autocomplete"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a matching [[tag]] page when a tag is clicked in Reading view or Live Preview",
+  "Create the missing Markdown page, including parent folders for nested tags",
+  "Resolve tag targets through frontmatter alias and aliases values",
+  "Classify tag mentions into the linked-backlinks list",
+  "Suggest note names and aliases as page completion when typing #"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an 'not manually reviewed by Obsidian staff' notice; install is via BRAT or manual file download, and tag clicks do not work in Source mode. Repository is named obsdian-tag-to-page while the plugin ID remains tag-to-page.",
+ "intent": "improve",
+ "intentEvidence": "changes tag clicks from Obsidian's default tag-search behavior into page navigation",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "In Obsidian, clicking a #tag only triggers a search; there is no built-in way to make tags navigate to a dedicated page like Logseq does.",
+ "readmeHash": "c1a321da80cb6b4c792c55f7d9ffb4a3f19b2d96",
+ "relations": [
+  {
+   "evidence": "Make #tags behave more like Logseq: click a tag to open its matching [[tag]] page.",
+   "plugin": "Logseq",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tag-click interceptor that opens the matching [[tag]] page instead of running a tag search, creating the page when it does not exist.",
+ "tags": [
+  "logseq",
+  "aliases",
+  "nested-tags",
+  "backlinks",
+  "tag-click"
+ ]
+}

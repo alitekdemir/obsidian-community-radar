@@ -1,0 +1,72 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [
+  "wine-collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Track wine lots with quantity, price, shelf and phased drinking windows",
+  "Consume bottles and log tastings to daily notes and wine notes",
+  "Show dashboard, monthly and sidebar views of what is drinkable, overdue or cellaring",
+  "Write rollup properties on wine notes for Bases and Dataview queries",
+  "Infer drinking windows from varietal and style"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin has not been manually reviewed by Obsidian staff, and it makes no network requests — all prices and statistics are computed locally from the notes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to track a physical inventory such as wine bottles with quantities, purchase lots, drinking windows and consumption history.",
+ "readmeHash": "0d7a4167aeb1659f3c040cfb8e78198526b547c3",
+ "relations": [
+  {
+   "evidence": "Read daily/monthly folders from the Journals plugin",
+   "plugin": "Journals",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Read the spending heading and currency from the Finance Tracker plugin",
+   "plugin": "Finance Tracker",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Queryable from Bases and Dataview.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Journals, Finance Tracker, Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Wine cellar tracker that stores each bottle as a Markdown note with lots, drinking windows, tasting logs and status views.",
+ "tags": [
+  "wine",
+  "cellar",
+  "inventory",
+  "drinking-windows",
+  "tasting-log",
+  "dataview",
+  "spending-log"
+ ]
+}

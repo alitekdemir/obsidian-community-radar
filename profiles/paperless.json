@@ -1,0 +1,67 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse all documents on a paperless-ngx instance from within Obsidian",
+  "Insert one or many document references into a note without storing PDF binaries",
+  "Replace a Paperless URL in a note with a document reference",
+  "Recreate missing PDF++ dummy files referenced by a note",
+  "Refresh the cached document, tag, and metadata lists"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a document-scanning or paperless-workflow tool; it links notes to documents already managed on a paperless-ngx server.",
+ "extras": "PDF binary data is never downloaded; inserted files are small PDF++ dummy files containing only the Paperless share URL, so documents require an accessible paperless-ngx instance to view.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores PDFs as vault files, so referencing documents from an external document-management system means copying binaries into the vault and growing its size.",
+ "readmeHash": "daffc7f6a8da1b2968de4cff17f5bb91fd201992",
+ "relations": [
+  {
+   "evidence": "You must also have the ✨amazing✨ PDF++ plugin installed!",
+   "plugin": "PDF++",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "paperless-ngx",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "PDF++",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Paperless API auth token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Integration that inserts links to PDFs stored on a self-hosted paperless-ngx server, loading documents remotely instead of storing them in the vault.",
+ "tags": [
+  "paperless-ngx",
+  "self-hosted",
+  "api-token",
+  "share-links",
+  "pdf-viewing"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault with Nutstore over WebDAV on desktop and mobile",
+  "Choose between five sync policies (two-way, send-only, receive-only, and mirror variants)",
+  "Resolve two-way sync conflicts via conflict-free merge, diff3, or priority rules",
+  "Filter synced files with Gitignore-style include/exclude rules, size limits, and config-directory options",
+  "Chat with an AI agent that edits files, uses Skills, connects to MCP servers, and remembers preferences"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not only a sync tool; it also bundles an AI agent chatbox with tools, Skills, MCP connections, memory, and subagents.",
+ "extras": "README warns that mirror policies can delete files unique to one side and advises backing up before the first sync; it notes the plugin is not the official Obsidian Sync service and directs issue reporting to GitHub Issues. AI agent has a YOLO (Full Access) mode that skips per-operation confirmation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync service does not work with Nutstore, so Nutstore users lack a controlled way to sync their vault across devices.",
+ "readmeHash": "5b0ea2888efa4ddb25f146f10552e210dc81ea28",
+ "relations": [
+  {
+   "evidence": "Nutstore Sync is an Obsidian plugin for syncing a vault with Nutstore on desktop and mobile",
+   "plugin": "Nutstore",
+   "type": "integrates"
+  },
+  {
+   "evidence": "MCP: Connect configured MCP servers to bring external tools and information sources into a conversation",
+   "plugin": "MCP servers",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use OpenAI, Anthropic, Google, xAI, or custom compatible endpoints",
+   "plugin": "OpenAI, Anthropic, Google, xAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin is not the official Obsidian Sync service",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Nutstore account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (or Nutstore AI authorization)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "WebDAV-based sync plugin that keeps a vault in sync with Nutstore (坚果云) using configurable sync policies, with an optional built-in AI assistant.",
+ "tags": [
+  "nutstore",
+  "webdav",
+  "mcp",
+  "diff3-merge",
+  "conflict-resolution",
+  "gitignore-filters"
+ ]
+}

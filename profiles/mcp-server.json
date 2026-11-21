@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run a local Model Context Protocol server inside Obsidian over Streamable HTTP",
+  "Expose notes, backlinks, metadata, attachments, and vault stats to connected AI agents",
+  "Let agents create, edit, append, patch, rename, and delete notes",
+  "Search notes by date, tags, frontmatter, full text, or regex",
+  "Enforce access control with bearer token auth and path/tag blacklists"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Beta status (\"Production Ready Logic\"); installed via BRAT; flagged as not manually reviewed by Obsidian staff; includes an instructions section written for AI agents configuring clients.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way for external AI agents to read the active note, search the vault, or create and edit notes.",
+ "readmeHash": "5db8cb8feae836c222e0ca6f763cf3bd0e7103c8",
+ "relations": [
+  {
+   "evidence": "Claude Desktop does not natively support Streamable HTTP in its config file. Use the mcp-remote proxy",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add to ~/.cursor/mcp.json (global) or .cursor/mcp.json (workspace)",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add to ~/.codeium/windsurf/mcp_config.json",
+   "plugin": "Windsurf",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code natively supports Streamable HTTP. Add the server via CLI",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenClaw does not yet support MCP natively. Use the bundled OpenClaw skill instead",
+   "plugin": "OpenClaw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an MCP client such as Claude Desktop, Cursor, Windsurf, Claude Code, or OpenClaw",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Local MCP server that lets external AI agents such as Claude Desktop, Cursor, and Claude Code read, search, and edit vault notes.",
+ "tags": [
+  "model-context-protocol",
+  "ai-agents",
+  "claude-desktop",
+  "cursor",
+  "windsurf",
+  "http-transport"
+ ]
+}

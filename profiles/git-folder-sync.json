@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync files and folders bidirectionally with a GitHub repository folder",
+  "Sync or pull the currently edited file via a sync menu",
+  "Batch-initialize or force-sync the whole vault with a remote",
+  "Upload pasted images to cloud storage and insert CDN links",
+  "Cache file status and show sync status in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an unreviewed-plugin notice. The README warns that force sync overwrites existing files and that GitHub API rate limits apply (5000 requests/hour authenticated).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync only a specific folder with GitHub, sync single files on demand, or replace pasted images with cloud-hosted links.",
+ "readmeHash": "138bf7b8b85b1120c2f1570687897f30635cf7e0",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that supports synchronization with GitHub repositories",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with a personal access token",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud storage credentials (Aliyun OSS, Tencent COS, AWS S3, or Cloudflare R2)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs vault files or folders with a chosen folder in a GitHub repository and optionally uploads pasted images to cloud storage.",
+ "tags": [
+  "github",
+  "personal-access-token",
+  "cloud-storage",
+  "aliyun-oss",
+  "tencent-cos",
+  "aws-s3",
+  "cloudflare-r2",
+  "cdn"
+ ]
+}

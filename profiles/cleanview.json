@@ -1,0 +1,58 @@
+{
+ "also": [
+  "tasks",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build dashboard blocks (tasks, table, stat, chart, countdown, text) from a dialog instead of a query language",
+  "Filter, sort and group tasks and files using Tasks emoji shorthand or Dataview inline fields",
+  "Render hand-written SVG charts that inherit theme colours",
+  "Toggle task checkboxes with line verification before writing",
+  "Re-index edited notes reactively via Obsidian's metadataCache"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not clean or format notes; it renders read-only dashboard blocks from data already in the vault.",
+ "extras": "Not yet in the community plugin browser; must be installed manually from GitHub releases. Benchmark figures are the author's own, measured in Node, not inside Obsidian. Requires Obsidian 1.13.0 or later (older versions get release 0.1.7). Release assets include build provenance attestations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to turn existing tasks and note metadata into live dashboards without learning a query language or running JavaScript.",
+ "readmeHash": "ab8e4c1d3b4e58d5fdba0342adcbde1f47540a08",
+ "relations": [
+  {
+   "evidence": "It reads the task syntax you already use — both the Tasks plugin's emoji shorthand",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "and Dataview's inline fields — so it drops into an existing vault without rewriting anything",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Dashboard builder that renders task lists, tables, key figures, countdowns and hand-drawn SVG charts from existing notes via YAML blocks, fully local.",
+ "tags": [
+  "dashboards",
+  "dataview-inline-fields",
+  "tasks-plugin-syntax",
+  "svg-charts",
+  "countdowns",
+  "metadata-cache",
+  "local-only",
+  "yaml-blocks"
+ ]
+}

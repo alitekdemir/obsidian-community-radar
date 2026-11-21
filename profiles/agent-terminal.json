@@ -1,0 +1,89 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Launch AI coding agents in a terminal inside the vault",
+  "Run per-agent quick commands from a menu, command palette or hotkeys",
+  "Bootstrap one shared instruction file and skill set linked to each agent's config files",
+  "Let agents control Obsidian through the official Obsidian CLI",
+  "Pick shells, starting folders and optional auto-sync for the terminal"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an in-app AI chat plugin; it runs real command-line coding agents in a terminal panel.",
+ "extras": "Downloads a node-pty native module from GitHub releases on first terminal use (with permission and SHA-256 check); warns that permission-skipping commands and agents run with the user's full file permissions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in terminal and no way to launch command-line AI coding agents against a vault or keep their separate instruction files in sync.",
+ "readmeHash": "c71b2d8cba7f84e37007bcb9cd3266a0dead37fb",
+ "relations": [
+  {
+   "evidence": "Run AI coding agents — Claude Code, Codex CLI, opencode, Antigravity CLI or any other command-line tool",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run AI coding agents — Claude Code, Codex CLI, opencode, Antigravity CLI or any other command-line tool",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run AI coding agents — Claude Code, Codex CLI, opencode, Antigravity CLI or any other command-line tool",
+   "plugin": "opencode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ollama launch starts Claude Code, Codex CLI or opencode with a local model or an Ollama cloud model",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Agents can drive the Obsidian window through the official Obsidian CLI",
+   "plugin": "Obsidian CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AI coding agents (Claude Code, Codex CLI, opencode, Antigravity CLI)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "In-vault terminal for launching AI coding agents like Claude Code and Codex, with shared instruction files, skills and one-click quick commands.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "opencode",
+  "ollama",
+  "obsidian-cli",
+  "terminal"
+ ]
+}

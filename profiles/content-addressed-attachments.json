@@ -1,0 +1,65 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Store attachments by content hash with automatic deduplication",
+  "Resolve ipfs:// links from local storage with external gateway fallback",
+  "Preprocess attachments (format conversion, compression) before storage via scripts",
+  "Lock web images by downloading and caching them with CID checksum verification",
+  "Encrypt and decrypt attachments with AES-256-GCM keys and path-based auto-encrypt rules"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a gateway to the IPFS network; it applies IPFS-style content addressing entirely within the local vault.",
+ "extras": "Manifest mentions optional hosting via GitHub private repositories; the docs warn to exclude the decrypted cache directory from sync tools and place full-vault migration/locking operations in settings to avoid accidental execution.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian stores attachments as regular files with name-based links, which duplicates identical files and leaves external image links vulnerable to breakage and offline gaps.",
+ "readmeHash": "7fa6e4d0c0676cda8718c8b459e4b86191cfc6d8",
+ "relations": [
+  {
+   "evidence": "Implements content-addressed storage for attachments, providing IPFS-like functionality",
+   "plugin": "IPFS",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Choose a preset script (e.g., ImageMagick WebP / AVIF conversion)",
+   "plugin": "ImageMagick",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitHub",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Content-addressed attachment storage that deduplicates files and references them as resolvable ipfs:// links, with encryption and web-image caching.",
+ "tags": [
+  "ipfs",
+  "cid",
+  "deduplication",
+  "encryption",
+  "aes-256-gcm",
+  "webp",
+  "imagemagick",
+  "mustache"
+ ]
+}

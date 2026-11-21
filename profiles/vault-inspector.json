@@ -1,0 +1,45 @@
+{
+ "also": [
+  "links",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan the vault for broken wiki, markdown, and embed links",
+  "Detect orphan attachments and duplicate files by content hash",
+  "Report empty notes, oversized files, and frontmatter type inconsistencies",
+  "Check external URLs for availability (opt-in)",
+  "Export Markdown reports and apply user-confirmed fixes such as batch delete"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Read-only by design: scans never modify files, and fixes require explicit confirmation and only move files to Obsidian's trash. An optional CLI version supports automation and CI. Automatic scans and network access are disabled by default; the External Links scanner is opt-in because it makes HTTP requests. The manifest notes the plugin has not been manually reviewed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian has no built-in way to audit a long-lived vault for broken links, unused attachments, duplicates, and metadata inconsistencies before publishing, migrating, or cleaning up.",
+ "readmeHash": "1ffe759a98ef25964b79152f19a5e69ad43d8dde",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault maintenance scanner that reports broken links, orphan attachments, duplicate files, empty notes, frontmatter type drift, tag issues, and oversized files.",
+ "tags": [
+  "vault-maintenance",
+  "orphan-files",
+  "duplicate-detection",
+  "link-checking",
+  "dead-links",
+  "cli"
+ ]
+}

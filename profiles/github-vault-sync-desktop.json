@@ -1,0 +1,71 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault with a GitHub repository via commit, fetch, three-way merge, and push",
+  "Run syncs automatically on a configurable timer or manually from the command palette or status bar",
+  "Preserve unresolvable merge conflicts as separate conflict-copy files",
+  "Exclude secrets and noise from the repository with a generated .gitignore",
+  "Show sync state, pending commits, and conflicts in the status bar and a sync log"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (uses Node.js APIs, cannot run on mobile); requires Obsidian 1.11.4+. Renamed from the github-vault-sync id because that id was taken; existing installs need a manual folder move and re-entering the token. Not manually reviewed by Obsidian staff. Chinese documentation is available in the repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault backed up and synced across devices using a GitHub repository without export or conversion.",
+ "readmeHash": "3978506407b21b740ea6991ce3972220d83b8858",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian vault with a GitHub repository.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Git 2.28 or later | Located automatically, or set a path manually in the settings.",
+   "plugin": "Git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git 2.28 or later",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token (or system credential helper)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Git-based sync that treats the vault as a Git working tree and commits, merges, and pushes it to a GitHub repository on a timer or on demand.",
+ "tags": [
+  "github",
+  "version-control",
+  "conflict-resolution",
+  "personal-access-token"
+ ]
+}

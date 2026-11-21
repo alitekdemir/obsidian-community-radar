@@ -1,0 +1,60 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Force a per-note open mode via an open-mode frontmatter key",
+  "Apply a global default mode for notes without the key",
+  "Recognize the legacy obsidianUIMode key from Force note view mode",
+  "Keep manual mode switches while a note stays open, reapplying on reopen",
+  "Accept mode aliases such as read, preview, source and live"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note viewer or renderer; it only decides whether a note opens in reading or editing mode.",
+ "extras": "Documentation is bilingual (Chinese with English translations) and the settings include a Chinese/English interface language toggle; the README states the plugin only reads frontmatter and never modifies note data.",
+ "intent": "alternative",
+ "intentEvidence": "recognizes the obsidianUIMode key from Force note view mode, so existing notes migrate with zero changes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian applies one default view mode to all notes, so notes meant for writing and notes meant for reading always open the same way unless switched manually.",
+ "readmeHash": "214a9ebf850b51970efa9fa587e214c9a896e07e",
+ "relations": [
+  {
+   "evidence": "recognizes the obsidianUIMode key from Force note view mode, so existing notes migrate with zero changes",
+   "plugin": "Force note view mode",
+   "type": "alternative"
+  },
+  {
+   "evidence": "功能定位参考了 Current View 与 Default View Mode（仅借鉴思路，未复制代码）",
+   "plugin": "Default View Mode",
+   "type": "inspired"
+  },
+  {
+   "evidence": "功能定位参考了 Current View 与 Default View Mode（仅借鉴思路，未复制代码）",
+   "plugin": "Current View",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Per-note view mode control that opens each note in reading or editing mode based on an open-mode frontmatter key, with a configurable global default.",
+ "tags": [
+  "view-mode",
+  "reading-view",
+  "live-preview",
+  "open-behavior"
+ ]
+}

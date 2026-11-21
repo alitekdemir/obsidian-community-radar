@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish the current note to a GitHub-backed blog as a commit",
+  "Create WeChat Official Account drafts via the official API",
+  "Preview channel-specific output and require confirmation before publishing",
+  "Upload article images and covers to WeChat as media assets",
+  "Initialize a WindPost base, content folder, and example notes in the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS only and requires Obsidian Desktop 1.12.0 or later. Full setup and troubleshooting live in a separate user guide. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Tokens and secrets are stored via Obsidian SecretStorage; no telemetry, payments, or browser automation.",
+ "intent": "alternative",
+ "intentEvidence": "用 WindPost 替换 Obsidian 中的 WePost 插件入口",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author previously used Notion as the knowledge base with several separate tools for blog and WeChat publishing, and rebuilt the pipeline around Obsidian as the single content source after migrating.",
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to push a finished note to channels like a GitHub-backed blog or WeChat Official Account, so authors juggle separate tools with no unified publishing state.",
+ "readmeHash": "1c04ee58bf8dd9eb1ab06f71aa79f044c7cb89ff",
+ "relations": [
+  {
+   "evidence": "WePost 不再作为 Obsidian 插件继续使用。",
+   "plugin": "WePost",
+   "type": "replaces"
+  },
+  {
+   "evidence": "WindPost 只把用户确认发布的文章及相关附件通过 GitHub API提交到 WindScroll",
+   "plugin": "WindScroll",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub repository and WeChat Official Account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained token and WeChat AppSecret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing workbench that converts the current note and publishes it to a GitHub-backed blog or a WeChat Official Account draft.",
+ "tags": [
+  "wechat",
+  "github",
+  "astro",
+  "vercel",
+  "static-site"
+ ]
+}

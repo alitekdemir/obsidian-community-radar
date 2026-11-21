@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the vault through an installed Codex CLI session",
+  "Organize, summarize, and edit notes, frontmatter, and links on request",
+  "Resume multi-turn Codex sessions and manage named conversations locally",
+  "Switch between read-only analysis and workspace-write sandbox access",
+  "Send active-note and text-selection context into the conversation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a workspace or layout manager; it is a chat panel that runs the Codex CLI against the vault.",
+ "extras": "Early public beta (0.3.0): desktop-only, macOS/Linux only (Windows unverified), local filesystem vaults only, one Codex turn at a time. Not manually reviewed by Obsidian staff. Recommends keeping the vault under Git or a backup before editing tasks; installable via BRAT; SECURITY.md covers the threat model.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with an AI agent that can read and edit the current vault, and other AI plugins require their own API keys.",
+ "readmeHash": "c87013752596f9b6ae9425e3aad60a88cc828571",
+ "relations": [
+  {
+   "evidence": "Codex runs through the CLI you already installed and signed into",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Codex / ChatGPT login",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Side-panel chat that drives an existing Codex CLI login to organize, edit, and explore vault notes.",
+ "tags": [
+  "codex-cli",
+  "chatgpt",
+  "cli-agent",
+  "chat-panel",
+  "sandbox-permissions",
+  "mcp"
+ ]
+}

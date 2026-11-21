@@ -1,0 +1,63 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [
+  "korean-bible-readers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "read Bible text in a sidebar across four translations (개역한글, 개역개정, NIV, KJV)",
+  "jump to a chapter or verse via quick reference search with autocomplete (히3, 히3:5, Heb 3)",
+  "browse the Bible via Old/New Testament, book and chapter buttons",
+  "select multiple verses and copy them as callout or plain text with configurable formatting",
+  "load a user-supplied JSON file for the copyright-protected 개역개정 text"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The 개역개정 translation is copyright-protected and not bundled; users must place their own legally obtained JSON file in the vault and set its path. Other translations are fetched at runtime from bolls.life, so an internet connection is needed.",
+ "intent": "alternative",
+ "intentEvidence": "이 플러그인은 Janis Ringli님의 Bible Sidecar 플러그인을 포크해 한국어 환경에 맞게 재구성한 것입니다.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Janis Ringli's Bible Sidecar and reworked it to fit a Korean-language environment (Korean translations, Korean book names and abbreviations).",
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to read Bible passages in a sidebar or copy verses into notes, especially in Korean translations.",
+ "readmeHash": "9a8a4e656c2b55012a3904c793a41aef763b0a84",
+ "relations": [
+  {
+   "evidence": "Janis Ringli님의 Bible Sidecar 플러그인을 포크해 한국어 환경에 맞게 재구성한 것입니다",
+   "plugin": "Bible Sidecar by Janis Ringli",
+   "type": "fork"
+  },
+  {
+   "evidence": "개역한글 / NIV / KJV: bolls.life 공개 API에서 실시간으로 가져옵니다",
+   "plugin": "bolls.life",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "bolls.life public API",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar Bible reader for Korean users with KRV, NKRV, NIV and KJV, quick reference search like 히3 or Heb 3, and verse copying.",
+ "tags": [
+  "bible",
+  "korean",
+  "scripture",
+  "bolls-life",
+  "niv",
+  "kjv"
+ ]
+}

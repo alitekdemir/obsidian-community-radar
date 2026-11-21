@@ -1,0 +1,63 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run an interactive shell in an embedded terminal panel",
+  "Manage multiple terminal tabs with rename, colors, and pinning",
+  "Open terminals at the vault root, current folder, or a right-clicked file or folder",
+  "Click file paths and URLs in terminal output to open them",
+  "Persist terminal sessions and restore them when Obsidian reopens"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; requires a one-time download of platform-specific node-pty binaries via a settings button, with troubleshooting steps for ARM64 Windows. Shows a one-time donation pop-up after minor/major updates (disable in settings).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian has no built-in terminal, so shell work means switching to a separate terminal window outside the vault.",
+ "readmeHash": "a5ea08b1397fb8850382018b2a556e0dde41497f",
+ "relations": [
+  {
+   "evidence": "Optional Claude Code integration: auto-maintained session registry with clickable Resume links",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the BRAT plugin if you don't have it",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Embedded terminal panel that runs a full PTY shell (PowerShell, bash, etc.) inside Obsidian via xterm.js and node-pty.",
+ "tags": [
+  "terminal",
+  "shell",
+  "xterm-js",
+  "node-pty",
+  "claude-code",
+  "pty"
+ ]
+}

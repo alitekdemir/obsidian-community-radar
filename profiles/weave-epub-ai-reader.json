@@ -1,0 +1,72 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read EPUB books with highlights, deep links, and bookshelf state",
+  "Run five AI actions on text selected in the reader",
+  "Send selections, prompts, and model settings to a DeepSeek API endpoint",
+  "Show AI results in a viewport-aware result window",
+  "Store the API key in Obsidian SecretStorage"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet manually reviewed by Obsidian staff; installs manually from GitHub releases or via BRAT. Part of the README (the five AI action names) is in Chinese. The README includes a privacy and network disclosure and links to PRIVACY.md.",
+ "intent": "alternative",
+ "intentEvidence": "This is an independent GPL-3.0-or-later derivative of Weave EPUB Reader 0.6.55 by Rabbit (zhuzhige).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked the reader to keep its native selected-text pipeline and integrate the AI menu, DeepSeek requests, settings, and result window directly into one plugin, without DOM injection or runtime patching.",
+ "primary": "ai",
+ "problem": "The upstream Weave reader delegates its AI toolbar action to a separate Weave main plugin, so AI-assisted reading requires installing and running two plugins together.",
+ "readmeHash": "a46118f6a4a359ff654f4333c7313adb17ef5c03",
+ "relations": [
+  {
+   "evidence": "This is an independent GPL-3.0-or-later derivative of Weave EPUB Reader 0.6.55",
+   "plugin": "Weave EPUB Reader",
+   "type": "fork"
+  },
+  {
+   "evidence": "the action is delegated to the separate Weave main plugin. This fork keeps the reader's native selected-text pipeline",
+   "plugin": "Weave main plugin",
+   "type": "replaces"
+  },
+  {
+   "evidence": "the selected text, the chosen prompt, model name, and output limit are sent to the configured DeepSeek API endpoint",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "DeepSeek account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "EPUB ebook reader fork with highlights and deep links that integrates a DeepSeek AI assistant into the reader's native selection toolbar.",
+ "tags": [
+  "epub",
+  "ebook-reader",
+  "deepseek",
+  "translation",
+  "grammar-analysis",
+  "highlights",
+  "secretstorage"
+ ]
+}

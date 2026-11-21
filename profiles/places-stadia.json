@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "stub",
+ "capabilities": [
+  "Provide Stadia Maps vector tiles and styles to the Places plugin",
+  "Resolve search terms to POI suggestions and coordinates",
+  "Build directions between waypoints and isochrone reachability polygons",
+  "Snap recorded tracks to the road network and match named ways",
+  "Read elevation for coordinates and load 3D terrain DEM tiles"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README only documents network requests and library dependencies; setup and usage instructions are not included, and the listing notes the plugin has not been manually reviewed.",
+ "intent": "improve",
+ "intentEvidence": "Map provider for Places using Stadia Maps",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The Places plugin needs a map provider for tiles, search, and routing features, which Obsidian does not offer on its own.",
+ "readmeHash": "8aceb2a7e89ea7bc1792a427320155570844705b",
+ "relations": [
+  {
+   "evidence": "Map provider for Places using Stadia Maps",
+   "plugin": "Places",
+   "type": "extends"
+  },
+  {
+   "evidence": "@stadiamaps/api | Geocoding, routing, isochrones, and snapping",
+   "plugin": "Stadia Maps",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "Map provider plugin that adds Stadia Maps tiles, POI search, routing, isochrones, and track matching to the Places plugin.",
+ "tags": [
+  "stadia-maps",
+  "maplibre",
+  "routing",
+  "isochrones",
+  "geocoding",
+  "elevation",
+  "track-snapping"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with DeepSeek Harness from a streaming chat panel with stop and retry",
+  "Display collapsible thinking blocks and tool-call cards with permission prompts",
+  "Inject note paths, full note content or vault root into the conversation context",
+  "Reuse DSH Web API key and base URL automatically for zero-config setup",
+  "Fork conversations, attach notes and export or import settings and chat history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README is bilingual (Simplified Chinese / English); it documents known limitations (sessions are not reloaded after plugin restart, 'always allow' permissions depend on server support, thinking visibility depends on the ACP server) and warns that `dsh --profile acp` does not load the ACP server — a separate bin command is required. Installation is manual (copy main.js/manifest.json/styles.css into the plugins folder).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README doesn't state why the author built it.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to talk to a locally installed DeepSeek Harness agent over the Agent Client Protocol.",
+ "readmeHash": "cc0fe7af9fe25aa388dc9c1b39cf26d6573cc6c5",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "DeepSeek Harness (dsh)",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "@deepseek-ai/dsh-acp-demo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness (dsh) with an ACP profile",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key (auto-read from DSH Web when left empty)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "An ACP bridge that lets you chat with DeepSeek Harness inside Obsidian, with streaming replies, thinking blocks and tool calls.",
+ "tags": [
+  "deepseek",
+  "acp",
+  "agent-client-protocol",
+  "json-rpc",
+  "streaming",
+  "tool-calls",
+  "chat",
+  "thinking-blocks"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate Anki flashcards from the current note using the DeepSeek API",
+  "Recognize images in notes when generating cards",
+  "Create Cloze cards with automatic {{c::}} formatting and an incremental fill-in button",
+  "Batch-replace tags across all generated cards",
+  "Copy generated card content for import into Anki and test the Anki Connect connection"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is written in Chinese. Requires an internet connection; note content is sent to the DeepSeek API for processing, and API calls may incur costs. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "在ankify基础上增加的扩展功能",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to turn note content into Anki flashcards, so users must write cards by hand or paste notes into other tools.",
+ "readmeHash": "fd946306aafa385594596dcd7cb769aa9e1c608a",
+ "relations": [
+  {
+   "evidence": "在ankify基础上增加的扩展功能",
+   "plugin": "ankify",
+   "type": "extends"
+  },
+  {
+   "evidence": "可以使用 DeepSeek API 将当前笔记内容转换为 Anki 卡片",
+   "plugin": "DeepSeek API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anki Connect 测试按钮：支持测试 Anki Connect 连接状态",
+   "plugin": "Anki Connect",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Anki (and optionally Anki Connect)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI plugin that converts Obsidian notes into Anki flashcards using the DeepSeek API, with image recognition, Cloze support and batch tag editing.",
+ "tags": [
+  "deepseek",
+  "anki",
+  "anki-connect",
+  "cloze",
+  "doubao",
+  "image-recognition",
+  "prompt-templates"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate selected text automatically via Google Cloud Translation",
+  "Display translations in a read-only side panel",
+  "Merge hard line breaks from PDF-copied text before translating",
+  "Cache translations locally, optionally persisting across restarts",
+  "Test Google API key connectivity from settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Translation calls consume Google API quota, mitigated by debouncing and a local cache. Installation is manual only (from releases or building from source); the plugin has not been manually reviewed by Obsidian staff. Optional Claude Code skill (/configure-google-translate) can write the plugin's settings file.",
+ "intent": "alternative",
+ "intentEvidence": "This project is a minimal, focused reimagining of the select-to-translate workflow.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found other translation plugins' paste-and-click workflow redundant since the original text is already in the note, and wanted select-to-translate with zero friction.",
+ "primary": "integrations",
+ "problem": "Existing translation plugins require opening a panel, pasting text into an input box, and clicking a button even though the text is already in the note.",
+ "readmeHash": "92c946609ab5eba2800e86f79c2745eb838e1eda",
+ "relations": [
+  {
+   "evidence": "adapted from obsidian-translate by Fevol, licensed under MIT",
+   "plugin": "obsidian-translate",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud Translation API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Google Cloud Translation API quota",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Selection-triggered translator that shows a Google Cloud Translation of selected text in a read-only side panel, with caching and line-break merging.",
+ "tags": [
+  "google-cloud-translation",
+  "translation",
+  "api-key",
+  "selection",
+  "side-panel",
+  "pdf-text",
+  "cache"
+ ]
+}

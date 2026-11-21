@@ -1,0 +1,106 @@
+{
+ "also": [
+  "tasks",
+  "ai"
+ ],
+ "audience": [
+  "ai-agent-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Plan to-dos into free time slots on a 12-hour spiral dial, re-planning as time passes",
+  "Track actual task time and compare planned vs actual in daily and 30-day reviews",
+  "Read local AI agent session logs and show sessions, tokens and progress as rings and rows",
+  "Display read-only events from macOS Calendar and Google Calendar as fixed events",
+  "Mark main quests, run focus timers, and show capacity and unrecorded time"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community directory; installed manually or via BRAT. Desktop only and macOS-focused: calendar, dialogs, sounds, focus prompts, game tracking and widgets are macOS-only, and Windows/Linux are untested. The full usage guide is in Chinese only. No telemetry and nothing to pay for.",
+ "intent": "alternative",
+ "intentEvidence": "Obsidian already has two ports of the Nautilus line: Nautilus Log and Nautilus Logger.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author extends the Nautilus/Nautilus Log time-budget idea ('give every minute a job') by handing part of the time record to the machine, reading agent session logs as a passive record alongside the user's own plan.",
+ "primary": "calendar",
+ "problem": "Obsidian has no automatic day planner that fills free time with to-dos from a task list, re-plans as time passes, and compares planned against actual time in the daily note.",
+ "readmeHash": "be99fde1d424aefd7a28bc98e1bf4c38ae671132",
+ "relations": [
+  {
+   "evidence": "Nautilus by Tomáš Baránek, and its descendants Nautilus Enhanced and Nautilus Log, for the spiral day planner",
+   "plugin": "Nautilus",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The capacity figures, the hatched unrecorded time, the daily review, free-slot hover, the status bar timer and playback follow the rules",
+   "plugin": "Nautilus Log",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Plus Agent Deck | Agent records: automatic journal logging, status write-back, 💬, desktop child / side chat / subagent blocks",
+   "plugin": "Agent Deck",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install Telegram Companion next to it and your phone becomes the remote",
+   "plugin": "Telegram Companion",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Start a task with a timer and, optionally, a Raycast Focus session",
+   "plugin": "Raycast",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The time-budget idea goes back to the YNAB Method; this plugin is not affiliated with YNAB",
+   "plugin": "YNAB",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Raycast",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google account with own OAuth client",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI agent CLIs/apps (Claude Code, Codex, WorkBuddy, DeepSeek Harness, Antigravity)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Agent Deck",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Telegram Companion",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Spiral day planner that reads the daily note, schedules tasks into free time slots, tracks actual time, and draws AI agent session activity as inner rings.",
+ "tags": [
+  "time-tracking",
+  "time-budgeting",
+  "google-calendar",
+  "raycast",
+  "claude-code",
+  "macos"
+ ]
+}

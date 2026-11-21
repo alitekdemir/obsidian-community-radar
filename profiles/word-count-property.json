@@ -1,0 +1,68 @@
+{
+ "also": [
+  "bases",
+  "writing"
+ ],
+ "audience": [
+  "writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Opt in individual notes via a wordCountTracked marker command",
+  "Write wordCount and readingTimeMinutes frontmatter properties",
+  "Recount tracked notes after edits with debounced writes",
+  "Detect and refuse conflicts with existing foreign property values",
+  "Show a Pro rendered-text reading preview that skips frontmatter, code and syntax"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Unlike Novel Word Count, it shows no live counts in the editor or file explorer; it only writes per-note properties for use in Bases.",
+ "extras": "Freemium: free per-note counting; Pro ($15 one-time or $5/month via GitHub Sponsors) adds a rendered-text reading preview. The README warns that core-API frontmatter writes can normalize YAML formatting. A What's new tab promotes other NoteMods plugins and links to notemods.com; the plugin is not staff-reviewed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian's built-in word count is only displayed, not stored as a note property, so Bases cannot sort, group or summarize notes by length or reading time.",
+ "readmeHash": "7cdf745bc8aeb3d5340406e0d872901db14b502d",
+ "relations": [
+  {
+   "evidence": "Novel Word Count displays file explorer statistics.",
+   "plugin": "Novel Word Count",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Auto Properties can generate frontmatter, including word counts and reading time.",
+   "plugin": "Auto Properties",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Writes numeric wordCount and readingTimeMinutes properties to opted-in notes so Bases tables can sort, filter and summarize them.",
+ "tags": [
+  "reading-time",
+  "cjk",
+  "word-count-tracking"
+ ]
+}

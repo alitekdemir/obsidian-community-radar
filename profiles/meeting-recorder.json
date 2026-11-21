@@ -1,0 +1,79 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record system audio and microphone together with one button",
+  "Show a live transcript split into other participants and yourself",
+  "Re-transcribe the whole recording with a local whisper model",
+  "Place screenshots and slide captures at their point on the transcript timeline",
+  "Start playback from a clicked transcript timestamp"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Apple Silicon and macOS 26+ only; installing the plugin is not enough, a one-time Terminal script compiles a Swift recorder into ~/.config/course-recorder/. Transcription currently supports Mandarin Chinese only. No network requests, accounts or telemetry; optional Ko-fi donations. Full usage docs are in Traditional Chinese in docs/使用說明.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built it as a personal tool for recording online meetings, classes and training sessions from inside Obsidian.",
+ "primary": "audio",
+ "problem": "Recording a meeting or class in Obsidian means running a separate recorder and then matching the audio by hand to notes, slides and screenshots.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "62505d91158ab4b6fb27c73e255890f7b3fa5ed6",
+ "relations": [
+  {
+   "evidence": "錄音中的截圖會自動排進逐字稿，對上截圖的那一秒",
+   "plugin": "AnnotateScreen",
+   "type": "integrates"
+  },
+  {
+   "evidence": "不挑會議軟體；實際測過的是 Teams",
+   "plugin": "Teams",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "install.sh setup script run in Terminal",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Homebrew packages whisper-cpp, opencc, ffmpeg",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "whisper model ggml-large-v3-turbo.bin",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AnnotateScreen",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "macOS-only recorder that captures system audio and microphone into a note with a live transcript, local whisper re-transcription and timed slides.",
+ "tags": [
+  "transcription",
+  "whisper",
+  "speech-to-text",
+  "macos",
+  "chinese",
+  "timestamps"
+ ],
+ "textHash": "eeb64ff588b2e5e25933f0f7294b5c8e91b6756c"
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview external links on hover in a floating, movable, resizable popover",
+  "Render live pages in a sandboxed Electron webview that bypasses framing headers",
+  "Extract and sanitize article text into a reader view using Mozilla Readability",
+  "Show OpenGraph metadata cards with title, description, image and favicon",
+  "Embed provider players for media links with automatic popover sizing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents privacy behavior in detail (isolated in-memory cookie storage by default) and known limitations such as OAuth popup sign-in flows, HTTP basic-auth prompts, and mobile falling back to metadata cards.",
+ "intent": "alternative",
+ "intentEvidence": "Existing hover-preview plugins render pages in an <iframe>.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Existing hover-preview plugins fail on sites that send X-Frame-Options or CSP frame-ancestors headers (GitHub, Reddit, Wikipedia), so the author built previews on a top-level Electron webview instead.",
+ "primary": "links",
+ "problem": "Core Page Preview covers only internal links, and existing hover-preview plugins render external sites in iframes that most real websites block with framing headers, leaving blank panes.",
+ "readmeHash": "c1e16757712b8e928f0ee2d4187862d1af2df2fe",
+ "relations": [
+  {
+   "evidence": "extracts the article with Mozilla Readability",
+   "plugin": "Mozilla Readability",
+   "type": "integrates"
+  },
+  {
+   "evidence": "media links (YouTube, Vimeo, Dailymotion, Streamable, Loom, Spotify, SoundCloud, Deezer, Apple Music, Apple Podcasts) load the provider's embed player",
+   "plugin": "YouTube, Vimeo, Dailymotion, Streamable, Loom, Spotify, SoundCloud, Deezer, Apple Music, Apple Podcasts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Floating hover previews for external links: live page via webview, sanitized reader view, or metadata card, with embedded media players.",
+ "tags": [
+  "webview",
+  "readability",
+  "opengraph",
+  "popovers",
+  "media-embeds",
+  "electron"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import a Medium article by URL as a Markdown file",
+  "Add a Medium author and their articles to the vault",
+  "Sync new articles from previously added authors",
+  "Save the RapidAPI key in vault settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the API key is stored in vault settings and should be gitignored; notes a free RapidAPI plan with 150 requests per month at time of writing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to pull Medium articles into a vault as Markdown files.",
+ "readmeHash": "5da98cd9811be17974b6ccfd2bc13fd4071415bd",
+ "relations": [
+  {
+   "evidence": "It uses the Unofficial Medium API to fetch the articles",
+   "plugin": "Medium API (Unofficial Medium API via RapidAPI)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If using Git plugin. Add .gitignore with .obsidian/plugins/medium-importer/data.json",
+   "plugin": "Git plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "RapidAPI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "RapidAPI API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "RapidAPI Medium API subscription (free plan available)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Medium importer that fetches Medium articles by URL or author via an unofficial Medium API and saves them as Markdown files.",
+ "tags": [
+  "medium",
+  "rapidapi",
+  "articles",
+  "web-content"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Expose vault notes to MCP clients through a local token-protected server",
+  "Search notes by keyword or optional semantic similarity and return cited evidence",
+  "Read note content, links, and properties, and sample the vault across folders",
+  "Optionally create and edit notes and Bases with revision conflict checks",
+  "Exclude private folders, files, or tags from client access"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Bases",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI model or chat interface itself; it only exposes vault tools over MCP to an external client that runs the model.",
+ "extras": "Registry listing carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' README describes the development version and points to a changelog, security model, and skill installation guide hosted elsewhere.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian vaults are not reachable by MCP chat clients, so users cannot ask questions over their notes with citations or let assistants read and edit notes under controlled access.",
+ "readmeHash": "7ae35afbf7b7896a5a35f0794a9f162dfe82980b",
+ "relations": [
+  {
+   "evidence": "Connect LM Studio or another MCP client to the Obsidian notes you choose to expose.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MCP client with a tool-capable chat model (e.g. LM Studio) and Node.js 20+",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "External embedding endpoint for semantic search",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local MCP server bridge that lets MCP clients such as LM Studio search, read, cite, and optionally edit vault notes through exclusion-based access control.",
+ "tags": [
+  "mcp",
+  "lm-studio",
+  "local-llm",
+  "embeddings",
+  "semantic-search",
+  "sqlite",
+  "citations"
+ ]
+}

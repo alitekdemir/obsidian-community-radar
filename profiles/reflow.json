@@ -1,0 +1,76 @@
+{
+ "also": [
+  "import",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert PDF files to Markdown on-device with a vision model",
+  "Export notes to EPUB with figures and equation crops embedded",
+  "Send EPUBs to Kindle via Amazon's Send to Kindle app",
+  "Detect and repair truncated LaTeX formulas from conversion",
+  "Organize converted papers into folders named by document title"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Markdown line-rewriting formatter; it converts PDF documents into Markdown and EPUB.",
+ "extras": "Desktop only; first conversion downloads ~1 GB of model weights from Hugging Face; Windows and Linux are untested; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "every existing option gives up one of effortless, complete (figures + LaTeX + tables), or local",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author argues Markdown is becoming the best human reading format and that open-source PDF-to-text engines are packaged for developers rather than end users, so a local, effortless converter was needed.",
+ "primary": "pdf",
+ "problem": "Obsidian has no built-in way to turn PDFs into readable Markdown, and existing converters are cloud-based, need API keys, or require a Python environment.",
+ "readmeHash": "ab511ae0eb2184dea38dac2cc8bd10997ab196fa",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Docling",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a single compact VLM (granite-docling-258M, official ONNX export, Apache-2.0) running under transformers.js",
+   "plugin": "granite-docling-258M",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you browse by folder and want the folder itself to open the note in one click, the Folder Notes community plugin does exactly that",
+   "plugin": "Folder Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Mathpix",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Amazon Send to Kindle app (macOS)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Converts PDFs to clean Markdown with a local vision model and exports notes to EPUB for e-readers, preserving figures, tables and math.",
+ "tags": [
+  "epub",
+  "kindle",
+  "docling",
+  "granite-docling",
+  "onnx",
+  "webgpu"
+ ]
+}

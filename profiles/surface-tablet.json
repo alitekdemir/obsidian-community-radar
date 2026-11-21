@@ -1,0 +1,46 @@
+{
+ "also": [],
+ "audience": [
+  "microsoft-surface-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Emulate mouse input for pen events in Canvas",
+  "Pan the Canvas viewport with pen-tip drags",
+  "Toggle emulation and pan modes via view-header actions or commands",
+  "Configure panning direction, thresholds, and barrel-button behavior",
+  "Capture local pen diagnostic traces for bug reports"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a drawing or handwriting tool; it only translates Surface Pen input into mouse input or panning inside Canvas.",
+ "extras": "Requires Obsidian Desktop 1.14 or later on Windows and a Microsoft Surface Pen; macOS, Linux, mobile, and other pen hardware are not supported in v1. Embedded targets like editors, PDF views, and Excalidraw keep native pen input. Includes manual installation instructions and local diagnostic capture steps; no telemetry is collected.",
+ "intent": "improve",
+ "intentEvidence": "makes Canvas usable with a Surface Pen by presenting supported pen interactions to Canvas as mouse interactions",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "canvas",
+ "problem": "Canvas is not usable with a Surface Pen on Windows because pen input is not treated like mouse input.",
+ "readmeHash": "ae3931a58a48a2f058a4b61c1e39ac81b8567cfe",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Surface Pen adapter for Obsidian Canvas on Windows that presents pen events to Canvas as mouse events or pen-based panning.",
+ "tags": [
+  "surface-pen",
+  "stylus",
+  "windows",
+  "mouse-emulation",
+  "pointer-events",
+  "touch-input"
+ ]
+}

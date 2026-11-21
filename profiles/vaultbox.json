@@ -1,0 +1,57 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files with a selected Dropbox folder, manually or on a schedule",
+  "Simulate a sync plan and preview uploads, downloads, deletes, and conflicts before applying",
+  "Detect conflicts and stop for a user decision instead of overwriting",
+  "Optionally sync Obsidian configuration files such as bookmarks, themes, and snippets",
+  "Reset sync tracking after interrupted first syncs or manual Dropbox changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. It uses a public Dropbox app with Full Dropbox access and OAuth code flow with PKCE; users paste an on-screen authorization code. The README recommends keeping backups and warns that simulation reports contain file paths that should be reviewed before sharing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people who already keep a vault in a Dropbox folder on desktop but could not use that same folder from Obsidian mobile.",
+ "primary": "syncing",
+ "problem": "Obsidian mobile cannot use a vault folder that the Dropbox desktop client syncs, so users with an existing Dropbox-backed vault have no way to sync it inside Obsidian.",
+ "readmeHash": "b99f0183936b04d71e0aaeacea17fc4933ce8b73",
+ "relations": [
+  {
+   "evidence": "Vaultbox talks to the Dropbox API from inside Obsidian",
+   "plugin": "Dropbox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Dropbox",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs a vault with a selected Dropbox folder on desktop and mobile, with plan previews, conflict detection, and manual or automatic modes.",
+ "tags": [
+  "dropbox",
+  "oauth",
+  "conflict-detection",
+  "dry-run",
+  "sync-planning"
+ ]
+}

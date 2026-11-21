@@ -1,0 +1,92 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate plugin UI labels into Simplified Chinese via DeepSeek, OpenAI, OpenRouter, DeepL or DeepLX",
+  "Apply saved dictionaries offline to recognized settings, menus and controls",
+  "Restore English labels without deleting dictionaries",
+  "Supplement translations for new labels after plugin updates",
+  "Store API keys through Obsidian's native keychain control"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note or app-wide translator; it only rewrites recognizable plugin interface labels and never touches note bodies, input values or plugin source files.",
+ "extras": "Free and open source with no paid unlock; not yet reviewed for the official community directory (manual install from GitHub Releases); tested only on Windows with Obsidian 1.15.0, no mobile support; dictionaries and progress files are stored outside the vault and are not deleted on uninstall; canceling a translation job may not stop server execution or billing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian and its community plugins ship English-only interfaces, and there is no built-in way to localize plugin settings, menus and controls into Chinese.",
+ "readmeHash": "57078247b69b64804964ed944aa889bcdeefd04b",
+ "relations": [
+  {
+   "evidence": "Choose DeepSeek, OpenAI, OpenRouter, a compatible endpoint, DeepL or self-hosted DeepLX.",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose DeepSeek, OpenAI, OpenRouter, a compatible endpoint, DeepL or self-hosted DeepLX.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose DeepSeek, OpenAI, OpenRouter, a compatible endpoint, DeepL or self-hosted DeepLX.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose DeepSeek, OpenAI, OpenRouter, a compatible endpoint, DeepL or self-hosted DeepLX.",
+   "plugin": "DeepL",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose DeepSeek, OpenAI, OpenRouter, a compatible endpoint, DeepL or self-hosted DeepLX.",
+   "plugin": "DeepLX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For upgrades from the old local bilingual-assistant ID, disable the old plugin first.",
+   "plugin": "bilingual-assistant",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "translation service API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "third-party translation services may charge",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted DeepLX instance",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Translates English plugin interface labels into Simplified Chinese via AI or machine-translation services, saving dictionaries for offline reuse.",
+ "tags": [
+  "localization",
+  "simplified-chinese",
+  "deepl",
+  "deeplx",
+  "deepseek",
+  "openai",
+  "openrouter"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Uploads Markdown notes from watched folders to an AnythingLLM workspace",
+  "Replaces workspace embeddings when a note is edited, renamed or moved",
+  "Removes embeddings when a note is deleted or moved out of watched folders",
+  "Bulk syncs existing notes, single files or whole folders on demand",
+  "Shows per-file sync badges and checks whether remote documents still exist"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not two-way sync; it only pushes notes from Obsidian to an AnythingLLM workspace and never pulls content back.",
+ "extras": "Requires Obsidian 1.13.0 or newer. AnythingLLM can keep superseded uploaded source documents in its global storage because no public per-document delete endpoint is used. No analytics or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Notes kept in Obsidian stay outside an AnythingLLM workspace unless they are uploaded and re-embedded by hand each time they change.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "2e53457ad2fcca6ec98b7f78cc243402750f3809",
+ "relations": [
+  {
+   "evidence": "Automatically keep Markdown notes in selected Obsidian folders synchronized with an AnythingLLM workspace.",
+   "plugin": "AnythingLLM",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AnythingLLM instance",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AnythingLLM Developer API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Markdown notes from selected vault folders to an AnythingLLM workspace, uploading, re-embedding and removing them as notes change.",
+ "tags": [
+  "rag",
+  "embeddings",
+  "llm",
+  "api-key",
+  "secret-storage"
+ ],
+ "textHash": "ca8503349716a12cde3c09ce55af22489da1cb10"
+}

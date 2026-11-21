@@ -1,0 +1,55 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "detect completed tasks with a configurable regex containing a completion-date capture group",
+  "delete tasks older than a user-set number of days",
+  "remove indented description lines under deleted tasks",
+  "restrict scanning to files matching a filename filter",
+  "show a confirmation modal with per-file deletion counts before deleting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian keeps completed tasks in notes forever, so users who date their task completions end up with cluttered files they must clean by hand.",
+ "readmeHash": "e2df34f7f09a37ed98fd9fd65b9317b4034a64c4",
+ "relations": [
+  {
+   "evidence": "This plugin is fully compatible with the Tasks plugin.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Maintenance plugin that deletes completed tasks older than a set number of days from Markdown notes, after showing a confirmation summary.",
+ "tags": [
+  "regex",
+  "completion-date",
+  "confirmation-modal",
+  "housekeeping",
+  "scheduled-cleanup"
+ ]
+}

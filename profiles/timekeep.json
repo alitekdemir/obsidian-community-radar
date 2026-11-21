@@ -1,0 +1,62 @@
+{
+ "also": [
+  "export",
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "insert time tracker code blocks into notes via command",
+  "start, stop, edit, and delete tracked time entries",
+  "persist timer timestamps so tracking continues across Obsidian restarts",
+  "export tracked time as Markdown table, CSV, JSON, or PDF",
+  "expose a JS API for scripts such as Dataview"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Status bar"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README documents a known rendering flicker issue when modifying timekeep blocks, caused by Obsidian re-rendering the code block; PDFs are generated locally with pdfmake.",
+ "intent": "alternative",
+ "intentEvidence": "heavily inspired by ObsidianSimpleTimeTracker (semi backwards compatible; some simple-time-tracker blocks can be renamed to timekeep)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to track time spent on tasks inside notes and export that time data.",
+ "readmeHash": "2bc85ed4d068bda4d3a49e83ca388d5b617a5f07",
+ "relations": [
+  {
+   "evidence": "heavily inspired by ObsidianSimpleTimeTracker (semi backwards compatible; some simple-time-tracker blocks can be renamed to timekeep)",
+   "plugin": "ObsidianSimpleTimeTracker",
+   "type": "inspired"
+  },
+  {
+   "evidence": "exposes a JS API which can be used by other scripts such as with Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Time tracking plugin that inserts code-block timers in notes, keeps running across sessions, and exports tracked time as Markdown tables, CSV, JSON, or PDF.",
+ "tags": [
+  "pdfmake",
+  "dataview",
+  "code-block",
+  "status-bar-icons"
+ ]
+}

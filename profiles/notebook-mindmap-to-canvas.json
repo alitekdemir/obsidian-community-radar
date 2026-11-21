@@ -1,0 +1,67 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert copied NotebookLM mindmap code into .canvas files",
+  "Parse mindmap data in JSON or Markdown format",
+  "Lay out the tree left-to-right, right-to-left, or symmetrically",
+  "Pre-configure edge styles (arrowheads, path types, line patterns) for Advanced Canvas",
+  "Open the generated canvas automatically after creation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installable via BRAT; the conversion depends on data copied out of NotebookLM by a separate Chrome extension, so no direct NotebookLM connection exists.",
+ "intent": "improve",
+ "intentEvidence": "Full support for Advanced Canvas styling",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "canvas",
+ "problem": "NotebookLM mindmaps cannot be exported into Obsidian's Canvas format, so they had to be rebuilt by hand as canvas boards.",
+ "readmeHash": "5bd0c00b714b46e6de78dce2cac9e2153a089cfa",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Advanced Canvas",
+   "type": "extends"
+  },
+  {
+   "evidence": "you need to use the NotebookLM Ultra Exporter Chrome Extension (or a similar tool) to copy the mindmap code",
+   "plugin": "NotebookLM Ultra Exporter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "NotebookLM Ultra Exporter Chrome extension",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Advanced Canvas",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Converts NotebookLM mindmaps copied as JSON or Markdown into Obsidian Canvas files, with layout direction and edge styling options.",
+ "tags": [
+  "notebooklm",
+  "mindmap",
+  "chrome-extension",
+  "tree-layout",
+  "advanced-canvas"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "bases",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import a Wolai HTML export ZIP into the vault",
+  "Rebuild child-page hierarchy, columns, toggles, and tables as Markdown",
+  "Save embedded images, videos, documents, and Excel attachments",
+  "Convert page and block references into Obsidian internal links when targets exist",
+  "Generate native Bases from matched CSV, Excel, or database supplement packages"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Files",
+   "Outgoing links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Wolai sync or two-way connector; it is a one-way importer that reads a single exported HTML ZIP and writes Markdown files into the vault.",
+ "extras": "Desktop only: requires Obsidian 1.15.1 or later. Limits: ZIP up to 768 MiB, 1 GiB uncompressed, 256 MiB per entry, 20,000 entries; table files up to 16 MiB, 256 columns, 10,000 records and 500,000 cells per batch. Processing is local, but external images and covers may be fetched from addresses recorded in the export, and kept web links open their sites. Excel dates may appear as serial numbers and formulas use cached results. Database supplement packages may contain private notes and should stay on the machine. MIT license.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Wolai and Obsidian organize pages differently, so migrating by hand means rebuilding the page tree, redoing layouts, recovering images, and reconnecting links.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "68b2b2af096c53f2b6f79ab83cd2c367c7c00589",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Wolai",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Bases (core plugin)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Importer that converts a Wolai HTML export ZIP into Obsidian notes, preserving page hierarchy, layouts, attachments, and resolvable internal links.",
+ "tags": [
+  "html-to-markdown",
+  "migration",
+  "excel",
+  "dataview",
+  "local-first"
+ ],
+ "textHash": "ef1edaa0159febe459ba37753a34ae5fa8d08b0d"
+}

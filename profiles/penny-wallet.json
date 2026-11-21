@@ -1,0 +1,61 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log expense, income, transfer, and refund transactions in a form",
+  "Track credit card debt and repayments across multiple account types",
+  "Filter and search the transaction list with sticky subtotals",
+  "View monthly finance summaries, category pie charts, and net asset trends",
+  "Add transactions via a URI handler from apps like iOS Shortcuts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Monthly data files carry YAML frontmatter (income, expense, netAsset) for fast loading; a beta channel is available via BRAT; documentation is offered in English and Traditional Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Obsidian has no built-in way to record transactions or track account balances, credit card debt, and net worth inside the vault.",
+ "readmeHash": "ed89197b4840cd91e769ece53659310a7509660d",
+ "relations": [
+  {
+   "evidence": "The format is compatible with Git sync and Dataview queries.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "iOS Shortcuts support — add transactions via URI without opening Obsidian",
+   "plugin": "iOS Shortcuts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "iOS Shortcuts",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Personal finance tracker that logs expenses, income, transfers, and credit card repayments as Markdown tables, with overview charts and asset views.",
+ "tags": [
+  "personal-finance",
+  "expense-tracking",
+  "bookkeeping",
+  "ios-shortcuts",
+  "uri-handler",
+  "bilingual"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions from notes it reads, citing lines as links",
+  "Create and edit notes only after approval cards",
+  "Rewind a conversation and revert the agent's changes",
+  "Run a vault-scoped bash shell and fetch URLs with curl",
+  "Connect MCP servers and WebDAV storage"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note-organizing or cleanup tool; despite the name, it is a chat agent that answers from and edits notes.",
+ "extras": "README includes a detailed Privacy section covering what reaches the model provider, vault enumeration, and curl behavior; the manifest carries an unreviewed-plugin warning. API keys are sealed with a sync passphrase (PBKDF2-SHA256, AES-256-GCM) so devices only need the passphrase.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in agent that can browse a vault like a coding agent, cite the exact lines it read, and apply note changes under user control.",
+ "readmeHash": "f78e734b5f772161063c6a0a234a8cf80dd14b92",
+ "relations": [
+  {
+   "evidence": "from Ollama for models it serves (also behind Open WebUI)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a model that Open WebUI takes from Ollama's cloud",
+   "plugin": "Open WebUI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible model provider",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP servers and WebDAV storage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI chat agent that searches vault notes with tools, answers with cited line links, and edits files only after approval cards, on desktop and mobile.",
+ "tags": [
+  "openai-compatible",
+  "mcp",
+  "webdav",
+  "ollama",
+  "agents-md",
+  "tool-calling",
+  "sub-agents",
+  "pdf-reading"
+ ]
+}

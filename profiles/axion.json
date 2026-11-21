@@ -1,0 +1,65 @@
+{
+ "also": [
+  "review",
+  "languages"
+ ],
+ "audience": [
+  "language-learners",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight and annotate PDF pages with sticky notes and text boxes",
+  "OCR scanned PDF pages and images into searchable text",
+  "Translate text with Google Translate or an offline NLLB model",
+  "Read text aloud with neural TTS and save audio per sentence",
+  "Create SRS flashcards and export them to Anki"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "First use of translation, TTS, or OCR downloads models (up to ~900 MB for NLLB) from jsdelivr.net or huggingface.co; only Google Translate needs an ongoing internet connection. The README notes the plugin is not yet available in the Community Plugins browser, and the manifest says it has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says the offline-first design keeps PDFs, translation, listening, and review in one vault with no constant switching between apps.",
+ "primary": "pdf",
+ "problem": "Obsidian has no built-in PDF annotation, OCR, offline translation, text-to-speech, or spaced repetition, so studying PDFs requires switching between several apps.",
+ "readmeHash": "ac8a54224e28f488fd5ddcbe64dcddfa17dc5273",
+ "relations": [
+  {
+   "evidence": "Export to Anki (.apkg) — cards + audio, opens in Anki Desktop and AnkiDroid.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Translate (fast, online).",
+   "plugin": "Google Translate",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki Desktop or AnkiDroid",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Offline PDF reading and study toolkit that adds highlights, sticky notes, OCR, translation, read-aloud TTS, SRS flashcards, and a Pomodoro timer.",
+ "tags": [
+  "anki",
+  "piper",
+  "tesseract",
+  "nllb",
+  "google-translate",
+  "jalali"
+ ]
+}

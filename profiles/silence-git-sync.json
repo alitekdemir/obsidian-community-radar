@@ -1,0 +1,64 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault to a Git remote automatically after edits and on a schedule",
+  "Commit, merge and push silently without popups",
+  "Preserve both local and remote versions when a conflict occurs",
+  "Manage ignore paths in a marked .gitignore block from settings",
+  "Inject a Personal Access Token into HTTP headers via a temporary Git config"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a full Git client; it has no source control, history or diff views and only syncs in the background.",
+ "extras": "Desktop only; syncing is disabled on mobile at load time, with a documented Termux/cronie workaround for Android. Warns not to run alongside obsidian-git on the same repository to avoid index corruption.",
+ "intent": "alternative",
+ "intentEvidence": "Goal | Frictionless background backup | A complete Git client experience",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the goal is frictionless background backup rather than a complete Git client experience.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in Git-based vault sync, and existing Git plugins interrupt with popups, manual conflict resolution and heavy source-control views.",
+ "readmeHash": "8156d7f445de41409886e7387e9c97c05ff1e60d",
+ "relations": [
+  {
+   "evidence": "Do not enable both at once — they would operate on the same repository concurrently",
+   "plugin": "obsidian-git",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub/GitLab Personal Access Token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Background Git sync that silently commits, merges and pushes the vault to a remote after edits stop and on a fixed interval.",
+ "tags": [
+  "github",
+  "gitlab",
+  "background-sync",
+  "conflict-resolution",
+  "personal-access-token",
+  "termux"
+ ]
+}

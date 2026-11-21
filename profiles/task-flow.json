@@ -1,0 +1,62 @@
+{
+ "also": [
+  "visualization",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Link tasks by dragging between nodes",
+  "Create linked tasks by dropping on empty canvas",
+  "Edit task names, dates, priority and tags in place",
+  "Arrange the graph with layout, a date axis and lanes grouped by tag, note or priority",
+  "Filter, highlight and focus on one task's chain"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general diagramming tool; it graphs only Tasks plugin dependencies and every arrow is written back as a field on a task line.",
+ "extras": "The plugin edits task lines directly with no undo inside the flowchart; the README advises keeping backups or version control. Detailed per-feature documentation and a walkthrough video are on external pages. The README states the project was developed with AI coding assistance, and the marketplace listing notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Install and enable the Tasks plugin. Tasks Flowchart reads ids and dependencies in either of its formats",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why Tasks Flowchart' section says the plan should live in plain note text with no database or hidden format, and that users need to see which tasks hold others up.",
+ "primary": "tasks",
+ "problem": "The Tasks plugin stores dependencies as inline fields on task lines, with no visual way to see dependency chains, spot blockers, or link tasks by dragging.",
+ "readmeHash": "9ef4d03465e6672774481ac62fed6c2560774fc3",
+ "relations": [
+  {
+   "evidence": "Install and enable the Tasks plugin. Tasks Flowchart reads ids and dependencies in either of its formats",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "with Dataview and the Tasks plugin's own queries",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task dependency flowchart that renders Tasks plugin id/dependsOn links as an interactive graph where dragging links or creates tasks in your notes.",
+ "tags": [
+  "tasks-plugin",
+  "dataview",
+  "dependency-graph",
+  "drag-and-drop",
+  "lanes",
+  "date-axis"
+ ]
+}

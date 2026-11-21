@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault notes through agent CLIs using @ file attachments",
+  "Edit selected note text with a word-level diff preview and apply step",
+  "Inspect expandable tool-activity summaries and file-edit diffs in chat",
+  "Run Obsidian-native vault actions like backlink inspection and link-aware file moves",
+  "Save selected chat text back into Markdown notes with undo"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not Claude-only despite the name; it also drives Codex, Cursor Agent, Grok Build, OpenCode, Pi, and DeepSeek Harness.",
+ "extras": "Free and MIT-licensed, but includes no model subscription; provider subscriptions and API charges still apply. The README warns that the vault is not an OS security boundary and that provider approval modes (including YOLO and bash mode) should be reviewed carefully. Drafts are stored in .claudian/drafts/ inside the vault.",
+ "intent": "alternative",
+ "intentEvidence": "Oh My Claudian began as a fork of Claudian by Yishen Tu.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to work with AI coding agents directly against vault notes.",
+ "readmeHash": "bc8df5690d2a891040fc4fb1cbba77cd8148819f",
+ "relations": [
+  {
+   "evidence": "began as a fork of Claudian by Yishen Tu",
+   "plugin": "Claudian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Bring your existing Claude Code, Codex, or another supported coding agent into your vault.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your existing Claude Code, Codex, or another supported coding agent into your vault.",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a supported agent CLI (Claude Code, Codex, Cursor Agent, Grok Build, Oh My Pi, OpenCode, Pi, or DeepSeek Harness)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider account or API configuration for the chosen CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key or subscription credentials for the provider",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Agent chat sidebar that runs coding-agent CLIs like Claude Code and Codex inside Obsidian for note chat, inline edits, and file diffs.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "cursor-agent",
+  "opencode",
+  "deepseek",
+  "mcp",
+  "cli-agents",
+  "diff-review"
+ ]
+}

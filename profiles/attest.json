@@ -1,0 +1,74 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask questions across selected vault folders and get cited answers",
+  "Open citations to the note, heading, PDF page, or web source behind a claim",
+  "Index Markdown, TXT, PDF, EPUB, FB2, and DOCX files with an embedding model",
+  "Use local models via Ollama or LM Studio or connect a cloud API",
+  "Save answers as a new note or append them to the active note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Local model endpoints are unavailable on mobile (cloud required there); scanned PDFs without a text layer are not readable; a tool-enabled model can create, update, or delete notes unless a read-only profile is used. Requires Obsidian 1.8.7+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Vault search returns lists of notes rather than written answers, and it gives no way to jump from an answer's claims back to the exact source.",
+ "readmeHash": "4ccda80ffe5de09781221d892942d1fc26ef553c",
+ "relations": [
+  {
+   "evidence": "use a local model through Ollama or LM Studio, or connect a cloud API",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use a local model through Ollama or LM Studio, or connect a cloud API",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optionally search the web through DuckDuckGo or another configured source",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI chat plugin that answers questions over vault notes and optional web sources, with citations linking to notes, headings, PDF pages, or URLs.",
+ "tags": [
+  "rag",
+  "citations",
+  "ollama",
+  "lm-studio",
+  "duckduckgo",
+  "embeddings",
+  "anthropic"
+ ]
+}

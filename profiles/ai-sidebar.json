@@ -1,0 +1,83 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "chat with configured AI providers in a right-sidebar panel",
+  "gather vault context from the active note, selection, links, backlinks, and search matches",
+  "apply provider-proposed vault writes according to the chosen access mode",
+  "run provider controls and vault skill files through slash commands",
+  "store and replay past conversation messages across sessions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only in v1. The manifest warns the plugin has not been manually reviewed by Obsidian staff. Sends active requests and selected vault context to the configured provider; supports read-only, confirm, and full-access vault write modes; can read skill files from ~/.agent/skills and ~/.agents/skills.",
+ "intent": "alternative",
+ "intentEvidence": "AI Sidebar adds a Cursor/VS Code-style assistant panel to Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI panel that can use local CLI agents or API providers with automatic vault context to answer questions and propose note edits.",
+ "readmeHash": "97f833cb0f35319dafbd6f6db683232663357f4c",
+ "relations": [
+  {
+   "evidence": "Codex: click Sign in to launch the local codex login flow.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code: click Sign in to launch the local claude auth login flow",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "opencode: click Sign in to launch opencode auth login",
+   "plugin": "opencode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter, DeepSeek, Mistral: click Get key, paste the provider key",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API providers (OpenAI, OpenRouter, DeepSeek, Mistral)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider subscriptions or Console auth for OAuth/CLI agents (Claude, Codex, Gemini CLI, Aider)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "local CLI agents installed on the desktop (Codex, Claude Code, opencode, Gemini CLI, Aider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI assistant sidebar that connects local CLI agents or API providers to vault context for chatting about and editing notes.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "opencode",
+  "gemini-cli",
+  "aider",
+  "openrouter"
+ ]
+}

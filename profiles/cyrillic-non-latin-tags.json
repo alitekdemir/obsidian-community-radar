@@ -1,0 +1,53 @@
+{
+ "also": [
+  "theming",
+  "tags"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "detect tags containing non-Latin letters in the editing view",
+  "add a generic class (cm-tag-non-latin) and a per-tag class to their span elements",
+  "preserve standard classes and styling for Latin tags",
+  "inject cm-hashtag classes so third-party styling plugins recognize the tags",
+  "support nested tags by removing slashes from class names"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not translate, rename, or otherwise process tags; it only injects CSS classes so non-Latin tags can be styled.",
+ "extras": "Classes are injected only in the Editing view; the README includes developer-oriented DOM structure details and notes unit tests written with Vitest.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "css",
+ "problem": "Obsidian's tag styling hooks only cover Latin tags, so tags with Cyrillic, hieroglyphs, or diacritics cannot be targeted with CSS or by styling plugins.",
+ "readmeHash": "099eaa9b37518cdb34a5bf34f0d2ecf56446de4d",
+ "relations": [
+  {
+   "evidence": "configure their styling using third-party plugins (such as Colored Tags Wrangler)",
+   "plugin": "Colored Tags Wrangler",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Adds CSS classes to tags containing non-Latin letters in the editor, so they can be styled with CSS snippets.",
+ "tags": [
+  "cyrillic",
+  "non-latin-scripts",
+  "hieroglyphs",
+  "dom-classes",
+  "code-mirror",
+  "nested-tags"
+ ]
+}

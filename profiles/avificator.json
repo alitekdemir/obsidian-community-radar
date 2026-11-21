@@ -1,0 +1,57 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert pasted or dropped images to AVIF",
+  "Rename image files using a title and date template",
+  "Update wiki embeds and Markdown image links",
+  "Strip EXIF and XMP metadata from converted images",
+  "Shrink large images to a maximum size"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian Desktop 1.13.0+ and ImageMagick 7 built with AVIF write support (and HEIC read support for HEIC files); suggests the IMEI installer for Debian/Ubuntu builds lacking those codecs. Runs entirely offline and never sends images over the network. Not yet manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian saves pasted images in their original format with generic names, and there is no built-in way to convert them to AVIF or rename them automatically.",
+ "readmeHash": "3bd458bd3ca5784386d448a66f7bce4624f6fa3a",
+ "relations": [
+  {
+   "evidence": "AVIFicator converts images you paste or drop into Obsidian notes to AVIF with ImageMagick",
+   "plugin": "ImageMagick",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ImageMagick",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Image paste handler that converts images pasted or dropped into notes to AVIF via ImageMagick and renames them from a template.",
+ "tags": [
+  "imagemagick",
+  "avif",
+  "exif",
+  "filename-template",
+  "heic",
+  "webp",
+  "image-conversion"
+ ]
+}

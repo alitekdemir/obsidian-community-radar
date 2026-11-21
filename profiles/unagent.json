@@ -1,0 +1,90 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search and discuss notes with a model in a chat panel",
+  "create and edit notes through review cards with diffs and undo snapshots",
+  "read EPUB, FB2, MOBI, AZW3, and TXT books and convert web pages to Markdown",
+  "reference notes, folders, tags, RSS articles, and memo cards with @ selectors",
+  "add tools via remote MCP servers and pair with local Codex or Claude Code agents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Source-available license, not open source; commercial use requires written permission. API keys are stored as plain text in the vault's data.json. The manifest notes the plugin has not been manually reviewed by Obsidian staff; live-model evaluation and some mobile behaviors remain unverified.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant for searching, understanding, and editing notes with user-controlled approval of what gets changed.",
+ "readmeHash": "1f26cfcc7393f08eb6f84bbfa82952381cd7d974",
+ "relations": [
+  {
+   "evidence": "If UNreader or UNmemos is installed, entry rows also let you select RSS articles or memo cards.",
+   "plugin": "UNreader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If UNreader or UNmemos is installed, entry rows also let you select RSS articles or memo cards.",
+   "plugin": "UNmemos",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For Codex or Claude Code on the same computer, open Settings → UNagent → General → External AI communication.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For Codex or Claude Code on the same computer, open Settings → UNagent → General → External AI communication.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "内置 teach 预设改编自 Matt Pocock 的 skills",
+   "plugin": "Matt Pocock's skills",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "model provider API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex or Claude Code with UNagent Connect and Node.js 22.13+",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "UNreader or UNmemos for article and card references",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI assistant that searches, reads, and updates vault notes through chat, with approval cards, diffs, and undo for file changes.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "claude-code",
+  "codex",
+  "mcp",
+  "embeddings",
+  "epub",
+  "chat"
+ ]
+}

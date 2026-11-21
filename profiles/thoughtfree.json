@@ -1,0 +1,56 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync ThoughtFree thoughts into vault notes on open and every 30 minutes",
+  "map ThoughtFree categories to folders of your choice",
+  "write category, kind, tags and dates as note properties for Bases and search",
+  "copy photos, PDFs and voice clips into the vault as attachments",
+  "mark thoughts trashed through a property instead of deleting notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Account sign-in is read-only (thoughts, comments, categories, attachments; never the diary). If another sync service copies the vault, the plugin's sync must be left on on only one device. Security issues go to support@thoughtfree.io rather than public issues. Clipped web content is sanitized so it cannot execute or fetch in the vault. The plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "ThoughtFree thoughts live in an outside service, so Obsidian users cannot keep them as local, editable notes with searchable properties.",
+ "readmeHash": "bfa742bd5b1b85efc87891a00fdb369de0c1ef4f",
+ "relations": [
+  {
+   "evidence": "The plugin talks to one service, ThoughtFree, at mcp.thoughtfree.io, to sign in and to read what changed.",
+   "plugin": "ThoughtFree",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ThoughtFree account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only connector that syncs ThoughtFree thoughts into vault notes, one note per thought, organized into category folders with properties for Bases.",
+ "tags": [
+  "one-way-sync",
+  "read-only-api",
+  "clipped-pages",
+  "oauth"
+ ]
+}

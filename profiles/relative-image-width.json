@@ -1,0 +1,61 @@
+{
+ "also": [
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "size image embeds with percent, em, rem, vw and vh units in the embed link",
+  "keep pixel-sized images drawn exactly as Obsidian draws them",
+  "read Pandoc width and height attribute blocks placed after an image link",
+  "set a default size for images without a size, per note via a property (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: relative units and Pandoc attributes are free; default image sizes need a paid Pro sign-in. After updates it opens a 'What's new' tab promoting other NoteMods plugins and Zovo Chat (can be turned off). Requires Obsidian 1.13.4 or later. Pro checks run through the GitHub device flow; the token is stored via Obsidian's secret storage API.",
+ "intent": "improve",
+ "intentEvidence": "lets you size an embedded image with percent, em, rem, vw and vh, in the link that you already write",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to answer a forum request asking Obsidian to allow relative units, not just pixels, in image resize.",
+ "primary": "images",
+ "problem": "Obsidian only reads a pixel number in an image embed, so a width that fits a laptop screen is too wide on a phone and cannot scale with the text column.",
+ "readmeHash": "761de3729f7882ed3b07c719639a3defe0860543",
+ "relations": [
+  {
+   "evidence": "a Pandoc attribute block such as {width=50%} after the link",
+   "plugin": "Pandoc",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($15 once or $5/month)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sizes embedded images with relative units (percent, em, rem, vw, vh) written directly in the embed link, in Live Preview and Reading view.",
+ "tags": [
+  "image-embeds",
+  "responsive-images",
+  "pandoc",
+  "viewport-units",
+  "image-sizing"
+ ]
+}

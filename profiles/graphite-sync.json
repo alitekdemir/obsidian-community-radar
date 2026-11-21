@@ -1,0 +1,86 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [
+  "graphite-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pull Graphite Spaces into a vault as folder-of-notes or single-file Markdown layouts",
+  "Push edited notes back through a validate-first merge that canonicalizes on success",
+  "Capture task and tagged lines from ordinary notes into Graphite with two-way tick status",
+  "Show per-note sync state, connection status and per-Space actions in a sidebar sync panel",
+  "Carry the whole vault between devices through encrypted CouchDB note sync (optional)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The code is not open source (published to be read under an all-rights-reserved licence, not minified). The plugin is free, shows no ads, sends no telemetry, and states that an account and server are required and that it stores the API token in vault plugin data. Server mode and This-device mode differ sharply: pull, push and capture need a server, while This-device mode connects to nothing and has no phone support yet. Note sync is described as still being built.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to mirror a Graphite life-planner server's Spaces as editable vault notes and send local edits back safely.",
+ "readmeHash": "b61dea9ec6ddd81e81a7ccdd9eaa1bc19221f161",
+ "relations": [
+  {
+   "evidence": "Graphite Sync connects your Obsidian vaults to Graphite in one of two ways",
+   "plugin": "Graphite",
+   "type": "integrates"
+  },
+  {
+   "evidence": "carries the whole vault between devices through a CouchDB server",
+   "plugin": "CouchDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "through a CouchDB server, in place of LiveSync",
+   "plugin": "LiveSync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Graphite server account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Graphite API token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Graphite app on the same device (This-device mode)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CouchDB server (Note sync only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Two-way sync between Obsidian vaults and a self-hosted Graphite server: pulls Spaces as Markdown notes and pushes edits through a validate-first merge.",
+ "tags": [
+  "graphite",
+  "life-planner",
+  "self-hosted",
+  "couchdb",
+  "validate-first-merge",
+  "block-anchors",
+  "aes-gcm"
+ ]
+}

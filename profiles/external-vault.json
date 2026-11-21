@@ -1,0 +1,52 @@
+{
+ "also": [
+  "attachments",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Paste or drag images into external notes and store them in an external attachments folder with relative paths",
+  "Move notes with their linked attachments into or out of the vault, rewriting links automatically",
+  "Insert relative links from vault notes to external files and preview them on hover",
+  "Create external notes from a built-in YAML template or custom templates with date and title variables",
+  "List, filter, and batch-delete external notes and unreferenced attachments, with undo backups"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (requires Obsidian 1.14+); mobile builds exit on startup. Makes no network requests, collects no telemetry, and needs no account. README is largely in Chinese with an English summary section, and the demo GIF is a pending placeholder. Access is limited to the two configured directories; large external vaults (500k+ files) are discouraged due to index memory use.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian 1.14+ 可以直接打开库外 Markdown，但原生的粘贴/拖放仍会把附件写进库内，导致相对路径失效",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian 1.14+ can open Markdown files outside the vault, but native paste/drop still writes attachments into the vault, breaking relative paths, and vault tools cannot manage those external files.",
+ "readmeHash": "728b98bf680dc79e812076d7e52f56035dc69a48",
+ "relations": [
+  {
+   "evidence": "hovering one opens a real preview of the external file in Hover Editor or the native page preview",
+   "plugin": "Hover Editor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plugin for editing Markdown notes that live outside the vault: pastes images with relative paths, moves notes with attachments in and out, and links to external files.",
+ "tags": [
+  "relative-paths",
+  "file-system",
+  "template-variables",
+  "undo-backup",
+  "desktop-only"
+ ]
+}

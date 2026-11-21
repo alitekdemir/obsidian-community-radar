@@ -1,0 +1,63 @@
+{
+ "also": [
+  "data",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "verify the integrity and conformance of sealed notes",
+  "seal notes with a hash payload and optional re-seal on save",
+  "record local trusted or rejected trust verdicts",
+  "file verified objects into colored portfolio folders",
+  "view adaptation lineage and a 3D globe of sealed objects"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note-preview or magnifier tool; it verifies, seals, and organizes notes carrying KNOBE Protocol seal blocks.",
+ "extras": "README stresses that a verified seal proves integrity, not truth or safety, and that quarantine status stays visible by default. Install is recommended via BRAT for beta releases, with manual and from-source options also documented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian has no built-in way to check that a note's embedded provenance payload is intact or to record local trust decisions about such files.",
+ "readmeHash": "f64487455667c2da02958d24d6892f2275157a55",
+ "relations": [
+  {
+   "evidence": "BRAT is optional: it is only a convenient way to install and update beta releases.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Faithful port of the reference lens.py (KnobeOne/knobe-protocol 6132595), gated against the 9 published conformance vectors",
+   "plugin": "lens.py (KnobeOne/knobe-protocol)",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Verifier and sealer for KNOBE Protocol v1 hash-sealed Markdown notes, adding a dashboard, trust verdicts, a lineage graph, and a 3D globe.",
+ "tags": [
+  "sha-256",
+  "integrity-verification",
+  "knobe-protocol",
+  "provenance",
+  "lineage",
+  "quarantine",
+  "3d-globe"
+ ]
+}

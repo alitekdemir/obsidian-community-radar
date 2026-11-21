@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two-way with a Google Drive folder on desktop and mobile",
+  "Pick up files placed in the folder by other apps, scripts, or teammates",
+  "Merge or keep side by side conflicting edits instead of losing them",
+  "Stop and ask before applying large deletions",
+  "Sign in with the user's own Google OAuth client or an rclone token"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns to back up the vault first since two-way sync can overwrite or delete files on either side; detailed setup and privacy docs are in separate TECHNICAL.md and PRIVACY.md; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in Google Drive two-way sync, and other sync plugins only see files they created themselves, missing notes added by other apps or people.",
+ "readmeHash": "c9741d805ee6fcff8e71639dbb67c07bde7b712d",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Own Google Cloud OAuth client (client ID and secret)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way Google Drive sync that sees every file in the synced folder, merges or keeps conflicting edits, and confirms large deletions.",
+ "tags": [
+  "google-drive",
+  "two-way-sync",
+  "oauth-client",
+  "conflict-resolution",
+  "no-telemetry"
+ ]
+}

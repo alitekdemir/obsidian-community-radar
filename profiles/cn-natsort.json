@@ -1,0 +1,44 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sort file explorer entries by the numeric value of Arabic, Chinese, and Roman numerals",
+  "Handle multi-level numbering, dates, durations, and measure-word numerals in file names",
+  "Adjudicate ambiguous numeral segments against the whole folder before sorting",
+  "Re-sort on demand via a command or ribbon icon and diagnose ordering in the console",
+  "Step aside when the explorer is switched to modified/created time ordering"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file renamer; it only changes the display order in the file explorer and leaves names and content untouched.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents deliberate limits (no heavenly-stem/semantic ordering, no fractions, uppercase Roman only) and known misjudgments for numeral idioms like 七七八八, plus a note that v1.0 broke virtual scrolling and v1.1+ is required. Install via BRAT is also supported.",
+ "intent": "improve",
+ "intentEvidence": "This plugin replaces the explorer's own sort routine so numbers — Arabic, Chinese and Roman alike — are compared by value",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author explains that a single misjudged numeral demotes the whole name to text and falls back to pinyin ordering, scrambling the entire list, so v2.0 replaced if-branch guessing with a segment-score-adjudicate pipeline.",
+ "primary": "files",
+ "problem": "Obsidian's file explorer sorts by Unicode code points, so Chinese numerals come out shuffled because their pinyin readings bear no relation to their numeric value.",
+ "readmeHash": "1029f722672d977d5d11d3eb0db0d8b46430cd6e",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Chinese-numeral-aware natural sort for the file explorer that orders 第一章/第二章/第十章, Roman and Arabic numerals by value without renaming files.",
+ "tags": [
+  "chinese-numerals",
+  "natural-sort",
+  "roman-numerals",
+  "file-explorer",
+  "pinyin",
+  "intl-collator"
+ ]
+}

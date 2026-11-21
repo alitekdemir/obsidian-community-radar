@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Embed Jira Cloud issues as tiles via code blocks or standalone pasted issue URLs",
+  "Authenticate with Atlassian API tokens stored in Obsidian's SecretStorage",
+  "Render custom Jira fields with automatic formatters and a discovery picker",
+  "Cache fetched issues with a configurable TTL and offline fallback to stale data",
+  "Insert and refresh tiles from palette commands with compact or full display"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Community Plugins registry; manual install from a cloned repo is required. An earlier OAuth flow was removed; only API-token auth is supported. Targets Atlassian Cloud only, not Server/Data Center.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to show current Jira issue details (status, priority, assignee, custom fields) inside a note, so readers must leave the vault or paste stale screenshots.",
+ "readmeHash": "e4dd820ec8dc81eb124fda946bf11e03be63a19c",
+ "relations": [
+  {
+   "evidence": "Embed live Jira issue tiles in your Obsidian notes via fenced code blocks.",
+   "plugin": "Atlassian Jira Cloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Atlassian API token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Atlassian account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.11.4+ for SecretStorage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Embeds live Atlassian Jira Cloud issues as rich tiles in notes via fenced jira code blocks or auto-linked issue URLs.",
+ "tags": [
+  "jira",
+  "atlassian",
+  "issue-tracker",
+  "api-token",
+  "live-embed",
+  "offline-cache"
+ ]
+}

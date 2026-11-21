@@ -1,0 +1,52 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mark or clear a pane as the Main Pane via commands or settings",
+  "Redirect file opens from links, search, explorer, and sidebar views into the Main Pane",
+  "Toggle redirect mode with a status-bar indicator",
+  "Keep the pane designation bound to the tab strip rather than a note",
+  "Auto-promote the most recently used pane when the Main Pane closes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Routing depends on behavior in Obsidian 1.13+; desktop is the primary target and mobile behavior varies. Includes development install instructions and a documented limitations list.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "workspaces",
+ "problem": "In split layouts, opening files from links, Quick Switcher, File Explorer, or sidebar views scatters new tabs across every pane instead of keeping a single main working area.",
+ "readmeHash": "1afe2f90061dd3f3e73a7b3050881c23b8e29835",
+ "relations": [
+  {
+   "evidence": "this plugin picks which pane hosts the tab, OTS picks how tabs are created/duplicated",
+   "plugin": "Open Tab Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "these use standard openFile calls, which are re-routed when the corresponding setting is on",
+   "plugin": "Juggl",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Pane-routing tool that designates one pane as the Main Pane and redirects file opens from links, search, explorer, and other surfaces into it.",
+ "tags": [
+  "panes",
+  "tabs",
+  "split-layout"
+ ]
+}

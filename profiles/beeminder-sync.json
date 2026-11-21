@@ -1,0 +1,66 @@
+{
+ "also": [
+  "tasks",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send a datapoint to a Beeminder goal when a 🐝-marked task is checked off",
+  "Delete the synced datapoint when the task is unchecked, across sessions",
+  "Insert goal markers via autocomplete triggered by typing bee, goal, or 🐝",
+  "Set custom datapoint values with =value syntax on markers",
+  "Validate the Beeminder auth token and cache the goal list"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Undo of a datapoint can fail if the task is heavily edited or moved between files before unchecking; in that case the datapoint must be deleted manually on Beeminder. Auth token is stored via Obsidian SecretStorage, not in plugin settings. README includes developer sections on building from source and release workflows.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian tasks are only local checkboxes with no link to Beeminder's commitment tracking, so completing tasks there requires manually entering datapoints.",
+ "readmeHash": "2100149d30b59dc5f6b6c663aa99de9c2e3f7f9e",
+ "relations": [
+  {
+   "evidence": "the plugin sends a datapoint to Beeminder",
+   "plugin": "Beeminder",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compatible with the Tasks plugin but does not require it.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Beeminder account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Beeminder auth token stored in Obsidian SecretStorage",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task-to-Beeminder sync plugin that sends a datapoint to a Beeminder goal when a marked checkbox task is completed and removes it when unchecked.",
+ "tags": [
+  "beeminder",
+  "accountability",
+  "goal-tracking",
+  "datapoints",
+  "secret-storage"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate selected text into a target language",
+  "Insert the translation at the cursor via command or hotkey",
+  "Configure a default target language",
+  "Use the built-in Azure Translator instance or self-hosted Azure or LibreTranslate endpoints",
+  "Set API URL, region, and token for private instances"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The built-in Azure endpoint is a shared free instance with abuse warnings; setup steps for finding Azure API keys are included in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to translate selected text without leaving the editor for an external service.",
+ "readmeHash": "f28dcac378591fef9150056974d2f1ab6d4690a6",
+ "relations": [
+  {
+   "evidence": "It's based on a free instance of Azure Translator.",
+   "plugin": "Azure Translator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "your own hosted services in Azure or LibreTranslate",
+   "plugin": "LibreTranslate",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Azure Translator or LibreTranslate service",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Translation plugin that translates selected text into a target language and inserts it, using Azure Translator or LibreTranslate.",
+ "tags": [
+  "azure-translator",
+  "libretranslate",
+  "translation",
+  "machine-translation"
+ ]
+}

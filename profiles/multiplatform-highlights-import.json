@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import highlights and annotations from Kobo",
+  "Import highlights and annotations from Apple Books",
+  "Reconcile the same book across reading sources by ISBN or title",
+  "Create one standardized note per book, grouped by chapter",
+  "Trigger extraction via sidebar icon or command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The Kobo extractor requires pointing the plugin to the KoboReader.sqlite database on the device; the Apple Books extractor only works on macOS.",
+ "intent": "alternative",
+ "intentEvidence": "Why would I use this instead of kobo-highlights-importer / apple-books-highlights-plugin etc.?",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked an existing Kobo importer because they wanted Kobo support and liked how its output notes grouped annotations by chapter.",
+ "primary": "import",
+ "problem": "Highlights made in different reading services end up scattered in different formats and separate notes, even when they come from the same book.",
+ "readmeHash": "4dd8372f670a5da72106d3cabaed0e0057211d12",
+ "relations": [
+  {
+   "evidence": "I built this plugin by forking obsidian-kobo-highlights-import",
+   "plugin": "obsidian-kobo-highlights-import",
+   "type": "fork"
+  },
+  {
+   "evidence": "I also looked at the code for obsidian-apple-books-highlight-plugin to build the Apple Books plugin",
+   "plugin": "obsidian-apple-books-highlight-plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Kobo e-reader (KoboReader.sqlite file) or Apple Books on macOS",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Imports highlights and annotations from Kobo and Apple Books into Obsidian, reconciling the same book across sources into one standardized note per book.",
+ "tags": [
+  "kobo",
+  "apple-books",
+  "highlights",
+  "annotations",
+  "isbn",
+  "reading"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "also": [
+  "search",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show related notes, matching blocks and similar-content pairs for the current note in a side panel",
+  "Run semantic search over the vault by meaning rather than exact words",
+  "Flag paragraphs that drift from the note's title",
+  "Surface notes recent writing keeps returning to (Gravity)",
+  "Pause and resume indexing while writing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync or collaboration tool; \"connections\" here means semantic links between notes computed locally.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Installation requires manually copying release files into the plugins folder; no community-plugin store install is described.",
+ "intent": "alternative",
+ "intentEvidence": "A similar (most popular) plugin for this problem (semantic cosine similarity) kept triggering a weird graphics bug/freeze",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author's existing similarity plugin crashed his MacBook, so he wrote a free, minimalist, fully local alternative with no data collection.",
+ "primary": "ai",
+ "problem": "Obsidian only surfaces connections you link by hand; finding notes and paragraphs related by meaning normally requires cloud AI services or manual linking.",
+ "readmeHash": "d7db009d705741c5b307b5d3a0deb6345d583d04",
+ "relations": [
+  {
+   "evidence": "It runs on your own computer through Ollama, so your notes never leave your machine",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Semantic similarity panel that shows notes, blocks and title-content pairs related to the current note, using a local Ollama embedding model.",
+ "tags": [
+  "ollama",
+  "embeddings",
+  "semantic-search",
+  "local-llm",
+  "vector-index",
+  "privacy"
+ ]
+}

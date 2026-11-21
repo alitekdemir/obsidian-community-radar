@@ -1,0 +1,56 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Hide metadata properties whose value is empty",
+  "Keep specific properties visible even when empty",
+  "Hide specific properties in the properties table and side dock",
+  "Match properties by prefix using a trailing wildcard",
+  "Temporarily show all properties while editing metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It only changes how properties are displayed in the interface; it does not delete or modify property values.",
+ "extras": "Installable through BRAT or by manually copying main.js and manifest.json; includes build instructions for developers.",
+ "intent": "improve",
+ "intentEvidence": "Keep hiding specific metadata properties even if they are not empty in properties table / file properties (side dock)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian always displays metadata properties in the properties view and side dock, including empty ones, which clutters the interface.",
+ "readmeHash": "e7a2e98f6d1e50570da6c8dd241c2b5944e0f851",
+ "relations": [
+  {
+   "evidence": "First install BRAT Plugin",
+   "plugin": "BRAT Plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT Plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Hides empty or selected metadata properties from the properties view, side dock, and properties table in Obsidian.",
+ "tags": [
+  "wildcards",
+  "prefix-matching",
+  "side-dock",
+  "properties-table"
+ ]
+}

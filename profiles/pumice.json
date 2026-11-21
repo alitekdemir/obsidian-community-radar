@@ -1,0 +1,71 @@
+{
+ "also": [
+  "publishing",
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files over a persistent WebSocket connection with delta uploads and 3-way merge",
+  "Browse sync history and recover previous file versions",
+  "Take automatic local snapshots with configurable retention",
+  "Publish selected folders as a site with custom domain and appearance options",
+  "Share vaults or published sites with other accounts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The server is a separate Python project (pumice-server) you must run yourself; the README warns that syncing plugin code and plugin data.json (both off by default) crosses a larger trust boundary since data.json often holds plaintext API tokens.",
+ "intent": "alternative",
+ "intentEvidence": "modeled on Obsidian's own built-in Sync plugin, so an edit on one device shows up on another right away",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the goal is to sync instantly no matter how many files are in the vault.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a hosted paid service, so users who want instant multi-device sync over infrastructure they control have no first-party option.",
+ "readmeHash": "d592188a4c873b2b156dd79ca7fec71799644775",
+ "relations": [
+  {
+   "evidence": "modeled on Obsidian's own built-in Sync plugin",
+   "plugin": "Obsidian Sync (core plugin)",
+   "type": "inspired"
+  },
+  {
+   "evidence": "syncs your vault with a self-hosted server (pumice-server — required, run it yourself)",
+   "plugin": "pumice-server",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pumice-server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "server account (login via browser token handoff)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Self-hosted sync client that keeps a vault in live sync with your own pumice-server, with history, snapshots, publishing, and vault sharing.",
+ "tags": [
+  "self-hosted",
+  "websocket",
+  "e2ee",
+  "delta-sync",
+  "three-way-merge",
+  "token-auth"
+ ]
+}

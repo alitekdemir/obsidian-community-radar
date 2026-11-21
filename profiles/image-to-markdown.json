@@ -1,0 +1,71 @@
+{
+ "also": [
+  "ai",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe embedded images and PDFs into per-source Markdown transcript notes",
+  "Refine finished transcripts with prose feedback across versioned rounds",
+  "Describe text-sparse images with categories and tags so they turn up in search",
+  "Stream model output into a sidebar with per-image cards and a diff gate before overwriting",
+  "Configure ordered fallback vision endpoints with keys kept in Obsidian's keychain"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an unreviewed-plugin notice; full documentation follows the Diátaxis framework on an external docs site, with the README covering features, settings, gotchas and security contact.",
+ "intent": "alternative",
+ "intentEvidence": "Image to Markdown was split out of vault-rag 0.2.0",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author split it out of the vault-rag plugin because image transcription is not RAG and the two only shared the SSE transport.",
+ "primary": "ocr",
+ "problem": "Obsidian leaves embedded scans, screenshots and photographed pages as unsearchable images with no built-in way to turn their content into editable Markdown.",
+ "readmeHash": "7e898a6296b3f6c1d25900750e88a67e10946843",
+ "relations": [
+  {
+   "evidence": "Image to Markdown was split out of vault-rag 0.2.0 on 2026-06-21",
+   "plugin": "vault-rag",
+   "type": "fork"
+  },
+  {
+   "evidence": "If the LLM Endpoint Manager plugin is installed, the endpoints (and their keys) come from it",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local vision server (e.g. LM Studio)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Per-endpoint API key for hosted providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Transcribes embedded images and PDFs into Markdown notes using a local OpenAI-compatible vision model, streaming results live into a sidebar.",
+ "tags": [
+  "lm-studio",
+  "local-llm",
+  "vision-model",
+  "pdfjs",
+  "handwriting"
+ ]
+}

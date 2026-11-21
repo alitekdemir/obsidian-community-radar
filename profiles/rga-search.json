@@ -1,0 +1,75 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search text inside PDFs, EPUBs and Office files",
+  "Open a result at the matching PDF page",
+  "Jump to the reference note that links a document",
+  "Warm the text-extraction cache ahead of time",
+  "Limit searches by folder, file globs and result count"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. Extracted text is cached outside the vault, so nothing is added to it or synced; the first search over a large library can take over an hour, and scanned PDFs without a text layer cannot be searched.",
+ "intent": "alternative",
+ "intentEvidence": "RGA Search does one narrower job: exact phrase and regex search inside documents, with page numbers",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's own search covers Markdown only, so text inside the PDFs, EPUBs and Office documents in a vault cannot be found.",
+ "profiledAt": "2026-11-16",
+ "readmeHash": "06de91b8f1825ddf57c6b963c4b7f09af415b5d4",
+ "relations": [
+  {
+   "evidence": "RGA Search does one narrower job: exact phrase and regex search inside documents, with page numbers",
+   "plugin": "Omnisearch",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Stacks files each PDF in your vault and links it from its reference note's pdf property.",
+   "plugin": "Stacks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ripgrep-all (rga)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "poppler (pdftotext)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "pandoc",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Desktop search that runs ripgrep-all over the PDFs, EPUBs and Office files in a vault and opens hits at the matching page.",
+ "tags": [
+  "epub",
+  "docx",
+  "regex",
+  "citations"
+ ],
+ "textHash": "fb524cf0beee895245e0adeeec5e18b632a9c03f"
+}

@@ -1,0 +1,57 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload images from the file explorer or editor via the Upgit CLI",
+  "Replace local image links in the active note with hosted URLs",
+  "Copy the uploaded URL to the clipboard",
+  "Delete the local image file after upload (--clean)",
+  "Configure the Upgit executable path and extra CLI arguments"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. The README warns that uploads to public GitHub repositories produce world-readable raw URLs, and that hosting configuration and credentials live in Upgit's own config.toml, not in the plugin. The plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps images as local vault files, and sharing or linking them requires manually uploading and rewriting embeds.",
+ "readmeHash": "6b5d940b67c68ce598a5a6be0645d58f56a164d9",
+ "relations": [
+  {
+   "evidence": "It runs your local upgit binary and does not bundle credentials.",
+   "plugin": "Upgit",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Upgit CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Image uploader that runs the Upgit CLI to host vault images and swap local embeds for URLs.",
+ "tags": [
+  "image-hosting",
+  "upgit-cli",
+  "github",
+  "s3",
+  "smms",
+  "clipboard",
+  "desktop-only"
+ ]
+}

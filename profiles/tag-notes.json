@@ -1,0 +1,78 @@
+{
+ "also": [
+  "links",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Tag notes by linking tag notes from a keywords list property",
+  "Build a tag hierarchy with broader links, multiple parents and cycle detection",
+  "Browse a sidebar tag tree with direct and descendant counts, filtering and rename",
+  "Convert existing #tags into tag notes with a previewed, git-committable bulk migration",
+  "List notes tagged with a tag or its subtree via query blocks and exported Bases filters"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a tag-description or tag-page plugin; the tag note itself replaces the #tag as the source of truth.",
+ "extras": "Documentation ships as an interactive demo vault (also readable on GitHub); publishes a read-only API (api.d.ts) for other plugins; manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author frames bare tags as limited: \"A #tag is a bare string. It cannot carry a description, aliases or properties of its own\".",
+ "primary": "tags",
+ "problem": "Bare #tags cannot carry descriptions, aliases or properties, are easy to misspell, and renaming means vault-wide search-and-replace, while tagging with links loses the tag hierarchy, Tags pane and typeahead suggestions.",
+ "readmeHash": "33e0ebda911a33d6a21f495993bdec61e2972915",
+ "relations": [
+  {
+   "evidence": "Overlaps on hierarchy: not about tags, so no tag counts",
+   "plugin": "Breadcrumbs",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal of a tag hierarchy: the hierarchy lives in the tag notes' own broader links",
+   "plugin": "Tag Ontology",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Inverse direction: its tag page describes a #tag that stays the source of truth",
+   "plugin": "Tag Wrangler",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal of joining notes and tags: keeps the #tag as the source",
+   "plugin": "Unified Tag Links",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal of listing notes by tag: the tag is a note rather than a #tag",
+   "plugin": "Index Notes",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Makes each tag a note: tagging is linking tag notes, with a hierarchy, a tag tree with counts, subtree queries and conversion of existing #tags.",
+ "tags": [
+  "tag-hierarchy",
+  "suggester",
+  "bulk-migration",
+  "aliases",
+  "demo-vault"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Chat with local or cloud-hosted models",
+  ": Use active note context",
+  ": Use vault context snippets",
+  ": Edit Markdown files via AI proposals",
+  ": Test API endpoints"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": Markdown renderer",
+   ": sidebar"
+  ],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Public endpoints require explicit acknowledgement because note and vault context may leave your machine.",
+ "intent": "new",
+ "intentEvidence": "Chat with local models using active note and vault context.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Users need a way to leverage the knowledge contained within their Obsidian vault and active notes to inform and ground AI responses.",
+ "readmeHash": "979ea16e524735a25b29b94eb4d37ab455c98796",
+ "relations": [
+  {
+   "evidence": "It defaults to local Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "also supports OpenAI-compatible servers such as LM Studio or llama.cpp server",
+   "plugin": "OpenAI-compatible servers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or OpenAI-compatible model endpoint",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Obsidian secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "OChat provides a sidebar chat interface for interacting with local or cloud-hosted AI models, utilizing context from the active note and the entire Markdown vault.",
+ "tags": [
+  "ollama",
+  "openai-compatible",
+  "local-ai",
+  "vault-context",
+  "markdown-editing"
+ ]
+}

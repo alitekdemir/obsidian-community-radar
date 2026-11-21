@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ai",
+  "research"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "look up words by hovering or selecting text in notes and text-based PDFs",
+  "translate selected sentences with an OpenAI-compatible AI service",
+  "import TXT/CSV/Excel/DOCX word lists and study them in five modes with SM-2 scheduling",
+  "visualize difficult words as dandelion clusters or a 3D particle nebula",
+  "import MDX/JSON/JS dictionaries and sync saved words to Eudic"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-16",
+ "disambiguation": null,
+ "extras": "The plugin UI is currently in Chinese; full English documentation is in README_EN.md. The README explains its use of Node.js file access and child_process (PowerShell OCR on Windows only) for community review, states there is no telemetry, and documents every remote service it may contact.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to chain looking up, memorizing, reviewing, and playing into one loop instead of isolated dictionary popups: \"词忆不是「查词弹窗」的堆砌，而是把 查 → 记 → 复习 → 玩 串成闭环\".",
+ "primary": "languages",
+ "problem": "Obsidian has no built-in dictionary, translation, or vocabulary review, so learners must leave their notes to look up and memorize words.",
+ "readmeHash": "6cadb6de3ad60cded25fed16388a6672552d1417",
+ "relations": [
+  {
+   "evidence": "直连欧路词典 OpenAPI · 增量静默同步",
+   "plugin": "欧路词典 (Eudic)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "微信读书划线导出 — 把阅读中的划线与想法导出为 Markdown",
+   "plugin": "微信读书 (WeRead)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "也可接入任意 OpenAI 兼容 API 辅助记忆",
+   "plugin": "OpenAI-compatible APIs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "英文原著分级推荐 — 接古登堡计划榜单，按难度挑下一本该读的原著",
+   "plugin": "古登堡计划 (Gutenberg)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API / WeRead / tianapi keys",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Eudic OpenAPI authorization code",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Eudic app for synced word books",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Vocabulary tool that looks up words in notes and PDFs, translates selections with AI, and runs SM-2 spaced-repetition review with visual word maps.",
+ "tags": [
+  "sm-2",
+  "cefr",
+  "mdx",
+  "eudic",
+  "weread",
+  "dictionary"
+ ]
+}

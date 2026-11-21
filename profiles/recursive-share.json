@@ -1,0 +1,54 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "share individual notes via generated links",
+  "include linked attachments and embedded media in shares",
+  "connect the plugin to a self-hosted sharing backend",
+  "authenticate to the server with an API key"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin is unusable without deploying the separate backend via Docker, including mounting a settings.toml and configuring storage volume and port 8181; usage instructions are terse and include no example output.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian offers no built-in way to share a note with its linked attachments and embeds as a link without using Obsidian Publish.",
+ "readmeHash": "e9c2ee43375f517c0f26bff0a53d7cb3fdccc894",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted backend (cbergschneider/recursive-share-backend Docker image)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for the sharing server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sharing plugin that generates links to notes including their linked attachments and embedded images, backed by a self-hosted server.",
+ "tags": [
+  "self-hosted",
+  "docker",
+  "share-links",
+  "api-key"
+ ]
+}

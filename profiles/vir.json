@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "surface notes distilled from Claude Code sessions in a sidebar",
+  "query the vir CLI for notes related to the current note",
+  "show vir daemon health as a status-bar dot",
+  "review, approve or reject notes flagged by vir audit",
+  "scan the vault for vir-distilled notes by frontmatter type"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an in-Obsidian AI assistant; it only displays notes produced by the external vir CLI and does no distilling itself.",
+ "extras": "Desktop only — the CLI-bound daemon means the plugin does not run on mobile. The Review tab needs vir-cli 0.23.0+. The author links a Ko-fi page for donations and an external manifesto ('The Compounding Codebase') explaining the philosophy behind vir.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Knowledge distilled from Claude Code sessions lives outside the editor, so relevant patterns, gotchas and decisions don't surface while you write in Obsidian.",
+ "readmeHash": "207757800d8d0a8100c69945ecba76efddde9b94",
+ "relations": [
+  {
+   "evidence": "This plugin is a thin client over the vir CLI — install and configure it first",
+   "plugin": "vir CLI (@djolex999/vir-cli on npm)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "vir distills your Claude Code sessions into an Obsidian vault of patterns, gotchas, decisions, and tools",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "vir CLI (vir-cli 0.23.0 or newer, with background daemon)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar client for the vir CLI that surfaces notes distilled from Claude Code sessions while you edit, with a status-bar daemon indicator.",
+ "tags": [
+  "claude-code",
+  "llm",
+  "cli",
+  "daemon"
+ ]
+}

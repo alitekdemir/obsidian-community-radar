@@ -1,0 +1,67 @@
+{
+ "also": [
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send the whole document or a selection to the Antidote corrector",
+  "Open the Antidote dictionary and language guides",
+  "Show corrector, dictionary and guide icons in the status bar",
+  "Run corrector, dictionary and guide commands from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a grammar checker itself; it only forwards text to the separate Antidote application and does nothing without it.",
+ "extras": "Unofficial integration not made by Druide; on Linux only Antidote 10 is available, so the Connectix 11 upgrade is mandatory there; does not work on smartphones; README covers Connectix 11 installation workarounds and troubleshooting steps.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in grammar checking, and Antidote's official integrations cover other software but not Obsidian.",
+ "readmeHash": "a14ac54e033ec3c3dfaf5e68f29f543254e6f36e",
+ "relations": [
+  {
+   "evidence": "This plugin is only a bridge between Obsidian and Antidote: it corrects nothing by itself",
+   "plugin": "Antidote",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connectix is what links Antidote to its integrations (Word, VS Code, your browser, Obsidian, etc.)",
+   "plugin": "Connectix",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Antidote with Connectix agent 11+",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Antidote 10+ license or Antidote Web purchase",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bridge to the Antidote grammar checker that sends notes or selections to its corrector, dictionary and guides from status bar icons and commands.",
+ "tags": [
+  "antidote",
+  "connectix",
+  "grammar",
+  "proofreading",
+  "french",
+  "english"
+ ]
+}

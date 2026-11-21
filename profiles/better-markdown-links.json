@@ -1,0 +1,87 @@
+{
+ "also": [
+  "formatting",
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Writes angle bracket links for paths containing spaces",
+  "Adds a leading ./ to relative links",
+  "Converts existing links in a selection, note, folder or vault",
+  "Overrides Obsidian's wikilink and link path settings",
+  "Demotes embeds to plain links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is a separate demo vault shipped with each release and openable via a command; beta versions install through BRAT; the plugin also publishes a generateMarkdownLinkExtended() API for other plugin developers.",
+ "intent": "alternative",
+ "intentEvidence": "Alternative space handling: angle-bracketed paths; spaces preserved",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Wikilinks are not part of the Markdown spec, so a vault that uses them stops making sense outside Obsidian.",
+ "primary": "links",
+ "problem": "Obsidian writes Markdown links with %20-escaped spaces and relative paths without a leading ./, which are hard to read and resolve differently in other editors.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "6bfc8780ccc8fd3cb6eeac7e9e369fa0f4412090",
+ "relations": [
+  {
+   "evidence": "renames and deletes are handled by Advanced Rename and Delete Handler, which this plugin offers to install",
+   "plugin": "Advanced Rename and Delete Handler",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Backlink Cache speeds this plugin up on a large vault.",
+   "plugin": "Backlink Cache",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Advanced Metadata Cache, with its Names module on, speeds up resolving links via aliases",
+   "plugin": "Advanced Metadata Cache",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Alternative alias handling: explicit rewrite to a unique target",
+   "plugin": "Alias Linker",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative space handling: angle-bracketed paths; spaces preserved",
+   "plugin": "Markdown Link Space Encoder",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader conversion: selections/folders, angle brackets, leading ./ and automatic save-time conversion",
+   "plugin": "Link Converter",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Plugin that makes Obsidian write Markdown links with angle brackets and explicit ./ relative paths, and converts existing links to that form.",
+ "tags": [
+  "wikilinks",
+  "relative-paths",
+  "batch-processing"
+ ],
+ "textHash": "f2498524127b09c47177bed0bc91277608f9446f"
+}

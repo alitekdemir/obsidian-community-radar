@@ -1,0 +1,78 @@
+{
+ "also": [
+  "search",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an agent grounded in notes, properties, tasks, links, Bases and CSV files",
+  "Review note creation, rewriting, moving, renaming and deletion as diffs before applying",
+  "Restore applied changes from checkpoints",
+  "Run reusable skills and multi-step workflows stored as vault files",
+  "Search the vault by keyword or optional embeddings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a grammar or verb-conjugation tool; it is an AI agent that reads and edits vault documents.",
+ "extras": "Desktop only; interface and agent follow Obsidian's language (Korean or English). Optional Windows x64 offline pack bundles the database runtime, tokenizer table and a local embedding model; otherwise those files download on first use. Model providers may charge for usage; no telemetry.",
+ "intent": "alternative",
+ "intentEvidence": "Verbex began as a fork of Smart Composer (MIT, Heesu Suh) and was redeveloped from there.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Asking an AI about a vault usually means pasting notes by hand, and letting it edit files risks changes you did not approve or cannot undo.",
+ "profiledAt": "2026-11-17",
+ "provider": "Particle AI",
+ "readmeHash": "3b6eec11185ea7be9effc947ebdafdc39b83eb42",
+ "relations": [
+  {
+   "evidence": "Verbex began as a fork of Smart Composer (MIT, Heesu Suh) and was redeveloped from there.",
+   "plugin": "Smart Composer",
+   "type": "fork"
+  },
+  {
+   "evidence": "The Skill layout is compatible with Claude Code skills.",
+   "plugin": "Claude Code",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Model provider (OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama, LM Studio or OpenAI-compatible endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model provider API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Model provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI agent that chats over vault notes, CSV files and Bases, and applies note edits only after diff approval, with restorable checkpoints.",
+ "tags": [
+  "ai-agents",
+  "llm",
+  "mcp",
+  "semantic-search",
+  "byok",
+  "openai-compatible",
+  "ollama"
+ ],
+ "textHash": "03e42f16187a6bbc39f381b26aea0f02175818f8"
+}

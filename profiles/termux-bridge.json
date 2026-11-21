@@ -1,0 +1,52 @@
+{
+ "also": [
+  "developers",
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run shell commands in Termux from a command modal",
+  "Insert command output into the current note at the cursor",
+  "Use an interactive live terminal view inside Obsidian",
+  "Install and remove the Python bridge server via automated scripts",
+  "Authenticate connections with a generated security token"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-18",
+ "disambiguation": null,
+ "extras": "Setup requires running an automated script in Termux that installs Python and OpenSSL, downloads a Python server script, generates a token, and configures ~/.bashrc to auto-start the server; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian on Android cannot reliably run shell commands because of Android Intent restrictions, so users cannot execute Termux commands from inside their vault.",
+ "readmeHash": "6e1b60b2bd9b4aa87ae23f82b1336357b473aea6",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Termux",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Termux integration bridge that runs shell commands on Android from Obsidian via a local HTTP server with token authentication.",
+ "tags": [
+  "termux",
+  "android",
+  "shell",
+  "http-bridge",
+  "terminal",
+  "python"
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "also": [
+  "automation",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Google Gemini including file attachments, voice, and web search",
+  "Let the AI read, edit, and organize vault notes with confirmation dialogs",
+  "Automate multi-step tasks with a visual workflow builder and 24 node types",
+  "Search the vault with RAG via Google File Search",
+  "Extend the AI with agent skills, MCP servers, and OKF knowledge sources"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Canvas",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been reviewed by Obsidian staff. Free with a free Gemini API key, but image generation and some models require a paid API key; web search via Gemini may incur notable per-query costs. Since v1.11.0 the plugin is Gemini-only; CLI and multi-LLM support moved to the separate obsidian-llm-hub plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI features, so tasks like chatting over notes, semantic vault search, and multi-step AI automation require a Gemini integration.",
+ "readmeHash": "785165bbc605a46b0a5d218f3ab9cfbf9cc2c404",
+ "relations": [
+  {
+   "evidence": "Built-in skills - Obsidian-specific knowledge (Markdown, Canvas, Bases) included out of the box. Based on kepano/obsidian-skills",
+   "plugin": "kepano/obsidian-skills",
+   "type": "inspired"
+  },
+  {
+   "evidence": "When both plugins are enabled, Gemini Helper supplies Dashboard Hub with its configured Gemini models, Chat handoff, Base generation",
+   "plugin": "Dashboard Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Gemini Helper automatically registers its available non-image Gemini models with Discussion Hub",
+   "plugin": "Discussion Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install speech-popup and a microphone button appears above the send button",
+   "plugin": "speech-popup",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A new plugin obsidian-llm-hub has been created with CLI and multiple LLM provider support (OpenAI, Claude, OpenRouter, Local LLM)",
+   "plugin": "obsidian-llm-hub",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily or Brave Search API key for external web search",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "speech-popup for popup-based voice conversations",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dashboard Hub and Discussion Hub for their integrations",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI assistant powered by Google Gemini with chat, vault operations, workflow automation, RAG search, agent skills, and MCP tool support.",
+ "tags": [
+  "google-gemini",
+  "rag",
+  "mcp",
+  "agent-skills",
+  "okf",
+  "file-search-api",
+  "voice-conversation",
+  "encryption"
+ ]
+}

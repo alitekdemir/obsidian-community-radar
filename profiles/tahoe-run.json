@@ -1,0 +1,75 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run code blocks in place with output, plots and animations shown under the block",
+  "Debug Python with breakpoints, stepping, hover values and a variables view",
+  "Share one Python or MATLAB session across blocks in a note and install missing packages on failure",
+  "Export notes as .ipynb, .py or .m files and import notebooks and scripts as notes",
+  "Explain failed blocks with Apple Intelligence, Ollama or Claude and apply suggested fixes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Runs programs on your computer with your user account's permissions, so only run code you trust. Developed and tested on macOS; Windows and Linux support is written but untested. Python on iPhone and iPad is beta and needs a one-time ~13.5 MB Pyodide download. The plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian code blocks are static text; there is no built-in way to execute them, see their output, or keep a shared session across blocks in a note.",
+ "readmeHash": "81bf135bbc4636de98e79ea90665bdbf45f69d6d",
+ "relations": [
+  {
+   "evidence": "export a note as a .ipynb notebook (with its outputs and plots)",
+   "plugin": "Jupyter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Python blocks also run on iPhone and iPad, with Pyodide (Python 3.14 built for the web)",
+   "plugin": "Pyodide",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Python and MATLAB blocks get suggestions from the running session",
+   "plugin": "Tahoe Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Language toolchains (Python, MATLAB, compilers, interpreters) for desktop execution",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key for the Claude explain-error option",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Notebook-style code runner that executes code blocks in place, with a Python kernel, debugger, variables view, MATLAB sessions and about 25 other languages.",
+ "tags": [
+  "python",
+  "matlab",
+  "jupyter",
+  "debugger",
+  "pyodide",
+  "plotly",
+  "matplotlib",
+  "notebook"
+ ]
+}

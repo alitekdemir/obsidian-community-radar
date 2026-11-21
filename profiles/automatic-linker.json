@@ -1,0 +1,63 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert text matching vault file names into wiki links on save or by command",
+  "Batch-format the entire vault or only selected text",
+  "Resolve shorthand links to namespaced paths using proximity-based matching and aliases",
+  "Format GitHub, Jira, and Linear URLs and replace bare URLs with page-title Markdown links",
+  "Copy file or selection content with wiki links stripped"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "URL title replacement fetches page titles over the network (cached to minimize requests). The README notes it does not run Prettier or Linter, and provides troubleshooting and frontmatter opt-out documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian requires manually typing wiki links to connect notes, so large vaults accumulate unlinked text that matches existing file names.",
+ "readmeHash": "1fcbd52bcb4b07fb02b445f1378a1ba915e3039f",
+ "relations": [
+  {
+   "evidence": "updateEditor function adapted from obsidian-linter",
+   "plugin": "obsidian-linter",
+   "type": "extends"
+  },
+  {
+   "evidence": "When Bullet is enabled, Automatic Linker skips its own automatic formatting on save",
+   "plugin": "Bullet",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bullet",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Link-conversion plugin that turns text matching vault file names into wiki links as you save or run a command, and formats raw URLs into readable Markdown links.",
+ "tags": [
+  "cjk",
+  "aliases",
+  "namespaces",
+  "github",
+  "jira",
+  "linear",
+  "url-titles",
+  "auto-linking"
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Kobo highlights from the device's KoboReader.sqlite database over USB",
+  "Append new highlights to existing notes without rewriting them",
+  "Generate one note per book with frontmatter, chapter headings, and position markers",
+  "Back up the Kobo database before each sync, keeping the 10 most recent",
+  "Divert new highlights to a linked continuation note for books in protected folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "One-way import only: 'sync' means importing new highlights from the device, not two-way syncing with the e-reader.",
+ "extras": "Desktop-only (default paths are for macOS; Windows and Linux need manual path setup). Makes no network requests. Highlights with attached notes are not imported yet. Localized to Chinese and English.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Other Kobo importers regenerate the whole note on every import, so anything the user adds to it can be lost; this plugin was built to import without rewriting.",
+ "primary": "import",
+ "problem": "Other Kobo importers regenerate the whole note on every import, so edits a user makes to imported highlights can be lost.",
+ "readmeHash": "d36c916e48822f6750c0fc3026ea1497958f6c89",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Kobo e-reader connected over USB (desktop only)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports Kobo e-reader highlights from the device database into vault notes, appending new highlights without ever rewriting existing notes.",
+ "tags": [
+  "kobo",
+  "e-reader",
+  "highlights",
+  "ebook-annotations",
+  "sqlite",
+  "reading-notes"
+ ]
+}

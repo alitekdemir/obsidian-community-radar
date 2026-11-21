@@ -1,0 +1,63 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render dashboards from a profile.json defining layout and panes",
+  "Display 11 widget types including tables, kanban boards, heatmaps, forms and stat sparklines",
+  "Rewrite note frontmatter via action buttons and board drag with undo",
+  "Register custom widgets from companion plugins via the window.pinax API",
+  "Export and import profiles as JSON bundles or https URLs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Trust toggles (web embeds, command buttons, note writing) are off by default and scoped per profile; no telemetry or network requests except user-configured https iframes and URL imports; install via BRAT beta; community profiles at sphragis-oss/pinax-profiles; some helm-profile widgets are desktop-only and degrade to placeholders on mobile.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no built-in way to assemble a live dashboard of tables, boards and metrics over existing notes without writing custom code.",
+ "readmeHash": "87514862e2f2bc9642df99a65209c8288836eaae",
+ "relations": [
+  {
+   "evidence": "Optional companion: the Terminal community plugin (polyipseity/obsidian-terminal) so command buttons open an integrated terminal pane",
+   "plugin": "polyipseity/obsidian-terminal",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Seeded from the working command-center (\"The Helm\") Obsidian plugin; its SRE dashboard survives, config-driven",
+   "plugin": "The Helm",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "polyipseity/obsidian-terminal (Terminal)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Config-driven dashboard framework that renders tables, kanban boards, heatmaps, forms and stats over vault notes from a profile.json file.",
+ "tags": [
+  "kanban",
+  "heatmap",
+  "sparkline",
+  "iframe",
+  "llm-authoring",
+  "hot-reload"
+ ]
+}

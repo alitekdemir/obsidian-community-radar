@@ -1,0 +1,76 @@
+{
+ "also": [
+  "attachments",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload images via drag, paste, right-click, or command",
+  "Rehost remote images by fetching external links and replacing them",
+  "Batch upload and rewrite all image links in the current note",
+  "Configure upload channels such as Telegram, Cloudflare R2, S3, Discord, HuggingFace, and WebDAV",
+  "Watch folders or the whole vault to auto-upload images on note changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Attachments"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is mostly Chinese with an English section; the manifest notes the plugin has not been manually reviewed by Obsidian staff; troubleshooting section covers upload failures and broken image links; author accepts donations via PayPal, ko-fi, WeChat, and Alipay.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores images as local vault attachments, which bloats the vault and breaks when notes are synced or shared; there is no built-in way to rehost images on your own image bed.",
+ "readmeHash": "a30f7ddee2567370e0174964c0b78ff126b6f394",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "CloudFlare ImgBed",
+   "type": "integrates"
+  },
+  {
+   "evidence": "feat: 支持 Excalidraw 图片上传",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted CloudFlare ImgBed service",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "auth code or API token with upload permission",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "HuggingFace, Discord, or Telegram accounts depending on chosen channel",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Image uploader that sends pictures to a self-hosted CloudFlare ImgBed service, replacing local links with hosted Markdown image links.",
+ "tags": [
+  "cloudflare-imgbed",
+  "image-hosting",
+  "telegram-bot",
+  "cloudflare-r2",
+  "s3",
+  "webdav",
+  "discord",
+  "huggingface"
+ ]
+}

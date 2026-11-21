@@ -1,0 +1,50 @@
+{
+ "also": [
+  "tables"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "paginate base query results with first, previous, next, and last page controls",
+  "set page sizes from 1 to 1,000, including custom values",
+  "paginate group-aware using the native Bases grouping result",
+  "render links, tags, lists, images, formulas, dates, booleans, and numbers natively",
+  "configure sticky header and top/bottom pagination placement as persisted view options"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.12.0+ with the Bases core plugin enabled. Custom views receive data after the native result limit, so users must remove or raise the Bases result limit to page through the complete filtered set; the plugin cannot recover omitted rows. Older releases' search/filter settings are legacy and no longer change rendering; recreate them as native named views.",
+ "intent": "improve",
+ "intentEvidence": "It stays deliberately small and composes with native Bases instead of replacing its query controls.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author kept the plugin because a native Bases result limit does not provide page navigation or access to the remaining results, and the plugin fills that narrow missing capability.",
+ "primary": "bases",
+ "problem": "Native Bases can limit query results but offers no next/previous pages or access to results beyond that limit.",
+ "readmeHash": "d488e3ab02560c974bf746bd30425540d9d95aeb",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases core plugin",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Paginated read-only table view for Bases that adds first/previous/next/last page navigation, custom page sizes, and group-aware paging to base queries.",
+ "tags": [
+  "pagination",
+  "read-only",
+  "brat",
+  "page-navigation"
+ ]
+}

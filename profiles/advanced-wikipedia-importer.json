@@ -1,0 +1,66 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [
+  "film-enthusiasts"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import Wikipedia article URLs as structured Markdown notes",
+  "Select sections and images with editable filenames before import",
+  "Flatten colspan/rowspan tables and infoboxes into stable Markdown grids",
+  "Convert citation markers into real footnotes or drop them entirely",
+  "Name images using optional Gemini assistance with offline fallback"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin catalog; installs via BRAT or by copying release files manually, and carries an 'not reviewed by Obsidian staff' notice. The repository also ships an optional local web dashboard running the same parser. The author accepts Bitcoin, Ethereum, and Solana donations with an address-verification warning.",
+ "intent": "alternative",
+ "intentEvidence": "Other importers exist; none of them treated a film article the way a film diary wants",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author keeps a film diary and wanted each film's Wikipedia entry imported right after watching, preserving cast, production, reception, and the poster alongside his own notes.",
+ "primary": "import",
+ "problem": "Wikipedia articles read in the browser live outside the vault, and importing them by hand or with other importers yields broken tables, stray navigation chrome, and images that never arrive.",
+ "readmeHash": "d011a48295eeb2ca650d4be8ec6b92b8993839ad",
+ "relations": [
+  {
+   "evidence": "With one, gemini-flash-latest reads the captions and writes better image names",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install with BRAT pointed at this repo",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Imports Wikipedia articles as clean Obsidian notes with selectable sections, renamed images, flattened tables, and references turned into footnotes.",
+ "tags": [
+  "wikipedia",
+  "wikimedia",
+  "gemini",
+  "film-diary",
+  "image-naming",
+  "keychain",
+  "parsoid"
+ ]
+}

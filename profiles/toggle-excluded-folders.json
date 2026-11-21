@@ -1,0 +1,46 @@
+{
+ "also": [
+  "search",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Toggle the native Excluded files list from a ribbon icon or command",
+  "Stash exclusion entries to plugin storage and restore them on the second click",
+  "Refresh Search and Graph views automatically after toggling",
+  "Merge entries added while filters are off back into the list on restore",
+  "Restore the exclusion list when the plugin is disabled or uninstalled"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Relies on undocumented Obsidian APIs (Vault.getConfig/setConfig and search/graph view internals) that may break on Obsidian updates; the plugin self-disables with a notice if the config API disappears, and the README notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "operates on Obsidian's built-in Settings → Files and links → Excluded files list — it doesn't maintain its own",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian can hide noisy folders via the Excluded files setting, but there is no quick way to temporarily reveal them without manually editing that list.",
+ "readmeHash": "d6bcb56a68671066403d9376fcf3099ff5cd7715",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Ribbon and command toggle that switches Obsidian's native Excluded files list on and off to hide or reveal folders in file explorer, search and graph.",
+ "tags": [
+  "file-explorer",
+  "ribbon-icon",
+  "ignore-filters",
+  "regex",
+  "hotkey"
+ ]
+}

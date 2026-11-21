@@ -1,0 +1,66 @@
+{
+ "also": [
+  "charts"
+ ],
+ "audience": [],
+ "basis": "stub",
+ "capabilities": [
+  "reduce plugin size and startup time by dropping bundled dependencies",
+  "keep AnyBlock functionality without mermaid, plantuml or markmap",
+  "pair with other plugins to restore diagram features"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone diagram renderer; it is a slimmed distribution of the AnyBlock plugin whose main functionality lives in the main AnyBlock repository.",
+ "extras": "Documentation for the min version is incomplete; the README points to the main AnyBlock repository for details and says more documentation will be added later. Mermaid still works via Obsidian's built-in version, with a minor refresh glitch during editing. The README mixes English and Chinese.",
+ "intent": "alternative",
+ "intentEvidence": "obsidian-any-block mini version. Remove some features and dependencies to reduce size and improve performance.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "The full AnyBlock plugin is heavy (8.82MB, 424ms startup at v3.2.1), which slows vault loading and memory use.",
+ "readmeHash": "88e5de50f117bba08e29b0c215e1767fbb30dd14",
+ "relations": [
+  {
+   "evidence": "AnyBlock min version. Remove some features and dependencies to reduce size and improve performance.",
+   "plugin": "AnyBlock",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "mindmap-nextgen",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "mehrmaid",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "mindmap-nextgen or mehrmaid",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 4
+ },
+ "summary": "Trimmed-down distribution of the AnyBlock plugin that removes mermaid, plantuml and markmap dependencies to cut size and startup time.",
+ "tags": [
+  "mermaid",
+  "plantuml",
+  "markmap",
+  "mindmap",
+  "startup-performance",
+  "bundle-size"
+ ]
+}

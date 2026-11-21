@@ -1,0 +1,57 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan a source folder for filenames containing dates in the daily notes format",
+  "Create all missing daily notes via ribbon action or command",
+  "List missing daily dates with filtering and links to source notes",
+  "Watch for new source files and create daily notes automatically",
+  "Wait for Obsidian Sync completion before automatic creation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not copy or merge source notes' contents; it only creates the empty daily note Obsidian would normally create for that date.",
+ "extras": "Sync detection relies on undocumented internal APIs that may break after Obsidian updates and is untested on mobile; the plugin runs entirely locally with no network requests. Not yet available in the community plugin catalog.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "When other apps or workflows create dated notes (voice memos, meeting notes, journal imports), Obsidian's daily notes core plugin only creates a note for the current day, leaving dates without daily notes.",
+ "readmeHash": "48db5b0e99cda02a6f01a9c15aad2c8b57d4c035",
+ "relations": [
+  {
+   "evidence": "Queue automatic creation until Obsidian Sync on this device reports that it has fully synced",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily notes core plugin",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Plugin that scans a folder of notes with dates in their filenames and creates any missing Obsidian daily notes for those dates.",
+ "tags": [
+  "filename-parsing",
+  "file-watcher",
+  "voice-notes",
+  "journal-imports",
+  "batch-creation"
+ ]
+}

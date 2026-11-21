@@ -1,0 +1,69 @@
+{
+ "also": [
+  "canvas",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Branch AI chat replies into child nodes by selecting text and pressing Tab",
+  "Chat with any OpenAI-compatible API endpoint",
+  "Navigate maps as an interactive graph with keyboard shortcuts",
+  "Attach and edit personal notes on nodes",
+  "Export maps to Obsidian Canvas, Markdown, and Mermaid mindmaps"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a web crawler or scraper; it renders branching AI chat sessions as a navigable node map.",
+ "extras": "Maps are stored locally as .spider/maps/*.json and sync via Obsidian Sync; no client-side usage analytics; bilingual Chinese/English UI; README includes a roadmap of unfinished features.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI chats are linear, so drilling into a term means copy-pasting into a new window and losing the original thread, with no way to turn the exploration into linked notes.",
+ "readmeHash": "855c7f60eda8cdc8188623012049176a0254e9ea",
+ "relations": [
+  {
+   "evidence": "any OpenAI-compatible API into a branching knowledge map",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local LLMs: Ollama, vLLM, LM Studio — all expose OpenAI-compatible endpoints",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM server (Ollama, vLLM, LM Studio)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Branching AI chat plugin that turns OpenAI-compatible conversations into an interactive knowledge map with Tab-to-branch navigation and structured exports.",
+ "tags": [
+  "openai",
+  "deepseek",
+  "claude",
+  "ollama",
+  "chatgpt",
+  "mind-map",
+  "branching-chat",
+  "dagre"
+ ]
+}

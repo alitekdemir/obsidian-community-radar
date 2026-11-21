@@ -1,0 +1,66 @@
+{
+ "also": [
+  "thinking"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Apply built-in or custom thinking lenses to a note or text selection",
+  "Stream LLM responses into a side panel",
+  "Save a lens result as a linked note tagged #lens/<lens>",
+  "Configure Anthropic or any OpenAI-compatible provider, including local Ollama and LM Studio servers",
+  "Edit lens prompts and shared instructions in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that applying a lens sends the note (and by default linked notes) to the provider's API, and that non-Anthropic providers return responses without token-by-token streaming.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get an AI critique, strongest-form defense, or concretization of an idea in a note.",
+ "readmeHash": "a0c17ca556bb1bbea66244edbf314355d71b9356",
+ "relations": [
+  {
+   "evidence": "Anthropic (Claude) (default): create or select a secret for your API key",
+   "plugin": "Anthropic (Claude)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "hosted services like OpenAI, OpenRouter, Groq, or DeepSeek, and local servers like Ollama and LM Studio",
+   "plugin": "OpenAI, OpenRouter, Groq, DeepSeek, Ollama, LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or OpenAI-compatible provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI thinking tool that sends a note or selection to an LLM to challenge, steelman, or concretize the idea, streaming the result into a side panel.",
+ "tags": [
+  "anthropic",
+  "claude",
+  "ollama",
+  "lm-studio",
+  "steelman",
+  "openai-compatible"
+ ]
+}

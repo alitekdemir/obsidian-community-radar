@@ -1,0 +1,68 @@
+{
+ "also": [],
+ "audience": [
+  "obsidian-plugin-developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Link installed plugins to a local dev build folder and dev command",
+  "Toggle between prod and dev builds with one click via a shadow dev plugin id",
+  "Run, kill, and restart the dev build's npm dev server from settings",
+  "Switch git branches in the dev repo with stash handling for dirty trees",
+  "Mirror dev build output into a watched dev folder so Hot Reload picks up changes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general plugin manager; it only touches plugins you explicitly link for development.",
+ "extras": "Not yet on the Community Plugins list (submission pending); install via BRAT or Hot Reload's GitHub releases approach. Desktop only — mobile shows the registry but lacks dev-server and git controls. Uses Obsidian's undocumented internal plugin manager, which the author flags as a potential future breakage point.",
+ "intent": "improve",
+ "intentEvidence": "depends on pjeby's Hot Reload (MIT licensed) and does not work without it",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author saw a gap between BRAT, Hot Reload, and existing dev-loop plugins, none of which combine a dev/prod registry, a one-click toggle, and dev-server control.",
+ "primary": "developers",
+ "problem": "Obsidian keys plugins by folder id, so a dev and prod build of the same plugin can't coexist, forcing plugin developers to manually swap builds to test changes.",
+ "readmeHash": "646ede6025313c8cb7c472d8f986bac20ddc0eda",
+ "relations": [
+  {
+   "evidence": "This plugin depends on pjeby's Hot Reload (MIT licensed) and does not work without it.",
+   "plugin": "Hot Reload (pjeby)",
+   "type": "extends"
+  },
+  {
+   "evidence": "Inspired by the gap between BRAT, Hot Reload, and the many small dev-loop plugins in this space",
+   "plugin": "BRAT",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Hot Reload",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Developer tool that links installed plugins to local dev builds and one-click toggles between dev and live versions with hot reload and dev-server control.",
+ "tags": [
+  "plugin-management",
+  "local-server"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

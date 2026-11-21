@@ -1,0 +1,84 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Watch a folder and transcribe new audio files via a local Docker backend",
+  "Categorize voice memos by filename prefixes and importance ratings",
+  "Generate per-note and weekly/monthly/yearly summaries with a local LLM",
+  "Record audio in-app and place it in the processing queue",
+  "Move finished transcripts to an output directory with metadata and tags"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full backend setup, configuration and troubleshooting are documented in a separate obsidian-vox-backend repository; transcription is currently English-focused.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that voice memos cannot be indexed or searched, and that a growing directory of audio files is no way to organize notes.",
+ "primary": "audio",
+ "problem": "Voice memos are not plaintext, so they cannot be searched, indexed or categorized, and a large folder of audio files becomes unmanageable.",
+ "readmeHash": "edfd1a2c16f7bb0976cef8d7b7133467313d1f2d",
+ "relations": [
+  {
+   "evidence": "Vox requires a local backend to perform transcription. Head to obsidian-vox-backend",
+   "plugin": "obsidian-vox-backend",
+   "type": "integrates"
+  },
+  {
+   "evidence": "built-in AI summarization powered by a local LLM (Ollama)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The backend starts on and downloads the Whisper model (~470 MB)",
+   "plugin": "Whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "sent directly to your desktop's backend over the encrypted Tailscale tunnel",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync audio files to your desktop vault's watch folder using Syncthing",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsidian-vox-backend (Docker)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Transcribes voice notes via a local Whisper backend and files them as categorized notes with frontmatter, tags and LLM-generated summaries.",
+ "tags": [
+  "whisper",
+  "ollama",
+  "speech-to-text",
+  "voice-memos",
+  "docker",
+  "tailscale"
+ ]
+}

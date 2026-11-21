@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate X post drafts from selected note text",
+  "Generate LinkedIn post drafts from selected note text",
+  "Match your writing style from pasted voice samples and tone presets",
+  "Edit drafts in place with a live character counter",
+  "Reopen recent draft runs from history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a social media scheduler or auto-poster; it only generates drafts that you edit and copy yourself.",
+ "extras": "Not yet in the community store, so the README gives manual install steps (npm build, copy files into .obsidian/plugins/postcraft/). Warns that the API key and draft history live in data.json inside the vault and should be kept out of any public sync or repo.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found most AI plugins are general-purpose chat and wanted a tool that does one thing: select text, run one command, get finished posts with no prompt writing.",
+ "primary": "ai",
+ "problem": "Obsidian has no one-click way to turn note content into finished social media posts; general-purpose AI plugins require writing prompts yourself.",
+ "readmeHash": "1c4330c05a83f8e9b00b7d61e6bc0e3b85c32294",
+ "relations": [
+  {
+   "evidence": "Calls Anthropic directly via Obsidian's requestUrl",
+   "plugin": "Anthropic (Claude API)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key (sk-ant-…)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI generator that turns selected note text into ready-to-post X and LinkedIn drafts matching your voice, using your own Anthropic API key.",
+ "tags": [
+  "anthropic",
+  "claude",
+  "twitter",
+  "linkedin",
+  "social-media",
+  "voice-matching"
+ ]
+}

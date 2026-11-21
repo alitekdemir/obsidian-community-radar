@@ -1,0 +1,77 @@
+{
+ "also": [
+  "review",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault notes using hybrid semantic and keyword search with inline citations",
+  "Run an agent that reads, writes, and edits vault files and delegates to sub-agents",
+  "Generate quizzes, flashcards, concept maps, and narrated slideshows from notes",
+  "Manage RSS feeds and import feed items as chat context",
+  "Execute JavaScript, TypeScript, HTML, and Dataview code blocks from chat responses"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides",
+   "Graph view",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest states the plugin has not been manually reviewed by Obsidian staff. Requires API keys for cloud providers; local models via LM Studio or Ollama need no key. Indexing happens locally, but note content is sent to providers the user configures.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI features, so chatting with notes, generating study material, or running local/cloud LLMs requires leaving the app or juggling separate tools.",
+ "readmeHash": "a10d0405c5498397762cde6de9acb934eee2a626",
+ "relations": [
+  {
+   "evidence": "Execute Dataview and DataviewJS blocks inline.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LM Studio is detected as a native provider — no API key required.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "leverage AI to create new Excalidraw diagrams or Canvas files",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini, Groq, OpenRouter, OpenCode, Nvidia, Mistral, Cohere, or other provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio or Ollama for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "AI assistant plugin that adds vault chat, an agent, study-material generation, concept maps, slideshows, RSS feeds, and code execution inside Obsidian.",
+ "tags": [
+  "rag",
+  "embeddings",
+  "bm25",
+  "mcp",
+  "rss",
+  "ollama",
+  "lm-studio"
+ ]
+}

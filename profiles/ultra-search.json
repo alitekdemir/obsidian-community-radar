@@ -1,0 +1,61 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search file names and individual lines with fuzzy, typo-tolerant matching",
+  "Rank results by relevance with order-aware scoring and open matches at the exact line",
+  "Chat with a Gemini AI assistant grounded in a file, folder, or the whole vault",
+  "Toggle Google Search grounding for web results alongside vault answers",
+  "Exclude folders and tune minimum query length and result limits"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet manually reviewed by Obsidian staff. Web search grounding requires a Gemini API paid tier; the AI key is stored via the Obsidian keychain, not plaintext settings. Fuzzy search is fully local; only the chat panel sends note content to Google.",
+ "intent": "improve",
+ "intentEvidence": "Standard search tools often fail to locate these details or return irrelevant results.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Standard search misses details captured in daily notes without tags or backlinks, and can't answer complex questions synthesized from note content.",
+ "readmeHash": "7ce91e2575d7272f9e3c00c72209ca9447c9a7c6",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Line-level fuzzy search over file names and Markdown content, plus an optional Gemini AI chat panel that answers questions grounded in vault notes.",
+ "tags": [
+  "fuzzy-search",
+  "gemini",
+  "typo-tolerance",
+  "line-level-indexing",
+  "rag",
+  "google-search-grounding",
+  "keychain",
+  "offline"
+ ]
+}

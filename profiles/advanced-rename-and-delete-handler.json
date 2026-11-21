@@ -1,0 +1,75 @@
+{
+ "also": [
+  "links",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Update links, display text included, when a note is renamed or moved",
+  "Move a note's attachments with it, folder and all",
+  "Rewrite HTML src and href paths and report paths stored in other plugin settings",
+  "Clean up a deleted note's attachments and the folders left empty",
+  "Confine the plugin to part of the vault with include and exclude path lists"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a bulk or pattern-based file renamer; it manages what happens to links, attachments and folders when a note is renamed or deleted.",
+ "extras": "Documentation is a demo vault shipped with each release and readable on GitHub; the plugin stands aside while an older plugin that owns its own rename/delete handler is enabled, and exposes an API so other plugins can hand over their rename and delete settings.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian updates the links pointing at a note when you rename it, and stops there.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian updates links when a note is renamed but leaves its pasted attachments under the old name, and deleting a note leaves those files orphaned in folders named after nothing.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "d802df3050df60c7db42b119ffe598c94b2d5187",
+ "relations": [
+  {
+   "evidence": "Same lifecycle goal; arbitrary existing layouts; shared attachments; include/exclude paths",
+   "plugin": "Attachment Manager",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative grouping: derives attachments from links and configured folders",
+   "plugin": "File Bundles",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader sweep: whole vault, deepest first, in one command",
+   "plugin": "Remove Empty Folders",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Ensure you have the BRAT plugin installed and enabled.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Vault-wide rename and delete handler that keeps links, attachments and folders consistent, and cleans up what a deletion leaves behind.",
+ "tags": [
+  "rename",
+  "wikilinks",
+  "orphan-notes",
+  "folder-structure"
+ ],
+ "textHash": "c941657f79cb9175e4d0b4db44a4dd8ef4a15b4c"
+}

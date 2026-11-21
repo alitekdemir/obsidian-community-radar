@@ -1,0 +1,58 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render mq query results inline via ```mq code blocks",
+  "Run mq queries on the current note or selection with replace, insert, or copy actions",
+  "Run mq queries across the vault, reporting to a new note or updating files in place",
+  "Get syntax highlighting, diagnostics, hover docs, and autocomplete inside mq code blocks",
+  "Use Dataview DQL query output as input for mq queries"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet on the Community Plugins list; must be installed manually from release files. Runs fully client-side via WebAssembly with no network access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian has no built-in way to run structured queries against Markdown content and transform the matched nodes in place.",
+ "readmeHash": "041d7dd5202e670dac9a0c384271139826add5be",
+ "relations": [
+  {
+   "evidence": "A Dataview DQL query, rendered to Markdown and used as input (requires the Dataview plugin, toggle in settings)",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Markdown query plugin that runs mq, a jq-like query language for Markdown, as live code blocks and editor commands inside Obsidian.",
+ "tags": [
+  "jq",
+  "query-language",
+  "webassembly",
+  "dataview",
+  "code-blocks",
+  "text-transformation"
+ ]
+}

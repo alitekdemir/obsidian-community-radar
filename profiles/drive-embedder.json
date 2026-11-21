@@ -1,0 +1,71 @@
+{
+ "also": [
+  "attachments",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "upload local files to Google Drive via OAuth",
+  "insert embed code for uploaded files at the cursor",
+  "choose embed sizes for video, audio, documents, and images",
+  "configure OAuth credentials, Drive folder, and default sizes in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Files uploaded to Google Drive are set to public sharing, which the README notes is required for embedding. Installation is currently via BRAT, not the community plugin registry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to host large media files off the vault and embed them directly from Google Drive.",
+ "readmeHash": "a8a21718086fdcc6e3504b8b2d15239f3da114e0",
+ "relations": [
+  {
+   "evidence": "Install BRAT plugin - Open Obsidian Settings → BRAT → Add Beta plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account with Google Drive",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google OAuth Client ID and Client Secret",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT (for beta installation)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Google Drive uploader that uploads local vault files to Drive and inserts embeds for video, audio, PDF, and images with size options.",
+ "tags": [
+  "google-drive",
+  "oauth",
+  "media-embedding",
+  "iframe"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [],
+ "audience": [
+  ": e-ink users",
+  ": digital note takers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "(verb) Write by hand on paper-like pages",
+  "(verb) Transcribe handwriting into Markdown",
+  "(verb) Annotate PDFs and images",
+  "(verb) Import and write on arXiv papers",
+  "(verb) Create flowcharts and object libraries"
+ ],
+ "coreOverlap": {
+  "features": [
+   "writing",
+   "drawing",
+   "files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free plugin; requires user to set up their own Azure AI Vision key for handwriting recognition.",
+ "intent": "improve",
+ "intentEvidence": "Handwritten notebooks in Obsidian that feel like the Boox Notes app",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Standard digital note-taking interfaces are not optimized for the natural writing experience and workflow of e-ink tablets.",
+ "readmeHash": "f4c62e533398cdd5b9e92e07f0d7d46d23499572",
+ "relations": [
+  {
+   "evidence": "Handwritten notebooks in Obsidian that feel like the Boox Notes app",
+   "plugin": "Boox Notes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Excalidraw libraries: tap one, then tap the page to put it there",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Handwriting recognition is optional. Without it, the text page shows your handwriting as a picture",
+   "plugin": "Azure AI Vision",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Azure AI Vision key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "E-ink tablet (e.g., Boox)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Ink Notebook provides a handwritten note-taking experience for e-ink tablets, converting strokes into editable Markdown using Azure OCR.",
+ "tags": [
+  "e-ink",
+  "boox",
+  "azure",
+  "handwriting",
+  "notebook"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault by keyword or meaning through a local service",
+  "Surface notes related to the active note",
+  "Expose vault retrieval to agents over MCP",
+  "Initialize, refresh, and rebuild the local index from a side panel",
+  "Open search result notes directly in Obsidian"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI chat plugin or a standalone search engine; it is a UI and lifecycle wrapper around the separate obsidian-kb CLI.",
+ "extras": "Desktop-only (Obsidian Mobile is unsupported because the plugin spawns a local process); the obsidian-kb CLI must be installed separately; BRAT installation is supported; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it as a bridge: agents need more than raw file access, and the workflow follows the LLM Wiki pattern where Obsidian is the human-facing workspace and agents handle search and maintenance.",
+ "primary": "ai",
+ "problem": "AI agents need a reliable local way to search and inspect a vault, and Obsidian has no built-in retrieval layer that keeps notes off hosted knowledge services.",
+ "readmeHash": "3f5440142f57242617d0796001986bb06bbb3faf",
+ "relations": [
+  {
+   "evidence": "It is an Obsidian UI and lifecycle wrapper around the separate obsidian-kb CLI",
+   "plugin": "obsidian-kb",
+   "type": "integrates"
+  },
+  {
+   "evidence": "turns your Obsidian vault into a private local retrieval layer for Codex, Claude Code, OpenCode",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsidian-kb CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Local retrieval layer that wraps the obsidian-kb CLI to add semantic search, related notes, and MCP access for AI agents.",
+ "tags": [
+  "mcp",
+  "semantic-search",
+  "rag",
+  "claude-code",
+  "codex",
+  "obsidian-kb"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "share, update, and unshare individual notes to a self-hosted server",
+  "rotate share links and gate pages with generated passcodes",
+  "upload attachments content-addressed and convert wikilinks between shared notes",
+  "edit and push the public site's CSS, JS, and head HTML from plugin settings",
+  "manage all shares from an in-app list with copy, rotate, and delete actions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest warns the plugin has not been manually reviewed by Obsidian staff. The server must be reachable over HTTPS behind a reverse proxy and configured via environment variables; troubleshooting covers Docker exits, render delays for dynamic content, theme pushes, and rate-limit behavior behind proxies.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish single notes on demand to a self-hosted server with unguessable links, passcodes, and automatic re-publishing after edits.",
+ "readmeHash": "a827ac0d5d7c220e15d63684113b9470bf2cfbc7",
+ "relations": [
+  {
+   "evidence": "Litestream works for continuous replication of the database file.",
+   "plugin": "Litestream",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Outcrop server (Go binary via Docker)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key shared with the server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted publishing that shares individual notes to your own domain via a Go server, with link rotation, passcodes, and site theming.",
+ "tags": [
+  "self-hosted",
+  "docker",
+  "sqlite",
+  "opengraph",
+  "sitemap",
+  "passcode",
+  "reverse-proxy",
+  "go"
+ ]
+}

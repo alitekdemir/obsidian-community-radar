@@ -1,0 +1,70 @@
+{
+ "also": [
+  "flashcards",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "extract technical terms, definitions and context from markdown using a local LLM",
+  "review, approve or reject extracted terms before adding them to a glossary",
+  "generate wiki-style term pages with definitions, context and knowledge triples",
+  "store terms and the approval queue in a local SQLite database",
+  "turn notes into OWL ontologies and Anki flashcards"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Prerequisites include Ollama running locally with a model pulled (e.g. llama3.1). Database syncing across devices requires enabling Obsidian Sync for .db files. The intro claims wiki, ontology and flashcard generation, but the documented features cover only term extraction, the approval workflow and glossary pages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to use AI to extract structured terminology from notes and turn it into glossary pages, ontologies, or flashcards.",
+ "readmeHash": "0af240296261449df2682e0bf287798e58e43b82",
+ "relations": [
+  {
+   "evidence": "This plugin connects to an Ollama server for AI-powered term extraction",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A | Anki | Flash card and spaced repetition learning system",
+   "plugin": "Anki",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Anki",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 3
+ },
+ "summary": "AI framework that extracts terms and definitions from notes via a local Ollama LLM, queues them for approval, and generates wiki-style glossary pages.",
+ "tags": [
+  "ollama",
+  "langchain",
+  "sqlite",
+  "anki",
+  "ontology",
+  "owl",
+  "glossary"
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "export tags with their file paths to a JSON file",
+  "export per-note metadata including frontmatter, tags, links and backlinks to JSON",
+  "export a list of folders and non-Markdown files to JSON",
+  "export canvas file metadata to JSON",
+  "schedule exports or write files on launch and set output paths"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Scheduled export is disabled by default (frequency 0) and writing on launch defaults to false; JSON files are saved to the plugin folder unless absolute paths are configured.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To enable third-party apps to access Obsidian metadata which they normally cannot reach, exemplified by launcher apps and graph analysis software.",
+ "primary": "export",
+ "problem": "Vault metadata such as tags, links, and backlinks is only accessible inside Obsidian via plugins, so external tools like launchers or graph analysis software cannot read it.",
+ "readmeHash": "6d69d1713a8ffb31b74fa1a8cf75dd284764cf85",
+ "relations": [
+  {
+   "evidence": "Exemplary use cases are launcher apps (e.g. Alfred, Ulauncher)",
+   "plugin": "Alfred",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Exemplary use cases are launcher apps (e.g. Alfred, Ulauncher)",
+   "plugin": "Ulauncher",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Metadata exporter that writes tag, note, non-Markdown file, and canvas metadata to JSON files on disk on a schedule for use by third-party apps.",
+ "tags": [
+  "alfred",
+  "ulauncher",
+  "launcher",
+  "graph-analysis"
+ ]
+}

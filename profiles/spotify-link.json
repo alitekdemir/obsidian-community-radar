@@ -1,0 +1,62 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "insert the currently playing song or podcast at the cursor position",
+  "render inserted tracks through a custom user template",
+  "fetch all tracks played since the beginning of the current day"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Spotify playback controller; it only inserts text about the currently playing track into notes.",
+ "extras": "Full documentation is hosted externally. Known issues: the Web viewer core plugin can break the Spotify login (workaround opens the system browser with a copy-link/paste-redirect fallback), and Spotify's February 2026 restriction of Development Mode apps makes a Premium subscription required and leaves some template variables deprecated.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to record what you are listening to on Spotify while writing notes.",
+ "readmeHash": "2690e048fe7ebcf8edc5c6fe344062184083fce0",
+ "relations": [
+  {
+   "evidence": "Users can connect their Spotify accounts using the official Spotify API.",
+   "plugin": "Spotify",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Spotify account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "self-created Spotify app (client credentials)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Spotify Premium subscription for the app owner",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Spotify integration that inserts the currently playing song or podcast at the cursor and fetches the day's played-track history.",
+ "tags": [
+  "spotify",
+  "spotify-api",
+  "now-playing",
+  "podcasts"
+ ]
+}

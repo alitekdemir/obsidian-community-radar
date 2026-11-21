@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Design types with forms or YAML",
+  "Create notes from types",
+  "Validate notes against types",
+  "Sync vault with mdbase",
+  "Manage collection settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   ", Properties view",
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It functions as a bridge to an external database service rather than a local database implementation.",
+ "extras": "Requires external mdbase service; installation requires BRAT or manual file placement.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Standard Markdown notes lack defined structure and cross-device synchronization capabilities.",
+ "readmeHash": "2381e35defe87691f7accb743c7507b4bb0d8d90",
+ "relations": [
+  {
+   "evidence": "Sync keeps the vault in step with an mdbase collection.",
+   "plugin": "mdbase",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "mdbase",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A system for giving Markdown notes types, validating them against schemas, and syncing the vault with mdbase collections.",
+ "tags": [
+  "typed-records",
+  "yaml-schema",
+  "collection-management",
+  "cross-device-sync",
+  "data-validation"
+ ]
+}

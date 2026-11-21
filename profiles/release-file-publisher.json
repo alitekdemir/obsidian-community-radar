@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload files to a daily GitHub Release",
+  "Insert players, images, or download links into the active note",
+  "Copy the download URL to the clipboard",
+  "Browse and delete remote assets by date",
+  "Resolve filename conflicts with replace or keep-both modes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Git publishing tool; it stores files as GitHub Release assets and does not commit uploaded files to the repository.",
+ "extras": "Desktop only (Obsidian 1.8.7+); mobile is unsupported because uploads use Node.js HTTPS APIs. The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns the token is stored unencrypted in data.json and that replacement/deletion operations are not atomic.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian has no built-in way to host large media or arbitrary files externally and get shareable download URLs embedded in notes.",
+ "readmeHash": "0d8f1a000a9cc0977bc291dc5bb32fbe4eda1da5",
+ "relations": [
+  {
+   "evidence": "this plugin connects directly to api.github.com and uploads.github.com for the repository configured by the user",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account and repository",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "fine-grained personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Uploads local files to date-named GitHub Release assets and inserts audio/video players, images, or download links into the active note.",
+ "tags": [
+  "github-releases",
+  "file-hosting",
+  "upload",
+  "audio-player",
+  "video-player",
+  "personal-access-token"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Proofread selected text, the current paragraph, or the full document with an LLM",
+  "Insert suggested additions as highlights and removals as strikethroughs",
+  "Accept or reject suggestions via commands and hotkeys, per selection or one at a time",
+  "Connect to OpenAI, Google, Mistral, OpenRouter, or a local Ollama model"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "API use incurs per-usage costs (the README estimates ~$0.01–$0.06 per 10,000 words and links a cost-tracking page); a free local option via Ollama avoids the API key. A CSS snippet is provided to style changes like word-processor suggested changes. PRs adding new LLM providers are welcomed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI proofreading that shows suggested changes inline in the editor the way word processors do.",
+ "readmeHash": "32871e803ce7eb1a4cf0483066aae8f95c95417d",
+ "relations": [
+  {
+   "evidence": "This plugin requires an API key from one of the supported providers (OpenAI, Google, Mistral, or OpenRouter)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Alternatively, you can use a local model via Ollama, which requires no API key.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Google, Mistral, or OpenRouter API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama running locally with a downloaded model",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI proofreading plugin that inserts grammar and style corrections as inline highlights and strikethroughs you accept or reject with hotkeys.",
+ "tags": [
+  "openai",
+  "mistral",
+  "openrouter",
+  "ollama",
+  "grammar-check",
+  "inline-suggestions",
+  "llm"
+ ]
+}

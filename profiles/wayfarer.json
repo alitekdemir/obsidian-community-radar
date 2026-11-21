@@ -1,0 +1,79 @@
+{
+ "also": [
+  "integrations",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Paste Google Maps links to create map stops with saved coordinates",
+  "Organize the itinerary by date headings, one heading per day",
+  "Follow the trip on a map that flies to the stop under the cursor",
+  "Fetch Google place details, photos and routed legs with an API key",
+  "Export the trip as KML for Google My Maps"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Google's Places and Routes APIs require billing enabled even on the free tier; the README recommends a budget alert. Map tiles and photos need network access, and saved photo references are not offline images. Complete format documentation lives in FORMAT.md. Available in English and Traditional Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a trip plan that stays as a plain Markdown note in the vault, with the map as a view of that note, so friends and AI assistants can edit the same file.",
+ "primary": "visualization",
+ "problem": "Trip planning tools split into plain documents with no map and map apps that lock plans into a hosted account, so co-editing a plan with a person or an AI assistant is awkward.",
+ "readmeHash": "352078a2d2f6e6192c2d97b844afdcdc6f5fbf06",
+ "relations": [
+  {
+   "evidence": "Inspired by Ink and Switch's Embark and by Waypoint.",
+   "plugin": "Embark",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Inspired by Ink and Switch's Embark and by Waypoint.",
+   "plugin": "Waypoint",
+   "type": "inspired"
+  },
+  {
+   "evidence": "[Name](geo:lat,lng), the inline format the Map View plugin reads, is also supported.",
+   "plugin": "Map View",
+   "type": "integrates"
+  },
+  {
+   "evidence": "export a KML file and import it manually into Google My Maps",
+   "plugin": "Google My Maps",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Maps Platform API key (Places and Routes APIs)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI coding agent such as Claude Code or Codex, for the bundled planning skill",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Trip planner that keeps itineraries as Markdown notes, turns pasted Google Maps links into map stops, and shows the route on a map beside the note.",
+ "tags": [
+  "google-maps",
+  "itinerary",
+  "travel",
+  "kml",
+  "leaflet",
+  "openstreetmap",
+  "claude-code",
+  "geo-links"
+ ]
+}

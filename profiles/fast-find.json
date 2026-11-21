@@ -1,0 +1,75 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fuzzy-search note titles, aliases, headings, tags, paths, properties and content in weighted tiers",
+  "Preview the selected note with highlighted, jumpable matches",
+  "Show similar notes and guard note creation against near-duplicates",
+  "Create notes or unresolved-link ghosts from the query with Shift+Enter",
+  "Narrow queries with phrase, #tag, path:, property and type: syntax"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Quick switcher"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Fully local, no network and no AI model; the semantic tier only reuses embeddings Smart Connections already computed. Requires Obsidian 1.5.7+ (1.13+ for settings search). Detailed performance and comparison write-ups live in docs/performance.md and docs/comparison.md; at ~100k notes the worker uses about 2.3 GB of memory.",
+ "intent": "alternative",
+ "intentEvidence": "i integrated Quick Seach, OMniseach and Smart Connections into one Plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author used Omnisearch for 5+ years, missed notes it should have found, found its title/heading/body weighting unclear, and separately relied on the Smart Connections panel to avoid creating duplicate notes in a folder-less vault.",
+ "primary": "search",
+ "problem": "Obsidian's native search and Quick Switcher become slow and unranked in very large vaults, and fuzzy matching, note preview and duplicate detection live in separate tools.",
+ "readmeHash": "461837a4a79cd7917a97f9b3e21aa95a82e40cbd",
+ "relations": [
+  {
+   "evidence": "i integrated Quick Seach, OMniseach and Smart Connections into one Plugin",
+   "plugin": "Omnisearch",
+   "type": "replaces"
+  },
+  {
+   "evidence": "If you have smart connections installed, we use the embeddings created for similary search",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  },
+  {
+   "evidence": "based on fzf/Telescope from Neovim for preview style and fuzzy search",
+   "plugin": "Telescope",
+   "type": "inspired"
+  },
+  {
+   "evidence": "based on fzf/Telescope from Neovim for preview style and fuzzy search",
+   "plugin": "fzf",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Smart Connections",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Rust/WASM fuzzy search engine for large vaults that ranks titles above headings and content, previews notes, and flags near-duplicate notes.",
+ "tags": [
+  "fuzzy-search",
+  "typo-tolerance",
+  "wasm",
+  "rust",
+  "frecency",
+  "semantic-search",
+  "embeddings"
+ ]
+}

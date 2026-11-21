@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync files two-way between the vault and a Google Drive folder",
+  "Save conflict copies instead of overwriting edited-on-both-sides files",
+  "Move deleted files to Drive or Obsidian trash instead of hard-deleting",
+  "Resume interrupted syncs and skip files over a size limit",
+  "Exclude files with per-line rules and never sync the .obsidian config folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Strongly warns against double-syncing on devices whose vault already lives in Google Drive for Desktop, and against running other sync plugins on the same folder. Setup takes about 10 minutes because users must create their own Google Cloud OAuth client. Sync only runs while Obsidian is open and in the foreground; settings and plugins are never synced.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for the opposite case of typical plugins: notes already live in Google Drive and the user wants them on phone and tablet too, alongside Google Drive for Desktop.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in Google Drive sync, and other Drive sync plugins require an empty vault and exclusive control of the folder, so notes already in Google Drive can't be synced to phones and tablets.",
+ "readmeHash": "4f1905d70bda4b37e70fdf10765a4bf9328fb5f5",
+ "relations": [
+  {
+   "evidence": "Two-way sync between an Obsidian vault and a folder in Google Drive, using the Google Drive API directly.",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works alongside Google Drive for Desktop and existing folders.",
+   "plugin": "Google Drive for Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "User-created Google Cloud OAuth client (client ID and secret)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that keeps an Obsidian vault and a Google Drive folder in sync using the Google Drive API, on desktop and mobile.",
+ "tags": [
+  "google-drive",
+  "oauth",
+  "google-cloud",
+  "pkce",
+  "conflict-resolution"
+ ]
+}

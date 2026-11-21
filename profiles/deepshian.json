@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a local dsh agent in the sidebar",
+  "Stream replies with thinking steps and tool-call cards",
+  "Let the agent read and edit vault files",
+  "Reference vault files or folders via @ in the input",
+  "Sync conversations, archive, and deletion with dsh web"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian >= 1.5.7); requires Node.js >= 18 and a globally installed dsh command; per-vault conversation resume; bilingual UI (Chinese/English); not manually reviewed by Obsidian staff; can also be installed by copying release files into the plugin folder or built from source.",
+ "intent": "new",
+ "intentEvidence": "DeepShian brings DeepSeek Harness into Obsidian's right sidebar. There is no cloud API: it talks to the dsh already installed on your machine",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and most AI plugins rely on cloud APIs instead of a locally installed agent.",
+ "readmeHash": "745db7af086eb2d92c5cd7765b04128e854dc98b",
+ "relations": [
+  {
+   "evidence": "DeepShian brings DeepSeek Harness into Obsidian's right sidebar",
+   "plugin": "DeepSeek Harness (dsh)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the DeepShian workspace syncs with dsh web, including conversation history, archive, and deletion",
+   "plugin": "dsh web",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness (dsh CLI, installed globally; Node.js >= 18)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar AI chat that runs the locally installed DeepSeek Harness (dsh), with streaming replies, tool calls, and direct vault file edits.",
+ "tags": [
+  "deepseek",
+  "deepseek-harness",
+  "local-llm",
+  "ai-agent",
+  "tool-calls",
+  "streaming",
+  "sidebar-chat"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "folders",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Suggest a destination folder for each inbox note and file it after confirmation",
+  "Suggest internal links for mentions of existing notes while typing",
+  "Batch-organize inbox notes from the status bar or file explorer context menus",
+  "Route suggestions through hosted providers (OpenRouter, Anthropic, OpenAI-compatible) or a local Ollama model",
+  "Cap and track daily AI requests per device"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only and requires Obsidian 1.11.4 or later; one inbox folder only; filing and linking share a daily request cap (default 100) tracked locally; suggestions may be wrong and moves that would break links are refused; undo lasts until Obsidian restarts.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Unsorted inbox notes pile up and mentions of existing notes go unlinked, and Obsidian offers no guided way to file or link them in the editor.",
+ "readmeHash": "eca0335177d4a1cd6f7b892faa7a43f194e21067",
+ "relations": [
+  {
+   "evidence": "right-click notes in the file explorer or Notebook Navigator",
+   "plugin": "Notebook Navigator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama: enter the base URL and an installed model ID",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter: link an OpenRouter API key and enter a full model ID",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": ": hosted providers need an API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": ": a local Ollama model or OpenAI-compatible endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI-assisted organizer that suggests a folder for inbox notes and internal links for mentions, applying nothing until you confirm.",
+ "tags": [
+  "inbox",
+  "openrouter",
+  "ollama",
+  "anthropic",
+  "confirmation",
+  "undo",
+  "move-notes"
+ ]
+}

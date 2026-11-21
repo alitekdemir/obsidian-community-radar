@@ -1,0 +1,76 @@
+{
+ "also": [
+  "syncing",
+  "export"
+ ],
+ "audience": [
+  "supernote-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror selected Supernote Cloud folders into the vault",
+  "Read .note notebooks in a built-in pager with thumbnails and page links",
+  "Export pages as Markdown, PDF, PNG, or transcribed Markdown",
+  "Transcribe handwriting via on-device recognition or AI engines",
+  "Send files to Supernote Cloud or keep a two-way Paired folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is more than a sync tool: it also renders .note notebooks, embeds and links pages, exports to Markdown/PDF/PNG, and transcribes handwriting.",
+ "extras": "Claude Code, Codex CLI, and custom command engines are described as experimental on Windows. The plugin conflicts with Supernote (Unofficial) over the .note extension, so only one can be enabled. A Supernote Cloud account is required for all cloud features; API keys are stored in plain text in data.json, while the Cloud session token is kept in device-local storage. Licensed GPL-3.0-or-later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian cannot read Supernote .note files or reach Supernote Cloud, so handwritten notebook pages stay locked on the device and unlinked from vault notes.",
+ "readmeHash": "c6f5508a932a9226d9626ee66787b2076688a5dc",
+ "relations": [
+  {
+   "evidence": "Sign in directly to Supernote Cloud, including verification-code login.",
+   "plugin": "Supernote Cloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It depends on supernote-typescript, which is also published under GPL-3.0-or-later",
+   "plugin": "supernote-typescript",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Supernote Cloud account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key for AI transcription",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or Codex CLI for desktop transcription and automations",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Syncs Supernote Cloud files into the vault and renders .note notebooks, with page links, exports, AI transcription, and optional two-way sync.",
+ "tags": [
+  "supernote",
+  "handwriting-recognition",
+  "transcription",
+  "claude-code",
+  "codex-cli",
+  "openrouter"
+ ]
+}

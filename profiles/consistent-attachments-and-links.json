@@ -1,0 +1,67 @@
+{
+ "also": [
+  "files",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Report vault consistency issues: bad links, embeds, frontmatter links, unknown HTML, misplaced attachments, and platform-invalid names",
+  "Repair broken link paths by offering the likely intended file for each broken link",
+  "Rename files and folders whose names Windows, Android, Linux, macOS, or iOS would reject, preserving links",
+  "Undo a bulk fix operation by committing each run to git as a separate commit",
+  "Open a demo vault that documents every feature with example notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an attachment manager; it reports misplaced attachments but never moves files, cleans up folders, or rewrites links into a different style.",
+ "extras": "Docs are shipped as a demo vault available via a command, release download, or the repository. Warns users to back up the vault before running 'Fix incompatible paths', which renames files and folders vault-wide. Beta versions install via BRAT. Older features (link conversion, attachment collecting, folder cleanup) moved to other plugins or were retired.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because Obsidian's clever link search hides dead links that appear as soon as notes are opened outside Obsidian, such as on GitHub or in another editor.",
+ "primary": "links",
+ "problem": "Obsidian's link resolution makes a vault look fine inside the app but full of dead links and platform-invalid filenames once notes are opened, synced, or published elsewhere.",
+ "readmeHash": "22e676375c503c2a1014b609e07235b1d99e075a",
+ "relations": [
+  {
+   "evidence": "This plugin requires Advanced Rename and Delete Handler, which handles renames and deletions for the whole vault since 4.0.0.",
+   "plugin": "Advanced Rename and Delete Handler",
+   "type": "integrates"
+  },
+  {
+   "evidence": "HTML tags Obsidian does not know or sanitizes away (with Advanced Metadata Cache's HTML module on)",
+   "plugin": "Advanced Metadata Cache",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced Rename and Delete Handler",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Advanced Metadata Cache",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vault consistency checker that reports broken links, invalid cross-platform filenames, and misplaced attachments, and repairs broken link paths on command.",
+ "tags": [
+  "broken-links",
+  "link-repair",
+  "audit",
+  "cross-platform",
+  "filenames",
+  "git-undo"
+ ]
+}

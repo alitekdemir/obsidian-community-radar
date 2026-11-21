@@ -1,0 +1,62 @@
+{
+ "also": [
+  "export",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a JSONL file indexing every note's frontmatter, links, embeds, backlinks and broken links",
+  "Report vault-wide unresolved links, duplicate titles and orphan notes",
+  "Regenerate the map automatically on vault open or after note changes",
+  "Exclude files and folders with gitignore-like patterns",
+  "Compare the current map with the previous version and list changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Outgoing links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a graph view or visualization; it writes a machine-readable index file for tools outside Obsidian.",
+ "extras": "Desktop only. Works entirely offline with no network requests. Not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "External tools must open and scan hundreds of notes to learn how a vault is linked, because Obsidian's metadata cache is not accessible to them.",
+ "readmeHash": "d60a8f56f4de3706ba29133589769a86055a6926",
+ "relations": [
+  {
+   "evidence": "citation links to a passage, [text](obsidian://cite?note=…&q=…) (the format of the Better Citations plugin",
+   "plugin": "Better Citations",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It is meant for tools that work on your vault from the outside, such as scripts or AI coding agents",
+   "plugin": "Claude Code, Codex, Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Writes a JSON Lines index of every note's frontmatter, links, embeds, backlinks and broken links so external scripts and AI agents can read it.",
+ "tags": [
+  "jsonl",
+  "ai-agents",
+  "claude-code",
+  "cursor",
+  "metadata-cache",
+  "broken-links",
+  "orphans"
+ ]
+}

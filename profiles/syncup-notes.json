@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to and from a SyncUp Notes server over WebDAV",
+  "Skip and report files that exceed the plan's file size limit",
+  "Stream large files from disk without loading them into memory",
+  "Share open note and expanded folder state with the SyncUp Notes web page",
+  "Run syncs on startup, after saves, and once per minute"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Mobile syncs only when Obsidian is open and stops after you leave the app; installation on desktop is by manually copying plugin files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Vault files only live on the device unless synced, and users of the SyncUp Notes web app need the same notes kept up to date in both places.",
+ "readmeHash": "e60375a5ce11d71bdab978f6547cdd3861a8938a",
+ "relations": [
+  {
+   "evidence": "Install BRAT from Community plugins. Run Plugins: Add a beta plugin for testing",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "SyncUp Notes account with application password",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "SyncUp plan with a file size limit",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that keeps an Obsidian vault in sync with a SyncUp Notes account over WebDAV on desktop and mobile.",
+ "tags": [
+  "webdav",
+  "mobile",
+  "brat",
+  "view-state",
+  "application-password"
+ ]
+}

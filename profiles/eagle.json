@@ -1,0 +1,62 @@
+{
+ "also": [
+  "images",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dragged images to Eagle and insert a wikilink",
+  "Insert existing Eagle images via search with thumbnail previews",
+  "Route uploads to Eagle folders based on the note's location",
+  "Cache image copies in the vault and restore missing cache files",
+  "Rename uploads with templates such as {uuid}_{noteName}"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. Requires Eagle 3.0+ running with its local API (default localhost:41595); if Eagle is closed, images are saved as regular attachments and can be uploaded later via right-click. README discloses network use (Eagle's local API only), no telemetry, and no files written outside the vault; cached GIFs pasted from the clipboard arrive as static images.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores pasted or dragged images as plain vault attachments with no connection to an external image library like Eagle.",
+ "readmeHash": "680d34b56602ae213b25229c437204bc158375a1",
+ "relations": [
+  {
+   "evidence": "the Eagle app's local API at the host and port set in the plugin settings",
+   "plugin": "Eagle",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Eagle 3.0 or later with its local API enabled",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Eagle (paid desktop application)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Uploads images pasted or dragged into notes and Canvas to the Eagle app, keeps a cached copy in the vault, and lets you insert Eagle images by search.",
+ "tags": [
+  "eagle-app",
+  "image-cache",
+  "local-api",
+  "naming-templates",
+  "drag-and-drop",
+  "duplicate-detection"
+ ]
+}

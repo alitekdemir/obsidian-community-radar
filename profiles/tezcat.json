@@ -1,0 +1,90 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "surface passages from other notes that relate to the text around your cursor",
+  "insert result text or Obsidian links at the cursor, or open the passage in context",
+  "index vault fragments with a bm25 keyword index requiring no network",
+  "run semantic or hybrid search using any OpenAI-compatible embeddings server",
+  "update, rebuild, and query the index with commands and a manual search box"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Index is stored per-device in Obsidian's app storage (IndexedDB), not in the vault, so sync tools do not copy it; version 2.0 includes migration notes from 1.x.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian has no automatic way to resurface related passages from your vault while writing; finding them requires manual searching.",
+ "readmeHash": "fb6b84c3b23aecc5d6e8768717b0ccfd9e54335e",
+ "relations": [
+  {
+   "evidence": "Tezcat works with any server that offers an OpenAI-compatible embeddings API.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs locally. Download an embedding model in LM Studio and start its server.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs locally. Start it with an embedding model and --embeddings.",
+   "plugin": "llama.cpp server",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Hosted; needs an API key and is paid per use.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Hosted; needs an API key and is paid per use.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama, LM Studio, or llama.cpp server",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter or OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "OpenRouter or OpenAI embedding usage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Remembrance agent that surfaces related passages from other vault notes as you write, via keyword, semantic, or hybrid search.",
+ "tags": [
+  "bm25",
+  "embeddings",
+  "vector-index",
+  "ollama",
+  "lm-studio",
+  "openrouter",
+  "reciprocal-rank-fusion",
+  "remembrance-agent"
+ ]
+}

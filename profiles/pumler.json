@@ -1,0 +1,59 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render PlantUML, Structurizr, and Mermaid diagrams from pumler code blocks",
+  "Insert rendered SVG into notes via the Pumler rendering API",
+  "Apply per-diagram light, dark, or auto themes",
+  "Cache the 30 most recently rendered SVGs on disk with LRU pruning",
+  "Show a collapsible summary row and a zoomable preview modal"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It only processes pumler fenced code blocks and does not replace Obsidian's native Mermaid renderer or process plain mermaid, plantuml, or structurizr fences.",
+ "extras": "Privacy warning: all diagram source is sent to the public Pumler API and must never be used for source that must stay on the device; an online editor is available at pumler.com.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian only renders Mermaid natively, so rendering PlantUML or Structurizr normally requires running local services, and no single code-block format covers all three languages.",
+ "readmeHash": "a4c8c38d076458ab62bffa6a3350e3c48a6b5fa1",
+ "relations": [
+  {
+   "evidence": "It does not replace Obsidian's native mermaid renderer",
+   "plugin": "Mermaid (Obsidian core renderer)",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pumler rendering API (pumler.com)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Code-block diagram renderer that sends PlantUML, Structurizr DSL, and Mermaid source to the Pumler API and inserts the returned SVG into notes.",
+ "tags": [
+  "plantuml",
+  "structurizr",
+  "mermaid",
+  "svg",
+  "diagrams-as-code",
+  "c4",
+  "remote-rendering"
+ ]
+}

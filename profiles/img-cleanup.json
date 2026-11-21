@@ -1,0 +1,46 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect attachments that become unlinked while editing a note",
+  "Offer deletion of unlinked files in a batch modal",
+  "Respect Obsidian trash settings when deleting",
+  "Keep a JSONL trace log of every cleanup action",
+  "Configure watched folders and permanent delete/keep policies"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an orphan-file scanner; it only checks attachments of edited notes in watched folders, not vault-wide unused files.",
+ "extras": "The README explicitly lists out-of-scope cases: orphan-file scanning, inter-note links, and Canvas. The action log is stored at .obsidian/plugins/img-cleanup/data/appendix-log.jsonl and rotates at 1000 entries.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "When a note is edited, embedded images can become unreferenced but stay in the vault, and Obsidian has no built-in way to detect and clean up these now-unlinked attachments.",
+ "readmeHash": "348e43f1d35a6ba13618bd882239cf5eb2f2c63b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Attachment cleanup tool that detects images and attachments unlinked from a note during editing and offers to send them to the trash.",
+ "tags": [
+  "trash",
+  "orphaned-attachments",
+  "backlinks",
+  "trace-log",
+  "jsonl",
+  "debounce"
+ ]
+}

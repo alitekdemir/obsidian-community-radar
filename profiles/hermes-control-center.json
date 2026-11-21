@@ -1,0 +1,57 @@
+{
+ "also": [
+  "ai",
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Monitor remote Hermes Agent profiles on a canvas with sparklines, token and cost totals",
+  "Toggle skills and cron jobs and edit Soul, User and Memory documents per profile",
+  "View and update Kanban boards on the host with live updates and stuck-task notices",
+  "Chat with a profile from a side panel with a skills menu and queued messages",
+  "Show cron schedules in today and week calendar views"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only because it runs the system ssh binary; the README has a detailed security disclosure section covering spawned processes, network use, vault access, clipboard, stored data and telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Hermes Agent profiles run on a remote host, so managing their boards, skills, schedules and sessions otherwise means working over SSH by hand.",
+ "readmeHash": "27443f76151e3815c0bd7533d9b2e2065e5c3b67",
+ "relations": [
+  {
+   "evidence": "The host needs Hermes Agent with the hermes command on the PATH, and sqlite3.",
+   "plugin": "Hermes Agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hermes Agent (with hermes command and sqlite3 on the host) reachable via SSH",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "SSH-based control panel for remote Hermes Agent profiles: canvas of profiles, kanban boards, skills, cron jobs and chat.",
+ "tags": [
+  "ssh",
+  "kanban",
+  "cron",
+  "chat",
+  "hermes-agent",
+  "sqlite"
+ ]
+}

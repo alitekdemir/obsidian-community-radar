@@ -1,0 +1,43 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "hide vault windows to the system tray instead of quitting",
+  "restore hidden windows by clicking the tray icon",
+  "show, hide, or quit Obsidian from the tray icon menu",
+  "add hide and quit commands to the command palette",
+  "keep the vault loaded so plugins, sync, and CLI commands keep working"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Relies on Obsidian internals (is-closing/is-quitting IPC channels and the window-close timer), so it may break on Obsidian updates; verified only on Windows against Obsidian 1.14.4, with macOS and Linux untested. Includes manual installation instructions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Closing Obsidian's window quits the app, which stops plugins, sync, and command line interface commands from running in the background.",
+ "readmeHash": "a7078f44957ce9538f0a4a081a73b78182cdc35b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Desktop plugin that keeps Obsidian running in the system tray when its window is closed, so the CLI and background tasks keep working.",
+ "tags": [
+  "system-tray",
+  "desktop",
+  "electron",
+  "cli",
+  "background-running"
+ ]
+}

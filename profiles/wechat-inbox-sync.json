@@ -1,0 +1,68 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull pending records from a WeChat mini program CloudBase inbox using a bind code",
+  "Convert supported webpage, article, and doc links into Markdown snapshots",
+  "Download audio and file attachments and write them into the vault",
+  "Transcribe audio via cloud speech providers or a local whisper.cpp helper",
+  "Extract Markdown from txt, md, docx, and text-based pdf attachments"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not device-to-vault syncing; it imports content collected in a WeChat mini program inbox into the vault.",
+ "extras": "Desktop-only because it writes local binary attachments. In beta; can be tested with BRAT before Community Plugins approval. Default inbox folder and note names use Chinese labels (e.g. 临时收集).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states it is designed for a \"send now, organize later\" workflow: save items from WeChat first, pull them into Obsidian later.",
+ "primary": "integrations",
+ "problem": "Content collected in WeChat (articles, voice clips, documents) has no direct path into Obsidian, so users must manually save and convert it.",
+ "readmeHash": "8f56d26909d9a2846f406bf86cfb5c6d7689ef1c",
+ "relations": [
+  {
+   "evidence": "The WeChat mini program saves selected content to the user's CloudBase inbox.",
+   "plugin": "CloudBase",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It installs whisper.cpp, ffmpeg, and a small Whisper model",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeChat mini program inbox with a CloudBase sync API and bind code",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Speech-to-text provider key (Tencent Cloud ASR, Alibaba Cloud, or Doubao)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Pulls text, webpage links, audio, and files saved in a WeChat mini program inbox into the vault as Markdown notes and local attachments.",
+ "tags": [
+  "wechat",
+  "cloudbase",
+  "feishu",
+  "xiaohongshu",
+  "bilibili",
+  "web-clipper",
+  "transcription",
+  "whisper"
+ ]
+}

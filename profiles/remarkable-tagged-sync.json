@@ -1,0 +1,101 @@
+{
+ "also": [
+  "integrations",
+  "research"
+ ],
+ "audience": [
+  "academics",
+  "remarkable-tablet-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync tagged reMarkable notebooks, PDFs and EPUBs into vault folders as Markdown notes",
+  "Transcribe handwriting to searchable text using local or cloud backends",
+  "Extract PDF highlights and margin notes as quote digests with stable block IDs",
+  "Send Zotero PDFs to the tablet and write highlights back to Zotero as annotations",
+  "Push highlights and margin notes to Readwise"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way vault sync; it is a one-way import from the reMarkable tablet and never writes to the device.",
+ "extras": "Freemium: the free tier covers sync, local transcription and PDF digests; Pro (EUR 24 once, no subscription) adds multi-tag sync, direct-from-tablet sync, cloud transcription, Zotero write-back and Readwise push, with a 14-day trial. Desktop only; Obsidian mobile is unsupported. The reverse-engineered reMarkable cloud API can break on firmware changes, which the README discusses at length.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to get handwritten notebooks and PDF markups off a reMarkable tablet into the vault as searchable, linkable notes.",
+ "readmeHash": "b0c5f5527612994f6601f99520cfef9e53d4acb1",
+ "relations": [
+  {
+   "evidence": "the plugin authenticates to my.remarkable.com via a one-time device code",
+   "plugin": "reMarkable cloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Your reMarkable highlights land in Zotero as native annotations.",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Your reMarkable highlights land in your Readwise library as ordinary highlights",
+   "plugin": "Readwise",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install and start Ollama, LM Studio, or any other server that speaks the OpenAI",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The default on macOS 13 or later, and nothing to configure.",
+   "plugin": "Apple Vision",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The reMarkable cloud API used here (via rmapi-js) is reverse-engineered and unversioned",
+   "plugin": "rmapi-js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "reMarkable tablet",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "reMarkable cloud account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Zotero API key, Readwise token, or cloud transcription API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Tagged Sync Pro licence (EUR 24 one-time) and a Readwise API plan",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "One-way sync that imports tagged reMarkable notebooks, annotated PDFs and EPUBs into the vault as Markdown with page renders, transcribed handwriting and highlight digests.",
+ "tags": [
+  "remarkable",
+  "handwriting",
+  "transcription",
+  "zotero",
+  "readwise",
+  "pdf-highlights",
+  "epub"
+ ]
+}

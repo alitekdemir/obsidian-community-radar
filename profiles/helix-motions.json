@@ -1,0 +1,61 @@
+{
+ "also": [
+  "editing",
+  "hotkeys"
+ ],
+ "audience": [
+  "helix-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Edit notes with Helix keymap, selections, multiple cursors, registers, macros, undo tree, text objects, surround and jump labels",
+  "Configure keys and options through a helix.toml file copied from an existing Helix config",
+  "Trigger Obsidian commands from Helix keys, such as opening the quick switcher or following links",
+  "Move cursors and selections across Live Preview table cells",
+  "Show available keys in a menu when pressing Space or g"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not just cursor motions; it ports Helix's full editing model, including selections, registers, macros, surround and jump labels.",
+ "extras": "Requires Obsidian 1.15 or later on desktop; users must turn off Vim key bindings and other Vim plugins. Commands needing a shell, language server or debugger are not supported. Detailed scope and command lists live in docs/scope.md rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "Obsidian's built-in modal editing only supports Vim keys, so Helix users cannot use their existing keymap, selections and muscle memory in the app.",
+ "readmeHash": "e1b575c1342f6f5f0d4f979460946b805e80fb18",
+ "relations": [
+  {
+   "evidence": "The Helix engine is ported from Helix at commit a714a818a3",
+   "plugin": "Helix",
+   "type": "fork"
+  },
+  {
+   "evidence": "The way to end IME composition in normal mode comes from codemirror-vim",
+   "plugin": "codemirror-vim",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Modal editor that brings Helix's keymap, selections, multiple cursors and config file to Obsidian notes.",
+ "tags": [
+  "helix",
+  "modal-editing",
+  "multiple-cursors",
+  "keymap",
+  "registers",
+  "surround",
+  "text-objects"
+ ]
+}

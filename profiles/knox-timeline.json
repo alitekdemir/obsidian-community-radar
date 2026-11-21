@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display a single-day or two-day calendar timeline in the right sidebar",
+  "Fetch events from Fastmail via CalDAV and read-only iCal URLs",
+  "Create meeting notes from events with one click and a configurable template",
+  "Hide noisy events and unhide them later",
+  "Toggle which discovered calendars appear in the timeline"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Community plugins directory; must be installed via BRAT. The timeline is read-only (events cannot be created or edited) and desktop-only; mobile support is not planned for v1. Cached event data in data.json syncs with the vault unless excluded.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author likes the two-day timeline view for daily planning and meeting prep but does most note-taking in Obsidian, so he brought the timeline format into the sidebar sourced from Fastmail.",
+ "primary": "calendar",
+ "problem": "Existing Obsidian calendar plugins show month grids or to-do lists, so there is no day-level timeline view for daily planning and meeting prep inside Obsidian.",
+ "readmeHash": "16a55fa1d68c1a9e2c03b9a9547cfb1797bcfbcf",
+ "relations": [
+  {
+   "evidence": "Knox Timeline brings the timeline format into Obsidian's right sidebar, sourced from Fastmail via CalDAV",
+   "plugin": "Fastmail",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Knox Timeline is not yet in the Community plugins directory. Install it via BRAT for now.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Fastmail account with app password",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "External iCal feeds (Google Calendar, iCloud, Outlook)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar timeline of a Fastmail calendar via CalDAV, with one-click meeting note creation and read-only external iCal feeds.",
+ "tags": [
+  "fastmail",
+  "caldav",
+  "ical",
+  "meeting-notes",
+  "scheduling",
+  "app-password"
+ ]
+}

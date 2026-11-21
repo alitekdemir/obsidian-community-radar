@@ -1,0 +1,54 @@
+{
+ "also": [
+  "math",
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert \\[…\\] and \\(…\\) delimiters to $$…$$ and $…$",
+  "Detect math in plain parentheses and single-line brackets",
+  "Convert quoted block math in blockquotes",
+  "Preserve code blocks, existing delimiters, links, and footnotes",
+  "Report conversion counts and support selection-only conversion"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a math renderer or editor; it only rewrites the delimiters of already-written math content.",
+ "extras": "Installation is manual from GitHub releases (manifest.json and main.js), not via the community plugin store; docs include tips on a related Obsidian paste setting and a fallback using the built-in Shift+$ wrapper.",
+ "intent": "alternative",
+ "intentEvidence": "While there are other plugins for converting LaTeX delimiters, this one focuses on:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because pasted AI content needed each formula fixed by hand; one button fixes all math delimiters in a note automatically.",
+ "primary": "latex",
+ "problem": "AI assistants export math with \\(…\\) and \\[…\\] or bracket delimiters, which Obsidian does not render, forcing manual find-and-replace of every formula.",
+ "readmeHash": "07208df0ebb4ab9586445be0077156b4c1552902",
+ "relations": [
+  {
+   "evidence": "When you copy content with mathematical formulas from ChatGPT, OpenWebUI, or other AI assistants",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Math delimiter converter that rewrites \\[…\\] and \\(…\\) LaTeX pasted from AI assistants into $$…$$ and $…$ Markdown math.",
+ "tags": [
+  "chatgpt",
+  "openwebui",
+  "windows-copilot",
+  "math-delimiters",
+  "inline-math",
+  "display-math",
+  "blockquotes"
+ ]
+}

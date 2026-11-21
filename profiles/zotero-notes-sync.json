@@ -1,0 +1,58 @@
+{
+ "also": [
+  "research",
+  "import"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Zotero Desktop notes into the vault as one Markdown file per note",
+  "Write frontmatter with Zotero key, item title, creators, year, tags, dates, and zotero:// links",
+  "Generate an _index.md for browsing synced notes",
+  "Check that the Zotero local API is reachable",
+  "Run sync on startup or on a set interval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "One-way sync only: it imports Zotero notes into the vault and never writes back to Zotero.",
+ "extras": "Desktop-only because it depends on Zotero Desktop's local API. PDFs and attachments are not synced yet. Existing synced files with the same Zotero note key are overwritten on each sync. The manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Researchers who keep annotations and reading notes in Zotero have to export them manually to use them alongside their Obsidian Markdown notes.",
+ "readmeHash": "71063d791c68768fc1df975c1f497032eecf7ce2",
+ "relations": [
+  {
+   "evidence": "This plugin reads notes from the Zotero Desktop local API",
+   "plugin": "Zotero Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero Desktop",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs notes from Zotero Desktop's local API into the vault as Markdown files, one per note, with metadata frontmatter and an index note.",
+ "tags": [
+  "zotero",
+  "local-api",
+  "annotations",
+  "reading-notes"
+ ]
+}

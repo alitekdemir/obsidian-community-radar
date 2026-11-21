@@ -1,0 +1,84 @@
+{
+ "also": [
+  "visualization",
+  "export"
+ ],
+ "audience": [
+  "interactive-fiction-writers",
+  "game-developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Author branching story graphs with typed nodes, links, and frames",
+  "Playtest narratives with variables, conditions, effects, and validation",
+  "Manage a story library of characters, locations, items, and lore with backlinks",
+  "Round-trip narrative content with Ink, Yarn, Twee, and Markdown script editors",
+  "Export projects to Runtime JSON, Yarn, Ink, Twee, Godot Dialogic 2, and Unreal formats"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not built on Obsidian's core Canvas; projects are stored in the plugin's own .ncanvas file format.",
+ "extras": "Portable exports and the AI copilot are marked Beta; the core plugin makes no network requests and stores everything in vault .ncanvas files, but the copilot sends data to a user-configured OpenAI-compatible endpoint. The interface is bilingual (English and Chinese), and very large PNG exports can consume substantial memory.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian has no dedicated node-graph workspace for structuring nonlinear stories with choices, conditions, variables, and playtesting.",
+ "readmeHash": "5ed917e248af7a56f618aa27ce7e8d2f4f292889",
+ "relations": [
+  {
+   "evidence": "exports Twee 3 .twee passages for Twine / Tweego, including SugarCube StoryData",
+   "plugin": "Twine / Tweego",
+   "type": "integrates"
+  },
+  {
+   "evidence": "exports an editable .dtl timeline with labels, choices, conditions, variable effects, jumps",
+   "plugin": "Godot Dialogic 2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "exports .conversation.json, an importer-oriented graph payload with entry points, participants, routes",
+   "plugin": "Unreal CommonConversation",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ink: exports .ink knots, VAR declarations, sticky + choices, diverts, and ~ assignments",
+   "plugin": "Ink",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Yarn: exports .yarn nodes, shortcut options, variable declarations, <<jump>>, and <<set>> commands",
+   "plugin": "Yarn",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible chat-completions endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Node-based editor for branching narratives with playable previews, story logic, and exports to Ink, Yarn, Twee, Godot, and Unreal formats.",
+ "tags": [
+  "interactive-fiction",
+  "branching-narrative",
+  "ink",
+  "yarn",
+  "twee",
+  "twine",
+  "godot",
+  "unreal-engine"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Set a self-hosted Outpost API base URL in settings",
+  "Pair with a one-time code from the Jarvis PWA and store a device token",
+  "Pull vault content incrementally into the open vault folder",
+  "Show idle/syncing/error status in the status bar",
+  "Revoke device access from the host"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way sync tool; it only pulls from the server and never writes back through the plugin.",
+ "extras": "Not manually reviewed by Obsidian staff; README warns against lookalike plugins with a different id and notes the server admin can disable new pairing; installable via BRAT or manual release files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to pull vault content from a self-hosted Jarvis Outpost control plane, and the plugin deliberately offers no default server.",
+ "readmeHash": "ef7e9fce92356c633dca004713812759415c1d02",
+ "relations": [
+  {
+   "evidence": "an Obsidian read-only client for a self-hosted Jarvis Outpost control plane",
+   "plugin": "Jarvis Outpost API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Jarvis Outpost API",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only sync client that pulls vault notes from a user-run Jarvis Outpost API into the local Obsidian vault.",
+ "tags": [
+  "self-hosted",
+  "read-only",
+  "device-token",
+  "pairing-code",
+  "incremental-pull",
+  "api-client"
+ ]
+}

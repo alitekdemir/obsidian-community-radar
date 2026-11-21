@@ -1,0 +1,53 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect partially installed or mismatched community plugin files",
+  "Verify main.js, manifest.json, and styles.css against GitHub releases using size and SHA-256",
+  "Repair affected plugins with staged downloads, backups, and rollback",
+  "Run integrity checks automatically at startup or on demand from the command palette",
+  "Watch for plugin files that arrive late through sync after startup"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync service; it only detects and repairs community plugin files that sync left incomplete or mismatched.",
+ "extras": "Only repairs files for the installed version; it never upgrades or downgrades plugins, and repair always requires user confirmation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync skips files over 5 MB, so a plugin with a large main.js can be partially installed on another device with no built-in way to detect or fix the mismatch.",
+ "readmeHash": "7529523c99bc9f38c8c2376505873c39481d22df",
+ "relations": [
+  {
+   "evidence": "BRAT and development plugins may require a manual GitHub owner/repo entry.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Integrity checker that detects and repairs community plugin files left missing or truncated by Obsidian Sync's file-size limit.",
+ "tags": [
+  "github-releases",
+  "sha-256",
+  "integrity-check",
+  "file-repair",
+  "brat",
+  "size-limit"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open a terminal rooted at a folder from the file explorer",
+  "Manage multi-tab shell sessions with per-tab settings",
+  "Run interactive programs like vim, ssh, and htop via an embedded Python PTY proxy",
+  "Search terminal output and click URLs in the buffer",
+  "Restore terminal tabs across Obsidian restarts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly: true, not loaded on mobile). macOS requires python3 from Xcode Command Line Tools; Linux without python3 falls back to the script command; Windows is best-effort with winpty or plain cmd.exe. BRAT is recommended for beta/pre-release installs. Known limitation: closing a tab kills the session and a hard Obsidian quit may leave orphaned python3/shell child processes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian has no built-in way to open a shell at a specific vault folder without leaving the app and navigating in an external terminal.",
+ "readmeHash": "46c3574b981dad7a9d7f11f14b5c2271399f3c21",
+ "relations": [
+  {
+   "evidence": "Install the BRAT plugin from the community browser",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "python3",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "winpty",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Adds a hover icon to folders in the file explorer that opens a real PTY shell in a bottom panel, with the working directory set to that folder.",
+ "tags": [
+  "terminal",
+  "shell",
+  "pty",
+  "xterm",
+  "python",
+  "multi-tab",
+  "winpty"
+ ]
+}

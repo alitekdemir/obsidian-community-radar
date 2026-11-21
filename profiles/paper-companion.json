@@ -1,0 +1,86 @@
+{
+ "also": [
+  "integrations",
+  "ai"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search the Zotero library by meaning with locally embedded titles and abstracts",
+  "Create literature notes from Zotero metadata with frontmatter, citation and abstract",
+  "Write page-cited reading notes (Claim, Method, Data, Results, Limitations) from the PDF",
+  "Answer one question about a paper with page citations under a Q&A section",
+  "Collect verbatim quotes with page numbers across multiple papers into one note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Zotero import or citation-picking tool like Zotero Integration; its job is semantic search and model-written, page-cited reading notes.",
+ "extras": "Part of the author's Companion suite of local-first plugins; warns that model-copied quotes must be checked against the page before citing, and documents troubleshooting for Zotero's local API (port 23119, IPv4-only localhost).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to search a Zotero library semantically or produce reading notes and answers that cite PDF page numbers.",
+ "readmeHash": "64903c372f434cd4cfbdb372b257b38cbad3b971",
+ "relations": [
+  {
+   "evidence": "Paper Companion does not replace it; it adds the parts that need a local model",
+   "plugin": "Zotero Integration",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama with a chat model and an embedding model",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7+ (local API) or a CSL JSON / Better BibTeX JSON export",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama with a chat model and an embedding model",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX (optional, for citation keys and auto-export)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Zotero Integration (optional, for citation picking and template import)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Research companion that searches a Zotero library by meaning and generates page-cited reading notes and answers from PDFs using a local Ollama model.",
+ "tags": [
+  "zotero",
+  "ollama",
+  "semantic-search",
+  "embeddings",
+  "literature-notes",
+  "page-citations",
+  "local-llm"
+ ]
+}

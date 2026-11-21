@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault markdown notes to Notion as child pages of a parent page",
+  "Detect created, changed, and deleted notes via sha256 hashes and update or archive pages accordingly",
+  "Authenticate with a Notion integration token or an OAuth public integration",
+  "Schedule automatic syncs at a set interval or trigger them manually",
+  "Restrict syncing to selected vault folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Credentials are stored in ~/.config/akbun-notion-sync with 0600 permissions, outside the vault, to avoid leaking tokens via git or cloud sync. OAuth setup requires the user to create their own Notion public integration, including a privacy policy URL; the integration-token method is offered as the simpler alternative.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to push vault notes into Notion or keep those Notion pages in step with local edits and deletions.",
+ "readmeHash": "5d1e05fe9f9fe6e13ebeeea756baef2f8e7643b7",
+ "relations": [
+  {
+   "evidence": "syncs every markdown note in your vault to Notion as child pages of a parent page",
+   "plugin": "Notion",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Notion",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Notion integration token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Notion public integration (OAuth)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sync tool that mirrors every markdown note in a desktop vault to Notion as child pages, creating, updating, and archiving them based on content hashes.",
+ "tags": [
+  "notion",
+  "oauth",
+  "integration-token",
+  "child-pages",
+  "sha256"
+ ]
+}

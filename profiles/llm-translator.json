@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate selected text in PDFs and Markdown via an auto-popup window",
+  "Switch between Ollama local LLM, OpenAI-compatible cloud APIs, Google Translate, and Bing Translate",
+  "Translate text manually from a sidebar panel with language selection and copy/retry",
+  "Create and erase persistent PDF highlight annotations with notes",
+  "Configure custom translation prompts and language pairs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not limited to LLMs; Google Translate and Bing Translate work with no configuration.",
+ "extras": "Requires Obsidian 1.11.4 or later; installed by downloading and running an install command in a terminal rather than from the community plugin directory. Free Google/Bing services have rate limits. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to translate text selected in its PDF reader or in Markdown notes, especially offline with a local model.",
+ "readmeHash": "8cddf950f5e3ba121d48ee9c544c72f7adf39b58",
+ "relations": [
+  {
+   "evidence": "Local LLM (Ollama) — Private, offline, unlimited usage",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "To connect llama-server, use Cloud API → OpenAI Compatible, which calls /v1/chat/completions",
+   "plugin": "llama.cpp (llama-server)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Translate / Bing Translate send selected text and language settings to Google or Microsoft translation services.",
+   "plugin": "Google Translate",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Translate / Bing Translate send selected text and language settings to Google or Microsoft translation services.",
+   "plugin": "Bing Translate",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible cloud API provider key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "LLM-powered translation plugin that translates selected text in PDF and Markdown files via Ollama, cloud APIs, Google Translate, or Bing Translate.",
+ "tags": [
+  "ollama",
+  "llama-cpp",
+  "google-translate",
+  "bing-translate",
+  "openai-compatible",
+  "text-selection",
+  "pdf-annotations"
+ ]
+}

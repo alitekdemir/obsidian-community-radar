@@ -1,0 +1,52 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the graph view by typing while the pane is focused",
+  "Draw highlight rings around nodes whose titles match the query",
+  "Dim non-matching nodes or filter the graph instead",
+  "Keep all nodes visible to preserve surrounding context",
+  "Support IME composition input such as Hangul and CJK"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; the plugin draws into the graph view's internal PIXI renderer and internal search component, which are not part of the public plugin API and may break in future Obsidian versions. It has not been manually reviewed by Obsidian.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's built-in graph search filters live as you type, but only after you focus its search box.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Obsidian's built-in graph search filters live as you type, but only after you focus its search box.",
+ "primary": "graph",
+ "problem": "Obsidian's built-in graph search only filters after you focus its search box, hides non-matching nodes, and gives matches no visual emphasis.",
+ "readmeHash": "5bfb5edfb5e76fdb3f01b54fed96c6a6aa98af1c",
+ "relations": [
+  {
+   "evidence": "the same approach as the Graph Unread Highlight plugin",
+   "plugin": "Graph Unread Highlight",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Type-ahead search for the graph view that rings matching nodes as you type, without first focusing a search box.",
+ "tags": [
+  "type-ahead",
+  "highlight-ring",
+  "ime",
+  "cjk",
+  "local-graph",
+  "spotlight"
+ ]
+}

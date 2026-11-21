@@ -1,0 +1,58 @@
+{
+ "also": [
+  "export",
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Serialize a Bases view into static Markdown",
+  "Refresh the snapshot in place using sentinel comment blocks",
+  "Format output as list, checklist, numbered list, or table",
+  "Freeze an embed by replacing the live base embed with plain Markdown",
+  "Write snapshots to a target note or section heading"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file export tool; it writes a snapshot block into a note inside the vault rather than producing files elsewhere.",
+ "extras": "Requires Obsidian 1.10.0+ with Bases enabled; it can only add a Serializer view type, not serialize the built-in Table/Cards views. The README discloses the implementation was largely AI-assisted under the author's direction. The plugin carries the standard unreviewed-plugin notice.",
+ "intent": "improve",
+ "intentEvidence": "Requires Obsidian 1.10.0+ (the public Bases API). QueryController is opaque, so this must be a view type",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Bases views are dynamic and live inside .base files, so their results are invisible to the Graph, Search, Publish, exports and other tools that only read note text.",
+ "readmeHash": "24ab1e679f70a36473407b54a5ef0d14821d80cf",
+ "relations": [
+  {
+   "evidence": "Or use BRAT with pedroilidio/obsidian-bases-serializer if you want to track versions ahead of a release.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Freezes an Obsidian Bases view into static Markdown inside a note, wrapped in sentinel comments so the snapshot can be refreshed in place.",
+ "tags": [
+  "sentinel-comments",
+  "snapshot",
+  "freeze",
+  "wikilinks",
+  "checklists"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "data",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track focused time, edit counts, and edited words per note",
+  "Record statistics automatically or on command into daily or periodic notes as tables, lists, or YAML frontmatter",
+  "Display statistics in the status bar, file and tag list views, and a heatmap sidebar view",
+  "Generate AI summaries of note changes with an LLM using a ${diff} variable",
+  "Customize recording syntax with string interpolations and preview changes before applying"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Status bar",
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a word counter; it tracks focused time and per-note edits and writes those statistics into periodic notes.",
+ "extras": "README states stats are read from Obsidian's undo history with no extra data files or history database, addressing privacy and performance; detailed settings documentation and a development roadmap are hosted outside the README; AI-powered change summaries rely on configurable LLM integration.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian has no built-in way to measure how much focused time and editing you spend on each note or to log those statistics into periodic notes over time.",
+ "readmeHash": "19dbdebc5dd0c8b1656f88bca1c785d7253c7c29",
+ "relations": [
+  {
+   "evidence": "If your newly created notes will be renamed by other plugins, such as Templates(core plugin) or Templater(community plugin)",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can try the following alternatives if interested: - Yourpulse plugin",
+   "plugin": "Yourpulse",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "Daily File Logger",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM API access",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Edit-tracking plugin that records per-note focused time, edit counts, and word changes into daily or periodic notes, with status bar and heatmap views.",
+ "tags": [
+  "time-tracking",
+  "heatmap",
+  "statistics",
+  "llm",
+  "diff",
+  "periodic-notes",
+  "string-interpolation"
+ ]
+}

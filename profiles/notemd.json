@@ -1,0 +1,80 @@
+{
+ "also": [
+  "links",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add wiki-links to notes and create concept notes via LLM processing",
+  "Translate notes and selections with configurable target language",
+  "Research and summarize web topics via Tavily or DuckDuckGo",
+  "Generate content from note titles, singly or in batches",
+  "Generate, preview, and export diagrams in Mermaid, Drawnix, Draw.io, Vega-Lite, and other formats"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "DuckDuckGo search and the diagram pipeline are labeled experimental; mobile devices and Obsidian 0.15.0 are noted as unverified. Presentation export requires a specific Slidev fork. Documentation is split across an external documentation hub; the plugin accepts donations via Buy Me a Coffee.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to use LLMs for automatic concept linking, content generation, translation, or diagram creation across notes.",
+ "readmeHash": "fa120518d307a520d7d7a5faecb7af036efcf717",
+ "relations": [
+  {
+   "evidence": "Generated Mermaid artifacts are now validated with mermaid.parse before the renderer returns them",
+   "plugin": "Mermaid",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Perform web searches using Tavily (requires API key) or DuckDuckGo (experimental)",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs models locally via Ollama server",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (e.g. OpenAI, Anthropic, DeepSeek)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "local model server (Ollama or LM Studio) for local providers",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Tavily account for web research",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "LLM-powered knowledge tool that adds wiki-links, creates concept notes, translates, researches topics, and generates diagrams from vault notes.",
+ "tags": [
+  "wiki-links",
+  "concept-notes",
+  "openai",
+  "ollama",
+  "tavily",
+  "mermaid",
+  "vega-lite"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "upload pasted and dropped images to Supabase Storage",
+  "insert uploaded image URLs as Markdown image links",
+  "delete uploaded images from a context menu",
+  "organize uploads in date-based folder paths",
+  "configure Supabase URL, anon key, and bucket with a connection test"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README includes a Network and Data Disclosure section stating images are sent to the user-configured Supabase project and that no telemetry is collected; users must set up a public bucket and SQL storage policies themselves.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian saves pasted and dropped images as local vault files, which bloats the vault and doesn't work for users who host images externally.",
+ "readmeHash": "6e562e5b4a70602a36c5b1b1cc13a8696fbd2f2a",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Supabase project (cloud or self-hosted)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Supabase anon key",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "supabase-image-uploader",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Uploads pasted or dropped images to a Supabase Storage bucket and inserts the remote URL into the note as Markdown.",
+ "tags": [
+  "supabase",
+  "image-hosting",
+  "paste-upload",
+  "drag-and-drop",
+  "storage-bucket",
+  "self-hosted"
+ ]
+}

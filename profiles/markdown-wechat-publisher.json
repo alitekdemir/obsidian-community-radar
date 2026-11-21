@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations",
+  "images"
+ ],
+ "audience": [
+  "wechat-content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview and restyle Markdown notes with built-in or custom themes",
+  "Copy styled article HTML to the WeChat editor",
+  "Push articles with local and remote images to WeChat Official Account drafts",
+  "Generate article images from image-prompt annotations via APIMart",
+  "Crop article covers to a fixed 2.35:1 ratio and upload as PNG"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Publishing only creates drafts and never group-sends articles. Math formulas are rendered via CodeCogs images, sending formula content to that service. Credentials are stored in data.json; the listing notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants WeChat Official Account content production to return to writing itself, handling styling and draft push inside Obsidian.",
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to format Markdown for WeChat Official Accounts' editor or push posts to their draft box.",
+ "readmeHash": "78abd505f07ce85d25fe32303085351ff00e25cc",
+ "relations": [
+  {
+   "evidence": "预览、排版、复制并推送 Markdown 到微信公众号",
+   "plugin": "WeChat Official Account",
+   "type": "integrates"
+  },
+  {
+   "evidence": "APIMart 图片生成 | 通过 image-prompt 注释生成配图，支持编辑提示词、查看进度和重新生成",
+   "plugin": "APIMart",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account (AppID and AppSecret)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "APIMart API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "WeChat Official Account publisher that previews, styles, and copies or pushes Markdown notes as drafts, with custom themes, image generation, and cover cropping.",
+ "tags": [
+  "wechat",
+  "apimart",
+  "image-generation",
+  "cover-crop",
+  "drafts",
+  "code-highlighting"
+ ]
+}

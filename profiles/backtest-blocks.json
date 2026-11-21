@@ -1,0 +1,79 @@
+{
+ "also": [
+  "charts"
+ ],
+ "audience": [
+  "traders"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run strategy rules on historical prices",
+  "Compare results with buy and hold",
+  "Chart equity curves and shade market crashes",
+  "List trades with the reason for each",
+  "Sweep parameters and check whether results are luck"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Does not place orders; the user places trades. Prices are cached in the plugin folder, and the README lists every network host contacted. Full guide is in docs/reference.md, with llms.txt, grammars and a corpus for language models.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "A trading idea written in a note cannot be checked against past prices inside Obsidian.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "3ab54f9a736b4b01cfec9a8366fe337ea5380c67",
+ "relations": [
+  {
+   "evidence": "To add it to Claude Code:",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It reads exports from Schwab, Fidelity, Interactive Brokers, or a CSV file",
+   "plugin": "Interactive Brokers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Tiingo",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "FRED",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic (strategy writer)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20 or later",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Runs trading-strategy rules written in a note's code block against past prices and shows the backtest result in place of the block.",
+ "tags": [
+  "statistics",
+  "mcp",
+  "claude-code",
+  "api-key"
+ ],
+ "textHash": "193194461c185b5642ca339603716ee9c405643f"
+}

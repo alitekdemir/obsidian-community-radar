@@ -1,0 +1,85 @@
+{
+ "also": [
+  "templating",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search book catalogs by title, author, or ISBN",
+  "create templated book notes with metadata and cover",
+  "fill frontmatter properties of an existing note",
+  "log reading status, rating, progress, and quotes as note properties",
+  "create a Bases bookshelf view with a cover gallery"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Google Books and Open Library work without any key; Aladin results must show a required credit line. Requires Obsidian 1.9+ only for the Bases bookshelf view.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up book metadata from catalogs or turn a search result into a complete book note with cover, properties and reading log.",
+ "readmeHash": "81495e3737a1af03cdd629f88466a8905f70b739",
+ "relations": [
+  {
+   "evidence": "Kakao Book Search — fast, complete search for books published in Korea.",
+   "plugin": "Kakao Book Search",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Aladin — Korean bookstore data with page count, table of contents, original title, series, and categories.",
+   "plugin": "Aladin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Books — broad international coverage.",
+   "plugin": "Google Books",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open Library — free international catalog with page counts and subjects; no key needed.",
+   "plugin": "Open Library",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Kakao REST API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Aladin TTB key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Book note creator that searches Kakao, Aladin, Google Books and Open Library by title or ISBN to build templated book notes with a reading log and bookshelf view.",
+ "tags": [
+  "isbn",
+  "google-books",
+  "kakao",
+  "aladin",
+  "open-library",
+  "reading-log",
+  "bookshelf"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "writers",
+  "worldbuilders"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Connect a vault to a Kadima account through a browser approval flow",
+  "Sync notes and larger vault files across devices with per-file revisions",
+  "Preserve conflicting changes as separate files instead of overwriting local work",
+  "Handle create, edit, rename, and delete operations during sync",
+  "Browse and preview the synced vault from Draggen and Talebuddy"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Vault sync requires a paid Kadima subscription; the manifest notes the plugin has not been manually reviewed by Obsidian staff. The plugin reads every file path in the vault to detect changes, and can optionally sync hidden files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through Kadima's hosted service or to read vault notes from the Kadima apps without manual exporting or copying.",
+ "readmeHash": "98bb54840f4167218de948baef513a819b33371c",
+ "relations": [
+  {
+   "evidence": "Draggen — the visual canvas and moodboard app. Its dashboard has a Vault tab that browses your synced vault",
+   "plugin": "Draggen",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Talebuddy — the long-form writing app. The writing desk's sidebar has an Obsidian tab",
+   "plugin": "Talebuddy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Kadima account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Kadima subscription",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs an Obsidian vault with a Kadima account across devices and makes the notes readable from the Draggen and Talebuddy apps.",
+ "tags": [
+  "kadima",
+  "draggen",
+  "talelbuddy",
+  "conflict-resolution",
+  "local-first"
+ ]
+}

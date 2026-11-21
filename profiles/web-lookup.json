@@ -1,0 +1,57 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the hovered word on the web with a modifier key plus click",
+  "Open results in the system browser or the Web viewer core plugin",
+  "Choose among Google, DuckDuckGo, Bing, Yandex and Baidu",
+  "Tokenize words with Unicode boundaries, including CJK and Thai",
+  "Cache tokenization per file in memory and on disk"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Cache directory lives in the plugin folder; the README says to exclude cache/ from vault sync. Falls back to the external browser when the Web viewer is off or unavailable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian has no built-in way to look up an arbitrary word on the web without copying it and pasting it into a search engine.",
+ "profiledAt": "2026-11-19",
+ "provider": "Ant Digital",
+ "readmeHash": "267471ae9e71fdc8de77c30a8fcb7a15df59c2b9",
+ "relations": [
+  {
+   "evidence": "The Web viewer core plugin has no public API; the plugin opens it with view type webviewer",
+   "plugin": "Web viewer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Web viewer",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Modifier-key hover lookup that web-searches the word under the cursor in the editor, reading view, canvas and PDFs.",
+ "tags": [
+  "web-search",
+  "cjk"
+ ],
+ "textHash": "de01a2972f837cad4b2321464adfced30f8c1009"
+}

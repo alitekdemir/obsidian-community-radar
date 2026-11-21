@@ -1,0 +1,70 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish a note as a Google Doc and record its URL in frontmatter",
+  "Push local edits and pull remote edits on a poll interval or on demand",
+  "Auto-merge non-overlapping changes from both sides",
+  "Surface overlapping conflicts with inline diff markers without overwriting either side",
+  "Connect a Google account via one-click OAuth with no API keys"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a whole-vault Google Drive sync; it links individual notes to individual Google Docs, one note at a time.",
+ "extras": "Not yet in the Community Plugins directory, so it must be installed manually from releases; the manifest notes it has not been reviewed by Obsidian staff. Desktop only (needs Node APIs for the OAuth loopback). Markdown round-trips through Google's exporter, so Obsidian-only syntax like wikilinks, callouts, embeds and Dataview may degrade; images, comments and suggestions are not synced.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin focuses on per-note publishing + reliable two-way sync with explicit conflict surfacing",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a middle ground between copy-pasting back and forth and migrating the note out of the vault entirely.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to collaborate on one document with people who work in Google Docs, forcing copy-paste round-trips or moving the note out of the vault.",
+ "readmeHash": "c3804fcb2ee32b1b48a5deaf625aacaded347925",
+ "relations": [
+  {
+   "evidence": "Publish a single Obsidian note to Google Docs and keep the two in two-way sync",
+   "plugin": "Google Docs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A few other efforts target the same Obsidian ↔ Google Docs space",
+   "plugin": "iloveitaly/obsidian-google-docs",
+   "type": "alternative"
+  },
+  {
+   "evidence": "A few other efforts target the same Obsidian ↔ Google Docs space",
+   "plugin": "lupiter/obsidian-gdocs",
+   "type": "alternative"
+  },
+  {
+   "evidence": "A few other efforts target the same Obsidian ↔ Google Docs space",
+   "plugin": "OGD Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way Google Docs sync plugin that publishes a single Obsidian note as a Google Doc and merges edits from both sides.",
+ "tags": [
+  "google-docs",
+  "google-drive",
+  "oauth",
+  "two-way-sync",
+  "conflict-markers"
+ ]
+}

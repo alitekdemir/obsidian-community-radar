@@ -1,0 +1,69 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Append WeChat text, voice, image, file and video messages to a daily Markdown file",
+  "Write into a dedicated section of existing daily notes, creating them from a template if needed",
+  "Transcribe voice messages and save the original audio as WAV attachments",
+  "Clip WeChat official-account articles with title, body text and images",
+  "Send a WeChat reminder when nothing has been recorded by a set time"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and only works while Obsidian is running (offline messages are backfilled within ~24 hours). ClawBot access is being rolled out gradually by Tencent since 2026-03 and is mostly unavailable to overseas-registered WeChat accounts. The author lists exactly which remote endpoints are contacted and states there is no telemetry; a WeChat QR-code donation link is included.",
+ "intent": "alternative",
+ "intentEvidence": "前身 Python 版 wechat-diary 已归档(2026-08)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Capturing a quick thought from your phone normally means opening Obsidian and typing; this records messages straight from a WeChat chat into the vault while desktop Obsidian runs.",
+ "readmeHash": "11a34a5866f551f8adfedabf66baafb22ec81c3d",
+ "relations": [
+  {
+   "evidence": "前身 Python 版 wechat-diary 已归档(2026-08), 它写出的库遵循同一契约",
+   "plugin": "wechat-diary (Python version)",
+   "type": "replaces"
+  },
+  {
+   "evidence": "你的微信账号能用微信官方的 ClawBot 插件",
+   "plugin": "ClawBot",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeChat with access to the official ClawBot bot plugin",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WeChat account (mainland phone number registration mostly required)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "WeChat bot integration that appends text, voice, images, files and article clippings sent in chat to daily Markdown notes in the vault.",
+ "tags": [
+  "wechat",
+  "clawbot",
+  "quick-capture",
+  "daily-journal",
+  "voice-transcription",
+  "web-clipping",
+  "silk-audio"
+ ]
+}

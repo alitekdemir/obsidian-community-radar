@@ -1,0 +1,108 @@
+{
+ "also": [
+  "pdf",
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes, PDFs, HTML files and web pages aloud",
+  "Highlight the current passage and follow the reading position",
+  "Navigate and read documents by heading outline",
+  "Export document audio as WAV or MP3",
+  "Configure local and cloud speech engines with explicit processing consent"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been reviewed by Obsidian staff. Only Windows x64 is packaged and validated; macOS/Linux require building from source. Requires Obsidian desktop, and the plugin was formerly named Note and PDF Voice Reader.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to notes or PDFs aloud, follow the text while listening, or export a document as an audio file.",
+ "readmeHash": "84ae2bc706adefce4dcd68ca8eb9719a51a1c618",
+ "relations": [
+  {
+   "evidence": "HTML Reader is required for HTML selections, reading from a selected position, and the original-page toolbar",
+   "plugin": "HTML Reader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install and enable the Copilot community plugin in Obsidian to create and save conversations.",
+   "plugin": "Copilot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For a floating speaker icon, separately install and enable the optional Editing Toolbar community plugin.",
+   "plugin": "Editing Toolbar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install edge-tts using pipx install edge-tts. If Python/pipx is not installed, follow the detailed installation guide.",
+   "plugin": "edge-tts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "HTML Reader",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Copilot",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Editing Toolbar",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "edge-tts CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local CosyVoice runtime and model",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Xiaomi MiMo, Azure Speech, OpenRouter or custom TTS API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "OpenRouter account credit or BYOK provider fees",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Text-to-speech reader that plays notes, PDFs, HTML files and web pages aloud with local or cloud voices, highlighting, outline navigation and audio export.",
+ "tags": [
+  "text-to-speech",
+  "edge-tts",
+  "azure-speech",
+  "openrouter",
+  "cosyvoice",
+  "elevenlabs",
+  "windows-narrator"
+ ]
+}

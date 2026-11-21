@@ -1,0 +1,71 @@
+{
+ "also": [
+  "code",
+  "css"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render contact-card code blocks as styled business cards",
+  "Populate photos from Gravatar by email address",
+  "Fetch company logos from Logo.dev by email domain",
+  "Reference vault images via wiki-links for photos and logos",
+  "Customize card styling with CSS classes and snippets"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Photos and logos come from third-party services; if a linked vault file is missing, the plugin silently falls back to Gravatar or Logo.dev. A roadmap lists planned social media links and richer photo lookup.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Contact details stored as YAML or plain text in notes are hard to scan and lack visuals like photos and company logos.",
+ "readmeHash": "8772dba8920414afdcf7ccbe8a47b60e52b9496c",
+ "relations": [
+  {
+   "evidence": "Avatars are pulled from Gravatar, based on email address.",
+   "plugin": "Gravatar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Company logos retrieved from Logo.dev, based on email domain.",
+   "plugin": "Logo.dev",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Profile Card UI by Genaro Colusso",
+   "plugin": "Profile Card UI by Genaro Colusso",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Gravatar",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Logo.dev",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Code-block renderer that turns YAML contact data into a styled business card with photo, logo, and clickable fields.",
+ "tags": [
+  "yaml",
+  "gravatar",
+  "logo-dev",
+  "business-card",
+  "code-block"
+ ]
+}

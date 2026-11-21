@@ -1,0 +1,78 @@
+{
+ "also": [
+  "templating",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite a note's memo body into a structured note using a chosen template",
+  "Attach note-specific context via [!context] callouts that the LLM reads but never rewrites",
+  "Feed speech-to-text transcript files and local git commit history into transforms",
+  "Manage editable markdown templates under excaVelo/templates/ with per-template model pins",
+  "Authenticate via Claude Code CLI, an Anthropic API key, or any OpenAI-compatible endpoint"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that using Claude Code as a backend is not a documented Anthropic use case. A Korean README is available; template format and wiki config docs live in separate docs/ files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted fragmented meeting scribbles turned into proper minutes, 1:1 summaries, or decision records \"without leaving Obsidian and without copy-pasting into a chat.\"",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn fragmented in-meeting notes into structured formats without copying text into an external AI chat.",
+ "readmeHash": "e4921c1a8b6aba04c2d364c828fc6349030e7ef3",
+ "relations": [
+  {
+   "evidence": "The plugin spawns your installed claude CLI as a subprocess.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Get a key at console.anthropic.com, paste into settings.",
+   "plugin": "Anthropic API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "point at OpenAI, Ollama, LM Studio, Groq, Together, OpenRouter, etc.",
+   "plugin": "OpenAI-compatible endpoints (Ollama, LM Studio, Groq, Together, OpenRouter)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (installed and logged in)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key or OpenAI-compatible endpoint credentials",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude Pro/Max subscription (for the CLI path)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI plugin that rewrites raw memos into structured notes (meeting minutes, 1:1s, decision records) using Claude or OpenAI-compatible endpoints.",
+ "tags": [
+  "claude",
+  "anthropic",
+  "meeting-minutes",
+  "speech-to-text",
+  "git-history",
+  "openai-compatible",
+  "decision-record"
+ ]
+}

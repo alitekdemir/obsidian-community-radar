@@ -1,0 +1,77 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export single notes or entire folders to PDF via a Markdown-to-Typst-to-PDF pipeline",
+  "Apply built-in Typst templates (default, modern, article, report) or add custom .typ templates",
+  "Process embedded images and PDFs, and embed arbitrary files as attachments",
+  "Configure typography, paper size, margins, and orientation per export",
+  "Verify external dependency installations and versions from settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; the author states Windows and Linux are untested. Not yet approved for the community plugin store, so installation is via GitHub Releases ZIP (templates folder required) or BRAT. Dynamic content from DataView and query-based plugins is not exported.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin was born from frustration with Obsidian's native PDF export, which simply renders notes using the current Obsidian theme.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was frustrated with native PDF export quality and needed single-page PDFs that grow to fit all content without pagination, which native export could not provide.",
+ "primary": "export",
+ "problem": "Obsidian's native PDF export just renders the note with the current theme, offering no professional typesetting, layout control, or single-page output.",
+ "readmeHash": "bd96b0ef47f2a18bd000bc56ccd8e0fe94291bdb",
+ "relations": [
+  {
+   "evidence": "Export Obsidian notes to PDF using the Typst typesetting system.",
+   "plugin": "Typst",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pandoc 3.7.0+ - Markdown to Typst conversion",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ImageMagick 7.1.2+ - Enhanced image processing",
+   "plugin": "ImageMagick",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports the YAML Email Block format introduced by the Email Block plugin",
+   "plugin": "Email Block",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pandoc 3.7.0+ and Typst 0.13.0+ CLIs",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ImageMagick 7.1.2+",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Exports notes or whole folders to PDF through the Typst typesetting engine, with built-in and custom Typst templates and batch export.",
+ "tags": [
+  "typst",
+  "pandoc",
+  "imagemagick",
+  "typesetting",
+  "single-page-pdf",
+  "batch-export",
+  "latex-math"
+ ]
+}

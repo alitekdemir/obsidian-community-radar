@@ -1,0 +1,46 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan Markdown files for raw OpenCode links",
+  "Resolve @.opencode/...md targets to vault files",
+  "Add synthetic entries to Obsidian's resolved-link metadata",
+  "Render OpenCode relationships in the native Graph and Local Graph without rewriting files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README notes it relies on the undocumented metadataCache.resolvedLinks shape, which may break in future Obsidian versions; first version lacks hover previews, editor decorations, heading/block links, and only links to files that already exist.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README explains the plugin bridges the gap between OpenCode-native link syntax and Obsidian's graph, letting vaults keep OpenCode references as the canonical link syntax while still seeing edges.",
+ "primary": "graph",
+ "problem": "Obsidian's native graph ignores raw custom reference syntax like @.opencode/...md because it is not a recognized Markdown or wikilink, so those relationships are invisible.",
+ "readmeHash": "540d7d3ef01f31bac30c0f31bdacb797f3bed1f4",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that injects resolved-link metadata for raw OpenCode-style @.opencode/...md references so the native graph view renders them as edges.",
+ "tags": [
+  "opencode",
+  "resolved-links",
+  "metadata-cache",
+  "synthetic-links",
+  "regex"
+ ]
+}

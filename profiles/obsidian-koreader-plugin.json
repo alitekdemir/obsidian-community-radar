@@ -1,0 +1,71 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan a mounted KOReader device and import each highlight as a note",
+  "Write frontmatter metadata (book, author, chapter, page, datetime) on each note",
+  "Re-import synced notes by deleting and recreating them when keep_in_sync and yet_to_be_edited are true",
+  "Generate a per-book index note containing a Dataview JavaScript query that embeds the book's notes",
+  "Customize note and book bodies with Eta.js templates stored in the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Docs warn that syncing deletes and recreates notes, destroying any edits made in Obsidian, and note a rendering glitch in embedded Dataview queries on some Obsidian versions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to pull reading highlights and annotations off a KOReader device into the vault.",
+ "readmeHash": "fe9f40c2a12762728770e939ed2fb338bb688636",
+ "relations": [
+  {
+   "evidence": "Sync KOReader notes in your Obsidian vault. The KOReader device must be connected",
+   "plugin": "KOReader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Besides a native support for Dataview (look at the example) the plugin let the user",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "KOReader device",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Imports highlights and notes from a KOReader e-reader into per-highlight notes with frontmatter, with optional resync and Dataview book indexes.",
+ "tags": [
+  "koreader",
+  "e-reader",
+  "highlights",
+  "book-notes",
+  "dataview",
+  "eta-templates"
+ ]
+}

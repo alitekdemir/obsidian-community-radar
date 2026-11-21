@@ -1,0 +1,71 @@
+{
+ "also": [
+  "sidebar",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add inline comments to prose, code blocks, and tables, stored as HTML comments in the Markdown file",
+  "Show comment cards in the margin beside the highlighted text",
+  "Reply to, resolve, reopen, edit, delete, and react to comments",
+  "Browse and filter comments in a sidebar by open, resolved, or all",
+  "Assign per-author highlight colors and repair comments whose markers break the note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The community listing notes it has not been manually reviewed by Obsidian staff. The repository includes an agent skill and validation script for the comment format. Pre-release builds are available through BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no inline margin comments, and comments stored in a plugin database would be invisible to version control, other editors, and agents reading the raw files.",
+ "readmeHash": "ca288463320df2dc70c4d5b44d26bf3f2f9887ee",
+ "relations": [
+  {
+   "evidence": "The optional Commander plugin can add any of the plugin's other commands to the editor menu.",
+   "plugin": "Commander",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notion-style margin comments stored inline in your markdown",
+   "plugin": "Notion",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Commander",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Notion-style margin comment plugin that stores inline comments as HTML comments inside Markdown files so other tools can read them.",
+ "tags": [
+  "notion",
+  "inline-comments",
+  "html-comments",
+  "reactions",
+  "agents"
+ ]
+}

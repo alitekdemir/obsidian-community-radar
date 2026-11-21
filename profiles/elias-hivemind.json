@@ -1,0 +1,64 @@
+{
+ "also": [
+  "tags",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Summarizes notes locally or with a local model",
+  "Suggests tags and merges them into frontmatter",
+  "Finds unlinked mentions and appends wikilinks",
+  "Writes weekly and backlog digests",
+  "Sweeps folders for batch tag suggestions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Tags view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Offline-first: local commands make no network requests; the Ollama/OpenAI-compatible backend is optional. Scans are capped at 50 notes per run, and prompts are editable in data.json while Obsidian is closed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in summarization, tag suggestions or unlinked-mention linking, and cloud AI tools require sending note text off-device.",
+ "profiledAt": "2026-11-20",
+ "provider": "Ant Digital",
+ "readmeHash": "145327813770cf4ba3bc395360c2f84c012b630a",
+ "relations": [
+  {
+   "evidence": "Sends the note's plain text to a model served by Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Offline-first plugin that summarizes notes, suggests tags and unlinked links, optionally using a local Ollama model.",
+ "tags": [
+  "summarization",
+  "auto-tagging",
+  "unlinked-mentions",
+  "ollama",
+  "local-llm",
+  "offline",
+  "local-first"
+ ],
+ "textHash": "68f6ebfb1fe058c2b0e1a99347f022051cbc2eef"
+}

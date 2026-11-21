@@ -1,0 +1,55 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "chinese-language-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search notes semantically in Chinese via a local hybrid retrieval service",
+  "Show result cards with title, path, highlighted snippet, source badge, and fused score",
+  "Open the matching note from a search result",
+  "Configure service URL, result count, and directory filters",
+  "Check retrieval service health and index status"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (mobile cannot reach 127.0.0.1). The plugin ships no embedding model and does no indexing; without the separately run service the panel opens but returns no results. Installable manually or via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search is keyword-based and handles Chinese semantic matching poorly, with no way to fuse vector and full-text retrieval.",
+ "readmeHash": "e0cfb408f516677e8bc980c87fe6aa9f058c2764",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local Python HTTP retrieval service on 127.0.0.1:8765",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Chinese semantic search panel that queries a self-hosted local hybrid retrieval service (vector + FTS5 fused via RRF) and jumps to matching notes.",
+ "tags": [
+  "chinese",
+  "semantic-search",
+  "embeddings",
+  "fts5",
+  "rrf",
+  "hybrid-retrieval",
+  "bge-small-zh"
+ ]
+}

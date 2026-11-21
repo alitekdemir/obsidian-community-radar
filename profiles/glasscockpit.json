@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run Claude Code sessions as terminal tabs inside the vault",
+  "Show a dashboard with usage limits, context size and vault status",
+  "Combine briefing points, macOS reminders and tasks in a today card",
+  "Continue projects from the handoff note of an earlier session",
+  "Block excluded vault files from Claude sessions, optionally via sandbox"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not only a dashboard; its core job is running Claude Code sessions as terminal tabs, and the cockpit picture is one view of the status data.",
+ "extras": "Settings and labels are German only. macOS on Apple Silicon is the tested platform; Windows lacks the status line, limits and sandbox. The permission-skip switch starts sessions with --dangerously-skip-permissions, which the README explicitly warns about. The node-pty binary is downloaded separately and verified against built-in SHA256 checksums; releases carry GitHub attestations. The README includes extensive disclosures about programs run, files read and written, and network access, and states there is no telemetry.",
+ "intent": "alternative",
+ "intentEvidence": "inspired by the Agentic OS plugin from skaile.de and is an independent rebuild with its own code",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was inspired by the Agentic OS plugin from skaile.de and built an independent rebuild with its own code.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run, monitor or hand off Claude Code agent sessions from inside the app.",
+ "readmeHash": "73e723a729b295f2697d30a2961a39988842307c",
+ "relations": [
+  {
+   "evidence": "Glasscockpit was inspired by the Agentic OS plugin from skaile.de and is an independent rebuild",
+   "plugin": "Agentic OS plugin (skaile.de)",
+   "type": "inspired"
+  },
+  {
+   "evidence": "runs Claude Code sessions as terminal tabs inside your vault",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Telegram (api.telegram.org), only if you enable \"Telegram, wenn eine Sitzung fertig ist\"",
+   "plugin": "Telegram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (claude), installed and logged in",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "jq (status line) and python3 (handoff hook)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Runs Claude Code CLI sessions as terminal views inside the vault, with a cockpit dashboard for usage, context, vault status and a combined today list.",
+ "tags": [
+  "claude-code",
+  "terminal",
+  "agentic-coding",
+  "handoff-notes",
+  "status-line",
+  "telegram"
+ ]
+}

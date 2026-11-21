@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat about the opened note or a selected excerpt with fixed conversation scope",
+  "Mark materials as own notes, external sources, or AI text for attribution",
+  "Summarize old messages while keeping and exporting the full verbatim history",
+  "Generate concept maps and turn discussion into editable draft notes for review",
+  "Optionally index allowed folders for manual retrieval before results join the chat"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Interface and full manual are in Chinese. API keys are stored in plain text in data.json inside the vault, so syncing the plugin folder also syncs keys; documents and conversation context are sent to the user-configured endpoint. Install is manual via GitHub Release.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Vault-wide AI chat tools search or embed the entire vault and blur conversation scope; some users want discussions tied to explicitly chosen documents with clear attribution.",
+ "readmeHash": "8d0688bffeadd50e44c4298463d3275a70c685b6",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible chat endpoint (base URL, API key, model name)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Embedding endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI chat companion scoped to the opened note or a selected passage, with per-conversation history files and editable draft-note output.",
+ "tags": [
+  "openai-compatible-api",
+  "chat",
+  "concept-maps",
+  "attribution",
+  "retrieval-index",
+  "cross-device-merge",
+  "conversation-export"
+ ]
+}

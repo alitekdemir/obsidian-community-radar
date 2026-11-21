@@ -1,0 +1,51 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "update a frontmatter modified date field on note edit",
+  "add a created date to notes missing one",
+  "exclude folders or single files from automatic updates",
+  "format the date as text or a wikilink via MomentJS",
+  "append each edit date to a history array"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documents a known 'Merging changes' popup caused by Obsidian's own frontmatter handling; warns that removing the append_modified_update property deletes all saved history entries; history frequency is configurable only by editing data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian does not record when a note was last meaningfully edited, and filesystem modified time changes even for edits made outside Obsidian or by other tools.",
+ "readmeHash": "d9342493dbf539ce3899eb366e8bb247d84c1b45",
+ "relations": [
+  {
+   "evidence": "If you have another plugin like Linter or an external application updating your files",
+   "plugin": "Linter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Frontmatter automation that updates a modified date property whenever a note is edited in Obsidian, with optional created date and edit history.",
+ "tags": [
+  "yaml",
+  "modified-date",
+  "created-date",
+  "momentjs",
+  "wikilink",
+  "typing-events",
+  "history-log"
+ ]
+}

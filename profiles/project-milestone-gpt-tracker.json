@@ -1,0 +1,71 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create project, milestone, and GPT task notes through forms that write the frontmatter",
+  "View a dashboard with stat cards, needs-attention lists, and sortable tables of items",
+  "Change item status by dragging cards on a kanban board",
+  "Edit status, progress, due dates, next action, and waiting-for fields in place",
+  "Import Asana JSON exports as milestone notes with review and approval"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI plugin; \"GPT tasks\" are ordinary task notes the dashboard tracks, and no AI features are involved.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Installation is manual (copying built files into .obsidian/plugins) and documented per platform; mobile drag-and-drop, CSV export, and Asana import are explicitly unverified on mobile. Sample notes are provided for trying the dashboard. Data stays in plain frontmatter so Dataview, search, and graph view work on the same notes; the plugin provides no sync of its own.",
+ "intent": "alternative",
+ "intentEvidence": "the Obsidian-native version of the Workroom dashboard",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no built-in dashboard for tracking project statuses, progress, owners, and due dates across many notes, so users must open and check each note manually.",
+ "readmeHash": "034ee555a4c50bfa079c0e640d90d1b607af0103",
+ "relations": [
+  {
+   "evidence": "If you use the Iconize plugin (obsidian-icon-folder) to put icons on files in the file explorer, this plugin reads them too",
+   "plugin": "Iconize (obsidian-icon-folder)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Import Asana on the dashboard or the Import Asana JSON into Milestones command.",
+   "plugin": "Asana",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the Obsidian-native version of the Workroom dashboard",
+   "plugin": "Workroom dashboard",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Iconize",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Asana",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Dashboard view that tracks projects, milestones, and GPT tasks stored as Markdown notes with frontmatter, with a kanban board, filters, and CSV export.",
+ "tags": [
+  "asana",
+  "kanban",
+  "gtd",
+  "progress-tracking"
+ ]
+}

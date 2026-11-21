@@ -1,0 +1,83 @@
+{
+ "also": [
+  "templating",
+  "data"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate Markdown in notes from JavaScript expressions",
+  "Query note metadata with Dataview's dv object",
+  "Reuse Templater user scripts and functions",
+  "Run async operations like data fetching",
+  "Configure ignored folders and ending tag metadata"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns the plugin is under early development and the syntax may change, though it aims to stay backward compatible; it recommends pairing with CodeblockCustomizer for collapsing run blocks.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian notes are static, so there is no built-in way to compute and render generated Markdown inside a note from code or metadata queries.",
+ "readmeHash": "6263272cb231ae6914c9ad018cbdd6eefb36fe9f",
+ "relations": [
+  {
+   "evidence": "you can access the dv object if you have dataview plugin installed",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can access the tp object if you have templater plugin installed and enabled",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install this plugin and install obsidian-custom-save",
+   "plugin": "obsidian-custom-save",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can use it with CodeblockCustomizer, to have folding codeblock",
+   "plugin": "CodeblockCustomizer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian-custom-save",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Run block plugin that generates Markdown content in notes from JavaScript expressions and Dataview queries at save time.",
+ "tags": [
+  "dataview",
+  "templater",
+  "javascript",
+  "run-blocks",
+  "code-generation"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Parse PDF, Office, and image files into Markdown from the file explorer context menu",
+  "Choose among seven parsing backends (MinerU cloud, markitdown, docling, vision LLM OCR, Baidu OCR, TextIn, Doc2X)",
+  "Batch parse multi-file selections with backend-aware concurrency",
+  "Configure Markdown and attachment save paths with {filename}, {date}, and {noteName} variables",
+  "Rename extracted image attachments using templates"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not limited to MinerU; it supports seven parsing backends including local CLIs, vision LLMs, and Baidu/TextIn/Doc2X services.",
+ "extras": "Desktop-only. Recommended installation is via BRAT as a beta plugin. Roughly half the README is written in Chinese. Local backends require a local Python install; MinerU's free mode is capped at 10MB/20 pages without a token.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian cannot natively convert PDFs, Office files, or images into Markdown notes with extracted image attachments.",
+ "readmeHash": "ad1bcfc57133775cbf159df5851a1b5f9c0180bd",
+ "relations": [
+  {
+   "evidence": "markitdown（本地）— 调用本地 Python CLI，仅桌面端，不提取图片。",
+   "plugin": "markitdown",
+   "type": "integrates"
+  },
+  {
+   "evidence": "docling（本地）— 调用本地 Python CLI，仅桌面端，输出 Markdown，不提取图片。",
+   "plugin": "docling",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Doc2X（文档解析）— Doc2X 文档解析接口，擅长 PDF 的公式 / 表格 / 版面",
+   "plugin": "Doc2X",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python (markitdown or docling CLI)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "MinerU token, OpenAI-compatible vision API key, Baidu AK/SK, TextIn App ID/Secret Code, or Doc2X API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Document parser that converts PDFs, Office files, and images into Markdown via seven backends, saving notes and image attachments to configurable folders.",
+ "tags": [
+  "docx",
+  "pptx",
+  "excel",
+  "batch-processing",
+  "vision-models",
+  "file-extensions"
+ ],
+ "tagsBy": "particle-ai/particle-1:free"
+}

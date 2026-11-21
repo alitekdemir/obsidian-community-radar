@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ttrpg"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render inline buttons from sm: tokens that trigger server scenes, events, sounds, music and light resets",
+  "Autocomplete scene, event and sound ids while typing tokens",
+  "Show entity tile art and emoji on buttons with chip or banner styles",
+  "Highlight buttons whose scene, event or sound is currently active",
+  "Embed the full Ambient Director control panel in an Obsidian tab"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "A companion to the Ambient Director server app; it triggers scenes remotely, it does not play audio or control lights inside Obsidian itself.",
+ "extras": "Not in the Obsidian community store and not reviewed by Obsidian staff; must be built from source and installed manually. Server must be reachable on the same LAN; embedded panel over a remote LAN IP may be blocked by mixed-content policy.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Running table ambiance from Ambient Director means switching away from Obsidian, since session notes and scene control live in separate windows.",
+ "readmeHash": "9a3bfba865910426dac8e3942e4d07546b3ea3ca",
+ "relations": [
+  {
+   "evidence": "Fire Ambient Director scenes, events and sounds straight from your session notes",
+   "plugin": "Ambient Director",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use the Hot-Reload plugin to reload it in Obsidian automatically",
+   "plugin": "Hot-Reload",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ambient Director server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Ambient Director API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Remote control for the Ambient Director tabletop server: inline note buttons fire scenes, events, sounds and music, plus an embedded control panel.",
+ "tags": [
+  "inline-buttons",
+  "spotify",
+  "stream-deck",
+  "http-api",
+  "lan-server"
+ ]
+}

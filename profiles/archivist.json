@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Snapshot the vault to Dropbox on a configurable schedule (incremental and full)",
+  "Browse snapshots and restore individual files or whole versions from a Backup Browser",
+  "Prune old backups automatically with hierarchical retention tiers and garbage collection",
+  "Recover snapshots without Obsidian using a bundled standalone Node restore CLI",
+  "Store Dropbox OAuth tokens in Obsidian's encrypted secret store"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the name, it does not archive or organize notes; its only job is backing the vault up to Dropbox and restoring from those backups.",
+ "extras": "Backups are stored as content-addressed blobs plus manifests, not a 1:1 vault mirror, so files cannot be grabbed directly from the Dropbox web interface. Dropbox will show an 'app not yet verified' warning during OAuth. On Linux without a keyring, token storage falls back to obfuscation rather than real encryption. Detailed documentation lives in a docs/ folder referenced from the README.",
+ "intent": "alternative",
+ "intentEvidence": "If you decide to switch from Aut-O-Backups to Archivist:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian has no built-in offsite backup with per-file version history, so an accidental delete or overwrite can permanently lose work unless the user set up external backups.",
+ "readmeHash": "394619a6e18e7693bbf6035006e9fbb7e120ecc8",
+ "relations": [
+  {
+   "evidence": "There's another Obsidian community plugin that also backs up to Dropbox: Aut-O-Backups",
+   "plugin": "Aut-O-Backups",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Dropbox account (OAuth)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Dropbox desktop sync (for standalone CLI break-glass recovery)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Backup plugin that schedules versioned vault snapshots to Dropbox with content-addressed storage, hierarchical retention, and per-file restore.",
+ "tags": [
+  "dropbox",
+  "version-history",
+  "snapshots",
+  "deduplication",
+  "retention",
+  "restore-cli"
+ ]
+}

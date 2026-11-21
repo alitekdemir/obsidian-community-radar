@@ -1,0 +1,88 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload local images to S3-compatible storage, GitHub, or GitLab",
+  "Replace Wiki-link and Markdown image links with public remote URLs",
+  "Auto-upload pasted clipboard images and insert remote markup",
+  "Batch-upload all images in the current document with progress and failure reports",
+  "Rename or recycle local files after successful upload"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian 1.11.4+); requires publicly accessible URLs since private buckets and signed URLs are unsupported; credentials are stored in Obsidian SecretStorage, not data.json; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian stores pasted and inserted images as local vault files, which bloats the vault and keeps notes tied to local media instead of hosted URLs.",
+ "readmeHash": "b8bab4bd227a13f4894d611ca9dd9de549d14a18",
+ "relations": [
+  {
+   "evidence": "Currently supports AWS S3, Cloudflare R2, Qiniu S3-compatible API, MinIO, GitHub, and GitLab.",
+   "plugin": "AWS S3",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Currently supports AWS S3, Cloudflare R2, Qiniu S3-compatible API, MinIO, GitHub, and GitLab.",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Currently supports AWS S3, Cloudflare R2, Qiniu S3-compatible API, MinIO, GitHub, and GitLab.",
+   "plugin": "MinIO",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Currently supports AWS S3, Cloudflare R2, Qiniu S3-compatible API, MinIO, GitHub, and GitLab.",
+   "plugin": "Qiniu",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Currently supports AWS S3, Cloudflare R2, Qiniu S3-compatible API, MinIO, GitHub, and GitLab.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Currently supports AWS S3, Cloudflare R2, Qiniu S3-compatible API, MinIO, GitHub, and GitLab.",
+   "plugin": "GitLab",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3-compatible storage, GitHub, or GitLab account with a public bucket, repository, or project",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access keys or GitHub/GitLab tokens with write permission",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Image uploader that sends vault images to S3-compatible storage, GitHub, or GitLab and rewrites note links to public remote URLs.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "minio",
+  "qiniu",
+  "github",
+  "gitlab",
+  "jsdelivr",
+  "image-hosting"
+ ]
+}

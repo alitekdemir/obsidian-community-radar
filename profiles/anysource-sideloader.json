@@ -1,0 +1,73 @@
+{
+ "also": [
+  "developers",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Install plugins from any git forge or raw URL by pasting a repository URL",
+  "Update tracked plugins with release notes and explicit confirmation before applying",
+  "Subscribe to catalogs that list plugins as a single JSON file",
+  "Adopt already-installed plugins for update tracking without reinstalling",
+  "Store per-host access tokens in Obsidian's keychain for private repositories"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "First install is necessarily manual (downloading release files into the plugins folder); requires Obsidian 1.11.4 or newer for the keychain API; works on desktop and mobile; private GitHub sources are described as experimental; the README points to external documentation for tutorials, troubleshooting and the security model.",
+ "intent": "improve",
+ "intentEvidence": "It is a complement to the Store, not a replacement",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To install and update plugins that live outside the Community Store, and to remove the single point of failure of a Store that depends on GitHub, where flagged accounts made 21 plugins disappear overnight.",
+ "primary": "utilities",
+ "problem": "The Community Store only serves plugins from GitHub, so self-hosted plugins or plugins whose maintainers get flagged on GitHub cannot be installed or updated through Obsidian.",
+ "readmeHash": "8d6dd4af759ae9d8dc81061dbbfd9a9bd8b3114e",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "plugins that live on a self-hosted forge such as Forgejo or Gitea",
+   "plugin": "Forgejo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "plugins that live on a self-hosted forge such as Forgejo or Gitea",
+   "plugin": "Gitea",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It is a complement to the Store, not a replacement",
+   "plugin": "Obsidian Community Store",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Forge access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Plugin installer that installs and updates Obsidian plugins from any git forge (GitHub, Forgejo, Gitea) or raw URL, with subscribable catalogs.",
+ "tags": [
+  "sideloading",
+  "github",
+  "forgejo",
+  "gitea",
+  "checksums",
+  "release-notes",
+  "private-repositories"
+ ]
+}

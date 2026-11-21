@@ -1,0 +1,89 @@
+{
+ "also": [
+  "ai",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record meeting audio from the microphone",
+  "Transcribe recordings locally with Whisper",
+  "Separate and name speakers by voice",
+  "Extract summaries, decisions, action items and tickets with an LLM",
+  "Import or paste existing meeting transcripts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general note-taking or quick-capture tool; it records meetings and turns them into structured notes.",
+ "extras": "Desktop only. Audio, transcription and speaker separation run locally; only text is sent to the configured LLM endpoint, and the API key is kept in the system keychain. A macOS setup script installs the speech tools; Linux and Windows are untested. Recording people may require consent.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Nobody wants to take notes in meetings.",
+ "primary": "audio",
+ "problem": "Taking notes during meetings pulls attention away from the conversation, and raw transcripts still have to be turned into decisions, tasks and follow-ups.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "a15cb0c4e598f7a929269b005b48f1f06119fd70",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install the BRAT plugin and add stevelohwc/obsidian-take-note",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "whisper.cpp",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "sherpa-onnx",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Meeting recorder that transcribes audio locally with Whisper, labels speakers, and uses an LLM to write structured meeting notes.",
+ "tags": [
+  "whisper",
+  "speech-to-text",
+  "speaker-diarization",
+  "meeting-notes",
+  "llm",
+  "local-first",
+  "action-items"
+ ],
+ "textHash": "2422c0a5cdd637cfcbf83de59537cbe3d25275c5"
+}

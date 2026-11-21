@@ -1,0 +1,63 @@
+{
+ "also": [
+  "publishing",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload the current note to Feishu Docs via command palette, right-click menu, or toolbar",
+  "Convert Markdown, images, Mermaid, and YAML to Feishu-compatible format",
+  "Set document permissions such as public access, copy, and download after upload",
+  "Manage upload history, including re-setting permissions and deleting uploaded documents",
+  "Encrypt Feishu credentials locally with AES-GCM 256"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way vault sync; it uploads notes one-way to Feishu Docs and does not keep devices in sync.",
+ "extras": "Manifest carries the note 'This plugin has not been manually reviewed by Obsidian staff.' Batch upload is not supported due to Feishu space and API call limits; full setup guide is on an external page; public links are subject to Feishu's content policies.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish a note to Feishu Docs as a shareable cloud document with link permissions.",
+ "readmeHash": "3fa43b0df391e8fa410170471a3d97d909abf31a",
+ "relations": [
+  {
+   "evidence": "调用飞书api接口、上传到飞书服务器",
+   "plugin": "Feishu Open Platform",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Feishu App ID and App Secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Uploads Obsidian notes as Feishu cloud documents with format conversion, image handling, permission controls, and an upload history.",
+ "tags": [
+  "feishu",
+  "cloud-docs",
+  "document-permissions",
+  "aes-gcm-encryption",
+  "open-platform"
+ ]
+}

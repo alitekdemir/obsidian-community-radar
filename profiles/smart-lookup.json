@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault by meaning with plain-language queries",
+  "Review ranked semantic results with scores and expandable previews",
+  "Open results or drag them into notes as links",
+  "Package found notes into AI-ready context bundles via Smart Context",
+  "Run generation-assisted HyDE retrieval (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a dictionary or external-reference lookup; it searches only your own vault, and it is not a replacement for exact-word Obsidian search.",
+ "extras": "Freemium: Core question-first search runs locally with no API key; Pro adds Environment Pro acceleration and Generate HyDE. Source-available under the Smart Plugins License. Part of the Smart Plugins ecosystem; requires waiting for Smart Environment indexing before results are ready.",
+ "intent": "new",
+ "intentEvidence": "Use Lookup when meaning is the anchor. Use Obsidian search when exact words, tags, headings, filenames, syntax, or regex are the anchor.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian search matches exact words, operators, and syntax, so notes that use different vocabulary than your query are hard to recover.",
+ "readmeHash": "3003962d92b4a0e0b8a2f41cdd73585f0feb3ac5",
+ "relations": [
+  {
+   "evidence": "Smart Lookup is built on obsidian-smart-env.",
+   "plugin": "obsidian-smart-env",
+   "type": "extends"
+  },
+  {
+   "evidence": "use Smart Context to create a reviewable context bundle",
+   "plugin": "Smart Context",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Smart Connections surfaces related notes from the current note.",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "chat model",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Smart Lookup Pro",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Question-first semantic search for a vault: ask in plain language, review ranked meaning-based matches, then open, link, or package them as AI context.",
+ "tags": [
+  "embeddings",
+  "local-embeddings",
+  "natural-language-queries",
+  "hyde",
+  "smart-environment",
+  "semantic-retrieval"
+ ]
+}

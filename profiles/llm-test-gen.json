@@ -1,0 +1,87 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate test questions from selected notes using LLM providers",
+  "Grade answers against original note content with instant feedback",
+  "Track test scores and progress",
+  "Manage all tests from a dashboard",
+  "Mark multiple completed tests in bulk"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy note: selected notes' content is sent to the chosen LLM provider; the README links each provider's privacy policy. Question types are fixed (1-, 2-, and 3-mark questions); customization may come later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn notes into graded knowledge tests, so reviewing material means leaving the vault or writing questions by hand.",
+ "readmeHash": "08ff7aa2c7948676067c694d8d9ae035eaceb1c0",
+ "relations": [
+  {
+   "evidence": "Uses LLM APIs from OpenAI, Anthropic, Mistral, Google, and DeepSeek for test generation and grading",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select your preferred LLM provider (OpenAI, Anthropic Claude, Mistral, Gemini, or DeepSeek)",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "multiple LLM providers (OpenAI, Claude, Mistral, Gemini, DeepSeek)",
+   "plugin": "Mistral",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini: Get your API key from Google AI Studio",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek: Get your API key from the DeepSeek website",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama: No API key required. Download and install Ollama from Ollama.com and run the models locally",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, Mistral, Google Gemini, or DeepSeek API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local models, no API key)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "LLM-powered quiz generator that creates test questions from selected notes, grades answers with feedback, and tracks scores in a dashboard.",
+ "tags": [
+  "llm",
+  "rag",
+  "quiz",
+  "openai",
+  "gemini",
+  "deepseek",
+  "ollama"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record, pause, and resume voice notes",
+  "transcribe and summarize recordings with AI",
+  "answer mid-recording questions spoken as 'Hey Scribe'",
+  "generate Mermaid charts from the transcript",
+  "transcribe existing audio files already in the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Transcription and summarization require an internet connection; an OpenAI API key is mandatory (a paid service), while an optional AssemblyAI key earns a $50 credit. Known issue: on iOS the screen must stay on while recording. Includes a 'Fix Mermaid Chart' command for invalid generated charts.",
+ "intent": "new",
+ "intentEvidence": "A special thanks to Drew Mcdonald of the Magic Mic Plugin, this was super useful for learning",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to record voice notes and turn the audio into transcribed, summarized, and structured note content.",
+ "readmeHash": "c930166c1931f1184595cef96fb147d98c8e8b25",
+ "relations": [
+  {
+   "evidence": "Drew Mcdonald of the Magic Mic Plugin, this was super useful for learning how to access & use the audio buffers",
+   "plugin": "Magic Mic Plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Mossy1022 of the Smart Memos Plugin including Mermaid Charts is SO useful, and I got that idea",
+   "plugin": "Smart Memos Plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AssemblyAI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Voice recorder that transcribes recordings via AI, summarizes them, answers mid-recording questions, and adds Mermaid charts to the note.",
+ "tags": [
+  "transcription",
+  "openai",
+  "whisper",
+  "assemblyai",
+  "mermaid",
+  "voice-notes",
+  "speech-to-text",
+  "summarization"
+ ]
+}

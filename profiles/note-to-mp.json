@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations",
+  "formatting"
+ ],
+ "audience": [
+  "wechat-content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render Obsidian Markdown as WeChat-ready HTML using 30+ themes, custom CSS/LESS, and style widgets",
+  "Upload local images and apply image backgrounds, borders, and watermarks during publishing",
+  "Copy the formatted article to the WeChat editor or send it to the Official Account draft box",
+  "Convert LaTeX/AsciiMath formulas to SVG and render Mermaid diagrams and Excalidraw drawings for articles",
+  "Batch-publish multiple notes and trigger publishing from workflow tools or agents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish",
+   "Math",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Some automation features, such as the secure AccessToken interface, are marked as paid member features; deeper guides (style widgets, expert settings, changelog) are linked as separate documents. Sending drafts requires WeChat Official Account API credentials; copy-to-editor does not.",
+ "intent": "alternative",
+ "intentEvidence": "还在用微信公众号自带的编辑器写文章吗？五分钟写完内容，半小时调格式",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Formatting an article for WeChat Official Account's built-in editor is slow and often pushes writers toward paid template services, and platform-specific markup pollutes otherwise normal notes.",
+ "readmeHash": "5281510f6a01a56f0794c7de90782e26ced3451a",
+ "relations": [
+  {
+   "evidence": "NoteToMP 可以自动调用一个 QuickAdd Choice，由用户自行实现发布状态记录、属性更新、发布日志等后处理逻辑",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "NoteToMP 可以与 n8n、Coze 等工作流平台连接",
+   "plugin": "n8n",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account (AppId/AppSecret)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "QuickAdd",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Markdown-to-WeChat publisher that renders notes with themes and style widgets, then copies to the WeChat Official Account editor or sends to its draft box.",
+ "tags": [
+  "wechat",
+  "n8n",
+  "coze",
+  "quickadd",
+  "unsplash",
+  "excalidraw",
+  "asciimath"
+ ]
+}

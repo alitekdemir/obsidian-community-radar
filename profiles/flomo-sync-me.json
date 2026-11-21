@@ -1,0 +1,66 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch Flomo memos via token auth or desktop auto-login",
+  "Merge each month's memos into a single Markdown file",
+  "Organize output into per-year folder templates",
+  "Incrementally sync new, updated, and deleted memos",
+  "Offer alternate layouts: by tag, by date, or one file per memo"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault or cross-device sync tool; it only pulls memos from the Flomo service into notes.",
+ "extras": "Desktop only; auto-login requires the desktop app. Not yet listed in the community directory, so manual install or BRAT is needed. README also contains maintainer release-checklist content unrelated to usage.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from Watermelon4000/flomo-obsidian-sync.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull memos from the Flomo service into local notes, so users must copy content manually or lose update tracking.",
+ "readmeHash": "685a44f86313f0089a60579ea15f7bd1c0322d98",
+ "relations": [
+  {
+   "evidence": "Forked from Watermelon4000/flomo-obsidian-sync.",
+   "plugin": "Watermelon4000/flomo-obsidian-sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "This plugin calls the Flomo API at flomoapp.com to fetch your memos",
+   "plugin": "Flomo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Flomo account (for access token or auto-login)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian desktop app (auto-login only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs Flomo memos into the vault as Markdown notes, merging each month into one file with per-year folders and incremental updates.",
+ "tags": [
+  "flomo",
+  "memos",
+  "monthly-merge",
+  "incremental-sync",
+  "access-token",
+  "auto-login"
+ ]
+}

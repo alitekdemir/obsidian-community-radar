@@ -1,0 +1,55 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Apply a selected template automatically to every new note regardless of how it is created",
+  "Assign different templates to specific folders with hierarchy fallback",
+  "Match folder paths with * and ** wildcard patterns",
+  "Exclude folders from template application via ignore paths",
+  "Substitute {{title}}, {{date}}, and {{time}} variables with Moment.js format strings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installation via BRAT is documented for beta testing; the README links to an Obsidian Help page for Templates and to a feature-request thread as background.",
+ "intent": "improve",
+ "intentEvidence": "Processes {{date}}, {{time}}, {{title}} like the official Templates plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a minimal way to get default templates without adopting Templater, responding to a long-standing feature request thread (3+ years of user requests).",
+ "primary": "templating",
+ "problem": "Obsidian's Templates core plugin only inserts templates manually, so every new note starts unstructured unless the user inserts a template each time.",
+ "readmeHash": "d565ec56b59a59679c21a5f96284f930d545740a",
+ "relations": [
+  {
+   "evidence": "Processes {{date}}, {{time}}, {{title}} like the official Templates plugin",
+   "plugin": "Templates (Obsidian core plugin)",
+   "type": "extends"
+  },
+  {
+   "evidence": "You don't need the complexity of Templater just for default templates",
+   "plugin": "Templater",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that automatically applies a chosen template to every newly created note, with folder-specific templates, ignore paths, and date/time/title variables.",
+ "tags": [
+  "momentjs",
+  "glob-patterns",
+  "note-creation",
+  "folder-hierarchy"
+ ]
+}

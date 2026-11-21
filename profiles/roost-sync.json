@@ -1,0 +1,59 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes, settings and plugins with a WebDAV server",
+  "Record deletions on the server so offline devices never restore deleted files",
+  "Merge concurrent edits automatically or section by section in a merge window",
+  "Preview risky syncs such as mass deletions and first uploads from a new device",
+  "Detect renames and edits made directly in the server folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns users to back up the vault before the first sync and includes full Chinese documentation; no account or telemetry needed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync through a personal WebDAV server, and offline or reinstalled devices can otherwise bring deleted files back.",
+ "readmeHash": "00454888701a0d4afa52c5c81c6c9a35796fd342",
+ "relations": [
+  {
+   "evidence": "Tested with WsgiDAV; any WebDAV server that passes Test connection should work.",
+   "plugin": "WsgiDAV",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs a vault, settings and plugins with a user-owned WebDAV server, recording deletions server-side and merging concurrent edits between devices.",
+ "tags": [
+  "webdav",
+  "self-hosted",
+  "conflict-merge",
+  "deletion-tombstones",
+  "multi-device",
+  "trash",
+  "mobile"
+ ]
+}

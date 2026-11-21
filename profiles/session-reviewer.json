@@ -1,0 +1,75 @@
+{
+ "also": [
+  "developers",
+  "project-management"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan Codex sessions and reduce them into a project-wide review without Agent calls or token usage",
+  "Synchronize editable project review files into the vault via a deterministic three-way merge",
+  "Browse and edit project evolution, decisions, risks, and usage in a desktop project view",
+  "Prepare bounded evidence packets for optional Agent-assisted semantic review via a skill",
+  "Optionally read OpenCode session databases through a read-only SQLite adapter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a spaced-repetition or note-review tool; it reviews coding-agent session history and produces project summary notes.",
+ "extras": "Desktop-only plugin that invokes a local Go-built CLI with allow-listed actions; explicitly requires no OpenAI API key; the OpenCode adapter is a development candidate pinned to OpenCode 1.18.30; release assets ship with SHA256 checksums.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Recovering a project's context from coding-agent session logs means reading raw JSONL transcripts by hand or copying them into notes.",
+ "readmeHash": "842a7dd79e129a89413c83489c53eb24333e1010",
+ "relations": [
+  {
+   "evidence": "SessionReviewer turns local Codex session history into a concise, editable project review.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The read-only SQLite adapter is opt-in. Set SESSION_REVIEWER_OPENCODE_DB to an absolute path",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "SessionReviewer CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenCode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Turns local Codex CLI session history into an editable project review covering goals, evolution, decisions, risks, usage, and cost.",
+ "tags": [
+  "codex",
+  "opencode",
+  "cli",
+  "jsonl",
+  "three-way-merge",
+  "sqlite",
+  "cost-tracking"
+ ]
+}

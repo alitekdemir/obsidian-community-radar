@@ -1,0 +1,77 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Embed live Sandpack code editors with previews in notes",
+  "Run Python blocks in a sandboxed worker via Pyodide",
+  "Persist playground edits to per-block JSON sidecar files",
+  "Override template, theme, layout and panel visibility per block",
+  "Format playground code with Prettier"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Prominent privacy warning: playground code is transmitted to CodeSandbox's hosted bundler and code can be sent to the network; a self-hosted bundler URL can redirect it. Previews and first Python runs need internet; no offline mode. Mobile support is experimental and Python blocks are not tested on mobile. Edits less than 1 s before closing a note can be lost; unused sidecar cleanup is manual.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian code blocks are static text, so there is no way to run code or show a live preview in place while writing notes.",
+ "readmeHash": "d803b3ae60f9eb1234301ce40377ac5087eae8a2",
+ "relations": [
+  {
+   "evidence": "Embed live, editable Sandpack code playgrounds inside your Obsidian notes.",
+   "plugin": "Sandpack",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sandpack sends the code you type in a playground to CodeSandbox's hosted bundler service",
+   "plugin": "CodeSandbox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Python blocks run with Pyodide.",
+   "plugin": "Pyodide",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CodeSandbox hosted bundler service",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "jsDelivr CDN (Pyodide)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Embeds live, editable Sandpack code playgrounds (React, Vue, Svelte, HTML/CSS, Python via Pyodide) with instant preview inside notes.",
+ "tags": [
+  "sandpack",
+  "codesandbox",
+  "pyodide",
+  "prettier",
+  "react",
+  "vue",
+  "svelte",
+  "codemirror"
+ ]
+}

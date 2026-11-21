@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault with Google Drive using the user's own OAuth credentials",
+  "Merge conflicting note edits word by word via a three-way merge against the last synced version",
+  "Preview a sync plan with a dry run before executing it",
+  "Move deleted files to trash on both local and Drive sides",
+  "Connect mobile devices through a generated connection code"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires creating a Google Cloud project and OAuth client by hand (about five minutes); mobile sign-in must be done from a desktop first. The README addresses Obsidian's automated plugin review flags (vault enumeration, clipboard use) and includes donation links.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Most sync tools handle simultaneous edits to the same note by producing a conflicted copy or silently picking one version, losing work either way.",
+ "readmeHash": "d30e566cc4ad0bf159c73da43b629d32374fea58",
+ "relations": [
+  {
+   "evidence": "It talks to Drive with your own credentials.",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The merge engine is shared with the AI Co-Editor plugin and covered by its test suite.",
+   "plugin": "AI Co-Editor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Self-created Google OAuth client ID and secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Google Drive sync plugin that resolves conflicting note edits with a word-level three-way merge instead of creating conflicted copies.",
+ "tags": [
+  "google-drive",
+  "oauth",
+  "three-way-merge",
+  "conflict-resolution",
+  "dry-run"
+ ]
+}

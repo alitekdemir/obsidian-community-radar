@@ -1,0 +1,49 @@
+{
+ "also": [
+  "properties",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display emoji icons beside notes and folders in the file explorer",
+  "Declare note and folder icons with file_icon and folder_icon frontmatter properties",
+  "Set global folder icons for vault-relative paths in settings",
+  "Flag invalid values and conflicting folder_icon declarations with warning markers",
+  "Expose an API (getFileIcon, getFolderIcon, getIcon) for scripts and DataviewJS dashboards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Install section describes manual copying into the plugins folder for testing; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Icons are stored with notes in frontmatter, so moving a note or folder does not leave a path-keyed icon behind.",
+ "primary": "icons",
+ "problem": "Obsidian's file explorer shows no per-file or per-folder markers, and icon sets keyed by path break when notes are moved.",
+ "readmeHash": "5c52c9379dadb493abb501d50dd3161958b3e5fd",
+ "relations": [
+  {
+   "evidence": "In a DataviewJS block, use getIcon to show icons in a dashboard table",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reads emoji from file_icon and folder_icon frontmatter properties and displays them beside notes and folders in the file explorer.",
+ "tags": [
+  "file-explorer",
+  "dataview"
+ ]
+}

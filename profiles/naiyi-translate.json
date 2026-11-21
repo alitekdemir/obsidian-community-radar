@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "insert translations beneath paragraphs in Reading View via a floating toggle button",
+  "translate with Google, Microsoft Edge, Bilibili Index-Translate, or OpenAI-compatible engines",
+  "connect to local model servers such as Ollama, LM Studio, and vLLM on 127.0.0.1",
+  "apply rate-limit backoff, retries, and caching for translation requests",
+  "skip code blocks, formula blocks, and Mermaid diagrams when extracting text"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the official community plugin directory; the README instructs installing via BRAT or manually from releases. The Bilibili engine preset is labeled experimental, and the plugin is GPL-3.0 licensed.",
+ "intent": "alternative",
+ "intentEvidence": "轻量移植并彻底重塑一个桌面端的轻量化「陪读蛙」",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted in-place bilingual reading of foreign-language literature stored as Markdown in Obsidian, inspired by the read-frog Chrome extension, without altering source files or keeping separate translation copies.",
+ "primary": "languages",
+ "problem": "Obsidian has no built-in translation, so reading foreign-language notes means copying text to external translators or writing translations into the notes themselves.",
+ "readmeHash": "0cb47598137c3b6a4b7eb642e36a3cb8100118d5",
+ "relations": [
+  {
+   "evidence": "底层限流调度架构与 429 退避协议灵感源自 Chrome 扩展 read-frog (陪读蛙)",
+   "plugin": "read-frog (陪读蛙)",
+   "type": "inspired"
+  },
+  {
+   "evidence": "本地运行的 Ollama、OMLX、LM Studio、vLLM 等服务监听 127.0.0.1 即可直接通讯",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "local model server (Ollama, LM Studio, vLLM)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reading-view translation layer that shows translations beneath original paragraphs without modifying Markdown files, using free online engines or local LLMs.",
+ "tags": [
+  "google-translate",
+  "microsoft-edge",
+  "bilibili",
+  "ollama",
+  "vllm",
+  "reading-view",
+  "rate-limiting"
+ ]
+}

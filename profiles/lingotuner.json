@@ -1,0 +1,76 @@
+{
+ "also": [
+  "writing",
+  "editing"
+ ],
+ "audience": [
+  "neurodivergent-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite selected text or note bodies along four style dials with per-step examples",
+  "Stream results from a local OpenAI-compatible server (LM Studio, Ollama, MLX) with round history and refine steps",
+  "Apply presets or saved dial combinations, with a free-text note that outranks the dials",
+  "Output results by replacing the selection or note body, copying, or creating a new note",
+  "Expose a JavaScript API for other plugins and report runs to LLM Lab"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a translation or language-learning tool; it rewrites the style of a text while keeping its language, information and Markdown structure.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Full guides (setup, Apple Intelligence endpoint, Claude, troubleshooting) live on an external documentation site. CORS configuration on the local server may be needed for streaming.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it as an interpreter between neurodivergent and neurotypical communication styles, which differ in directness, spelled-out context, social framing and literalness.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to rewrite a text's communication style; adjusting directness, social framing or literalness by hand is slow, and cloud AI tools send the text off the machine.",
+ "readmeHash": "22fbfdf96ca0a61a3ead3ad3a290c22037fd25f9",
+ "relations": [
+  {
+   "evidence": "Every call is also reported to LLM Lab if that plugin is installed.",
+   "plugin": "LLM Lab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Claude (Anthropic API) — tune with Claude through the LLM Endpoint Manager",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Via AnySource Sideloader, which installs and updates plugins from any git forge.",
+   "plugin": "AnySource Sideloader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local LLM server (LM Studio, Ollama or MLX)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for a hosted provider, if used",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI style tuner that rewrites selected text along four dials (directness, context, social nuance, literalness) using a local OpenAI-compatible LLM.",
+ "tags": [
+  "local-llm",
+  "lm-studio",
+  "ollama",
+  "openai-compatible",
+  "neurodivergent",
+  "communication-style",
+  "streaming",
+  "presets"
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "also": [
+  "status-bar",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display current weather in the statusbar",
+  "Insert weather strings into documents via commands",
+  "Replace template placeholders (%weather1%-%weather4%) when creating new documents",
+  "Render dynamic, auto-updating weather in DIV blocks",
+  "Configure location, units, language and update frequency"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Explicitly discontinued: the OpenWeather API 2.5 it depends on has been discontinued and could stop returning data at any time; the author directs users to the successor Visual Crossing Weather plugin, which at the time was a beta work in progress with almost no documentation and could be installed manually or via the BRAT plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "deprecated",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to display current weather or automatically insert it into notes and daily templates.",
+ "readmeHash": "94d36fc322d396082fce4b9a3d26b255df814aa3",
+ "relations": [
+  {
+   "evidence": "If you want to try the new plugin now you can find the Visual Crossing Weather plugin here.",
+   "plugin": "Visual Crossing Weather plugin",
+   "type": "replaces"
+  },
+  {
+   "evidence": "A free OpenWeather API key is required for the plugin to work.",
+   "plugin": "OpenWeather API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": "Visual Crossing Weather plugin",
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenWeather API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenWeather registration",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Weather plugin that fetches current conditions and a 5-day forecast from OpenWeather and renders them via customizable strings in the statusbar and notes.",
+ "tags": [
+  "weather",
+  "openweather-api",
+  "forecast",
+  "geocoding",
+  "weather-strings",
+  "div-blocks"
+ ]
+}

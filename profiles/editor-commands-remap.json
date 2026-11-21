@@ -1,0 +1,51 @@
+{
+ "also": [
+  "editing",
+  "vim"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "assign hotkeys to editor API commands",
+  "move the cursor by line, character, or to note start/end",
+  "indent, unindent, swap, and delete lines",
+  "fold and unfold items at the cursor or everywhere"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys",
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it does not remap existing hotkeys; it adds editor API commands that can then be assigned hotkeys.",
+ "extras": "Commands only work while an editor is open, the plugin sets no default hotkeys, and Alt is recommended as the modifier for cursor movement since Ctrl/Shift would trigger text selection.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to replicate the Tabout VSCode extension's behavior and, while studying the Obsidian API, decided exposing editor commands as hotkey-assignable commands was a good way to do it.",
+ "primary": "hotkeys",
+ "problem": "Many editor API commands have no command palette entry, so they cannot be assigned hotkeys through Obsidian's hotkeys settings.",
+ "readmeHash": "be116e908295a19112dc21cb904ff48dee306dd1",
+ "relations": [
+  {
+   "evidence": "The original idea was to replicate the behaviour of the Tabout extension for VSCode",
+   "plugin": "Tabout (VSCode extension)",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Hotkey mapper that exposes Obsidian editor API commands (cursor moves, indenting, line swaps, folding) for hotkey assignment.",
+ "tags": [
+  "cursor-movement",
+  "keyboard-driven",
+  "tabout",
+  "folding"
+ ]
+}

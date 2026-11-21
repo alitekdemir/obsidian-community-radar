@@ -1,0 +1,72 @@
+{
+ "also": [
+  "links",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Summarize a selected URL or Markdown link from the editor context menu",
+  "Insert the summary as an [!summary] callout above the link",
+  "Batch-summarize link-only notes in a folder, optionally renaming notes and adding tags",
+  "Auto-summarize link notes dropped into a watched inbox folder",
+  "Fetch auth-gated pages through a logged-in browser session"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Callouts"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "API keys are stored locally in plugin data and are not encrypted; private-network URLs are blocked by default; batch failures are written to AI Link Summarizer batch log.md in the vault root.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Link notes stay as bare URLs, and reading each linked page to write a summary by hand is slow, especially on auth-gated sites.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "65248fdd792a66fee0ba8ff86f59e46e73fa2d15",
+ "relations": [
+  {
+   "evidence": "Gemini via @google/genai + urlContext",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI via openai + web_search_preview",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude via @anthropic-ai/sdk (fetches page content locally via requestUrl)",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for the selected provider (Gemini, OpenAI or Claude)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Right-click link summarizer that sends a URL to Gemini, OpenAI or Claude and inserts the result as a callout, with folder batch and inbox modes.",
+ "tags": [
+  "openai",
+  "gemini",
+  "claude",
+  "summarization",
+  "callouts",
+  "batch-processing"
+ ],
+ "textHash": "a59af9ed7d318b7367ecc3ac577f1f2dc6447ee9"
+}

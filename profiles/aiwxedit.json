@@ -1,0 +1,70 @@
+{
+ "also": [
+  "publishing",
+  "export"
+ ],
+ "audience": [
+  "wechat-content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview notes as styled WeChat article HTML in a sidebar",
+  "Send articles to a WeChat Official Account draft box",
+  "Export standalone HTML with embedded local images",
+  "Copy formatted HTML and plain text to the clipboard",
+  "Generate title suggestions and AI covers via an OpenAI-compatible provider"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not an AI writing editor; the AI features are optional title and cover generation on top of a WeChat formatting and publishing tool.",
+ "extras": "Interface is primarily in Chinese; WeChat AppSecret and AI API keys are stored unencrypted in data.json (warning documented); LaTeX formula rendering is not implemented; mobile clipboard support is unverified in this release candidate.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to render notes as WeChat-styled article HTML or push drafts to the WeChat Official Account draft API.",
+ "readmeHash": "cbdd57e51c5062b80c028f6070031d05a2d1e8b8",
+ "relations": [
+  {
+   "evidence": "The reading workbench takes interaction-design inspiration from Qiaomu Publish.",
+   "plugin": "Qiaomu Publish",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Code block rendering and WeChat HTML compatibility include code derived from sunbooshi/note-to-mp",
+   "plugin": "sunbooshi/note-to-mp",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account with AppID/AppSecret and draft/material API permissions",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Markdown-to-WeChat formatter that previews article HTML in a sidebar, applies themes, uploads local images, and sends drafts to a WeChat Official Account.",
+ "tags": [
+  "wechat",
+  "official-account",
+  "openai",
+  "openrouter",
+  "deepseek",
+  "code-highlighting",
+  "rich-text-copy"
+ ]
+}

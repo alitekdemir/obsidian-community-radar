@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read EPUB books with adjustable layout, typography, themes and a bookshelf with progress",
+  "Highlight, underline and comment on passages with CFI-anchored, searchable annotations",
+  "Ask AI to explain, translate or comment on selected text via OpenAI-compatible providers",
+  "Show paragraph translations embedded under original text and popup dictionary lookups",
+  "Read books aloud sentence-by-sentence with system or cloud TTS voices"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation from GitHub releases; flagged as not manually reviewed by Obsidian staff. Includes a detailed privacy note listing exactly which network requests each feature makes, and explains API-key storage in the system keychain (Obsidian 1.11.4+) versus plaintext data.json. Documents a CSP workaround for duokan-style classic-book EPUBs.",
+ "intent": "improve",
+ "intentEvidence": "the FleurPDF experience for e-books",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in way to read EPUB books or annotate them alongside notes.",
+ "readmeHash": "6bb1f443f2774471772faa51788942c337c1ac16",
+ "relations": [
+  {
+   "evidence": "built on foliate-js — the FleurPDF experience for e-books",
+   "plugin": "FleurPDF",
+   "type": "extends"
+  },
+  {
+   "evidence": "An EPUB reader plugin for Obsidian, built on foliate-js",
+   "plugin": "foliate-js",
+   "type": "extends"
+  },
+  {
+   "evidence": "Optional sync with FleurDict; without it, a standalone notebook is used",
+   "plugin": "FleurDict",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select a word to look it up in a popup dictionary — Youdao (English–Chinese) or Free Dictionary API",
+   "plugin": "Youdao",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI assistant via OpenAI-compatible providers (DeepSeek, GLM, Kimi, Qwen, Doubao, MiniMax...)",
+   "plugin": "OpenAI-compatible providers (DeepSeek, GLM, Kimi, Qwen, Doubao, MiniMax)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider, cloud TTS (OpenAI, SiliconFlow, Doubao, Qwen, Tencent Cloud) — translation and system voices need none",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "EPUB reader for Obsidian built on foliate-js, with color highlights, AI annotations, paragraph translation, dictionary lookup and read-aloud.",
+ "tags": [
+  "epub",
+  "ebook",
+  "foliate-js",
+  "tts",
+  "translation",
+  "youdao",
+  "cfi",
+  "wordwise"
+ ]
+}

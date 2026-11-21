@@ -1,0 +1,101 @@
+{
+ "also": [
+  "automation",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with multiple LLM providers (API, local, and CLI backends)",
+  "Read, search, and edit vault notes through function calling with confirmation dialogs",
+  "Build multi-step automated workflows from 25 node types, including AI decision branches",
+  "Run local vector semantic search (RAG) over the vault with hybrid BM25+vector retrieval",
+  "Hold live voice conversations with Gemini or OpenAI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; mobile users are pointed to the separate Gemini Helper plugin. Discord and Kakeratta connections were moved out to the LLM Connect Hub plugin. Cloud APIs incur charges; web search fees from Tavily/Brave are separate from token costs. Forgetting the encryption password makes encrypted files unrecoverable. Edit history is memory-only and cleared on restart; Obsidian's built-in file recovery covers persistent versioning.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, so users must piece together separate tools to chat with LLMs, edit notes via AI, and search their vault semantically.",
+ "readmeHash": "ef0a3e2f54cfbf4cc6cde45256b900c763384007",
+ "relations": [
+  {
+   "evidence": "Discord integration has been separated from LLM Hub into the LLM Connect Hub Obsidian plugin.",
+   "plugin": "LLM Connect Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dashboard functionality is provided by the separate Dashboard Hub plugin.",
+   "plugin": "Dashboard Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI Discussion is provided by the separate Discussion Hub plugin.",
+   "plugin": "Discussion Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install speech-popup and a microphone button appears above the send button.",
+   "plugin": "speech-popup",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built-in skills - Obsidian-specific knowledge (Markdown, Canvas, Bases) included out of the box. Based on kepano/obsidian-skills",
+   "plugin": "kepano/obsidian-skills",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Desktop only (for mobile, see Gemini Helper)",
+   "plugin": "Gemini Helper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Models contributed by Gemini Helper and Local LLM Hub can participate in the same discussion.",
+   "plugin": "Local LLM Hub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini, OpenAI, Anthropic, OpenRouter, or Grok API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM server (Ollama, LM Studio, vLLM, AnythingLLM, OpenCode) or CLI tool (Antigravity, Claude Code, Codex)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily or Brave Search key for external web search",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Multi-provider AI assistant that adds LLM chat, vault-editing tools, workflow automation, voice conversation, and local semantic search (RAG) to Obsidian.",
+ "tags": [
+  "gemini",
+  "openai",
+  "anthropic",
+  "openrouter",
+  "ollama",
+  "mcp",
+  "discord",
+  "rag"
+ ]
+}

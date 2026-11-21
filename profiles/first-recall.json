@@ -1,0 +1,84 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a Note Brief and per-section study cards with AI",
+  "Practice recall in a Study Mode with reveal-after-attempt",
+  "Keep study material current via managed folders and automatic updates",
+  "Export recall questions and key terms to Markdown or Anki TSV",
+  "Connect to cloud, local, or terminal LLM providers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a spaced-repetition flashcard plugin; it generates recall study material and can export to Anki rather than scheduling reviews itself.",
+ "extras": "Community review flags Direct Filesystem Access and Shell Execution (needed for the optional Codex/Claude Code terminal providers). Free and open source under GPLv3. Requires Obsidian Desktop v1.11.4 or later for Secret Storage; cloud providers may incur usage charges and receive note content.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted retrieval practice from existing notes instead of passive rereading: \"You highlighted it. You reread it. You still can't recall it.\"",
+ "primary": "ai",
+ "problem": "Re-reading notes makes them feel familiar without building actual recall, and Obsidian has no built-in active-recall or retrieval-practice feature.",
+ "readmeHash": "109403c80e310f907885c82fde1f5cb1641ef9f7",
+ "relations": [
+  {
+   "evidence": "Export generated recall questions and key terms to a Markdown study sheet or Anki-compatible TSV",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use your own LLMs with Ollama or LM Studio.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local servers: Ollama and LM Studio — generation can stay on your machine",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Codex and Claude Code terminal tools are also supported.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "cloud LLM provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama, LM Studio, Codex, or Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "cloud LLM provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI study-material generator that creates a Note Brief and per-section study cards (summary, recall question, key terms) from any note's headings.",
+ "tags": [
+  "active-recall",
+  "retrieval-practice",
+  "anki",
+  "ollama",
+  "lm-studio",
+  "claude-code",
+  "byok"
+ ]
+}

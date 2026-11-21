@@ -1,0 +1,83 @@
+{
+ "also": [
+  "workspaces",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build an editable, draggable grid homepage with configurable widgets",
+  "Aggregate active projects, tasks, and recent notes from vault folders and frontmatter",
+  "Track pomodoro focus time and attribute it to projects, areas, or task pools",
+  "Generate a capability map from Value, Area, and Project note relationships",
+  "Save, load, and switch named layouts for devices or scenarios"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Bilingual English/Simplified Chinese interface. The Music Player widget only opens a configured external music service page rather than playing audio itself; TimeLog data is stored locally in the plugin data file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian opens on files or notes by default and has no built-in start page that surfaces active projects, tasks, focus time, and knowledge status at a glance.",
+ "readmeHash": "3b0ea19ecae720fec0a7084a147f2d44b4d8cd82",
+ "relations": [
+  {
+   "evidence": "the Activity History widget embeds an ActivityHistory code block that is rendered by the optional community plugin Activity History",
+   "plugin": "Activity History",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Needed only when a System widget button is configured to run a QuickAdd command.",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Needed only when a System item uses the daily-note action",
+   "plugin": "Daily Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Visual design inspired by Dashboard-Komorebi.css (Komorebi / Catppuccin style) by InlitX.",
+   "plugin": "Dashboard-Komorebi.css",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Activity History",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "QuickAdd",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Daily Notes (core)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Widget-based homepage dashboard that opens at startup with a draggable grid of widgets for projects, tasks, habits, pomodoro focus, and notes.",
+ "tags": [
+  "dashboard",
+  "pomodoro",
+  "habit-tracking",
+  "heatmap",
+  "tech-tree",
+  "grid-layout",
+  "time-tracking"
+ ]
+}

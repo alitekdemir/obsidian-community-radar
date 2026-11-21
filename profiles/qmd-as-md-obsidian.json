@@ -1,0 +1,88 @@
+{
+ "also": [
+  "export",
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Edit .qmd files in Obsidian's standard Markdown editor",
+  "Run live Quarto preview in-app or in an external browser",
+  "Render .qmd files to PDF, DOCX, HTML, or reveal.js via quarto render",
+  "Create new .qmd files from built-in or vault templates",
+  "Show a sidebar outline of the active .qmd file's headings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer",
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an exporter that converts Obsidian Markdown notes into .qmd files; it edits and renders .qmd files in place.",
+ "extras": "Desktop only (Quarto runs as an external process); requires Obsidian 1.8.0+. Beta releases are distributed only via BRAT, the community store tracks the latest stable release (currently 0.3.0). Includes a CSS snippet for hiding Quarto project clutter and a pandoc Lua filter bridging Obsidian callouts to Quarto callouts (Quarto >= 1.3).",
+ "intent": "alternative",
+ "intentEvidence": "this plugin allows you to compile QMD files as they are, without exporting them to another folder",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian's editor and core panels do not handle .qmd files, so Quarto documents cannot be edited, outlined, previewed, or rendered without leaving the vault or exporting them elsewhere.",
+ "readmeHash": "42e3b93dcb89564b2ca62708e8d179fc46e2e070",
+ "relations": [
+  {
+   "evidence": "This plugin shells out to the quarto CLI for all preview and render operations",
+   "plugin": "quarto CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "originated in 2022 as a minimal change to a now-archived project by deathau",
+   "plugin": "deathau/txt-as-md-obsidian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Ridian offers R code block execution and variable previews.",
+   "plugin": "Ridian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Quarto Exporter helps export Obsidian Markdown files into the QMD format.",
+   "plugin": "Quarto Exporter",
+   "type": "alternative"
+  },
+  {
+   "evidence": "it is more similar to the Pandoc plugin",
+   "plugin": "Pandoc plugin",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Quarto CLI",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Web viewer (Obsidian core plugin)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Quarto integration that opens .qmd files in Obsidian's Markdown editor and runs Quarto preview and render (PDF, DOCX, HTML, reveal.js) inside the vault.",
+ "tags": [
+  "quarto",
+  "pandoc",
+  "qmd",
+  "typst",
+  "revealjs",
+  "lua-filters",
+  "citeproc"
+ ]
+}

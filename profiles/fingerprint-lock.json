@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lock the vault behind a full-screen lock screen on startup, blur, or idle",
+  "Unlock with Touch ID or Windows Hello via bundled native helpers",
+  "Register a YubiKey or other WebAuthn security key as an unlock method",
+  "Set a password fallback with optional AES-256-GCM encrypted verifier",
+  "Lock individual notes via a frontmatter property or command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not file encryption; it only hides the vault UI while notes stay plaintext on disk.",
+ "extras": "Desktop-only (won't work on mobile). README repeatedly warns the plugin hides rather than encrypts files and points to encrypted volumes for real protection. On macOS the helper needs Xcode Command Line Tools, which the plugin prompts to install; README also notes this plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to lock the vault or individual notes behind a screen lock when stepping away from the machine.",
+ "readmeHash": "c6bbf259e4655d4715b7231dc67ef735d391847c",
+ "relations": [
+  {
+   "evidence": "pair this with FileVault/BitLocker or an encrypted disk image",
+   "plugin": "FileVault",
+   "type": "integrates"
+  },
+  {
+   "evidence": "pair this with FileVault/BitLocker or an encrypted disk image",
+   "plugin": "BitLocker",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a BitLocker/VeraCrypt volume on Windows",
+   "plugin": "VeraCrypt",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault lock screen that unlocks with macOS Touch ID, Windows Hello, a WebAuthn security key, or an optional password fallback.",
+ "tags": [
+  "touch-id",
+  "windows-hello",
+  "webauthn",
+  "yubikey",
+  "biometrics",
+  "privacy",
+  "lock-screen"
+ ]
+}

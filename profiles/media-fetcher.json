@@ -1,0 +1,73 @@
+{
+ "also": [
+  "import",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Download video or audio-only files from a pasted URL via local yt-dlp",
+  "Insert the downloaded attachment and source link into the active note",
+  "Replace right-clicked raw URLs or Markdown links with downloaded media",
+  "Show download progress in the status bar and an activity panel with diagnostics",
+  "Follow Obsidian's configured attachment location or a custom media folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian 1.7.2+); not yet in the community plugin directory, so beta installs go through BRAT or manual copy. Includes a prominent responsible-use section stating it must not be used to circumvent DRM, paywalls, or access controls, and does not bundle or update yt-dlp or ffmpeg.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted an intentionally narrow tool: existing community plugins either support only Windows, make downloading secondary to a larger player, or focus on transcription and AI.",
+ "primary": "attachments",
+ "problem": "Obsidian has no built-in way to save external audio or video as vault attachments, and existing plugins are Windows-only, make downloading a side feature of a media player, or focus on transcription and AI.",
+ "readmeHash": "7f0610b4d0de2b908a0fff32f18912c3744d97f1",
+ "relations": [
+  {
+   "evidence": "It uses your local yt-dlp installation to save a lecture, webcast, video, or podcast",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ffmpeg for merged video streams and audio conversion",
+   "plugin": "ffmpeg",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For beta testing before directory approval, add through BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Desktop plugin that uses a local yt-dlp installation to download authorized audio and video into the vault as normal attachments.",
+ "tags": [
+  "yt-dlp",
+  "ffmpeg",
+  "podcasts",
+  "webcasts",
+  "video-downloads",
+  "homebrew",
+  "archiving"
+ ]
+}

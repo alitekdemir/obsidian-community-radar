@@ -1,0 +1,67 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "push and pull the vault to a WebDAV server manually",
+  "sync only selected folders between vaults",
+  "sync or exclude the .obsidian configuration folder",
+  "resolve file-level conflicts manually"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Setup and installation details are delegated to external documentation. The author warns users to back up their vault before first sync, notes it is not thread-safe and unsuitable for collaborative repositories, only tests against copyparty, and explicitly does not support macOS or iOS. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "the fairly well-established remotely-save plugin, which does quite a few supported target locations",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to sync between a self-hosted NAS and Proton Drive, but mobile operating systems, vendor-locked cloud services, and abandoned or under-maintained plugins left no viable option, so they built a deliberately simple manual-sync plugin.",
+ "primary": "syncing",
+ "problem": "Obsidian users who want to sync to their own WebDAV server or Proton Drive lack good options: existing WebDAV plugins are obscure or abandoned, remotely-save is under-maintained, and obsidian-git lacks Android SSH support.",
+ "readmeHash": "9b671e25b5121ee4d5d9f569be6ed1dac6f1993b",
+ "relations": [
+  {
+   "evidence": "the fairly well-established remotely-save plugin, which does quite a few supported target locations",
+   "plugin": "remotely-save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "which is the closest you get in spirit to the idea behind this plugin",
+   "plugin": "Vinzent03/obsidian-git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "though I only test against copyparty",
+   "plugin": "copyparty",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Manual WebDAV-based vault sync plugin that pushes and pulls notes to any WebDAV-compatible server, with partial folder sync and basic conflict handling.",
+ "tags": [
+  "webdav",
+  "self-hosted",
+  "nextcloud",
+  "proton-drive",
+  "copyparty",
+  "conflict-resolution"
+ ]
+}

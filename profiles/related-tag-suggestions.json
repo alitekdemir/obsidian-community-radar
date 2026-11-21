@@ -1,0 +1,56 @@
+{
+ "also": [
+  "tags"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sort tag suggestions by frequency of use across the vault",
+  "sort tag suggestions by recently added and saved tags",
+  "sort tag suggestions alphabetically using the Japanese locale collator",
+  "cycle sort modes with Alt+S on desktop",
+  "keep a history of the 500 most recently used tags"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not suggest new or related tags; it only reorders the candidates Obsidian's native tags field already shows.",
+ "extras": "Not yet in the official Community directory; installed from GitHub releases or BRAT. Mobile support is experimental and off by default. Wraps undocumented Obsidian APIs (AbstractInputSuggest, private multiselect members), so sorting may stop on Obsidian updates; exact-version gates disable sorting and restore native suggestions when shapes change.",
+ "intent": "improve",
+ "intentEvidence": "Sort candidates inside Obsidian's standard in-document tags Properties field.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Obsidian's native tag suggestion list has a fixed ordering, so users cannot pull frequently used or recently added tags to the top when filling the tags property.",
+ "readmeHash": "56319373673095ddfa6c299bbad983b0e6e3c0cd",
+ "relations": [
+  {
+   "evidence": "use BRAT's frozen-version command with repository masavo/obsidian-related-tag-suggestions",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tag-suggestion sorter that reorders Obsidian's native tags property candidates by frequency, recently added tags, or name.",
+ "tags": [
+  "sorting",
+  "frequency",
+  "japanese",
+  "usage-history"
+ ]
+}

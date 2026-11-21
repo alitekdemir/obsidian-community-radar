@@ -1,0 +1,55 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "segment note text into typed nodes with confidence scores and offsets",
+  "extract LLM relationships like supports, contradicts, and causes",
+  "derive precedes edges from document order",
+  "write a .ir.json.md intermediate representation beside the note",
+  "verify the compiled graph against the source text"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Community Plugins store; requires manual copy of main.js and manifest.json into the plugins folder. Warns that vault-sync tools will carry the stored API key, and that large structured technical documents are not yet well supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian notes are plain text, so there is no structured representation of claims, observations, decisions, and their relationships that can be traced back to source text.",
+ "readmeHash": "7d0e0ad953c2003df2bb33b3489aae913664f1dc",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "any OpenAI-compatible LLM endpoint",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Semantic IR compiler that segments a note into typed nodes, extracts relationships with verbatim evidence spans, and writes a .ir.json.md graph file.",
+ "tags": [
+  "knowledge-graph",
+  "semantic-analysis",
+  "llm",
+  "openai-compatible",
+  "evidence-spans",
+  "argument-mining"
+ ]
+}

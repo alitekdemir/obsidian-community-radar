@@ -1,0 +1,79 @@
+{
+ "also": [
+  "dates",
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add commands that open the next occurrence of each weekday's daily note",
+  "Pick dates with a picker supporting calendar dates, relative phrases, and recent daily notes",
+  "Create missing daily notes from the configured Daily Notes template",
+  "Route navigation through Journal View with its animations",
+  "Override the daily notes folder per plugin, including folder-containing date formats"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The listing notes the plugin has not been manually reviewed by Obsidian staff; the README states it works fully locally with no network services or telemetry.",
+ "intent": "improve",
+ "intentEvidence": "Configure your preferred date format, folder, and template in Obsidian's built-in Daily Notes plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian's Daily Notes has no quick way to jump to the next occurrence of a specific weekday or to an arbitrary date from the command palette.",
+ "readmeHash": "d27911f719597866e533f2f1eb82b53b9a313595",
+ "relations": [
+  {
+   "evidence": "It accepts calendar dates, natural-language dates when Natural Language Dates is installed",
+   "plugin": "Natural Language Dates",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Integrate with Journal View (off by default): sends every Weekday Commands navigation to Journal View",
+   "plugin": "Journal View",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or in Periodic Notes (with daily notes enabled)",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Natural Language Dates",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Journal View",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Command palette plugin that opens or creates daily notes by weekday commands or a date picker, using your Daily Notes template.",
+ "tags": [
+  "daily-notes",
+  "date-picker",
+  "natural-language-dates",
+  "weekday",
+  "journal-view"
+ ]
+}

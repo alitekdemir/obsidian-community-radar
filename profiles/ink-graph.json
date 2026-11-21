@@ -1,0 +1,66 @@
+{
+ "also": [
+  "visualization",
+  "languages"
+ ],
+ "audience": [
+  "interactive-fiction-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Visualize an ink story's knots, stitches, choices, diverts, tunnels and threads as a node map",
+  "Edit the story on the map by creating knots, dragging links, renaming and deleting",
+  "Highlight where a variable is written and read across the story",
+  "Warn about cycles without choices that would hang the player",
+  "Save node positions in a sidecar file next to the story"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a graph view of vault notes; it maps the structure of .ink interactive-fiction story files only.",
+ "extras": "README documents known limits: large stories rebuild slowly on the main thread, unclosed braces can hide parts of the graph while typing, and delete shortcuts lack a touch equivalent on phones.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Ink stories are plain text, so writers have no visual way to see story structure, variable flow, or loops that would hang the story.",
+ "readmeHash": "4042f7e503816855679896134753394eca10f74c",
+ "relations": [
+  {
+   "evidence": "Works alongside Ink Player and Ink Language.",
+   "plugin": "Ink Player",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works alongside Ink Player and Ink Language.",
+   "plugin": "Ink Language",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Ink Language / Ink Player",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Story graph for ink files that draws knots, choices, diverts and variables as a map and edits the story by dragging links.",
+ "tags": [
+  "ink",
+  "interactive-fiction",
+  "knots",
+  "diverts",
+  "loops",
+  "variables"
+ ]
+}

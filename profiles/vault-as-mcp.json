@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "run an HTTP-based MCP server inside Obsidian",
+  "expose tools to read, search, and list notes",
+  "create, edit, rename, and delete notes via MCP",
+  "control access with bearer tokens and path ACLs",
+  "bridge stdio to HTTP for Claude Desktop"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; does not work on mobile. Flagged as not manually reviewed by Obsidian staff. README notes the tool list in the README is only a summary, with the source file as the source of truth.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way for external LLM clients like Claude Desktop or Open WebUI to access and edit vault notes through a controlled protocol.",
+ "readmeHash": "d27f4ca73a1c2cfd1327621649967a505c3763ce",
+ "relations": [
+  {
+   "evidence": "Supports HTTP transport natively (Open WebUI, remote LLMs)",
+   "plugin": "Open WebUI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Desktop uses stdio transport for MCP servers, so you'll need the mcp-bridge.js script",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "list_templates — List available Templater templates",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Assuming you have the BRAT plugin installed and enabled",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "An MCP client such as Open WebUI, Claude Code, or Claude Desktop",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18+ for the Claude Desktop stdio bridge",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "MCP server plugin that runs inside Obsidian and exposes vault notes to external LLM tools over HTTP with read, search, and edit operations.",
+ "tags": [
+  "mcp",
+  "llm",
+  "claude-desktop",
+  "open-webui",
+  "bearer-token",
+  "tailscale"
+ ]
+}

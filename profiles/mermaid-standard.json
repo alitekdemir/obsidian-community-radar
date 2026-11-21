@@ -1,0 +1,42 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render mermaid blocks with bundled upstream mermaid 11.17.2 instead of Pele",
+  "Apply theme, look and themeVariables directives to diagrams",
+  "Follow the app theme (dark/light) and --font-mermaid as defaults",
+  "Re-render diagrams in the current note via command or scrolling",
+  "Show syntax errors as a single red line instead of an injected error diagram"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a mermaid syntax editor or tutorial; it only swaps the rendering engine back to upstream mermaid.",
+ "extras": "Hooks the internal window.pele.mount API, which may silently stop working in future Obsidian releases. Bundled mermaid adds ~3.4 MB to main.js. Automated review flags eval from the vendored mermaid bundle; the plugin itself loads no remote code and makes no network requests. zenuml diagrams are unsupported; mobile untested. Installable via BRAT.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants standard mermaid configuration to work again after Obsidian replaced mermaid.js with its own Pele engine in 1.15.",
+ "primary": "visualization",
+ "problem": "Since Obsidian 1.15, mermaid blocks are drawn by the internal Pele engine, which silently drops theme, look and themeVariables settings.",
+ "readmeHash": "4251f650fcf6d93a72d542b22e1bf674b5eb7a8a",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders mermaid code blocks with upstream mermaid, restoring standard config like theme, look and themeVariables that Obsidian's internal engine ignores.",
+ "tags": [
+  "mermaid",
+  "diagrams",
+  "theme-variables",
+  "rendering-engine"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "visualization",
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Plot tasks on a radar where distance from center is driven by due date",
+  "Postpone, complete, and open tasks via right-click context menu",
+  "Drag blips inward or outward to reschedule and rewrite the due date",
+  "Bind note blips to task lines using ^block-id anchors",
+  "Store radars as portable .taskradar JSON files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general-purpose radar for notes and ideas; it only handles date-driven tasks, unlike the upstream obsidian-radar.",
+ "extras": "Beta builds can be installed via BRAT; the data model is documented separately in docs/TASK-RADAR-PLAN.md rather than fully in the README.",
+ "intent": "alternative",
+ "intentEvidence": "Task Radar is a fork of obsidian-radar by Luis Cipriani, specialized for date-driven task management.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked the general-purpose obsidian-radar to specialize it for date-driven task management, since that project explicitly excludes dates.",
+ "primary": "tasks",
+ "problem": "Obsidian task lists show tasks as plain lines, so how soon each task is due relative to today is not visible at a glance and rescheduling requires opening the note.",
+ "readmeHash": "56a2b379eb342bff922f7c09ae03fc940fe4bd5e",
+ "relations": [
+  {
+   "evidence": "Task Radar is a fork of obsidian-radar by Luis Cipriani, specialized for date-driven task management.",
+   "plugin": "obsidian-radar by Luis Cipriani",
+   "type": "fork"
+  },
+  {
+   "evidence": "Task Radar reads and writes the emoji-signifier format used by the Tasks plugin",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Radar visualization that plots tasks as blips positioned by due date, letting you postpone, complete, and reprioritize them directly from the chart.",
+ "tags": [
+  "due-dates",
+  "radar",
+  "block-ids",
+  "emoji-syntax"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Define folder-level templates as !Template.md notes whose frontmatter sets expected properties",
+  "Inherit properties recursively from parent folder templates with unlimited nesting",
+  "Auto-apply template properties (and optionally body) to newly created empty notes",
+  "Show a status icon for template conformance and navigate to the reference template",
+  "Reconform notes to the template through a three-step Update/Align/Reset button"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13.0 or later (uses the declarative settings API). The optional Templater bridge is opt-in per device and warns that script blocks execute code; the plugin never edits existing notes automatically.",
+ "intent": "alternative",
+ "intentEvidence": "You would usually use Templater for such occurrences, but what happens when maybe an item needs a new property",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author hit this problem tracking media in a personal vault and built the solution for others: \"I struggled a bit with this kind of problem in my media tracking vault and came up with a solution\".",
+ "primary": "templating",
+ "problem": "Templater-style per-folder templates force either empty extra properties or divergent copies, with no guarantee that sibling folders' templates share common properties.",
+ "readmeHash": "9898324798d5474ad98e73f94340d34e723155ec",
+ "relations": [
+  {
+   "evidence": "This is meant to work alongside Templater script automations",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Folder-level cascading template system where !Template.md files define frontmatter properties inherited recursively by notes and nested templates.",
+ "tags": [
+  "inheritance",
+  "folder-templates",
+  "conformance",
+  "templater",
+  "auto-apply"
+ ]
+}

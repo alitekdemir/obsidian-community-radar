@@ -1,0 +1,77 @@
+{
+ "also": [
+  "properties",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the Streaming Availability API using the note title",
+  "Write movie details and streaming status as note properties",
+  "Refresh availability directly from tmdb_id and Type properties",
+  "Download poster images into the vault",
+  "Check a Jellyfin server for matching shows and watched status"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The API has free and paid tiers; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up where a movie or show is currently streaming and record that data on a note.",
+ "readmeHash": "0f175056f5a3ed3deab1d6902a51003abcda3416",
+ "relations": [
+  {
+   "evidence": "using the Streaming Availability API by Movie of the Night",
+   "plugin": "Streaming Availability API by Movie of the Night",
+   "type": "integrates"
+  },
+  {
+   "evidence": "User-configured Jellyfin server URL | Search Jellyfin libraries for matching shows",
+   "plugin": "Jellyfin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "fetch availability by TMDB ID",
+   "plugin": "TMDB",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Streaming Availability API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Jellyfin server",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Streaming Availability API paid tier",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Streaming lookup plugin that finds which services stream a movie or TV show and writes the results as note properties.",
+ "tags": [
+  "streaming-availability-api",
+  "movie-of-the-night",
+  "tmdb",
+  "jellyfin",
+  "movies",
+  "tv-shows"
+ ]
+}

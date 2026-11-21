@@ -1,0 +1,79 @@
+{
+ "also": [
+  "integrations",
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes across devices through ArcaLink",
+  "Share folders with invitations, roles and access revocation",
+  "Import Telegram messages and attachments",
+  "Publish selected notes as public web pages",
+  "Encrypt personal vaults and shared folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires internet and an ArcaLink account; shared folders and Telegram import need a paid plan; README warns against running another whole-vault sync plugin and recommends independent backups.",
+ "intent": "alternative",
+ "intentEvidence": "ArcaLink Sync uses and modifies code from Self-hosted LiveSync",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Keeping a vault in sync across devices and sharing folders or notes requires a separate hosted service with accounts, storage and access controls.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "5f923b2b05173ba77f0cc20871de58cce050b823",
+ "relations": [
+  {
+   "evidence": "ArcaLink Sync uses and modifies code from Self-hosted LiveSync",
+   "plugin": "Self-hosted LiveSync",
+   "type": "fork"
+  },
+  {
+   "evidence": "importing messages and attachments from Telegram",
+   "plugin": "Telegram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ArcaLink account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "ArcaLink paid plan",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Telegram personal bot",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Sync service plugin that keeps Obsidian notes across devices through ArcaLink, with shared folders, Telegram import, encryption and public pages.",
+ "tags": [
+  "telegram",
+  "encryption",
+  "end-to-end-encryption",
+  "android",
+  "share-links",
+  "version-history",
+  "conflict-resolution",
+  "two-way-sync"
+ ],
+ "textHash": "9d8c121e550f5a52ef0fa73ee6e5a23e8fc529ba"
+}

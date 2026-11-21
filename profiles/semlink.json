@@ -1,0 +1,64 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an agent that searches, reads and reasons over vault notes",
+  "Stream thinking traces and tool calls with clickable per-note citations",
+  "Publish a Q&A exchange as a revocable LAN web page with QR code",
+  "Index notes with embeddings and control re-indexing from a dashboard",
+  "Expose the same search tools as a local MCP server for other AI clients"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a link-management or backlinks plugin; the name refers to semantic search over your notes.",
+ "extras": "BYOK: the plugin itself adds no cost; users pay their own model providers or use key-less local runtimes like Ollama. Stores its index as SQLite and binary vector files in the plugin folder. Listed as not manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Semlink keeps the whole loop inside Obsidian: you see the thinking and every tool call",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because most Obsidian AI plugins depend on third-party agent clients built for programming, and wanted an agent that works entirely inside the vault.",
+ "primary": "ai",
+ "problem": "Asking questions about your own notes means remembering folders, Ctrl+F, and pasting text into an external chat window, and most Obsidian AI plugins require separate agent clients to work.",
+ "readmeHash": "5eb181a7e62a6944fef08db68383363cdfb58f07",
+ "relations": [
+  {
+   "evidence": "Copilot routes its agent through opencode and its RAG through Miyo — external tools",
+   "plugin": "Copilot for Obsidian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "If you also use Claude Desktop, Claude Code or Cursor, the same tools are exposed",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "chat and embedding provider API key (OpenAI-compatible or Anthropic-compatible endpoint)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Built-in AI agent that chats with your vault, searches notes semantically, answers with clickable citations, shares Q&A over LAN, and offers an optional MCP server.",
+ "tags": [
+  "rag",
+  "embeddings",
+  "citations",
+  "mcp",
+  "byok",
+  "agent",
+  "ollama"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "music",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Control Spotify playback from a now-playing sidebar",
+  "Display time-synced lyrics from LRCLIB with click-to-seek",
+  "Browse the upcoming queue and search tracks, albums, and playlists",
+  "Capture the current track and lyrics into templated notes or .lrc files",
+  "Play Spotify URIs or URLs under the cursor via a bindable command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Mobile support is tagged \"preview\" with known differences (no hover controls, plaintext token storage). Spotify Premium is required to control playback and to own the developer app; Free accounts are limited to capture/display features. Notable limitations documented: no in-Obsidian audio playback (Widevine DRM missing from Electron), no Smart Shuffle control, tokens may be stored plaintext on mobile or headless Linux.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to see or control Spotify playback or to capture what you're listening to into notes.",
+ "readmeHash": "f924e1ac59508f37c92940310bc9883186c6bd6b",
+ "relations": [
+  {
+   "evidence": "Control Spotify from inside Obsidian. A now-playing sidebar with hover-revealed transport",
+   "plugin": "Spotify",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Lyrics come from LRCLIB — free, no account, community-maintained LRC database.",
+   "plugin": "LRCLIB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "including editors opened by QuickAdd or Commander macros",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "including editors opened by QuickAdd or Commander macros",
+   "plugin": "Commander",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Spotify account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Spotify Developer app Client ID",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Spotify Premium",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Spotify integration that adds a now-playing sidebar with playback controls, synced lyrics, queue, search, and track capture into notes.",
+ "tags": [
+  "spotify",
+  "lrclib",
+  "lyrics",
+  "lrc",
+  "web-api",
+  "pkce",
+  "podcasts"
+ ]
+}

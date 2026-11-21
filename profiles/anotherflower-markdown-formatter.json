@@ -1,0 +1,57 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Normalize LaTeX \\(...\\) and \\[...\\] delimiters to Obsidian math",
+  "Repair Markdown table separators, column counts, and escaped content",
+  "Close unclosed fenced code blocks and normalize heading, list, and Callout prefixes",
+  "Preview changes before writing and scan the current document, folder, or vault",
+  "Restore the most recent repair snapshot and normalize URL-encoded note paths"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a style formatter that rewrites correct Markdown layout; it only repairs content it detects as broken, and skips changes it cannot make with high confidence.",
+ "extras": "Has not been manually reviewed by Obsidian staff; no network access and no note content sent to external services; warns against syncing the plugin folder through a vault sync service; Chinese instructions in README_CN.md; not yet in the official Community Plugins directory.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Repairs formatting mistakes commonly produced by AI assistants and copied Markdown.",
+ "primary": "formatting",
+ "problem": "Obsidian has no built-in way to fix broken Markdown such as wrong LaTeX delimiters, malformed table separators, unclosed code fences, or URL-encoded file names.",
+ "readmeHash": "4ab237ed83cab645f4ae0541d37a1f101330a5f5",
+ "relations": [
+  {
+   "evidence": "Install and enable BRAT from Obsidian's Community Plugins directory.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Conservative local-only tool that repairs common Markdown errors from AI output and copied text, with previews and snapshot recovery.",
+ "tags": [
+  "ai-assistants",
+  "latex-delimiters",
+  "code-fences",
+  "hard-breaks",
+  "url-decoding",
+  "batch-scan",
+  "brat"
+ ]
+}

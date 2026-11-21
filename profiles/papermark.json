@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ocr",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Merge JPG/PNG/WebP images into PDFs with page ordering and rotation",
+  "OCR scanned pages with built-in Tesseract, optional Paddle, or optional MinerU",
+  "Create and edit nested PDF bookmarks with page preview and undo",
+  "Calibrate printed book contents pages to physical PDF page numbers",
+  "Export searchable PDFs with selectable text layers, singly or as ZIP batches"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a web-article bookmarking service; it creates outline bookmarks inside PDFs from paper headings and scanned book contents.",
+ "extras": "The plugin is about 17 MB because OCR models are bundled, exceeding the Obsidian Sync Standard 5 MB file limit, so it must be installed separately on each desktop device with that plan. A standalone browser version (online or offline HTML file) with the same features is also available. Built-in local OCR is free and needs no account; MinerU may require a paid API plan.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian offers no built-in way to make scanned PDFs searchable or to build and correct outline bookmarks for papers and scanned books.",
+ "readmeHash": "d6110cafa09e706ff4a1e6dc16563682db8f8b56",
+ "relations": [
+  {
+   "evidence": "PDF layout and bookmark foundations are adapted from Note and PDF Voice Reader / note-reader-core",
+   "plugin": "Note and PDF Voice Reader / note-reader-core",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "MinerU account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "MinerU Token",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "MinerU paid API plan (quotas and charges may apply)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local connection helper for MinerU and Cozy OCR program for Paddle",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "PDF tool that merges images into PDFs, adds searchable OCR text layers to scanned pages, and creates and edits PDF bookmarks, all processed locally.",
+ "tags": [
+  "tesseract",
+  "mineru",
+  "paddle-ocr",
+  "scanned-books",
+  "chinese",
+  "searchable-text-layer"
+ ]
+}

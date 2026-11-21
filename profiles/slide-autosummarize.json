@@ -1,0 +1,69 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Summarize PDF slide decks into per-slide Markdown notes",
+  "Convert slide equations into inline and display LaTeX",
+  "Crop and embed LLM-selected figures from rendered slides",
+  "Configure multiple LLM providers including local Ollama",
+  "Auto-summarize PDFs added to the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a presentation tool like the Slides core feature; it reads PDF slide decks and writes study notes from them.",
+ "extras": "Not yet accepted into the Obsidian community plugin directory (submission in progress); install via BRAT or manually from GitHub releases. API keys are stored in the plugin's data.json inside the vault, and slide text and images are sent to the configured provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Turning lecture slide PDFs into usable study notes by hand is slow, and Obsidian has no built-in way to extract per-slide notes, equations and figures from a PDF.",
+ "readmeHash": "2c55015f97d5b51cf556b4bc3f7ac1b15baf8f5b",
+ "relations": [
+  {
+   "evidence": "BRAT installs plugins straight from a GitHub repo and keeps them updated.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (Gemini, OpenAI, Anthropic, or custom endpoint)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama for fully local summarization",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "LLM-powered tool that converts PDF slide decks into Markdown study notes with LaTeX equations and cropped, LLM-selected figures.",
+ "tags": [
+  "gemini",
+  "openai",
+  "anthropic",
+  "ollama",
+  "llm",
+  "slide-decks",
+  "vision-models"
+ ]
+}

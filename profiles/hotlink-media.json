@@ -1,0 +1,52 @@
+{
+ "also": [
+  "video",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch hotlink-protected media files with the headers the source site expects",
+  "Hand fetched files to embedded video, audio and image elements as blob URLs",
+  "Refresh rejected media URLs by re-fetching the original article and retrying",
+  "Show a note with a link to the original page when playback still fails"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a link-management tool; it makes hotlink-protected embedded media play instead of failing with HTTP 403.",
+ "extras": "Desktop only: requests use Node's http/https modules because browsers and Electron's network stack do not reliably allow setting the Referer header. No telemetry; files are held in memory only and nothing is written to the vault. Adds new site rules by editing RULES in src/rules.ts.",
+ "intent": "improve",
+ "intentEvidence": "Takes over the element: moves the URL aside so Obsidian doesn't request it and fail.",
+ "lifecycle": "deprecated",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Servers that check the Referer header reject requests from Obsidian's app://obsidian.md origin, so embedded media from such sites shows as a black box instead of playing.",
+ "readmeHash": "f43fd07985f5b5db156315769a685f4cc7f413dc",
+ "relations": [
+  {
+   "evidence": "Hotlink Media is now part of Media One, as its Hotlink-protected media module.",
+   "plugin": "Media One",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": "Media One",
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plays hotlink-protected videos, audio and images embedded in notes by fetching them with the Referer and other headers the source site expects.",
+ "tags": [
+  "wechat",
+  "hotlink-protection",
+  "referer-header",
+  "blob-url",
+  "lazy-loading",
+  "web-clipping"
+ ]
+}

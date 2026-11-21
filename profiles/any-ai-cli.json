@@ -1,0 +1,93 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run AI coding CLIs in a right sidebar terminal",
+  "Open parallel sessions in tabs with per-tab process controls",
+  "Insert the active file or folder as a mention",
+  "Schedule prompts from markdown files on an interval or cron",
+  "Log and export automation run history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI assistant itself; it only runs AI coding CLIs that you install separately on your computer.",
+ "extras": "Desktop only (isDesktopOnly). The native node-pty backend is optional and must be installed separately; without it the plugin falls back to a Python PTY bridge or a direct pipe. Max concurrent sessions can be capped to limit automation spawns.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI coding CLIs run outside Obsidian, so using them on your notes means switching apps and losing the vault as the working directory.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "f2cdb4cb449b871fba7138bff9a5894da57ee37b",
+ "relations": [
+  {
+   "evidence": "Run any local AI coding CLI — Claude, Codex, or your own — inside a right sidebar terminal",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude and Codex are pre-populated on first install.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "opencode | Open-source, works with many AI providers",
+   "plugin": "opencode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama | Runs AI models fully locally (offline, private)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI coding CLI (e.g. Claude Code, Codex)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "python3",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "AI CLI sign-in or API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar terminal panel that runs external AI coding CLIs such as Claude Code and Codex in parallel tabs, with scheduled prompt automations.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "opencode",
+  "ollama",
+  "cli",
+  "terminal",
+  "scheduling"
+ ],
+ "textHash": "fa26a386659a0b9d90ffe19c3e02fbdb56087230"
+}

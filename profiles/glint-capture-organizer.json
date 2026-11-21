@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "process capture JSON files from the macOS Shortcuts iCloud inbox",
+  "generate titles, categories, tags, summaries, and key points for each capture",
+  "fetch readable page text and metadata for URL-only captures",
+  "deduplicate captures by URL or content fingerprint and retry failed ones",
+  "write notes with YAML frontmatter into category subfolders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only, macOS only, because it reads the iCloud Shortcuts folder via Node.js filesystem APIs. No telemetry. README includes a copy-pasted official submission checklist and a sponsor (爱发电) link. Defaults to local heuristic organization and falls back to it when a model provider fails.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian has no built-in way to turn captures collected on an iPhone with Apple Shortcuts into organized, formatted vault notes.",
+ "readmeHash": "f7c010297303a7567c7e99b9ca15f4304e48621c",
+ "relations": [
+  {
+   "evidence": "You can also configure a local Ollama endpoint or an OpenAI-compatible endpoint in the plugin settings.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI-compatible mode sends capture text to the configured endpoint and uses the API key stored in the plugin settings.",
+   "plugin": "OpenAI-compatible endpoint",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Shortcuts with iCloud inbox on macOS",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama endpoint",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Capture pipeline that reads .glintcapture.json files from the Apple Shortcuts iCloud inbox, organizes them, and writes Markdown notes into the vault.",
+ "tags": [
+  "apple-shortcuts",
+  "icloud",
+  "ollama",
+  "openai",
+  "web-clipping",
+  "url-metadata",
+  "inbox"
+ ]
+}

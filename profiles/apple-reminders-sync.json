@@ -1,0 +1,64 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch today's incomplete Apple Reminders via reminders-cli",
+  "Append reminders as checklist items under the ## TODO heading of the daily note",
+  "Preserve reminder notes as indented text and show priority markers",
+  "Deduplicate items so repeated syncs don't create duplicates",
+  "Exclude configured reminder lists and sync on an interval or on vault open"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "One-way sync only: reminders are pulled into Obsidian, but edits in Obsidian are never pushed back to Apple Reminders.",
+ "extras": "macOS only (EventKit is unavailable on Windows/Linux/iOS); the daily note must already contain a ## TODO heading; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull tasks from Apple Reminders into daily notes, so tasks must be copied by hand.",
+ "readmeHash": "eaa8ed954e95d6aa5f2d910ab95baf2178dc69ed",
+ "relations": [
+  {
+   "evidence": "Fetches incomplete reminders due today from Apple Reminders via reminders-cli",
+   "plugin": "Apple Reminders",
+   "type": "integrates"
+  },
+  {
+   "evidence": "via reminders-cli (native EventKit, no AppleScript)",
+   "plugin": "reminders-cli",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "reminders-cli (installed via Homebrew)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "macOS plugin that pulls today's incomplete Apple Reminders into the ## TODO section of your daily note as checklist items.",
+ "tags": [
+  "apple-reminders",
+  "reminders-cli",
+  "eventkit",
+  "macos",
+  "homebrew"
+ ]
+}

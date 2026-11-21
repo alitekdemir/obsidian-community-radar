@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations",
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Parse .github/workflows files to build a node and edge graph",
+  "Infer edges between workflows from matching triggers and emitted commands",
+  "Declare off-repository automation via a nominated note as dashed nodes",
+  "Show live GitHub run state with staleness and drift markers",
+  "Navigate the graph by clicking, zooming, panning, and dragging nodes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general diagramming tool; it only draws what it can derive from workflow files, not what you tell it to.",
+ "extras": "Desktop only (reads dot-folders via node fs, which mobile lacks). Uses direct filesystem access and shell execution (gh auth token, git log), which the author explains are flagged by Obsidian's automated review. Supports BRAT beta installs; includes a standalone CLI self-check that exits non-zero if no runners are derived. Only GitHub Actions is parsed; other CI systems are not.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because most architecture diagrams drift: a graph rebuilt from workflow files on every open 'cannot drift'.",
+ "primary": "visualization",
+ "problem": "Architecture diagrams are drawn once and go stale; Obsidian has no way to see a repository's CI automation as a picture that follows the files themselves.",
+ "readmeHash": "352f9c5be7bfd0163b445bc8751a523694fbdc49",
+ "relations": [
+  {
+   "evidence": "Optionally, the graph colours itself from GitHub: red where a workflow's last run failed",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": ".claude/ (optional) | repository | hooks and agents, if you use Claude Code",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "gh auth token — tried at several known install paths",
+   "plugin": "gh CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "gh CLI and git (local repository with workflows)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Interactive graph view of a repository's GitHub Actions automation, derived live from workflow files with inferred edges, drift detection, and optional run status.",
+ "tags": [
+  "github-actions",
+  "ci-cd",
+  "cron",
+  "workflows",
+  "github-api",
+  "claude-code",
+  "diagram"
+ ]
+}

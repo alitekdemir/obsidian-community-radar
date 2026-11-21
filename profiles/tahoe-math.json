@@ -1,0 +1,64 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Evaluate expressions ending in = as you type, on ordinary note lines",
+  "Define variables and functions that carry down the note",
+  "Convert units and compute currency, percentages, and date differences",
+  "Write answers into the note individually or all at once",
+  "Optionally rewrite plain-English questions as calculations via Tahoe Intelligence"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a LaTeX or math-notation renderer; it evaluates calculations typed at the end of plain text lines.",
+ "extras": "Plain-English question answering requires the separate Tahoe Intelligence plugin and a Mac; the plugin itself works offline with no telemetry, accounts, or payments, and runs on mobile.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in calculator, so quick arithmetic in notes requires code blocks, special syntax, or leaving the app.",
+ "readmeHash": "6eac12ea2f0f9c495f976a4b73e21107ba841e44",
+ "relations": [
+  {
+   "evidence": "Numerals and Tahoe Math both use math.js, and both work on phones and tablets.",
+   "plugin": "Numerals",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Answers are worked out exactly by math.js, not guessed.",
+   "plugin": "math.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With the companion plugin Tahoe Intelligence (Mac only), you can also type questions",
+   "plugin": "Tahoe Intelligence",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tahoe Intelligence",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Inline calculator that evaluates expressions ending in = on ordinary note lines, with variables, functions, units, currency, percentages and dates.",
+ "tags": [
+  "calculator",
+  "mathjs",
+  "unit-conversion",
+  "currency",
+  "percentages",
+  "inline-evaluation"
+ ]
+}

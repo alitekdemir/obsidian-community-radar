@@ -1,0 +1,52 @@
+{
+ "also": [
+  "tables",
+  "code"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run read-only SQL queries against local SQLite databases from sql or sqlite code blocks",
+  "Render query results as tables with a footer showing filename, retrieval time, and row count",
+  "Cache results inside the code block as fallback for mobile or unavailable databases",
+  "Control refresh behavior with REFRESH directives, including timed auto-refresh",
+  "Copy tables as pipe-delimited Markdown"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a one-way converter or exporter; it renders live query results inside notes rather than turning database files into Markdown files.",
+ "extras": "Manifest carries an unreviewed-plugin disclaimer. Live queries work on desktop only; mobile shows cached results. Full design details are in a separate ARCHITECTURE.md, not the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to query a local SQLite database and display the results inside a note.",
+ "readmeHash": "1c592672da562c51f09649c8d99e056e1f697ab0",
+ "relations": [
+  {
+   "evidence": "Uses sql.js v1.14+ — SQLite compiled to WebAssembly via Emscripten.",
+   "plugin": "sql.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Runs read-only SQLite queries from fenced code blocks and renders the results as tables in reading view.",
+ "tags": [
+  "sqlite",
+  "sql",
+  "sql-js",
+  "webassembly",
+  "odbc",
+  "database",
+  "code-blocks"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault two-way with a MEGA.nz folder using a three-way merge",
+  "Auto-merge conflicting text files or keep conflict copies",
+  "Filter synced files with globs, regexes, file-type whitelists and size limits",
+  "Simulate a sync with dry-run and abort guards before changes apply",
+  "Review sync history via a persisted sync report and live log view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Mobile support is marked experimental, with a known TLS cipher-suite issue on some devices. The MEGA password is stored in plaintext in data.json unless the optional AES-256-GCM encryption setting is enabled; the README warns not to commit data.json publicly. Installable via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault synchronized with a MEGA.nz account, so users of that cloud service had no direct sync option.",
+ "readmeHash": "c5bd03c7bbd0d0585ce5b894a3ea81dde3dbd172",
+ "relations": [
+  {
+   "evidence": "Two-way sync between your Obsidian vault and your MEGA.nz cloud, inspired by Remotely Save.",
+   "plugin": "Remotely Save",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Two-way sync between your Obsidian vault and a folder on your MEGA.nz account.",
+   "plugin": "MEGA.nz",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "MEGA.nz account (email + password, optional 2FA)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way sync between an Obsidian vault and a MEGA.nz cloud folder, using three-way merge, conflict auto-merge for text notes, and granular filters.",
+ "tags": [
+  "mega-nz",
+  "three-way-merge",
+  "conflict-resolution",
+  "encryption",
+  "blake3",
+  "brat"
+ ]
+}

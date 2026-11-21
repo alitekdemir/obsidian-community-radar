@@ -1,0 +1,66 @@
+{
+ "also": [
+  "collaboration",
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a whole vault across devices through a self-hosted Synkk server",
+  "Edit Markdown together in real time with Yjs CRDTs and remote carets",
+  "Encrypt vault contents client-side with AES-256-GCM for zero-knowledge sync",
+  "Assign path-level read_write, read_only, and hidden permissions per member and device",
+  "Dehydrate large attachments into lightweight stubs and hydrate them on demand"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Also publishes a vault as an interactive Livewire web portal with fuzzy search and backlinks; includes a first-sync migration wizard with a 20% deletion-abort safety shield; Obsidian staff have not manually reviewed the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for teams and individuals who need private infrastructure, access control, and collaboration \"without turning every user into a Git operator.\"",
+ "primary": "syncing",
+ "problem": "Teams need private, self-hosted vault sync with member/device access control and real-time collaboration, without every member having to operate Git.",
+ "readmeHash": "b9f1c6238e7514423b26f8b72c0aeb9c5e0faab3",
+ "relations": [
+  {
+   "evidence": "Real-time concurrent Markdown editing powered by Yjs CRDTs over Laravel Reverb",
+   "plugin": "Yjs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Synkk server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Synkk team membership and device token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Self-hosted team vault sync with real-time Yjs co-editing, zero-knowledge E2EE, path-level permissions, QR device pairing, and recoverable file history.",
+ "tags": [
+  "self-hosted",
+  "e2ee",
+  "zero-knowledge",
+  "yjs",
+  "crdt",
+  "multiplayer",
+  "qr-pairing"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault bidirectionally with a Gitee, GitHub, or GitLab repository",
+  "Resolve conflicts using a three-way comparison where the newer modification wins",
+  "Preview the sync plan before applying changes",
+  "Exclude folders and configure automatic sync intervals or startup sync",
+  "Write sync plans and results to a diagnostic log file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the Git-based storage, the plugin never runs local Git; it talks to the repository platform's API directly.",
+ "extras": "README is bilingual (English and Chinese). Warns users not to manually push the same vault to the same repository while the plugin manages it, notes API quota limits on the first sync of large vaults, and recommends keeping files under 50 MB. Each vault keeps its own settings and token in vault-scoped local storage, not data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices normally needs Obsidian's paid Sync service or a Git plugin that requires a server or a local Git installation, which is awkward on mobile.",
+ "readmeHash": "9340dc7fbb0e1bb42d375134031318e2e6024cd2",
+ "relations": [
+  {
+   "evidence": "Gitee Sync stores an Obsidian vault as ordinary files in a private Gitee, GitHub, or GitLab repository.",
+   "plugin": "Gitee",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A fine-grained personal access token needs Contents: Read and write access to the repository",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitLab: Create a private project and initialize its default branch.",
+   "plugin": "GitLab",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Gitee, GitHub, or GitLab repository account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Personal access token for the selected platform",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs an Obsidian vault to a private Gitee, GitHub, or GitLab repository through the platform API, with two-way incremental sync and no local Git.",
+ "tags": [
+  "gitee",
+  "github",
+  "gitlab",
+  "personal-access-token",
+  "three-way-merge",
+  "version-history"
+ ]
+}

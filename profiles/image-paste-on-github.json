@@ -1,0 +1,64 @@
+{
+ "also": [
+  "images",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dropped images to a GitHub repository",
+  "Insert a raw.githubusercontent.com embed link in place of the local file",
+  "Create a new public repository from the plugin settings",
+  "Generate and configure a fine-grained personal access token",
+  "Test push access and public visibility of the target repository"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns the target repository must be public (pasted images become publicly accessible) and the token is stored unencrypted in data.json, which should not be synced, committed, or shared.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author notes that unlike Notion, Obsidian stores every pasted image as a local file, growing the vault.",
+ "primary": "integrations",
+ "problem": "Obsidian saves every pasted image as a local file, so the vault keeps growing with screenshots and there is no built-in way to host them externally.",
+ "readmeHash": "3c56c65f123c10e1f50868c066e18e1f3e9e6997",
+ "relations": [
+  {
+   "evidence": "Upload pasted (or dropped) images straight to your own GitHub repository",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fine-grained personal access token with Contents read and write",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Uploads pasted or dropped images to your own GitHub repository and inserts the raw CDN link instead of saving the file locally.",
+ "tags": [
+  "github",
+  "screenshots",
+  "paste-upload",
+  "personal-access-token",
+  "cdn",
+  "image-hosting"
+ ]
+}

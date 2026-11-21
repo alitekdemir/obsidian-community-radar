@@ -1,0 +1,78 @@
+{
+ "also": [
+  "research",
+  "templating"
+ ],
+ "audience": [
+  "turkish-book-readers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search book metadata across Kitapyurdu, D&R, Open Library, and Hardcover",
+  "Merge and deduplicate cross-provider results in a comparison modal",
+  "Create reading notes from static, reactive, or custom templates",
+  "Download cover images locally into the vault",
+  "Render 3D library card code blocks with SVG ISBN barcodes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Fully bilingual Turkish/English documentation; all network requests run client-side with no telemetry; beta versions available via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up bibliographic metadata, especially from Turkish bookstores, when creating reading notes.",
+ "readmeHash": "95d99d959401802836c834f01cc0175101475b4f",
+ "relations": [
+  {
+   "evidence": "Interactive Metadata Comparison Modal (MediaDB-inspired)",
+   "plugin": "MediaDB",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Automatically evaluates Templater syntax upon note creation and exposes the raw book object",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Reactive Template (Dataview & Templater): Built-in visual reading progress bar",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Hardcover Personal API Token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Hardcover.app free account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Book search plugin that queries Kitapyurdu, D&R, Open Library, and Hardcover and creates structured bibliographic reading notes.",
+ "tags": [
+  "kitapyurdu",
+  "open-library",
+  "hardcover",
+  "isbn",
+  "dataview",
+  "reading-tracker",
+  "book-covers",
+  "turkish-books"
+ ]
+}

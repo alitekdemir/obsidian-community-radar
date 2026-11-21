@@ -1,0 +1,68 @@
+{
+ "also": [
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save a draft of the current note with an auto-generated or manual summary",
+  "Diff the note against any earlier draft with strikethrough for removed words",
+  "Restore an earlier draft after saving the current text",
+  "List passages removed in earlier drafts with a copy button",
+  "Store drafts in a .history or _history folder that moves with the note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README details limits with Obsidian Sync: hidden folders are not synced, visible _history drafts can appear in search and graph unless excluded, and concurrent saves from two devices can conflict. Also mentions a companion command-line tool sharing the same draft format.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian has no user-facing way to save and compare drafts of a note, so earlier versions and removed passages are hard to get back.",
+ "readmeHash": "184dbaf34b9687893a1ae02e262419d229ee6bf1",
+ "relations": [
+  {
+   "evidence": "Turn on Sync drafts with Obsidian Sync and new notes keep their drafts in a visible _history",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Drafts use the same format as the Pentimento command-line tool, so you can use either",
+   "plugin": "Pentimento command-line tool",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Pentimento",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Obsidian Sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Draft-history plugin that saves snapshots of a note, diffs them against the current text, restores earlier drafts, and lists passages you cut.",
+ "tags": [
+  "version-history",
+  "diff",
+  "drafts",
+  "syncthing",
+  "obsidian-sync"
+ ]
+}

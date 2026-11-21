@@ -1,0 +1,48 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Clean up wikilinks, embeds, Markdown links, and properties that point at a deleted file",
+  "Repoint links to a suggested replacement note, ranked by alias, tags, name, and links",
+  "Show a confirmation dialog listing inbound references before deleting a file",
+  "Leave plain text or struck-through dated text where a link was removed",
+  "Exclude folders such as templates and archives from rewriting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-wide broken-link scanner; it only touches links pointing at the file you just deleted.",
+ "extras": "Not yet in the community plugin directory; manual installation from a GitHub release is described. The README warns that its edits are not undoable with Ctrl+Z and recommends keeping the confirmation dialog on and using version control or Obsidian Sync version history. Property edits go through Obsidian's processFrontMatter, which may normalize YAML quoting and key order.",
+ "intent": "improve",
+ "intentEvidence": "When you delete it, the links are left behind, pointing nowhere. This plugin closes that gap",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because deletion leaves broken links behind, and vault-wide broken-link scanners would wrongly rewrite unresolved links people keep as placeholders.",
+ "primary": "links",
+ "problem": "Obsidian updates links when you rename a note but leaves them dangling when you delete it.",
+ "readmeHash": "7f256250d664ecc703f3d7aebfe4688dbf18d95b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Link cleaner that rewrites, repoints, or leaves plain text in place of links pointing at a file when you delete it.",
+ "tags": [
+  "broken-links",
+  "file-deletion",
+  "wikilinks",
+  "embeds",
+  "markdown-links",
+  "yaml",
+  "strikethrough",
+  "alias-matching"
+ ]
+}

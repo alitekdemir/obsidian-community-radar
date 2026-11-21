@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "publish notes to Feishu/Lark as Docx documents in a chosen folder",
+  "publish notes as Notion pages under a shared Integration parent page",
+  "create new ima notes in a selected knowledge base or folder",
+  "write remote URLs (lark_url, notion_url, ima_note_id) into note frontmatter",
+  "retry only failed publishes from a completion report"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way sync tool; it publishes one-way and never merges remote changes back into the vault.",
+ "extras": "README is primarily in Chinese with an English link; detailed per-platform configuration, capability matrix, and troubleshooting docs are linked externally. The plugin was awaiting Obsidian community marketplace review at the time of writing, with BRAT and manual release installation described as alternatives. Credentials are stored in Obsidian SecretStorage and the plugin states it has no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to Feishu/Lark, Notion, or ima, and no guard against accidentally mixing remote edits back into the vault.",
+ "readmeHash": "4b32f4567b4a7c151a348e9ae9c0b0d9a8bc4359",
+ "relations": [
+  {
+   "evidence": "在选定的已有目标中新建 Docx 文档",
+   "plugin": "Feishu / Lark",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notion 必须配置并共享一个 Integration 根页面",
+   "plugin": "Notion",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ima 默认发布到个人笔记",
+   "plugin": "ima",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT 适合在社区市场审核期间安装和自动更新",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu/Lark, Notion, or ima account with API credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way publisher that sends Obsidian Markdown notes to Feishu/Lark, Notion, and ima, treating the local vault as the only content source.",
+ "tags": [
+  "feishu",
+  "lark",
+  "notion",
+  "ima",
+  "one-way-publish",
+  "docx"
+ ]
+}

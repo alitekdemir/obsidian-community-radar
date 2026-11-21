@@ -1,0 +1,57 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open multiple terminal tabs inside Obsidian and split, pin or drag them like note tabs",
+  "Launch shells and CLI tools through automatically detected or custom shell profiles",
+  "Cmd/Ctrl+click vault file paths and web links in terminal output to open them",
+  "Send selected note text or the current line to the shell",
+  "Search, copy, rename, duplicate and restore terminal tabs across restarts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README states the plugin has no network access, telemetry or accounts, and documents known limitations (untested popout windows, clickable paths only for vault files without spaces, no current-folder tracking on Windows without OSC 7).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README explains that Obsidian's native node-pty module would need recompiling for every release, so the author built a Python-based PTY bridge instead.",
+ "primary": "developers",
+ "problem": "Obsidian has no built-in terminal, so running shell commands or CLI tools next to your notes requires switching to a separate application.",
+ "readmeHash": "57a00ccc9bd90b3dd56a142ee69a0779ebe1ef8d",
+ "relations": [
+  {
+   "evidence": "Run your shell — or a tool such as Claude Code — right next to your notes.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3 (with pywinpty on Windows)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Integrated terminal that opens real PTY shell tabs inside Obsidian, started in the vault folder.",
+ "tags": [
+  "pty",
+  "python",
+  "xterm-js",
+  "shell",
+  "claude-code"
+ ]
+}

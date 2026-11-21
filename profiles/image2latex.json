@@ -1,0 +1,80 @@
+{
+ "also": [
+  "latex",
+  "images"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert a copied image with math to LaTeX or Markdown",
+  "Choose between Texify, SimpleTex, and pix2tex OCR providers",
+  "Run a command to generate LaTeX from the last clipboard image",
+  "Insert a loading indicator while converting",
+  "Configure self-hosted or hosted OCR service URLs and tokens"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Using any provider requires setup outside Obsidian: SimpleTex needs an API token from a developer account, while Texify and pix2tex must be self-hosted (Docker does not work on ARM Macs). The first Texify request is slow because the model loads. A planned feature to convert already pasted images is not implemented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Obsidian has no built-in way to turn a screenshot of a formula back into editable LaTeX or Markdown math code.",
+ "readmeHash": "7de22fd75a7568cf31aee2f56a6079b9030b9835",
+ "relations": [
+  {
+   "evidence": "Texify (Recomended) - Self Hosted service that convert your image to Markdown",
+   "plugin": "Texify",
+   "type": "integrates"
+  },
+  {
+   "evidence": "SimpleTex - Hosted service that converts converts your image to Latex wrapped in Math Block",
+   "plugin": "SimpleTex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "pix2tex - Self Hosted service that converts your image to Latex wrapped in Math Block",
+   "plugin": "pix2tex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Texify or pix2tex self-hosted API",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "SimpleTex user access token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "SimpleTex developer account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Math OCR plugin that converts a clipboard image containing math into LaTeX or Markdown text via Texify, SimpleTex, or pix2tex providers.",
+ "tags": [
+  "mathjax",
+  "texify",
+  "simpletex",
+  "pix2tex",
+  "clipboard",
+  "screenshot",
+  "docker"
+ ]
+}

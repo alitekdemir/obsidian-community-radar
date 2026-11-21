@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "transcribe microphone audio with iFlytek online ASR",
+  "read selected text or the current note with iFlytek TTS",
+  "start voice workflows with configurable wake words",
+  "send recognized text to Gemini, OpenRouter, or iFlytek Spark",
+  "insert conversation results into the active note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian desktop 1.7.2+ and microphone permission). README warns that provider credentials are stored unencrypted in data.json, that providers may charge fees, and that wake-word/continuous-listening modes keep the microphone and network active until stopped. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in voice recognition, speech synthesis, or wake-word control, so voice-driven dictation and AI chat require external tools.",
+ "readmeHash": "d2b94f03d1859947dfeee7090fea5af77d630440",
+ "relations": [
+  {
+   "evidence": "Record microphone audio and transcribe it with iFlytek online ASR.",
+   "plugin": "iFlytek online ASR",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send recognized text to Google Gemini, OpenRouter, or iFlytek Spark.",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send recognized text to Google Gemini, OpenRouter, or iFlytek Spark.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send recognized text to Google Gemini, OpenRouter, or iFlytek Spark.",
+   "plugin": "iFlytek Spark",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "iFlytek credentials for online speech features",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google AI Studio, OpenRouter, or iFlytek Spark credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 3
+ },
+ "summary": "Desktop voice assistant that transcribes microphone audio, reads notes aloud, listens for wake words, and sends speech to AI providers.",
+ "tags": [
+  "iflytek",
+  "gemini",
+  "openrouter",
+  "speech-to-text",
+  "text-to-speech",
+  "wake-word",
+  "dictation",
+  "speech-synthesis"
+ ]
+}

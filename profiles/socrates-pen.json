@@ -1,0 +1,75 @@
+{
+ "also": [
+  "thinking"
+ ],
+ "audience": [
+  "self-learners",
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI tutor about the selected passage",
+  "Ask Socratic counter-questions instead of handing over answers",
+  "Generate background deep-dive questions from elsewhere in the book",
+  "Write approved edits back into the note with snapshot rollback",
+  "Search the web and fetch public pages during conversation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general chatbot or writing assistant; it only tutors on the selected passage and deliberately asks counter-questions instead of giving answers by default.",
+ "extras": "Desktop only (Obsidian 1.5.0+); the plugin auto-installs a Python sidecar into ~/.socrates-pen/venv from GitHub/PyPI on first enable. API costs are paid through the user's own endpoint; the README documents token billing, privacy boundaries, and troubleshooting. An exercise system is in development and off by default. Manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wrote a 13,083-line technical manual that only he reads and wanted a companion that has actually read the book and questions you at the point where you stall; the Feynman technique cannot help before you are able to start explaining.",
+ "primary": "ai",
+ "problem": "When studying a long technical manual alone, there is no one to ask at the moment you get stuck, and a generic chatbot has not read your book.",
+ "readmeHash": "d8fc87b3b091dab21170a2724ad508c1669f0ca6",
+ "relations": [
+  {
+   "evidence": "模型调用 search 时发给 DuckDuckGo / Bing / Wikipedia 的关键词",
+   "plugin": "DuckDuckGo / Bing / Wikipedia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "换任何一个 OpenAI 兼容的 Chat Completions 端点都能跑",
+   "plugin": "OpenAI-compatible Chat Completions endpoints",
+   "type": "integrates"
+  },
+  {
+   "evidence": "以下所有回答都来自 deepseek/deepseek-v4-flash（经 OpenRouter 节点）",
+   "plugin": "DeepSeek (via OpenRouter)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.11+ (local sidecar, auto-installed)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI tutor in a sidebar that Socratically questions a selected passage, digs up follow-up questions, and writes approved answers back into the note.",
+ "tags": [
+  "socratic-method",
+  "tutoring",
+  "openai-compatible",
+  "deepseek",
+  "openrouter",
+  "local-sidecar",
+  "token-tracking"
+ ]
+}

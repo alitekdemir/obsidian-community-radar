@@ -1,0 +1,63 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync a vault with a GitHub repository on desktop and mobile",
+  "merge edits from different devices line by line",
+  "resolve sync conflicts via git conflict markers or a one-tap command",
+  "choose merge, vault-overwrites-repo, or repo-overwrites-vault on first sync",
+  "run git in an existing clone of the repository on desktop"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "GitHub-only for now; files over 100 MB are not synced; token is stored in Obsidian's keychain and never synced; no telemetry.",
+ "intent": "alternative",
+ "intentEvidence": "Turn the Git plugin off on devices that use Easy Git Sync.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through git, and existing git workflows need a separate git app that phones lack.",
+ "readmeHash": "0d4274070e732abc03b70ca4f8874a46909bbf40",
+ "relations": [
+  {
+   "evidence": "Turn the Git plugin off on devices that use Easy Git Sync.",
+   "plugin": "Git plugin",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git-based vault sync that pushes and merges an Obsidian vault with a GitHub repository on desktop and mobile, without needing git installed.",
+ "tags": [
+  "github",
+  "version-control",
+  "conflict-resolution",
+  "merge",
+  "mobile",
+  "personal-access-token"
+ ]
+}

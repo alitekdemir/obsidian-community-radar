@@ -1,0 +1,65 @@
+{
+ "also": [
+  "visualization",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run JavaScript from freeform code blocks in sandboxed iframes",
+  "Import ESM modules from URLs via esm.sh, jsdelivr, or unpkg",
+  "Display values and elements with display()",
+  "Query DataView from running code",
+  "Fetch and inline external stylesheets into rendered output"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a freeform drawing or canvas tool; it runs JavaScript code blocks inside notes.",
+ "extras": "The README states there is no Observable-style reactivity, exports have no effect, only HTTP ESM imports are supported, and JSX is not yet supported; some stylesheets fetched via the CSP workaround will not resolve relative images or nested @import rules.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian code blocks cannot execute arbitrary JavaScript or render live, interactive output inside a note.",
+ "readmeHash": "0fa0c0bd46215e3ce4dbb14b2fb205e55584eea9",
+ "relations": [
+  {
+   "evidence": "This brings a taste of Observable to Obsidian.",
+   "plugin": "Observable",
+   "type": "inspired"
+  },
+  {
+   "evidence": "DataView is accessible via window.top.app.plugins.plugins.dataview.api.",
+   "plugin": "DataView",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "JavaScript code blocks that run in sandboxed iframes, letting notes embed live programs, imported ESM modules, and visualizations.",
+ "tags": [
+  "javascript",
+  "esm",
+  "iframe",
+  "sandbox",
+  "observable-plot",
+  "dataview",
+  "preact"
+ ]
+}

@@ -1,0 +1,54 @@
+{
+ "also": [
+  "automation",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule imports from local filesystem paths into a vault inbox",
+  "Export vault folders, tags, or single notes to filesystem paths",
+  "Run rules manually or in dry-run mode from the command palette",
+  "Record metadata-only NDJSON audit logs with retention limits",
+  "Toggle rules on or off per synced device"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Status bar"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (no mobile support). Works only with locally-mounted paths; cloud-sync folders (Dropbox, iCloud Drive, Syncthing) count as local paths at the user's discretion. Part of the MiYo tool family; detailed documentation lives in separate linked docs. Explicitly excludes network access, MCP servers, cron expressions, and make-up runs for missed ticks.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted scheduled file ferrying without external daemons, cloud APIs, or telemetry, with rule creation as the single approval moment and no surprise multi-device runs.",
+ "primary": "files",
+ "problem": "Obsidian has no built-in way to run scheduled imports from local folders or exports to disk paths, so users fall back on external tools like Hazel or cron or cloud SDKs that bring network surfaces along.",
+ "readmeHash": "e9449f1e33abba112137c2e270885120e57c21e5",
+ "relations": [
+  {
+   "evidence": "lives outside Obsidian and has to be told about your vault separately (Hazel, launchd, cron)",
+   "plugin": "Hazel",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Rule-based scheduler that moves files between the vault and local filesystem paths, importing captures into the inbox and exporting folders, tags, or notes.",
+ "tags": [
+  "voice-memos",
+  "dry-run",
+  "audit-log",
+  "ndjson",
+  "atomic-writes",
+  "per-device-toggle"
+ ]
+}

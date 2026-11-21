@@ -1,0 +1,73 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "fetch artifacts from GitLab Generic Package Registry or GitHub Releases",
+  "unzip downloads and mirror contents into a chosen vault folder",
+  "refresh sources on intervals, on focus, or at startup with freshness checks",
+  "store access tokens in the OS keychain via app.secretStorage",
+  "share fetched content across devices directly or through Halyard Sync"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a git sync tool; it only downloads and mirrors remote artifacts read-only, with no clone, push, or write path back to the source.",
+ "extras": "The README states the plugin was developed with substantial AI assistance (Claude). It is not yet in the community plugin directory; installation is via BRAT or manual download. CI-artifact and plain-URL sources are designed for but not built.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because read-only artifact ingestion sits outside obsidian-git's scope.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull generated artifacts from a remote registry into a vault folder on a schedule without git.",
+ "readmeHash": "5b1e624b3faca7d29115d71a9b70d91f04331000",
+ "relations": [
+  {
+   "evidence": "the plugin that defined git-in-Obsidian. Halyard Fetch exists because read-only artifact ingestion sits outside its scope",
+   "plugin": "obsidian-git (Vinzent03)",
+   "type": "inspired"
+  },
+  {
+   "evidence": "For the git-based sibling, see Halyard Sync, which syncs a whole vault with a git repository",
+   "plugin": "Halyard Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "zip handling, pure JS with no native dependency, which is what makes mobile support possible",
+   "plugin": "fflate (Arjun Barrett)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitLab or GitHub",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "host personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Scheduled fetcher that downloads GitLab package or GitHub release artifacts, unzips them, and mirrors the contents into a vault folder.",
+ "tags": [
+  "gitlab",
+  "github",
+  "package-registry",
+  "release-assets",
+  "unzip",
+  "access-tokens"
+ ]
+}

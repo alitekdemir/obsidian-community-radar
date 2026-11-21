@@ -1,0 +1,70 @@
+{
+ "also": [
+  "syncing",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push a configured folder or tagged notes to a Rootr workspace",
+  "Detect write conflicts by re-reading documents and comparing ETags before pushing",
+  "Refuse to overwrite documents the plugin did not push itself",
+  "Report last sync time, pushed files, and conflicts in a status panel",
+  "Support auto-sync on save and a self-hosted Rootr base URL"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-wide sync tool; it pushes one configured folder or tag one-way to Rootr and never writes back into the vault.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. The API key is stored unencrypted in .obsidian/plugins/rootr-sync/data.json. Rootr offers a free plan; paid plans exist for larger teams. v1 is one-directional only, does not convert wikilinks, and does not propagate renames or deletions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian vaults are local and private, so sharing just part of a vault with teammates or AI assistants requires manual copying.",
+ "readmeHash": "2ac86ebc786f39cc6da0745649939dcda8400ab3",
+ "relations": [
+  {
+   "evidence": "This plugin is a client for that service; it does nothing on its own.",
+   "plugin": "Rootr",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Rootr account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Rootr API key with docs:read and docs:write scopes",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Rootr paid plan",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync client that pushes a chosen folder or tagged notes from your vault into a Rootr cloud workspace for team collaboration.",
+ "tags": [
+  "rootr",
+  "claude",
+  "chatgpt",
+  "etag",
+  "conflict-detection",
+  "api-key",
+  "self-hosted"
+ ]
+}

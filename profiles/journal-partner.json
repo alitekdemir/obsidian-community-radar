@@ -1,0 +1,77 @@
+{
+ "also": [
+  "audio",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render HH:MM timestamps as colored capsule badges inside a configurable journal heading",
+  "Capture text, images, tasks, tags, and audio recordings into today's daily note from a sidebar",
+  "Dictate entries with real-time speech-to-text via an OpenAI-compatible transcription API",
+  "Randomly revisit past entries and bookmark favorites with a heart",
+  "Show yearly writing statistics with GitHub-style heatmaps and KPIs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Distributed only through BRAT or manual file installation, not the community plugin store. Quick capture requires the built-in Daily Notes core plugin to be enabled; transcription stays off (plain recording only) unless an API endpoint and key are configured. README is written in Chinese with English/Chinese UI.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian's Daily Notes gives you a plain file, with no visual timeline of timestamped entries, no quick capture panel, and no built-in way to review or count what you wrote over the year.",
+ "readmeHash": "225c184039c5a5553a9c8fca5978f6b0ea605f63",
+ "relations": [
+  {
+   "evidence": "使用 OpenAI 兼容的 /audio/transcriptions 接口，接口/Key 留空则关闭转写",
+   "plugin": "OpenAI-compatible transcription API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "国内推荐（免费、可直连） —— 硅基流动 SiliconFlow 的 FunAudioLLM/SenseVoiceSmall",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily Notes",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible transcription API",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "SiliconFlow account (recommended free transcription)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Journal companion that highlights timestamps inside a daily-note Journal section and adds a sidebar for quick capture, random review, favorites, and yearly heatmap stats.",
+ "tags": [
+  "speech-to-text",
+  "whisper",
+  "siliconflow",
+  "heatmap",
+  "ios-shortcuts",
+  "voice-memo",
+  "timestamp",
+  "journaling"
+ ]
+}

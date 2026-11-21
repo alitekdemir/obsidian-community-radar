@@ -1,0 +1,69 @@
+{
+ "also": [
+  "calendar",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture text, recordings, and photos into yearly note files",
+  "transcribe recordings with Tencent Cloud speech recognition",
+  "count records per year in the note files",
+  "move unreferenced plugin-generated media to the vault trash",
+  "browse a daily batch of random past records"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not sync to the flomo web service; it mimics flomo-style quick capture using local vault notes.",
+ "extras": "README is written in Chinese. Installation is manual: copy the built dist folder into .obsidian/plugins. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Recordings are capped at 100MB and drafts are per-device and per-vault.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian has no built-in fast capture flow for logging short text, audio, and images into dated notes, with drafts and later transcription.",
+ "readmeHash": "b6a8443d345f8d24a9effb0f453db948f7b0705a",
+ "relations": [
+  {
+   "evidence": "停用原 Flomo 年度记录计数 插件，避免重复计数",
+   "plugin": "obsidian-flomo",
+   "type": "replaces"
+  },
+  {
+   "evidence": "音频发送至腾讯云极速版，需已开通服务及对应额度",
+   "plugin": "Tencent Cloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Tencent Cloud AppID/SecretId/SecretKey",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Tencent Cloud speech recognition service with quota",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Quick-capture modal for text, voice recordings, and photos that files entries into yearly notes, with Tencent Cloud transcription and per-year record counts.",
+ "tags": [
+  "quick-capture",
+  "tencent-cloud",
+  "speech-to-text",
+  "transcription",
+  "drafts",
+  "mobile"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish mapped notes and images to a GitHub repository",
+  "Map local vault paths to remote repo paths in a mapping table",
+  "Batch sync all mapped files in a single Git commit",
+  "Convert WikiLinks to Markdown links and rewrite image links",
+  "Auto-push changes on save or when share: true is set"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Git backup or vault sync tool; it only publishes files that have explicit mappings or share: true to a target repo.",
+ "extras": "The plugin has not been manually reviewed by Obsidian staff; installation requires cloning the repository and building it manually with npm.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish selected vault notes as Markdown files and images to a GitHub repo that a static site generator builds from.",
+ "readmeHash": "84bd16f752ce3a11c3e9981a7d43054edcd2fb9a",
+ "relations": [
+  {
+   "evidence": "compatible with Hugo, Jekyll, Hexo, and other static site generators",
+   "plugin": "Hugo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "compatible with Hugo, Jekyll, Hexo, and other static site generators",
+   "plugin": "Jekyll",
+   "type": "integrates"
+  },
+  {
+   "evidence": "compatible with Hugo, Jekyll, Hexo, and other static site generators",
+   "plugin": "Hexo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub Personal Access Token with repo scope",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub repository (owner and name) with write permissions",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Publishing tool that selectively pushes mapped notes and embedded images to a GitHub repository for Hugo, Jekyll, Hexo, and other static site generators.",
+ "tags": [
+  "github",
+  "hugo",
+  "jekyll",
+  "hexo",
+  "static-site-generator",
+  "wikilinks",
+  "personal-access-token",
+  "headless-cms"
+ ]
+}

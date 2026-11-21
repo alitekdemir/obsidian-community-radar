@@ -1,0 +1,72 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Merge embeds, wikilinks and block anchors into a single LaTeX document",
+  "Convert citations, math, admonitions and Mermaid blocks to LaTeX or PNG",
+  "Compile the .tex file to PDF, DOCX or Typst with embedded WASM engines",
+  "Generate standalone expanded Markdown with all embeds and links resolved",
+  "Show a side-by-side interactive PDF preview and archive linked resources"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter",
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is written in French. The pandoc.wasm (~59 MB) and typst.wasm (~28 MB) engines are auto-downloaded on first export or fetched manually from settings; an example vault is bundled. The optional native LaTeX PDF path requires TeX Live plus Podman/Docker on PC. Troubleshooting covers missing WASM modules and download failures.",
+ "intent": "alternative",
+ "intentEvidence": "Pandoc GUI (plugin Obsidian pandoc-gui) fournit une interface de conversion mais requiert toujours Pandoc",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to export a note with resolved embeds, wikilinks, block anchors and citations to a compilable LaTeX document without installing Pandoc and a LaTeX toolchain externally.",
+ "readmeHash": "34c4f4ea5895821bd77b834034ee57af37600be6",
+ "relations": [
+  {
+   "evidence": "Pandoc GUI (plugin Obsidian pandoc-gui) fournit une interface de conversion mais requiert toujours Pandoc",
+   "plugin": "pandoc-gui",
+   "type": "alternative"
+  },
+  {
+   "evidence": "DOCX — Pandoc WASM embarqué",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PDF — Pandoc WASM + Typst (par défaut, fonctionne sur mobile)",
+   "plugin": "Typst",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Podman/Docker + TeX Live",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Export tool that merges a note's embeds, wikilinks, citations and diagrams into a .tex file and compiles it to PDF, DOCX or InDesign.",
+ "tags": [
+  "pandoc",
+  "typst",
+  "docx",
+  "indesign",
+  "mermaid",
+  "wasm",
+  "citations"
+ ]
+}

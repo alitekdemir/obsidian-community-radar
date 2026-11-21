@@ -1,0 +1,83 @@
+{
+ "also": [
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Bind multi-key character sequences to Obsidian commands",
+  "Open a key sequence menu palette that executes commands without Enter",
+  "Configure sequence-to-command mappings in a TAB-separated text file",
+  "Insert command IDs and names for configuration",
+  "Integrate with a vim input method switching plugin for temporary English input"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Config file uses TAB separators, which the author notes are awkward to type inside Obsidian; the README recommends typing TAB in another editor and pasting. Version 2.1.0's IME integration is optional and degrades gracefully if the provider plugin is missing.",
+ "intent": "improve",
+ "intentEvidence": "It already support key sequence shortcut in editor VIM mode. Then why do I create Key Sequence Shortcut plugin?",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author loves the vimrc-support plugin but created this because key sequences were unavailable outside VIM mode, for non-VIM users, on mobile, and in preview mode.",
+ "primary": "hotkeys",
+ "problem": "Single-keystroke hotkeys like Ctrl-j are hard to memorize in numbers, and existing key-sequence support only works inside VIM editor mode.",
+ "readmeHash": "f97a37a18cc6a20665b713983a7e5a1849f27b97",
+ "relations": [
+  {
+   "evidence": "This plugin is inspired by Vim multi-key shortcut and VSpaceCode.",
+   "plugin": "VSpaceCode",
+   "type": "inspired"
+  },
+  {
+   "evidence": "I love vimrc-support plugin so much and I am using it literally everyday.",
+   "plugin": "vimrc-support",
+   "type": "inspired"
+  },
+  {
+   "evidence": "If an enabled, compatible Vim Input Method Memory plugin (vim-input-method-memory) is available, the palette waits",
+   "plugin": "vim-input-method-memory",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A compatible legacy installation with ID obsidian-vim-im-switch-plugin is also supported",
+   "plugin": "obsidian-vim-im-switch-plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chorded hotkeys - Support character sequence as hotkey.",
+   "plugin": "Chorded hotkeys",
+   "type": "alternative"
+  },
+  {
+   "evidence": "support arbitrary hotkey sequences, so you can use key sequence like \"Alt-b Ctrl-a p h w\"",
+   "plugin": "Sequence hotkeys , Hotkeys chords",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "vim-input-method-memory (or legacy obsidian-vim-im-switch-plugin)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Key-sequence hotkey plugin that runs Obsidian commands from short typed character sequences in a palette, configured in a text file.",
+ "tags": [
+  "key-sequences",
+  "chords",
+  "command-palette",
+  "ime",
+  "vscode-style",
+  "mobile"
+ ]
+}

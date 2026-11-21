@@ -1,0 +1,58 @@
+{
+ "also": [
+  "vim"
+ ],
+ "audience": [
+  "chinese-language-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Patch double-click selection to select Chinese words in the editor",
+  "Patch Vim word motions to respect Chinese word boundaries",
+  "Switch between the system segmentation engine and jieba",
+  "Install or import the jieba WASM component and manage its IndexedDB cache"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode",
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It only patches how words are selected and navigated; it does not transform or rewrite text.",
+ "extras": "Since v1.8.0 the system's built-in segmenter is the default; the jieba WASM component is optional, downloaded via a settings action, and cached in IndexedDB per device (Obsidian Sync does not sync it). The README warns to fully reload Obsidian after disabling the plugin to remove its Vim patches.",
+ "intent": "improve",
+ "intentEvidence": "Adds Simplified Chinese word splitting support for the editor and Vim mode",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian's default word splitting does not handle Chinese text, so double-click selects whole runs of characters and Vim word motions stop at the wrong places.",
+ "readmeHash": "e8884a8745222397005fd967e449852711403afc",
+ "relations": [
+  {
+   "evidence": "Special Thanks to @fengkx for jieba-wasm module",
+   "plugin": "jieba-wasm",
+   "type": "integrates"
+  },
+  {
+   "evidence": "若你需要结合 omnisearch 插件使用",
+   "plugin": "omnisearch",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Patches the editor and Vim mode so Simplified Chinese text is split into words for double-click selection and word-wise cursor movement.",
+ "tags": [
+  "jieba",
+  "word-segmentation",
+  "chinese",
+  "wasm",
+  "selection"
+ ]
+}

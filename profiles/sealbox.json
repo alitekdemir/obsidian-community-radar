@@ -1,0 +1,55 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt notes and attachments into .sealed files that never exist as plaintext on disk",
+  "Edit encrypted Markdown and text in place and render decrypted images and PDFs",
+  "Store logins in a built-in secrets manager with groups, tags, custom fields and templates",
+  "Issue recovery keys and change the master password without re-encrypting files",
+  "Decrypt containers with a standalone Node script, independent of the plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Early release, not independently audited and not yet in the community catalogue; the author advises starting with data you can afford to lose, creating a recovery key first, and running the built-in self-tests. Requires Obsidian 1.8.7 or newer; keyring.json must be synced between devices; documented threat model explicitly excludes malware on the machine and other Obsidian plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Vault files sit on disk as plaintext, so a stolen device, a leaked git repository, or a synced or backed-up folder exposes every note and stored login.",
+ "readmeHash": "b3de8b3838cb3333fd58a855226aaed6b9538e7f",
+ "relations": [
+  {
+   "evidence": "Without -merge, git will attempt a three-way merge on ciphertext and destroy the file.",
+   "plugin": "git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Syncthing cannot merge an encrypted file either, so it leaves a second copy named …sync-conflict-….sealed.",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "File-level encryption for notes and attachments behind one password, with a built-in secrets manager, on desktop and Android.",
+ "tags": [
+  "encryption",
+  "secrets-manager",
+  "passwords",
+  "argon2id",
+  "aes-256-gcm",
+  "syncthing"
+ ]
+}

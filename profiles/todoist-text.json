@@ -1,0 +1,67 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Replace a configurable keyword in the current file with tasks pulled from a Todoist filter",
+  "Complete or reopen the Todoist task behind a checklist item via a toggle command",
+  "Toggle non-Todoist checklist items locally when they lack a Todoist URL",
+  "Map multiple keywords to separate Todoist filter definitions",
+  "Exclude folders so template files keep their keyword unreplaced"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns that the Todoist API token is stored in plain text in .obsidian/plugins and should not be synced or shared; the plugin does not support adding tasks to Todoist or pulling remote changes into files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian checklist items are purely local, so there is no way to complete tasks that live in Todoist directly from a note.",
+ "readmeHash": "08be447e05e0e80c8f1228cdb8e249b539494a8b",
+ "relations": [
+  {
+   "evidence": "This obsidian plugin integrates your Todoist tasks with markdown checkboxes in a text-centric approach.",
+   "plugin": "Todoist",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Todoist API token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Todoist account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Todoist desktop app (recommended for adding tasks)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Todoist integration that pulls tasks into notes as Markdown checkboxes and syncs checking them off with Todoist.",
+ "tags": [
+  "todoist",
+  "api-token",
+  "todoist-filters",
+  "checkboxes",
+  "templates"
+ ]
+}

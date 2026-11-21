@@ -1,0 +1,55 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule a request to a chosen Claudian chat tab for a set time",
+  "Automatically switch to the target tab and wait if it is busy",
+  "Manage pending tasks and view success/failure send history",
+  "Catch up on missed tasks after Obsidian restarts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone task scheduler or Claude client; it only sends messages through the Claudian plugin's existing chat tabs.",
+ "extras": "README is in Chinese. Obsidian must stay running; tasks that come due while it is closed are sent on next launch. Installed via BRAT or manually from releases; not reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "本插件依赖 Claudian 插件提供的多对话框（tab）能力，需先在 Obsidian 中安装并启用 Claudian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because off-peak hours are outside work hours, so small developers cannot manually send requests then and lose the 50-75% cost savings.",
+ "primary": "automation",
+ "problem": "DeepSeek's off-peak pricing window (00:30-08:30 Beijing time) falls outside working hours, so someone would have to be at the computer to send requests and get the lower rate.",
+ "readmeHash": "8e39ae018de030a48a832e193d8329b727d57bac",
+ "relations": [
+  {
+   "evidence": "本插件依赖 Claudian 插件提供的多对话框（tab）能力",
+   "plugin": "Claudian",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Claudian",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Scheduler that sends queued requests to Claudian chat tabs during DeepSeek's off-peak pricing window to cut API costs.",
+ "tags": [
+  "deepseek",
+  "claudian",
+  "off-peak-pricing",
+  "task-queue",
+  "api-cost"
+ ]
+}

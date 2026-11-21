@@ -1,0 +1,57 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault semantically with passages linked back to their notes",
+  "Chat with the vault or current note via a RAG panel with [1]-style citations",
+  "Index new, edited, renamed, and deleted notes automatically",
+  "Run chat and embedding models locally through llama.cpp with no cloud calls"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (no mobile); first run downloads ~3 GB of models and runtime; Intel Macs unsupported; uninstalling requires a two-step process because the backend lives outside the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for privacy: all AI runs on local models so notes never leave the computer, with no account or API keys.",
+ "primary": "ai",
+ "problem": "Obsidian's built-in search is keyword-based, and most AI assistant plugins send notes to cloud APIs, which conflicts with keeping notes private.",
+ "readmeHash": "c403afd6dd188709dc5aa6fcaea6271954a42b12",
+ "relations": [
+  {
+   "evidence": "Khora is a pure-Python library, so the plugin drives it through a small local sidecar.",
+   "plugin": "Khora",
+   "type": "integrates"
+  },
+  {
+   "evidence": "All the AI runs on local models through llama.cpp",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local-AI plugin that indexes your vault for semantic search and runs an offline RAG chat that answers with citations to your notes.",
+ "tags": [
+  "rag",
+  "local-llm",
+  "embeddings",
+  "llama-cpp",
+  "gguf",
+  "qwen",
+  "privacy"
+ ]
+}

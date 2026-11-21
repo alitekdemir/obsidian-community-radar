@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "read notes aloud with local speech engines (Speech Dispatcher, espeak-ng, Piper, Web Speech, Kokoro)",
+  "highlight the current sentence and word during playback",
+  "exclude content like code blocks, frontmatter, tables, and tags from reading",
+  "rank available engines automatically by real-time quality",
+  "resume reading position and set a sleep timer"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. The bundled ONNX runtime makes main.js about 13.8 MB, so Obsidian Sync Standard cannot sync it. Kokoro weights are a separate 92-326 MB download on first use, English only. README states performance limits on Android and some Linux installs (single-threaded synthesis, several times slower than real time) and explains its exact network behavior.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to have notes read aloud, and most TTS options depend on cloud services, API keys, or subscriptions.",
+ "readmeHash": "c99123fe5785363ee3cbfddf7708a4c79da3d2a8",
+ "relations": [
+  {
+   "evidence": "Install the free Read Me Offline app from F-Droid (source on GitHub), then pair it with the plugin",
+   "plugin": "Read Me Offline",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sends each sentence to a Piper server the user runs on 127.0.0.1 and plays the WAV",
+   "plugin": "Piper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Kokoro (All platforms) - Local neural synthesis via transformers.js + ONNX Runtime",
+   "plugin": "Kokoro TTS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Read Me Offline (F-Droid app)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "On-device text-to-speech reader that reads notes aloud with word-level highlighting using local engines, with no cloud or API keys.",
+ "tags": [
+  "text-to-speech",
+  "kokoro",
+  "espeak-ng",
+  "speech-dispatcher",
+  "piper",
+  "onnx-runtime",
+  "web-speech-api",
+  "offline"
+ ]
+}

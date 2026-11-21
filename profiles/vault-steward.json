@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan the vault for broken internal links, embeds, and anchors",
+  "Detect Markdown and frontmatter schema violations",
+  "Check task, decision, and deterministic YAML policy issues",
+  "Generate cited repair proposals with exact before/after previews",
+  "Apply user-selected fixes with pre-apply revision checks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name suggesting an automated caretaker, it is not an autonomous editor: it never changes notes without explicit user approval.",
+ "extras": "Requires Obsidian desktop 1.13.0+ and manual installation by copying dist/vault-steward/ into the plugins folder. macOS is the only validated platform; Windows and Linux are unvalidated. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Extended documentation (privacy, security, troubleshooting, known limitations) lives outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to audit a vault for broken links, frontmatter schema violations, or task and policy drift, or to repair them with reviewed, evidence-backed diffs.",
+ "readmeHash": "2c63fd11ed34555df686236eebd448ff34b5165f",
+ "relations": [
+  {
+   "evidence": "Ollama is the local-first path. Ollama and llama.cpp-compatible providers must use loopback-only endpoints.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "HyperFusion and OpenAI are experimental opt-in cloud providers: each requires its own API key",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or llama.cpp-compatible provider",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or HyperFusion API key for cloud providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Vault maintenance tool that scans for broken links, schema and policy violations, and proposes approval-gated fixes with cited evidence.",
+ "tags": [
+  "ollama",
+  "llama-cpp",
+  "openai",
+  "hyperfusion",
+  "link-checking",
+  "schema-validation",
+  "diff-review"
+ ]
+}

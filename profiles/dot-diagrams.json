@@ -1,0 +1,71 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render dot and graphviz code blocks as SVG diagrams in reading view and Live Preview",
+  "Draw diagrams from .dot or .gv files in the vault and redraw when the file changes",
+  "Show error messages with the line number when Graphviz cannot parse a block",
+  "Copy diagrams to the clipboard and export them as SVG or PNG (Pro)",
+  "Open notes by selecting linked diagram nodes (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not for Mermaid diagrams; it renders only the Graphviz DOT language.",
+ "extras": "Freemium: offline rendering, theme colors, file-based diagrams and three engines are free; node-note links, SVG/PNG export, four more engines and style presets are Pro. After updates the plugin opens a promotional tab suggesting other NoteMods plugins and Zovo Chat (can be turned off). Layout runs on the main thread; blocks over the edge limit (default 300 edges) are not drawn. Requires Obsidian 1.13.4 or later.",
+ "intent": "alternative",
+ "intentEvidence": "The Kroki plugin sends your block to a Kroki server, so it needs a network or your own server.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian renders Mermaid code blocks but has no built-in way to draw Graphviz DOT diagrams, and other approaches need a server or a local Graphviz install.",
+ "readmeHash": "3d9827b40b0e331490c5763b28bb879e054ba74c",
+ "relations": [
+  {
+   "evidence": "The Kroki plugin sends your block to a Kroki server, so it needs a network",
+   "plugin": "Kroki plugin",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Mermaid is a different language. Use DOT Diagrams for DOT",
+   "plugin": "Mermaid",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The engine is the Apache-2.0 library @hpcc-js/wasm-graphviz 1.29.1",
+   "plugin": "@hpcc-js/wasm-graphviz",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account for Pro sign-in",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders Graphviz DOT code blocks as SVG diagrams in notes, fully offline via bundled WebAssembly, with colors that follow the theme.",
+ "tags": [
+  "graphviz",
+  "dot-language",
+  "webassembly",
+  "svg",
+  "offline-rendering",
+  "freemium"
+ ]
+}

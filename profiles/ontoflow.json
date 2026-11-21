@@ -1,0 +1,89 @@
+{
+ "also": [
+  "graph",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extracts claims and typed relations from notes into a knowledge graph",
+  "Surfaces contradictions, gaps and forgotten connections in a review inbox",
+  "Delivers a weekly insight report",
+  "Serves the graph to external LLMs over MCP",
+  "Exports the graph as JSON-LD or GraphML"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: free plan covers one initial indexing, 30 credits per month and the weekly report; extraction beyond that needs a paid plan bought outside the plugin. Graph browsing, export, weekly report and local MCP work without a hub account. Collecting from folders outside the vault and from Bear is desktop-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Notes pile up without anyone noticing where they contradict each other, link to concepts that have no note, or repeat the same idea in different places.",
+ "profiledAt": "2026-11-16",
+ "provider": "Particle AI",
+ "readmeHash": "1c8788c09122d47e4c2b46f8ee8fbb9b6b6e526b",
+ "relations": [
+  {
+   "evidence": "external AIs such as Claude or GPT connect to your knowledge over MCP",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notes outside Obsidian (plain Markdown folders, Logseq, Bear, OneNote, Evernote, Google Drive, Dropbox) join through a single Connect button",
+   "plugin": "Logseq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own endpoint (Ollama, vLLM, LM Studio) and note content never leaves your machine",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Moayo hub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "OntoFlow paid plan for extra extraction credits",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM endpoint (Ollama, vLLM, LM Studio)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "PostgreSQL database",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI knowledge-graph plugin that extracts claims and relations from notes and surfaces contradictions, gaps and forgotten connections for review.",
+ "tags": [
+  "llm",
+  "knowledge-graph",
+  "mcp",
+  "sqlite",
+  "local-llm",
+  "ollama",
+  "byok",
+  "privacy"
+ ],
+ "textHash": "fcd4a6d5088727b1a6c4f016f4953e4a55ec94cf"
+}

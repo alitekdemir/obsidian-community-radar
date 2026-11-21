@@ -1,0 +1,65 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "developers",
+  "power-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Track and test beta plugins from GitHub repositories",
+  "Audit changelogs and compatibility before installing, upgrading, or downgrading releases",
+  "Select, prioritize, and freeze specific plugin release versions",
+  "Override platform and Obsidian API compatibility restrictions per plugin",
+  "Migrate tracked plugins from BRAT"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a full plugin manager; it only tracks and tests git-based community plugins and never replaces the native plugin store or handles themes.",
+ "extras": "Consumes significantly more GitHub API requests than BRAT, so the author recommends configuring a GitHub PAT; themes are not supported; the project accepts no external code contributions.",
+ "intent": "alternative",
+ "intentEvidence": "Canary Edge (CE) is a modern alternative plugin built in direct response to BRAT.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The authors built it \"because we wanted a tool like this to exist in this obsidian community.\"",
+ "primary": "developers",
+ "problem": "Obsidian's plugin manager and BRAT leave power users without granular per-plugin control, deep version history, pre-install compatibility auditing, or changelog confirmation before downloads.",
+ "readmeHash": "93f81dedf2fd3ed4918e3cdcad2a8b4e7fe4a0cd",
+ "relations": [
+  {
+   "evidence": "Built in response to BRAT's limitations, CE provides a far more granular management surface.",
+   "plugin": "BRAT",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Upon launch, CE can automatically detect and migrate your tracked plugins from BRAT.",
+   "plugin": "BRAT",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "A power-user alternative to BRAT for installing and testing GitHub-based plugins, with deep version selection, changelog audits, and compatibility checks.",
+ "tags": [
+  "github",
+  "beta-plugins",
+  "changelog",
+  "version-selection",
+  "compatibility-check",
+  "personal-access-token",
+  "downgrade"
+ ]
+}

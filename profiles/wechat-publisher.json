@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations",
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert Markdown to WeChat-compatible HTML with 22 themes and live preview",
+  "Push drafts directly to the WeChat Official Account API using AppID/AppSecret",
+  "Upload local images to the WeChat CDN and render math and Mermaid as images",
+  "Publish image-message (tie tu) notes with up to 20 pictures",
+  "Manage multiple WeChat accounts with default covers and IP-whitelist helper"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI writer, AI illustration tool, or auto-publisher; it only handles formatting and transfer, and final publishing is done manually in the WeChat backend.",
+ "extras": "Free for personal use, MIT-licensed, desktop-only (does not load on mobile), with full tutorials hosted externally. Includes an optional downloadable 'wechat-draft' Agent Skill requiring Node.js 22, and an optional donation link that unlocks nothing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Markdown styles break when pasted into WeChat's editor, and code blocks, headings, math and images need manual reformatting before publishing.",
+ "readmeHash": "248955273dfc9e70d152cd137a9f882abc8ce6e8",
+ "relations": [
+  {
+   "evidence": "直连公众号 API：配置 AppID/AppSecret 后，直接从 Obsidian 提交到草稿箱",
+   "plugin": "WeChat Official Account (mp.weixin.qq.com)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "点击去今日头条发布，浏览器会自动打开今日头条创作者中心的图文发布页",
+   "plugin": "Toutiao (今日头条)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account AppID/AppSecret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishing assistant that converts Obsidian Markdown into WeChat-compatible HTML and pushes it to a WeChat Official Account draft box.",
+ "tags": [
+  "wechat",
+  "toutiao",
+  "mermaid",
+  "ruby-annotation",
+  "code-highlighting",
+  "draft-push"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "files",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Group notes and folders into named projects",
+  "Restore a project's tabs, scroll position, and active tab on click",
+  "Add and manage multiple named panes per project",
+  "Pin and browse a project's notes and folders in a sidebar pane",
+  "Sync project folders with a Google Drive folder, including revisions and additive merge"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Workspaces",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a project-management tool; it saves and restores sets of folders, notes, and open tabs as switchable workspaces.",
+ "extras": "Google Drive integration is desktop-only. Sync is one-way and additive: downloads and uploads never delete files on either side. The manifest carries an unreviewed-plugin warning.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "workspaces",
+ "problem": "Obsidian has no built-in way to switch between groups of notes while preserving each group's open tabs, scroll positions, and pane state.",
+ "readmeHash": "79d3417e8399829abd484918fe6dbcf51bd21583",
+ "relations": [
+  {
+   "evidence": "can sync with a Google Drive folder",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth client ID and secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Project workspace manager that groups notes and folders into projects and restores each project's open tabs and layout when clicked.",
+ "tags": [
+  "google-drive",
+  "tab-management",
+  "session-restore",
+  "oauth"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "pdf",
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export the active note or canvas board to a tagged PDF/A-2A and PDF/UA-1 file",
+  "Convert Obsidian syntax (wikilinks, callouts, highlights, embeds) to GitHub Flavored Markdown before export",
+  "Inline embedded notes and local images into the export request",
+  "Configure page size, font, page numbers, output folder, and which properties print",
+  "Point the API URL at a self-hosted deployment instead of the hosted service"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that all note content is sent to a remote server and the plugin cannot work offline; the hosted service retains uploads for 7 days. A free anonymous path is rate limited (60/hour, 200/day) and capped at 20 pages per export; an API key raises limits and draws on render credits (1 per 10 pages).",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's built-in export prints the rendered view. This plugin sends the note's markdown to a layout service",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian's built-in PDF export prints the rendered view, producing PDFs without real heading structure, alt text, table headers, or reliable reading order.",
+ "readmeHash": "4a0dca3e48e244763870728771a672617504dc14",
+ "relations": [
+  {
+   "evidence": "Export an Obsidian note or canvas board to a typeset, accessible PDF using the makespdf.com API.",
+   "plugin": "makespdf.com",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "makespdf.com API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "PDF export plugin that typesets notes and canvas boards into tagged, accessible PDF/A-2A and PDF/UA-1 files via the makespdf.com API.",
+ "tags": [
+  "accessibility",
+  "pdf-a",
+  "pdf-ua",
+  "archival",
+  "self-hosting",
+  "cjk",
+  "screen-readers"
+ ]
+}

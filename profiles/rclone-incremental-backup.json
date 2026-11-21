@@ -1,0 +1,62 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run manual or scheduled incremental backups via rclone sync",
+  "Move overwritten or deleted files into timestamped folders instead of losing them",
+  "Locate rclone or install it via winget, brew, curl, or a verified download",
+  "Restore single files, the latest state, or an earlier state from timestamped folders",
+  "Exclude paths and delete incremental folders older than a set number of days"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (needs Node.js and local executables, does not load on mobile); runs external programs (rclone, and winget/brew/curl only when installing); no telemetry and nothing sent during backups; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": "modelled on Simple Backup — same schedule, progress notice and wake-lock",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for large vaults (10-100+ GB) where unchanged files should not be re-read or rewritten and media should not be re-compressed.",
+ "primary": "backup",
+ "problem": "Obsidian's built-in File recovery only keeps local snapshots, so large vaults lack scheduled, versioned backups written to a folder outside the vault.",
+ "readmeHash": "e935e9b5b637874c75f8b62ebc387a7494aa9552",
+ "relations": [
+  {
+   "evidence": "modelled on Simple Backup — same schedule, progress notice and wake-lock",
+   "plugin": "Simple Backup",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the copying is done by rclone sync --backup-dir",
+   "plugin": "rclone",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "rclone",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Incremental vault backup plugin that runs rclone sync to keep a full mirror plus timestamped folders of every changed or deleted file.",
+ "tags": [
+  "rclone",
+  "file-history",
+  "restore",
+  "retention",
+  "scheduled-runs"
+ ]
+}

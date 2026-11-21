@@ -1,0 +1,66 @@
+{
+ "also": [
+  "properties",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search Google Maps for places with live autocomplete results",
+  "insert picked place's coordinates into note frontmatter",
+  "optionally write the formatted address to frontmatter",
+  "store the Google Maps API key in Obsidian's secret storage"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory; must be installed manually by copying built files into the vault's plugins folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Map plugins need coordinates in each note's frontmatter, which normally requires leaving Obsidian and copy-pasting lat/lng from Google Maps by hand.",
+ "readmeHash": "9a6a66bbf1b8327263a899b77423c2e77cdee67c",
+ "relations": [
+  {
+   "evidence": "Map plugins like Obsidian Leaflet and Map View can render those notes on a map",
+   "plugin": "Obsidian Leaflet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "matches the convention used by Obsidian Leaflet and Map View",
+   "plugin": "Map View",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Maps API key (Places API New)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Google Places API billing (monthly free tier)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Google Maps place-search command that writes a place's coordinates and address into the current note's frontmatter.",
+ "tags": [
+  "google-maps",
+  "google-places-api",
+  "coordinates",
+  "geolocation",
+  "latitude-longitude",
+  "api-key"
+ ]
+}

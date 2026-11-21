@@ -1,0 +1,69 @@
+{
+ "also": [
+  "thinking"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Interview the user about a project one question at a time via Claude Code",
+  "File answers as linked markdown notes with charter, open questions, and ideas sections",
+  "Display the project as a clickable, foldable mindmap tree with heat and radial layouts",
+  "Track open questions and ideas to explore on each note",
+  "Enforce file-access limits with Allow/Deny prompts for out-of-scope actions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI writing assistant; it records and organizes what you tell it and won't write prose for you.",
+ "extras": "The interviewer edits notes directly with no undo, so the README warns to keep the vault under git or backup. Runs the claude executable as a child process and reads the whole vault, which Obsidian's plugin review flags; the README explains each flagged behavior. Desktop only (Obsidian 1.13+, no mobile). Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to build up a project by talking it through, with an assistant that records your answers as structured, linked notes instead of writing content for you.",
+ "readmeHash": "e9bae5eae245eb895973e7dce95221ef6cd04c42",
+ "relations": [
+  {
+   "evidence": "The plugin is a front end for Claude Code",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid Claude plan (Pro, Max, Team, Enterprise) or Anthropic Console account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key (API-billing override)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Conversational interviewer that asks about your project one question at a time, files answers as linked markdown notes, and shows the project as a live mindmap.",
+ "tags": [
+  "claude-code",
+  "anthropic",
+  "interview",
+  "mindmap",
+  "knowledge-graph",
+  "open-questions",
+  "chat-panel"
+ ]
+}

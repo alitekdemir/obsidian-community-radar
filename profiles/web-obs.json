@@ -1,0 +1,72 @@
+{
+ "also": [
+  "visualization",
+  "research"
+ ],
+ "audience": [
+  "web-developers",
+  "seo-auditors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Crawl a website into per-page Markdown notes with locally saved images",
+  "Map the site as an interactive 3D globe with Road and Clusters views",
+  "Run a site audit with health card, charts and a findings list",
+  "Generate a task list of findings that persists across captures",
+  "Compare two captured sites and publish approved client reports"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not just a 3D visualization toy; its main job is crawling a website into Markdown notes, with the globe and audit built on top of that capture.",
+ "extras": "Desktop only (does not work on mobile). Requires the user to install and configure Python themselves; diagnostics command helps fix setup. Warns users to only capture sites they are allowed to read and to respect robots.txt. Not reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to capture a whole website's pages as offline Markdown notes or to see and audit how those pages connect.",
+ "readmeHash": "00749a08383532c2cf02b2ed7ed9333b59a9a61d",
+ "relations": [
+  {
+   "evidence": "The optional browser step uses Playwright with Chromium.",
+   "plugin": "Playwright",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.14 or newer",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Playwright with Chromium",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Optional Python packages: dnspython, pyspellchecker, html5lib",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Website crawler that saves a site's pages as clean Markdown notes in your vault and maps its structure on an interactive 3D globe with a site audit.",
+ "tags": [
+  "web-crawler",
+  "seo-audit",
+  "playwright",
+  "python",
+  "headless-browser",
+  "robots-txt",
+  "sitemap",
+  "accessibility-checks"
+ ]
+}

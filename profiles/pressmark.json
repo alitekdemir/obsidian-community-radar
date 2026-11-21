@@ -1,0 +1,61 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes to PDF from a ribbon icon or the command palette",
+  "Preview page layout with real paper proportions, simulated margins and page-break marks",
+  "Customize colors, fonts, covers and footers through a schema-driven settings form",
+  "Create custom theme packs as folders with theme.json and theme.css that can extend built-in packs",
+  "Render Mermaid diagrams as vector graphics using the format's palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only: the plugin relies on Electron's printToPDF, unavailable on mobile. Full theme format and rationale documentation lives in separate files (docs/theme-format.md, docs/format-rationale.md). The manifest notes the plugin has not been manually reviewed by Obsidian staff. The optional Chrome dependency applies only to the standalone Go CLI, not the plugin itself.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because no existing Obsidian PDF exporter has a portable format — a folder with a stylesheet and JSON that can be committed, reviewed in pull requests, and shared.",
+ "primary": "export",
+ "problem": "Existing PDF exporters offer no portable format, so teams cannot keep export styling in git or guarantee colleagues produce identical documents.",
+ "readmeHash": "e083c8ff102381e93e80c8d33fd5c0a509ed3f07",
+ "relations": [
+  {
+   "evidence": "The same packs the Pressmark CLI uses, so terminal and vault produce identical documents.",
+   "plugin": "Pressmark CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "only Obsidian resolves wikilinks, embeds, callouts and Dataview blocks",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Chrome",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "PDF exporter that styles notes through versionable theme packs shared with a companion command-line tool for identical output.",
+ "tags": [
+  "theme-packs",
+  "chromium",
+  "cli",
+  "print-css",
+  "mermaid",
+  "cover-pages"
+ ]
+}

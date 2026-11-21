@@ -1,0 +1,56 @@
+{
+ "also": [
+  "css",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "generate a CSS snippet from Tailwind utility classes in vault files",
+  "rebuild the snippet automatically when files or settings change",
+  "scope generated styles to notes or sections with a prefix selector",
+  "customize the Tailwind theme and PostCSS entrypoint via config files",
+  "manually refresh the snippet from a ribbon icon"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a theme; it compiles Tailwind utility classes used in your files into a generated CSS snippet you must enable manually.",
+ "extras": "Built against Tailwind v3; the README states there are no plans to support Tailwind v4 because its PostCSS plugin is incompatible with Obsidian's Electron runtime. Generated snippet must be enabled manually, and stale output may require a plugin restart. Repository is a fork of Obsidian's sample plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "theming",
+ "problem": "Obsidian users can write utility classes in Markdown or HTML but have no built-in way to compile Tailwind styles into a working vault CSS snippet.",
+ "readmeHash": "a260e7c7580eb3c56981b90ea7d56d5bfafa944c",
+ "relations": [
+  {
+   "evidence": "This plugin uses TailwindCSS as a PostCSS plugin to generate a CSS snippet",
+   "plugin": "Tailwind",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This repository also declares pjeby's hot-reload plugin as a submodule",
+   "plugin": "hot-reload",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Generates a TailwindCSS utility-class stylesheet as a CSS snippet in your vault, rebuilt automatically as your files and settings change.",
+ "tags": [
+  "text-styling",
+  "style-settings",
+  "ribbon"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

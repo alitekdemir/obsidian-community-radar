@@ -1,0 +1,58 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build routes between waypoints via openrouteservice",
+  "Generate isochrone reachability polygons around a center point",
+  "Resolve search terms to place suggestions (POI search)",
+  "Read elevation for the points of a track",
+  "Snap recorded tracks to the road or path network"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone map plugin; it only supplies routing and geocoding services to the Places plugin.",
+ "extras": "The plugin is marked as not manually reviewed by Obsidian staff; the README does not document how to configure an API key or which openrouteservice endpoints are used.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The Places plugin needs an external routing and geocoding service to build routes, reachability areas, and place suggestions on its maps.",
+ "readmeHash": "0e9bc4d15eaf992966c7632bdfeb2b26147d7ec7",
+ "relations": [
+  {
+   "evidence": "places-shared | Shared map, overlay, routing, and utility code",
+   "plugin": "places-shared",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Routing provider for the Places plugin that adds openrouteservice directions, isochrones, POI search, elevation, and track snapping.",
+ "tags": [
+  "openrouteservice",
+  "routing",
+  "isochrones",
+  "geocoding",
+  "elevation",
+  "maps",
+  "poi-search",
+  "track-snapping"
+ ]
+}

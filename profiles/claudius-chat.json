@@ -1,0 +1,89 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the Claude Code agent in a sidebar on desktop and mobile",
+  "Stream replies, thinking, tool calls and the agent's todo list",
+  "Approve or deny destructive file edits and shell commands",
+  "Switch, rename, archive and delete server-side sessions",
+  "Export conversations to Markdown notes or insert links to them"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Self-hosted: needs a Linux server with Node.js 20+ and Claude Code signed in; without it the sidebar is empty. The agent is not sandboxed to the vault, so keep backups. Unofficial, not affiliated with Anthropic. Only tested on iOS; Windows host unsupported; install via BRAT until it reaches the community directory.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in Claude chat, and Claude Code runs only in a terminal on one machine, so sessions stop when the device sleeps.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "c467db83754488d39c25841952d2a393abc55ae0",
+ "relations": [
+  {
+   "evidence": "behind a chat UI instead of a terminal",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Same sessions as the claude CLI.",
+   "plugin": "claude CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Your devices talk to your server over your own Tailscale network.",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude subscription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted Obsidian sidebar that chats with the Claude Code agent over a WebSocket server, keeping sessions alive across devices and app restarts.",
+ "tags": [
+  "ai-chat",
+  "ai-agents",
+  "claude",
+  "claude-code",
+  "self-hosted",
+  "tailscale"
+ ],
+ "textHash": "4ba5f1923b98c07fd83cd9831f659d3cc4972daa"
+}

@@ -1,0 +1,51 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [
+  "cjk-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Patch the CodeMirror editor to segment Chinese, Japanese, and Korean text at natural word boundaries",
+  "Use the browser's Intl.Segmenter API with an automatic rule-based fallback",
+  "Detect whether text around the cursor is CJK and leave Latin text and code untouched"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Explicitly does not support Vim mode or custom word lists; the README includes a feature comparison table with the Word Splitting plugin.",
+ "intent": "improve",
+ "intentEvidence": "Bamboo patches Obsidian's built-in CodeMirror editor to use proper word segmentation",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found existing options inadequate: \"In my experience, Bamboo produces better splits\" than the long-standing Word Splitting plugin, which only handles Simplified Chinese.",
+ "primary": "editing",
+ "problem": "Obsidian's built-in editor treats CJK text poorly for word selection because it lacks word segmentation for those languages.",
+ "readmeHash": "e5543a25fef3e9513f4d93428ce510dc47167b51",
+ "relations": [
+  {
+   "evidence": "Word Splitting is the long-standing plugin for Chinese word splitting",
+   "plugin": "Word Splitting",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Editor patch that adds proper Chinese, Japanese, and Korean word segmentation to Obsidian's CodeMirror word selection and cursor movement.",
+ "tags": [
+  "cjk",
+  "word-segmentation",
+  "intl-segmenter",
+  "codemirror",
+  "chinese",
+  "japanese",
+  "korean"
+ ]
+}

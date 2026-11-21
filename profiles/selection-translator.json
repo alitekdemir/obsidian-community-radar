@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate selected text or the current paragraph from the command palette, editor menu, or ribbon",
+  "Open a quick panel for ad hoc text translation",
+  "Translate a Markdown file into a linked side-by-side bilingual note",
+  "Translate embedded images via a configured image translation provider",
+  "Play translated text with Web Speech, OpenAI-compatible TTS, or Azure Speech"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it translates more than selections: whole Markdown files, embedded images, and spoken output.",
+ "extras": "README includes a privacy section: requests are sent only on active use, API keys are stored unencrypted in plugin data, and the translation cache is local and clearable. The release section covers contributor workflow, not user usage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in translation, so translating selections, notes, images, or spoken text normally means leaving the vault for an external tool.",
+ "readmeHash": "1a05423ca4f51820af5768124f13dbef97060175",
+ "relations": [
+  {
+   "evidence": "may include OpenAI-compatible APIs, DeepSeek, OpenRouter, Gemini, Claude, Ollama",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Cloud Translation, Azure Translator, AWS Translate, DeepL/DeepLX",
+   "plugin": "DeepL",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "translation or TTS provider API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local AI provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Translation plugin that translates selected text, paragraphs, whole Markdown notes, images, and speech using AI and machine translation providers.",
+ "tags": [
+  "deepl",
+  "openai",
+  "gemini",
+  "claude",
+  "ollama",
+  "deepseek",
+  "openrouter",
+  "tts"
+ ]
+}

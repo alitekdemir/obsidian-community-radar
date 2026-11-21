@@ -1,0 +1,69 @@
+{
+ "also": [
+  "graph",
+  "ai"
+ ],
+ "audience": [
+  "knowledge-engineers",
+  "semantic-web-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Draw an ontology graph of typed notes with stated and inferred edges",
+  "Run a local OWL 2 EL reasoner over the indexed vault",
+  "Query the ontology with SPARQL in a panel or in live in-note code blocks",
+  "Apply reviewed frontmatter edits as diffs that refuse stale files",
+  "Extract facts from a note via a model endpoint, with grounded quotes and refusals shown for review"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general backlink or graph tool; only notes with type frontmatter (class, individual, property) become ontology entities, and everything else asserts nothing.",
+ "extras": "Marked as not reviewed by Obsidian staff. Desktop only. The optional Jev typed-decision helpers are explicitly unvalidated research candidates. Ships a pinned Rust/WebAssembly engine, documents limits, security rules and acceptance records, and links deeper documentation to a separate Ontomark repository and VisionFlow ecosystem.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted the vault to carry typed facts that both humans and AI agents can follow, check and cite, computed locally without changing how notes are written.",
+ "primary": "data",
+ "problem": "Backlinks show that two notes are related but not how, and large vaults and AI tools need typed, queryable facts rather than prose that a machine cannot follow or check.",
+ "readmeHash": "7835fb2369a814a02339883aa6bbf27a8c681825",
+ "relations": [
+  {
+   "evidence": "The in-note query block here follows it, and the engine's bridge lifts its output into Ontomark's vocabulary.",
+   "plugin": "Dot Triples by Cristian Vasquez",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "model endpoint for assisted ingest",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "session key for the model endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Ontology layer for typed notes: builds a class hierarchy, runs local OWL 2 EL reasoning and SPARQL queries, and applies reviewed frontmatter edits.",
+ "tags": [
+  "sparql",
+  "rdf",
+  "owl",
+  "semantic-web",
+  "knowledge-graph",
+  "reasoner",
+  "llm",
+  "wasm"
+ ]
+}

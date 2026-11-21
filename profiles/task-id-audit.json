@@ -1,0 +1,59 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Index task IDs from checkbox lines with 🆔 and ⛔ fields and report duplicate groups",
+  "Flag missing dependency targets, self-references, and ambiguous targets",
+  "Detect dependency cycles and list the IDs and source locations in each loop",
+  "Filter an audit to a vault folder and open a source line from the report",
+  "Save project profiles and report snapshots and re-run audits after file changes (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It only reports issues; the report does not repair dependencies or generate IDs.",
+ "extras": "Freemium: core audit features are free; Pro (profiles, saved reports, repeat after file changes) requires a GitHub Sponsors sponsorship. After sign-in it contacts GitHub to verify sponsorship; before sign-in it makes no network requests and sends no vault data. After updates it opens a What's new tab promoting other NoteMods plugins and Zovo Chat. The README lists untested areas (phones, tablets, third-party sync conflicts, live payment transactions, Linux and Windows locally).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to verify that task IDs are unique and that dependency references between tasks across notes actually resolve without loops.",
+ "readmeHash": "0d85f501b4c394508dcb3646ef7f36d5307b68ba",
+ "relations": [
+  {
+   "evidence": "The Tasks plugin is not required to run the audit.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Audit tool that scans Markdown task lines with 🆔 and ⛔ fields to find duplicate IDs, missing dependency targets, self-references, and dependency cycles.",
+ "tags": [
+  "task-ids",
+  "dependencies",
+  "cycle-detection",
+  "github-sponsors"
+ ]
+}

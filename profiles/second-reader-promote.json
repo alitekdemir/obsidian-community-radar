@@ -1,0 +1,76 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "academics",
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import papers from Zotero into structured literature notes",
+  "Sync Zotero PDF highlights and comments into a note with printed page numbers",
+  "Promote checked candidates into permanent notes from a template",
+  "Color syllabus literature-note links by progress and package a week's notes into a zip",
+  "Create and maintain synthesis notes listing unused permanent notes per topic"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (macOS, Windows, Linux); the plugin downloads the pdfannots2json utility from GitHub releases, checksum-verified, unless a custom path is set. It states it makes no other network connections and collects no usage data. Free and open source under GPL-3.0; separate setup and updating guides (STUDENT-SETUP-GUIDE.md, UPDATING.md) are referenced but not included in the README. BRAT install instructions are given until it appears in the community directory.",
+ "intent": "alternative",
+ "intentEvidence": "2.x copies the import formats and other settings from the community Zotero Integration plugin (obsidian-zotero-desktop-connector)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to pull a paper's metadata and PDF annotations from Zotero into a structured literature note and keep them up to date while writing.",
+ "readmeHash": "6f214809e91c805a890aa7fe9d42083786844564",
+ "relations": [
+  {
+   "evidence": "The plugin talks to Zotero's Better BibTeX plugin at (port 23119 for Zotero, 24119 for Juris-M",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Commands are renamed from \"Zotero Integration: …\" to \"Second Reader: …\".",
+   "plugin": "Zotero Integration (obsidian-zotero-desktop-connector)",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Highlight sync and PDF import use pdfannots2json, a program by mgmeyers that reads annotations out of PDF files.",
+   "plugin": "pdfannots2json",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7 desktop with the Better BibTeX plugin and \"Allow other applications to communicate with Zotero\" enabled",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tesseract (for the optional Image OCR setting)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Literature-note workflow plugin that imports papers from Zotero, syncs PDF highlights into notes, and promotes candidates into permanent notes.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "pdf-annotations",
+  "pdfannots2json",
+  "literature-notes",
+  "zettelkasten",
+  "tesseract-ocr",
+  "canvas-lms"
+ ]
+}

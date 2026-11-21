@@ -1,0 +1,108 @@
+{
+ "also": [
+  "links",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Maintain a backlink index",
+  "Index note names and aliases for autocomplete",
+  "Index titles, heading times, and property values",
+  "Index unlinked mentions, tags, and external links",
+  "Expose an API for other plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Outgoing links",
+   "Quick switcher",
+   "Graph view",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a query language like Dataview; it accelerates core calls and exposes an API for other plugins.",
+ "extras": "Beta versions are installed via the BRAT plugin. Documentation is an interactive demo vault with per-feature notes and measurement buttons; a copy ships with each release. Debug messages are hidden by default. Derived caches stay on each device; heading history and registered property names sync through ordinary vault files.",
+ "intent": "improve",
+ "intentEvidence": "replacing the method that already asks the question, so nothing has to know the plugin is installed",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian answers backlinks, link suggestions, and name lookups by scanning every note on each call, which is slow on large vaults.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "f76143637b31c2f167d93115170ba6304aa34775",
+ "relations": [
+  {
+   "evidence": "Supersedes Backlink Cache: includes its backlink index; adds: names, titles, headings, properties, unlinked mentions",
+   "plugin": "Backlink Cache",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Alternative wikilink suggester; link-count and manual-boost ordering",
+   "plugin": "Boost Link Suggestions",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Different integration: accelerates core calls and their consumers; no query language",
+   "plugin": "Datacore",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Different integration: core calls and startup-loaded property lookups; no query language",
+   "plugin": "Dataview",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Complementary title lookup: finds notes by title; offers titles in autocomplete; no display changes",
+   "plugin": "Front Matter Title",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative index access: in-memory core calls and plugin API; no export file",
+   "plugin": "Vault Map",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The handle comes from the @mnaoumov/obsidian-lib plugin registry",
+   "plugin": "@mnaoumov/obsidian-lib",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Frontmatter Markdown Links",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "@mnaoumov/obsidian-lib",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plugin that maintains vault indexes and answers Obsidian's built-in lookups from them, so backlinks and link suggestions avoid rescanning every note.",
+ "tags": [
+  "backlinks",
+  "dataview",
+  "wikilinks",
+  "unlinked-mentions",
+  "frontmatter",
+  "plugin-management"
+ ],
+ "textHash": "7c3f35a8b80ca48d409f34c31cd21160e0a7c3c6"
+}

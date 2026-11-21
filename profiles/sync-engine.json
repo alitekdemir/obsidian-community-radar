@@ -1,0 +1,79 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize vault files across devices via S3, WebDAV, Google Drive, or Dropbox backends",
+  "Encrypt synced files client-side",
+  "Configure per-path sync strategies with ordered glob match rules",
+  "Resolve sync conflicts using smart merge, keep both, latest survive, or keep remote/local strategies",
+  "Extend the plugin with custom backends, triggers, and strategies via the module SDK"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Open-source under the MIT License with stated no-telemetry claims; full documentation lives at an external site (sync.consensia.cc) covering usage, modules, permissions, and benchmarking. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "There's already a lot of plugins to sync your notes between devices",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author saw a gap for users who want to choose their own storage, keep the plugin small because unused features aren't bundled in, and get syncing no slower than a self-hosted server.",
+ "primary": "syncing",
+ "problem": "Obsidian Sync is paid, and existing sync plugins are either optionally paid and stalled (Remotely Save), require running your own server (Self-hosted LiveSync), or route notes through managed infrastructure you don't control (Relay).",
+ "readmeHash": "b9b0db22cc024e5eae96e74b21e42b55bf3f869c",
+ "relations": [
+  {
+   "evidence": "Remotely Save supports many backends (S3, Dropbox, OneDrive, WebDAV). But is optionally paid",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Self-hosted LiveSync and Fast Note Sync offer real-time, server-based sync",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Self-hosted LiveSync and Fast Note Sync offer real-time, server-based sync",
+   "plugin": "Fast Note Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Relay is a managed relay service. Convenient, but your notes pass through infrastructure you don't control",
+   "plugin": "Relay",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "cloud storage (Google Drive, Dropbox)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 or WebDAV credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault synchronization plugin that keeps files in sync across devices via S3, WebDAV, Google Drive, or Dropbox, with encryption and an SDK for modules.",
+ "tags": [
+  "webdav",
+  "s3",
+  "google-drive",
+  "dropbox",
+  "client-side-encryption",
+  "conflict-resolution",
+  "sdk"
+ ]
+}

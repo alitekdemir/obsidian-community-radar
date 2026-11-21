@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record audio from a right sidebar panel with pause and stop",
+  "Transcribe speech in real time via local macOS/Windows speech or OpenAI-compatible STT",
+  "Summarize and translate transcripts using vault templates or freeform prompts",
+  "Save template summaries, raw transcripts, and audio files into the target note",
+  "Write meeting metadata such as participants and consent into frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly true). README warns API keys are stored in plaintext in plugin settings and that the Windows speech path is structured but not yet verified on real Windows hardware. Sends audio and transcript text to the selected cloud provider when cloud STT or AI summarization is used; no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian's audio recorder can capture sound but offers no transcription, summarization, or archiving, so turning voice meetings into structured notes needs outside tools.",
+ "readmeHash": "8be00c6b7df7319b561b1e7f6535e7feda901fe6",
+ "relations": [
+  {
+   "evidence": "OpenAI, Ollama, Claude, Gemini 중 하나를 선택해 요약/번역",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama는 요약/번역 LLM Provider입니다",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI, Ollama, Claude, Gemini 중 하나를 선택해 요약/번역",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI, Ollama, Claude, Gemini 중 하나를 선택해 요약/번역",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI/Claude/Gemini or OpenAI-compatible STT",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Records voice in a sidebar panel, transcribes it live, summarizes it with an LLM into a structured note, and archives the audio and transcript.",
+ "tags": [
+  "meeting-notes",
+  "transcription",
+  "speech-to-text",
+  "openai",
+  "ollama",
+  "claude",
+  "gemini"
+ ]
+}

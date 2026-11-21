@@ -1,0 +1,91 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [
+  "marketers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pull Google Ads and Meta Ads metrics into notes as Markdown tables",
+  "Add yesterday's report to the daily note automatically under a chosen heading",
+  "Save ads_spend, ads_clicks, ads_conversions, ads_cpa and ads_roas as note properties",
+  "Insert live ad-recap blocks that refresh on open with 10-minute caching",
+  "Compare against the previous period and flag target CPA with color emoji"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Tokens are stored in the vault's .obsidian/plugins/ad-recap/data.json and travel with synced or shared vaults; the Google Sheet option relies on a published CSV link that anyone with the unguessable URL can read. Demo mode works without connecting any account. Roadmap lists Microsoft Ads, TikTok Ads, LinkedIn Ads, breakdowns, weekly/monthly notes and budget pacing alerts.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian cannot fetch ad platform performance data, so marketers must copy spend, clicks, conversions, CPA and ROAS numbers into notes by hand.",
+ "profiledAt": "2026-11-18",
+ "provider": "Ant Digital",
+ "readmeHash": "cee048943d73c45e7004078190e07a6a67ca5d57",
+ "relations": [
+  {
+   "evidence": "Google Ads via the official API, or without a developer token through a small Google Ads script",
+   "plugin": "Google Ads",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Meta Ads (Facebook and Instagram) via the Marketing API, with your own choice of conversion actions",
+   "plugin": "Meta Ads",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so you can chart trends with Bases or Dataview",
+   "plugin": "Bases",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so you can chart trends with Bases or Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Sheet filled by scripts/google-ads-to-sheet.js and published as CSV (no-developer-token option)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Ads API developer token, OAuth client ID/secret and refresh token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Meta Ads system user token with ads_read permission",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google Ads customer/manager account and Meta ad account IDs",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that pulls Google Ads and Meta Ads campaign metrics into Obsidian notes as Markdown tables, with daily note automation and period comparisons.",
+ "tags": [
+  "api-key",
+  "oauth",
+  "daily-notes",
+  "dataview"
+ ],
+ "textHash": "68097ba82ec7c1ea861eb9451af2692a9035df74"
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "attachments",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync Looki Moments and For You content into date-based daily notes",
+  "download and embed images and videos via toggles",
+  "configure API key, target folder, media folder, and auto-sync interval",
+  "run incremental sync or full resync from commands",
+  "rewrite notes idempotently so deletions on Looki are reflected"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (English and Chinese). Installation currently means cloning the repo, building main.js, and copying files into the vault; the README also contains a checklist for submitting the plugin to the Obsidian community directory. Privacy note: the API key is stored locally in data.json and requests go only to the Looki API and media CDN.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Looki's daily records and AI-generated prompts live in that app, and Obsidian has no built-in way to pull them into dated notes in a vault.",
+ "readmeHash": "d4654277c85298bf7c277fa57eee042d8f1a8cf2",
+ "relations": [
+  {
+   "evidence": "syncs Looki Moments (daily records) and For You (AI prompts) into date-based daily memory notes",
+   "plugin": "Looki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Inspired by the design of Flomo Sync and similar sync plugins",
+   "plugin": "Flomo Sync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Looki API Key (lk-xxxx)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Looki service and its media CDN",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs Looki Moments and For You AI prompts into date-based daily memory notes, with optional image and video download and embedding.",
+ "tags": [
+  "looki",
+  "media-download",
+  "incremental-sync",
+  "auto-sync",
+  "daily-memory"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Granola meeting summaries into a configurable notes folder",
+  "Import full transcripts as timestamped, speaker-labeled notes",
+  "Update existing notes in place keyed by granola_id",
+  "Configure sync interval, lookback window, and folders",
+  "Exclude your email from attendee lists and label your transcript lines"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "API keys are a Granola Business feature, so a paid plan is required. The plugin states it is not affiliated with Granola and use is subject to Granola's Terms of Service. It adopts notes created by other Granola sync plugins that use the same granola_id convention instead of duplicating them.",
+ "intent": "alternative",
+ "intentEvidence": "Earlier Granola↔Obsidian integrations worked by borrowing the Granola desktop app's encrypted local credentials.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Earlier integrations borrowed the Granola app's encrypted local credentials, broke on Granola updates, and needed keychain/DPAPI access, so the author built the plugin exclusively on Granola's official public API.",
+ "primary": "integrations",
+ "problem": "Existing Granola-to-Obsidian integrations rely on scraping the Granola app's encrypted local credentials, which breaks whenever Granola changes its internal storage and requires deep OS access.",
+ "readmeHash": "fbeea428ae798706f316c4c92014f154cedac380",
+ "relations": [
+  {
+   "evidence": "Sync your Granola meeting notes and full transcripts into Obsidian using the official Granola API.",
+   "plugin": "Granola",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "earlier Granola↔Obsidian integrations",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Granola API key (grn_...)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Granola Business or Enterprise plan",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Meeting-note sync that imports Granola summaries and timestamped transcripts into your vault using the official Granola API.",
+ "tags": [
+  "granola",
+  "meeting-notes",
+  "transcripts",
+  "api-key",
+  "recurring-meetings"
+ ]
+}

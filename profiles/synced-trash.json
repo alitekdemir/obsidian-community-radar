@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Redirect deleted files",
+  ": Manage trash folder",
+  ": Restore deleted items",
+  ": Handle attachments and folders",
+  ": Implement automatic cleanup"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Pure JavaScript plugin; no Node.js, Electron or build tools at runtime, so it can load on iOS.",
+ "intent": "improve",
+ "intentEvidence": "Synced Trash instead moves deleted notes, attachments, and folders into an ordinary vault folder named Trash.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's hidden .trash directory is often not synchronized by external vault sync services, making deleted files difficult to recover across devices.",
+ "readmeHash": "1d2d7aa5ca1df2f4e36930d4a87d5c402af2cc45",
+ "relations": [
+  {
+   "evidence": "Works with existing file-based sync services such as Remotely Save + Dropbox — no Dropbox integration or token is needed.",
+   "plugin": "Remotely Save",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Vault Sync Service",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A recoverable trash folder that redirects Obsidian's internal hidden trash to a standard vault folder, allowing existing sync services to manage deleted files.",
+ "tags": [
+  "vault-sync",
+  "file-recovery",
+  "remotely-save",
+  "trash-management",
+  "cross-device"
+ ]
+}

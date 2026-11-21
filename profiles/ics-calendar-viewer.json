@@ -1,0 +1,65 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open local .ics files in a read-only inspection view",
+  "Parse VCALENDAR, VEVENT, VTODO, and VTIMEZONE components",
+  "List events grouped by date or component type",
+  "Filter events by text fields and date range",
+  "Fall back to raw source view when parsing is limited"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a calendar sync, planning, or note-generation tool; it only inspects local .ics files read-only.",
+ "extras": "Explicitly lists non-goals (no syncing, remote URLs, note generation, RSVP, or write-back) and states runtime code uses no network, clipboard, eval, or process APIs; the manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "deliberately stays file-inspection first: open a local .ics, inspect what is inside",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian has no structured way to inspect the contents of a local .ics file; it opens as plain text with no event lists, filters, or component summaries.",
+ "readmeHash": "2b9b00fb8d83020be0d99a3cf8b3553cd00de1e8",
+ "relations": [
+  {
+   "evidence": "ICS imports events from calendar/ICS URLs into Daily Notes.",
+   "plugin": "ICS",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Full Calendar provides a full calendar UI with read-only ICS/CalDAV remote calendars.",
+   "plugin": "Full Calendar",
+   "type": "alternative"
+  },
+  {
+   "evidence": "MemoChron focuses on calendar integration and event notes.",
+   "plugin": "MemoChron",
+   "type": "alternative"
+  },
+  {
+   "evidence": "iCal generates iCal from vault tasks.",
+   "plugin": "iCal",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens local .ics calendar files with grouped event lists, filters, event details, recurrence and timezone warnings, and a raw source fallback.",
+ "tags": [
+  "ics",
+  "vevent",
+  "vtodo",
+  "vtimezone",
+  "recurrence",
+  "read-only"
+ ]
+}

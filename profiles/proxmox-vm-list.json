@@ -1,0 +1,64 @@
+{
+ "also": [
+  "tables"
+ ],
+ "audience": [
+  "homelab-administrators",
+  "sysadmins"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "fetch all QEMU VMs and LXC containers from every node in a Proxmox cluster via one command",
+  "generate a Markdown table with VMID, name, status, resources, disks, OS and notes",
+  "authenticate with an API token or username plus password, including a test connection check",
+  "work with self-signed certificates by making TLS verification optional",
+  "configure destination folder and note name that regenerate on each update"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only: it uses Node's https module directly to tolerate Proxmox's self-signed certificates. Credentials are stored in plain text in the plugin's data.json; the README advises a read-only PVEAuditor token and excluding that file from sync or version control. Not yet in the community catalog, so it must be installed manually or via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull a live inventory of VMs and containers from a Proxmox server into a note.",
+ "readmeHash": "2617e2abf5aed4fb79b8496f73d51597da085763",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Proxmox VE host or cluster",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Proxmox API token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Proxmox username",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Proxmox VE integration that fetches virtual machines and LXC containers from a host or cluster and writes them into a Markdown inventory table.",
+ "tags": [
+  "proxmox",
+  "virtualization",
+  "qemu",
+  "lxc",
+  "api-token",
+  "inventory",
+  "homelab"
+ ]
+}

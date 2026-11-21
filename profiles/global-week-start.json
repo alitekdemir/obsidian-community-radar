@@ -1,0 +1,52 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Set the vault-wide first day of the week via a settings dropdown",
+  "Patch Moment.js locale week settings in memory",
+  "Re-apply the chosen week start when other plugins change the locale",
+  "Restore the original week start when disabled or uninstalled"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Installation is manual: the user must place the plugin folder into .obsidian/plugins and reload Obsidian.",
+ "intent": "alternative",
+ "intentEvidence": "Also, you simply may prefer not to run Calendar just to control the week start.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author created it after hitting a bug where the Calendar plugin's settings panel intermittently loses its week-start options after restarting Obsidian.",
+ "primary": "dates",
+ "problem": "Moment-based plugins like Calendar and Periodic Notes intermittently lose or override the week-start setting, so weekly notes fall back to a Sunday-start layout.",
+ "readmeHash": "da950742d2fbca78421cee93cd1e8cc4d698893c",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Periodic Notes weekly note creation and any template helpers that rely on week start",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tiny utility that enforces a user-chosen first day of the week (e.g. Monday) globally at the Moment.js level for the whole vault.",
+ "tags": [
+  "moment-js",
+  "locale",
+  "iso-weeks",
+  "week-start"
+ ]
+}

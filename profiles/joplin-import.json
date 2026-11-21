@@ -1,0 +1,66 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview a .jex archive's counts, missing resources and problems before writing anything",
+  "Convert notebooks to folders and Joplin note links to vault links",
+  "Copy archive resources into the vault as attachments and rewrite embeds",
+  "Write source ID, tags, dates and a hash into each note's properties",
+  "Resync changed notes from a newer archive and audit several archives (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it only imports Joplin archives into the vault; it does not export Obsidian notes to Joplin.",
+ "extras": "Freemium: core import is free and works offline with no account; Pro features (resync, multi-archive audit) require a GitHub Sponsors payment and sign-in via the GitHub device flow. Free import is capped at 100 MiB per .jex file, HTML notes and encrypted items are not imported, and the author lists untested cases (real Joplin exports, mobile devices, archives near the size limit). Requires Obsidian 1.13.4 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to migrate a Joplin archive, so notebooks, note links, tags, dates and attachments need manual conversion.",
+ "readmeHash": "7dc79f35f634bddc3af7ad89c16fb44f7ee40c30",
+ "relations": [
+  {
+   "evidence": "Import a Joplin JEX archive into your vault as Markdown notes.",
+   "plugin": "Joplin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pro features need a GitHub Sponsors sponsorship of theluckystrike",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship ($5/month or $15 once) for Pro features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Joplin .jex archives as linked Markdown notes, converting notebooks to folders, links to vault links, and resources to attachments.",
+ "tags": [
+  "joplin",
+  "jex",
+  "migration",
+  "note-links"
+ ]
+}

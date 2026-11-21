@@ -1,0 +1,68 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display tasks in a Kanban board with one column per status",
+  "Change task status by dragging cards between columns",
+  "Create saved boards with custom queries, columns, and swimlane grouping",
+  "Filter, sort, and group tasks using Tasks query syntax",
+  "Open and edit a task from its card, using the Tasks edit modal"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Kanban plugin; cards are tasks managed by the Tasks plugin, not whole notes.",
+ "extras": "Editing a task from a card requires Tasks 7.21.0 or later; installation is via Community Plugins or manual file copy.",
+ "intent": "improve",
+ "intentEvidence": "Because this plugin is built on Tasks, the board is a live view over your existing tasks",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in board view over tasks, and existing Kanban plugins treat cards as notes or scan tasks independently instead of reusing the Tasks plugin.",
+ "readmeHash": "a4313941dfb97cd0a87fecf981f11b30bdec8055",
+ "relations": [
+  {
+   "evidence": "It reuses the Tasks plugin's own parser and query engine",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "Kanban | notes — a board is its own note, each card a line of Markdown",
+   "plugin": "Kanban",
+   "type": "alternative"
+  },
+  {
+   "evidence": "choose Task Board if you want a task board without depending on the Tasks plugin",
+   "plugin": "Task Board",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Kanban board view that displays tasks collected by the Tasks plugin as cards, with status columns, drag-and-drop status changes, saved boards, and query filtering.",
+ "tags": [
+  "kanban-board",
+  "tasks-plugin",
+  "drag-and-drop",
+  "swimlanes",
+  "status-symbols",
+  "query-syntax"
+ ]
+}

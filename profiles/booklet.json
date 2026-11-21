@@ -1,0 +1,72 @@
+{
+ "also": [
+  "data",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open Booklet-format notes in a dedicated interactive view",
+  "Render eight question kinds, widgets and each-pick questions and write answers into the note's records",
+  "Keep drafts and dated entries for repeating and daily activities",
+  "Draw queries, tables, cards, tiles and SVG charts over kept entries and JSON data blocks",
+  "Gate remote audio and video playback behind a per-host allow list"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an e-book reader or format converter; it renders one specific custom note format (Booklet) as an interactive view inside Obsidian.",
+ "extras": "Very detailed README covering testing (59-check e2e suite, accessibility measurements), privacy (no telemetry, media hosts see only playback requests), known limits (Android untested, no captions, no PDF export from the view), and compatibility notes with the Linter, Dataview, Tasks, Admonition and Meta Bind plugins. Requires Obsidian 1.11.7 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian notes are static Markdown with no built-in way to render interactive questionnaires, keep dated answer entries, or draw queries and charts over those answers.",
+ "readmeHash": "f7c79d81776241bdfdc77c9cfa4a3871457f9040",
+ "relations": [
+  {
+   "evidence": "The reference renderer draws less than this (a trail, Back, Up and Next, and cards",
+   "plugin": "booklet.html (Booklet reference renderer)",
+   "type": "extends"
+  },
+  {
+   "evidence": "Booklet was run in a real Obsidian 1.14.5 beside the Linter plugin 1.35.0",
+   "plugin": "Linter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT is the way to try a build before it is released.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A link to a video or audio service the plugin knows (YouTube and Vimeo among them)",
+   "plugin": "YouTube",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Custom view for Booklet-format Markdown notes that renders interactive forms, quizzes and dashboards and saves answers inside the note.",
+ "tags": [
+  "questionnaires",
+  "quiz",
+  "check-ins",
+  "dashboards",
+  "screen-reader",
+  "youtube"
+ ]
+}

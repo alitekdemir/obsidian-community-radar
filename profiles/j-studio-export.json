@@ -1,0 +1,60 @@
+{
+ "also": [
+  "pdf",
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes as paginated A4 PDFs with three presets (Formal Report, Snapshot, Compact Print)",
+  "Generate cover pages, tables of contents with real page numbers, headers, and footer page numbers",
+  "Collect and sanitize vault CSS so exported pages match Reading view styling",
+  "Repeat table headers across pages and control orphan/widow breaks",
+  "Export self-contained HTML as a fallback for browser printing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (writes files via Node fs); falls back to self-contained HTML plus browser printing when silent print is unavailable. No network upload or telemetry; preset mockups are illustrative, not live screenshots.",
+ "intent": "improve",
+ "intentEvidence": "Not the built-in export that breaks pages, warps styles, and feels unfinished.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian's built-in PDF export breaks pages, clips charts, drifts from Reading view styles, and offers no formal document structure like covers or page numbers.",
+ "readmeHash": "9aabf6994517d68f1069df8110785e6e8786e7ad",
+ "relations": [
+  {
+   "evidence": "Paged.js engine; table headers repeat across pages; orphan/widow control",
+   "plugin": "Paged.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Not the built-in export that breaks pages, warps styles, and feels unfinished.",
+   "plugin": "Obsidian built-in PDF export",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "PDF export plugin that paginates notes into formal A4 documents with cover, table of contents, running headers, and page numbers via Paged.js.",
+ "tags": [
+  "paged-js",
+  "pagination",
+  "typography",
+  "print",
+  "toc",
+  "page-numbers",
+  "cover-page",
+  "a4"
+ ]
+}

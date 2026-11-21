@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault with ranked, typo-tolerant, prefix-matching fuzzy search",
+  "Search within the active note and jump to matches",
+  "Filter queries with exact phrases, exclusions, ext: and path: syntax",
+  "Index PDF, image (OCR), and Office files via the Text Extractor plugin",
+  "Persist the index in IndexedDB and re-index only changed files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual install only: build from source with npm and copy dist files into the plugins folder. PDF/image/Office indexing is desktop-only and off by default with a warning when enabled. The plugin has not been manually reviewed by Obsidian staff. No network requests are made; a optional 'Buy me a coffee' button links to buymeacoffee.com.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author saw Omnisearch's slowness on large vaults as architectural — indexing, tokenization, and cache serialization all run on the UI thread — and restructured the same core idea around a Web Worker for performance.",
+ "primary": "search",
+ "problem": "Obsidian's built-in search is not fuzzy or field-weighted, and Omnisearch indexes and searches on the UI thread, making it slow on large vaults.",
+ "readmeHash": "8685e1a164b178344ab8024954c439bc26ba41dc",
+ "relations": [
+  {
+   "evidence": "If you need an HTTP API, a public plugin API, embed results, or Chinese word segmentation, use Omnisearch",
+   "plugin": "Omnisearch",
+   "type": "alternative"
+  },
+  {
+   "evidence": "PDF / image (OCR) / Office indexing via the Text Extractor community plugin",
+   "plugin": "Text Extractor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the BM25 full-text search engine CFR Find runs inside its worker",
+   "plugin": "MiniSearch",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Text Extractor",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Fast worker-powered full-text search plugin with BM25 ranking, typo-tolerant fuzzy matching, in-file search, and optional PDF/image/Office indexing.",
+ "tags": [
+  "fuzzy-search",
+  "bm25",
+  "web-worker",
+  "minisearch",
+  "diacritics",
+  "camelcase"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync tagged task lines with a PeckList server in both directions",
+  "Map Tasks-format fields (due dates, priority, tags, repeats, done) to PeckList tasks",
+  "Open, complete, move or delete tasks from an editor menu on synced lines",
+  "Filter what syncs with a pre-sync review, folder, note and line exclusions",
+  "Sign in with a browser flow or an API key with tasks:read and tasks:write scopes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The full guide is hosted at pecklist.com/obsidian rather than in the README. The README describes data handling in detail: only tagged task lines leave the device, sent to the single server the user configures, with no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian task lines in Tasks format stay in the vault with no way to keep them in sync with an external task server across devices.",
+ "readmeHash": "7a7b624a49164c0f81f465866685c77d0c35392d",
+ "relations": [
+  {
+   "evidence": "Write a task in the Tasks plugin's format, tag it #pecklist, and it shows up in PeckList.",
+   "plugin": "Tasks plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PeckList server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "PeckList server account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks plugin",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key with tasks:read and tasks:write",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync of tagged task lines in Tasks-plugin format with a self-hosted PeckList server, covering titles, dates, priority, tags and repeats.",
+ "tags": [
+  "self-hosted",
+  "tasks-plugin",
+  "two-way-sync",
+  "api-key",
+  "recurring-tasks"
+ ]
+}

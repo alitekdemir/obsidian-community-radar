@@ -1,0 +1,66 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "poll a backend server for new WeChat articles and save them as Markdown",
+  "archive articles into date-based folders (YYYY-MM)",
+  "download WeChat CDN images into the vault",
+  "run automatic sync on a configurable interval",
+  "trigger manual sync from the status bar, ribbon, or command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README is written in Chinese. The plugin only works after the user deploys the companion backend server and configures its URL and API token; it is the Obsidian client of the larger WeChat Obsidian Sync project. The manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Articles read in WeChat are not directly accessible to Obsidian, and WeChat CDN image links expire, so saved articles lose their pictures.",
+ "readmeHash": "e10e742f3554dd11eb381e697d8d2afecd4c18e4",
+ "relations": [
+  {
+   "evidence": "本插件是 WeChat Obsidian Sync 项目的一部分，需要配合后端服务器使用。",
+   "plugin": "wechat-obsidian-sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "wechat-clipper — 微信小程序「收藏助手」",
+   "plugin": "wechat-clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeChat Obsidian Sync backend server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API Token shared with the backend server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs WeChat Official Account articles into the vault as Markdown via a backend server, archiving them by date and downloading images locally.",
+ "tags": [
+  "wechat",
+  "miniprogram",
+  "article-archiving",
+  "image-download",
+  "self-hosted-backend",
+  "incremental-sync"
+ ]
+}

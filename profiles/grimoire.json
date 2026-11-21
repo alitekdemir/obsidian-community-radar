@@ -1,0 +1,75 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with multiple provider CLI agents in a tabbed side panel",
+  "Run inline edits on a selection as an accept/reject diff",
+  "Mention notes, folders, images, and MCP tools as turn context",
+  "Cycle Safe, Auto-approve, and Plan permission modes per provider",
+  "Show provider usage, quota windows, and spend next to the model picker"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, no mobile build. Each provider needs its own CLI installed and authenticated outside the plugin; Grimoire adds no backend or telemetry. Provider capability support (rewind, fork, plan mode, image input) varies per provider and is documented in a comparison table. Debug logging is off by default and writes sanitized JSONL inside the vault.",
+ "intent": "new",
+ "intentEvidence": "Grimoire brings agentic CLI assistants into Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for people who already work in Obsidian and want AI help that behaves like part of the vault: local context, local files, a provider you pick on purpose, and usage you can actually see.",
+ "primary": "ai",
+ "problem": "Using AI coding assistants in Obsidian usually means a hosted plugin backend or copy-pasting vault context into a separate terminal, with no shared model picker, usage view, or permission control.",
+ "readmeHash": "7958fb53a4aef25d0d6fa52fcbd75b65719ef726",
+ "relations": [
+  {
+   "evidence": "Grimoire wraps the provider CLIs. It doesn't replace their account setup",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "runs on the Claude Code SDK, and supports slash commands, MCP settings, agents",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pick OpenCode for a model-agnostic agent that brings its own provider configuration",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "provider CLIs (e.g. Codex CLI, Claude Code, Qwen Code, Pi)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider account or API key for the chosen CLI",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key (alternative to OAuth/account sign-in for some providers)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Runs local AI CLI agents (Codex, Claude Code, OpenCode, and others) in a side panel that reads notes, edits files, runs tools, and keeps session history.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "opencode",
+  "acp",
+  "mcp",
+  "cli-agents",
+  "local-first"
+ ]
+}

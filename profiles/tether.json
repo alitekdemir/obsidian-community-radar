@@ -1,0 +1,62 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the full vault, including attachments, nested folders, and .obsidian, with Google Drive",
+  "Pull Drive changes on startup and push local changes on an interval",
+  "Run manual pull and push commands with separate directional actions",
+  "Authenticate with the user's own Google Cloud OAuth client",
+  "Resolve duplicate folders and files, with confirmation before large deletions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Warns that Google expires Drive refresh tokens after 7 days if the OAuth app stays in External + Testing mode; not yet listed in the community plugin directory (manual install documented). Discloses clipboard access, base64 calls, and five external domains; not affiliated with Google or Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for people who want vault sync without relying on shared credentials or a shared backend.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, and this fills the gap with free Google Drive syncing under the user's own Google account and credentials.",
+ "readmeHash": "0084c6ce8fdc8d2d69dbf60796a3b8d4dac2e8b7",
+ "relations": [
+  {
+   "evidence": "Tether includes the hidden .handwriting folder and its JSON files in vault sync.",
+   "plugin": "Handwriting by Alan",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google Cloud project with Drive API and OAuth client",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Google Drive sync plugin that keeps the whole vault (notes, attachments, folders, .obsidian) in sync using the user's own Google Cloud OAuth credentials.",
+ "tags": [
+  "google-drive",
+  "google-cloud",
+  "oauth",
+  "mobile-sync",
+  "handwriting"
+ ]
+}

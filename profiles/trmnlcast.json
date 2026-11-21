@@ -1,0 +1,66 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push computed data to a TRMNL e-ink display via a webhook private plugin",
+  "Track Claude Code usage blocks, token totals, and burn rate from local transcripts",
+  "Schedule per-screen pushes within TRMNL's hourly push budget",
+  "Write custom screens with a collect() function and four Liquid templates",
+  "Store webhook credentials outside the vault via environment variable or external file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The built-in Claude usage screen is desktop-only and is skipped on mobile. Screen-authoring documentation lives in AGENTS.md rather than the README. The README carries extensive security guidance on webhook UUIDs as bearer credentials and on keeping credentials out of the synced vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author uses Obsidian as the host because it is already running and provides a cross-platform process with a settings UI, a scheduler, and a place to keep configuration.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to put locally computed data on an external TRMNL e-ink panel, and TRMNL's hourly push budget and per-screen scheduling are hard to manage by hand.",
+ "readmeHash": "7d4b681d2866d551f238785992c2f73febba6aff",
+ "relations": [
+  {
+   "evidence": "A small framework for pushing anything you can compute in Obsidian to a TRMNL e-ink display",
+   "plugin": "TRMNL",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Reads your local Claude Code transcripts, works out where you are in the current five-hour usage block",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TRMNL e-ink display",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "trmnl.com account for creating private webhook plugins",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Framework that pushes data computed in Obsidian, such as Claude Code token usage, to a TRMNL e-ink display over a private-plugin webhook.",
+ "tags": [
+  "trmnl",
+  "e-ink",
+  "claude-code",
+  "liquid",
+  "webhook",
+  "token-usage"
+ ]
+}

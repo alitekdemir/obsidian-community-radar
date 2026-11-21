@@ -1,0 +1,68 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize notes and attachments two-way across devices via a self-hosted Cloudflare backend",
+  "Create conflict copies for concurrent edits and restore files from version history",
+  "Provision the Workers, D1 and R2 backend and device packages with a setup wizard",
+  "Manage independent device tokens and isolated cloud vaults from a web management page"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The plugin interface is currently Chinese only. The community directory entry was awaiting automated review, so manual installation may be needed. No end-to-end encryption: the Cloudflare account owner and backend administrator can access data. Sync propagates deletions and is explicitly not a backup. Cloudflare may require a payment method to activate R2, though no paid Workers plan is purchased.",
+ "intent": "alternative",
+ "intentEvidence": "This is a community project, not the official Obsidian Sync service.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a developer-hosted service, so users who want vault synchronization through their own storage infrastructure have no built-in option.",
+ "readmeHash": "84a39416788814c74cfe12545eab731ba792dc34",
+ "relations": [
+  {
+   "evidence": "This is a community project, not the official Obsidian Sync service.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Sync an Obsidian vault across desktop, iPhone and Android using your own Cloudflare account.",
+   "plugin": "Cloudflare (Workers, D1, R2)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare account with Workers, D1 and R2",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted vault sync across desktop and mobile using your own Cloudflare Workers, D1 and R2 backend, with conflict copies and file history restore.",
+ "tags": [
+  "cloudflare",
+  "self-hosted",
+  "workers",
+  "r2",
+  "conflict-resolution",
+  "version-history",
+  "device-tokens"
+ ]
+}

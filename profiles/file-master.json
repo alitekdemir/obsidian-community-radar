@@ -1,0 +1,65 @@
+{
+ "also": [
+  "files",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted and dropped attachments to a self-hosted server and insert links",
+  "Merge byte-identical duplicate attachments via SHA-256",
+  "Detect and clean orphaned local and remote attachments",
+  "Scan for broken wikilinks, missing embeds, and dead remote links",
+  "Rename server files vault-wide while updating all note references"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Focuses on attachments (images, videos, documents) and the links referencing them, not on organizing note files or folder structure.",
+ "extras": "Server features require deploying the separate file-master-server backend and an API token; plugin and server must both be version 1.1+ (1.2.0+ recommended); MIT licensed; installable via BRAT; supports English and Simplified Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author lists the pain of messy attachment management as vaults grow: bloated sync, duplicates, orphans, publishing friction, and renames that break links.",
+ "primary": "attachments",
+ "problem": "Growing vaults pile up duplicate screenshots, orphaned attachments, and broken links, and local images are hard to publish or migrate without manually rewriting links.",
+ "readmeHash": "1e7d7dc631792a7fab221ec9809af46b5703e9a9",
+ "relations": [
+  {
+   "evidence": "Deploy the backend using the file-master-server guide.",
+   "plugin": "file-master-server",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Multi-format support: works across Markdown, Canvas, and Excalidraw files.",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "file-master-server (self-hosted backend)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Attachment manager that deduplicates, cleans orphans, and checks broken links locally, with optional self-hosted server upload, WebP links, and renames.",
+ "tags": [
+  "self-hosted",
+  "deduplication",
+  "sha-256",
+  "orphan-cleanup",
+  "broken-links",
+  "webp",
+  "recycle-bin"
+ ]
+}

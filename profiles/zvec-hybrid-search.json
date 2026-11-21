@@ -1,0 +1,57 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search notes by keyword, semantic meaning, or a hybrid of both",
+  "open results at the matching section of each note",
+  "index the whole vault or selected folders with automatic incremental updates",
+  "filter results by modified date, term matching, and sort order",
+  "search YAML property names and values as metadata matches"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (macOS Apple silicon, Windows x64, Linux x64/ARM64); no mobile support. First enable downloads a ~75-100 MB private Node.js runtime from GitHub and a MiniLM model from Hugging Face, so an internet connection is needed once; notes are never uploaded. Index, model, and runtime are stored outside the vault to avoid sync conflicts with Dropbox, iCloud, and OneDrive. Also installable via BRAT or manually.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's core search matches words only, so notes using related terms or similar meaning do not surface, and there is no semantic or hybrid retrieval built in.",
+ "readmeHash": "4910ff13c3ce8c767da40dc7a2ba076af0b7aa9e",
+ "relations": [
+  {
+   "evidence": "ZVec provides the local keyword and similarity search database.",
+   "plugin": "ZVec",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Transformers.js runs the MiniLM model locally to convert note content into vectors",
+   "plugin": "Transformers.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local hybrid search plugin that finds notes by keyword (BM25), semantic similarity, or both, with automatic indexing and section-level results.",
+ "tags": [
+  "bm25",
+  "semantic-search",
+  "embeddings",
+  "transformers-js",
+  "minilm",
+  "local-inference"
+ ]
+}

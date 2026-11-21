@@ -1,0 +1,53 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault through a self-hosted server from desktop, mobile, and the command line",
+  "Merge non-overlapping edits and keep conflict copies instead of overwriting",
+  "Restore deleted files from the server trash and browse per-file revision history",
+  "Encrypt vault contents and file names end-to-end with password and recovery phrase",
+  "Choose which Obsidian settings (appearance, hotkeys, plugins) sync between devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README addresses Obsidian's review flags directly: it explains the desktop direct file system access (Node fs with atomic writes and fsync), states there is no telemetry, and discloses that a Rust-compiled WebAssembly sync core is embedded in main.js with build provenance attestations. A hosted variant (Selfsync Cloud) exists but is a separate plugin; this plugin has no accounts or subscriptions. Also covers read-only devices, light-device download limits, and a CLI that syncs plain folders without Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync is a paid hosted service, and generic file-sync tools can silently lose overlapping edits or deletions.",
+ "readmeHash": "e30e28ec78eb152bae727522b73dcf3a8b063dbb",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "selfsync server (Rust binary, self-hosted)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted vault sync through your own server with diff3 auto-merge, conflict copies, deleted-file trash, revision history and optional end-to-end encryption.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "diff3",
+  "conflict-resolution",
+  "rust",
+  "qr-code",
+  "argon2id"
+ ]
+}

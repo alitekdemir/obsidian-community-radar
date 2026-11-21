@@ -1,0 +1,58 @@
+{
+ "also": [
+  "files",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Resolve broken embeds by filename from a list of external folders",
+  "Render external media with Obsidian sizing suffixes and per-link alignment",
+  "Index external folders and their subfolders for faster lookups",
+  "Rescan the current view and rebuild the external folder index",
+  "Mark externally-resolved embeds with an optional dashed outline"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not move or manage attachments itself; you cut files out of the vault manually and the plugin only resolves their embeds afterward.",
+ "extras": "Desktop only — mobile Obsidian does not expose the local filesystem. Not yet in the community catalog; install via BRAT or manually from a release. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Externally-resolved embeds avoid Obsidian's standard embed CSS classes, so themes like Minimal style them differently unless you add your own snippet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because no existing tool resolved embeds from outside the vault, leaving users to delete their files or pay for more storage.",
+ "primary": "attachments",
+ "problem": "Obsidian only resolves embeds for files inside the vault, so moving large attachments out to dodge sync quotas breaks every wikilink pointing at them.",
+ "readmeHash": "089b6da331ebf24bfc1c790b66efccd53c988490",
+ "relations": [
+  {
+   "evidence": "install with BRAT pointed at this repo",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "cloud sync clients (Google Drive, Dropbox, etc.)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Embed resolver that renders attachment embeds from folders outside the vault, so heavy files can live on external drives or extra cloud storage.",
+ "tags": [
+  "wikilinks",
+  "cloud-storage",
+  "external-drive",
+  "nas",
+  "blob-urls"
+ ]
+}

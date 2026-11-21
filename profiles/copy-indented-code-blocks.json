@@ -1,0 +1,46 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "detect the indentation level of a code block",
+  "remove leading whitespace from each copied line",
+  "preserve relative indentation within the code",
+  "support spaces, tabs, and fences longer than 3 backticks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README notes a quirk: indented code blocks only render as code blocks directly under a list item (bullet, checkbox, or number). Installable manually, via BRAT, or built from source.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to fold code blocks inside lists and \"couldn't find any other plugins that simply excluded the code block's indentation from the copying functionality\".",
+ "primary": "code",
+ "problem": "Obsidian's built-in code block copy includes the block's indentation, which users then have to delete manually, e.g. before pasting into a terminal.",
+ "readmeHash": "024f56978c2fa4f7e938dcd49957daa0c4034748",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Clipboard hook that strips the leading indentation when copying fenced code blocks nested inside lists, so pasted code starts at column zero.",
+ "tags": [
+  "clipboard",
+  "code-blocks",
+  "indentation",
+  "lists",
+  "folding"
+ ]
+}

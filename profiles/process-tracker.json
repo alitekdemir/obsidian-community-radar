@@ -1,0 +1,85 @@
+{
+ "also": [
+  "calendar",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a tracker table or daily checklist from a process-tracker code block",
+  "Create and open per-day entry notes by clicking table cells",
+  "Write dated journal records into track notes instead of separate files",
+  "Show only tracks that are due using recurrence periods",
+  "Roll up child-track activity into parent-track rows"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a project-management or business-process tool; it tracks recurring personal habits and activities day by day.",
+ "extras": "Dataview is required only for the track filter and show: due options; the table works without it. Date links and new daily notes depend on the core Daily notes plugin or Periodic Notes being enabled. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in way to track habits or long-running activities day by day with a per-day note behind each checkmark.",
+ "readmeHash": "05072e2633e130ae34ab58c8b8d3dfa8c822440a",
+ "relations": [
+  {
+   "evidence": "the track option needs the Dataview community plugin",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "that needs Templater with \"Trigger Templater on new file creation\" enabled",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or from Periodic Notes when you keep your daily notes there",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Daily notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Habit and progress tracker that renders a code block as a table of tracks and days, where each checkmark is an editable note or journal record.",
+ "tags": [
+  "habit-tracker",
+  "streaks",
+  "recurrence",
+  "code-block",
+  "dataview",
+  "templater"
+ ]
+}

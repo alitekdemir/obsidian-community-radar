@@ -1,0 +1,65 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI assistant about the current note and daily desk",
+  "Create and edit markdown notes after approving a plan (never deletes)",
+  "Attach markdown, text, or PDF files to chat messages",
+  "Dictate text into the open note by voice",
+  "Configure tone and instructions in a Jarvis.md file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marked in the manifest as not manually reviewed by Obsidian staff. Desktop only. README warns not to enable file writes on a vault you would not trust with the voice/chat provider; typed chat goes to Cursor and voice to the chosen Talk provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in conversational AI that can discuss the current note and, on approval, write changes directly into the vault.",
+ "readmeHash": "e892e53bdc440fcb8c09e50597de59e6a6d81b7d",
+ "relations": [
+  {
+   "evidence": "uses your Cursor models. A yes writes the vault",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The mic uses Grok Voice.",
+   "plugin": "Grok Voice",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Cursor API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cursor account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "AI chat assistant ('Jarvis') that talks to your vault through Cursor account models and can read, create, and edit markdown notes, with optional voice dictation.",
+ "tags": [
+  "cursor",
+  "grok-voice",
+  "mistral",
+  "ollama",
+  "lm-studio",
+  "voice-dictation",
+  "ai-chat"
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "create Basic, Reversible, Cloze, List, Dump, and Image Occlusion cards from Markdown markers",
+  "synchronize note edits, moves, and renames to Anki while preserving scheduling and review history",
+  "queue mobile card operations in an outbox processed by desktop Obsidian via file sync",
+  "render embeds, Canvas, PDF, Excalidraw, and chart blocks into portable Anki media",
+  "review and confirm pending deletions and resolve missing-note conflicts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Versions before 1.0.0 used the plugin ID obsidian-anki-bridge; the current version migrates the old registry, settings, and outbox. When syncing the vault across devices, the README recommends separate Obsidian configuration folders per device so device-specific settings do not overwrite the shared registry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to turn notes into Anki flashcards that stay in sync without writing generated IDs into the Markdown or losing review history.",
+ "readmeHash": "687e4b3ad6f08cc18b6df5535abb051cab12a31c",
+ "relations": [
+  {
+   "evidence": "On desktop, the plugin connects to a running Anki application through AnkiConnect.",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw drawings and other visual file embeds rendered through their Obsidian plugin when that plugin is installed",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Function Plot and Charts View code blocks rendered as images",
+   "plugin": "Function Plot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Function Plot and Charts View code blocks rendered as images",
+   "plugin": "Charts View",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "AnkiConnect",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Obsidian Sync (or another file-sync service)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Creates and updates Anki flashcards from Markdown markers, syncing edits while preserving Anki scheduling and review history, with a mobile outbox workflow.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "spaced-repetition",
+  "cloze",
+  "image-occlusion",
+  "mathjax",
+  "excalidraw"
+ ]
+}

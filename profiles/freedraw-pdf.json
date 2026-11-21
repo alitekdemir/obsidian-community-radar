@@ -1,0 +1,66 @@
+{
+ "also": [
+  "annotation",
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Annotate PDFs with pressure-aware pen, highlighter, shapes, text boxes and images",
+  "Insert blank, ruled, grid or dotted writing pages into a PDF",
+  "Recognize handwriting into selectable read-only text via OCR providers",
+  "Embed annotated pages or regions into Markdown notes",
+  "Export a separate annotated PDF copy while keeping the original unchanged"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a freeform drawing canvas; annotations attach to PDF pages and are stored beside the PDF file.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Annotations live in a companion .annot.json file that must be kept with the PDF when backing up or syncing. Online OCR requires your own API credentials and may incur usage charges; dense annotation pages can render slowly. Requires Obsidian 1.12.0 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian's PDF viewer is read-only, so there is no way to write, draw or mark up PDFs inside the app.",
+ "readmeHash": "0f9b4a4f918afde0076c237ca4674ceda756e886",
+ "relations": [
+  {
+   "evidence": "Optional OCR with Gemini, an OpenAI-compatible service or a separately installed local helper.",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional OCR with Gemini, an OpenAI-compatible service or a separately installed local helper.",
+   "plugin": "OpenAI-compatible service",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini or OpenAI-compatible provider credentials",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Separately installed local recognition helper",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "PDF annotation layer for Obsidian's viewer that adds stylus handwriting, shapes, text, images, writing pages, OCR and annotated PDF export.",
+ "tags": [
+  "stylus",
+  "handwriting",
+  "gemini",
+  "openai",
+  "annot-json"
+ ]
+}

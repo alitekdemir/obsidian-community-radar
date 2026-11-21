@@ -1,0 +1,69 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull the repository on app open, on return, on a timer, or by command",
+  "Push changes automatically after edits, on a timer, or in the background",
+  "Resolve conflicts by letting the last change win and copying the losing version to .trash/simple-git-sync/",
+  "Clone a repository into an empty vault using an HTTPS token and reload Obsidian",
+  "Discard local changes on a read-only device at a scheduled daily time"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a general git client for the vault; it only syncs one vault to one repository automatically.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README discloses that it edits the vault's .gitignore, stores the token in Obsidian's secret storage, and that the built-in engine is slow and memory-hungry with large repositories on phones. Only GitHub is tested.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to challenge himself to learn the inner workings of git, and specifically for his own needs.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync across desktop and mobile through a git repository without manual commits, pushes, and merge conflicts.",
+ "readmeHash": "2c72683585f99ec19fa90e822979e79e3aa22b67",
+ "relations": [
+  {
+   "evidence": "Built-in (mobile, optional on desktop): isomorphic-git over HTTPS with a token.",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "a git host account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "HTTPS access token for mobile or the built-in engine",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "a locally installed git program (native desktop engine)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git-based vault sync that pulls on app open and pushes after you stop editing, recovering conflicting versions from .trash instead of merging.",
+ "tags": [
+  "isomorphic-git",
+  "github",
+  "ssh",
+  "access-token",
+  "conflict-resolution",
+  "https",
+  "version-control"
+ ]
+}

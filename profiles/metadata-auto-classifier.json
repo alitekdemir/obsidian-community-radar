@@ -1,0 +1,84 @@
+{
+ "also": [
+  "ai",
+  "tags"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Classify candidate values for tags and other frontmatter fields with per-candidate probability decisions",
+  "Generate new tags only for the tags field when explicitly enabled, using a chat model",
+  "Fetch frontmatter for a whole note or a single field from the command palette",
+  "Preserve field instructions, count limits, overwrite/append and WikiLink options and unrelated note text",
+  "Record token counts and response times per provider in a local usage file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Sends note body, instructions and candidate values to the selected AI provider; stores local usage records (tokens, response times) per provider; states telemetry is none and that offline tests do not certify live-account or mobile behavior.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian has no built-in way to select or fill frontmatter field values automatically, so users must tag and complete properties by hand.",
+ "readmeHash": "00139d507fcb28d25c3fe213dd99b87149a771ff",
+ "relations": [
+  {
+   "evidence": "Classification uses decision API models only: TypeSafe Jev, OpenAI Decisions, OpenRouter or a custom /systemone endpoint.",
+   "plugin": "TypeSafe",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local Ollama and LM Studio can be keyless.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "provider API key (TypeSafe, OpenAI, Anthropic, Gemini, OpenRouter, DeepSeek)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider account (OpenAI Codex OAuth, provider billing)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "provider usage billing",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local keyless use",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI plugin that classifies and applies frontmatter metadata, such as tags, to notes using decision API models with per-value confidence.",
+ "tags": [
+  "llm",
+  "classification",
+  "auto-tagging",
+  "openai",
+  "ollama",
+  "openrouter"
+ ]
+}

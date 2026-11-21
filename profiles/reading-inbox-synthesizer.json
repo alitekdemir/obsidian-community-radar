@@ -1,0 +1,76 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync clippings to extract summaries, key claims, and topics",
+  "Generate a Reading Synthesis report note with themes and weekly saves",
+  "Identify topics shared across two or more clippings",
+  "Flag clippings that have sat unread past a stale threshold",
+  "Connect to Anthropic, OpenAI, OpenRouter, or custom OpenAI-compatible endpoints"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a web clipper or read-later app; it only synthesizes clippings already saved in the vault.",
+ "extras": "Freemium: free tier allows 10 lifetime clipping syncs per vault; report generation is always free. Pro is a one-time purchase (no subscription or account) with offline license verification, sold via Gumroad. Clippings are sent only to the chosen AI provider; no servers or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "After Pocket shut down in 2025, users moved clippings into Obsidian via Web Clipper but the unread backlog moved with them, becoming a 'to-read graveyard' in the vault.",
+ "primary": "ai",
+ "problem": "Web clippings pile up unread in the vault, and Obsidian offers no way to process a large clipping backlog or see what has gone stale.",
+ "readmeHash": "05d5a134410c5430c667f5f1edade81d8f65e5dc",
+ "relations": [
+  {
+   "evidence": "Clip articles into Obsidian as you normally would (the official Web Clipper works out of the box)",
+   "plugin": "Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select your AI provider (Anthropic, OpenAI, OpenRouter, or custom)",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select your AI provider (Anthropic, OpenAI, OpenRouter, or custom)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select your AI provider (Anthropic, OpenAI, OpenRouter, or custom)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (Anthropic, OpenAI, OpenRouter, or custom endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "One-time Pro purchase for unlimited clipping syncs",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI synthesizer that summarizes a vault's web-clipping backlog, surfaces cross-article themes, and writes a weekly reading report note.",
+ "tags": [
+  "web-clipper",
+  "read-later",
+  "summarization",
+  "anthropic",
+  "openai",
+  "openrouter"
+ ]
+}

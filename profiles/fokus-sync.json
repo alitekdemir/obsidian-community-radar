@@ -1,0 +1,63 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes two ways between the vault and a Fokus account",
+  "Upload embedded images and map them to URLs in Fokus",
+  "Convert body tags and frontmatter tags into Fokus tags and map folders to buckets",
+  "Hold edit locks while editing and write conflict copies when both sides change",
+  "Run manual, polled, and full-folder sync from commands with a persisted queue"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that Obsidian's keychain is shared between plugins, so another plugin could read the token; recommends a revocable token. Notes that content conversion to canonical markdown happens on Fokus's side, lists lossy and unsupported cases (Canvas, mobile, callouts, footnotes, Dataview syntax), and says deletion only unlinks rather than deleting in Fokus.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says a vault \"is very good at writing things down and not good at being asked questions\", so synced notes can inform Fokus search, its assistant, and planning.",
+ "primary": "integrations",
+ "problem": "Notes in an Obsidian vault stay local and cannot be searched, linked to tasks, or read on the phone through Fokus.",
+ "readmeHash": "252a6c55c9b1f04461ab4554dc4a2779c72474bf",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian vault notes into Fokus.",
+   "plugin": "Fokus",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Fokus account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fokus API token created in Settings → Integrations → Obsidian",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync that keeps vault notes, tags, folder mappings and embedded images in a Fokus account, with edit locks and conflict copies.",
+ "tags": [
+  "fokus",
+  "edit-locks",
+  "conflict-copies",
+  "embedded-images",
+  "api-token",
+  "two-way-sync"
+ ]
+}

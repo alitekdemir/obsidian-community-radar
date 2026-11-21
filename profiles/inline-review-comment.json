@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render inline %% comments %% as margin review cards in reading, Live Preview, and Source mode",
+  "Insert, reply to, edit, delete, and resolve comment threads",
+  "Quote a selected passage into a new comment",
+  "Mention an AI agent in a comment to have it respond and act in the thread",
+  "Show thread counts in the status bar and mark notes with threads in the file explorer"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a real-time collaboration tool; comments live in the note's Markdown and are answered later by readers or an agent.",
+ "extras": "Agent mention execution requires desktop; comment viewing and editing also work on mobile. Minimum Obsidian version 1.13.0. The plugin has no telemetry or external comment service; author names are stored per device, and setting a Gravatar email sends a hashed email to Gravatar.",
+ "intent": "improve",
+ "intentEvidence": "Inline Review Comments turns Obsidian's %% comments %% into review cards in the right margin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian's inline %% comments %% are hidden markers with no visible interface, so leaving feedback beside a passage or exchanging replies with an agent or collaborator is awkward.",
+ "readmeHash": "7f800f2d6654bb79e1c7a922c7cc72b9a69e6a11",
+ "relations": [
+  {
+   "evidence": "With the AI Overview plugin enabled on desktop, set Settings → AI Overview → Agent name tag",
+   "plugin": "AI Overview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin sends a SHA-256 hash of the email to Gravatar over HTTPS",
+   "plugin": "Gravatar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an AI agent with read/edit access to the notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "AI Overview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Margin review-card interface for Obsidian inline %% comments %% where humans and AI agents exchange threaded feedback stored in the note's Markdown.",
+ "tags": [
+  "inline-comments",
+  "comment-threads",
+  "ai-agents",
+  "gravatar",
+  "margin-cards"
+ ]
+}

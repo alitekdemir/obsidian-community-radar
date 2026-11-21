@@ -1,0 +1,64 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "watch a configured folder for newly saved clipping files",
+  "launch a tmux window running claude \"/ingest <path>\" on each new file",
+  "convert clippings into knowledge-graph notes via the /ingest skill",
+  "configure the watch folder and toggle auto-ingest"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not clip or process articles itself; it only watches a folder and launches Claude Code to do the ingestion.",
+ "extras": "Desktop-only (uses Node.js child_process to run tmux and claude); the plugin itself makes no network requests but Claude Code sends content to Anthropic's API. Requires copying a /ingest SKILL.md into the vault, and the skill's paths must be updated if the watch folder changes. Not reviewed by Obsidian staff; installed by manually copying main.js, manifest.json, and styles.css.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Clippings saved by Obsidian Web Clipper sit as raw files until you manually run an AI processing step to turn them into wiki knowledge-graph notes.",
+ "readmeHash": "f3441c857884a4673a595ccb276b1b9edcad5752",
+ "relations": [
+  {
+   "evidence": "Obsidian Web Clipper is used to save an article to e.g raw/clippings/",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "watches a folder for new clippings and automatically triggers Claude Code's /ingest skill",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI and tmux",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic account and API access",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Folder watcher that automatically triggers Claude Code's /ingest skill on new web clippings saved into a vault folder.",
+ "tags": [
+  "claude-code",
+  "tmux",
+  "web-clipper",
+  "zsh"
+ ]
+}

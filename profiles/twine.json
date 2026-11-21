@@ -1,0 +1,71 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault directly to an S3-compatible bucket over the S3 API",
+  "Encrypt file contents, paths, and folder structure client-side (AES-256-GCM, PBKDF2) before upload",
+  "Preserve both versions of a file when two devices conflict, saving one as a conflicted copy",
+  "Trigger syncs on file changes, on a foreground timer, and on app open/resume",
+  "Export and import a recovery key for regaining access after a lost passphrase"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README recommends enabling bucket-level object versioning as a safety net, since the plugin has no in-app version history browser yet, and warns there is no server-side passphrase recovery — losing the passphrase and recovery key means losing the data.",
+ "intent": "alternative",
+ "intentEvidence": "It exists as a personal alternative to Obsidian Sync's $4–8/mo subscription and to self-hosted CouchDB-based sync tools",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted sync without Obsidian Sync's ongoing subscription cost and without the burden of running a CouchDB server, using object storage the user already controls.",
+ "primary": "syncing",
+ "problem": "Obsidian Sync costs money indefinitely, and self-hosted CouchDB-based sync tools are free but require running and maintaining a server.",
+ "readmeHash": "d23f4c800becfec3f331c45e0df282aebddbfa7f",
+ "relations": [
+  {
+   "evidence": "a personal alternative to Obsidian Sync's $4–8/mo subscription",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Self-hosted LiveSync (CouchDB) is free, but you're now running and maintaining a server",
+   "plugin": "Self-hosted LiveSync (CouchDB)",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Cloudflare R2 is recommended — it has a generous free tier and zero egress fees",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a bucket you own (Cloudflare R2, Backblaze B2, or anything S3-compatible)",
+   "plugin": "Backblaze B2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "an S3-compatible object storage account (e.g. Cloudflare R2 or Backblaze B2) with an API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "End-to-end encrypted vault sync plugin that syncs directly to your own S3-compatible bucket (Cloudflare R2, Backblaze B2) with no server or subscription.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "backblaze-b2",
+  "end-to-end-encryption",
+  "recovery-key",
+  "conflict-resolution"
+ ]
+}

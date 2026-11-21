@@ -1,0 +1,53 @@
+{
+ "also": [
+  "syncing",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Repair invalid file names with adjustable per-character replacement rules",
+  "Update links when renaming and keep the old name as an alias",
+  "Queue doubtful renames in a review list for manual confirmation",
+  "Log every rename to per-device .jsonl files with a filterable view",
+  "Expose sanitizeName and checkName API functions to other plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin store; installable manually or via BRAT. Renames nothing by default on phones and tablets, and automatic renaming requires Obsidian's 'Automatically update internal links' setting to be on.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "LLMs, scripts and other tools create files whose names contain characters Obsidian Sync rejects or that break internal links, and Obsidian does not fix them itself.",
+ "readmeHash": "1d6e40f3544bfb089d5766936655f892d8daf7fe",
+ "relations": [
+  {
+   "evidence": "fall back to the same default rules without it, through safeFileName in obsidian-kit",
+   "plugin": "obsidian-kit",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Rule-based file name repairer that renames files with characters Obsidian Sync or links reject, logs every change, and offers a name-checking API.",
+ "tags": [
+  "file-renaming",
+  "invalid-characters",
+  "jsonl",
+  "duplicate-detection",
+  "gitignore-patterns",
+  "brat"
+ ]
+}

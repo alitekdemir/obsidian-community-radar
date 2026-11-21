@@ -1,0 +1,109 @@
+{
+ "also": [
+  "video",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search anime and organize a tracking shelf",
+  "Manage fansub RSS subscriptions and downloads through qBittorrent",
+  "Fetch and merge danmaku with audio offset calibration",
+  "Launch local or remote players for episodes",
+  "Sync Bangumi collection status, progress, ratings, and short reviews"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a video or media hosting service; it coordinates external downloaders, players, and Bangumi, and provides no copyright license for video resources.",
+ "extras": "Desktop features are Windows-only in part (boot scheduling, idle exit); macOS, Linux and physical mobile devices are not yet end-to-end verified. Credentials in data.json are unencrypted. Optional Bangumi mirror routes the access token through a third-party service. Auto-clean deletes media files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Tracking seasonal anime, fansub downloads, danmaku playback, and Bangumi progress normally requires several separate apps outside Obsidian.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "cfff4648199212e7847e1190c70989385b3f56e4",
+ "relations": [
+  {
+   "evidence": "交给 qBittorrent 管理 RSS 与下载",
+   "plugin": "qBittorrent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "推荐安装 弹弹play；PotPlayer、mpv、VLC 也可以作为播放器",
+   "plugin": "弹弹play",
+   "type": "integrates"
+  },
+  {
+   "evidence": "维护 Bangumi 收藏状态、评分和短评，后台队列推送修改",
+   "plugin": "Bangumi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "官方弹幕采用 AniClip 的删减时间数据",
+   "plugin": "AniClip",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Bangumi account and Access Token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "qBittorrent (Windows) with Web UI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "弹弹play or PotPlayer/mpv/VLC player",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python with NumPy and FFmpeg for audio offset calibration",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili login session for danmaku sources",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "WebDAV/SFTP/FTP/SMB service and rclone for remote media",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Kodi, Jellyfin or Emby for network playback",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Anime tracking plugin that searches series, manages fansub RSS downloads via qBittorrent, plays episodes with danmaku, and syncs Bangumi progress and ratings.",
+ "tags": [
+  "bilibili",
+  "rss",
+  "qbittorrent",
+  "bangumi",
+  "danmaku",
+  "webdav",
+  "rclone",
+  "subtitles"
+ ],
+ "textHash": "1d81260d95fab6a783b92bdc02c2088e6330b9c4"
+}

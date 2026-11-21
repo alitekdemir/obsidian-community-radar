@@ -1,0 +1,68 @@
+{
+ "also": [
+  "writing",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create handwriting notes as *.ink.md markdown files that open in a pen-first canvas view",
+  "Draw with pressure-sensitive pen, highlighter, eraser, and select tools, including stylus buttons and paper guides",
+  "Transcribe handwriting into a text layer that core search, graph, backlinks, and Quick Switcher index",
+  "Embed sketches inline via ![[embeds]] or ```inkedmark fenced blocks with searchable captions",
+  "Run handwriting recognition through manual, cloud AI, or experimental on-device providers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Also installable via BRAT (pcrausaz/obsidian-inkedmark). On iPad, iPadOS Scribble must be turned off or strokes drop. Cloud recognition sends rendered ink images to the chosen vendor; the manual provider works fully offline.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "drawing",
+ "problem": "Obsidian has no built-in way to write by hand inside notes, and handwritten content is otherwise invisible to search, graph, and backlinks.",
+ "readmeHash": "75b6439830aa0b41b8e6bcf1c758693679de171a",
+ "relations": [
+  {
+   "evidence": "The OpenRouter vendor lets you try any vision model on the market",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any self-hosted OpenAI-compatible server (Ollama, LM Studio, llama.cpp, vLLM, LocalAI)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an offline TrOCR model transcribes the ink line-by-line, entirely on your machine",
+   "plugin": "TrOCR",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, Google, OpenRouter, or custom endpoint key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Handwriting plugin that stores pressure-sensitive ink notes as markdown files, with a searchable transcription layer, inline sketches, and Apple Pencil support.",
+ "tags": [
+  "apple-pencil",
+  "stylus",
+  "handwriting-recognition",
+  "trocr",
+  "openrouter",
+  "perfect-freehand",
+  "pdf-free"
+ ]
+}

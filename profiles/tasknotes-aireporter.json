@@ -1,0 +1,73 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Filter tasks by date range, title keyword, tag, context, or manual selection",
+  "Generate report notes from selected tasks with an OpenAI-compatible model",
+  "Define reusable report templates with placeholders",
+  "Store API keys in Obsidian's SecretStorage",
+  "Configure model presets, output folder, date fields, and interface/report languages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a task manager; it only reads tasks from TaskNotes and writes the generated report into a new note.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents network use in detail (task data and prompts go only to the configured endpoint, no telemetry), a migration caveat about cancelled statuses in TaskNotes, and includes a Chinese-language section. Requires Obsidian 1.12.2 or newer.",
+ "intent": "improve",
+ "intentEvidence": "This plugin reads tasks through TaskNotes' runtime API and does not modify it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn a filtered set of tasks into a written summary report note.",
+ "readmeHash": "50457adaa3f8b273214ce4cd37aeb2410660b974",
+ "relations": [
+  {
+   "evidence": "This plugin reads tasks through TaskNotes' runtime API and does not modify it.",
+   "plugin": "TaskNotes",
+   "type": "extends"
+  },
+  {
+   "evidence": "built-in presets for DeepSeek, Qwen, Kimi, and MiniMax, or a custom base URL",
+   "plugin": "DeepSeek, Qwen, Kimi, MiniMax (OpenAI-compatible endpoints)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible model endpoint (DeepSeek, Qwen, Kimi, MiniMax, or custom)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Report generator that turns tasks selected from TaskNotes into an AI-written report note using templates and any OpenAI-compatible model.",
+ "tags": [
+  "tasknotes",
+  "openai-compatible",
+  "deepseek",
+  "qwen",
+  "kimi",
+  "minimax",
+  "report-templates",
+  "llm"
+ ]
+}

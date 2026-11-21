@@ -1,0 +1,77 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "orchestrate multi-agent AI tasks over the vault with ReAct loops",
+  "retrieve vault content using hybrid BM25 and semantic RAG",
+  "gate and approve every agent file write with diff previews",
+  "run a dashboard of zero-token cards, calendar, and vault doorway",
+  "convert speech to text and read responses aloud via provider TTS"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Web viewer",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a command-palette utility; the name refers to an AI agent dashboard that is merely launched from the command palette.",
+ "extras": "Desktop-only and requires Obsidian 1.13.0+. The README warns the plugin can modify vault files and recommends backups; it can also write to .command-center/ runtime folders. Free and MIT-licensed with an optional donation link; not yet manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because most AI integrations add a chat box while Command Center adds an operational layer over the whole vault.",
+ "primary": "ai",
+ "problem": "Most AI plugins for Obsidian add only a chat box, leaving no operational layer for vault indexing, task orchestration, approval-controlled writes, or daily workflow automation.",
+ "readmeHash": "2ea35dc2107cddca82e1fc3c2e9bcd7a03bb8fa2",
+ "relations": [
+  {
+   "evidence": "Pi powers local palette tasks and the full multi-agent ReAct path.",
+   "plugin": "Pi coding agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tasks use standard Markdown checkboxes with inline fields, so Dataview, Tasks, Kanban, and Bases keep working",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Command Center includes a server-side web search tool in requests routed through OpenRouter.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "provider API keys for cloud models (OpenAI, Anthropic, Gemini, Groq, DeepInfra, Mistral, Cohere, OpenRouter, xAI)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Pi CLI (Node.js 20+) for local Pi/ReAct execution",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Local-first AI orchestrator with a dashboard hub, multi-agent ReAct engine, hybrid vault RAG, write-gated approvals, and voice input across 13 providers.",
+ "tags": [
+  "llm",
+  "multi-agent",
+  "rag",
+  "embeddings",
+  "mcp",
+  "write-gate",
+  "speech-to-text",
+  "text-to-speech"
+ ]
+}

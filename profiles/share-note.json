@@ -1,0 +1,50 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Share a note as a themed web page via a link",
+  "Encrypt note content with a per-note key in the share link",
+  "Render Obsidian content types including Dataview queries, callouts, checkboxes and internal links",
+  "Let readers save the note's Markdown source back into their vault",
+  "Self-host the sharing server with a Docker image"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file sharing service; it shares note content, and attachments are uploaded unencrypted.",
+ "extras": "Includes developer-policy transparency disclosures (network requests, base64 encoding, clipboard write-only access). Encryption covers note text but not attachments; troubleshooting and system status are on external pages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to instantly share a single note as a themed web page that renders Dataview, callouts and internal links and that only the link holder can decrypt.",
+ "readmeHash": "5f31f5b7cf504267b9de2a27834756733d1ba48e",
+ "relations": [
+  {
+   "evidence": "Here's an example inline Dataview query. It will be correctly rendered when sharing",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes a note to the web with your full theme and rendered content, encrypted by default with the decryption key embedded in the share link.",
+ "tags": [
+  "encryption",
+  "end-to-end-encryption",
+  "self-hosting",
+  "docker",
+  "share-link",
+  "dataview"
+ ]
+}

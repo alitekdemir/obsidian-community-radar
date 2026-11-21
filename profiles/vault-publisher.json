@@ -1,0 +1,77 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish a vault as a static website rendered through Obsidian's own renderer",
+  "Publish Bases views as static tables, cards and lists with all rows",
+  "Scope which notes publish by folder, excluded folders or a frontmatter flag",
+  "Encrypt published pages behind a shared build-time password",
+  "Collect reviewer comments on a built site and file them to GitHub, Jira or Asana"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (renders through a running Obsidian, Obsidian 1.7.2+); the author flags that scale to large vaults is untested, and that the password lock is a shared secret rather than access control; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Publishers that convert Markdown outside Obsidian cannot reproduce Dataview, Bases and Mermaid output, so those features get skipped or the user is handed a separate static-site generator to configure.",
+ "readmeHash": "77acc316fa84b573d5b580eab602b348755197ef",
+ "relations": [
+  {
+   "evidence": "The plugin commits the built site through the Git Data API and points GitHub Pages at the branch.",
+   "plugin": "GitHub Pages",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview, Datacore, Bases and Mermaid output exists only inside a running Obsidian.",
+   "plugin": "Dataview",
+   "type": "extends"
+  },
+  {
+   "evidence": "On Obsidian 1.10 or later the plugin does not read the page at all. It registers a view type of its own",
+   "plugin": "Bases",
+   "type": "extends"
+  },
+  {
+   "evidence": "An open comment can be filed as an issue in GitHub, Jira or Asana and synced back",
+   "plugin": "Jira",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An open comment can be filed as an issue in GitHub, Jira or Asana and synced back",
+   "plugin": "Asana",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Static-site publisher that renders each note through Obsidian's own renderer so Dataview, Bases and Mermaid output survives in the published HTML.",
+ "tags": [
+  "static-site",
+  "github-pages",
+  "dataview",
+  "mermaid",
+  "encryption",
+  "code-review",
+  "git-data-api"
+ ]
+}

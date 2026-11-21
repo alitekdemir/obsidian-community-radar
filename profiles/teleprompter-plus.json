@@ -1,0 +1,93 @@
+{
+ "also": [
+  "audio",
+  "video"
+ ],
+ "audience": [
+  "video-creators",
+  "podcasters",
+  "presenters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-scroll notes at adjustable speed with countdown timer and mirror flipping",
+  "Follow the reader's voice with on-device speech recognition and word highlighting",
+  "Control playback from Stream Deck, a mobile web remote, or keyboard commands",
+  "Read scripts aloud with offline or ElevenLabs text-to-speech",
+  "Integrate script playback with OBS recording via a local WebSocket API"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. ElevenLabs TTS is a paid, opt-in cloud service that sends script text off-device; all other engines run offline. Detailed docs (Stream Deck actions, WebSocket API, TTS setup, troubleshooting) live in separate files rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Designed for creators who already live in Obsidian and want a teleprompter that speaks the same Markdown they write in.",
+ "primary": "interface",
+ "problem": "Obsidian has no built-in way to read a note as a scrolling script while recording video, presenting, or practicing a speech.",
+ "readmeHash": "dfb9e91fc3816980f3ab58220c805b12bbda543b",
+ "relations": [
+  {
+   "evidence": "The voice-tracking matcher (speech-to-script alignment) is ported from jlecomte/voice-activated-teleprompter (MIT)",
+   "plugin": "jlecomte/voice-activated-teleprompter",
+   "type": "inspired"
+  },
+  {
+   "evidence": "ElevenLabs (optional, cloud, paid — bring your own key)",
+   "plugin": "ElevenLabs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OBS integration — start/stop recording synced with teleprompter playback",
+   "plugin": "OBS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Stream Deck integration — 55+ actions across 8 categories with real-time bidirectional state sync",
+   "plugin": "Stream Deck",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Stream Deck app and plugin",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OBS",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "ElevenLabs API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python venv for Kokoro MLX TTS",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Teleprompter view that auto-scrolls notes with voice tracking, text-to-speech, Stream Deck and mobile remote control, and OBS sync.",
+ "tags": [
+  "teleprompter",
+  "stream-deck",
+  "elgato",
+  "text-to-speech",
+  "elevenlabs",
+  "obs",
+  "voice-tracking",
+  "vosk"
+ ]
+}

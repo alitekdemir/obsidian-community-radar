@@ -1,0 +1,75 @@
+{
+ "also": [
+  "import",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Reads receipt photos and notes with AI services",
+  "Drafts ledger entries for review before saving",
+  "Imports bank and payment app CSV statements",
+  "Tracks budgets, refunds, transfers and exchange rates",
+  "Exports the ledger to CSV and charts spending"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a full accounting system: it tracks expenses only, with no income or account balances.",
+ "extras": "Free, MIT, no account or analytics. API keys stay in Obsidian secret storage and are not synced; receipt images/text go only to your chosen AI services, and only currency pair plus date go to frankfurter.app. Inbox folders auto-send files to the AI service; needs Obsidian 1.13+; plugin id changed from ai-accounting-plugin in 0.4.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Obsidian has no expense ledger, so receipt photos and notes must be transcribed by hand into Markdown tables.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "6c653b6fbf0398cbac2284677b56163c3ef66bf9",
+ "relations": [
+  {
+   "evidence": "DeepSeek is suggested first; pick another service if you like",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI, and any other OpenAI-compatible or local server",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Free, from frankfurter.app, cached in the plugin folder",
+   "plugin": "frankfurter.app",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI service API key (e.g. DeepSeek, OpenAI, Gemini) for receipt reading",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Expense ledger that turns receipt photos and notes into multi-currency Markdown, with AI-drafted entries you review before saving, budgets, charts and CSV.",
+ "tags": [
+  "vision-models",
+  "currency",
+  "deepseek",
+  "local-llm"
+ ],
+ "textHash": "53ca8e1336d1aaf2658e67b6c87818a11e6e2094"
+}

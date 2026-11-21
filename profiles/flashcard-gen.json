@@ -1,0 +1,73 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate quiz questions from the current note with an LLM",
+  "Use OpenAI models (gpt-4o, gpt-4o-mini) or local Ollama models",
+  "Send generated questions to the Spaced Repetition plugin",
+  "Optionally limit the number of generated questions",
+  "Run via ribbon icon, command, or custom hotkey"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a manual flashcard editor; it uses an LLM to generate quiz questions from an existing note rather than helping you write cards yourself.",
+ "extras": "For local Ollama use, the README warns about a CORS issue and gives terminal commands to set OLLAMA_ORIGINS on mac/linux and Windows. The README has a marketing tone but covers setup and usage for both OpenAI and local models.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Writing flashcards and quiz questions by hand from notes is slow, and Obsidian has no built-in way to generate them automatically.",
+ "readmeHash": "9d5222da7d1632f9f45eb32f367afb2601525bb8",
+ "relations": [
+  {
+   "evidence": "Generate quizzes that seamlessly integrate with the Spaced Repetition Obsidian plugin.",
+   "plugin": "Spaced Repetition Obsidian plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Inspired by the code architecture of the obsidian-textgenerator-plugin.",
+   "plugin": "obsidian-textgenerator-plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local LLM runtime)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Spaced Repetition plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "LLM-powered quiz generator that turns a note into flashcard questions for use with the Spaced Repetition plugin.",
+ "tags": [
+  "openai",
+  "gpt-4o",
+  "ollama",
+  "llm",
+  "quiz-generation",
+  "spaced-repetition"
+ ]
+}

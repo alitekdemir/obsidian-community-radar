@@ -1,0 +1,53 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Fit a coordinate system to a map image from three or more control points",
+  "Display notes with coordinate frontmatter as pins on the georeferenced image",
+  "Read coordinates from note properties in several formats, including custom property names",
+  "Draw GeoJSON reference lines, including an optional Natural Earth coastline, over the fit",
+  "Expose an API for pixel/coordinate conversion, map listing, and problem reports"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a basemap or GIS tool: it never warps the image, makes no map-service requests, and does no analysis beyond fitting points to pixels.",
+ "extras": "Beta: must be installed by copying files into the plugins folder and is not yet in the community plugin list; the manifest notes it has not been reviewed by Obsidian staff. Makes no network requests except an explicitly confirmed download of a public-domain Natural Earth coastline. Requires Obsidian 1.13 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no way to place notes spatially on a custom picture by real-world coordinates; map plugins rely on basemap tiles instead of the user's own image.",
+ "readmeHash": "2615f6606fbf057e9538d5bb2086ae220e59b939",
+ "relations": [
+  {
+   "evidence": "It does no GIS analysis. No buffers, overlays or topology. That is QGIS.",
+   "plugin": "QGIS",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Georeferencing tool that pins notes carrying latitude/longitude coordinates onto a map image via control points, without altering the image.",
+ "tags": [
+  "georeferencing",
+  "maps",
+  "coordinates",
+  "geojson",
+  "natural-earth",
+  "historical-maps",
+  "gis"
+ ]
+}

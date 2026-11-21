@@ -1,0 +1,62 @@
+{
+ "also": [
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "List the focused note's tasks in a sidebar panel",
+  "Filter tasks by open, completed or all with per-filter counts",
+  "Tick checkboxes in the panel and write the change to the file",
+  "Jump to a task's line by clicking its row",
+  "Group tasks under their nearest heading"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Lists tasks only in the note currently in focus, not vault-wide task queries like the Tasks plugin's search blocks.",
+ "extras": "Requires Obsidian 1.6.0 or later; runs on desktop and mobile. Falls back to plain checkbox toggling when Tasks is not installed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian offers no per-note task panel, so seeing and ticking a long note's checkboxes means scrolling through it.",
+ "readmeHash": "56128b5e6a2629d14de5961875fbff2c3a1df34d",
+ "relations": [
+  {
+   "evidence": "ticking a checkbox in the panel hands the toggle to that plugin",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "follows the note in focus the way the Calendar plugin follows the active date",
+   "plugin": "Calendar",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar panel that lists the checkboxes of the note in focus, filterable by status, with clickable jumps and checkbox ticking written back to the file.",
+ "tags": [
+  "checkboxes",
+  "custom-statuses",
+  "recurring-tasks",
+  "screen-reader",
+  "done-dates"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "connect to Microsoft To Do or TickTick using a user-created OAuth application",
+  "fetch a selected remote task list into a sidebar with create, edit, complete, and reopen actions",
+  "push top-level checkbox lines from a note as remote tasks",
+  "organize tasks from all notes into a managed section in Tasks List.md",
+  "delete completed remote tasks after a confirmation dialog"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a bidirectional file synchronizer; it fetches a remote list into a sidebar and pushes checkbox lines to the provider without editing Markdown.",
+ "extras": "Desktop-only (OAuth uses Electron APIs, so it cannot run on mobile); requires Obsidian 1.11.4+; README discloses AI-assisted development and notes TickTick tasks cannot be reopened via its API.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to connect note checkboxes to tasks in Microsoft To Do or TickTick.",
+ "readmeHash": "34c13c7819e5ed1e06efd40bff7e05d765408da4",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft or TickTick account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "user-created OAuth application credentials (client ID, secret, redirect URL)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Task sidebar and commands that sync Markdown checkbox tasks with a Microsoft To Do or TickTick list via OAuth.",
+ "tags": [
+  "microsoft-to-do",
+  "ticktick",
+  "microsoft-graph",
+  "oauth",
+  "checkboxes",
+  "task-sidebar"
+ ]
+}

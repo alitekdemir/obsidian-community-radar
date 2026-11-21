@@ -1,0 +1,89 @@
+{
+ "also": [
+  "graph",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create people and company notes from Gmail metadata",
+  "Track contact activity and relationship scores",
+  "List contacts worth reconnecting with in a CRM table",
+  "Open personal and shared people graphs in a tab",
+  "Enrich people notes with Anthropic using an own API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a geographic mapping tool; the atlas is a graph of people and their relationships.",
+ "extras": "Desktop only, Obsidian 1.15.0 or later. Credentials, API keys and contact indexes are stored unencrypted in plugin data; the hosted graph, score push and AI enrichment are optional and send data off-device. Setup, scoring and troubleshooting are documented in a separate plugin guide.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to turn email activity into a maintained contact database, so relationship history and reconnect reminders must be tracked by hand.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "85756b723ec9b562a0f39171e8789ed290b54462",
+ "relations": [
+  {
+   "evidence": "Gmail sync requires a Google account and Google OAuth authorization.",
+   "plugin": "Google",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally enrich people notes with Anthropic using your own API key.",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The optional hosted People graph requires a separate People sign-in and internet access",
+   "plugin": "People",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT remains an optional beta installation method.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The separately installed PeopleGraph CLI is optional.",
+   "plugin": "PeopleGraph CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "People",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Personal CRM that creates people and company notes from Gmail metadata and shows personal and shared relationship graphs in a tab.",
+ "tags": [
+  "contacts",
+  "knowledge-graph",
+  "oauth",
+  "llm",
+  "api-key"
+ ],
+ "textHash": "ff96d455c2d2a1d7d5dcbba6fa8b31480d26064a"
+}

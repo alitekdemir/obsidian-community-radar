@@ -1,0 +1,65 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync notes between devices in real time (under a second)",
+  "encrypt every edit on the device before it leaves",
+  "deploy a personal sync server on a Cloudflare Worker",
+  "merge edits made offline when devices reconnect",
+  "add devices by scanning a QR code from settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. Author states it is very new with a single tester and advises keeping a vault backup; docs (setup guide, security, cost, protocol) live on external pages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted notes on laptop and phone synced as they type without handing the notes to anyone, with edits encrypted on-device before leaving.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync requires trusting a hosted service and paying for it, and users who want real-time sync of private notes on their own infrastructure have no built-in option.",
+ "readmeHash": "51be4ca51aac050faac3584852bbca2e7dd22732",
+ "relations": [
+  {
+   "evidence": "Ownsync runs on a free Cloudflare Worker in your own account.",
+   "plugin": "Cloudflare Workers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare account (free plan sufficient; Workers Paid $5/mo for more)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Ownsync community plugin on each device",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Real-time, end-to-end encrypted vault sync through a Cloudflare Worker you deploy and own.",
+ "tags": [
+  "end-to-end-encryption",
+  "cloudflare-workers",
+  "self-hosted",
+  "real-time",
+  "passkey"
+ ]
+}

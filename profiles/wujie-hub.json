@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search the official community plugin directory with local keyword matching",
+  "install and update community plugins through GitHub proxy mirrors",
+  "install selected stable or Alpha releases of Wujie Sync, Wujie Translate, and Smart Sync",
+  "verify downloaded release files against SHA-256 digests",
+  "back up plugin release files before installing or updating"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault-sync tool despite handling Wujie Sync releases; it only installs and updates plugin files, leaving enable, disable, and uninstall to Obsidian's own settings.",
+ "extras": "Requires Obsidian 1.12.0 or later. The README warns that the six relay proxies (ghfast.top, gh-proxy.com, gh.llkk.cc, ghproxy.net, gh.monlor.com, wget.la) can see the GitHub URLs they relay and that ordinary community downloads have no independently trusted publisher hashes. A crash during install or update may require manually restoring files from the pmcn-backups directory. Mobile and minimum-version runtime acceptance are still pending. Licensed under Apache License 2.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian's official plugin directory and release downloads route through GitHub, which is slow or unreliable to reach from mainland China networks.",
+ "readmeHash": "b9a1a56d86c0437cd4600645fc830dee50f82cb3",
+ "relations": [
+  {
+   "evidence": "dedicated cards for Wujie Sync, Wujie Translate, and Smart Sync",
+   "plugin": "Wujie Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dedicated cards for Wujie Sync, Wujie Translate, and Smart Sync",
+   "plugin": "Wujie Translate",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dedicated cards for Wujie Sync, Wujie Translate, and Smart Sync",
+   "plugin": "Smart Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "github.com supplies release downloads and may redirect them to GitHub's file distribution services",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Community-plugin manager that searches, installs, and updates plugins through GitHub download mirrors for users in China, plus installs Wujie-family plugin releases.",
+ "tags": [
+  "github",
+  "china",
+  "download-mirrors",
+  "sha256",
+  "alpha-releases"
+ ]
+}

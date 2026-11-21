@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull tasks, events, routines and habits into the vault as plain markdown notes",
+  "Drag task cards onto morning or afternoon lanes for each day of the week",
+  "Sync task completion and edits back to Todoist and ClickUp behind opt-in switches",
+  "Turn starred or flagged email into tasks via IMAP presets",
+  "Write weekly priorities and daily highlights in a per-week note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Part of the ICOR for Life suite and not manually reviewed by Obsidian staff. README states it is beta with rough edges, and Outlook setup is documented in a step-by-step guide in docs/. Two-way write-back to sources is off by default and the plugin never deletes anything at a source.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that planning fails at the gathering step, not the deciding step: once everything is visible on one surface, the choice becomes easy.",
+ "primary": "tasks",
+ "problem": "Planning a week means checking several task apps, mailboxes and calendars before deciding anything, which spends the energy needed for the actual choices.",
+ "readmeHash": "e772d74a4e75e5da67ba65d124eeb1c8f8c88ca3",
+ "relations": [
+  {
+   "evidence": "With a key configured it talks to Todoist, ClickUp, your own IMAP host, the iCal addresses you paste",
+   "plugin": "Todoist",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tasks from a connected source are a mirror of that source.",
+   "plugin": "ClickUp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Todoist, ClickUp, an IMAP mail host, or an iCal feed",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Outlook/Microsoft 365 sign-in for Outlook calendar and mail",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API keys or app passwords per connected source",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Weekly planner board that pulls tasks from Todoist, ClickUp, starred email and iCal calendars into markdown notes and schedules them across morning and afternoon lanes.",
+ "tags": [
+  "todoist",
+  "clickup",
+  "gmail",
+  "fastmail",
+  "ical",
+  "imap",
+  "weekly-planning",
+  "habits"
+ ]
+}

@@ -1,0 +1,95 @@
+{
+ "also": [
+  "import",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Aggregates updates from WeChat, YouTube, Bilibili, and RSS sources",
+  "Saves links, files, and transcripts to a local reading library",
+  "Picks daily reading shortlists and rotates older unread saves",
+  "Tracks reading state, progress, versions, and annotations",
+  "Hands material to Claudian or a Wiki workflow"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Interface is in Chinese. Local import, reading, and progress need no account, model, or service; network features need the separate service, and some feeds, search, and model services require an account or payment. Needs Obsidian desktop 1.13.0+; Node.js 22.13+ for the service and source builds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": "The author built it because finding things took more effort than reading them, and app home screens with shorts and autoplay drained the attention set aside for an article or long video.",
+ "primary": "research",
+ "problem": "Following creators across WeChat, video platforms, and feeds means constant app switching, and saved links lose reading progress, annotations, and source context.",
+ "profiledAt": "2026-11-20",
+ "provider": "Ant Digital",
+ "readmeHash": "de6b159ec20231e77a7918f4bd96ac2c266525f3",
+ "relations": [
+  {
+   "evidence": "With a compatible version of Claudian enabled, click 交给 Claudian 处理 (Send to Claudian) in Guanlan.",
+   "plugin": "Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "AIHOT",
+   "type": "inspired"
+  },
+  {
+   "evidence": "RSSHub is used for the optional Bilibili route.",
+   "plugin": "RSSHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "separately run material service for subscriptions and web imports",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Claudian",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider key (DeepSeek by default)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "YouTube Data API v3 key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "X account for search",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Quyue or Dajiala for WeChat Official Account feeds",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Reading workbench that follows WeChat, YouTube, Bilibili, and RSS sources, saves articles and videos to a local library, and hands them to an AI agent.",
+ "tags": [
+  "rss",
+  "read-later",
+  "reading-tracker",
+  "youtube",
+  "bilibili",
+  "ai-agents"
+ ],
+ "textHash": "0e1aca8d72b9fad88206cea2c6b63ceb862a23ce"
+}

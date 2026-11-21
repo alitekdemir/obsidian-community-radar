@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "douyin-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import Douyin share links or share text into the vault",
+  "Download no-watermark videos and carousel images locally",
+  "Transcribe video audio to Simplified Chinese with a local Whisper backend",
+  "Generate notes with frontmatter, hashtag callouts, and embedded media",
+  "Run imports from a ribbon modal or command palette commands"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.4.0+, no mobile). All processing is local; no Douyin cookie or paid speech API needed, but the local Python backend must be running before import works. MIT licensed with a disclaimer to use only for personal learning and research; no OCR for text embedded in images.",
+ "intent": "alternative",
+ "intentEvidence": "This project is forked from lyxdream/obsidian-douyin-capture",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn a Douyin share link into a note containing the video, carousel images, caption text, and metadata.",
+ "readmeHash": "07c1b4efc4648c40852b1b7ff4b2e0c5962ba0e4",
+ "relations": [
+  {
+   "evidence": "This project is forked from lyxdream/obsidian-douyin-capture",
+   "plugin": "lyxdream/obsidian-douyin-capture",
+   "type": "fork"
+  },
+  {
+   "evidence": "This plugin depends on the local Python service obsidian-content-capture-backend",
+   "plugin": "obsidian-content-capture-backend",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsidian-content-capture-backend",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "FFmpeg",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Imports Douyin share links into the vault as structured notes with locally downloaded no-watermark videos, images, captions, and optional Whisper transcription.",
+ "tags": [
+  "douyin",
+  "whisper",
+  "ffmpeg",
+  "transcription",
+  "no-watermark",
+  "web-clipper"
+ ]
+}

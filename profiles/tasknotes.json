@@ -1,0 +1,80 @@
+{
+ "also": [
+  "bases",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create tasks with natural language date and context parsing",
+  "Manage tasks in task list, Kanban, calendar and agenda views built on Bases",
+  "Track time per task with a Pomodoro timer and session history",
+  "Sync calendars with Google, Microsoft or any ICS feed",
+  "Define recurring tasks with per-instance completion and dependencies"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full documentation lives on an external site; a beta web and iPhone version exists outside Obsidian; an optional HTTP API, CLI, browser extension and webhooks connect external tools.",
+ "intent": "improve",
+ "intentEvidence": "TaskNotes registers as a Bases data source and provides custom view types",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in way to manage tasks as individual queryable notes, and task plugins usually rely on a plugin-specific database that locks your data in.",
+ "readmeHash": "9fee7b2942d7f4cafef28fd7acfa0da98a58b8f4",
+ "relations": [
+  {
+   "evidence": "Calendar sync with Google and Microsoft (OAuth) or any ICS feed",
+   "plugin": "Google",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Calendar sync with Google and Microsoft (OAuth) or any ICS feed",
+   "plugin": "Microsoft",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Calendar components by FullCalendar.io.",
+   "plugin": "FullCalendar.io",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Bases core plugin",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google or Microsoft calendar / ICS feed",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OAuth account for calendar sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Task management plugin that stores each task as a Markdown note with YAML frontmatter and renders task list, Kanban, calendar and agenda views on Obsidian Bases.",
+ "tags": [
+  "pomodoro",
+  "time-tracking",
+  "kanban",
+  "rrule",
+  "ics",
+  "google-calendar",
+  "natural-language-parsing"
+ ]
+}

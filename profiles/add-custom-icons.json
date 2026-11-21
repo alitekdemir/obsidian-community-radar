@@ -1,0 +1,56 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Load SVG files from an icons folder in the plugin root, .obsidian, or a custom path",
+  "Normalize icon colors to currentColor so icons follow the theme",
+  "Cache unchanged icons for faster loading",
+  "Restart selected plugins or all of Obsidian after loading icons",
+  "Reload icons manually via a command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an icon editor or picker; it only loads SVG files from a folder into Obsidian's icon list and restarts plugins to register them.",
+ "extras": "On Obsidian 1.13+ settings appear in the global settings search; the README includes a project-structure section and an architecture breakdown that is more developer-oriented than user-facing.",
+ "intent": "improve",
+ "intentEvidence": "Iconic is one of them: an icon missing from that list does not show up in its icon picker and is not drawn at all.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "icons",
+ "problem": "Obsidian plugins read the app's icon list once at load time, so icons added by the user after startup never appear in plugins like Iconic.",
+ "readmeHash": "ac6ff5a0fc2dee2c4a8164b9cc3e8331a6bd3dec",
+ "relations": [
+  {
+   "evidence": "Add Custom Icons loads first: nothing to configure, Iconic picks the icons up when it loads.",
+   "plugin": "Iconic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Iconic",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Icon loader that scans a vault folder for SVG files, registers them with Obsidian, and restarts plugins so they pick the icons up.",
+ "tags": [
+  "svg",
+  "iconic",
+  "auto-restart",
+  "cache",
+  "russian",
+  "localization"
+ ]
+}

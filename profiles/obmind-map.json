@@ -1,0 +1,55 @@
+{
+ "also": [
+  "outlining",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render the active note's headings and indentation as an interactive mindmap in the sidebar",
+  "Edit the map (rename, add, outdent, delete, drag to re-parent) to rewrite the note",
+  "Create a linked note from a selected node, optionally from a template",
+  "Render code blocks, math, tables and callouts as read-only cards on the map",
+  "Export the full map as SVG"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-first: it loads on mobile but the gestures are designed for mouse and trackpad. Installable via BRAT before community-plugin listing; requires Obsidian 1.7.2+. Makes no network requests and has diagnostic flicker-log commands for bug reports.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Existing mind-map plugins either export snapshots or store the map in a separate file that silently drifts from the note; the author wanted the note itself to be the single source of truth.",
+ "primary": "visualization",
+ "problem": "Most mind-map plugins export a static snapshot or keep the map in a separate file that drifts out of sync with the note.",
+ "readmeHash": "07d13f59bb57454e2e103ef95afee014fe74c1f0",
+ "relations": [
+  {
+   "evidence": "markmap — the layout and rendering engine (MIT).",
+   "plugin": "markmap",
+   "type": "extends"
+  },
+  {
+   "evidence": "d3 — zoom and transitions (ISC).",
+   "plugin": "d3",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Mindmap view that draws the active note's headings and indented lines as an interactive XMind-style map and writes map edits back to the same Markdown file.",
+ "tags": [
+  "mindmap",
+  "xmind",
+  "svg"
+ ]
+}

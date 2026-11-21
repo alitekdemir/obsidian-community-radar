@@ -1,0 +1,54 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview Markdown in a WeChat Official Account style sidebar",
+  "Copy rich text with embedded local images to the clipboard",
+  "Compress large static images to JPEG sized for WeChat pasting",
+  "Convert task lists to WeChat-stable checkbox glyphs",
+  "Customize theme color, font size, spacing, quote style, code line numbers, and image rounding"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an auto-publishing tool: it never creates drafts or posts articles; it only previews and copies content for manual pasting.",
+ "extras": "Bilingual README (Chinese and English). Stated privacy guarantees: all previewing and copying stays local, no WeChat API is called, and copy output is sanitized (scripts, embeds, event attributes, and unsafe links removed) before writing to the clipboard. Installation via ZIP release needs no Node.js; building from source requires Node.js 18+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to preview notes in WeChat Official Account typography or copy formatted text with local images into its editor without API credentials.",
+ "readmeHash": "94eb3affb0f662fec6a98629d389d54fd1520b71",
+ "relations": [
+  {
+   "evidence": "排版引擎使用开源包 baoyu-md",
+   "plugin": "baoyu-md",
+   "type": "extends"
+  },
+  {
+   "evidence": "参考了 Wechat Converter 的“本地图片转 Data URL 后写入富文本剪贴板”方案",
+   "plugin": "Wechat Converter",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "WeChat-styled Markdown previewer that copies formatted rich text with embedded local images for pasting into the WeChat Official Account editor.",
+ "tags": [
+  "wechat",
+  "rich-text",
+  "clipboard",
+  "image-compression",
+  "chinese"
+ ]
+}

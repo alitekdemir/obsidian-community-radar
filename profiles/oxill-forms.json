@@ -1,0 +1,72 @@
+{
+ "also": [
+  "automation",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create forms with 17 field types in a settings-based form browser",
+  "Fill forms in a modal to create notes, insert text, or edit the current note's properties",
+  "Build note names, folders, and templates from answers using placeholders and transformations",
+  "Validate answers with required flags, bounds, regex checks, and show conditions",
+  "Run forms from commands, buttons, or a JavaScript openForm API, with import/export as JSON"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13.0 or newer. List-from-Dataview-query fields execute user JavaScript and are disabled by default. Forms live in plugin settings, not vault files; moving vaults needs the built-in JSON export. Dragging does not work on mobile. The catalogue listing has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "templating",
+ "problem": "Creating the same kind of note repeatedly means retyping the same headings and properties by hand, and templates cannot prompt you for the values each time.",
+ "readmeHash": "85ca4943edf8db67c47ebf80504096818175d812",
+ "relations": [
+  {
+   "evidence": "The List from a Dataview query field takes its options from the result of a query.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater will then run the <% … %> commands in the form template",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any plugin that can run commands will pick it up: Buttons, Meta Bind, Commander",
+   "plugin": "Buttons, Meta Bind, Commander",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Form builder that opens a modal of fields and turns the answers into a new note, edited properties, or text inserted at the cursor.",
+ "tags": [
+  "data-entry",
+  "modal",
+  "field-validation",
+  "placeholders"
+ ]
+}

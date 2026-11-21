@@ -1,0 +1,92 @@
+{
+ "also": [
+  "research",
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Read French-Chinese bilingual seminar texts by segment ID with in-text search",
+  "Edit Chinese translations, notes, and comments in place while reading",
+  "Sync seminar texts, attachments, and knowledge cards from a WordPress library with local-change protection",
+  "Look up French words, translate selections via CLI, and save to an Eudic wordbook",
+  "Run read-only AI interpretation of segments through Codex CLI, Claude Code, or DeepSeek Harness"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general translation tool; it works only with vaults in the Lacan Chinese translation project's format and its seminar corpus.",
+ "extras": "Interface and generated materials are primarily in Chinese; seminar features require a vault matching the translation project's directory format; manifest is desktop-only (isDesktopOnly: true); the listing notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the repository was split out of the Lacan Chinese translation project as a standalone plugin to support reading, editing, and comparing its published translations.",
+ "primary": "languages",
+ "problem": "Obsidian has no built-in support for reading segment-aligned bilingual translation projects or syncing a published seminar corpus with per-lesson notes and terminology.",
+ "readmeHash": "20876d17c2c8ef93bf8ab468a61cab2c94cd8061",
+ "relations": [
+  {
+   "evidence": "支持 Codex CLI、Claude Code、DeepSeek Harness",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "支持 Codex CLI、Claude Code、DeepSeek Harness",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "支持 Codex CLI、Claude Code、DeepSeek Harness",
+   "plugin": "DeepSeek Harness",
+   "type": "integrates"
+  },
+  {
+   "evidence": "并收藏到所选欧路生词本",
+   "plugin": "欧路生词本 (Eudic)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "插件默认从 KotobaRin 的 WordPress 同域文库接口同步原项目的已发布内容",
+   "plugin": "KotobaRin WordPress 文库",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI / Claude Code / DeepSeek Harness",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Eudic API authorization code",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "model services and Eudic may require accounts or pay-per-use",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop plugin for reading and translating Lacan seminars bilingually, with segment-aligned reading, notes, corpus sync, French lookup, and CLI AI analysis.",
+ "tags": [
+  "lacan",
+  "psychoanalysis",
+  "french",
+  "eudic",
+  "codex-cli",
+  "claude-code",
+  "deepseek"
+ ]
+}

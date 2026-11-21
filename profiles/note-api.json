@@ -1,0 +1,59 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Read, create, replace, delete and search notes over localhost HTTP",
+  "Resolve wiki and markdown links to real vault paths",
+  "Serve and upload binary vault assets like images and PDFs",
+  "List daily-notes journal entries by date",
+  "List, create, update and delete macOS Reminders and Calendar events"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Fresh installs ship with a shared default API key (addwxfengshu4511) so clients connect out of the box; the README tells users to regenerate it if they see that as a risk. Reminders and Calendar endpoints work on macOS only and are off by default; the plugin is desktop-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README doesn't state a motivation beyond pairing with the Note Tab Chrome new-tab extension for journals.",
+ "primary": "developers",
+ "problem": "Obsidian's Vault API is only usable inside the app, so external tools like browsers or scripts cannot read, create, edit or delete vault notes or resolve wiki links.",
+ "readmeHash": "a71738af22e167727338b24bf898bb40d3f4dd49",
+ "relations": [
+  {
+   "evidence": "Pairs with Note Tab, an Infinity-style Chrome new tab for your journals",
+   "plugin": "Note Tab",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "external HTTP client such as the Note Tab Chrome extension",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Localhost HTTP server that exposes vault notes, wiki-link resolution, asset serving and macOS Reminders/Calendar through an API-key-protected REST API.",
+ "tags": [
+  "http-server",
+  "rest-api",
+  "localhost",
+  "api-key",
+  "journals",
+  "reminders",
+  "chrome-extension"
+ ]
+}

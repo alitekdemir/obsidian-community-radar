@@ -1,0 +1,64 @@
+{
+ "also": [
+  "import",
+  "formats"
+ ],
+ "audience": [
+  "gamers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "pull Steam overlay notes into vault Markdown files per game",
+  "push Obsidian edits back into Steam's local notes files",
+  "convert Steam BBCode formatting to Markdown and back",
+  "import attached note images and embed them in notes",
+  "back up Steam files before push and restore them"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Push writes into Steam's local files and the README carries strong warnings: close games and the Steam Notes editor before pushing, and avoid editing notes in Steam for a few minutes afterwards or Steam's in-memory copy can overwrite the push. Desktop-only; Steam's notes format is unofficial and a client update could break it. New Obsidian-only notes cannot yet be created on the Steam side.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author lists community complaints about Steam Notes (lost notes, no export, overlay-only access) and built the plugin to address them.",
+ "primary": "integrations",
+ "problem": "Steam's in-game notes can't be exported, backed up, searched, or edited outside the overlay, and users report edits and even whole notes disappearing.",
+ "readmeHash": "5751b9a8876f6a8cd5ad370949eb58ecd99b6788",
+ "relations": [
+  {
+   "evidence": "syncs your Steam Overlay game notes (Shift+Tab → Notes while playing) with your vault",
+   "plugin": "Steam (Steam Overlay Game Notes / Steam Cloud)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Steam",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Steam account (game-name lookup via Steam store API)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Pulls Steam Overlay game notes into the vault as Markdown organized per game, and pushes Obsidian edits back into Steam's local notes files.",
+ "tags": [
+  "steam",
+  "steam-overlay",
+  "bbcode",
+  "game-notes",
+  "steam-cloud",
+  "valve"
+ ]
+}

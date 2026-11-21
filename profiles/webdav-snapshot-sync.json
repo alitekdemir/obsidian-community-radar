@@ -1,0 +1,52 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload the whole vault as a zip snapshot to a WebDAV server",
+  "Restore a selected remote snapshot or backup",
+  "Create and upload a safety backup before restoring remote content",
+  "Split large archives into chunked WebDAV uploads",
+  "Clean up old snapshots according to a retention count"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite its name, it is not a sync tool: it does no incremental synchronization, conflict resolution, merging, or automatic direction decisions.",
+ "extras": "Documentation is bilingual (English and Chinese). The README warns that enabling configuration backup may include WebDAV credentials in snapshots and that passwords/tokens are stored in plugin settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian has no built-in way to back up an entire vault as zip snapshots to a user-owned WebDAV server with a safe manual restore flow.",
+ "readmeHash": "76e7ee0f5f9bf9d8aecde036b82579d2847a5276",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Manual full-vault snapshot backup and restore to a user-configured WebDAV server, with a forced safety backup before every restore.",
+ "tags": [
+  "webdav",
+  "zip",
+  "snapshots",
+  "chunked-uploads",
+  "retention",
+  "device-id"
+ ]
+}

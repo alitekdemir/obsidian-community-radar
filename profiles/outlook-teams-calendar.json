@@ -1,0 +1,62 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Outlook mail folders to one note per email with frontmatter and thread indexes",
+  "Sync calendar events to notes plus an upcoming-meetings sidebar pane",
+  "Sync Teams chats and channel messages as running transcript notes",
+  "Perform incremental syncs using Microsoft Graph delta queries",
+  "Cross-link meeting notes to related emails by attendees and subject"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (not for Obsidian mobile). Setup details live in a separate SETUP.md. Refresh token is stored in plain text in the vault's data.json, and Teams channel scopes typically require admin consent.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull email, meetings, or Teams conversations into the vault as searchable notes.",
+ "readmeHash": "9fc0bbd66afe4b4feaa816c6e837a586f0742b14",
+ "relations": [
+  {
+   "evidence": "Sync your Microsoft 365 into your Obsidian vault — mail, calendar, and Teams messages",
+   "plugin": "Microsoft 365",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Azure AD app registration (Microsoft 365 / Outlook / Teams)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Microsoft work/school account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Microsoft 365 integration that syncs Outlook mail, calendar events, and Teams chats/channels into Markdown notes with incremental delta sync.",
+ "tags": [
+  "microsoft-365",
+  "outlook",
+  "microsoft-teams",
+  "microsoft-graph",
+  "oauth",
+  "pkce",
+  "email"
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "also": [
+  "tasks",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Replace new tabs with a customizable start page of cards and pages",
+  "Add and complete tasks in today's daily note with optional carry-forward",
+  "Create shortcuts to notes, folders, websites, and Obsidian commands",
+  "Search notes by name, alias, or path and capture text into the daily note",
+  "Show Unsplash or vault wallpapers and companion Qiaomu Reader, RSS, Radio, and Agent cards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Quick switcher"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Mobile is not yet verified on real devices; desktop has been tested in real vaults. GPL-3.0-only with a separate commercial license option. Conflicts can occur if another plugin also owns the startup page. Community-submitted cards exist, and the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian opens to a file list or blank tab, with no single place to see today's tasks, jump to frequent notes, or resume reading and listening.",
+ "readmeHash": "e09a2bc7bcac8c67a226af8df11ec5ff322dd1b1",
+ "relations": [
+  {
+   "evidence": "Continue books, RSS articles, radio, and conversations through Qiaomu Reader, RSS, Radio, and Agent.",
+   "plugin": "Qiaomu Reader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "未读文章与数量，打开文章、添加订阅、搜索文章",
+   "plugin": "Qiaomu RSS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "最近电台、播放状态，直接播放或暂停",
+   "plugin": "Qiaomu Radio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "最近对话、新对话，从搜索框直接提问",
+   "plugin": "Qiaomu Agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "启用 Tasks 插件时，勾选会写入完成日期并生成重复任务的下一次",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "识别 Tasks 的 📅 / ⏳ / 🛫 和 Dataview 的 [due:: ]",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "QuickAdd 动作、Dataview 查询、看板、Excalidraw 手绘",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "间隔复习和 Omnisearch 全文搜索",
+   "plugin": "Omnisearch",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks, Dataview, QuickAdd, Excalidraw, Omnisearch, or companion Qiaomu plugins",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Unsplash key for wallpaper search",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub token for the GitHub todo card",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Customizable start page that replaces new tabs with draggable cards for tasks, shortcuts, note search, daily capture, wallpapers, and optional media modules.",
+ "tags": [
+  "dashboard",
+  "new-tab",
+  "daily-notes",
+  "wallpaper",
+  "unsplash",
+  "weather",
+  "ics"
+ ]
+}

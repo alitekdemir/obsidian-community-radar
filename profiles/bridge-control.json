@@ -1,0 +1,58 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Grant scoped read/write folder access via a searchable visual folder picker",
+  "Switch between Protected, Autonomous, and Full management access profiles",
+  "Preview and confirm each protected write before it is applied",
+  "Perform atomic managed note edits, frontmatter changes, renames, moves, and trash through authenticated one-time requests",
+  "Record operations in an audit log with recovery backups and rollback on partial failures"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general file-permission manager; it gates access only for the Obsidian Bridge companion app.",
+ "extras": "Desktop-only plugin; managed operations require Obsidian 1.12.7 or later, the official CLI enabled, and the matching Obsidian Bridge 0.5.8 release. README states the project is not affiliated with or endorsed by Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to give an external tool limited, user-controlled read and write access to specific vault folders.",
+ "readmeHash": "6a085c2cd44ba511e59d3b628bc660db860cfffc",
+ "relations": [
+  {
+   "evidence": "Bridge Control is the desktop-only Obsidian companion for Obsidian Bridge.",
+   "plugin": "Obsidian Bridge",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Obsidian Bridge",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Permission-control companion for Obsidian Bridge that grants an external AI bridge scoped local read/write access through profiles and confirmed managed operations.",
+ "tags": [
+  "security",
+  "access-control",
+  "permissions",
+  "audit-log",
+  "cli",
+  "atomic-writes"
+ ]
+}

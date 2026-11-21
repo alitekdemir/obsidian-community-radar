@@ -1,0 +1,54 @@
+{
+ "also": [
+  "editing",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "insert nested tabs, grids, and combined sections inside notes",
+  "snapshot per-block version history with labels, restores, and HEAD resets",
+  "diff versions inline, split, or patch across blocks, tabs, and cells",
+  "edit Markdown, callouts, and code blocks in structured in-place editors",
+  "script blocks and version operations via a CLI and file bridge"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Docs reference separate ARCHITECTURE.md, PRD.md, and DESIGN.md files. README warns of a 0.3.0 storage-format change: old note-local .mica folders are not auto-imported and users should back up before upgrading; works offline except for optional icon-pack downloads, and gives Obsidian Sync compatibility instructions.",
+ "intent": "alternative",
+ "intentEvidence": "a modern replacement for the obsidian-tabs plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To fix obsidian-tabs, where editing a rendered tab could corrupt the note; Mica derives state from the live document instead of cached offsets.",
+ "primary": "markdown",
+ "problem": "Obsidian has no way to nest tabs and grids inside a note and no per-block version history or diffing for the content inside them.",
+ "readmeHash": "cb3dd83cacbe7853630e007c1ec7ff94b091c183",
+ "relations": [
+  {
+   "evidence": "Mica is a modern replacement for the obsidian-tabs plugin",
+   "plugin": "obsidian-tabs",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Structured content blocks for notes: nested tabs and grids in plain Markdown with per-block version history, diffing, and a companion CLI.",
+ "tags": [
+  "version-history",
+  "diffing",
+  "nested-tabs",
+  "grids",
+  "cli",
+  "rust",
+  "wasm"
+ ]
+}

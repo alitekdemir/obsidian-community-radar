@@ -1,0 +1,75 @@
+{
+ "also": [
+  "data",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Record vault, performance, and plugin metrics into a SQLite-backed local database",
+  "Render PromQL timeseries, stat, and table panels from code blocks in notes",
+  "Query the local database with a PromQL subset and pin dashboard time ranges",
+  "Expose an optional Prometheus-compatible HTTP API for tools like Grafana",
+  "Scrape external Prometheus endpoints into local history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general database for note content; it stores time-series metrics only, with charts as the main user-facing output.",
+ "extras": "The manifest warns the plugin has not been manually reviewed by Obsidian staff. The Prometheus HTTP server is disabled by default; local recording and note charting work without it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian has no built-in way to collect metrics over time, query them, or embed live charts of them in notes.",
+ "readmeHash": "3d2253b91d22c663ced8edd807223b80cb915633",
+ "relations": [
+  {
+   "evidence": "TSDB exposes the familiar Prometheus metric types through prom-client",
+   "plugin": "prom-client",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Grafana can use TSDB as a Prometheus datasource by pointing it at the bound base URL",
+   "plugin": "Grafana",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TSDB can both expose a Prometheus-compatible server and scrape Prometheus endpoints",
+   "plugin": "Prometheus",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TSDB records metric samples into a SQLite database using wa-sqlite",
+   "plugin": "wa-sqlite",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "other Obsidian plugins that register metric stores",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Local time-series database that records vault and plugin metrics in SQLite and renders live PromQL chart panels in notes.",
+ "tags": [
+  "prometheus",
+  "promql",
+  "sqlite",
+  "grafana",
+  "metrics",
+  "time-series",
+  "opfs"
+ ]
+}

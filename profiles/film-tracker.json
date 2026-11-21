@@ -1,0 +1,113 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search TMDB, MyAnimeList, IGDB, Open Library and MusicBrainz and create notes with metadata, posters and covers",
+  "Track progress per note with panels and commands for episodes, chapters, reading, playing and listening",
+  "Browse a library shelf of covers with filters, search and sort",
+  "Review finished items in a paginated yearly diary",
+  "Bulk-import libraries from Letterboxd, MyAnimeList and Goodreads exports"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it tracks more than films and anime: also TV series, music, games and books.",
+ "extras": "TMDB attribution notice: 'This product uses the TMDB API but is not endorsed or certified by TMDB.' On Obsidian 1.11.4+, API keys are stored in Obsidian's keychain instead of the settings file, per device. Music and books need no keys. Open Library is used at most one request per second, so a 300-book import takes about 15 minutes. Wikidata is only asked for soundtrack lookups and book/author data.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a personal tracker, not a database: automate the busywork of metadata and posters while leaving the note body entirely to the user.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to create media tracking notes, so users must type metadata by hand and hunt for poster or cover images themselves.",
+ "readmeHash": "7ec75b93e6b12e6df673538db66b1365737e3ff7",
+ "relations": [
+  {
+   "evidence": "Search TMDB and create the note.",
+   "plugin": "TMDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add anime | Search MyAnimeList and create a Series note",
+   "plugin": "MyAnimeList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add game searches IGDB, the games database run by Twitch, and writes the game's note",
+   "plugin": "IGDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add book searches Open Library, the open book catalogue run by the Internet Archive, and writes the book's note and cover",
+   "plugin": "Open Library",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Albums, artists and songs, from MusicBrainz — the open music encyclopedia.",
+   "plugin": "MusicBrainz",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import from Letterboxd | Bulk-create notes from a Letterboxd export.",
+   "plugin": "Letterboxd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bulk-create book notes from a Goodreads library export, with your shelves, read dates and editions.",
+   "plugin": "Goodreads",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With the Folder Notes plugin, clicking an album's folder opens its note.",
+   "plugin": "Folder Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a book's first year, genres and series, and an author's dates and name in Latin letters, from Wikidata",
+   "plugin": "Wikidata",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDB API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "MyAnimeList client ID",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "IGDB client ID and client secret",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "TMDB account and Twitch developer account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Creates notes for films, TV, anime, manga, music, games and books with metadata and posters fetched from TMDB, MyAnimeList, IGDB, Open Library and MusicBrainz.",
+ "tags": [
+  "tmdb",
+  "myanimelist",
+  "igdb",
+  "open-library",
+  "musicbrainz",
+  "letterboxd",
+  "goodreads",
+  "lrclib"
+ ]
+}

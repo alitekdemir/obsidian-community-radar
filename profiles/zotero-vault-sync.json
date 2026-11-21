@@ -1,0 +1,85 @@
+{
+ "also": [
+  "research",
+  "data"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror the Zotero library as one JSON file per item plus per-PDF annotation files",
+  "Sync incrementally via Zotero's local HTTP API with deletion reconcile",
+  "Generate per-item note views from custom templates",
+  "Write Dataview dashboard notes for items, PDFs, annotations and stats",
+  "Fuzzy-search the mirror and insert reference cards into notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a one-off citation importer; it keeps a complete live mirror of the Zotero library as JSON files in the vault.",
+ "extras": "Install instructions describe a development build (npm install && npm run build). Sync only runs while Obsidian is open; edits made in Zotero arrive on the next poll, window focus, or startup. The README documents detailed troubleshooting for Zotero's minimal HTTP server and legacy zotero://select links.",
+ "intent": "alternative",
+ "intentEvidence": "This is the difference between an import plugin and a Zotero client inside Obsidian.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted library data as a queryable, git-versionable mirror that stays available offline, instead of one-off imported markdown snapshots that drift from Zotero.",
+ "primary": "integrations",
+ "problem": "Import-style Zotero plugins produce static, template-bound snapshots that age and require Zotero to be open, leaving no live, queryable copy of the library in the vault.",
+ "readmeHash": "30f73fde1b618c879237b188be2af45ff48c48e4",
+ "relations": [
+  {
+   "evidence": "Zotero ships a local HTTP API (Settings → Advanced → \"Allow other applications on this computer to communicate with Zotero\")",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "requires the Dataview community plugin",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview, Templater, scripts or your own plugins can load any of these files",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7+ desktop app for local API sync",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "zotero.org API key for the optional Web API source",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "zotero.org account for the Web API source",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview, for the generated dashboard notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Mirrors a Zotero library into a git-versioned JSON folder in the vault, syncing incrementally over Zotero's local HTTP API and generating queryable note views.",
+ "tags": [
+  "zotero",
+  "reference-manager",
+  "pdf-annotations",
+  "citations",
+  "local-http-api",
+  "git-versioned",
+  "dataviewjs"
+ ]
+}

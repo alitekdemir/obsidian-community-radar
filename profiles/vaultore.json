@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "code"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run TypeScript, shell, and AI cells from a Markdown note in dependency order",
+  "Execute each code cell in a hardened container via a container engine",
+  "Write each cell's result under the cell and full output to a results folder",
+  "Schedule workflow notes on cron and require per-note approval",
+  "Enforce per-workflow permissions for network, vault read, and vault write"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Prominent security warning: workflow notes are executable content that can start containers, reach the network, and modify the vault; scheduled runs and network access are opt-in. A standalone CLI (@vaultore/cli) runs the same workflows outside Obsidian, and detailed specs (Ore format, permissions, sandbox) live in separate documentation files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian notes are static text; there is no way to execute code or AI steps written inside a note, chain their outputs, or run a note on a schedule.",
+ "readmeHash": "7d3a96873ddd96462ee6b44f0fcc0a9ee12996eb",
+ "relations": [
+  {
+   "evidence": "AI cells send their prompt to api.openai.com or api.anthropic.com, with your API key",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI cells send their prompt to api.openai.com or api.anthropic.com, with your API key",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "container engine (Docker, Podman, Colima, or Apple container)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI or Anthropic account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "paid provider API access for AI cells",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Executable-note runner that runs TypeScript, shell, and AI cells from a Markdown workflow in containers, writes results under each cell, and schedules runs.",
+ "tags": [
+  "typescript",
+  "bun",
+  "docker",
+  "podman",
+  "containers",
+  "cron",
+  "openai",
+  "anthropic"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "also": [
+  "ai",
+  "code"
+ ],
+ "audience": [
+  "bioinformaticians"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "run BioUnix commands via biounix fenced code blocks",
+  "chat with the BioUnix Agent in a sidebar view",
+  "send vault files to the Agent for analysis",
+  "scan the vault for bioinformatics files and generate a report"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires the BioUnix desktop app running locally; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to run bioinformatics commands or interact with the BioUnix desktop app from inside notes.",
+ "readmeHash": "a5b5d5e15b8a76b5ab4cb1c4c6443e0441deb748",
+ "relations": [
+  {
+   "evidence": "This plugin integrates BioUnix with Obsidian. It connects to the local BioUnix API Server",
+   "plugin": "BioUnix",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "BioUnix desktop app with local API Server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API token (auto-read from ~/.biounix/api-token or set manually)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "BioUnix integration that runs bioinformatics commands in fenced code blocks, chats with an Agent, and scans the vault for bioinformatics files.",
+ "tags": [
+  "bioinformatics",
+  "agent",
+  "websocket",
+  "api-server"
+ ]
+}

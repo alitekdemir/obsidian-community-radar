@@ -1,0 +1,64 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Collect RSS and Atom feeds into a local SQLite database with OPML and list import",
+  "Screen papers in To screen, Following, Saved, Skipped, and Expired baskets",
+  "Rank pending papers with a local TF-IDF and logistic-regression model trained on reading decisions",
+  "Translate paper titles via Google web translation or an OpenAI-compatible LLM",
+  "Analyze reading states and compare interest rates across feeds"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a reference manager or full-text database; it only handles the screening step between new papers arriving and deciding what deserves a closer read.",
+ "extras": "Desktop-only; requires Obsidian 1.13.0+ with a bundled Node.js 22.16+ runtime exposing node:sqlite, and there is no sql.js fallback. Google translation uses an unofficial web API and may be rate-limited or inaccurate. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Researchers following many journal and lab feeds get more new papers than they can inspect, and Obsidian has no built-in way to collect, screen, and prioritize them in one local queue.",
+ "readmeHash": "9a8e539605b13409637a3454853b62cb58968d54",
+ "relations": [
+  {
+   "evidence": "Choose Google web translation (default) or an OpenAI-compatible LLM under Title translation.",
+   "plugin": "Google web translation",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally review only pending papers with a user-configured OpenAI-compatible LLM.",
+   "plugin": "OpenAI-compatible LLM",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop RSS/Atom reader that collects academic feeds into a local SQLite database, triages papers in five baskets, and ranks them from your reading decisions.",
+ "tags": [
+  "rss",
+  "atom",
+  "opml",
+  "sqlite",
+  "tfidf",
+  "literature-screening",
+  "feed-reader"
+ ]
+}

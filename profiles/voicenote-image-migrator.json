@@ -1,0 +1,52 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan a Voicenotes folder for image embeds in ## Attachments sections",
+  "Copy referenced image files into the target daily note's attachments folder",
+  "Insert embeds into existing daily notes and remove the source section after success",
+  "Run a dry-run migration plan and produce an in-app or file report",
+  "Create .backup files of notes before modifying them"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Migrates image embeds between notes inside the vault; it does not import from the Voicenotes app, record audio, or create daily notes.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The plugin runs manually from the command palette with no file watcher, blocks migration when the target daily note is missing, and runs locally without telemetry, accounts, or external services.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Images attached to voicenote notes sit in separate voicenote files and a dedicated attachments folder instead of appearing in the daily note for that date.",
+ "readmeHash": "1ffb5517b8d92a66773f18487e2d7d2d705d8a5f",
+ "relations": [
+  {
+   "evidence": "Uses Obsidian's Daily Notes configuration through obsidian-daily-notes-interface.",
+   "plugin": "obsidian-daily-notes-interface",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Migration tool that moves image embeds from Voicenotes notes into matching existing daily notes, copying image files and cleaning up the source section.",
+ "tags": [
+  "image-embeds",
+  "migration",
+  "dry-run",
+  "backups",
+  "attachments-folder"
+ ]
+}

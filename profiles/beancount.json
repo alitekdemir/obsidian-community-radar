@@ -1,0 +1,72 @@
+{
+ "also": [
+  "autocomplete",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Complete accounts, payees, narrations, commodities, tags, and links while typing",
+  "Align decimal points and format ledger transactions",
+  "Validate ledgers with bean-check on save, with error markers and quick fixes",
+  "Show an outline, a problems list, and a per-account balances table",
+  "Start and stop Fava to view the ledger in a browser"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not the Beancount accounting tool itself; it edits and validates Beancount ledgers stored in an Obsidian vault.",
+ "extras": "Validation and Fava require Beancount/Fava installed locally on the PATH (with a setting for the full executable path, notably for macOS PATH issues); every other feature works without them. The plugin documents exactly which native programs it runs and that it never sends data over the network.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Obsidian has no built-in support for editing Beancount plain-text accounting ledgers: no highlighting, completion, alignment, or validation for .bean files or beancount code fences.",
+ "readmeHash": "2e724e190cbe68fdf92d22dcf85ab6860a7eda97",
+ "relations": [
+  {
+   "evidence": "Validation runs Beancount's own bean-check",
+   "plugin": "Beancount (bean-check)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Start Fava runs Fava on the entry ledger and opens it in your browser",
+   "plugin": "Fava",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the rest of vscode-beancount's set",
+   "plugin": "vscode-beancount",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "bean-check",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "fava",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Beancount ledger editing for Obsidian: syntax highlighting, completion, transaction alignment, an outline, account balances, and bean-check validation on save.",
+ "tags": [
+  "plain-text-accounting",
+  "bean-check",
+  "fava",
+  "double-entry",
+  "ledger",
+  "pinyin"
+ ]
+}

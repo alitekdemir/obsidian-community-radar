@@ -1,0 +1,68 @@
+{
+ "also": [
+  "developers",
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "monitor all worktrees of a configured git repo in a live panel",
+  "show agent presence dots from Claude Code session transcripts",
+  "diff changed files per worktree against the merge-base and render previews",
+  "commit all changes, push the branch, and create a pull request via gh"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; per Obsidian developer policies it discloses reading files outside the vault (including ~/.claude/projects/ transcripts), shelling out to git and gh, and that network use happens only on explicit PR creation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for the parallel-agent era: 'your vault becomes the cockpit for repos changing beneath it. Built for the parallel-agent era'.",
+ "primary": "git",
+ "problem": "Obsidian git plugins version the vault itself; none let you watch external git worktrees and AI agent sessions changing from inside the vault.",
+ "readmeHash": "430b75ce643a746d29999a5b19a6ef47bc57d246",
+ "relations": [
+  {
+   "evidence": "a pulsing dot on any worktree where a Claude Code session is actively writing",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "opens a pull request (via gh, with a GitHub compare-page fallback)",
+   "plugin": "gh (GitHub CLI)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "gh",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Git worktree monitoring panel that shows live changes and AI agent activity in repo worktrees, with one-click commit and PR creation.",
+ "tags": [
+  "worktrees",
+  "claude-code",
+  "github-cli",
+  "pull-requests",
+  "diffs",
+  "agent-monitoring"
+ ]
+}

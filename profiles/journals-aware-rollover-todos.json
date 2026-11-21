@@ -1,0 +1,63 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Roll unfinished todos from the previous journal note into a newly created note",
+  "Find the previous note by scanning journal-date frontmatter via the metadata cache",
+  "Insert todos under a heading matching a configurable regex, with bottom/top/skip fallback",
+  "Optionally delete rolled todos from the previous note and carry nested child lines",
+  "Run rollover manually via a command on the active note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Works only with notes created by the Journals plugin; it does not roll todos between ordinary Daily Notes vaults.",
+ "extras": "The 'delete todos from the previous note' option is destructive and off by default; the README documents all defaults in a settings table.",
+ "intent": "alternative",
+ "intentEvidence": "It is a spiritual successor to Rollover Daily Todos, rewritten so it no longer depends on the core Daily Notes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because the original Rollover Daily Todos cannot reconstruct Journals' note paths, so rollover silently bails out; keying off journal-date frontmatter sidesteps that.",
+ "primary": "tasks",
+ "problem": "Todo rollover plugins that reconstruct daily-note paths from a static folder and date format silently fail with the Journals plugin's nested, date-templated folders.",
+ "readmeHash": "15affeb90c78796bf328176449a39077b6590f3a",
+ "relations": [
+  {
+   "evidence": "It is a spiritual successor to Rollover Daily Todos",
+   "plugin": "Rollover Daily Todos",
+   "type": "replaces"
+  },
+  {
+   "evidence": "built to work with the Journals plugin",
+   "plugin": "Journals",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Journals",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task rollover plugin that moves unfinished todos from the previous Journals note into a newly created one, locating notes via journal-date frontmatter.",
+ "tags": [
+  "rollover",
+  "journals-plugin",
+  "carryover",
+  "metadata-cache",
+  "regex-heading"
+ ]
+}

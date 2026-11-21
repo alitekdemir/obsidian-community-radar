@@ -1,0 +1,38 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite conflicting wikilinks as relative paths like [[../meetings/notes]]",
+  "Keep clean [[name]] links when filenames are unique",
+  "Fall back to direct paths when the relative path reaches the vault root",
+  "Leave existing wikilinks unmodified"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only works with \"Files and links > New link format\" set to \"Shortest path when possible\" and wikilinks enabled; the manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian's link format settings are global, so a filename conflict forces a long absolute path even when the target note sits next to the current one.",
+ "readmeHash": "20cc56049ac009f68fa9719a9b2a11df4b46b670",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Wikilink behavior tweak that rewrites conflicting-filename links as short relative paths instead of long absolute vault paths.",
+ "tags": [
+  "wikilinks",
+  "relative-paths",
+  "shortest-path"
+ ]
+}

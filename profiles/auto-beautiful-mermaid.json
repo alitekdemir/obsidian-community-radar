@@ -1,0 +1,63 @@
+{
+ "also": [
+  "syntax"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render Mermaid fences with beautiful-mermaid, pele, or Obsidian's built-in engine",
+  "Switch renderer per diagram from a hover toolbar, including a stacked comparison view",
+  "Set a vault-wide default renderer with automatic fallback for unsupported types",
+  "Pop a rendered diagram out into a new window with zoom, pan, and fit",
+  "Adapt every renderer's output to light and dark themes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a Mermaid code formatter; it only switches which engine renders the diagram.",
+ "extras": "Warns that pele has known rendering quirks documented upstream, and that the plugin conflicts with beautiful-mermaid-renderer; the manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Conflicts with beautiful-mermaid-renderer — disable that plugin if both are installed",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian renders Mermaid fences with only its built-in engine, so unsupported diagram types error and the visual style cannot be changed per diagram.",
+ "readmeHash": "f23e356908e2e8bfc552ce3fce3b74015e96cad4",
+ "relations": [
+  {
+   "evidence": "Beautiful | beautiful-mermaid — polished, theme-aware SVG built for looks | 6 types",
+   "plugin": "beautiful-mermaid",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin bundles pele 1.12, which adds character-level wrapping for Chinese and Japanese labels",
+   "plugin": "pele",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Conflicts with beautiful-mermaid-renderer — disable that plugin if both are installed",
+   "plugin": "beautiful-mermaid-renderer",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Mermaid renderer switcher that renders each code block with beautiful-mermaid, pele, or Obsidian's built-in engine, per block or vault-wide.",
+ "tags": [
+  "mermaid",
+  "pele",
+  "beautiful-mermaid",
+  "svg",
+  "flowchart",
+  "diagrams",
+  "dark-mode"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "data",
+  "tables"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Converts markdown tables into financial dashboards",
+  ": Tracks net monthly spend and trends",
+  ": Manages billing cycles and limits",
+  ": Visualizes spending heatmaps",
+  ": Captures transactions from SMS"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Data"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The Money Map page downloads map tiles from tile.openstreetmap.org. The plugin makes no other network requests and collects no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "It addresses the need to track and visualize personal spending, billing cycles, and financial trends using only markdown notes.",
+ "readmeHash": "8496ac63b4f22d0a1c91a1e7bba182b2ae5d4c08",
+ "relations": [
+  {
+   "evidence": "Dataview is required.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Two Apple Shortcuts turn a bank SMS into an inbox row.",
+   "plugin": "Apple Intelligence",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Log Transaction from Share Sheet uses the ChatGPT extension of Apple Intelligence.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "iPhone with Apple Intelligence",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Converts a plain markdown transaction inbox into three dashboards: net spend, billing cycle details, and a spending heatmap.",
+ "tags": [
+  "budgeting",
+  "dashboard",
+  "heatmap",
+  "statistics",
+  "spreadsheet",
+  "currency"
+ ],
+ "tagsBy": "particle-ai/particle-1:free"
+}

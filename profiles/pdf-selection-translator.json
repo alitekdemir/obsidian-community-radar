@@ -1,0 +1,67 @@
+{
+ "also": [
+  "languages",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate double-clicked words or selected passages in PDFs via a configured model endpoint",
+  "Show translations in a popover with copy, retry and expandable source text",
+  "Fetch model IDs from the endpoint and configure target language from 16 presets or custom",
+  "Switch between automatic, click-to-translate and hotkey translation modes",
+  "Cache recent translations and cancel superseded requests"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Desktop only (Obsidian 1.13.7+); mobile unsupported. Scanned PDFs need OCR done outside the plugin. API keys stored on disk are saved in plain text; tested on Windows only.",
+ "intent": "improve",
+ "intentEvidence": "Works with Obsidian's built-in PDF viewer and alongside PDF++.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian's PDF reading has no built-in way to translate selected text, so readers of foreign-language PDFs must copy text into outside tools.",
+ "readmeHash": "d7ef036b6b885be60f4b35bca15ef8eb42161ae5",
+ "relations": [
+  {
+   "evidence": "Works with Obsidian's built-in PDF viewer and alongside PDF++.",
+   "plugin": "PDF++",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible Chat Completions provider",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "hosted model provider account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "hosted provider usage billing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Translation helper that translates words and passages selected in PDFs using a user-configured OpenAI-compatible Chat Completions endpoint.",
+ "tags": [
+  "openai",
+  "chat-completions",
+  "llm",
+  "api-key",
+  "popover",
+  "translation"
+ ]
+}

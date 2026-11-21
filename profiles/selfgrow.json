@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai",
+  "thinking"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture links, shared text, direct notes, images, and local attachments as Raw cards",
+  "Extract readable text from .pdf, .md, and .markdown files",
+  "Generate titles, previews, categories, and recommendation scores with a configured AI provider",
+  "Resolve GitHub repositories and preserve their README Markdown",
+  "Distill approved cards into a linked Wiki after explicit approval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a read-it-later service or web clipper alone; captured cards must pass an explicit review step before anything is written to the Wiki.",
+ "extras": "Manifest carries the standard notice that the plugin has not been manually reviewed by Obsidian staff. Scanned PDFs without a text layer require external OCR before capture. The full user guide lives in docs/user-guide.md rather than the README. The bundled selfgrow-wiki agent skill keeps Wiki writes behind a proposal-and-approval step. Includes an extensive privacy and network disclosure section; all data stays in the vault and there is no account or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in pipeline for capturing external material into a review queue and deciding later which of it becomes permanent notes.",
+ "readmeHash": "e8e442d4b96a324c5ab7d6a0686e919d3a681b8d",
+ "relations": [
+  {
+   "evidence": "AI providers: OpenAI, DeepSeek, Qwen, Kimi, or a custom OpenAI-compatible endpoint.",
+   "plugin": "OpenAI, DeepSeek, Qwen, Kimi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub: GitHub API, repository pages, and raw content hosts are used to resolve repositories",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TikHub or a custom extraction endpoint is used only after the user enables it",
+   "plugin": "TikHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, DeepSeek, Qwen, Kimi, or custom OpenAI-compatible endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Capture-first tool that saves links, text, images, PDFs, Markdown files, and GitHub repos as reviewable cards, then distills selected ones into a linked Wiki.",
+ "tags": [
+  "read-it-later",
+  "web-clipper",
+  "github",
+  "openai",
+  "deepseek",
+  "pdf-extraction"
+ ]
+}

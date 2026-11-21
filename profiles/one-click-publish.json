@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish the active note and linked notes to a Cloudflare Worker",
+  "Upload referenced local images and assets",
+  "Follow WikiLinks and Markdown links up to a configurable depth",
+  "Bind a custom domain or subdomain from the connected Cloudflare account",
+  "Update an existing site by re-publishing and write share IDs to frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Deployment creates Worker and D1 resources in the user's own Cloudflare account; a hosted connection is planned but not yet available. Files over 20 MB cannot be published, and the Cloudflare connection must be included when syncing settings to other devices.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Sharing an Obsidian note as a live website normally requires separate hosting and manual deployment; this turns publishing into a one-click action backed by the user's own Cloudflare account.",
+ "readmeHash": "f66c9b3e4849e502d04656717fdb5b7c945ed65b",
+ "relations": [
+  {
+   "evidence": "The first deployment creates a private Worker and D1 database in your Cloudflare account.",
+   "plugin": "Cloudflare",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publishes the active Markdown note and its linked notes to a Cloudflare Worker site with one click, including local assets and a stable share link.",
+ "tags": [
+  "cloudflare",
+  "workers",
+  "d1",
+  "custom-domain",
+  "self-hosted",
+  "wikilinks",
+  "static-site"
+ ]
+}

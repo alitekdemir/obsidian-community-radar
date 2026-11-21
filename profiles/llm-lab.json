@@ -1,0 +1,60 @@
+{
+ "also": [
+  "developers",
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "record LLM calls from other plugins as one-line JSONL traces with model, messages, response, timing and errors",
+  "review and rate recordings in a keyboard-driven view with tags, notes and corrections",
+  "mask API keys and PII patterns (e-mail, IBAN, phone, URL credentials) in recorded text",
+  "exclude calls that drew on notes from specified folders",
+  "expose a versioned log() API for other plugins, with template hashing and turn grouping"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an LLM client: it never sends requests to any model or endpoint, it only records what another plugin already sent and received.",
+ "extras": "The README states plainly that the PII masking is pattern-based only — it will not catch names, addresses, diagnoses or relationships, and raw traces record these verbatim by default (the stricter masking toggle is off by default). Folder exclusion only applies to calls whose plugin reports the note paths involved. Full documentation, changelog and security policy are linked on a separate documentation site; no account, network access or license is needed, and uninstalling the plugin stops all recording.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because the sibling AI plugins in the workspace (a RAG assistant, a chat plugin, a crew orchestrator, a search-and-replace plugin) keep no record of how well their LLM calls actually go.",
+ "primary": "ai",
+ "problem": "Obsidian plugins that talk to local LLMs keep no record of their calls, so good answers cannot be reviewed, rated, or reused as evaluation or fine-tuning material.",
+ "readmeHash": "20cab39565566756fdbeec803557136960929f4f",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "vault-rag",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "another plugin that calls the LLM Lab API (e.g. vault-rag)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Logging infrastructure that records LLM calls made by other plugins into JSONL traces inside the vault, so they can be rated and turned into evaluation or fine-tuning data.",
+ "tags": [
+  "local-llm",
+  "jsonl",
+  "evaluation",
+  "fine-tuning",
+  "rag",
+  "pii-masking",
+  "plugin-api"
+ ]
+}

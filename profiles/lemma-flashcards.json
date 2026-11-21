@@ -1,0 +1,69 @@
+{
+ "also": [
+  "review",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Write flashcards in notes using basic, single-line, reversed, cloze, image occlusion, type-in, and whole-note formats",
+  "Schedule reviews with the FSRS-5 algorithm and configurable parameters and daily limits",
+  "Review due cards in a dashboard with custom study sessions filtered by tag, card state, or limit",
+  "Track learning with retention curves, maturity distribution, interval histograms, and activity stats",
+  "Sync review data across devices via a self-hosted CouchDB and back it up as JSON"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents community-plugin-scanner disclosures (vault enumeration, localStorage use), warns that the CouchDB password is stored unencrypted in data.json, and recommends a dedicated CouchDB user with an https:// URL.",
+ "intent": "alternative",
+ "intentEvidence": "Most spaced repetition tools require leaving your knowledge base, exporting notes, and managing a secondary database.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to embed spaced repetition directly in Markdown so users never have to export notes or manage a secondary database; review history stays local or on the user's own CouchDB.",
+ "primary": "flashcards",
+ "problem": "Spaced repetition tools typically require leaving the knowledge base and managing a separate app or database, and standard Obsidian SR plugins vary in FSRS support, mobile use, and custom study sessions.",
+ "readmeHash": "aef5368f994589c74d2ac94c8542df0879691d8e",
+ "relations": [
+  {
+   "evidence": "Lemma vs Anki",
+   "plugin": "Anki",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Lemma uses FSRS-5 (Free Spaced Repetition Scheduler, via ts-fsrs)",
+   "plugin": "ts-fsrs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally connect your own CouchDB or Cloudant instance to sync it across devices",
+   "plugin": "CouchDB",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CouchDB",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Flashcard plugin that stores cards as plain Markdown inside notes and schedules reviews with the FSRS-5 spaced repetition algorithm.",
+ "tags": [
+  "fsrs",
+  "spaced-repetition",
+  "cloze",
+  "image-occlusion",
+  "anki",
+  "couchdb",
+  "pouchdb",
+  "active-recall"
+ ]
+}

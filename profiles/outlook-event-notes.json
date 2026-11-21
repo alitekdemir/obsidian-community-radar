@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create or reopen notes by dragging .msg or .ics calendar files onto a ribbon icon",
+  "Resolve dates for recurring events, with a confirmation dialog when needed",
+  "Customize filenames and note templates with Mustache syntax and helper functions",
+  "Quote and escape imported text to keep YAML properties valid",
+  "Configure the target folder and invalid-character handling for filenames"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Does not sync or connect to Outlook live; notes are created only from .msg or .ics calendar files you drop onto the icon, and plain .msg emails do not import.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; the settings page includes documentation links and a Buy me a coffee button.",
+ "intent": "alternative",
+ "intentEvidence": "Based on Outlook Meeting Notes by David Ingerslev. This fork adds support for recurring events, opening existing notes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Outlook Meeting Notes to add support for recurring events, opening existing notes, and other improvements.",
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn Outlook calendar appointments and meetings into notes, and existing tooling lacked recurring-event support.",
+ "readmeHash": "1a9aaaced0da882847c9c48a07e1c24834acb1ef",
+ "relations": [
+  {
+   "evidence": "Based on Outlook Meeting Notes by David Ingerslev. This fork adds support for recurring events",
+   "plugin": "Outlook Meeting Notes",
+   "type": "fork"
+  },
+  {
+   "evidence": "Drag & drop a meeting or appointment from Outlook Classic onto the ribbon icon",
+   "plugin": "Outlook",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Microsoft Outlook (for exporting .msg files)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Creates meeting notes from Outlook .msg and .ics calendar files dropped onto a ribbon icon, with Mustache-based filenames and templates.",
+ "tags": [
+  "outlook",
+  "msg",
+  "ics",
+  "mustache",
+  "meetings",
+  "yaml-escaping"
+ ]
+}

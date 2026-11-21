@@ -1,0 +1,87 @@
+{
+ "also": [
+  "attachments",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan vault-wide image references in three syntaxes, skipping code blocks",
+  "Detect duplicate images via SHA-256 hashing across local and cloud storage",
+  "Manage images on four hosts: Aliyun OSS, Tencent COS, GitHub, and SM.MS",
+  "Batch delete, copy Markdown/HTML links, and download images with confirmation",
+  "Sync image-host settings across devices over WebDAV with conflict detection"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Detailed image-host and WebDAV setup is kept in a separate CONFIG.md rather than the README. Credentials are stored encrypted with AES-GCM + PBKDF2. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian gives no built-in way to see which images are referenced, unreferenced, missing, or duplicated across a vault, especially when images live on external hosts.",
+ "readmeHash": "48871c2e257638a4c120434cd545e3c84ff544e2",
+ "relations": [
+  {
+   "evidence": "Four image hosts — Aliyun OSS (V4 signature), Tencent COS (V1 signature), GitHub, and SM.MS",
+   "plugin": "Aliyun OSS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Four image hosts — Aliyun OSS (V4 signature), Tencent COS (V1 signature), GitHub, and SM.MS",
+   "plugin": "Tencent COS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Four image hosts — Aliyun OSS (V4 signature), Tencent COS (V1 signature), GitHub, and SM.MS",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Four image hosts — Aliyun OSS (V4 signature), Tencent COS (V1 signature), GitHub, and SM.MS",
+   "plugin": "SM.MS",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Nutstore",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "NextCloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "image-host account (GitHub, SM.MS, Aliyun OSS, or Tencent COS)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV account (Nutstore or NextCloud) for settings sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Vault-wide image asset manager that scans all reference formats, finds duplicates and broken links, and runs batch deletes, link copies, and downloads.",
+ "tags": [
+  "deduplication",
+  "sha-256",
+  "image-hosts",
+  "broken-links",
+  "webdav",
+  "frontmatter-fields"
+ ]
+}

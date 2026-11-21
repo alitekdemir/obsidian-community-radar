@@ -1,0 +1,63 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build routes between waypoints in a block (directions)",
+  "Build isochrone reachability polygons around a center point",
+  "Resolve search terms to place suggestions (POI search)",
+  "Snap recorded tracks to the road network and match named ways",
+  "Read elevation for track points"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Standalone it does little; it is a backend provider meant to be used through the Places plugin.",
+ "extras": "The README documents the network requests the plugin makes per feature but is truncated where it names the request target; no usage instructions or screenshots are given. Marked as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Places needs a routing engine to compute routes, reachability areas, place searches, and track-to-road alignment, and this supplies GraphHopper as that provider.",
+ "readmeHash": "c5c473735ec50cba0d817495280b98ae10499cb2",
+ "relations": [
+  {
+   "evidence": "Routing provider for Places using GraphHopper",
+   "plugin": "Places",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GraphHopper",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Routing provider for the Places plugin that adds GraphHopper-backed directions, isochrones, POI search, track snapping/matching, and elevation.",
+ "tags": [
+  "graphhopper",
+  "routing",
+  "directions",
+  "isochrones",
+  "gps-tracks",
+  "elevation",
+  "geocoding",
+  "maps"
+ ]
+}

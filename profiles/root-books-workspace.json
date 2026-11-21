@@ -1,0 +1,89 @@
+{
+ "also": [
+  "automation",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Audit companion plugin, core plugin, and Obsidian option settings in a color-coded dashboard",
+  "Watch watched settings every three seconds and notify when a target is missing, disabled, or misconfigured",
+  "Manage global and per-folder settings notes with portable frontmatter properties and closest-value inheritance",
+  "Replace the unique note command with a date-prefix and template workflow for book folders",
+  "Import and export watch profiles and plugin settings with Community Install Manager"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Unique note creator"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault or file syncing tool; 'Sync' refers to coordinating plugin settings and frontmatter for a Quartz publishing workflow.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README states most coordinated plugins are still in active development and behavior may change quickly. Some v2 features require a Quartz Root Books source build at or after eb21950; the released Quartz 0.14.1 package does not include them yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author's stated goal is for the plugin to become a coordinator that lists compatible plugins, helps find their settings, and gives them a common place for portable frontmatter settings.",
+ "primary": "utilities",
+ "problem": "Obsidian plugins each keep their own settings and frontmatter conventions, so a multi-plugin workflow has no single place to audit, watch, or share portable configuration.",
+ "readmeHash": "147814138c415af91b3ae8330fc99a739f90d551",
+ "relations": [
+  {
+   "evidence": "Folder Notes owns folder-note creation and naming.",
+   "plugin": "Folder Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Custom File Explorer Sorting owns File Explorer ordering.",
+   "plugin": "Custom File Explorer Sorting",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Front Matter Title displays folder-note titles without injecting aliases.",
+   "plugin": "Front Matter Title",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Frontmatter Date Manager owns created and updated timestamps.",
+   "plugin": "Frontmatter Date Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The thesis template uses Community Install Manager to install registry plugins and merge a curated selection of companion settings.",
+   "plugin": "Community Install Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Quartz Root Books staging adapter reads that record and presents canonical index.md routes from a build copy",
+   "plugin": "Quartz",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Folder Notes, Custom File Explorer Sorting, Front Matter Title, Frontmatter Date Manager",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Quartz Root Books build with book-structure/v2 adapter (for v2 staging behavior)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Coordinator dashboard that audits companion plugin and Obsidian settings, watches their state for drift, and manages portable frontmatter for a Quartz publishing workflow.",
+ "tags": [
+  "quartz",
+  "dashboard",
+  "settings-audit",
+  "folder-notes",
+  "static-site",
+  "watch-profile"
+ ]
+}

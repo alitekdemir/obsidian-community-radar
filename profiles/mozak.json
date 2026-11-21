@@ -1,0 +1,65 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [
+  "developers",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Store one approved plan per project as mozak.json and mozak.md files in the vault",
+  "Let agents read plans and propose changes through an MCP server or skill",
+  "Require owner approval for plan direction and build start as two separate yeses",
+  "Refuse stale writes so concurrent agents cannot overwrite each other",
+  "Show all projects' roadmaps, outcomes and progress in a sidebar with a Focus tab"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin. The mozak CLI, MCP server and skill come from a separate npm package; the Obsidian sidebar is read-only for plans (approvals happen in agent chat). README honestly reports a small pilot found no significant token-use benefit for agents. Linux and macOS only; Windows and network filesystems unsupported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted agents that work in ideas and plans rather than code to share one plan, without repeating project context to each agent or losing work to overwrites.",
+ "primary": "project-management",
+ "problem": "Coding agents forget project plans between sessions and can overwrite each other's writes, and there is no single Obsidian view of every project's plan and progress.",
+ "readmeHash": "96f04d721555d4a519736a30f6547e5a28c490eb",
+ "relations": [
+  {
+   "evidence": "Checked so far: jcode (skill and MCP) and Claude Code (MCP).",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It works with any agent that can load a skill or an MCP server.",
+   "plugin": "jcode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node 24.11+ and Git, plus a coding agent (jcode or Claude Code verified)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Project-plan system that stores one approved plan per project as plain files, lets AI coding agents propose changes, and shows progress in a sidebar.",
+ "tags": [
+  "mcp",
+  "claude-code",
+  "jcode",
+  "roadmap",
+  "approvals",
+  "agents"
+ ]
+}

@@ -1,0 +1,51 @@
+{
+ "also": [
+  "project-management",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start and stop a timer from the macOS menu bar with a live elapsed-time readout",
+  "Write each session as a markdown note with project, start, end, duration, and date frontmatter",
+  "Group sessions by project and sum durations in a shipped Base",
+  "Resume a running timer after an Obsidian restart",
+  "Cancel a running timer or open settings from the tray right-click menu"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Live menu-bar readout is macOS-only (Tray.setTitle); the timer and note-writing still work elsewhere. Install instructions are for a local/development copy (copy main.js, manifest.json, styles.css into the vault), and the listing notes it has not been manually reviewed by Obsidian staff. Includes a manual verification checklist because there is no headless Obsidian test harness.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built to keep the data yours: the author wanted time logs as plain markdown in the vault, not a SaaS database.",
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in time tracking, and external trackers keep session data in outside services instead of plain markdown in the vault.",
+ "readmeHash": "519175f68da1406e325a1c3a2a94279e6433d523",
+ "relations": [
+  {
+   "evidence": "Coexists with Headless Mode: both menu-bar icons work; neither destroys the other.",
+   "plugin": "Headless Mode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Menu-bar timer for macOS that starts and stops project timers, writes each session as a markdown note, and rolls up time per project in a Base.",
+ "tags": [
+  "time-tracking",
+  "menu-bar",
+  "macos",
+  "tray",
+  "session-notes",
+  "electron"
+ ]
+}

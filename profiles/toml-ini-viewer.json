@@ -1,0 +1,53 @@
+{
+ "also": [
+  "code"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open .toml and .ini files from the file explorer as a parsed config tree",
+  "Filter the tree by sections, keys, values, and type labels",
+  "Switch to a source view with line numbers and lightweight highlighting",
+  "Report TOML parse errors and INI warnings for duplicates and malformed lines",
+  "Cap rendered nodes and refresh after external file changes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a config editor or formatter; it never writes to disk so it cannot reformat or corrupt configuration files.",
+ "extras": "The manifest description notes the plugin has not been manually reviewed by Obsidian staff. The parsed tree renders only the first 2,000 nodes, with the rest counted in a warning; the source view always remains available.",
+ "intent": "new",
+ "intentEvidence": "not better served by YAML, JSON, HTML, CSV, or TSV viewers",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it is built for generated config, agent output, CLI settings, project scaffolds, and other small structured files not better served by YAML, JSON, HTML, CSV, or TSV viewers.",
+ "primary": "formats",
+ "problem": "Obsidian has no structured viewer for TOML and INI config files, so they must be read as plain text.",
+ "readmeHash": "e064bff5168623bf9bb2f052e54c7232ea07dc99",
+ "relations": [
+  {
+   "evidence": "TOML uses smol-toml, a small parser dependency.",
+   "plugin": "smol-toml",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens .toml and .ini files as a searchable parsed config tree with a source view and parse warnings.",
+ "tags": [
+  "toml",
+  "ini",
+  "config-files",
+  "syntax-highlighting",
+  "read-only",
+  "parse-warnings",
+  "smol-toml"
+ ]
+}

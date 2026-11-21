@@ -1,0 +1,45 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render vault .html and .htm files read-only in sandboxed panes",
+  "Sanitize documents by removing scripts, event handlers, forms, and navigation",
+  "Embed vault-local raster images and stylesheets as validated data URLs",
+  "Refresh open views when the source or a referenced asset changes",
+  "Enforce size and count limits on documents, images, and stylesheets"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a web browser or HTML editor; it only renders local static HTML files read-only, with scripts, navigation, and remote resources blocked.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents strict size limits (e.g. 10 MiB HTML, 25 MiB total assets), unsupported content (SVG, audio, video, fonts), and a security reporting process via SECURITY.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "html",
+ "problem": "Obsidian has no built-in safe way to view static HTML files stored in a vault, and opening them normally would run their scripts and load remote resources.",
+ "readmeHash": "7c81cdedac1a483ec22a4b02d0d9bd7109e6137f",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sandboxed read-only viewer that renders static .html and .htm files from the vault in a no-script, no-network iframe.",
+ "tags": [
+  "sandbox",
+  "csp",
+  "iframe",
+  "security",
+  "static-html"
+ ]
+}

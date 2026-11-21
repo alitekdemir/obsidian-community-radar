@@ -1,0 +1,71 @@
+{
+ "also": [
+  "research",
+  "project-management"
+ ],
+ "audience": [
+  "teachers",
+  "project-based-learning-educators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Collect unstructured materials (worksheets, recordings, photos, videos) into project/action folders",
+  "Transcribe audio and video and describe images with AI models",
+  "Extract evidence against teaching goals and generate action, project, and term reports",
+  "Produce internal and redacted external report versions with aliases and blurred photos",
+  "Sync recordings from Dedao and export reports as PDF"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a literacy-instruction tool; it is an assessment workbench that turns collected classroom materials into AI-organized evidence reports.",
+ "extras": "Free for individual tutors; institutional or commercial use requires written authorization from the PBL-EDU project team. Detailed usage and architecture docs are linked separately. The README states the full workflow has not yet been verified end-to-end with real API keys, and known limits include a 25 MB per-file transcription cap, no manual evidence review UI, and no PDF/Word parsing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no structured workflow for project-based student assessment: gathering lesson materials, extracting evidence with AI against teaching goals, and producing per-student or term reports with a privacy-redacted version.",
+ "readmeHash": "536ed6dcb1e94dd91acc0c9dc7412062a7e91411",
+ "relations": [
+  {
+   "evidence": "得到大脑录音同步（暂存 → 匹配已有行动）",
+   "plugin": "得到大脑 (Dedao)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "录音/视频转写（OpenAI 兼容 ASR）",
+   "plugin": "OpenAI-compatible ASR services",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider and transcription service",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Dedao (得到大脑) membership",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local-first literacy assessment workbench where educators collect classroom materials per project and action, have AI transcribe and describe them, and generate evidence-based student reports.",
+ "tags": [
+  "dedao",
+  "transcription",
+  "student-assessment",
+  "redaction",
+  "evidence-reports",
+  "openai-compatible",
+  "pbl"
+ ]
+}

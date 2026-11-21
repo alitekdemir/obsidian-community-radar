@@ -1,0 +1,60 @@
+{
+ "also": [
+  "code",
+  "markdown"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Compile and live-preview .mdx files with auto-open and debounced reload",
+  "Render Code Hike annotations including scrollycoding, focus, mark, and diff",
+  "Render Mermaid code fences as SVG diagrams with per-diagram errors",
+  "Execute MDX JavaScript in a sandboxed iframe behind a per-session consent gate",
+  "Export the rendered preview to PDF via the desktop print dialog"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It renders MDX for preview only; it does not provide rich MDX editor tooling, and the README suggests pairing it with an edit-only plugin.",
+ "extras": "The README documents a detailed security model and warns that MDX is executable JavaScript, that outbound network requests from the sandbox are possible, and that previewed scripts can read bytes of images the file references; users should only preview files they trust. Print/PDF export is desktop-only. Installation instructions and a linked design write-up are included.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from yulei-chen/obsidian-mdx and rewritten with a security-first architecture, mobile compatibility, and offline rendering.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author rebuilt the original MDX plugin as a fork to add a security-first architecture, offline rendering, and mobile compatibility, and because other MDX plugins only handle editing rather than compiling and previewing.",
+ "primary": "formats",
+ "problem": "Obsidian treats .mdx as an unknown file type, and existing MDX plugins only register it for plain-text editing without compiling or rendering the content.",
+ "readmeHash": "6c323a2882b2d2430852a4e171da4a2787e2fc8d",
+ "relations": [
+  {
+   "evidence": "Originally forked from yulei-chen/obsidian-mdx by yulei-chen. Thank you for the foundation.",
+   "plugin": "yulei-chen/obsidian-mdx",
+   "type": "fork"
+  },
+  {
+   "evidence": "with first-class support for Code Hike — scrollycoding, code annotations, focus lines, and compile-time syntax highlighting",
+   "plugin": "Code Hike",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "MDX preview that compiles .mdx files so JSX, Code Hike annotations, and Mermaid diagrams render in a sandboxed, offline-capable live preview.",
+ "tags": [
+  "mdx",
+  "code-hike",
+  "jsx",
+  "react",
+  "mermaid",
+  "sandboxing"
+ ]
+}

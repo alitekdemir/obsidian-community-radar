@@ -1,0 +1,70 @@
+{
+ "also": [
+  "images",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Map whole folders of geotagged photos at the places they were taken",
+  "Draw GPX, GeoJSON, KML, and TCX routes and areas with elevation profiles and statistics",
+  "Build Around views showing the current note's links, backlinks, tracks, and photos",
+  "Search and reverse-geocode places via OpenStreetMap or Amap",
+  "Use on-disk tile packs as offline basemaps and import or export placemarks as GPX, KML, or CSV"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone map plugin; it has no map view of its own and its features are skipped without Obsidian's built-in Maps view.",
+ "extras": "Requires Obsidian 1.13.1 or newer with Bases enabled and the Maps plugin installed; the manifest notes it has not been manually reviewed by Obsidian staff. Detailed usage lives in a user guide within the repository.",
+ "intent": "improve",
+ "intentEvidence": "It adds to the Maps view Obsidian already ships, and does not replace it",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian's built-in Maps view cannot draw paths, map photos by their embedded location, geocode places, or work offline.",
+ "readmeHash": "a606509dfcd78e4dd8281aadee263a8bae45b227",
+ "relations": [
+  {
+   "evidence": "Map View is the other map plugin for Obsidian, and it is a whole GIS",
+   "plugin": "Map View",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Place search and reverse geocoding, through OpenStreetMap or Amap",
+   "plugin": "OpenStreetMap",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Place search and reverse geocoding, through OpenStreetMap or Amap",
+   "plugin": "Amap",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenStreetMap or Amap geocoding services",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Extends Obsidian's native Maps view with geotagged photo albums, GPX/GeoJSON/KML/TCX route drawing, and Around views of linked notes.",
+ "tags": [
+  "gpx",
+  "geojson",
+  "kml",
+  "geotagged-photos",
+  "openstreetmap",
+  "geocoding",
+  "offline-tiles"
+ ]
+}

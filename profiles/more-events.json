@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish plugin lifecycle, context menu, file, canvas, task, command, workspace, configuration, sync and mobile keyboard events on app.workspace",
+  "Provide typed API declarations (api.d.ts) that developers can copy or consume via a cross-plugin registry",
+  "Ship a demo vault with live-subscription notes explaining each event",
+  "Expose a versioned API contract with schemas for arguments and return values"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It has no user interface; it is an API surface for other plugins, not an end-user tool.",
+ "extras": "Documentation is itself a demo vault shipped with each release and browsable on GitHub; no similar plugin was found when last searched, on 2026-10-26.",
+ "intent": "improve",
+ "intentEvidence": "A home for the events Obsidian does not publish. More Events publishes them on app.workspace, named, typed and per subject",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Without it, a plugin that needs such an event reads undocumented internals or patches a shared prototype, and two plugins doing that in one vault means two patches on one prototype. This plugin patches once, for everybody.",
+ "primary": "developers",
+ "problem": "Plugins that need events Obsidian does not publish must read undocumented internals or patch a shared prototype, which conflicts when several plugins do it.",
+ "readmeHash": "1fdf7973453c6ab0e52580be7227ec267bc02467",
+ "relations": [
+  {
+   "evidence": "Ensure you have the BRAT plugin installed and enabled.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Developer library that publishes named, typed workspace events Obsidian's public API does not expose, letting plugins subscribe without patching internals.",
+ "tags": [
+  "event-bus",
+  "context-menu",
+  "api-contract",
+  "canvas-events",
+  "cross-plugin-api"
+ ]
+}

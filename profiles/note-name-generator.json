@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Generate random GUID names",
+  ": Rename active notes using external scripts",
+  ": Hook into Obsidian's new note creation process",
+  ": Configure external shell commands",
+  ": Update links when renaming"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": Files",
+   ": Note composer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "External generator functionality is limited to desktop applications; mobile devices default to random GUID generation.",
+ "intent": "improve",
+ "intentEvidence": "This plugin separates when a name is needed (new note, rename) from how it is produced, and lets you delegate the \"how\" to a script of your choice.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To separate the timing of when a name is needed from how that name is produced, allowing delegation to a custom script.",
+ "primary": "writing",
+ "problem": "Existing note naming solutions are hard-coded to a single scheme (like timestamps or GUID), lacking flexibility for custom generation logic.",
+ "readmeHash": "1bdd9185aa4d10579e26f9497fdb0e624481c704",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Shell/OS environment",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A note naming utility that generates or renames notes using a random GUID or the output of a configurable external script.",
+ "tags": [
+  "guid",
+  "uuid",
+  "shell",
+  "script",
+  "renaming",
+  "zettelkasten"
+ ]
+}

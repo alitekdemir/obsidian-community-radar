@@ -1,0 +1,65 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes and attachments across devices via Cloudflare Workers, Durable Objects, and R2",
+  "Edit the same Markdown note concurrently with live cursors, selections, and device names",
+  "Store files in your own R2 bucket and work offline, syncing on reconnect",
+  "Preserve unmergeable conflicting files under separate names",
+  "Sync a vault from the command line without Obsidian using a Node.js CLI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "You must deploy and maintain the server yourself (clone repo, wrangler setup, Cloudflare Access OAuth). No end-to-end encryption: the server can read synced content. Stated sync latency targets are unmeasured and collaboration is still untested on desktop, iOS, and Android. Each local vault connects to exactly one remote vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to host your own sync server or edit the same note concurrently on multiple devices.",
+ "readmeHash": "a8dbc02651a2ebe8eea62e5412bb02f95b2a1797",
+ "relations": [
+  {
+   "evidence": "syncs notes and attachments across devices using Cloudflare Workers, Durable Objects, and R2",
+   "plugin": "Cloudflare Workers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloudflare Workers, Durable Objects, and R2 usage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs notes and attachments across devices through a self-hosted Cloudflare Workers server, with concurrent editing and live cursors.",
+ "tags": [
+  "cloudflare",
+  "workers",
+  "r2",
+  "durable-objects",
+  "self-hosted",
+  "yjs",
+  "live-cursors",
+  "websockets"
+ ]
+}

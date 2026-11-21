@@ -1,0 +1,66 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dropped images to Qiniu object storage",
+  "Insert CDN links in place of local image attachments",
+  "Fall back to saving locally when an upload fails",
+  "Relay uploads through a self-hosted qiniuserver",
+  "Configure file name templates, upload paths, and size limits"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (Chinese and English) and warns that access/secret keys are stored in data.json inside the vault; users who sync or publish the vault are advised to ignore .obsidian or use relay mode so keys stay on their own server.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian saves pasted and dropped images as local vault attachments, which bloats the vault and ties images to local files instead of hosted URLs.",
+ "readmeHash": "14871cb8b49f36a3684b17a45c7434e41c8e31e2",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "qiniuserver",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "qiniu-image",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Qiniu Cloud account with access key, secret key, and bucket",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "qiniuserver",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Uploads pasted or dropped images to Qiniu object storage and inserts the CDN link into the note instead of saving a local attachment.",
+ "tags": [
+  "qiniu",
+  "image-hosting",
+  "object-storage",
+  "cdn",
+  "paste-upload",
+  "hmac-signing"
+ ]
+}

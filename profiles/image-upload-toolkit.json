@@ -1,0 +1,74 @@
+{
+ "also": [
+  "publishing",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload local images from a note to a configured storage service",
+  "Rewrite image links to public URLs and copy the exported Markdown to the clipboard",
+  "Batch-process multiple images with progress feedback",
+  "Convert Mermaid code blocks to PNG images before upload",
+  "Download and re-upload web images to prevent link rot"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop platforms only; mobile is not supported. Users must self-register an Imgur Client ID since the plugin no longer bundles a shared one. Documentation elsewhere for detailed storage setup; no telemetry.",
+ "intent": "improve",
+ "intentEvidence": "builds upon the work of several exceptional projects",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Publishing notes to static sites requires images to be externally hosted, but Obsidian keeps them as local attachments with links that break outside the vault.",
+ "readmeHash": "0e9747a7b29b419b21edd6eedb4e6258a3fe9423",
+ "relations": [
+  {
+   "evidence": "Reference implementation for Imgur upload functionality",
+   "plugin": "obsidian-imgur-plugin",
+   "type": "extends"
+  },
+  {
+   "evidence": "Inspiration for additional features",
+   "plugin": "obsidian-image-auto-upload-plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "This plugin was inspired by the powerful markdown editor MWeb Pro",
+   "plugin": "MWeb Pro",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "storage service API key or token (e.g. Imgur Client ID, GitHub token)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "account with a supported storage service",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Image upload toolkit that sends local images embedded in a note to a cloud storage service and copies Markdown with public URLs for publishing.",
+ "tags": [
+  "imgur",
+  "aws-s3",
+  "cloudflare-r2",
+  "imagekit",
+  "aliyun-oss",
+  "github-pages",
+  "mermaid",
+  "static-site"
+ ]
+}

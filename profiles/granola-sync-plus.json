@@ -1,0 +1,86 @@
+{
+ "also": [
+  "import",
+  "files"
+ ],
+ "audience": [
+  "granola-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import Granola meeting notes as Markdown files with frontmatter",
+  "Schedule auto-sync or trigger manual syncs via ribbon and command palette",
+  "Tag and link meeting attendees in frontmatter",
+  "Add today's meetings to daily notes (core and Periodic Notes)",
+  "Filter synced notes by Granola folder and creation date"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way vault sync; it imports Granola meeting notes one-way into Obsidian.",
+ "extras": "Desktop-only (isDesktopOnly) because it reads Granola credentials from the OS; formerly named 'Granola Sync' with a changed plugin ID; the README documents exactly which files, subprocesses, and hosts it touches and warns to back up the vault before using the experimental vault-wide duplicate search.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Granola meeting notes live in the Granola app, so getting them into Obsidian means copying them by hand or losing them outside the vault.",
+ "readmeHash": "b20aa5466fef2ca0b322b7be9fde498e602b760a",
+ "relations": [
+  {
+   "evidence": "The plugin now supports the Periodic Notes plugin for enhanced daily note management",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin reads your Granola notes from the official Granola API",
+   "plugin": "Granola AI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Granola desktop app",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Active Granola AI account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Official Granola API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Granola Business or Enterprise plan (for API key mode)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Granola integration that imports your Granola AI meeting notes into the vault on a schedule or manually, with templates, attendee tags, and daily note updates.",
+ "tags": [
+  "granola",
+  "meeting-notes",
+  "attendees",
+  "wikilinks",
+  "api-key",
+  "prosemirror"
+ ]
+}

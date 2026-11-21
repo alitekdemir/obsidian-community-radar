@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build review queues from next_review frontmatter dates",
+  "Schedule adaptive spaced review with again, hard, good, easy feedback",
+  "Track review history, heatmaps, and vault health scores in a Review Center",
+  "Pause and resume notes on custom schedules",
+  "Run AI mastery exams with verification and delayed rechecks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a generic note-review or proofreading tool; it schedules spaced recall reviews of notes.",
+ "extras": "README doubles as release/development documentation and notes security caveats: API keys and exam drafts are stored unencrypted in vault-local data.json and may sync with configuration files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in spaced-repetition review queue driven by note properties, so users lack scheduling, feedback tracking, and review analytics inside the vault.",
+ "readmeHash": "90eb922aa04978dfc3170ea273c98660a1fc87cb",
+ "relations": [
+  {
+   "evidence": "Connect OpenAI-compatible APIs, OpenAI, Anthropic, Gemini, Azure OpenAI, and Ollama using your own credentials.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect OpenAI-compatible APIs, OpenAI, Anthropic, Gemini, Azure OpenAI, and Ollama using your own credentials.",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect OpenAI-compatible APIs, OpenAI, Anthropic, Gemini, Azure OpenAI, and Ollama using your own credentials.",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect OpenAI-compatible APIs, OpenAI, Anthropic, Gemini, Azure OpenAI, and Ollama using your own credentials.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI-compatible endpoints cover services such as OpenRouter, AIHubMix, DeepSeek, Groq, SiliconFlow, Together, LM Studio, and vLLM",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider credentials (OpenAI, Anthropic, Gemini, Azure OpenAI, or compatible endpoints)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Spaced-review system that builds review queues from note frontmatter, with a Review Center dashboard, adaptive scheduling, and optional AI mastery exams.",
+ "tags": [
+  "spaced-repetition",
+  "byok",
+  "openrouter",
+  "ollama",
+  "jsonl",
+  "heatmap",
+  "mastery-exams"
+ ]
+}

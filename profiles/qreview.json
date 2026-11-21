@@ -1,0 +1,72 @@
+{
+ "also": [
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Review selections or full notes with built-in agent roles (facts, wording, expansion, connection, restructure)",
+  "Polish selected text and apply the rewritten version back into the editor",
+  "Continue discussions about review results in a follow-up chat view",
+  "Configure custom agents, tools, API settings, and context menu buttons",
+  "Search the web via Tavily and get the current date for fact-checking"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a spaced-repetition review tool; it runs LLM agent reviews that critique and rewrite note text.",
+ "extras": "Desktop-only (isDesktopOnly: true) and intended for manual installation by copying files into .obsidian/plugins/; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get structured AI feedback on a note's facts, wording, or structure, or to rewrite text in place.",
+ "readmeHash": "668f6fafb70925ec28086118f86be1e64012ef01",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Multiple API styles - OpenAI-compatible",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Anthropic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM API key (OpenAI-compatible or Anthropic)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily API key (falls back to keyless mode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Multi-agent AI review plugin that fact-checks, critiques, and polishes notes or selections using configurable LLM agent roles.",
+ "tags": [
+  "llm",
+  "ai-agents",
+  "openai",
+  "anthropic",
+  "tavily",
+  "web-search",
+  "fact-checking"
+ ]
+}

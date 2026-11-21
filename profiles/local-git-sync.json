@@ -1,0 +1,58 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-commit local vault changes",
+  "Pull from and push to a configured Git remote",
+  "Run automatic background sync while the vault is open",
+  "Warn on rebase conflicts",
+  "Create placeholder files to keep empty folders tracked"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires the vault to already be inside a Git repository; the plugin cannot initialize one. If the vault sits inside a larger Git repository, the plugin syncs that whole repository. Unofficial and not affiliated with Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service and there is no built-in way to drive a local Git repository for backup and multi-device syncing.",
+ "readmeHash": "0bfb147f74be7228c67d8fc6327e5d986180ef9b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Git hosting service (GitHub, GitLab, Gitee, or self-hosted) for pull/push",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Git-based sync plugin that auto-commits, pulls, and pushes vault changes to a configured remote without leaving Obsidian.",
+ "tags": [
+  "github",
+  "gitlab",
+  "gitee",
+  "version-control",
+  "auto-commit",
+  "rebase"
+ ]
+}

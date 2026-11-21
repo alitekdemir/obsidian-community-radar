@@ -1,0 +1,62 @@
+{
+ "also": [
+  "import",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Telegram bot messages into the vault as Markdown notes",
+  "Download media attachments to configurable file paths",
+  "Route messages to folders and templates with filter rules",
+  "Fetch new messages by polling or Supabase Realtime",
+  "Warn about Supabase storage usage via Telegram"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a device-to-vault sync tool; it pulls Telegram chat messages into the vault as new notes.",
+ "extras": "Not yet in the community registry; requires manual installation and self-deploying Supabase Edge Functions, database migrations, and a Telegram bot via BotFather. Telegram Bot API limits file downloads to 20 MB. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture Telegram chat messages and their attachments as notes in the vault.",
+ "readmeHash": "dd4701783358f237cde1830cefbce2e5f9627923",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Supabase and Telegram accounts",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Supabase backend and Telegram bot",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Telegram bot token and Supabase keys",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Telegram bridge that pulls bot messages into the vault as Markdown notes through a self-hosted Supabase backend.",
+ "tags": [
+  "telegram-bot",
+  "supabase",
+  "webhook",
+  "edge-functions",
+  "realtime",
+  "self-hosted",
+  "botfather"
+ ]
+}

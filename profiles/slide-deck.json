@@ -1,0 +1,73 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render Markdown notes as slide decks in a live side-panel preview",
+  "Export decks to PDF or a numbered PNG image series",
+  "Style decks with built-in and user CSS themes via frontmatter",
+  "Set per-slide layouts with directives or automatic inference",
+  "Generate decks from note content via a configured LLM endpoint"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not reviewed by Obsidian staff. Optional AI deck generation sends note content to a user-configured endpoint (local LM Studio by default; secrets are masked before sending). Install is via AnySource Sideloader or manual file copy; detailed guides and troubleshooting live in separate documentation pages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to turn a Markdown note into a themed slide deck with per-slide layouts and direct PDF or PNG export.",
+ "readmeHash": "64aacd4f5856d7b5de72bcffc7f06733e7008e05",
+ "relations": [
+  {
+   "evidence": "Requires the local-image-generator plugin (desktop only).",
+   "plugin": "local-image-generator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If the LLM Endpoint Manager plugin is installed, the endpoints (and their keys) come from it",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "local-image-generator",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM endpoint API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio or Ollama for local AI generation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Markdown-to-slides plugin that renders notes as themed slide decks in a live preview and exports them to PDF or PNG, flagging overflowing slides.",
+ "tags": [
+  "png",
+  "katex",
+  "mermaid",
+  "highlight-js",
+  "lm-studio",
+  "ollama"
+ ]
+}

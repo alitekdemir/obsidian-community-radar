@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Embed real terminal panes",
+  ": Read Ghostty configuration",
+  ": Manage multiple terminal splits",
+  ": Execute shell commands",
+  ": Open terminal via file explorer context menu"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Windows support is not currently implemented; requires macOS or Linux.",
+ "intent": "new",
+ "intentEvidence": "A true Ghostty-powered terminal pane embedded inside Obsidian — same VT parser as the native Ghostty app, no Electron quirks, no xterm.js compromises.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian lacks a true, high-fidelity terminal environment that supports real VT semantics, custom configurations, and complex shell interactions.",
+ "readmeHash": "989a5b70190e848da3cb1fefe3d72cb2e245632a",
+ "relations": [
+  {
+   "evidence": "same VT parser as the native Ghostty app",
+   "plugin": "Ghostty",
+   "type": "integrates"
+  },
+  {
+   "evidence": "no xterm.js compromises.",
+   "plugin": "xterm.js",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.8+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "macOS / Linux",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A true Ghostty-powered terminal pane embedded inside Obsidian, utilizing WebAssembly and a Python PTY proxy for real terminal functionality.",
+ "tags": [
+  "ghostty",
+  "wasm",
+  "pty",
+  "vt-parser",
+  "shell",
+  "terminal"
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "also": [
+  "pdf",
+  "ocr"
+ ],
+ "audience": [
+  "students",
+  "self-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert single or batch lecture PDFs into structured Markdown notes with headings, formulas and a progress HUD",
+  "OCR pasted screenshots, slides and whiteboard photos into Markdown with LaTeX and diagrams",
+  "Chat with configured LLM providers in a sidebar, attaching vault notes with @ and streaming Markdown, math and Mermaid replies",
+  "Build a local embedding index over a course folder and retrieve relevant chunks with [[Note#Section]] citations during chat",
+  "Manage multiple LLM API profiles and per-vault chat sessions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes detailed security and privacy notes (local-first storage, encrypted API keys, no telemetry, a table of network destinations) plus automated-review notes; first use of PDF/embedding features may download runtime files (ONNX, PDF.js) and embedding model weights over the network. Community links: changelog, docs, and GitHub releases.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn course PDFs and slide images into structured notes or to query your own course materials with an LLM, so students must juggle external conversion and chat tools.",
+ "readmeHash": "49c99fd620a0e6befa415bfc7cba47f740625857",
+ "relations": [
+  {
+   "evidence": "BYOK | Your API key only — presets for OpenAI, DeepSeek, Kimi (Moonshot), Gemini, Custom",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BYOK | Your API key only — presets for OpenAI, DeepSeek, Kimi (Moonshot), Gemini, Custom",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BYOK | Your API key only — presets for OpenAI, DeepSeek, Kimi (Moonshot), Gemini, Custom",
+   "plugin": "Kimi (Moonshot)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses LLMs (DeepSeek, Kimi, OpenAI, Gemini, etc.) to convert lecture PDFs to Markdown",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (OpenAI, DeepSeek, Kimi, Gemini or custom endpoint)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI study assistant that converts lecture PDFs and screenshots into structured Markdown notes, with BYOK LLM chat and local course RAG with wiki-link citations.",
+ "tags": [
+  "byok",
+  "rag",
+  "embeddings",
+  "llm",
+  "deepseek",
+  "kimi",
+  "openai",
+  "gemini"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run a login shell with job control in an Obsidian pane",
+  "Render terminal output using Ghostty's VT parser compiled to WebAssembly",
+  "Encode scroll wheel as SGR or X10 mouse reports for mouse-tracking TUIs",
+  "Open terminals from the ribbon, command palette, or file explorer context menu",
+  "Follow an existing Ghostty config for fonts, colors, cursor, scrollback, shell, and keybinds"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a command runner or output panel; it is a full terminal emulator with a login shell, job control, and full-screen TUI support.",
+ "extras": "Not yet in the community catalogue; manual installation from release assets is required. Windows is not supported, and Obsidian 1.7.2+ desktop is required. Not affiliated with the Ghostty project.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin began as a fork of obsidian-ghostty-terminal by Mayank Lavania",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Mouse-aware TUIs scrolling properly: the README states 'This is the reason the plugin exists.'",
+ "primary": "developers",
+ "problem": "Existing Obsidian terminal plugins approximate escape-sequence handling and translate scroll-wheel events into arrow keys, so mouse-aware TUIs misbehave or appear to ignore scrolling.",
+ "readmeHash": "dd08c6d44f01c5a61ff2dfb304ef0972f2d3f6c0",
+ "relations": [
+  {
+   "evidence": "This plugin began as a fork of obsidian-ghostty-terminal by Mayank Lavania",
+   "plugin": "obsidian-ghostty-terminal",
+   "type": "fork"
+  },
+  {
+   "evidence": "Rendering is handled by ghostty-web, which compiles the same libghostty VT parser",
+   "plugin": "ghostty-web",
+   "type": "extends"
+  },
+  {
+   "evidence": "Ghostty by Mitchell Hashimoto, whose VT parser and config format this builds on",
+   "plugin": "Ghostty",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Terminal view that runs a real PTY shell in an Obsidian pane, rendered by Ghostty's VT parser, with mouse-aware wheel scrolling for TUIs.",
+ "tags": [
+  "terminal",
+  "pty",
+  "shell",
+  "ghostty",
+  "tui",
+  "python",
+  "mouse-reporting",
+  "sgr"
+ ]
+}

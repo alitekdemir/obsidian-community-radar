@@ -1,0 +1,57 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Receive clips from a companion Chrome extension over a loopback HTTP server",
+  "Save webpage screenshots as standalone notes with images in a frames subfolder",
+  "Merge cover, hook, and keyframe clips from one video into a single note per video",
+  "Configure storage folders, port, frame limits, and per-clip-type analysis SOP paths",
+  "Return obsidian:// deep links so the extension can open the created or updated note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Only the receiving half of a suite; it does nothing without the Obsidian Visual Clipper Chrome extension installed.",
+ "extras": "Desktop-only (mobile cannot run the local server). The receiving endpoint is intentionally unauthenticated; the README documents that it binds to loopback only, restricts CORS to chrome-extension origins, and only writes content. Includes troubleshooting and a network-use disclosure.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Browser extensions cannot write files into an Obsidian vault directly, so clipped screenshots and video frames need a bridge that turns them into formatted notes without manual paste-and-format steps.",
+ "readmeHash": "98fd259624c4495f202297212cc62291ed0554c3",
+ "relations": [
+  {
+   "evidence": "Vault Autopilot receives clips from the companion Chrome extension, Obsidian Visual Clipper",
+   "plugin": "Obsidian Visual Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Obsidian Visual Clipper Chrome extension",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local server plugin that receives screenshots and video clips from a companion Chrome extension and writes structured notes and images into the vault.",
+ "tags": [
+  "chrome-extension",
+  "screenshots",
+  "video-clips",
+  "local-http-server",
+  "youtube",
+  "bilibili",
+  "webp"
+ ]
+}

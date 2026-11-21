@@ -1,0 +1,100 @@
+{
+ "also": [
+  "graph",
+  "search"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Extract entities and relationships from notes with an LLM",
+  "Explore and search the knowledge graph interactively",
+  "Rank notes and entities by text match and graph proximity",
+  "Build editable PubMed and OpenAlex literature searches from graph paths",
+  "Serve the vault and graph to AI agents over a local MCP server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Search",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a graph-visualization enhancement; it builds a separate entity graph from note content using an LLM, alongside its own graph view.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that provider API keys are stored in data.json and must be added to .gitignore for version-controlled vaults. Local model servers allow fully free, local processing; note analysis with cloud providers costs the provider's per-note pricing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author writes that Obsidian's links between notes make implementing a lightweight ontology model meet users' needs, especially researchers'.",
+ "primary": "ai",
+ "problem": "Obsidian links connect notes but does not extract the entities and relationships inside note content into a queryable knowledge graph.",
+ "readmeHash": "20a617ab57515b078d8fa3e4b064ae74401de726",
+ "relations": [
+  {
+   "evidence": "combines the simplicity of LightRAG with KGGen's hybrid resolution approach",
+   "plugin": "LightRAG",
+   "type": "inspired"
+  },
+  {
+   "evidence": "KGGen [3] introduced the insight that entity resolution is critical for quality knowledge graphs",
+   "plugin": "KGGen",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Search follows HippoRAG [6] in ranking by Personalized PageRank over the graph",
+   "plugin": "HippoRAG",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Bring a med-lit-mcp literature review (articles, wiki pages and its knowledge graph) into your vault",
+   "plugin": "med-lit-mcp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Let Claude Code, Claude Desktop or Codex search your vault and knowledge graph",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Develop editable PubMed/OpenAlex searches from explored concepts and paths",
+   "plugin": "PubMed",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Develop editable PubMed/OpenAlex searches from explored concepts and paths",
+   "plugin": "OpenAlex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (Claude, OpenAI, Gemini, DeepSeek)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP agent (Claude Code, Claude Desktop, Codex) for agent access",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "LLM-powered knowledge graph builder that extracts entities and relationships from notes, with graph exploration, ranked search, and literature search.",
+ "tags": [
+  "knowledge-graph",
+  "entity-extraction",
+  "rag",
+  "embeddings",
+  "pubmed",
+  "openalex",
+  "mcp",
+  "ollama"
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert a Dataview query at the cursor into a Bases block",
+  "Convert all convertible Dataview queries in a note",
+  "Scan the vault and report which Dataview queries are convertible, partly convertible or not",
+  "Move inline fields into note properties",
+  "Undo the last move of inline fields"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a runtime query engine or a Dataview replacement; it rewrites queries once and does not need Dataview installed.",
+ "extras": "Needs Obsidian 1.10 or later (1.10 for the list view); the plugin only writes text, uses no network, and does not need Dataview installed. The manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "A migration helper for people moving off Dataview, which has had no release in over a year",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it as a migration helper for people moving off Dataview, which has had no release in over a year, to the Bases core feature.",
+ "primary": "bases",
+ "problem": "Bases, Obsidian's core query feature, cannot read Dataview queries or inline fields, leaving users with queries that produce nothing after switching.",
+ "readmeHash": "77e21ceb9cc855173de70b07a2428bb5512c588f",
+ "relations": [
+  {
+   "evidence": "A migration helper for people moving off Dataview, which has had no release in over a year",
+   "plugin": "Dataview",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Migration converter that turns Dataview queries into Bases blocks and reports which queries in a vault are convertible.",
+ "tags": [
+  "dataview",
+  "query-conversion",
+  "inline-fields",
+  "migration"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit notes collaboratively in real time with CRDT conflict-free merges",
+  "Show collaborator cursors, selections and avatars live",
+  "Switch between multiple remote vaults or rooms",
+  "Enforce read-only mode for viewer-role users in the editor",
+  "Reconcile file changes made outside Obsidian via the file explorer"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not just file synchronization; it also adds live multi-user collaborative editing with shared cursors and role-based permissions.",
+ "extras": "Installs via BRAT or manual GitHub release rather than a standard listing; server setup and VPS update instructions live in a separate external guide.",
+ "intent": "alternative",
+ "intentEvidence": "an open-source, self-hosted, local-first alternative to proprietary Obsidian relay and synchronization services",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian's official sync and relay services are proprietary hosted offerings, leaving no self-hosted option for real-time multi-user editing and vault sync.",
+ "readmeHash": "2f7b2c86a32393c502e524909a55576688df157c",
+ "relations": [
+  {
+   "evidence": "an open-source, self-hosted, local-first alternative to proprietary Obsidian relay and synchronization services",
+   "plugin": "Obsidian Sync / Relay",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Powered by Yjs CRDTs and WebSockets",
+   "plugin": "Yjs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connects directly to your own self-hosted Kurotsuki-Sync-Server.",
+   "plugin": "Kurotsuki-Sync-Server",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Kurotsuki-Sync-Server (WebSocket relay)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "auth token / secret configured on the relay",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian42 - BRAT (alternative install and auto-update method)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Self-hosted real-time collaboration and vault synchronization plugin that uses Yjs CRDTs over WebSockets to edit notes together and sync vaults.",
+ "tags": [
+  "yjs",
+  "crdt",
+  "websockets",
+  "self-hosted",
+  "rbac",
+  "presence"
+ ]
+}

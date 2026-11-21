@@ -1,0 +1,65 @@
+{
+ "also": [
+  "ai",
+  "bases"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render interactive timelines from chronos code blocks in notes",
+  "Generate timelines from note text with AI providers",
+  "Edit timeline markdown with AI proposals",
+  "Generate combined timelines from all Chronos items in a folder",
+  "Show Bases views as timelines built from note properties"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "AI features are off unless a provider is configured; Ollama and LM Studio need no API key. The README warns that the ORDERBY flag can make large timelines laggy. Note linking is labeled beta.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no built-in way to turn dated note content into an interactive, inline timeline visualization.",
+ "readmeHash": "8d38aa1c6cfe7ffc1f429c6ce3907d19dadaf2d4",
+ "relations": [
+  {
+   "evidence": "Powered by chronos-timeline-md, a markdown wrapper for vis-timeline.",
+   "plugin": "chronos-timeline-md / vis-timeline",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Cloud AI provider API key via Obsidian SecretStorage",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local AI models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Markdown code-block plugin that renders interactive timelines in notes, with AI generation, folder-wide aggregation, and a Bases view.",
+ "tags": [
+  "vis-timeline",
+  "code-blocks",
+  "swimlanes",
+  "ollama",
+  "lm-studio",
+  "openrouter",
+  "bce-dates"
+ ]
+}

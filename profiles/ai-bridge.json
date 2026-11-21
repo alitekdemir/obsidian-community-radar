@@ -1,0 +1,69 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror selected folders, notes and referenced attachments to a Cloudflare R2 bucket via a Worker",
+  "Expose an MCP server with search, read, recent-notes and attachment tools for AI clients",
+  "Synchronize on startup, file change, schedule or manual trigger with optional two-way sync and conflict copies",
+  "Authorize AI clients with read-only OAuth tokens while keeping writes on the local device via obsidian:// URIs",
+  "Transfer connection settings to mobile devices through an encrypted obsidian:// link"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an embedded AI chat plugin; it mirrors notes to a remote store and exposes them over MCP for external AI clients instead of adding a chat box to Obsidian.",
+ "extras": "Deployment is self-hosted: the user must create and deploy the Cloudflare Worker, R2 bucket and OAuth KV namespace themselves (a Windows setup wizard helps). The README includes a detailed cost breakdown for Cloudflare Workers, R2 and KV free and paid tiers, and notes that two-way sync is off by default and uses last-modified-time reconciliation, not paragraph merging.",
+ "intent": "new",
+ "intentEvidence": "So this is not another plugin that simply puts an AI chat box inside Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted notes and AI to stay independent so one can switch AI clients and devices freely, and already had an encrypted primary sync system but wanted a separate, deliberately unencrypted mirror for AI.",
+ "primary": "ai",
+ "problem": "AI plugins typically run a local chat or agent in Obsidian, so the AI cannot reach the vault from the web, another device, or after the computer is off.",
+ "readmeHash": "1c3e546f1c3582dc876ed541f0a0edce20f396df",
+ "relations": [
+  {
+   "evidence": "You need a Cloudflare account, Node.js/npm, and this project's source code.",
+   "plugin": "Cloudflare",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP-compatible AI client",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloudflare Workers Paid / R2 beyond free tier",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted Cloudflare bridge that mirrors selected vault notes and attachments to R2 and serves them read-only to any MCP-compatible AI client.",
+ "tags": [
+  "cloudflare",
+  "mcp",
+  "r2",
+  "oauth",
+  "self-hosted",
+  "chatgpt",
+  "remote-context"
+ ]
+}

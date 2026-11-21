@@ -1,0 +1,76 @@
+{
+ "also": [
+  "search",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate structured notes from pasted text, images, or shared AI chat links",
+  "Place created or appended notes into folders automatically or by chosen folder",
+  "Search notes for original passages using keyword and embedding-based matching",
+  "Create Excalidraw diagrams (mind maps, flowcharts, timelines) from notes",
+  "Plan and apply folder rearrangements of existing notes from plain-language descriptions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin installed manually from release files. Ask Notes embeddings and the passage index stay in device-local IndexedDB outside the vault; remote placement indexing is off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn raw pasted text, images, or shared AI conversations into structured, correctly filed notes without manual formatting and folder organization.",
+ "readmeHash": "95e255172878941f6122d43a547588c570b4bc65",
+ "relations": [
+  {
+   "evidence": "Choose Diagram to create an Excalidraw drawing from the active note or a new description.",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Paste a Gemini, ChatGPT, or Claude share link into Note Crafter to load every visible turn",
+   "plugin": "Gemini, ChatGPT, or Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "generation and embedding provider API keys",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "installed Chrome, Chromium, Edge, or Brave browser for shared-chat import",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "provider API usage may be charged per request",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI note generator that turns pasted text, shared AI chats, and images into structured Markdown notes with automatic placement, semantic search, and Excalidraw diagrams.",
+ "tags": [
+  "openai",
+  "google-gemini",
+  "claude",
+  "openrouter",
+  "embeddings",
+  "excalidraw",
+  "semantic-search",
+  "shared-chat-import"
+ ]
+}

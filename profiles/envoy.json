@@ -1,0 +1,74 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Sync vault across multiple devices",
+  ": Use private GitLab projects for storage",
+  ": Merge changes from conflicting devices",
+  ": Encrypt private notes using Enclave",
+  ": Maintain sync history and version control"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires disabling Obsidian Sync before connecting. Licensed under AGPL-3.0-only.",
+ "intent": "alternative",
+ "intentEvidence": "Your notes live in your own private GitLab project, not on someone else's sync server.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Users need a private, reliable way to synchronize their Obsidian vault across diverse operating systems without relying on commercial sync services or complex Git workflows.",
+ "readmeHash": "0d7647490b0c1c83c5b0f7211f1f44f8b6394ce8",
+ "relations": [
+  {
+   "evidence": "Envoy keeps your notes in sync through a private project on GitLab, a service for storing files with their full history that's free to use.",
+   "plugin": "GitLab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Envoy is a fork of GitLab Gitless Sync by Alexander Terekhin",
+   "plugin": "Gitless Sync by Alexander Terekhin",
+   "type": "fork"
+  },
+  {
+   "evidence": null,
+   "plugin": "GitHub Gitless Sync by Silvano Cerza",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitLab",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "GitLab",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A private, cross-platform vault synchronization tool that uses a personal GitLab project to keep notes updated across multiple devices without requiring Git knowledge.",
+ "tags": [
+  "gitlab",
+  "enclave",
+  "cross-platform",
+  "private-sync"
+ ]
+}

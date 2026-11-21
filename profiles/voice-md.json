@@ -1,0 +1,59 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio and transcribe it to Markdown via OpenAI",
+  "insert transcripts at the cursor or append them to the daily note",
+  "transcribe meetings with speaker identification",
+  "post-process raw transcripts into structured notes with a chat model",
+  "retry failed transcriptions from locally saved audio"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an 'not manually reviewed by Obsidian staff' notice; audio uploads are capped at OpenAI's 25 MB transcription limit, and recordings need OS microphone permission for Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to capture thoughts before they disappear while walking, commuting, or leaving a meeting, with reliable mobile behavior.",
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to record speech and turn it into note text, especially on mobile, so spoken ideas need a separate app and manual copying.",
+ "readmeHash": "e8eaa731dd5ab5d49f3836e5df9094cb576b27bb",
+ "relations": [
+  {
+   "evidence": "Audio and optional transcript post-processing use OpenAI; no telemetry or hidden services.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Voice capture plugin that records audio and transcribes it into Markdown notes using the OpenAI transcription API.",
+ "tags": [
+  "openai",
+  "transcription",
+  "speech-to-text",
+  "dictation",
+  "meeting-notes",
+  "voice-memos"
+ ]
+}

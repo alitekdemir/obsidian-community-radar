@@ -1,0 +1,88 @@
+{
+ "also": [
+  "navigation",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Match note names, aliases and paths per keystroke",
+  "Search every word of every note with typo and word-form tolerance",
+  "Filter results with chips for tags, types, dates, paths and links",
+  "Restrict searches to generated or manual scopes",
+  "Rank notes by the line answering a question using an optional local model"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Quick switcher"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a replacement for Obsidian's search; it hands off Obsidian-specific operators like line:, block: and /regex/ to the core search.",
+ "extras": "Free and open source, no telemetry or accounts. Desktop only in practice; mobile works but is not officially supported. The optional Search by meaning downloads a ~31 MB embedding model from Hugging Face, or you can supply the two model files yourself. Index and vectors are stored in IndexedDB outside the vault. The README notes Omnisearch also reads PDFs and images, which Jet does not.",
+ "intent": "alternative",
+ "intentEvidence": "Jet was timed against Obsidian's own search and quick switcher, and the most-installed search plugins",
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author states search is done a hundred times a day, so a hundred small waits add up, and built Jet so there is no wait.",
+ "primary": "search",
+ "problem": "Obsidian's built-in search and quick switcher are slow to return results and only the switcher matches names, so finding a note means waiting and often retyping.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "44dbbf5666298b9d4598889c1faba2ea63c530d2",
+ "relations": [
+  {
+   "evidence": "Omnisearch: 212 ms. Obsidian's own search: 96 ms, and up to 2.2 s.",
+   "plugin": "Omnisearch",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Smart Connections: 62%. Obsidian's search: 53%.",
+   "plugin": "Smart Connections",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "Quick Switcher++",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Another Quick Switcher | 21 ms | 21 ms | 28 ms | none | 10 ms",
+   "plugin": "Another Quick Switcher",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Does it replace Obsidian's search? No. It sits beside it.",
+   "plugin": "Obsidian's search",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.8.0 or newer",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Hugging Face (model download for Search by meaning)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Instant search plugin that matches note names and every word as you type, with typo tolerance, filters, scopes and optional on-device semantic search.",
+ "tags": [
+  "fuzzy-search",
+  "local-llm",
+  "embeddings",
+  "offline",
+  "semantic-search",
+  "multilingual"
+ ],
+ "textHash": "7f5dc92205277918ae31a1669e5a143f655c8c18"
+}

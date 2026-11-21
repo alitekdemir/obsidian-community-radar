@@ -1,0 +1,69 @@
+{
+ "also": [
+  "navigation",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pick a note by navigating into and out of folders",
+  "Insert a link at the cursor, replacing selected text",
+  "Rank candidates deterministically (exact, prefix, path, scattered)",
+  "Define named pickers rooted at a specific folder",
+  "Return the picked link as a string to templates, scripts or other plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is itself a demo vault shipped with every release; the plugin is in the official Community Plugins repository, with BRAT for beta versions. Folder-note aliases are read from an existing folder-notes setup rather than configured here.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's own link autocomplete searches the whole vault and ranks it fuzzily, which is exactly wrong",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found vault-wide fuzzy autocomplete unhelpful when you already know which folder the link belongs in and want the same note to rank first every time.",
+ "primary": "links",
+ "problem": "Obsidian's built-in link autocomplete searches the whole vault with fuzzy ranking, so the wanted note is not reliably first and there is no way to narrow the search to one folder.",
+ "readmeHash": "681571a3976a7f04b85f9250eae92f4fe158e222",
+ "relations": [
+  {
+   "evidence": "Different action: inserts links; navigates by folder",
+   "plugin": "Alias Quick Switcher",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Overlaps on picking; folder navigation with ..; fixed ranking; script returns a link string",
+   "plugin": "Another Quick Switcher",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Narrower targets: vault notes; inserts Obsidian links rather than filesystem paths",
+   "plugin": "Path Picker",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Folder-navigating link picker that inserts a link to a note with deterministic ranking, callable from commands, templates or scripts.",
+ "tags": [
+  "folder-navigation",
+  "deterministic-ranking",
+  "aliases",
+  "folder-notes",
+  "cross-plugin-api",
+  "mobile"
+ ]
+}

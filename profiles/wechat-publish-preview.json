@@ -1,0 +1,57 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [
+  "wechat-official-account-authors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview the active note with WeChat-ready article themes in the sidebar",
+  "Synchronize scrolling between the editor and the preview",
+  "Copy the article body as rich text for pasting into WeChat drafts",
+  "Embed local and remote images as Base64 during copy without an image host",
+  "Convert math and Mermaid diagrams to images for WeChat compatibility"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a one-click WeChat publisher; it copies formatted rich text that you paste into the WeChat draft editor yourself.",
+ "extras": "No WeChat AppID, AppSecret, account configuration, telemetry, or automatic draft submission; conversion happens in memory and never writes Base64 data back into notes. Installable via BRAT for beta testing.",
+ "intent": "improve",
+ "intentEvidence": "The article theme library and some compatibility strategies are adapted from the MIT-licensed Raphael Publish.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Publishing Markdown to the WeChat Official Account editor means re-styling by hand and finding an image host, since pasted Markdown loses formatting and local image paths don't transfer.",
+ "readmeHash": "116b951007ebc1d90147ffdb3bc5e82041bff02f",
+ "relations": [
+  {
+   "evidence": "The article theme library and some compatibility strategies are adapted from the MIT-licensed Raphael Publish.",
+   "plugin": "Raphael Publish",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The README structure and installation flow were inspired by Wechat Converter.",
+   "plugin": "Wechat Converter",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "WeChat publishing preview that renders notes with WeChat-ready themes, syncs scrolling between editor and preview, and copies rich text with images embedded as Base64.",
+ "tags": [
+  "wechat",
+  "rich-text",
+  "base64",
+  "clipboard",
+  "scroll-sync",
+  "mermaid"
+ ]
+}

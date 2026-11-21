@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Turn Markdown notes into flashcards with cloze, multiple choice, typed answers and image occlusion",
+  "Schedule reviews with FSRS learning steps, daily limits, custom study and an optimizer",
+  "Run timed exams with question maps, pass marks and saved progress",
+  "Generate cards from notes with an AI provider and review them before adding",
+  "Import and export Anki decks (.apkg) with media and schedules"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The plugin otherwise works offline; AI features are optional and off by default, with API keys kept in Obsidian's secret storage. Beta versions are installable via BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "Coming from Spaced Repetition? Disable it and enable Flashcard Studio. Your cards and schedules work as they are.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in spaced repetition, and the existing Spaced Repetition plugin lacks review history, daily limits, card control, exams, image occlusion and a desktop study interface.",
+ "readmeHash": "a7bd8a262cb195eb7a556dd6272eddf8205e6c9d",
+ "relations": [
+  {
+   "evidence": "reads and writes the same note format as the Spaced Repetition plugin, so your existing cards",
+   "plugin": "Spaced Repetition",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Import .apkg and text files with their media and decks, and export back to Anki.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The memory model is FSRS, through the ts-fsrs library.",
+   "plugin": "ts-fsrs",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI or OpenAI-compatible server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Spaced repetition flashcard plugin that turns Markdown notes into flashcards with FSRS scheduling, review history, statistics, exams and AI card generation.",
+ "tags": [
+  "fsrs",
+  "anki",
+  "image-occlusion",
+  "cloze",
+  "multiple-choice",
+  "apkg",
+  "exams"
+ ]
+}

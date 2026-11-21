@@ -1,0 +1,69 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit notes simultaneously with live cursors",
+  "Sync shared folders between collaborators, including offline edits",
+  "Share relays with other users via share keys",
+  "Manage relay membership and kick users",
+  "Self-host the Relay Server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: free tier up to 3 users with no cloud storage, Hobby and Starter paid tiers. Plugin code is MIT licensed, but the login, permissions, and billing server code is proprietary, and even self-hosted setups use the hosted control plane for login. Support happens via Discord; kick users cannot be prevented from rejoining.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian is a single-user app with no built-in way to edit notes together in real time or share folders with collaborators.",
+ "readmeHash": "06a449b1db4926a22676d171d0926807a6310b61",
+ "relations": [
+  {
+   "evidence": "We use a Conflict-Free Replicable Data Types (CRDTs) provided by the excellent yjs library.",
+   "plugin": "yjs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Relay Server is a fork of y-sweet and is MIT licensed.",
+   "plugin": "y-sweet",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Relay account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Relay paid tier",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Real-time collaborative editing plugin that syncs shared folders between users using CRDTs, with live cursors and offline editing.",
+ "tags": [
+  "crdt",
+  "yjs",
+  "local-first",
+  "live-cursors",
+  "real-time",
+  "self-hosting",
+  "share-keys"
+ ]
+}

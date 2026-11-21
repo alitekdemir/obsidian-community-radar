@@ -1,0 +1,64 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes bi-directionally with a GitHub repository as ordinary commits",
+  "Sign in via OAuth device flow and refresh expiring tokens automatically",
+  "Preserve local edits as conflict copies when both sides change a file",
+  "Verify written files against Git blob SHAs before advancing the sync point",
+  "Run automatic syncs on startup and on a configurable timer"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that OAuth tokens are stored in plaintext in local.json and must be excluded from any vault syncing. Setup, privacy details, and testing procedures are documented in the README itself; a Community Plugins review is still pending.",
+ "intent": "alternative",
+ "intentEvidence": "The existing Git plugins shell out to a real Git binary or bundle isomorphic-git",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because some notes live in repositories that cannot leave a particular GitHub instance, and existing Git plugins are a poor fit on iOS.",
+ "primary": "syncing",
+ "problem": "Git-based sync plugins need a Git binary or a bundled Git implementation that does not work on iOS, and Obsidian's own Sync cannot reach repositories that must stay on a private GitHub instance.",
+ "readmeHash": "3fb3ecaa6ba5efb78a80a8b8c3b4ff1d97eacf10",
+ "relations": [
+  {
+   "evidence": "Obsidian's own sync isn't always an option",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "On mobile, BRAT is the easiest route: install BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub or GitHub Enterprise Server account with access to the repository",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bi-directional vault sync with a GitHub or GitHub Enterprise Server repository over the REST API, using OAuth device flow, with no Git binary.",
+ "tags": [
+  "github",
+  "github-enterprise-server",
+  "oauth-device-flow",
+  "rest-api",
+  "ios",
+  "conflict-copies"
+ ]
+}

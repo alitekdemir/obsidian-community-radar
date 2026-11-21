@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", ",
+  "Offload files to storage",
+  "Replace files with pointer notes",
+  "Open and retrieve files",
+  "Sync local and S3 copies"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; local folder access is not available in the mobile app.",
+ "intent": "new",
+ "intentEvidence": "Copying files out by hand loses that link and the recovery trail.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to allow users to remove heavy files from the vault while maintaining findability and a recovery trail.",
+ "primary": "files",
+ "problem": "Large binary files bloat the vault, slow synchronization, and manual removal loses the link to the original file.",
+ "readmeHash": "b328caf5b167dd1ad68cca502706d993424db5fe",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "linked-attachments",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 credentials",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible bucket or local folder",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Offloads large files from the vault to external storage (S3 or local) and replaces them with a pointer note that allows retrieval and editing.",
+ "tags": [
+  "s3",
+  "cloud-storage",
+  "local-storage",
+  "binary",
+  "pointer",
+  "offload"
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt selected text into an inline or fenced encrypted token",
+  "Decrypt read-only into a modal without rewriting the file",
+  "Decrypt in place to edit, then re-encrypt",
+  "Render tokens as clickable lock pills in reading view",
+  "Cache the session password with a status bar lock indicator"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a whole-note or whole-vault encryption tool; it encrypts only the text you select, and unselected text, titles and file names stay readable.",
+ "extras": "README warns that File recovery snapshots, Obsidian Sync version history, undo history, search index and backups can retain pre-encryption plaintext, and that there is no password recovery. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for one threat: someone getting the vault files, such as a stolen laptop, a synced folder on a compromised machine, or a readable backup.",
+ "primary": "utilities",
+ "problem": "Encryption tools for Obsidian work on whole notes or whole vaults, so you cannot encrypt a single password, recovery code or paragraph inside an otherwise ordinary note.",
+ "readmeHash": "af4c8b0a1bd76c2a5cf6d67531e340029cc0b38d",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Selection-level encryption plugin that replaces highlighted text in a note with an AES-256-GCM encrypted token, decryptable with a password.",
+ "tags": [
+  "encryption",
+  "aes-256-gcm",
+  "pbkdf2",
+  "web-crypto-api",
+  "passwords",
+  "base64"
+ ]
+}

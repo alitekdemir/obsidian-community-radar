@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the vault via Hermes agent and slash commands like /search",
+  "Run semantic search using Hermes API or a local Ollama embedding model",
+  "Show ghost-text inline suggestions accepted with Tab",
+  "Review and approve or reject agent file changes in a diff view",
+  "Manage bibliographies, format citations, and pull text from PDFs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the official Community Plugins list; beta installs via BRAT. The README devotes a section to security and permissions: local agent bridge that spawns a subprocess, reads ~/.hermes/, and indexes the whole vault; terminal access is off by default and actions are logged to enodios/audit-log.md. MCP servers are configured in Hermes, not in this plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to work with an autonomous AI agent that can search notes, suggest text inline, and edit vault files under user approval.",
+ "readmeHash": "01962073bf1fe93bcfee6a47d30c9d651fd920e0",
+ "relations": [
+  {
+   "evidence": "Enodios connects your vault to a Hermes agent so you can search notes",
+   "plugin": "Hermes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "via Hermes embeddings (API mode) or a local Ollama model",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install and enable the BRAT plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hermes binary or remote Hermes agent",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI agent bridge that connects a vault to a Hermes agent for vault chat, semantic search, inline suggestions, and agent file edits gated by diff approval.",
+ "tags": [
+  "hermes",
+  "agent",
+  "ollama",
+  "embeddings",
+  "chat",
+  "diff-review",
+  "citations",
+  "slash-commands"
+ ]
+}

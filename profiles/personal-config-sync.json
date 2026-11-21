@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the .obsidian configuration folder to a WebDAV server",
+  "Exclude individual plugins and device-local state files from syncing",
+  "Merge text config conflicts with diff3 three-way merge or keep-both/local-win/remote-win strategies",
+  "Test network connectivity before syncing and report the failure cause",
+  "Run syncs manually, on events, or on a timed interval"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not manually reviewed by Obsidian staff; installed manually by copying main.js, manifest.json, and styles.css into the plugins folder. Bilingual English/Chinese documentation. If a content-sync plugin runs alongside, .obsidian must be added to its excluded folders.",
+ "intent": "alternative",
+ "intentEvidence": "WebDAV client layer is forked from nextcloud-sync-yanc (MIT), with Nextcloud-only features (version history, file locking, chunked upload, sync tokens) removed",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Content sync plugins handle notes but exclude or mishandle the configuration folder, so settings, themes, and plugin lists don't transfer between devices.",
+ "readmeHash": "94a4ef82dd4bde27571a30f43c5de4fe7a4c8b98",
+ "relations": [
+  {
+   "evidence": "The WebDAV client layer is forked from nextcloud-sync-yanc (MIT)",
+   "plugin": "nextcloud-sync-yanc",
+   "type": "fork"
+  },
+  {
+   "evidence": "Other WebDAV servers (Nextcloud, self-hosted, etc.) work too.",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Jianguoyun (坚果云) WebDAV address is pre-filled — you only supply an account and an App Password.",
+   "plugin": "Jianguoyun",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a WebDAV server account (Jianguoyun, Nextcloud, or self-hosted)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "WebDAV plugin that syncs only the vault's .obsidian configuration folder, independently of notes-content sync, with diff3 conflict merging.",
+ "tags": [
+  "webdav",
+  "jianguoyun",
+  "nextcloud",
+  "diff3",
+  "three-way-merge",
+  "configuration"
+ ]
+}

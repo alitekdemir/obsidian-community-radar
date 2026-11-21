@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with streaming responses using selection, current note, or retrieved notes as context",
+  "retrieve relevant notes via keyword search and optional embedding-based semantic retrieval",
+  "explain, rewrite, or summarize text from the command palette",
+  "run a bounded agent mode with per-operation confirmation for note writes",
+  "connect to configurable OpenAI-compatible chat and embedding endpoints"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only in its first public release; mobile support may come later. Feature availability depends on what the configured endpoint supports (streaming, tool calls, embeddings). Sends vault content to the configured provider; the author directs users to review that service's privacy terms.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with an AI model using the vault's notes as context or to let an AI agent make verified note edits.",
+ "readmeHash": "cc63d797261f129812f24e0feb93f78099b5b259",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible chat endpoint",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Embeddings endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI assistant plugin that streams chat with vault notes as context and runs a confirmation-gated agent for note actions.",
+ "tags": [
+  "openai",
+  "chat",
+  "embeddings",
+  "retrieval",
+  "agent",
+  "tool-calls",
+  "streaming"
+ ]
+}

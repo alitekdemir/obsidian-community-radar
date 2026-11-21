@@ -1,0 +1,59 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync vaults across devices via a self-hosted server",
+  "track per-file history with diff, restore, and vault-level rollback",
+  "merge concurrent text edits three-way and surface conflicts as .conflict-* files",
+  "expose the vault as a read-only git clone over HTTPS",
+  "connect AI agents through a built-in MCP server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Detailed admin and user manuals, security policy, and hardening guide live outside the README; this repository is an automatically published release mirror that does not accept pull requests; latest release adds QR-code connect link and safety guards against deletion wipe and name-refused files.",
+ "intent": "alternative",
+ "intentEvidence": "One-command migration from Obsidian Sync",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync is a paid third-party service, so users who want sync without their notes leaving their own infrastructure need another option.",
+ "readmeHash": "0a800561b9d4b2e35373f36aeb5f00eba73f4456",
+ "relations": [
+  {
+   "evidence": "One-command migration from Obsidian Sync",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted PKV Sync server (single binary or Docker Compose)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Self-hosted sync plugin that keeps vaults in sync through a user-hosted Git-backed server with version history, merge, and rollback.",
+ "tags": [
+  "self-hosted",
+  "mcp",
+  "three-way-merge",
+  "version-history",
+  "docker",
+  "prometheus"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault with a GitLab project branch over the REST API on desktop and mobile",
+  "Auto-merge text files and preserve both sides of conflicts as separate files",
+  "Trigger syncs on startup, edits, a timer, and mobile foreground/background events",
+  "Store the GitLab access token in Obsidian SecretStorage and redact it from logs",
+  "Seed an empty GitLab repository with an initial commit from the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; licensed AGPL-3.0-only; requires Obsidian 1.11.4 or newer; the README documents security caveats such as the self-signed certificate toggle and warns to back up the vault before connecting.",
+ "intent": "alternative",
+ "intentEvidence": "an independently maintained GitLab rewrite, based on GitHub Gitless Sync by Silvano Cerza",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for mobile devices where Git is unavailable, while keeping the repository usable with ordinary git pull/git push from desktop collaborators.",
+ "primary": "syncing",
+ "problem": "Obsidian offers no way to keep a vault synced with a GitLab repository on devices, such as iOS and Android, where Git cannot be installed.",
+ "readmeHash": "2babdc34c0e1d53ba789e2550d60c3ecb7f688cb",
+ "relations": [
+  {
+   "evidence": "an independently maintained GitLab rewrite, based on GitHub Gitless Sync by Silvano Cerza",
+   "plugin": "GitHub Gitless Sync by Silvano Cerza",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitLab",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitLab access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault-to-GitLab sync over the GitLab REST API with no local Git, aimed at mobile devices while staying compatible with desktop Git workflows.",
+ "tags": [
+  "gitlab",
+  "rest-api",
+  "mobile",
+  "self-managed",
+  "conflict-copies",
+  "three-way-merge",
+  "access-token"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create differential ZIP backups containing only changed, new and deleted files",
+  "Restore selected files, folders or specific revisions from backup history",
+  "Selectively fetch or send files against a remote S3-compatible bucket",
+  "Encrypt backup ZIPs with a passphrase (AES-256-CBC)",
+  "Run backups automatically at launch with configurable behaviour"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Encrypted ZIPs are not standard encrypted ZIP files and must be decrypted with an OpenSSL command. The 'Anywhere' desktop destination is described as 'on the bleeding edge. Not safe.' Deletion during restore does not revalidate files that change while the dialogue stays open. Settings can be transferred between devices via a passphrase-protected URI.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian has no built-in versioned backup, and full vault copies waste storage when only a few files change between backups.",
+ "readmeHash": "42c16ee5b16383acc62720033aa77bb62b0b4f2d",
+ "relations": [
+  {
+   "evidence": "Sync Remote Backup requires a remote-style backup destination: S3 compatible bucket",
+   "plugin": "S3 compatible bucket",
+   "type": "integrates"
+  },
+  {
+   "evidence": "We have to decrypt the file by OpenSSL, without this plug-in.",
+   "plugin": "OpenSSL",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible bucket",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access/secret keys",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenSSL (for encrypted backups)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Incremental backup plugin that stores only new, changed and deleted files into dated ZIP archives, with revision-based restore and S3 selective sync.",
+ "tags": [
+  "incremental-backup",
+  "zip",
+  "s3",
+  "restore",
+  "openssl",
+  "aes-256-cbc"
+ ]
+}

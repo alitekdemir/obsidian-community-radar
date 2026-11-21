@@ -1,0 +1,83 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extract entities and concepts from notes, PDFs, images and Office files into linked wiki pages",
+  "Answer questions over the wiki in a side-panel chat with citations and wiki links",
+  "Batch-ingest a folder or a selected set of files",
+  "Lint the wiki for duplicates, dead links, empty pages, orphans and contradictions",
+  "Repair wiki issues in one step with Smart Fix All"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph View"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free and donation-supported. Detailed setup guides live outside the README (docs/MODEL-GUIDE.md, docs/PDF-OCR-GUIDE.md). Privacy caveat: the optional MinerU backend uploads documents to mineru.net, a service that publishes no retention statement. The plugin itself never modifies source notes and writes only under wiki/.",
+ "intent": "alternative",
+ "intentEvidence": "Other open-source reimplementations of Karpathy's LLM Wiki idea exist — but none ships as a one-click Obsidian plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted an implementation of Karpathy's LLM Wiki idea that runs as a one-click Obsidian plugin, since other open-source versions were CLI tools, coding-agent skills, or separate desktop apps.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to have an LLM build a cross-linked wiki from your notes and answer questions grounded in them with citations.",
+ "readmeHash": "c1a3a2aceb6b05395797f3c999049a1d76f5cb86",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Andrej Karpathy's LLM Wiki",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Other open-source reimplementations of Karpathy's LLM Wiki idea exist — but none ships as a one-click Obsidian plugin.",
+   "plugin": "nashsu / llm_wiki",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The plugin writes standard frontmatter (tags:, type:, aliases:) on every page, so Dataview queries work out of the box.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "MinerU",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Web Clipper — official browser extension.",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local models; MinerU token for document conversion",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "LLM-powered wiki generator that extracts entities and concepts from notes, PDFs and Office files into interlinked pages, then answers questions over that link graph.",
+ "tags": [
+  "llm",
+  "ollama",
+  "lm-studio",
+  "mineru",
+  "pagerank",
+  "question-answering"
+ ]
+}

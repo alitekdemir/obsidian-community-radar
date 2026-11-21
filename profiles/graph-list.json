@@ -1,0 +1,54 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render the active note's inbound and outbound links as a ranked sidebar list",
+  "Show unlinked mentions in both directions as ghost rows with one-click link buttons",
+  "Rank links by graph proximity using Adamic-Adar or Resource Allocation scores",
+  "Suggest notes two links away at depth 2 as link predictions",
+  "Display chosen frontmatter properties or the link's context line under each title"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Backlinks",
+   "Outgoing links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes performance figures and explains rejected ranking alternatives.",
+ "intent": "improve",
+ "intentEvidence": "The local graph, rendered as a list instead of a force-directed blob, with the outgoing links and backlinks panes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "A sidebar is tall and narrow, so a graph canvas wastes most of it and a table view needs horizontal scrolling.",
+ "primary": "graph",
+ "problem": "The local graph wastes a tall, narrow sidebar with a force-directed canvas, and links are split across four separate panes (outgoing, backlinks, and unlinked mentions in both directions).",
+ "readmeHash": "2b087399a6c1ae51d3af07ac0ac7aab2c58e9cf6",
+ "relations": [
+  {
+   "evidence": "Ported from Seek's parked feature/active-note-anchoring branch.",
+   "plugin": "Seek",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar view that renders the local graph as a ranked list of inbound, outbound and unlinked-mention links, with properties or link context under each title.",
+ "tags": [
+  "backlinks",
+  "unlinked-mentions",
+  "local-graph",
+  "adamic-adar",
+  "pagerank",
+  "link-prediction"
+ ]
+}

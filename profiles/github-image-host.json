@@ -1,0 +1,57 @@
+{
+ "also": [
+  "integrations",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dropped images to a chosen public GitHub repository and branch",
+  "Insert public links in raw.githubusercontent.com, jsDelivr CDN, or custom URL format",
+  "Connect a GitHub account via device flow or a fine-grained personal access token",
+  "Upload all locally referenced images in a note and rewrite their links",
+  "Fall back to a local vault embed when an upload fails"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin browser; must be installed manually from release files. The manifest notes the plugin has not been reviewed by Obsidian staff. Browser-flow access expires after eight hours but renews itself for six months.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Existing image-upload plugins require installing a separate desktop app or manually creating and pasting a token; the author wanted setup with no token creation, via GitHub's device flow.",
+ "primary": "images",
+ "problem": "Obsidian saves pasted images as binary attachments inside the vault, which the author wants to avoid by hosting images externally in a repository the user controls.",
+ "readmeHash": "ab7521d7dbd593b532a88ff687ff70230cf4fa99",
+ "relations": [
+  {
+   "evidence": "uploads images to a GitHub repository as you paste them",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with a public repository you can push to",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Image uploader that sends pasted or dropped images to a public GitHub repository and inserts a public link into the note.",
+ "tags": [
+  "github",
+  "jsdelivr",
+  "cdn",
+  "device-flow",
+  "image-hosting",
+  "paste-upload"
+ ]
+}

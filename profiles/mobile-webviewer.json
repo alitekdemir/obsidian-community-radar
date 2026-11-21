@@ -1,0 +1,66 @@
+{
+ "also": [
+  "export",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "browse the web in tabs with history, bookmarks, a reading list, and a Bing-style search shell",
+  "extract articles with Readability and convert them to editable Markdown notes via Turndown",
+  "save pages as HTML or MHTML and download URLs into a configured vault folder",
+  "run URL-matched user CSS and JavaScript rules, translate pages, and read page text aloud",
+  "expose a versioned API so other plugins like Cancip can read the current page and control tabs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Manual install by copying files into the vault; listed as not manually reviewed by Obsidian staff; the rendered-DOM extraction pass only works on desktop Electron, while mobile falls back to fetch-only extraction (README notes this platform limit).",
+ "intent": "improve",
+ "intentEvidence": "NoteDraw buttons are deduped so Mobile Webviewer surfaces keep one visible magic-wand launcher while still using NoteDraw's real page controller behind it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "NoteWeb \"is meant to be the best Markdown view of a web page you can get inside Obsidian.\"",
+ "primary": "utilities",
+ "problem": "Obsidian has no strong built-in way to browse the web, especially on mobile, or to capture pages as readable, editable Markdown notes.",
+ "readmeHash": "a41da99db0b9440f9f8eb21ebed266b1eaef9b34",
+ "relations": [
+  {
+   "evidence": "still using NoteDraw's real page controller behind it",
+   "plugin": "NoteDraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cancip uses this API before falling back to generic plugin commands or a second network fetch",
+   "plugin": "Cancip",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "NoteDraw",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Mobile-first in-app web browser with tabs, history, bookmarks, downloads, and a Readability-based reader mode that saves pages as editable Markdown notes.",
+ "tags": [
+  "readability",
+  "turndown",
+  "reader-mode",
+  "chromium-webview",
+  "doodles",
+  "user-scripts",
+  "mhtml",
+  "qr-code"
+ ]
+}

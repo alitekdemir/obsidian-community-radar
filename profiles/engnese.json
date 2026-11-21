@@ -1,0 +1,51 @@
+{
+ "also": [
+  "autocomplete",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Complete typed pinyin tokens into Chinese characters in place",
+  "Load local Rime .dict.yaml dictionaries, including import_tables",
+  "Fall back to the longest valid pinyin prefix when no full match exists",
+  "Configure candidate selection shortcuts, paging, and double-space acceptance",
+  "Disable completion inside code blocks, inline code, and math contexts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because dictionaries are read from the local filesystem; a local Rime dictionary file is required (set via the dictionary path setting). Dictionary index is in-memory and rebuilt on demand; no adaptive candidate learning yet.",
+ "intent": "new",
+ "intentEvidence": "It allows users to keep typing English letters in the editor while treating the current token as pinyin in the background.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Typing Chinese in Obsidian requires frequently switching between English and Chinese input methods, which interrupts the typing flow.",
+ "readmeHash": "469f003e7a0b866d2995bbf3ac99fa03850a538d",
+ "relations": [
+  {
+   "evidence": "Reads local Rime .dict.yaml dictionaries, including import_tables.",
+   "plugin": "Rime",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Pinyin completion plugin that converts typed English-letter tokens into Chinese text in place, using local Rime dictionaries.",
+ "tags": [
+  "pinyin",
+  "rime",
+  "chinese",
+  "ime",
+  "cjk",
+  "dictionaries"
+ ]
+}

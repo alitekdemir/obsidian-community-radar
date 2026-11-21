@@ -1,0 +1,68 @@
+{
+ "also": [
+  "automation",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "edit vault notes directly from a chat side panel",
+  "run two dozen vault tools such as read, search, write, edit, move, trash, and rewrite frontmatter",
+  "hand off self-contained tasks to parallel subagents",
+  "connect remote MCP servers and reuse skills from the vault or ~/.pi folders",
+  "stage tap-to-run suggestions for missing frontmatter and broken links while writing"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Installation is via BRAT or manual release files; it writes and deletes without confirmation dialogs, error reporting is on by default, API keys are stored in plaintext on mobile, and streaming is off by default because of requestUrl limits. Donations (coffee) are solicited; MIT licensed. Detailed docs live on separate pages for tools, extending, settings, and security.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI assistants for Obsidian typically hand back text the user must copy and paste into notes; this plugin instead performs the file operations itself.",
+ "readmeHash": "3d8474b384cd6971cf25c51c3b9b2c25c21552cb",
+ "relations": [
+  {
+   "evidence": "Piem runs on @earendil-works/pi-agent-core, the pi agent runtime",
+   "plugin": "@earendil-works/pi-agent-core",
+   "type": "extends"
+  },
+  {
+   "evidence": "It grew from lhr0909/pi-obsidian. Thank you for that starting point.",
+   "plugin": "lhr0909/pi-obsidian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the skills you already wrote for pi work here unchanged",
+   "plugin": "pi",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Any OpenAI-compatible or Anthropic-messages provider endpoint and API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Agentic AI side panel that reads, writes, and edits vault notes directly from chat, using vault tools, subagents, skills, and MCP servers.",
+ "tags": [
+  "mcp",
+  "subagents",
+  "anthropic",
+  "openai-compatible",
+  "deepseek",
+  "streaming",
+  "skills"
+ ]
+}

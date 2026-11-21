@@ -1,0 +1,54 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "assign each community plugin a mode: both, desktop only, mobile only, or disabled",
+  "apply the correct device's plugin states automatically at startup",
+  "provide a table-based settings UI with desktop and mobile layouts",
+  "protect itself from being disabled through its own table"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that the plugin uses Obsidian's internal plugin manager because no stable public API exists for enabling/disabling other plugins, so future Obsidian updates may require adjustments. It also stresses it performs no syncing itself and collects no data (no telemetry or network requests).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author created it because two separate config folders mean duplicated installs, updates, and settings changes for plugins used on both desktop and mobile; one shared .obsidian folder with per-device plugin states avoids that maintenance.",
+ "primary": "utilities",
+ "problem": "Obsidian's per-device setups require separate configuration folders, so shared plugins must be installed, updated, and configured twice across devices.",
+ "readmeHash": "5c5b1e45b879a583115183e4b44c206858da2f5e",
+ "relations": [
+  {
+   "evidence": "If you use Obsidian Sync, make sure community plugin syncing is enabled on the devices",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a sync tool (e.g. Obsidian Sync or another tool syncing the .obsidian folder)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Plugin manager that lets you choose which community plugins are enabled on desktop, mobile, both, or disabled while keeping one shared configuration folder.",
+ "tags": [
+  "per-device-plugins",
+  "desktop",
+  "mobile",
+  "startup-performance",
+  "configuration-folder"
+ ]
+}

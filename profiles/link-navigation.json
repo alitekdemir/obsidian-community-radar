@@ -1,0 +1,54 @@
+{
+ "also": [
+  "links",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display a hierarchical view of inlinks and outlinks for the current note",
+  "Traverse link connections a configurable number of levels deep",
+  "Show links from Canvas files that embed the current note",
+  "Toggle outlinks of inlinks to see where linking notes point",
+  "Open linked notes from the view via click or Cmd/Ctrl+Click"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Outgoing links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Docs cover only internal (resolved) links; frontmatter links are also picked up. README ends with a self-deprecating note that it may over-explain.",
+ "intent": "improve",
+ "intentEvidence": "navigate via \"Backlinks\" core plugin 1 page a time",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author replaced slow custom DataviewJS queries (120-170ms per query) with a faster view that loads in 2-15ms, and wanted to find embedded notes and MOCs without remembering titles.",
+ "primary": "navigation",
+ "problem": "Obsidian's Backlinks and Outgoing links core plugins show links one page at a time and omit Canvas links, making deep contextual navigation slow.",
+ "readmeHash": "de16f95548e3aa0149d6b33a7d827b55489baa42",
+ "relations": [
+  {
+   "evidence": "In the past I used custom DatviewJS queries, to navigate notes.",
+   "plugin": "DataviewJS",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Link hierarchy viewer that navigates a note's inlinks and outlinks N levels deep, including links found in Canvas files.",
+ "tags": [
+  "inlinks",
+  "outlinks",
+  "link-hierarchy",
+  "moc",
+  "hover-preview",
+  "caching"
+ ]
+}

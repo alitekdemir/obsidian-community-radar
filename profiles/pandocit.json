@@ -1,0 +1,91 @@
+{
+ "also": [
+  "integrations",
+  "annotation"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Show a formatted reference list for Pandoc citekeys in the active note",
+  "Convert bibliography files (BibTeX, CSL JSON) using bundled Pandoc 3.9 WASM",
+  "Sync and browse a Zotero library via the Zotero Web API",
+  "Read, highlight and annotate PDFs and EPUBs in a unified annotations panel",
+  "Import vault PDF folders into Zotero with duplicate detection and suggested citekeys"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "pandoc.wasm must be downloaded via the plugin settings for non-JSON bibliographies; the README states EPUB and Hypothesis features are functional but still being refined per the roadmap; installation currently goes through BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "Si vous migrez depuis obsidian-pandoc-reference-list, renommez le dossier ou réinstallez",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built by l'Atelier, an EHESS workshop for book-making and research tools.",
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to render Pandoc citation keys against a bibliography or to work with Zotero libraries, PDF/EPUB annotations in one place.",
+ "readmeHash": "f1f984417f09cdcc5c02e520bbf537324e331a23",
+ "relations": [
+  {
+   "evidence": "utilise Pandoc 3.9 en WebAssembly (pandoc.wasm) pour convertir les fichiers de bibliographie",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Synchronisation bidirectionnelle (modèle Zotero API)",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Si vous migrez depuis obsidian-pandoc-reference-list, renommez le dossier ou réinstallez",
+   "plugin": "obsidian-pandoc-reference-list",
+   "type": "replaces"
+  },
+  {
+   "evidence": "L’intégration Better BibTeX et le réseau local convient surtout à Obsidian bureau",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import des annotations Hypothesis vers le panneau document",
+   "plugin": "Hypothesis",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Zotero Web API key (for Zotero sync)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Zotero with Better BibTeX (local flux)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Hypothesis API token (for annotation import/export)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Sidebar reference list for Pandoc citekeys with bundled Pandoc WASM bibliography conversion, Zotero Web API sync, and built-in PDF/EPUB readers with annotations.",
+ "tags": [
+  "pandoc",
+  "zotero",
+  "better-bibtex",
+  "bibtex",
+  "csl",
+  "citekeys",
+  "hypothesis",
+  "epub"
+ ]
+}

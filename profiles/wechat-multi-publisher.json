@@ -1,0 +1,76 @@
+{
+ "also": [
+  "publishing",
+  "formatting"
+ ],
+ "audience": [
+  "wechat-official-account-operators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish articles as drafts to multiple WeChat Official Accounts at once",
+  "Format notes with 14 built-in CSS themes or custom CSS from the vault",
+  "Preview the formatted title, body, quotes, code blocks and images before publishing",
+  "Compress and upload body images and covers to the WeChat material library",
+  "Export the formatted article as a PNG long image to the note's folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Windows, macOS, Linux). Must be installed manually from release files (main.js, manifest.json, styles.css). The manifest notes it has not been manually reviewed by Obsidian staff. Publishing requires adding the server's outbound IP to the account's IP whitelist.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to reduce the repetitive work of formatting articles for WeChat and publishing to multiple accounts.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to format notes for WeChat Official Accounts or push articles to one or more account draft boxes.",
+ "readmeHash": "51e0d27bc34eb8386cf85fbf7915158b0345949d",
+ "relations": [
+  {
+   "evidence": "插件只会在测试账号、检查状态、上传素材或创建草稿时请求微信公众平台接口",
+   "plugin": "微信公众平台 (WeChat Official Accounts platform)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AppSecret、访问令牌和代理密码由 Obsidian SecretStorage 保存",
+   "plugin": "Obsidian SecretStorage",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account (AppID and AppSecret)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AppSecret and access token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "HTTP or SOCKS5 proxy (optional)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "WeChat publishing assistant that formats Markdown notes with themes and sends them as drafts to multiple WeChat Official Accounts.",
+ "tags": [
+  "wechat",
+  "css-themes",
+  "png-export",
+  "socks5-proxy",
+  "draft-box",
+  "ip-whitelist"
+ ]
+}

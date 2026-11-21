@@ -1,0 +1,57 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Receive meeting notes from TranscriptExporter extensions over a local HTTP server",
+  "Write incoming notes into the vault as Markdown in per-source subfolders",
+  "Authenticate extension requests with a pairing key",
+  "Protect existing vault files from modification or overwrite",
+  "Configure the server port, toggle, and key from settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a cross-device file sync tool; it only receives notes from a browser extension running on the same machine.",
+ "extras": "The README includes a network-use disclosure: it runs a localhost-only TCP server (127.0.0.1, default port 27125) and makes no outgoing requests. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Getting meeting notes from services like Granola, Fathom, and Fireflies into a vault means exporting and copying files by hand.",
+ "readmeHash": "fd70847571b4246f6d8084e00ba4c9e2ce487151",
+ "relations": [
+  {
+   "evidence": "Companion plugin for the TranscriptExporter Chrome extensions (Granola, Fathom, Fireflies).",
+   "plugin": "TranscriptExporter Chrome extensions",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TranscriptExporter Chrome extension",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Companion plugin that receives meeting notes and transcripts from TranscriptExporter Chrome extensions and writes them into the vault as Markdown.",
+ "tags": [
+  "granola",
+  "fathom",
+  "fireflies",
+  "chrome-extension",
+  "meeting-notes",
+  "transcripts",
+  "localhost"
+ ]
+}

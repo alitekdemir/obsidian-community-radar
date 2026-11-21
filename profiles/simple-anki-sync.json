@@ -1,0 +1,60 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Markdown-table flashcards to Anki as Basic cards",
+  "Assign decks and subdecks via #anki/... tags and rename them on resync",
+  "Delete Anki cards by removing their table rows or unsyncing a file",
+  "Embed images and Excalidraw drawings on card faces",
+  "Add backlink URLs from Anki cards to the source note row"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Supports only Basic cards and a single minimal Markdown-table format; deleting the Anki-ID line manually is warned against.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to spend 'zero time tweaking settings and 100 % of your time learning', so built a minimal, single-command sync.",
+ "primary": "flashcards",
+ "problem": "Existing Obsidian-to-Anki workflows require configuration, background daemons, or special syntax, which interrupts study time.",
+ "readmeHash": "dc163a8a638e1c50c17d7f13cf0544e0938c0c31",
+ "relations": [
+  {
+   "evidence": "Anki must be running with the AnkiConnect extension installed and active",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Embed .excalidraw drawings seamlessly. They are automatically converted to images on sync",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with AnkiConnect",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Flashcard sync plugin that pushes Markdown-table flashcards from notes to Anki as Basic cards via AnkiConnect, with one command and no settings.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "spaced-repetition",
+  "excalidraw",
+  "basic-cards"
+ ]
+}

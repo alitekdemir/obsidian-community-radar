@@ -1,0 +1,57 @@
+{
+ "also": [
+  "visualization",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create and edit .xmind mind maps in an interactive editor",
+  "embed mind maps in notes with ![[file.xmind]] previews",
+  "export maps as Mermaid mindmap blocks",
+  "convert maps to Obsidian .canvas files",
+  "preserve XMind file data (notes, markers, attachments) on save"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Does not require the XMind desktop app; it renders and edits .xmind files itself and only offers an optional context-menu hand-off to that app.",
+ "extras": "Requires Obsidian 1.13.0 or later; developer round-trip documentation is in docs/DEVELOPMENT.md; can also be installed via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why XMinder' section explains the goal: real .xmind round-trip without lock-in or side-car files, maps stored as ordinary vault files, and no cloud or telemetry.",
+ "primary": "drawing",
+ "problem": "Obsidian cannot open or edit .xmind files, so mind maps must be maintained in a separate desktop app and kept in sync manually.",
+ "readmeHash": "a56bb602853cecdc4d762501c5c45d7f9d628f2e",
+ "relations": [
+  {
+   "evidence": "Right-click a .xmind file → Open with XMind App | Hands the file to the XMind desktop app",
+   "plugin": "XMind",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "XMind desktop app",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Mind map editor that opens, edits, and saves standard .xmind files inside Obsidian and embeds interactive previews in notes.",
+ "tags": [
+  "xmind",
+  "mind-map",
+  "mermaid",
+  "diagram",
+  "offline",
+  "round-trip"
+ ]
+}

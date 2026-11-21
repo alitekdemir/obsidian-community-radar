@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes aloud with chunked, gapless playback and per-note resume",
+  "Trigger playback from selected sentences, right-click, or the command palette",
+  "Queue reading of a folder or backlinks and jump between chunks",
+  "Strip or toggle markdown elements like code blocks, tables, and parentheses before speaking",
+  "Export the spoken note as a single WAV file into the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet available in the community plugin store; install manually or via BRAT. The author's ttsd server is recommended as an option. Defaults to Korean voices (omnivoice model, Korean-Female-Eunji voice).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to notes as spoken audio, so reading long notes hands-free requires an external tool.",
+ "readmeHash": "cb80d70780efb0ad7686f6e6764b26f8bddf0e6b",
+ "relations": [
+  {
+   "evidence": "OpenVox (recommended, macOS) — openvoxai.com. Free app that exposes the /v1 endpoints this plugin uses",
+   "plugin": "OpenVox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ttsd — my own self-hosted TTS server speaking the same /v1 contract",
+   "plugin": "ttsd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local OpenAI-compatible TTS server (e.g. OpenVox or ttsd)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Text-to-speech player that reads markdown notes aloud through a local OpenAI-compatible TTS server, with chunked gapless playback and WAV export.",
+ "tags": [
+  "text-to-speech",
+  "openvox",
+  "ttsd",
+  "kokoro",
+  "qwen3-tts",
+  "wav",
+  "sleep-timer",
+  "voice-cloning"
+ ]
+}

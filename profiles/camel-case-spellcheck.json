@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [
+  ", "
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ", "
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It specifically checks components of identifiers (camelCase, snake_case, etc.), not general prose.",
+ "extras": "Desktop-only plugin; currently supports US English only; does not support mobile.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian normally treats a complete identifier as one spelling token. This plugin splits compound identifiers at case, underscore, and period boundaries",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The first implementation attempted to reuse Chromium's native spellchecker for each component, but the query API was not connected to the useful spelling context used by the editor.",
+ "primary": "writing",
+ "problem": "Obsidian treats compound identifiers as a single spelling token, causing misspellings within identifiers to go undetected.",
+ "readmeHash": "9908360f94f25a74e5362bfc759d4652ded6ff1a",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.13.6 or newer",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian's Spellcheck setting",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "A desktop-only plugin that checks words within camelCase, PascalCase, snake_case, and dotted identifiers independently, highlighting misspellings.",
+ "tags": [
+  "spellcheck",
+  "proofreading"
+ ]
+}

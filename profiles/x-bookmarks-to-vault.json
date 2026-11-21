@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync X bookmarks into the vault as one Markdown note per tweet",
+  "Log in via an embedded X window to capture the session cookie",
+  "Render bookmark notes through a customizable Nunjucks template",
+  "Download tweet images, videos and GIFs into local attachments",
+  "Generate monthly AI digests of new bookmarks via local Ollama"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Unrelated to Obsidian's built-in Bookmarks feature; it syncs Twitter/X bookmarks into notes.",
+ "extras": "Unofficial plugin not reviewed by Obsidian staff; uses X's private web API with your own cookie for personal use only, which X may break at any time. Cookie is stored locally and sent only to x.com. Embedded login is desktop-only (Electron); mobile users must paste a cookie string. Install is via BRAT or manual file copy.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says the dedup design addresses a pain point with obsidian-weread-plugin: notes are never overwritten so manual annotations survive re-syncs.",
+ "primary": "integrations",
+ "problem": "X bookmarks live inside X's app with no export, so saved tweets can't be searched, archived permanently, or used by other tools.",
+ "readmeHash": "dd4aa937333451d407c0907417ee71141ad37ab5",
+ "relations": [
+  {
+   "evidence": "Architecture mirrors obsidian-weread-plugin: embedded web login captures your session cookie",
+   "plugin": "obsidian-weread-plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Optional AI monthly digest via your local Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "that cookie calls X's internal GraphQL Bookmarks endpoint",
+   "plugin": "Twitter/X",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "X account with session cookie",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local, for the optional AI digest)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT (for the recommended install path)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs your Twitter/X bookmarks into the vault as Markdown notes via X's private GraphQL API, with optional local-Ollama monthly digests.",
+ "tags": [
+  "twitter",
+  "graphql",
+  "nunjuks",
+  "ollama",
+  "session-cookie",
+  "tweet-archiving"
+ ]
+}

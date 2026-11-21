@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI models in a native Obsidian pane",
+  "Attach the focused note as removable chat context",
+  "Stream and render assistant responses as Markdown",
+  "Load pi-coding-agent-compatible extensions from a vault-local directory",
+  "Store and connection-test API keys for multiple providers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not the Pi CLI in a terminal; it bundles Pi's JavaScript runtime libraries and omits the pi binary, terminal UI, and CLI commands.",
+ "extras": "Warns that extensions execute arbitrary code with the plugin's permissions and should only be installed if trusted; mobile is read-only by design (no extensions, slash commands, shell or write tools), and GitHub Copilot is desktop-only.",
+ "intent": "improve",
+ "intentEvidence": "resolves extensions the same way pi-coding-agent does, rooted at the vault-local agent directory",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in agent chat, and the Pi coding agent normally requires a host-level CLI installation and binary rather than running inside the app.",
+ "readmeHash": "6e2401aeed6be841ea9f353ab56047bd986680d2",
+ "relations": [
+  {
+   "evidence": "Note Pi resolves extensions the same way pi-coding-agent does, rooted at the vault-local agent directory",
+   "plugin": "pi-coding-agent (Pi)",
+   "type": "extends"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "provider API key (Google Gemini, Anthropic, GitHub Copilot, Kimi Code, OpenAI, or OpenRouter)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI chat pane that embeds the Pi agent runtime in-process, with multi-provider model keys, note context, and vault-local Pi extensions.",
+ "tags": [
+  "llm",
+  "chat",
+  "streaming",
+  "api-keys",
+  "pi-agent",
+  "extensions",
+  "openrouter"
+ ]
+}

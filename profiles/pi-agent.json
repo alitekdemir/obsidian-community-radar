@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the Pi coding agent from an Obsidian sidebar",
+  "Attach note context such as links, backlinks, tags, frontmatter, and search results to prompts",
+  "Switch tool modes controlling file reading, editing, and shell command access",
+  "Annotate selected text or blocks with change requests or questions",
+  "Create notes from answers and open cited vault notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not the Pi agent itself; it is an Obsidian front end that requires the Pi CLI to be installed separately.",
+ "extras": "Desktop-only. Manifest notes the plugin has not been manually reviewed by Obsidian staff. README carries prominent privacy and safety warnings: Edit and Full agent modes can modify vault files and run shell commands, and prompts plus note content may be sent to configured model providers. Compatibility last tested against Pi 0.80.7.",
+ "intent": "improve",
+ "intentEvidence": "Thanks to Mario Zechner, the developer of Pi, for building the agent this plugin runs on top of.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and generic chat tools cannot use vault context or act on vault files.",
+ "readmeHash": "3e69aaeb20eef5b8fe05aa4e777bd5cfe186fc40",
+ "relations": [
+  {
+   "evidence": "requires Pi coding agent 0.80.0 or newer to be installed separately",
+   "plugin": "Pi coding agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pi coding agent CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Pi / model provider authentication",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sidebar chat client for the Pi coding agent that sends note context and can read, edit, or run commands in the vault.",
+ "tags": [
+  "pi-coding-agent",
+  "llm-chat",
+  "context-attachments",
+  "skills",
+  "shell-execution",
+  "rpc"
+ ]
+}

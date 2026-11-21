@@ -1,0 +1,55 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Retry transient EBUSY failures when writing notes, Canvas files, and other vault files",
+  "Show or hide notices containing EBUSY or resource busy or locked",
+  "Set sync-lock notice opacity from 0% to 100%",
+  "Switch between the original technical error text and a compact Chinese status message",
+  "Preview both notice styles from the plugin settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not sync files itself; it only retries locked saves and manages the error notices shown while Baidu Netdisk syncs.",
+ "extras": "Manual installation only (copy main.js, manifest.json, styles.css). Requires Obsidian Desktop 1.13.7+ on Windows; desktop only. README warns that hiding notices or setting opacity to 0% can make real save failures invisible and recommends keeping backups. No telemetry, analytics, or network requests. Not affiliated with Baidu or Obsidian and not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "When a third-party sync client like Baidu Netdisk locks vault files, Obsidian shows transient EBUSY save-failure notices with no retry and no way to filter or restyle them.",
+ "readmeHash": "adcc7798d4acc86d631ac9d020ebde3448df3eb6",
+ "relations": [
+  {
+   "evidence": "Designed for Windows vaults stored in Baidu Netdisk Sync Space.",
+   "plugin": "Baidu Netdisk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Baidu Netdisk Sync Space",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Desktop plugin that retries transient EBUSY save failures in vaults stored in Baidu Netdisk Sync Space and controls how sync-lock notices appear.",
+ "tags": [
+  "baidu-netdisk",
+  "ebusy",
+  "file-locking",
+  "error-notices",
+  "windows"
+ ]
+}

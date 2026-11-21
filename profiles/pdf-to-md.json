@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ocr",
+  "ai"
+ ],
+ "audience": [
+  "academics",
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert PDFs to Markdown via right-click in the file browser",
+  "Convert images embedded in notes and insert recognized text below them",
+  "Render recognized equations as Obsidian LaTeX ($...$ and $$...$$)",
+  "Switch between cloud AI providers and a free local Ollama model",
+  "Configure DPI, timeout, retries, and output file conflict handling"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "API keys are read from environment variables only and never stored on disk; a completely free local path via Ollama (glm-ocr:bf16, ~6s/page, runs on an RTX 2060) is documented alongside paid providers, with per-model cost and quality benchmarks.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author loved handwriting notes on an iFlytek Smart Notebook but found organizing them in Obsidian frustrating because the native OCR failed at math formulas.",
+ "primary": "pdf",
+ "problem": "Obsidian's native OCR handles handwritten mathematical formulas poorly, making it hard to turn handwritten notes into clean Markdown.",
+ "readmeHash": "e5b128f971707b0bc75f1295bdde4a746c345ec4",
+ "relations": [
+  {
+   "evidence": "runs locally via Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Alibaba Qwen",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DASHSCOPE_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY / ANTHROPIC_API_KEY (environment variables)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (for the free local glm-ocr option)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Converts handwritten PDFs and images to Markdown with LaTeX formulas using vision language models from OpenAI, Qwen, Claude, Gemini, or local Ollama.",
+ "tags": [
+  "handwriting",
+  "openai",
+  "qwen",
+  "gemini",
+  "ollama",
+  "vision-language-models"
+ ]
+}

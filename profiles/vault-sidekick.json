@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Claude about your vault in a sidebar pane",
+  "Approve, auto-approve, or deny each note edit Claude proposes",
+  "Open each note Claude edits so you can watch the change",
+  "Use Claude account connectors, MCP servers, and skills from the chat",
+  "Optionally allow shell commands and web access with per-use approval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.13+; no mobile). Developed and tested on Windows 11; macOS and Linux untested. Manifest notes it has not been manually reviewed by Obsidian staff. Messages count toward the Claude plan's usage limits; shell commands are not limited to the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat that can work directly on vault notes, and most AI plugins require an API key rather than an existing Claude Code sign-in.",
+ "readmeHash": "ead091365b7a92e6676c5d5a9b350accf9cc59d0",
+ "relations": [
+  {
+   "evidence": "It runs on the Claude Code installation on your computer and uses the account that you sign in to Claude Code with.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the plugin starts Claude Code through the Claude Agent SDK, with your vault as the working folder",
+   "plugin": "Claude Agent SDK",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude Pro, Max, Team, or Enterprise plan, or an Anthropic Console account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Chat sidebar that lets Claude, through a local Claude Code login, read, search, create, and edit vault notes, with approval cards before each edit.",
+ "tags": [
+  "claude",
+  "claude-code",
+  "anthropic",
+  "chatbot",
+  "mcp",
+  "agent-sdk"
+ ]
+}

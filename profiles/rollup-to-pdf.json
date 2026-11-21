@@ -1,0 +1,78 @@
+{
+ "also": [
+  "formatting",
+  "export"
+ ],
+ "audience": [
+  ": academics",
+  ": research",
+  ": worldbuilding"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Compile note trees into PDFs",
+  ": Recursively pull in linked content",
+  ": Generate structured documents (TOC, title page)",
+  ": Render complex Markdown (tables, CSV, multi-column)",
+  ": Convert CSS snippets to PDF styles"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": export",
+   ": links",
+   ": formatting"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin requiring external installation of Pandoc and a LaTeX engine.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian's built-in PDF export only handles single notes, making it difficult to export an entire interconnected knowledge base as one cohesive document.",
+ "readmeHash": "c3c73313a9ca20018ac1cf667fc917dbf056078d",
+ "relations": [
+  {
+   "evidence": "Notes using the CSV Card View community plugin's ```csv-view / ```csv-inline blocks get the referenced CSV read at export time and rendered as a real typeset table, instead of the block printing as literal source.",
+   "plugin": "CSV Card View",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notes using the Multi-Column Markdown community plugin's column syntax get converted to a real LaTeX multicols layout at export time, so the PDF shows actual side-by-side columns instead of literal --- start-multi-column: ... --- delimiter lines.",
+   "plugin": "Multi-Column Markdown",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "XeLaTeX",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "CJK font",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Converts a tree of wiki-linked Obsidian notes into a single, typeset PDF document using Pandoc, recursively pulling in linked content and nesting it based on headings.",
+ "tags": [
+  "pandoc",
+  "typesetting",
+  "wiki-export",
+  "knowledge-base"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture Feishu bot messages as diary entries in monthly files with per-day sections",
+  "store images, videos, files and voice notes as attachments",
+  "run natural language commands such as undo, seal-the-day and set-nickname",
+  "remind you daily when no entry has been written, with catch-up on launch",
+  "run the same pipeline outside Obsidian via the npx feishu-diary CLI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns not to run the plugin and CLI with the same Feishu app credentials at the same time, since Feishu delivers events to a random client. Also ships as a standalone npm CLI (requires Node.js >= 18); some documentation is split into docs/ files (config.md, DECISIONS.md, autostart-macos.md). App Secret is stored in Obsidian's SecretStorage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Writing a diary entry requires opening Obsidian and creating a note yourself; this lets you capture entries by messaging a bot from Feishu, including attachments and voice notes.",
+ "readmeHash": "1c457aeeddb75a6975c6d51c1f8598b36783e0ba",
+ "relations": [
+  {
+   "evidence": "Talk to a Feishu bot, and it lands in your Obsidian vault as a diary.",
+   "plugin": "Feishu",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Feishu",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Feishu account (scan-to-create custom app)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Feishu bot integration that turns messages you send it into diary entries in the vault, one file per month with a section per day.",
+ "tags": [
+  "feishu",
+  "chat-bot",
+  "diary",
+  "journal",
+  "voice-notes",
+  "websocket",
+  "cli"
+ ]
+}

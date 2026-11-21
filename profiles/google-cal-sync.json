@@ -1,0 +1,68 @@
+{
+ "also": [
+  "calendar",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render all Google calendars in a gcal code block or sidebar pane with month, week, day and list views",
+  "Create, edit, move, resize and delete Google Calendar events from Obsidian",
+  "Mirror task notes per project folder to Google Tasks lists, syncing title, due date and completion both ways",
+  "Share an encrypted Google login across devices through vault sync so mobile needs no login",
+  "Expose an API that opens the calendar's event modal from scripts and other plugins"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not manually reviewed by Obsidian staff. The user must create their own Google Cloud OAuth client, so no third-party server is involved; detailed setup, architecture and troubleshooting docs live outside the README. Client ID and secret are stored in plain text in data.json, and the refresh token is encrypted with a user-chosen passphrase; a login from before 1.2.0 stays in plain text until a passphrase is set. Desktop login only; mobile unlocks the shared token.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to view and edit Google Calendar events inside notes, or to keep task notes in sync with Google Tasks across devices.",
+ "readmeHash": "5a1676159003b12207b7c0a4dfe6d95eeee99fd7",
+ "relations": [
+  {
+   "evidence": "A gcal code block that turns into your Google Calendar (all calendars, month/week/day, create/edit/drag/delete)",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "plus task notes mirrored to Google Tasks so they show up as checkboxes in the Google Calendar app",
+   "plugin": "Google Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Own Google Cloud OAuth client (Client ID and Client secret)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Google Calendar integration that renders an editable calendar in a gcal code block or a sidebar pane and mirrors task notes to Google Tasks.",
+ "tags": [
+  "google-calendar",
+  "google-tasks",
+  "oauth",
+  "code-block",
+  "two-way-sync",
+  "encryption",
+  "offline-cache"
+ ]
+}

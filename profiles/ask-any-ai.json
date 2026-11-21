@@ -1,0 +1,63 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send selected text or the current line to a configured LLM provider and insert the response",
+  "Expand wikilinks in the input with the full content of linked notes before sending",
+  "Use Markdown template files as system prompts with ai-* frontmatter overrides",
+  "Append vault note names to the prompt so the LLM can emit resolvable wikilinks",
+  "Manage multiple named LLM connections with per-provider credentials and models"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (the CLI provider uses Node child_process) and requires Obsidian 1.5.0 or later. README states no telemetry and that API keys are stored locally in the plugin data store; further documentation lives in a documentation/ folder referenced but not included.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run a language model on selected text and insert the answer in place of or after the selection.",
+ "readmeHash": "1a53dd4e59842dfe2607686da217493274176a01",
+ "relations": [
+  {
+   "evidence": "Claude via OpenAI-compatible proxies (OpenRouter, Together, internal gateways)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Copilot, Claude, Claude proxy, or Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local CLI tool such as claude, llm, or gemini on PATH",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI query plugin that sends selected text to Copilot, Claude, Gemini, or a local CLI and inserts the LLM response into the current note.",
+ "tags": [
+  "copilot",
+  "claude",
+  "gemini",
+  "openrouter",
+  "llm-cli",
+  "wikilinks",
+  "system-prompts",
+  "api-key"
+ ]
+}

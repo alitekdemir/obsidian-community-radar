@@ -1,0 +1,69 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "show a paper's Zotero annotations, notes and metadata in a sidebar from zotero:// links",
+  "search the Zotero library and insert item links at the cursor",
+  "create literature notes and sync them with Zotero notes in both directions",
+  "drag sidebar annotations into notes as quotes with links back to the PDF",
+  "repair links to Zotero items that were merged or deleted"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only personal Zotero libraries are supported (group libraries use a different API path). The plugin talks only to Zotero's local API on the same computer and sends nothing to remote servers; on mobile it falls back to offline annotation copies stored in literature notes.",
+ "intent": "alternative",
+ "intentEvidence": "Migrate… makes it a note of this plugin: zotero-key becomes zotero-item",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes can link to Zotero papers, but reading their annotations means switching to Zotero, and keeping literature notes in sync with Zotero notes is manual.",
+ "readmeHash": "98c724d71aac7946cd40ef8f6a476fb7a76c81c8",
+ "relations": [
+  {
+   "evidence": "Zotero 7+ running locally (Zotero 10+ to send literature note edits back to Zotero)",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Zotero has no built-in command to copy them, but the Actions & Tags add-on can",
+   "plugin": "Actions & Tags",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Migrate… makes it a note of this plugin: zotero-key becomes zotero-item, ZotLit's generated section",
+   "plugin": "ZotLit",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7+ (10+ for sending edits back), with its local API enabled",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar that shows Zotero PDF annotations for the paper under the cursor and keeps literature notes in sync with Zotero in both directions.",
+ "tags": [
+  "zotero",
+  "literature-notes",
+  "pdf-annotations",
+  "citations",
+  "zotlit",
+  "actions-tags",
+  "local-api"
+ ]
+}

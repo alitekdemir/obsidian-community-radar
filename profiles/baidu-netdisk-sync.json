@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bi-directionally with Baidu Netdisk across desktop and mobile",
+  "Encrypt files client-side with AES-256-GCM before upload",
+  "Migrate configuration between devices via encrypted pairing codes",
+  "Resolve concurrent edit conflicts with last-write-wins logic",
+  "Sync selected plugins and themes while excluding workspace caches"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires registering a personal developer application on the Baidu Netdisk open platform to obtain AppKey/Secret. The manifest notes the plugin has not been manually reviewed by Obsidian staff. End-to-end encryption is optional. Documentation is provided in both English and Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to avoid commercial sync subscription fees and infrastructure costs (VPS, NAS, S3) and to give mobile users sync without complex Git workflows.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync is a paid subscription, and free routes like Git are hard to use on mobile or WebDAV services can be throttled, so users need a free multi-device sync path.",
+ "readmeHash": "ab70e33b33a4193dbfc3c50c66a077208b509789",
+ "relations": [
+  {
+   "evidence": "cross-platform bi-directional synchronization plugin for Obsidian via Baidu Netdisk",
+   "plugin": "Baidu Netdisk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Baidu Netdisk account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Baidu Open Platform AppKey and AppSecret (personal developer app)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bi-directional vault synchronization via Baidu Netdisk across desktop and mobile, with optional AES-256-GCM encryption and one-click device pairing.",
+ "tags": [
+  "baidu-netdisk",
+  "end-to-end-encryption",
+  "last-write-wins",
+  "conflict-resolution",
+  "chunked-upload",
+  "oauth",
+  "trash-protection"
+ ]
+}

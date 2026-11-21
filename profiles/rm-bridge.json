@@ -1,0 +1,85 @@
+{
+ "also": [
+  "export",
+  "pdf"
+ ],
+ "audience": [
+  "remarkable-tablet-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes or folders to reMarkable as PDFs",
+  "Transcribe handwritten annotations back into the source note",
+  "Manage files on the reMarkable (list and delete)",
+  "Cache transcription results by PDF hash to avoid re-paying",
+  "Verify dependencies and configuration with a health check"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Data egress: publishing sends note content through reMarkable Cloud; pulling sends page images to OpenRouter for paid vision transcription, gated by a consent modal. Only the Windows+WSL2 topology is end-to-end tested; macOS, Linux, and native-Windows setups are listed as untested and seeking testers. The plugin is a thin wrapper that requires installing a separate Python CLI (ormb); it is not self-contained. Not yet on PyPI; community store submission is still pending.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to send notes to a reMarkable tablet for handwritten annotation and bring that handwriting back into the note as text.",
+ "readmeHash": "38633bc456a30b43a9efceeee6141515084a0127",
+ "relations": [
+  {
+   "evidence": "Publish Obsidian markdown pages to your reMarkable tablet as PDFs",
+   "plugin": "reMarkable",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Annotation transcription uses a vision LLM via OpenRouter.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the rendered PDF is uploaded to the reMarkable Cloud via rmapi",
+   "plugin": "rmapi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pages are sent to a vision-capable LLM (GLM-4.5V by default)",
+   "plugin": "GLM-4.5V",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ormb Python CLI with rmapi and Playwright",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "reMarkable account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Round-trip bridge that publishes notes to a reMarkable tablet as PDFs and pulls handwritten annotations back into the vault as transcribed text.",
+ "tags": [
+  "remarkable",
+  "rmapi",
+  "openrouter",
+  "handwriting",
+  "vision-llm",
+  "glm-4-5v",
+  "playwright"
+ ]
+}

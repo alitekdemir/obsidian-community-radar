@@ -1,0 +1,53 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "synchronize note copies bi-directionally across vaults listed in sync_targets",
+  "detect edited copies via per-note sync_version and sync_hash fields",
+  "keep conflict backups when copies were edited differently",
+  "record vault folders per computer so entries work on every machine",
+  "link new sync targets from the file menu, command palette, or settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a device-sync service; it never uses the network and instead keeps standalone copies of individual notes identical across separate vaults on the local file system.",
+ "extras": "Requires the Obsidian desktop app version 1.13.4 or newer and must be installed in every vault with the same plugin version; the manifest notes it has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "The same note often needs to exist in several vaults with different folder layouts, but symlinks and hardlinks break under Obsidian Sync, on mobile, and with cloud storage like OneDrive, so copies diverge.",
+ "readmeHash": "ed9dd5fecafc280d609a3bbffc2d660ac6b75fbc",
+ "relations": [
+  {
+   "evidence": "Copies in other vaults are plain file writes, which Obsidian Sync picks up when that vault is open",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bi-directional background sync of individual notes across multiple Obsidian vaults, driven by a sync_targets frontmatter property.",
+ "tags": [
+  "onedrive",
+  "hardlinks",
+  "symlinks",
+  "conflict-backups",
+  "sha-256",
+  "bidirectional-sync",
+  "multi-vault"
+ ]
+}

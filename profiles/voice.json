@@ -1,0 +1,71 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes aloud with text-to-speech",
+  "Play notes as audiobook-style chapters in a sidebar player",
+  "Save synthesized audio as MP3 files and embed them in notes",
+  "Switch between TTS providers and voices",
+  "Adjust playback speed, rewind, and repeat during playback"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an audio recorder; it converts written note text to spoken audio rather than capturing microphone input.",
+ "extras": "Deep provider setup (creating a dedicated AWS user, picking regions) and error help are moved to a separate Troubleshooting & Advanced Setup guide, not covered in this README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in text-to-speech, so listening to your notes requires copying text into separate apps or services.",
+ "readmeHash": "6c0ae992fcc99a971a8efd063e0a7514904c3161",
+ "relations": [
+  {
+   "evidence": "Many services and self-hosted servers offer the same speech API as OpenAI.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose OpenAI-compatible as the provider to use one of them",
+   "plugin": "Kokoro-FastAPI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LiteLLM proxy (local)",
+   "plugin": "LiteLLM",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TTS provider credentials (AWS Polly, ElevenLabs, OpenAI, Google Cloud, Azure Speech, MiniMax)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible server (e.g. local Kokoro-FastAPI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Text-to-speech plugin that reads notes aloud through an audiobook-style player, with multi-provider voices and MP3 saving for offline listening.",
+ "tags": [
+  "text-to-speech",
+  "tts",
+  "audiobook",
+  "mp3",
+  "elevenlabs",
+  "aws-polly",
+  "azure-speech",
+  "ssml"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "tables"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create self-contained .layer database files with 16 column types",
+  "View and edit records as tables and kanban-style boards",
+  "Compute values with formulas, relations, lookups, backlinks and rollups",
+  "Filter, sort, total and undo changes in table and board views",
+  "Edit tables from AI assistants through an MCP server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Records live in self-contained .layer JSON files, not in queries over existing vault notes.",
+ "extras": "README warns that much of the code is AI-generated and advises backing up the vault before first use; .layer files are plain JSON and remain readable by hand.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Obsidian has no way to keep structured, typed records with computed columns in one self-contained file independent of the vault's folder structure.",
+ "readmeHash": "2ba508ab18aa0d760da69d414001f70b078c1103",
+ "relations": [
+  {
+   "evidence": "With BRAT — install BRAT, then run BRAT → Add beta plugin and enter CryingObsidian-CO/obsidian-layer-base.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "paste the block into the client's config file (claude_desktop_config.json for Claude Desktop) and restart it.",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18+ for the MCP server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-contained .layer database files that render as tables or boards, with 16 column types, formulas, relations, lookups and rollups.",
+ "tags": [
+  "mcp",
+  "kanban",
+  "rollups",
+  "formulas",
+  "spreadsheet"
+ ]
+}

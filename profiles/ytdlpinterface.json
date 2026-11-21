@@ -1,0 +1,77 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Download video and audio from pasted links using presets (MP4, MP3, WAV, clips, GIFs)",
+  "Search YouTube and manage a download queue with progress and retries",
+  "Embed finished downloads into notes via templates or create notes with properties",
+  "Extract time-range clips and optimized GIFs, and download or clean subtitles",
+  "Block and unblock sites system-wide by editing the Windows hosts file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, made and tested first on Windows 10/11. The plugin can install the required command-line tools itself (with SHA-256 verification) and auto-update yt-dlp. Not manually reviewed by Obsidian staff. Includes a Windows hosts-file manager that needs administrator prompts and can block YouTube system-wide.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to download web videos or audio into a vault; users would have to run command-line tools like yt-dlp and ffmpeg themselves and move files manually.",
+ "readmeHash": "3ef6d2b46b304b9d48697022ec37b718fffd6d33",
+ "relations": [
+  {
+   "evidence": "Download video and audio from YouTube and hundreds of other sites with yt-dlp, right from your notes",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Merging video and audio, converting audio, clips, GIFs, embedding subtitles.",
+   "plugin": "ffmpeg",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The JavaScript runtime yt-dlp needs for full YouTube support.",
+   "plugin": "deno",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "deno",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Graphical interface for yt-dlp that downloads video and audio from YouTube and other sites into the vault, with presets, clips, GIFs and note embedding.",
+ "tags": [
+  "yt-dlp",
+  "youtube",
+  "ffmpeg",
+  "video-downloader",
+  "subtitles",
+  "gif",
+  "hosts-file"
+ ]
+}

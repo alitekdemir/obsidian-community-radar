@@ -1,0 +1,69 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt note titles, content and attachments on disk in a dedicated vault",
+  "Lock notes manually or after an inactivity timeout",
+  "Retain immutable revisions and encrypted trash with deletion records",
+  "Back up and restore the encrypted store from whole-directory copies",
+  "Replicate the vault to an operator-provided CouchDB server via Self-hosted LiveSync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Must be installed in a new, empty dedicated vault, not an existing one; mobile is intentionally disabled; uses private Obsidian APIs and needs revalidation after upgrades; no security certification is claimed and there is no passphrase recovery service; marked as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian stores notes and attachments as plaintext on disk, so sensitive material is readable by anything with file access and File Recovery can persist plaintext.",
+ "readmeHash": "50029a681855ae3369b6935a77fae779dbb8d1a4",
+ "relations": [
+  {
+   "evidence": "a separately installed/configured Self-hosted LiveSync plugin for the full replica",
+   "plugin": "Self-hosted LiveSync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Advanced replication uses an operator-provided HTTPS CouchDB server",
+   "plugin": "CouchDB",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Self-hosted LiveSync",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CouchDB server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Encrypted, append-only notes in a dedicated desktop vault that encrypts titles, content and attachments on disk while unlocked editing uses the native editor, links and search.",
+ "tags": [
+  "encryption",
+  "passphrase",
+  "append-only",
+  "couchdb",
+  "self-hosted-livesync",
+  "inactivity-lock"
+ ]
+}

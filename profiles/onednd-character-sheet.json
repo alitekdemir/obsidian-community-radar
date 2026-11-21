@@ -1,0 +1,86 @@
+{
+ "also": [],
+ "audience": [
+  ": ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Render character sheets",
+  ": Create characters using a wizard",
+  ": Track inventory and equipment",
+  ": Export sheets to PDF",
+  ": Sync data with Atlas VTT"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": markdown"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires turning off 'Readable line length' in Obsidian Editor settings to prevent layout issues.",
+ "intent": "alternative",
+ "intentEvidence": "Built to replace Dataview-based character sheets: instead of dataviewjs blocks re-rendering on every metadata change, this plugin uses its own MarkdownRenderChild-based code block processors",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To provide a fast, interactive character sheet experience that avoids the performance issues of Dataview-based solutions.",
+ "primary": "ttrpg",
+ "problem": "Existing character sheets often rely on complex Dataview setups that cause performance issues and slow re-rendering when metadata changes.",
+ "readmeHash": "f469461552f007897326e634233961e0f03a2d84",
+ "relations": [
+  {
+   "evidence": "This plugin's sheet relies on two other community plugins to actually render correctly",
+   "plugin": "Meta Bind",
+   "type": "extends"
+  },
+  {
+   "evidence": "This plugin's sheet relies on two other community plugins to actually render correctly",
+   "plugin": "JS Engine",
+   "type": "extends"
+  },
+  {
+   "evidence": "D&D Beyond character importer (Settings tab)",
+   "plugin": "D&D Beyond",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Atlas VTT support: characters show up in Atlas VTT as statblocks",
+   "plugin": "Atlas VTT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Meta Bind",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "JS Engine",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dice Roller",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Iconize",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "A character sheet plugin that renders a fully interactive D&D 2024 character sheet inside Obsidian, styled like D&D Beyond.",
+ "tags": [
+  "dnd-beyond",
+  "dnd-2024",
+  "srd-5-2-1",
+  "character-sheet"
+ ]
+}

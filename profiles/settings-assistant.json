@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai",
+  "json"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Create settings profiles in notes",
+  "Compare proposed changes with current state",
+  "Apply changes with user confirmation",
+  "Handle secrets securely",
+  "Take configuration snapshots for rollback"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires local LLM setup for chat functionality. Not yet covering appearance/CSS or writing app settings. Ships with a full German translation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Manually editing configuration JSON files is error-prone and lacks a safe, reversible workflow.",
+ "readmeHash": "92225d2f70eb5a37f9b601b2508b94ff34642d1e",
+ "relations": [
+  {
+   "evidence": "Lessons learned from Config Sync (MIT, xooooooooox/obsidian-config-sync) informed several edge cases.",
+   "plugin": "Config Sync",
+   "type": "inspired"
+  },
+  {
+   "evidence": "With the LLM Endpoint Manager installed: choose an endpoint or let the first reachable one win.",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.11.4+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local server (LM Studio, Ollama, MLX)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM API keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "A tool that allows users to modify Obsidian app and plugin settings using reviewed profiles or a local LLM chat, ensuring safety and reversibility.",
+ "tags": [
+  "llm-chat",
+  "json-editing",
+  "config-management",
+  "snapshots",
+  "diff-view"
+ ]
+}

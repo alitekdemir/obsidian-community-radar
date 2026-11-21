@@ -1,0 +1,44 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "identify source notes in configured folders as color groups",
+  "propagate source colors to linked notes via BFS over incoming and outgoing links",
+  "render split-color nodes for notes linked to multiple sources",
+  "read existing graph color groups from native graph settings",
+  "rebuild the color cache with a refresh command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README states the plugin is read-only and never modifies Obsidian's native graph.json configuration; source folder colors can also be set via native graph color group queries and will be respected.",
+ "intent": "improve",
+ "intentEvidence": "dynamically colors graph nodes based on their linked \"source\" notes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's graph color groups only assign colors by path filters, so notes cannot inherit colors from the source notes they link to.",
+ "readmeHash": "b9b34212ccf77665ecb7008a2d3f27bed92fd8c9",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Graph view plugin that colors nodes by their linked source notes, propagating colors through links with split-color nodes for multi-source notes.",
+ "tags": [
+  "source-notes",
+  "color-groups",
+  "link-propagation",
+  "bfs"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Replicate the vault in real time, two-way, against a self-hosted CouchDB server",
+  "Encrypt file contents and file names with AES-256-GCM before they leave the device",
+  "Auto-merge conflicting Markdown edits and save conflict copies for other files",
+  "Initialize devices with full upload/download and manual sync commands",
+  "Configure ignore rules, file-size limits, periodic full sync, and startup scans"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns to disable other sync methods (Obsidian Sync, iCloud, Nutstore) for the same vault and to back up first; losing the encryption passphrase makes data permanently undecryptable; the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "a fully localized (Chinese UI) rewrite inspired by the design of Self-hosted LiveSync",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author rewrote Self-hosted LiveSync as a fully Chinese-localized plugin so all settings are explained in Chinese.",
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid cloud service, and users who self-host want encrypted sync where the server operator cannot read their notes or file names.",
+ "readmeHash": "a5a622268a8dcf071681343c779baf487125de65",
+ "relations": [
+  {
+   "evidence": "rewrite inspired by the design of Self-hosted LiveSync (MIT License)",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "backed by your own CouchDB server",
+   "plugin": "CouchDB",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CouchDB server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted vault sync to your own CouchDB server with end-to-end encryption, real-time two-way replication, and a fully Chinese interface.",
+ "tags": [
+  "couchdb",
+  "self-hosted",
+  "e2e-encryption",
+  "aes-256-gcm",
+  "pbkdf2",
+  "conflict-merge",
+  "chinese-ui"
+ ]
+}

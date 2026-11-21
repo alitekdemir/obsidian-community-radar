@@ -1,0 +1,57 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two-way with Google Drive",
+  "Detect local and remote changes with debounce and cloud watch",
+  "Resolve conflicting changes via configurable conflict policies",
+  "Create automatic and named manual backups with diff preview and per-file restore",
+  "Reset cloud data from local or local data from cloud"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README carries extensive data-loss warnings, requires users to create their own Google OAuth client ID and secret in Google Cloud Console, and warns never to commit the client secret or data.json. Beta installs via BRAT are flagged as potentially unsafe.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault with Google Drive, and plain Drive clients can mishandle two-way changes and conflicts.",
+ "readmeHash": "50d7a4b8961ba9a704b55a6a4a80bab10e462da0",
+ "relations": [
+  {
+   "evidence": "syncs an Obsidian vault two-way with Google Drive using the Google OAuth 2.0 Device Authorization Flow",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account with Drive API and OAuth client",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Two-way sync plugin that keeps an Obsidian vault synchronized with a Google Drive folder, with conflict policies, change watching, and backups.",
+ "tags": [
+  "google-drive",
+  "oauth",
+  "conflict-resolution",
+  "device-authorization-flow",
+  "file-backup"
+ ]
+}

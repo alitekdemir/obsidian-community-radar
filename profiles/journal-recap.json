@@ -1,0 +1,75 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [
+  "journal-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Summarize the active Markdown note with an AI model",
+  "Write the recap into the note's Properties as a summary field",
+  "Test the API connection with a short test message",
+  "Customize the prompt template and output schema",
+  "Configure model and endpoint, including custom OpenAI-compatible providers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a journaling or daily-notes tool; it only adds an AI-generated summary property to an existing note.",
+ "extras": "Desktop only. The Test API call makes a real billed request. The API key is stored in vault plugin data, so vault files should be treated as private when sharing or syncing. Custom providers must support the Responses API and structured outputs; Chat Completions alone is not enough.",
+ "intent": "alternative",
+ "intentEvidence": "Journal Recap is based on Auto Classifier by Hyeonseo Nam.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Long journal entries are hard to revisit later because nothing in the note gives a quick reminder of what mattered that day.",
+ "readmeHash": "888e10c4f43a62cda63c8956be3626405c0c5833",
+ "relations": [
+  {
+   "evidence": "Journal Recap is based on Auto Classifier by Hyeonseo Nam.",
+   "plugin": "Auto Classifier",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The default connection uses OpenAI.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI API platform account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "OpenAI API billing or credits",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI summarizer that writes a one-sentence recap of the active journal entry into the note's Properties under a summary field.",
+ "tags": [
+  "openai",
+  "gpt-4o-mini",
+  "journaling",
+  "recap",
+  "structured-output",
+  "responses-api"
+ ]
+}

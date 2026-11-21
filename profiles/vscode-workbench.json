@@ -1,0 +1,59 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open code files, dotfiles and extensionless files in an embedded VS Code editor tab",
+  "Run VS Code's integrated terminal in a drawer over any Obsidian view",
+  "Mirror desktop VS Code extensions, settings, keybindings and profile read-only",
+  "Register vault file extensions automatically and exclude chosen ones",
+  "Prompt to save unsaved edits on close and carry them across file renames"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Monaco-based code highlighter; it runs VS Code's real serve-web workbench, so completions, diagnostics and extensions are VS Code's own.",
+ "extras": "Not reviewed by Obsidian staff per the manifest. Desktop only, requires Obsidian 1.13.0+. On first use it downloads the VS Code server from Microsoft after a licence prompt, and two requests to Microsoft (CDN config files and one marketplace query) cannot be disabled. README documents edge cases, network use and a design record in docs/.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian's editor handles code files as plain text without IntelliSense, diagnostics, formatting or a terminal, so developers must leave the app or use separate tools to work on code in the vault.",
+ "readmeHash": "c59bac18567e805379c85424b4c34d019dca5ea2",
+ "relations": [
+  {
+   "evidence": "The plugin runs the official code serve-web on your machine and embeds the real workbench",
+   "plugin": "VS Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "VS Code (or Insiders, VSCodium, Antigravity) with the serve-web command",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Embeds the real VS Code editor (via code serve-web) in Obsidian tabs for code files, with VS Code's terminal in a drawer and your extensions and settings.",
+ "tags": [
+  "vscode",
+  "serve-web",
+  "intellisense",
+  "integrated-terminal",
+  "vscodium",
+  "workspace-trust"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "latex",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate LaTeX from clipboard images via a paste command",
+  "Convert vault images to LaTeX from the file context menu",
+  "Run inference through the HuggingFace API with an API key",
+  "Run the model locally through an installed Python package",
+  "Monitor local server and model download status in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns the HuggingFace Inference API is currently broken for image-to-text models, so only local mode works; the free API has a cold-start provisioning delay, and the author floats a possible paid subscription service. Local mode downloads a ~1.4 GB model and GPU support requires installing PyTorch with CUDA.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Obsidian has no built-in way to transcribe an equation from an image or screenshot into editable LaTeX, so users must retype formulas by hand.",
+ "readmeHash": "82d3eb8a28a5f00a748b7e9f517050d675ea4f45",
+ "relations": [
+  {
+   "evidence": "By default, this plugin uses the HuggingFace inference API.",
+   "plugin": "HuggingFace Inference API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Massive thanks to NormXU for training and releasing the model.",
+   "plugin": "NormXU",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "HuggingFace read access token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python package (pip/pipx) for local model",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "OCR plugin that converts images and clipboard screenshots of equations into LaTeX code in your notes, via HuggingFace API or a local model.",
+ "tags": [
+  "huggingface",
+  "image-to-text",
+  "screenshots",
+  "clipboard",
+  "python",
+  "pytorch",
+  "cuda"
+ ]
+}

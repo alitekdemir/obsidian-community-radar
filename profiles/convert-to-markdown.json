@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Convert files to Markdown",
+  ": Extract data into properties",
+  ": Perform local OCR on images",
+  ": Rebuild tables from various formats",
+  ": Embed original source files"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": properties",
+   ": files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, because it uses Node's zlib, which Obsidian mobile doesn't have. One-off engine download required for OCR.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to provide a conversion solution that requires nothing to install and avoids the dependency on Python and pip, unlike other plugins.",
+ "primary": "import",
+ "problem": "Existing conversion tools often lose structural integrity, require external dependencies like Python, or rely on cloud services, leading to loss of data fidelity.",
+ "readmeHash": "91817db3bbba3fd3826df15d8d49d4d83fab0b97",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "markitdown",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tesseract OCR engine",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Converts various document formats (PDF, Office, images) into structured Markdown notes, preserving formatting and extracting data into properties.",
+ "tags": [
+  "pdf-to-markdown",
+  "office-conversion",
+  "local-ocr",
+  "data-extraction",
+  "invoice-parsing",
+  "document-parsing"
+ ]
+}

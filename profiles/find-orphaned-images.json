@@ -1,0 +1,49 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect images not referenced in any note, canvas, frontmatter, HTML tag, or admonition block",
+  "Review orphaned images in a sidebar panel with thumbnails, paths, sizes, and checkboxes",
+  "Generate a report note of orphaned images grouped by folder with file sizes",
+  "Delete selected or all orphaned images with confirmation, trash support, and a safety scan",
+  "Scope scanning to included or excluded folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README documents detection limitations (bare frontmatter values, some Excalidraw usage, external URLs) and ships a safety scan enabled by default to avoid deleting images the detector cannot see; deletion moves files to trash by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says the plugin was inspired by the need to keep vaults organized and efficient.",
+ "primary": "attachments",
+ "problem": "Obsidian keeps embedded media as regular vault files but offers no built-in way to find which images are no longer referenced by any note.",
+ "readmeHash": "48f40736de8e2960cc3b4c0932905d822b99cfe8",
+ "relations": [
+  {
+   "evidence": "embeds inside legacy Admonitions code blocks (```ad-note)",
+   "plugin": "Admonitions",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault cleaner that finds images not linked by any note, with a review panel, a report note, and selective or bulk deletion.",
+ "tags": [
+  "orphaned-images",
+  "unused-files",
+  "disk-space",
+  "cleanup",
+  "trash"
+ ]
+}

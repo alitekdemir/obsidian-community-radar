@@ -1,0 +1,60 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Declare calendar events in notes with gcal: code spans",
+  "Sync saved notes to Google Calendar on save, on a timer, and on demand",
+  "Repeat events with gcal-repeat rules or raw RRULE strings",
+  "Pick dates, times and repeats from a panel that rewrites one declaration",
+  "Declare a whole note as an event via note properties"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (sign-in needs a local callback server) and requires Obsidian 1.13.0 or newer; the plugin ships no credentials, so you must create your own Google Cloud OAuth client; it contacts only Google hosts and sends no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Events written in notes have to be re-entered by hand in Google Calendar, because Obsidian has no way to push them there.",
+ "readmeHash": "be4e3b6110e85a2ca259b5f9dc743d07df5d3f57",
+ "relations": [
+  {
+   "evidence": "Write an event in a note. It appears on your Google Calendar.",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth client (your own client ID)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "One-way sync that turns gcal: code spans in notes into events on your Google Calendar, with a picker panel and repeat rules.",
+ "tags": [
+  "google-calendar",
+  "oauth",
+  "rrule",
+  "recurring-events",
+  "code-span"
+ ]
+}

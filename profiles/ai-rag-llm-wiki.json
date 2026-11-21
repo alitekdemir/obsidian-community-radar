@@ -1,0 +1,60 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build and incrementally update a vector index of vault notes",
+  "Answer vault questions with citations via hybrid dense/sparse retrieval",
+  "Ingest notes into a maintained wiki of source, entity, concept and synthesis pages",
+  "Audit the wiki for orphan pages, conflicts, gaps and stale information",
+  "Record query logs and evaluation metrics like groundedness and citation accuracy"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a chat assistant; it also rewrites your notes into a separate _wiki/ folder of source, entity, concept and synthesis pages.",
+ "extras": "README is written in Chinese with English command names. Sends note text to the user's configured AI API during indexing, querying and wiki ingestion; auto-indexing and auto-ingest are off by default and it warns about sensitive content like passwords or keys. Data files are stored under .obsidian/plugins/obsidian-ai-rag-plugin/data/.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's built-in search is keyword-based and offers no semantic Q&A with citations, nor any automated way to synthesize and maintain accumulated knowledge across notes.",
+ "readmeHash": "7766afaf94d7abff400bd2722d3e83270399d54c",
+ "relations": [
+  {
+   "evidence": "API Base URL（OpenAI-compatible）",
+   "plugin": "OpenAI-compatible API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "User-configured OpenAI-compatible API (base URL, key, chat and embedding models)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI assistant that answers vault questions via a multi-stage RAG retrieval pipeline and maintains a persistent LLM-curated Markdown wiki built from your notes.",
+ "tags": [
+  "rag",
+  "embeddings",
+  "bm25",
+  "reranking",
+  "llm",
+  "openai",
+  "knowledge-base",
+  "citations"
+ ]
+}

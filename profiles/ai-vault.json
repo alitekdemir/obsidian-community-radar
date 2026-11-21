@@ -1,0 +1,81 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with OpenAI, Anthropic or local OpenAI-compatible models in one panel",
+  "Answer questions with RAG over indexed notes and canvases, listing source fragments",
+  "Edit notes and canvases through model-proposed diffs that require approval",
+  "Save conversation history and group chats into projects with per-project system prompts",
+  "Run chats in Fast/Normal/Think and Chat/Learn/Code modes with optional provider-side web search"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian 1.7.2+); free and open source under MIT; full privacy documentation in PRIVACY.md; manifest flags it as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with AI models using your own notes as context or to let a model propose changes to notes.",
+ "readmeHash": "e3ee2b3d0d66643dcb0c50e1889b8de7d7863160",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic | api.anthropic.com | Messages API, including Anthropic's server-side web search",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI, Anthropic, or a local server (LM Studio, Ollama and other OpenAI-compatible servers)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any model served by an OpenAI-compatible or Ollama endpoint — LM Studio, Ollama, LocalAI",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI or Anthropic account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local model server (LM Studio, Ollama, etc.) for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI chat panel that answers from vault notes with RAG, connects to GPT, Claude or local models, and can edit notes via approved diffs.",
+ "tags": [
+  "chat",
+  "rag",
+  "openai",
+  "anthropic",
+  "ollama",
+  "lm-studio",
+  "embeddings",
+  "local-models"
+ ]
+}

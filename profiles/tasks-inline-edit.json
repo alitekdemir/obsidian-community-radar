@@ -1,0 +1,55 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "edit task descriptions inline in rendered Tasks queries via click, Enter to save, Escape to cancel",
+  "write edits back to the original task note while preserving status, dates, IDs and other suffix metadata",
+  "show muted clickable ancestor context labels below subtasks in flat query results",
+  "refuse ambiguous or conflicting edits by checking the source line before writing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general task editor; it only edits descriptions inside rendered Tasks plugin queries and requires that plugin.",
+ "extras": "Desktop only; mobile is not enabled. Inline writes work only with Tasks 8.4.0 or 8.5.0 and depend on internal Tasks APIs, so other versions show a notice and fall back to the native pencil. Listed in the community directory as not manually reviewed by Obsidian staff; installable via BRAT (GeoKhv/obsidian-tasks-inline-edit). Runs locally with no network requests.",
+ "intent": "improve",
+ "intentEvidence": "This is an independent companion, not an official Obsidian or Tasks product.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "The Tasks plugin renders query results as read-only blocks, so fixing a task description means locating its source note and editing it there.",
+ "readmeHash": "571524cfa791fea2195cb5e84d0b9a972283aaac",
+ "relations": [
+  {
+   "evidence": "Task mapping depends on internal Tasks APIs and DOM classes.",
+   "plugin": "Tasks",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Inline editor that lets you edit task descriptions directly inside rendered Tasks queries and writes the text back to the task's source note.",
+ "tags": [
+  "queries",
+  "inline-editing",
+  "task-metadata",
+  "parent-context"
+ ]
+}

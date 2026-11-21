@@ -1,0 +1,67 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [
+  "engineers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render 3D model files inline in notes and in a direct file view",
+  "Convert CAD, FBX, 3MF and DAE formats to GLB using local external tools",
+  "Inspect registered model parts and embed persistent part presentations",
+  "Generate structured knowledge notes and part drafts from loaded models",
+  "Annotate, measure and capture PNG snapshots of models"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI plugin despite the name; AI appears only as an optional remote draft service for knowledge-note generation, while the core job is 3D viewing and annotation.",
+ "extras": "The manifest flags the plugin as not manually reviewed by Obsidian staff. SPLAT/SPZ/SOG preview is disabled in packaged builds pending a local-only loader. Mobile supports direct formats only; local conversion is desktop-only. Optional remote draft service sends sanitized model evidence to a user-configured POST /draft-note endpoint; everything else is local-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian cannot preview or annotate 3D model files, so model evidence has to live outside the vault instead of being embedded and linked in notes.",
+ "readmeHash": "cb6cc0f357031daa98b52116cfc9129aec235694",
+ "relations": [
+  {
+   "evidence": "SLDPRT | .sldprt | FreeCAD | GLB",
+   "plugin": "FreeCAD",
+   "type": "integrates"
+  },
+  {
+   "evidence": "FBX files are converted to GLB through the local FBX2glTF binary.",
+   "plugin": "FBX2glTF",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python + CadQuery/OCCT, FreeCAD, trimesh, obj2gltf, FBX2glTF (desktop converters)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "3D model viewer that renders GLB, GLTF, STL, OBJ and PLY files in notes and turns model parts into linked knowledge notes.",
+ "tags": [
+  "3d-models",
+  "glb",
+  "stl",
+  "obj",
+  "cad",
+  "step",
+  "freecad",
+  "babylonjs"
+ ]
+}

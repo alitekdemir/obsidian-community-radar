@@ -1,0 +1,67 @@
+{
+ "also": [
+  "publishing",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert Markdown notes to WeChat-compatible HTML with inline styles",
+  "Create article drafts or submit direct publish jobs through the WeChat API",
+  "Export notes as single long-image or multi-page PNG image cards",
+  "Preview articles with selectable layout templates, color themes, and mobile/desktop frames",
+  "Upload local images and chosen covers to WeChat as permanent media assets"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general Markdown converter or exporter; its output targets WeChat Official Accounts styling, drafts, and image cards.",
+ "extras": "Desktop-only, and AppSecret storage relies on the macOS Keychain, so macOS is effectively required. Installation is manual from GitHub Releases; the listing notes the plugin has not been manually reviewed by Obsidian staff. Detailed configuration docs are in the Chinese section of the README.",
+ "intent": "alternative",
+ "intentEvidence": "从 md-to-sm、obsidian-to-sm 或 wechat-article-studio 升级时，首次启用新版会自动迁移账号配置和本地封面",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to format notes for WeChat Official Accounts, upload local images to WeChat, or push drafts through its API.",
+ "readmeHash": "b328aa68a063e4edd3c64d5363316c2f8a9f9b72",
+ "relations": [
+  {
+   "evidence": "creates drafts through the official WeChat API",
+   "plugin": "WeChat Official Accounts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "从 md-to-sm、obsidian-to-sm 或 wechat-article-studio 升级时，首次启用新版会自动迁移账号配置",
+   "plugin": "md-to-sm / obsidian-to-sm / wechat-article-studio",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account with API permissions and IP whitelist",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AppID and AppSecret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Markdown-to-WeChat publisher that converts notes into WeChat-compatible HTML and creates article or image-card drafts via the WeChat Official Accounts API.",
+ "tags": [
+  "wechat",
+  "wechat-official-account",
+  "image-card",
+  "long-image",
+  "png",
+  "rich-text"
+ ]
+}

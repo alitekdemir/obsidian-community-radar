@@ -1,0 +1,57 @@
+{
+ "also": [
+  "images",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "upload pasted clipboard images to imgur.com",
+  "upload images dragged from the file system, including animated gifs",
+  "embed the uploaded remote image into the note",
+  "upload anonymously or to a connected Imgur account"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Every user must create their own Imgur Client ID to avoid shared daily rate limits. On failed uploads (e.g. CORS errors) it falls back to storing the image locally; anonymous uploads cannot be deleted afterwards; video upload is not supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author thinks Obsidian's fully-local storage 'can be improved for images' because frequent image pasting grows the vault and backup size.",
+ "primary": "integrations",
+ "problem": "Pasting many images bloats the local vault, which slows or costs more when syncing or backing up notes via git or cloud storage.",
+ "readmeHash": "d799a654a1e45bef33aab332c06e0f3277de7ff9",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Imgur Client ID",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Imgur account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Image uploader that sends pasted or dragged images to imgur.com and embeds the remote image in the note instead of storing it in the vault.",
+ "tags": [
+  "imgur",
+  "image-hosting",
+  "clipboard-paste",
+  "drag-and-drop",
+  "remote-images",
+  "anonymous-upload"
+ ]
+}

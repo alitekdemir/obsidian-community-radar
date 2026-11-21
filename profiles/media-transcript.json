@@ -1,0 +1,80 @@
+{
+ "also": [
+  "annotation",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Play video and audio with a synchronized, clickable transcript from subtitle files",
+  "Highlight and comment on notes, PDFs and transcripts in sidecar .anno.json files and resurface them in a review panel",
+  "Archive remote images and videos embedded in notes to local or WebDAV caches without rewriting the markdown",
+  "Play hotlink-protected media by fetching it with the headers the source site expects",
+  "List, rename, move, delete and transcribe a media library on a self-hosted Media One server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a speech-to-text transcriber; it only plays media alongside an existing subtitle file, with transcription done by an external server.",
+ "extras": "Warns that attachment-cleanup plugins such as oz-clear-unused-images and Local Images Plus may delete the archive folder; the hotlink module is desktop-only; annotation module design details live in docs/attention-architecture.md.",
+ "intent": "alternative",
+ "intentEvidence": "used to be four plugins: Media Transcript, Attention, Archive Redirect and Hotlink Media. They are now modules of this one",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian cannot play media with synced transcripts, keep highlights and comments out of the note text, or show images and videos whose hosts block outside requests or have gone offline.",
+ "readmeHash": "7c749b691d12c83fb2cd5cbfaa62ecc30683c54b",
+ "relations": [
+  {
+   "evidence": "Media One used to be four plugins: Media Transcript, Attention, Archive Redirect and Hotlink Media.",
+   "plugin": "Media Transcript, Attention, Archive Redirect, Hotlink Media",
+   "type": "replaces"
+  },
+  {
+   "evidence": "PDFs, when PDF++ is installed: select text and Mark or 💬 it",
+   "plugin": "PDF++",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using the same keys as the Force note view mode plugin",
+   "plugin": "Force note view mode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a worker (local-asr, speech-to-text on an Apple Silicon Mac) takes the job",
+   "plugin": "local-asr",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Media One server / WebDAV servers (library, archiving, transcription)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "PDF++",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Media player with synchronized, clickable transcripts, plus modules for sidecar-file annotations, web image archiving, and hotlink-protected media playback.",
+ "tags": [
+  "subtitles",
+  "whisper",
+  "srt",
+  "webdav",
+  "wechat",
+  "link-rot",
+  "local-asr"
+ ]
+}

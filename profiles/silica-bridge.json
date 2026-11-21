@@ -1,0 +1,62 @@
+{
+ "also": [
+  "links",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rank notes related to the open note by vocabulary overlap, flagging unlinked ones",
+  "Find near-duplicate notes, adoptable orphans, insubstantial links and broken links",
+  "Search the vault with ranked BM25 results and highlighted context",
+  "Inject wikilinks for mentioned but unlinked note titles, with a reviewable changes list",
+  "Chat with a locally running Silica agent that can read and edit notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Search",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI plugin at its core; the analysis panel, search, autolink and graph run entirely offline without any language model.",
+ "extras": "The chat panel only talks to a localhost WebSocket and never contacts remote hosts; the agent's model choice (Ollama, LM Studio, llama.cpp or hosted API) is configured on the Silica side. The agent wire contract is documented in PROTOCOL.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's search treats every hit equally, backlinks only show who linked here, and nothing surfaces near-duplicates, unlinked orphans or links that point to unrelated notes.",
+ "readmeHash": "1af824f64e393bb3774c737d2416e546e6a26666",
+ "relations": [
+  {
+   "evidence": "for that half you need the Silica agent running on the same machine",
+   "plugin": "Silica agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Silica agent (via silica connect)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Vault-analysis panel that surfaces related notes, near-duplicates, adoptable orphans, weak and broken links, ranked BM25 search, autolinking and a community graph.",
+ "tags": [
+  "jaccard",
+  "bm25",
+  "louvain",
+  "stemming",
+  "near-duplicates",
+  "autolink",
+  "community-detection"
+ ]
+}

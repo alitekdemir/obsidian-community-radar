@@ -1,0 +1,50 @@
+{
+ "also": [
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Measure text height in images via Tesseract.js OCR",
+  "Rewrite image embed widths to match the body font size",
+  "Download external images and resize their Markdown references",
+  "Download and verify OCR runtime dependencies from settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not resize image files; it only inserts or updates the width digit inside the image's Markdown embed syntax.",
+ "extras": "Desktop only (Electron-dependent WASM); OCR stays unavailable until the user downloads ~12 MB of Tesseract runtime assets in settings. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found pasted or clipped images visually jarring when scaled larger than body text and tedious to fix one by one.",
+ "primary": "images",
+ "problem": "Pasted or web-clipped images often render larger than the surrounding body text, and fixing each image's width by hand is tedious.",
+ "readmeHash": "025c6cf88d7e34e9444d7aa9ed1c05745e510708",
+ "relations": [
+  {
+   "evidence": "OCR is powered by Tesseract.js",
+   "plugin": "tesseract.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "OCR-based resizer that rewrites the width digit in image embed syntax so text inside images matches the note's body font size.",
+ "tags": [
+  "tesseract",
+  "font-size",
+  "image-embeds",
+  "wasm",
+  "sha-256"
+ ]
+}

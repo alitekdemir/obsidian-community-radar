@@ -1,0 +1,74 @@
+{
+ "also": [
+  "automation",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Roll unfinished tagged tasks forward through code blocks placed in notes",
+  "Toggle a chosen task tag on lines and carry it onto the next line while typing",
+  "Schedule tasks with a natural-language date prompt for scheduled, due and start dates",
+  "Park tasks and their subtasks in a collection note",
+  "Move tasks between notes and mark them done, in progress or cancelled from block rows"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents known limits, such as blank lines separating subtasks and byte-identical task lines resolving incorrectly.",
+ "intent": "improve",
+ "intentEvidence": "A Plugin providing some convenience features for interacting with the Task plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was uncomfortable with auto rollover and found manual rollover tedious, wanting automatic collection with intentional rollover to replace long dataview-js queries.",
+ "primary": "tasks",
+ "problem": "Automatic task rollover loses track of what is carried forward, while manual rollover is tedious; Obsidian's Tasks plugin offers no interactive middle ground.",
+ "readmeHash": "4c014997d953dd0d21aeb89fb25b7fccee8e2aa9",
+ "relations": [
+  {
+   "evidence": "A Plugin providing some convenience features for interacting with the Task plugin.",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "It works with Periodic Notes when that's installed, reading folders and date formats from its settings",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For the longest time this was solved by stupidly long dataview-js queries, but not anymore.",
+   "plugin": "Dataview",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Companion to the Tasks plugin that rolls unfinished tagged tasks forward via in-note code blocks, with tagging, scheduling and parking commands.",
+ "tags": [
+  "tasks-plugin",
+  "rollover",
+  "periodic-notes",
+  "natural-language-dates",
+  "dataview-js",
+  "code-block"
+ ]
+}

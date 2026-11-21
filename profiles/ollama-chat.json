@@ -1,0 +1,56 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask questions about your notes to a locally run LLM",
+  "Index vault files on startup and on file modification",
+  "Open a query modal via shortcut or command",
+  "Point the plugin at a self-hosted model URL"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The main branch needs a separate Python indexing server; a JS-only branch avoids it but is described as slower, less developed, and must be built and installed manually. The README also documents the plugin's release process rather than usage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask a language model questions about your own notes.",
+ "readmeHash": "b4e7b3a2ed035d9c595ad9a2e1419a97d62499a6",
+ "relations": [
+  {
+   "evidence": "you will need to run a lightweight python server to do the indexing for you next to your ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama plus a Python indexing server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "AI chat plugin that answers questions about your notes using a local Ollama model with a LlamaIndex-based index of the vault.",
+ "tags": [
+  "ollama",
+  "llamaindex",
+  "local-llm",
+  "rag",
+  "semantic-index"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render a kanban board from markdown files' **Status:** fields",
+  "Drag cards between status columns to write the change back to the file",
+  "Edit status and horizon values via inline pickers and cycle commands",
+  "Search and filter items by id, title, status, horizon, and milestone",
+  "Adapt views to the project's mode set in state/phase.yaml"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general kanban plugin for any markdown; it only renders files using SweetClaude's bold-key convention (I-*, BL-*, MS-* artifacts).",
+ "extras": "Only works with SweetClaude-structured vaults; cannot create new items (that is the framework's job via /sweetclaude:project-issues); documents a SweetClaude cache-staleness caveat after Obsidian-side edits, warns against Obsidian's 'Rename vault' for .sweetclaude/ vaults, and notes Windows/Linux vault-picker steps are unverified.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "SweetClaude projects tracked as markdown artifacts have no board or table view inside Obsidian; changing an item's status normally means hand-editing bold-key fields in each file.",
+ "readmeHash": "9c74df5e819350da8d910e0fc606a26bba716238",
+ "relations": [
+  {
+   "evidence": "SweetClaude in Claude Code remains the primary working interface — Kandyban is a visibility and ergonomics layer alongside it.",
+   "plugin": "SweetClaude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin's structure derives from the Obsidian sample plugin template, heavily rewritten.",
+   "plugin": "Obsidian sample plugin template",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "SweetClaude (Claude Code framework)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Kanban board and list view over SweetClaude-convention markdown project files that reads bold-key metadata, supports drag-and-drop status changes, and writes back without touching surrounding content.",
+ "tags": [
+  "kanban",
+  "sweetclaude",
+  "backlog",
+  "milestones",
+  "drag-and-drop",
+  "shape-up"
+ ]
+}

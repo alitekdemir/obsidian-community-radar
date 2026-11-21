@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations",
+  "export"
+ ],
+ "audience": [
+  "bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert Markdown headings, lists, quotes, tables, code, and images to Gutenberg blocks",
+  "Publish or update WordPress posts and pages with draft, published, pending, or private status",
+  "Upload locally embedded images to the WordPress media library",
+  "Resolve and create WordPress categories and tags by name",
+  "Store the WordPress post ID in frontmatter to update the same post on later publishes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (English and Japanese) and includes a detailed privacy section: it sends the username, application password, post content, taxonomy terms, and images only to the user-configured WordPress site, with no telemetry. Credentials stored in plugin data may be synced with vault configuration, and the README advises a dedicated revocable application password over HTTPS.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to send notes to WordPress as editable Gutenberg blocks, so writers must paste raw Markdown or HTML or rework posts in the block editor.",
+ "readmeHash": "6c967e350e8f2003a8dc2142d8537c768736bcbd",
+ "relations": [
+  {
+   "evidence": "Publish Markdown notes to WordPress as editable, native Gutenberg blocks directly from the ribbon or command palette.",
+   "plugin": "WordPress",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WordPress",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "WordPress application password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that converts Obsidian Markdown notes to native WordPress Gutenberg blocks and creates or updates posts in one click.",
+ "tags": [
+  "wordpress",
+  "gutenberg-blocks",
+  "rest-api",
+  "application-password",
+  "blogging",
+  "image-upload"
+ ]
+}

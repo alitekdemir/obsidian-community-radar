@@ -1,0 +1,57 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt and decrypt files and folders from the context menu or command palette",
+  "Manage multiple encryption profiles with passphrase, salt, filename mode, and encoding",
+  "Support standard, obfuscate, and off filename encryption modes",
+  "Apply and unwrap nested multi-layer encryption with inner-layer detection",
+  "Read and write ciphertexts compatible with the Rclone CLI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns that lost credentials mean irrecoverable data loss, that decryption of nested files must happen outer-to-inner, and that saving passwords to data.json uses only Rclone's reversible obscure algorithm. It also states the plugin is independent of and unaffiliated with the official Rclone project, and is available in 11 languages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to encrypt files and folders at rest so they remain unreadable on disk and interoperable with existing encrypted remotes.",
+ "readmeHash": "c783cae599c1686c14dec028dca3f781c4a7c0c8",
+ "relations": [
+  {
+   "evidence": "fully compatible with the official Rclone Crypt standard",
+   "plugin": "Rclone",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "rclone",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Client-side file and folder encryption plugin that is fully compatible with the Rclone Crypt standard.",
+ "tags": [
+  "rclone",
+  "encryption",
+  "cryptography",
+  "aes-256",
+  "xsalsa20",
+  "secretbox",
+  "scrypt"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe audio recordings into timestamped transcripts",
+  "Generate AI summaries with key points, decisions, and action items",
+  "Process recordings embedded in notes or selected from the file picker",
+  "Export or share transcripts and summaries as Markdown",
+  "Migrate a legacy data folder with hash and link verification"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a recorder; it processes recordings made with Obsidian Quick Capture or existing audio files rather than capturing audio itself.",
+ "extras": "Audio is sent to the chosen transcription provider and transcript text to the text provider; API use may incur charges. Migration requires backing up the vault first, and the README notes the latest fix still needs iPhone acceptance testing. Community directory submission is under review, so manual installation is described.",
+ "intent": "alternative",
+ "intentEvidence": "If upgrading from voice-organizer-local, keep the old plugin files until you have verified",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian can capture audio recordings (e.g. via Quick Capture on iPhone) but offers no way to transcribe them or organize the speech into structured notes.",
+ "readmeHash": "3fb2767dc645b043448c1fb00114803a934a2c7c",
+ "relations": [
+  {
+   "evidence": "If upgrading from voice-organizer-local, keep the old plugin files until you have verified",
+   "plugin": "voice-organizer-local",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "transcription and text providers (MiniMax, OpenAI, etc.)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Transcribes audio recordings into timestamped transcripts and AI-generated summaries, action items, and Markdown notes.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "minimax",
+  "openai",
+  "gemini",
+  "deepseek",
+  "claude",
+  "quick-capture"
+ ]
+}

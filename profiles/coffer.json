@@ -1,0 +1,70 @@
+{
+ "also": [
+  "publishing",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault across devices through user-configured S3-compatible or WebDAV storage with end-to-end encryption",
+  "Merge concurrent edits line by line, word by word, and resolve conflicts with a resolver",
+  "Keep version history and restore files, deleted files, folders or the whole vault to an earlier time",
+  "Share folders or property-marked notes with other people through invite links, with edit, read-only, or suggest roles",
+  "Publish notes marked publish: true as unencrypted web pages to a separate bucket or WebDAV location"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "delisted": "2026-11-21",
+ "disambiguation": null,
+ "extras": "README warns the plugin is young (0.6) and to keep backups; a lost passphrase makes the stored data undecryptable by anyone; published websites are not encrypted; no account, payment, telemetry, or update checks.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through storage the user owns, with end-to-end encryption, conflict merging and version history.",
+ "readmeHash": "b5c2a994bb9c81e068e0a3dfa22de6e949162153",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an S3-compatible bucket or WebDAV server (e.g. Cloudflare R2, Backblaze B2, Amazon S3, MinIO, Nextcloud)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "storage access keys or WebDAV credentials",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "an account with the storage provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 22.18+ for the optional command-line tool",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "End-to-end encrypted vault sync through your own S3-compatible or WebDAV storage, with merging, version history, folder sharing, and optional site publishing.",
+ "tags": [
+  "s3",
+  "webdav",
+  "e2e-encryption",
+  "cloudflare-r2",
+  "backblaze-b2",
+  "nextcloud",
+  "content-defined-chunking"
+ ]
+}

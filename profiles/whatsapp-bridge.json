@@ -1,0 +1,88 @@
+{
+ "also": [
+  "files",
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Import messages",
+  "Download media",
+  "Transcribe audio",
+  "Deduplicate entries",
+  "Archive conversations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "files",
+   "markdown"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a real-time chat client; it functions as an archive for importing historical and current messages.",
+ "extras": "The default history window is seven days, limited to 10,000 rows and 32 MB of output.",
+ "intent": "new",
+ "intentEvidence": "Imports messages and optional media into Markdown notes from wacli or the local WhatsApp Desktop database on macOS.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "It addresses the need to archive and organize WhatsApp conversations within a local Markdown note-taking system.",
+ "readmeHash": "eb8673037ee8cc524d0e383c0343450476f0a5e0",
+ "relations": [
+  {
+   "evidence": "The default source remains wacli, including after upgrades.",
+   "plugin": "wacli",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose a Transcription provider: - OpenAI (the existing default): uses gpt-4o-mini-transcribe.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Faster-Whisper-XXL",
+   "type": "integrates"
+  },
+  {
+   "evidence": "On macOS, Local uses whisper.cpp with FFmpeg, separately from the Windows provider.",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WhatsApp account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "wacli or WhatsApp Desktop",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Faster-Whisper-XXL/whisper.cpp/FFmpeg",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "WhatsApp Bridge imports messages and media from wacli or the local WhatsApp database into structured Markdown notes.",
+ "tags": [
+  "archiving",
+  "transcription",
+  "duplicate-detection"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

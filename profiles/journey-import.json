@@ -1,0 +1,73 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert Journey ZIP backups into dated Markdown notes",
+  "Preview entry counts, warnings and output paths before importing",
+  "Copy entry photos into the attachments folder and embed them",
+  "Write frontmatter for date, timezone, tags, mood, location and weather",
+  "Merge entries into daily notes with time headings (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: separate notes and photos are free; daily-note merge, year/month folders and file name patterns require a paid Pro unlock via GitHub Sponsors, shared across all NoteMods plugins. ZIP input is capped at 128 MiB / 10,000 files, imports are not deduplicated across runs, and the plugin opens a promotional 'What's new' tab after updates. HEIC display depends on the device; newer Journey export schemas and mobile platforms were not tested.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian cannot read Journey's ZIP backup format, so diary entries and their photos stay locked in that app's export.",
+ "readmeHash": "8d803efd4978b14e114be7596249517e33586fe4",
+ "relations": [
+  {
+   "evidence": "Journey Diary Import converts a Journey diary ZIP backup into dated Markdown notes with photos.",
+   "plugin": "Journey",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tests use the public 2021 two-entry fixture from journey-markdown-converter",
+   "plugin": "journey-markdown-converter",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Journey",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports a Journey diary ZIP backup into a vault as dated Markdown notes with copied photos and frontmatter, plus an optional daily-note merge.",
+ "tags": [
+  "journey",
+  "zip-backup",
+  "diary",
+  "heic",
+  "html-conversion",
+  "github-sponsors"
+ ]
+}

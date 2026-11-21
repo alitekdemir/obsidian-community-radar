@@ -1,0 +1,54 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "korean-hwp-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Automatically convert .hwp and .hwpx files to PDF when they are added to the vault",
+  "Produce image-based or text-based PDFs with different quality and size trade-offs",
+  "Extract document text and tables into a Markdown note",
+  "Run conversions manually via the command palette",
+  "Optionally delete the original file after conversion"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; text-based PDFs use a single bundled font (NanumGothic) and omit colour and photos; output quality depends on the @rhwp/core renderer, so complex tables, equations, or unusual fonts may not reproduce perfectly.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian cannot open or convert Korean HWP/HWPX documents, and existing conversion routes require uploading files to an external server.",
+ "readmeHash": "748384c35ed13ef8f82f7e85603c40fd5cbb9229",
+ "relations": [
+  {
+   "evidence": "Conversion runs through a Rust + WebAssembly renderer (@rhwp/core)",
+   "plugin": "@rhwp/core",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File converter that automatically turns Korean HWP/HWPX documents into PDFs and optional Markdown notes, fully offline via WebAssembly.",
+ "tags": [
+  "hwp",
+  "hwpx",
+  "webassembly",
+  "offline",
+  "korean",
+  "hangul"
+ ]
+}

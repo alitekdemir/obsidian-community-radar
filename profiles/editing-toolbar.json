@@ -1,0 +1,72 @@
+{
+ "also": [
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display a Word-like formatting toolbar in top or cursor-following position",
+  "Run built-in commands for font/background color, headings, alignment, lists, and fullscreen focus",
+  "Customize the toolbar with custom icons, renamed commands, submenus, and drag-and-drop sorting",
+  "Apply formatting brushes for font and background colors",
+  "Use AI-assisted rewrite and inline completion via a user-configured API endpoint"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README includes a privacy/network-access section: AI requests go to a user-configured endpoint, optional PKMer sync talks to api.pkmer.cn, and it states vault contents are not transmitted. Installation instructions and a video introduction are linked externally.",
+ "intent": "alternative",
+ "intentEvidence": "The Editing Toolbar is modified from cMenu, which provides more powerful customization settings",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author re-modified the cMenu plugin because it had not been maintained for over a year, adding a top toolbar, cursor-following, and other new features.",
+ "primary": "editing",
+ "problem": "Obsidian relies on hotkeys and multi-key Markdown commands for formatting, which is hard for users who want a rich-text, WYSIWYG-like editing experience.",
+ "readmeHash": "2188812aa5fd8b5725292df7e39ce2da8a708f94",
+ "relations": [
+  {
+   "evidence": "The Editing Toolbar is modified from cMenu",
+   "plugin": "cMenu",
+   "type": "fork"
+  },
+  {
+   "evidence": "It is recommended to work with Enhanced Editing Plugin, which can add more useful editing commands",
+   "plugin": "Enhanced Editing Plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "emjoi toolbar  Quickly Insert a  emoji",
+   "plugin": "emjoi toolbar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI API endpoint (OpenAI, DeepSeek, Gemini, Ollama, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "PKMer account for optional toolbar settings sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Adds an MS Word-like formatting toolbar with customizable editing commands so you can mark up notes without memorizing hotkeys.",
+ "tags": [
+  "wysiwyg",
+  "rich-text",
+  "toolbar",
+  "font-color",
+  "formatting-brush"
+ ]
+}

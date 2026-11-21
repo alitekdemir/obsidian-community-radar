@@ -1,0 +1,66 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Define reusable prompt files (PROMPT-*.md) with frontmatter overrides",
+  "Run prompts against the vault or active note as an auto-submitted chat",
+  "Chat with Claude in an Obsidian pane with model, effort, and permission controls",
+  "Approve or deny tool calls inline with allow-once or allow-for-chat options",
+  "Browse, review, and resume past Claude sessions from a history pane"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Extensive security warnings: runs the CLI with full user permissions, prompt injection from untrusted note content is flagged, runs are not sandboxed to the active note, and there is no default budget cap. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run agentic Claude sessions that can read, edit, and reason over vault files from inside the app.",
+ "readmeHash": "ce530262481eceae0ae49327950f92250d7f856d",
+ "relations": [
+  {
+   "evidence": "driving the Claude Code CLI through the Claude Agent SDK",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Anthropic billing",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Runs reusable PROMPT-*.md prompt files and interactive Claude chats against your vault or active note via the Claude Code CLI.",
+ "tags": [
+  "claude-code",
+  "anthropic",
+  "agent-sdk",
+  "prompt-files",
+  "tool-approval",
+  "system-prompt"
+ ]
+}

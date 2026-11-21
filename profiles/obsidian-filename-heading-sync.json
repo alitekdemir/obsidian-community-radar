@@ -1,0 +1,48 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rename the file when its first heading changes",
+  "Insert or update the first heading to match the filename on open",
+  "Shorten filenames from long headings with an optional byte limit",
+  "Run manual sync commands with the automatic hooks disabled"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns the plugin is destructive: it overwrites the first heading the moment a file is opened. Regex exclusion rules and disabling the file-open/file-save hooks are offered to resolve conflicts with other plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian treats filenames and headings as independent, so renaming a file or editing a heading leaves the two out of sync.",
+ "readmeHash": "597e9368bb105ee99ed59b88c052beaca89902ec",
+ "relations": [
+  {
+   "evidence": "Disable the file-open hook in settings and they should play together nicely",
+   "plugin": "templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that keeps the filename and the first heading of a note synchronized in both directions, automatically or via manual commands.",
+ "tags": [
+  "headings",
+  "filename",
+  "file-rename",
+  "bidirectional-sync",
+  "regex-rules"
+ ]
+}

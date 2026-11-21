@@ -1,0 +1,67 @@
+{
+ "also": [
+  "collaboration",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish the current note to a self-hosted Annotex server with one command",
+  "Copy a share link for invited colleagues to read and comment on the note",
+  "Keep a stable docId in frontmatter so links and comments survive renames and edits",
+  "Mirror annotations into a <note>.annotex.json sidecar beside the note",
+  "Sync annotations to the vault on demand via a command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general PDF or web annotation tool; it only publishes notes to its own Annotex server and mirrors the resulting comments back into the vault.",
+ "extras": "The plugin was not yet in the Community Plugins store at the time of the README; manual install, BRAT, or building from source are offered. The sidecar mirror is currently one-way (server to vault) and restore-on-publish is a planned follow-up. The plugin states it makes no requests beyond the configured server and no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to share a rendered note privately with colleagues for inline comments while keeping a copy of those comments in the vault.",
+ "readmeHash": "c05755ef73d89b36e50dc47335e76fa072bacd5d",
+ "relations": [
+  {
+   "evidence": "This plugin needs an Annotex server — it's a companion to one you run yourself",
+   "plugin": "annotex-server",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the BRAT community plugin, then Add beta plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Annotex server (Node 18+)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Annotex publish token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes the current note to a self-hosted Annotex server where invited colleagues leave inline anchored comments that mirror back into the vault.",
+ "tags": [
+  "self-hosted",
+  "katex",
+  "inline-comments",
+  "sidecar"
+ ]
+}

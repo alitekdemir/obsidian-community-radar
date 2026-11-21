@@ -1,0 +1,80 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio and system sound directly in the vault",
+  "transcribe recordings via cloud or local speech services",
+  "polish transcripts into notes with generated titles and extracted todos",
+  "generate Mermaid diagrams from transcripts",
+  "manage recordings in an audio queue with retry and recovery"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: recording, notes, and transcription of recordings under 5 minutes are free; longer transcription, live transcription, dictation, speaker recognition, and Todo collection require a license code obtained via Xiaohongshu. The plugin is closed-source. The agent-facing CLI is marked as a test feature with changeable parameters.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian's audio recorder only embeds recordings; turning spoken content from meetings or lectures into searchable, organized text notes requires external tools and manual work.",
+ "readmeHash": "750883ecb95041e2f132ac092bd7d1795c516c21",
+ "relations": [
+  {
+   "evidence": "Windows 桌面端可以一键安装 FunASR 转写程序并自动准备运行环境",
+   "plugin": "FunASR",
+   "type": "integrates"
+  },
+  {
+   "evidence": "需要本机装好 yt-dlp（ffmpeg 可选），插件只检测和调用",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "把录音写进 Daily Notes、Periodic Notes、Journals 等工具已经建好的当天日记",
+   "plugin": "Journals",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "transcription or LLM provider API key (e.g. SiliconFlow)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "license code for locked features (long transcription, live transcription, dictation, speaker recognition)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp for Bilibili audio import; FunASR for local transcription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Voice recording plugin that records audio in the vault, transcribes it via cloud or local speech services, and polishes transcripts into structured Markdown notes.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "funasr",
+  "speaker-diarization",
+  "dictation",
+  "mermaid",
+  "yt-dlp",
+  "bilibili"
+ ]
+}

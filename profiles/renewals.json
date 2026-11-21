@@ -1,0 +1,53 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track subscriptions with amount, currency, billing cycle, and status",
+  "Surface upcoming charges and trial conversions with daily reminders",
+  "Set a monthly budget and view spend by category and payment method",
+  "Embed a renewal list in any note via a code block",
+  "Export and import JSON and CSV backups"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. It makes limited network requests (exchange rates via the Frankfurter API, logos via Google's favicon service) but works offline with cached or built-in rates and an option to disable logos.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why Renewals' section says subscription apps want an account and bank login, so the author built a local, offline alternative inside Obsidian.",
+ "primary": "finance",
+ "problem": "Subscription apps require an account and bank login; this keeps subscription tracking offline and local in the vault instead.",
+ "readmeHash": "7f51debcc9cdc9cf90f1043f475760643e11c1de",
+ "relations": [
+  {
+   "evidence": "at most once a day it fetches the European Central Bank's daily reference rates from the Frankfurter API",
+   "plugin": "Frankfurter API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "its icon is loaded from Google's favicon service using only that website's domain",
+   "plugin": "Google's favicon service",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Subscription tracker that stores recurring payments and free trials in the vault, with an upcoming-charges dashboard, reminders, budgets, and spend breakdowns.",
+ "tags": [
+  "subscriptions",
+  "free-trials",
+  "recurring-payments",
+  "budgets",
+  "exchange-rates",
+  "offline"
+ ]
+}

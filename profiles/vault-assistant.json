@@ -1,0 +1,73 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with an OpenAI-compatible model about vault notes in a sidebar",
+  "search notes locally without cloud indexing or embeddings",
+  "pin notes as chat context via Add note, Add open note, or wikilinks",
+  "propose new, updated, or moved notes that are written only after Apply",
+  "connect to OpenAI, OpenRouter, or Ollama providers with a user-supplied key or URL"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires Obsidian 1.13.0+. Detailed privacy section; the wikilink context picker does not work on mobile and localhost Ollama is usually unreachable from a phone.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with an AI model about vault content while keeping search local and controlling what is sent to the provider.",
+ "readmeHash": "078741d330eeaa438d1207dbaff4af6fe40de981",
+ "relations": [
+  {
+   "evidence": "Bring your own key: OpenAI, OpenRouter, or Ollama (localhost or a custom URL)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own key: OpenAI, OpenRouter, or Ollama (localhost or a custom URL)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own key: OpenAI, OpenRouter, or Ollama (localhost or a custom URL)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or OpenRouter API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI chat sidebar that answers questions about the vault using local search and proposes note creates, updates, and moves gated behind Apply.",
+ "tags": [
+  "openai",
+  "openrouter",
+  "ollama",
+  "rag",
+  "bring-your-own-key",
+  "chat",
+  "local-search",
+  "privacy"
+ ]
+}

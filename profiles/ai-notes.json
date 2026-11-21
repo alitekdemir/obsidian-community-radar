@@ -1,0 +1,85 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record microphone audio and embed it in the active note",
+  "Transcribe embedded audio files via whisper.cpp or OpenAI-compatible endpoints",
+  "Enrich notes with an LLM-generated summary combining notes and transcriptions",
+  "Save recordings in per-note folders inside a configurable vault directory",
+  "Point transcription and enrichment at local or cloud AI backends"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Released under GPL-3.0; the author accepts donations via Bitcoin, Lightning, and GitHub Sponsors. No endpoints are contacted until the user configures them.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's built-in audio recorder only embeds recordings; it cannot transcribe them or combine them with note content using an LLM.",
+ "readmeHash": "feeacc3d73c2744c8040c91d430330d9df864d7f",
+ "relations": [
+  {
+   "evidence": "Convert recordings to text using whisper.cpp or any OpenAI-compatible endpoint",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with local models (Ollama, whisper.cpp, llama.cpp) or cloud APIs (OpenAI, etc.)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with local models (Ollama, whisper.cpp, llama.cpp) or cloud APIs (OpenAI, etc.)",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use llama.cpp, LM Studio, Ollama, whisper.cpp — or any OpenAI-compatible endpoint",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or cloud APIs (OpenAI, etc.)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "whisper.cpp, Ollama, llama.cpp, or LM Studio for local use",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for OpenAI-compatible cloud endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Audio and AI plugin that records microphone audio into notes, transcribes it via Whisper endpoints, and appends LLM-generated summaries.",
+ "tags": [
+  "whisper",
+  "whisper-cpp",
+  "ollama",
+  "llama-cpp",
+  "lm-studio",
+  "openai",
+  "llm",
+  "transcription"
+ ]
+}

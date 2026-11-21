@@ -1,0 +1,55 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Automatically push local file creations, edits, renames, moves and deletions to MYBOX",
+  "Pull new and changed remote files on demand without deleting local files",
+  "Map one vault folder to a remote MYBOX folder and verify the connection",
+  "Move trashed files to the remote trash instead of deleting them permanently"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Currently MVP scope: one-way automatic push plus manual pull for a single mapped folder; two-way sync with conflict resolution, scheduled polling, multiple mappings, OAuth and shared folders are planned. The PAT is stored in plain text in the plugin data file, which the README warns about. Storage quota follows the user's own NAVER plan.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault folder to NAVER MYBOX cloud storage.",
+ "readmeHash": "f2217f0e28c2620b1753e4303eec467c841579e4",
+ "relations": [
+  {
+   "evidence": "following the \"event trigger + batch\" model of obsidian-git",
+   "plugin": "obsidian-git",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "NAVER account with MYBOX enabled and a Personal Access Token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Folder sync plugin that pushes file changes in one mapped vault folder to NAVER MYBOX cloud storage and pulls remote changes on demand.",
+ "tags": [
+  "naver",
+  "cloud-storage",
+  "open-api",
+  "personal-access-token"
+ ]
+}

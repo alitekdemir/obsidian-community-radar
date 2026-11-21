@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert Obsidian Markdown to WeChat-compatible HTML",
+  "Publish notes to WeChat Official Account via official API",
+  "Render Mermaid diagrams as PNG images and upload them",
+  "Upload local images to the WeChat media library",
+  "Preview WeChat article rendering in a sidebar before publishing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Supports only WeChat today; other platforms (Zhihu, Juejin, CSDN) are on the roadmap. UI commands and menus are partly in Chinese. Embeds (![[...]]) are not yet converted. Daily WeChat API limits and a 2MB image cap apply.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to WeChat Official Account, and WeChat requires converted HTML, uploaded images, and platform-specific formatting.",
+ "readmeHash": "973094745efd638dcdce5dda78344739b0167324",
+ "relations": [
+  {
+   "evidence": "Referenced DOM processing, image upload, and media library management",
+   "plugin": "obsidian-mp-publisher",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Referenced Mermaid SVG→PNG conversion, cover upload, and code block handling",
+   "plugin": "note-to-mp",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Referenced markdown-it + juice rendering, CSS inline strategy, and code block styling",
+   "plugin": "WeMD",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "verified WeChat Official Account (subscription or service account)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "WeChat Official Account AppID and AppSecret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that converts and uploads Obsidian notes as articles to WeChat Official Account via its official API.",
+ "tags": [
+  "wechat",
+  "mermaid",
+  "wikilink",
+  "image-upload",
+  "callout",
+  "frontmatter-metadata"
+ ]
+}

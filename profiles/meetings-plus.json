@@ -1,0 +1,70 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Subscribe to ICS calendar feeds",
+  ": Display meetings in a sidebar",
+  ": Generate pre-filled meeting notes",
+  ": Handle recurring events",
+  ": Integrate with Templater"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": writing",
+   ": properties",
+   ": templating"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Privacy-first design with no telemetry; works on mobile via pure ICS over HTTPS.",
+ "intent": "alternative",
+ "intentEvidence": "The existing Outlook Meeting Notes plugin requires Outlook and Obsidian to be open simultaneously, and you drag calendar events between them.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To allow users to keep their calendar and meeting notes in the same place without exporting data or relying on external servers.",
+ "primary": "calendar",
+ "problem": "Existing solutions often require external applications to be open or involve manual dragging of events, creating a slow and fragile workflow.",
+ "readmeHash": "a0b9e93a005f56bad5f31cafbff70a4704ff6f76",
+ "relations": [
+  {
+   "evidence": "You ran meetings out of Notion, but you always wanted your calendar and your notes in the same place",
+   "plugin": "Notion",
+   "type": "alternative"
+  },
+  {
+   "evidence": "If Templater is installed and enabled, your <% %> tokens run after Meetings Plus substitutes its own {{variables}}",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ICS calendar feed",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Subscribes to external ICS calendar feeds and automatically generates structured, pre-filled meeting notes within the local Markdown vault.",
+ "tags": [
+  "ics",
+  "outlook",
+  "google-calendar",
+  "icloud",
+  "proton",
+  "fastmail",
+  "calendar-feeds",
+  "meeting-notes"
+ ]
+}

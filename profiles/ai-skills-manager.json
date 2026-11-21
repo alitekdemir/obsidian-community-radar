@@ -1,0 +1,74 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan and organize skills, agents, commands, and rules across 15 coding tools at global and project scope",
+  "Enable or disable items by moving the actual files, symlink-aware",
+  "Install skills, agents, and Claude Code mods from GitHub with diff-reviewed updates and version history",
+  "Track usage, context cost, integrity problems, and prune candidates in an insights panel",
+  "List configured MCP servers read-only and jump to their config files"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI assistant or chat plugin; it manages the skill, rule, and mod files that external AI coding tools read from disk.",
+ "extras": "Desktop-only; it reads and writes files on disk and shells out to git for GitHub-powered discover, install, and update features. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because skills pile up across tool-specific folders, copies drift out of sync, checkbox toggles do not touch the real files, and GitHub updates overwrite local edits blindly.",
+ "primary": "ai",
+ "problem": "AI coding tools each store skills, agents, commands, and rules in their own scattered folders, with no unified view, real enabling/disabling, or safe updates.",
+ "readmeHash": "bed77851b0fa984ebbb4e7723f0480f99701ba85",
+ "relations": [
+  {
+   "evidence": "Reads Claude Code's installed-plugins registry and Codex's installed plugin cache",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Reads Claude Code and Codex session history (~/.claude/projects and ~/.codex/sessions)",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "queryable from Dataview or Bases like any other note",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an AI coding tool such as Claude Code, Cursor, or Codex whose folders it manages",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Library manager that scans AI coding tools' skill, agent, command, and rule folders so you can tag, toggle, install, and update them from Obsidian.",
+ "tags": [
+  "claude-code",
+  "cursor",
+  "codex",
+  "github",
+  "mcp",
+  "symlink",
+  "prompts"
+ ]
+}

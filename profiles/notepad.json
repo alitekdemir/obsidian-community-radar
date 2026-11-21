@@ -1,0 +1,67 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Keep an auto-saving scratch page and save it as a note or append it to the daily note",
+  "Record and reuse a clipboard history across apps, with search, pinning and insertion",
+  "Collect selected text from any note via the right-click menu",
+  "Show and control Timebox sessions with a live timer, totals and history",
+  "Customize accent, background and text colors and show or hide tabs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general text editor; it is a small scratch page plus clipboard and session panels for the sidebar.",
+ "extras": "Makes no network requests and stores all data in the vault's plugin data.json; clipboard history is plain text and travels with a synced vault. Requires Obsidian 1.13 or newer. On Flatpak installs, a manual sandbox permission step is needed for the KDE clipboard history.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "sidebar",
+ "problem": "The sidebar space under the Calendar is usually empty, and quick thoughts, copied text and tracked work sessions have no single home inside Obsidian.",
+ "readmeHash": "7867ed481303e9d1d85425c48d311f0b04a645fc",
+ "relations": [
+  {
+   "evidence": "Timebox is a companion plugin: it tracks study and work sessions inside your notes.",
+   "plugin": "Timebox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add to today's daily note uses the folder, date format and template of the Daily notes core plugin",
+   "plugin": "Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Timebox",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Klipper (KDE Plasma)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Tabbed sidebar panel with a scratch page, clipboard history, and a Timebox session overview, sitting under the Calendar in the right sidebar.",
+ "tags": [
+  "clipboard",
+  "scratchpad",
+  "time-tracking",
+  "klipper",
+  "pomodoro"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai",
+  "data"
+ ],
+ "audience": [
+  "linguists",
+  "conversation-analysts",
+  "qualitative-researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pseudonymize terms manually via right-click rules or via local NER entity detection",
+  "Import transcripts from noScribe, SRT, CHAT/CLAN, Markdown and plain text",
+  "Manage correspondence rules at file, folder and vault scope with exceptions and priorities",
+  "Export pseudonymized versions, correspondence tables and re-export as VTT/SRT/CHAT",
+  "Organize corpus folders into classes with mirrored transcription, mapping and export folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. NER requires a one-time download of ~19 MB WASM plus ~66 MB model, then works offline. All transcript processing is local; only the optional Coulmont first-name lookup contacts an external site. v0.1.x with active roadmap phases; citation info (APA, BibTeX) is provided for academic use.",
+ "intent": "alternative",
+ "intentEvidence": "existing tools (Sonal, Whispurge) do not integrate into a note-taking and analysis environment",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to fill the gap of pseudonymizing interactional transcripts for linguistics and conversation analysis research directly inside a note-taking vault.",
+ "primary": "research",
+ "problem": "Existing pseudonymization tools do not integrate into a note-taking environment, and Obsidian has no built-in way to anonymize qualitative research transcripts.",
+ "readmeHash": "49db284d46e9cede05946c6e762bfe8afe9548b8",
+ "relations": [
+  {
+   "evidence": "Sonal pi — Following a meeting with Maxime Beligné",
+   "plugin": "Sonal pi",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Queries coulmont.com — suggests sociologically equivalent first names",
+   "plugin": "coulmont.com/bac",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the Data Files Editor plugin to view mapping JSON files directly",
+   "plugin": "Data Files Editor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Xenova — ONNX model conversion and transformers.js library, enabling local execution",
+   "plugin": "transformers.js",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "coulmont.com web service (optional, only for equivalent first-name suggestions)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Transcript pseudonymization tool that replaces identifying names, places and institutions in research transcripts with tracked pseudonyms and export-safe correspondence rules.",
+ "tags": [
+  "pseudonymization",
+  "named-entity-recognition",
+  "conversation-analysis",
+  "jefferson-transcription",
+  "transformers-js",
+  "coulmont",
+  "whisper",
+  "noscribe"
+ ]
+}

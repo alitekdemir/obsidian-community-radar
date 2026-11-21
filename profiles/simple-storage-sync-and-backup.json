@@ -1,0 +1,59 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync the vault bi-directionally across devices through S3-compatible storage",
+  "create scheduled full-vault backup snapshots with retention policies",
+  "encrypt synced files and backups with a passphrase",
+  "create LOCAL_ and REMOTE_ copies when two devices change the same file offline",
+  "download backups as ZIP files from settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README includes a detailed permissions/data-access section listing every API the plugin touches, warns that .obsidian config files are synced by default unless excluded, and states there is no passphrase recovery for encrypted data. Not recommended to run alongside Obsidian Sync.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, and there is no core way to keep a vault synchronized or backed up using your own S3-compatible storage.",
+ "readmeHash": "23e6063edea9746c8412993eb1ff0af8691c5714",
+ "relations": [
+  {
+   "evidence": "Can I use this alongside Obsidian Sync? It is not recommended . Using two sync solutions simultaneously can cause race conditions",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3-compatible storage account (AWS S3, Cloudflare R2, Backblaze B2, RustFS, or other) with access keys and a bucket",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Syncs and backs up your vault across devices via any S3-compatible storage service, with optional end-to-end encryption and scheduled snapshots.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "backblaze-b2",
+  "e2e-encryption",
+  "conflict-resolution",
+  "snapshots",
+  "argon2id"
+ ]
+}

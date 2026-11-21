@@ -1,0 +1,69 @@
+{
+ "also": [
+  "code"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Edit .json and .jsonc files in a tree or CodeMirror source view with undo, search and keyboard navigation",
+  "Preserve JSONC comments and formatting by applying tree edits as targeted text edits",
+  "Render ```json and ```jsonc code blocks and embedded .json files as collapsible trees in notes",
+  "Validate files against a companion JSON Schema file (opt-in)",
+  "Repair broken JSON via a configured LLM endpoint with a side-by-side diff before applying"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Conflicts with other plugins claiming the .json extension (JSON Viewer, JSON Collapsible, Data Files Editor) — only the file view is disabled in that case. Optional LLM repair sends the broken block to a user-configured endpoint (local, Anthropic, or OpenAI-compatible); no telemetry, and secrets in the block are masked before the request. Obsidian 1.11.4+ required.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for the author's personal use and released because it might be useful to others.",
+ "primary": "json",
+ "problem": "Obsidian opens JSON files as unstyled plain text and JSON code blocks in notes render as hard-to-read raw text, with no structural editing, validation or navigation.",
+ "readmeHash": "64dd8a259856fdbdf672efb2a507e9ef6f21866b",
+ "relations": [
+  {
+   "evidence": "With the LLM Endpoint Manager plugin installed, the endpoint, its API key and the model come from there",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AnySource Sideloader installs and updates Obsidian plugins from any git forge",
+   "plugin": "AnySource Sideloader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "JSON and JSONC file editor with a tree/source toggle, comment-preserving edits, schema validation, and rendered JSON code blocks in notes.",
+ "tags": [
+  "jsonc",
+  "json-schema",
+  "tree-editor",
+  "llm-repair",
+  "code-blocks"
+ ]
+}

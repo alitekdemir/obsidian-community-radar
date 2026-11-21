@@ -1,0 +1,57 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rename notes keeping the old title as link display text",
+  "Add the old title as an alias on the renamed note",
+  "Rename a linked note from the cursor on any link form",
+  "Sync the first heading and frontmatter title with the new name",
+  "Handle invalid filename characters during renames"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation ships as a demo vault readable on GitHub and bundled with each release; beta installs go through BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's own renames ask what they are for.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's rename rewrites link targets, which silently changes the words readers see in prose such as \"as covered in [[Project brief]]\".",
+ "readmeHash": "e827c0669cd9182c544350c031eec77d64cf0914",
+ "relations": [
+  {
+   "evidence": "Ensure you have the BRAT plugin installed and enabled.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renames notes while keeping the old title as link display text and an alias, so sentences containing links to the note still read as written.",
+ "tags": [
+  "wikilinks",
+  "backlinks",
+  "aliases",
+  "display-text",
+  "rename-prompt"
+ ]
+}

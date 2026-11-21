@@ -1,0 +1,68 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "open external terminal emulators from Obsidian",
+  "embed integrated shell terminals in Obsidian tabs",
+  "save and restore integrated terminal history across sessions",
+  "search terminal output and save history to a file",
+  "show program status reported via OSC 7501 on terminal tabs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README includes a Security section explaining why Obsidian's community Scorecard flags it for system access (environment variables, files outside the vault). Notes the plugin is much less useful on mobile, where the only current use is opening a developer console.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian has no built-in way to run shells or terminal emulators, so command-line work means switching to a separate app or window outside the vault.",
+ "readmeHash": "df0ff5675089f1b2e5a9bd7be73cba1b6e116ee0",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Obsidian42 - BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ConPTY terminals run on the console host that Windows Terminal ships (OpenConsole.exe)",
+   "plugin": "Windows Terminal",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Terminal",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Terminal plugin that opens external terminal emulators and embeds integrated shell consoles inside Obsidian, with profiles, saved history, and search.",
+ "tags": [
+  "shell",
+  "terminal-emulator",
+  "xterm",
+  "conpty",
+  "tmux",
+  "osc-7501"
+ ]
+}

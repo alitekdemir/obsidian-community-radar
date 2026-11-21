@@ -1,0 +1,83 @@
+{
+ "also": [
+  "writing",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Collect article links from a Gmail label and RSS or Atom feeds",
+  "Extract article text, authors and dates, deduplicating by URL or title",
+  "Generate a newsletter note through editable per-step AI prompts",
+  "Produce a black-and-white 4/3 illustration via the OpenAI API",
+  "Track used articles across editions and regenerate a day's note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is in French. The Google OAuth client file is not distributed with releases and must be supplied by the user; without it the Gmail connection button stays unavailable. The plugin is free under the MIT license and does not publish to Substack or send to subscribers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Turning alerts, feeds and emailed links into a ready-to-edit press review requires collecting sources and drafting outside Obsidian by hand.",
+ "readmeHash": "aa966e65b013316fcc790d7f89507dd945cb5812",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Gmail",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex : installer et connecter Codex CLI sur la machine.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pour une newsletter en français, les corrections typographiques de Finition sont appliquées localement",
+   "plugin": "Finition",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google (Gmail) account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google OAuth desktop client (oauth-client.json) placed in the plugin folder",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic key, or a local OpenAI-compatible server; Codex CLI as an alternative for text",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI-assisted press-review generator that collects articles from a Gmail label and RSS feeds, then writes an illustrated newsletter note in the vault.",
+ "tags": [
+  "gmail",
+  "google-alerts",
+  "newsletter",
+  "press-review",
+  "substack",
+  "readability",
+  "codex-cli"
+ ]
+}

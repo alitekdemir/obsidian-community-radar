@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run local shells in terminal tabs, splits, and windows",
+  "Create and launch reusable terminal, command, and link workflows",
+  "Send editor selections, note content, and paths into the terminal",
+  "Open file references printed in terminal output",
+  "Hand off vault and editor context to AI CLI sessions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (native PTY backend). Downloads the matching native PTY server binary from GitHub Releases on first use; offline mode disables download and update checks. No telemetry or analytics. Also installable via BRAT for early updates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people who already live in Obsidian and do real work in a terminal, wanting a terminal aligned with vault and editor context.",
+ "primary": "developers",
+ "problem": "Obsidian has no built-in terminal, so users must switch to an external terminal app and lose access to their vault and editor context.",
+ "readmeHash": "b43c8978b3bbe8ef73c7862c43eca6737430055a",
+ "relations": [
+  {
+   "evidence": "Powered by xterm.js and a native Rust PTY backend",
+   "plugin": "xterm.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code, Codex CLI, and OpenCode integrations can inherit active note context from Obsidian.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex uses a vault-local Skill at .agents/skills/termy-obsidian-context/SKILL.md.",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code and OpenCode use Termy's IDE bridge",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the built-in dsh-TUI launcher receives Obsidian editor selections through dsh-TUI's protocol-v2 loopback bridge",
+   "plugin": "dsh-TUI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Terminal emulator plugin that runs local shells inside Obsidian with split panes, reusable workflows, and AI CLI context handoff.",
+ "tags": [
+  "terminal",
+  "pty",
+  "xtermjs",
+  "shell",
+  "split-panes",
+  "claude-code",
+  "codex",
+  "workflows"
+ ]
+}

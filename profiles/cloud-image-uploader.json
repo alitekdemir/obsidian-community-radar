@@ -1,0 +1,72 @@
+{
+ "also": [
+  "attachments",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted and dropped images, video, audio, and PDF files to Alibaba Cloud OSS",
+  "Insert Markdown embeds at the cursor with configurable object paths and filename strategies",
+  "Serve uploads via public URLs, custom-domain/CDN URLs, or temporary signed URLs",
+  "Migrate local image embeds in the current note to OSS without deleting files by default",
+  "Delete unreferenced OSS objects after retention checks when their last link is removed"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a generic cloud uploader; it only uploads to Alibaba Cloud OSS, not S3 or other providers.",
+ "extras": "Manual installation only (download the release zip into .obsidian/plugins/). Remote cleanup is irreversible on OSS and off by default; the README includes security guidance, a network/privacy disclosure, and an FAQ, with additional troubleshooting docs in Chinese.",
+ "intent": "new",
+ "intentEvidence": "Cloud Image Uploader uses a new Alibaba OSS-first implementation and architecture.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores pasted and dropped attachments inside the local vault, which grows the vault and offers no built-in way to host them on Alibaba Cloud OSS.",
+ "readmeHash": "f4d3327bccd5acc45d83ea525b5ba6e4dd490c99",
+ "relations": [
+  {
+   "evidence": "The user experience was inspired by S3 Image Uploader, an MIT-licensed Obsidian plugin.",
+   "plugin": "S3 Image Uploader",
+   "type": "inspired"
+  },
+  {
+   "evidence": "uploads pasted and dropped attachments to Alibaba Cloud OSS and inserts the resulting Markdown embed",
+   "plugin": "Alibaba Cloud OSS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Alibaba Cloud account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Alibaba Cloud AccessKey ID and secret (dedicated RAM user or STS credentials)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Alibaba Cloud OSS storage and transfer charges",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Uploads pasted and dropped images and attachments to Alibaba Cloud OSS and inserts the resulting Markdown embed at the cursor.",
+ "tags": [
+  "alibaba-cloud",
+  "oss",
+  "cdn",
+  "image-hosting",
+  "signed-urls",
+  "multipart-upload"
+ ]
+}

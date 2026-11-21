@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse daily notes in a grouped list tree by year, month, quarter, or week",
+  "Show notes and attachments created on each day by file creation time",
+  "Assign custom titles and 8-color tags to day rows",
+  "Generate note titles and descriptions via a local Ollama model",
+  "Adjust zoom, sorting, word-count filtering, and persisted view state"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an 'not manually reviewed by Obsidian staff' notice. Title generation sends note text to a local Ollama server; the model gemma3:4b is downloaded from Ollama's registry on first pull.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian's daily notes lack a calendar-style overview with grouping, day-level metadata, and a way to see what was created on each day.",
+ "readmeHash": "a45fad3022498d20ddecabc75137026a865dd4c8",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Calendar (Liam Cain)",
+   "type": "fork"
+  },
+  {
+   "evidence": "Uses your local Ollama server",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Calendar view for daily notes that adds a grouped list view, custom titles, color tags, and optional local LLM title generation.",
+ "tags": [
+  "ollama",
+  "gemma3",
+  "local-llm",
+  "grouping",
+  "color-tags",
+  "list-view",
+  "word-count"
+ ]
+}

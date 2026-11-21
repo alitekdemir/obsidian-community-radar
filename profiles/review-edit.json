@@ -1,0 +1,63 @@
+{
+ "also": [
+  "backup",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Snapshot notes automatically at editing-session boundaries, including edits from external tools",
+  "Render a git-style inline diff of a note against a chosen baseline snapshot",
+  "Keep or revert individual diff hunks with per-hunk buttons",
+  "Navigate between pending hunks with a prev/next bar",
+  "Use core File Recovery snapshots as an additional snapshot source"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File Recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Reading File Recovery snapshots relies on that core plugin's internal IndexedDB structure, which an Obsidian update could break; the plugin's own automatic snapshots are unaffected. Snapshots stay in local IndexedDB with configurable retention (30 days default).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in way to review edits against a past state and accept or reject individual changes, which is tedious when AI tools or scripts rewrite notes.",
+ "readmeHash": "2da8e530efc69c0f1fd35f9d6d8f9954b7ab7541",
+ "relations": [
+  {
+   "evidence": "additionally uses snapshots from the core File Recovery plugin when available",
+   "plugin": "File Recovery",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the same approach as the Time Machine community plugin",
+   "plugin": "Time Machine",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "File Recovery",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Git-style diff reviewer that snapshots notes automatically and lets you keep or revert each change hunk inside the editor.",
+ "tags": [
+  "git-diff",
+  "ai-edits",
+  "version-history",
+  "hunks",
+  "file-recovery"
+ ]
+}

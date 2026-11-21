@@ -1,0 +1,92 @@
+{
+ "also": [
+  "syncing",
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Format selected text with a configurable floating toolbar, including headings, quotes, callouts and colors",
+  "Capture webpages into notes via configurable extraction rules and URL or site search",
+  "Manage daily notes with date navigation, templates, task carryover, recurring events and holidays",
+  "Sync the vault across devices with desktop Git or a GitHub API lightweight mode, with conflict previews",
+  "Publish selected notes to a separate GitHub repository with HTML templates and optional EdgeOne hosting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Publish",
+   "Daily notes"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the name, it is not one small utility but a multi-feature suite covering editing, sync, publishing and AI.",
+ "extras": "The settings interface is primarily in Chinese. The README warns to keep an independent backup before sync setup or bulk attachment operations and to avoid multiple tools writing to the same vault concurrently. AI memory features are off by default and require Obsidian 1.11.4+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formatting",
+ "problem": "Covering formatting, daily notes, vault sync, publishing and web capture normally requires several separate plugins or paid services, and none of these workflows is built into Obsidian as one configurable unit.",
+ "readmeHash": "5cbe054ec1066e2017fd7c1522e3b8ba2290393c",
+ "relations": [
+  {
+   "evidence": "Native desktop Git or lightweight GitHub API sync for phones and computers without Git",
+   "plugin": "Git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub API access without local Git; file previews, sync scope and download recovery",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally associate an EdgeOne project",
+   "plugin": "EdgeOne",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub Pages and linked EdgeOne projects are checked together, independently of the selected display channel",
+   "plugin": "GitHub Pages",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub token for lightweight sync and AI model providers",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "EdgeOne hosting",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "All-in-one toolkit that adds a floating formatting toolbar, daily notes and calendar, web capture, Git/GitHub vault sync, public note publishing, and AI translation.",
+ "tags": [
+  "floating-toolbar",
+  "github",
+  "github-pages",
+  "edgeone",
+  "web-clipper",
+  "translation",
+  "daily-notes"
+ ]
+}

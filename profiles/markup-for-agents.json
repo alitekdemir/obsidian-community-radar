@@ -1,0 +1,74 @@
+{
+ "also": [
+  "annotation",
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Annotate selected passages with numbered highlights and comments",
+  "Queue annotations and send them with the next terminal message",
+  "Share the active note, selection, and open tabs with agents via their IDE integrations",
+  "Embed images in annotation comments saved to the attachment folder",
+  "Review, jump to, edit, or remove pending annotations from a panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Markdown formatting tool; 'markup' here means highlighting and annotating passages to share with AI agents.",
+ "extras": "Marked as not manually reviewed by Obsidian staff; the README states it makes no network requests, relies on undocumented agent IDE protocols that may break, and Windows support is untested.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to pass annotated passages, the current selection, and open-tab context to CLI coding agents so you can ask about specific text without pasting it.",
+ "readmeHash": "e5e3857e00678bbbc6482540fed0513a327c73d7",
+ "relations": [
+  {
+   "evidence": "The Terminal plugin, to run the agents inside Obsidian and to get the panel.",
+   "plugin": "Terminal (polyipseity)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code and Codex see the active note, the selected text and the open tabs through their own IDE integrations (/ide).",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex needs /ide once per session. Its footer shows IDE context when it is on.",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code and/or Codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Terminal by polyipseity",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Annotation plugin that highlights selected passages, attaches comments, and sends them with your selection to Claude Code or Codex running in an Obsidian terminal.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "terminal",
+  "ide-integration",
+  "context-sharing",
+  "websocket"
+ ]
+}

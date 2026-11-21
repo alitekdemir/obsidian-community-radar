@@ -1,0 +1,55 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run a Kanban board where each card is a plain Markdown file",
+  "Drag and drop cards between columns with persistent fractional ordering",
+  "Nest subcards and checklist subitems that can claim their own column",
+  "Track comments, unread markers, assignments, and automatic history on cards",
+  "Expose board operations to AI agents through a local MCP server"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (macOS and Linux for agent columns); phones and tablets are not supported. Requires Obsidian 1.11.4+. The Agents in columns feature is experimental and off by default. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in Kanban board, so managing task cards across notes lacks a board view with persistent ordering, subcards, and comment tracking.",
+ "readmeHash": "3ec9b4d8485e8eeea2028d511c72e5a7de6c83d5",
+ "relations": [
+  {
+   "evidence": "By default that is a Claude Code session in a window of the plugin's own tmux server",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code (and tmux) for the Agents in columns feature; an MCP client for agent access",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Kanban board plugin that stores every card as a plain Markdown file, with drag-and-drop, nested subcards, comments, and history.",
+ "tags": [
+  "kanban",
+  "mcp",
+  "claude-code",
+  "tmux",
+  "wip-limits"
+ ]
+}

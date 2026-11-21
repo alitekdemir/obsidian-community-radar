@@ -1,0 +1,98 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate Markdown answers for prompts in [!ai] callouts and embed them as nested callouts",
+  "Run local Codex, Claude Code, opencode, or Pi CLI agents with configurable model, effort, and timeout",
+  "Answer @agent mentions inside Inline Review Comments and Discussions threads",
+  "Show agent activity badges on notes and folders in the file explorer",
+  "Regenerate overviews on demand and protect hand-edited summaries by removing a metadata comment"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Callouts"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a chat assistant or API client; it executes prompts stored in callouts via CLI agents you install and authenticate yourself.",
+ "extras": "Desktop-only (generation starts a local CLI process and is unavailable on mobile); the plugin is free but model usage costs belong to the user's CLI setup; the manifest notes it has not been manually reviewed by Obsidian staff; the README warns that hosted models may receive note content and that agent permissions are not a sandbox.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate AI content inside a note, so users must switch to a terminal or external tool and paste results back manually.",
+ "readmeHash": "5f564672df1b1fa5561b95dc8e7a4ba9af536f62",
+ "relations": [
+  {
+   "evidence": "AI Overview brings your configured Codex, Claude Code, opencode, or Pi agent into Inline Review Comments",
+   "plugin": "Inline Review Comments",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Discussions adds threaded discussion panels inside your notes. With AI Overview, you can ask",
+   "plugin": "Discussions",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI Overview uses a locally installed Codex CLI, Claude Code, opencode, or Pi",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI Overview uses a locally installed Codex CLI, Claude Code, opencode, or Pi",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI Overview uses a locally installed Codex CLI, Claude Code, opencode, or Pi",
+   "plugin": "opencode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI Overview uses a locally installed Codex CLI, Claude Code, opencode, or Pi",
+   "plugin": "Pi",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex, Claude Code, opencode, or Pi CLI, installed and authenticated",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Inline Review Comments and/or Discussions for agent mentions",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "CLI environment variables or provider keys",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Model provider account or subscription via the chosen CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Runs prompts written in [!ai] callouts through a locally installed Codex, Claude Code, opencode, or Pi CLI and saves the answer as a nested Markdown callout.",
+ "tags": [
+  "codex",
+  "claude-code",
+  "opencode",
+  "cli-agents",
+  "callouts",
+  "agent-mentions"
+ ]
+}

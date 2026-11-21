@@ -1,0 +1,63 @@
+{
+ "also": [
+  "syncing",
+  "import"
+ ],
+ "audience": [
+  "inbox-app-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Download notes one-way from inBox cloud storage via WebDAV or S3",
+  "Sync incrementally based on ETag and mtime on a configurable interval",
+  "Download images, videos, recordings, and attachments into an assets folder",
+  "Extract hierarchical tags and write YAML frontmatter including the box field",
+  "Organize notes into per-box folders that rename or empty automatically"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way sync; it only downloads inBox notes into the vault and never uploads edits, deletions, or new notes.",
+ "extras": "Not yet in the official community plugin directory (review pending), so the README recommends installing via BRAT; the README is written entirely in Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Users who collect notes in the inBox app have no built-in way to pull those notes, media, and tags into their Obsidian vault.",
+ "readmeHash": "9167d8ad94653763f636a555550c94b99ed8e883",
+ "relations": [
+  {
+   "evidence": "inBox 是收集箱，编辑/删除交给桌面端做。插件只读云端",
+   "plugin": "inBox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "inBox app",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV or S3-compatible storage credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync that downloads notes from the inBox app to an Obsidian vault via WebDAV or S3-compatible storage, including attachments and tags.",
+ "tags": [
+  "webdav",
+  "s3",
+  "one-way-sync",
+  "incremental-sync",
+  "hierarchical-tags"
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "also": [
+  "integrations",
+  "review"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize basic, cloze, and multiple-choice Markdown cards to Anki",
+  "Open Anki searches from note ID, card ID, text, or custom query links",
+  "Navigate from Anki cards back to the Obsidian source note and line",
+  "Hide card answers in reading mode for review and PDF/Word export",
+  "Publish notes one-way to Feishu and Youdao Cloud Note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "The name suggests only search links, but the plugin also synchronizes Markdown cards to Anki, masks answers for review, and publishes notes to Feishu and Youdao Cloud Note.",
+ "extras": "Sync is manual and strictly one-way (Anki edits never flow back to Obsidian). Setup and troubleshooting for Feishu and Youdao live in separate guides, and a manual-test checklist must be completed before publishing. Not reviewed by Obsidian staff; back up Anki before importing the bundled note-type package.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to turn Markdown notes into Anki cards or jump between Anki cards and the notes they came from.",
+ "readmeHash": "7ac769ae691eeaa9470afed9a795a25b9d80a199",
+ "relations": [
+  {
+   "evidence": "Desktop synchronization and Anki search opening require Anki Desktop and AnkiConnect, add-on code 2055492159",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Version 1.2.0 no longer requires Advanced URI for newly synchronized cards",
+   "plugin": "Advanced URI",
+   "type": "replaces"
+  },
+  {
+   "evidence": "The command Sync current note to Feishu publishes the active editor content to a Feishu Docx document",
+   "plugin": "Feishu",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync current note to Youdao Cloud Note creates or updates a published copy of the active Markdown note",
+   "plugin": "Youdao Cloud Note",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki Desktop with AnkiConnect (or AnkiDroid/AnkiMobile for links)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Feishu or Youdao Cloud Note account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "One-way Markdown-to-Anki sync with Anki search links, reverse navigation to source notes, in-reading-view answer masks, and Feishu/Youdao publishing.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "cloze",
+  "spaced-repetition",
+  "multiple-choice",
+  "feishu",
+  "youdao",
+  "answer-masking"
+ ]
+}

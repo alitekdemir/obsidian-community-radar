@@ -1,0 +1,57 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search for books and import their metadata from Open Library, or add books by hand",
+  "Record reading sittings with positions, minutes, passages, thoughts, and ratings as session notes",
+  "Maintain a reading history index and progress properties on each book note",
+  "Generate shelf, library, sessions, and statistics views built on Bases",
+  "Track progress in pages, percent, or listening time for audiobooks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory and must be installed from source; the manifest warns it has not been reviewed by Obsidian staff. Requires Obsidian 1.10.1 or later on desktop because the views rely on Bases. Book search only needs the Open Library API keylessly, and hand-added books skip it entirely.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's Daily notes gives you one note per day. This gives you one note per sitting",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted the record to belong to the reading rather than the date, so each sitting gets its own note instead of one note per day.",
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to log individual reading sittings per book or track reading progress, shelves, and habits across a library.",
+ "readmeHash": "c0262c3a4d9fcf86eb8caf06224f5d86c88d4ee3",
+ "relations": [
+  {
+   "evidence": "Search uses the Open Library API — the one book API that needs no account, no key",
+   "plugin": "Open Library",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Open Library",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reading tracker that imports books from Open Library, logs each reading sitting as a note, and shows shelves and statistics through Bases views.",
+ "tags": [
+  "open-library",
+  "reading-log",
+  "audiobooks",
+  "book-tracking",
+  "shelf"
+ ]
+}

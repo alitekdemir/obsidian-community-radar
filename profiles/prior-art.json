@@ -1,0 +1,53 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show up to five similar existing notes in a sidebar panel while a new note is being written",
+  "Open an existing note side by side with the one being written",
+  "Append the new note's body into the existing note under a heading",
+  "Redirect a duplicate by adding its title as an alias, replacing its body with a link, and offering to trash it",
+  "Match notes by meaning with an optional locally installed embedding engine (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a patent or legal research tool; \"prior art\" here means existing notes in your own vault.",
+ "extras": "Freemium: free tier covers title/alias/heading matching and all merge actions; the $29 Second Read Pro key (shared across five add-ons by the same author) unlocks semantic matching, which requires downloading a local engine binary verified by SHA-256 before it runs. The plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted the Stack Overflow \"questions that may already have your answer\" pattern applied to the vault, so duplicates are caught before they are written.",
+ "primary": "search",
+ "problem": "Obsidian gives no warning when a new note duplicates an existing one, and deleting a duplicate breaks every link pointing at it.",
+ "readmeHash": "bdcece470f597c37468f266f2f881b3129ddf778",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Second Read Pro license ($29 one-time)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Duplicate catcher that shows similar existing notes while you write a new one and merges them without breaking inbound links.",
+ "tags": [
+  "duplicate-detection",
+  "semantic-search",
+  "embeddings",
+  "trigram",
+  "alias-redirect",
+  "local-engine",
+  "freemium"
+ ]
+}

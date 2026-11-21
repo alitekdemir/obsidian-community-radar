@@ -1,0 +1,69 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record voice memos from the end of a note, command palette, ribbon, or mobile toolbar",
+  "Transcribe recordings through OpenAI-compatible transcription endpoints",
+  "Clean up transcripts with an LLM using note context and custom terminology",
+  "Append cleaned text, optional original transcript, and dated headings to the target note",
+  "Retry, download, reassign, or delete saved recordings from a job queue"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Community Plugins directory; must be installed manually from a GitHub release or built from source. Recordings and transcripts are stored locally in IndexedDB (not synced), and audio from completed jobs is deleted after seven days.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to capture spoken thoughts as cleaned-up text in a note, especially on mobile.",
+ "readmeHash": "edd0301eeb4ea23a361e025c73805b85cc656766",
+ "relations": [
+  {
+   "evidence": "Choose the OpenAI, OpenRouter, or Custom preset, then select an existing LLM provider secret",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter can handle both steps with the plugin's single API key",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for configured transcription/LLM provider",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Provider account (OpenAI, OpenRouter, or custom), unless a local endpoint needs none",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Voice capture plugin that records a thought, transcribes and LLM-cleans it through configurable OpenAI-compatible providers, and appends the text to the active note.",
+ "tags": [
+  "speech-to-text",
+  "transcription",
+  "openai",
+  "openrouter",
+  "llm",
+  "quick-capture",
+  "whisper"
+ ]
+}

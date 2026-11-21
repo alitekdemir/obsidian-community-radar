@@ -1,0 +1,63 @@
+{
+ "also": [
+  "syncing",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two-way to a hosted Git memory",
+  "Expose the memory to AI clients over MCP",
+  "Choose or create a sync target memory",
+  "Flag unmergeable edit conflicts in a conflicts note",
+  "Show sync status from the status bar and command palette"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not device-to-device vault sync; it syncs to a hosted AI-accessible memory rather than between your own devices.",
+ "extras": "The manifest notes it has not been manually reviewed by Obsidian staff; it is desktop only with mobile planned, and includes up to 100 MB of EU-hosted storage per account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes are not reachable by AI assistants, so users must manually copy note content into each chat or tool.",
+ "readmeHash": "f350e3a14db2ba86284f12e2ecc25a337eb0f775",
+ "relations": [
+  {
+   "evidence": "isomorphic-git (MIT) - pure-JS git client",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the same memory is exposed at memory.agentage.io, so Claude / ChatGPT / Cursor read and write the same notes",
+   "plugin": "Claude / ChatGPT / Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Agentage account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Two-way Git sync that mirrors the vault to a hosted memory exposed over MCP, so AI clients like Claude, ChatGPT, and Cursor can read and write notes.",
+ "tags": [
+  "mcp",
+  "claude",
+  "chatgpt",
+  "cursor",
+  "merge-conflicts"
+ ]
+}

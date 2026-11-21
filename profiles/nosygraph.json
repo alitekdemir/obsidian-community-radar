@@ -1,0 +1,63 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build persistent graph notes from frontmatter roots and LinkType definitions",
+  "Expand nodes and embedded notes into nested graph lenses",
+  "Add relationships by dragging nodes onto LinkType badges and mutating note YAML",
+  "Style nodes with group notes, icons, and configurable colors",
+  "Export the current graph view as a PNG image"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Beta warning: earlier builds could empty open graph notes on reload; the README recommends backups or a copied vault. Plugin writes runtime state into graph notes and mutates relationship notes' YAML.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's built-in graph view only shows wiki-links read-only and cannot build structured, property-driven graphs or edit relationships visually from notes.",
+ "readmeHash": "0e4cd8e5b7182ea11fc146d6f46479dcd4ba1bda",
+ "relations": [
+  {
+   "evidence": "Connect a graph note to one or more Obsidian Bases views through connected_base_filter",
+   "plugin": "Obsidian Bases",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Apply a Templater template to selected graph nodes with Apply template to selected nodes when the Templater plugin is enabled",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Interactive graph builder that renders note relationships from frontmatter properties as expandable, persistent graph views with typed edges, lenses, and groups.",
+ "tags": [
+  "force-directed-graph",
+  "graph-lenses",
+  "typed-edges",
+  "link-types",
+  "templater"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [
+  "investors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render live stock, ETF, and crypto quotes inline from Yahoo Finance tickers",
+  "Compute expressions over quotes (+ - * / %, multiple tickers, parentheses)",
+  "Reference note and vault-wide frontmatter properties as @variables in expressions",
+  "Expose a JS API (getQuote, getQuotes, getHistory, onQuotes) for other plugins",
+  "Customize display with sign/decimal/currency modifiers, prefixes, and CSS classes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a charting or dashboard plugin; it renders inline values only and hands quote history to other plugins to draw.",
+ "extras": "The Yahoo Finance endpoint is unofficial and may change or rate-limit; failed symbols show — instead of failing the note. Release assets carry artifact attestations and BRAT install is supported (dmgx0/obsidian-stonks). README warns about $: colliding with LaTeX $…$ math syntax.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Obsidian has no way to show live market prices inline in notes or compute portfolio values against them without fixed block-based dashboards.",
+ "readmeHash": "72ec40575701f5a88da374aa90d370a53e806fdd",
+ "relations": [
+  {
+   "evidence": "Stonks fetches price quotes from Yahoo Finance (query1.finance.yahoo.com)",
+   "plugin": "Yahoo Finance",
+   "type": "integrates"
+  },
+  {
+   "evidence": "reach for Numerals — see below",
+   "plugin": "Numerals",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so all three can live in the same note without fighting over the same spans",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Obsidian Charts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Yahoo Finance (unofficial endpoint, no account)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview / Numerals",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Inline finance quotes plugin that renders live stock, ETF, and crypto prices as inline code values with a small expression engine for portfolio math.",
+ "tags": [
+  "yahoo-finance",
+  "stocks",
+  "etf",
+  "crypto",
+  "inline-code",
+  "expressions",
+  "portfolio"
+ ]
+}

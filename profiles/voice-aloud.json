@@ -1,0 +1,76 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes aloud sentence by sentence from any clicked sentence",
+  "Highlight the current sentence during playback",
+  "Cache synthesized audio per sentence in IndexedDB",
+  "Batch-pregenerate audio for files and folders in a background queue",
+  "Configure multiple TTS provider accounts and switch between them"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an audio recorder; it synthesizes speech from note text rather than capturing audio.",
+ "extras": "The manifest carries the notice \"This plugin has not been manually reviewed by Obsidian staff.\" The README is bilingual (Chinese with an English section) and includes developer deployment instructions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to have notes read aloud as continuous speech.",
+ "readmeHash": "414eecd1003c01efe30e73440e691aec36910e3b",
+ "relations": [
+  {
+   "evidence": "Azure TTS (SSML with mixed-language <lang> spans for multilingual and HD voices, selectable output bitrate",
+   "plugin": "Azure TTS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a dedicated Qwen3-TTS adapter",
+   "plugin": "Qwen3-TTS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Xiaomi MiMo TTS, and the built-in system voice as an offline fallback",
+   "plugin": "Xiaomi MiMo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI-compatible endpoints (including self-hosted)",
+   "plugin": "OpenAI-compatible endpoints",
+   "type": "integrates"
+  },
+  {
+   "evidence": "add this repository to BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TTS provider account (OpenAI-compatible, Qwen3-TTS, Azure, or Xiaomi MiMo)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Text-to-speech plugin that reads notes aloud sentence by sentence, with click-to-read, multi-provider TTS, prefetching and per-sentence caching.",
+ "tags": [
+  "text-to-speech",
+  "azure",
+  "ssml",
+  "openai-compatible",
+  "qwen3",
+  "xiaomi-mimo",
+  "web-speech",
+  "media-session"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "calendar",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "show a configurable clock with time, date and seconds",
+  "display current weather and an optional 5-day forecast from Open-Meteo",
+  "view events from up to 5 .ics calendar feeds with recurring-event support",
+  "run a countdown timer with presets, pause/resume and end-of-time alerts",
+  "reorder, hide and theme dashboard items to fit sidebar or full-width layouts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a daily-notes or journaling tool; despite the name, it only displays a clock, weather, calendar feeds and a timer.",
+ "extras": "The manifest states the plugin has not been manually reviewed by Obsidian staff. README details network use (only Open-Meteo and user-added calendar URLs, no telemetry) and warns that calendar .ics URLs are stored in data.json and could leak if the vault is shared or published.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no at-a-glance view combining the time, weather and calendar events, so users must leave the app or open separate tools for them.",
+ "readmeHash": "fe5e522b1b473113182e7384cc4562b881dd89df",
+ "relations": [
+  {
+   "evidence": "Weather: current temperature, conditions and today's high/low, plus an optional 5-day forecast, from Open-Meteo",
+   "plugin": "Open-Meteo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "read-only view of up to 5 .ics feeds (Google Calendar, iCloud, Outlook, Nextcloud, …)",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calendar service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Dashboard widget that shows a clock, Open-Meteo weather, .ics calendar feeds and a countdown timer in a sidebar, tab or pop-out.",
+ "tags": [
+  "weather",
+  "clock",
+  "countdown-timer",
+  "open-meteo",
+  "ics",
+  "icalendar",
+  "dashboard-widget"
+ ]
+}

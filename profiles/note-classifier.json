@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Classify the currently opened note into configured tags",
+  "Classify all notes that lack the configured tags",
+  "Write tags to frontmatter while leaving existing tags untouched",
+  "Configure tag combination policies and per-tag descriptions",
+  "Choose between a local Ollama backend and a TypeSafe API backend"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README's 'Similar Projects' section is cut off mid-sentence. It warns that the TypeSafe API key is stored unencrypted in data.json, that classification can overwrite existing auto-generated tags, and recommends backing up files before classifying all notes. Only decision models compatible with Ollama's /v1/systemone endpoint work; ordinary chat models do not. The manifest carries the standard not-manually-reviewed disclaimer.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Obsidian has no built-in way to assign tags to notes automatically, so tagging large vaults by hand is slow and inconsistent.",
+ "readmeHash": "1296214739b8dfe6e7f8ab8c3e33581002600d7b",
+ "relations": [
+  {
+   "evidence": "run this classification locally on consumer hardware using ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "get an API key at TypeSafe and enter it in the settings",
+   "plugin": "TypeSafe",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "TypeSafe API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Automatic tagger that classifies Markdown notes into configured frontmatter tags using decision models run locally via Ollama or a TypeSafe API.",
+ "tags": [
+  "ollama",
+  "decision-models",
+  "local-llm",
+  "classification",
+  "typesafe",
+  "auto-tagging"
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "also": [
+  "integrations",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search books by title, author, publisher or ISBN via Google Books or Naver",
+  "Create a book note from the selected search result",
+  "Fill a template file with book variables (title, authors, publisher, ISBN, cover URL)",
+  "Download and save book cover images into the vault",
+  "Configure new file location, file name format and service provider"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general book catalog browser; the search exists only to create a note in the vault from the selected book's metadata.",
+ "extras": "Google's free API has rate limits; the README explains how to create and add a Google Cloud API key to bypass them. Naver search setup instructions are on the author's blog, not in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to look up book metadata online and turn it into a structured book note.",
+ "readmeHash": "80b6eeb88f1510e77e8305e6a552a0bd50acda3d",
+ "relations": [
+  {
+   "evidence": "Use Google Books API to get the book information.",
+   "plugin": "Google Books API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "To use Naver Book Search, clientId and clientSecret are required.",
+   "plugin": "Naver Book Search",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Here is the dataview query used in the demo",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use the {{localCoverImage}} Templater variable",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The banner at the top of the document is rendered using Obsidian-banners plugin.",
+   "plugin": "Obsidian-banners",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Naver developer account (clientId and clientSecret)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Book note creator that searches Google Books or Naver by title, author, publisher or ISBN and builds a note from the book's metadata.",
+ "tags": [
+  "google-books",
+  "naver",
+  "isbn",
+  "book-metadata",
+  "cover-images",
+  "dataview",
+  "templater"
+ ]
+}

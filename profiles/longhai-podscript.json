@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search podcasts by keyword, YouTube link, Apple Podcasts page, or audio URL",
+  "fetch full episode transcripts, reusing existing captions or transcribing locally with faster-whisper",
+  "save transcripts as notes with front matter recording source, quality, and date",
+  "follow favorite podcasts pinned in a personal list",
+  "batch-fetch transcripts by pasting one link or title per line"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Windows/macOS/Linux); requires Python and runs a local helper that creates an isolated venv at ~/.longhai-podscript installing yt-dlp and faster-whisper; nothing is uploaded. Detailed install and usage guide is written in Chinese. Community-marketplace install was still pending review at time of writing, with BRAT and manual install offered as alternatives. Transcripts are drafts that may contain errors in names, terms, and punctuation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to obtain full podcast transcripts, and existing routes usually need paid transcription APIs or external tools.",
+ "readmeHash": "ce120070f5ef71e0ffa8b2f90ec578ef6eb0cba7",
+ "relations": [
+  {
+   "evidence": "本地转写后端脚本源自 @一龙小包子 的开源项目 KingJing1/podcast-transcript-txt-skill",
+   "plugin": "KingJing1/podcast-transcript-txt-skill",
+   "type": "extends"
+  },
+  {
+   "evidence": "installs yt-dlp and faster-whisper there",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "faster-whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "先去 scripod / YouTube 等找现成字幕",
+   "plugin": "scripod",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.9+",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Podcast transcript fetcher that searches podcasts, grabs full episode transcripts via existing captions or local Whisper transcription, and saves them as structured notes.",
+ "tags": [
+  "podcasts",
+  "youtube",
+  "apple-podcasts",
+  "whisper",
+  "yt-dlp",
+  "transcripts",
+  "speech-to-text"
+ ]
+}

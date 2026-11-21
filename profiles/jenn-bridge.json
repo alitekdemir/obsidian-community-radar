@@ -1,0 +1,60 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create notes with title, content, tags, and folder via RPC",
+  "append content to existing notes, optionally under a heading",
+  "run full-text search across the vault",
+  "list folder contents and return the vault tree",
+  "show a color-coded connection status in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It is not a syncing plugin; it is a server-side endpoint that an external app calls to act on the vault.",
+ "extras": "README is fully duplicated in English and Russian; installation via BRAT is described; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way for an external system like Jenn Core to push notes into the vault or query it over a live connection.",
+ "readmeHash": "bac8e364bd403fab254b3f5f12a084049efcc258",
+ "relations": [
+  {
+   "evidence": "Obsidian plugin — WebSocket endpoint for [Jenn Core]",
+   "plugin": "Jenn Core",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Jenn Core",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API Key from Jenn config",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "WebSocket bridge that turns Obsidian into an output destination for Jenn Core, letting it write, append, and search notes remotely.",
+ "tags": [
+  "websocket",
+  "rpc-api",
+  "api-key",
+  "jenn-core",
+  "auto-reconnect"
+ ]
+}

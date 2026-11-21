@@ -1,0 +1,61 @@
+{
+ "also": [
+  "drawing"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render tikz code blocks as SVG diagrams in notes",
+  "Compile TeX offline with a bundled WebAssembly engine",
+  "Cache diagrams and resume from saved preambles for faster compiles",
+  "Copy, save, or finalize diagrams as SVG attachments",
+  "Report TeX errors with line numbers and show engine diagnostics"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general LaTeX renderer; diagrams must go in tikz code fences because TikZ in $$ math blocks is handled by MathJax and does not work.",
+ "extras": "The ~12 MB main.js exceeds Obsidian Sync Standard's 5 MB file cap, so synced devices need manual reinstallation. Extensive FAQ, troubleshooting (including iOS Lockdown Mode), and roadmap live in the README and wiki.",
+ "intent": "alternative",
+ "intentEvidence": "It is a fork of artisticat1/obsidian-tikzjax, which had not been updated since 2022.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked artisticat1/obsidian-tikzjax, unmaintained since 2022, to own the whole rendering pipeline, modernize the toolchain, and make TeX compilation faster.",
+ "primary": "latex",
+ "problem": "Obsidian cannot render TikZ or LaTeX diagrams on its own, and the original TikZJax plugin was unmaintained, slow, and gave poor error reporting.",
+ "readmeHash": "6b5acf7158c557b4aa7dcf1a6bd304a8d45c863d",
+ "relations": [
+  {
+   "evidence": "It is a fork of artisticat1/obsidian-tikzjax, which had not been updated since 2022.",
+   "plugin": "artisticat1/obsidian-tikzjax",
+   "type": "fork"
+  },
+  {
+   "evidence": "Jim Fowler wrote TikZJax and web2js, which is the hard part and the reason any of this is possible.",
+   "plugin": "TikZJax",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Fork of TikZJax that renders TikZ and LaTeX code blocks as SVG diagrams using a bundled offline WebAssembly TeX engine, with caching and faster compiles.",
+ "tags": [
+  "tikz",
+  "pgfplots",
+  "tex-engine",
+  "webassembly",
+  "circuitikz",
+  "chemfig",
+  "svg",
+  "offline"
+ ]
+}

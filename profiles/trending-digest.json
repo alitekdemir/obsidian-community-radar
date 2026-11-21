@@ -1,0 +1,64 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "scrape trending items from 25+ sources (GitHub, Hacker News, Medium, Zhihu, arXiv, etc.)",
+  "score and summarize each item with an AI model",
+  "filter content by selected focus areas and a score threshold",
+  "write a daily digest markdown file with frontmatter, scores, and tags",
+  "schedule daily runs and merge new items into the same day's file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Bilingual English/Chinese README. Changing tracked X/Twitter accounts requires editing the accounts array in main.js, since there is no setting for it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Keeping up with trending content across GitHub, Hacker News, Medium, Zhihu and many other sites requires manually visiting each one every day.",
+ "readmeHash": "6a3347814ccf0ceda45345d9c7ecbd81f5e39a95",
+ "relations": [
+  {
+   "evidence": "Works with Anthropic API, DeepSeek, OpenRouter, or any Anthropic Messages API-compatible endpoint.",
+   "plugin": "Anthropic API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Aggregates AI/tech accounts via Nitter RSS (no API key needed)",
+   "plugin": "Nitter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Claude-compatible API key (Anthropic, DeepSeek, OpenRouter, or any Anthropic Messages API-compatible provider)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Aggregator that scrapes trending pages from 25+ sources, scores each item with AI, and writes a daily digest markdown file to the vault.",
+ "tags": [
+  "claude",
+  "anthropic",
+  "openrouter",
+  "deepseek",
+  "github-trending",
+  "hacker-news",
+  "web-scraping",
+  "nitter-rss"
+ ]
+}

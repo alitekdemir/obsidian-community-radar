@@ -1,0 +1,71 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate summaries and key takeaways for notes marked ai_summary: pending",
+  "Insert the generated block below YAML frontmatter and flip the note to ai_summary: generated",
+  "Call Gemini or OpenAI with the user's own API key and model choice",
+  "Customize the summary and takeaway prompts",
+  "Auto-process pending notes, including notes clipped via Obsidian Web Clipper"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only in v1. The README discloses exactly which network requests are made, states the API key is stored in plain text in the plugin settings file, and notes the plugin is free and MIT licensed with a possible future opt-in paid hosted service.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to automatically generate summaries and key takeaways for notes, so users must run AI tools manually or send content elsewhere.",
+ "readmeHash": "6745e2756f8b6e0bbd1d91ef5fa535d8346b51db",
+ "relations": [
+  {
+   "evidence": "AI Summary works with the official Obsidian Web Clipper. Add one property to your clipper template",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Gemini and OpenAI with your own API key.",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Gemini and OpenAI with your own API key.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini or OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian Web Clipper browser extension",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Plugin that watches notes flagged ai_summary: pending and inserts an AI-generated summary and key takeaways below the frontmatter using your own Gemini or OpenAI API key.",
+ "tags": [
+  "gemini",
+  "openai",
+  "summarization",
+  "key-takeaways",
+  "web-clipper",
+  "auto-processing"
+ ]
+}

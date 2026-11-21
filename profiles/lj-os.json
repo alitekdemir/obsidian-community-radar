@@ -1,0 +1,59 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Discover local Git repositories from user-configured scan roots",
+  "Scan tracked repositories on startup and on an interval",
+  "Write daily JSON activity snapshots inside the vault",
+  "Insert or replace a Git Wall section in the Daily Note from cached JSON",
+  "Show 3-day or 7-day activity tables with optional weather and moon icons"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Git client or sync tool; it only reads local Git metadata to render activity summaries and does not run Git commands when inserting the wall.",
+ "extras": "Desktop-only; mobile is explicitly unsupported. FAQ, Troubleshooting, and Views docs live outside the README. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian has no built-in way to see what changed across your local Git repositories inside Daily Notes without cloud services, logins, or API keys.",
+ "readmeHash": "d55ae36e157ed6b85fbf96886fa4ad5c48863d17",
+ "relations": [
+  {
+   "evidence": "LJ OS uses manual latitude/longitude settings to fetch a current Open-Meteo weather icon with no API key.",
+   "plugin": "Open-Meteo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git (available in PATH)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Desktop plugin that scans local Git repositories and renders a daily activity Git Wall in your Daily Note from vault-local JSON snapshots.",
+ "tags": [
+  "daily-notes",
+  "open-meteo",
+  "activity-log",
+  "local-first",
+  "json-snapshots"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "bases",
+  "video"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add a Gallery layout (mosaic or justified rows) to a Bases view of notes",
+  "Browse photos, videos and PDFs in a zoom view with playback and keyboard controls",
+  "Show each note's properties and, with Obsidian Maps, a location map beside the media",
+  "Embed notes that represent media files as the media itself",
+  "Open images inside notes with the zoom instead of the default viewer"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a media file organizer; it is a gallery view over notes that link to media, not a tool for moving or renaming files.",
+ "extras": "The plugin uses undocumented Obsidian and Bases internals for media notes, so embeds may revert to ordinary note embeds if Obsidian changes them; it hasn't been tested on phones or tablets; thumbnails are cached locally (up to 300 MB in IndexedDB) and never synced.",
+ "intent": "improve",
+ "intentEvidence": "Media Manager adds a Gallery layout to Bases that shows each note's photo, video or PDF",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Bases can only list notes as rows or cards of text, so there is no visual way to browse a collection of notes by their photos, videos or PDFs.",
+ "readmeHash": "44520c3705adbe5a2f58d85cc8369ebd0f450b0b",
+ "relations": [
+  {
+   "evidence": "If the note has a location and the Obsidian Maps plugin is installed and enabled, the card ends with a small map",
+   "plugin": "Obsidian Maps",
+   "type": "integrates"
+  },
+  {
+   "evidence": "media notes use Bases' and Obsidian's internals, the same way the Custom Views plugin does",
+   "plugin": "Custom Views",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Clicking a tile grows it to fill the window, the way MUBI's notebook does",
+   "plugin": "MUBI's notebook",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Maps",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Adds a Gallery layout to Bases that shows each note's photo, video or PDF as tiles, with a zoom view, video playback, PDF reading and property cards.",
+ "tags": [
+  "gallery",
+  "google-photos",
+  "hdr",
+  "thumbnails",
+  "brat"
+ ]
+}

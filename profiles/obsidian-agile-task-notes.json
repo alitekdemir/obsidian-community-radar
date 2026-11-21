@@ -1,0 +1,73 @@
+{
+ "also": [
+  "tasks",
+  "project-management"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import tasks from Jira and Azure DevOps into Obsidian files",
+  "Generate task notes with customizable starter content",
+  "Generate a local Kanban board of tasks assigned to you",
+  "Update tasks automatically on an interval, via sidebar button, or command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way task sync; it only pulls tasks from TFS into Obsidian and regenerates the board on each update.",
+ "extras": "Warning: settings including the API key/Personal Access Token are stored unencrypted in plain text. The Kanban board is deleted and rebuilt on every update, so manual board edits are lost and frequent update intervals can close the open board note. The author recommends backing up task notes because the plugin may contain bugs. Free, with an optional donation link.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Tasks tracked in Jira or Azure DevOps are not visible inside Obsidian, so there is no way to take notes on them or view your assigned sprint work in the vault.",
+ "readmeHash": "74553f70cf3298a796040132a622473d243862c8",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Kanban by mgmeyers",
+   "type": "integrates"
+  },
+  {
+   "evidence": "\"Checklist\" by delashum (Less important but works nicely alongside this plugin)",
+   "plugin": "Checklist by delashum",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Jira or Azure DevOps",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key or Personal Access Token",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Kanban by mgmeyers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "TFS integration that imports tasks from Jira or Azure DevOps into Obsidian as notes with todo lists and a local Kanban board.",
+ "tags": [
+  "jira",
+  "azure-devops",
+  "tfs",
+  "kanban",
+  "personal-access-token",
+  "sprint"
+ ]
+}

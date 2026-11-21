@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Look up food nutrition across Boohee, USDA FoodData Central, Chinese food composition data, and local datasets",
+  "Calculate meal nutrition from ingredient names and gram weights",
+  "Compare 30+ nutrients against DRI reference groups",
+  "Insert food details, meal summaries, and DRI tables as Markdown into notes",
+  "Rematch ingredients or switch data sources during meal calculation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Docs are bilingual (English and Chinese). The README warns results are for recording and reference analysis and should not replace professional nutrition or medical advice; a small built-in dataset is used as fallback when no external databases are configured.",
+ "intent": "alternative",
+ "intentEvidence": "相比单纯的薄荷健康查询工具，本插件更适合用于餐品研发、膳食记录、营养核算",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to query nutrition databases, compute meal totals from ingredient lists, or insert nutrition and DRI tables into notes.",
+ "readmeHash": "3719e99b2293b01c4be4498851150ecc268c92ea",
+ "relations": [
+  {
+   "evidence": "Multi-source nutrition lookup from Boohee, Boohee restaurant foods, USDA FoodData Central",
+   "plugin": "Boohee",
+   "type": "integrates"
+  },
+  {
+   "evidence": "combines Boohee, USDA FoodData Central, Chinese food composition data, and local nutrition datasets",
+   "plugin": "USDA FoodData Central",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional OpenAI-compatible AI mapping for nutrient field normalization and Chinese ingredient name standardization",
+   "plugin": "OpenAI-compatible API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Boohee open platform App ID and App Key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key for AI nutrient mapping",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Nutrition analysis plugin that looks up foods across Boohee, USDA FoodData Central and Chinese food databases, calculates meal nutrition, and compares 30+ DRIs.",
+ "tags": [
+  "nutrition",
+  "dri",
+  "boohee",
+  "usda-fooddata-central",
+  "meal-calculation",
+  "health"
+ ]
+}

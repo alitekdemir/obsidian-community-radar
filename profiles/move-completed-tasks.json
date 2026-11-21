@@ -1,0 +1,68 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "move checked tasks to the bottom of their checkbox group with a highlight flash and Ctrl+Z undo",
+  "keep subtasks attached to their parent when a task is moved",
+  "sort or collect completed tasks across a whole document via hotkey-bindable commands",
+  "opt out per note with a move-completed frontmatter property",
+  "exclude custom checkbox characters used by themes from being treated as completed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Unlike similarly named task plugins, it does not archive completed tasks to another file or heading; it only repositions them within the same checkbox group.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Install is possible via BRAT, and the README lists eight similar plugins (Archiver, DoneDrop, Task Mover, etc.) for comparison.",
+ "intent": "alternative",
+ "intentEvidence": "Yet another Obsidian plugin that moves completed tasks to the bottom of the list when you check them off",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian leaves checked tasks where they are, so completed items clutter lists instead of dropping to the bottom as they do in Apple Notes, Todoist, or Noteplan.",
+ "readmeHash": "ad12d2d6ec44a7b4f50344d78d45ddb28ea88e63",
+ "relations": [
+  {
+   "evidence": "moves happen after Tasks appends completion dates, so timestamps are preserved",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "no conflicts (Dataview reads, this plugin writes)",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Task-list helper that moves checked tasks to the bottom of their checkbox group, with commands to sort or collect completed tasks across a note.",
+ "tags": [
+  "checkbox-groups",
+  "subtasks",
+  "todoist",
+  "apple-notes",
+  "noteplan",
+  "minimal-theme"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track movie and TV watch progress with season/episode hierarchies and rewatch sessions",
+  "Write reviews and chart rating evolution across unlimited watch sessions",
+  "Browse TMDB discovery, cast, and filmography data",
+  "Import TV Time GDPR exports, CSV, and JSON with dry-run previews",
+  "Sync history and ratings with Trakt and get mood-based recommendations"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. Translations are machine-generated and may contain errors; some community themes may not be fully compatible.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to track watched movies and shows, rate them over time, or pull their metadata into vault notes.",
+ "readmeHash": "f10061078a8865de6632f241f8226f651bcf4d40",
+ "relations": [
+  {
+   "evidence": "MediaVault uses TMDB to fetch movie and TV show information.",
+   "plugin": "TMDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Trakt sync: OAuth, bi-directional history/rating sync, public and personal comments",
+   "plugin": "Trakt",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import: TV Time GDPR ZIP export (watch history, ratings, reviews, favorites, custom lists",
+   "plugin": "TV Time",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDB API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "TMDB account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Trakt client ID and secret",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Trakt account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Media tracker that keeps a movie and TV library in your vault with episode progress, reviews, TMDB data, Trakt sync, and watch analytics.",
+ "tags": [
+  "tmdb",
+  "trakt",
+  "tv-time",
+  "movies",
+  "tv-shows",
+  "gdpr-import",
+  "watchlist",
+  "ratings"
+ ]
+}

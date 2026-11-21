@@ -1,0 +1,54 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync bank accounts through SimpleFIN Bridge via ribbon, command palette, settings or on startup",
+  "Reconcile late-posting and pending charges without duplicating transactions",
+  "Store accounts and transactions as JSON with optional CSV copies in a chosen folder layout",
+  "Expose an api.v1 with a sync-completed event and TypeScript types for scripts and plugins",
+  "Sync made-up demo data with no account or network use"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin is unreviewed by Obsidian staff. Real bank data needs a paid SimpleFIN Bridge account (about $15/year); demo mode works with no account. The README warns that Obsidian does not isolate secret storage between plugins and points to docs/threat-model.md for security details.",
+ "intent": "new",
+ "intentEvidence": "PassBook is a data layer: sync with one command, then build your own notes, daily summaries, dashboards and scripts on top.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Obsidian has no way to import banking data, so tracking accounts and transactions in notes means manual entry or ad-hoc exports.",
+ "readmeHash": "15389a97412a571a1b395940bda5fbc74e79e194",
+ "relations": [
+  {
+   "evidence": "Syncs your accounts through SimpleFIN Bridge: link your banks there once, paste one setup token into PassBook",
+   "plugin": "SimpleFIN Bridge",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "SimpleFIN Bridge",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Pulls bank and credit card accounts, balances and transactions into the vault as JSON and CSV via SimpleFIN Bridge, with an API for scripts.",
+ "tags": [
+  "simplefin",
+  "banking",
+  "transactions",
+  "privacy"
+ ]
+}

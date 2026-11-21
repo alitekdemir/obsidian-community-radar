@@ -1,0 +1,43 @@
+{
+ "also": [],
+ "audience": [
+  "vim-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Set vim key bindings on or off per device type",
+  "Apply the per-device choice each time Obsidian starts",
+  "Configure separate values for desktop and mobile",
+  "Skip writing app.json when the setting already matches"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uses Obsidian's undocumented internal config methods (app.vault.getConfig/setConfig), which the README warns could change in a future release; manual toggles in Obsidian's settings are overridden on next startup.",
+ "intent": "improve",
+ "intentEvidence": "turns Vim key bindings on or off depending on the kind of device Obsidian is running on",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Vim key bindings work well with a hardware keyboard but are painful on a phone's touch keyboard, and the shared setting cannot tell devices apart.",
+ "primary": "vim",
+ "problem": "The Vim mode setting lives in the vault's shared config, so with any vault sync, enabling it on a laptop also forces it onto a phone's touch keyboard.",
+ "readmeHash": "63c321f1cd702667506d3146d46ae00a7a467ecd",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Per-device settings toggle that turns Obsidian's Vim key bindings on or off separately for desktop and mobile devices.",
+ "tags": [
+  "per-device-settings",
+  "platform-detection",
+  "icloud",
+  "obsidian-sync"
+ ]
+}

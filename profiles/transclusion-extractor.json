@@ -1,0 +1,68 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export a note with all transclusions recursively expanded into a new Markdown file",
+  "Inline a single transclusion under the cursor, adding an HTML comment source marker",
+  "Configure export presets such as strip block IDs, strip comments, keep frontmatter, and nest headings",
+  "Report missing or circular embeds as blockquotes in the output",
+  "Integrate with Inkling Markup to copy the original text of notes under review"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; installed as a beta plugin via BRAT. Missing or circular embeds become blockquotes and are counted in the completion notice; wikilinks and image/PDF embeds are left unchanged.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to flatten a note composed of transclusions into one self-contained file, or to replace a single embed with a copy of its text for separate editing.",
+ "readmeHash": "89952e6415a9a84c2423445cbf40ada2f13597d8",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Inkling Markup",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Inkling Markup",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Desktop-only plugin that exports notes assembled from ![[...]] embeds with every transclusion recursively expanded, and inlines single embeds for editing.",
+ "tags": [
+  "transclusion",
+  "embeds",
+  "block-references",
+  "wikilinks",
+  "inkling-markup",
+  "brat"
+ ]
+}

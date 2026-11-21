@@ -1,0 +1,93 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "students",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "record lectures with live local transcription via whisper.cpp",
+  "fetch and match PDF/PPTX slides from Canvas LMS into the lecture note",
+  "summarize transcripts with timestamp citations using Ollama",
+  "generate Spaced Repetition flashcards from summary review questions",
+  "import existing recordings or notes as structured lecture notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (mobile cannot use the microphone, start processes, or read files). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Whisper models are downloaded from Hugging Face and verified by SHA-256; macOS system-audio capture needs a virtual audio device such as BlackHole.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says the author built it as part of a local-first Companion suite for students and researchers, where the machine does the work and every change is a diff the user approves.",
+ "primary": "audio",
+ "problem": "Obsidian has no way to record a lecture, transcribe it locally, and combine the transcript with course slides and an AI summary in one note, so students must juggle separate recording and transcription tools.",
+ "readmeHash": "934f5c65f046d5cc291aa0609efe74bd74459b9c",
+ "relations": [
+  {
+   "evidence": "The plugin starts whisper-server from whisper.cpp itself, using every CPU core",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "then streams a summary from Ollama into the Summary section",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One command fetches today's new PDF/PPTX files from every active course",
+   "plugin": "Canvas LMS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the single-line format of the Spaced Repetition plugin, so the note reviews itself",
+   "plugin": "Spaced Repetition plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "When AGENT.md exists in the vault root, a short block describing the lecture note shape",
+   "plugin": "Local Vault Agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "whisper.cpp",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Canvas access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Lecture recorder that transcribes live with whisper.cpp, pulls the day's Canvas LMS slides into the note, and summarizes with a local Ollama model.",
+ "tags": [
+  "whisper-cpp",
+  "ollama",
+  "canvas-lms",
+  "speech-to-text",
+  "local-first",
+  "timestamps",
+  "meetings"
+ ]
+}

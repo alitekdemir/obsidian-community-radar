@@ -1,0 +1,65 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read the current Japanese Markdown note aloud with device or Google Cloud voices",
+  "Strip frontmatter, code, images, URLs, and comments before synthesis and split long sentences into speech-safe segments",
+  "Highlight the playing passage in a sidebar transcript and replay from a tapped segment",
+  "Control playback with play, pause, stop, segment skipping, and 0.75x-1.5x speed",
+  "Retry sentences rejected by Google Cloud for length by splitting them further"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Android and iPad are unverified; playback during screen lock or in the background is not guaranteed. Google Cloud usage is billed to the user's own project (BYOK); there is no plugin-operated server, telemetry, or persistent audio cache. No MP3 export, folder-wide playback, or second-level seeking.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to revisit saved articles and reading notes in Obsidian without keeping their eyes on the screen, which required Japanese voice selection, note cleanup for speech, and returning to a listened position.",
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to notes aloud, so reviewing Japanese notes meant copying the text into another app.",
+ "readmeHash": "e82d81da542a3a16130659abff54b3bae08a6c57",
+ "relations": [
+  {
+   "evidence": "アーキテクチャの検討ではObsidian Voiceを参考にしました",
+   "plugin": "Obsidian Voice",
+   "type": "inspired"
+  },
+  {
+   "evidence": "ビルドとLintの構成は、Obsidian公式のサンプルプラグインを参考にしました",
+   "plugin": "Obsidian official sample plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud Text-to-Speech API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Google Cloud project billing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Text-to-speech player that reads Japanese Markdown notes aloud via Google Cloud TTS or device voices, with a sidebar transcript and mini playback bar.",
+ "tags": [
+  "text-to-speech",
+  "google-cloud",
+  "japanese",
+  "byok",
+  "speech-synthesis"
+ ]
+}

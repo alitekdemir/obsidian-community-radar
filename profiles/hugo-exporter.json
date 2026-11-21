@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai",
+  "publishing"
+ ],
+ "audience": [
+  "hugo-site-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export the current note to a Hugo project as a Page Bundle",
+  "Convert wikilinks and image embeds to Hugo-compatible Markdown links",
+  "Strip privacy metadata from referenced images and copy them with hashed names",
+  "Review final Markdown with an OpenAI-compatible AI for sensitive content and PII",
+  "Apply word replacement rules and conflict-safe export directory names"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because it writes to a Hugo project outside the vault. Release assets include GitHub artifact attestations; the manifest notes the plugin has not been manually reviewed by Obsidian staff. AI review is enabled by default and sends the final Markdown to the configured endpoint.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to publish notes to a Hugo static site with converted links, bundled images, and privacy screening before publishing.",
+ "readmeHash": "93c5f66997fa0cb0f9290c6ad37fa50657950c2b",
+ "relations": [
+  {
+   "evidence": "Exports notes and images from your vault to a Hugo site using Hugo's Page Bundles structure.",
+   "plugin": "Hugo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek, compatible gateways, Ollama, LM Studio, and similar services automatically use or fall back",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hugo project",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Exports notes and images to a Hugo site as Page Bundles, with optional AI review for sensitive content and local image metadata cleaning.",
+ "tags": [
+  "hugo",
+  "page-bundles",
+  "static-site",
+  "openai",
+  "deepseek",
+  "ollama",
+  "lm-studio",
+  "image-metadata"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "ai",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Take timestamped notes that sync with embedded YouTube video playback",
+  "Manage multiple videos per note with a sortable, draggable list",
+  "Fetch YouTube captions and create notes from transcript lines",
+  "Generate timestamped notes from transcripts via AI providers",
+  "Export videos and notes to Markdown with clickable timestamp links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Known iOS/iPadOS issue: the YouTube player fails with Error 153 due to a WKWebView Referer-header bug, not plugin code. Development is supported via Ko-fi and GitHub Sponsors; BRAT is supported for pre-release testing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian's YouTube embeds don't link playback position to note timestamps, and there is no workflow for keeping several videos and timestamped notes together in a single file.",
+ "readmeHash": "bdea72bd98b078b455a9c48df95e42ab8c67e074",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Google (Gemini)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, Google Gemini, or OpenAI-compatible provider",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Timestamped note-taking view for multiple embedded YouTube videos in one note, with transcript fetching and optional AI-generated notes.",
+ "tags": [
+  "youtube",
+  "timestamps",
+  "transcripts",
+  "captions",
+  "openai",
+  "anthropic",
+  "gemini",
+  "uri-scheme"
+ ]
+}

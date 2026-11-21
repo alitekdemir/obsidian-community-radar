@@ -1,0 +1,63 @@
+{
+ "also": [
+  "interface",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "List installed plugins in a searchable side panel",
+  "Rewrite a Markdown plugin catalog when plugins change",
+  "Generate Chinese step-by-step guides from manifest, commands and settings",
+  "Back up and delete auto-generated guides on uninstall",
+  "Rewrite guides with an OpenAI-compatible model"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a catalog of notes or a digital garden; it catalogs installed community plugins and writes guides for them.",
+ "extras": "Desktop only (isDesktopOnly: true); plugin detection uses fs.watch plus polling. Network requests are limited to the public plugin index, plugin READMEs on raw.githubusercontent.com, and the configured AI endpoint; no telemetry and no note content is uploaded. API key is stored locally in the plugin's data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian keeps no maintained overview of installed plugins or their settings, so users must open each plugin's settings page to learn what it does and how to configure it.",
+ "profiledAt": "2026-11-16",
+ "provider": "Particle AI",
+ "readmeHash": "dc4b032cc767462113dc6fcdf6d60b1879ebdb7c",
+ "relations": [
+  {
+   "evidence": "Add Kendall051021/obsidian-plugin-catalog as a beta plugin in BRAT.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "with an OpenAI-compatible API key (DeepSeek by default) guides are rewritten in natural Chinese",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key (DeepSeek by default)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Side panel listing installed community plugins, a self-updating Markdown catalog, and auto-generated Chinese usage guides for each plugin.",
+ "tags": [
+  "plugin-management",
+  "openai-compatible",
+  "deepseek",
+  "chinese"
+ ],
+ "textHash": "b3fb29b08846ce17a2626a36703677a71b362d43"
+}

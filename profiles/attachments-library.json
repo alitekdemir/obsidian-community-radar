@@ -1,0 +1,69 @@
+{
+ "also": [
+  "bases"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "index attachments by creating sidecar notes with YAML metadata",
+  "extract title, author, and keywords from PDF files locally",
+  "enrich metadata via CrossRef DOI and OpenLibrary ISBN lookups",
+  "rename or delete sidecar notes when attachments change",
+  "backfill sidecar notes for pre-existing files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The online DOI/ISBN lookup is off by default and needs no API key; auto-extracted metadata is flagged with a _heuristic: true property for human review. Requires Obsidian 1.7.0 or later; works on desktop and mobile.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian's drag-and-drop attachment workflow gives no way to annotate files with metadata like title, author, or status that survives renaming or moving them.",
+ "readmeHash": "509c41ca01e0f3ad85e8d0321c0f69581194dd9c",
+ "relations": [
+  {
+   "evidence": "Obsidian Bases integration — automatically creates an Attachments Library.base file so you can browse",
+   "plugin": "Bases",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optionally enriches metadata by querying CrossRef (DOI)",
+   "plugin": "CrossRef",
+   "type": "integrates"
+  },
+  {
+   "evidence": "and OpenLibrary (ISBN). No API key required.",
+   "plugin": "OpenLibrary",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CrossRef / OpenLibrary",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Creates a metadata sidecar note for each file in the Attachments folder, with local PDF extraction, DOI/ISBN lookup, and a Bases table view.",
+ "tags": [
+  "sidecar-notes",
+  "doi",
+  "isbn",
+  "crossref",
+  "openlibrary",
+  "metadata-extraction",
+  "library-catalog"
+ ]
+}

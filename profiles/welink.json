@@ -1,0 +1,68 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Receive WeChat messages into dated daily conversation notes",
+  "Decrypt images, videos, files, and voice into the attachments folder",
+  "Fetch message links as Markdown article notes with LaTeX and tables",
+  "Send vault files to WeChat by writing them into an outbox folder",
+  "Let AI agents send messages through an Agent.md protocol"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (requires Obsidian 1.13.0+; mobile cannot run it). Manifest notes it has not been manually reviewed by Obsidian staff. Install is via Releases, BRAT, an agent prompt, or building from source. Login state and settings live in state.json and data.json in the plugin folder and should not be shared.",
+ "intent": "alternative",
+ "intentEvidence": "This project is a fork of Wechatian, with these enhancements:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Wechatian to add standalone-note saving, improved article fetching, a fixed QR re-scan flow, and support for newer gateway voice URLs.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to capture WeChat messages, voice, files, and official-account articles into notes, or to push vault files out to WeChat.",
+ "readmeHash": "d19f97babae3d7ada6c39e540f0d1ba77478e695",
+ "relations": [
+  {
+   "evidence": "This project is a fork of Wechatian, with these enhancements:",
+   "plugin": "Wechatian",
+   "type": "fork"
+  },
+  {
+   "evidence": "It sends and receives messages through Tencent’s official ilink bot gateway.",
+   "plugin": "WeChat",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeChat",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WeChat account (scanned to bind)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "WeChat messaging bridge that receives messages, media, and article links into vault notes and sends vault files back to WeChat via an outbox folder.",
+ "tags": [
+  "wechat",
+  "messaging",
+  "bot-gateway",
+  "article-clipping",
+  "outbox",
+  "voice-transcription"
+ ]
+}

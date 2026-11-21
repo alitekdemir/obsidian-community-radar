@@ -1,0 +1,65 @@
+{
+ "also": [
+  "syncing",
+  "publishing"
+ ],
+ "audience": [
+  "roleplay-writers",
+  "worldbuilders"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pull and push wiki and timeline articles via the BackDrop API",
+  "Resolve sync conflicts with line-level diffs and keep-local/take-remote choices",
+  "Insert images, audio, wikilinks, and spoiler wraps from editor header actions",
+  "Edit article properties such as status, category, characters, and thumbnails",
+  "Rewrite slug wikilinks to note titles on pull and back to slugs on publish"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general backup or multi-device sync tool; it only syncs notes with the backdrop.quest BackDrop service.",
+ "extras": "Manual developer-style install (npm install && npm run install:vault) is described in the README, and the manifest notes the plugin has not been manually reviewed by Obsidian staff. README documents Live Preview rendering limits for aligned images and remote-image settings requirements.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull, push, or resolve conflicts for articles on the BackDrop wiki platform, whose slug-based links and asset URLs don't map cleanly onto a vault.",
+ "readmeHash": "19daa0eaae6d48e633567aedf32401f184cce1cc",
+ "relations": [
+  {
+   "evidence": "open a selective push panel (Obsidian Sync–style checklist)",
+   "plugin": "Obsidian Sync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "backdrop.quest account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "bd_… vault sync API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Two-way sync between a vault and backdrop.quest wiki/timeline articles, with conflict resolution, editor helpers, and slug-to-title wikilink rewriting.",
+ "tags": [
+  "wiki",
+  "timeline",
+  "conflict-resolution",
+  "discord",
+  "cloudflare-r2",
+  "slug-links"
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite note references in .base files and base blocks on rename",
+  "Update link(), [[links]], file.basename, file.name and file.path expressions",
+  "Update full paths of every note when a whole folder is moved",
+  "Leave bare-name references unchanged when another file still uses the old name",
+  "Show a notice describing what changed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not rename notes itself; it updates Base references after you rename or move them.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; works on desktop and mobile, no settings, no network access.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian updates [[links]] in your notes and properties, but not inside Bases.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Fixes a forum-requested gap in Bases rename handling; bases produced by the Notion importer break the same way.",
+ "primary": "bases",
+ "problem": "Obsidian updates [[links]] in notes and properties on rename or move, but not references inside Bases, so base filters and formulas silently return empty results.",
+ "readmeHash": "30aa8615c802731d27dde60afbd526fcd36c3b00",
+ "relations": [
+  {
+   "evidence": "folder filters (file.inFolder(...), see Base Path Updater for those)",
+   "plugin": "Base Path Updater",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Rename/move companion for Bases that rewrites link(), [[links]], basename, name and path references in .base files and base blocks.",
+ "tags": [
+  "filters",
+  "formulas",
+  "file-rename",
+  "notion-importer",
+  "base-blocks"
+ ]
+}

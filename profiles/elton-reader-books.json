@@ -1,0 +1,94 @@
+{
+ "also": [
+  "annotation",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read EPUB, FB2 and PDF books with paged or scrolling layouts",
+  "Highlight passages in six colours and turn them into notes with backlinks to the book",
+  "Store reading progress as vault files so it syncs across devices",
+  "Ask AI about passages or get spoiler-free recaps of recent pages",
+  "Read books aloud with an AI voice"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Core reading works fully offline with no telemetry; the AI voice and passage-analysis features use a paid Elton AI key topped up through Prodamus, and AI answers can alternatively use OpenRouter, OpenAI or local Ollama/LM Studio.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian cannot open e-book formats, so reading and annotating books means switching to a separate reader app and losing the link to your notes.",
+ "readmeHash": "0ecf040210b932a2e46682477aabe58d1a180259",
+ "relations": [
+  {
+   "evidence": "BRAT → Add beta plugin → swayinfo/elton-reader",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Translate a selection | Google Translate (translate.googleapis.com)",
+   "plugin": "Google Translate",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use your own OpenRouter or OpenAI key, the Elton AI proxy, or a local Ollama / LM Studio",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use your own OpenRouter or OpenAI key, the Elton AI proxy, or a local Ollama / LM Studio",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choosing Ollama or LM Studio keeps everything on your own machine",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A natural Elton AI voice reads the selection or the book from the current page",
+   "plugin": "Elton AI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider or Elton AI key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local AI",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Elton AI balance for read-aloud and AI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "E-book reader that opens EPUB, FB2 and PDF books inside Obsidian with highlights, notes, a library and vault-synced reading progress.",
+ "tags": [
+  "epub",
+  "fb2",
+  "text-to-speech",
+  "google-translate",
+  "openrouter",
+  "openai",
+  "ollama",
+  "spaced-repetition"
+ ]
+}

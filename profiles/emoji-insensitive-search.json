@@ -1,0 +1,46 @@
+{
+ "also": [
+  "autocomplete",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rescore Quick switcher results so emoji-prefixed note names rank as if typed without the emoji",
+  "Apply the same emoji-insensitive comparison to link suggestions and aliases",
+  "Preserve native fuzzy search, highlights, attachment options and excluded-files penalties",
+  "Fall back to native search with a one-time notice if internal Obsidian methods change"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not manually reviewed by Obsidian staff; installed via BRAT or manually; requires Obsidian 1.15+; wraps internal Obsidian methods and may fall back to native search after Obsidian updates; not yet tested on mobile.",
+ "intent": "improve",
+ "intentEvidence": "makes both searches ignore emojis in note names and aliases when your query contains no emoji",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it implements a behavior 'as proposed on the Obsidian forum', addressing how emoji-prefixed names are ranked.",
+ "primary": "search",
+ "problem": "Notes whose names start with an emoji rank below notes starting directly with the query text in Quick switcher and [[ link suggestions.",
+ "readmeHash": "8adb8439ab804623fcce418b1f5dc8c4d7a679d2",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Search rescorer that makes Quick switcher and link suggestions ignore emojis in note names when the query has none.",
+ "tags": [
+  "link-suggestions",
+  "aliases",
+  "note-names",
+  "ranking",
+  "fuzzy-matching"
+ ]
+}

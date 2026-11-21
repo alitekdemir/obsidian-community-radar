@@ -1,0 +1,45 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "warn on quit when the Git working tree has uncommitted changes",
+  "check working tree cleanliness on demand via a command",
+  "preview the warning without closing Obsidian"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Author states no support, no planned updates or fixes, and that issues and contributions are not accepted; runs the git executable locally, reads .git data possibly outside the vault, and makes no network requests. Mobile is not supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian closes silently even when the vault's Git repository has uncommitted changes, so unsaved work can slip past without being committed.",
+ "readmeHash": "1d38c53eed226696bb2023dbce52546a0e9b5628",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Quit-time Git guard that shows a large warning when the vault's repository has uncommitted changes as Obsidian closes.",
+ "tags": [
+  "version-history",
+  "notifications",
+  "command-palette",
+  "vault-health"
+ ],
+ "tagsBy": "particle-ai/particle-1:free"
+}

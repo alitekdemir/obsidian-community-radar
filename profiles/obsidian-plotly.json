@@ -1,0 +1,64 @@
+{
+ "also": [
+  "visualization",
+  "code"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Embed Plotly charts in notes via plotly code blocks",
+  "Write chart data, layout, and config in JSON or YAML",
+  "Render Plotly examples inside DataviewJS blocks using a wrapper function",
+  "Build plots from note data retrieved through the Dataview API"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The basic plotly block only supports static JSON/YAML payloads, not JavaScript from plotly.com; JavaScript rendering requires the Dataview plugin. Some Plotly examples need the d3 library, which the author deliberately excluded and which must be downloaded and imported manually.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian has no built-in way to render Plotly charts inside markdown notes.",
+ "readmeHash": "90cfb999463ed83c30196af58f654cbbcab84344",
+ "relations": [
+  {
+   "evidence": "this approach require DataView plugin to process JavaScript",
+   "plugin": "DataView",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can create plots based on data from you notes which you retrieve via DataView API",
+   "plugin": "obsidian-tracker",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "d3",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plotly chart renderer that embeds interactive Plotly charts in notes via code blocks with JSON or YAML payloads.",
+ "tags": [
+  "plotly",
+  "dataview",
+  "yaml",
+  "d3"
+ ]
+}

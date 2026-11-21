@@ -1,0 +1,43 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "open links in the existing right-hand tab group instead of a new split",
+  "customize which click combo triggers the side open",
+  "reuse the side tab or open a new tab per click",
+  "keep focus in the current note while previewing",
+  "avoid replacing pinned tabs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory; install via BRAT or manually from GitHub releases. Patches workspace.getLeaf(\"split\") and internal APIs (children, parentSplit, leaf.parent) with guarded reads that fall back to native split behavior if Obsidian changes them.",
+ "intent": "improve",
+ "intentEvidence": "open a link in the existing tab group to the right, instead of creating a brand-new split every time",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because native behavior 'stacks up a new column on each click, so previewing a handful of linked notes quickly shreds your layout', and wanted one reusable side column like Notion's side preview panel.",
+ "primary": "interface",
+ "problem": "Obsidian's Cmd+Alt+click always creates a new split, so previewing several linked notes quickly stacks columns and shreds the layout.",
+ "readmeHash": "081fb24e085daa5764e9b117bf98851811472efc",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Link-opening tweak that reuses the existing right-hand tab group for split previews instead of stacking a new split on every click.",
+ "tags": [
+  "split-panes",
+  "side-preview",
+  "modifier-keys",
+  "notion",
+  "tab-groups"
+ ]
+}

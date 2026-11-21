@@ -1,0 +1,96 @@
+{
+ "also": [
+  "tasks",
+  "project-management"
+ ],
+ "audience": [
+  "servicenow-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create and refresh ServiceNow ticket notes with work notes, work logs, and status",
+  "Track to-dos on a configurable four-state board and a ticket dashboard",
+  "Import meeting minutes from Markdown or Google Drive and link them to tickets",
+  "Optionally connect Jira and Confluence to read comments, import schedules, and post comments",
+  "Maintain an optional AI Wiki of work records with a guided AI connection workflow"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian Desktop 1.11.5+, no mobile support). ServiceNow, Google Drive, Jira/Confluence, translation, and AI Wiki features are all optional; local note and To-Do features work without connections. Tokens and OAuth JSON are stored in Obsidian Secret Storage. Organization-specific status guides and AI templates come from a separately supplied JSON work guide pack, not the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to connect notes to a ServiceNow instance, sync ticket metadata and work notes, or track ticket-related tasks.",
+ "readmeHash": "8878e7dfb225794d71d71513433d8e4c47ec9097",
+ "relations": [
+  {
+   "evidence": "Refresh ticket metadata and work notes from ServiceNow.",
+   "plugin": "ServiceNow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optional Atlassian connection and Jira workspace",
+   "plugin": "Jira",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect Jira and Confluence optionally, automatically refresh linked Jira work with ServiceNow tickets",
+   "plugin": "Confluence",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import Gemini meeting minutes from Markdown, optionally preserve the source PDF",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses a compatible Obsidian translation plugin/provider configured by the user",
+   "plugin": "translation plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ServiceNow instance",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "ServiceNow Bearer API token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google account with Drive access",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Atlassian account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "ServiceNow integration that manages ticket notes, work notes, status refreshes, To-Do boards, and dashboards, with optional Jira, Confluence, and Google Drive connections.",
+ "tags": [
+  "servicenow",
+  "jira",
+  "confluence",
+  "atlassian",
+  "google-drive",
+  "meeting-minutes",
+  "ticketing",
+  "kanban"
+ ]
+}

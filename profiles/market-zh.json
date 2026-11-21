@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Translate plugin cards",
+  ": Translate detail descriptions",
+  ": Translate full README content",
+  ": Restore original English text",
+  ": Manage translation cache"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Uses external translation services (DeepSeek/Google) and caches translations locally.",
+ "intent": "new",
+ "intentEvidence": "This plugin adds one small toolbar above the plugin list:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Plugin authors write documentation and descriptions in English, creating a barrier for non-English speakers using the community plugin browser.",
+ "readmeHash": "35ec468e7c47b818f3f76a1da45a96d83d025419",
+ "relations": [
+  {
+   "evidence": "DeepSeek | | you pasted your own API key in the settings",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Translate | | no key configured, free fallback",
+   "plugin": "Google Translate",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google Translate",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A tool that translates the content of the Obsidian community plugin browser, including cards and README details, into Chinese on demand.",
+ "tags": [
+  "chinese",
+  "deepseek",
+  "google-translate",
+  "api-key",
+  "browser-translation"
+ ]
+}

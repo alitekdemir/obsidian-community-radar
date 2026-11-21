@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "review"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import subtitles from YouTube, Bilibili, podcasts, RSS feeds, and local MP4/SRT/VTT files",
+  "Practice sentence-by-sentence dictation and shadowing with recording and playback controls",
+  "Look up words in an offline dictionary and manage a vocabulary notebook with FSRS-6 daily review",
+  "Generate per-sentence AI translations and study cards via Baidu, DeepSeek, Kimi, or OpenAI-compatible services",
+  "Manage subscriptions and colored highlight notes in sidebars, with export to notes or PNG"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (mobile still in beta); relies on unofficial YouTube and Bilibili interfaces that may break at any time; AI translation and chat can incur third-party API fees; QQ user group available; manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to study languages from video or podcast subtitles with synced playback, word lookup, and spaced vocabulary review.",
+ "readmeHash": "9686bebbcc1372e7459990c8bb8d9d869325047a",
+ "relations": [
+  {
+   "evidence": "电脑上单独安装的本地 yt-dlp：先尝试人工英文字幕，再尝试自动英文字幕",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "使用本地 Whisper Base English 生成字幕",
+   "plugin": "Whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "插件优先下载约 24.4 MB 的预生成 ZIP，不可用时自动回退到 ECDICT 官方 CSV",
+   "plugin": "ECDICT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "支持百度翻译、DeepSeek、Kimi 和使用 HTTPS 的 OpenAI Chat Completions 兼容服务",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "translation or chat service key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp (fallback subtitle fetching)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Turns YouTube, Bilibili and podcast media into timestamped transcripts with dictation, shadowing, vocabulary review and AI translation.",
+ "tags": [
+  "youtube",
+  "bilibili",
+  "subtitles",
+  "dictation",
+  "shadowing",
+  "whisper",
+  "fsrs",
+  "ecdict"
+ ]
+}

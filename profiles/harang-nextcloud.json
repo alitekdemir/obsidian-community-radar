@@ -1,0 +1,64 @@
+{
+ "also": [
+  "attachments",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert pasted Nextcloud internal links into rendered file blocks",
+  "Authenticate to a Nextcloud server via Login Flow v2 and store app passwords",
+  "Connect multiple Nextcloud accounts as named profiles",
+  "Upload pasted non-image attachments to a Nextcloud folder set in the nc-folder frontmatter property",
+  "Prompt to move deleted files to the Nextcloud trash when their blocks are removed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general-purpose Nextcloud file browser or sync client; it only renders pasted links as file blocks and uploads pasted attachments.",
+ "extras": "Full walkthroughs for usage, prerequisites, and installation live on separate documentation pages rather than in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Pasting a Nextcloud link into a note leaves only a bare URL with no file details and no direct way to open the file on the server.",
+ "readmeHash": "1f7aa20251bb1c57f6ab9949fc8821e21ae09cee",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that turns pasted Nextcloud internal links into rich file blocks",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Nextcloud server with Login Flow v2",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Nextcloud account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Nextcloud integration that turns pasted Nextcloud internal links into rich file blocks with size, upload date, and an open-in-browser button.",
+ "tags": [
+  "nextcloud",
+  "webdav",
+  "login-flow-v2",
+  "app-password",
+  "file-cards",
+  "attachment-upload"
+ ]
+}

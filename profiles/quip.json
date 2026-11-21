@@ -1,0 +1,62 @@
+{
+ "also": [
+  "publishing",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "publish notes as new Quip documents",
+  "update existing Quip documents from notes",
+  "import Quip documents as new Obsidian notes",
+  "remap internal links between Obsidian notes and Quip documents via frontmatter keys",
+  "strip YAML frontmatter and inline embedded notes before publishing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README includes a detailed format support table showing what converts to and from Quip (many formats like task lists, footnotes, math and callouts do not). Publishing notes over 1 MB fails because images are embedded as data urls. Only one Quip dev token can exist at a time across all automation tools. Setup details live partly in DEVELOPING.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish notes to Quip or pull Quip documents into the vault as Markdown notes.",
+ "readmeHash": "2f267060bc1a936f8eb241b3ed70916758ec33d6",
+ "relations": [
+  {
+   "evidence": "This is a simple plugin for Obsidian ( to talk with Quip",
+   "plugin": "Quip",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Quip developer token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Quip corporate account meeting Automation API License Requirements",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that converts Obsidian notes to Quip documents and imports Quip documents back as notes via three commands.",
+ "tags": [
+  "two-way-sync",
+  "yaml",
+  "external-links"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

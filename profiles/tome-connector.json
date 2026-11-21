@@ -1,0 +1,95 @@
+{
+ "also": [
+  "ttrpg",
+  "export"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Send statblock, map, prop and encounter blocks to a Tome server",
+  "Sync player-character notes to a campaign or a personal shelf",
+  "Compile a folder of notes into a self-contained PDF reference",
+  "Import feats and subclass features with uses from content-source notes",
+  "Write returned Tome IDs back into source blocks and frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The folder-to-PDF feature is desktop only (mobile lacks Chromium's PDF engine); all other features work on mobile. Server image-size caps apply when downscaling is off, and an oversized statblock cover art silently drops its picture. Adventure folder import format is documented in docs/authoring-adventures.md, not in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "TTRPG content written in Obsidian has no built-in way to move statblocks, maps, characters or whole note folders into a campaign tool like Tome.",
+ "readmeHash": "59f122cb4726ffa663ca57a3482f5cf9f8caba72",
+ "relations": [
+  {
+   "evidence": "Tome Connector is an Obsidian plugin that sends selected note content to a Tome server.",
+   "plugin": "Tome",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fantasy Statblocks statblock YAML blocks",
+   "plugin": "Fantasy Statblocks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Encounter encounter YAML blocks",
+   "plugin": "Encounter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Map View zoommap and Leaflet leaflet YAML blocks",
+   "plugin": "Map View",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Map View zoommap and Leaflet leaflet YAML blocks",
+   "plugin": "Leaflet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "whether the folder came from ttrpg-convert-cli or was written by hand",
+   "plugin": "ttrpg-convert-cli",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the name, the picture and the D&D Beyond ID",
+   "plugin": "D&D Beyond",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tome server (hosted or self-run)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tome API key stored in SecretStorage",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Connector that sends statblocks, maps, props, encounters and player characters from notes to a Tome campaign server and compiles folders into a PDF reference.",
+ "tags": [
+  "tome",
+  "dnd5e",
+  "pf2e",
+  "fantasy-statblocks",
+  "map-view",
+  "encounters",
+  "dndbeyond"
+ ]
+}

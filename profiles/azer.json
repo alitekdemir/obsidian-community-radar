@@ -1,0 +1,67 @@
+{
+ "also": [
+  "templating",
+  "ai"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create typed campaign notes (NPC, Session, Adventure Log, Location, PC, Table) from a YAML config",
+  "Organize new notes into per-type campaign subfolders with frontmatter fields",
+  "Roll weighted random tables defined in azer-table code blocks",
+  "Insert backlink tables sorted by Azer note type",
+  "Generate random tables and session recaps via the Anthropic API"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "AI features are billed to the user's own Anthropic account; the README details exactly what data is sent (only on command) and that the API key is stored per-device outside the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Obsidian has no built-in way to define typed campaign note types with automatic organization, or to roll weighted dice tables inside notes.",
+ "readmeHash": "beecd29886dc9238b9a1a014f8426656209c50ea",
+ "relations": [
+  {
+   "evidence": "The two AI commands — Generate table (AI) and Recap recent sessions (AI) — call the Anthropic API with your own key.",
+   "plugin": "Anthropic API (Claude)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "TTRPG note toolkit that creates typed campaign notes (NPCs, sessions, locations), rolls weighted random dice tables, and generates AI session recaps.",
+ "tags": [
+  "dungeons-and-dragons",
+  "campaign-management",
+  "dice-tables",
+  "note-templates",
+  "anthropic",
+  "claude"
+ ]
+}

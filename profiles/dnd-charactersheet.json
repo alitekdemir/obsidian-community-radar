@@ -1,0 +1,67 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [
+  "ttrpg-game-masters",
+  "dnd-players"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create and edit D&D character sheets in a dedicated view",
+  "Automatically calculate fields such as Initiative, HP and Skills",
+  "Embed the character sheet into file properties to keep writing in the note",
+  "Look up SRD spells on Open5e and add links to saved spells",
+  "View spell details (casting time, range, components, duration, description) inside the sheet"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an unreviewed-plugin warning. The README documents network use: it only contacts api.open5e.com when searching or viewing spell info, and only SRD spells are searchable. Installation from source requires npm. A UI preview is referenced but shown as an image.",
+ "intent": "alternative",
+ "intentEvidence": "A full interface and completely independent tool for creating/viewing/editing character sheets.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to interact with character sheets inside Obsidian and found existing plugins (Character Sheets by Grayvox, DnD Beyond Importer, DnD HP Tracker) each missing what they needed, so they built a standalone full-sheet tool.",
+ "primary": "ttrpg",
+ "problem": "Obsidian is good for writing lore and notes but had no standalone plugin for creating, viewing and editing full character sheets in a real UI.",
+ "readmeHash": "9847331bf135bf3d7bc06c05f2a580ae92b3c984",
+ "relations": [
+  {
+   "evidence": "This just creates markdown files with no special layout. I wanted a UI to view/edit my stats.",
+   "plugin": "Character Sheets by Grayvox",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Promising, but it needs DnD Beyond to function. I wanted something completely standalone inside obsidian.",
+   "plugin": "DnD Beyond Importer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Really useful tool, but I it does not show full charactersheets.",
+   "plugin": "DnD HP Tracker",
+   "type": "alternative"
+  },
+  {
+   "evidence": "It then sends the spell name (or its Open5e ID) to the Open5e API (api.open5e.com) to find the spell.",
+   "plugin": "Open5e",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "D&D character sheet viewer/editor that renders and edits character stats in a dedicated view, with automatic field calculation and Open5e spell lookup.",
+ "tags": [
+  "dnd",
+  "open5e",
+  "character-sheet",
+  "spells",
+  "dice"
+ ]
+}

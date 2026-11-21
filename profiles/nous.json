@@ -1,0 +1,84 @@
+{
+ "also": [
+  "audio",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture thoughts, voice memos, calls, photos, and PDFs into an inbox folder",
+  "transcribe voice notes locally via whisper.cpp or via Gemini/OpenAI keys",
+  "record meetings and convert them into speaker-dialogue transcripts",
+  "auto-tag and auto-link captured notes to related notes",
+  "generate and keep current a wiki page per topic and feed notes to Claude Code as context"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only local speech-to-text and Ollama keep notes on-machine; Claude Code and API keys send notes to that provider. Meeting capture is Mac-only (macOS 15+), live voice transcription is a beta feature needing an OpenAI key, and Obsidian must stay open for captures to process. Manifest notes the plugin has not been manually reviewed by Obsidian staff; docs are hosted externally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian requires you to write and sort notes yourself, so raw captures like voice memos, meeting recordings, and files stay scattered and unprocessed.",
+ "readmeHash": "643d00811d09761e97c56acade29323b63089494",
+ "relations": [
+  {
+   "evidence": "Nous can write your notes through the Claude Code app, a direct API key, or a free local model in Ollama.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or a free local model in Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Without a key, whisper.cpp does the work on your Mac instead",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Meeting capture uses a small helper program, nous-recorder.",
+   "plugin": "nous-recorder",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Claude API key, Gemini or OpenAI key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code app or Ollama (or use local whisper.cpp)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Claude subscription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI capture pipeline that turns voice memos, meetings, photos, and PDFs into tagged, linked notes and topic wiki pages.",
+ "tags": [
+  "claude-code",
+  "claude",
+  "ollama",
+  "whisper-cpp",
+  "gemini",
+  "openai",
+  "speech-to-text",
+  "transcripts"
+ ]
+}

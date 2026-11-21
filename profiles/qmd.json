@@ -1,0 +1,58 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search notes by keyword (BM25), vector, hybrid, or advanced queries",
+  "Show a related notes sidebar for the active note",
+  "Insert a search result as a wikilink into the current note",
+  "Auto-reindex notes when they change"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, requires Obsidian 1.13.0+. README includes detailed privacy disclosures: no network use, no clipboard access, no telemetry; the qmd index is stored outside the vault. Users must first install the QMD CLI and create a collection pointing at the vault folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search matches keywords only, so finding notes by meaning or similarity requires an external semantic search tool.",
+ "readmeHash": "59c7710a26635ed13b2d332a571972b476fb8968",
+ "relations": [
+  {
+   "evidence": "It runs the local qmd command-line program on your machine",
+   "plugin": "QMD CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "QMD CLI (qmd binary on PATH or configured path)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Local search plugin that runs the QMD CLI to search vault notes by keyword, meaning, or hybrid queries and show related notes.",
+ "tags": [
+  "bm25",
+  "vector-search",
+  "semantic-search",
+  "embeddings",
+  "hybrid-search",
+  "cli",
+  "local-index"
+ ]
+}

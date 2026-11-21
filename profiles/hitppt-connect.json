@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "pair a vault with a HitPPT account via a short-lived pairing code",
+  "authorize vault-relative folders that HitPPT may browse",
+  "send the current note or selected notes to HitPPT from commands or context menus",
+  "confirm note transfers before contents leave the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Interface is Chinese-only and mobile is not supported; transfers are size-limited (512 KiB per note, 20 notes / 5 MiB per read) and service-side snapshots expire after 48 hours; linked notes and embedded images are not fetched.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Using vault notes as reference material in HitPPT otherwise requires manually copying or uploading them, with no way to browse authorized vault folders from the service.",
+ "readmeHash": "f35797937b094ff32ef592477e04edb35d2a0d40",
+ "relations": [
+  {
+   "evidence": "Use selected Markdown notes as temporary reference material for presentations in HitPPT.",
+   "plugin": "HitPPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "HitPPT account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "HitPPT points for presentation generation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Connector that sends selected Obsidian notes to HitPPT as temporary 48-hour reference material for AI presentation generation.",
+ "tags": [
+  "hitppt",
+  "presentation-generation",
+  "pairing",
+  "snapshots",
+  "temporary-materials"
+ ]
+}

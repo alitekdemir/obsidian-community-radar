@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record per-edit keystroke atoms (insert, delete, replace) with timestamps during writing sessions",
+  "Mint a signed Ed25519 proof by sending the event stream and note content to the semoi.net backend",
+  "Write the proof reference into the note's frontmatter under a semoi key",
+  "Verify a note's most recent proof and report valid or invalid status",
+  "Reset or carry over in-memory sessions across file renames without minting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The backend URL is baked in at build time, and the full signed proof lives on the backend with only a local pointer in frontmatter.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian offers no way to cryptographically prove when and how actively a note was written.",
+ "readmeHash": "a08c236223ba3171309fde113af65e18572d3986",
+ "relations": [
+  {
+   "evidence": "mints a cryptographic certificate (a \"proof\") of that session via semoi.net",
+   "plugin": "semoi.net",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "semoi.net backend",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Keystroke-evidence capture that mints cryptographic proof-of-writing certificates via semoi.net and stamps them into note frontmatter.",
+ "tags": [
+  "cryptography",
+  "ed25519",
+  "keystrokes",
+  "proof-of-authorship",
+  "verification",
+  "timestamps"
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "also": [
+  "calendar",
+  "integrations"
+ ],
+ "audience": [
+  "athletes"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync training plans from a cloud-hosted XLSX or ODS workbook into generated notes",
+  "Record sets, time, rounds, and weights in the workbook and review trends and weekly reflections",
+  "Import recorded activities from Garmin Connect",
+  "Combine workbook sessions with ICS calendar feeds from Google Calendar or Nextcloud",
+  "Render workout charts locally and embed day or dashboard blocks in notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone fitness app; it renders training data from an external spreadsheet you edit into Obsidian notes and never writes back to the workbook.",
+ "extras": "Desktop only (requires Obsidian 1.11.4+); mobile is not supported. Garmin integration is experimental and uses unofficial endpoints. Sync is strictly one-way (workbook → Obsidian) with no write-back. Made by Trainvent, which also offers the companion Calcrow editor and paid support/sponsorship. Development lives in a private repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn training plans kept in spreadsheets into linked calendars, workout logs, progress charts, and reflection notes.",
+ "readmeHash": "1c46abf967d94e96b6e554d73cb04c7c3c0b1545",
+ "relations": [
+  {
+   "evidence": "Based on the Obsidian sample plugin.",
+   "plugin": "Obsidian sample plugin",
+   "type": "fork"
+  },
+  {
+   "evidence": "Garmin: connect under Connections → Garmin to import recorded activities.",
+   "plugin": "Garmin Connect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Upload the completed file to Nextcloud or another service with an HTTPS download link.",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "HTTPS-hosted cloud workbook (e.g. Nextcloud)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Garmin Connect account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ICS calendar feed (Google Calendar, Nextcloud, or other)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Training tracker that syncs an XLSX or ODS workbook into a dashboard of calendars, workout logs, and goal notes, with optional Garmin Connect import.",
+ "tags": [
+  "xlsx",
+  "ods",
+  "garmin-connect",
+  "ics-calendar",
+  "nextcloud",
+  "training-log"
+ ]
+}

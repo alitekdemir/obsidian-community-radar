@@ -1,0 +1,60 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a Gap Report note from the vault's link graph, word counts and frontmatter",
+  "Detect unexplained link pairs that no short bridging note connects",
+  "Detect stub hubs: heavily linked notes with very little text",
+  "Detect decisions marked in frontmatter or by tag that lack a stated rationale",
+  "Add semantic evidence passages and latent-topic sections with the optional Pro engine"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a linter and not a to-do generator; the report is explicitly a set of structural prompts, not findings or tasks.",
+ "extras": "Freemium: the three structural heuristics are free and work offline and on mobile; Pro sections require a one-time key and a separately downloaded local semantic engine. The README warns the engine is installed outside the vault, is the only reason the add-on reads and writes files outside the vault, and its report heuristics 'will be wrong more often than they are right' early on.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian does not surface structural gaps where the link graph implies a note you never wrote, so these gaps stay invisible until you stumble on them.",
+ "readmeHash": "2a3d4827364bdb75e11d2da0d63adeff4bb0330c",
+ "relations": [
+  {
+   "evidence": "The engine is a separate program (embed-sidecar), published in the open at second-read-engine.",
+   "plugin": "second-read-engine (embed-sidecar)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One key unlocks Pro in all five Second Read add-ons (Note Decay, Standing Questions, Effort Index, Prior Art, Unwritten).",
+   "plugin": "Note Decay, Standing Questions, Effort Index, Prior Art",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Second Read Pro license key ($29 one-time, for the Evidence and Latent topics report sections)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Link-graph analyzer that writes a Gap Report note listing unexplained link pairs, stub hubs, and decisions with no stated reason.",
+ "tags": [
+  "gap-analysis",
+  "heuristics",
+  "second-read",
+  "embeddings",
+  "report-note"
+ ]
+}

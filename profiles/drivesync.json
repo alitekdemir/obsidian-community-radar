@@ -1,0 +1,56 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "two-way sync the vault with Google Drive",
+  "reconcile local and remote files on startup",
+  "upload file changes after a debounce period",
+  "poll Google Drive for remote changes",
+  "resolve conflicts by saving the older version as a conflicted copy"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README includes a warning to back up the vault before setup, because the first sync may overwrite local files. It explains why full Google Drive scope is requested instead of the narrower drive.file scope. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for vaults that need Google Drive sync without real-time syncing, letting users keep their vault in storage they already control with their own Google Cloud project and account.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through Google Drive without real-time syncing or a third-party storage service.",
+ "readmeHash": "da31d5c051bf02c249876514d3b1a0adbf0dd695",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth client ID and secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that keeps an Obsidian vault synchronized with a Google Drive folder using your own Google Cloud credentials.",
+ "tags": [
+  "google-drive",
+  "google-cloud",
+  "oauth",
+  "conflict-resolution",
+  "self-hosted"
+ ]
+}

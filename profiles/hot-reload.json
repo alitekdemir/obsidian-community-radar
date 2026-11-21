@@ -1,0 +1,53 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "watch plugin main.js, styles.css, and manifest.json for changes",
+  "disable and re-enable changed plugins after a short debounce",
+  "build watch lists from .git directories or .hotreload marker files",
+  "support symlinked plugin folders for build output",
+  "reload plugins on mobile after note synchronization"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general file or note reloader; it only watches and reloads plugin folders during plugin development.",
+ "extras": "README warns the plugin is for developer use only and can enable plugins that are not currently enabled in settings; mobile support is described as experimental/beta (Obsidian 1.6.7+), and it is the user's plugin's responsibility to clean up properly via onunload() and registerX() methods.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Developing an Obsidian plugin normally requires manually restarting Obsidian or toggling the plugin off and on in settings after every code change.",
+ "readmeHash": "1bfc721ef014cf5f4496545cf720c674a39948c5",
+ "relations": [
+  {
+   "evidence": "Obsidian Sync service: Enable the \"Sync > Vault configuration sync, Installed community plugins\" setting for Obsidian to automatically restart modified plugins",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the Hot Reload Mobile plugin works with any synchronization mechanism that updates notes",
+   "plugin": "Hot Reload Mobile",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Developer tool that automatically disables and re-enables in-development plugins when their main.js, styles.css, or manifest.json files change.",
+ "tags": [
+  "file-watcher",
+  "symlinks",
+  "plugin-development",
+  "mobile-development"
+ ]
+}

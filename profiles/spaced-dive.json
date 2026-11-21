@@ -1,0 +1,56 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Draw a due note into a sidebar panel for review",
+  "Score recall from 0 to 5 to move the note along an editable interval ladder",
+  "Balance draws across folders and spend an explore rate on never-reviewed notes",
+  "Store review progress as sr-* fields in note frontmatter or a plugin data file",
+  "Draw from the same review pool via a command-line version for AI assistants"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free with no account or telemetry; the interface ships in English and Simplified Chinese; a standalone CLI companion (skills/spaced-dive/) shares the same picking rules and progress data without needing Obsidian running. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for vaults written over years and rarely reopened, because card-based plugins put all the work at the beginning and all the payoff at the end.",
+ "primary": "review",
+ "problem": "Card-based spaced-repetition plugins require carving notes into question-and-answer pairs up front, and that upfront work makes most people quit before seeing the payoff.",
+ "readmeHash": "ad582e2b432404b3cefd56ca9dd7832ac942afbd",
+ "relations": [
+  {
+   "evidence": "renaming a note orphans its record, and Dataview can't see it",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "There's also a command-line version for AI assistants — Claude Code, WorkBuddy, and similar",
+   "plugin": "Claude Code, WorkBuddy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Spaced-repetition tool that reviews whole notes on a forgetting curve: it draws a note, you read and score it 0-5, and the score sets the next interval.",
+ "tags": [
+  "spaced-repetition",
+  "forgetting-curve",
+  "dataview",
+  "claude-code",
+  "cli"
+ ]
+}

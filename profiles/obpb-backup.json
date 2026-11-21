@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push versioned backups of notes to a PocketBase server",
+  "Compute and upload line-level diffs instead of full files",
+  "Restore historical versions from a note's revision history",
+  "Recover deleted notes from a remote trash",
+  "Snapshot or reconcile the active note or whole vault manually"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README discloses that AI (Gemini and ChatGPT) was used to develop the plugin and build its tests. Setup requires installing and configuring a PocketBase instance (binary, Docker, or existing install) with a provided schema, and support is offered via IRC rather than a standard channel.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian's file recovery only keeps local snapshots, so users have no built-in way to keep versioned backups of their notes on a remote server they control.",
+ "readmeHash": "ac92f975b0648dbdc39a117aecc984d509b94576",
+ "relations": [
+  {
+   "evidence": "Versioned remote backups and restoration for Obsidian notes using the PocketBase API and its embedded SQLite database.",
+   "plugin": "PocketBase",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uses the third party library jsdiff",
+   "plugin": "jsdiff",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PocketBase server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "PocketBase user email and password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Versioned remote backup plugin that pushes Obsidian notes one-way to a self-hosted PocketBase server and restores historical versions on demand.",
+ "tags": [
+  "pocketbase",
+  "sqlite",
+  "version-history",
+  "diff",
+  "self-hosted",
+  "sha-256"
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes, folders, and PDFs to Feishu/Lark Docs and update the same document on later syncs",
+  "Sync bound notes incrementally so only changed blocks are rewritten remotely",
+  "Rewrite note links between synced notes and PDF references to point to remote documents",
+  "Exclude files or folders from sync using .feishuignore rules",
+  "Trigger automatic sync after save or through a Git pre-push hook"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only and requires a recent Obsidian version; default settings language is Chinese. Sync is one-way (local wins), so remote edits must be merged back manually. Replaces the archived feishu-lark-cli-sync plugin ID and migrates its data automatically.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from wanghuan9/obsidian-feishu-lark-cli-sync by huan.wang (wanghuan) under the MIT License.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The original Feishu Lark CLI Sync repository and author are gone and the plugin was archived, so the author forked it to continue maintenance and add published-link management, PDF sync, and dedup.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to share notes with a team as native Feishu/Lark documents that stay up to date after edits.",
+ "readmeHash": "6e6c7c0e2f919d6ba7b5de920c23f76d1fdf71c0",
+ "relations": [
+  {
+   "evidence": "Forked from wanghuan9/obsidian-feishu-lark-cli-sync by huan.wang (wanghuan) under the MIT License.",
+   "plugin": "Feishu Lark CLI Sync (wanghuan9/obsidian-feishu-lark-cli-sync)",
+   "type": "fork"
+  },
+  {
+   "evidence": null,
+   "plugin": "HeShiLie's fork",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu or Lark account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js with npm (lark-cli is installed by the plugin)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishes Obsidian Markdown notes, folders, and PDFs to Feishu/Lark Docs through lark-cli and keeps bound documents updated in place with one-way sync.",
+ "tags": [
+  "feishu",
+  "lark",
+  "lark-cli",
+  "git-hooks",
+  "wiki",
+  "callouts",
+  "incremental-sync"
+ ]
+}

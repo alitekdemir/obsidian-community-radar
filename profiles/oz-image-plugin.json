@@ -1,0 +1,76 @@
+{
+ "also": [
+  "pdf",
+  "html"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render images, PDFs, iframes, and transclusions inside the editor",
+  "Resize images with alt-text size tags like #small",
+  "Invert image colors using the #invert alt-text tag",
+  "View files outside the vault via file:/// or app://local/ prefixes",
+  "Toggle rendering per embed type from settings or commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Since version 2.1.3 only the new editor's Source Mode is supported; widgets are disabled automatically under Live Preview to avoid duplicates. Legacy editor support ends at version 2.1.2, which must be installed manually.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "In the editor's Source Mode, embedded images, PDFs, iframes and transclusions show only as links, forcing users to switch to preview to see them.",
+ "readmeHash": "693762e72329ce2f096876f9de3dbea3123ccc36",
+ "relations": [
+  {
+   "evidence": "After a nice collaboration with Zsolt, you can now view excalidraw drawings within the Editor",
+   "plugin": "Excalidraw Plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you need to install MSG Handler plugin since the render engine is dependent on MSG Handler plugin",
+   "plugin": "MSG Handler plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "exposed within Style Settings Plugin",
+   "plugin": "Style Settings Plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Plugin's link conversion functions are moved to Obsidian Link Converter Plugin",
+   "plugin": "Obsidian Link Converter Plugin",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "MSG Handler",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders images, PDFs, iframes, transclusions, Excalidraw drawings, and MSG/EML files inline in the editor's Source Mode.",
+ "tags": [
+  "transclusion",
+  "iframe",
+  "excalidraw",
+  "source-mode",
+  "msg",
+  "eml",
+  "outlook"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Evaluate *.dmn decision files embedded in notes",
+  "Pass note frontmatter and variables as decision inputs",
+  "Render results through template markdown files",
+  "Customize surrounding headings, text, and no-result messages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It only evaluates DMN decisions; viewing DMN diagrams is left to the separate DMN Plugin.",
+ "extras": "The README contains a 'How to dev' section with build instructions for a bundled Java evaluator (a base64-encoded jar), and notes that Java 14 or later is required.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian cannot execute DMN decision models, so note content cannot be used as input to a decision table and results shown inline.",
+ "readmeHash": "f336e00884c84763d8e585395b9c7d15a453c35e",
+ "relations": [
+  {
+   "evidence": "The DMN evaluator is based on the dmn-engine library by Camunda.",
+   "plugin": "dmn-engine",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you want to view DMNs in your note, look at the DMN Plugin.",
+   "plugin": "DMN Plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Java",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Evaluates DMN decision tables embedded in notes and prints the decision result, running on the Camunda dmn-engine via Java.",
+ "tags": [
+  "dmn",
+  "camunda",
+  "decision-tables",
+  "business-rules",
+  "java",
+  "decision-automation"
+ ]
+}

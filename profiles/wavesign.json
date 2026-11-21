@@ -1,0 +1,50 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sign selected images or PDFs into tamper-evident packages",
+  "Sign attachments in the current note",
+  "Embed an invisible authentication signal in signed files",
+  "Verify signed files using sig.json metadata and a passphrase",
+  "Connect and disconnect a WaveSign account via an integration token"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a visible watermark or electronic-signature product; it embeds an invisible signal and returns sig.json verification metadata.",
+ "extras": "Privacy-sensitive: selected files and operation passphrases are sent over HTTPS and processed on WaveSign servers; the signing engine is proprietary while the client is MIT-licensed. Signed PDFs are rasterized, losing searchable text, forms and annotations; uploads are limited to 25 MiB (media) and 1 MiB (verification JSON); lost sig.json cannot be regenerated. Only Windows is validated; the README recommends a separate test vault and lists BRAT/manual installation while community review is pending.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Vault attachments such as images and PDFs have no built-in way to prove their origin or detect that they have been altered or shared out of context.",
+ "readmeHash": "89ff86783e06c0209f49fac3c44da28bb1915bf3",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WaveSign account (browser approval at wave-sign.com, 90-day revocable integration token)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File-signing utility that creates and verifies tamper-evident authentication packages for images and PDFs, embedding an invisible signal and returning sig.json metadata.",
+ "tags": [
+  "file-signing",
+  "tamper-evidence",
+  "verification",
+  "digital-signature",
+  "provenance",
+  "png"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "data",
+  "charts"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read Dayflow's chunks.sqlite database read-only and sync daily, weekly and yearly notes",
+  "Render inline SVG charts such as treemaps, heatmaps, Sankeys and week-over-week comparisons",
+  "Install three Bases dashboard files for recent days, weekly review and focus performance",
+  "Enrich timeline cards with per-app minutes from a local ActivityWatch instance",
+  "Detect Dayflow schema drift and stamp a callout into the existing Daily Note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS-only and desktop-only; Dayflow.app must be installed and recording. Recommended install path is BRAT, i.e. not yet in the community plugin store. README documents privacy posture (read-only SQLite, no telemetry) and sigstore build attestations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to surface the screen-activity timeline recorded by the Dayflow app as notes, charts or dashboards inside the vault.",
+ "readmeHash": "506dbc671bdef08b7af25aaa05cecf4956d54d77",
+ "relations": [
+  {
+   "evidence": "This plugin reads Dayflow's chunks.sqlite read-only and writes daily + weekly notes into your vault",
+   "plugin": "Dayflow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Flip a toggle to query your local ActivityWatch and get precise per-app minutes",
+   "plugin": "ActivityWatch",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Dayflow (macOS)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ActivityWatch",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reads Dayflow's local activity database read-only and generates daily, weekly and yearly notes with inline SVG charts and Bases dashboards.",
+ "tags": [
+  "activitywatch",
+  "time-tracking",
+  "screen-time",
+  "sqlite",
+  "svg",
+  "heatmap",
+  "sankey"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render nested objects and arrays as a collapsible tree in the Properties panel",
+  "Edit, add, remove and reorder nested entries in place and change a nested property's type",
+  "Type one-line YAML collections that convert into objects, lists, or lists of objects",
+  "Rename or delete a nested key across the whole vault, with git commits and undo for bulk operations",
+  "Search nested properties and control the initial expand level per vault or per note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is itself a demo vault (installable via a command, release zip, or the repository); beta versions install via BRAT; git-based commit and undo of bulk operations requires the vault to be in a git repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says the plugin was inspired by a community feature request for nested frontmatter support.",
+ "primary": "properties",
+ "problem": "Obsidian's Properties editor does not display nested frontmatter, so users must read and change nested values by editing raw YAML by hand.",
+ "readmeHash": "1d4ea6300289f6fd2b3cf8097e53995c2ae7882e",
+ "relations": [
+  {
+   "evidence": "Narrower focus: nesting; vault-wide rename/delete and search",
+   "plugin": "Better Properties",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same nesting goal; editable values",
+   "plugin": "Nested Frontmatter",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader nesting UI: collapsible tree, type changes, vault-wide rename/delete and search",
+   "plugin": "Nested Frontmatter Properties",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader nesting scope: arbitrary nested objects and arrays",
+   "plugin": "Solenoid Properties",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative UI: edits nested values through Properties rows",
+   "plugin": "YAML Editor",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative UI: keeps Properties and gives each nested key a row",
+   "plugin": "YAML Properties",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Adds nested YAML frontmatter support to the Properties panel, rendering objects and arrays as an editable collapsible tree.",
+ "tags": [
+  "yaml",
+  "collapsible-tree",
+  "bulk-rename",
+  "type-conversion",
+  "keyboard-navigation"
+ ]
+}

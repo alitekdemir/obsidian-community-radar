@@ -1,0 +1,51 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "merge two or more selected notes via Command Palette or File Explorer",
+  "merge source content under matching headings",
+  "deduplicate aliases, tags, and Dataview blocks during merge",
+  "scan folders for same-name duplicates and auto-merge them",
+  "rename notes and merge into an existing target on name collision"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Note composer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that heading comparisons are exact and case-sensitive and advises backing up or using version history before large merges; the secondary note is moved to system trash after a successful merge by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian has no built-in way to merge notes, so duplicate files created by copies, renames, or sync conflicts must be combined manually while preserving headings and metadata.",
+ "readmeHash": "4c0453467d3303aa832d342d463b8289e06958e9",
+ "relations": [
+  {
+   "evidence": "deduplicate repeated dataview blocks and select the most recently updated dv.view block",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Heading-aware merge tool that combines Markdown notes, cleans up same-name duplicates, and reconciles frontmatter and Dataview blocks.",
+ "tags": [
+  "dataview",
+  "duplicate-detection",
+  "sync-conflicts",
+  "heading-structure",
+  "aliases"
+ ]
+}

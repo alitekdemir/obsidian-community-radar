@@ -1,0 +1,62 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse a note's commit timeline grouped by day with named milestones",
+  "Compare any two versions as side-by-side, unified, or rendered diffs",
+  "Restore a paragraph, change block, or whole note with undo and link-impact preview",
+  "Resolve Git merge conflicts in a note from three panes",
+  "Search content that existed in past versions and see when it was removed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It only reads an existing Git repository; it never commits, pushes or creates one, so it is not a vault syncing or backup tool.",
+ "extras": "Desktop only (it runs git); the community directory scorecard lists warnings for shell execution, direct filesystem access, vault enumeration and clipboard use, all explained in the README. Lab tools are hidden behind a setting and off by default. Full feature list exists only in Chinese in docs/FEATURES_zh.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian has no built-in way to view or restore a note's past states when the vault is versioned with Git.",
+ "readmeHash": "5c4911d666f0a3fa405770f877a2860581162f57",
+ "relations": [
+  {
+   "evidence": "Obsidian Git can do this on a timer.",
+   "plugin": "Obsidian Git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian Git community plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Git history browser for notes that shows a commit timeline, diffs any two versions, and restores a paragraph or whole note with undo, without committing.",
+ "tags": [
+  "version-history",
+  "diff",
+  "undo",
+  "merge-conflict",
+  "restore"
+ ]
+}

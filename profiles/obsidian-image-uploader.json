@@ -1,0 +1,59 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload clipboard images to an image host on paste",
+  "Resize images before uploading with a configurable max width",
+  "Configure a custom upload API endpoint, headers, and body",
+  "Extract the hosted image URL from the HTTP response path"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Upload Body setting warns 'Don't change it unless you know what you are doing'; setup requires understanding HTTP request formats, with Imgur and Lsky-Pro given as worked examples.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian stores pasted images as local vault files, which bloats the vault and doesn't work for publishing or syncing notes across devices.",
+ "readmeHash": "5871332c590a7ddd2f19a98e8463f5b6e57f885e",
+ "relations": [
+  {
+   "evidence": "obsidian-imgur-plugin",
+   "plugin": "obsidian-imgur-plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an image hosting service (e.g. Imgur or self-hosted Lsky-Pro)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Imgur Client-ID",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Paste-time uploader that resizes (optionally) and uploads clipboard images to a configurable image host, replacing them with a hosted URL.",
+ "tags": [
+  "imgur",
+  "lsky-pro",
+  "clipboard",
+  "image-hosting",
+  "paste"
+ ]
+}

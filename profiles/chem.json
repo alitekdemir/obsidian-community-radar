@@ -1,0 +1,79 @@
+{
+ "also": [
+  "code",
+  "visualization"
+ ],
+ "audience": [
+  "chemists",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "render SMILES strings as chemical structure images from code blocks",
+  "render inline SMILES strings with a configurable prefix",
+  "copy and export rendered structures as PNG with configurable scale, transparency and theme",
+  "render structures from inline Dataview queries and DataviewJS results",
+  "adjust structure scale, image size and light/dark theming in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a chemical structure editor; it renders existing SMILES text into images, and points users to the Ketcher plugin for drawing structures from scratch.",
+ "extras": "DataviewJS rendering is implemented via eval(), which the README flags as a security risk; RDKit.js wasm files are fetched from GitHub releases and can be installed manually if GitHub is unreachable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was motivated by forum requests for including chemical structures in Obsidian, and the first feature was suggested by community users.",
+ "primary": "science",
+ "problem": "Obsidian has no built-in way to display chemical structures; LaTeX packages like mhchem and chemfig are harder to write and less widely supported by chemistry drawing tools.",
+ "readmeHash": "49d61258c2696b195e5d27e41cb72ec4c04e9ec1",
+ "relations": [
+  {
+   "evidence": "This feature is dependent on the Dataview plugin.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "There's a Ketcher editor integration plugin Obsidian Ketcher available right in Obsidian.",
+   "plugin": "Obsidian Ketcher",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chemical Structure Renderer is a similar plugin of Chem, which uses Ketcher, Indigo online service",
+   "plugin": "Chemical Structure Renderer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "relies on Smiles Drawer and RDKit.js as the parsing and drawing cores",
+   "plugin": "Smiles Drawer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "relies on Smiles Drawer and RDKit.js as the parsing and drawing cores",
+   "plugin": "RDKit.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Chemistry plugin that renders SMILES strings into chemical structure images from code blocks, inline prefixes, or Dataview query results.",
+ "tags": [
+  "smiles",
+  "chemistry",
+  "chemical-structures",
+  "rdkit",
+  "smiles-drawer"
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Suggest note links",
+  ": Display related notes",
+  ": Perform semantic search",
+  ": Provide snippet previews",
+  ": Index vault content"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Links",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Privacy concerns exist when using the OpenAI API, as note content is sent externally. Local embeddings are stored in device-local files.",
+ "intent": "improve",
+ "intentEvidence": "Inline suggest popup — appears as you type, just like Various Complements",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Traditional link suggestions are limited to exact or prefix matches, failing to suggest relevant notes based on meaning or context.",
+ "readmeHash": "dd185ecfa51f0d4c9688aa2a3d6ab352e6f6e13f",
+ "relations": [
+  {
+   "evidence": "Inline suggest popup — appears as you type, just like Various Complements",
+   "plugin": "Various Complements",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Semantic note suggestions and related notes panel powered by local Ollama embeddings",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Semantic note suggestions and related notes panel powered by local Ollama embeddings",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI API support — use text-embedding-3-small or any compatible model",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Suggest note links while typing and display related notes using semantic search powered by local or cloud embedding models.",
+ "tags": [
+  "ollama",
+  "lm-studio",
+  "bge-m3",
+  "embeddings",
+  "lexical-matching"
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "also": [
+  "calendar",
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Carry incomplete tasks from previous daily and weekly notes into new ones",
+  "Mark carried-over tasks in the previous note with a custom status character",
+  "Add due dates to copied tasks for tracking with the Tasks plugin",
+  "Restrict task collection to specific headers in periodic notes",
+  "Sync all vault tasks into an auto-created Kanban board"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone task manager; it only moves incomplete tasks between periodic notes and a Kanban board.",
+ "extras": "Designed for Obsidian 1.13.0 or later; without Periodic Notes installed, it falls back to Obsidian defaults or Calendar plugin settings for daily and weekly notes.",
+ "intent": "improve",
+ "intentEvidence": "Combine periodic notes with tags and tasks to automatically manage your daily, weekly and project TODO lists.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian periodic notes leave incomplete tasks behind, so unfinished items from yesterday's or last week's note must be copied forward by hand.",
+ "readmeHash": "aac18e4745d4f28e1d33a7a4f14e1503f8d72a13",
+ "relations": [
+  {
+   "evidence": "When the Periodic Notes plugin is installed, this plugin respects its settings",
+   "plugin": "Periodic Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Adds a due date to copied tasks so they can be appropriately tracked in the Tasks plugin",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "All the tasks within the periodic notes and elsewhere in the vault can be collated and centralised into a Kanban board",
+   "plugin": "Kanban",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin works well with the Auto Periodic Notes plugin.",
+   "plugin": "Auto Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Kanban",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Task carry-over plugin that copies incomplete tasks into the next daily or weekly note and can sync vault tasks to a Kanban board.",
+ "tags": [
+  "periodic-notes",
+  "daily-notes",
+  "weekly-notes",
+  "kanban",
+  "due-dates",
+  "carry-over"
+ ]
+}

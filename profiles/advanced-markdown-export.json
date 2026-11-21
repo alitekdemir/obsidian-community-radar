@@ -1,0 +1,136 @@
+{
+ "also": [
+  "files",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Traverse a note's linked notes and attachments into a checkbox tree with per-file selection",
+  "Export the selection as a folder or ZIP with vault-relative structure and intact links",
+  "Render the same selection as an EPUB or PDF document with one section per note",
+  "Replace Dataview and Tasks query blocks with their rendered results in the export",
+  "Start exports from a note, multi-selection, folder, or the whole vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a single-file format converter; its core job is selecting a note's dependencies and exporting them as a bundle whose links still resolve.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Documentation is a demo vault shipped with every release and browsable in the repository; debug messages are hidden by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Sharing a single note loses its images and breaks its wiki-links, while copying the whole folder shares more than intended.",
+ "readmeHash": "b1784e5833ada556a7dc477d52c3b71003c5367a",
+ "relations": [
+  {
+   "evidence": "Different starting point: notes/folders; copies canvases unchanged",
+   "plugin": "Canvas Bundle",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative selection: file tree; one-time export",
+   "plugin": "Cluster Export",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative workflow: reviewed bundle export with linked-note traversal",
+   "plugin": "Codex Share",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader collection: follows links between notes",
+   "plugin": "Copy Notes to Vault",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same ZIP goal; per-file selection; mobile too",
+   "plugin": "Export Markdown ZIP",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same bundle goal; reviewed file tree with per-file choices; no depth setting",
+   "plugin": "Linked Note Exporter",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader file collection: offers linked notes individually",
+   "plugin": "markdown export",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader collection: follows links between notes",
+   "plugin": "NoteParcel",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same bundle goal; preserves separate paths and offers per-file choices",
+   "plugin": "Obsidian Bundler",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same ZIP goal; preview and per-file selection before writing",
+   "plugin": "Share as ZIP",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative output: separate notes with attachments",
+   "plugin": "Smart Export",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader destination: bundle anywhere; follows links as deep as selected",
+   "plugin": "Trans Vault",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Ensure you have the BRAT plugin installed and enabled",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notes built on Dataview or Tasks queries can travel as their results",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notes built on Dataview or Tasks queries can travel as their results",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Export plugin that walks a note's dependencies and lets you pick attachments and linked notes in a checkbox tree before writing a working bundle.",
+ "tags": [
+  "zip",
+  "epub",
+  "dataview",
+  "dependency-tree",
+  "bundle"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ai",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add Ask, Edit, Praise or Note comment threads to selected text as CriticMarkup",
+  "Suggest insertions, deletions and substitutions with accept/reject actions",
+  "Browse and filter open threads per note, folder or whole vault in a panel",
+  "Export review reports and copy AI working instructions to the clipboard",
+  "Run a bridge script that hands open threads to the claude CLI and writes answers back as suggestions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a code-review tool; it annotates note text with CriticMarkup threads that an AI agent can work through.",
+ "extras": "The plugin itself has no network access; AI work requires a separate agent tool on the machine. The fork was developed with substantial LLM assistance and some interface strings are machine-translated. The bridge backs up every touched note before writing.",
+ "intent": "alternative",
+ "intentEvidence": "Fork of shotashirai1719/obsidian-review-comments by Shota Shirai (AGPL-3.0).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked the original because 'Resolve' deleted comments, losing the reasoning so an AI could no longer tell what a passage was about; this fork keeps threads in the note.",
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in way to hold review discussions inside a note in a format an external AI coding assistant can read and answer.",
+ "readmeHash": "cf86561ddd9f08312dc5e1b143305c56e114adda",
+ "relations": [
+  {
+   "evidence": "Fork of shotashirai1719/obsidian-review-comments by Shota Shirai (AGPL-3.0).",
+   "plugin": "obsidian-review-comments",
+   "type": "fork"
+  },
+  {
+   "evidence": "the whole discussion lives inside the .md file as CriticMarkup, so the tool reads the note",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "claude CLI or another AI agent command",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "CriticMarkup review-comment plugin that keeps threaded inline comments in the note so AI agents like Claude Code can read, edit and reply in place.",
+ "tags": [
+  "criticmarkup",
+  "claude-code",
+  "llm-agents",
+  "inline-comments",
+  "suggestions",
+  "threads"
+ ]
+}

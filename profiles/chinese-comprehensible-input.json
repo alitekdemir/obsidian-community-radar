@@ -1,0 +1,86 @@
+{
+ "also": [
+  "ai",
+  "review"
+ ],
+ "audience": [
+  "chinese-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Annotate Chinese notes with per-word pinyin, definitions and colors based on known/partial/unknown status",
+  "Track vocabulary exposure, HSK coverage and progress over time",
+  "Review due words with flashcard-style SRS or AI-generated stories",
+  "Explain, proofread, simplify and add mnemonics for text using an AI provider",
+  "Switch between Simplified and Traditional script and Taiwan pronunciation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The bundled seed dictionary is tiny; real use expects a user-supplied CC-CEDICT file downloaded from mdbg.net. AI features (stories, explain, mnemonics, proofread) stay off until a provider is configured and send only the targeted text. No telemetry; states permissions and network endpoints in detail; docs, FAQ and install guides live in separate docs/ files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found comprehensible input (as in DuChinese) made learning Chinese enjoyable, but flashcards broke the flow once rare words stopped appearing often enough in reading.",
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to turn Chinese notes into level-appropriate reading with per-word support, vocabulary tracking, or story-based spaced repetition.",
+ "readmeHash": "4a7040a63a809c5feddac0597e9e14365c924d72",
+ "relations": [
+  {
+   "evidence": "Tools such as DuChinese have shown how powerful this approach can be.",
+   "plugin": "DuChinese",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The bundled seed dictionary is tiny; real use needs CC-CEDICT (see Data below).",
+   "plugin": "CC-CEDICT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama tips: model choice and getting good output",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Formatting & highlighting — tap-to-format mode, colored highlights, Highlightr support",
+   "plugin": "Highlightr",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CC-CEDICT dictionary file",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Chinese reading environment that annotates notes with dictionary-aware pinyin, definitions and knowledge-status colors, plus vocabulary tracking, SRS and AI story generation.",
+ "tags": [
+  "hsk",
+  "pinyin",
+  "cc-cedict",
+  "srs",
+  "spaced-repetition",
+  "comprehensible-input",
+  "ollama",
+  "openai"
+ ]
+}

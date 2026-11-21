@@ -1,0 +1,57 @@
+{
+ "also": [
+  "images",
+  "ttrpg"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate images from the text under a configurable heading using an OpenAI-compatible API",
+  "Replace a defined placeholder image embed with the generated image",
+  "Regenerate the last generated image behind a Yes/No confirmation, optionally trashing the old file",
+  "Match the placeholder's embed dimensions when embedding the new image",
+  "Update the Image key in frontmatter for TTRPG vault compatibility"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation only (copy main.js and manifest.json into the plugins folder); the manifest notes it has not been reviewed by Obsidian staff. Smart Sizing may conflict with plugins like dnd-ui-toolkit that parse the | symbol in image links. AI Horde and local Stable Diffusion (AUTOMATIC1111) support are planned but not implemented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author originally built it for TTRPG Game Masters to create images for characters and locations.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate images for notes from their description text or to swap generated art into existing image embeds.",
+ "readmeHash": "741b6e1b17830c13f245e528dc9a916b055d1072",
+ "relations": [
+  {
+   "evidence": "By default, it is configured to use OpenAI (DALL-E 3).",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI (or compatible service) API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI image generator that reads text under a chosen heading in a note and replaces a placeholder image with art from an OpenAI-compatible API.",
+ "tags": [
+  "openai",
+  "dall-e",
+  "image-generation",
+  "placeholder-replacement"
+ ]
+}

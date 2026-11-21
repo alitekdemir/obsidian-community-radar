@@ -1,0 +1,65 @@
+{
+ "also": [
+  "html",
+  "video"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render the active note as live 1920×1080 slides in a side pane",
+  "Auto-layout slides from Markdown structure with overflow pagination and scaling",
+  "Export a deck as a self-contained HTML file with embedded fonts and images",
+  "Export the deck as a silent 1920×1080 H.264 MP4 video",
+  "Navigate slides by section and frame with keyboard, pointer, and a bottom bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. MP4 export requires Obsidian 1.13.4 or later and a compatible H.264 encoder; the MP4 is silent and fixed at 1080p/30fps. Tier 3 background presets load from the author's Cloudflare R2 bucket but are off by default; remote images in notes are fetched and inlined only during HTML export. Manifest carries an unreviewed-by-Obsidian-staff notice.",
+ "intent": "improve",
+ "intentEvidence": "Powered by Marp, with a structure-aware layout engine that picks grids, balances columns, and guarantees overflow-free slides",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to turn ordinary notes into presentation-grade slides without hand-authoring slide syntax or manually fixing overflowing slides.",
+ "readmeHash": "efe0376e122831d0aeaf526a300fcee6538674c0",
+ "relations": [
+  {
+   "evidence": "Powered by Marp, with a structure-aware layout engine",
+   "plugin": "Marp",
+   "type": "extends"
+  },
+  {
+   "evidence": "no AI, cloud renderer, Remotion runtime, or separate FFmpeg installation",
+   "plugin": "Remotion",
+   "type": "alternative"
+  },
+  {
+   "evidence": "no AI, cloud renderer, Remotion runtime, or separate FFmpeg installation",
+   "plugin": "FFmpeg",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Slide renderer that turns Markdown notes into auto-laid-out 1920×1080 presentations, powered by Marp, with self-contained HTML and MP4 export.",
+ "tags": [
+  "marp",
+  "presentation",
+  "slide-deck",
+  "mp4",
+  "h264",
+  "webcodecs",
+  "pretendard",
+  "jetbrains-mono"
+ ]
+}

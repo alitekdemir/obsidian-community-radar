@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Embed the OpenCode web UI in the right sidebar via iframe",
+  "Start the OpenCode server automatically inside WSL when the panel opens",
+  "Toggle the panel from the ribbon icon or command palette",
+  "Configure port, WSL distribution, executable path, working directory and server password"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general AI chat plugin; it specifically embeds the OpenCode web UI and only works on Windows with WSL2.",
+ "extras": "Marked as not manually reviewed by Obsidian staff; installable via BRAT or manual release download; an earlier 1.x PTY/xterm.js approach is archived in favor of iframe embedding.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run the OpenCode AI agent against a vault from Windows, where the CLI lives inside WSL.",
+ "readmeHash": "782bd5c23652f68f50b85c96e0505c91c7af75d0",
+ "relations": [
+  {
+   "evidence": "Embed OpenCode web UI in the Obsidian sidebar via WSL.",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "opencode-obsidian — Similar plugin by mtymek",
+   "plugin": "opencode-obsidian",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenCode CLI inside WSL2 (Windows 10/11)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT (for beta installation)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "WSL bridge that embeds the OpenCode AI web UI in an Obsidian sidebar panel on Windows.",
+ "tags": [
+  "opencode",
+  "wsl",
+  "windows",
+  "ai-agent",
+  "iframe",
+  "coding-agent"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track series episodes and movies on dashboard views with filters, sorts, and stats",
+  "Fetch posters, genres, and air dates from TMDb, including lookup by IMDb ID",
+  "Mark episodes watched via per-episode task checkboxes with watched-date stamps",
+  "Auto-derive show status from watch state and air dates",
+  "Rate titles, tag moods, and record streaming-provider availability"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Dashboard only reads notes with type: series or type: movie frontmatter in configured folders (defaults Media/Series and Media/Movies); other notes are silently skipped. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to track TV and movie viewing or surface a watchlist dashboard over plain note files.",
+ "readmeHash": "dde58a73a6bd4fdb0143e55a5009a3ecb01599d6",
+ "relations": [
+  {
+   "evidence": "Both sections search and fetch metadata from the free TMDb API — you'll need your own key.",
+   "plugin": "TMDb",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notes still store an IMDb URL in source_url for portability",
+   "plugin": "IMDb",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDb API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "themoviedb.org account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Dashboard and episode tracker for TV series and movies stored as Markdown notes, with TMDb metadata, ratings, and watch state.",
+ "tags": [
+  "tmdb",
+  "imdb",
+  "watchlist",
+  "tv-series",
+  "movies",
+  "episode-tracking",
+  "streaming"
+ ]
+}

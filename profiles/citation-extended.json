@@ -1,0 +1,86 @@
+{
+ "also": [
+  "research",
+  "templating"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "search citations and open or create literature notes",
+  "insert wiki-links, markdown citations, and templated note content",
+  "import Zotero PDF annotations with zotero:// deep links",
+  "re-sync literature notes with the library via non-destructive three-way merges",
+  "load citations from multiple sources including BibTeX, CSL-JSON, Hayagriva, Readwise, and Zotero"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README includes a detailed network-use disclosure: no telemetry, Readwise contacted only with a user-supplied token, Zotero traffic is loopback-only, and all bibliography parsing happens locally. Full documentation lives in a separate docs/ directory.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search a reference library, insert formatted citations, or generate and maintain literature notes from a bibliography.",
+ "readmeHash": "ddd86fb61a409da7801b49f783305e65bdd57561",
+ "relations": [
+  {
+   "evidence": "read a running Zotero (7+) through its built-in local API, with no Better BibTeX, no export files",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "via the Better BibTeX pull-export endpoint or through Zotero's own local API",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Readwise integration: import highlights and documents from Readwise as citable entries",
+   "plugin": "Readwise",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Export your bibliography from Zotero + Better BibTeX, Mendeley, or Paperpile",
+   "plugin": "Mendeley",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Export your bibliography from Zotero + Better BibTeX, Mendeley, or Paperpile",
+   "plugin": "Paperpile",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Readwise API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Citation plugin that searches a bibliography or a running Zotero and creates literature notes, inserts citations, and imports PDF annotations.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "readwise",
+  "citations",
+  "biblatex",
+  "csl-json",
+  "handlebars",
+  "literature-notes"
+ ]
+}

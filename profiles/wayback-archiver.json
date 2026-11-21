@@ -1,0 +1,67 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "archive note links via the Wayback Machine SPN API and insert archive links",
+  "append or replace link destinations with archived snapshot URLs",
+  "filter eligible notes and links with ignore/include, path, word, and URL patterns",
+  "apply find/replace URL substitution rules before archiving",
+  "log, export, and retry failed archive attempts and resolve archive.today or Web Gyotaku snapshots as fallbacks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The archive.today auto-submit feature is explicitly marked experimental and disabled by default because archive.today has no stable public save API and may block automated submissions with CAPTCHA or rate limits. The README includes a troubleshooting FAQ, a limitations section, and Ko-fi donation links; API keys can be stored in SecretStorage or plaintext data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian has no built-in way to preserve linked web pages, so links in notes can rot when the target pages change or disappear.",
+ "readmeHash": "8376609987afb1a8f83d592d6ca621d8b80c2616",
+ "relations": [
+  {
+   "evidence": "it attempts to save a snapshot using the Archive.org Wayback Machine's SPN API v2",
+   "plugin": "Wayback Machine (Archive.org)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use archive.today fallback: Resolve and insert existing archive.today snapshots if Wayback Machine fails to save",
+   "plugin": "archive.today",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Web Gyotaku fallback: Resolve and insert existing Web Gyotaku (Megalodon.jp) snapshots if earlier providers fail",
+   "plugin": "Web Gyotaku (Megalodon.jp)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Archive.org SPN Access Key and Secret Key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Automatically archives web links in notes via the Wayback Machine and appends or replaces them with archived snapshot URLs.",
+ "tags": [
+  "wayback-machine",
+  "internet-archive",
+  "archive-today",
+  "megalodon-jp",
+  "link-rot",
+  "snapshot",
+  "spn-api"
+ ]
+}

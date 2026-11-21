@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull and push allowlisted text files (.md, .canvas, .txt)",
+  "Load remote images on demand into in-memory blob URLs",
+  "Upload pasted or camera images, converting large ones to WebP",
+  "Scan for and delete unreferenced remote images",
+  "Isolate conflicting mobile edits onto a conflict branch"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a git client: it moves allowlisted text files through the GitHub/GitLab REST API without cloning the repository.",
+ "extras": "Initial sync aborts if local text files already exist; desktop use is meant for testing when the vault already uses native git.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Mobile vaults cannot use native git without cloning packfiles and keeping repository images on the device.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "e5ecf2aa912a9fda16b31bd4c0447480f4afc5c7",
+ "relations": [
+  {
+   "evidence": "Works with github.com, GitHub Enterprise Server, gitlab.com, and self-hosted GitLab instances.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with github.com, GitHub Enterprise Server, gitlab.com, and self-hosted GitLab instances.",
+   "plugin": "GitLab",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub or GitLab personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs allowlisted text notes and canvases with a private GitHub or GitLab repository and loads images on demand in memory.",
+ "tags": [
+  "github",
+  "gitlab",
+  "webp",
+  "image-compression",
+  "ios",
+  "android"
+ ],
+ "textHash": "4e2f91c271880c617edda7f56cf4607e09d79691"
+}

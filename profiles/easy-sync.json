@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files between devices through the user's own OneDrive account",
+  "Sync Obsidian settings, themes, hotkeys and community plugins selectively",
+  "Resolve conflicts using content hashes and per-file baselines",
+  "Recover deleted files and previous versions from a sync recycle bin",
+  "Migrate vaults from Remotely Save, iCloud or the OneDrive client"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Free and MIT-licensed. Does not provide end-to-end encryption: cloud copies are plain files in the user's OneDrive. Strongly warns against running it alongside other sync tools (Obsidian Sync, Remotely Save, iCloud/OneDrive client folders) on the same vault, and requires identical vault names on all devices. Documentation is in Chinese; support via GitHub Issues and a Xiaohongshu account. Requires Obsidian 1.13.4 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, and users who want device sync through their own cloud storage without third-party relay servers have to rely on generic sync clients or other plugins.",
+ "readmeHash": "1a244d941c718f79473035345c323da6700eec20",
+ "relations": [
+  {
+   "evidence": "EasySync 直接连接 Microsoft 登录和 Microsoft Graph，不使用第三方中转服务器",
+   "plugin": "OneDrive / Microsoft Graph",
+   "type": "integrates"
+  },
+  {
+   "evidence": "登录 OneDrive 后，EasySync 会检测 OneDrive 应用目录里有没有 Remotely Save 建立的同名仓库",
+   "plugin": "Remotely Save",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "EasySync",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Microsoft/OneDrive account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that keeps notes and settings in sync across devices through the user's own OneDrive account, with two-way and one-way modes.",
+ "tags": [
+  "onedrive",
+  "microsoft-graph",
+  "conflict-resolution",
+  "recycle-bin",
+  "migration",
+  "one-way-sync"
+ ]
+}

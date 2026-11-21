@@ -1,0 +1,64 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render termlogue code blocks as animated terminal sessions",
+  "control playback with play, pause, restart and 1x/2x/4x/Instant speeds",
+  "copy the block's command lines to the clipboard",
+  "restyle terminals with five built-in themes via @theme",
+  "fix terminal viewports with @size"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a terminal emulator or shell runner; commands are never executed and the block is display-only.",
+ "extras": "Manual installation only until accepted into the community plugin browser. In Obsidian, Reading View is supported; Live Preview renders the block as an ordinary code fence. The Marp Presenter companion is desktop-only and requires Node plus Marp CLI. Extensive Security section stresses that nothing is executed and no network requests are made.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Markdown code blocks containing shell sessions are static text, so demonstrating a CLI workflow requires embedding a screencast or GIF instead.",
+ "readmeHash": "8118b58c6838944d6fb400a87668b37702dc4cb9",
+ "relations": [
+  {
+   "evidence": "Terminalogue plugs into Marp CLI as an engine",
+   "plugin": "Marp CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an Obsidian companion plugin, Terminalogue Presenter, that turns the note you are looking at into one",
+   "plugin": "Terminalogue Presenter",
+   "type": "extends"
+  },
+  {
+   "evidence": "Terminalogue extends the built-in Markdown preview; there is no custom preview or webview",
+   "plugin": "Visual Studio Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Marp CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Renders termlogue code blocks as animated terminal sessions with themes, playback controls and copyable commands, without ever executing the commands.",
+ "tags": [
+  "marp",
+  "terminal-demo",
+  "typing-animation",
+  "code-block-processor"
+ ]
+}

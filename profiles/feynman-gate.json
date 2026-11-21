@@ -1,0 +1,56 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Parse Markdown files into learning units by heading hierarchy",
+  "Prompt the user to explain each section in their own words",
+  "Evaluate explanations with an OpenRouter-compatible LLM and give feedback",
+  "Unlock the next section only after sufficient grasp is demonstrated",
+  "Track per-file progress and session history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet on the Obsidian community plugin registry; manual installation required. BYOK model: the user supplies and pays for their own API access; requests go directly from Obsidian to the configured provider. Bilingual English/Simplified Chinese UI. Roadmap items (multi-agent review, quizzes, spaced repetition, exportable summaries) are not implemented yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Reading long Markdown files in Obsidian is passive; without forced recall and feedback, readers retain little of what they read.",
+ "readmeHash": "5c21216e19ca298015d99af953569bbef045f554",
+ "relations": [
+  {
+   "evidence": "OpenRouter-compatible LLM assesses conceptual understanding",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (OpenAI, DeepSeek, Qwen, OpenRouter, Moonshot, GLM, Ollama, or custom)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reading companion that splits Markdown documents into sections and gates progress on AI-judged explanations of each section.",
+ "tags": [
+  "feynman-technique",
+  "active-recall",
+  "openrouter",
+  "byok",
+  "llm",
+  "learning-mode"
+ ]
+}

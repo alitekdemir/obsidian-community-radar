@@ -1,0 +1,68 @@
+{
+ "also": [
+  "import",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import BibTeX citations into notes",
+  "Open PDFs linked in the bibliography via the PDF++ plugin",
+  "Watch the bib file and re-parse it automatically in the background",
+  "Resolve bdsk-file macOS bookmarks to files that were renamed or moved",
+  "Use libraries stored outside the vault, including multi-GB collections"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not limited to BibDesk; it works with any standard BibTeX library, though some features like bdsk-file fields are macOS BibDesk-specific.",
+ "extras": "Installation is manual and involved: cloning, building with Node.js and a Swift compiler, and copying dist files into the vault. Docs elsewhere: none stated.",
+ "intent": "alternative",
+ "intentEvidence": "Unlike most BibTeX plugins for Obsidian, this plugin is designed to handle large libraries with 10,000+ papers",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to parse large external BibTeX bibliography files and open the PDFs they reference, especially files stored outside the vault.",
+ "readmeHash": "a7b1b9d18804f380e57f5cfd0a30d4a314c3a605",
+ "relations": [
+  {
+   "evidence": "Integration with PDF++: Opens PDFs stored outside your Obsidian vault via the PDF++ plugin.",
+   "plugin": "PDF++",
+   "type": "integrates"
+  },
+  {
+   "evidence": "some features are designed specifically for libraries maintained with BibDesk on macOS",
+   "plugin": "BibDesk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "PDF++",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "BibDesk",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Integrates external BibTeX libraries, including BibDesk libraries, with Obsidian and the PDF++ plugin to import citations and open linked PDFs.",
+ "tags": [
+  "bibtex",
+  "citations",
+  "bibliography",
+  "bibdesk",
+  "peggy"
+ ]
+}

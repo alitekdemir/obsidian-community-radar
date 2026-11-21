@@ -1,0 +1,53 @@
+{
+ "also": [
+  "images",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rename pasted images via a prompt or automatically",
+  "Generate names from pattern variables such as fileName, imageNameKey, headings, UUID and dates",
+  "Batch rename attachments embedded in the current file",
+  "Handle all pasted or dragged attachments with extension exclusions",
+  "Convert Markdown image links in the current note to wiki embeds"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not limited to pasted images: since 1.4.0 it handles all attachments, including dragged files and notes, and offers batch renaming.",
+ "extras": "The README documents extensive safety constraints, scan limits, and conservative fail-closed behavior for the Excalidraw/Canvas and Cancel-and-Delete paths; batch instant rename has no confirmation.",
+ "intent": "new",
+ "intentEvidence": "This plugin is inspired by Zettlr, Zettlr shows a prompt that allows the user to rename the image",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted the prompt-and-rename behavior of Zettlr, and built the plugin to implement it plus automatic renaming so images get consistent names without manual effort.",
+ "primary": "attachments",
+ "problem": "Obsidian saves pasted images with generic names like \"Pasted image ...\", making attachments hard to identify and organize.",
+ "readmeHash": "410de01c0ead1ae7806da447e2689106c6575da2",
+ "relations": [
+  {
+   "evidence": "This plugin is inspired by Zettlr, Zettlr shows a prompt that allows the user to rename the image",
+   "plugin": "Zettlr",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Renames images and attachments pasted into notes, using a confirm prompt or automatic naming from configurable patterns.",
+ "tags": [
+  "zettlr",
+  "moment",
+  "uuid",
+  "excalidraw",
+  "wikilinks",
+  "naming-pattern"
+ ]
+}

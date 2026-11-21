@@ -1,0 +1,72 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault bidirectionally with a WebDAV server (upload, download, delete)",
+  "Keep both conflict copies or keep the newest version",
+  "Archive trashed files remotely as an append-only backup",
+  "Back up and restore encrypted plugin configs and Copilot keychain keys",
+  "Trigger syncs manually, on an interval, at startup, or after editing stops"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not the rsync file tool; it syncs an Obsidian vault over the WebDAV protocol only.",
+ "extras": "WebDAV password is stored in plain text in the plugin's data.json; desktop only, mobile unverified; no cross-device lock, so avoid editing the same file on two devices at once.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted free, lightweight two-way sync that uses only WebDAV and does not depend on proprietary services such as S3, Dropbox, or OneDrive.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync through a self-hosted WebDAV server without relying on proprietary cloud services.",
+ "readmeHash": "be3357163942f32a2e3068aaecb87ab34be2d7c0",
+ "relations": [
+  {
+   "evidence": "如果本仓库仍启用了 Remotely Save 或其他同步插件，请先停用它们",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "读取 Copilot 在 Obsidian Keychain 中的密钥",
+   "plugin": "Copilot",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server (PROPFIND, PUT, GET, MKCOL, DELETE, HTTP Basic Auth)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Copilot",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way WebDAV sync plugin that mirrors a vault to any standard WebDAV server, with an append-only trash archive and encrypted plugin-config backup.",
+ "tags": [
+  "webdav",
+  "nextcloud",
+  "owncloud",
+  "sftpgo",
+  "two-way-sync",
+  "conflict-resolution",
+  "encryption",
+  "trash-archive"
+ ]
+}

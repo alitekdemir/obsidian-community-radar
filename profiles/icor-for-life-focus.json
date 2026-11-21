@@ -1,0 +1,55 @@
+{
+ "also": [
+  "data",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render a radial map of notes by recency, intensity and entity type",
+  "rank notes by an attention score computed from edits, mentions, backlinks and opens",
+  "open notes from the map or the ranked list",
+  "toggle between all notes and entities only across 7, 14 and 30 day ranges",
+  "write the computed attention ranking to a local JSON file for scripts or other plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Backlinks",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a focus timer or distraction blocker; it is a radial map of which notes your attention recently touched.",
+ "extras": "Marked beta with a note that rough edges are expected. Writes a per-device JSON ranking under .icor-for-life/icor-for-life-focus/ and logs note opens locally (pruned after 35 days); makes no network connections.",
+ "intent": "alternative",
+ "intentEvidence": "A graph view shows you the shape of your vault. That is interesting once and then never again",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a view that answers what you actually worked on recently rather than what you remember doing, since the standard graph's shape barely changes day to day.",
+ "primary": "graph",
+ "problem": "Obsidian's graph view shows a mostly static vault shape, so it does not reveal where your attention has actually gone recently.",
+ "readmeHash": "2c717020e3b80eb549145a87ce2a9773e3aa6905",
+ "relations": [
+  {
+   "evidence": "Part of the ICOR for Life suite.",
+   "plugin": "ICOR for Life",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Recency-based attention map that places recently worked-on notes near the center, sized by intensity and colored by entity type, with a ranked score list.",
+ "tags": [
+  "attention-map",
+  "recency",
+  "radial-layout",
+  "backlinks",
+  "daily-notes",
+  "json-export"
+ ]
+}

@@ -1,0 +1,112 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Exclude files with gitignore syntax",
+  "Remove matched files from the index",
+  "Hide files from search, graph, and Files pane",
+  "Validate patterns and flag mistakes",
+  "Compose pattern profiles with @import"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Search",
+   "Graph view",
+   "Quick switcher",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Data-loss warning: ignored files behave as nonexistent and can affect Obsidian Sync and Publish. Documentation is a demo vault; beta releases install via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's Files and links > Excluded files setting does less than its name suggests",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's built-in Excluded files setting only de-emphasizes files—they still appear in the Files pane, Backlinks, and search—rather than truly excluding them.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "4580a9f55acdea91d40e5677a5ca851362bc05be",
+ "relations": [
+  {
+   "evidence": "Broader exclusion: index filtering rather than CSS alone",
+   "plugin": "Explorer Hider",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader exclusion: can remove files from the index; no pinning",
+   "plugin": "File Explorer++",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader exclusion: pattern-based index filtering",
+   "plugin": "File Hider",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same exclusion goal; keeps file names unchanged",
+   "plugin": "File Ignore",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader exclusion: patterns across paths; index exclusion as well",
+   "plugin": "Hide Folders",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same exclusion goal; removes files from the index too; synced patterns, profiles, validation",
+   "plugin": "Ignore",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader exclusion: pattern rules rather than editing the native list",
+   "plugin": "Ignore Filters Boost",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader exclusion: can remove files from the index; no folder pinning",
+   "plugin": "Shadow Tree",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same exclusion goal; uses gitignore syntax; no vault renaming",
+   "plugin": "Sieve",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader exclusion: maintained patterns and profiles; index filtering",
+   "plugin": "Toggle Excluded Folders",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Obsidian Sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "File exclusion plugin that uses gitignore syntax to hide matched files from Obsidian's index, search, graph, and Files pane via global and local patterns.",
+ "tags": [
+  "glob-patterns",
+  "file-explorer",
+  "obsidian-sync"
+ ],
+ "textHash": "bbc5f7c847d5b55b7c0692fd855b00d7bc7a33ac"
+}

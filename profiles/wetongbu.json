@@ -1,0 +1,79 @@
+{
+ "also": [
+  "syncing",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "clip selected WeChat articles, Feishu documents, web pages, and AI conversations into the vault as Markdown",
+  "save images and attachments locally with the clipped note",
+  "reuse existing notes to avoid duplicates from repeated clips",
+  "synchronize the vault across desktop and mobile via WeTongbu-managed storage",
+  "review deletions and large changes and encrypt sync end-to-end"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the sync-focused name, it is also a clipper that pulls WeChat, Feishu, and web content into the vault.",
+ "extras": "Bilingual English/Chinese README; clipping and sync traffic goes through api.wetongbu.com; no client-side telemetry; local clipping works without configuring object storage, but account authorization gates synchronization and some features.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to clip content from WeChat, Feishu, or the web into notes, and built-in Sync requires a paid plan or self-configured storage.",
+ "readmeHash": "018b5d61e37b3ef979f24bfa146d93971ccb2f97",
+ "relations": [
+  {
+   "evidence": "saves user-selected WeChat articles, Feishu documents, web pages, and AI conversations to the current Obsidian Vault",
+   "plugin": "WeChat",
+   "type": "integrates"
+  },
+  {
+   "evidence": "saves user-selected WeChat articles, Feishu documents, web pages, and AI conversations to the current Obsidian Vault",
+   "plugin": "Feishu",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Clip selected content from the WeTongbu browser extension to the active Obsidian Vault",
+   "plugin": "WeTongbu browser extension",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeTongbu account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "WeTongbu browser extension",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "WeTongbu sync availability",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Web clipper and vault sync that saves selected WeChat articles, Feishu docs, web pages, and AI conversations as local Markdown and syncs across devices.",
+ "tags": [
+  "wechat",
+  "feishu",
+  "web-clipper",
+  "browser-extension",
+  "ai-conversations",
+  "end-to-end-encryption"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "hotkeys"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Keep Obsidian running in the Windows system tray when the window is closed",
+  "Start Obsidian hidden at login via an autostart entry",
+  "Restore the running window instead of showing the vault picker",
+  "Open today's quick note in a new tab via a global hotkey or tray menu",
+  "Restart or fully quit Obsidian from the tray menu"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Windows-only: the plugin does not enable on other systems. It instructs users to disable other tray plugins to avoid hotkey and close-behavior conflicts, and is installable via BRAT. The README documents all out-of-vault access (icon reading, Run-registry startup entry, global hotkey registration) and states it has no network access or telemetry. Global hotkeys are configured as raw accelerator strings such as CmdOrCtrl+Alt+O, not through Obsidian's hotkey settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "On Windows, closing Obsidian's window exits the app and relaunching can show the vault picker, so there is no way to keep it resident in the tray.",
+ "readmeHash": "8168840ce67e3db0f7d1cf0ed16ce5ef1df81b03",
+ "relations": [
+  {
+   "evidence": "设计时参考了 Background Tray、Traystone 和 Windows Startup and Tray 三个插件的功能",
+   "plugin": "Background Tray",
+   "type": "inspired"
+  },
+  {
+   "evidence": "设计时参考了 Background Tray、Traystone 和 Windows Startup and Tray 三个插件的功能",
+   "plugin": "Traystone",
+   "type": "inspired"
+  },
+  {
+   "evidence": "设计时参考了 Background Tray、Traystone 和 Windows Startup and Tray 三个插件的功能",
+   "plugin": "Windows Startup and Tray",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Windows system-tray plugin that keeps Obsidian running hidden, relaunches without the vault picker, and adds global hotkeys.",
+ "tags": [
+  "system-tray",
+  "windows",
+  "autostart",
+  "global-hotkeys",
+  "quick-capture",
+  "vault-picker"
+ ]
+}

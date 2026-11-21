@@ -1,0 +1,100 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [
+  "students",
+  "self-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Writes questions from your notes and grades typed answers with partial credit",
+  "Schedules concept reviews with FSRS, including exam dates",
+  "Runs an agentic chat that reads, searches, edits and creates vault notes",
+  "Keeps a record of confusions and past answers that other agents can read",
+  "Plays existing Spaced Repetition and Anki cloze cards without AI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: Grill Cloud gives free credits, then $7.99/month plus credit packs. On Grill Cloud, notes and answers pass through the author's server to Anthropic (not stored, kept by Anthropic up to 30 days); other options send notes directly to the chosen provider. Detailed docs live in external files (docs/features.md, privacy, cloud, models, troubleshooting).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author takes many notes to learn new material and needed a way to learn them more deeply.",
+ "primary": "ai",
+ "problem": "Obsidian stores what you write but has no built-in way to quiz yourself on it, grade answers, or track what you keep getting wrong.",
+ "readmeHash": "a6e0c8c748ab941a370e5fc2140dfc3270d329d5",
+ "relations": [
+  {
+   "evidence": "Spaced Repetition's ==cloze== and ::/? cards and Anki's {{c1::…}} clozes are used as they are.",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Draw it from memory: optional, with the Excalidraw plugin.",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chat can run on the Claude Code or Codex already installed on your computer.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "and Anki's {{c1::…}} clozes are used as they are.",
+   "plugin": "Anki",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex, opencode or Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, Google, DeepSeek or OpenAI-compatible key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Grill Cloud ($7.99/month after free credits)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Grill Cloud account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Agentic learning system that tests you on your notes, grades answers with AI, and schedules each concept with spaced repetition.",
+ "tags": [
+  "fsrs",
+  "spaced-repetition",
+  "mcp",
+  "claude-code",
+  "codex",
+  "ollama",
+  "anki-cloze"
+ ]
+}

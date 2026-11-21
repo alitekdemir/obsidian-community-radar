@@ -1,0 +1,57 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Intercepts desktop window close and raises a reflection prompt",
+  "Renders an editable title, Markdown body and configurable action buttons",
+  "Lets buttons cancel the quit, close the app, open a note, run a command or open a URL",
+  "Edits content in a modal with a live Markdown editor and linked-note mode",
+  "Answers mobile back-button and home-screen gestures behind toggles"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No network access, telemetry or analytics; diagnostics file and developer trace log are off by default. Limitations: best-effort only (crashes and forced kills skip it), breaks 'Reload app without saving', relies on private Obsidian/Electron internals, and the latest Windows close-guard change was validated only on Windows with Obsidian 1.14.4.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian closes immediately on quit, giving no chance to pause, review where you are, or capture something before leaving.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "fe37964e02139e572e50f36fa069f120140194e7",
+ "relations": [
+  {
+   "evidence": "The embedded Markdown editor in src/markdown-editor.ts is ported from EmbeddableMarkdownEditor by Fevol",
+   "plugin": "EmbeddableMarkdownEditor",
+   "type": "inspired"
+  },
+  {
+   "evidence": "with the prototype-extraction technique originally from mgmeyers/obsidian-kanban",
+   "plugin": "mgmeyers/obsidian-kanban",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Quit-interception plugin that shows a reflection prompt with an editable Markdown body and action buttons before the Obsidian window closes.",
+ "tags": [
+  "embeds",
+  "inline-fields",
+  "privacy"
+ ],
+ "textHash": "b383bf76601dc0803b4e568c087e5d2e52244c7e"
+}

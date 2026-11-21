@@ -1,0 +1,51 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "correct spelling as you type via macOS NSSpellChecker and revert corrections",
+  "capitalize sentence, paragraph, list and heading starts automatically",
+  "insert a period when a word is followed by double-space",
+  "convert apostrophes and quotes to smart quotes",
+  "apply macOS Text Replacements while skipping code, math and links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Native engine is macOS-only; other platforms fall back to the Electron spellchecker. Includes security/privacy disclosures (spawns osascript, optionally reads the Text Replacements database, no network use) and notes Vim mode interactions.",
+ "intent": "improve",
+ "intentEvidence": "Autocorrect as you type — something Electron apps famously can't do — powered by the real macOS autocorrect engine",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Electron-based apps like Obsidian cannot use the native macOS autocorrect engine while typing.",
+ "readmeHash": "0adda4be7cc540974c8b8b15fb22ebbc25a7d72e",
+ "relations": [
+  {
+   "evidence": "it falls back to the Electron spellchecker's first suggestion",
+   "plugin": "Electron spellchecker",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Autocorrects spelling as you type using the native macOS spellchecker (NSSpellChecker), with auto-capitalization, double-space periods and smart quotes.",
+ "tags": [
+  "macos",
+  "nsspellchecker",
+  "autocorrect",
+  "osascript",
+  "text-replacements",
+  "smart-quotes",
+  "double-space-period"
+ ]
+}

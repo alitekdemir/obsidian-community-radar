@@ -1,0 +1,43 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Download remote attachments when a note is opened",
+  "Serve cached local copies at render time for offline reading",
+  "Preserve original network links in note content",
+  "Deduplicate cached files by content hash",
+  "Delete cache files no longer referenced by any note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Newly inserted remote attachments are not cached until the note is reopened; users must exclude the .cache folder from Git and sync tools (Obsidian Sync, Dropbox, OneDrive). Not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Remote attachments in notes need a network connection every time, and typical download-and-replace plugins rewrite links and bloat synced vaults.",
+ "readmeHash": "9968658b1eb0cd6e1f7fb5cb3163bac00cfaf83c",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Caches remote attachments on note open and serves local copies at render time, enabling offline reading without rewriting your links.",
+ "tags": [
+  "offline-reading",
+  "remote-attachments",
+  "deduplication",
+  "bandwidth",
+  "cache"
+ ]
+}

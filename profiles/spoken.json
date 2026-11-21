@@ -1,0 +1,65 @@
+{
+ "also": [
+  "audio",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record and transcribe speech into the current note",
+  "Correct spoken names against a terms note via a second Gemini call",
+  "Insert wiki-links for spoken note names from a link phrases note",
+  "Polish transcripts at Light, Full, or Off levels",
+  "Verify and manage a Gemini API key in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the API key is stored in plain text in the vault's plugin settings file and will be carried by any sync or backup of .obsidian. Requires Obsidian 1.13+ (older versions get 0.3.1). Detailed network behavior documented in docs/gemini-request.md; recordings go only to Google, no telemetry. iOS/iPad support untested.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in dictation, and typing on a phone or getting names spelled correctly from speech-to-text is slow and error-prone.",
+ "readmeHash": "c8b796a059fb0539d295d9b9980ecc80a44f660d",
+ "relations": [
+  {
+   "evidence": "It runs on your own Gemini API key, with no account: the take goes from your device to Google",
+   "plugin": "Gemini API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google account (to create a key in Google AI Studio)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Voice dictation plugin that records a take, transcribes it with the Gemini API, cleans the text, and inserts it at the cursor with spoken names spelled right and optionally wiki-linked.",
+ "tags": [
+  "speech-to-text",
+  "dictation",
+  "gemini",
+  "transcription",
+  "voice-input",
+  "wiki-links",
+  "api-key"
+ ]
+}

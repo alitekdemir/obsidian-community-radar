@@ -1,0 +1,88 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Intercept UI text from core commands, context menus, settings panels and the DOM",
+  "Translate text via OpenAI-compatible, DeepL, Google Cloud Translation, Azure or custom endpoints",
+  "Cache translations locally with usage and cost statistics",
+  "Translate community plugin marketplace entries on demand",
+  "Control scope with per-plugin whitelists, blacklists, skip regexes and a glossary"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (isDesktopOnly); never translates user content such as the note editor, file names or search excerpts; API keys are encrypted via Electron safeStorage in secrets.bin and should not be synced across devices.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it so users get localized UI without waiting for plugin authors to localize their plugins.",
+ "primary": "languages",
+ "problem": "Obsidian's community plugin ecosystem is mostly English-only and localization depends on each plugin author choosing to translate their own plugin.",
+ "readmeHash": "4b3c0848c1cd9f5d449bddf5dfe9c51104598256",
+ "relations": [
+  {
+   "evidence": "DeepL | Free/Pro endpoint auto-detected (free keys end with :fx)",
+   "plugin": "DeepL",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Cloud Translation | API key; broadest language coverage",
+   "plugin": "Google Cloud Translation",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Azure Translator | Key + region; 2M chars/month free",
+   "plugin": "Azure Translator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Custom endpoint | URL + request template + response JSONPath — Ollama / LM Studio / any local model, zero cost",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Custom endpoint | URL + request template + response JSONPath — Ollama / LM Studio / any local model, zero cost",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Recommended: DeepSeek — Base URL + model deepseek-v4.1-flash with \"关闭思考模式\" toggled ON",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "translation provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "UI text middleware that intercepts interface text from Obsidian core and community plugins and translates it through a user-configured translation API.",
+ "tags": [
+  "localization",
+  "machine-translation",
+  "deepl",
+  "google-cloud-translation",
+  "azure-translator",
+  "ollama",
+  "lm-studio",
+  "deepseek"
+ ]
+}

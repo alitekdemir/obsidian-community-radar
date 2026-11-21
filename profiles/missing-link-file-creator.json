@@ -1,0 +1,57 @@
+{
+ "also": [
+  "links",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect unresolved wiki links in the current file, a selection, or a whole folder",
+  "Create missing linked files in bulk with a confirmation dialog",
+  "Route new files to folders and templates via filename-pattern rules",
+  "Populate new files with template variables and Templater",
+  "Preserve link aliases in the new files' frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only supports Wiki-style [[link]] syntax, not standard Markdown links [text](link); the FAQ covers this limit and duplicate-alias pitfalls.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wrote long documents (e.g. novels over 3,000 words) where links like [[Character Profiles]] appear before the files exist, and wanted to generate them without creating files one by one.",
+ "primary": "files",
+ "problem": "Writing long notes leaves many [[links]] pointing to files that don't exist yet, and Obsidian only resolves them after you create each file manually.",
+ "readmeHash": "1a4a2702b556b360f93c414312f33067d8766c2a",
+ "relations": [
+  {
+   "evidence": "Integrates with the Templater plugin for more powerful template functionality",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "File creator that detects unresolved wiki links in notes and batch-creates the missing Markdown files, with rules for target folders and templates.",
+ "tags": [
+  "wiki-links",
+  "unresolved-links",
+  "templater",
+  "aliases",
+  "rules",
+  "file-creation"
+ ]
+}

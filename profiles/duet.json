@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mention @claude or @codex on a line to ask questions or request note edits",
+  "Chat with agents in conversation notes that record messages, tool calls, and approvals",
+  "Comment on passages and have an agent act on the comments",
+  "Use vault SKILL.md and AGENT.md files as skills and subagents",
+  "See which text agents wrote with the contribution lens"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Tested on macOS, desktop only, requires Obsidian 1.13+. The plugin is free but agent usage is billed under the user's Anthropic or OpenAI account. Version 0.5.0 changed command IDs and split wiki/threads modules into separate Yami plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because coding agents are useful beyond code but running them in a terminal is a poor place to work with notes.",
+ "primary": "ai",
+ "problem": "Coding agents like Claude Code and Codex can read and edit notes, but they run in a terminal, which is a poor place to work with notes.",
+ "readmeHash": "0be0982480485654fed683416ddd3d2b13ce7644",
+ "relations": [
+  {
+   "evidence": "Duet uses your own Claude Code or Codex installation and login.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Work with Claude Code or Codex inside your Obsidian notes.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Duet runs on Yami, a library that other plugins such as Yami Wiki and Yami Threads also use.",
+   "plugin": "Yami",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI or Codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic or OpenAI account for the agent CLI",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Provider plan usage costs",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI agent integration that runs Claude Code or Codex inside notes via @mentions, conversation notes, and comments, with live co-editing.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "anthropic",
+  "openai",
+  "yami",
+  "comments",
+  "contribution-tracking"
+ ]
+}

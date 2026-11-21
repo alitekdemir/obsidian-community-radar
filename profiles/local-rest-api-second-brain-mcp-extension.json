@@ -1,0 +1,56 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Expose an MCP server endpoint (/second-brain-mcp/) through the Local REST API plugin",
+  "Find relevant entry-point notes via semantic search with local embedding models",
+  "Traverse outgoing links and backlinks breadth-first to gather surrounding context",
+  "Provide MCP tools (query_wiki, get_wiki, wiki_card) for agentic workflows",
+  "Cache embeddings locally for faster subsequent queries"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the \"Second Brain\" name, it is not a knowledge-management workflow plugin; it only serves vault content to LLMs over MCP.",
+ "extras": "Marked as not manually reviewed by Obsidian staff. Offers two builds: a standard pure-JavaScript single-core build and a native build with pre-compiled C++ binaries that must be installed manually from GitHub Releases for multi-core indexing.",
+ "intent": "improve",
+ "intentEvidence": "This plugin is an extension (or \"meta-plugin\") for the Obsidian Local REST API plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's Local REST API only exposes raw file CRUD endpoints, so LLMs must dump whole files into context instead of retrieving relevant, interconnected notes.",
+ "readmeHash": "93563bac144ac075d5d7dfb508c064aec16e82a8",
+ "relations": [
+  {
+   "evidence": "This plugin is an extension (or \"meta-plugin\") for the Obsidian Local REST API plugin.",
+   "plugin": "Local REST API",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Local REST API",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Extension for the Local REST API plugin that adds an MCP server giving LLMs semantic, graph-based access to vault notes.",
+ "tags": [
+  "mcp",
+  "llm",
+  "embeddings",
+  "semantic-search",
+  "graph-traversal",
+  "all-minilm-l6-v2"
+ ]
+}

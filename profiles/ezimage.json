@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Intercept image paste and drag-drop events and insert links",
+  "Upload images to Cloudflare R2 as Markdown URLs",
+  "Compress images to WebP and strip EXIF metadata before upload",
+  "Save images to the vault's attachment folder as wikilinks",
+  "Batch upload existing local images across the vault or a folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest description mentions R2/S3 upload, but the README roadmap lists AWS S3 and other providers as planned rather than shipped; paste/drop interception only activates when R2 credentials are configured. Installation via BRAT is documented and the author offers WeChat-based support.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Pasted images clutter the vault with binary files or use local paths that break when notes move between machines.",
+ "readmeHash": "37cda58a98d1a78629ea3fbb93256ab64b0d3dff",
+ "relations": [
+  {
+   "evidence": "Automatic WebP Compression — Powered by browser-image-compression.",
+   "plugin": "browser-image-compression",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "R2 API token with Object Read & Write permission",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Image paste and drag-drop handler that uploads pictures to Cloudflare R2 or saves them locally, inserting a Markdown link or wikilink.",
+ "tags": [
+  "cloudflare-r2",
+  "s3",
+  "webp",
+  "image-compression",
+  "exif-metadata",
+  "paste-interception",
+  "drag-and-drop",
+  "path-templates"
+ ]
+}

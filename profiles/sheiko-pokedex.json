@@ -1,0 +1,68 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Reward counted task closes with random Pokémon catches",
+  "Browse, search and filter a Pokedex of caught Pokémon",
+  "Level up, evolve and set a partner Pokémon from closed tasks",
+  "Award stones and trade items for evolution paths",
+  "Optionally download Pokémon sprites from PokeAPI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Pokémon database or task manager; it only gamifies closing tasks you already track in TaskNotes.",
+ "extras": "Unofficial fan project not affiliated with Nintendo, Game Freak or The Pokémon Company; it ships no Pokémon artwork and downloads sprites only on request. It reads an undocumented internal Obsidian API (app.plugins.enabledPlugins) to check for Sheiko Task Lifecycle, and only live closes count, not ones synced from other devices.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in reward loop, so completing tasks gives no playful feedback or sense of progression.",
+ "readmeHash": "d2216388d2491d9117db6c1ffbc44b1de25cbdb1",
+ "relations": [
+  {
+   "evidence": "Built to work alongside TaskNotes and Sheiko Task Lifecycle.",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built to work alongside TaskNotes and Sheiko Task Lifecycle.",
+   "plugin": "Sheiko Task Lifecycle",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pokémon data (names, types, evolutions, moves) comes from PokeAPI.",
+   "plugin": "PokeAPI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Sheiko Task Lifecycle",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Gamification plugin that rewards closing TaskNotes tasks with random Pokémon catches, partner XP and evolution, and a browsable Pokedex.",
+ "tags": [
+  "gamification",
+  "pokemon",
+  "pokeapi",
+  "sprites",
+  "rewards"
+ ]
+}

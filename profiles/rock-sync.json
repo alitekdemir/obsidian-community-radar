@@ -1,0 +1,57 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files of any type through a self-hosted Rock Sync server",
+  "Record each change as a git commit so synced history is never lost",
+  "Merge concurrent edits on the server and resolve true conflicts in a dedicated view",
+  "Hold deletions from other devices until the user confirms them",
+  "Connect vaults and devices with per-device tokens and revocable one-time codes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest warns the plugin has not been manually reviewed by Obsidian staff. Most setup detail lives in separate documentation pages (deployment, security, storage, API) rather than the README itself; MCP access for Claude is off by default and handled by the server, not the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a hosted service, so users who want to sync through their own server, without accounts or third parties, have no first-party option.",
+ "readmeHash": "aa1a3f526e45a2c0054dc735ff9f34871e7fce69",
+ "relations": [
+  {
+   "evidence": "Claude can read and write the folders you choose, through MCP, if you turn it on.",
+   "plugin": "Claude (Anthropic)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a self-hosted Rock Sync server (Docker Compose)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Self-hosted sync plugin that keeps your vault on your own server, storing every change as a git commit with conflict-aware merges.",
+ "tags": [
+  "self-hosted",
+  "docker",
+  "mcp",
+  "claude",
+  "conflict-resolution"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "also": [
+  "dates",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert a live media block into daily notes",
+  "Match photos and videos to days using EXIF and container capture dates",
+  "Set per-block options such as date, type, size, limit, names and time",
+  "Open the daily note of a photo or video from context menus and commands",
+  "Cache extracted metadata for fast rescans"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault photo manager; it only references media in folders outside the vault and never copies files in.",
+ "extras": "Desktop only, since it needs Node.js and Electron APIs; no network requests, telemetry or account; MIT licensed and installed manually from the repository files. Optional Windows Explorer entry via a self-added registry key.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Photos and videos taken on a given day sit outside the vault, and file-system timestamps change on copy or sync, so daily notes cannot reliably show that day's media.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "006a34e4014a2150233e31c9a4dc7d5865e44df1",
+ "relations": [
+  {
+   "evidence": "the core Daily notes plugin (or Periodic Notes' daily notes)",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily notes",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Inserts a live gallery of photos and videos from a folder on disk into daily notes, matched by the capture date stored in file metadata.",
+ "tags": [
+  "exif",
+  "daily-notes",
+  "gallery",
+  "thumbnails",
+  "heic"
+ ],
+ "textHash": "20d7d2f04b2d62a33beca45ccb32021a4524730f"
+}

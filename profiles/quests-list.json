@@ -1,0 +1,70 @@
+{
+ "also": [
+  "calendar",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Manage nested to-do lists with colors, icons, and drag-and-drop ordering",
+  "Track tasks with optional start and due dates and Markdown descriptions with note links",
+  "Password-protect lists with AES-256-GCM encrypted storage that locks after inactivity",
+  "Sync tasks with Yandex, Google, iCloud, Nextcloud and other CalDAV calendars and .ics subscriptions",
+  "View tasks and external calendar events on a monthly calendar page with per-list filters"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not an RPG quest tracker; 'quests' here just means to-do tasks in a general task manager.",
+ "extras": "Installable only via BRAT or manual download from releases; the manifest notes it has not been manually reviewed by Obsidian staff. Forgotten passwords for locked lists cannot be recovered; Google sync sign-in works only on desktop.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in structured to-do manager with nested lists, task dates, attachments, and two-way sync with external calendar services.",
+ "readmeHash": "6a2cec681425a3ea516816d3c311651fbbda5723",
+ "relations": [
+  {
+   "evidence": "Google Calendar (with your own OAuth \"Desktop app\" client, see the steps above)",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Yandex Calendar and other CalDAV servers (iCloud, Nextcloud, Fastmail), Google Calendar",
+   "plugin": "Yandex Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Calendar service account (Google, Yandex, iCloud, Nextcloud, Fastmail)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google OAuth Desktop client ID and secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "To-do list manager with nested and password-protected lists, start and due dates, attachments, a calendar page, and sync with Google, Yandex and CalDAV calendars.",
+ "tags": [
+  "caldav",
+  "google-calendar",
+  "yandex-calendar",
+  "icalendar",
+  "encryption",
+  "password-protection",
+  "drag-and-drop"
+ ]
+}

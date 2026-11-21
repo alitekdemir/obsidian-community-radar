@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show a home screen with vault stats, scenes, quick actions and recent notes",
+  "Insert live widgets such as stats, calendar and focus timer into notes",
+  "Chat with an AI that can search, read and, with approval, edit notes and keep long-term memory",
+  "Spell and grammar check notes with AI-suggested fixes",
+  "Record voice notes with transcript and summary, and make flashcards or quizzes from notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Daily notes",
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a start page: the AI features are optional and every main feature can be switched off individually.",
+ "extras": "The separate Home + AI Local add-on enables on-device AI on iPad or Mac. API keys are stored in the plugin's data.json and will sync with the vault. AI provider use may cost money. The plugin sends chat text, attached notes, spell-check text and audio to the chosen provider; there is no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian opens on a blank new tab and gives no at-a-glance dashboard of vault stats or quick actions, and it has no built-in AI assistant, AI spell check or voice-note transcription.",
+ "readmeHash": "fd3ecd112e77afcf2e020d56d33707640fead470",
+ "relations": [
+  {
+   "evidence": "Flashcard notes use the question::answer format the Spaced Repetition plugin reads.",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any OpenAI-compatible server such as Ollama or LM Studio",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any OpenAI-compatible server such as Ollama or LM Studio",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (Anthropic, Gemini, OpenAI, OpenRouter or a local server)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Home screen with vault stats, backgrounds and note widgets, plus optional AI chat with memory, AI spell check, voice notes, flashcards, a Pomodoro timer and canvas drawing.",
+ "tags": [
+  "anthropic",
+  "gemini",
+  "openai",
+  "ollama",
+  "pomodoro",
+  "apple-pencil",
+  "text-to-speech",
+  "spaced-repetition"
+ ]
+}

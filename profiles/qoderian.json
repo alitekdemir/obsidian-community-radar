@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI agent that reads and edits vault notes",
+  "Mention notes, selections, or external directories as context",
+  "Rewrite selected text inline with a diff preview",
+  "Run bash commands and configure MCP servers",
+  "Manage chat tabs with resume, fork, and rewind histories"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires Obsidian v1.7.2+. Sends input, attached notes, and tool results to Qoder services; runs no telemetry of its own. Can run shell commands and delete files depending on the permission mode; the README advises backups or version control.",
+ "intent": "alternative",
+ "intentEvidence": "Qoderian started from this MIT-licensed project; thanks to its author and contributors for the foundation",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent that can act on the vault (edit notes, run commands, execute multi-step tasks) as a working directory.",
+ "readmeHash": "fc8ba452211328dce57286de42ff8695ce014cf3",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that embeds Qoder CLI (qodercli) in your vault.",
+   "plugin": "Qoder CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Qoderian started from this MIT-licensed project",
+   "plugin": "Claudian",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Qoder CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Qoder CLI sign-in",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI agent sidebar that embeds the Qoder CLI, letting it read, edit, and search vault files, run bash, and run multi-step workflows.",
+ "tags": [
+  "qoder",
+  "cli",
+  "agent",
+  "chat",
+  "mcp",
+  "diff-preview",
+  "bash",
+  "subagents"
+ ]
+}

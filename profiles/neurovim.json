@@ -1,0 +1,74 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "play 54 Vim training missions as throwaway notes edited with real Vim mode",
+  "track time, keystrokes, and XP with per-mission best scores",
+  "show character-precise hints and a searchable Vim cheatsheet",
+  "ask an LLM endpoint for in-character Vim advice and run debriefs (optional)",
+  "record keystroke traces of successful runs to a local file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Vim-mode enhancement or an AI note-taking tool; it is a training game that uses the existing Vim mode to teach keybindings.",
+ "extras": "Requires Obsidian 1.11.4+; the README stresses that without Obsidian's Vim mode enabled the game 'rather misses the point'. Only the optional CIPHER uplink is labeled experimental. No network requests until an endpoint is configured; keystroke traces stay local unless a debrief is requested.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "Obsidian ships a Vim mode but nothing to learn or practice Vim motions inside the app.",
+ "readmeHash": "4fc06f153a24c079b331790901a7a7ae7ce55cec",
+ "relations": [
+  {
+   "evidence": "Optional, for Claude: the LLM Endpoint Manager plugin with a Claude entry",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "vim-dojo brings it back home as a first-class, standalone Obsidian plugin",
+   "plugin": "neurovim-standalone",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible LLM endpoint (LM Studio, Ollama, OpenRouter, ...) for the optional CIPHER feature",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager, for the optional Claude uplink",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for endpoints that require one or for Anthropic",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vim training game that teaches Vim keybindings through 54 cyberpunk missions you complete by editing real Obsidian notes with the editor's Vim mode.",
+ "tags": [
+  "cyberpunk",
+  "gamification",
+  "learning",
+  "llm",
+  "lm-studio",
+  "ollama",
+  "openrouter"
+ ]
+}

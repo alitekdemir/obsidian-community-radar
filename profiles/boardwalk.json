@@ -1,0 +1,57 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit kanban boards with drag-and-drop cards, lane reordering, and multi-select",
+  "Record per-card lane move history as a hidden comment ledger in the board file",
+  "Manage cards with tri-state checkboxes, tags, due-date chips, and an archive",
+  "Search boards and undo/redo board changes",
+  "Read and write the Kanban plugin's Markdown board file format"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only for now (mobile planned; the original Kanban plugin reads the same files in the meantime). Boards edited by the original Kanban plugin lose the move-history ledger, so Boardwalk mirrors history into its own plugin data and offers a one-click restore. Installable via BRAT or manual file copy.",
+ "intent": "alternative",
+ "intentEvidence": "Boardwalk is a from-scratch reimplementation of the subset that matters most to its author",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted the subset of the original Kanban plugin that mattered most to them, rebuilt from scratch, plus features the original never shipped such as per-card move history.",
+ "primary": "tasks",
+ "problem": "The established Kanban plugin is effectively unmaintained since mid-2024, and it never offered move history, multi-select, or board-level undo.",
+ "readmeHash": "352fea5ddf3b7f2e4cbc591ad6f7cec9dc813ae0",
+ "relations": [
+  {
+   "evidence": "Boardwalk reads and writes the same Markdown board format as the Kanban plugin by mgmeyers",
+   "plugin": "Kanban (mgmeyers)",
+   "type": "alternative"
+  },
+  {
+   "evidence": "BRAT: add this repository in BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Kanban board plugin that renders Markdown lists as drag-and-drop boards with per-card move history, due dates, and multi-select.",
+ "tags": [
+  "kanban",
+  "drag-and-drop",
+  "move-history",
+  "due-dates",
+  "wip-limits",
+  "block-ids"
+ ]
+}

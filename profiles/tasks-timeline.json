@@ -1,0 +1,76 @@
+{
+ "also": [
+  "calendar",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display and manage vault tasks on a timeline",
+  "Read and write Obsidian Tasks-format task lines (dates, priorities, recurrence)",
+  "Repair malformed recurrence rules left by earlier plugin versions",
+  "Expose tasks to AI agents through a built-in MCP server",
+  "Create and edit tasks via AI providers and voice input"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The built-in MCP server uses bearer-token auth by default and lists its tools, resources and prompts; AI requests go through Obsidian's requestUrl, cannot be cancelled, and arrive unstreamed. Detailed instructions cover repairing malformed recurrence lines written by versions up to 0.3.0.",
+ "intent": "alternative",
+ "intentEvidence": "It is a continuation of obsidian-tasks-calendar-wrapper",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no timeline view for tasks, and hand-editing Tasks-format lines with dates, recurrence and other fields is error-prone.",
+ "readmeHash": "90adf397c1a95848493bbf44c6aa8e637146b4cb",
+ "relations": [
+  {
+   "evidence": "It is a continuation of obsidian-tasks-calendar-wrapper, based on tasks-timeline-components",
+   "plugin": "obsidian-tasks-calendar-wrapper",
+   "type": "fork"
+  },
+  {
+   "evidence": "based on tasks-timeline-components",
+   "plugin": "tasks-timeline-components",
+   "type": "extends"
+  },
+  {
+   "evidence": "Recurrence is saved as Obsidian Tasks text (🔁 every week on Monday)",
+   "plugin": "Obsidian Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "obsidian-reminder's (@2026-10-16 09:00)) stay on the line, out of the title",
+   "plugin": "obsidian-reminder",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Gemini",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Task management on a timeline that reads and writes Obsidian Tasks-format lines, with a built-in MCP server, AI providers and voice input.",
+ "tags": [
+  "mcp",
+  "openai",
+  "gemini",
+  "voice-input",
+  "recurrence",
+  "dataview",
+  "tasks-format",
+  "speech-recognition"
+ ]
+}

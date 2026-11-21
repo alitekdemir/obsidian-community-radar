@@ -1,0 +1,68 @@
+{
+ "also": [
+  "interface",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Automatically translate settings modal text about 2 seconds after opening",
+  "Translate into any chosen language with per-language caches",
+  "Persist translations in cache.json to reuse across sessions",
+  "Show session token usage and support debug diagnostics",
+  "Work in pop-out windows and on mobile"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note or document translator; it only translates text inside settings modals, never note contents, the main interface, or plugin source files.",
+ "extras": "Pending review for the official Obsidian community directory; recommends installing via BRAT or manual file placement meanwhile. Includes a Chinese-language section mirroring the full documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian's settings UI is English-only, so non-English users must read plugin and core settings labels and descriptions in a language they may not know.",
+ "readmeHash": "85c289650385b3a5ea0a7f2cb5220a2c2e303a99",
+ "relations": [
+  {
+   "evidence": "Works with local servers (Ollama, LM Studio, etc.) and cloud services (DeepSeek, OpenAI, Kimi, Qwen, Zhipu GLM, etc.)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Any OpenAI-compatible API: Works with local servers (Ollama, LM Studio, etc.) and cloud services",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an OpenAI-compatible endpoint (local server such as Ollama or a cloud API)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "LLM-powered translator that rewrites text inside Obsidian settings modals into a chosen language using any OpenAI-compatible API, with persistent caching.",
+ "tags": [
+  "openai-compatible",
+  "llm",
+  "machine-translation",
+  "ui-localization",
+  "ollama",
+  "deepseek",
+  "translation-cache"
+ ]
+}

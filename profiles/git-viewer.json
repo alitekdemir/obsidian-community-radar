@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show Git status grouped into staged, changed, untracked, deleted, renamed, and conflicted files in a sidebar",
+  "Open changed vault files directly in Obsidian",
+  "Commit explicitly selected files with a required message via a temporary Git index",
+  "Show the latest 50 commits with read-only commit details and changed files",
+  "Refresh status manually and after vault file events"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Deliberately scoped non-goals: no pull, push, clone, fetch, merge, rebase, branch management, stage/unstage, discard/reset, or conflict resolution. Makes no network requests; commit is its only write action. Installable from the community directory, manually, or via BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "without launching a heavier Git client or Visual Studio Code",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for people who want to stay inside Obsidian, see which vault files changed, open those files, and commit intentionally without launching a heavier Git client.",
+ "primary": "git",
+ "problem": "Obsidian users who want to see exactly which vault files changed and make intentional commits must otherwise open a heavier Git client or an editor like VS Code.",
+ "readmeHash": "850570b868a08ec0710687d6e3e74f28486d4cb5",
+ "relations": [
+  {
+   "evidence": "without launching a heavier Git client or Visual Studio Code",
+   "plugin": "Visual Studio Code",
+   "type": "alternative"
+  },
+  {
+   "evidence": "For beta testing, install the plugin with BRAT using this repository URL",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Lightweight Git status and history viewer that commits only explicitly selected vault files through a temporary Git index.",
+ "tags": [
+  "git-cli",
+  "temporary-index",
+  "commit-history",
+  "working-tree",
+  "porcelain-output"
+ ]
+}

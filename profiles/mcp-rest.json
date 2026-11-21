@@ -1,0 +1,93 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Expose vault file CRUD, patching, and active-file operations as MCP tools",
+  "Search the vault with Dataview, full-text, and semantic queries",
+  "Execute Templater templates and auto-discovered MCP prompts",
+  "Fetch web pages and convert HTML to Markdown",
+  "Install and configure the MCP server from a settings UI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a REST API server itself; it wraps the existing obsidian-local-rest-api to expose the vault over the Model Context Protocol.",
+ "extras": "Requires Node.js >= 20; README states the server communicates only with the local REST API (127.0.0.1:27124) and its fetch tool makes outbound requests only when invoked. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "built as a thin wrapper over the Obsidian REST API",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI assistants have no built-in way to read, edit, or search files in an Obsidian vault.",
+ "readmeHash": "342134052b9ca6f12971df35d8f96d9513f64b25",
+ "relations": [
+  {
+   "evidence": "built as a thin wrapper over the Obsidian REST API",
+   "plugin": "obsidian-local-rest-api (obsidian-api)",
+   "type": "extends"
+  },
+  {
+   "evidence": "search_vault_smart — semantic search (requires Smart Connections)",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  },
+  {
+   "evidence": "execute_template — run Templater templates with arguments",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Claude Code / Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian-api (or obsidian-local-rest-api)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OBSIDIAN_API_KEY bearer token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client such as Claude Code or Claude Desktop",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater (for templates and prompts)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Smart Connections (for semantic search)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "MCP server and Obsidian plugin that exposes vault CRUD, search, Templater execution, and web fetch as tools for AI assistants over the local REST API.",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "claude-code",
+  "claude-desktop",
+  "local-rest-api",
+  "templater",
+  "smart-connections"
+ ]
+}

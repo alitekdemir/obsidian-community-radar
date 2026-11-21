@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Toggle visibility of dot-prefixed files and folders in the File Explorer via ribbon icon, command, hotkey, or settings",
+  "Filter revealed entries with gitignore-style deny patterns (basename and minimatch glob matching)",
+  "Persist toggle state and deny patterns per vault across restarts",
+  "Read vault directory listings directly through Node.js to discover deeply nested hidden entries",
+  "Restore default File Explorer behavior when the plugin is disabled or uninstalled"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Covers dot-prefixed names only; showing files with unrecognized extensions is a separate Obsidian setting this plugin does not touch.",
+ "extras": "Desktop only; depends on several undocumented Obsidian internal methods that could break in future releases. Warns that revealed files may contain secrets or credentials, so deny patterns should be reviewed before sharing vault screenshots.",
+ "intent": "improve",
+ "intentEvidence": "surfaces dot-prefixed files and folders in the File Explorer panel",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's File Explorer filters out dot-prefixed entries, so vault contents like .env, .cache, or .DS_Store are invisible and cannot be browsed.",
+ "readmeHash": "21a17586b20d3c786268e05afacc72023be49281",
+ "relations": [
+  {
+   "evidence": "The reconcileDeletion interception pattern is adapted from polyipseity/obsidian-show-hidden-files, the community plugin",
+   "plugin": "polyipseity/obsidian-show-hidden-files",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File Explorer add-on that surfaces dot-prefixed hidden files and folders in the vault, with gitignore-style deny patterns to keep chosen entries hidden.",
+ "tags": [
+  "dotfiles",
+  "gitignore",
+  "glob-patterns",
+  "minimatch",
+  "file-explorer"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault across desktop and mobile via a user-run CouchDB server",
+  "Encrypt file content, paths, and metadata end-to-end before they leave the device",
+  "Resolve sync conflicts automatically or in a two-column diff view",
+  "Browse, diff, and restore previous revisions of a note",
+  "Mirror community plugins and their settings across devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin list; install manually or via BRAT. The setup string contains server credentials (and optionally the passphrase) and should be treated like a password. Docs on server setup live in docs/server-setup.md in the repo. Not yet submitted to the community plugin list is noted in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault across devices through a server you control without that server being able to read your notes.",
+ "readmeHash": "2bf2cfe82baf7e90b38a53899d496f9940535746",
+ "relations": [
+  {
+   "evidence": "keeps an Obsidian vault in sync across desktop and mobile through a CouchDB you control",
+   "plugin": "CouchDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can also install directly from this repository with the BRAT plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a hosted free-tier option (IBM Cloudant)",
+   "plugin": "IBM Cloudant",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CouchDB endpoint over HTTPS with CORS enabled",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "IBM Cloudant account if using the hosted free-tier option",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted, end-to-end encrypted vault sync over your own CouchDB, with a conflict diff view, file history, and passphrase rotation.",
+ "tags": [
+  "couchdb",
+  "end-to-end-encryption",
+  "self-hosted",
+  "conflict-resolution",
+  "aes-256-gcm",
+  "file-revisions",
+  "qr-code"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "review",
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Write flashcards inline in Markdown with Anki, RemNote, cloze, and list-answer syntax",
+  "Schedule card reviews with the FSRS algorithm and keep progress across edits",
+  "Create image occlusions by drawing boxes over embedded pictures",
+  "Read cards aloud with downloadable offline Piper voices",
+  "Browse decks, individual cards, and study statistics such as heatmap, forecast, and retention"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general text-to-speech reader for notes; the voices exist to read flashcards aloud during review sessions.",
+ "extras": "README details data handling (writes review logs into the vault, merges across devices) and network use (voice downloads only, no telemetry or accounts). On Android, the system voices need an optional companion app because the Obsidian Android app exposes no speech engine; downloaded Piper voices work without it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in spaced-repetition study system, so users must leave their notes or use separate apps like Anki to review material.",
+ "readmeHash": "2449e35922dcde1aa5fc859844978c3396a922e2",
+ "relations": [
+  {
+   "evidence": "Voices come from Piper, with 40+ languages.",
+   "plugin": "Piper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Spaced repetition with FSRS, the scheduler modern Anki uses.",
+   "plugin": "Anki",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "companion Android voice-server app",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Flashcard plugin that writes study cards inline in notes, schedules reviews with FSRS, grades by swipe or keyboard, and reads cards aloud offline.",
+ "tags": [
+  "fsrs",
+  "spaced-repetition",
+  "text-to-speech",
+  "piper",
+  "image-occlusion",
+  "cloze",
+  "anki-style",
+  "offline-voices"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync the vault across devices through the user's own Dropbox, OneDrive, or Google Drive account",
+  "encrypt file contents end-to-end (AES-256-GCM) or protect plugin settings files",
+  "merge or resolve conflicting edits with automatic merge, keep-both, or per-side preference",
+  "preview syncs, guard against mass deletions, and move deletions to trash",
+  "share folders or notes with other people (per manifest)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not reviewed by Obsidian staff (stated in the manifest). The Google Drive provider is explicitly beta and its sign-in needs a desktop. Users must register their own app with the storage provider. No background service: Obsidian must be running, and on iOS sync happens only while the app is open. Part of a 'Power Plugins' family (Power Assistant, Power Bases, Power Desk, Power Editor, Power Explorer, Power Extract, Power Tables), each sold/working separately.",
+ "intent": "alternative",
+ "intentEvidence": "No sync subscription, no size tier to outgrow, and no third-party server in the middle.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync is a paid third-party service, and generic cloud folder tools can silently lose or duplicate edits across devices.",
+ "readmeHash": "054db99c29fe981a3592ce7b83e2511146c011f4",
+ "relations": [
+  {
+   "evidence": "If you also run Obsidian Sync, iCloud, or OneDrive on the same vault, turn file syncing off in one of them",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Dropbox, Microsoft, or Google account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "paid cloud storage tier",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault sync to your own Dropbox, OneDrive, or Google Drive account, with conflict handling, safety guards, and optional end-to-end encryption.",
+ "tags": [
+  "dropbox",
+  "onedrive",
+  "google-drive",
+  "end-to-end-encryption",
+  "aes-256-gcm",
+  "conflict-resolution",
+  "multi-device"
+ ]
+}

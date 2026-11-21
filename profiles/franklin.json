@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with an agent that reads and searches the vault",
+  "propose add, modify, or delete file changes for review",
+  "organize notes by splitting and moving files into folders",
+  "explain concepts grounded in notes, PDFs, and sources",
+  "search across the vault, local files, and the web"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Local features are free but model access needs a provider subscription or API key. On Windows, or without ripgrep, the grep tool runs with unrestricted filesystem access. The roadmap lists MCP, terminal access, and Anthropic/Grok support as future work, not shipped.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to demo an agent SDK: “We are also building an experimental agent sdk… we just chose to demo this idea with Obsidian.”",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent that can read the vault, ground answers in its notes, and propose file edits for review.",
+ "readmeHash": "1efe1cb7a3ff67bf0298172f9ba6f396f28811fd",
+ "relations": [
+  {
+   "evidence": "OpenAI Plus/Pro subscriptions, OpenCode Go subscriptions via API key, and OpenRouter API keys.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Greater parity with popular coding agents like Claude Code, including:",
+   "plugin": "Claude Code",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter or OpenCode API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI Plus/Pro or OpenCode Go subscription",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ripgrep (for sandboxed grep on Mac/Linux)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI agent plugin that reads your vault, chats, searches notes and the web, and proposes reviewable add, modify, and delete changes to your Markdown files.",
+ "tags": [
+  "openai",
+  "openrouter",
+  "llm-agent",
+  "byok",
+  "chat",
+  "socratic-tutor"
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "serve the vault over a local HTTP server",
+  "view rendered notes in a browser with the current theme and working image and file links",
+  "customize served HTML through template variables set in settings or frontmatter",
+  "set a Markdown file as the server's default index page"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The server is view-only, intended for local-network sharing, and interactivity is not implemented yet; the README suggests changing the port if the server fails to start.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to view a vault in a browser, which makes sharing it read-only with other devices on a local network difficult.",
+ "readmeHash": "71be8d34348bdb0d8bee4c40606b89e7f767c57b",
+ "relations": [
+  {
+   "evidence": "You can use ngrok to share your vault openly with someone outside of your local network.",
+   "plugin": "ngrok",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ngrok",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Local HTTP server that serves the Obsidian vault as read-only web pages with the theme and file links preserved.",
+ "tags": [
+  "http-server",
+  "local-network",
+  "ngrok",
+  "view-only",
+  "browser",
+  "html-templates"
+ ]
+}

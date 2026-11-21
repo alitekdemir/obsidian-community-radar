@@ -1,0 +1,74 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes in real time across devices using CRDT merge",
+  "Deploy and claim a Cloudflare Worker sync server without a terminal",
+  "Pair devices and set up separate vaults via setup links and QR codes",
+  "Sync attachments and take daily snapshots with an R2 bucket",
+  "Diagnose and troubleshoot sync issues with debug info and reconnect commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; R2 setup references an external video, and further operations docs live outside the README.",
+ "intent": "alternative",
+ "intentEvidence": "If you want a fast, self-deployed, local-first alternative on your own Cloudflare account, welcome to YAOS!",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync options rely on conflicted copies, delayed file sync, or paid managed services, and self-hosted routes usually need terminal and database setup.",
+ "readmeHash": "e21dfdc117ff14f73e03e7a780ce1d0fcceb6f57",
+ "relations": [
+  {
+   "evidence": "If you want the official, fully managed experience, pay for Obsidian Sync and support the team.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "YAOS chooses live Markdown CRDT sync on infrastructure you deploy in your Cloudflare account.",
+   "plugin": "Git / LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "YAOS uses Yjs CRDTs to keep one live vault state moving across devices",
+   "plugin": "Yjs",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare account (Worker)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare R2 bucket",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Real-time vault sync using Yjs CRDTs over a self-deployed Cloudflare Worker, with optional attachment sync and snapshots via R2.",
+ "tags": [
+  "crdt",
+  "yjs",
+  "cloudflare",
+  "real-time",
+  "self-hosted",
+  "point-in-time-restore"
+ ]
+}

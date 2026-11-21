@@ -1,0 +1,58 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sign in to a Proton account through the browser from settings or the command palette",
+  "Insert proton-drive:/// embeds from node UIDs (volumeId~nodeId) for files and Photos library items",
+  "Embed images, videos, PDFs, plain text and Markdown files in reading view",
+  "Resolve legacy drive.proton.me share links for My files items",
+  "Optionally persist the sign-in session across Obsidian restarts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-sync or backup tool; it only embeds existing Proton Drive files in notes, it does not move vault files to Proton.",
+ "extras": "README states the plugin is an early foundation and unstable because the Proton Drive SDK can change without notice; the manifest notes the plugin has not been manually reviewed by Obsidian staff. README discloses AI-assisted development and warns that persisted sessions store unencrypted credentials in data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian cannot embed files stored in Proton's encrypted Drive; there is no way to resolve or render Proton Drive links inside notes.",
+ "readmeHash": "f20becdcee6115c644406b3ec4eac02dea0aa257",
+ "relations": [
+  {
+   "evidence": "Bridge between Obsidian and Proton Drive, built on the official @protontech/drive-sdk.",
+   "plugin": "@protontech/drive-sdk (Proton Drive SDK)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Proton account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Proton Drive integration that signs in to a Proton account and embeds Drive images, videos, PDFs and documents in notes via stable proton-drive:/// node UID links.",
+ "tags": [
+  "proton",
+  "proton-drive",
+  "node-uid",
+  "encryption",
+  "pdf-preview",
+  "photos-library"
+ ]
+}

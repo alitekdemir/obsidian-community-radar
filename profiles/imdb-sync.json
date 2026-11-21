@@ -1,0 +1,73 @@
+{
+ "also": [
+  "import",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a public IMDb list (watchlist, ratings, or other lists) into vault notes",
+  "Fetch additional metadata like posters, writers and plots from OMDb",
+  "Render each note from a user-defined mustache template",
+  "Optionally overwrite existing notes on the next sync"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a movie lookup or reference tool; it only imports items from your own public IMDb lists into notes.",
+ "extras": "The IMDb list must be public for the plugin to download and parse it; an OMDb key is recommended but optional.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is a fork of the Booksidian plugin, which I change things around for the IMDb usecase.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Booksidian and adapted it for the IMDb use case.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to import IMDb watchlists or ratings as structured notes.",
+ "readmeHash": "42e9b482976db02923a83fcb090963dd1f83ae7f",
+ "relations": [
+  {
+   "evidence": "This plugin is a fork of the Booksidian plugin",
+   "plugin": "Booksidian",
+   "type": "fork"
+  },
+  {
+   "evidence": "OMDb is queried to fetch additional information such as Posters, Writers, Plot descriptions",
+   "plugin": "OMDb",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can either use the Template plugin that Obsidian provides or Templater",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "IMDb",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OMDb API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "IMDb list syncer that creates a note for each item in a public IMDb list, enriched with OMDb data.",
+ "tags": [
+  "imdb",
+  "omdb",
+  "movies",
+  "tv-series",
+  "watchlist",
+  "ratings",
+  "mustache",
+  "video-games"
+ ]
+}

@@ -1,0 +1,89 @@
+{
+ "also": [
+  "ai",
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create flashcards inside notes and organize them into projects",
+  "Review cards with FSRS v6 scheduling and Again/Hard/Good/Easy ratings",
+  "Generate flashcards from selected text with an AI inbox workflow",
+  "Import Anki .apkg decks and export to Anki or CSV/TSV",
+  "Track review statistics and embed inline dashboard widgets in notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: core features are free, True Recall Pro is a paid hosted-AI option. Requires Obsidian 1.11.4+ for the SecretStorage API. Full documentation lives on an external docs site; the README links there for a complete walkthrough. Beta builds are available via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no native flashcard review system, so learners must leave the app or maintain decks in a separate tool like Anki.",
+ "readmeHash": "58c25ada83209beb4a8438309a48c94170015db0",
+ "relations": [
+  {
+   "evidence": "Anki Compatible: Import .apkg decks and export to Anki or CSV/TSV.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own key (OpenRouter, LM Studio, custom endpoint) or use True Recall Pro.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own key (OpenRouter, LM Studio, custom endpoint) or use True Recall Pro.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "requests can go to OpenRouter, ai.truerecall.app for True Recall Pro, a local LM Studio/Ollama endpoint",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or shared-vault sync through iCloud, Obsidian Sync or any file provider",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider key (OpenRouter or custom endpoint)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "True Recall account for Cloud Sync",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "True Recall Pro for hosted AI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Spaced repetition plugin that creates flashcards inside notes, schedules reviews with FSRS v6, and tracks progress with statistics and embeddable widgets.",
+ "tags": [
+  "fsrs",
+  "anki",
+  "apkg",
+  "sqlite",
+  "openrouter",
+  "lm-studio",
+  "ollama",
+  "image-occlusion"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "sidebar",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Analyze the current note with an LLM in a streaming sidebar panel",
+  "Run selectable perspectives (outline, key concepts, distill) in parallel result tabs",
+  "Edit each perspective's system prompt and add custom ones",
+  "Export tab results as Markdown notes or Canvas files",
+  "Persist analysis per note and restore it when switching back"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy note: the full text of the current note, including unsaved edits, is sent over HTTPS to the configured provider; very long notes are split into multiple billed calls. Interface language follows Obsidian's display language (English/中文).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get an AI-generated outline, concept explanations, or summary of the note you are reading in a side panel.",
+ "readmeHash": "a7ce97052402ebcb2e5bcfde1cc672684394aa92",
+ "relations": [
+  {
+   "evidence": "Works with Claude (Anthropic) and any OpenAI-compatible endpoint (including local Ollama and third-party proxies).",
+   "plugin": "Claude (Anthropic)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with Claude (Anthropic) and any OpenAI-compatible endpoint (including local Ollama and third-party proxies).",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (Anthropic or OpenAI-compatible)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or another OpenAI-compatible endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "LLM sidebar panel that analyzes the current note into an outline, plain-language concept explanations, and a distilled summary without modifying the note.",
+ "tags": [
+  "llm",
+  "anthropic",
+  "claude",
+  "openai-compatible",
+  "ollama",
+  "streaming",
+  "prompt-templates"
+ ]
+}

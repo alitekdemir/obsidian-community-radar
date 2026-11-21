@@ -1,0 +1,75 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create a Things3 todo from a selected note line",
+  "toggle a todo's done state in both Obsidian and Things3",
+  "attach existing Things3 tags and note dates to created todos",
+  "link todos permanently to notes via Advanced URI and a frontmatter uid",
+  "add a backlink to the Obsidian note inside the Things3 todo"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way task sync: Things3-side edits never flow back into Obsidian, only Obsidian-to-Things3 pushes.",
+ "extras": "The Things3 auth token is stored in plain text in the plugin folder, so the README warns against syncing or sharing plugin settings; some roadmap items (multi-line support, alternate toggle trigger) are marked impossible due to Things3 API limitations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to create or toggle Things3 todos from note lines, and Things3's URL scheme cannot push changes back.",
+ "readmeHash": "4ddbd33532deab9c52c78ddd5c5e538e5ce8f553",
+ "relations": [
+  {
+   "evidence": "Optionally link todos via the Advanced URI plugin using a uid stored in the note's frontmatter",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The folliwng repositories offered great help during the development of this plugin",
+   "plugin": "Todoist Text",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The folliwng repositories offered great help during the development of this plugin",
+   "plugin": "Things Link",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Things3",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Things3 authentication token",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Advanced URI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that pushes todos, tags and dates from Obsidian lines into the Things3 task app on macOS and iOS.",
+ "tags": [
+  "things3",
+  "url-scheme",
+  "advanced-uri",
+  "one-way-sync",
+  "backlinks"
+ ]
+}

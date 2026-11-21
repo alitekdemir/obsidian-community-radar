@@ -1,0 +1,58 @@
+{
+ "also": [
+  "files",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Encrypt file content",
+  ": Encrypt filenames",
+  ": Sync vault data",
+  ": Restore vault data",
+  ": Generate key pairs"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": Sync",
+   ": Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "v2.0.0 introduced a breaking change, switching encryption from RSA 4096 to ML-KEM-768, invalidating all old keys and encrypted data.",
+ "intent": "new",
+ "intentEvidence": "Obsync Webdav PQC Sync gives you the convenience of WebDAV and self-hosted storage with the privacy of end-to-end post-quantum encryption.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Standard cloud sync solutions lack end-to-end encryption, allowing providers to read vault data, and existing sync methods are vulnerable to future quantum computing attacks.",
+ "readmeHash": "648ac2fde0b493f3f72c9cb23cfb5226aef407f5",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV service",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Post-Quantum encryption and WebDAV sync plugin that encrypt vault data and filenames using ML-KEM-768 for end-to-end security.",
+ "tags": [
+  "ml-kem-768",
+  "post-quantum",
+  "webdav",
+  "end-to-end-encryption",
+  "fips-203"
+ ]
+}

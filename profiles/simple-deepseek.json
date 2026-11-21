@@ -1,0 +1,80 @@
+{
+ "also": [
+  "research",
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with DeepSeek models and compress context near the token limit",
+  "Extract text from pasted or dragged PDFs with MinerU",
+  "Reference a local paper library with @ and import arXiv papers",
+  "Search and fetch public web pages using the DeepSeek API key",
+  "Collaboratively preview, edit, run, and export a local Jupyter notebook"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not just a DeepSeek chat window; it also parses PDFs with MinerU, manages an arXiv paper library, and edits Jupyter notebooks.",
+ "extras": "Desktop-only and requires Obsidian Desktop 1.12.7 or later. Interface is English or Simplified Chinese. Search/Fetch and image recognition are charged through the DeepSeek API. Manifest notes the plugin has not been manually reviewed by Obsidian staff. Full data-flow details are in a separate PRIVACY.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and research workflows that need PDF text extraction, paper references, and runnable notebooks otherwise require separate tools.",
+ "readmeHash": "3c087b671217a5df28585a1696d1285bd9acbc56",
+ "relations": [
+  {
+   "evidence": "A desktop-only Obsidian plugin for DeepSeek conversations, PDF extraction with MinerU",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek Flash recognizes images; MinerU extracts PDF text.",
+   "plugin": "MinerU",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally collaborate on a local Jupyter notebook: preview cells, synchronize edits, run code",
+   "plugin": "Jupyter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "MinerU token for PDF parsing",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Jupyter environment with jupyterlab, jupyter-collaboration, and ipykernel",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Desktop chat client for DeepSeek models with MinerU PDF extraction, arXiv paper references, web search, and Jupyter notebook collaboration.",
+ "tags": [
+  "deepseek",
+  "mineru",
+  "arxiv",
+  "jupyter",
+  "pdf-parsing",
+  "paper-library",
+  "web-search"
+ ]
+}

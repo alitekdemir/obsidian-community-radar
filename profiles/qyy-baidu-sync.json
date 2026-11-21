@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes and attachments between devices through the user's Baidu Netdisk account",
+  "Track incremental changes in a persistent queue with periodic full checks",
+  "Save local recovery copies before overwriting files",
+  "Encrypt file contents with an optional E2EE password",
+  "Export and import an encrypted pairing code to migrate configuration between devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README warns it is untested on physical iOS/Android devices, that the community listing is not yet approved, that sync is not a backup, and that credentials live in data.json rather than the OS keychain. Users must supply their own Baidu developer AppKey/AppSecret, and only one Baidu sync engine should run per vault.",
+ "intent": "alternative",
+ "intentEvidence": "Maintained by QYY; derived from owl234's Baidu Netdisk Sync 1.0.14 under MIT",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through a personal Baidu Netdisk account, so users need OAuth setup, change tracking, conflict handling and overwrite protection on top of that storage.",
+ "readmeHash": "948bb924afb1d7bed6c9969cceab79b44ae6b3f3",
+ "relations": [
+  {
+   "evidence": "Maintained by QYY; derived from owl234's Baidu Netdisk Sync 1.0.14 under MIT",
+   "plugin": "Baidu Netdisk Sync (owl234)",
+   "type": "fork"
+  },
+  {
+   "evidence": "Folder-based Markdown conflict handling requires the separately installed QYY Folder Notes",
+   "plugin": "QYY Folder Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Baidu Netdisk account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Own Baidu open-platform AppKey / AppSecret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs Obsidian notes and attachments across devices through the user's own Baidu Netdisk account, with an incremental queue, recovery copies and optional content encryption.",
+ "tags": [
+  "baidu-netdisk",
+  "oauth",
+  "appkey",
+  "e2ee",
+  "device-pairing",
+  "conflict-resolution"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "ai",
+  "properties"
+ ],
+ "audience": [
+  "digital-gardeners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Score inbox notes by maturity (stub to evergreen) in a sidebar queue",
+  "Enrich frontmatter and suggest WikiLinks via an LLM with a diff approval modal",
+  "Publish notes by setting published: true behind an approval gate",
+  "Triage the full queue in a sortable table and save a markdown report",
+  "Configure LLM providers, inbox folders, and a custom system prompt file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Installable via BRAT for beta updates. README warns that API keys are stored in data.json inside the vault and should be excluded from cloud sync, or avoided entirely by using Ollama locally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Running a digital garden in Obsidian normally takes terminal scripts, Python, and manual frontmatter editing; Obsidian has no built-in triage-to-publish workflow.",
+ "readmeHash": "c91950a9156635373ca9161a31b220338a03bbaa",
+ "relations": [
+  {
+   "evidence": "Install BRAT from the Obsidian community plugins",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Provider (Gemini / OpenAI / Anthropic / Ollama)",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama | Local models — no API key needed. Install Ollama first.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (Gemini, OpenAI, or Anthropic)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (only for local models)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Digital garden pipeline that scores inbox notes by maturity, enriches frontmatter via an LLM, suggests WikiLinks, and publishes with an approval gate.",
+ "tags": [
+  "digital-garden",
+  "llm",
+  "gemini",
+  "openai",
+  "anthropic",
+  "ollama",
+  "para"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [],
+ "audience": [
+  ", developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ", Generate thumbnails for images",
+  "Create sidecar Markdown metadata",
+  "Layout folders as a card wall gallery",
+  "Run git-annex operations via context menu",
+  "Track repository status in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   ", status-bar",
+   "files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (requires Node/Electron APIs); does not bundle git or git-annex binaries.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "It addresses the difficulty of visually browsing and managing large image assets stored and tracked exclusively by git-annex within a standard Markdown vault.",
+ "readmeHash": "1d5641c95a7251208b0a8a66d0e242d73a5478bc",
+ "relations": [
+  {
+   "evidence": "The vault remains an ordinary git + git-annex repository.",
+   "plugin": "git",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "git-annex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "External programs invoked: git, git-annex (through git annex), and ImageMagick 7 (magick, for thumbnails and image dimensions).",
+   "plugin": "ImageMagick 7",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git-annex",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ImageMagick 7",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Annex Gallery transforms git-annex managed image folders into a visual card wall gallery, generating thumbnails and sidecar metadata while maintaining repository integrity.",
+ "tags": [
+  "git-annex",
+  "thumbnails",
+  "sidecar",
+  "card-wall",
+  "metadata-presets",
+  "largefiles"
+ ]
+}

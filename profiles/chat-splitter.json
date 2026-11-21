@@ -1,0 +1,68 @@
+{
+ "also": [
+  "import",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "import ChatGPT and Claude transcripts from paste, JSON, ZIP, or Markdown",
+  "segment conversations into topic-specific notes with auto-generated titles and tags",
+  "extract summaries, key points, and reference links into callout blocks",
+  "link notes bidirectionally and generate a Map of Content index note",
+  "preview, merge, split, and rename segments before creating notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a chat interface or AI assistant; it only processes existing chat transcripts and documents into notes.",
+ "extras": "Segmentation runs offline with no API keys; optional Ollama enhancement is off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Long multi-topic AI conversations saved as a single transcript are hard to navigate and reuse as connected notes in a vault.",
+ "readmeHash": "078886e81c407787bcd87bb0a023923404e3c316",
+ "relations": [
+  {
+   "evidence": "ChatGPT + Claude support -- paste format, JSON export, and ZIP archives",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude paste | Paste | \"Human:\" / \"Assistant:\" format",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional Ollama enhancement -- use a local LLM for improved segmentation quality",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Transcript splitter that breaks long AI chat conversations and documents into topic-specific notes with titles, tags, summaries, wikilinks, and an index note.",
+ "tags": [
+  "chatgpt",
+  "claude",
+  "ollama",
+  "chat-export",
+  "topic-segmentation",
+  "map-of-content",
+  "wikilinks"
+ ]
+}

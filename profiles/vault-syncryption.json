@@ -1,0 +1,66 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the whole vault, including the config folder, plugins, and themes, across desktop and mobile devices",
+  "Encrypt file contents, names, and paths on-device before upload with per-device Ed25519 keys",
+  "Approve, list by fingerprint, and revoke device keys, and create a recovery key",
+  "Merge edits to different parts of a note automatically and keep both versions when the same lines conflict",
+  "Restore past file versions from 30-day server history and run remote-only devices with encrypted-at-rest placeholders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a standalone encryption tool; it is a full sync system that does nothing without its own self-hosted server.",
+ "extras": "Requires Obsidian 1.13 or later; encryption keys are kept in Obsidian's secret storage. Release files carry GitHub build provenance attestations. Beta versions are distributed via BRAT with a data-loss warning. Detailed documentation lives in the repository's docs/ folder (self-hosting, crypto, protocol, API).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README positions it as the simplest way to securely sync a vault and own your data, with a server that stores only ciphertext.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through a server you own where contents, file names, and folder paths stay encrypted from the server.",
+ "readmeHash": "30a97d80c0538b4d283e54b6412ddd0e914cc289",
+ "relations": [
+  {
+   "evidence": "To try one, install BRAT and add the beta plugin ibehren1/obsidian-vault-syncryption-beta.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Vault Syncryption self-hosted server (Docker host with public IP, DNS, ports 80/443)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Server account created with the admin's shared secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Self-hosted, end-to-end encrypted vault sync with device key approval, automatic conflict merging, file history, and remote-only devices.",
+ "tags": [
+  "end-to-end-encryption",
+  "self-hosted",
+  "docker",
+  "s3",
+  "lets-encrypt",
+  "ed25519",
+  "prometheus"
+ ]
+}

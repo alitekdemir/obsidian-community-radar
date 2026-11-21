@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Organize notes into folders using per-vault rules",
+  "Manually file notes, selections, or folders to chosen destinations",
+  "Route notes to destinations with AI suggestions after previewing",
+  "Detect exact and similar duplicate notes",
+  "Undo the last auto-organize run"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires Obsidian 1.11.4+; listed as not manually reviewed by Obsidian staff; managed OpenRouter key has a $1 lifetime limit and AI runs consume credits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "folders",
+ "problem": "Obsidian leaves note filing to the user, so keeping a growing vault sorted into folders takes repeated manual moves.",
+ "readmeHash": "1ee582b0dc064072067465e5c08d1ac23586bb32",
+ "relations": [
+  {
+   "evidence": "Configure your own OpenAI key through Obsidian Secret Storage, or choose OpenRouter in settings.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter is the default provider for new installations.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI planning uses a connected Constance account and organize-run credits",
+   "plugin": "Constance",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or OpenRouter key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Constance account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "organize-run credits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Folder organizer that sorts notes into destinations using per-vault rules, manual filing, optional AI routing, previews and undo.",
+ "tags": [
+  "para",
+  "openai",
+  "openrouter",
+  "duplicate-detection",
+  "embeddings",
+  "undo"
+ ]
+}

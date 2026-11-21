@@ -1,0 +1,52 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync a vault across devices through a private GitHub repository",
+  "resolve conflicts with three-way merge using file sizes and timestamps",
+  "skip unchanged files via delta hashing and metadata timestamps",
+  "transfer binary files byte for byte and skip files over 25 MB",
+  "view sync history in a log and live status in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the name, it does not use a local Git installation; it talks to GitHub's REST API directly.",
+ "extras": "Detailed setup, authentication modes, commands and troubleshooting are in a separate USAGE.md file. Files over 25 MB are skipped. Listed as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's paid Sync service and local Git workflows don't suit users who want free GitHub-based cross-device sync, including mobile, without installing Git.",
+ "readmeHash": "cc96705a638572f017fc98f1aff2c1933f95a619",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with Personal Access Token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs an Obsidian vault across devices using a private GitHub repository via the REST API, without needing local Git.",
+ "tags": [
+  "github",
+  "github-enterprise",
+  "rest-api",
+  "personal-access-token",
+  "conflict-resolution",
+  "three-way-merge"
+ ]
+}

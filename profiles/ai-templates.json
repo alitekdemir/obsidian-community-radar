@@ -1,0 +1,74 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fill template notes with structured JSON through MCP tools or REST routes",
+  "Format table fields as aligned GFM tables with escaped pipes and filled empty cells",
+  "Ingest images and attachments from local paths, vault files or Base64 into the attachment folder",
+  "Render templates to Obsidian Markdown or Telegram HTML channels",
+  "Validate input and report which field failed and how to fix the call"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not AI text generation; the agent only supplies JSON and the deterministic Liquid engine renders the output.",
+ "extras": "Desktop only (uses Node.js filesystem APIs); makes no network calls except the optional one-click AI Ecosystem installer; starter templates ship in English or Portuguese; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "This plugin registers its tools and routes in the ai-ecosystem plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because agents writing Markdown directly spend hundreds of output tokens on formatting and misalign table columns.",
+ "primary": "ai",
+ "problem": "AI agents writing long Markdown or tables directly waste output tokens on formatting, misalign columns, forget to escape pipes and struggle with binary attachments.",
+ "readmeHash": "9a4e77bcd90b8d3187b3a60eded18e01884ae97a",
+ "relations": [
+  {
+   "evidence": "This plugin registers its tools and routes in the ai-ecosystem plugin.",
+   "plugin": "AI Ecosystem",
+   "type": "integrates"
+  },
+  {
+   "evidence": "HTML with <pre> monospace tables for the Telegram AI Gateway",
+   "plugin": "Telegram AI Gateway",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The AI Ecosystem core can install Claude Code hooks and a setup skill for this module",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a block in GEMINI.md for Antigravity",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "AI Ecosystem",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Liquid-template engine that AI agents fill with JSON via MCP tools or REST routes to produce aligned Markdown tables, saved attachments and new notes.",
+ "tags": [
+  "liquid",
+  "mcp",
+  "rest-api",
+  "telegram",
+  "claude-code",
+  "gfm-tables",
+  "base64"
+ ]
+}

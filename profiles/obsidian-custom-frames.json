@@ -1,0 +1,62 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open web apps as panes via customizable iframes",
+  "Embed frames in Markdown using a code block syntax",
+  "Apply preset configurations for sites like Google Keep and Todoist",
+  "Customize frames with custom CSS, ribbon icons, and mobile toggles"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a window-layout or workspace manager; it embeds external web apps in panes and Markdown embeds.",
+ "extras": "Mobile support is limited because Obsidian Mobile lacks Electron's permissive iframe behavior; many login-protected sites will not work there, and a per-frame 'Disable on Mobile' toggle exists. Popups open in the system browser by default, which can break external logins unless the Web viewer core plugin is enabled.",
+ "intent": "alternative",
+ "intentEvidence": "motivating me to turn Obsidian Keep into a more versatile plugin, which is how Custom Frames was born",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was motivated to turn the Obsidian Keep plugin into a more versatile plugin, which became Custom Frames.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to keep external web apps visible inside the vault, forcing users to switch to a browser or separate window.",
+ "readmeHash": "b3cc7bae8abd2e2087cadb1e43c4d0018548d677",
+ "relations": [
+  {
+   "evidence": "motivating me to turn Obsidian Keep into a more versatile plugin, which is how Custom Frames was born",
+   "plugin": "Obsidian Keep",
+   "type": "replaces"
+  },
+  {
+   "evidence": "enable the web viewer core plugin, which shares its session information with Custom Frames",
+   "plugin": "Web viewer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "web app accounts (e.g. Todoist, Notion)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Embeds web apps as Obsidian panes or in-note embeds using styled iframes, with presets for Google Keep, Todoist, Notion and more.",
+ "tags": [
+  "iframe",
+  "web-apps",
+  "google-keep",
+  "todoist",
+  "notion",
+  "readwise"
+ ]
+}

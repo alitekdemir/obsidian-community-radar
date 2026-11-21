@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "data"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ", ",
+  "Inspect vault inventory",
+  "Filter notes by conditions",
+  "Set/rename/delete properties",
+  "Generate fields using LLM"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general note editor; it is specifically designed for bulk manipulation and standardization of YAML frontmatter.",
+ "extras": "Supports programmatic API access and includes a snapshot-based undo system for all write operations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Inconsistent or messy YAML frontmatter across a vault makes it difficult to structure data for tools like AI agents or migrate to standards like OKF.",
+ "readmeHash": "2313494096c14b8ab6aa9401937bfa9aba914fc1",
+ "relations": [
+  {
+   "evidence": "This plugin is optimized to work together with the Vault Operator agent.",
+   "plugin": "Vault Operator",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM Provider Keys",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "LLM Provider Accounts",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Vault Operator",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A tool for bulk-editing YAML frontmatter across a vault, allowing filtering, transformation, and generation using LLMs for data standardization.",
+ "tags": [
+  "yaml",
+  "okf",
+  "bulk-edit",
+  "llm-generation",
+  "snapshot-undo",
+  "metadata-management"
+ ]
+}

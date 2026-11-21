@@ -1,0 +1,74 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Run Claude Code in terminal",
+  ": Provide structured vault access",
+  ": Execute slash commands",
+  ": Query notes via quick-ask",
+  ": Control Obsidian UI"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": Command palette",
+   ": Sidebar",
+   ": Live Preview",
+   ": Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a chat UI or a reimplementation; it runs the actual Claude Code CLI in a real terminal.",
+ "extras": "Requires Node.js 18+, Python 3, and Claude Code CLI. Quick Ask modal uses Agent SDK credits billed separately from interactive usage.",
+ "intent": "improve",
+ "intentEvidence": "Glass puts Claude Code inside Obsidian with a built-in MCP server that gives Claude direct access to your vault",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "It addresses the need to run powerful AI models like Claude Code directly within the Obsidian environment without switching contexts.",
+ "readmeHash": "658ca2435eda92a0b4eb28c20004a2bf480ef255",
+ "relations": [
+  {
+   "evidence": "Glass puts Claude Code inside Obsidian with a built-in MCP server that gives Claude direct access to your vault",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Claude Code CLI that Glass runs is a separate process that sends your prompts and conversation history to Anthropic's API over HTTPS",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18+",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Glass embeds Claude Code into Obsidian, providing an interactive terminal and a built-in MCP server for structured vault access.",
+ "tags": [
+  "claude",
+  "cli",
+  "mcp",
+  "terminal",
+  "agent",
+  "vault-access"
+ ]
+}

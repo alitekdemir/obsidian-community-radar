@@ -1,0 +1,68 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Rename files from H1",
+  ": Manage rename triggers",
+  ": Sanitize filenames",
+  ": Preview renames",
+  ": Move tags to frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Free and open source (MIT-licensed). Features a comprehensive safety chain including 20-step undo and dry-run previews. Includes an experimental feature to move tags to frontmatter.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Manual filename management often leads to inconsistencies between a note's title (H1) and its actual filename, causing confusion and broken expectations.",
+ "readmeHash": "c23ef9775db0220a973e1cb99aa89d7c41241cbe",
+ "relations": [
+  {
+   "evidence": "Two-way sync — will fight H1Aligner on every trigger",
+   "plugin": "Filename Heading Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Also renames files from titles; overlapping responsibility",
+   "plugin": "File Title Updater",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Renames files from content; overlapping responsibility",
+   "plugin": "Auto Filename",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Disable its filename rules, or don't use H1Aligner",
+   "plugin": "Linter",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A plugin that automatically renames note files to match the text of the note's first H1 heading, ensuring consistency and preserving backlinks.",
+ "tags": [
+  "h1-alignment",
+  "filename-sync",
+  "title-to-file",
+  "frontmatter-tags",
+  "file-sanitization"
+ ]
+}

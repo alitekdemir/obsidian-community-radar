@@ -1,0 +1,76 @@
+{
+ "also": [
+  "backup",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files and .obsidian settings two-way with Proton Drive",
+  "Detect three-way conflicts and keep the losing side as a conflict copy",
+  "Browse, compare and restore earlier Drive versions of a note",
+  "Exclude paths by glob and skip large files or cellular data",
+  "Stop mass deletions with a confirmation guard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a developer SDK; it is a sync plugin built on Proton's Drive SDK.",
+ "extras": "Not yet in the community directory; install manually or via BRAT. The plugin writes to and can delete files in the vault, and has no external audit, so the README advises keeping a restorable backup. No telemetry and no paid tiers. GPL-3.0-or-later.",
+ "intent": "alternative",
+ "intentEvidence": "This is a maintained fork of MarckFp/obsidian-proton-sync",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The fork exists because the upstream project stopped merging fixes.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync with Proton Drive, and general file sync tools do not handle Obsidian renames, conflicts or settings.",
+ "profiledAt": "2026-11-16",
+ "readmeHash": "bf7a074d4d166e14668f9c1ed9d487b1f4acc744",
+ "relations": [
+  {
+   "evidence": "This is a maintained fork of MarckFp/obsidian-proton-sync",
+   "plugin": "MarckFp/obsidian-proton-sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "Two-way sync between an Obsidian vault and a folder in Proton Drive",
+   "plugin": "Proton Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With BRAT you can add ondreu/proton-sdk-sync instead",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Proton account with Drive",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way, end-to-end encrypted sync between an Obsidian vault and a Proton Drive folder, built on Proton's official Drive SDK.",
+ "tags": [
+  "two-way-sync",
+  "end-to-end-encryption",
+  "conflict-resolution",
+  "version-history",
+  "privacy"
+ ],
+ "textHash": "3c393c46c46ad99bebb071b319f9db51cadc476a"
+}

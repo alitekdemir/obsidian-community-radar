@@ -1,0 +1,59 @@
+{
+ "also": [
+  "search",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with note content in a right-sidebar panel over a LAN Ollama server",
+  "Choose context modes: current note, selection, linked notes, folder, or RAG-retrieved passages",
+  "Retrieve relevant vault passages with citations as clickable wikilinks",
+  "Run editable slash commands like /summarize and /rewrite",
+  "Save conversations as notes or insert responses at the cursor"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires setting OLLAMA_ORIGINS on the Ollama host for cross-origin streaming; screenshots section is pending; an Architecture section documents the source layout.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with an LLM about your notes without sending content to a cloud service.",
+ "readmeHash": "180da0ddb739e2d22fc57fcba47d228ef3669e50",
+ "relations": [
+  {
+   "evidence": "chat with your notes using a remote Ollama server over its native chat API",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama server on the LAN",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Right-sidebar chat panel that answers questions about your notes using a remote Ollama server, with RAG retrieval across the vault.",
+ "tags": [
+  "ollama",
+  "local-llm",
+  "rag",
+  "embeddings",
+  "retrieval",
+  "chat",
+  "streaming",
+  "ndjson"
+ ]
+}

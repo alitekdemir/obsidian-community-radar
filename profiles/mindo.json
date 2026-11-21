@@ -1,0 +1,64 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the active note using vault and web context",
+  "Search the vault and web with cited source references",
+  "Create, edit, open, and undo note changes via tool commands",
+  "Maintain a structured Mindo Wiki memory layer with Raw, Wiki, Schema, and Inbox files",
+  "Run local speech-to-text and text-to-speech workflows"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because it starts local helper processes via Node child_process; optional Rust sidecar (contex-core) speeds up vault search, resolver scoring, and RAG indexing; README includes developer-oriented install/build/publishing instructions and points to separate release and security docs; the plugin was renamed from an earlier name to 'mindo'.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant for chatting with notes, retrieving vault and web context, or voice-driven workflows.",
+ "readmeHash": "eb23047dcbb14a80a4ec2abf379b0bbe57dbf467",
+ "relations": [
+  {
+   "evidence": "Local STT/TTS helpers for Parakeet/faster-whisper and Silero/Kokoro-style speech workflows",
+   "plugin": "faster-whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local STT/TTS helpers for Parakeet/faster-whisper and Silero/Kokoro-style speech workflows",
+   "plugin": "Kokoro",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API keys for chat/web features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Local-first AI companion that chats with the active note, searches the vault, edits notes, and maintains a wiki-style memory layer.",
+ "tags": [
+  "rag",
+  "chat",
+  "voice",
+  "speech-to-text",
+  "text-to-speech",
+  "wiki",
+  "web-context"
+ ]
+}

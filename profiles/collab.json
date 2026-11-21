@@ -1,0 +1,61 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Share a file or folder for real-time collaborative editing via a URL",
+  "Sync text changes between online peers using a CRDT",
+  "Regenerate a share URL if it leaks or servers fail",
+  "Run network checks and diagnostics for connection problems",
+  "Self-host signalling, STUN and TURN servers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only syncs Markdown files, so images, Bases and Canvases in shared folders do not sync; recommends the File Recovery core plugin for version history; manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in way for multiple people to edit the same note at the same time across separate vaults.",
+ "readmeHash": "b14fa5bb76ca3ca3d7a959da5ae93df3fac0ce91",
+ "relations": [
+  {
+   "evidence": "Collab uses Yjs to sync text over the WebRTC protocols.",
+   "plugin": "Yjs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Trystero lets us use public Nostr servers for signalling.",
+   "plugin": "Trystero",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "TURN relay account (e.g. ExpressTURN) only when direct peer connections fail",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Peer-to-peer collaborative editing plugin that syncs shared files and folders across vaults in real time with end-to-end encryption.",
+ "tags": [
+  "webrtc",
+  "yjs",
+  "crdt",
+  "peer-to-peer",
+  "nostr",
+  "end-to-end-encryption"
+ ]
+}

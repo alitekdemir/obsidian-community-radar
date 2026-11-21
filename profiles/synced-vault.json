@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize notes, attachments, and Trash folder with a Dropbox App Folder",
+  "Preview proposed sync operations before applying them",
+  "Save concurrent edits as conflict copies in Sync Conflicts/",
+  "Record deletion tombstones so stale devices cannot restore deleted notes",
+  "Connect devices via OAuth using a shared App Key and Vault ID"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Early test release (v0.2.3) with manual installation by copying files into the plugins folder; sync is manual-only, files are limited to 100 MiB, and the README urges keeping backups and testing on a vault copy before migrating from Remotely Save.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a whole vault via Dropbox while safely handling concurrent edits and deletions across devices.",
+ "readmeHash": "289adc026c2194832e97ea8f357f8ddf88d80b02",
+ "relations": [
+  {
+   "evidence": "Do not run Remotely Save and Synced Vault simultaneously on a live vault.",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Dropbox account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Dropbox App Key from a user-created scoped app",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Dropbox-based vault sync plugin that previews changes before applying them, keeps conflict copies, and records deletion tombstones.",
+ "tags": [
+  "dropbox",
+  "oauth",
+  "conflict-resolution",
+  "tombstones",
+  "two-way-sync"
+ ]
+}

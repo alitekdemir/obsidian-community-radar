@@ -1,0 +1,54 @@
+{
+ "also": [
+  "hotkeys"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "indent the current line or each selected line by a configurable number of spaces (1-8)",
+  "unindent selected lines with Shift+Tab, removing one indent of leading spaces or a tab",
+  "delegate Tab and Shift+Tab in table cells to Advanced Tables when it is installed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Explicitly documents behavior boundaries: Tab in the middle of plain text and Live Preview table cells are left to Obsidian or other plugins, and indenting a list item does not move child items.",
+ "intent": "improve",
+ "intentEvidence": "This plugin makes Tab indent by 2 spaces and Shift+Tab unindent by 2 spaces.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Since Obsidian 1.8, Tab with 'Indent using tabs' off always inserts 4 spaces, and the tab size setting only changes display width, so users who want 2-space indents have no built-in option.",
+ "readmeHash": "13b3d2dc2a1a4ba6c4e605e3bf1a3a02da9a989b",
+ "relations": [
+  {
+   "evidence": "if Advanced Tables is enabled, Tab / Shift+Tab run its Next cell / Previous cell commands",
+   "plugin": "Advanced Tables",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced Tables",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Tab-key handler that indents the current line or selection by a configurable number of spaces instead of tabs or Obsidian's fixed 4 spaces.",
+ "tags": [
+  "indentation",
+  "spaces",
+  "tab-key",
+  "advanced-tables"
+ ]
+}

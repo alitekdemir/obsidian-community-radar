@@ -1,0 +1,61 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "List and complete Google Tasks in a sidebar view",
+  "Create and edit Google Tasks",
+  "Insert undone tasks into the current file and sync their checked state",
+  "Switch between Google task lists",
+  "Log in via OAuth and copy refresh tokens to mobile"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Setup is manual: users must create their own Google Cloud project, enable the Tasks API, and configure an OAuth client. Mobile login requires copying a refresh token from a desktop device. README warns to update to at least version 1.5.0 to avoid potential corruption of attachments.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to view or manage tasks stored in an external Google Tasks account from inside the vault.",
+ "readmeHash": "30b0f0b63dea6f5d1376ba3107da8ecf5628fdc9",
+ "relations": [
+  {
+   "evidence": "Activate Google Tasks API",
+   "plugin": "Google Tasks API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google Cloud Project with Tasks API and OAuth client",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Google Tasks integration that lists, creates, edits, and completes Google Tasks from a sidebar view, commands, and inline task lists.",
+ "tags": [
+  "google-tasks",
+  "google-cloud",
+  "oauth",
+  "google-api"
+ ]
+}

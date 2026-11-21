@@ -1,0 +1,57 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Refine the current note via an LLM and overwrite the file with the result",
+  "Fix grammar, punctuation, headings and Markdown structure",
+  "Convert bullet lists into task checkboxes where appropriate",
+  "Annotate refined output with preferred tags like #todo or #idea",
+  "Append user-defined prompt instructions to the base system prompt"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name suggesting a writing tool, it does not draft new content from scratch; it rewrites and reformats an existing note in place.",
+ "extras": "Warning that note content is sent to the external API endpoint when the refine command runs. Releases are marked 'coming soon', suggesting the plugin is not yet distributed. Installation is manual (place folder in .obsidian/plugins/). The plugin overwrites the original note file with the refined output.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Quick notes, meeting jots, voice-to-text output and pasted content are messy and need manual cleanup of grammar, structure and Markdown formatting.",
+ "readmeHash": "e9601de4e46d83db63f82e371d86cfdcf4b41ed6",
+ "relations": [
+  {
+   "evidence": "You can use alternatives like OpenRouter or a local LLM proxy.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key (or OpenAI-compatible endpoint)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI note refiner that sends the current note to an OpenAI-compatible API and overwrites it with cleaned-up, structured Markdown.",
+ "tags": [
+  "openai",
+  "llm",
+  "gpt-4o",
+  "openrouter",
+  "local-llm",
+  "grammar",
+  "text-cleanup"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "images",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "save pasted images to a per-note [document name]__assets folder and hide it",
+  "preview Markdown documents as HTML pages with switchable themes",
+  "publish documents directly to WeChat Official Account via API",
+  "render Mermaid diagrams, LaTeX formulas and Ruby annotation in the preview",
+  "copy rendered HTML to content platforms"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is in Chinese. Notes that WeChat servers strip complex LaTeX formulas containing aligned/mtable, image auto-save only works for clipboard pastes, and publishing requires API permissions plus adding your public IP to a whitelist in the WeChat backend.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to prepare notes as styled HTML for Chinese content platforms or to publish directly to WeChat Official Account via its API.",
+ "readmeHash": "8a1fe25a0a491502717e533b411e27d4e0caf120",
+ "relations": [
+  {
+   "evidence": "参考并使用了其优秀的 Markdown 排版与样式处理逻辑",
+   "plugin": "doocs/md",
+   "type": "inspired"
+  },
+  {
+   "evidence": "通过API将文档直接发布到内容平台。目前支持微信公众号",
+   "plugin": "微信公众号 (WeChat Official Account)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "WeChat AppID and AppSecret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Publishing helper that saves pasted images into per-note asset folders, previews Markdown as themed HTML, and publishes notes to WeChat Official Account.",
+ "tags": [
+  "wechat",
+  "html-preview",
+  "clipboard-images",
+  "mermaid",
+  "ruby-annotation",
+  "asset-folders"
+ ]
+}

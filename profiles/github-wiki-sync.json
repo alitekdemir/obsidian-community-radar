@@ -1,0 +1,54 @@
+{
+ "also": [
+  "syncing",
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Clone, fetch, and push a GitHub wiki repository",
+  "Authenticate via GitHub OAuth device flow or a personal access token",
+  "Sync on demand, at startup, on file change, or on a periodic timer",
+  "Map a vault folder's top-level files to wiki pages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README documents outbound network behavior and states no telemetry is collected; the wiki repo must already have at least one page created via the GitHub web UI; mobile is supported but dev symlinks are not; includes local development setup instructions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "GitHub wikis can only be edited through the GitHub web interface or with git tooling, not directly from a Markdown editor like Obsidian.",
+ "readmeHash": "55173bcaa4310cf3647a7d4ea7f0b3a76145742b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "personal access token (alternative to OAuth sign-in)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "GitHub Wiki sync plugin that stores a vault in, or edits existing pages of, a GitHub wiki repository.",
+ "tags": [
+  "github",
+  "wiki-pages",
+  "oauth-device-flow",
+  "personal-access-token",
+  "pull-push"
+ ]
+}

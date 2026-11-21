@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build six local indexes (UUID, term, tag co-occurrence, n-gram, relation graph, document stats) over vault markdown",
+  "Rank related notes by combining BM25, tag similarity, term overlap and graph proximity scores",
+  "Suggest relations and write them into the related: frontmatter field",
+  "Auto-add UUID id fields to notes or add them per note via command",
+  "Query the indexes with an optional dependency-free CLI tool"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the RAG framing, it calls no AI services; all indexing and scoring run locally, and Claude Code integration is optional.",
+ "extras": "Manifest carries the warning \"This plugin has not been manually reviewed by Obsidian staff.\" Auto-add UUIDs modifies note files and is off by default; notes without an id field are excluded from indexing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's search and backlinks are keyword- and link-based, with no offline semantic-style retrieval or scored related-note discovery.",
+ "readmeHash": "b4adc2bb1b8f54070c5b674e9f0fb3e314110495",
+ "relations": [
+  {
+   "evidence": "Smart Relations indexes are designed to work with Claude Code for RAG-style queries over your vault.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local RAG indexing plugin that builds offline search indexes over vault notes and ranks related notes using BM25, tag, term-overlap and graph-proximity scores.",
+ "tags": [
+  "rag",
+  "bm25",
+  "vector-search",
+  "tf-idf",
+  "uuid",
+  "claude-code",
+  "porter-stemmer"
+ ]
+}

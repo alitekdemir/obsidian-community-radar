@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert {{hrcal: references that render day-event cards or inline event chips",
+  "Show an agenda list in the sidebar and a month grid in a workspace tab",
+  "Configure multiple CalDAV server accounts with per-calendar colors",
+  "Expand RRULE/EXDATE recurring events into occurrences",
+  "Warn about stale references after account or calendar renames"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It is read-only: it never creates, edits, or deletes events on the CalDAV server, it only displays them.",
+ "extras": "Requires Obsidian 1.13.4 or later; the plugin is read-only by design. Full documentation lives in a separate guide (English and Korean); unreviewed per the manifest note.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian has no way to display events from a CalDAV calendar inside notes or browse them in agenda or month views.",
+ "readmeHash": "2e6a28d2be9197a48e1706b7981582330dfaafe6",
+ "relations": [
+  {
+   "evidence": "e.g. Radicale, Nextcloud Calendar, Fastmail, or any RFC 4791 server",
+   "plugin": "Radicale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "e.g. Radicale, Nextcloud Calendar, Fastmail, or any RFC 4791 server",
+   "plugin": "Nextcloud Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "e.g. Radicale, Nextcloud Calendar, Fastmail, or any RFC 4791 server",
+   "plugin": "Fastmail",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "A CalDAV-compatible calendar server with Basic Auth",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only CalDAV calendar viewer that embeds date and event references in notes and shows agenda and month-grid calendar views.",
+ "tags": [
+  "caldav",
+  "nextcloud",
+  "radicale",
+  "fastmail",
+  "rrule",
+  "read-only",
+  "time-zone"
+ ]
+}

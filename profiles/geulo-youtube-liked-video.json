@@ -1,0 +1,86 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch liked videos, playlists and subscriptions via the YouTube Data API",
+  "Search, filter and sort videos by title, channel, tags and content type",
+  "Fetch YouTube captions as transcripts with timestamp links",
+  "Generate AI summaries with Gemini, OpenRouter or OpenAI and append them to notes",
+  "Create video notes and add videos to daily notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires a self-set-up Google Cloud project with YouTube Data API v3; in Testing mode the OAuth token expires after 7 days unless the app is published. Transcript fetching uses unofficial YouTube endpoints and may fail for some videos. Liked videos are cached locally in liked-videos.json with a .bak backup; synced devices need a plugin reload.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants users to consume YouTube content more intentionally by bringing liked videos, playlists and subscriptions into Obsidian for rediscovery and note-taking.",
+ "primary": "integrations",
+ "problem": "YouTube is built to keep you watching new content, not to help you revisit videos you already watched and review them with your own notes; Obsidian has no built-in way to browse your YouTube library.",
+ "readmeHash": "0bc8638757106904920266dd4183a251d22c55dd",
+ "relations": [
+  {
+   "evidence": "It is inspired by the obsidian-google-calendar plugin.",
+   "plugin": "obsidian-google-calendar",
+   "type": "inspired"
+  },
+  {
+   "evidence": "brings your liked videos, playlists, and subscriptions into Obsidian",
+   "plugin": "YouTube Data API v3",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Generate video summaries using Google Gemini, OpenRouter, or OpenAI.",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Generate video summaries using Google Gemini, OpenRouter, or OpenAI.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Generate video summaries using Google Gemini, OpenRouter, or OpenAI.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account with OAuth credentials from Google Cloud Console",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Gemini, OpenRouter or OpenAI API key for AI summaries",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "YouTube library manager that fetches liked videos, playlists and subscriptions into Obsidian, with transcripts, AI summaries and video notes.",
+ "tags": [
+  "youtube",
+  "playlists",
+  "transcripts",
+  "gemini",
+  "openrouter",
+  "openai",
+  "oauth",
+  "daily-notes"
+ ]
+}

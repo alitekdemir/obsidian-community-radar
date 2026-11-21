@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch exchange rates for crypto pairs through commands with a modal or default currencies",
+  "Render a crypto code block as a table of live prices and 24h change",
+  "Expose getPrice, getQuote and getQuotes for DataviewJS and other plugins",
+  "Fall back to Coinbase spot prices when CoinGecko is unavailable or rate limited"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest description says it uses the Cryptonator API, but the README says prices come from CoinGecko with a Coinbase fallback. Installable via BRAT as a beta plugin; includes a donation link.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Obsidian has no built-in way to look up current cryptocurrency prices or embed live price data in notes.",
+ "readmeHash": "121af14b1b339d0f92c15457b0c2eda03c9c42f4",
+ "relations": [
+  {
+   "evidence": "The plugin exposes getPrice, getQuote and getQuotes on app.plugins.plugins[\"obsidian-crypto-lookup\"].api",
+   "plugin": "DataviewJS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Prices come from the CoinGecko API (data provided by CoinGecko).",
+   "plugin": "CoinGecko",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the plugin falls back to Coinbase spot prices, which include the price only",
+   "plugin": "Coinbase",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "CoinGecko Demo API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Crypto price lookup that fetches exchange rates for cryptocurrency pairs via commands or a live-price code block and inserts them into notes.",
+ "tags": [
+  "cryptocurrency",
+  "coingecko",
+  "coinbase",
+  "exchange-rates",
+  "code-block",
+  "dataviewjs"
+ ]
+}

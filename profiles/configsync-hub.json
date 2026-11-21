@@ -1,0 +1,75 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Set a directory outside any vault as an authoritative config hub",
+  "Push hub config to enabled target vaults with SHA-256 incremental sync and dry-run preview",
+  "Exclude plugins or file paths from sync via per-plugin toggles and wildcard rules",
+  "Back up each vault's .obsidian before overwriting and restore from backup zips",
+  "Push and pull hub snapshots to cloud remotes such as GitHub, Google Drive or WebDAV"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-content sync tool like Obsidian Sync; it only distributes .obsidian configuration files and never reads or copies note contents.",
+ "extras": "Warns that cloud credentials are stored in plaintext in data.json; notes an unrelated community plugin named config-sync; syncs are one-way hub-to-vault only, bidirectional sync and full mobile support are not yet implemented; target vaults opened in another window may need a restart after syncing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian stores plugins, themes and settings per vault, so keeping several vaults consistently configured means repeating the same setup and changes by hand.",
+ "readmeHash": "8b3f3db44280f56cc680b93785544e0288a32da2",
+ "relations": [
+  {
+   "evidence": "装好 BRAT，用 Add beta plugin 填 silence-lei/configsync-hub",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "选择一个不在任何 vault 内的空目录（可放在网盘 / Syncthing 目录中）",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  },
+  {
+   "evidence": "WebDAV | 账号 + 应用密码 | 坚果云、Nextcloud、ownCloud 等",
+   "plugin": "WebDAV",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub, GitLab, Gitea, Google Drive or OneDrive account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "access tokens or OAuth credentials for cloud remotes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Configuration hub that distributes plugins, themes, CSS snippets, hotkeys and settings from one central .obsidian copy to multiple vaults.",
+ "tags": [
+  "github",
+  "gitlab",
+  "gitea",
+  "google-drive",
+  "onedrive",
+  "webdav",
+  "snapshots",
+  "multi-vault"
+ ]
+}

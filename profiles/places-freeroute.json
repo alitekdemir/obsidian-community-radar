@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build routes between waypoints in a block",
+  "Generate isochrone reachability polygons around a center point",
+  "Resolve POI search terms to place suggestions",
+  "Snap recorded tracks to the road or path network"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README notes that all routing, isochrone, POI search, and track snapping requests are sent over the network to FreeRoute; documentation is minimal and mostly a request table plus a dependency on the places-shared library.",
+ "intent": "improve",
+ "intentEvidence": "Routing provider for Places using FreeRoute",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The Places plugin needs a routing backend, and this adds one built on FreeRoute.",
+ "readmeHash": "efcaff5bb8d45bd5d0deb35aef7c46205c0fedb6",
+ "relations": [
+  {
+   "evidence": "Routing provider for Places using FreeRoute",
+   "plugin": "Places",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "FreeRoute",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "Routing provider for the Places plugin that adds directions, isochrones, POI search, and track snapping via the FreeRoute service.",
+ "tags": [
+  "freeroute",
+  "routing",
+  "isochrones",
+  "maps",
+  "geocoding",
+  "track-snapping"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI over the whole vault with streaming responses and saved history",
+  "Read, search, create and modify vault files, and add wikilinks between notes",
+  "Enumerate installed plugins and their commands",
+  "Search, install and reconfigure community plugins after explicit confirmation",
+  "Run a local HTTP MCP server so external agents like Codex can call 15 tools"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (needs the local proxy and Node file access); documentation is in Chinese; all write operations require explicit confirmation and the MCP token is stored in data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat that can read and act on the whole vault, manage plugins, and edit their configurations.",
+ "readmeHash": "c7a7bd6c6c98e8b49b2913d5f1e99fb4e34905af",
+ "relations": [
+  {
+   "evidence": "接入 cc-switch 配置并用 AI 对话",
+   "plugin": "cc-switch",
+   "type": "integrates"
+  },
+  {
+   "evidence": "开放 MCP 服务供 Codex 等外部 Agent 接入",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "cc-switch",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "upstream AI provider key via cc-switch",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI chat assistant that runs through a local cc-switch proxy to organize vault files, build note links, install plugins, and expose MCP tools to agents.",
+ "tags": [
+  "cc-switch",
+  "codex",
+  "mcp",
+  "local-proxy",
+  "streaming",
+  "skills",
+  "agent-tools"
+ ]
+}

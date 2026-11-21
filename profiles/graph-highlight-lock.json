@@ -1,0 +1,46 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lock a hovered node's highlight with a modifier-key click",
+  "Extend the lock to connected neighbors so a colored, arrowed trail stays visible",
+  "Retrace the trail by clicking a node already on it, or start a fresh trail",
+  "Configure trail color, edge thickness, direction arrows, and trigger key",
+  "Clear the lock via commands, Esc, or Alt+Click on empty space"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Relies on undocumented internal Graph View APIs (isolated in src/graph-adapter.ts), so it may break on future Obsidian updates; installable via BRAT; roadmap lists multiple trails, selectable connection depth, and session persistence.",
+ "intent": "improve",
+ "intentEvidence": "It does not create a separate graph view — it works directly on top of the Graph View you already use",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was frustrated at having to freeze the mouse in place to see a note's connections, and losing everything already seen when following a chain of links.",
+ "primary": "graph",
+ "problem": "Obsidian's Graph View clears the neighbor highlight the moment the mouse moves, making it hard to trace connections or follow a chain of links through a large vault.",
+ "readmeHash": "f5f652d5036ff42ea27fdab13f15e00ca79d9a85",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Graph View add-on that pins a node's hover highlight with Alt+Click and keeps a colored navigation trail of locked nodes visible.",
+ "tags": [
+  "hover-highlight",
+  "trail",
+  "pixi",
+  "mouse-navigation",
+  "global-graph",
+  "local-graph"
+ ]
+}

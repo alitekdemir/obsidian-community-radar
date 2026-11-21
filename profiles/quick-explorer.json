@@ -1,0 +1,75 @@
+{
+ "also": [
+  "files",
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Navigate folders and files via title-bar or status-bar breadcrumb menus",
+  "Open, rename, move, and drag files and folders with keyboard or mouse",
+  "Preview notes in sequence with quick-preview mode using PageUp/PageDown",
+  "Browse the vault root or current folder through six hotkeyable commands",
+  "Show and select folder notes when navigating into folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a search-and-open tool like the Quick Switcher; it browses folder contents through title-bar breadcrumb menus.",
+ "extras": "Detailed compatibility notes: some themes hide or recolor the title bar making the UI unreadable, and menu colors may be too bright in some themes; CSS snippet workarounds may be needed. Mouse Ctrl/Cmd+hover preview requires the built-in Page Preview plugin.",
+ "intent": "improve",
+ "intentEvidence": "you can then do almost anything that can be done with Obsidian's built-in file explorer",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found the built-in file explorer mouse-only and cumbersome when working with the current folder or its parents, especially with many folders and files.",
+ "primary": "navigation",
+ "problem": "Obsidian's built-in file explorer is almost entirely mouse-driven, awkward for keyboard use, and slow to browse folders with many files.",
+ "readmeHash": "af116b80ba3cb5c2162aba54b5f89c90eaef4887",
+ "relations": [
+  {
+   "evidence": "other Obsidian plugins such as Note Folder Autorename can be used to help create or maintain them",
+   "plugin": "Note Folder Autorename",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can turn them off using the Style Settings plugin",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "if you're using a plugin like Custom Window Title that manipulates the window title directly",
+   "plugin": "Custom Window Title",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Page Preview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Title-bar file explorer that shows breadcrumb paths, opens menus for files and folders, and supports keyboard navigation and quick previewing.",
+ "tags": [
+  "breadcrumbs",
+  "keyboard-navigation",
+  "title-bar",
+  "quick-preview",
+  "folder-notes",
+  "vim-navigation"
+ ]
+}

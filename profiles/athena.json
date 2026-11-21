@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ingest URLs, GitHub repos, and other sources into an immutable raw/ layer",
+  "Synthesize structured wiki pages with LLM-generated Key Findings and Relevance sections",
+  "Chat with the knowledge base through the bundled Gryphon sidebar panel",
+  "Organize, merge, soft-delete, and restore KB pages with verb-driven kb commands",
+  "Lint the KB and auto-fix data inconsistencies"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (terminal commands and Python engine need a local filesystem). Python dependency is tracked for removal in the 1.2 milestone. Early release candidates available via BRAT. Full terminal-only kb commands require cloning the upstream polleoai/athena repo as a vault. README documents known limitations: bot-blocked sites may capture challenge pages, slow first capture on Linux, and prompt-history flush issues across restarts.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to automatically capture web sources, synthesize them into cross-referenced knowledge pages with an LLM, and query that knowledge base conversationally.",
+ "readmeHash": "fa614cb48579dbf5144c38a74cf7ea7f6eecdf96",
+ "relations": [
+  {
+   "evidence": "Athena bundles Gryphon. Talk to your knowledge base through the chat panel in your sidebar",
+   "plugin": "Gryphon",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use the Obsidian Web Clipper extension to drop a clipping into <vault>/clippings/",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, or Gemini API key (or local claude CLI)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10+ for the wiki page builder",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "LLM-powered second-brain plugin that ingests URLs into a raw layer, synthesizes structured wiki pages, and lets you chat with your vault via bundled Gryphon.",
+ "tags": [
+  "second-brain",
+  "anthropic",
+  "openai",
+  "gemini",
+  "claude-code",
+  "web-clipping",
+  "wiki",
+  "playwright"
+ ]
+}

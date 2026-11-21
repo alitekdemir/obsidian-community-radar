@@ -1,0 +1,59 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Delete, move, or archive completed recurring task instances in the active note via a single command",
+  "Mark tasks with configurable trigger strings (HTML comments, tags, emoji) that select the action",
+  "Append archived tasks to a configurable archive file, created if missing",
+  "Support both Tasks emoji recurrence format and Dataview-format inline fields"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns the plugin is unlikely to do anything useful without the Tasks plugin, and suggests assigning a hotkey or pinning the command in the Command Palette for convenience.",
+ "intent": "improve",
+ "intentEvidence": "Packrat is unlikely to do anything useful if you aren't using the Tasks plugin in your Obsidian vault",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author categorized their completed recurring tasks into three handling preferences (delete, move to bottom, archive separately) and wanted the cleanup automated per task.",
+ "primary": "tasks",
+ "problem": "The Tasks plugin keeps inserting new instances of recurring tasks, so completed instances accumulate and clutter the note where they originate.",
+ "readmeHash": "c237c8cdb1687148f9115bee4d2c5d38e8a987c7",
+ "relations": [
+  {
+   "evidence": "the amazing and (for many) indispensable Tasks plugin",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "Packrat supports both Tasks' traditional emojis and Dataview-format inline fields",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Cleanup tool that deletes, relocates, or archives completed instances of recurring Tasks-plugin tasks in the active note.",
+ "tags": [
+  "recurring-tasks",
+  "completed-tasks",
+  "triggers",
+  "archive-file",
+  "html-comments"
+ ]
+}

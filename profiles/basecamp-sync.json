@@ -1,0 +1,64 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [
+  "basecamp-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish selected notes and folders as Basecamp documents",
+  "Convert Markdown formatting, tables, callouts and code blocks to Basecamp rich text",
+  "Upload local embedded images and files as Basecamp attachments",
+  "Update existing documents in place and link notes to existing Basecamp pages",
+  "Sync manually or after edits with a configurable delay"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not two-way sync; it only publishes Obsidian notes to Basecamp and never imports edits made there back into the vault.",
+ "extras": "A shared mkdev login service (basecamp-obsidian-sync.fodoj.com) exchanges authorization codes and renews tokens; its server code is private, so privacy-conscious users or organizations can register their own integration or supply an existing access token instead.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish notes as formatted documents in Basecamp or keep those documents updated after edits.",
+ "readmeHash": "98c7c03224d8776d9871b626aa0a4c795df9ed66",
+ "relations": [
+  {
+   "evidence": "Uses the official Basecamp TypeScript SDK.",
+   "plugin": "Basecamp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Basecamp",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Basecamp account with OAuth authorization",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "One-way publisher that syncs selected notes and folders from a vault as formatted documents in Basecamp Docs & Files, updating them in place on re-push.",
+ "tags": [
+  "basecamp",
+  "37signals",
+  "oauth",
+  "one-way-sync",
+  "glob-patterns"
+ ]
+}

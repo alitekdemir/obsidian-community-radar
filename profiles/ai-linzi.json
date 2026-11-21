@@ -1,0 +1,93 @@
+{
+ "also": [
+  "integrations",
+  "publishing"
+ ],
+ "audience": [
+  "content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "chat with the AI Linzi assistant in a sidebar with vault-aware tools",
+  "search and read Markdown, PDF, DOCX, HTML, PPTX, and XLSX files locally",
+  "create, update, and delete vault files through previewed, confirmation-gated change sets",
+  "generate article illustrations and HTML/DOCX/PDF/PPTX deliverables",
+  "format and publish articles to WeChat and convert them to Xiaohongshu notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only, requires Obsidian 1.11.4+. Connection key comes from chat.alinalinzi.com; service-side prompts and orchestration are closed source. Some AI features consume credits. The public repository is a thin client for a private cloud service.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat that can search the vault, edit notes under confirmation, and publish content to Chinese social platforms.",
+ "readmeHash": "509c104606123740deeb04d1fbe7048b9593a0b9",
+ "relations": [
+  {
+   "evidence": "WeChat draft publishing connects to the official WeChat API.",
+   "plugin": "WeChat",
+   "type": "integrates"
+  },
+  {
+   "evidence": "When a user explicitly selects Fish Audio for Article to Video narration",
+   "plugin": "Fish Audio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "checks for existing Node.js 22+, FFmpeg/FFprobe, and HyperFrames 0.8.15 installations",
+   "plugin": "HyperFrames",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PDF.js is bundled for local extraction of text-based PDFs.",
+   "plugin": "PDF.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "AI Linzi account and connection key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "AI Linzi credits or paid entitlement for some features",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fish Audio API key for Article to Video narration",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 22+, FFmpeg/FFprobe, HyperFrames for Article to Video",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Cloud AI assistant service (AI Linzi) with sidebar chat, local vault search, note editing, image generation, and WeChat/Xiaohongshu publishing workflows.",
+ "tags": [
+  "wechat",
+  "xiaohongshu",
+  "douyin",
+  "fish-audio",
+  "ffmpeg",
+  "docx",
+  "xlsx",
+  "pdf-extraction"
+ ]
+}

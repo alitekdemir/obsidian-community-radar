@@ -1,0 +1,74 @@
+{
+ "also": [
+  "links",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lay out the active note's parents, children, jumps, and siblings as a centered graph",
+  "Create links by dragging handles between note cards",
+  "Remove links by hovering connectors",
+  "Edit parent/child/jump page properties in place, including YAML frontmatter and prefilled template fields"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI or neuroscience tool; the name refers to the links between notes, laid out in a TheBrain-style spatial graph.",
+ "extras": "Also runs in Logseq (0.10.x Markdown/file graph) as an unpacked plugin; beta versions installable via BRAT; README states the plugin was written with LLM assistance.",
+ "intent": "improve",
+ "intentEvidence": "its page-property data model (parent:: / child:: / jump::, declared one direction with reciprocals inferred) is the basis",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's graph shows the whole vault and links must be edited in note text, making focused navigation and link editing awkward.",
+ "readmeHash": "3746c6c768302764873b05dcefdb986b19981fc8",
+ "relations": [
+  {
+   "evidence": "its spatial \"Plex\" interface, with the active note centered and its relations fanning out around it, is the inspiration",
+   "plugin": "TheBrain",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "ExcaliBrain",
+   "type": "extends"
+  },
+  {
+   "evidence": "its inline-field index and query API are how the Obsidian adapter reads parent:: / child:: / jump:: links",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a host application this extends; it provides the Markdown graph, page properties, and plugin platform",
+   "plugin": "Logseq",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Focused graph view that lays out the active note's parent, child, and jump links around it, with click navigation and in-place link editing.",
+ "tags": [
+  "thebrain",
+  "excalibrain",
+  "logseq",
+  "dataview",
+  "inline-fields",
+  "mind-map"
+ ]
+}

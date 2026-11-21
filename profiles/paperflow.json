@@ -1,0 +1,78 @@
+{
+ "also": [
+  "import",
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import papers from arXiv IDs or URLs with metadata and PDF download",
+  "Import local PDFs and extract title, authors, date, and abstract",
+  "Generate AI reading sections (idea, method, limitations, future work) via Claude Code or Codex",
+  "Add exact-match PDF++ highlights with configurable concepts and colors",
+  "Customize generated notes with a custom template file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "AI reading requires Obsidian desktop because it runs local CLI tools; metadata import and PDF download also work on mobile. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to import arXiv papers with metadata, PDFs, and AI-generated reading notes in one step.",
+ "readmeHash": "0e427bb6d5587b965f042a566b6cc66d21f50d00",
+ "relations": [
+  {
+   "evidence": "Import from arXiv IDs or arXiv URLs.",
+   "plugin": "arXiv",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Read papers with Claude Code or Codex.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Read papers with Claude Code or Codex.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add exact-match PDF++ highlights with configurable concepts and colors.",
+   "plugin": "PDF++",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "arXiv paper importer that creates Markdown notes with metadata, downloads PDFs, and generates AI reading summaries via Claude Code or Codex.",
+ "tags": [
+  "arxiv",
+  "claude-code",
+  "codex",
+  "pdf-plus-plus",
+  "academic-papers"
+ ]
+}

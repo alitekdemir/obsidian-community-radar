@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "verify the Dictava API key",
+  "fetch pending artifact deliveries for the vault",
+  "download artifact content",
+  "mark deliveries as completed",
+  "auto-sync artifacts in the background"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documents its network calls in detail and states that no vault contents are sent; only the API key and vault name leave the device. Marked as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Voice messages recorded and transcribed outside Obsidian have no built-in way to arrive in the vault as notes.",
+ "readmeHash": "e6e293dbadea8ff009d714a01a6409d563c5220a",
+ "relations": [
+  {
+   "evidence": "Sync voice-note artifacts from Dictava into Obsidian vault.",
+   "plugin": "Dictava",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dictava turns voice messages you send to @DictavaBot Telegram bot into structured artifacts",
+   "plugin": "@DictavaBot Telegram bot",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Dictava",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Dictava API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Telegram",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Syncs artifacts that the Dictava service generates from Telegram voice messages into the vault via its API.",
+ "tags": [
+  "telegram",
+  "voice-notes",
+  "transcription",
+  "daily-notes",
+  "blog-drafts",
+  "meeting-summaries"
+ ]
+}

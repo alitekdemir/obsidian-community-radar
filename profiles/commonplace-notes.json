@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish opted-in notes as a static site to AWS S3 and CloudFront",
+  "Deploy and configure AWS publishing infrastructure from settings",
+  "Opt notes into sites via publish contexts and stable per-note UIDs",
+  "Open published links as stacked panes so readers view notes side by side",
+  "Gate published content with sign-in and commenting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the name, it is a publishing tool, not a note-taking or knowledge-organization method.",
+ "extras": "Desktop-only; version 0.2.0 is in beta and installed via BRAT rather than the community plugin store. Requires deploying AWS infrastructure, which the user must have or create.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to self-host published notes on your own AWS infrastructure with a stacked-panes reading experience.",
+ "readmeHash": "aaee7b4fc2b8649ee9802c93e28953b9efebbdd9",
+ "relations": [
+  {
+   "evidence": "Sites are self-hosted on AWS (S3 + CloudFront)",
+   "plugin": "AWS (S3 + CloudFront)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "AWS account for S3/CloudFront hosting",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes a curated subset of your vault as a self-hosted static site on AWS S3 and CloudFront, with links that open notes in stacked side panes.",
+ "tags": [
+  "aws",
+  "s3",
+  "cloudfront",
+  "static-site",
+  "self-hosted",
+  "brat",
+  "stacked-panes"
+ ]
+}

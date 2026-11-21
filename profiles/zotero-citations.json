@@ -1,0 +1,83 @@
+{
+ "also": [
+  "research",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Insert citations through Zotero's native picker with page/paragraph locators",
+  "Render footnote markers as superscript numbers with hover preview and in-place locator editing",
+  "Switch CSL styles and citation modes (footnote, endnote, in-text) across a document",
+  "Generate a formatted bibliography from citations in the document",
+  "Export .docx via Pandoc with live ZOTERO_ITEM citation fields"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Footnotes view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly: true) and requires Obsidian 1.5.7+; developed and tested primarily on macOS, with Linux and Windows not yet fully validated. Communicates only with Zotero/Better BibTeX over local loopback (default port 23119); no account, payments, ads, or telemetry. Unlink citations is irreversible, and hidden <!-- zotero:ITEMKEY --> metadata must not be removed manually.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in support for Zotero-backed citations with native picker, Zotero CSL styling, Word-style footnote display, or Word export that keeps citations as live fields.",
+ "readmeHash": "79a4e3c714652490fdf3f6fb65c562e1f88650b1",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Better BibTeX | Zotero plugin that provides the API layer",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uses Pandoc and a bundled Better BibTeX Lua filter to create .docx files",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX (Zotero plugin)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Zotero citation manager that inserts and styles citations via Zotero and Better BibTeX, and exports Word documents with live citation fields using Pandoc.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "pandoc",
+  "citations",
+  "csl-styles",
+  "bibliography",
+  "docx",
+  "word"
+ ]
+}

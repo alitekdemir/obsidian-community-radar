@@ -1,0 +1,63 @@
+{
+ "also": [
+  "flashcards",
+  "export"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight PDF text as standard /Highlight annotations with selectable colors",
+  "Attach and remove notes stored in the annotation's /Contents field",
+  "List all highlights and notes with deep links back to each annotation",
+  "Export highlights and notes into a Markdown note beside the PDF via a re-synced block",
+  "Sync note-carrying highlights into flashcard notes for spaced repetition"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that the plugin rewrites PDF files in place (keep backups) and patches an internal PDF viewer method, which Obsidian updates can break; it fails loudly rather than silently misbehaving.",
+ "intent": "improve",
+ "intentEvidence": "Highlight text and take notes in PDFs from inside Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian's built-in PDF viewer only reads annotations and stores plugin data outside the file, so highlights and notes made in Obsidian don't travel with the PDF to other readers.",
+ "readmeHash": "052109fe6cdc157769a5ac1bf5e5442c9a434117",
+ "relations": [
+  {
+   "evidence": "obsidian-spaced-repetition stores that inline, on the line after the card",
+   "plugin": "obsidian-spaced-repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the PDF is fully re-serialized on every save (that's how pdf-lib works)",
+   "plugin": "pdf-lib",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian-spaced-repetition",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "PDF annotation plugin that writes standard highlights and notes into the PDF file itself and syncs them to spaced-repetition flashcards.",
+ "tags": [
+  "highlights",
+  "annotations",
+  "spaced-repetition",
+  "pdf-annotations",
+  "deep-links"
+ ]
+}

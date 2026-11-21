@@ -1,0 +1,78 @@
+{
+ "also": [
+  "export",
+  "formatting"
+ ],
+ "audience": [
+  "screenwriters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Cycle line types with Tab and Shift+Tab",
+  "Show a badge naming the current line type",
+  "Set line types and renumber scenes from the command palette",
+  "Export notes to docx, PDF, HTML and txt",
+  "Import .io, .docx, .md and .txt files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community catalog; install manually or through BRAT. Export to Word, HTML and txt needs pandoc, while PDF uses Obsidian's built-in exporter. The English interface has not been checked in the app yet.",
+ "intent": "alternative",
+ "intentEvidence": "Most screenplay plugins render their own format (Fountain and friends), and the document turns into a pile of symbols",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Most screenplay plugins render their own format (Fountain and friends), turning the document into a pile of symbols outside the plugin; this one keeps the document as ordinary Markdown.",
+ "primary": "writing",
+ "problem": "Screenplay plugins that use their own format leave the document full of symbols once it leaves the plugin, so the file is no longer readable Markdown.",
+ "profiledAt": "2026-11-20",
+ "provider": "Particle AI",
+ "readmeHash": "acbf539407580ebcb1b6bc77a21374a1be93e81d",
+ "relations": [
+  {
+   "evidence": "Most screenplay plugins render their own format (Fountain and friends), and the document turns into a pile of symbols",
+   "plugin": "Fountain",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Everything except PDF uses pandoc — set its path in the plugin settings.",
+   "plugin": "pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add this repository through BRAT while the plugin is not in the community catalog yet.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pandoc",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Screenplay writing workflow that cycles line types with Tab and stores each element as plain Markdown, with import and export.",
+ "tags": [
+  "screenwriting",
+  "docx",
+  "pandoc",
+  "chinese",
+  "localization"
+ ],
+ "textHash": "5737c3f7aeb66cb76388fd0728dfe268ec1dd4c1"
+}

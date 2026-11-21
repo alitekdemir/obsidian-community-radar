@@ -1,0 +1,82 @@
+{
+ "also": [
+  "export",
+  "formatting"
+ ],
+ "audience": [
+  "chinese-content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert Markdown to WeChat-formatted output with custom CSS, SVG math and rasterized Mermaid",
+  "Sync articles to WeChat Official Account draft boxes via the official API",
+  "Publish notes to Feishu cloud docs with in-place updates",
+  "Export multi-page social image cards (6 themes, 3:4/3:5/9:16) as PNG",
+  "Distribute drafts to Zhihu, Juejin, CSDN and more via a companion browser extension"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not only a Markdown converter; it also publishes drafts directly to WeChat, Feishu and other platforms and exports multi-page image cards.",
+ "extras": "Free and open source (MIT); the author solicits donations via QR codes. The repo ships no build artifacts, so manual installs need GitHub Releases. A PROXY_GUIDE.md covers a Cloudflare Worker proxy for WeChat IP-whitelist issues. The README claims fully local operation with no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to format notes for WeChat's editor or push them to platform draft boxes, so writers resort to external formatting tools and manual copying that breaks formulas, Mermaid diagrams and code blocks.",
+ "readmeHash": "69a2ca7cd65f405933943bfa3fdd37989be7226b",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "WeChat Official Account",
+   "type": "integrates"
+  },
+  {
+   "evidence": "直接发布到飞书云文档，用于团队协作沉淀与长效知识管理",
+   "plugin": "Feishu",
+   "type": "integrates"
+  },
+  {
+   "evidence": "通过配套的 「Obsidian 发布助手」 浏览器插件，让多平台分发轻而易举",
+   "plugin": "Obsidian 发布助手",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account (API access)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Feishu self-built app",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian 发布助手 browser extension",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Markdown formatter and publisher that renders notes for WeChat Official Accounts, syncs drafts via the WeChat API, posts to Feishu, and exports image cards.",
+ "tags": [
+  "wechat",
+  "feishu",
+  "zhihu",
+  "csdn",
+  "unsplash",
+  "browser-extension",
+  "image-cards"
+ ]
+}

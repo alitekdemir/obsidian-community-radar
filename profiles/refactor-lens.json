@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compare the current note against any Markdown baseline file with inline addition/deletion marks",
+  "Restore or save selected deleted passages, including to their original location",
+  "Detect and jump between likely moved paragraphs",
+  "Save selected text to a scratchpad file for later reuse",
+  "Rewrite selected prose via Codex CLI or DeepSeek Harness (dsh)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not refactor code or restructure notes; it overlays a diff between two Markdown drafts.",
+ "extras": "Desktop only (macOS and Windows; Linux untested), requires Obsidian 1.13.0+, has a detailed privacy section, release attestations via GitHub Actions, and a full Chinese-language README duplicate.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian has no built-in way to compare two drafts of a note inline and selectively recover deleted text while continuing to edit.",
+ "readmeHash": "9bfa50b65a5e191f98c02f8a867931b1d5e5ce7c",
+ "relations": [
+  {
+   "evidence": "OpenAI Codex CLI | codex. Leave the model ID blank to use Codex's own configuration",
+   "plugin": "OpenAI Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek Harness CLI | dsh. Leave the model ID blank to use the Harness headless configuration.",
+   "plugin": "DeepSeek Harness (dsh)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI or DeepSeek Harness CLI",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "DEEPSEEK_API_KEY (official dsh route)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Inline Markdown draft-comparison lens that shows additions, deletions and moved paragraphs in the editor, with deletion restore, a scratchpad, and optional AI rewriting.",
+ "tags": [
+  "diff",
+  "draft-revision",
+  "move-detection",
+  "codex-cli",
+  "deepseek",
+  "scratchpad",
+  "text-restore"
+ ]
+}

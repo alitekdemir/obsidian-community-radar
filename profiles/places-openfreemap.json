@@ -1,0 +1,69 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Provide OpenFreeMap vector tiles and styles to Places",
+  "Load glyphs, sprites, and tiles for the selected map style",
+  "Support POI discovery on the map",
+  "Run on the maplibre-gl engine via shared Places libraries"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone map view; it only supplies tiles, styles, and POI data to the Places plugin.",
+ "extras": "README is mostly a transparency document listing network requests and dependencies; it has no setup or usage instructions. Flagged as not manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Map provider for Places using OpenFreeMap",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The Places plugin needs a map data source, and this provider adds one via OpenFreeMap without extra cost.",
+ "readmeHash": "88b09963ffcf412304bb332d2b2728f34fd71b18",
+ "relations": [
+  {
+   "evidence": "Map provider for Places using OpenFreeMap",
+   "plugin": "Places",
+   "type": "extends"
+  },
+  {
+   "evidence": "Map provider for Places using OpenFreeMap, with free vector maps",
+   "plugin": "OpenFreeMap",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "maplibre-gl",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenFreeMap tile service",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "Map provider plugin that supplies Places with free OpenFreeMap vector tiles, styles, and POI discovery.",
+ "tags": [
+  "openfreemap",
+  "maplibre",
+  "vector-tiles",
+  "poi",
+  "maps"
+ ]
+}

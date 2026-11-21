@@ -1,0 +1,72 @@
+{
+ "also": [
+  "tags",
+  "research"
+ ],
+ "audience": [
+  "librarians",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search Library of Congress Subject Headings with fuzzy matching",
+  "Insert a heading as YAML frontmatter or inline YAML at the selection",
+  "Add subdivisions to build complex subjects like Phonecians--Religion",
+  "Show broader, narrower, related headings, variant labels and LC Classification",
+  "Open the authorized heading on the Library of Congress website"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general linked-data or semantic-web tool; it currently supports only Library of Congress Subject Headings.",
+ "extras": "Warns that inserting YAML overwrites existing key values and removes unused key names, so key names should be fixed up front. Existing users below version 1.0.0 must migrate data via the Linked Data Helper plugin. Loading suggester data on startup is discouraged on mobile; syncing via Obsidian Sync requires enabling 'Sync all other types'.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian has no way to attach controlled-vocabulary subject headings from a library authority file, so topic metadata relies on free-form tags.",
+ "readmeHash": "37ddc58c043ed3c2b571e1add3c696779cb6a93a",
+ "relations": [
+  {
+   "evidence": "To generate the necessary data, you have to install the Linked Data Helper plugin",
+   "plugin": "Linked Data Helper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use this plugin with Breadcrumbs. You can set the hierachies in its settings",
+   "plugin": "Breadcrumbs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "inserting it as inline YAML at the current selection for use with Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Linked Data Helper",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that adds Library of Congress Subject Headings (LCSH) as YAML metadata to notes, with hierarchy links and subdivision support.",
+ "tags": [
+  "lcsh",
+  "library-of-congress",
+  "controlled-vocabulary",
+  "subject-headings",
+  "cataloging",
+  "linked-data"
+ ]
+}

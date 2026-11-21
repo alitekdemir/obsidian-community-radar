@@ -1,0 +1,82 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse cloud directories in the sidebar via WebDAV or S3",
+  "Insert signed Markdown links to cloud files into notes",
+  "Upload local attachments to the server and update references",
+  "Preview images, video, audio, documents, and PDFs inline",
+  "Manage and switch between multiple WebDAV/S3 accounts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is written mainly in Chinese with an English nav link; the listing notes the plugin has not been manually reviewed by Obsidian staff; the roadmap marks in-note server file search and Office preview as shelved.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author is a firm believer in keeping zero attachments inside the vault and is a heavy OpenList user (\"坚定的 Obsidian 库内 0 附件使用者\").",
+ "primary": "integrations",
+ "problem": "Obsidian attachments live in the vault and consume local disk space, with no built-in way to browse cloud storage or link to hosted files.",
+ "readmeHash": "154474b65e75a4834542d5c539d32c11c8950b53",
+ "relations": [
+  {
+   "evidence": "通过 WebDAV 连接 OpenList 等服务以及对象存储（S3）",
+   "plugin": "OpenList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "CloudAttach 支持使用 PDF.js 内联预览 PDF 文件",
+   "plugin": "PDF.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "🌐 S3 对象存储 — 兼容 Cloudflare R2，理论上支持 AWS 等大部分对象存储服务",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "兼容 OpenList，理论上支持 Alist / 群晖 / 威联通 QNAP 等所有 WebDAV 服务",
+   "plugin": "Alist",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenList or another WebDAV/S3 server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV credentials and OpenList token, or S3 storage credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "WebDAV/S3 cloud file browser that inserts signed links to OpenList or object-storage files and uploads local attachments to free vault space.",
+ "tags": [
+  "webdav",
+  "s3",
+  "openlist",
+  "alist",
+  "cloudflare-r2",
+  "signed-urls",
+  "pdfjs",
+  "object-storage"
+ ]
+}

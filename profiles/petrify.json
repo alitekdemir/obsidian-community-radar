@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ocr",
+  "integrations"
+ ],
+ "audience": [
+  "e-ink-tablet-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert handwriting files (.note, .pdf) to Excalidraw or Markdown format",
+  "Extract handwritten text via OCR (Tesseract.js or Google Cloud Vision) to make notes searchable",
+  "Watch external folders and automatically convert new or updated handwriting files",
+  "Download and convert handwriting files from Google Drive folders via API",
+  "Convert dropped handwriting files via drag & drop into the file explorer"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet published in the Obsidian Community Plugin directory; install via BRAT or build from source. Desktop only (needs Node.js filesystem access). Google Cloud Vision free tier allows 1,000 pages/month; Tesseract.js language data (~15 MB per language) is downloaded on first use and OCR then runs locally. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "The usual workaround — syncing handwriting files to Google Drive and opening them as PDFs — keeps your notes accessible but isolated.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because using both pen and keyboard splits knowledge between handwritten files on an e-ink tablet and typed notes in Obsidian, and the usual Google Drive PDF workaround keeps handwriting isolated.",
+ "primary": "import",
+ "problem": "Handwriting exported from e-ink tablets stays as flat, unsearchable files outside the vault, cut off from Obsidian search, links, tagging, and graph view.",
+ "readmeHash": "99a7d56bae7449423e89b5142c53fe649b562908",
+ "relations": [
+  {
+   "evidence": "Excalidraw format requires the Excalidraw plugin",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "supports Tesseract.js (local) and Google Cloud Vision (API)",
+   "plugin": "Tesseract.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "images are sent to Google servers for text recognition. Requires a user-provided API key.",
+   "plugin": "Google Cloud Vision",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the Google Drive API adapter detects changes and downloads files directly via API",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google account (OAuth2 for Google Drive API)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud Vision API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Converts handwritten note files (.note, .pdf) from e-ink tablets into searchable Excalidraw or Markdown notes in the vault, with OCR.",
+ "tags": [
+  "handwriting",
+  "e-ink-tablet",
+  "supernote",
+  "viwoods",
+  "google-drive",
+  "tesseract",
+  "excalidraw-format"
+ ]
+}

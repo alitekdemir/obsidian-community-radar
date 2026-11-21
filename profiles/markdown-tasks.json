@@ -1,0 +1,72 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "organize task notes into ordered chains with per-chain position and status",
+  "browse and reorder chains from a status bar and side panel",
+  "create new task notes from a template into a chosen folder",
+  "import and two-way sync Linear issues, projects, and initiatives as notes",
+  "import issues from a self-hosted Task App as notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a checkbox task-list manager; it treats each task as a whole note with frontmatter and arranges notes into ordered chains.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; both integrations are optional and send nothing until configured.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in way to treat tasks as standalone notes with frontmatter status and to sequence them in ordered chains across projects.",
+ "readmeHash": "9917a6fcdf853bb6ba91fa70ade1d166716f72e9",
+ "relations": [
+  {
+   "evidence": "import issues, projects and initiatives from Linear workspaces as notes, sync status in both directions",
+   "plugin": "Linear",
+   "type": "integrates"
+  },
+  {
+   "evidence": "import issues from your self-hosted Task App as notes",
+   "plugin": "Task App",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the same look as the Note Types plugin's styled links",
+   "plugin": "Note Types",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Linear workspace (OAuth sign-in with your own Linear OAuth app client ID, or a personal API key)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Task App with an /mcp endpoint and API_TOKEN",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Task manager that stores each task as a Markdown note and organizes them into ordered chains with a status bar and side panel for browsing and reordering.",
+ "tags": [
+  "linear",
+  "chains",
+  "sequencing",
+  "mcp",
+  "oauth"
+ ]
+}

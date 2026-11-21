@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [
+  ": academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Write side-by-side blocks",
+  ": Insert fragment markers",
+  ": Define restricted sections",
+  ": Generate invitation lists",
+  ": Apply column directives"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general Markdown linter or editor; it provides specific directives for the SafeLearn server to interpret.",
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": "Shows what SafeLearn will do with your document while you write it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formatting",
+ "problem": "Standard Markdown lacks mechanisms to define complex, server-driven rendering instructions like restricted content or multi-column layouts for presentation software.",
+ "readmeHash": "0c8aa454129bb8a7c93d57bf3e0dd8323459e5af",
+ "relations": [
+  {
+   "evidence": "SafeLearn is an open-source server that publishes a teacher's Markdown behind a school login.",
+   "plugin": "SafeLearn",
+   "type": "integrates"
+  },
+  {
+   "evidence": "side-by-side layouts for Reveal.js.",
+   "plugin": "Reveal.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "SafeLearn server",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "SafeLearn instance",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "A Markdown formatter that uses specific tags to instruct the SafeLearn server on how to render content, such as creating columns, fragments, or restricted access blocks.",
+ "tags": [
+  "safelearn",
+  "revealjs",
+  "fragments",
+  "restricted-access",
+  "columns",
+  "presentation"
+ ]
+}

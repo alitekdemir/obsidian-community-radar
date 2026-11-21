@@ -1,0 +1,72 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import public YouTube captions as timestamped Markdown transcript notes into a chosen vault folder",
+  "Generate a grounded video summary via OpenRouter with optional web-search citation checking",
+  "Re-summarize an edited transcript note directly from the editor",
+  "Configure model, token ceiling, temperature, prompt, caption language, and web-search settings",
+  "Detect existing notes by youtube_video_id and never overwrite them"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires manual install from a repository build (marketplace submission is not done). Releases before 0.1.3 lack artifact attestations. Summary requests are paid and may be charged even when failed or cancelled; transcript-only imports need no key. The author accepts donations via Buy me a coffee.",
+ "intent": "alternative",
+ "intentEvidence": "This is the standalone home of the Obsidian plugin, extracted from YouTube Transcript at commit 1787656.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to pull a YouTube video's captions into vault notes or produce a grounded AI summary from them.",
+ "readmeHash": "5982ca7306658f0782d73f03b5de11d24344d06b",
+ "relations": [
+  {
+   "evidence": "the standalone home of the Obsidian plugin, extracted from YouTube Transcript at commit 1787656",
+   "plugin": "YouTube Transcript",
+   "type": "fork"
+  },
+  {
+   "evidence": "full timestamped transcript, custom prompt, and bundled general spelling glossary to OpenRouter and the model provider",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Exa",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid OpenRouter model requests",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Imports public YouTube captions into Markdown transcript notes and creates grounded OpenRouter summaries linked to them.",
+ "tags": [
+  "youtube",
+  "openrouter",
+  "captions",
+  "transcripts",
+  "web-search",
+  "cost-tracking",
+  "timestamp-links"
+ ]
+}

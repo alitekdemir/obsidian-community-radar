@@ -1,0 +1,75 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "show similar notes below the active note while writing",
+  "search the vault by meaning via a hotkey",
+  "run built-in local embedding models with no setup",
+  "connect to OpenAI-compatible APIs, OpenRouter, or Ollama",
+  "export similar-notes results to JSON for external agents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Built-in default model downloads ~30MB on first run; the per-device index lives in IndexedDB and never syncs, so each device re-indexes from scratch. README warns large local models can crash mobile and details OpenRouter's Zero Data Retention setting for sensitive vaults. Further agent/CLI docs live in docs/agent-export.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's search matches keywords only, so it cannot find notes on the same topic written with different words.",
+ "readmeHash": "5702ba7957da0b261390ed1a171f8362d03618b9",
+ "relations": [
+  {
+   "evidence": "Use OpenAI embedding models or any OpenAI-compatible API",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect to custom models via Ollama (desktop only)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter offers embedding models from multiple vendors through one OpenAI-compatible API",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, OpenRouter, or Ollama provider",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenRouter account (optional provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Semantic similarity plugin that surfaces notes related to the one you are writing and searches the vault by meaning using local or cloud embedding models.",
+ "tags": [
+  "embeddings",
+  "transformers-js",
+  "onnx",
+  "ollama",
+  "openai",
+  "openrouter",
+  "vector-search",
+  "webgpu"
+ ]
+}

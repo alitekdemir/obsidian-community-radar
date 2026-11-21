@@ -1,0 +1,68 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render fenced code blocks as diagrams via a Kroki server",
+  "Load diagram source from a file in the vault",
+  "Configure the server URL, per-type code-block names, and per-type headers",
+  "Download diagrams as PNG or open them in niolesk"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Mermaid and PlantUML types ship disabled to avoid clashing with Obsidian's built-in Mermaid and the PlantUML plugin; diagrams.net requires a self-hosted Kroki with a companion container.",
+ "intent": "alternative",
+ "intentEvidence": "a modified and slightly expanded version of the obsidian-plantuml plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian only renders Mermaid natively, so diagrams written in PlantUML, GraphViz, D2 and other languages cannot be previewed inside notes.",
+ "readmeHash": "8edb0d422580c28b84433dff7f23e7007456b5e7",
+ "relations": [
+  {
+   "evidence": "a modified and slightly expanded version of the obsidian-plantuml plugin by Johannes Theiner",
+   "plugin": "obsidian-plantuml",
+   "type": "fork"
+  },
+  {
+   "evidence": "This plugin uses, by default, the Kroki server for rendering",
+   "plugin": "Kroki server",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Edit opens it in niolesk",
+   "plugin": "niolesk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Kroki server (public instance by default; self-hosted needed for diagrams.net and some other companion-service types)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Kroki-based diagram renderer that turns fenced code blocks into SVG or image diagrams for many diagram languages via a Kroki server.",
+ "tags": [
+  "kroki",
+  "plantuml",
+  "mermaid",
+  "graphviz",
+  "d2",
+  "svg",
+  "self-hosted"
+ ]
+}

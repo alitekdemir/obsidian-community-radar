@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Explain selected words or passages inline and keep or refine the explanation",
+  "Quiz recall of note sections with feedback on what you wrote",
+  "Run agent request blocks anywhere in a note with file references",
+  "Turn PDF, EPUB and Word documents into readable trees with clickable page citations",
+  "Track agent tasks, token costs and file changes in a status bar and a Bases activity log"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an automated 'not manually reviewed by Obsidian staff' notice. The README notes main.js is about 13 MB, that scanned PDFs without a text layer cannot be read (no OCR), and points to DESIGN.md, FORMAT.md and CONTRIBUTING.md for further documentation.",
+ "intent": "alternative",
+ "intentEvidence": "Coming from ICPA (icpa-agent)? ICAP imports its settings on first start; then remove the old plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get contextual AI explanations and active-recall practice in the note you are reading, without a separate chat panel.",
+ "readmeHash": "dadc3ef74efb296aecf047305bc64e7e03996a13",
+ "relations": [
+  {
+   "evidence": "Its agent is Pi, built into the plugin and connected to your own model provider.",
+   "plugin": "Pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Coming from ICPA (icpa-agent)? ICAP imports its settings on first start",
+   "plugin": "ICPA (icpa-agent)",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "model provider API key or subscription login",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "account with a model provider (Claude, ChatGPT, etc.)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI learning agent that adds inline explanations, recall practice and question checks inside notes, powered by the Pi agent runtime.",
+ "tags": [
+  "pi-agent-runtime",
+  "active-recall",
+  "icap-framework",
+  "epub",
+  "ollama",
+  "lm-studio"
+ ]
+}

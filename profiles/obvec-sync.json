@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Connect the vault to MCP-compatible AI assistants (Claude, ChatGPT, Cursor)",
+  "Sync notes incrementally to a cloud index using SHA-256 change detection",
+  "Answer natural-language questions over vault notes via semantic search",
+  "Exclude files from syncing with regex patterns"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a search plugin for use inside Obsidian; the semantic search runs in external AI assistants via MCP.",
+ "extras": "Freemium: free tier has 10MB storage and 100 MCP queries/day, Pro is $8/mo (yearly) or $12/mo. Notes are uploaded to an external cloud service (isolated per user). The listing carries an 'not manually reviewed by Obsidian staff' warning.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says AI assistants can't access your vault, and Obvec was built to bridge that gap.",
+ "primary": "integrations",
+ "problem": "AI assistants cannot access the notes in an Obsidian vault, so users cannot ask questions about or search their own second brain from those tools.",
+ "readmeHash": "de661c94d6b90f9571eedad37033cf9309bb15c4",
+ "relations": [
+  {
+   "evidence": "Let Claude, ChatGPT, and Cursor search your Obsidian vault using natural language.",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Let Claude, ChatGPT, and Cursor search your Obsidian vault using natural language.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Let Claude, ChatGPT, and Cursor search your Obsidian vault using natural language.",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Obvec account at obsidian.10xboost.org",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Obvec API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Pro plan ($8-12/mo) for more storage and unlimited queries",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "MCP bridge that syncs your vault to a cloud service so AI assistants like Claude, ChatGPT, and Cursor can semantically search your notes.",
+ "tags": [
+  "mcp",
+  "semantic-search",
+  "embeddings",
+  "claude",
+  "chatgpt",
+  "cursor",
+  "multilingual"
+ ]
+}
