@@ -362,6 +362,8 @@ class Notes {
       fm.translation_tokens = translation.tokens;
       if (typeof translation.cost === "number") fm.translation_cost = Number(translation.cost.toFixed(6));
       else delete fm.translation_cost;
+      if (translation.from) fm.translation_from = translation.from;   // its English version (README_en.md…)
+      else delete fm.translation_from;
     });
   }
 

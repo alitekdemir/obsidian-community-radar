@@ -672,6 +672,7 @@ class DetailModal extends Modal {
     if (!translation?.model) return;   // made before 0.12: nothing was recorded
     const took = [translation.model, t("details.tokensUsed", { n: formatShort(translation.tokens || 0) })];
     if (typeof translation.cost === "number") took.push(formatCost(translation.cost));
+    if (translation.from) took.unshift(t("details.translatedFrom", { name: translation.from }));   // its English version
     const item = info.createSpan({ text: t("details.infoTranslation", { took: took.join(" · ") }) });
     setTooltip(item, t("details.infoTranslationTip", { date: translation.date || "–" }));
   }

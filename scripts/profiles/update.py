@@ -12,6 +12,8 @@ Optional settings (GitHub repository variables, passed as environment variables)
     PROFILE_MODELS    comma-separated OpenRouter models to use; empty = today's free models
     REPROFILE_MODEL   re-profile the plugins whose profile was made by this model (prefix match),
                       MAX_PROFILES per run, until none is left; e.g. particle-ai/particle-1:free
+english-backlog.txt (next to this file): plugin ids whose README is in another language with an English
+                      version; re-profiled once from the English one (a profile with readmeSource is done).
 Writes `changed=true|false` to $GITHUB_OUTPUT so the workflow publishes only when something changed.
 """
 
@@ -38,6 +40,7 @@ RELEASES = "https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD"
 LISTING_URL = f"{RELEASES}/community-plugins.json"
 STATS_URL = f"{RELEASES}/community-plugin-stats.json"
 README_NAMES = ("README.md", "readme.md", "Readme.md", "README.MD")
+BACKLOG = Path(__file__).with_name("english-backlog.txt")
 UNREVIEWED_NOTE = re.compile(r"\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*", re.I)
 
 MAX_PROFILES = 40      # README profiles per run; the rest wait for the next hour
@@ -77,6 +80,24 @@ def readme(repo: str) -> str | None:
         if text is not None:
             return text
     return None
+
+
+def english_readme(raw: str | None, repo: str) -> tuple[str | None, str]:
+    """The README to profile from, and where it came from: README.md itself, unless it's in another
+    language and links an English version (README_en.md…) or holds an English section (README.md#English).
+    """
+    if not raw or profiler.foreign_share(raw) <= profiler.FOREIGN_SHARE:
+        return raw, "README.md"
+    if url := profiler.english_link(raw, repo):
+        try:
+            text = fetch(url)
+        except OSError:  # a broken link (HTTP or network error): the section or the README itself still serves
+            text = None
+        if text and profiler.is_english(text):
+            return text, url.rsplit("/", 1)[-1]
+    if section := profiler.english_section(raw):
+        return section, "README.md#English"
+    return raw, "README.md"
 
 
 def sha1(text: str) -> str:
@@ -119,15 +140,20 @@ class Calls:
         return {"answer": answer, **info}
 
 
-def profile_plugin(calls: Calls, plugin: dict, raw: str | None, schema: dict, system: str,
-                   slugs: set[str]) -> dict:
-    """A new profile file's content for one plugin (normalized, with hashes and provenance)."""
-    plugin = {**plugin, "text": profiler.clean_readme(raw)}
+def profile_plugin(calls: Calls, plugin: dict, raw: str | None, source: tuple[str | None, str], schema: dict,
+                   system: str, slugs: set[str]) -> dict:
+    """A new profile file's content for one plugin (normalized, with hashes and provenance).
+
+    `raw` is README.md (its hash tells a new release with the same README); `source` is (text, name) of what
+    the model reads: README.md itself or its English version (english_readme).
+    """
+    text, name = source
+    plugin = {**plugin, "text": profiler.clean_readme(text)}
     reply = calls.ask(system, profiler.user_message(plugin))
     answer = {k: v for k, v in reply["answer"].items() if k in schema["properties"]}  # extra keys are harmless
     jsonschema.validate(answer, schema)
     profile, _ = profiler.normalize_profile(answer, plugin, slugs)
-    return {**profile, "readmeHash": sha1(raw or ""), "textHash": sha1(plugin["text"]),
+    return {**profile, "readmeHash": sha1(raw or ""), "textHash": sha1(plugin["text"]), "readmeSource": name,
             "model": f"{reply['model']}@v{profiler.PROMPT_VERSION}", "provider": reply["provider"],
             "profiledAt": datetime.now(UTC).strftime("%Y-%m-%d")}
 
@@ -193,6 +219,8 @@ def main(data: Path) -> None:
     prefix = os.environ.get("REPROFILE_MODEL", "").strip()
     reprofile = {pid for pid, p in profiles.items()
                  if prefix and pid in catalog and p.get("model", "").startswith(prefix)}
+    backlog = set(BACKLOG.read_text(encoding="utf-8").split()) if BACKLOG.exists() else set()
+    reprofile |= {pid for pid in backlog if pid in catalog and "readmeSource" not in profiles.get(pid, {"readmeSource": 0})}
 
     # ── READMEs: new plugins, and released ones whose text changed ─────────
     candidates = [pid for pid in dict.fromkeys(new + released + sorted(reprofile))
@@ -209,14 +237,19 @@ def main(data: Path) -> None:
             print(f"   ✗ {pid}: README {str(error)[:100]}")
             continue
         old = profiles.get(pid)
-        if old and pid not in reprofile and (sha1(raw or "") == old.get("readmeHash")
-                    or sha1(profiler.clean_readme(raw)) == old.get("textHash")):
+        if old and pid not in reprofile and sha1(raw or "") == old.get("readmeHash"):
             state["updated"][pid] = stats.get(pid, {}).get("updated", 0)  # new release, same README
             continue
+        source = english_readme(raw, plugin["repo"])
+        if old and pid not in reprofile and sha1(profiler.clean_readme(source[0])) == old.get("textHash"):
+            state["updated"][pid] = stats.get(pid, {}).get("updated", 0)  # only the noise around the text changed
+            continue
         description = UNREVIEWED_NOTE.sub(" ", plugin.get("description", "")).strip()
-        jobs.append(({"id": pid, "name": plugin["name"], "description": description}, raw))
+        jobs.append(({"id": pid, "name": plugin["name"], "description": description}, raw, source))
+    english = sum(source[1] != "README.md" for _, _, source in jobs)
     print(f"📋 {len(catalog):,} plugins · {len(new)} new · {len(released)} released · {len(delisted)} delisted "
-          f"· {len(relisted)} relisted · {len(reprofile)} to re-profile ({prefix or '-'}) · {len(jobs)} to profile")
+          f"· {len(relisted)} relisted · {len(reprofile)} to re-profile ({prefix or '-'}) · {len(jobs)} to profile "
+          f"({english} from an English version)")
 
     retag_ids = [pid for pid, p in profiles.items()
                  if not index.vocabulary_tags(p["tags"], by_key) and pid not in state["retagged"]][:MAX_RETAGS]
@@ -232,7 +265,7 @@ def main(data: Path) -> None:
                   + "\n\nReturn ONLY one JSON object that matches this JSON Schema:\n" + json.dumps(schema))
         slugs = set(categories)
 
-        for (plugin, _raw), result in run_jobs(jobs, lambda job: profile_plugin(calls, *job, schema, system, slugs)):
+        for (plugin, _raw, _source), result in run_jobs(jobs, lambda job: profile_plugin(calls, *job, schema, system, slugs)):
             pid = plugin["id"]
             if isinstance(result, Stopped | TimeoutError):
                 continue  # not the plugin's fault (run stopped, model too slow): waits for the next run

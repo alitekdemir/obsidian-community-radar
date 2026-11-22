@@ -5,7 +5,7 @@ const core = {
   groupSections, groupHue, statusKey, UNGROUPED, UPDATES, TOP_RATED, escapeOutsideCode,
   absolutizeLinks, readmeBody, readmeSection, readmeVersion, readmeMeta, textHash, translationSection, replaceReadme, catalogDelta, noteBody, stripDescription, migrateHeadings, migrateStatuses, migrateMarkers, migrateImages, baseFile, sourceFields, noteFromFrontmatter,
   PROVIDERS, KEY_NAMES, STRINGS, addUsage, sumUsage, tokenPrice, formatPrice, filterModels, rememberModel, historyModels, openRouterRouting, translationPrompt,
-  parseTranslations, translationProblem, translationPairs, containsWords, estimateGap, mapLimit, groupsOf, uniqueNames, parseSimilar, similarIds, closeness, closenessShare, sharedFacets, closestGroup, readmeText, readmeTranslation, replaceReadmeTranslation, skipDevSections, aiEstimate, usageKind, releaseCadence, cadenceLabel, cadenceSub, cadenceNote,
+  parseTranslations, foreignShare, isEnglishText, englishLink, englishSection, translationProblem, translationPairs, containsWords, estimateGap, mapLimit, groupsOf, uniqueNames, parseSimilar, similarIds, closeness, closenessShare, sharedFacets, closestGroup, readmeText, readmeTranslation, replaceReadmeTranslation, skipDevSections, aiEstimate, usageKind, releaseCadence, cadenceLabel, cadenceSub, cadenceNote,
   groupPrompt, parseGroupSuggestions, errorDetail, profileOf, profileNeeds, profileCategories, profileFacets, profileParts, profileTexts, profileFromTexts,
   constants: { DAY_MS, RELEASES_CAP, DEFAULT_NEW_DAYS, HATCHED_DAYS, README_START, README_END, README_TR_START, README_TR_END, LEGACY_README_START, LEGACY_README_END, TIMELINE_VERSION },
 };

@@ -736,7 +736,8 @@ class PluginRadar extends Plugin {
       return {
         source: "note",
         original: text && { text, ...readmeMeta(content), hash: textHash(text) },
-        translation: saved && { ...saved, model: fm.translation_model ?? null, tokens: fm.translation_tokens ?? null, cost: fm.translation_cost ?? null },
+        translation: saved && { ...saved, model: fm.translation_model ?? null, tokens: fm.translation_tokens ?? null, cost: fm.translation_cost ?? null,
+          from: fm.translation_from ?? null },
       };
     }
     const entry = await this.cache.read(this.readmeCacheName(plugin.id), null);
@@ -746,6 +747,22 @@ class PluginRadar extends Plugin {
       original: text && { text, version: entry.version, date: entry.fetched, hash: textHash(text) },
       translation: entry?.translation || null,
     };
+  }
+
+  /**
+   * What a README translation reads: the README, unless it's in another language (not yours) and links an English
+   * version (README_en.md…) or holds an English section, which the AI translates better. One more download at most.
+   * @returns {Promise<{text: string, name: string}>} name: "README.md", the linked file's name or "README.md#English"
+   */
+  async readmeSource(plugin, text) {
+    const own = { text, name: "README.md" };
+    const [all, latin, mine] = letterCounts(text, scriptOfLanguage(this.data.settings.targetLang));
+    if (!all || 1 - latin / all <= FOREIGN_README || mine / all > FOREIGN_README) return own;   // English, or already in your script
+    const url = englishLink(text, plugin.repo);
+    const linked = url ? await this.github.text(url).catch(() => null) : null;
+    if (linked && isEnglishText(linked)) return { text: linked, name: decodeURI(url.split("/").pop()) };
+    const section = englishSection(text);
+    return section ? { text: section, name: "README.md#English" } : own;
   }
 
   /** What of a README goes to the AI: all of it, or without its developer sections when *Settings → AI → Save on README translations* is on. */
@@ -799,10 +816,12 @@ class PluginRadar extends Plugin {
       }
       if (!original) throw new Error(t("readme.failed"));
       progress(t("readme.translating"));
-      const { text, skipped } = this.translationSource(original.text);
+      const source = await this.readmeSource(plugin, original.text);
+      const { text, skipped } = this.translationSource(source.text);
       const done = await this.translator.translateMarkdown(text, model);
       if (skipped.length) done.body += `\n\n*${t("readme.skipped", { list: skipped.join(" · ") })}*`;
-      const translation = { ...done, lang: this.data.settings.targetLang, version: original.version, hash: original.hash, date: dayString(Date.now()) };
+      const translation = { ...done, lang: this.data.settings.targetLang, version: original.version, hash: original.hash, date: dayString(Date.now()),
+        from: source.name === "README.md" ? null : source.name };   // translated from its English version
       const file = this.notes.file(plugin.id);
       if (file) await this.notes.writeTranslation(file, translation);
       else {

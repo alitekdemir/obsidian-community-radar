@@ -8,6 +8,7 @@ used (prompt v3), plus a closed tag vocabulary (v4).
 import html
 import json
 import re
+from urllib.parse import quote
 
 from markdown_it import MarkdownIt
 
@@ -205,6 +206,82 @@ def clean_readme(markdown: str | None, html_blocks: bool = True) -> str:
             lines.append(" | ".join(row))
             row = []
     return "\n".join(line for line in lines if line.strip())
+
+
+# ── English source ─────────────────────────────────────────────────────────
+# A README in another language (mostly Chinese, Japanese, Russian, Korean) often links an English
+# version (README_en.md) or holds an English section; the profile is better made from that.
+FOREIGN_SHARE = 0.3        # more of the letters than this outside Latin: not an English README
+MIN_ENGLISH_LETTERS = 300  # a shorter "English" part is a stub, not a source
+LATIN = re.compile(r"[A-Za-z\u00C0-\u024F\u1E00-\u1EFF]")
+CODE_FENCE = re.compile(r"^(```|~~~).*?^\1", re.M | re.S)
+MD_LINK = re.compile(r"\[([^\]]*)\]\(<?([^)\s>]+)>?[^)]*\)")
+HTML_LINK = re.compile(r"<a\s[^>]*href=[\"']([^\"']+)[\"'][^>]*>(.*?)</a>", re.I | re.S)
+EN_FILE = re.compile(r"readme[._-]?(en|en[-_](us|gb)|english)\.md", re.I)   # README_en.md, readme.EN.md …
+EN_LABEL = re.compile(r"\b(english|en)\b", re.I)
+EN_HEADING = re.compile(r"en|(\w+ )?english( \w+){0,2}", re.I)   # EN, English, In English, English summary …
+HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
+GITHUB_BLOB = re.compile(r"https?://github\.com/([^/]+/[^/]+)/blob/([^?#]+)")
+
+
+def foreign_share(text: str) -> float:
+    """The share of letters outside the Latin script, code blocks left out (0 for no letters)."""
+    body = CODE_FENCE.sub("", text or "")
+    letters = sum(ch.isalpha() for ch in body)
+    return 1 - len(LATIN.findall(body)) / letters if letters else 0.0
+
+
+def is_english(text: str) -> bool:
+    """English enough to profile from: mostly Latin letters, and enough of them."""
+    return foreign_share(text) <= FOREIGN_SHARE and len(LATIN.findall(CODE_FENCE.sub("", text))) >= MIN_ENGLISH_LETTERS
+
+
+def english_link(markdown: str, repo: str) -> str | None:
+    """The raw URL of the English README this one links to (README_en.md, or a .md labelled English).
+
+    Relative links are read from the repository's default branch; a GitHub "blob" page becomes its raw
+    file. Other sites (a docs page) are left alone: they aren't Markdown we can read.
+    """
+    links = [(label, target) for label, target in MD_LINK.findall(markdown)]
+    links += [(label, target) for target, label in HTML_LINK.findall(markdown)]
+    for label, target in links:
+        path = target.split("#", 1)[0].split("?", 1)[0]
+        name = path.rsplit("/", 1)[-1]
+        if not name.lower().endswith(".md") or name.lower() == "readme.md":
+            continue
+        if not (EN_FILE.fullmatch(name) or EN_LABEL.search(re.sub(r"<[^>]+>", "", label))):
+            continue
+        if blob := GITHUB_BLOB.match(path):
+            return f"https://raw.githubusercontent.com/{blob[1]}/{quote(blob[2], safe='/%')}"
+        if path.startswith("https://raw.githubusercontent.com/"):
+            return path
+        if "://" not in path:   # relative: from the default branch (a folder name may be 图片)
+            return f"https://raw.githubusercontent.com/{repo}/HEAD/{quote(path.removeprefix('./').lstrip('/'), safe='/%')}"
+    return None
+
+
+def english_section(markdown: str) -> str | None:
+    """The README's own English part: a heading named English (🇬🇧 English, English version…) to the
+    next heading of its level or above; None when there's none, or it's too short to count."""
+    lines, fenced = markdown.splitlines(), False
+    start = level = None
+    for i, line in enumerate(lines):
+        if line.lstrip().startswith(("```", "~~~")):
+            fenced = not fenced
+        heading = None if fenced else HEADING.match(line)
+        if not heading:
+            continue
+        depth = len(heading[1])
+        if start is not None and depth <= level:
+            section = "\n".join(lines[start:i])
+            return section if is_english(section) else None
+        title = re.sub(r"[^\w ]", "", heading[2]).strip()
+        if start is None and EN_HEADING.fullmatch(title):
+            start, level = i + 1, depth
+    if start is None:
+        return None
+    section = "\n".join(lines[start:])
+    return section if is_english(section) else None
 
 
 def squash(text: str) -> str:

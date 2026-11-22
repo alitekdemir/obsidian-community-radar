@@ -895,6 +895,17 @@ const tests = {
     assert.ok(core.PROVIDERS.gemini.chat("a/b?c", "k", "p").url.endsWith("/models/a%2Fb%3Fc:generateContent"));
   },
 
+  "English source: a README in another language links or holds an English version"() {
+    const en = "This plugin turns your notes into mind maps you can edit, export and share with others. ".repeat(5);
+    const zh = "一个功能和颜值并存的思维导图插件，支持导出和分享。".repeat(20);
+    assert.ok(core.foreignShare(zh) > 0.3 && core.foreignShare(en) === 0);
+    assert.equal(core.englishLink(`【[English](https://github.com/o/r/blob/main/README_en.md) | 简体中文】\n${zh}`, "o/r"), "https://raw.githubusercontent.com/o/r/main/README_en.md");
+    assert.equal(core.englishLink(`[文档](./图片/README.en.md)\n${zh}`, "o/r"), "https://raw.githubusercontent.com/o/r/HEAD/%E5%9B%BE%E7%89%87/README.en.md", "relative, encoded");
+    assert.equal(core.englishLink(`[English](https://example.com/en.md) [中文](README.md)`, "o/r"), null, "another site, or the README itself");
+    assert.equal(core.englishSection(`# 插件\n${zh}\n## 🇬🇧 English summary\n${en}\n## 安装\n${zh}`).trim(), en.trim());
+    assert.equal(core.englishSection(`# 插件\n${zh}\n## English\nShort.\n`), null, "a stub isn't a source");
+  },
+
   async "mapLimit: keeps order and respects the limit"() {
     let running = 0, peak = 0;
     const out = await core.mapLimit([5, 1, 3, 2], 2, async (n) => {

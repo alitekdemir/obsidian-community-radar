@@ -38,6 +38,82 @@ function migrateImages(content) {
 }
 
 /** Points relative images and links to GitHub; images on a GitHub page (`/blob/`) to the file itself. */
+// ─── English source ───────────────────────────────────────────────────────────
+// A README in another language (mostly Chinese, Japanese, Russian, Korean) often links an English version
+// (README_en.md) or holds an English section: the AI translates English best. The same rules as
+// scripts/profiles/profiler.py, which makes the Overview from it.
+const FOREIGN_README = 0.3;         // more of the letters than this outside Latin: not an English README
+const MIN_ENGLISH_LETTERS = 300;    // a shorter "English" part is a stub, not a source
+const CODE_FENCE = /^(```|~~~)[\s\S]*?^\1/gm;
+const EN_FILE = /^readme[._-]?(en|en[-_](us|gb)|english)\.md$/i;   // README_en.md, readme.EN.md …
+const EN_LABEL = /\b(english|en)\b/i;
+const EN_HEADING = /^(en|(\w+ )?english( \w+){0,2})$/i;          // EN, English, In English, English summary …
+
+/** Letters in a text, code blocks left out: [all, Latin, in `script` (a key of SCRIPTS)]. */
+function letterCounts(text, script = null) {
+  const body = String(text ?? "").replace(CODE_FENCE, "");
+  let all = 0, latin = 0, own = 0;
+  for (const ch of body) {
+    if (!/\p{L}/u.test(ch)) continue;
+    all++;
+    if (/\p{Script=Latin}/u.test(ch)) latin++;
+    else if (script && SCRIPTS[script].test(ch)) own++;
+  }
+  return [all, latin, own];
+}
+
+/** The share of letters outside the Latin script (0 for no letters). */
+function foreignShare(text) {
+  const [all, latin] = letterCounts(text);
+  return all ? 1 - latin / all : 0;
+}
+
+/** English enough to translate from: mostly Latin letters, and enough of them. */
+function isEnglishText(text) {
+  const [all, latin] = letterCounts(text);
+  return latin >= MIN_ENGLISH_LETTERS && 1 - latin / all <= FOREIGN_README;
+}
+
+/**
+ * The raw URL of the English README this one links to (README_en.md, or a .md labelled English): a GitHub page
+ * becomes its raw file, a relative link is read from the default branch, other sites are left alone.
+ */
+function englishLink(markdown, repo) {
+  const links = [...markdown.matchAll(/\[([^\]]*)\]\(<?([^)\s>]+)>?[^)]*\)/g)].map((m) => [m[1], m[2]])
+    .concat([...markdown.matchAll(/<a\s[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map((m) => [m[2], m[1]]));
+  for (const [label, target] of links) {
+    const path = target.split("#")[0].split("?")[0];
+    const name = path.split("/").pop();
+    if (!/\.md$/i.test(name) || /^readme\.md$/i.test(name)) continue;
+    if (!EN_FILE.test(name) && !EN_LABEL.test(label.replace(/<[^>]+>/g, ""))) continue;
+    const blob = path.match(/^https?:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/(.+)$/);
+    if (blob) return `${RAW}/${blob[1]}/${encodeURI(decodeURI(blob[2]))}`;
+    if (path.startsWith(`${RAW}/`)) return path;
+    if (!path.includes("://")) return `${RAW}/${repo}/HEAD/${encodeURI(decodeURI(path.replace(/^\.?\//, "")))}`;   // a folder may be 图片
+  }
+  return null;
+}
+
+/** The README's own English part: a heading named English to the next heading of its level or above; null if none or too short. */
+function englishSection(markdown) {
+  const lines = markdown.split("\n");
+  let fenced = false;
+  let start = null;
+  let level = 0;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) fenced = !fenced;
+    const heading = !fenced && lines[i].match(/^(#{1,6})\s+(.*?)\s*#*\s*$/);
+    if (!heading) continue;
+    if (start != null && heading[1].length <= level) return checked(lines.slice(start, i).join("\n"));
+    if (start == null && EN_HEADING.test(heading[2].replace(/[^\p{L}\p{N}_ ]/gu, "").trim())) [start, level] = [i + 1, heading[1].length];
+  }
+  return start == null ? null : checked(lines.slice(start).join("\n"));
+
+  function checked(section) {
+    return isEnglishText(section) ? section : null;
+  }
+}
+
 function absolutizeLinks(markdown, repo) {
   const rawBase = `${RAW}/${repo}/HEAD/`;
   const blobBase = `https://github.com/${repo}/blob/HEAD/`;
