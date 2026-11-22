@@ -14,7 +14,9 @@ Optional settings (GitHub repository variables, passed as environment variables)
                       as many per run as its calls allow, until none is left; e.g. particle-ai/particle-1:free
 english-backlog.txt (next to this file): plugin ids whose README is in another language with an English
                       version; re-profiled once from the English one (a profile with readmeSource is done).
-Writes `changed=true|false` to $GITHUB_OUTPUT so the workflow publishes only when something changed.
+Writes `changed=true|false` to $GITHUB_OUTPUT so the workflow publishes only when something changed, and
+`more=true` when the queue isn't done, the run made progress and free requests are left: the workflow then
+starts itself again, so a long queue goes on run after run until it or the day's free requests run out.
 """
 
 import hashlib
@@ -46,6 +48,7 @@ UNREVIEWED_NOTE = re.compile(r"\s*-?\s*This plugin has not been manually reviewe
 RATE = 18              # model calls started a minute: the free models allow 20
 TIME_BUDGET = 20 * 60  # s from the run's start: no new calls after this, so it saves its work before the 30-minute job limit
 MAX_CALLS = RATE * TIME_BUDGET // 60  # what fits in a run; also capped by today's free requests left
+MIN_MORE_REQUESTS = 30  # free requests that must be left for the run to start the next one
 RATE_RETRIES = 4       # a call that keeps hitting 429 waits for the next run (not counted as the plugin's failure)
 MAX_RETAGS = 100       # tag-only calls per run
 MAX_ATTEMPTS = 3       # a plugin that keeps failing waits for its next release
@@ -269,6 +272,7 @@ def main(data: Path) -> None:
     candidates = [pid for pid in dict.fromkeys(new + released + sorted(reprofile))
                   if state["failed"].get(pid, 0) < MAX_ATTEMPTS]
     jobs = []
+    read = 0  # candidates looked at: fewer than all means the queue goes on in the next run
     for start in range(0, len(candidates), WORKERS * 5):
         if len(jobs) >= limit or time.monotonic() > deadline - TIME_BUDGET / 2:
             break
@@ -276,6 +280,7 @@ def main(data: Path) -> None:
         for pid, result in run_jobs(batch, lambda pid: read_readme(catalog[pid])):
             if len(jobs) >= limit:
                 break
+            read += 1
             if isinstance(result, Exception):  # GitHub hiccup: counts as an attempt, tried again next run
                 state["failed"][pid] = state["failed"].get(pid, 0) + 1
                 print(f"   ✗ {pid}: README {str(result)[:100]}")
@@ -297,6 +302,7 @@ def main(data: Path) -> None:
     retag_ids = [pid for pid, p in profiles.items()
                  if not index.vocabulary_tags(p["tags"], by_key) and pid not in state["retagged"]]
     retag_ids = retag_ids[:max(0, min(MAX_RETAGS, limit - len(jobs)))]  # what's left of the run's calls
+    profiled, cut_short = 0, False
     if jobs or retag_ids:
         models = chosen or openrouter.free_models(key)
         print(f"🤖 models: {models} ({'PROFILE_MODELS' if chosen else 'free'}) · free requests today: {quota}")
@@ -315,6 +321,7 @@ def main(data: Path) -> None:
                 state["failed"][pid] = state["failed"].get(pid, 0) + 1
                 print(f"   ✗ {pid}: {str(result)[:120]}")
                 continue
+            profiled += 1
             events.append({"at": today, "id": pid, "change": "updated" if pid in profiles else "added"})
             profiles[pid] = result
             index.write_json(data / "profiles" / f"{pid}.json", result)
@@ -332,7 +339,8 @@ def main(data: Path) -> None:
                 profiles[pid].update(tags=tags, tagsBy=model)
                 index.write_json(data / "profiles" / f"{pid}.json", profiles[pid])
                 retagged += 1
-        stopped = " · ⏱️ time budget reached, the rest waits for the next run" if calls.stop.is_set() else ""
+        cut_short = calls.stop.is_set()
+        stopped = " · ⏱️ time budget reached, the rest waits for the next run" if cut_short else ""
         print(f"🏷️ retagged {retagged}/{len(retag_ids)} · 💵 run cost ${calls.cost:.4f}{stopped}")
 
     # ── Outputs ─────────────────────────────────────────────────────────────
@@ -345,10 +353,16 @@ def main(data: Path) -> None:
         index.write_json(data / "index.json", index.build_index(profiles, categories, by_key), compact=True),
     ]
     changed = bool(events) or any(wrote)
-    print(f"✅ {len(events)} changes · {len(profiles):,} profiles · publish: {changed}")
+    # another run right away: the queue goes on, this run moved it, and today's free requests aren't spent
+    # (paid models never chain: their spend is yours to start)
+    queue_left = read < len(candidates) or cut_short
+    left_today = (openrouter.free_requests_left(key) or {}).get("remaining", 0) if quota and queue_left and profiled else 0
+    more = left_today >= MIN_MORE_REQUESTS
+    print(f"✅ {len(events)} changes · {len(profiles):,} profiles · publish: {changed} · "
+          f"next run now: {more} (queue left: {queue_left}, free requests left: {left_today})")
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
-            out.write(f"changed={'true' if changed else 'false'}\n")
+            out.write(f"changed={'true' if changed else 'false'}\nmore={'true' if more else 'false'}\n")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,8 @@
 # free OpenRouter models, tags untagged ones from the closed vocabulary, rebuilds index.json, then the
 # "Similar" lists (similar.json, see scripts/similar) on the `profiles` branch, which the plugin
 # downloads. Publishes only when something changed. The branch holds a single commit, replaced on each
-# publish, so the repository doesn't grow.
+# publish, so the repository doesn't grow. A run that leaves work in the queue starts the next one itself
+# while the day's free requests last (scripts/profiles/update.py writes `more`).
 name: Profiles
 
 on:
@@ -66,6 +67,12 @@ jobs:
           git add -A
           git commit -q -m "Profiles $(date -u +'%F %H:%M')"
           git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" profiles
+
+      - name: Go on with the queue (a new run, while free requests are left today)
+        if: steps.update.outputs.more == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run profiles.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"
 
       - name: Keep the schedule alive (GitHub turns off scheduled runs after 60 days without commits)
         env:
