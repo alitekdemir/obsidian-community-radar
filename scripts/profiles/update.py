@@ -11,7 +11,7 @@ Usage:  python update.py DATA_DIR   (DATA_DIR: the profiles branch's files; OPEN
 Optional settings (GitHub repository variables, passed as environment variables):
     PROFILE_MODELS    comma-separated OpenRouter models to use; empty = today's free models
     REPROFILE_MODEL   re-profile the plugins whose profile was made by this model (prefix match),
-                      MAX_PROFILES per run, until none is left; e.g. particle-ai/particle-1:free
+                      as many per run as its calls allow, until none is left; e.g. particle-ai/particle-1:free
 english-backlog.txt (next to this file): plugin ids whose README is in another language with an English
                       version; re-profiled once from the English one (a profile with readmeSource is done).
 Writes `changed=true|false` to $GITHUB_OUTPUT so the workflow publishes only when something changed.
@@ -43,13 +43,16 @@ README_NAMES = ("README.md", "readme.md", "Readme.md", "README.MD")
 BACKLOG = Path(__file__).with_name("english-backlog.txt")
 UNREVIEWED_NOTE = re.compile(r"\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*", re.I)
 
-MAX_PROFILES = 40      # README profiles per run; the rest wait for the next hour
+RATE = 18              # model calls started a minute: the free models allow 20
+TIME_BUDGET = 20 * 60  # s from the run's start: no new calls after this, so it saves its work before the 30-minute job limit
+MAX_CALLS = RATE * TIME_BUDGET // 60  # what fits in a run; also capped by today's free requests left
+RATE_RETRIES = 4       # a call that keeps hitting 429 waits for the next run (not counted as the plugin's failure)
 MAX_RETAGS = 100       # tag-only calls per run
 MAX_ATTEMPTS = 3       # a plugin that keeps failing waits for its next release
 MAX_DELISTS = 50       # more plugins vanishing in one run means a bad download, not a cleanup
 MAX_RUN_COST = 0.05    # $: a guard in case a "free" model starts charging
-WORKERS = 10           # free models allow 20 requests a minute; an answer takes 10-90 s
-TIME_BUDGET = 20 * 60  # s: no new calls after this, so the run saves its work before the 30-minute job limit
+WORKERS = 20           # an answer takes 10-90 s: enough threads that RATE, not they, sets the pace
+STATE_VERSION = 2      # 2: 429s no longer count as failures; the counts made before are dropped once
 CHANGES_DAYS = 30      # how far back changes.json reaches
 
 RETAG_PROMPT = """\
@@ -114,24 +117,48 @@ class Stopped(RuntimeError):
 
 
 class Calls:
-    """Shared by the worker threads: the API key, models, the run's spend, its clock and its stop switch."""
+    """Shared by the worker threads: the API key, models, the run's spend, its clock, its pace and its stop switch."""
 
-    def __init__(self, key: str, models: list[str]):
-        self.key, self.models = key, models
+    def __init__(self, key: str, models: list[str], deadline: float):
+        self.key, self.models, self.deadline = key, models, deadline
         self.cost, self.stop, self.lock = 0.0, threading.Event(), threading.Lock()
-        self.deadline = time.monotonic() + TIME_BUDGET
+        self.next_start = 0.0  # monotonic time the next call may start: RATE a minute, later after a 429
+
+    def wait_turn(self) -> None:
+        """Waits for this call's turn: calls start 60 / RATE s apart, and not before a 429's reset."""
+        with self.lock:
+            now = time.monotonic()
+            start = max(now, self.next_start)
+            self.next_start = start + 60 / RATE
+        time.sleep(start - now)
+
+    def pause(self, seconds: float) -> None:
+        """A 429: no call starts for `seconds` (the limit's reset), whichever thread got it."""
+        with self.lock:
+            self.next_start = max(self.next_start, time.monotonic() + seconds)
 
     def ask(self, system: str, user: str) -> dict:
-        """One JSON answer; stops the run on account errors, the spend guard or the time budget."""
-        if time.monotonic() > self.deadline:
-            self.stop.set()
-        if self.stop.is_set():
-            raise Stopped("run stopped")
-        try:
-            answer, info = openrouter.ask_json(self.key, self.models, system, user)
-        except openrouter.AccountError:
-            self.stop.set()
-            raise
+        """One JSON answer, at the run's pace; a 429 waits for its reset and asks again (RATE_RETRIES times).
+
+        Stops the run on account errors, the spend guard or the time budget.
+        """
+        for attempt in range(RATE_RETRIES + 1):
+            self.wait_turn()
+            if time.monotonic() > self.deadline:
+                self.stop.set()
+            if self.stop.is_set():
+                raise Stopped("run stopped")
+            try:
+                answer, info = openrouter.ask_json(self.key, self.models, system, user)
+                break
+            except openrouter.AccountError:
+                self.stop.set()
+                raise
+            except openrouter.RateLimited as error:
+                self.pause(error.wait)
+                print(f"   ⏸ 429, waiting {error.wait:.0f}s", flush=True)
+                if attempt == RATE_RETRIES:
+                    raise
         print(f"   · {info['model']} {info['seconds']}s", flush=True)  # progress, visible in the Actions log
         with self.lock:
             self.cost += info["cost"]
@@ -178,7 +205,14 @@ def run_jobs(jobs: list, work) -> list:
         return list(pool.map(safe, jobs))
 
 
+def read_readme(plugin: dict) -> tuple[str | None, tuple[str | None, str]]:
+    """README.md and what the model would read from it (english_readme); raises on a GitHub hiccup."""
+    raw = readme(plugin["repo"])
+    return raw, english_readme(raw, plugin["repo"])
+
+
 def main(data: Path) -> None:
+    deadline = time.monotonic() + TIME_BUDGET  # the whole run's, README downloads included
     key = os.environ["OPENROUTER_API_KEY"]
     today = datetime.now(UTC).strftime("%Y-%m-%d")
     catalog = {p["id"]: p for p in json.loads(fetch(LISTING_URL))}
@@ -193,6 +227,8 @@ def main(data: Path) -> None:
         state = {"updated": {pid: stats.get(pid, {}).get("updated", 0) for pid in profiles},
                  "failed": {}, "retagged": []}
         print(f"🌱 state started from {len(state['updated']):,} profiles")
+    if state.get("version", 1) < STATE_VERSION:  # failures counted before 429s were told apart: mostly rate limits
+        state.update(failed={}, version=STATE_VERSION)
 
     # ── What changed in the plugin list ─────────────────────────────────────
     # A plugin that leaves the list keeps its profile, marked delisted: the repository usually still
@@ -222,43 +258,49 @@ def main(data: Path) -> None:
     backlog = set(BACKLOG.read_text(encoding="utf-8").split()) if BACKLOG.exists() else set()
     reprofile |= {pid for pid in backlog if pid in catalog and "readmeSource" not in profiles.get(pid, {"readmeSource": 0})}
 
+    # ── How many calls this run can make: as many as fit in its time, within today's free requests ──
+    chosen = [m.strip() for m in os.environ.get("PROFILE_MODELS", "").split(",") if m.strip()]
+    quota = None if chosen else openrouter.free_requests_left(key)
+    limit = min(MAX_CALLS, quota["remaining"]) if quota and quota.get("remaining") is not None else MAX_CALLS
+
     # ── READMEs: new plugins, and released ones whose text changed ─────────
+    # Downloaded WORKERS at a time; a released plugin whose README didn't change costs no call, so the queue is
+    # read until the run's calls are spoken for (or the time is half gone: the calls need the other half).
     candidates = [pid for pid in dict.fromkeys(new + released + sorted(reprofile))
                   if state["failed"].get(pid, 0) < MAX_ATTEMPTS]
     jobs = []
-    for pid in candidates:
-        if len(jobs) >= MAX_PROFILES:
+    for start in range(0, len(candidates), WORKERS * 5):
+        if len(jobs) >= limit or time.monotonic() > deadline - TIME_BUDGET / 2:
             break
-        plugin = catalog[pid]
-        try:
-            raw = readme(plugin["repo"])
-        except Exception as error:  # GitHub hiccup: counts as an attempt, tried again next hour
-            state["failed"][pid] = state["failed"].get(pid, 0) + 1
-            print(f"   ✗ {pid}: README {str(error)[:100]}")
-            continue
-        old = profiles.get(pid)
-        if old and pid not in reprofile and sha1(raw or "") == old.get("readmeHash"):
-            state["updated"][pid] = stats.get(pid, {}).get("updated", 0)  # new release, same README
-            continue
-        source = english_readme(raw, plugin["repo"])
-        if old and pid not in reprofile and sha1(profiler.clean_readme(source[0])) == old.get("textHash"):
-            state["updated"][pid] = stats.get(pid, {}).get("updated", 0)  # only the noise around the text changed
-            continue
-        description = UNREVIEWED_NOTE.sub(" ", plugin.get("description", "")).strip()
-        jobs.append(({"id": pid, "name": plugin["name"], "description": description}, raw, source))
+        batch = candidates[start:start + WORKERS * 5]
+        for pid, result in run_jobs(batch, lambda pid: read_readme(catalog[pid])):
+            if len(jobs) >= limit:
+                break
+            if isinstance(result, Exception):  # GitHub hiccup: counts as an attempt, tried again next run
+                state["failed"][pid] = state["failed"].get(pid, 0) + 1
+                print(f"   ✗ {pid}: README {str(result)[:100]}")
+                continue
+            raw, source = result
+            old = profiles.get(pid)
+            if old and pid not in reprofile and (sha1(raw or "") == old.get("readmeHash")
+                                                 or sha1(profiler.clean_readme(source[0])) == old.get("textHash")):
+                state["updated"][pid] = stats.get(pid, {}).get("updated", 0)  # new release, same README text
+                continue
+            plugin = catalog[pid]
+            description = UNREVIEWED_NOTE.sub(" ", plugin.get("description", "")).strip()
+            jobs.append(({"id": pid, "name": plugin["name"], "description": description}, raw, source))
     english = sum(source[1] != "README.md" for _, _, source in jobs)
     print(f"📋 {len(catalog):,} plugins · {len(new)} new · {len(released)} released · {len(delisted)} delisted "
           f"· {len(relisted)} relisted · {len(reprofile)} to re-profile ({prefix or '-'}) · {len(jobs)} to profile "
-          f"({english} from an English version)")
+          f"({english} from an English version) · call limit {limit} ({'free requests left' if quota else 'time'})")
 
     retag_ids = [pid for pid, p in profiles.items()
-                 if not index.vocabulary_tags(p["tags"], by_key) and pid not in state["retagged"]][:MAX_RETAGS]
+                 if not index.vocabulary_tags(p["tags"], by_key) and pid not in state["retagged"]]
+    retag_ids = retag_ids[:max(0, min(MAX_RETAGS, limit - len(jobs)))]  # what's left of the run's calls
     if jobs or retag_ids:
-        chosen = [m.strip() for m in os.environ.get("PROFILE_MODELS", "").split(",") if m.strip()]
         models = chosen or openrouter.free_models(key)
-        print(f"🤖 models: {models} ({'PROFILE_MODELS' if chosen else 'free'}) · "
-              f"free requests today: {openrouter.free_requests_left(key)}")
-        calls = Calls(key, models)
+        print(f"🤖 models: {models} ({'PROFILE_MODELS' if chosen else 'free'}) · free requests today: {quota}")
+        calls = Calls(key, models, deadline)
         schema = profiler.build_schema(categories)
         # JSON mode has no schema slot, so the exact shape goes into the instructions
         system = (profiler.system_prompt(categories, vocab)
@@ -267,8 +309,8 @@ def main(data: Path) -> None:
 
         for (plugin, _raw, _source), result in run_jobs(jobs, lambda job: profile_plugin(calls, *job, schema, system, slugs)):
             pid = plugin["id"]
-            if isinstance(result, Stopped | TimeoutError):
-                continue  # not the plugin's fault (run stopped, model too slow): waits for the next run
+            if isinstance(result, Stopped | TimeoutError | openrouter.RateLimited):
+                continue  # not the plugin's fault (run stopped, model too slow, rate limit): waits for the next run
             if isinstance(result, Exception):
                 state["failed"][pid] = state["failed"].get(pid, 0) + 1
                 print(f"   ✗ {pid}: {str(result)[:120]}")

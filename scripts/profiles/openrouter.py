@@ -15,6 +15,30 @@ class AccountError(RuntimeError):
     """Credits, key limit or auth: every later call would fail the same way, so the run stops."""
 
 
+class RateLimited(RuntimeError):
+    """HTTP 429: too many requests for now (the free models' per-minute limit, or a busy provider).
+
+    Not the plugin's fault: the caller waits `wait` seconds (until the limit resets) and asks again.
+    """
+
+    def __init__(self, message: str, wait: float):
+        super().__init__(message)
+        self.wait = wait
+
+
+def reset_wait(error: urllib.error.HTTPError, body: str) -> float:
+    """Seconds until a 429's limit resets: its X-RateLimit-Reset (ms since epoch, in the headers or the
+    error body), else Retry-After, else 20 s; kept within 1-65 s."""
+    reset = error.headers.get("X-RateLimit-Reset")
+    if reset is None and (match := re.search(r'"X-RateLimit-Reset"\s*:\s*"?(\d+)', body)):
+        reset = match[1]
+    if reset is not None:
+        wait = int(reset) / 1000 - time.time()
+    else:
+        wait = float(error.headers.get("Retry-After") or 20)
+    return min(max(wait, 1.0), 65.0)
+
+
 def request(key: str, path: str, body: dict | None = None, timeout: int = 60) -> dict:
     """One GET (no body) or POST to the API; raises with the status and the start of the reply."""
     data = json.dumps(body).encode() if body is not None else None
@@ -26,9 +50,12 @@ def request(key: str, path: str, body: dict | None = None, timeout: int = 60) ->
         with urllib.request.urlopen(req, timeout=timeout) as response:
             return json.load(response)
     except urllib.error.HTTPError as error:
-        text = error.read().decode(errors="replace")[:300]
+        body = error.read().decode(errors="replace")
+        text = body[:300]
         if error.code in (401, 402, 403):
             raise AccountError(f"HTTP {error.code}: {text}") from None
+        if error.code == 429:
+            raise RateLimited(f"HTTP 429: {text}", reset_wait(error, body)) from None
         raise RuntimeError(f"HTTP {error.code}: {text}") from None
 
 
@@ -41,8 +68,8 @@ def chat(key: str, body: dict, attempts: int = 2) -> dict:
             if "error" not in data:  # OpenRouter can answer 200 with an error body
                 return data
             problem = f"error body: {json.dumps(data['error'])[:300]}"
-        except AccountError:
-            raise
+        except (AccountError, RateLimited):
+            raise  # the run stops, or the caller waits for the limit to reset
         except RuntimeError as error:
             problem = str(error)
             if problem.startswith(("HTTP 400", "HTTP 404")):
