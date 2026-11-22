@@ -329,7 +329,7 @@ function namesLine(plugins, max = 5) {
 /** Asks before a bulk action: what it does, to which plugins, that it can be undone. `ask()` resolves true or false. */
 class ConfirmModal extends Modal {
   /** @param {string} [footnote]  the faint line under the text; by default that Recent actions can undo it */
-  constructor(app, { title, plugins, text, cta, footnote = t("bulk.undoable") }) {
+  constructor(app, { title, plugins = [], text, cta, footnote = t("bulk.undoable") }) {
     super(app);
     Object.assign(this, { heading: title, plugins, text, cta, footnote, answer: false });
   }
@@ -571,12 +571,14 @@ class GroupModal extends Modal {
   }
 }
 
-/** Model picker: filters as you type, shows prices, accepts names that aren't listed. */
+/**
+ * Model picker: filters as you type, shows prices, accepts names that aren't listed. An empty box lists your pinned
+ * and recent models (historyModels); ☆ pins any row, ✕ takes one off the list. `onHistory` saves the changed list.
+ */
 class ModelModal extends PickerModal {
-  constructor(app, models) {
+  constructor(app, models, history, onHistory) {
     super(app, t("model.placeholder"));
-    this.models = models;
-    this.latestOnly = false;
+    Object.assign(this, { models, history: history || [], onHistory, latestOnly: false });
   }
 
   onOpen() {
@@ -596,13 +598,40 @@ class ModelModal extends PickerModal {
   }
 
   getSuggestions(query) {
+    if (!query.trim() && !this.latestOnly && this.history.length) return historyModels(this.models, this.history);
     return filterModels(this.models, query, this.latestOnly);
   }
 
   renderSuggestion(model, el) {
     el.addClass("pdt-model-item");
+    if (model.head) el.createDiv({ cls: "pdt-qs-head", text: model.head });   // the section this row opens
     el.createDiv({ cls: "pdt-model-id", text: model.custom ? t("model.custom", { name: model.id }) : model.id });
     if (model.price) el.createDiv({ cls: "pdt-model-price", text: formatPrice(model.price) });
+    if (model.custom) return;   // a typed name joins the list once it's chosen
+    const pinned = this.history.some((h) => h.id === model.id && h.pinned);
+    this.rowButton(el, "star", t(pinned ? "model.unpin" : "model.pin"), pinned, () => this.pin(model.id, !pinned));
+    if (model.history) this.rowButton(el, "x", t("model.forget"), false, () => this.change(this.history.filter((h) => h.id !== model.id)));
+  }
+
+  /** A small icon button on a row: its click acts without choosing the row (the modal handles clicks on rows). */
+  rowButton(el, icon, label, active, act) {
+    const button = el.createDiv({ cls: `pdt-model-act${active ? " is-active" : ""}`, attr: { role: "button", "aria-label": label } });
+    setIcon(button, icon);
+    button.addEventListener("mousedown", (e) => e.preventDefault());   // keeps the focus in the box
+    button.addEventListener("click", (e) => { e.stopPropagation(); act(); });
+  }
+
+  /** Pins or unpins a model; pinning one that isn't in the list yet adds it at the end. */
+  pin(id, pinned) {
+    const known = this.history.some((h) => h.id === id);
+    this.change(known ? this.history.map((h) => (h.id === id ? { ...h, pinned } : h)) : [...this.history, { id, pinned }]);
+  }
+
+  /** Keeps the changed list, saves it and redraws the suggestions in place. */
+  change(history) {
+    this.history = history;
+    this.onHistory?.(history);
+    this.inputEl.dispatchEvent(new Event("input"));
   }
 }
 
@@ -611,6 +640,19 @@ class ModelModal extends PickerModal {
 const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["sparkles", "profile"], ["more-horizontal", "menu"], ["square-check", "bulk"], ["bell-ring", "seen"]];
 
 /** What AI requests spent, as the provider reported it: "18,420 tokens · $0.0021" (the cost only when it told it). */
+/**
+ * How far what a job took was from its estimate: "16% under the estimate" / "8% over" / "as estimated", by cost when
+ * both have one, else by tokens; null when there's nothing to compare.
+ */
+function estimateGap(usage, expected) {
+  const byCost = typeof usage.cost === "number" && expected.cost != null;
+  const [got, want] = byCost ? [usage.cost, expected.cost] : [usage.tokens, expected.tokens];
+  if (!want || got == null) return null;
+  const pct = Math.round(((got - want) / want) * 100);
+  if (pct === 0) return t("bulk.tr.asEstimated");
+  return t(pct < 0 ? "bulk.tr.underEstimate" : "bulk.tr.overEstimate", { n: Math.abs(pct) });
+}
+
 function spentText(usage) {
   return [t("details.tokensUsed", { n: formatCount(usage.tokens) }), typeof usage.cost === "number" ? formatCost(usage.cost) : null].filter(Boolean).join(" · ");
 }
@@ -638,7 +680,8 @@ function fieldGroup(field) {
 /** The guide's rows after the fields: what's shown, what a click puts in the box, and its text (help.<key>). */
 const GUIDE_ROWS = {
   ops: [["=  /  !=", "=", "help.op.eq"], [">  /  >=", ">=", "help.op.gt"], ["<  /  <=", "<=", "help.op.lt"], ["~  /  !~", "~", "help.op.has"],
-    ["in (…) / not in (…)", "in (", "help.op.in"], ["is empty", "is empty", "help.op.empty"], ["AND / OR / NOT", "AND", "help.op.bool"], ["order by … desc", "order by", "help.op.order"]],
+    ["in (…) / not in (…)", "in (", "help.op.in"], ["is empty", "is empty", "help.op.empty"], ["AND / OR / NOT", "AND", "help.op.bool"], ["order by … desc", "order by", "help.op.order"],
+    ["group by …", "group by", "help.op.group"], ["limit 100 · limit 101-200", "limit", "help.op.limit"]],
   functions: Object.keys(QUERY_FUNCS).map((f) => [`${f}()`, `${f}()`, `query.fn.${f}`]),   // the same text as the box's hints
   values: [["10k · 1.5m", "10k", "help.value.count"], ["14d · 2w · 6m · 1y", "14d", "help.value.span"], ["2026-01-01", "2026-01-01", "help.value.date"],
     [null, '""', "help.value.quoted"], ['("Tasks", Calendar)', "(", "help.value.list"]],   // null: the example is in your language

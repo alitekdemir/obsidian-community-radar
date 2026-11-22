@@ -963,7 +963,7 @@ const tests = {
     // Original | <language>: none yet, so a Translate button
     await $$(modal.contentEl, ".pdt-detail-lang button")[1].onclick();
     await tick(5);
-    assert.ok(plugin.data.settings.detailTranslated, "remembered for the next window");
+    assert.ok(modal.translated, "this window's choice (Settings' translatedFirst stays the default)");
     assert.ok($(modal.contentEl, ".pdt-detail-readme-body.is-empty button"), "a Translate button");
     assert.ok(plugin.translator.ready, "the earlier tests set up a provider");
     {
@@ -985,8 +985,7 @@ const tests = {
       assert.ok(await plugin.newerReadme(homepage, { ...original, hash: "00000000" }), "changed text: offered");
     }
     // the language chip before the description swaps it in place: "EN", then the target's code (blue)
-    const wanted = plugin.data.settings.detailTranslated;
-    plugin.data.settings.detailTranslated = false;   // the original first: Original | <language> also picks it
+    modal.setLanguage(homepage, false);   // the original first: Original | <language> also picks it
     modal.render();
     const chip = () => $(modal.titleEl, ".pdt-lang-chip");
     const shown = () => [chip().textContent, chip().classList.contains("is-on"), chip().getAttribute("aria-pressed")];
@@ -998,7 +997,6 @@ const tests = {
     assert.deepEqual(shown(), ["EN", true, "true"], "English UI: the target tag is its code, in blue");
     await chip().onclick();
     assert.ok(!$(modal.titleEl, ".pdt-detail-about").textContent.includes("TR: "), "again: the original");
-    plugin.data.settings.detailTranslated = wanted;
     // the list's shortcut keys, when they're on
     const key = (k) => modal.scope.keys.find((x) => x.key === k).fn();
     assert.equal(key("f"), true, "shortcuts off: the key is left to Obsidian");
@@ -1039,7 +1037,6 @@ const tests = {
       modal.render();
       await tick(5);
     }
-    plugin.data.settings.detailTranslated = false;   // back to the original for the tests after
     const total = modal.rows.length;
     fake.menus.length = 0;
     modal.modalEl.dispatchEvent(new window.MouseEvent("contextmenu", { bubbles: true, cancelable: true }));   // a right click: the row's menu
@@ -1760,12 +1757,35 @@ const tests = {
     // the description's language chip swaps it in place, as in the details window: no second line
     const chip = () => $(rowOf("busy"), ".pdt-desc .pdt-lang-chip");
     const text = () => $(rowOf("busy"), ".pdt-desc .pdt-lang-text").textContent;
-    assert.deepEqual([chip().textContent, chip().classList.contains("is-on"), text()], ["EN", false, plugin.pluginById("busy").description]);
+    const busy = plugin.pluginById("busy");
+    await plugin.setTranslatedFirst(false);                                  // the originals first
+    assert.deepEqual([chip().textContent, chip().classList.contains("is-on"), text()], ["EN", false, busy.description]);
     await chip().onclick();
-    assert.deepEqual([chip().classList.contains("is-on"), text()], [true, `TR: ${plugin.pluginById("busy").description}`], "blue: the translation");
+    assert.deepEqual([chip().classList.contains("is-on"), text()], [true, `TR: ${busy.description}`], "blue: the translation");
     assert.ok(!$(rowOf("busy"), ".pdt-trans"), "in place, not under it");
+    assert.ok(titles("busy").includes(core.t("menu.retranslate")), "kept: Translate again…");
+    // Translate again…: the model you pick, for this request only; the row shows the result
+    const pickModel = plugin.pickModel;
+    plugin.pickModel = async () => ({ id: "or/other-model" });
+    fake.network.calls.length = 0;
+    titles("busy");
+    fake.menus.at(-1).items.find((i) => i.title === core.t("menu.retranslate")).click({});
+    await tick(20);
+    const again = fake.network.calls.filter((c) => c.url.includes("openrouter"));
+    assert.deepEqual(again.map((c) => c.body.model), ["or/other-model"], "one request, with the picked model");
+    assert.equal(plugin.translations.description.busy.model, "or/model-001", "kept with the model the reply named");
+    assert.notEqual(plugin.data.settings.model, "or/other-model", "Settings' model stays");
+    plugin.pickModel = pickModel;
+    // a reply that isn't a translation (the original back) isn't kept: the old one stays
+    const before = plugin.translations.description.busy;
+    assert.equal(await plugin.translations.put("description", "busy", { src: busy.description, text: busy.description, lang: "Türkçe" }), "untranslated");
+    assert.equal(plugin.translations.description.busy, before);
     await chip().onclick();
-    assert.equal(text(), plugin.pluginById("busy").description, "a second click: the original again");
+    assert.equal(text(), busy.description, "a second click: the original again");
+    await plugin.setTranslatedFirst(true);                                   // the default: translations first, flips dropped
+    assert.equal(text(), `TR: ${busy.description}`, "translated first");
+    await chip().onclick();
+    assert.equal(text(), busy.description, "the chip still flips the row");
     view.openHelp("start");   // Help › Quick start says the same, at the level of someone new to the plugin
     const help = modals.at(-1).contentEl;
     assert.deepEqual($$(help, ".pdt-help-card-list li").map((li) => li.textContent),
@@ -1847,7 +1867,7 @@ const tests = {
     const modal = modals.at(-1);
     await tick(10);   // the plugin's own file
     const settings = plugin.data.settings;
-    settings.detailTranslated = false;
+    modal.setLanguage(modal.p, false);   // the original first
     modal.render();
     await tick(10);   // the plugin's own file
     const overview = () => $(modal.contentEl, ".pdt-overview").textContent;
@@ -1865,7 +1885,7 @@ const tests = {
     assert.equal($(modal.contentEl, ".pdt-overview-part h4").textContent, "What it's for", "the original's titles in its language, whatever the UI's");
     core.setLanguage("en");
 
-    // in your language: translated in one request, kept in data.json with what it took; the needs follow
+    // in your language: translated in one request, kept in translations.jsonl with what it took; the needs follow
     await $$(modal.contentEl, ".pdt-detail-lang button")[1].onclick();
     await tick(10);
     assert.ok($(modal.contentEl, ".pdt-overview.is-empty .pdt-detail-muted").textContent.includes("tokens"), "what it would take, before the click");
@@ -1873,9 +1893,9 @@ const tests = {
     await $$(modal.contentEl, ".pdt-detail-lang button")[0].onclick();   // back to the original while it translates
     assert.ok(overview().includes("Queries notes like a database.") && !overview().includes("TR: "), "the original at once");
     await tick(30);
-    assert.ok(plugin.data.profileTranslations.dataview, "the translation went on and is kept");
+    assert.ok(plugin.translations.overview.dataview, "the translation went on and is kept");
     await $$(modal.contentEl, ".pdt-detail-lang button")[1].onclick();
-    const saved = plugin.data.profileTranslations.dataview;
+    const saved = plugin.translations.overview.dataview;
     assert.equal(saved.parts.summary, "TR: Queries notes like a database.");
     assert.deepEqual(saved.parts.needs, ["TR: Demo key"]);
     assert.ok(saved.model && saved.tokens > 0, "what it took, as the provider reported it");
@@ -1886,18 +1906,18 @@ const tests = {
     modal.render();
     await tick(10);
     assert.ok($(modal.contentEl, ".pdt-overview .pdt-detail-stale") && overview().includes("TR: Queries notes"));
-    // the choice is remembered, but another plugin with no translation opens in the original, not on an empty tab
+    // a new window starts from Settings' translatedFirst, but a plugin with no translation opens in the original, not on an empty tab
     view.rowRenderer.openDetails(plugin.pluginById("homepage"));
     const next = modals.at(-1);
     await tick(10);
-    assert.ok(settings.detailTranslated);
+    assert.ok(next.translated && settings.translatedFirst);
     assert.ok($(next.contentEl, ".pdt-overview-parts").textContent.includes("Opens a chosen note at startup."));
     assert.equal($(next.contentEl, ".pdt-detail-lang .is-on").textContent, core.t("details.original"), "the switch says what it shows");
-    settings.detailTranslated = false;
+    next.setLanguage(plugin.pluginById("homepage"), false);
 
     // t in the details window: the description and the Overview in one request; t again: both in the original
     settings.keyboard = true;
-    delete plugin.data.translations.homepage;
+    delete plugin.translations.description.homepage;
     fake.network.prompts.length = 0;
     const seen = {};   // what the window shows while the request runs
     const ask = plugin.translateWithOverview.bind(plugin);
@@ -1915,13 +1935,13 @@ const tests = {
     assert.ok(seen.marker, "drawn line by line: each text an inline unit in the stagger");
     assert.equal($(next.modalEl, ".is-translating"), null, "done: no effect left");
     assert.equal(fake.network.prompts.length, 1, "one request for both");
-    assert.ok(plugin.data.translations.homepage && plugin.data.profileTranslations.homepage, "each kept as its own");
+    assert.ok(plugin.translations.description.homepage && plugin.translations.overview.homepage, "each kept as its own");
     assert.ok($(next.modalEl, ".pdt-detail-about").textContent.includes("TR: "), "the description in your language");
     assert.ok($(next.contentEl, ".pdt-overview-parts").textContent.includes("TR: Opens a chosen note"), "the Overview too");
-    assert.ok(view.shownTranslations.has("homepage"), "the list's row follows");
+    assert.ok(view.descTranslated(plugin.pluginById("homepage")), "the list's row follows");
     next.onKey("t");
     await tick(10);
-    assert.ok(!$(next.modalEl, ".pdt-detail-about").textContent.includes("TR: ") && !settings.detailTranslated, "both back in the original");
+    assert.ok(!$(next.modalEl, ".pdt-detail-about").textContent.includes("TR: ") && !next.translated, "both back in the original");
     assert.equal(fake.network.prompts.length, 1, "no request to go back");
     settings.keyboard = false;
 
@@ -1936,7 +1956,7 @@ const tests = {
     await view.update("mode", "all");
     const ids = ["dataview", "homepage"];
     const plugins = ids.map((id) => plugin.pluginById(id));
-    for (const id of ids) { delete plugin.data.translations[id]; delete plugin.data.profileTranslations[id]; }
+    for (const id of ids) { delete plugin.translations.description[id]; delete plugin.translations.overview[id]; }
     const pick = () => { view.bulkBar.clearSelection(); ids.forEach((id) => view.selected.add(id)); view.bulkBar.syncSelection(); };
     const asked = [];
     view.bulkBar.confirm = async (o) => { asked.push(o); return true; };
@@ -1950,13 +1970,13 @@ const tests = {
     const items = $$(menu, ".pdt-bulk-item");
     assert.deepEqual(items.map((i) => $(i, ".pdt-bulk-item-text span").textContent), ["bulk.tr.desc", "bulk.tr.overview", "bulk.tr.fetch", "bulk.tr.readme"].map((k) => core.t(k)));
     assert.ok($(items[0], ".pdt-bulk-item-hint").textContent.includes("tokens"), "an estimate before anything is asked");
-    assert.equal($(items[1], ".pdt-bulk-item-hint").textContent, core.t("bulk.tr.profiled", { n: 2 }));
+    assert.ok($(items[1], ".pdt-bulk-item-hint span").textContent.includes("tokens"), "Overviews: what they'd take too, tokens first");
     items[0].onclick();
     await tick(30);
     assert.ok(!$(document.body, ".pdt-bulk-menu"), "a pick closes the menu");
     assert.ok(asked.at(-1).text.includes("tokens"), "asked first, with the estimate");
-    assert.ok(ids.every((id) => plugin.data.translations[id]?.text.startsWith("TR: ")), "short descriptions: translated and kept");
-    assert.ok(ids.every((id) => view.shownTranslations.has(id)), "and shown in the list");
+    assert.ok(ids.every((id) => plugin.translations.description[id]?.text.startsWith("TR: ")), "short descriptions: translated and kept");
+    assert.ok(ids.every((id) => view.descTranslated(plugin.pluginById(id))), "and shown in the list");
     assert.equal(view.selected.size, 0, "the selection goes");
     const toast = $(view.contentEl, ".pdt-toast").textContent;
     assert.ok(toast.includes(core.t("bulk.tr.done", { n: 2 })) && toast.includes(core.t("bulk.tr.requests", { n: 1 })), "how many, in how many requests");
@@ -1966,16 +1986,18 @@ const tests = {
     let shown = null;
     const spent = await view.bulkBar.runEach("Run", [1, 2], async (n) => {
       if (n === 2) { await tick(5); shown = $(view.contentEl, ".pdt-bulk-run").textContent; }   // after the first came back (they run at once)
-      return { model: "m", tokens: 100, cost: 0.001 };
-    });
+      plugin.translator.emit("usage", { input: 60, output: 40, cost: 0.001, model: "m" });   // a reply, as the provider reports it
+      return true;
+    }, { ai: true, estimate: { tokens: 250, cost: 0.0025 } });
     assert.deepEqual([spent.requests, spent.usage.tokens, spent.usage.cost], [2, 200, 0.002]);
     assert.ok(shown.includes(core.t("details.tokensUsed", { n: 100 })), `the bar shows the spend so far: ${shown}`);
+    assert.ok(view.bulkBar.summary(spent).includes(core.t("bulk.tr.underEstimate", { n: 20 })), "and how far it was from the estimate");
 
     // Overviews: each one translated in its own request, kept like the details window's
     await view.bulkBar.translateOverviews(plugins);
     assert.equal(asked.at(-1).title, core.t("bulk.tr.ask.overview", { n: 2, lang: plugin.data.settings.targetLang }));
-    assert.equal(plugin.data.profileTranslations.dataview.parts.summary, "TR: Queries notes like a database.");
-    assert.ok(plugin.data.profileTranslations.homepage);
+    assert.equal(plugin.translations.overview.dataview.parts.summary, "TR: Queries notes like a database.");
+    assert.ok(plugin.translations.overview.homepage);
     const before = asked.length;
     await view.bulkBar.translateOverviews(plugins);
     assert.equal(asked.length, before, "up to date: nothing to ask");
@@ -2005,7 +2027,7 @@ const tests = {
       return true;
     });
     assert.equal(stopAt, "Run · 0 / 2");
-    assert.deepEqual(result, { ok: 1, failed: 0, left: 1, requests: 0, usage: null }, "no AI asked: nothing spent");
+    assert.deepEqual(result, { ok: 1, failed: 0, rejected: 0, left: 1, requests: 0, usage: null, reason: "", expected: null }, "no AI asked: nothing spent");
     assert.equal(view.bulkBar.summary(result), `${core.t("bulk.tr.done", { n: 1 })} · ${core.t("bulk.tr.left", { n: 1 })}`);
 
     // Puanla: the row's stars over the button, Clear once any of them is rated

@@ -136,13 +136,6 @@ function skipDevSections(markdown) {
   return { text: kept.join("\n").trim(), skipped };
 }
 
-/** Rough request size of translating `text`: tokens in and out (~4 characters a token), and the cost when the price is known. */
-function translationEstimate(text, price) {
-  const tokens = Math.ceil(text.length / 4);
-  const cost = price ? (tokens * (price.input || 0) + tokens * 1.2 * (price.output || 0)) / 1e6 : null;
-  return { chars: text.length, tokens: tokens * 2, cost };
-}
-
 function readmePrompt(markdown, targetLanguage, prompts) {
   return [
     promptInstructions(prompts, "readme", targetLanguage),

@@ -1,5 +1,28 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- **Show translations first** (*Settings → AI*, on by default; also in the view's ⋮ menu as *Show the originals / Show in <language>*): descriptions, Overviews and READMEs show in your language wherever a translation is kept, the rest in the original. A row's language chip still flips that row (until Obsidian restarts) and the details window's Original | your language that window; neither changes the default.
+- **⋯ › Translate again…** (the row menu and the details window, only when something is translated): a translation that reads badly is made again with a model you pick (pinned and recent ones first) for that request only; Settings' model stays. On Overview it redoes the description and the Overview in one request, on the README tab the README. A reply that doesn't translate keeps the old one.
+- **Translations are checked before they're kept:** a reply sent back as it was, or in another language (Chinese for a Chinese plugin, made-up characters), isn't kept, so the text stays in the original and the next run asks again. Those already kept are removed once, with a notice (55 of ~21,000 in a full catalog). Short descriptions now keep their language and the model that made them.
+- **Bulk runs say how close the estimate was:** the summary adds "16% under the estimate" (by cost, else by tokens; a stopped run is compared with its share of the estimate) and how many the model didn't translate.
+- **Thinking** (*Settings → AI*): Off answers without thinking first, usually several times cheaper and faster for translations; models that must think, or can't, say so.
+- **Provider routing** (*Settings → AI*, OpenRouter): Balanced (recommended), Cheapest or Fastest; with Thinking off, providers that must think are left out.
+- **The model picker remembers:** your pinned models (☆) and the last five you used show first; ✕ removes one.
+- **`group by` and `limit` in queries:** sections, one per value of a field (group, category, primary, tag, intent, lifecycle, status, author), and only part of the sorted list (`limit 100`, `limit 101-200`). `group by group` replaces the Tracked page's *Sections by group* switch.
+- **`translated` query field:** what's in your language (description, overview).
+- **Settings → AI lists what's not translated yet** (short descriptions, Overviews, READMEs) with what translating them would take.
+
+### Changed
+- **`~` finds every word, in any order** (as in JQL): `name ~ "side note"` finds SideNote and Side-Notes; spaces, hyphens and case don't count. Plain search works the same way. `=` stays exact, `/regex/` keeps the order.
+- **`t` on the details window's README tab** translates the README (on Overview: the description and the Overview, as before).
+- **Translations live in `translations.jsonl`** next to `data.json` (one line each, appended), so translating the whole catalog doesn't rewrite a large `data.json` each time. Deleting translations in Settings removes the short descriptions only; Overview translations are kept.
+- **Bulk translation survives a long run:** it stops by itself past the estimate you agreed to (and then estimates by what the requests cost), after several failures in a row, or on Stop (finishing the requests under way); a cut-off or empty reply is asked again.
+- **The Translate menu's estimate** shows tokens over cost, on two lines, so the item's title keeps its room.
+- **Prices under $0.10** show three significant digits ($0.0399).
+- Resetting the usage table asks first.
+
 ## 0.15.0
 
 ### Added

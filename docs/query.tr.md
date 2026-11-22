@@ -13,7 +13,11 @@ order by gain(30d) desc
 
 Bir koşul `alan operatör değer` biçimindedir. Koşulları `AND`, `OR` ve `NOT` ile bağlayın, `( )` ile gruplayın. Evet/hayır alanı tek başına yazılır: `installed`, `NOT tracked`. Koşullar arasındaki boşluk da AND demektir. Satır sonları ve fazla boşluklar önemsizdir. Sorgu modunda koşul olmayan bir kelime hatadır; metin aramasını tırnak içine alın: `"daily note"`.
 
-Sona eklenen `order by alan desc` (ya da `asc`) listeyi sıralar.
+Sona, bu sırayla: `group by alan` listeyi her değer için bir bölüme ayırır (group, category, primary, tag, intent, lifecycle, status, author; birden çok değeri olan eklenti her birinde görünür, değeri olmayanlar en sonda); `order by alan desc` (ya da `asc`) sıralar; `limit 100` ilk 100'ü, `limit 101-200` 101. ile 200. arasını bırakır.
+
+```
+primary = tasks group by intent order by downloads desc limit 50
+```
 
 ## Alanlar
 
@@ -39,6 +43,7 @@ Sona eklenen `order by alan desc` (ya da `asc`) listeyi sıralar.
 | `excluded` | evet/hayır | sizin dışladıklarınız |
 | `snoozed` | evet/hayır | sonraki sürümüne kadar gizli |
 | `removed` | evet/hayır | Obsidian'ın resmi listeden çıkardıkları; yalnızca kurulu olanlar ve yalnızca sorgu `removed` dediğinde görünür |
+| `translated` | liste | dilinizde olanlar: `description`, `overview` (güncel) |
 
 Alan adları her dilde İngilizcedir; böylece kayıtlı sorgular dil değişikliğinden etkilenmez. Değerler sizindir (grup adlarınız, durumlarınız).
 
@@ -83,7 +88,7 @@ releases(180d) > 9
 | Tür | Operatörler |
 |---|---|
 | sayı, gün | `=` `!=` `>` `>=` `<` `<=` `is empty` |
-| metin | `=` `!=` `~` (içerir) `!~` (içermez) `in (…)` `not in (…)` |
+| metin | `=` `!=` `~` (her kelimeyi içerir, sırası fark etmez) `!~` (içermez) `in (…)` `not in (…)` |
 | liste | `=` `!=` `in (…)` `not in (…)` `is empty` |
 | evet/hayır | tek başına yazılır; hayır için `NOT` |
 
@@ -179,6 +184,7 @@ Daha fazlası: `author ~ zsviczian` (bir yazarın tüm eklentileri), `"daily not
 
 ## Sık karşılaşılan sürprizler
 
+- **`~` kelime arar, ifade değil.** `name ~ "side note"` SideNote ve Side-Notes'u, Mobile Sidebar Notes'u da bulur: her kelime adın bir yerinde geçer; boşluk, tire ve büyük-küçük harf sayılmaz. Birebir metin için `=`, bu sırayla kelimeler için regex: `name ~ /side.?note/`.
 - **`rise()` 1K indirmenin altında boştur.** 10 → 30 yükseliş sayılmaz; küçük eklentiler için `gain()` kullanın.
 - **`milestone(10k)` 10K'ya ulaştığı gündür,** sonra nereye vardığından bağımsız: bu ay 9K'dan 30K'ya çıkan bir eklenti hem `milestone(10k) <= 30d` hem de `milestone(25k) <= 30d` içindedir.
 - **Güncellenen, yeni eklentileri dışarıda bırakmaz.** Onları yalnızca Yeni'de görmek istiyorsanız sorgusuna `NOT listed <= 14d` ekleyin.

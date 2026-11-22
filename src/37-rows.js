@@ -128,19 +128,25 @@ class RowRenderer extends ViewPart {
     more.onclick = () => { this.view.visible += PAGE_SIZE; this.view.refresh(); };
   }
 
-  /** One Tracked-tab section: a coloured, foldable group heading and its rows, indented on a rail. */
-  renderSection(list, { name, rows }, now) {
-    const label = name === UNGROUPED ? t("tracked.ungrouped") : name;
-    const open = !this.view.collapsed.has(name);
-    const section = list.createDiv({ cls: `pdt-section${name === UNGROUPED ? "" : ` pdt-hue-${groupHue(name)}`}` });
+  /**
+   * One `group by` section: a foldable heading and its rows, indented on a rail; your groups in their colour. The
+   * one without a value says so as the query would ("Ungrouped" for groups, "(none)"), with `<field> is empty` on hover.
+   */
+  renderSection(list, { name, rows }, by, now) {
+    const empty = name === UNGROUPED;
+    const label = empty ? t(by === "group" ? "tracked.ungrouped" : "list.noValue") : String(name);
+    const key = `${by}:${name}`;   // folded per field: "Tasks" as a group and as a category are two sections
+    const open = !this.view.collapsed.has(key);
+    const section = list.createDiv({ cls: `pdt-section${by === "group" && !empty ? ` pdt-hue-${groupHue(name)}` : ""}` });
     const head = section.createEl("button", { cls: "pdt-section-head", attr: { type: "button", "aria-expanded": String(open) } });
     setIcon(head.createSpan({ cls: `pdt-section-caret${open ? "" : " is-closed"}` }), "chevron-down");
     head.createSpan({ cls: "pdt-swatch" });
     head.createSpan({ cls: "pdt-section-name", text: label });
     head.createSpan({ cls: "pdt-section-count", text: formatCount(rows.length) });
     head.createSpan({ cls: "pdt-section-rule" });
+    setTooltip(head, empty ? `${by} is empty` : `${by} = ${quoteValue(String(name))}`, { placement: "top" });   // the clause that finds it
     head.onclick = () => {
-      if (open) this.view.collapsed.add(name); else this.view.collapsed.delete(name);
+      if (open) this.view.collapsed.add(key); else this.view.collapsed.delete(key);
       this.view.refresh();
     };
     if (!open) return;
@@ -310,16 +316,16 @@ class RowRenderer extends ViewPart {
     const translation = this.plugin.cachedTranslation(p);
     return languageChip(el, {
       original: p.description, translation, target: this.plugin.data.settings.targetLang,
-      translated: translation != null && this.view.shownTranslations.has(p.id), swap: () => this.toggleTranslation(p),
+      translated: this.view.descTranslated(p), swap: () => this.toggleTranslation(p),
     });
   }
 
   /** Shows a row's description in your language (the first time asks the AI) or back in the original. */
   async toggleTranslation(p) {
-    const shown = this.view.shownTranslations;
-    if (shown.has(p.id)) shown.delete(p.id);
-    else if (this.plugin.cachedTranslation(p) != null || (await this.plugin.translateRows([p]))) shown.add(p.id);
-    this.view.refresh();
+    const view = this.view;
+    if (view.descTranslated(p)) view.setDescTranslated(p, false);
+    else if (this.plugin.cachedTranslation(p) != null || (await this.plugin.translateRows([p]))) view.setDescTranslated(p, true);
+    view.refresh();
   }
 
   /**
@@ -343,6 +349,7 @@ class RowRenderer extends ViewPart {
     if (p.repo) {
       item("file-text", t(note ? "menu.readmeOpen" : "menu.readmeDownload"), t(note ? "menu.readmeOpenTip" : "menu.readmeDownloadTip"), () => { on.away(); plugin.openReadme(p); });
     }
+    if (on.retranslate) item("languages", t("menu.retranslate"), t(on.readme ? "menu.retranslateReadmeTip" : "menu.retranslateTip"), on.retranslate);
     menu.addSeparator();
     if (this.settings.mode === "suggested") item("x", t("action.dismiss"), t("menu.dismissTip"), () => on.leave(() => plugin.dismiss(p)));
     else if (!note) item("eye-off", t("action.snooze"), t("menu.snoozeTip"), () => on.leave(() => plugin.snooze(p)));
@@ -375,11 +382,22 @@ class RowRenderer extends ViewPart {
    * list), `away` (the action opens something else) has nothing to do here. The details window has its own three.
    */
   rowEffects(p) {
+    const plugin = this.plugin;
+    const kept = plugin.cachedTranslation(p) != null || plugin.profileTranslation(p.id);
     return {
       change: (fn) => this.runRowAction(p, fn),
       leave: async (fn) => { await fn(); this.view.refresh(); },
       away: () => {},
+      retranslate: kept ? () => this.retranslate(p) : null,   // Translate again…: only something kept
     };
+  }
+
+  /** Translate again… from the list: the description and the Overview with a model you pick; the row shows the result. */
+  async retranslate(p) {
+    const model = await this.plugin.pickModel();
+    if (!model) return;
+    if (await this.plugin.retranslate(p, model.id)) this.view.setDescTranslated(p, true);
+    this.view.refresh();
   }
 
   /**

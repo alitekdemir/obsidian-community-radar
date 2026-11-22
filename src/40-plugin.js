@@ -2,7 +2,7 @@
 class PluginRadar extends Plugin {
   async onload() {
     addIcon(ICON, ICON_SVG);
-    this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, translations: {}, profileTranslations: {}, groupSuggestions: {}, migrations: {}, aiUsage: {} }, await this.loadData());
+    this.data = Object.assign({ excluded: {}, dismissed: {}, snoozed: {}, groupSuggestions: {}, migrations: {}, aiUsage: {} }, await this.loadData());
     setLanguage(this.uiLanguage());  // before defaultSettings(), whose folder name depends on the language
     this.data.settings = Object.assign(defaultSettings(), this.data.settings);
     this.data.settings.query = "";   // filters are remembered, the search isn't
@@ -17,10 +17,11 @@ class PluginRadar extends Plugin {
     delete this.data.settings.modelPrice;   // 0.11.3: the price lives in modelCost only; formatPrice writes its text
     this.github = new GitHub();
     this.cache = new Cache(this.app.vault.adapter, this.manifest.dir);
+    this.translations = new TranslationStore(this.app.vault.adapter, this.manifest.dir, () => this.data.settings.targetLang);   // read with the caches (onLayoutReady)
     this.notes = new Notes(this.app, this.data.settings);
     this.translator = new Translator(this.app, this.data.settings);
-    this.translator.onUsage = (provider, model, usage) => {   // the AI tab's usage table
-      this.data.aiUsage = addUsage(this.data.aiUsage, provider, model, usage);
+    this.translator.onUsage = (provider, model, kind, usage) => {   // the AI tab's usage table and the estimates
+      this.data.aiUsage = addUsage(this.data.aiUsage, provider, model, kind, usage);
       this.saveData(this.data);
     };
     this.catalog = null;                                      // {fetchedAt, plugins}
@@ -73,7 +74,7 @@ class PluginRadar extends Plugin {
         this.notes.rebuild();
         // everything the lists show, read at once and drawn once: a second full redraw (the Similar lists and profiles
         // a few seconds later, ~80 ms to read) repainted the list and pushed Obsidian's LCP to ~5 s
-        const [catalog, cached] = await Promise.all([this.cache.read("catalog", null), this.cache.read("timeline", null), this.loadExtras()]);
+        const [catalog, cached] = await Promise.all([this.cache.read("catalog", null), this.cache.read("timeline", null), this.loadExtras(), this.translations.load()]);
         this.catalog = catalog;
         if (cached?.v === TIMELINE_VERSION && cached.source === "server") this.timeline = cached;   // only the history built on GitHub (0.9.1+)
         await this.runMigrations();
@@ -88,6 +89,20 @@ class PluginRadar extends Plugin {
         this.syncIfDue();
       }, SYNC_DELAY_MS);
     });
+  }
+
+  /**
+   * data.json, one write at a time: writes started together could finish out of order and leave an older state on
+   * disk. Saves asked for while one is being written become one more write after it (of the newest state).
+   */
+  saveData(data) {
+    if (this.saving) {
+      this.nextSave ||= this.saving.then(() => { this.nextSave = null; return this.saveData(data); });
+      return this.nextSave;
+    }
+    const write = super.saveData(data);
+    this.saving = write.catch(() => {}).then(() => { this.saving = null; });
+    return write;
   }
 
   /** Runs `fn` after `ms`, unless the plugin is unloaded first. */
@@ -122,7 +137,7 @@ class PluginRadar extends Plugin {
     if (this.data.migrations.legacyImport) return;
     this.data.migrations.legacyImport = dayString(Date.now());
     const adapter = this.app.vault.adapter;
-    const hasOwnData = Object.keys(this.data.excluded).length || Object.keys(this.data.translations).length;
+    const hasOwnData = Object.keys(this.data.excluded).length || this.translations.count("description");
     let legacyDir = null;
     for (const id of LEGACY_PLUGIN_IDS) {
       const dir = normalizePath(`${this.app.vault.configDir}/plugins/${id}`);
@@ -131,7 +146,8 @@ class PluginRadar extends Plugin {
     if (hasOwnData || !legacyDir) return this.saveData(this.data);
     try {
       const legacy = JSON.parse(await adapter.read(`${legacyDir}/data.json`));
-      for (const key of ["excluded", "dismissed", "translations"]) this.data[key] = { ...legacy[key], ...this.data[key] };
+      for (const key of ["excluded", "dismissed"]) this.data[key] = { ...legacy[key], ...this.data[key] };
+      for (const [id, entry] of Object.entries(legacy.translations || {})) this.translations.put("description", id, entry);
       Object.assign(this.data.settings, legacy.settings || {});
       Object.assign(this.data.migrations, legacy.migrations || {}, { legacyImport: this.data.migrations.legacyImport });
       for (const name of ["catalog", "timeline"]) {
@@ -158,6 +174,8 @@ class PluginRadar extends Plugin {
       ["groupsList", async () => tell("notice.groupsMigrated", await this.notes.migrateGroups(), 10000)],
       ["statusKeys", async () => tell("notice.statusMigrated", await this.notes.migrate(migrateStatuses), 10000)],
       ["readmeMarkers", () => this.notes.migrate(migrateMarkers)],
+      // 0.16: translations sent back as they were or in another language (cheap models, Chinese plugins) go
+      ["translationCheck", async () => tell("notice.translationsDropped", await this.translations.dropUntranslated(), 10000)],
       // 0.9.2: "new" lasts 14 days by default; 30 was 0.9's default, not a choice
       ["newDays14", () => { if (st.newDays === 30) st.newDays = DEFAULT_NEW_DAYS; }],
       ["pageQueries", () => migratePageQueries(st)],
@@ -178,6 +196,23 @@ class PluginRadar extends Plugin {
       }],
       // 0.14: Similar comes as lists built on GitHub; the semantic vectors (~2.5 MB) aren't needed any more
       ["dropVectors", () => Promise.all([this.cache.remove("vectors"), this.cache.remove("vectors", "bin")])],
+      // 0.16: translations move out of data.json into translations.jsonl (data.json stays small and quick to save)
+      ["translationStore", async () => {
+        for (const [key, kind] of [["translations", "description"], ["profileTranslations", "overview"]]) {
+          for (const [id, entry] of Object.entries(this.data[key] || {})) this.translations[kind][id] ??= entry;
+          delete this.data[key];
+        }
+        await this.translations.rewrite();
+      }],
+      // 0.16: Tracked's Sections switch is the page query's `group by group`: a query saved without it gets it (unless off)
+      ["trackedGroupBy", () => {
+        const sections = st.trackedSections !== false;
+        delete st.trackedSections;
+        const add = (q) => (sections && typeof q === "string" && !splitQuery(q).group ? joinQuery(q, "group by group") : q);
+        if (st.pageQueries?.tracked != null) st.pageQueries.tracked = add(st.pageQueries.tracked);
+        if (st.queries?.tracked != null) st.queries.tracked = add(st.queries.tracked);
+        if (!sections && st.pageQueries?.tracked == null) st.pageQueries = { ...st.pageQueries, tracked: "tracked\norder by rating desc" };   // the old default, flat
+      }],
     ];
     for (const [key, run] of steps) {
       if (done[key]) continue;
@@ -236,6 +271,8 @@ class PluginRadar extends Plugin {
       timeline: this.timeline,   // milestones for the query's milestone fields
       profiles: this.profiles?.plugins || {},   // AI profiles by id: the category, tag, intent… fields
       categories: this.profiles?.categories || [],
+      translations: this.translations,           // the `translated` field
+      targetLang: this.data.settings.targetLang,
     };
   }
 
@@ -252,6 +289,14 @@ class PluginRadar extends Plugin {
   /** Updates open views; `full` rebuilds them (e.g. after a language change). */
   redraw(full = false) {
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW_TYPE)) (full ? leaf.view.render : leaf.view.refresh)?.call(leaf.view);
+  }
+
+  /** translatedFirst, from ⋮ or Settings: the new default goes for every row (the rows' own flips are dropped). */
+  async setTranslatedFirst(on) {
+    this.data.settings.translatedFirst = on;
+    for (const leaf of this.app.workspace.getLeavesOfType(VIEW_TYPE)) leaf.view.langFlips?.clear();
+    await this.saveData(this.data);
+    this.redraw();
   }
 
   async openView() {
@@ -381,13 +426,21 @@ class PluginRadar extends Plugin {
 
   /** A plugin's whole profile (the details window's long texts), downloaded once a session; null when there's none. */
   profileFile(id) {
-    if (!this.profileFiles.has(id)) this.profileFiles.set(id, this.github.profile(id).catch(() => null));
+    return this.loadProfile(id).catch(() => null);
+  }
+
+  /**
+   * A plugin's whole profile, downloaded once a session: null when it has none; throws when it couldn't be downloaded,
+   * and then isn't kept, so the next ask tries again (a dropped connection mustn't stick for the session).
+   */
+  loadProfile(id) {
+    if (!this.profileFiles.has(id)) this.profileFiles.set(id, this.github.profile(id).catch((error) => { this.profileFiles.delete(id); throw error; }));
     return this.profileFiles.get(id);
   }
 
   /** A plugin's Overview in your language as saved: {src, lang, parts, model, tokens, cost, date}, or null. */
   profileTranslation(id) {
-    return this.data.profileTranslations[id] ?? null;
+    return this.translations.overview[id] ?? null;
   }
 
   /** Is `id`'s saved Overview translation in your language and made from these parts (profileParts)? */
@@ -403,34 +456,100 @@ class PluginRadar extends Plugin {
    * translation yet (kept like any other; the request's usage is the Overview's).
    * @returns {Promise<object|false>} what it took ({model, tokens, cost}) when done, else false
    */
-  async translateProfile(plugin, quiet = false, withDescription = false) {   // quiet: a bulk run reports once, at the end
+  async translateProfile(plugin, quiet = false, withDescription = false, { model = null, force = false } = {}) {   // quiet: a bulk run; its errors go up to it
     if (!this.translator.ready) {
       new Notice(t("notice.translateSetup"));
       return false;
     }
     try {
-      const parts = profileParts(this.profiles?.plugins?.[plugin.id], await this.profileFile(plugin.id));
+      const file = await this.loadProfile(plugin.id).catch(() => { throw new Error(t("error.profileMissing")); });   // not half a translation
+      const parts = profileParts(this.profiles?.plugins?.[plugin.id], file);
       if (!parts) return false;
+      if (quiet && this.overviewTranslated(plugin.id, parts)) return true;   // a bulk run learns it's up to date only now
       const all = profileTexts(parts);
       const asked = all.map((text, i) => (text ? i : -1)).filter((i) => i >= 0);   // empty ones aren't sent
-      const description = withDescription && plugin.description && this.cachedTranslation(plugin) == null;
+      const description = withDescription && plugin.description && (force || this.cachedTranslation(plugin) == null);
       const sent = [...(description ? [plugin.description] : []), ...asked.map((i) => all[i])];
-      const done = await this.translator.translateWithUsage(sent);
+      const done = await this.translator.translateWithUsage(sent, "overview", 1, model);
       const got = [...done.texts];
-      if (description) this.data.translations[plugin.id] = { src: plugin.description, text: got.shift() };   // the first one sent
+      const lang = this.data.settings.targetLang;
+      const descProblem = description   // the first one sent
+        ? await this.translations.put("description", plugin.id, { src: plugin.description, text: got.shift(), lang, model: done.model })
+        : null;
       const texts = [...all];
       asked.forEach((i, k) => { texts[i] = got[k]; });
-      this.data.profileTranslations[plugin.id] = {
-        src: all.join("\n"), lang: this.data.settings.targetLang, parts: profileFromTexts(parts, texts),
+      const problem = await this.translations.put("overview", plugin.id, {
+        src: all.join("\n"), lang, parts: profileFromTexts(parts, texts),
         model: done.model, tokens: done.tokens, cost: done.cost, date: dayString(Date.now()),
-      };
-      await this.saveData(this.data);
-      return { model: done.model, tokens: done.tokens, cost: done.cost };   // what it took (a bulk run adds them up)
+      });
+      if (quiet) return problem ? { rejected: 1 } : { model: done.model, tokens: done.tokens, cost: done.cost };
+      if (problem || descProblem) new Notice(t("notice.translateRejected", { model: done.model }), 12000);
+      return problem ? false : { model: done.model, tokens: done.tokens, cost: done.cost };   // what it took
     } catch (error) {
+      if (quiet) throw error;
       console.error("[Community Radar] Overview translation", error);
-      if (!quiet) new Notice(t("notice.translateFailed", { error: error.message }), 12000);
+      new Notice(t("notice.translateFailed", { error: error.message }), 12000);
       return false;
     }
+  }
+
+  /**
+   * What an AI job will take (aiEstimate), learnt from this model's earlier requests of the same kind with the same
+   * Thinking setting. The prompt's fixed part (the instructions) is added once per request, as it's billed.
+   * @param {"description"|"overview"|"readme"} kind
+   * @param {{text?: string, chars?: number, requests?: number}} job  the texts it'll send (or just their length)
+   * @returns {{chars: number, tokens: number, cost: ?number, measured: boolean}}
+   */
+  estimate(kind, { text = "", chars = text.length, requests = 1 }) {
+    const s = this.data.settings;
+    const tally = this.data.aiUsage?.[`${s.provider}/${s.model}`]?.kinds?.[usageKind(kind, this.translator.thinkingOff ? "off" : "default")];
+    const fixed = (kind === "readme" ? readmePrompt("", s.targetLang, s.prompts) : translationPrompt([], s.targetLang, s.prompts)).length;
+    return { chars, ...aiEstimate(tally, { chars: chars + requests * fixed, requests }, kind === "overview", s.modelCost) };
+  }
+
+  /** The plugins with a description and no translation of it yet. */
+  untranslatedDescriptions(plugins) {
+    return plugins.filter((p) => p.description && this.cachedTranslation(p) == null);
+  }
+
+  /** The profiled plugins whose Overview isn't translated into your language, or changed since (overviewPending). */
+  pendingOverviews(plugins) {
+    return plugins.filter((p) => this.profiles?.plugins?.[p.id] && this.overviewPending(p.id));
+  }
+
+  /** Translating these descriptions: in requests of PAGE_SIZE. */
+  estimateDescriptions(plugins) {
+    return this.estimate("description", { text: plugins.map((p) => p.description).join("\n"), requests: Math.ceil(plugins.length / PAGE_SIZE) });
+  }
+
+  /** Translating `n` Overviews, without downloading them: each is about OVERVIEW_CHARS long, one request each. */
+  estimateOverviews(n) {
+    return this.estimate("overview", { chars: n * OVERVIEW_CHARS, requests: n });
+  }
+
+  /**
+   * The catalog's READMEs already downloaded (into a note or the cache) and not translated, or translated from an
+   * older text, with what translating them would take. Their files are read: async.
+   * @returns {Promise<{n: number, estimate: object}>}
+   */
+  async untranslatedReadmes() {
+    const adapter = this.app.vault.adapter;
+    const dir = `${this.cache.dir}/readmes`;
+    const cached = new Set((await adapter.exists(dir)) ? (await adapter.list(dir)).files : []);
+    const texts = [];
+    for (const p of (this.catalog?.plugins || []).filter((x) => this.notes.file(x.id) || cached.has(this.cache.path(this.readmeCacheName(x.id))))) {
+      const { original, translation } = await this.readmeParts(p);
+      if (original && translation?.hash !== original.hash) texts.push(this.translationSource(original.text).text);
+    }
+    return { n: texts.length, estimate: this.estimate("readme", { text: texts.join("\n"), requests: texts.length }) };
+  }
+
+  /**
+   * Is the Overview worth sending to a bulk run? Not when it's translated into your language and its summary (the
+   * one part every plugin has here, without downloading its profile) is the same; the rest is checked when it goes.
+   */
+  overviewPending(id) {
+    return !overviewCurrent(this.profileTranslation(id), this.profiles?.plugins?.[id]?.summary, this.data.settings.targetLang);
   }
 
   /**
@@ -443,6 +562,41 @@ class PluginRadar extends Plugin {
     const parts = profile && profileParts(profile, await this.profileFile(plugin.id));
     if (parts && !this.overviewTranslated(plugin.id, parts)) return Boolean(await this.translateProfile(plugin, false, true));
     return this.translateRows([plugin]);
+  }
+
+  /**
+   * The model picker (pinned and recent ones first, ☆ and ✕ on its rows): the model you pick, or null. The pick joins
+   * the history; Settings' model stays as it is (Settings sets it itself). `models`: your provider's list when the
+   * caller has it, else asked for here (a failure leaves the picker to names you type).
+   */
+  async pickModel(models = null) {
+    const settings = this.data.settings;
+    if (!models) {
+      try {
+        models = await this.translator.models(settings.provider);
+      } catch (error) {
+        new Notice(t("notice.modelsFailed", { error: error.message }));
+      }
+    }
+    const modal = new ModelModal(this.app, models || [], settings.modelHistory, async (history) => {
+      settings.modelHistory = history;
+      await this.saveData(this.data);
+    });
+    modal.open();
+    const model = await modal.result;
+    if (!model) return null;
+    settings.modelHistory = rememberModel(settings.modelHistory, model.id);
+    await this.saveData(this.data);
+    return model;
+  }
+
+  /**
+   * ⋯ › Translate again…: the description and the Overview (one request; just the description without a profile)
+   * made again with `model`, even when kept. A reply that fails the check (translationProblem) keeps the old ones.
+   */
+  async retranslate(plugin, model) {
+    if (this.profiles?.plugins?.[plugin.id]) return Boolean(await this.translateProfile(plugin, false, true, { model, force: true }));
+    return this.translateRows([plugin], { model, force: true });
   }
 
   /** Categories and tags with their counts, for the query box (worked out again only when the profiles change). */
@@ -631,7 +785,7 @@ class PluginRadar extends Plugin {
    * the model, tokens and cost in its properties; an untracked plugin's goes to the cache (no note is made). A missing
    * README, or one older than the release, is fetched first. Asked for only by the user; true when done.
    */
-  async translateReadme(plugin, progress = () => {}, quiet = false) {   // quiet: a bulk run reports once, at the end
+  async translateReadme(plugin, progress = () => {}, quiet = false, model = null) {   // quiet: a bulk run; its errors go up to it
     if (!this.translator.ready) {
       new Notice(t("notice.translateSetup"));
       return false;
@@ -646,7 +800,7 @@ class PluginRadar extends Plugin {
       if (!original) throw new Error(t("readme.failed"));
       progress(t("readme.translating"));
       const { text, skipped } = this.translationSource(original.text);
-      const done = await this.translator.translateMarkdown(text);
+      const done = await this.translator.translateMarkdown(text, model);
       if (skipped.length) done.body += `\n\n*${t("readme.skipped", { list: skipped.join(" · ") })}*`;
       const translation = { ...done, lang: this.data.settings.targetLang, version: original.version, hash: original.hash, date: dayString(Date.now()) };
       const file = this.notes.file(plugin.id);
@@ -655,10 +809,11 @@ class PluginRadar extends Plugin {
         const name = this.readmeCacheName(plugin.id);
         await this.cache.write(name, { ...(await this.cache.read(name, {})), translation });
       }
-      return { model: done.model, tokens: done.tokens, cost: done.cost };   // what it took (a bulk run adds them up)
+      return { model: done.model, tokens: done.tokens, cost: done.cost };   // what it took
     } catch (error) {
+      if (quiet) throw error;   // a bulk run counts it
       console.error("[Community Radar] README translation", error);
-      if (!quiet) new Notice(t("notice.translateFailed", { error: error.message }), 12000);
+      new Notice(t("notice.translateFailed", { error: error.message }), 12000);
       return false;
     }
   }
@@ -694,24 +849,33 @@ class PluginRadar extends Plugin {
   // ── Translation ──────────────────────────────────────────────────────────
   /** Saved translation; invalid once the description changes. */
   cachedTranslation(plugin) {
-    const saved = this.data.translations[plugin.id];
+    const saved = this.translations.description[plugin.id];
     return saved && saved.src === plugin.description ? saved.text : null;
   }
 
-  /** Translates untranslated descriptions in single requests of up to 50 and saves them. True on success. */
   /**
-   * One request: the short descriptions of up to PAGE_SIZE plugins, kept in data.json.
-   * @returns {Promise<{model, tokens, cost}>} what it took, as the provider reported it
+   * One request: the short descriptions of up to PAGE_SIZE plugins, kept in translations.jsonl. A reply that doesn't
+   * fit (wrong count, not JSON) splits the batch in two and tries each half, so one odd description can't sink 49.
+   * @returns {Promise<true>}
    */
-  async translateBatch(batch) {
-    const { texts, ...usage } = await this.translator.translateWithUsage(batch.map((p) => p.description));
-    batch.forEach((p, k) => { this.data.translations[p.id] = { src: p.description, text: texts[k] }; });
-    await this.saveData(this.data);
-    return usage;
+  async translateBatch(batch, model = null) {
+    try {
+      const done = await this.translator.translateWithUsage(batch.map((p) => p.description), "description", batch.length > 1 ? 0 : 1, model);
+      const lang = this.data.settings.targetLang;
+      const problems = await Promise.all(batch.map((p, k) => this.translations.put("description", p.id, { src: p.description, text: done.texts[k], lang, model: done.model })));
+      return { rejected: problems.filter(Boolean).length };   // failed the check: not kept (translationProblem)
+    } catch (error) {
+      if (!(error instanceof ReplyError) || batch.length < 2 || this.translator.halted) throw error;
+      const half = Math.ceil(batch.length / 2);
+      const first = await this.translateBatch(batch.slice(0, half), model);
+      const second = await this.translateBatch(batch.slice(half), model);
+      return { rejected: first.rejected + second.rejected };
+    }
   }
 
-  async translateRows(plugins) {
-    const pending = plugins.filter((p) => p.description && this.cachedTranslation(p) == null);
+  /** Translates these descriptions where missing (`force`: again, even kept ones), with `model` instead of Settings' if given. */
+  async translateRows(plugins, { model = null, force = false } = {}) {
+    const pending = plugins.filter((p) => p.description && (force || this.cachedTranslation(p) == null));
     if (!pending.length) return true;
     if (!this.translator.ready) {
       new Notice(t("notice.translateSetup"));
@@ -719,8 +883,10 @@ class PluginRadar extends Plugin {
     }
     const notice = new Notice(t("notice.translating", { n: pending.length }), 0);
     try {
-      for (let i = 0; i < pending.length; i += PAGE_SIZE) await this.translateBatch(pending.slice(i, i + PAGE_SIZE));
+      let rejected = 0;
+      for (let i = 0; i < pending.length; i += PAGE_SIZE) rejected += (await this.translateBatch(pending.slice(i, i + PAGE_SIZE), model)).rejected;
       notice.hide();
+      if (rejected) new Notice(t("notice.translateRejected", { model: model || this.data.settings.model }), 12000);
       return true;
     } catch (error) {
       console.error("[Community Radar] translation", error);
@@ -1061,4 +1227,5 @@ class PluginRadar extends Plugin {
 }
 
 module.exports = PluginRadar;
+Object.assign(core, { TranslationStore, Translator });   // classes: defined after 19-exports.js
 module.exports.core = core;  // exposed for tests only

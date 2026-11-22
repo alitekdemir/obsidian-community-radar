@@ -305,7 +305,7 @@ function compileQuery(query, state = null, now = Date.now(), advanced = false) {
   if (advanced || isAdvancedQuery(String(query || ""))) {   // the query language (16-query.js); Query mode reads even plain words as it
     try {
       const q = parseQuery(String(query), { strict: advanced });
-      return { test: (p) => !state || q.test(state, p, now), order: q.order, clauses: q.clauses, free: q.free, spans: q.spans, fields: q.fields, advanced: true, regex: false, error: "" };
+      return { test: (p) => !state || q.test(state, p, now), order: q.order, group: q.group, limit: q.limit, pins: q.pins, clauses: q.clauses, free: q.free, spans: q.spans, fields: q.fields, advanced: true, regex: false, error: "" };
     } catch (error) {
       if (!(error instanceof QueryError)) throw error;
       const bad = { from: error.from, to: error.to, kind: "bad" };
@@ -497,8 +497,23 @@ function trackedMatch(note, opts, plugin) {
  * @param {object} opts   {mode, days, newDays, hideBusy, minDownloads, filterDownloads, sort, sortDir, query, tracked…} (see modeOptions)
  */
 function discover(state, opts, now) {
-  const { rows, order } = matchRows(state, opts, now);
-  return order ? sortRows(rows, order.key, order.dir, state, now) : rows;
+  return discoverGrouped(state, opts, now).rows;
+}
+
+/**
+ * discover(), with how the page's query groups its rows: {rows, group, pins} (group: the `group by` field or null;
+ * pins: the values its filter asks for, see parseQuery). Its `limit` cuts the sorted rows.
+ */
+function discoverGrouped(state, opts, now) {
+  const { rows, order, group, limit, pins } = matchRows(state, opts, now);
+  const sorted = order ? sortRows(rows, order.key, order.dir, state, now) : rows;
+  return { rows: limit ? sorted.slice(limit.from, limit.to) : sorted, group, pins };
+}
+
+/** How many rows a page shows: what it matches, cut by its query's `limit` (no sort needed for the count). */
+function matchCount(state, opts, now) {
+  const { rows, limit } = matchRows(state, opts, now);
+  return limit ? Math.max(0, Math.min(rows.length, limit.to) - limit.from) : rows.length;
 }
 
 /**
@@ -511,7 +526,7 @@ function matchRows(state, opts, now) {
   const inQuery = inQueryMode(opts, mode);
   // the page is its query: in Query mode the box's, in Basic the page's own, narrowed by your words and filters
   const page = compileQuery(inQuery ? opts.queries[mode] : pageQuery(opts, mode), state, now, true);
-  if (page.error) return { rows: [], order: null };   // a saved query that doesn't parse (a field since renamed) finds nothing, not everything
+  if (page.error) return { rows: [], order: null, group: null, limit: null, pins: {} };   // a saved query that doesn't parse (a field since renamed) finds nothing, not everything
   const words = inQuery ? null : compileQuery(opts.query, state, now);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
   const extras = Object.entries(opts.extras || {}).filter(([k]) => EXTRA_FILTERS[k]);
@@ -519,10 +534,14 @@ function matchRows(state, opts, now) {
   const keepHidden = page.fields?.has("excluded") || page.fields?.has("snoozed") || mode === "tracked" || mode === "dismissed";
   const hidden = (p) => (!keepHidden && (state.excluded.has(p.id) || isSnoozed(p, state.snoozed))) || (p.removed && !page.fields?.has("removed"));
   const shown = (p) => !hidden(p) && page.test(p) && (!words || words.test(p)) && (p.downloads ?? 0) >= minDownloads
-    && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now)) && (mode !== "tracked" || trackedMatch(notes.get(p.id), opts, p));
+    && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now))
+    && (mode !== "tracked" || (inQuery ? notes.has(p.id) : trackedMatch(notes.get(p.id), opts, p)));   // in Query mode the box says it all
   // sort: Query mode follows its order by; Basic your sort, else the page query's
   const order = (inQuery || opts.sorted === false ? page.order : null) || { key: opts.sort, dir: opts.sortDir };
-  return { rows: catalog.filter(shown), order };
+  // Basic's Group menu narrows like a clause would: `group = "Tasks" group by group` shows the Tasks section only
+  const menu = mode === "tracked" && !inQuery && opts.trackedGroup;
+  const pins = menu === UNGROUPED ? { ...page.pins, group: new Set([""]) } : menu && ![UPDATES, TOP_RATED].includes(menu) ? { ...page.pins, group: new Set([fold(menu)]) } : page.pins;
+  return { rows: catalog.filter(shown), order, group: page.group ?? null, limit: page.limit ?? null, pins: pins || {} };
 }
 
 /** A sort key's label in the sort menu: `gain(7d)` → sort.gain7d. */
@@ -549,7 +568,7 @@ function defaultPageQuery(mode, { days = UPDATED_DAYS, newDays = DEFAULT_NEW_DAY
     updated: `${all(`released <= ${days}d`, "NOT tracked", busy && `releases(${BUSY_DAYS}d) <= ${BUSY_LIMIT}`, min)}\norder by downloads desc`,   // new ones too: add NOT listed <= 14d to leave them out
     awakened: `${all(`incubated >= ${incubated}d`, `hatched <= ${HATCHED_DAYS}d`, "NOT tracked", min)}\norder by hatched desc`,
     suggested: `${all("installed", "NOT tracked", "NOT dismissed")}\norder by downloads desc`,
-    tracked: "tracked\norder by rating desc",
+    tracked: "tracked\ngroup by group\norder by rating desc",   // a section per group, then Ungrouped
     excluded: "excluded\norder by name asc",
     snoozed: "snoozed\norder by name asc",
     dismissed: "dismissed\norder by name asc",
@@ -580,19 +599,26 @@ function sortRows(rows, key, dir, state, now = Date.now()) {
 }
 
 /**
- * The Tracked tab's sections: one per group (a plugin in two groups shows in both), then Ungrouped.
- * Rows keep their order inside each section.
+ * `group by <field>`: the rows in a section per value of the field (a plugin with several, such as groups or
+ * categories, in each of its own), A→Z, then the ones without a value (EMPTY_SECTION: what `<field> is empty` finds).
+ * `pins` (the values the query's filter asks for) keep the sections to those: `group = "Tasks" group by group` shows
+ * Tasks only, not the other groups of its plugins; a row none of whose values is pinned keeps its own sections.
+ * @returns {{name: string, rows: object[]}[]} rows keep their order inside a section
  */
-function groupSections(rows, notes) {
+function groupSections(rows, by, state, now, pins = {}) {
+  const field = QUERY_FIELDS[by];
+  const wanted = pins[by];
   const sections = new Map();
   const none = [];
   for (const p of rows) {
-    const groups = notes.get(p.id)?.groups || [];
-    if (!groups.length) none.push(p);
-    for (const g of groups) sections.set(g, [...(sections.get(g) || []), p]);
+    const raw = field.get(state, p, now);
+    const values = (Array.isArray(raw) ? raw : [raw]).filter((v) => v != null && v !== "");
+    if (!values.length) { none.push(p); continue; }
+    const kept = wanted ? values.filter((v) => wanted.has(fold(v))) : values;
+    for (const v of kept.length ? kept : values) sections.set(v, [...(sections.get(v) || []), p]);
   }
-  const named = [...sections].sort((a, b) => a[0].localeCompare(b[0], t("locale"))).map(([name, list]) => ({ name, rows: list }));
-  return none.length ? [...named, { name: UNGROUPED, rows: none }] : named;
+  const named = [...sections].sort((a, b) => String(a[0]).localeCompare(String(b[0]), t("locale"))).map(([name, list]) => ({ name, rows: list }));
+  return none.length ? [...named, { name: UNGROUPED, rows: none }] : named;   // every row shows somewhere
 }
 
 /** A stable frontmatter value for a new status label: "🧪 Deneme süreci" → "deneme-süreci". */
@@ -612,6 +638,6 @@ function groupHue(name) {
 
 /** Row count of each mode (every one, unless `modes` names some), each with its own tab options; nothing is sorted. */
 function modeCounts(state, settings, now, modes = MODE_KEYS) {
-  return Object.fromEntries(modes.map((mode) => [mode, matchRows(state, modeOptions(settings, mode), now).rows.length]));
+  return Object.fromEntries(modes.map((mode) => [mode, matchCount(state, modeOptions(settings, mode), now)]));
 }
 

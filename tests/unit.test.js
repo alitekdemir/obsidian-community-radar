@@ -320,7 +320,8 @@ const tests = {
     assert.deepEqual(ids({ query: "/^(al|mi)/" }), ["alpha", "mid"]);
     const releases = { zeta: [ago(900), ago(300)], alpha: [ago(40), ago(5)], mid: [ago(2), ago(1)] };
     assert.deepEqual(core.sortRows([...catalog.slice(0, 3)], "incubated", "desc", { catalog, releases }).map((p) => p.id), ["zeta", "alpha", "mid"]);
-    assert.deepEqual(core.groupSections([catalog[0], catalog[1], catalog[2]], new Map([["zeta", { groups: ["B", "A"] }], ["alpha", { groups: ["A"] }], ["mid", { groups: [] }]]))
+    const notes = new Map([["zeta", { groups: ["B", "A"] }], ["alpha", { groups: ["A"] }], ["mid", { groups: [] }]]);
+    assert.deepEqual(core.groupSections([catalog[0], catalog[1], catalog[2]], "group", { notes }, NOW)
       .map((s) => [s.name, s.rows.map((p) => p.id)]), [["A", ["zeta", "alpha"]], ["B", ["zeta"]], [core.UNGROUPED, ["mid"]]]);
     assert.equal(core.groupHue("Task"), core.groupHue("Task"));
   },
@@ -600,10 +601,13 @@ const tests = {
       "a heading in a code block or a long one stays");
     core.setLanguage("en");   // a cheap request never reads "$0"
     assert.deepEqual([0.000226, 0.0412, 12.5, 0].map(core.formatCost), ["$0.00023", "$0.0412", "$12.50", "$0.00"]);
-    const estimate = core.translationEstimate("x".repeat(4000), { input: 1, output: 5 });
-    assert.equal(estimate.tokens, 2000);
+    // an estimate before a model has done a few: the list price (a floor); after: what its requests took
+    const estimate = core.aiEstimate(null, { chars: 4000, requests: 1 }, false, { input: 1, output: 5 });
+    assert.deepEqual([estimate.tokens, estimate.measured], [2200, false], "1,000 tokens in, ×2.2 with the reply");
     assert.ok(Math.abs(estimate.cost - (1000 * 1 + 1200 * 5) / 1e6) < 1e-9);
-    assert.equal(core.translationEstimate("abc", null).cost, null);
+    assert.equal(core.aiEstimate(null, { chars: 3, requests: 1 }, false, null).cost, null);
+    const tally = { requests: 100, chars: 40000, input: 8000, output: 2000, cost: 0.01 };
+    assert.deepEqual(core.aiEstimate(tally, { chars: 4000, requests: 1 }, false, null), { tokens: 1000, cost: 0.001, measured: true }, "a tenth of the characters");
     const D = core.constants.DAY_MS;
     // release rhythm: update waves in the last year (a patch within 3 days joins its wave)
     const Y = 365 * D;

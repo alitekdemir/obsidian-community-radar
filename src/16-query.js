@@ -38,7 +38,7 @@ const QUERY_FIELDS = {
   text: { type: "text", get: (s, p) => `${p.id} ${p.name} ${p.author} ${p.description} ${profileOf(s, p)?.summary ?? ""}` },
   name: { type: "text", sort: "name", get: (s, p) => p.name },
   description: { type: "text", get: (s, p) => p.description },
-  author: { type: "text", get: (s, p) => p.author },
+  author: { type: "text", group: true, get: (s, p) => p.author },
   id: { type: "text", get: (s, p) => p.id },
   downloads: { type: "number", sort: true, rank: (s, p) => p.downloads ?? null, get: (s, p) => p.downloads ?? 0 },
   // the downloads series (a year): gained over any window, as a count or a share
@@ -58,8 +58,8 @@ const QUERY_FIELDS = {
   // days since it reached n downloads (`milestone(10k)`); `milestone()`: since its latest step (1K, 5K, 10K…)
   milestone: { type: "number", days: true, sort: true, param: { kind: "count", fallback: null },
     get: (s, p, now, n) => historyDays(s, reachedOrLatest(s, p, n), now), at: (s, p, now, n) => reachedOrLatest(s, p, n) },
-  group: { type: "list", get: (s, p) => s.notes.get(p.id)?.groups || [] },
-  status: { type: "list", get: (s, p) => { const st = s.notes.get(p.id)?.status; return st ? [st] : []; } },
+  group: { type: "list", group: true, get: (s, p) => s.notes.get(p.id)?.groups || [] },
+  status: { type: "list", group: true, get: (s, p) => { const st = s.notes.get(p.id)?.status; return st ? [st] : []; } },
   installed: { type: "bool", get: (s, p) => s.installed.has(p.id) },
   tracked: { type: "bool", get: (s, p) => s.notes.has(p.id) },
   unreviewed: { type: "bool", get: (s, p) => { const note = s.notes.get(p.id); return Boolean(note) && isUnreviewed(p, note); } },   // tracked, released since you reviewed it
@@ -70,17 +70,29 @@ const QUERY_FIELDS = {
   // taken off the official list (only the installed ones are rows: see removedRows); lists leave them out unless asked
   removed: { type: "bool", get: (s, p) => Boolean(p.removed) },
   // AI profiles (17-profiles): empty for a plugin not profiled yet, and until the profiles are loaded
-  category: { type: "list", profile: true, get: (s, p) => profileCategories(profileOf(s, p)) },   // its home and up to two more
-  primary: { type: "text", profile: true, get: (s, p) => profileOf(s, p)?.primary ?? null },        // its home: one per plugin
-  tag: { type: "list", profile: true, get: (s, p) => profileOf(s, p)?.tags || [] },
-  intent: { type: "text", profile: true, get: (s, p) => profileOf(s, p)?.intent ?? null },          // new, improve, alternative
-  lifecycle: { type: "list", profile: true, get: (s, p) => { const v = profileOf(s, p)?.lifecycle; return v ? [v] : []; } },   // a list for `is empty`
+  category: { type: "list", profile: true, group: true, get: (s, p) => profileCategories(profileOf(s, p)) },   // its home and up to two more
+  primary: { type: "text", profile: true, group: true, get: (s, p) => profileOf(s, p)?.primary ?? null },        // its home: one per plugin
+  tag: { type: "list", profile: true, group: true, get: (s, p) => profileOf(s, p)?.tags || [] },
+  intent: { type: "text", profile: true, group: true, get: (s, p) => profileOf(s, p)?.intent ?? null },          // new, improve, alternative
+  lifecycle: { type: "list", profile: true, group: true, get: (s, p) => { const v = profileOf(s, p)?.lifecycle; return v ? [v] : []; } },   // a list for `is empty`
   apikey: { type: "bool", profile: true, get: (s, p) => profileNeeds(profileOf(s, p), "apiKey") },
   paid: { type: "bool", profile: true, get: (s, p) => profileNeeds(profileOf(s, p), "paidService") },
   summary: { type: "text", profile: true, get: (s, p) => profileOf(s, p)?.summary ?? null },
+  // what's in your language: the short description, the Overview (stale ones don't count: see overviewCurrent)
+  translated: { type: "list", get: (s, p) => {
+    const saved = s.translations;
+    if (!saved) return [];
+    const description = p.description && saved.description[p.id]?.src === p.description;
+    const overview = overviewCurrent(saved.overview[p.id], profileOf(s, p)?.summary, s.targetLang);
+    return [description && "description", overview && "overview"].filter(Boolean);
+  } },
 };
 /** What intent and lifecycle can be (the profiler's closed lists). */
 const PROFILE_VALUES = { intent: ["new", "improve", "alternative"], lifecycle: ["experimental", "deprecated"] };
+/** What `translated` can hold. */
+const TRANSLATED_VALUES = ["description", "overview"];
+/** A query's tail after its filter, in this order: `group by <field>`, `order by <field> [asc|desc]`, `limit N | A-B`. */
+const TAIL_PARTS = ["group", "order", "limit"];
 
 /** A field name as a clause, not as a value (`name ~ busy` stays): after neither an operator nor a word or quote. */
 const asClause = (word) => new RegExp(`(?<![=~<>!]\\s*)(?<![\\w"])${word}(?![\\w(])`, "gi");
@@ -162,11 +174,26 @@ const QUERY_CMP = {
 /** Case and Turkish dotted/dotless i folded, so `istanbul` finds `İstanbul` and `image` finds `IMAGE`. */
 const fold = (text) => String(text ?? "").toLowerCase().replace(/i̇/g, "i").replace(/ı/g, "i");
 
+/** Folded, letters and digits only: `side-note`, `Side Note` and `SideNote` all read `sidenote`. */
+const compact = (text) => fold(text).replace(/[^\p{L}\p{N}]+/gu, "");
+
+/**
+ * `~` and plain search, as in JQL: every word of `text` is in the value, in any order; spaces, hyphens and case
+ * don't count (`side note` finds SideNote and Side-Notes). In this order only: a /regex/.
+ */
+function containsWords(text) {
+  const words = fold(text).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  return (value) => {
+    const hay = compact(value);   // once per value, then each word looks in it
+    return words.every((word) => hay.includes(word));
+  };
+}
+
 /** Is this an advanced query (a field followed by an operator, a keyword, or `order by`)? */
 function isAdvancedQuery(query) {
   const fields = Object.keys(QUERY_FIELDS).join("|");
   const calls = Object.keys(QUERY_FIELDS).filter((k) => QUERY_FIELDS[k].param).join("|");
-  return new RegExp(`(^|[\\s(])(${fields})\\s*(=|!=|~|!~|>=?|<=?|\\bin\\b|\\bnot\\s+in\\b|\\bis\\b)|(^|[\\s(])(${calls})\\s*\\(|\\border\\s+by\\b|(^|\\s)(AND|OR|NOT)(\\s|$)`, "i").test(query);
+  return new RegExp(`(^|[\\s(])(${fields})\\s*(=|!=|~|!~|>=?|<=?|\\bin\\b|\\bnot\\s+in\\b|\\bis\\b)|(^|[\\s(])(${calls})\\s*\\(|\\b(order|group)\\s+by\\b|\\blimit\\s+\\d|(^|\\s)(AND|OR|NOT)(\\s|$)`, "i").test(query);
 }
 
 /** Splits a query into tokens: words, "quoted", /regex/, operators, ( ) and commas, each with its position. */
@@ -216,11 +243,17 @@ function parseQuery(query, { strict = false } = {}) {
   let i = 0;
   let clauses = 0;
   const fields = new Set();   // the fields the query names (discover keeps hidden plugins when it names `excluded` or `snoozed`)
+  const pins = {};            // field → the values its = / in / is empty clauses ask for, outside any NOT (group by's sections)
+  let negated = 0;            // how many NOTs the clause being read is under
   let current = null;   // where the clause being read starts
   const free = [];
   const spans = [];
   const peek = () => tokens[i];
   const word = (w) => peek()?.kind === "word" && fold(peek().text) === w;
+  /** Where the filter ends: `group by`, `order by` or `limit` (the tail, see TAIL_PARTS). */
+  const atTail = () => word("order") || word("limit") || (word("group") && fold(tokens[i + 1]?.text) === "by");
+  /** Values a clause asks for (folded; "" is `is empty`), kept for group by when no NOT is around it. */
+  const pin = (name, values) => { if (!negated) pins[name] = new Set([...(pins[name] || []), ...values]); };
   const take = () => tokens[i++];
   const end = () => tokens[i - 1]?.end ?? 0;
   const fail = (key, vars = {}, at = peek()?.at ?? query.length) => {
@@ -277,6 +310,7 @@ function parseQuery(query, { strict = false } = {}) {
       if (!word("empty")) fail("empty", { field: name });
       take();
       if (!QUERY_OPS[field.type].includes("is")) fail("op", { field: name, op: "is", ops: QUERY_OPS[field.type].join(" ") }, at);
+      if (!negate) pin(name, [""]);
       return (s, p, now) => { const v = field.get(s, p, now); const empty = v == null || (Array.isArray(v) && !v.length); return negate ? !empty : empty; };
     } else if (op?.kind === "op") take();
     else fail("op", { field: name, op: op?.text ?? "…", ops: QUERY_OPS[field.type].join(" ") });
@@ -290,6 +324,7 @@ function parseQuery(query, { strict = false } = {}) {
         if (peek()?.kind === ",") take();
       }
       if (take()?.kind !== ")") fail("paren");
+      if (op.text === "in") pin(name, list);
       const has = field.type === "list"
         ? (s, p, now) => field.get(s, p, now).some((g) => list.includes(fold(g)))
         : (s, p, now) => list.includes(fold(field.get(s, p, now)));
@@ -329,7 +364,8 @@ function parseQuery(query, { strict = false } = {}) {
       match = (v) => re.test(String(v ?? ""));
     } else {
       const want = fold(token.text);
-      match = op.text === "~" || op.text === "!~" ? (v) => fold(v).includes(want) : (v) => fold(v) === want;
+      match = op.text === "~" || op.text === "!~" ? containsWords(token.text) : (v) => fold(v) === want;
+      if (op.text === "=") pin(name, [want]);
     }
     const hit = field.type === "list" ? (s, p, now) => field.get(s, p, now).some(match) : (s, p, now) => match(field.get(s, p, now));
     return op.text.startsWith("!") ? (s, p, now) => !hit(s, p, now) : hit;
@@ -365,21 +401,23 @@ function parseQuery(query, { strict = false } = {}) {
         const re = regexOf(token);
         return (s, p) => re.test(text(s, p));
       }
-      const want = fold(token.text);
-      return (s, p) => fold(text(s, p)).includes(want);
+      const has = containsWords(token.text);
+      return (s, p) => has(text(s, p));
     }
     return fail("unexpected", { text: token.text }, token.at);
   };
   const not = () => {
     if (!word("not")) return primary();
     const from = take().at;
+    negated++;
     const inner = not();
+    negated--;
     spans.push({ from, to: end(), kind: "neg" });
     return (s, p, now) => !inner(s, p, now);
   };
   const and = () => {
     let left = not();
-    while (peek() && peek().kind !== ")" && !word("or") && !word("order")) {
+    while (peek() && peek().kind !== ")" && !word("or") && !atTail()) {
       if (word("and")) take();
       const right = not();
       const l = left;
@@ -398,7 +436,18 @@ function parseQuery(query, { strict = false } = {}) {
     return left;
   };
 
-  const test = peek() && !word("order") ? or() : () => true;
+  const test = peek() && !atTail() ? or() : () => true;
+  let group = null;
+  if (word("group")) {
+    current = take().at;
+    take();   // by
+    const name = fold(peek()?.text);
+    if (!QUERY_FIELDS[name]?.group) fail("groupBy", { field: peek()?.text ?? "…", fields: Object.keys(QUERY_FIELDS).filter((k) => QUERY_FIELDS[k].group).join(", ") });
+    take();
+    group = name;
+    spans.push({ from: current, to: end(), kind: "order" });
+    current = null;
+  }
   let order = null;
   if (word("order")) {
     current = take().at;
@@ -414,8 +463,21 @@ function parseQuery(query, { strict = false } = {}) {
     spans.push({ from: current, to: end(), kind: "order" });
     current = null;
   }
-  if (peek()) fail("unexpected", { text: peek().text });
-  return { test, order, clauses, free, spans, fields };
+  let limit = null;
+  if (word("limit")) {
+    current = take().at;
+    const [, a, b] = String(peek()?.text ?? "").match(/^(\d+)(?:-(\d+))?$/) || [];
+    const [first, last] = b ? [Number(a), Number(b)] : [1, Number(a)];   // `limit 100`: the first 100; `limit 101-200`: 101st to 200th
+    if (!a || first < 1 || last < first) fail("limit");
+    take();
+    limit = { from: first - 1, to: last };
+    spans.push({ from: current, to: end(), kind: "order" });
+    current = null;
+  }
+  if (peek()) fail(TAIL_PARTS.some((part) => word(part)) ? "tailOrder" : "unexpected", { text: peek().text });
+  // with an OR, a value isn't asked of every row: group by then shows every section a row has
+  const any = tokens.some((tok) => tok.kind === "word" && fold(tok.text) === "or");
+  return { test, order, group, limit, pins: any ? {} : pins, clauses, free, spans, fields };
 }
 
 /** Suggestions where the caret is: fields, then the operators of that field's type, then its values, then AND / OR. */
@@ -450,6 +512,7 @@ function querySuggestions(text, caret, data) {
     if (name === "category" || name === "primary") return (data.categories || []).map((c) => ({ label: c.name, insert: c.name, hint: t("query.count", { n: c.count }) }));
     if (name === "tag") return (data.tags || []).map((x) => ({ label: x.name, insert: x.name, hint: t("query.count", { n: x.count }) }));
     if (PROFILE_VALUES[name]) return PROFILE_VALUES[name].map((v) => ({ label: v, insert: v, hint: t(`profile.${name}.${v}`) }));
+    if (name === "translated") return TRANSLATED_VALUES.map((v) => ({ label: v, insert: v, hint: t(`query.translated.${v}`) }));
     if (name === "rating") return [5, 4, 3, 2, 1].map((n) => ({ label: String(n), insert: String(n), hint: "★".repeat(n) }));
     if (field.type === "bool") return ["true", "false"].map((v) => ({ label: v, insert: v }));
     if (field.days) {
@@ -477,14 +540,16 @@ function querySuggestions(text, caret, data) {
     const ops = QUERY_OPS[type].map((op) => (op === "is" ? "is empty" : op));
     return { from, items: ops.map((op) => ({ label: op, insert: op === "in" || op === "not in" ? `${op} (` : op, hint: t(`query.op.${op.replace(/ /g, "_")}`) })) };
   }
-  if (fold(prev?.text) === "order") return { from, items: pick([{ label: "by", insert: "by" }]) };
+  if (fold(prev?.text) === "order" || (fold(prev?.text) === "group" && !typing && tokens.length > 1 && !["and", "or", "not", "("].includes(fold(before2?.text ?? "(")))) return { from, items: pick([{ label: "by", insert: "by" }]) };
+  if (fold(prev?.text) === "by" && fold(before2?.text) === "group") return { from, items: pick(Object.keys(QUERY_FIELDS).filter((k) => QUERY_FIELDS[k].group).map(fieldItem)) };
   if (fold(prev?.text) === "by") return { from, items: pick(Object.keys(QUERY_FIELDS).filter((k) => QUERY_FIELDS[k].sort).map(fieldItem)) };
+  if (fold(prev?.text) === "limit") return { from, items: pick(["50", "100", "1-100", "101-200"].map((v) => ({ label: v, insert: v, hint: t("query.limitHint") }))) };
   const sorted = fieldAt(tokens.length - 1);
   if (sorted && fold(tokens[tokens.indexOf(sorted) - 1]?.text) === "by") return { from, items: pick(["desc", "asc"].map((d) => ({ label: d, insert: d }))) };
   // a clause's start: fields (in plain search only once you type two letters), then the keywords
   if (!isAdvancedQuery(text) && partial.length < 2) return { from, items: [] };
   const fields = Object.keys(QUERY_FIELDS).map(fieldItem);
-  const words = (prev && prev.kind !== "(" && !["and", "or", "not"].includes(fold(prev.text)) ? ["AND", "OR", "order by"] : ["NOT"]).map((w) => ({ label: w, insert: w }));
+  const words = (prev && prev.kind !== "(" && !["and", "or", "not"].includes(fold(prev.text)) ? ["AND", "OR", "group by", "order by", "limit"] : ["NOT"]).map((w) => ({ label: w, insert: w }));
   return { from, items: pick([...words, ...fields]) };   // AND / OR first: past 30 fields they were cut off
 }
 
@@ -510,9 +575,10 @@ function queryHighlight(text) {
     else if (tok.kind === ",") cls = "";
     else if (next?.kind === "(" && QUERY_FIELDS[w]?.param && !expect) cls = "field";
     else if (next?.kind === "(" && queryFunc(w)) { cls = "fn"; expect = false; }
-    else if (tok.kind !== "word" || list || expect) { cls = "value"; expect = false; }
+    else if (tok.kind !== "word" || list || expect || fold(prev?.text) === "limit") { cls = "value"; expect = false; }
     else if (w === "in" || w === "is" || w === "empty" || (w === "not" && (fold(next?.text) === "in" || fold(prev?.text) === "is"))) cls = "op";
-    else if (w === "and" || w === "or" || w === "order" || (w === "by" && fold(prev?.text) === "order")) cls = "kw";
+    else if (w === "and" || w === "or" || w === "order" || w === "limit" || (w === "group" && fold(next?.text) === "by")
+      || (w === "by" && ["order", "group"].includes(fold(prev?.text)))) cls = "kw";
     else if (w === "not") cls = "neg";
     else if ((w === "asc" || w === "desc") && (QUERY_FIELDS[fold(prev?.text)] || prev?.kind === ")")) cls = "value";
     else if (QUERY_FIELDS[w]) cls = "field";
@@ -545,15 +611,44 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
   if (x.listed != null) parts.push(`listed <= ${x.listed}d`);
   if (x.author) parts.push(`author ~ ${quoteValue(x.author)}`);
   if (x.installed) parts.push("installed");
+  if (mode === "tracked") parts.push(...trackedClauses(settings));
   const field = sortField(opts.sort);
   const sorted = order && field && settings.sortBy?.[mode];
   return [parts.join(" AND "), sorted ? `order by ${field} ${opts.sortDir}` : ""].filter(Boolean).join("\n");
 }
 
-/** A query split at its `order by` (always last): {filter, order}. */
+/** The Tracked tab's Group and Status menus as clauses (Basic → Query): what the query box says for them. */
+function trackedClauses({ trackedGroup: group, trackedStatus: status, statusEnabled }) {
+  const clauses = [];
+  if (group === UNGROUPED) clauses.push("group is empty");
+  else if (group === UPDATES) clauses.push("unreviewed");
+  else if (group === TOP_RATED) clauses.push(`rating >= ${TOP_RATING}`);
+  else if (group) clauses.push(`group = ${quoteValue(group)}`);
+  if (statusEnabled && status) clauses.push(`status = ${quoteValue(status)}`);
+  return clauses;
+}
+
+/**
+ * A query split at its tail (TAIL_PARTS, always last): {filter, group, order, limit}, each part's text as written
+ * ("group by category", "order by downloads desc", "limit 100"), "" when it has none.
+ */
+function splitQuery(text) {
+  const parts = { filter: String(text).trim(), group: "", order: "", limit: "" };
+  const starts = { group: /(^|\s)group\s+by\b/i, order: /(^|\s)order\s+by\b/i, limit: /(^|\s)limit\s/i };
+  const found = TAIL_PARTS.map((part) => [part, String(text).search(starts[part])]).filter(([, at]) => at >= 0).sort((x, y) => x[1] - y[1]);
+  if (!found.length) return parts;
+  parts.filter = text.slice(0, found[0][1]).trim();
+  found.forEach(([part, at], k) => { parts[part] = text.slice(at, found[k + 1]?.[1] ?? text.length).trim(); });
+  return parts;
+}
+
+/** A query's parts (splitQuery) as text again: the filter, then each tail part on its own line. */
+const joinParts = (parts) => ["filter", ...TAIL_PARTS].map((part) => parts[part]).filter(Boolean).join("\n");
+
+/** A query split at its tail: {filter, order}, where order is all of the tail (group by, order by, limit). */
 function splitOrder(text) {
-  const at = String(text).search(/(^|\s)order\s+by\b/i);
-  return at < 0 ? { filter: String(text).trim(), order: "" } : { filter: text.slice(0, at).trim(), order: text.slice(at).trim() };
+  const { filter, ...tail } = splitQuery(text);
+  return { filter, order: joinParts(tail) };
 }
 
 /**
@@ -573,14 +668,15 @@ const sortField = (key) => (fieldRef(key)?.field.sort ? key : null);
 
 /** The query sorted by a list sort key: its order by replaced (or added). */
 function withOrder(text, key, dir) {
-  return [splitOrder(text).filter, `order by ${sortField(key)} ${dir}`].filter(Boolean).join("\n");
+  return joinParts({ ...splitQuery(text), order: `order by ${sortField(key)} ${dir}` });   // its group by and limit stay
 }
 
-/** The page's query with your narrowing after it; your order by, if any, replaces the page's. */
+/** The page's query with your narrowing after it; your group by, order by and limit, if any, replace the page's. */
 function joinQuery(page, mine) {
-  const a = splitOrder(page);
-  const b = splitOrder(mine);
-  return [[a.filter, b.filter].filter(Boolean).join(" AND "), b.order || a.order].filter(Boolean).join("\n");
+  const a = splitQuery(page);
+  const b = splitQuery(mine);
+  const tail = Object.fromEntries(TAIL_PARTS.map((part) => [part, b[part] || a[part]]));   // each of yours replaces the page's
+  return joinParts({ filter: [a.filter, b.filter].filter(Boolean).join(" AND "), ...tail });
 }
 
 /**
@@ -620,7 +716,10 @@ function queryToFilters(query, settings, mode) {
     if (tok.kind === "(" && !QUERY_FIELDS[prev]?.param) bad.add(prev === "in" ? "in (…)" : queryFunc(prev) ? `${tokens[k - 1].text}()` : "( )");
   });
   if (q.spans.some((span) => span.kind === "neg")) bad.add("NOT");
+  if (q.group) bad.add("group by");
+  if (q.limit) bad.add("limit");
   const extras = {};
+  const menus = {};   // the Tracked tab's Group and Status menus (trackedClauses, backwards)
   let downloads = null;
   const own = (key) => !EXTRA_FILTERS[key].skip?.includes(mode);
   const set = (key, value, text) => (key in extras || !own(key) ? bad.add(text) : (extras[key] = value));
@@ -641,10 +740,13 @@ function queryToFilters(query, settings, mode) {
     else if (field === "incubated" && op?.text === ">=" && days?.n >= 0) set("incubated", Math.round(days.n), text);
     else if (field === "gain(30d)" && op?.text === ">=" && count?.n >= 0) set("growth", Math.round(count.n), text);
     else if (field === "author" && op?.text === "~" && v.kind !== "regex") set("author", v.text, text);
+    else if (mode === "tracked" && menus.group == null && trackedMenu(field, op, v) != null) menus.group = trackedMenu(field, op, v);
+    else if (mode === "tracked" && menus.status == null && field === "status" && op?.text === "=" && v.kind !== "regex") menus.status = v.text;
     else bad.add(text);
   }
   if (bad.size) return { reason: t("query.basicNo", { what: [...bad].join(", ") }) };
   const patch = {
+    ...(mode === "tracked" ? { trackedGroup: menus.group ?? "", trackedStatus: menus.status ?? "" } : {}),
     query: q.free.join(", "),
     extraFilters: { ...settings.extraFilters, [mode]: extras },
     sortBy: q.order ? { ...settings.sortBy, [mode]: q.order } : settings.sortBy,
@@ -654,6 +756,15 @@ function queryToFilters(query, settings, mode) {
   patch.downloadFilter = downloads != null ? { ...others, [mode]: true } : others;
   if (downloads != null) patch.minDownloads = downloads;
   return { patch };
+}
+
+/** A Tracked clause that a Group menu choice writes (trackedClauses): the choice; null when it isn't one. */
+function trackedMenu(field, op, v) {
+  if (field === "unreviewed" && !op) return UPDATES;
+  if (field === "rating" && op?.text === ">=" && Number(v?.text) === TOP_RATING) return TOP_RATED;
+  if (field === "group" && fold(op?.text) === "is" && fold(v?.text) === "empty") return UNGROUPED;
+  if (field === "group" && op?.text === "=" && v?.kind !== "regex") return v.text;
+  return null;
 }
 
 /**
@@ -748,6 +859,11 @@ function queryTip(tok, prev, now = Date.now(), state = {}) {
     const days = QUERY_FIELDS[fold(prev?.text)]?.days && ["<", "<=", ">", ">="].includes(w);
     return { head: tok.text, body: days ? t(`query.tip.days${w.startsWith("<") ? "Within" : "Over"}`) : t(`query.op.${op}`) };
   }
+  if (tok.cls === "number" && fold(prev?.text) === "limit") {   // limit 100 · limit 101-200
+    const [, a, b] = tok.text.match(/^(\d+)(?:-(\d+))?$/) || [];
+    if (!a) return null;
+    return { head: `limit ${tok.text}`, body: b ? t("query.tip.limitRange", { from: a, to: b, n: Number(b) - Number(a) + 1 }) : t("query.tip.limitFirst", { n: a }) };
+  }
   if (tok.cls === "number") {
     const m = tok.text.toLowerCase().match(/^([+-]?\d+(?:\.\d+)?)([kmdwy]?)$/);
     if (!m) return /^\d{4}-\d{2}-\d{2}$/.test(tok.text) ? { head: tok.text, body: t("query.help.date") } : null;
@@ -763,8 +879,10 @@ function queryTip(tok, prev, now = Date.now(), state = {}) {
     return { head: `${tok.text}()`, body: t(`query.fn.${name}`), example: moment ? t("query.tip.now", { date: dayString(moment) }) : "" };
   }
   if (tok.cls === "kw" || tok.cls === "neg") {
-    const key = w === "by" ? "order" : w;
-    return { head: key === "order" ? "order by" : tok.text.toUpperCase(), body: t(`query.tip.${key}`) };
+    const key = w === "by" ? fold(prev?.text) : w;   // `by` says what its `order` / `group` says
+    const tail = { order: "order by", group: "group by", limit: "limit" }[key];
+    const example = { group: "tracked group by group", limit: "NOT translated = overview order by downloads desc limit 100" }[key];
+    return { head: tail || tok.text.toUpperCase(), body: t(`query.tip.${key}`), ...(example ? { example } : {}) };
   }
   if (tok.cls === "value" && tok.quoted && prev?.cls !== "op" && prev?.kind !== "(" && prev?.kind !== ",") return { head: `"${tok.text}"`, body: t("query.field.text") };
   return null;

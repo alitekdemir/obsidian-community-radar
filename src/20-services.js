@@ -46,10 +46,13 @@ class GitHub {
     return { json: res.json, etag: header?.[1] ?? null };
   }
 
-  /** One plugin's whole profile (problem, capabilities…); null when there's none. */
+  /** One plugin's whole profile (problem, capabilities…); null when there's none; throws when it can't be downloaded. */
   async profile(id) {
-    const res = await requestUrl({ url: `${PROFILES_URL}/profiles/${encodeURIComponent(id)}.json`, throw: false });
-    return res.status < 400 ? res.json : null;
+    const url = `${PROFILES_URL}/profiles/${encodeURIComponent(id)}.json`;
+    const res = await requestUrl({ url, throw: false });
+    if (res.status === 404) return null;
+    if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${url}`);
+    return res.json;
   }
 
   /** README: tries raw file names first (no rate limit), then falls back to the API (60/hour). */
@@ -100,6 +103,118 @@ class Cache {
 
   async remove(name, ext = "json") {
     if (await this.adapter.exists(this.path(name, ext))) await this.adapter.remove(this.path(name, ext));
+  }
+}
+
+/**
+ * The saved translations, short descriptions (`description`: id → {src, text}) and Overviews (`overview`: id →
+ * {src, lang, parts, model, tokens, cost, date}), in their own file beside data.json: data.json is rewritten whole on
+ * every save and read at startup, which a catalog's worth of Overviews (~2 KB each) would make slow. One JSON line per
+ * translation is appended (the file is never rewritten for a new one), so a crash costs at most the line being
+ * written; the last line for an id wins. The cache's clean-ups don't touch it: translations are paid for.
+ */
+class TranslationStore {
+  static KINDS = { d: "description", o: "overview" };   // the line's `k` → the map it fills
+
+  /** @param {() => string} lang  your target language now (for the check of descriptions kept without one) */
+  constructor(adapter, dir, lang = () => "") {
+    this.adapter = adapter;
+    this.lang = lang;
+    this.path = normalizePath(`${dir}/translations.jsonl`);
+    this.description = {};
+    this.overview = {};
+    this.writing = Promise.resolve();   // appends and rewrites, one at a time and in order
+  }
+
+  /**
+   * Reads the file; a broken line (the one a crash cut short) is skipped, two that lost the newline between them
+   * (two writers at once, e.g. the plugin reloaded mid-run) are read apart. Rewritten when it's mostly old lines.
+   */
+  async load() {
+    const text = (await this.adapter.exists(this.path)) ? await this.adapter.read(this.path) : "";
+    let lines = 0;
+    const read = (line) => {
+      const { k, id, ...entry } = JSON.parse(line);
+      if (TranslationStore.KINDS[k] && id) this[TranslationStore.KINDS[k]][id] = entry;
+    };
+    for (const line of text.split("\n")) {
+      if (!line.trim()) continue;
+      lines++;
+      try {
+        read(line);
+      } catch {
+        try {
+          line.split(/(?<=\})(?=\{"k":)/).forEach(read);   // only here: splitting every line costs ~100 ms at startup
+        } catch {
+          console.warn("[Community Radar] skipped a broken line in translations.jsonl");
+        }
+      }
+    }
+    if (lines > 1.5 * this.count() + 100) await this.rewrite();   // a translation made again leaves its old line behind
+  }
+
+  /**
+   * Drops the kept translations that fail the check (translationProblem), from before it existed; new ones are
+   * checked as they come (put). Once, as a migration: checking all of them takes ~0.7 s.
+   * @returns {Promise<number>} how many went
+   */
+  async dropUntranslated() {
+    let dropped = 0;
+    for (const kind of Object.values(TranslationStore.KINDS)) {
+      for (const [id, entry] of Object.entries(this[kind])) {
+        if (!this.problem(kind, entry)) continue;
+        delete this[kind][id];
+        dropped++;
+      }
+    }
+    if (dropped) await this.rewrite();
+    return dropped;
+  }
+
+  /** translationProblem for a translation of `kind` (its own language, else your target language now). */
+  problem(kind, entry) {
+    const { sources, texts } = translationPairs(kind, entry);
+    return translationProblem(sources, texts, entry.lang || this.lang());
+  }
+
+  count(kind) {
+    return kind ? Object.keys(this[kind]).length : this.count("description") + this.count("overview");
+  }
+
+  /**
+   * Keeps one translation (`kind`: description | overview) and appends its line, unless it fails the check.
+   * @returns {Promise<null|string>} null when kept, else why not (translationProblem); a kept one stays as it was
+   */
+  async put(kind, id, entry) {
+    const problem = this.problem(kind, entry);
+    if (problem) return problem;
+    this[kind][id] = entry;
+    const k = Object.keys(TranslationStore.KINDS).find((key) => TranslationStore.KINDS[key] === kind);
+    await this.queue(() => this.adapter.append(this.path, `${JSON.stringify({ k, id, ...entry })}\n`));
+    return null;
+  }
+
+  /** Forgets every translation of a kind (the file is rewritten without them). */
+  clear(kind) {
+    this[kind] = {};
+    return this.queue(() => this.writeAll());
+  }
+
+  rewrite() {
+    return this.queue(() => this.writeAll());
+  }
+
+  /** The file as it should be: one line per translation. */
+  writeAll() {
+    const lines = Object.entries(TranslationStore.KINDS)
+      .flatMap(([k, kind]) => Object.entries(this[kind]).map(([id, entry]) => `${JSON.stringify({ k, id, ...entry })}\n`));
+    return this.adapter.write(this.path, lines.join(""));
+  }
+
+  /** Runs a write after the ones before it (a failed one doesn't stop the next). */
+  queue(write) {
+    this.writing = this.writing.then(write, write);
+    return this.writing;
   }
 }
 
@@ -283,9 +398,22 @@ function errorDetail(res) {
  * stores the key's NAME (e.g. "anthropic-api-key"), so plugins using the same name share it.
  */
 class Translator {
+  static RETRY_MS = [2000, 8000, 30000];   // waits before the 2nd, 3rd and 4th try of a request that failed in passing
+
   constructor(app, settings) {
     this.app = app;
     this.settings = settings;
+    this.watchers = new Set();   // (event, data) => void: "usage" after each reply, "rateLimited" on a 429 (bulk runs)
+    this.halted = false;         // a bulk run was stopped: a request waiting to try again gives up
+  }
+
+  /**
+   * Is thinking turned off for the requests? Only where it can be: the provider has the switch (PROVIDERS[…].thinking)
+   * and the model may stop thinking (one that must think would refuse the request; one that never does needs nothing).
+   */
+  get thinkingOff() {
+    const { thinking, provider, modelThinking } = this.settings;
+    return thinking === "off" && Boolean(PROVIDERS[provider]?.thinking) && modelThinking !== "mandatory" && modelThinking !== "none";
   }
 
   get supported() {
@@ -315,9 +443,36 @@ class Translator {
     });
     if (res.status >= 400) {
       const label = PROVIDERS[this.settings.provider]?.label || t("provider.generic");
-      throw new Error(`${label} ${res.status}: ${errorDetail(res)}`);
+      const error = new Error(`${label} ${res.status}: ${errorDetail(res)}`);
+      const header = Object.entries(res.headers || {}).find(([name]) => name.toLowerCase() === "retry-after");
+      Object.assign(error, { status: res.status, retryAfter: Number(header?.[1]) || null });   // seconds the provider asks for
+      throw error;
     }
     return res.json;
+  }
+
+  /**
+   * `send()` again after a failure in passing: no connection, a timeout, a rate limit (429) or the provider's own
+   * error (5xx), waiting RETRY_MS (or what the provider asks, up to a minute) in between. Other errors (a wrong key,
+   * a model that doesn't exist) fail at once; so does every wait once a bulk run is stopped.
+   */
+  async retrying(send) {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        return await send();
+      } catch (error) {
+        const passing = error.status == null || error.status === 408 || error.status === 429 || error.status >= 500;
+        if (!passing || attempt >= Translator.RETRY_MS.length || this.halted) throw error;
+        if (error.status === 429) this.emit("rateLimited", error);
+        const wait = error.retryAfter ? Math.min(error.retryAfter * 1000, 60000) : Translator.RETRY_MS[attempt];
+        await sleep(wait);
+        if (this.halted) throw error;
+      }
+    }
+  }
+
+  emit(event, data) {
+    for (const watch of this.watchers) watch(event, data);
   }
 
   /** The provider's models: [{id, price}] (price only when the list has it). */
@@ -328,13 +483,21 @@ class Translator {
     return spec.modelList(await this.call(spec.models(key))).sort((a, b) => a.id.localeCompare(b.id));
   }
 
-  /** One prompt to the chosen model: {text, usage} as the provider reported them; the usage also goes to `onUsage` (the AI tab's table). */
-  async request(prompt) {
-    const { provider, model } = this.settings;
+  /**
+   * One prompt to the chosen model: {text, usage} as the provider reported them. The usage goes to `onUsage` (the AI
+   * tab's table and the estimates, under `kind`: description | overview | readme | groups) and to the watchers.
+   * A reply cut short (the model ran out of room) is a ReplyError: what came is paid for, but unusable.
+   */
+  /** One AI request; `model`: another one than Settings' for this request only (Translate again… picks it). */
+  async request(prompt, kind, model = this.settings.model) {
+    const { provider, routeSort } = this.settings;
     const spec = PROVIDERS[provider];
-    const json = await this.call(spec.chat(model, this.key(), prompt));
-    const usage = spec.usage(json);
-    this.onUsage?.(provider, model, usage);
+    const thinking = this.thinkingOff ? "off" : "default";
+    const json = await this.retrying(() => this.call(spec.chat(model, this.key(), prompt, { thinking, sort: routeSort })));   // only OpenRouter reads the sort
+    const usage = { ...spec.usage(json), chars: prompt.length };
+    this.onUsage?.(provider, model, usageKind(kind, thinking), usage);
+    this.emit("usage", usage);
+    if (spec.truncated?.(json)) throw new ReplyError(t("error.truncated"));
     return { text: spec.text(json), usage };
   }
 
@@ -343,10 +506,21 @@ class Translator {
     return (await this.translateWithUsage(texts)).texts;
   }
 
-  /** translate(), with what it took: {texts, model, tokens, cost} as the provider reported them (sumUsage). */
-  async translateWithUsage(texts) {
-    const { text, usage } = await this.request(translationPrompt(texts, this.settings.targetLang, this.settings.prompts));
-    return { texts: parseTranslations(text, texts.length), ...sumUsage([usage], this.settings.model) };
+  /**
+   * translate(), with what it took: {texts, model, tokens, cost} as the provider reported them (sumUsage). A reply
+   * that doesn't fit (ReplyError) is asked for again `retries` times; each try is billed and counted.
+   */
+  async translateWithUsage(texts, kind = "description", retries = 1, model = null) {
+    const prompt = translationPrompt(texts, this.settings.targetLang, this.settings.prompts);
+    const asked = model || this.settings.model;
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const { text, usage } = await this.request(prompt, kind, asked);
+        return { texts: parseTranslations(text, texts.length), ...sumUsage([usage], asked) };
+      } catch (error) {
+        if (!(error instanceof ReplyError) || attempt >= retries || this.halted) throw error;
+      }
+    }
   }
 
   /**
@@ -356,7 +530,7 @@ class Translator {
    * @returns {Promise<Object<string, string[]>>} plugin id → suggestions
    */
   async suggestGroups(plugins, groups) {
-    const { text, usage } = await this.request(groupPrompt(plugins, groups, this.settings.targetLang));
+    const { text, usage } = await this.request(groupPrompt(plugins, groups, this.settings.targetLang), "groups");
     return { found: parseGroupSuggestions(text, plugins.map((p) => p.id), groups.map((g) => g.name)), usage };
   }
 
@@ -364,10 +538,12 @@ class Translator {
    * Translates a README into the target language, whole, in one request (today's models take it easily).
    * @returns {Promise<{body: string, model: string, tokens: number, cost: ?number}>} the text and what it took (sumUsage)
    */
-  async translateMarkdown(markdown) {
-    const { text, usage } = await this.request(readmePrompt(markdown, this.settings.targetLang, this.settings.prompts));
+  async translateMarkdown(markdown, model = null) {
+    const asked = model || this.settings.model;
+    const { text, usage } = await this.request(readmePrompt(markdown, this.settings.targetLang, this.settings.prompts), "readme", asked);
     const body = text.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, "$1");   // some models wrap it in a fence
-    return { body, ...sumUsage([usage], this.settings.model) };
+    if (!body) throw new ReplyError(t("error.emptyText"));
+    return { body, ...sumUsage([usage], asked) };
   }
 
 

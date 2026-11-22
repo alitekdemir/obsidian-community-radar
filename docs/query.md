@@ -13,7 +13,11 @@ order by gain(30d) desc
 
 A clause is `field operator value`. Join clauses with `AND`, `OR` and `NOT`, group them with `( )`. A yes/no field stands alone: `installed`, `NOT tracked`. A space between clauses also means AND. Line breaks and extra spaces don't matter. In Query mode a word that isn't a clause is an error; put a text search in quotes: `"daily note"`.
 
-`order by field desc` (or `asc`) at the end sorts the list.
+At the end, in this order: `group by field` splits the list into sections, one per value (group, category, primary, tag, intent, lifecycle, status, author; a plugin with several shows under each, the ones without come last); `order by field desc` (or `asc`) sorts it; `limit 100` keeps the first 100, `limit 101-200` the 101st to the 200th.
+
+```
+primary = tasks group by intent order by downloads desc limit 50
+```
 
 ## Fields
 
@@ -39,6 +43,7 @@ A clause is `field operator value`. Join clauses with `AND`, `OR` and `NOT`, gro
 | `excluded` | yes/no | ignored by you |
 | `snoozed` | yes/no | hidden until its next release |
 | `removed` | yes/no | taken off the official list by Obsidian; only installed ones show up, and only when the query names `removed` |
+| `translated` | list | what's in your language: `description`, `overview` (up to date) |
 
 Field names are English in every language, so saved queries survive a language switch. Values are yours (your group names, your statuses).
 
@@ -83,7 +88,7 @@ releases(180d) > 9
 | Type | Operators |
 |---|---|
 | number, days | `=` `!=` `>` `>=` `<` `<=` `is empty` |
-| text | `=` `!=` `~` (contains) `!~` (doesn't contain) `in (…)` `not in (…)` |
+| text | `=` `!=` `~` (contains every word, in any order) `!~` (doesn't) `in (…)` `not in (…)` |
 | list | `=` `!=` `in (…)` `not in (…)` `is empty` |
 | yes/no | stands alone; `NOT` for no |
 
@@ -179,6 +184,7 @@ More: `author ~ zsviczian` (everything by one author), `"daily note" OR "journal
 
 ## Common surprises
 
+- **`~` looks for words, not a phrase.** `name ~ "side note"` finds SideNote, Side-Notes and also Mobile Sidebar Notes: each word is somewhere in the name; spaces, hyphens and case don't count. For the exact text use `=`, for words in that order a regex: `name ~ /side.?note/`.
 - **`rise()` is empty under 1K downloads.** 10 → 30 isn't rising; use `gain()` for small plugins.
 - **`milestone(10k)` is the day it reached 10K,** whatever it reached after: a plugin that went from 9K to 30K this month is in `milestone(10k) <= 30d` and in `milestone(25k) <= 30d`.
 - **Updated doesn't leave new plugins out.** Add `NOT listed <= 14d` to its query if you want them only on New.

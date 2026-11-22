@@ -58,6 +58,7 @@ function makeApp() {
       exists: async (p) => disk.has(p) || [...disk.keys()].some((k) => k.startsWith(`${p}/`)),
       read: async (p) => disk.get(p),
       write: async (p, data) => { disk.set(p, data); },
+      append: async (p, data) => { disk.set(p, (disk.get(p) ?? "") + data); },   // translations.jsonl grows line by line
       readBinary: async (p) => disk.get(p),
       writeBinary: async (p, data) => { disk.set(p, data); },
       mkdir: async () => {},

@@ -59,6 +59,10 @@ const FX_PREVIEW = {   // Settings › Translation effect's sample: an original,
 };
 const STILL_CLASS = "pdt-still";   // on <body> while animations are off (Settings › Animations, or the OS on "system")
 const AI_BATCH = 50;               // plugins per group-suggestion request
+const AI_PARALLEL = 8;             // AI requests of a bulk run at once (one fewer after each rate limit, down to 1)
+const RUN_FAILURES = 5;            // failures in a row that stop a bulk run (no connection, the provider down…)
+const OVERVIEW_CHARS = 830;        // an Overview's texts, on average (for an estimate before its profile is downloaded)
+const BUDGET_SLACK = 1.5;          // a bulk run stops once it has spent this many times the estimate you agreed to
 const AI_GROUPS = 10;              // group suggestions asked per plugin
 /** The details window's icon for what a plugin needs (a profile's requires[].kind). */
 const PROFILE_NEEDS = { apiKey: "key-round", paidService: "credit-card", account: "user-round", externalApp: "app-window", plugin: "puzzle" };
@@ -203,7 +207,6 @@ function defaultSettings() {
     extraFilters: {},     // tab → {filter: value} added in the Filter panel (EXTRA_FILTERS)
     quickFilters: {},     // tab → true: the filters in effect show as chips under the bar
     trackedGroup: "",     // Tracked tab: "" = all, a group name, or UNGROUPED
-    trackedSections: true,
     trackedStatus: "",
     statusEnabled: false,  // the status field is optional; its values stay in the notes when it's off
     statuses: DEFAULT_STATUSES.map((key) => ({ key, label: t(`statusDefault.${key}`) })),
@@ -215,6 +218,10 @@ function defaultSettings() {
     provider: "",
     model: "",
     modelCost: null,          // the model's price per 1M tokens {input, output} (formatPrice writes it); null: unknown
+    modelHistory: [],         // the model picker's list: [{id, pinned}], newest first (rememberModel)
+    routeSort: "",            // OpenRouter's provider order (ROUTE_SORTS); "": its own balanced pick
+    modelThinking: null,      // does the model think: "none", "optional", "mandatory" (OpenRouter's list says); null: unknown
+    thinking: "default",      // "off": ask the model not to think (where the provider can: PROVIDERS[…].thinking)
     keyNames: {},
     targetLang: t("language.name"),
     prompts: {},              // your translation instructions: {description, readme}; empty uses DEFAULT_PROMPTS
@@ -229,7 +236,7 @@ function defaultSettings() {
     tableColumns: {},         // tab → the table's columns in order (TABLE_COLUMNS); missing tabs use TABLE_DEFAULT
     notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
     detailFull: false,        // the details window fills the screen (its ⤢ button)
-    detailTranslated: false,  // the details window shows the Overview and the README in your language (Original | <language>)
+    translatedFirst: true,    // texts show in your language wherever a translation is kept (description, Overview, README)
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"
     readmeSaving: false,      // leave developer sections (DEV_SECTION) out of README translations
     aiGroups: true,           // AI group suggestions: the group window's AI section, Group with AI, its command

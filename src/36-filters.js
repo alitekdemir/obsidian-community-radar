@@ -4,7 +4,11 @@
  * key help. Works on the view's state (see ViewPart).
  */
 class FilterBar extends ViewPart {
-  /** Tracked tab: one Group menu (All, New releases, Starred, Ungrouped, then your groups), Sections, Status. */
+  /**
+   * Tracked tab, in Basic: one Group menu (All, New releases, Starred, Ungrouped, then your groups) and Status; in the
+   * query box they read as clauses (trackedClauses). Sections come from the page query's `group by group`.
+   * In Query mode the box says it all: no menus.
+   */
   renderTrackedBar(bar) {
     const settings = this.settings;
     const notes = [...this.plugin.notes.index.values()];
@@ -17,9 +21,6 @@ class FilterBar extends ViewPart {
       ...this.plugin.notes.groups().map((g) => [g.name, `${g.name}  ${formatCount(g.count)}`]),
     ];
     menuChip(bar, t("tracked.group"), options, settings.trackedGroup, (value) => this.view.update("trackedGroup", value));
-    if (!settings.trackedGroup) {
-      switchChip(bar, { label: t("tracked.sections"), on: Boolean(settings.trackedSections), onToggle: (on) => this.view.update("trackedSections", on) });
-    }
     if (settings.statusEnabled) {
       menuChip(bar, t("tracked.status"), [["", t("tracked.anyStatus")], ...settings.statuses.map((st) => [st.key, st.label])],
         settings.trackedStatus, (value) => this.view.update("trackedStatus", value));
@@ -55,7 +56,7 @@ class FilterBar extends ViewPart {
     this.renderFilterButton(bar, mode, opts);   // always first, never moves
     if (this.view.preset?.onlyNew) this.view.renderOnlyNew(bar);   // a widget's "N new": only those (✕ shows all)
     if (this.view.similar) this.view.similarFilter.renderChip(bar);   // the same bar as All, plus the Similar chip
-    if (mode === "tracked") this.renderTrackedBar(bar);
+    if (mode === "tracked" && !this.view.inQuery) this.renderTrackedBar(bar);
 
     this.view.refs.sort = bar.createDiv({ cls: "pdt-sort" });
     const similar = this.view.similar;

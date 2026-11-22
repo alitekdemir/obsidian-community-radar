@@ -66,6 +66,9 @@ function parseGroupSuggestions(reply, ids, existing) {
   }));
 }
 
+/** Waits `ms`. */
+const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
 /** Runs `worker` with limited concurrency; results keep the input order. */
 async function mapLimit(items, limit, worker) {
   const results = new Array(items.length);

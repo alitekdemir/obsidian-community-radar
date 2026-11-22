@@ -13,6 +13,7 @@ const PROVIDERS = {
       body: { model, max_tokens: Math.min(MAX_OUTPUT_TOKENS, Math.max(4096, Math.ceil(prompt.length / 2))), messages: [{ role: "user", content: prompt }] },
     }),
     text: (json) => (json.content || []).map((part) => part.text || "").join(""),
+    truncated: (json) => json.stop_reason === "max_tokens",
     usage: (json) => ({ input: json.usage?.input_tokens, output: json.usage?.output_tokens, model: json.model }),
     models: (key) => ({ url: "https://api.anthropic.com/v1/models?limit=100", headers: { "x-api-key": key, "anthropic-version": "2023-06-01" } }),
     modelList: (json) => (json.data || []).map((m) => ({ id: m.id, price: null })),
@@ -25,6 +26,7 @@ const PROVIDERS = {
       body: { model, messages: [{ role: "user", content: prompt }] },
     }),
     text: (json) => json.choices?.[0]?.message?.content || "",
+    truncated: (json) => json.choices?.[0]?.finish_reason === "length",
     usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens, model: json.model }),
     models: (key) => ({ url: "https://api.openai.com/v1/models", headers: { Authorization: `Bearer ${key}` } }),
     modelList: (json) => (json.data || []).filter((m) => /^(gpt|o\d|chatgpt)/.test(m.id)).map((m) => ({ id: m.id, price: null })),
@@ -37,6 +39,7 @@ const PROVIDERS = {
       body: { contents: [{ parts: [{ text: prompt }] }] },
     }),
     text: (json) => (json.candidates?.[0]?.content?.parts || []).map((part) => part.text || "").join(""),
+    truncated: (json) => json.candidates?.[0]?.finishReason === "MAX_TOKENS",
     usage: (json) => ({ input: json.usageMetadata?.promptTokenCount, output: json.usageMetadata?.candidatesTokenCount, model: json.modelVersion }),
     models: (key) => ({ url: "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", headers: { "x-goog-api-key": key } }),
     modelList: (json) => (json.models || [])
@@ -45,28 +48,93 @@ const PROVIDERS = {
   },
   openrouter: {
     label: "OpenRouter",
-    chat: (model, key, prompt) => ({
+    chat: (model, key, prompt, { thinking, sort } = {}) => ({
       url: "https://openrouter.ai/api/v1/chat/completions",
       headers: { Authorization: `Bearer ${key}` },
-      body: { model, messages: [{ role: "user", content: prompt }], usage: { include: true } },   // the reply says what it cost
+      body: {
+        model, messages: [{ role: "user", content: prompt }], usage: { include: true },   // the reply says what it cost
+        ...(thinking === "off" ? { reasoning: { effort: "none" } } : {}),                  // no thinking tokens (billed as output)
+        ...openRouterRouting(sort, thinking),
+      },
     }),
+    thinking: true,   // the Thinking setting applies (the other providers: see THINKING_NOTES)
     text: (json) => json.choices?.[0]?.message?.content || "",
+    truncated: (json) => json.choices?.[0]?.finish_reason === "length",
     usage: (json) => ({ input: json.usage?.prompt_tokens, output: json.usage?.completion_tokens, cost: json.usage?.cost, model: json.model }),
     models: (key) => ({ url: "https://openrouter.ai/api/v1/models", headers: { Authorization: `Bearer ${key}` } }),
-    modelList: (json) => (json.data || []).map((m) => ({ id: m.id, price: tokenPrice(m.pricing) })),
+    // thinking: "none" (the model doesn't think), "optional" (it can be turned off) or "mandatory"
+    modelList: (json) => (json.data || []).map((m) => ({ id: m.id, price: tokenPrice(m.pricing),
+      thinking: m.reasoning ? (m.reasoning.mandatory ? "mandatory" : "optional") : "none" })),
   },
 };
+
+/** OpenRouter provider routing (Settings › AI): "" balanced (its default), the cheapest or the fastest provider first. */
+const ROUTE_SORTS = ["", "price", "throughput"];
+
+/**
+ * The request's `provider` part for a sort (ROUTE_SORTS). "" leaves the pick to OpenRouter, which weighs the price
+ * actually paid, speed and reliability. A sort skips that and tries providers in its order; with thinking off,
+ * require_parameters drops the ones that must think (they would refuse the request with a 400, with no fallback).
+ */
+function openRouterRouting(sort, thinking) {
+  if (!sort) return {};
+  return { provider: { sort, ...(thinking === "off" ? { require_parameters: true } : {}) } };
+}
+
+/** Why the Thinking setting doesn't apply to a provider (shown under it, greyed out). */
+const THINKING_NOTES = { anthropic: "set.thinking.elsewhere", openai: "set.thinking.elsewhere", gemini: "set.thinking.elsewhere" };
+
+/** A reply the model got wrong (not JSON, the wrong count, empty texts, cut short): worth one more try. */
+class ReplyError extends Error {}
+
+/** The usage's sub-total a request counts under: its kind, and whether thinking was off ("overview:off"). */
+const usageKind = (kind, thinking) => `${kind || "other"}${thinking === "off" ? ":off" : ""}`;
+
+/** One tally: requests, prompt characters, input and output tokens, and the cost (null: never told). */
+function addTally(was, { input, output, cost, chars } = {}) {
+  const tally = was || { requests: 0, chars: 0, input: 0, output: 0, cost: null };
+  return {
+    requests: tally.requests + 1, chars: (tally.chars || 0) + (chars || 0), input: tally.input + (input || 0),
+    output: tally.output + (output || 0), cost: typeof cost === "number" ? (tally.cost ?? 0) + cost : tally.cost,
+  };
+}
 
 /**
  * Adds one request's usage to the running totals, per provider and model: requests, input and output tokens, and
  * the cost in USD when the provider tells it (OpenRouter does; the others count tokens only, cost stays null).
+ * The same goes under the row's `kinds[kind]` (usageKind), which the estimates learn from.
  * @returns {object} the totals, a new object
  */
-function addUsage(totals, provider, model, { input, output, cost } = {}) {
+function addUsage(totals, provider, model, kind, usage = {}) {
   const key = `${provider}/${model}`;
   const was = totals?.[key] || { provider, model, requests: 0, input: 0, output: 0, cost: null };
-  const priced = typeof cost === "number" ? (was.cost ?? 0) + cost : was.cost;
-  return { ...totals, [key]: { ...was, requests: was.requests + 1, input: was.input + (input || 0), output: was.output + (output || 0), cost: priced } };
+  const { requests, input, output, cost } = addTally(was, usage);
+  const kinds = { ...was.kinds, [kind]: addTally(was.kinds?.[kind], usage) };
+  return { ...totals, [key]: { ...was, requests, input, output, cost, kinds } };
+}
+
+/** Requests of a kind it takes before an estimate goes by what they really cost. */
+const MEASURED_MIN = 3;
+
+/**
+ * What an AI job will take, learnt from what this model's earlier requests of the same kind (and thinking) really
+ * took: per prompt character (descriptions, READMEs: their size varies) or per request (Overviews: about the same
+ * size, and a thinking model's tokens are mostly per request). Before MEASURED_MIN of them: the list price, with the
+ * output a bit longer than the input; then it's a floor (`measured` false), as thinking tokens aren't counted.
+ * @param {object} tally  the kind's tally (addTally), or null
+ * @param {{chars: number, requests: number}} job  prompt characters and requests it'll send
+ * @param {{input, output}} price  per 1M tokens, or null
+ * @returns {{tokens: number, cost: ?number, measured: boolean}}
+ */
+function aiEstimate(tally, { chars, requests }, perRequest, price) {
+  if (tally?.requests >= MEASURED_MIN && (perRequest || tally.chars)) {
+    const share = perRequest ? requests / tally.requests : chars / tally.chars;
+    const priced = tally.cost ?? (price ? (tally.input * (price.input || 0) + tally.output * (price.output || 0)) / 1e6 : null);
+    return { tokens: Math.round((tally.input + tally.output) * share), cost: priced == null ? null : priced * share, measured: true };
+  }
+  const tokens = Math.ceil(chars / 4);   // ~4 characters a token
+  const cost = price ? (tokens * (price.input || 0) + tokens * 1.2 * (price.output || 0)) / 1e6 : null;   // other languages run longer
+  return { tokens: Math.round(tokens * 2.2), cost, measured: false };
 }
 
 /**
@@ -91,8 +159,34 @@ function tokenPrice(pricing) {
 function formatPrice(price) {
   if (!price) return "";
   if (!price.input && !price.output) return t("model.free");
-  const usd = (n) => { const digits = n < 10 ? 2 : 1; return `$${intl(Intl.NumberFormat, { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n)}`; };
+  const usd = (n) => {
+    const digits = n < 10 ? 2 : 1;
+    // under $0.10: 3 significant digits, so cheap models don't all read "$0.02"
+    const format = n < 0.1 ? { maximumSignificantDigits: 3 } : { minimumFractionDigits: digits, maximumFractionDigits: digits };
+    return `$${intl(Intl.NumberFormat, format).format(n)}`;
+  };
   return `${usd(price.input)} / ${usd(price.output)} · ${t("price.unit")}`;
+}
+
+/** How many models the picker remembers besides the pinned ones. */
+const RECENT_MODELS = 5;
+
+/** The picker's list after choosing `id`: it moves to the top (keeping its pin); unpinned ones past RECENT_MODELS drop off. */
+function rememberModel(history = [], id) {
+  const was = history.find((h) => h.id === id);
+  const list = [{ id, pinned: Boolean(was?.pinned) }, ...history.filter((h) => h.id !== id)];
+  let unpinned = 0;
+  return list.filter((h) => h.pinned || ++unpinned <= RECENT_MODELS);
+}
+
+/**
+ * The picker's list for an empty box: pinned first, then the recent ones, each as the model list has it (price,
+ * thinking) or as typed when it isn't listed; `head` names the section its first row opens.
+ */
+function historyModels(models, history = []) {
+  const rows = (pinned) => history.filter((h) => h.pinned === pinned)
+    .map((h, k) => ({ ...(models.find((m) => m.id === h.id) || { id: h.id, price: null }), history: h, head: k === 0 ? t(pinned ? "model.pinned" : "model.recent") : "" }));
+  return [...rows(true), ...rows(false)];
 }
 
 /**
@@ -136,11 +230,17 @@ function translationPrompt(texts, targetLanguage, prompts) {
 function parseTranslations(reply, expected) {
   const start = reply.indexOf("[");
   const end = reply.lastIndexOf("]");
-  if (start === -1 || end <= start) throw new Error(t("error.noJsonArray"));
-  const list = JSON.parse(reply.slice(start, end + 1));
-  if (!Array.isArray(list) || list.length !== expected || !list.every((s) => typeof s === "string")) {
-    throw new Error(t("error.countMismatch", { expected, got: Array.isArray(list) ? list.length : "?" }));
+  if (start === -1 || end <= start) throw new ReplyError(t("error.noJsonArray"));
+  let list;
+  try {
+    list = JSON.parse(reply.slice(start, end + 1));
+  } catch {
+    throw new ReplyError(t("error.noJsonArray"));
   }
+  if (!Array.isArray(list) || list.length !== expected || !list.every((s) => typeof s === "string")) {
+    throw new ReplyError(t("error.countMismatch", { expected, got: Array.isArray(list) ? list.length : "?" }));
+  }
+  if (list.some((s) => !s.trim())) throw new ReplyError(t("error.emptyText"));   // only texts with words are sent
   return list.map((s) => s.trim());
 }
 

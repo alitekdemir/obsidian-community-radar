@@ -291,7 +291,7 @@ class RadarSettingTab extends PluginSettingTab {
         d.addOption("", t("set.none"));
         for (const [id, spec] of Object.entries(PROVIDERS)) d.addOption(id, spec.label);
         d.setValue(settings.provider).onChange(async (value) => {
-          Object.assign(settings, { provider: value, model: "", modelCost: null });   // another provider: no model, no price yet
+          Object.assign(settings, { provider: value, model: "", modelCost: null, modelThinking: null });   // another provider: no model yet
           this.modelList = null;
           await save();
           this.display();
@@ -331,12 +331,18 @@ class RadarSettingTab extends PluginSettingTab {
           b.setDisabled(false);
         }));
 
+      this.renderThinking(containerEl, settings, save);
+
       new Setting(containerEl)
         .setName(t("set.targetLang"))
         .addText((text) => text.setValue(settings.targetLang).onChange(async (value) => {
           settings.targetLang = value.trim() || defaultSettings().targetLang;
           await save();
         }));
+      new Setting(containerEl)
+        .setName(t("set.translatedFirst"))
+        .setDesc(t("set.translatedFirstDesc"))
+        .addToggle((toggle) => toggle.setValue(settings.translatedFirst).onChange((value) => this.plugin.setTranslatedFirst(value)));
       new Setting(containerEl)
         .setName(t("set.readmeTranslation"))
         .setDesc(t("set.readmeTranslationDesc"))
@@ -387,13 +393,14 @@ class RadarSettingTab extends PluginSettingTab {
 
     this.renderUsage(containerEl, save);
 
-    const saved = Object.keys(plugin.data.translations).length;
+    // Delete takes the short descriptions only (cheap to make again); Overview translations are kept
+    const saved = plugin.translations.count("description");
     new Setting(containerEl)
       .setName(t("set.saved"))
-      .setDesc(t("set.savedDesc", { n: formatCount(saved) }))
+      .setDesc(t("set.savedDesc", { n: formatCount(saved), o: formatCount(plugin.translations.count("overview")) }))
       .addButton((b) => b.setButtonText(t("set.delete")).setDisabled(!saved).onClick(async () => {
-        plugin.data.translations = {};
-        await save();
+        if (!(await new ConfirmModal(this.app, { title: t("set.deleteAsk", { n: formatCount(saved) }), text: t("set.deleteDesc"), cta: t("set.delete"), footnote: "" }).ask())) return;
+        await plugin.translations.clear("description");
         this.display();
       }));
   }
@@ -408,12 +415,18 @@ class RadarSettingTab extends PluginSettingTab {
       .setName(t("set.usage"))
       .setDesc(t("set.usageDesc"))
       .addButton((b) => b.setButtonText(t("set.usageReset")).setDisabled(!rows.length).onClick(async () => {
+        const ok = await new ConfirmModal(this.app, { title: t("set.usageResetAsk"), text: t("set.usageResetDesc"), cta: t("set.usageReset"), footnote: "" }).ask();
+        if (!ok) return;
         this.plugin.data.aiUsage = {};
         await save();
         this.display();
       }));
-    if (!rows.length) return;
+    if (rows.length) this.renderUsageTable(containerEl, rows);
+    this.renderTodo(containerEl);
+  }
 
+  /** Each model's row, then the total. */
+  renderUsageTable(containerEl, rows) {
     const sum = (key) => rows.reduce((total, row) => total + (row[key] || 0), 0);
     const priced = rows.some((row) => row.cost != null);
     const total = { model: t("set.usageTotal"), requests: sum("requests"), input: sum("input"), output: sum("output"), cost: priced ? sum("cost") : null };
@@ -431,6 +444,59 @@ class RadarSettingTab extends PluginSettingTab {
     }
   }
 
+  /**
+   * Under the table, in small print: what of the catalog isn't translated yet and what it would take with this model
+   * ("Not translated: 9.6K short descriptions ≈ $0.21 · 10.3K Overviews ≥ $0.13 · 235 READMEs ≈ $1.90"). The READMEs
+   * are counted from their files, so that part comes a moment later.
+   */
+  renderTodo(containerEl) {
+    const plugin = this.plugin;
+    if (!plugin.translator.ready || !plugin.catalog) return;
+    const plugins = plugin.catalog.plugins;
+    const descriptions = plugin.untranslatedDescriptions(plugins);
+    const overviews = plugin.pendingOverviews(plugins).length;
+    const known = [
+      ["set.todo.desc", { n: descriptions.length, estimate: plugin.estimateDescriptions(descriptions) }],
+      ["set.todo.overview", { n: overviews, estimate: plugin.estimateOverviews(overviews) }],
+    ];
+    const part = ([key, { n, estimate }]) => [t(key, { n: formatCount(n) }), n ? estimateCost(estimate) || t("details.tokens", { n: formatCount(estimate.tokens) }) : null].filter(Boolean).join(" ");
+    const line = containerEl.createDiv({ cls: "pdt-usage-todo setting-item-description" });
+    const draw = (readme) => line.setText(t("set.todo", { list: [...known.map(part), readme ? part(["set.todo.readme", readme]) : t("set.todo.counting")].join(" · ") }));
+    draw(null);
+    plugin.untranslatedReadmes().then(draw).catch((error) => console.warn("[Community Radar] untranslated READMEs", error));
+  }
+
+  /**
+   * Thinking: the model's default or off. Greyed out, with the reason under it, where it can't apply: a provider
+   * without the switch (THINKING_NOTES), a model that must think, or one that doesn't think at all.
+   */
+  renderThinking(containerEl, settings, save) {
+    const note = THINKING_NOTES[settings.provider]
+      || { mandatory: "set.thinking.mandatory", none: "set.thinking.none" }[settings.modelThinking];
+    new Setting(containerEl)
+      .setName(t("set.thinking"))
+      .setDesc(t(note || "set.thinkingDesc"))
+      .addDropdown((d) => d.addOption("default", t("set.thinking.default")).addOption("off", t("set.thinking.off"))
+        .setValue(note ? "default" : settings.thinking)
+        .setDisabled(Boolean(note))
+        .onChange(async (value) => {
+          settings.thinking = value;
+          await save();
+          this.display();   // the estimates and the summary below go by it
+        }));
+    if (settings.provider !== "openrouter") return;
+    new Setting(containerEl)
+      .setName(t("set.route"))
+      .setDesc(t("set.routeDesc"))
+      .addDropdown((d) => {
+        for (const sort of ROUTE_SORTS) d.addOption(sort, t(`route.${sort || "balanced"}`));
+        d.setValue(settings.routeSort).onChange(async (value) => {
+          settings.routeSort = value;
+          await save();
+        });
+      });
+  }
+
   /** Loads the model list once (if it can), then opens the filtering picker; typed names are allowed. */
   async pickModel(settings, save) {
     if (!this.modelList) {
@@ -440,11 +506,9 @@ class RadarSettingTab extends PluginSettingTab {
         new Notice(t("notice.modelsFailed", { error: error.message }));
       }
     }
-    const modal = new ModelModal(this.app, this.modelList || []);
-    modal.open();
-    const model = await modal.result;
+    const model = await this.plugin.pickModel(this.modelList || []);
     if (!model) return;
-    Object.assign(settings, { model: model.id, modelCost: model.price || null });
+    Object.assign(settings, { model: model.id, modelCost: model.price || null, modelThinking: model.thinking ?? null });
     await save();
     this.display();
   }

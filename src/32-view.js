@@ -22,7 +22,7 @@ class DiscoveryView extends ItemView {
     super(leaf);
     this.plugin = plugin;
     this.visible = PAGE_SIZE;
-    this.shownTranslations = new Set();
+    this.langFlips = new Set();   // ids whose description shows the other way from translatedFirst (a row's chip; this session only)
     this.similar = null;          // Similar filter: {steps: [{id, scroll}], before: {mode, scroll, visible, originId, originIndex}, query}
     this.preset = null;           // the widget list on screen: {key, id, params, freshIds, onlyNew, base} (one of widgetTabs)
     this.widgetTabs = [];         // every widget list you opened: each keeps its tab until you close it
@@ -92,6 +92,17 @@ class DiscoveryView extends ItemView {
     new HelpModal(this.app, this, { tab }).open();
   }
 
+  /** Does `p`'s description show in your language? Settings' translatedFirst, the other way for a row you flipped. */
+  descTranslated(p) {
+    return this.plugin.cachedTranslation(p) != null && this.settings.translatedFirst !== this.langFlips.has(p.id);
+  }
+
+  /** Shows `p`'s description in your language (`on`) or the original, for this session (a flip of the default). */
+  setDescTranslated(p, on) {
+    if (on === this.settings.translatedFirst) this.langFlips.delete(p.id);
+    else this.langFlips.add(p.id);
+  }
+
   /** Obsidian's ⋮ menu of the view: actions that don't need a place on screen. */
   onPaneMenu(menu, source) {
     super.onPaneMenu?.(menu, source);
@@ -100,6 +111,9 @@ class DiscoveryView extends ItemView {
     const item = (icon, title, run) => menu.addItem((i) => i.setIcon(icon).setTitle(title).onClick(run));
     item("refresh-cw", t("set.syncNow"), () => plugin.refresh());
     item("languages", t("translate.visible", { n: shown.length }), () => this.translateVisible());
+    const first = this.settings.translatedFirst;   // one switch for the default, the same as in Settings
+    item(first ? "file-text" : "languages", first ? t("menu.showOriginals") : t("menu.showTranslated", { lang: this.settings.targetLang }),
+      () => plugin.setTranslatedFirst(!first));
     item("ban", t("hidden.title", { n: this.hiddenTotal() }), () => this.openHidden());
     item("history", t("cmd.rebuild"), () => plugin.downloadHistory());
     item("settings", t("menu.settings"), () => plugin.openSettings());
@@ -238,7 +252,7 @@ class DiscoveryView extends ItemView {
     if (this.similar) counts.all = this.similarFilter.count();
     for (const [mode, el] of Object.entries(this.refs.counts)) if (mode in counts) el.setText(formatCount(counts[mode]));
     for (const tab of this.widgetTabs) {   // a widget tab counts its list (your edits to its query included)
-      this.refs.tabCounts?.[tab.key]?.setText(formatCount(matchRows(state, modeOptions(this.tabSettings(tab), tab.key), now).rows.length));
+      this.refs.tabCounts?.[tab.key]?.setText(formatCount(matchCount(state, modeOptions(this.tabSettings(tab), tab.key), now)));
     }
   }
 
@@ -370,8 +384,9 @@ class DiscoveryView extends ItemView {
   /** The list as a page (its query, or Basic: the query narrowed by your filters), then only the new ones when asked. */
   presetRows() {
     const { freshIds, onlyNew } = this.preset;
-    const rows = discover(this.plugin.state(), modeOptions(this.pageSettings, this.page), Date.now());
-    return onlyNew ? rows.filter((p) => freshIds.has(p.id)) : rows;
+    const found = discoverGrouped(this.plugin.state(), modeOptions(this.pageSettings, this.page), Date.now());
+    this.grouping = found.group && found;   // its query's group by (renderGrouped)
+    return onlyNew ? found.rows.filter((p) => freshIds.has(p.id)) : found.rows;
   }
 
   /** "Only the N new" on a widget's list (✕ shows all of it). */
@@ -447,7 +462,7 @@ class DiscoveryView extends ItemView {
       if (this.inQuery && advanced && !error) {
         // hover: what each clause finds on its own; nothing found: the clause that emptied the list
         tag.addEventListener("mouseenter", () => setTooltip(tag, this.searchBox.clauseCounts(query).map(([c, n]) => `${c}  →  ${formatCount(n)}`).join("\n")), { once: true });
-        const shown = this.matched ?? matchRows(this.plugin.state(), modeOptions(this.pageSettings, this.page), Date.now()).rows.length;
+        const shown = this.matched ?? matchCount(this.plugin.state(), modeOptions(this.pageSettings, this.page), Date.now());
         if (shown === 0) {
           const best = this.searchBox.clauseCounts(query, true)[0];
           if (best?.[1] > 0) wrap.createSpan({ cls: "pdt-query-why", text: t("query.without", { clause: best[0], n: formatCount(best[1]) }) });
@@ -495,8 +510,7 @@ class DiscoveryView extends ItemView {
       this.matched = this.rows.length;
       this.stale = new Set();
       if (!this.rows.length) return void list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
-      this.rowRenderer.renderRows(list, this.rows.slice(0, this.visible), now);
-      return this.rowRenderer.renderMore(list);
+      return this.renderGrouped(list, state, now);
     }
     if (mode === "awakened" && !timeline.to) {
       list.createDiv({ cls: "pdt-empty", text: t("list.needHistory") });
@@ -504,7 +518,9 @@ class DiscoveryView extends ItemView {
     }
     if (mode === "new" && !timeline.to) list.createDiv({ cls: "pdt-hint", text: t("list.legacyHint") });
 
-    this.rows = discover(state, modeOptions(this.settings, mode), now);
+    const found = discoverGrouped(state, modeOptions(this.settings, mode), now);
+    this.grouping = found.group && found;
+    this.rows = found.rows;
     this.matched = this.rows.length;
     this.stale = new Set();
     for (const [id, index] of this.keep) {
@@ -514,18 +530,22 @@ class DiscoveryView extends ItemView {
       this.stale.add(id);
     }
     if (LIST_MODES.includes(mode)) this.renderListBanner(list, mode);
-    const sections = mode === "tracked" && !this.settings.trackedGroup && this.settings.trackedSections;
-    const visible = sections ? this.rows : this.rows.slice(0, this.visible);   // sections show everything you track
     if (!this.rows.length) {
       const empty = list.createDiv({ cls: "pdt-empty", text: t("list.empty") });
       if (changedFilters(this.filterBar.filterState(), mode) > 0) this.filterBar.renderClearFilters(empty.createDiv());
       return;
     }
-    if (sections) {
-      for (const section of groupSections(this.rows, state.notes)) this.rowRenderer.renderSection(list, section, now);
-      return;
-    }
-    this.rowRenderer.renderRows(list, visible, now);
+    this.renderGrouped(list, state, now);
+  }
+
+  /**
+   * The shown rows (the first `visible`; Show more adds a page), in sections when the query says `group by`: a
+   * section per value, the same plugin under each of its values. The list's count counts each plugin once.
+   */
+  renderGrouped(list, state, now) {
+    const shown = this.rows.slice(0, this.visible);
+    if (!this.grouping) this.rowRenderer.renderRows(list, shown, now);
+    else for (const section of groupSections(shown, this.grouping.group, state, now, this.grouping.pins)) this.rowRenderer.renderSection(list, section, this.grouping.group, now);
     this.rowRenderer.renderMore(list);
   }
 

@@ -19,13 +19,21 @@ function languageChip(parent, { original, translation, translated, target, swap 
 }
 
 /**
- * What translating `text` will take, roughly: "12,400 characters · ≈ 6,200 tokens · ≈ $0.01 · model".
- * `short` keeps only tokens and cost (for a menu's hint).
+ * What an AI job will take (PluginRadar.estimate): "12,400 characters · ≈ 6,200 tokens · ≈ $0.01 · model". Before
+ * the model has done a few of the kind, the cost is the list price's floor: "≥ $0.01".
  */
-function estimateLine(text, settings, short = false) {
-  const estimate = translationEstimate(text, settings.modelCost);
-  return [short ? null : t("details.chars", { n: formatCount(estimate.chars) }), t("details.tokens", { n: formatCount(estimate.tokens) }),
-    estimate.cost != null ? t("details.cost", { cost: formatCost(estimate.cost) }) : null, short ? null : settings.model].filter(Boolean).join(" · ");
+function estimateLine(estimate, settings) {
+  return [estimate.chars ? t("details.chars", { n: formatCount(estimate.chars) }) : null, ...estimateHint(estimate), settings.model].filter(Boolean).join(" · ");
+}
+
+/** A menu's hint for an AI job: its tokens, then its cost (when the price is known), one a line. */
+function estimateHint(estimate) {
+  return [t("details.tokens", { n: formatCount(estimate.tokens) }), estimateCost(estimate)].filter(Boolean);
+}
+
+/** An estimate's cost: "≈ $0.21" once measured, "≥ $0.13" from the list price; null when the price is unknown. */
+function estimateCost(estimate) {
+  return estimate.cost != null ? t(estimate.measured ? "details.cost" : "details.costMin", { cost: formatCost(estimate.cost) }) : null;
 }
 
 /**
@@ -48,6 +56,7 @@ class DetailModal extends Modal {
     this.newer = new Map();     // id → the README now on GitHub when it changed (null: asked, nothing new)
     this.busy = "";             // progress of a translation in this window
     this.working = null;        // {id, desc, overview}: the texts an AI request is translating now (shown as being read)
+    this.translated = this.plugin.data.settings.translatedFirst;   // Original | <language>: this window's choice, from Settings
     this.scope.register([], "ArrowLeft", () => { this.step(-1); return false; });
     this.scope.register([], "ArrowRight", () => { this.step(1); return false; });
     for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "0", "1", "2", "3", "4", "5"]) {
@@ -118,7 +127,33 @@ class DetailModal extends Modal {
 
   /** What follows an action here (see RowRenderer.rowEffects): a change redraws, leaving shows the next plugin, opening something else closes. */
   effects() {
-    return { change: (fn) => this.act(fn), leave: (fn) => this.drop(fn), away: () => this.close() };
+    const p = this.p;
+    const readme = this.tab === "readme";
+    const kept = readme ? this.readmeKept === p.id : this.view.rowRenderer.rowEffects(p).retranslate;   // something to make again
+    return { change: (fn) => this.act(fn), leave: (fn) => this.drop(fn), away: () => this.close(),
+      retranslate: kept ? () => this.retranslate(p) : null, readme };
+  }
+
+  /**
+   * ⋯ › Translate again…: what this tab shows (the description and the Overview, or the README) made again with a
+   * model you pick (pinned and recent ones first); it then shows in your language. The text stays while it's read.
+   */
+  async retranslate(p) {
+    const model = await this.plugin.pickModel();
+    if (!model) return;
+    const readme = this.tab === "readme";
+    this.setLanguage(p, true);
+    this.busy = t("details.translating");
+    this.working = { id: p.id, desc: !readme, overview: !readme };
+    this.render();
+    const done = readme
+      ? await this.plugin.translateReadme(p, (text) => { this.busy = text; if (this.p === p) this.render(); }, false, model.id)
+      : await this.plugin.retranslate(p, model.id);
+    this.busy = "";
+    this.working = null;
+    if (done && !readme) this.view.setDescTranslated(p, true);
+    this.descLang = null;
+    this.render();
   }
 
   /**
@@ -143,9 +178,10 @@ class DetailModal extends Modal {
    * so the tabs show it. The language chip and those buttons keep doing one thing each, with their costs shown.
    */
   async toggleTranslation(p) {
-    const on = !this.descriptionTranslated(p);
     const tabs = this.plugin.data.settings.readmeTranslation !== "off";   // Original | <language> is there
-    if (tabs) await this.setLanguage(p, on);   // first: the Overview tab shows the request's progress
+    if (tabs && this.tab === "readme") return this.toggleReadme(p);
+    const on = !this.descriptionTranslated(p);
+    if (tabs) this.setLanguage(p, on);   // first: the Overview tab shows the request's progress
     if (on) {
       this.busy = t("details.translating");
       this.working = { id: p.id, desc: this.plugin.cachedTranslation(p) == null, overview: tabs };
@@ -155,11 +191,17 @@ class DetailModal extends Modal {
       this.working = null;
       if (!done) return this.render();
     }
-    const shown = this.view.shownTranslations;   // the list's rows follow, as with the chip
-    if (on) shown.add(p.id);
-    else shown.delete(p.id);
-    this.descLang = null;   // the row's choice again
+    this.view.setDescTranslated(p, on);   // the list's row follows, as with the chip
+    this.descLang = null;   // the window's choice again
     this.view.refresh();
+    this.render();
+  }
+
+  /** `t` on the README tab: the README in your language (translated the first time) or back in the original. */
+  async toggleReadme(p) {
+    const on = !this.wantsTranslation;
+    this.setLanguage(p, on);
+    if (on && !(await this.plugin.readmeParts(p)).translation) return this.translate(p);
     this.render();
   }
 
@@ -168,11 +210,13 @@ class DetailModal extends Modal {
     return this.working?.id === p.id && this.working[part];
   }
 
-  /** Is the description shown in your language here? Your click on its chip, else the list's choice or Original | <language>. */
+  /** Is the description shown in your language here? Your click on its chip, else Original | <language> (or the list without it). */
   descriptionTranslated(p) {
     if (this.plugin.cachedTranslation(p) == null) return false;
     const own = this.descLang?.id === p.id ? this.descLang.lang : null;
-    return own ? own === "target" : this.view.shownTranslations.has(p.id) || this.wantsTranslation;
+    if (own) return own === "target";
+    // with Original | <language> the window's choice, without it (README translation off) the list's
+    return this.plugin.data.settings.readmeTranslation !== "off" ? this.translated : this.view.descTranslated(p);
   }
 
   /**
@@ -260,10 +304,9 @@ class DetailModal extends Modal {
     return { box, head };
   }
 
-  /** Did you choose your language (Original | <language>)? Remembered between windows; only with translations on. */
+  /** Your language (Original | <language>)? Settings' translatedFirst when the window opens, then this window's choice. */
   get wantsTranslation() {
-    const settings = this.plugin.data.settings;
-    return settings.readmeTranslation !== "off" && settings.detailTranslated;
+    return this.plugin.data.settings.readmeTranslation !== "off" && this.translated;
   }
 
   /**
@@ -480,7 +523,7 @@ class DetailModal extends Modal {
     const buttons = [[false, t("details.original")], [true, settings.targetLang]].map(([on, label]) => {
       const b = group.createEl("button", { text: label, attr: { type: "button" } });
       b.onclick = async () => {   // also while a translation runs: it goes on, is kept, and shows when you come back
-        await this.setLanguage(p, on);
+        this.setLanguage(p, on);
         this.render();
       };
       return [on, b];
@@ -495,13 +538,10 @@ class DetailModal extends Modal {
     return show;
   }
 
-  /** Original | <language>: `on` shows the tabs in your language (remembered between windows) and asks for it for `p`. */
-  async setLanguage(p, on) {
+  /** Original | <language>: `on` shows the tabs in your language in this window (Settings keeps the default) and asks for it for `p`. */
+  setLanguage(p, on) {
     this.asked = on ? p.id : null;
-    const settings = this.plugin.data.settings;
-    if (settings.detailTranslated === on) return;
-    settings.detailTranslated = on;
-    await this.plugin.saveData(this.plugin.data);
+    this.translated = on;
   }
 
   /**
@@ -521,7 +561,7 @@ class DetailModal extends Modal {
     if (translated && !saved && !working) {
       this.renderUntranslated(body, t("details.overviewNotTranslated", { lang: plugin.data.settings.targetLang }), t("details.translateOverview"), () => this.translateOverview(p));
       if (!this.busy) plugin.profileFile(p.id).then((file) => {   // what it would take, once the texts are in
-        if (this.p === p && !this.closed && !this.busy) this.renderEstimate(body, profileTexts(profileParts(profile, file)).join("\n"));
+        if (this.p === p && !this.closed && !this.busy) this.renderEstimate(body, this.plugin.estimate("overview", { text: profileTexts(profileParts(profile, file)).join("\n") }));
       });
       return;
     }
@@ -677,6 +717,7 @@ class DetailModal extends Modal {
     const parts = await plugin.readmeParts(p);
     if (this.p !== p || this.closed) return;   // moved on while reading
     const { original, translation } = parts;
+    this.readmeKept = translation ? p.id : null;   // ⋯ › Translate again… on this tab
     const translated = this.inYourLanguage(p, Boolean(translation));
     showLanguage(translated);
     const outdated = Boolean(original && translation?.hash && translation.hash !== original.hash);
@@ -701,7 +742,7 @@ class DetailModal extends Modal {
       this.loadReadme(p);
       return;
     }
-    const estimate = translationEstimate(plugin.translationSource(original?.text || "").text, plugin.data.settings.modelCost);
+    const estimate = plugin.estimate("readme", { text: plugin.translationSource(original?.text || "").text });
     const price = estimate.cost != null ? ` (${t("details.cost", { cost: formatCost(estimate.cost) })})` : "";
     if (translation && !this.busy) {
       if (outdated) this.staleBar(body, t("details.outdatedNote"), `${t("details.translateAgain")}${price}`, () => this.translate(p));
@@ -709,7 +750,7 @@ class DetailModal extends Modal {
     }
     this.renderUntranslated(body, t("details.notTranslated", { lang: plugin.data.settings.targetLang }), t("details.translate"), () => this.translate(p));
     if (this.busy) return;
-    if (original) return this.renderEstimate(body, plugin.translationSource(original.text).text);
+    if (original) return this.renderEstimate(body, plugin.estimate("readme", { text: plugin.translationSource(original.text).text }));
     if (p.repo && this.loads.get(p.id) !== "done") {   // not downloaded yet: fetch it for the estimate (it redraws)
       body.createEl("p", { cls: "pdt-detail-muted", text: t("details.loadingReadme") });
       this.loadReadme(p);
@@ -717,8 +758,8 @@ class DetailModal extends Modal {
   }
 
   /** Under a Translate button: what the translation would take — characters · tokens · cost (with a price set) · model. */
-  renderEstimate(body, text) {
-    body.createEl("p", { cls: "pdt-detail-muted", text: estimateLine(text, this.plugin.data.settings) });
+  renderEstimate(body, estimate) {
+    body.createEl("p", { cls: "pdt-detail-muted", text: estimateLine(estimate, this.plugin.data.settings) });
   }
 
   /** A README not seen before: fetched in the background (into your note, else the cache), then shown. Once per window. */

@@ -901,7 +901,7 @@ button.pdt-bulk-action {
 button.pdt-bulk-action:hover { background: var(--background-modifier-hover); }
 
 .pdt-bulk-icon,
-.pdt-bulk-caret { display: inline-flex; color: var(--text-muted); }
+.pdt-bulk-caret { display: inline-flex; flex-shrink: 0; color: var(--text-muted); }   /* a long hint mustn't squeeze the icon */
 .pdt-bulk-icon svg { width: 16px; height: 16px; }
 .pdt-bulk-caret svg { width: 14px; height: 14px; }
 
@@ -956,7 +956,7 @@ button.pdt-bulk-item:focus-visible { background: var(--background-modifier-hover
 .pdt-bulk-item-text { flex: 1; display: flex; flex-direction: column; gap: 2px; font-weight: var(--font-medium); }
 .pdt-bulk-item-sub,
 .pdt-bulk-item-hint { color: var(--text-faint); font-size: var(--font-ui-smaller); font-weight: var(--font-normal); }
-.pdt-bulk-item-hint { white-space: nowrap; }
+.pdt-bulk-item-hint { display: flex; flex-direction: column; align-items: flex-end; white-space: nowrap; }   /* an estimate: tokens over cost */
 
 /* table layout */
 .pdt-table-wrap {
@@ -1691,9 +1691,27 @@ button.pdt-layout-option[aria-pressed="true"] {
 
 .pdt-model-item {
   display: flex;
-  justify-content: space-between;
-  gap: var(--size-4-4);
+  flex-wrap: wrap;            /* a section head (.pdt-qs-head) takes its own line */
+  align-items: center;
+  gap: var(--size-4-1) var(--size-4-4);
 }
+
+.pdt-model-id {
+  flex: 1;
+  min-width: 0;               /* lets a long id shrink to its ellipsis instead of wrapping the row */
+}
+
+/* ☆ / ✕ on a picker row: faint until hovered; a pinned star stays accented */
+.pdt-model-act {
+  flex: none;
+  display: flex;
+  color: var(--text-faint);
+  opacity: 0.6;
+  cursor: pointer;
+}
+.pdt-model-act:hover { opacity: 1; color: var(--text-normal); }
+.pdt-model-act.is-active { opacity: 1; color: var(--text-accent); }
+.pdt-model-act svg { width: var(--icon-xs); height: var(--icon-xs); }
 
 .pdt-model-id {
   overflow: hidden;
@@ -4205,6 +4223,8 @@ body.pdt-still .pdt-view .pdt-home .is-in {   /* animations off: Home's entrance
 .pdt-usage th { color: var(--text-muted); font-weight: var(--font-medium); }
 .pdt-usage td { font-variant-numeric: tabular-nums; user-select: text; }
 .pdt-usage tr.is-total td { font-weight: var(--font-semibold); border-bottom: none; }
+/* what of the catalog isn't translated yet: secondary, one quiet line under the table */
+.pdt-usage-todo { margin: calc(-1 * var(--size-4-2)) 0 var(--size-4-4); font-size: var(--font-ui-smaller); color: var(--text-faint); font-variant-numeric: tabular-nums; }
 .pdt-settings-advanced > summary { padding: var(--size-4-2) 0; color: var(--text-muted); cursor: pointer; }
 
 /* ─── Hidden page: its kinds, the reason on a row, its tab at the end of the strip ─── */
