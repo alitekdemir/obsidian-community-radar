@@ -24,7 +24,7 @@ Obsidian's built-in plugin browser is great for installing a plugin when you alr
 
 - **All-time downloads hide today's momentum.** A five-year-old giant always sits at the top, while a brilliant month-old plugin gaining a thousand users this week stays buried. Community Radar replays **every daily release snapshot since October 2020** to surface real 7- and 30-day growth, fresh milestones, and release rhythms.
 - **Frequent patchers drown out real comebacks.** Plugins shipping tiny tweaks every few days push everything else off the screen. By grouping rapid patches into *update waves*, Community Radar filters out release noise and spotlights quiet plugins waking up after months—or years—of silence.
-- **"I'll try this later" disappears.** Bookmarked GitHub repos and mental notes get lost. Here, starring or grouping a plugin creates a structured vault note—complete with your rating, status, personal notes, an auto-updated README, and a one-click **Obsidian Bases** table.
+- **"I'll try this later" disappears.** Bookmarked GitHub repos and mental notes get lost. Here, tracking (**🔔**) or grouping a plugin creates a structured vault note—complete with your rating, status, personal notes, an auto-updated README, and a one-click **Obsidian Bases** table.
 
 ---
 
@@ -96,7 +96,7 @@ Work the way that fits the task at hand:
 
 ![Tracked plugins, in sections by group](docs/images/tracked.png)
 
-Community Radar doesn't lock your curation inside a private database. The moment you star (**☆**) or group (**＋**) a plugin, it creates a clean Markdown note inside your vault:
+Community Radar doesn't lock your curation inside a private database. The moment you track (**🔔**) or group (**＋**) a plugin, it creates a clean Markdown note inside your vault:
 
 - **Structured frontmatter + untouched personal notes:** Your `groups`, `rating` (1–5), custom emoji `status`, and personal thoughts stay yours, while catalog stats and the embedded **README** stay fresh automatically (with `#tags` and `[[wikilinks]]` safely escaped so they never pollute your graph).
 - **One-click Obsidian Bases:** Generate a ready-made `.base` view from Settings to filter, sort, and edit your entire plugin library as a native Obsidian database table. → *[Tracking Notes Guide](docs/tracking-notes.md)*
@@ -116,7 +116,7 @@ Community Radar doesn't lock your curation inside a private database. The moment
 
 1. **Let the initial sync finish:** Community Radar fetches the public plugin catalog, the 6-year release archive, and the semantic similarity index (~3 MB total).
 2. **Check Home:** Scan *What's new* and click into a discovery card like *Rising* or *Incubation*.
-3. **Curate your first plugin:** Star (**☆**) or group (**＋**) something interesting—its Markdown note is created instantly in your vault (and you can generate an **Obsidian Bases** view anytime from Settings).
+3. **Curate your first plugin:** Track (**🔔**) or group (**＋**) something interesting—its Markdown note is created instantly in your vault (and you can generate an **Obsidian Bases** view anytime from Settings).
 4. **Make it yours:** Open any card's list, switch from **Basic** to **Query** to inspect its rule, tweak it, and save your own custom view.
 
 ---
@@ -133,10 +133,10 @@ Community Radar doesn't lock your curation inside a private database. The moment
 
 | Guide | What's Inside |
 |---|---|
-| **[Query Language](docs/query.md)** | All 27 fields, operators, date functions, autocomplete, and ready-to-use examples |
+| **[Query Language](docs/query.md)** | All 33 fields, operators, date functions, autocomplete, and ready-to-use examples |
 | **[Tracking Notes & Bases](docs/tracking-notes.md)** | Frontmatter schema, README syncing modes, translations, and Obsidian Bases setup |
 | **[Settings & Commands](docs/settings-commands.md)** | Complete reference for settings, Command Palette actions, and keyboard shortcuts |
-| **[How It Works & Privacy](docs/how-it-works.md)** | Release archive pipeline, local vector matching, storage layout, and network table |
+| **[How It Works & Privacy](docs/how-it-works.md)** | Release archive pipeline, GitHub-built similarity lists, storage layout, and network table |
 | **[Development & Translating](docs/development.md)** | Architecture overview, running the offline test suite, and adding a UI language |
 | **[Changelog](CHANGELOG.md)** | Release-by-release history |
 

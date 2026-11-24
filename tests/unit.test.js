@@ -75,7 +75,7 @@ const tests = {
     const settings = { ...base, minDownloads: 500, downloadFilter: { updated: true }, query: "kanban" };
     assert.equal(core.changedFilters(settings, "updated"), 2);
     assert.equal(core.filterSummary(settings, "updated"),
-      "Bu sekmenin varsayılanından değişenler:\n• Arama: “kanban”\n• İndirme ≥ 500\nSıfırla hepsini varsayılana döndürür");
+      "Varsayılandan değiştirilen filtreler:\n• Arama: “kanban”\n• İndirme ≥ 500\nSıfırla düğmesi tümünü varsayılana döndürür");
     assert.equal(core.filterSummary(base, "updated"), core.t("filter.tipNone"));
   },
 

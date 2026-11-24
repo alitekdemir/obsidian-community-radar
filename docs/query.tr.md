@@ -13,7 +13,7 @@ order by gain(30d) desc
 
 Bir koşul `alan operatör değer` biçimindedir. Koşulları `AND`, `OR` ve `NOT` ile bağlayın, `( )` ile gruplayın. Evet/hayır alanı tek başına yazılır: `installed`, `NOT tracked`. Koşullar arasındaki boşluk da AND demektir. Satır sonları ve fazla boşluklar önemsizdir. Sorgu modunda koşul olmayan bir kelime hatadır; metin aramasını tırnak içine alın: `"daily note"`.
 
-Sona, bu sırayla: `group by alan` listeyi her değer için bir bölüme ayırır (group, category, primary, tag, intent, lifecycle, status, author; birden çok değeri olan eklenti her birinde görünür, değeri olmayanlar en sonda); `order by alan desc` (ya da `asc`) sıralar; `limit 100` ilk 100'ü, `limit 101-200` 101. ile 200. arasını bırakır.
+Sorgunun sonuna şu sırayla ekleyebilirsiniz: `group by alan` listeyi her değer için ayrı bir bölüme ayırır (group, category, primary, tag, intent, lifecycle, status, author; birden çok değeri olan eklenti her bölümde görünür, değeri olmayanlar en sonda yer alır); `order by alan desc` (ya da `asc`) sıralar; `limit 100` ilk 100'ü, `limit 101-200` 101. ile 200. arasını bırakır.
 
 ```
 primary = tasks group by intent order by downloads desc limit 50
@@ -42,7 +42,7 @@ primary = tasks group by intent order by downloads desc limit 50
 | `dismissed` | evet/hayır | Önerilerden çıkarılmış |
 | `excluded` | evet/hayır | sizin dışladıklarınız |
 | `snoozed` | evet/hayır | sonraki sürümüne kadar gizli |
-| `removed` | evet/hayır | Obsidian'ın resmi listeden çıkardıkları; yalnızca kurulu olanlar ve yalnızca sorgu `removed` dediğinde görünür |
+| `removed` | evet/hayır | Obsidian'ın resmî listeden çıkardıkları; yalnızca kurulu olanlar ve yalnızca sorgu `removed` dediğinde görünür |
 | `translated` | liste | dilinizde olanlar: `description`, `overview` (güncel) |
 
 Alan adları her dilde İngilizcedir; böylece kayıtlı sorgular dil değişikliğinden etkilenmez. Değerler sizindir (grup adlarınız, durumlarınız).
@@ -62,7 +62,7 @@ Bir yapay zekâ, GitHub'da her eklentinin README'sini okuyup kısa bir profil ya
 | `paid` | evet/hayır | çalışmak için ücretli bir hizmet ister; isteğe bağlı olan sayılmaz |
 | `summary` | metin | README'sinin AI özeti |
 
-Kategoriler ve etiketler her dilde profillerdeki adlarıyla yazılır (`project-management`, `daily-notes`); sorgu kutusu bunları sayılarıyla önerir. Örnekler: `category = ai AND NOT apikey AND NOT paid` (anahtar ve fatura istemeyen AI eklentileri), `primary = tasks AND intent = alternative` (görev yönetiminin başka yolları), `tag = kanban order by downloads desc`.
+Kategoriler ve etiketler her dilde profillerdeki adlarıyla yazılır (`project-management`, `daily-notes`); sorgu kutusu bunları sayılarıyla önerir. Örnekler: `category = ai AND NOT apikey AND NOT paid` (API anahtarı ve ücretli hizmet gerektirmeyen AI eklentileri), `primary = tasks AND intent = alternative` (görev yönetiminin başka yolları), `tag = kanban order by downloads desc`.
 
 ## Parametreli alanlar
 
@@ -108,7 +108,7 @@ Gün alanı **bugünden geriye** sayar; bu yüzden küçük sayı daha yakın ta
 Bir eklentinin zaman çizelgesinde dört gün alanı:
 
 ```
-listed ── sürüm ── … kuluçka … ── kuluçkadan çıkış · hotfix ── sürüm ── bugün
+listed ── sürüm ── … kuluçka … ── kuluçkadan çıkış · düzeltme ── sürüm ── bugün
    │                                │                            │        │
    │                                └────────────── hatched ──────────────┤
    │                                                             └ released
@@ -186,7 +186,7 @@ Daha fazlası: `author ~ zsviczian` (bir yazarın tüm eklentileri), `"daily not
 
 - **`~` kelime arar, ifade değil.** `name ~ "side note"` SideNote ve Side-Notes'u, Mobile Sidebar Notes'u da bulur: her kelime adın bir yerinde geçer; boşluk, tire ve büyük-küçük harf sayılmaz. Birebir metin için `=`, bu sırayla kelimeler için regex: `name ~ /side.?note/`.
 - **`rise()` 1K indirmenin altında boştur.** 10 → 30 yükseliş sayılmaz; küçük eklentiler için `gain()` kullanın.
-- **`milestone(10k)` 10K'ya ulaştığı gündür,** sonra nereye vardığından bağımsız: bu ay 9K'dan 30K'ya çıkan bir eklenti hem `milestone(10k) <= 30d` hem de `milestone(25k) <= 30d` içindedir.
+- **`milestone(10k)` 10K'ya ulaştığı gündür,** sonrasında kaç indirmeye ulaştığından bağımsızdır: bu ay 9K'dan 30K'ya çıkan bir eklenti hem `milestone(10k) <= 30d` hem de `milestone(25k) <= 30d` içindedir.
 - **Güncellenen, yeni eklentileri dışarıda bırakmaz.** Onları yalnızca Yeni'de görmek istiyorsanız sorgusuna `NOT listed <= 14d` ekleyin.
 - **Dışlanan ve gizlenen eklentiler** sorgu `excluded` ya da `snoozed` demedikçe hiçbir listede görünmez.
 - **Kuluçkadan çıkış herkes için aynı 30 gündür.** Bir yıl uyumak daha uzun kalma hakkı kazandırmaz; en son dönen en üsttedir. Dönüşten sonraki sürümler eklentiyi listeden çıkarmaz.
@@ -197,4 +197,4 @@ Daha fazlası: `author ~ zsviczian` (bir yazarın tüm eklentileri), `"daily not
 - Bir kelimenin üzerine **gelin**, anlamını görün (tarih fonksiyonu karşılık geldiği tarihi gösterir).
 - Kutudaki **`?`** Yardım'ı Sorgu kılavuzunda açar (bir tıklama öğeyi kutuya koyar); görünümün başlığındaki **?** Yardım'ı Hızlı başlangıçta, yanında Hazır sorgularla açar.
 - **`/`** kutuya odaklanır. **Esc** Basit modda kutuyu temizler, Sorgu modunda sayfanın sorgusuna döner.
-- Boş bir liste onu hangi koşulun boşalttığını söyler: "`downloads >= 1k` olmadan 312 eklenti".
+- Boş bir liste onu hangi koşulun boşalttığını söyler: "“downloads >= 1k” koşulu kaldırılırsa 312 eklenti eşleşir".

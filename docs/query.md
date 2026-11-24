@@ -168,8 +168,8 @@ The same list as **+ Add widget** on Home and the empty query box. **Add** puts 
 | Updated this month | `released >= startOfMonth() order by downloads desc` | released since the 1st |
 | Fast starters | `listed <= 60d AND downloads >= 1k AND NOT tracked order by downloads desc` | listed in the last 2 months, past 1K already |
 | Hidden gems | `downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT tracked order by rise(30d) desc` | 1K–10K, updated this month, growing 20%+ |
-| Truly back | `incubated >= 180d AND hatched <= 30d AND NOT tracked order by hatched desc` | back this month after 6+ months |
-| Fresh releases of popular plugins | `downloads >= 50k AND released <= 14d AND NOT tracked order by released desc` | changes that reach many people |
+| Awake again | `incubated >= 180d AND hatched <= 30d AND NOT tracked order by hatched desc` | back this month after 6+ months |
+| New releases of popular plugins | `downloads >= 50k AND released <= 14d AND NOT tracked order by released desc` | changes that reach many people |
 | Just passed 10K | `milestone(10k) <= 30d order by downloads desc` | reached 10K this month, whatever they reached after |
 | Actively developed | `releases(30d) >= 3 AND downloads >= 1k AND NOT tracked order by gain(30d) desc` | 3+ updates this month |
 | Abandoned installs | `installed AND released >= 1y order by released asc` | installed, no update for a year |

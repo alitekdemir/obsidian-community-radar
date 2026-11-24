@@ -36,7 +36,7 @@ Arayüzün tüm metni [`locales/`](../locales) klasöründe, her dil için bir J
 
 Eksik metin İngilizceye düşer; böylece yarım bir çeviri de çalışır. Yeni dil *Ayarlar → Dil* içinde kendiliğinden görünür.
 
-Arayüz İngilizce, Türkçe, Deutsch, Русский, 日本語 ve 简体中文 konuşur (`zh-TW` Basitleştirilmiş Çinceye düşer). Kaynak `en.json`'dur: diğer her dosya ondan çevrilir. Almanca, Rusça, Japonca ve Çince makine desteklidir; düzeltmeler memnuniyetle karşılanır. Yeni bir anahtar aynı commit'te her `locales/*.json` dosyasına girer; aksi halde test başarısız olur. `help.guideFile`, Yardım penceresinin bağlantı verdiği sorgu kılavuzunu belirtir: çevrilmiş kılavuzu (`docs/query.<kod>.md`) olan dil ona işaret eder, diğerleri `query.md`'de kalır.
+Arayüz İngilizce, Türkçe, Deutsch, Русский, 日本語 ve 简体中文 dillerini destekler (`zh-TW` Basitleştirilmiş Çinceye düşer). Kaynak `en.json`'dur: diğer her dosya ondan çevrilir. Almanca, Rusça, Japonca ve Çince makine desteklidir; düzeltmeler memnuniyetle karşılanır. Yeni bir anahtar aynı commit'te her `locales/*.json` dosyasına girer; aksi halde test başarısız olur. `help.guideFile`, Yardım penceresinin bağlantı verdiği sorgu kılavuzunu belirtir: çevrilmiş kılavuzu (`docs/query.<kod>.md`) olan dil ona işaret eder, diğerleri `query.md`'de kalır.
 
 ### İngilizce kalanlar
 
@@ -46,7 +46,7 @@ Arayüz İngilizce, Türkçe, Deutsch, Русский, 日本語 ve 简体中文
 
 ### Terimler
 
-Obsidian'ın kendi kelimeleri onun [resmi çevirilerinden](https://github.com/obsidianmd/obsidian-translations) gelir; böylece eklenti Obsidian gibi okunur:
+Obsidian'ın kendi kelimeleri onun [resmî çevirilerinden](https://github.com/obsidianmd/obsidian-translations) gelir; böylece eklenti Obsidian gibi okunur:
 
 | en | tr | de | ru | ja | zh |
 |---|---|---|---|---|---|

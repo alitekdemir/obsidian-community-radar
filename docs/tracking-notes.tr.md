@@ -29,15 +29,15 @@ github: "[github](https://github.com/mirnovov/obsidian-homepage)"
 |---|---|
 | `plugin_id`, `description`, `downloads`, `version`, `updated`, `obsidian`, `github` | Community Radar, her eşitlemede |
 | `groups`, `status`, `rating`, `note`, `reviewed` | Siz (listeden ya da notu düzenleyerek) |
-| `translation_model`, `translation_tokens`, `translation_cost` | Community Radar, README'yi çevirdiğinde: yapay zekâ sağlayıcısının bildirdiği model, token ve maliyet (USD); maliyet yalnızca sağlayıcı söylüyorsa (OpenRouter söyler) |
+| `translation_model`, `translation_tokens`, `translation_cost` | Community Radar, README'yi çevirdiğinde: yapay zekâ sağlayıcısının bildirdiği model, token ve maliyet (USD); maliyet yalnızca sağlayıcı bildirdiğinde yazılır (ör. OpenRouter) |
 
 Bir eklenti birden fazla grupta olabilir (`groups` bir listedir). `reviewed`, yeni bir sürümü incelendi olarak işaretlediğinizde yazılır; daha sonraki bir sürüm eklentiyi *Takip*'te **YENİ SÜRÜM** olarak gösterir.
 
 ## Gövde
 
 - **Notlarım** (başlığı *Ayarlar → Notlarınızın başlığı*'ndan ayarlanır): sizindir, hiç dokunulmaz.
-- **README (sizin dilinizde)**: bir çeviri istediğinizde. Çevrildiği README'nin gizli bir parmak izi, README'nin o zamandan beri değişip değişmediğini Community Radar'a söyler.
-- **README**: eklentiye aittir, iki gizli `%% community-radar:readme-start/end %%` yorumu arasında durur. Notu açtığınızda yenilenir (ya da her eşitlemede, ya da yalnızca komutla: *Ayarlar → README güncelleme*). İçindeki etiketler ve wiki bağlantıları kasanıza sızmasın diye kaçışlanır; kod blokları olduğu gibi kalır.
+- **README (sizin dilinizde)**: çeviri istediğinizde eklenir. Çevrildiği README'nin gizli parmak izi, metnin o zamandan beri değişip değişmediğini Community Radar'a bildirir.
+- **README**: eklentiye aittir, iki gizli `%% community-radar:readme-start/end %%` yorumu arasında durur. Notu açtığınızda yenilenir (ya da her eşitlemede, ya da yalnızca komutla: *Ayarlar → README güncelleme*). İçindeki etiketler ve wiki bağlantıları kasanıza sızmaması için kaçış karakteriyle korunur; kod blokları olduğu gibi kalır.
 
 ![Bir takip notu: özellikler, Notlarım ve eklentinin README'si](images/Radar_4-Note.png)
 
@@ -51,7 +51,7 @@ Bir eklenti birden fazla grupta olabilir (`groups` bir listedir). `reviewed`, ye
 
 *Ayarlar → Yapay zekâ*'da bir sağlayıcı ve anahtar varsa Community Radar şunları yapabilir:
 
-- Bir açıklamayı (satırda, kartta ya da ayrıntılar penceresinde üzerine tıklayarak ya da görünümün ⋮ menüsündeki *Görünenleri çevir* ile) ya da bir README'yi (ayrıntılar penceresinde ya da *Bu notun README'sini çevir* komutuyla) **çevirmek**. README çevirisi önce tahmini maliyetini gösterir; ne tuttuğunu ayrıntılar penceresinin en altı söyler. Çeviriler kaydedilir ve yeniden kullanılır: README çevirisi notuna, takip etmediğiniz bir eklentide eklentinin önbelleğine gider; eklentiyi sonradan takip ederseniz yeni nota taşınır, ikinci kez ödemezsiniz. Çeviri sekmesindeki sarı nokta, README'nin o çeviriden sonra değiştiği anlamına gelir.
+- Bir açıklamayı (satırda, kartta ya da ayrıntılar penceresinde üzerine tıklayarak ya da görünümün ⋮ menüsündeki *Görünenleri çevir* ile) ya da bir README'yi (ayrıntılar penceresinde ya da *Bu notun README'sini çevir* komutuyla) **çevirmek**. README çevirisi önce tahmini maliyetini gösterir; gerçek maliyeti ayrıntılar penceresinin alt satırında görünür. Çeviriler kaydedilir ve yeniden kullanılır: README çevirisi takip edilen eklentilerde notuna, takip etmediklerinizde ise önbelleğe yazılır; eklentiyi sonradan takip ederseniz yeni nota taşınır ve ikinci kez ücret ödemezsiniz. Çeviri sekmesindeki sarı nokta, README'nin o çeviriden sonra değiştiği anlamına gelir.
 - Seçtiğiniz satırlar için (seçim çubuğundaki **AI ile grupla** düğmesi) ya da grubu olmayan takip edilen eklentiler için (komut) **grup önermek**. Bir öneriye tıklamak onu ekler.
 
 Modele gönderilen talimatları *Ayarlar → Yapay zekâ*'da yeniden yazabilirsiniz.

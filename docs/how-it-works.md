@@ -6,7 +6,7 @@
 
 Obsidian's [`obsidian-releases`](https://github.com/obsidianmd/obsidian-releases) repository commits `community-plugin-stats.json` **every day**, back to October 2020. Each snapshot holds every plugin's downloads and latest release time.
 
-Once a day, a [GitHub Actions workflow](../.github/workflows/metrics.yml) replays all of those snapshots and publishes the result on this repository's `metrics` branch: up to 50 release dates per plugin, the day it first appeared, its downloads over the last year (day by day for the last month, week by week before it), when it passed 1K, 5K, 10K, 25K, 50K and 100K downloads, and the plugins Obsidian took off its list (when, and why). Community Radar downloads that file (about 1 MB) once; after that, a sync downloads only the last week of changes (`delta.json`, about 150 KB) and adds it to its copy. A copy more than a week old gets the whole file again. That's how "4 days ago (after a 70-day incubation)" is exact even for plugins that were quiet for years, how *New* knows when a plugin was listed, and how `gain(21d)` or `milestone(10k)` work for any window or count.
+Once a day, a [GitHub Actions workflow](../.github/workflows/metrics.yml) replays all of those snapshots and publishes the result on this repository's `metrics` branch: up to 50 release dates per plugin, the day it first appeared, its downloads over the last year (day by day for the last month, week by week before it), when it passed 1K, 5K, 10K, 25K, 50K and 100K downloads, and the plugins Obsidian took off its list (when, and why). Community Radar downloads that file (~600 KB compressed, ~1 MB uncompressed) once; after that, a sync downloads only the last week of changes (`delta.json`, about 150 KB) and adds it to its copy. A copy more than a week old gets the whole file again. That's how "4 days ago (after a 70-day incubation)" is exact even for plugins that were quiet for years, how *New* knows when a plugin was listed, and how `gain(21d)` or `milestone(10k)` work for any window or count.
 
 Releases within a week of each other count as one **update wave**, so a plugin that ships a fix the day after a release isn't counted twice. *Updated* leaves out plugins with more than 9 waves in 180 days (`releases(180d) <= 9` in its query). Incubation is a pause of 30+ days between waves. The first release after it is the plugin's **hatching**: `incubated` is how long the pause lasted, `hatched` how long ago it ended. Every plugin stays on *Incubation* for the same 30 days after hatching (the latest on top), and releases after it, a hotfix or the next update, don't undo it.
 
@@ -45,5 +45,6 @@ No telemetry, no account, nothing about your vault is sent anywhere. In the vaul
 | Data | Where |
 |---|---|
 | Your groups, ratings, statuses, notes, review dates | Your tracking notes |
-| Settings, page queries, saved views, ignored plugins, translations, recent actions | `.obsidian/plugins/plugin-radar/data.json` |
-| Catalog, release history, vectors and AI profiles (caches, rebuilt on demand) | `.obsidian/plugins/plugin-radar/cache/` |
+| Settings, page queries, saved views, ignored plugins, recent actions | `.obsidian/plugins/plugin-radar/data.json` |
+| Short description and Overview translations | `.obsidian/plugins/plugin-radar/translations.jsonl` |
+| Catalog, release history, similar lists and AI profiles (caches, rebuilt on demand) | `.obsidian/plugins/plugin-radar/cache/` |

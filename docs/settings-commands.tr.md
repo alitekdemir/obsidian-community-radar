@@ -4,14 +4,14 @@
 
 ## Ayarlar
 
-Ayarlar beş sekmede, her seferinde biri görünecek şekilde gelir:
+Ayarlar beş ayrı sekme hâlinde düzenlenmiştir:
 
 | Sekme | Ayarlar |
 |---|---|
-| Genel | Dil (Otomatik, Obsidian'ınkini izler), görünümün nerede açılacağı (Ana sayfa ya da kaldığınız yer), Yeni eklenti süresi (bir eklentinin yeni sayıldığı gün sayısı: rozet ve Yeni kartının `listed <= 14d` sorgusu; varsayılan 14), klavye kısayolları (aşağıya bakın), Animasyonlar (*Sistemdeki gibi* işletim sisteminizdeki hareketi azaltma ayarına uyar; *Açık* / *Kapalı* onu geçersiz kılar), Çeviri efekti (yapay zekâ çevirirken detay penceresinin metni nasıl gösterdiği, altında önizlemesiyle; varsayılan Fosforlu kalem), destek |
+| Genel | Dil (Otomatik, Obsidian'ınkini izler), görünümün nerede açılacağı (Ana sayfa ya da kaldığınız yer), Yeni eklenti süresi (bir eklentinin yeni sayıldığı gün sayısı: rozet ve Yeni kartının `listed <= 14d` sorgusu; varsayılan 14), klavye kısayolları (aşağıya bakın), Animasyonlar (*Sistemdeki gibi* işletim sisteminizdeki hareketi azaltma ayarına uyar; *Açık* / *Kapalı* onu geçersiz kılar), Çeviri efekti (yapay zekâ çevirirken ayrıntılar penceresinin metni nasıl gösterdiği, altında önizlemesiyle; varsayılan Fosforlu kalem), destek |
 | Notlar | Not klasörü, kendi notlarınızın üstündeki başlık, takip notlarınızın Bases tablosu (**Oluştur** ya da sıfırla), durum alanı ve durumlarınız (ekleme, sıralama, kaldırma) |
 | Veri | Eşitleme sıklığı (Elle · 6 saatte bir · **Günde bir** · Haftada bir; eşitlemeler arasında hiçbir şey indirilmez), **Şimdi eşitle**, README güncelleme (**Notu açtığımda** · Her eşitlemede · Elle), sürüm geçmişi (**Yeniden indir**) |
-| Yapay zekâ | Sağlayıcı (Anthropic, OpenAI, Google, OpenRouter), Obsidian'ın anahtar deposundan API anahtarı, model, hedef dil, README çevirisi (*İstenince* ya da *Kapalı*), README çevirisinde tasarruf, yapay zekâ ile grup önerisi (varsayılan açık; kapalıyken grup için istek gitmez, ★ yine benzer eklentilerden gelir), çeviri talimatları (*Gelişmiş* altında katlı), model başına kullanım (istek, token, maliyet; Sıfırla), kayıtlı çeviriler |
+| Yapay zekâ | Sağlayıcı (Anthropic, OpenAI, Google, OpenRouter), Obsidian'ın anahtar deposundan API anahtarı, model, hedef dil, README çevirisi (*İstenince* ya da *Kapalı*), README çevirisinde tasarruf, yapay zekâ ile grup önerisi (varsayılan açık; kapalıyken grup önerisi için istek gönderilmez, ★ simgesi yine benzer eklentilere göre önerilir), çeviri talimatları (*Gelişmiş* altında daraltılmış), model başına kullanım (istek, token, maliyet; Sıfırla), kayıtlı çeviriler |
 | Gizlenenler | Kaç eklentiyi dışladığınız, sonraki sürümlerine kadar gizlediğiniz ya da Önerilerden çıkardığınız; **Yönet** o türü Gizlenenler sayfasında açar |
 
 Bir listenin sorgusu burada değil, listenin kendisinde (**Sorgu**) değiştirilir.
@@ -46,8 +46,8 @@ Görünümün ⋮ menüsü (sağ üst): Şimdi eşitle, Görünenleri çevir, Gi
 | `g` | gruplar |
 | `1` … `5` / `0` | puan ver / puanı sil |
 | `s` | benzerleri |
-| `r` | README'yi notunda aç |
-| `t` | açıklamayı çevir / gizle; detay penceresinde Genel bakışı da (tek istek) |
+| `r` | README'yi notunuzda aç |
+| `t` | açıklamayı çevir / gizle; ayrıntılar penceresinde Genel bakışı da (tek istek) |
 | `o` | Obsidian'da aç |
 | `h` | sonraki sürüme kadar gizle |
 | `x` | dışla (bir bildirim Geri al sunar; Gizlenenler sayfasında geri getirin) |
@@ -58,4 +58,4 @@ Her zaman açık: `/` arama kutusuna odaklanır, `Ctrl+Space` önerileri açar, 
 
 Bir satırın üzerine gelip kutusunu işaretleyin (`Shift`+tıklama bir aralığı işaretler). Önce **Görünen N eklentiyi seç**, ardından **Listedeki N eklentinin hepsini seç** daha fazlasını seçer. Alttaki çubuk: **Takip et**, **Puanla**, **Gruba ekle**, **AI ile grupla**, (Takip sekmesinde) **İncelendi**, **Çevir**, **Şimdilik gizle** (yeni sürümde döner), **Kalıcı gizle** (Gizlenenler'den döner). Her biri çalışmadan önce sorar ve hemen ya da daha sonra **Son işlemler**'den geri alınabilir (Geri al, o zamandan beri değiştirdiğiniz eklentileri atlar). `Esc` seçimi kaldırır.
 
-**Çevir** menüsü seçilenler için dört iş yapar: **Kısa açıklamaları çevir** (tek istek, listede yerinde görünür), **Genel bakışları çevir** (profili olanlar, kaydedilir), **README'leri indir** (AI yok; takip ediliyorsa nota, değilse önbelleğe) ve **README'leri çevir** (eksik ya da eski README'ler önce indirilir, her biri bütün olarak tek istekte çevrilir). Aynı anda en çok 4 istek gider (kısa açıklamalar 50'lik paketlerle). AI işleri başlamadan önce tahmini token ve maliyeti gösterip onay ister; çalışırken çubuğun yerinde `50 / 93` ilerlemesi, o ana kadar harcanan ve **Durdur** görünür; bitince sağlayıcının bildirdiği gerçek harcama çıkar: `93 çevrildi · 2 istek · 18.420 token · $0,0021 · model`. Takip etmediğin eklentiler için not oluşmaz.
+**Çevir** menüsü seçilenler için dört iş yapar: **Kısa açıklamaları çevir** (tek istek, listede doğrudan görünür), **Genel bakışları çevir** (profili olanlar, kaydedilir), **README'leri indir** (AI yok; takip ediliyorsa nota, değilse önbelleğe) ve **README'leri çevir** (eksik ya da eski README'ler önce indirilir, her biri bütün olarak tek istekte çevrilir). Aynı anda en çok 4 istek gider (kısa açıklamalar 50'lik paketlerle). AI işleri başlamadan önce tahmini token ve maliyeti gösterip onay ister; işlem sürerken çubukta `50 / 93` ilerlemesi, o ana kadar harcanan tutar ve **Durdur** düğmesi görünür; bitince sağlayıcının bildirdiği gerçek harcama çıkar: `93 çevrildi · 2 istek · 18.420 token · $0,0021 · model`. Takip etmediğiniz eklentiler için not oluşmaz.
