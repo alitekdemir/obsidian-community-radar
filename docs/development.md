@@ -40,7 +40,7 @@ The interface speaks English, Türkçe, Deutsch, Русский, 日本語 and �
 
 ### Kept in English
 
-- **Names:** Community Radar, Obsidian, GitHub, README, Markdown, JSON, API, providers and models.
+- **Names:** Pindex, Obsidian, GitHub, README, Markdown, JSON, API, providers and models.
 - **Query syntax:** field names (`downloads`, `gain(30d)`…), `AND` `OR` `NOT`, `order by`, `asc` / `desc`, `in`, `is empty`, `true` / `false`, date functions and units (`30d`, `10k`). Saved queries keep working after a language switch.
 - **Note properties** (`plugin_id`, `groups`, `status`…), file paths and keys (`j`, `Esc`, `Ctrl+Space`).
 

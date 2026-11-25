@@ -104,7 +104,7 @@ class BulkOps {
         const plugin = p.pluginById(id);
         const file = p.notes.file(id);
         if (plugin && file) await p.readmes.adopt(plugin, file);
-      }).catch((error) => console.warn("[Community Radar] bulk README adopt", error));
+      }).catch((error) => console.warn("[Pindex] bulk README adopt", error));
     }
     if (thrown) throw thrown;
     return op;

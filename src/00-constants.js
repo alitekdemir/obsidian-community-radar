@@ -1,6 +1,6 @@
 "use strict";
 /*
- * Community Radar — discover community plugins, spot the ones that woke up after a long pause,
+ * Pindex — discover community plugins, spot the ones that woke up after a long pause,
  * and keep the ones you care about as notes in your library. Plain JavaScript; scripts/build.js joins src/*.js in
  * file-name order (one shared scope, no imports) and embeds locales/*.json into the main.js Obsidian loads.
  *
@@ -21,7 +21,7 @@ const {
 // ─── 1. Constants ───────────────────────────────────────────────────────────
 const VIEW_TYPE = "plugin-radar-view";
 const ICON = "plugin-radar";
-const PLUGIN_REPO = "alitekdemir/obsidian-community-radar";
+const PLUGIN_REPO = "alitekdemir/obsidian-pindex";
 const REPO = "obsidianmd/obsidian-releases";
 const STATS_FILE = "community-plugin-stats.json";
 const RAW = "https://raw.githubusercontent.com";

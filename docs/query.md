@@ -2,7 +2,7 @@
 
 *English · [Türkçe](query.tr.md)*
 
-Every list in Community Radar is a query: *All*, and every card on Home (*New*, *Updated*, *Incubation*, *Suggested*, your saved views…). A card opens its list; press **Query** next to the box to see its query and change it; **Basic** goes back to plain search and the **Filter** panel. A changed query shows a **● N changes** badge: save it as a view (a card of its own on Home), or, for a built-in card, over the card's own query (its **⋮ › Edit the query**; **Reset the query to default** brings the default back once you saved your own).
+Every list in Pindex is a query: *All*, and every card on Home (*New*, *Updated*, *Incubation*, *Suggested*, your saved views…). A card opens its list; press **Query** next to the box to see its query and change it; **Basic** goes back to plain search and the **Filter** panel. A changed query shows a **● N changes** badge: save it as a view (a card of its own on Home), or, for a built-in card, over the card's own query (its **⋮ › Edit the query**; **Reset the query to default** brings the default back once you saved your own).
 
 ```
 downloads > 500 AND released < 30d AND group in ("Tasks", Calendar) AND NOT installed

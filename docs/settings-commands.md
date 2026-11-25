@@ -20,7 +20,7 @@ A list's query is changed in the list itself (**Query**), not here.
 
 | Command | |
 |---|---|
-| Open Community Radar | Opens the view (also the ribbon icon) |
+| Open Pindex | Opens the view (also the ribbon icon) |
 | Go to Home | Opens the view on Home; give it a hotkey to jump there from anywhere |
 | Sync now (catalog, history, notes) | |
 | Download the release history again | |
@@ -36,7 +36,7 @@ The view's ⋮ menu (top right): Sync now, Translate visible, Hidden, Download t
 
 ## Keyboard shortcuts
 
-On while *Settings → Keyboard shortcuts* is on and the Community Radar tab is active, and in the details window too (there `j` / `k`, like ← / →, go to the previous or next plugin). The ⌨ icon in the toolbar, and at the bottom of the details window, lists them.
+On while *Settings → Keyboard shortcuts* is on and the Pindex tab is active, and in the details window too (there `j` / `k`, like ← / →, go to the previous or next plugin). The ⌨ icon in the toolbar, and at the bottom of the details window, lists them.
 
 | Key | |
 |---|---|

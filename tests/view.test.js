@@ -179,18 +179,18 @@ const serveLocale = (request) => {
   return require("fs").existsSync(file) ? { status: 200, json: JSON.parse(require("fs").readFileSync(file, "utf8")) } : { status: 404, text: "" };
 };
 fake.network.handlers.push(
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/HEAD/locales/", serveLocale],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/0.15.0/locales/", serveLocale],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to, deltaFrom: serverDelta?.from } } : { status: 404 })],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? (downloaded.timeline++, { status: 200, json: serverTimeline }) : { status: 404 })],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/delta.json", () => (serverDelta ? (downloaded.delta++, { status: 200, json: serverDelta }) : { status: 404 })],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/similar.json", ({ headers }) => (headers["If-None-Match"] === similarEtag
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/HEAD/locales/", serveLocale],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/0.15.0/locales/", serveLocale],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to, deltaFrom: serverDelta?.from } } : { status: 404 })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/metrics/timeline.json", () => (serverTimeline ? (downloaded.timeline++, { status: 200, json: serverTimeline }) : { status: 404 })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/metrics/delta.json", () => (serverDelta ? (downloaded.delta++, { status: 200, json: serverDelta }) : { status: 404 })],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/profiles/similar.json", ({ headers }) => (headers["If-None-Match"] === similarEtag
     ? (downloaded.similar304++, { status: 304, headers: {} })
     : (downloaded.similar++, { status: 200, json: similarFile, headers: { etag: similarEtag } }))],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/index.json", ({ headers }) => (headers["If-None-Match"] === profilesEtag
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/profiles/index.json", ({ headers }) => (headers["If-None-Match"] === profilesEtag
     ? (downloaded.profiles304++, { status: 304, headers: {} })
     : (downloaded.profiles++, { status: 200, json: profilesIndex, headers: { ETag: profilesEtag } }))],
-  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/profiles/dataview.json", () => ({ status: 200, json: {
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-pindex/profiles/profiles/dataview.json", () => ({ status: 200, json: {
     problem: "Notes can't be queried like a database.", capabilities: ["Query notes by metadata"], disambiguation: "Not the core Bases plugin.", model: "z-ai/glm-5.3-flash@v3" } })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json", () => ({ status: 200, json: listing })],
   ["https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugin-stats.json", () => ({ status: 200, json: snapshots[2].stats })],

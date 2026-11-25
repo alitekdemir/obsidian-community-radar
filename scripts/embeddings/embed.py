@@ -1,4 +1,4 @@
-"""Builds the semantic vectors Community Radar uses for "Similar" (runs in GitHub Actions).
+"""Builds the semantic vectors Pindex uses for "Similar" (runs in GitHub Actions).
 
 Each community plugin's name and description becomes a vector; the plugin downloads one small file
 instead of running a model. Unchanged plugins reuse last run's vectors, so a daily run only embeds

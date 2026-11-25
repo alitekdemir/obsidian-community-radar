@@ -1,4 +1,4 @@
-"""What Community Radar asks a model about a plugin, and how the answer is cleaned up.
+"""What Pindex asks a model about a plugin, and how the answer is cleaned up.
 
 Shared by the hourly GitHub Actions run (``update.py``). The prompt, schema and
 README cleaning are the ones the Colab model bench measured and the full scan

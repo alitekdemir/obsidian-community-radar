@@ -40,7 +40,7 @@ Arayüz İngilizce, Türkçe, Deutsch, Русский, 日本語 ve 简体中文
 
 ### İngilizce kalanlar
 
-- **Adlar:** Community Radar, Obsidian, GitHub, README, Markdown, JSON, API, sağlayıcılar ve modeller.
+- **Adlar:** Pindex, Obsidian, GitHub, README, Markdown, JSON, API, sağlayıcılar ve modeller.
 - **Sorgu sözdizimi:** alan adları (`downloads`, `gain(30d)`…), `AND` `OR` `NOT`, `order by`, `asc` / `desc`, `in`, `is empty`, `true` / `false`, tarih fonksiyonları ve birimler (`30d`, `10k`). Kayıtlı sorgular dil değişikliğinden sonra da çalışır.
 - **Not özellikleri** (`plugin_id`, `groups`, `status`…), dosya yolları ve tuşlar (`j`, `Esc`, `Ctrl+Space`).
 

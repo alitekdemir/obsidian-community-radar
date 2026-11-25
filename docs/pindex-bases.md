@@ -1,18 +1,18 @@
-# Community Radar
+# Pindex
 
-*[English](community-radar-bases.md) · Türkçe*
+*English · [Türkçe](pindex-bases.tr.md)*
 
-Keşif görünümünü komut paletinden açın (**Community Radar'ı aç**). Bu not yalnızca kitaplığınızdaki eklentileri listeler; `groups`, `rating` ve `note` doğrudan tabloda düzenlenebilir.
+Open the discovery view from the command palette (**Open Pindex**). This note lists only the plugins in your library; `groups`, `rating` and `note` can be edited right in the table.
 
-> Başka bir not klasörü kullanıyorsanız `file.inFolder(...)` içindeki `Community Radar`'ı değiştirin.
+> Change `Pindex` in `file.inFolder(...)` if you use another notes folder.
 
 ```base
 filters:
   and:
-    - file.inFolder("Community Radar")
+    - file.inFolder("Pindex")
 views:
   - type: table
-    name: Tümü
+    name: All
     order:
       - file.name
       - groups
@@ -26,7 +26,7 @@ views:
       - obsidian
       - github
   - type: table
-    name: 4★ ve üzeri
+    name: Rated 4★ and up
     filters:
       and:
         - rating >= 4
@@ -41,7 +41,7 @@ views:
       - obsidian
       - github
   - type: table
-    name: Grupsuz
+    name: Ungrouped
     filters:
       and:
         - groups.isEmpty()

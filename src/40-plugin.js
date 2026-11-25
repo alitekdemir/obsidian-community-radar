@@ -24,7 +24,7 @@ class PluginRadar extends Plugin {
     this.translator = new Translator(this.app, this.data.settings);
     this.translator.onUsage = (provider, model, kind, usage) => {
       this.data.aiUsage = addUsage(this.data.aiUsage, provider, model, kind, usage);
-      this.saveData(this.data).catch((e) => console.warn("[Community Radar] saveData", e));
+      this.saveData(this.data).catch((e) => console.warn("[Pindex] saveData", e));
     };
     this.sync = new SyncService(this);
     this.readmes = new ReadmeService(this);
@@ -165,7 +165,7 @@ class PluginRadar extends Plugin {
       await this.cache.write(`locale-${code}`, { version: this.manifest.version || null, strings });
       return true;
     } catch (error) {
-      console.warn(`[Community Radar] couldn't download locale "${code}"; falling back to English`, error);
+      console.warn(`[Pindex] couldn't download locale "${code}"; falling back to English`, error);
       return false;
     }
   }
@@ -275,7 +275,7 @@ class PluginRadar extends Plugin {
       notice?.setMessage(message || `${label} ✔`);
       if (notice) this.later(() => notice.hide(), 6000);
     } catch (error) {
-      console.error("[Community Radar]", error);
+      console.error("[Pindex]", error);
       const failed = notice || new Notice("", 0);
       failed.setMessage(`${label} ✖\n${error.message}`);
       this.later(() => failed.hide(), 12000);
@@ -373,7 +373,7 @@ class PluginRadar extends Plugin {
       return problem ? false : { model: done.model, tokens: done.tokens, cost: done.cost };
     } catch (error) {
       if (quiet) throw error;
-      console.error("[Community Radar] Overview translation", error);
+      console.error("[Pindex] Overview translation", error);
       new Notice(t("notice.translateFailed", { error: error.message }), 12000);
       return false;
     }
@@ -472,7 +472,7 @@ class PluginRadar extends Plugin {
       if (rejected) new Notice(t("notice.translateRejected", { model: model || this.data.settings.model }), 12000);
       return true;
     } catch (error) {
-      console.error("[Community Radar] translation", error);
+      console.error("[Pindex] translation", error);
       notice.setMessage(t("notice.translateFailed", { error: error.message }));
       this.later(() => notice.hide(), 12000);
       return false;

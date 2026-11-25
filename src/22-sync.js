@@ -88,7 +88,7 @@ class SyncService {
       await p.cache.write(`${name}-meta`, { etag: fresh ? fresh.etag : meta.etag, checkedAt: Date.now() });
       return fresh?.json ?? null;
     } catch (error) {
-      console.warn(`[Community Radar] couldn't update ${file}`, error);
+      console.warn(`[Pindex] couldn't update ${file}`, error);
       return null;
     }
   }
@@ -135,7 +135,7 @@ class SyncService {
       await p.cache.write("timeline", timeline);
       return true;
     } catch (error) {
-      console.warn("[Community Radar] couldn't download the release history", error);
+      console.warn("[Pindex] couldn't download the release history", error);
       return false;
     }
   }

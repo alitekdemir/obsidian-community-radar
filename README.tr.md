@@ -1,8 +1,8 @@
 <div align="center">
 
-# Community Radar
+# Pindex
 
-**Obsidian eklenti dizini için SQL.**
+**Obsidian eklenti dizinini sorgulayın, kitaplığınıza ekleyin, takip edin.**
 
 Hızla yükselen yeni eklentileri yakalayın, uzun bir sessizlikten uyananları kaçırmayın, kataloğu bir veritabanı gibi sorgulayın, anlamca benzer alternatifleri bulun ve önemsediğiniz eklentileri kasanızda yaşayan Markdown notları olarak yönetin.
 
@@ -14,16 +14,16 @@ Hızla yükselen yeni eklentileri yakalayın, uzun bir sessizlikten uyananları 
 
 </div>
 
-![Community Radar: ana sayfa, sorgu, tablo, ayrıntılar, benzerler, kitaplık](docs/images/demo.webp)
+![Pindex: ana sayfa, sorgu, tablo, ayrıntılar, benzerler, kitaplık](docs/images/demo.webp)
 
 ---
 
-## Neden Community Radar?
+## Neden Pindex?
 
 Obsidian'ın yerleşik eklenti tarayıcısı adını bildiğiniz bir eklentiyi kurmak için yeterlidir; ancak binlerce eklentilik ekosistemde gerçek bir keşif yapmak istediğinizde hızla duvara çarpar:
 
-- **Toplam indirme sayıları bugünkü ivmeyi gizler.** Beş yıllık dev eklentiler hep en üstte dururken, bu hafta bin yeni kullanıcı kazanan parlak bir eklenti diplerde kaybolur. Community Radar, **Ekim 2020'den bu yana her gün tutulan sürüm arşivini** işleyerek son 7 ve 30 günlük gerçek büyümeyi, aşılan indirme barajlarını ve sürüm ritmini görünür kılar.
-- **Sürekli yama çıkaranlar gerçek geri dönüşleri ezer.** İki günde bir ufak düzeltme yayınlayan eklentiler, diğer her şeyi ekranın dışına iter. Community Radar peş peşe çıkan yamaları *güncelleme dalgaları* olarak gruplar; gürültüyü susturup aylar (hatta yıllar) sonra dev bir güncellemeyle uyanan eklentileri sahneye çıkarır.
+- **Toplam indirme sayıları bugünkü ivmeyi gizler.** Beş yıllık dev eklentiler hep en üstte dururken, bu hafta bin yeni kullanıcı kazanan parlak bir eklenti diplerde kaybolur. Pindex, **Ekim 2020'den bu yana her gün tutulan sürüm arşivini** işleyerek son 7 ve 30 günlük gerçek büyümeyi, aşılan indirme barajlarını ve sürüm ritmini görünür kılar.
+- **Sürekli yama çıkaranlar gerçek geri dönüşleri ezer.** İki günde bir ufak düzeltme yayınlayan eklentiler, diğer her şeyi ekranın dışına iter. Pindex peş peşe çıkan yamaları *güncelleme dalgaları* olarak gruplar; gürültüyü susturup aylar (hatta yıllar) sonra dev bir güncellemeyle uyanan eklentileri sahneye çıkarır.
 - **"Buna sonra bakayım" dedikleriniz kaybolur.** Tarayıcı sekmeleri ve dağınık notlar unutulur. Burada bir eklentiyi kitaplığa eklediğinizde (**🔖**) veya grupladığınızda kasanızda puanınızı, durumunu, kişisel notlarınızı ve her zaman güncel kalan README'sini barındıran düzenli bir not oluşur; tek tıkla **Obsidian Bases** tablosuna dönüşür.
 
 ---
@@ -55,7 +55,7 @@ Ekosistemdeki en heyecan verici anlardan biri, terk edildiğini sandığınız s
 
 ![Sorgu kutusu: renkler, değişiklik rozeti ve kaydetme seçenekleri](docs/images/query-save.png)
 
-Görsel kontrollerle mi çalışmak istiyorsunuz? **Basit** modda arama terimlerini, `/regex/` ifadelerini ve **Filtre** menüsündeki hızlı çipleri kullanın. Tam kontrol mü istiyorsunuz? Tek tıkla **Sorgu** moduna geçin—çünkü arka planda **Community Radar'daki her liste aslında okunabilir ve değiştirilebilir bir sorgudur**:
+Görsel kontrollerle mi çalışmak istiyorsunuz? **Basit** modda arama terimlerini, `/regex/` ifadelerini ve **Filtre** menüsündeki hızlı çipleri kullanın. Tam kontrol mü istiyorsunuz? Tek tıkla **Sorgu** moduna geçin—çünkü arka planda **Pindex'teki her liste aslında okunabilir ve değiştirilebilir bir sorgudur**:
 
 ```sql
 listed <= 30d AND downloads >= 50 AND NOT library
@@ -96,7 +96,7 @@ O anki işinize en uygun düzende çalışın:
 
 ![Grup bölümlerine ayrılmış kitaplığınız](docs/images/tracked.png)
 
-Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi kitaplığa eklediğiniz (**🔖**) veya bir gruba eklediğiniz (**＋**) anda kasanızda temiz bir Markdown notu oluşturur:
+Pindex kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi kitaplığa eklediğiniz (**🔖**) veya bir gruba eklediğiniz (**＋**) anda kasanızda temiz bir Markdown notu oluşturur:
 
 - **Yapılandırılmış özellikler + dokunulmayan kişisel notlar:** `groups`, `rating` (1–5), emojili özel `status` alanları ve kişisel notlarınız tamamen size aittir; indirme/sürüm bilgileri ile gömülü **README** ise otomatik güncellenir (`#etiketler` ve `[[bağlantılar]]` grafiğinizi kirletmemesi için güvenli biçimde kaçış karakteriyle korunur).
 - **Tek tıkla Obsidian Bases:** Ayarlardan hazır `.base` görünümünü oluşturarak tüm eklenti koleksiyonunuzu yerleşik bir Obsidian veritabanı tablosunda filtreleyin ve düzenleyin. → *[Kitaplık Notları Rehberi](docs/library-notes.tr.md)*
@@ -107,10 +107,10 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 ## Kurulum
 
 1. Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at** yolunu izleyin.
-2. **Community Radar** aratın, **Kur** ve **Etkinleştir** düğmelerine basın.
-3. Sol şeritteki **radar simgesine** tıklayın veya Komut Paletinden `Community Radar: Community Radar'ı aç` komutunu çalıştırın.
+2. **Pindex** aratın, **Kur** ve **Etkinleştir** düğmelerine basın.
+3. Sol şeritteki **radar simgesine** tıklayın veya Komut Paletinden `Pindex: Pindex'i aç` komutunu çalıştırın.
 
-**Arayüz dilleri:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Community Radar, Obsidian'ın dilini izler (*Ayarlar → Dil*'den değiştirilebilir). Çevirilere düzeltmeler memnuniyetle karşılanır.
+**Arayüz dilleri:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Pindex, Obsidian'ın dilini izler (*Ayarlar → Dil*'den değiştirilebilir). Çevirilere düzeltmeler memnuniyetle karşılanır.
 
 ### 60 Saniyede Başlangıç
 
@@ -124,7 +124,7 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 ## Tasarım Gereği Gizlilik
 
 - **Hesap yok, telemetri yok, analitik yok.** Sizden veya kasanızdan hiçbir veri toplanmaz.
-- **Yalnızca kendi klasörüne erişir.** Community Radar sadece belirlediğiniz eklenti notları klasörünü okur ve yazar; kasanızın geri kalanını taramaz.
+- **Yalnızca kendi klasörüne erişir.** Pindex sadece belirlediğiniz eklenti notları klasörünü okur ve yazar; kasanızın geri kalanını taramaz.
 - **Açık veriler ve güvenli anahtar deposu.** Eşitleme yalnızca GitHub üzerindeki herkese açık statik dosyaları indirir. AI istekleri **yalnızca** siz çeviri veya grup önerisi istediğinizde, Obsidian'ın cihaz içi anahtar deposunda (`SecretStorage`) saklanan anahtarınızla yapılır. → *[Tüm ağ isteklerinin tam listesi](docs/how-it-works.tr.md#ağ)*
 
 ---

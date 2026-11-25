@@ -2,7 +2,7 @@
 
 *English · [Türkçe](library-notes.tr.md)*
 
-Add a plugin to your library (🔖), rate it (★), give it a status or add it to a group, and Community Radar writes a note for it in your notes folder (*Settings → Notes folder*). The note is yours: edit its properties in Obsidian, and the list follows. Click 🔖 again (or ⋯ → *Remove from library*) and the note goes to Obsidian's trash, so you can bring it back from there; if it holds your groups, rating, status or notes, you're asked first. Plugins you rate 4★ or more gather under *Library → ★ 4+*.
+Add a plugin to your library (🔖), rate it (★), give it a status or add it to a group, and Pindex writes a note for it in your notes folder (*Settings → Notes folder*). The note is yours: edit its properties in Obsidian, and the list follows. Click 🔖 again (or ⋯ → *Remove from library*) and the note goes to Obsidian's trash, so you can bring it back from there; if it holds your groups, rating, status or notes, you're asked first. Plugins you rate 4★ or more gather under *Library → ★ 4+*.
 
 ## Properties
 
@@ -27,16 +27,16 @@ github: "[github](https://github.com/mirnovov/obsidian-homepage)"
 
 | Property | Who writes it |
 |---|---|
-| `plugin_id`, `description`, `downloads`, `version`, `updated`, `obsidian`, `github` | Community Radar, on each sync |
+| `plugin_id`, `description`, `downloads`, `version`, `updated`, `obsidian`, `github` | Pindex, on each sync |
 | `groups`, `status`, `rating`, `note`, `reviewed` | You (from the list, or by editing the note) |
-| `translation_model`, `translation_tokens`, `translation_cost` | Community Radar, when it translates the README: the model, tokens and cost (USD) as the AI provider reported them; the cost only when the provider tells it (OpenRouter does) |
+| `translation_model`, `translation_tokens`, `translation_cost` | Pindex, when it translates the README: the model, tokens and cost (USD) as the AI provider reported them; the cost only when the provider tells it (OpenRouter does) |
 
 A plugin can be in several groups (`groups` is a list). `reviewed` is set when you mark a new release reviewed; a later release shows the plugin as **NEW RELEASE** in *Library*.
 
 ## Body
 
 - **My notes** (the heading is set in *Settings → Heading of your notes*): yours, never touched.
-- **README (your language)**: when you ask for a translation. A hidden fingerprint of the README it came from tells Community Radar when the README has changed since.
+- **README (your language)**: when you ask for a translation. A hidden fingerprint of the README it came from tells Pindex when the README has changed since.
 - **README**: owned by the plugin, between two hidden `%% community-radar:readme-start/end %%` comments. It's refreshed when you open the note (or on every sync, or only by command: *Settings → README updates*). Tags and wiki links in it are escaped so they don't leak into your vault; code blocks stay as they are.
 
 ![A library note: properties, My notes and the plugin's README](images/Radar_4-Note.png)
@@ -49,7 +49,7 @@ A plugin can be in several groups (`groups` is a list). `reviewed` is set when y
 
 ## AI, optional
 
-With a provider and key in *Settings → AI*, Community Radar can:
+With a provider and key in *Settings → AI*, Pindex can:
 
 - **Translate** a description (click it on a row, a card or in the details window, or *Translate visible* in the view's ⋮ menu) or a README (in the details window, or the command *Translate the README of this note*). A README translation shows its estimated cost first, and the bottom of the details window shows what it took. Translations are saved and reused: a README's goes into its note, or, for a plugin not in your library, into the plugin's cache; adding it later moves it into the new note, with no second bill. A yellow dot on the translation tab means the README has changed since.
 - **Suggest groups** for the rows you select (the **Group with AI** button in the selection bar), or for ungrouped plugins in your library (command). Click a suggestion to add it.

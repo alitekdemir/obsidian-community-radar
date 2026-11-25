@@ -44,7 +44,7 @@ def request(key: str, path: str, body: dict | None = None, timeout: int = 60) ->
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(f"{API}/{path}", data=data, method="POST" if data else "GET", headers={
         "Authorization": f"Bearer {key}", "Content-Type": "application/json",
-        "HTTP-Referer": "https://github.com/alitekdemir/obsidian-community-radar", "X-Title": "Community Radar",
+        "HTTP-Referer": "https://github.com/alitekdemir/obsidian-pindex", "X-Title": "Pindex",
     })
     try:
         with urllib.request.urlopen(req, timeout=timeout) as response:

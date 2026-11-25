@@ -1,4 +1,4 @@
-"""Shared constants and catalog helpers for Community Radar's GitHub Actions data scripts."""
+"""Shared constants and catalog helpers for Pindex's GitHub Actions data scripts."""
 
 import json
 import re

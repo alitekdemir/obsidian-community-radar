@@ -794,7 +794,7 @@ class DetailModal extends Modal {
     try {
       await this.plugin.readmes.fetch(p);
     } catch (error) {
-      console.warn("[Community Radar] couldn't fetch the README", error);
+      console.warn("[Pindex] couldn't fetch the README", error);
     }
     this.loads.set(p.id, "done");
     if (this.p === p && !this.closed) this.render();
@@ -808,7 +808,7 @@ class DetailModal extends Modal {
       if (!readme) return;
       this.newer.set(p.id, readme);
       if (this.p === p && !this.closed) this.render();
-    }, (error) => console.warn("[Community Radar] couldn't check the README", error));
+    }, (error) => console.warn("[Pindex] couldn't check the README", error));
     return null;
   }
 

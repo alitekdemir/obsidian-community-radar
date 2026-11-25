@@ -20,7 +20,7 @@ Bir listenin sorgusu burada değil, listenin kendisinde (**Sorgu**) değiştiril
 
 | Komut | |
 |---|---|
-| Community Radar'ı aç | Görünümü açar (şerit simgesi de aynısını yapar) |
+| Pindex'i aç | Görünümü açar (şerit simgesi de aynısını yapar) |
 | Ana sayfaya dön | Görünümü Ana sayfada açar; her yerden oraya atlamak için bir kısayol atayın |
 | Şimdi eşitle (katalog, geçmiş, notlar) | |
 | Sürüm geçmişini yeniden indir | |
@@ -36,7 +36,7 @@ Görünümün ⋮ menüsü (sağ üst): Şimdi eşitle, Görünenleri çevir, Gi
 
 ## Klavye kısayolları
 
-*Ayarlar → Klavye kısayolları* açıkken ve Community Radar sekmesi etkinken çalışır; ayrıntılar penceresinde de (orada `j` / `k`, ← / → gibi önceki ya da sonraki eklentiye geçer). Araç çubuğundaki ve ayrıntılar penceresinin altındaki ⌨ simgesi hepsini listeler.
+*Ayarlar → Klavye kısayolları* açıkken ve Pindex sekmesi etkinken çalışır; ayrıntılar penceresinde de (orada `j` / `k`, ← / → gibi önceki ya da sonraki eklentiye geçer). Araç çubuğundaki ve ayrıntılar penceresinin altındaki ⌨ simgesi hepsini listeler.
 
 | Tuş | |
 |---|---|

@@ -23,7 +23,7 @@ class ReadmeService {
     try {
       await this.fetch(plugin);   // keep() never replaces a README you have with nothing
     } catch (error) {
-      console.warn(`[Community Radar] couldn't fetch README for ${plugin.id}`, error);
+      console.warn(`[Pindex] couldn't fetch README for ${plugin.id}`, error);
     }
   }
 
@@ -183,7 +183,7 @@ class ReadmeService {
         if (entry.translation) await p.notes.writeTranslation(file, entry.translation);
         await p.cache.remove(name);
       } catch (error) {
-        console.warn("[Community Radar] couldn't adopt README", error);
+        console.warn("[Pindex] couldn't adopt README", error);
       }
     });
   }
@@ -220,7 +220,7 @@ class ReadmeService {
       return { model: done.model, tokens: done.tokens, cost: done.cost };
     } catch (error) {
       if (quiet) throw error;
-      console.error("[Community Radar] README translation", error);
+      console.error("[Pindex] README translation", error);
       new Notice(t("notice.translateFailed", { error: error.message }), 12000);
       return false;
     }

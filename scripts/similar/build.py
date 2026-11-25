@@ -1,4 +1,4 @@
-"""Builds similar.json, the "Similar" lists Community Radar shows (runs in GitHub Actions).
+"""Builds similar.json, the "Similar" lists Pindex shows (runs in GitHub Actions).
 
 Every listed plugin gets its closest plugins, best first. The score adds five 0–1 signals; the three
 text ones are stretched to 0–1 over all other plugins (min–max, the plugin itself left out):

@@ -1,8 +1,8 @@
 <div align="center">
 
-# Community Radar
+# Pindex
 
-**SQL for Obsidian's plugin directory.**
+**Query, pin and track Obsidian's plugin directory.**
 
 Spot fast-rising newcomers, catch long-dormant plugins making a comeback, query the catalog like a database, discover alternatives by meaning—and keep the plugins you care about as living Markdown notes in your vault.
 
@@ -14,16 +14,16 @@ Spot fast-rising newcomers, catch long-dormant plugins making a comeback, query 
 
 </div>
 
-![Community Radar: home, query, table, details, similar, library](docs/images/demo.webp)
+![Pindex: home, query, table, details, similar, library](docs/images/demo.webp)
 
 ---
 
-## Why Community Radar?
+## Why Pindex?
 
 Obsidian's built-in plugin browser is great for installing a plugin when you already know its name—but as the catalog grows into the thousands, genuine discovery hits a wall:
 
-- **All-time downloads hide today's momentum.** A five-year-old giant always sits at the top, while a brilliant month-old plugin gaining a thousand users this week stays buried. Community Radar replays **every daily release snapshot since October 2020** to surface real 7- and 30-day growth, fresh milestones, and release rhythms.
-- **Frequent patchers drown out real comebacks.** Plugins shipping tiny tweaks every few days push everything else off the screen. By grouping rapid patches into *update waves*, Community Radar filters out release noise and spotlights quiet plugins waking up after months—or years—of silence.
+- **All-time downloads hide today's momentum.** A five-year-old giant always sits at the top, while a brilliant month-old plugin gaining a thousand users this week stays buried. Pindex replays **every daily release snapshot since October 2020** to surface real 7- and 30-day growth, fresh milestones, and release rhythms.
+- **Frequent patchers drown out real comebacks.** Plugins shipping tiny tweaks every few days push everything else off the screen. By grouping rapid patches into *update waves*, Pindex filters out release noise and spotlights quiet plugins waking up after months—or years—of silence.
 - **"I'll try this later" disappears.** Bookmarked GitHub repos and mental notes get lost. Here, adding a plugin to your library (**🔖**) or grouping it creates a structured vault note—complete with your rating, status, personal notes, an auto-updated README, and a one-click **Obsidian Bases** table.
 
 ---
@@ -34,7 +34,7 @@ Obsidian's built-in plugin browser is great for installing a plugin when you alr
 
 ![Home: the last 7 days and the discovery widgets](docs/images/home.png)
 
-Instead of dropping you into an endless alphabetical wall, Community Radar opens on **Home**—a live dashboard tailored to your attention.
+Instead of dropping you into an endless alphabetical wall, Pindex opens on **Home**—a live dashboard tailored to your attention.
 
 At the top, **What's new** counts new arrivals, updates to plugins in your library, newly crossed download milestones, and quiet releases since your last visit day (or the last 7 / 30 days). Opening a list empties nothing: all day long it shows what came in since the day you last looked, and each list says so in its query (`listed >= 2026-11-11`). Below it, draggable cards answer the questions you actually care about: *New*, *Updated*, *Incubation*, *Rising*, *Milestones*, *New in your library*, *Your library*, *Hidden* (and *Suggested* to add). Each card is a query and counts exactly the list it opens; the tab strip keeps only *All*, and a card's list opens next to it. Tweak time windows or thresholds right on any card, or click its **N new** pill to jump straight to what arrived since your last check. **+ Add widget** opens a gallery of ready-made queries (*Hidden gems*, *Fast starters*, *Abandoned installs*, *To try*…), each with what it finds, why it helps and a live count: you pick a small or a big card (drawn as it will look) and the group it joins. Home is groups you shape: rename them, put two side by side, reorder them by their grip, all from the ⋯ next to a group's title (or a right click). **⌂ Home | All** at the top tells you where you are; `Esc` steps back to Home.
 
@@ -55,7 +55,7 @@ Some of the most exciting moments in the ecosystem happen when an abandoned favo
 
 ![The query box: colors, a change badge and its actions](docs/images/query-save.png)
 
-Prefer visual controls? Stay in **Basic** mode to combine search terms, `/regex/`, and quick filter chips behind the **Filter** menu. Want total precision? Flip to **Query** mode—because under the hood, **every list in Community Radar is just an editable query**:
+Prefer visual controls? Stay in **Basic** mode to combine search terms, `/regex/`, and quick filter chips behind the **Filter** menu. Want total precision? Flip to **Query** mode—because under the hood, **every list in Pindex is just an editable query**:
 
 ```sql
 listed <= 30d AND downloads >= 50 AND NOT library
@@ -63,7 +63,7 @@ order by gain(30d) desc
 ```
 
 - **Fields with a parameter, any window:** `gain(21d)` (downloads gained), `rise(7d)` (% growth), `releases(180d)` (updates), `milestone(10k)` (the day it reached 10K), from a year of daily download history. Plus `incubated`, `hatched`, `installed`, `group`, `rating`, `removed`, and dates like `startOfMonth(-1)` or `lastSync()`.
-- **Guided as you type:** Press `Ctrl+Space` for context-aware autocomplete (including your own groups, statuses, and plugin authors), hover over any token to see a plain-English explanation, or open **Help** (**?**): a Quick start, the Ready-made queries and the Query guide in one window. If a query returns zero results, Community Radar even tells you **which clause emptied the list**.
+- **Guided as you type:** Press `Ctrl+Space` for context-aware autocomplete (including your own groups, statuses, and plugin authors), hover over any token to see a plain-English explanation, or open **Help** (**?**): a Quick start, the Ready-made queries and the Query guide in one window. If a query returns zero results, Pindex even tells you **which clause emptied the list**.
 - **Saved Views:** Customize any query and save it as a **View**—its own card on Home, with a `+N` badge for unseen matches. → *[Full Query Reference](docs/query.md)*
 
 ---
@@ -96,7 +96,7 @@ Work the way that fits the task at hand:
 
 ![Your library, in sections by group](docs/images/tracked.png)
 
-Community Radar doesn't lock your curation inside a private database. The moment you add a plugin to your library (**🔖**) or group it (**＋**), it creates a clean Markdown note inside your vault:
+Pindex doesn't lock your curation inside a private database. The moment you add a plugin to your library (**🔖**) or group it (**＋**), it creates a clean Markdown note inside your vault:
 
 - **Structured frontmatter + untouched personal notes:** Your `groups`, `rating` (1–5), custom emoji `status`, and personal thoughts stay yours, while catalog stats and the embedded **README** stay fresh automatically (with `#tags` and `[[wikilinks]]` safely escaped so they never pollute your graph).
 - **One-click Obsidian Bases:** Generate a ready-made `.base` view from Settings to filter, sort, and edit your entire plugin library as a native Obsidian database table. → *[Library Notes Guide](docs/library-notes.md)*
@@ -107,14 +107,14 @@ Community Radar doesn't lock your curation inside a private database. The moment
 ## Install
 
 1. Open **Settings → Community plugins → Browse** in Obsidian.
-2. Search for **Community Radar**, then click **Install** and **Enable**.
-3. Click the **radar icon** in the left ribbon—or run `Community Radar: Open Community Radar` from the Command Palette.
+2. Search for **Pindex**, then click **Install** and **Enable**.
+3. Click the **radar icon** in the left ribbon—or run `Pindex: Open Pindex` from the Command Palette.
 
-**Interface languages:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Community Radar follows Obsidian's language (change it in *Settings → Language*). Corrections to any translation are welcome.
+**Interface languages:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Pindex follows Obsidian's language (change it in *Settings → Language*). Corrections to any translation are welcome.
 
 ### Up and Running in 60 Seconds
 
-1. **Let the initial sync finish:** Community Radar fetches the public plugin catalog, the 6-year release archive, and the semantic similarity index (~3 MB total).
+1. **Let the initial sync finish:** Pindex fetches the public plugin catalog, the 6-year release archive, and the semantic similarity index (~3 MB total).
 2. **Check Home:** Scan *What's new* and click into a discovery card like *Rising* or *Incubation*.
 3. **Curate your first plugin:** Add something interesting to your library (**🔖**) or group it (**＋**)—its Markdown note is created instantly in your vault (and you can generate an **Obsidian Bases** view anytime from Settings).
 4. **Make it yours:** Open any card's list, switch from **Basic** to **Query** to inspect its rule, tweak it, and save your own custom view.
@@ -124,7 +124,7 @@ Community Radar doesn't lock your curation inside a private database. The moment
 ## Privacy by Design
 
 - **No accounts, no telemetry, no analytics.** Nothing about you or your vault is ever collected.
-- **Strictly scoped vault access.** Community Radar only reads and writes inside its designated plugin notes folder—it never scans the rest of your vault.
+- **Strictly scoped vault access.** Pindex only reads and writes inside its designated plugin notes folder—it never scans the rest of your vault.
 - **Public data & keychain security.** Syncs fetch static public files from GitHub. AI requests happen **only** when you explicitly trigger a translation or group suggestion, using API keys stored exclusively in Obsidian's device-local keychain (`SecretStorage`). → *[Every network request, documented](docs/how-it-works.md#network)*
 
 ---

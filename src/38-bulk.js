@@ -347,7 +347,7 @@ class BulkBar extends ViewPart {
           done = Boolean(got);
           rejected = got?.rejected || 0;
         } catch (error) {
-          console.error("[Community Radar] bulk", error);
+          console.error("[Pindex] bulk", error);
           run.error = error.message;
         }
         run.active--;

@@ -139,7 +139,7 @@ class DiscoveryView extends ItemView {
       if (this.filtersOpen && !event.target.closest?.(".pdt-filter-menu, .menu")) this.closeFiltersPanel();
     });
     this.render();
-    this.plugin.sync.ensureFresh().catch((error) => console.error("[Community Radar] sync on open", error));
+    this.plugin.sync.ensureFresh().catch((error) => console.error("[Pindex] sync on open", error));
   }
 
   async onClose() {

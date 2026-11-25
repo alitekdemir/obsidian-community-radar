@@ -486,7 +486,7 @@ class RadarSettingTab extends PluginSettingTab {
       line.setText(t("set.todo", { list: [...known.map(part), readme ? part(["set.todo.readme", readme]) : t("set.todo.counting")].join(" · ") }));
     };
     draw(null);
-    plugin.readmes.untranslated().then(draw).catch((error) => console.warn("[Community Radar] untranslated READMEs", error));
+    plugin.readmes.untranslated().then(draw).catch((error) => console.warn("[Pindex] untranslated READMEs", error));
   }
 
   /** Thinking: the model's default or off, greyed out where the provider or model doesn't allow switching. */

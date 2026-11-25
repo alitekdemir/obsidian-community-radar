@@ -140,7 +140,7 @@ class Cache {
     try {
       return (await this.adapter.exists(this.path(name))) ? JSON.parse(await this.adapter.read(this.path(name))) : fallback;
     } catch (error) {
-      console.warn(`[Community Radar] couldn't read the ${name} cache; it will be rebuilt`, error);
+      console.warn(`[Pindex] couldn't read the ${name} cache; it will be rebuilt`, error);
       return fallback;
     }
   }
@@ -185,7 +185,7 @@ class TranslationStore {
       try {
         text = (await this.adapter.exists(this.path)) ? await this.adapter.read(this.path) : "";
       } catch (error) {
-        console.warn("[Community Radar] couldn't read translations.jsonl", error);
+        console.warn("[Pindex] couldn't read translations.jsonl", error);
         return;
       }
       let lines = 0;
@@ -202,7 +202,7 @@ class TranslationStore {
           try {
             line.split(/(?<=\})(?=\{"k":)/).forEach(read);   // only here: splitting every line costs ~100 ms at startup
           } catch {
-            console.warn("[Community Radar] skipped a broken line in translations.jsonl");
+            console.warn("[Pindex] skipped a broken line in translations.jsonl");
           }
         }
       }

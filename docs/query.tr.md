@@ -2,7 +2,7 @@
 
 *[English](query.md) · Türkçe*
 
-Community Radar'daki her liste bir sorgudur: *Tümü* ve Ana sayfadaki her kart (*Yeni*, *Güncellenen*, *Kuluçka*, *Öneriler*, kaydettiğiniz görünümler…). Kart kendi listesini açar; kutunun yanındaki **Sorgu**'ya basınca sorgusunu görür, değiştirirsiniz; **Basit** düz aramaya ve **Filtre** paneline döner. Değişen bir sorgu **● N değişiklik** rozeti gösterir: onu bir görünüm olarak (Ana sayfada kendi kartı olur) ya da hazır bir kartsa kartın kendi sorgusunun üzerine kaydedin (kartın **⋮ › “…” sorgusunu düzenle** seçeneği; kendi sorgunuzu kaydettikten sonra **Sorguyu varsayılana döndür** varsayılanı geri getirir).
+Pindex'teki her liste bir sorgudur: *Tümü* ve Ana sayfadaki her kart (*Yeni*, *Güncellenen*, *Kuluçka*, *Öneriler*, kaydettiğiniz görünümler…). Kart kendi listesini açar; kutunun yanındaki **Sorgu**'ya basınca sorgusunu görür, değiştirirsiniz; **Basit** düz aramaya ve **Filtre** paneline döner. Değişen bir sorgu **● N değişiklik** rozeti gösterir: onu bir görünüm olarak (Ana sayfada kendi kartı olur) ya da hazır bir kartsa kartın kendi sorgusunun üzerine kaydedin (kartın **⋮ › “…” sorgusunu düzenle** seçeneği; kendi sorgunuzu kaydettikten sonra **Sorguyu varsayılana döndür** varsayılanı geri getirir).
 
 ```
 downloads > 500 AND released < 30d AND group in ("Tasks", Calendar) AND NOT installed
