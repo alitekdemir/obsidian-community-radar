@@ -108,7 +108,7 @@ Pindex doesn't lock your curation inside a private database. The moment you add 
 
 1. Open **Settings → Community plugins → Browse** in Obsidian.
 2. Search for **Pindex**, then click **Install** and **Enable**.
-3. Click the **radar icon** in the left ribbon—or run `Pindex: Open Pindex` from the Command Palette.
+3. Click the **Pindex icon** (a P with an i, "Pi") in the left ribbon—or run `Pindex: Open Pindex` from the Command Palette.
 
 **Interface languages:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Pindex follows Obsidian's language (change it in *Settings → Language*). Corrections to any translation are welcome.
 

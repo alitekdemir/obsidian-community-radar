@@ -108,7 +108,7 @@ Pindex kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi kitapl�
 
 1. Obsidian'da **Ayarlar → Topluluk eklentileri → Göz at** yolunu izleyin.
 2. **Pindex** aratın, **Kur** ve **Etkinleştir** düğmelerine basın.
-3. Sol şeritteki **radar simgesine** tıklayın veya Komut Paletinden `Pindex: Pindex'i aç` komutunu çalıştırın.
+3. Sol şeritteki **Pindex simgesine** (içinde i olan bir P, "Pi") tıklayın veya Komut Paletinden `Pindex: Pindex'i aç` komutunu çalıştırın.
 
 **Arayüz dilleri:** English, Türkçe, Deutsch, Русский, 日本語, 简体中文. Pindex, Obsidian'ın dilini izler (*Ayarlar → Dil*'den değiştirilebilir). Çevirilere düzeltmeler memnuniyetle karşılanır.
 

@@ -135,10 +135,9 @@ const KEY_NAMES = {
   openrouter: "openrouter-api-key",
 };
 
-/** Radar: two range rings, a sweep line and a blip. Drawn on Lucide's 24-unit grid, scaled to Obsidian's 100. */
+/** Pindex: a P whose bowl holds the dot of an "i" whose stem hangs below it ("Pi"). Lucide's 24-unit grid, scaled to Obsidian's 100. */
 const ICON_SVG = `<g transform="scale(4.1667)" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 4a16 16 0 0 1 16 16"/><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 20 14.5 9.5"/>
-<circle cx="4" cy="20" r="1.6" fill="currentColor" stroke="none"/><circle cx="16.5" cy="14" r="2" fill="currentColor" stroke="none"/></g>`;
+<path d="M7 19V3h6a5 5 0 0 1 0 10H7"/><circle cx="13" cy="8" r="1.4" fill="currentColor" stroke="none"/><path d="M13 16.5v5"/></g>`;
 
 // ─── i18n ───────────────────────────────────────────────────────────────────
 /** Supported locale codes → native language names, filled at build time from locales/*.json. */
