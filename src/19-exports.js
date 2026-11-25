@@ -21,7 +21,7 @@ const core = {
   // markdown, README & notes
   escapeOutsideCode, absolutizeLinks, readmeBody, readmeSection, readmeVersion, readmeMeta, readmeText,
   textHash, translationSection, replaceReadme, readmeTranslation, replaceReadmeTranslation, skipDevSections,
-  noteBody, stripDescription, migrateHeadings, migrateStatuses, migrateImages,
+  noteBody, stripDescription, migrateHeadings, migrateStatuses, migrateImages, migrateMarkers,
   baseFile, sourceFields, noteFromFrontmatter, groupsOf, uniqueNames,
   // AI, translation, profiles & similar
   PROVIDERS, KEY_NAMES, sumUsage, tokenPrice, formatPrice, filterModels, aiEstimate, errorDetail,

@@ -21,7 +21,7 @@ function languageChip(parent, { original, translation, translated, target, swap 
 }
 
 /**
- * What an AI job will take (PluginRadar.estimate): "12,400 characters · ≈ 6,200 tokens · ≈ $0.01 · model". Before
+ * What an AI job will take (PindexPlugin.estimate): "12,400 characters · ≈ 6,200 tokens · ≈ $0.01 · model". Before
  * the model has done a few of the kind, the cost is the list price's floor: "≥ $0.01".
  */
 function estimateLine(estimate, settings) {

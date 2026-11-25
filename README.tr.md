@@ -94,7 +94,7 @@ O anki işinize en uygun düzende çalışın:
 
 ### 📝 Yaşayan Kasa Notları, Obsidian Bases ve İsteğe Bağlı Yapay Zekâ
 
-![Grup bölümlerine ayrılmış kitaplığınız](docs/images/tracked.png)
+![Grup bölümlerine ayrılmış kitaplığınız](docs/images/library.png)
 
 Pindex kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi kitaplığa eklediğiniz (**🔖**) veya bir gruba eklediğiniz (**＋**) anda kasanızda temiz bir Markdown notu oluşturur:
 

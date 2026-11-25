@@ -97,8 +97,8 @@ fake.SuggestModal = class {
 };
 const load = Module._load;
 Module._load = function (req, ...rest) { return req === "obsidian" ? fake : load.call(this, req, ...rest); };
-const PluginRadar = require("../main.js");
-const { core } = PluginRadar;
+const PindexPlugin = require("../main.js");
+const { core } = PindexPlugin;
 const $ = (root, sel) => root.querySelector(sel);
 const $$ = (root, sel) => [...root.querySelectorAll(sel)];
 const tick = (ms = 0) => new Promise((r) => setTimeout(r, ms));
@@ -202,7 +202,7 @@ const tests = {
     const app = fake.makeApp();
     app.vault.files.set("Eklentiler/Homepage.md",
       `---\nplugin_id: homepage\ngroup: ai\nreviewed: '${core.dayString(ago(20))}'\n---\nx\n\n## Notlarım\nmine\n\n# README\n${core.constants.README_START}\n${core.constants.README_END}\n`);
-    const plugin = new PluginRadar(app, { dir: ".obsidian/plugins/plugin-radar" });
+    const plugin = new PindexPlugin(app, { dir: ".obsidian/plugins/plugin-radar" });
     plugin._data = { settings: { folder: "Eklentiler", mode: "updated", days: 14 }, excluded: { busy: "2026-10-01" }, migrations: {} };
     await plugin.onload();
     await tick(10);
@@ -279,7 +279,7 @@ const tests = {
 
   async "migrations: every step runs once, in order; a pre-0.10 view becomes its query, not \"undefined\""() {
     const app = fake.makeApp();
-    const plugin = new PluginRadar(app, { dir: ".obsidian/plugins/plugin-radar" });
+    const plugin = new PindexPlugin(app, { dir: ".obsidian/plugins/plugin-radar" });
     plugin._data = { settings: { home: { views: [{ id: "v1", name: "Mine", mode: "updated", filters: {} }] } }, migrations: {} };
     await plugin.onload();
     await tick(10);
@@ -292,7 +292,7 @@ const tests = {
   },
 
   async "migrations: a 0.15 data.json opens on the Library with its menus, columns, card and Undo entries"() {
-    const plugin = new PluginRadar(fake.makeApp(), { dir: ".obsidian/plugins/plugin-radar" });
+    const plugin = new PindexPlugin(fake.makeApp(), { dir: ".obsidian/plugins/plugin-radar" });
     plugin._data = {
       settings: {
         mode: "tracked", section: "list", trackedGroup: "Tasks", trackedSections: false,
@@ -316,7 +316,7 @@ const tests = {
   },
 
   async "migrations: a view the old order left as \"undefined\" gets its query back"() {
-    const plugin = new PluginRadar(fake.makeApp(), { dir: ".obsidian/plugins/plugin-radar" });
+    const plugin = new PindexPlugin(fake.makeApp(), { dir: ".obsidian/plugins/plugin-radar" });
     const done = Object.fromEntries(["h1Headings", "groupsList", "statusKeys", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages"].map((k) => [k, "2026-10-01"]));
     const broken = { id: "v1", name: "Mine", mode: "updated", filters: {}, query: "undefined" };
     const fine = { id: "v2", name: "Ok", query: "downloads >= 1k" };
@@ -687,7 +687,7 @@ const tests = {
     await plugin.cache.write("catalog", plugin.catalog);   // what the last session left
     let ready;
     const later = { ...app, workspace: { ...app.workspace, onLayoutReady: (cb) => { ready = cb; } } };
-    const restarted = new PluginRadar(later, { dir: plugin.manifest.dir });
+    const restarted = new PindexPlugin(later, { dir: plugin.manifest.dir });
     restarted._data = plugin._data;
     await restarted.onload();
     fake.network.calls.length = 0;

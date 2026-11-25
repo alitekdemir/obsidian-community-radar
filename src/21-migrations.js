@@ -82,6 +82,8 @@ async function runMigrations(plugin) {
     }],
     // 0.16: the query field `tracked` is `library`, like the Library page (after libraryGroupBy, which writes queries)
     ["libraryField", () => migrateLibraryField(st)],
+    // 0.17: Community Radar is Pindex; the notes' README markers follow (before any README refresh looks for them)
+    ["pindexMarkers", () => plugin.notes.migrate(migrateMarkers)],
   ];
   let ran = false;
   for (const [key, run] of steps) {

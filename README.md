@@ -94,7 +94,7 @@ Work the way that fits the task at hand:
 
 ### 📝 Living Vault Notes, Obsidian Bases & Optional AI
 
-![Your library, in sections by group](docs/images/tracked.png)
+![Your library, in sections by group](docs/images/library.png)
 
 Pindex doesn't lock your curation inside a private database. The moment you add a plugin to your library (**🔖**) or group it (**＋**), it creates a clean Markdown note inside your vault:
 

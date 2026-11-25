@@ -37,15 +37,15 @@ A plugin can be in several groups (`groups` is a list). `reviewed` is set when y
 
 - **My notes** (the heading is set in *Settings → Heading of your notes*): yours, never touched.
 - **README (your language)**: when you ask for a translation. A hidden fingerprint of the README it came from tells Pindex when the README has changed since.
-- **README**: owned by the plugin, between two hidden `%% community-radar:readme-start/end %%` comments. It's refreshed when you open the note (or on every sync, or only by command: *Settings → README updates*). Tags and wiki links in it are escaped so they don't leak into your vault; code blocks stay as they are.
+- **README**: owned by the plugin, between two hidden `%% pindex:readme-start/end %%` comments. It's refreshed when you open the note (or on every sync, or only by command: *Settings → README updates*). Tags and wiki links in it are escaped so they don't leak into your vault; code blocks stay as they are.
 
-![A library note: properties, My notes and the plugin's README](images/Radar_4-Note.png)
+![A library note: properties, My notes and the plugin's README](images/library-note.png)
 
 ## Bases view
 
 *Settings → Reset Bases view → Create* (or the command *Create or reset the Bases view*) writes a `.base` file that lists all your library notes as a table you can sort, filter and edit in place.
 
-![Your library in a Bases table, editable in place](images/Radar_5-Bases_Note.png)
+![Your library in a Bases table, editable in place](images/library-bases.png)
 
 ## AI, optional
 

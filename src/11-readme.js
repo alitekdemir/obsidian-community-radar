@@ -72,6 +72,11 @@ function migrateImages(content) {
     .replace(/(<img\b[^>]*?\bsrc=)(["'])([^"']+)\2/gi, (all, head, q, url) => `${head}${q}${rawImage(url)}${q}`))));
 }
 
+/** 0.17: the README markers carry the plugin's new name (`%% community-radar:readme-… %%` → `%% pindex:readme-… %%`). */
+function migrateMarkers(content) {
+  return content.replace(/%% community-radar:readme-/g, "%% pindex:readme-");
+}
+
 /** Points relative images and links to GitHub; images on a GitHub page (`/blob/`) to the file itself. */
 // ─── English source ───────────────────────────────────────────────────────────
 // A README in another language (mostly Chinese, Japanese, Russian, Korean) often links an English version

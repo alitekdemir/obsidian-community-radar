@@ -37,15 +37,15 @@ Bir eklenti birden fazla grupta olabilir (`groups` bir listedir). `reviewed`, ye
 
 - **Notlarım** (başlığı *Ayarlar → Notlarınızın başlığı*'ndan ayarlanır): sizindir, hiç dokunulmaz.
 - **README (sizin dilinizde)**: çeviri istediğinizde eklenir. Çevrildiği README'nin gizli parmak izi, metnin o zamandan beri değişip değişmediğini Pindex'e bildirir.
-- **README**: eklentiye aittir, iki gizli `%% community-radar:readme-start/end %%` yorumu arasında durur. Notu açtığınızda yenilenir (ya da her eşitlemede, ya da yalnızca komutla: *Ayarlar → README güncelleme*). İçindeki etiketler ve wiki bağlantıları kasanıza sızmaması için kaçış karakteriyle korunur; kod blokları olduğu gibi kalır.
+- **README**: eklentiye aittir, iki gizli `%% pindex:readme-start/end %%` yorumu arasında durur. Notu açtığınızda yenilenir (ya da her eşitlemede, ya da yalnızca komutla: *Ayarlar → README güncelleme*). İçindeki etiketler ve wiki bağlantıları kasanıza sızmaması için kaçış karakteriyle korunur; kod blokları olduğu gibi kalır.
 
-![Bir kitaplık notu: özellikler, Notlarım ve eklentinin README'si](images/Radar_4-Note.png)
+![Bir kitaplık notu: özellikler, Notlarım ve eklentinin README'si](images/library-note.png)
 
 ## Bases görünümü
 
 *Ayarlar → Bases görünümünü sıfırla → Oluştur* (ya da *Bases görünümünü oluştur ya da sıfırla* komutu) tüm kitaplık notlarınızı yerinde sıralayıp filtreleyip düzenleyebileceğiniz bir tablo olarak listeleyen bir `.base` dosyası yazar.
 
-![Bases tablosunda kitaplığınız, yerinde düzenlenebilir](images/Radar_5-Bases_Note.png)
+![Bases tablosunda kitaplığınız, yerinde düzenlenebilir](images/library-bases.png)
 
 ## Yapay zekâ, isteğe bağlı
 

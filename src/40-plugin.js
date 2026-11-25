@@ -1,5 +1,5 @@
 // ─── 5. Plugin ──────────────────────────────────────────────────────────────
-class PluginRadar extends Plugin {
+class PindexPlugin extends Plugin {
   async onload() {
     addIcon(ICON, ICON_SVG);
     this.github = new GitHub();
@@ -43,7 +43,7 @@ class PluginRadar extends Plugin {
 
     this.registerView(VIEW_TYPE, (leaf) => new DiscoveryView(leaf, this));
     this.addRibbonIcon(ICON, t("view.title"), () => this.openView());
-    this.addSettingTab(new RadarSettingTab(this.app, this));
+    this.addSettingTab(new PindexSettingTab(this.app, this));
     this.watchMotion();
     this.addCommands();
 
@@ -636,6 +636,6 @@ class PluginRadar extends Plugin {
   }
 }
 
-module.exports = PluginRadar;
+module.exports = PindexPlugin;
 Object.assign(core, { TranslationStore, Translator });   // classes: defined after 19-exports.js
 module.exports.core = core;  // exposed for tests only

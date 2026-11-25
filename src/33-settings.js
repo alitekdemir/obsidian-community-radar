@@ -17,7 +17,7 @@ function fxPreview(box, fx) {
   showReading(parts, fx, 1);
 }
 
-class RadarSettingTab extends PluginSettingTab {
+class PindexSettingTab extends PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;

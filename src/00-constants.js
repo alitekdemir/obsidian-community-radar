@@ -20,7 +20,7 @@ const {
 
 // ─── 1. Constants ───────────────────────────────────────────────────────────
 const VIEW_TYPE = "plugin-radar-view";
-const ICON = "plugin-radar";
+const ICON = "pindex";
 const PLUGIN_REPO = "alitekdemir/obsidian-pindex";
 const REPO = "obsidianmd/obsidian-releases";
 const STATS_FILE = "community-plugin-stats.json";
@@ -85,10 +85,10 @@ const SERIES_DAYS = 365;
 const SERIES_DAILY = 30;
 
 // Obsidian comments (%% %%) stay hidden in Live Preview and Reading view.
-const README_START = "%% community-radar:readme-start %%";
-const README_END = "%% community-radar:readme-end %%";
-const README_TR_START = "%% community-radar:readme-translation-start %%";   // the README in your language (on request)
-const README_TR_END = "%% community-radar:readme-translation-end %%";
+const README_START = "%% pindex:readme-start %%";
+const README_END = "%% pindex:readme-end %%";
+const README_TR_START = "%% pindex:readme-translation-start %%";   // the README in your language (on request)
+const README_TR_END = "%% pindex:readme-translation-end %%";
 const MAX_OUTPUT_TOKENS = 32000;   // a reply's ceiling where the provider needs one (Anthropic): a whole README in one request
 // README sections the saving setting leaves out of a translation: a heading of up to 4 words with one of these
 // (installing, building, contributing, licence, privacy…: for developers, and the store installs plugins anyway)
