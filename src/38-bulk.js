@@ -7,6 +7,7 @@ class BulkBar extends ViewPart {
   // ── Group suggestions for the picked rows: the AI's groups under each row, a click saves right away ──
   /** Asks the AI for groups for the picked plugins (the first AI_BATCH); they show under the rows while picked. */
   async suggestGroups() {
+    if (this.view.suggest?.loading) return;
     const ids = [...this.view.selected].slice(0, AI_BATCH);
     if (!this.plugin.translator.ready) return new Notice(t("groups.aiSetup"));
     const suggest = { ids: new Set(ids), lists: {}, loading: true, error: "" };
@@ -27,10 +28,11 @@ class BulkBar extends ViewPart {
     return !LIST_MODES.includes(this.settings.mode);
   }
 
-  /** Drops the picks (and the group suggestions that came with them). */
+  /** Drops the picks (and the group suggestions and Shift+click anchor that came with them). */
   clearSelection() {
     this.view.selected.clear();
     this.view.suggest = null;
+    this.view.lastPicked = null;
   }
 
   /** Picks or drops a row; with Shift, every row between it and the last one picked. */
@@ -44,16 +46,19 @@ class BulkBar extends ViewPart {
     this.syncSelection();
   }
 
-  /** Rows and the bar follow the selection without redrawing the list. */
+  /** Rows, table select-all box and the bar follow the selection without redrawing the list. */
   syncSelection() {
-    for (const row of this.view.refs.list?.querySelectorAll(".pdt-row, .pdt-trow") || []) {
+    const rows = [...(this.view.refs.list?.querySelectorAll(".pdt-row, .pdt-trow") || [])];
+    for (const row of rows) {
       const on = this.view.selected.has(row.dataset.id);
       row.toggleClass("is-selected", on);
       const box = row.querySelector(".pdt-select");
       if (box) box.checked = on;
     }
+    const headBox = this.view.refs.list?.querySelector("thead input.pdt-select");
+    if (headBox) headBox.checked = rows.length > 0 && rows.every((r) => this.view.selected.has(r.dataset.id));
     this.view.refs.list?.toggleClass("is-selecting", this.view.selected.size > 0);
-    if (!this.view.selected.size && this.view.refs.list?.querySelector(".pdt-grouping-chips")) { this.view.suggest = null; this.view.refresh(); return; }   // no picks, no AI groups
+    if (!this.view.selected.size && this.view.refs.list?.querySelector(".pdt-grouping-chips")) { this.view.suggest = null; this.view.refresh(); return; }
     this.renderBulk();
   }
 
@@ -80,7 +85,7 @@ class BulkBar extends ViewPart {
     };
     const divider = () => bar.createSpan({ cls: "pdt-bulk-divider" });
     divider();
-    action("bell-plus", t("bulk.track"), () => this.runBulk("track"));
+    action("bookmark-plus", t("bulk.library"), () => this.runBulk("library"));
     action("star", t("bulk.rate"), (button) => this.openRating(button), { caret: true });
     action("folder-plus", t("bulk.group"), (button) => showMenuBelow(button, [...this.plugin.notes.groups().map((g) => [g.name, g.name]), [null, t("bulk.newGroup")]], undefined,
       async (name) => {
@@ -88,7 +93,7 @@ class BulkBar extends ViewPart {
         if (group) this.runBulk("group", group);
       }), { caret: true });
     if (this.settings.aiGroups) action("sparkles", t("bulk.suggest"), () => this.suggestGroups(), { tip: t("bulk.suggestTip", { n: Math.min(this.view.selected.size, AI_BATCH) }) });
-    if (this.settings.mode === "tracked") action("check-check", t("bulk.reviewed"), () => this.runBulk("reviewed"));
+    if (this.settings.mode === "library") action("check-check", t("bulk.reviewed"), () => this.runBulk("reviewed"));
     divider();
     action("languages", t("bulk.translate"), (button) => this.openTranslate(button), { caret: true });
     divider();
@@ -104,7 +109,10 @@ class BulkBar extends ViewPart {
     const toast = footer.createDiv({ cls: "pdt-toast", attr: { role: "status" } });
     setIcon(toast.createSpan({ cls: "pdt-toast-icon" }), icon ?? (op ? "check" : "rotate-ccw"));
     toast.createSpan({ text });
-    if (op?.changes.length) toast.createEl("button", { cls: "pdt-toast-undo", text: t("bulk.undo") }).onclick = () => this.undoOp(op);
+    if (op?.changes.length) {
+      const undo = toast.createEl("button", { cls: "pdt-toast-undo", text: t("bulk.undo"), attr: { type: "button" } });
+      undo.onclick = async () => { if (undo.disabled) return; undo.disabled = true; await this.undoOp(op); };
+    }
     smallButton(toast, "x", t("bulk.close"), () => { this.view.toast = null; this.renderBulk(); });
   }
 
@@ -159,18 +167,20 @@ class BulkBar extends ViewPart {
     this.updateRun(run);
   }
 
-  /** The picked plugins, in the list's order. */
+  /** The picked plugins, in the list's order (includes installed removed plugins via pluginById). */
   picked() {
-    return [...this.view.selected].map((id) => this.plugin.pluginById(id)).filter(Boolean);
+    const inOrder = (this.view.rows || []).filter((r) => this.view.selected.has(r.id));
+    const seen = new Set(inOrder.map((r) => r.id));
+    return [...inOrder, ...[...this.view.selected].filter((id) => !seen.has(id)).map((id) => this.plugin.pluginById(id)).filter(Boolean)];
   }
 
   /** Puanla: the same stars as a row's ★, over the button; Clear when any of the picked ones is rated. */
   openRating(button) {
     const rated = this.picked().some((p) => this.plugin.notes.index.get(p.id)?.rating);
-    new Popover(button, { cls: "pdt-bulk-pop", label: t("bulk.rate"), above: true, fill: (box, pop) => {
+    this.view.trackPopover(new Popover(button, { cls: "pdt-bulk-pop", label: t("bulk.rate"), above: true, fill: (box, pop) => {
       ratingButtons(box, 0, (n) => { pop.close(); this.runBulk("rating", n); });
       if (rated) box.createEl("button", { cls: "pdt-rate-clear", text: t("rating.clear"), attr: { type: "button" } }).onclick = () => { pop.close(); this.runBulk("rating", null); };
-    } }).open();
+    } }).open());
   }
 
   // ── Çevir: the picked plugins' descriptions, Overviews and READMEs ──
@@ -180,7 +190,7 @@ class BulkBar extends ViewPart {
     const settings = this.plugin.data.settings;
     const descriptions = this.plugin.untranslatedDescriptions(plugins);
     const overviews = this.plugin.pendingOverviews(plugins);
-    new Popover(button, { cls: "pdt-bulk-pop pdt-bulk-menu", label: t("bulk.translate"), above: true, fill: (box, pop) => {
+    this.view.trackPopover(new Popover(button, { cls: "pdt-bulk-pop pdt-bulk-menu", label: t("bulk.translate"), above: true, fill: (box, pop) => {
       box.setAttribute("role", "menu");
       box.createDiv({ cls: "pdt-bulk-menu-head", text: t("bulk.tr.head", { n: plugins.length, lang: settings.targetLang }) });
       const item = (icon, title, sub, hint, run) => {
@@ -189,7 +199,7 @@ class BulkBar extends ViewPart {
         const text = row.createSpan({ cls: "pdt-bulk-item-text" });
         text.createSpan({ text: title });
         text.createSpan({ cls: "pdt-bulk-item-sub", text: sub });
-        const lines = row.createSpan({ cls: "pdt-bulk-item-hint" });   // an estimate: tokens over cost, so the title keeps its room
+        const lines = row.createSpan({ cls: "pdt-bulk-item-hint" });
         for (const line of [hint].flat()) lines.createSpan({ text: line });
         row.onclick = () => { pop.close(); run(); };
       };
@@ -200,7 +210,7 @@ class BulkBar extends ViewPart {
       box.createDiv({ cls: "pdt-bulk-menu-sep" });
       item("download", t("bulk.tr.fetch"), t("bulk.tr.fetchSub"), t("bulk.tr.noAi"), () => this.downloadReadmes(plugins));
       item("file-text", t("bulk.tr.readme"), t("bulk.tr.readmeSub"), t("bulk.tr.later"), () => this.translateReadmes(plugins));
-    } }).open();
+    } }).open());
   }
 
   /**
@@ -216,7 +226,7 @@ class BulkBar extends ViewPart {
     this.clearSelection();
     const batches = [];
     for (let i = 0; i < pending.length; i += PAGE_SIZE) batches.push(pending.slice(i, i + PAGE_SIZE));
-    const result = await this.runEach(t("bulk.tr.descRun"), batches, (batch) => this.plugin.translateBatch(batch),
+    const result = await this.runEach(t("bulk.tr.descRun"), batches, (batch, runId) => this.plugin.translateBatch(batch, null, { runId }),
       { weight: (batch) => batch.length, ai: true, estimate });
     pending.filter((p) => this.plugin.cachedTranslation(p) != null).forEach((p) => this.view.setDescTranslated(p, true));
     this.finish(this.summary(result));
@@ -234,7 +244,7 @@ class BulkBar extends ViewPart {
     const estimate = this.plugin.estimateOverviews(pending.length);
     if (!(await this.askTranslate("overview", pending, estimate))) return;
     this.clearSelection();
-    this.finish(this.summary(await this.runEach(t("bulk.tr.overviewRun"), pending, (p) => this.plugin.translateProfile(p, true), { ai: true, estimate })));
+    this.finish(this.summary(await this.runEach(t("bulk.tr.overviewRun"), pending, (p, runId) => this.plugin.translateProfile(p, true, false, { runId }), { ai: true, estimate })));
   }
 
   /** READMEs: missing or older ones downloaded first, then each translated whole, one after another. */
@@ -244,32 +254,32 @@ class BulkBar extends ViewPart {
     const texts = new Map();
     let fetched = 0;
     const download = await this.runEach(t("bulk.tr.fetchRun"), plugins.filter((p) => p.repo), async (p) => {
-      let { original, translation } = await this.plugin.readmeParts(p);
+      let { original, translation } = await this.plugin.readmes.parts(p);
       if (!original || (p.version && original.version !== p.version)) {
-        await this.plugin.fetchReadme(p);
+        await this.plugin.readmes.fetch(p);
         fetched++;
-        ({ original, translation } = await this.plugin.readmeParts(p));
+        ({ original, translation } = await this.plugin.readmes.parts(p));
       }
-      if (original && translation?.hash !== original.hash) texts.set(p.id, this.plugin.translationSource(original.text).text);
+      if (original && translation?.hash !== original.hash) texts.set(p.id, this.plugin.readmes.translationSource(original.text).text);
       return Boolean(original);
     });
-    if (download.left) return this.finish(this.summary(download, "bulk.tr.fetchedN"));   // stopped: nothing goes to the AI
+    if (download.left) return this.finish(this.summary(download, "bulk.tr.fetchedN"));
     const pending = plugins.filter((p) => texts.has(p.id));
     if (!pending.length) return this.finish(t("bulk.tr.upToDate"));
     const note = [t("bulk.tr.fetched", { n: fetched }), pending.some((p) => !this.plugin.notes.file(p.id)) ? t("bulk.tr.noNotes") : null].filter(Boolean).join(" · ");
     const estimate = this.plugin.estimate("readme", { text: [...texts.values()].join("\n"), requests: pending.length });
     if (!(await this.askTranslate("readme", pending, estimate, note))) return this.view.refresh();
-    this.finish(this.summary(await this.runEach(t("bulk.tr.readmeRun"), pending, (p) => this.plugin.translateReadme(p, () => {}, true), { ai: true, estimate })));
+    this.finish(this.summary(await this.runEach(t("bulk.tr.readmeRun"), pending, (p, runId) => this.plugin.readmes.translate(p, () => {}, true, null, { runId }), { ai: true, estimate })));
   }
 
-  /** READMEs into the notes (or the cache, for the untracked ones); no AI. Up-to-date ones are left alone. */
+  /** READMEs into the notes (or the cache, for those not in your library); no AI. Up-to-date ones are left alone. */
   async downloadReadmes(plugins) {
     this.clearSelection();
     const result = await this.runEach(t("bulk.tr.fetchRun"), plugins.filter((p) => p.repo), async (p) => {
-      const { original } = await this.plugin.readmeParts(p);
+      const { original } = await this.plugin.readmes.parts(p);
       if (original && (!p.version || original.version === p.version)) return true;
-      await this.plugin.fetchReadme(p);
-      return Boolean((await this.plugin.readmeParts(p)).original);
+      await this.plugin.readmes.fetch(p);
+      return Boolean((await this.plugin.readmes.parts(p)).original);
     });
     this.finish(this.summary(result, "bulk.tr.fetchedN"));
   }
@@ -301,16 +311,18 @@ class BulkBar extends ViewPart {
    *   their usage summed (sumUsage: the cost only when every reply told it); why it stopped itself
    */
   async runEach(label, items, work, { weight = () => 1, ai = false, estimate = null } = {}) {
+    if (this.view.bulkRun) return { ok: 0, failed: 0, rejected: 0, left: items.length, requests: 0, usage: null, reason: "", expected: null };
     const translator = this.plugin.translator;
+    const runId = Symbol("bulkRun");
     const run = { label, done: 0, total: items.reduce((n, item) => n + weight(item), 0), stop: false, reason: "", active: 0,
       limit: ai ? AI_PARALLEL : PARALLEL, usage: null };
     const result = { ok: 0, failed: 0, rejected: 0, left: 0, requests: 0, usage: null, reason: "", expected: null };
     const usages = [];
     const cap = estimate?.cost ? estimate.cost * BUDGET_SLACK : null;
-    const watch = (event, data) => {
+    const watch = (event, data, eventRunId) => {
       if (event === "rateLimited") run.limit = Math.max(1, run.limit - 1);
-      if (event !== "usage") return;
-      usages.push({ input: (data.input || 0) + (data.output || 0), cost: data.cost, model: data.model });
+      if (event !== "usage" || (eventRunId != null && eventRunId !== runId)) return;
+      usages.push(data);
       result.requests = usages.length;
       run.usage = result.usage = sumUsage(usages, this.plugin.data.settings.model);
       if (cap != null && run.usage.cost > cap) this.halt(run, t("bulk.tr.overBudget", { cost: formatCost(run.usage.cost) }));
@@ -324,14 +336,14 @@ class BulkBar extends ViewPart {
     let failures = 0;
     const worker = async (slot) => {
       while (!run.stop && next < items.length) {
-        if (slot >= run.limit) { await sleep(500); continue; }   // the run slowed down after a rate limit
+        if (slot >= run.limit) break;   // rate limit lowered concurrency: retire this slot cleanly instead of busy-looping
         const item = items[next++];
         const n = weight(item);
         run.active++;
         let done = false;
-        let rejected = 0;   // answered, but not translated: not kept (translationProblem)
+        let rejected = 0;
         try {
-          const got = await work(item);
+          const got = await work(item, runId);
           done = Boolean(got);
           rejected = got?.rejected || 0;
         } catch (error) {
@@ -349,15 +361,17 @@ class BulkBar extends ViewPart {
         this.updateRun(run);
       }
     };
-    await Promise.all(Array.from({ length: Math.min(run.limit, items.length) }, (_, slot) => worker(slot)));
-    translator.watchers.delete(watch);
-    translator.halted = false;
+    try {
+      await Promise.all(Array.from({ length: Math.min(run.limit, items.length) }, (_, slot) => worker(slot)));
+    } finally {
+      translator.watchers.delete(watch);
+      translator.halted = false;
+      this.view.bulkRun = null;
+    }
     result.left = run.total - run.done;
     result.reason = run.reason;
-    // what the estimate said for the part that ran (a stopped run did less): the summary compares what it took
     const share = run.total ? run.done / run.total : 0;
     if (estimate && share) result.expected = { tokens: estimate.tokens * share, cost: estimate.cost == null ? null : estimate.cost * share };
-    this.view.bulkRun = null;
     return result;
   }
 
@@ -385,7 +399,7 @@ class BulkBar extends ViewPart {
     const ok = await this.confirm({ title: t(`bulk.ask.${key}`, vars), plugins, text: t(`bulk.what.${key}`), cta: t(`bulk.go.${key}`, vars) });
     if (!ok) return;
     this.clearSelection();
-    const op = await this.plugin.bulk(kind, plugins, value);
+    const op = await this.plugin.ops.bulk(kind, plugins, value);
     this.view.toast = { op, text: opLabel(op) };
     this.view.refresh();
   }
@@ -396,7 +410,7 @@ class BulkBar extends ViewPart {
 
   /** Undo of an operation (from the toast or Recent actions): what came back and what changed since. */
   async undoOp(op) {
-    const { restored, skipped } = await this.plugin.undo(op);
+    const { restored, skipped } = await this.plugin.ops.undo(op);
     this.view.toast = { op: null, text: t("bulk.undoneN", { n: restored }) + (skipped ? t("bulk.skipped", { n: skipped }) : "") };
     this.view.refresh();
   }

@@ -14,7 +14,7 @@ Hızla yükselen yeni eklentileri yakalayın, uzun bir sessizlikten uyananları 
 
 </div>
 
-![Community Radar: ana sayfa, sorgu, tablo, ayrıntılar, benzerler, takip](docs/images/demo.webp)
+![Community Radar: ana sayfa, sorgu, tablo, ayrıntılar, benzerler, kitaplık](docs/images/demo.webp)
 
 ---
 
@@ -24,7 +24,7 @@ Obsidian'ın yerleşik eklenti tarayıcısı adını bildiğiniz bir eklentiyi k
 
 - **Toplam indirme sayıları bugünkü ivmeyi gizler.** Beş yıllık dev eklentiler hep en üstte dururken, bu hafta bin yeni kullanıcı kazanan parlak bir eklenti diplerde kaybolur. Community Radar, **Ekim 2020'den bu yana her gün tutulan sürüm arşivini** işleyerek son 7 ve 30 günlük gerçek büyümeyi, aşılan indirme barajlarını ve sürüm ritmini görünür kılar.
 - **Sürekli yama çıkaranlar gerçek geri dönüşleri ezer.** İki günde bir ufak düzeltme yayınlayan eklentiler, diğer her şeyi ekranın dışına iter. Community Radar peş peşe çıkan yamaları *güncelleme dalgaları* olarak gruplar; gürültüyü susturup aylar (hatta yıllar) sonra dev bir güncellemeyle uyanan eklentileri sahneye çıkarır.
-- **"Buna sonra bakayım" dedikleriniz kaybolur.** Tarayıcı sekmeleri ve dağınık notlar unutulur. Burada bir eklentiyi takibe aldığınızda (**🔔**) veya grupladığınızda kasanızda puanınızı, durumunu, kişisel notlarınızı ve her zaman güncel kalan README'sini barındıran düzenli bir not oluşur; tek tıkla **Obsidian Bases** tablosuna dönüşür.
+- **"Buna sonra bakayım" dedikleriniz kaybolur.** Tarayıcı sekmeleri ve dağınık notlar unutulur. Burada bir eklentiyi kitaplığa eklediğinizde (**🔖**) veya grupladığınızda kasanızda puanınızı, durumunu, kişisel notlarınızı ve her zaman güncel kalan README'sini barındıran düzenli bir not oluşur; tek tıkla **Obsidian Bases** tablosuna dönüşür.
 
 ---
 
@@ -36,7 +36,7 @@ Obsidian'ın yerleşik eklenti tarayıcısı adını bildiğiniz bir eklentiyi k
 
 Sonsuz bir alfabetik listeye düşmek yerine doğrudan **Ana sayfa** ile başlarsınız.
 
-En üstteki **Yeni gelişmeler** şeridi; yeni çıkan eklentileri, takip ettiklerinizin yeni sürümlerini, yeni aşılan indirme barajlarını ve sessiz güncellemeleri son ziyaret gününüzden (ya da son 7 / 30 günden) bu yana sayar. Listeyi açtığınızda sayaçlar sıfırlanmaz: gün boyunca son baktığınız günden beri gelenleri gösterir ve bunu sorgusunda açıkça yazar (`listed >= 2026-11-11`). Hemen altında sürükleyip sıralayabileceğiniz keşif kartları yer alır: *Yeni*, *Güncellenen*, *Kuluçka*, *Yükselenler*, *Baraj geçenler*, *Takipte yeni sürüm*, *Takip ettiklerim*, *Gizlenenler* (ve eklenebilen *Öneriler*). Her kart bir sorgudur ve tıklayınca açtığı listeyi birebir sayar; üst sekme şeridinde yalnızca *Tümü* sabit durur, açtığınız kartın listesi yanında belirir. Kartın zaman aralığını veya eşiğini doğrudan üzerinden değiştirebilir, **N yeni** rozetine tıklayarak yalnızca son incelemenizden beri gelenleri açabilirsiniz. **+ Widget ekle**, hazır sorgu galerisini açar (*Gizli cevherler*, *Hızlı çıkış yapanlar*, *Terk edilmiş kurulu eklentiler*, *Denenecekler*…): her biri ne bulduğunu, neden işe yaradığını ve canlı eşleşme sayısını gösterir; eklerken küçük ya da büyük kartı (canlı önizlemesiyle) ve ekleneceği grubu seçersiniz. Ana sayfa sizin düzenlediğiniz gruplardan oluşur: grubun adının yanındaki ⋯ menüsünden (ya da sağ tıklayarak) yeniden adlandırır, iki grubu yan yana koyar, tutamacından sürükleyerek sıralarsınız. Üstteki **⌂ Ana sayfa | Tümü** nerede olduğunuzu gösterir; `Esc` Ana sayfaya döndürür.
+En üstteki **Yeni gelişmeler** şeridi; yeni çıkan eklentileri, kitaplığınızdaki eklentilerin yeni sürümlerini, yeni aşılan indirme barajlarını ve sessiz güncellemeleri son ziyaret gününüzden (ya da son 7 / 30 günden) bu yana sayar. Listeyi açtığınızda sayaçlar sıfırlanmaz: gün boyunca son baktığınız günden beri gelenleri gösterir ve bunu sorgusunda açıkça yazar (`listed >= 2026-11-11`). Hemen altında sürükleyip sıralayabileceğiniz keşif kartları yer alır: *Yeni*, *Güncellenen*, *Kuluçka*, *Yükselenler*, *Baraj geçenler*, *Kitaplıkta yeni sürüm*, *Kitaplığım*, *Gizlenenler* (ve eklenebilen *Öneriler*). Her kart bir sorgudur ve tıklayınca açtığı listeyi birebir sayar; üst sekme şeridinde yalnızca *Tümü* sabit durur, açtığınız kartın listesi yanında belirir. Kartın zaman aralığını veya eşiğini doğrudan üzerinden değiştirebilir, **N yeni** rozetine tıklayarak yalnızca son incelemenizden beri gelenleri açabilirsiniz. **+ Widget ekle**, hazır sorgu galerisini açar (*Gizli cevherler*, *Hızlı çıkış yapanlar*, *Terk edilmiş kurulu eklentiler*, *Denenecekler*…): her biri ne bulduğunu, neden işe yaradığını ve canlı eşleşme sayısını gösterir; eklerken küçük ya da büyük kartı (canlı önizlemesiyle) ve ekleneceği grubu seçersiniz. Ana sayfa sizin düzenlediğiniz gruplardan oluşur: grubun adının yanındaki ⋯ menüsünden (ya da sağ tıklayarak) yeniden adlandırır, iki grubu yan yana koyar, tutamacından sürükleyerek sıralarsınız. Üstteki **⌂ Ana sayfa | Tümü** nerede olduğunuzu gösterir; `Esc` Ana sayfaya döndürür.
 
 ---
 
@@ -58,7 +58,7 @@ Ekosistemdeki en heyecan verici anlardan biri, terk edildiğini sandığınız s
 Görsel kontrollerle mi çalışmak istiyorsunuz? **Basit** modda arama terimlerini, `/regex/` ifadelerini ve **Filtre** menüsündeki hızlı çipleri kullanın. Tam kontrol mü istiyorsunuz? Tek tıkla **Sorgu** moduna geçin—çünkü arka planda **Community Radar'daki her liste aslında okunabilir ve değiştirilebilir bir sorgudur**:
 
 ```sql
-listed <= 30d AND downloads >= 50 AND NOT tracked
+listed <= 30d AND downloads >= 50 AND NOT library
 order by gain(30d) desc
 ```
 
@@ -86,7 +86,7 @@ O anki işinize en uygun düzende çalışın:
 
 - **Üç farklı görünüm:** Yoğun **Liste**, görsel **Kartlar** veya sürüklenebilir **16 sütunlu Tablo** (7/30 günlük indirme artışı, yüzdesel büyüme, barajlar, sürüm ritmi ve tek tıkla ★/puan değiştirme dahil) arasında geçiş yapın. Her sekme ve kaydedilmiş görünüm kendi sütun düzenini hatırlar.
 - **Akıllı Geri Al destekli toplu işlemler:** Satırları tek tek, `Shift+Tık` aralığıyla veya Gmail tarzı *Listedeki tüm N eklentiyi seç* ile işaretleyip topluca takibe alın, puanlayın, gruplayın, incelendi olarak işaretleyin, sonraki sürüme kadar gizleyin veya dışlayın. **Son işlemler** son 20 toplu değişikliği oturumlar arasında saklar; **Geri Al** ise işlemden sonra elle düzenlediğiniz notlara dokunmadan geri kalanları güvenle eski hâline döndürür.
-- **Zengin ayrıntılar penceresi ve klavye akışı:** Herhangi bir satıra tıklayarak (`Enter`) dört temel metriği, duraklama sürelerini renklerle gösteren görsel sürüm şeridini, en yakın 5 alternatifi ve tam README'yi (isteğe bağlı çevrilir ve saklanır; yalnızca bir kez ücret ödersiniz) inceleyin. İsterseniz Ayarlardan Vim tarzı kısayolları (`j`/`k`, `f`, `g`, `1`–`5`, `s`, `h`, `x`) açarak fareye dokunmadan çalışın.
+- **Zengin ayrıntılar penceresi ve klavye akışı:** Herhangi bir satıra tıklayarak (`Enter`) dört temel metriği, duraklama sürelerini renklerle gösteren görsel sürüm şeridini, en yakın 5 alternatifi ve tam README'yi (isteğe bağlı çevrilir ve saklanır; yalnızca bir kez ücret ödersiniz) inceleyin. İsterseniz Ayarlardan Vim tarzı kısayolları (`j`/`k`, `l`, `g`, `1`–`5`, `s`, `h`, `x`) açarak fareye dokunmadan çalışın.
 
 ![Ayrıntılar penceresi: istatistikler, README, sürüm geçmişi ve benzer eklentiler](docs/images/details.png)
 
@@ -94,12 +94,12 @@ O anki işinize en uygun düzende çalışın:
 
 ### 📝 Yaşayan Kasa Notları, Obsidian Bases ve İsteğe Bağlı Yapay Zekâ
 
-![Grup bölümlerine ayrılmış takip edilen eklentiler](docs/images/tracked.png)
+![Grup bölümlerine ayrılmış kitaplığınız](docs/images/tracked.png)
 
-Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi takibe aldığınız (**🔔**) veya bir gruba eklediğiniz (**＋**) anda kasanızda temiz bir Markdown notu oluşturur:
+Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiyi kitaplığa eklediğiniz (**🔖**) veya bir gruba eklediğiniz (**＋**) anda kasanızda temiz bir Markdown notu oluşturur:
 
 - **Yapılandırılmış özellikler + dokunulmayan kişisel notlar:** `groups`, `rating` (1–5), emojili özel `status` alanları ve kişisel notlarınız tamamen size aittir; indirme/sürüm bilgileri ile gömülü **README** ise otomatik güncellenir (`#etiketler` ve `[[bağlantılar]]` grafiğinizi kirletmemesi için güvenli biçimde kaçış karakteriyle korunur).
-- **Tek tıkla Obsidian Bases:** Ayarlardan hazır `.base` görünümünü oluşturarak tüm eklenti koleksiyonunuzu yerleşik bir Obsidian veritabanı tablosunda filtreleyin ve düzenleyin. → *[Takip Notları Rehberi](docs/tracking-notes.tr.md)*
+- **Tek tıkla Obsidian Bases:** Ayarlardan hazır `.base` görünümünü oluşturarak tüm eklenti koleksiyonunuzu yerleşik bir Obsidian veritabanı tablosunda filtreleyin ve düzenleyin. → *[Kitaplık Notları Rehberi](docs/library-notes.tr.md)*
 - **Kendi anahtarınızla AI (tamamen isteğe bağlı):** Obsidian'ın güvenli anahtar deposu üzerinden Anthropic, OpenAI, Gemini veya OpenRouter bağlayarak görünür açıklamaları topluca çevirin, eklenti README'lerini kendi dilinize aktarın (tahmini maliyet hesabı ve eski sürüm uyarısıyla) veya seçtiğiniz satırlar için tek tıkla akıllı grup önerileri alın.
 
 ---
@@ -116,7 +116,7 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 
 1. **İlk eşitlemenin tamamlanmasını bekleyin:** Eklenti kataloğu, 6 yıllık sürüm arşivi ve anlamsal benzerlik dizini (~3 MB) indirilir.
 2. **Ana sayfaya göz atın:** *Yeni gelişmeler* şeridine bakın ve *Yükselenler* veya *Kuluçka* gibi bir kartın listesini açın.
-3. **İlk eklentinizi takip edin:** İlginizi çeken bir eklentiyi takip edin (**🔔**) veya gruplayın (**＋**)—Markdown notu anında kasanızda oluşur (dilediğiniz zaman Ayarlardan **Obsidian Bases** tablosunu da oluşturabilirsiniz).
+3. **İlk eklentinizi kitaplığa ekleyin:** İlginizi çeken bir eklentiyi kitaplığa ekleyin (**🔖**) veya gruplayın (**＋**)—Markdown notu anında kasanızda oluşur (dilediğiniz zaman Ayarlardan **Obsidian Bases** tablosunu da oluşturabilirsiniz).
 4. **Kendi görünümünüzü oluşturun:** Herhangi bir kartın listesinde **Basit** moddan **Sorgu** moduna geçip kuralını görün, değiştirin ve kendi görünümünüz olarak kaydedin.
 
 ---
@@ -134,7 +134,7 @@ Community Radar kürasyonunuzu kapalı bir veritabanına hapsetmez. Bir eklentiy
 | Rehber | İçerik |
 |---|---|
 | **[Sorgu Dili](docs/query.tr.md)** | 33 alanın tamamı, operatörler, tarih fonksiyonları, otomatik tamamlama ve örnek sorgular |
-| **[Takip Notları ve Bases](docs/tracking-notes.tr.md)** | Not özellikleri (frontmatter), README güncelleme modları, çeviriler ve Obsidian Bases kurulumu |
+| **[Kitaplık Notları ve Bases](docs/library-notes.tr.md)** | Not özellikleri (frontmatter), README güncelleme modları, çeviriler ve Obsidian Bases kurulumu |
 | **[Ayarlar ve Komutlar](docs/settings-commands.tr.md)** | Tüm ayarlar, Komut Paleti eylemleri ve klavye kısayolları |
 | **[Nasıl Çalışır ve Gizlilik](docs/how-it-works.tr.md)** | Sürüm arşivi mimarisi, GitHub'da üretilen benzerlik listeleri, depolama yapısı ve ağ istekleri tablosu |
 | **[Geliştirme ve Çeviri](docs/development.tr.md)** | Kod mimarisi, çevrimdışı testlerin çalıştırılması ve yeni arayüz dili ekleme |

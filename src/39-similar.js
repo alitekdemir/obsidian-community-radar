@@ -9,19 +9,19 @@ class SimilarFilter extends ViewPart {
   }
 
   /**
-   * The Similar filter's plugins: the matches of the last step that pass the All tab's Downloads ≥ and
-   * (with `searched`) the filter's own search, sorted as chosen.
+   * The Similar filter's plugins: the matches of the last step filtered through `matchRows` (SSOT for All's Downloads ≥,
+   * extra filters, hidden lists and the filter's own search), sorted as chosen.
    */
-  rows(searched = true) {
+  rows(searched = true, precomputed = null) {
     const seed = this.plugin.pluginById(this.view.similar.steps.at(-1).id);
-    const found = seed ? this.plugin.similarTo(seed) : [];
-    const opts = modeOptions(this.settings, "all");
-    const min = opts.filterDownloads ? opts.minDownloads : 0;
+    const found = precomputed ?? (seed ? this.plugin.similarTo(seed) : []);
     const state = this.plugin.state();
-    const query = compileQuery(searched ? this.view.similar.query : "", state, Date.now());
-    const matching = found.map((x) => x.p).filter((p) => (p.downloads ?? 0) >= min && query.test(p));
+    const now = Date.now();
+    // ignore All's Query mode and saved pageQuery so Similar applies All's Basic filters + its own search
+    const opts = { ...modeOptions({ ...this.settings, queries: {}, pageQueries: {} }, "all"), query: searched ? this.view.similar.query : "" };
+    const { rows } = matchRows({ ...state, catalog: found.map((x) => x.p) }, opts, now);
     const { key, dir } = this.settings.similarSort;
-    return key === "relevance" ? (dir === "asc" ? matching.reverse() : matching) : sortRows(matching, key, dir, state);
+    return key === "relevance" ? (dir === "asc" ? [...rows].reverse() : rows) : sortRows(rows, key, dir, state, now);
   }
 
   /** The Similar filter as one chip: ‹ back (when there is a step), ≈ Similar: name (opens its details), ✕. */
@@ -49,7 +49,11 @@ class SimilarFilter extends ViewPart {
     if (!this.view.similar) {
       this.view.similar = {
         steps: [],
-        before: { mode: this.settings.mode, scroll, visible: this.view.visible, originId: p.id, originIndex: (this.view.rows || []).findIndex((r) => r.id === p.id) },
+        before: {
+          section: this.settings.section, preset: this.view.preset, mode: this.settings.mode,
+          scroll, visible: this.view.visible, originId: p.id,
+          originIndex: (this.view.rows || []).findIndex((r) => r.id === p.id),
+        },
         query: "",
       };
     } else this.view.similar.steps.at(-1).scroll = scroll;
@@ -59,8 +63,10 @@ class SimilarFilter extends ViewPart {
     else steps.push({ id: p.id, scroll: 0 });
     if (steps.length > SIMILAR_STEPS) steps.splice(0, steps.length - SIMILAR_STEPS);
     this.view.similar.query = "";
-    Object.assign(this.view, { filtersOpen: false, visible: PAGE_SIZE });
-    this.settings.mode = "all";   // shown, not saved: ✕ goes back to the tab you came from
+    this.view.bulkBar.clearSelection();
+    Object.assign(this.view, { filtersOpen: false, visible: PAGE_SIZE, preset: null });
+    this.settings.section = "list";
+    this.settings.mode = "all";   // shown, not saved: ✕ goes back to the tab/section you came from
     this.view.render();
     this.view.contentEl.scrollTop = steps.at(-1).scroll;
   }
@@ -71,6 +77,7 @@ class SimilarFilter extends ViewPart {
     if (!steps || steps.length < 2) return;
     steps.pop();
     this.view.similar.query = "";
+    this.view.bulkBar.clearSelection();
     this.view.render();
     this.view.contentEl.scrollTop = steps.at(-1).scroll;
   }
@@ -80,11 +87,14 @@ class SimilarFilter extends ViewPart {
     if (!this.view.similar) return;
     const { before } = this.view.similar;
     this.view.similar = null;
+    this.settings.section = before.section;
+    this.view.preset = before.preset;
     this.settings.mode = before.mode;
     this.view.visible = before.visible;
+    this.view.bulkBar.clearSelection();
     this.view.render();
     this.view.contentEl.scrollTop = before.scroll;
-    const rows = [...this.view.contentEl.querySelectorAll(".pdt-row")];
+    const rows = [...this.view.contentEl.querySelectorAll(".pdt-row, .pdt-trow")];
     // the row itself, or the one now in its place if an action took it out of the list
     const row = rows.find((r) => r.dataset.id === before.originId) || rows[Math.min(Math.max(before.originIndex, 0), rows.length - 1)];
     if (!row) return;
@@ -100,7 +110,7 @@ class SimilarFilter extends ViewPart {
     const found = seed ? this.plugin.similarTo(seed) : [];
     this.view.stale = new Set();
     this.view.similarInfo = new Map(found.map((x) => [x.p.id, x]));
-    this.view.rows = this.rows();
+    this.view.rows = this.rows(true, found);
     if (!this.view.rows.length) {
       const empty = list.createDiv({ cls: "pdt-empty", text: t(found.length ? "list.empty" : "similar.none") });
       if (changedFilters(this.view.filterBar.filterState(), "all") > 0) this.view.filterBar.renderClearFilters(empty.createDiv());

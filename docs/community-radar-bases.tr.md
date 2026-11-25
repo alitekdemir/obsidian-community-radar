@@ -2,7 +2,7 @@
 
 *[English](community-radar-bases.md) · Türkçe*
 
-Keşif görünümünü komut paletinden açın (**Community Radar'ı aç**). Bu not yalnızca takip ettiğiniz eklentileri listeler; `groups`, `rating` ve `note` doğrudan tabloda düzenlenebilir.
+Keşif görünümünü komut paletinden açın (**Community Radar'ı aç**). Bu not yalnızca kitaplığınızdaki eklentileri listeler; `groups`, `rating` ve `note` doğrudan tabloda düzenlenebilir.
 
 > Başka bir not klasörü kullanıyorsanız `file.inFolder(...)` içindeki `Community Radar`'ı değiştirin.
 

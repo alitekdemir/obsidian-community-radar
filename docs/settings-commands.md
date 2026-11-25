@@ -9,7 +9,7 @@ Settings come in five tabs, one at a time:
 | Tab | Settings |
 |---|---|
 | General | Language (Auto follows Obsidian's), where the view opens (Home or where you left off), New plugin period (days a plugin counts as new: the badge and the New card's `listed <= 14d`; default 14), keyboard shortcuts (see below), Animations (*As in the system* follows your operating system's reduce-motion setting; *On* / *Off* override it), Translation effect (how the details window shows a text while the AI translates it, with a preview under it; default Highlighter), support |
-| Notes | Notes folder, the heading above your own notes, the Bases table of your tracking notes (**Create** or reset), the status field and your statuses (add, reorder, remove) |
+| Notes | Notes folder, the heading above your own notes, the Bases table of your library notes (**Create** or reset), the status field and your statuses (add, reorder, remove) |
 | Data | Sync frequency (Manual · Every 6 hours · **Daily** · Weekly; nothing is downloaded between syncs), **Sync now**, README updates (**When I open the note** · On every sync · Manually), the release history (**Download again**) |
 | AI | Provider (Anthropic, OpenAI, Google, OpenRouter), API key from Obsidian's keychain, model, target language, README translation (*On request* or *Off*), saving on README translations, AI group suggestions (on by default; off: no group request, the ★ still comes from similar plugins), the translation instructions (folded under *Advanced*), usage per model (requests, tokens, cost; Reset), saved translations |
 | Hidden | How many plugins you ignored, hid until their next release, or took off Suggested; **Manage** opens that kind on the Hidden page |
@@ -24,10 +24,10 @@ A list's query is changed in the list itself (**Query**), not here.
 | Go to Home | Opens the view on Home; give it a hotkey to jump there from anywhere |
 | Sync now (catalog, history, notes) | |
 | Download the release history again | |
-| Update README of this note | In a tracking note |
-| Update READMEs of all tracking notes | |
+| Update README of this note | In a library note |
+| Update READMEs of all library notes | |
 | Translate the README of this note | Needs an AI provider |
-| Show plugins similar to this note's plugin | In a tracking note |
+| Show plugins similar to this note's plugin | In a library note |
 | Create or reset the Bases view | |
 | Suggest groups for ungrouped plugins | Needs an AI provider and *AI group suggestions* on |
 | Recent actions | The last 20 bulk actions, with Undo |
@@ -42,7 +42,7 @@ On while *Settings → Keyboard shortcuts* is on and the Community Radar tab is 
 |---|---|
 | `j` / `k` | move between rows |
 | `Enter` | open the details |
-| `f` | track / stop tracking (follow) |
+| `l` | add to / remove from library |
 | `g` | groups |
 | `1` … `5` / `0` | rate / clear the rating |
 | `s` | similar plugins |
@@ -56,6 +56,6 @@ Always on: `/` focuses the search box, `Ctrl+Space` opens suggestions, `Esc` cle
 
 ## Selecting many
 
-Hover a row and tick its box (`Shift`+click ticks a range). **Select the N shown**, then **Select all N in this list**, picks more. The bar at the bottom: **Track**, **Rate**, **Add to group**, **Group with AI**, (on Tracked) **Reviewed**, **Translate**, **Hide for now** (comes back with a new release), **Hide for good** (comes back from Hidden). Each asks before it runs and can be undone right away, or later from **Recent actions** (Undo skips plugins you changed since). `Esc` clears the selection.
+Hover a row and tick its box (`Shift`+click ticks a range). **Select the N shown**, then **Select all N in this list**, picks more. The bar at the bottom: **Add to library**, **Rate**, **Add to group**, **Group with AI**, (on Library) **Reviewed**, **Translate**, **Hide for now** (comes back with a new release), **Hide for good** (comes back from Hidden). Each asks before it runs and can be undone right away, or later from **Recent actions** (Undo skips plugins you changed since). `Esc` clears the selection.
 
-The **Translate** menu does four things for the selected plugins: **Translate short descriptions** (one request, shown in place in the list), **Translate Overviews** (the profiled ones, kept), **Download READMEs** (no AI; into the note when tracked, else the cache) and **Translate READMEs** (missing or older READMEs are downloaded first, each is translated whole in one request). Up to 4 requests run at once (short descriptions go 50 to a request). AI jobs show the estimated tokens and cost and ask before they start; while one runs, the bar shows `50 / 93`, what it has spent so far and **Stop**; at the end, what it actually spent as the provider reported it: `93 translated · 2 requests · 18,420 tokens · $0.0021 · model`. No notes are made for plugins you don't track.
+The **Translate** menu does four things for the selected plugins: **Translate short descriptions** (one request, shown in place in the list), **Translate Overviews** (the profiled ones, kept), **Download READMEs** (no AI; into the note when in your library, else the cache) and **Translate READMEs** (missing or older READMEs are downloaded first, each is translated whole in one request). Up to 4 requests run at once (short descriptions go 50 to a request). AI jobs show the estimated tokens and cost and ask before they start; while one runs, the bar shows `50 / 93`, what it has spent so far and **Stop**; at the end, what it actually spent as the provider reported it: `93 translated · 2 requests · 18,420 tokens · $0.0021 · model`. No notes are made for plugins not in your library.

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.16.0
 
 ### Added
 - **Show translations first** (*Settings → AI*, on by default; also in the view's ⋮ menu as *Show the originals / Show in <language>*): descriptions, Overviews and READMEs show in your language wherever a translation is kept, the rest in the original. A row's language chip still flips that row (until Obsidian restarts) and the details window's Original | your language that window; neither changes the default.
@@ -16,13 +16,18 @@
 - **Settings → AI lists what's not translated yet** (short descriptions, Overviews, READMEs) with what translating them would take.
 
 ### Changed
+- **Track is now Library:** 🔖 *Add to library* / *Remove from library* replaces 🔔 *Track* / *Stop tracking*, and the Tracked page is *Library*, in every language and in the docs. The query field is `library` too, and the shortcut is `l`. Your saved queries, views, recent queries, the Library page's settings and menus, table columns, the *New in your library* card and Recent actions carry over by themselves on first start. Nothing in your notes changes. The library notes guide is `docs/library-notes.md`.
 - **`~` finds every word, in any order** (as in JQL): `name ~ "side note"` finds SideNote and Side-Notes; spaces, hyphens and case don't count. Plain search works the same way. `=` stays exact, `/regex/` keeps the order.
 - **`t` on the details window's README tab** translates the README (on Overview: the description and the Overview, as before).
 - **Translations live in `translations.jsonl`** next to `data.json` (one line each, appended), so translating the whole catalog doesn't rewrite a large `data.json` each time. Deleting translations in Settings removes the short descriptions only; Overview translations are kept.
 - **Bulk translation survives a long run:** it stops by itself past the estimate you agreed to (and then estimates by what the requests cost), after several failures in a row, or on Stop (finishing the requests under way); a cut-off or empty reply is asked again.
 - **The Translate menu's estimate** shows tokens over cost, on two lines, so the item's title keeps its room.
 - **Prices under $0.10** show three significant digits ($0.0399).
+- **UI languages besides English download on demand:** `main.js` embeds only English (~330 KB smaller); your chosen language is fetched once from GitHub and kept in the local plugin cache for offline use. Startup waits at most 3 s for that first download, then goes on in English and switches when it arrives; a cached language missing newer texts is completed in the background.
 - Resetting the usage table asks first.
+
+### Removed
+- **Imports from the plugin's earlier ids:** settings from an Eklenti Takip or 0.5.2 `community-radar` install, README markers of notes made before 0.6.1 and API key names from 0.2 are no longer carried over. Coming from one of those, update through an earlier release first.
 
 ## 0.15.0
 

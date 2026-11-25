@@ -923,7 +923,7 @@ button.pdt-bulk-link {
 /* Puanla and Çevir open over the bar */
 .pdt-bulk-pop { padding: var(--size-2-3); }
 .pdt-bulk-pop .pdt-rate-stars { font-size: 1.4em; }
-.pdt-bulk-menu { width: 400px; display: flex; flex-direction: column; gap: 2px; }
+.pdt-bulk-menu { width: min(400px, calc(100vw - 16px)); display: flex; flex-direction: column; gap: 2px; }
 
 .pdt-bulk-menu-head {
   padding: var(--size-2-3) var(--size-4-3) var(--size-2-2);
@@ -993,7 +993,7 @@ button.pdt-bulk-item:focus-visible { background: var(--background-modifier-hover
 /* with a Description column, it takes the room (one line, cut with …) and Name fits its text */
 .pdt-table.is-described .pdt-table-name { width: 1%; white-space: nowrap; }
 .pdt-table.is-described td.is-description { width: 100%; max-width: 0; }
-.pdt-table th.is-tracked, .pdt-table td.is-tracked { width: 36px; }
+.pdt-table th.is-library, .pdt-table td.is-library { width: 36px; }
 .pdt-table th.is-draggable { cursor: grab; }
 .pdt-table-cols { width: 36px; text-align: right; }
 .pdt-table .pdt-select { position: static; }
@@ -1001,7 +1001,7 @@ button.pdt-bulk-item:focus-visible { background: var(--background-modifier-hover
 .pdt-table-name .pdt-ver { margin-left: var(--size-2-3); }
 
 button.pdt-table-sort,
-button.pdt-table-track {
+button.pdt-table-library {
   height: auto;
   padding: 0;
   border: 0;
@@ -1013,9 +1013,9 @@ button.pdt-table-track {
 }
 
 button.pdt-table-sort.is-on { color: var(--text-normal); }
-button.pdt-table-track { color: var(--text-faint); }
-button.pdt-table-track svg { width: 15px; height: 15px; }
-button.pdt-table-track.is-on { color: var(--text-accent); }
+button.pdt-table-library { color: var(--text-faint); }
+button.pdt-table-library svg { width: 15px; height: 15px; }
+button.pdt-table-library.is-on { color: var(--text-accent); }
 
 .pdt-trow { cursor: pointer; }
 .pdt-trow:hover { background: var(--background-modifier-hover); }
@@ -1523,8 +1523,8 @@ button.pdt-rate-clear:hover {
   pointer-events: none;
 }
 
-/* 🔔 lit while the plugin is tracked */
-.pdt-icon.clickable-icon.is-tracked {
+/* 🔖 lit while the plugin is in your library */
+.pdt-icon.clickable-icon.is-in-library {
   color: var(--text-accent);
 }
 
@@ -2371,12 +2371,9 @@ button.pdt-lang-chip.is-on {
 
 /*
  * Being translated (details window, t or the Overview's Translate): the original stays where it is, shown as being read
- * with the effect from Settings › Translation effect (.pdt-fx-<key>, TRANSLATE_FX; showReading adds the class, and what
- * CSS can't do: the snake's outline, the scan's timing, the Matrix rain). Everything is drawn outside the flow
- * (::before / ::after / an absolute svg or canvas) or as backgrounds and colours: no text moves.
- * Line effects work on the texts' inline spans (.pdt-ln, .pdt-lang-text), each visual line on its own
- * (box-decoration-break: clone); --i is a text's place in the stagger. Animations off (body.pdt-still): every effect
- * stands still, the text dimmed.
+ * with one of the 5 pure-CSS effects from Settings › Translation effect (.pdt-fx-<key>, TRANSLATE_FX; showReading adds
+ * the class and stagger index --i). Everything is drawn outside the flow (::before / ::after) or as backgrounds/colours:
+ * no text moves, zero JS timers. Animations off (body.pdt-still): every effect stands still, the text dimmed.
  */
 @property --pdt-ang {
   syntax: "<angle>";
@@ -2386,7 +2383,7 @@ button.pdt-lang-chip.is-on {
 
 .pdt-detail-about,
 .pdt-overview-parts {
-  position: relative;   /* the frame's and the band's box; moves nothing */
+  position: relative;   /* the frame's box; moves nothing */
 }
 
 .pdt-detail-about { --pdt-fx-y: 6px; --pdt-fx-x: 10px; }   /* how far a frame stands off the text */
@@ -2413,23 +2410,50 @@ button.pdt-lang-chip.is-on {
   font-weight: var(--font-semibold);
 }
 
-/* ── Highlighter (default): a gradient marker fills each line, text after text, then fades ── */
-.pdt-fx-marker.is-translating :is(.pdt-ln, .pdt-lang-text) {
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  border-radius: 3px;
-  background-image: linear-gradient(90deg, rgba(var(--color-blue-rgb), 0.32), rgba(var(--color-purple-rgb), 0.3) 60%, rgba(var(--color-cyan-rgb), 0.24));
-  background-repeat: no-repeat;
-  background-size: 0% 100%;
-  color: var(--text-muted);
-  animation: pdt-mark 3.6s ease-in-out infinite;
-  animation-delay: calc(var(--i, 0) * 450ms - 3.6s);
+/* ── Clean shimmer + pulse (default): soft translucent frame + gentle text sweep, zero JS ── */
+.pdt-fx-clean.is-translating {
+  border-radius: var(--radius-m);
 }
 
-@keyframes pdt-mark {
-  0% { background-size: 0% 100%; color: var(--text-muted); }
-  16%, 34% { background-size: 100% 100%; color: var(--text-normal); }
-  56%, 100% { background-size: 100% 100%; background-image: linear-gradient(transparent, transparent); color: var(--text-muted); }
+.pdt-fx-clean.is-translating::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--pdt-fx-y)) calc(-1 * var(--pdt-fx-x));
+  border-radius: var(--radius-m);
+  border: 1px solid rgba(var(--color-blue-rgb), 0.28);
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(var(--color-blue-rgb), 0.07) 45%,
+    rgba(var(--color-purple-rgb), 0.1) 55%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: pdt-clean-bg 2.6s ease-in-out infinite, pdt-breathe 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.pdt-fx-clean.is-translating :is(.pdt-ln, .pdt-lang-text) {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--text-normal) 45%, transparent) 0% 35%,
+    var(--text-normal) 48%,
+    var(--color-blue) 54%,
+    color-mix(in srgb, var(--text-normal) 45%, transparent) 68% 100%
+  );
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pdt-sweep 2.6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 180ms - 1s);
+}
+
+@keyframes pdt-clean-bg {
+  0% { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
 }
 
 /* ── Light sweep: the text dimmed, a light band sweeps each line ── */
@@ -2450,60 +2474,28 @@ button.pdt-lang-chip.is-on {
   to { background-position: -40% 0; }
 }
 
-/* ── Line glow: a soft gradient flows behind each line, the text breathes ── */
-.pdt-fx-line.is-translating :is(.pdt-ln, .pdt-lang-text) {
+/* ── Highlighter: a gradient marker fills each line, text after text, then fades ── */
+.pdt-fx-marker.is-translating :is(.pdt-ln, .pdt-lang-text) {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  border-radius: 4px;
-  background-image: linear-gradient(90deg, rgba(var(--color-blue-rgb), 0.06), rgba(var(--color-blue-rgb), 0.26) 25%, rgba(var(--color-purple-rgb), 0.3) 50%, rgba(var(--color-cyan-rgb), 0.22) 75%, rgba(var(--color-blue-rgb), 0.06));
-  background-size: 200% 100%;
-  animation: pdt-line 2.2s linear infinite, pdt-breathe 2.4s ease-in-out infinite;
-  animation-delay: calc(var(--i, 0) * -260ms), calc(var(--i, 0) * 160ms - 1.2s);
+  border-radius: 3px;
+  background-image: linear-gradient(90deg, rgba(var(--color-blue-rgb), 0.32), rgba(var(--color-purple-rgb), 0.3) 60%, rgba(var(--color-cyan-rgb), 0.24));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  color: var(--text-muted);
+  animation: pdt-mark 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 450ms - 3.6s);
 }
 
-@keyframes pdt-line {
-  from { background-position: 100% 0; }
-  to { background-position: -100% 0; }
+@keyframes pdt-mark {
+  0% { background-size: 0% 100%; color: var(--text-muted); }
+  16%, 34% { background-size: 100% 100%; color: var(--text-normal); }
+  56%, 100% { background-size: 100% 100%; background-image: linear-gradient(transparent, transparent); color: var(--text-muted); }
 }
 
-/* ── Scanner: a band moves down the text; each line lights up as it passes (showReading times --pdt-d, --pdt-h) ── */
-.pdt-fx-scan.is-translating::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: calc(-1 * var(--pdt-fx-x));
-  left: calc(-1 * var(--pdt-fx-x));
-  height: 56px;   /* SCAN_BAND */
-  background: linear-gradient(180deg, transparent, rgba(var(--color-blue-rgb), 0.12) 45%, rgba(var(--color-purple-rgb), 0.2) 85%, rgba(var(--color-cyan-rgb), 0.45));
-  animation: pdt-scan 3s linear infinite;   /* SCAN_MS */
-  pointer-events: none;
-}
-
-.pdt-fx-scan.is-translating {   /* the band stays within the frame's margin (a short description is lower than the band) */
-  clip-path: inset(calc(-1 * var(--pdt-fx-y)) calc(-1 * var(--pdt-fx-x)));
-}
-
-.pdt-fx-scan.is-translating :is(.pdt-ln, .pdt-lang-text) {
-  color: var(--text-faint);
-  animation: pdt-lit 3s linear infinite;
-  animation-delay: var(--pdt-d, 0s);
-}
-
-@keyframes pdt-scan {
-  0% { transform: translateY(-56px); opacity: 0; }
-  6%, 90% { opacity: 1; }
-  100% { transform: translateY(var(--pdt-h, 200px)); opacity: 0; }
-}
-
-@keyframes pdt-lit {
-  0%, 100% { color: var(--text-faint); text-shadow: none; }
-  8% { color: var(--text-normal); text-shadow: 0 0 12px rgba(var(--color-blue-rgb), 0.6); }
-  24% { color: var(--text-muted); text-shadow: none; }
-}
-
-/* ── Frames: a ring around the text, a faint light inside, the text breathes ── */
-:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::before,
-:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::after {
+/* ── Frames (ring, pulse): a ring around the text, a faint light inside, the text breathes ── */
+:is(.pdt-fx-ring, .pdt-fx-pulse).is-translating::before,
+:is(.pdt-fx-ring, .pdt-fx-pulse).is-translating::after {
   content: "";
   position: absolute;
   inset: calc(-1 * var(--pdt-fx-y)) calc(-1 * var(--pdt-fx-x));
@@ -2511,18 +2503,18 @@ button.pdt-lang-chip.is-on {
   pointer-events: none;
 }
 
-:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::before {
+:is(.pdt-fx-ring, .pdt-fx-pulse).is-translating::before {
   padding: 1.5px;   /* the ring's width: the mask keeps only this band */
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
 
-:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating::after {
+:is(.pdt-fx-ring, .pdt-fx-pulse).is-translating::after {
   background: radial-gradient(120% 70% at 50% 0%, rgba(var(--color-blue-rgb), 0.1), transparent 70%);
 }
 
-:is(.pdt-fx-ring, .pdt-fx-pulse, .pdt-fx-snake, .pdt-fx-snakes).is-translating :is(.pdt-ln, .pdt-lang-text) {
+:is(.pdt-fx-ring, .pdt-fx-pulse).is-translating :is(.pdt-ln, .pdt-lang-text) {
   animation: pdt-breathe 2.4s ease-in-out infinite;
   animation-delay: calc(var(--i, 0) * 160ms - 1.2s);
 }
@@ -2536,83 +2528,12 @@ button.pdt-lang-chip.is-on {
 /* Still glowing frame: the ring stands; its colours drift and its light pulses, nothing moves */
 .pdt-fx-pulse.is-translating::before {
   background: conic-gradient(from 200deg, var(--color-blue), var(--color-purple), var(--color-cyan), var(--color-blue));
-  animation: pdt-hue 3s ease-in-out infinite alternate, pdt-pulse-light 1.6s ease-in-out infinite;
+  animation: pdt-hue 3s ease-in-out infinite alternate, pdt-breathe 1.6s ease-in-out infinite;
 }
 
 .pdt-fx-pulse.is-translating::after {
-  animation: pdt-pulse-light 1.6s ease-in-out infinite;
+  animation: pdt-breathe 1.6s ease-in-out infinite;
   animation-delay: -0.8s;
-}
-
-/* Snake: a faint ring, and a dash with a fading tail running round it (showReading's svg, pathLength 100) */
-:is(.pdt-fx-snake, .pdt-fx-snakes).is-translating::before {
-  background: var(--background-modifier-border);
-}
-
-.pdt-snake {
-  position: absolute;
-  top: calc(-1 * var(--pdt-fx-y));
-  left: calc(-1 * var(--pdt-fx-x));
-  width: calc(100% + 2 * var(--pdt-fx-x));
-  height: calc(100% + 2 * var(--pdt-fx-y));
-  overflow: visible;
-  pointer-events: none;
-}
-
-.pdt-snake rect {
-  x: 1px;
-  y: 1px;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  rx: 7px;
-  fill: none;
-  stroke-linecap: round;
-  stroke-dasharray: calc(var(--len) * 1px) calc((100 - var(--len)) * 1px);
-  animation: pdt-snake 3.2s linear infinite;
-}
-
-.pdt-fx-snakes .pdt-snake rect {   /* two dashes, half a lap apart */
-  stroke-dasharray: calc(var(--len) * 1px) calc((50 - var(--len)) * 1px);
-}
-
-.pdt-overview-parts .pdt-snake rect { animation-duration: 4.4s; }   /* a longer lap: about the description's speed */
-.pdt-snake .t1 { --len: 20; stroke: var(--color-blue); stroke-width: 1.5; opacity: 0.18; }
-.pdt-snake .t2 { --len: 13; stroke: var(--color-blue); stroke-width: 1.5; opacity: 0.4; }
-.pdt-snake .mid { --len: 7; stroke: var(--color-purple); stroke-width: 1.5; opacity: 0.8; }
-.pdt-snake .head { --len: 2.2; stroke: var(--color-cyan); stroke-width: 2; filter: drop-shadow(0 0 3px var(--color-cyan)); }
-
-@keyframes pdt-snake {   /* each dash ends at the head: its offset runs len → len − 100 */
-  from { stroke-dashoffset: calc(var(--len) * 1px); }
-  to { stroke-dashoffset: calc((var(--len) - 100) * 1px); }
-}
-
-/* ── Matrix: the letters change where they are (showReading splits them into .pdt-ch). A glyph is drawn over its
-   letter (the letter turns transparent, keeping its width), so no line moves. ── */
-.pdt-ch {
-  position: relative;
-}
-
-.is-translating .pdt-ch.is-glyph {   /* over the effects' own letter colours, at once (no fade under the glyph) */
-  color: transparent;
-  transition: none;
-}
-
-.is-translating .pdt-ch.is-glyph::after {
-  content: attr(data-g);
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: var(--color-green);
-  text-shadow: 0 0 6px rgba(var(--color-green-rgb), 0.6);
-}
-
-.pdt-fx-decode .pdt-ch.is-todo {   /* Decode: the letters still to resolve wait dimmed green */
-  color: rgba(var(--color-green-rgb), 0.55);
-}
-
-.pdt-fx-wave .pdt-ch {   /* Wave: --pdt-g is the band's green share (0–100) at this letter */
-  color: color-mix(in srgb, var(--color-green) calc(var(--pdt-g, 0) * 1%), currentColor);
-  transition: color 0.25s;
 }
 
 @keyframes pdt-turn {
@@ -2624,11 +2545,6 @@ button.pdt-lang-chip.is-on {
   to { filter: hue-rotate(70deg); }
 }
 
-@keyframes pdt-pulse-light {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 1; }
-}
-
 @keyframes pdt-breathe {
   0%, 100% { opacity: 0.45; }
   50% { opacity: 1; }
@@ -2637,6 +2553,11 @@ button.pdt-lang-chip.is-on {
 /* animations off: every effect stands still (the global rule at the end), the text dimmed */
 body.pdt-still .is-translating :is(.pdt-ln, .pdt-lang-text) {
   opacity: 0.6;
+}
+
+body.pdt-still :is(.pdt-fx-clean, .pdt-fx-shimmer).is-translating :is(.pdt-ln, .pdt-lang-text) {
+  background: none;
+  color: inherit;
 }
 
 .pdt-overview-part h4 {
@@ -2808,11 +2729,6 @@ body.pdt-still .is-translating :is(.pdt-ln, .pdt-lang-text) {
 
 .pdt-profile-tags .pdt-pill.is-tag:hover {
   color: var(--text-accent);
-}
-
-.pdt-detail-trans {
-  color: var(--text-muted);
-  font-style: italic;
 }
 
 .pdt-detail-muted {
@@ -3025,15 +2941,6 @@ button.pdt-detail-near:hover {
   bottom: calc(100% + 6px);
 }
 
-.pdt-detail-icon {
-  display: inline-flex;
-}
-
-.pdt-detail-icon svg {
-  width: 15px;
-  height: 15px;
-}
-
 .pdt-detail-nav {
   display: flex;
   align-items: center;
@@ -3098,7 +3005,7 @@ button.pdt-detail-arrow {
   display: none;
 }
 
-/* ── Tracked tab ───────────────────────────────────────────────────────── */
+/* ── Library page ───────────────────────────────────────────────────────── */
 .pdt-section + .pdt-section {
   margin-top: 22px;
 }
@@ -3304,17 +3211,13 @@ button.pdt-section-head:hover {
   box-shadow: 0 6px 8px -8px rgba(0, 0, 0, 0.35);
 }
 
-/* ── Home · List · Tracked ─────────────────────────────────────────────── */
+/* ── Home · List · Library ─────────────────────────────────────────────── */
 .pdt-nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--size-4-2);
   container-type: inline-size;   /* a narrow panel hides "Home"'s word, the icon stays */
-}
-
-.pdt-nav-spacer {
-  flex: 1;
 }
 
 button.pdt-home-tool {
@@ -3570,6 +3473,23 @@ button.pdt-home-chip {
 .pdt-home-mini-n { grid-area: n; font-size: 20px; font-weight: var(--font-bold); font-variant-numeric: tabular-nums; }
 .pdt-home-mini.is-done .pdt-home-mini-n { color: var(--text-faint); }   /* all seen: done, not urgent */
 .pdt-home-mini .pdt-home-info { grid-area: info; justify-self: end; align-self: start; }
+.pdt-home-mini .pdt-home-mini-more {
+  grid-area: info;
+  justify-self: end;
+  align-self: start;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.pdt-home-mini:has(.pdt-home-info) .pdt-home-mini-more { margin-right: 22px; }
+.pdt-home-mini:hover .pdt-home-mini-more,
+.pdt-home-mini:focus-within .pdt-home-mini-more { opacity: 0.7; }
+.pdt-home-mini .pdt-home-mini-more:hover { opacity: 1; }
+@media (hover: none) {
+  .pdt-home-mini .pdt-home-mini-more { opacity: 0.65; }
+}
 .pdt-home-mini-label { grid-area: label; overflow: hidden; color: var(--text-muted); font-size: var(--font-ui-smaller); text-overflow: ellipsis; white-space: nowrap; }
 .pdt-home-mini .pdt-home-cta { grid-area: cta; justify-self: end; }
 
@@ -4123,7 +4043,7 @@ body.pdt-still .pdt-view .pdt-home .is-in {   /* animations off: Home's entrance
 .pdt-gallery [data-section="discover"] { --pdt-tone: var(--color-green); }
 .pdt-gallery [data-section="notify"] { --pdt-tone: var(--color-yellow); }
 .pdt-gallery [data-section="vault"] { --pdt-tone: var(--color-orange); }
-.pdt-gallery [data-section="track"] { --pdt-tone: var(--color-blue); }
+.pdt-gallery [data-section="library"] { --pdt-tone: var(--color-blue); }
 .pdt-gallery-intro { margin: 0 0 var(--size-4-3); color: var(--text-muted); font-size: var(--font-ui-small); line-height: 1.5; }
 .pdt-gallery-chips { display: flex; flex-wrap: wrap; gap: var(--size-4-2); padding-bottom: var(--size-4-2); }
 .pdt-gallery button.pdt-gallery-chip {

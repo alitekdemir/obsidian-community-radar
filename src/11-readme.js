@@ -2,27 +2,62 @@
 /** What Obsidian treats as a tag: letters/digits/_-/ with at least one non-digit (`#123` is not a tag). */
 const TAG = /(^|[\s>(])#([\p{L}\p{N}_\-/]*[\p{L}_\-/][\p{L}\p{N}_\-/]*)/gu;
 
+/**
+ * Walks lines of `markdown` tracking fenced code blocks (backticks or tildes of matching char/length; closing
+ * fence may not carry trailing info) and indented code blocks. Calls `fn(line, index, inCode)`.
+ */
+function mapMarkdownLines(markdown, fn) {
+  let fence = null;
+  return markdown.split("\n").map((line, i) => {
+    const raw = line.endsWith("\r") ? line.slice(0, -1) : line;
+    const cr = line.endsWith("\r") ? "\r" : "";
+    const open = raw.match(/^\s*(`{3,}|~{3,})/);
+    if (fence) {
+      const close = new RegExp(`^\\s*${fence[0]}{${fence.length},}\\s*$`);
+      if (close.test(raw)) fence = null;
+      return fn(raw, i, true) + cr;
+    }
+    if (open) {
+      // single-line fence like ```code``` does not open a multi-line block
+      const rest = raw.slice(open[0].length);
+      if (!(open[1][0] === "`" && rest.includes(open[1]))) fence = open[1];
+      return fn(raw, i, true) + cr;
+    }
+    const indented = /^( {4}|\t)/.test(raw) && !/^\s*([-*+]|\d+[.)])\s/.test(raw);
+    return fn(raw, i, indented) + cr;
+  }).join("\n");
+}
+
+/** Applies `transform` only to segments outside inline backtick spans (handles multi-backtick spans). */
+function mapOutsideInlineCode(line, transform) {
+  let out = "";
+  let pos = 0;
+  const re = /(`+)([\s\S]*?)\1/g;
+  let m;
+  while ((m = re.exec(line))) {
+    if (m.index > pos) out += transform(line.slice(pos, m.index));
+    out += m[0];
+    pos = re.lastIndex;
+  }
+  if (pos < line.length) out += transform(line.slice(pos));
+  return out;
+}
+
 /** Escapes `#tags` and `[[links]]` in plain text; invisible in reading view. */
 function escapeText(text) {
+  if (/^\s*\[[^\]]+\]:\s/.test(text)) return text.replace(/\[\[/g, "\\[\\[");   // reference link definitions
   return text
-    .replace(TAG, (match, before, tag, offset) =>
-      (before === "(" && text[offset - 1] === "]" ? match : `${before}\\#${tag}`))  // `](#section)` is a link target
+    .replace(TAG, (match, before, tag, offset) => {
+      if (before === "(" && text[offset - 1] === "]") return match;   // `](#section)` is a link target
+      if (before === ">" && text.slice(Math.max(0, offset - 32), offset).includes("<")) return match;   // HTML hex color / tag content
+      return `${before}\\#${tag}`;
+    })
     .replace(/\[\[/g, "\\[\\[");
 }
 
 /** Code blocks (indented ones too) and inline code are left untouched. */
 function escapeOutsideCode(markdown) {
-  let fence = null;
-  return markdown.split("\n").map((line) => {
-    const marker = line.match(/^\s*(`{3,}|~{3,})/);
-    if (fence) {
-      if (marker && marker[1][0] === fence[0] && marker[1].length >= fence.length) fence = null;
-      return line;
-    }
-    if (marker) { fence = marker[1]; return line; }
-    if (/^( {4}|\t)/.test(line) && !/^\s*([-*+]|\d+[.)])\s/.test(line)) return line;  // indented code
-    return line.split(/(`+[^`]*`+)/).map((chunk, i) => (i % 2 ? chunk : escapeText(chunk))).join("");
-  }).join("\n");
+  return mapMarkdownLines(markdown, (line, _, inCode) => (inCode ? line : mapOutsideInlineCode(line, escapeText)));
 }
 
 /** An image on a GitHub page (`github.com/o/r/blob/…`) → the file itself; other URLs unchanged. */
@@ -30,11 +65,11 @@ function rawImage(url) {
   return url.replace(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\//i, `${RAW}/$1/`);
 }
 
-/** Points images on GitHub pages to the files in notes written before 0.8.1; touches no link. */
+/** Points images on GitHub pages to the files in notes written before 0.8.1; touches no link or code block. */
 function migrateImages(content) {
-  return content
+  return mapMarkdownLines(content, (line, _, inCode) => (inCode ? line : mapOutsideInlineCode(line, (seg) => seg
     .replace(/(!\[[^\]]*\]\(\s*<?)([^)\s>]+)/g, (all, head, url) => head + rawImage(url))
-    .replace(/(<img\b[^>]*?\bsrc=)(["'])([^"']+)\2/gi, (all, head, q, url) => `${head}${q}${rawImage(url)}${q}`);
+    .replace(/(<img\b[^>]*?\bsrc=)(["'])([^"']+)\2/gi, (all, head, q, url) => `${head}${q}${rawImage(url)}${q}`))));
 }
 
 /** Points relative images and links to GitHub; images on a GitHub page (`/blob/`) to the file itself. */
@@ -49,7 +84,7 @@ const EN_FILE = /^readme[._-]?(en|en[-_](us|gb)|english)\.md$/i;   // README_en.
 const EN_LABEL = /\b(english|en)\b/i;
 const EN_HEADING = /^(en|(\w+ )?english( \w+){0,2})$/i;          // EN, English, In English, English summary …
 
-/** Letters in a text, code blocks left out: [all, Latin, in `script` (a key of SCRIPTS)]. */
+/** Letters in a text, code blocks left out: [all, Latin, in `script` (see scriptOfLanguage)]. */
 function letterCounts(text, script = null) {
   const body = String(text ?? "").replace(CODE_FENCE, "");
   let all = 0, latin = 0, own = 0;
@@ -57,7 +92,7 @@ function letterCounts(text, script = null) {
     if (!/\p{L}/u.test(ch)) continue;
     all++;
     if (/\p{Script=Latin}/u.test(ch)) latin++;
-    else if (script && SCRIPTS[script].test(ch)) own++;
+    else if (script && matchesScript(ch, script)) own++;
   }
   return [all, latin, own];
 }
@@ -74,6 +109,18 @@ function isEnglishText(text) {
   return latin >= MIN_ENGLISH_LETTERS && 1 - latin / all <= FOREIGN_README;
 }
 
+/** Safe decodeURI that never throws URIError on malformed percent-sequences. */
+function safeDecodeURI(text) {
+  try { return decodeURI(text); } catch { return text; }
+}
+
+/** Encodes raw non-ASCII path segments without double-encoding existing percent escapes (e.g. %23). */
+function safeEncodePath(path) {
+  return path.split("/").map((seg) => seg.replace(/[^\x20-\x7e]|[\s#?]/g, (ch) => encodeURIComponent(ch))).join("/");
+}
+
+const isRelativeUrl = (url) => Boolean(url) && !/^([a-z][a-z0-9+.-]*:|#|\/\/)/i.test(url);
+
 /**
  * The raw URL of the English README this one links to (README_en.md, or a .md labelled English): a GitHub page
  * becomes its raw file, a relative link is read from the default branch, other sites are left alone.
@@ -86,10 +133,10 @@ function englishLink(markdown, repo) {
     const name = path.split("/").pop();
     if (!/\.md$/i.test(name) || /^readme\.md$/i.test(name)) continue;
     if (!EN_FILE.test(name) && !EN_LABEL.test(label.replace(/<[^>]+>/g, ""))) continue;
-    const blob = path.match(/^https?:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/(.+)$/);
-    if (blob) return `${RAW}/${blob[1]}/${encodeURI(decodeURI(blob[2]))}`;
+    const blob = path.match(/^https?:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/(.+)$/i);
+    if (blob) return `${RAW}/${blob[1]}/${safeEncodePath(blob[2])}`;
     if (path.startsWith(`${RAW}/`)) return path;
-    if (!path.includes("://")) return `${RAW}/${repo}/HEAD/${encodeURI(decodeURI(path.replace(/^\.?\//, "")))}`;   // a folder may be 图片
+    if (isRelativeUrl(path)) return `${RAW}/${repo}/HEAD/${safeEncodePath(path.replace(/^\.?\//, ""))}`;   // a folder may be 图片
   }
   return null;
 }
@@ -97,35 +144,37 @@ function englishLink(markdown, repo) {
 /** The README's own English part: a heading named English to the next heading of its level or above; null if none or too short. */
 function englishSection(markdown) {
   const lines = markdown.split("\n");
-  let fenced = false;
-  let start = null;
-  let level = 0;
+  let fence = null, start = null, level = 0;
+  const check = (end) => { const s = lines.slice(start, end).join("\n"); return isEnglishText(s) ? s : null; };
   for (let i = 0; i < lines.length; i++) {
-    if (/^\s*(```|~~~)/.test(lines[i])) fenced = !fenced;
-    const heading = !fenced && lines[i].match(/^(#{1,6})\s+(.*?)\s*#*\s*$/);
+    const raw = lines[i].replace(/\r$/, "");
+    const open = raw.match(/^\s*(`{3,}|~{3,})/);
+    if (fence) { if (new RegExp(`^\\s*${fence[0]}{${fence.length},}\\s*$`).test(raw)) fence = null; continue; }
+    if (open) { if (!(open[1][0] === "`" && raw.slice(open[0].length).includes(open[1]))) fence = open[1]; continue; }
+    const heading = raw.match(/^(#{1,6})\s+(.*?)\s*#*\s*$/);
     if (!heading) continue;
-    if (start != null && heading[1].length <= level) return checked(lines.slice(start, i).join("\n"));
+    if (start != null && heading[1].length <= level) {
+      const found = check(i);
+      if (found) return found;
+      start = null;
+    }
     if (start == null && EN_HEADING.test(heading[2].replace(/[^\p{L}\p{N}_ ]/gu, "").trim())) [start, level] = [i + 1, heading[1].length];
   }
-  return start == null ? null : checked(lines.slice(start).join("\n"));
-
-  function checked(section) {
-    return isEnglishText(section) ? section : null;
-  }
+  return start == null ? null : check(lines.length);
 }
 
 function absolutizeLinks(markdown, repo) {
   const rawBase = `${RAW}/${repo}/HEAD/`;
   const blobBase = `https://github.com/${repo}/blob/HEAD/`;
-  const isRelative = (url) => url && !/^([a-z][a-z0-9+.-]*:|#|\/\/)/i.test(url);
   const join = (base, url) => base + url.replace(/^\.?\//, "");
-  const image = (url) => isRelative(url) ? join(rawBase, url) : rawImage(url);
-  return markdown
-    .replace(/(!?)\[([^\]]*)\]\(\s*<?([^)\s>]+)>?((?:\s+"[^"]*")?)\s*\)/g, (all, bang, text, url, title) =>
-      bang ? `![${text}](${image(url)}${title})` : isRelative(url) ? `[${text}](${join(blobBase, url)}${title})` : all)
+  const image = (url) => (isRelativeUrl(url) ? join(rawBase, url) : rawImage(url));
+  const rewrite = (seg) => seg
+    .replace(/(!?)\[((?:[^\[\]]|\[[^\]]*\])*)\]\(\s*<?([^)\s>]+)>?((?:\s+"[^"]*")?)\s*\)/g, (all, bang, text, url, title) =>
+      bang ? `![${text}](${image(url)}${title})` : isRelativeUrl(url) ? `[${text}](${join(blobBase, url)}${title})` : all)
     .replace(/(<img\b[^>]*?\bsrc=)(["'])([^"']+)\2/gi, (all, head, q, url) => `${head}${q}${image(url)}${q}`)
     .replace(/(<a\b[^>]*?\bhref=)(["'])([^"']+)\2/gi, (all, head, q, url) =>
-      isRelative(url) ? `${head}${q}${join(blobBase, url)}${q}` : all);
+      isRelativeUrl(url) ? `${head}${q}${join(blobBase, url)}${q}` : all);
+  return mapMarkdownLines(markdown, (line, _, inCode) => (inCode ? line : mapOutsideInlineCode(line, rewrite)));
 }
 
 /** A README as fetched from GitHub → as shown and kept: links pointed to GitHub, tags and wikilinks escaped. */
@@ -150,10 +199,10 @@ function textHash(text) {
 /** The README text inside a note (between the markers, without its "README · repo · version" line); null if none. */
 function readmeText(content) {
   const a = content.indexOf(README_START);
-  const b = content.indexOf(README_END);
-  if (a === -1 || b < a) return null;
+  const b = a === -1 ? -1 : content.indexOf(README_END, a + README_START.length);
+  if (a === -1 || b === -1) return null;
   const inner = content.slice(a + README_START.length, b).trim();
-  return inner.split("\n").slice(1).join("\n").trim() || null;
+  return inner.split(/\r?\n/).slice(1).join("\n").trim() || null;
 }
 
 /**
@@ -162,9 +211,9 @@ function readmeText(content) {
  */
 function readmeTranslation(content) {
   const a = content.indexOf(README_TR_START);
-  const b = content.indexOf(README_TR_END);
-  if (a === -1 || b < a) return null;
-  const [meta, ...body] = content.slice(a + README_TR_START.length, b).trim().split("\n");
+  const b = a === -1 ? -1 : content.indexOf(README_TR_END, a + README_TR_START.length);
+  if (a === -1 || b === -1) return null;
+  const [meta, ...body] = content.slice(a + README_TR_START.length, b).trim().split(/\r?\n/);
   return { hash: meta.match(/%% src:(\w+) %%/)?.[1] ?? null, date: meta.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? null, body: body.join("\n").trim() };
 }
 
@@ -177,13 +226,19 @@ function translationSection({ lang, version, hash, date, body }) {
 function replaceReadmeTranslation(content, section, heading) {
   const block = `${README_TR_START}\n${section}\n${README_TR_END}`;
   const a = content.indexOf(README_TR_START);
-  const b = content.indexOf(README_TR_END);
-  if (a !== -1 && b > a) return content.slice(0, a) + block + content.slice(b + README_TR_END.length);
+  const b = a === -1 ? -1 : content.indexOf(README_TR_END, a + README_TR_START.length);
+  if (a !== -1 && b !== -1) return content.slice(0, a) + block + content.slice(b + README_TR_END.length);
   const insert = `# ${heading}\n${block}\n\n`;
-  const at = content.search(/^# README[ \t]*$/m);
-  if (at !== -1) return content.slice(0, at) + insert + content.slice(at);
   const start = content.indexOf(README_START);
-  return start !== -1 ? content.slice(0, start) + insert + content.slice(start) : `${content.trimEnd()}\n\n${insert}`;
+  if (start !== -1) {
+    // prefer the `# README` heading immediately preceding README_START so a `# README` in user notes isn't matched
+    const before = content.slice(0, start);
+    const near = before.match(/(?:^|\r?\n)(# README[ \t]*\r?\n\s*)$/);
+    const at = near ? start - near[1].length : start;
+    return content.slice(0, at) + insert + content.slice(at);
+  }
+  const at = content.search(/^# README[ \t]*\r?$/m);
+  return at !== -1 ? content.slice(0, at) + insert + content.slice(at) : `${content.trimEnd()}\n\n${insert}`;
 }
 
 /**
@@ -193,11 +248,9 @@ function replaceReadmeTranslation(content, section, heading) {
 function skipDevSections(markdown) {
   const kept = [];
   const skipped = [];
-  let fence = false;
   let skipLevel = 0;   // the level of the heading being skipped; 0: keeping
-  for (const line of markdown.split("\n")) {
-    if (/^\s*(```|~~~)/.test(line)) fence = !fence;
-    const heading = !fence && line.match(/^(#{1,6})\s+(.+?)\s*#*\s*$/);
+  mapMarkdownLines(markdown, (line, _, inCode) => {
+    const heading = !inCode && line.match(/^(#{1,6})\s+(.+?)\s*#*\s*$/);
     if (heading) {
       const level = heading[1].length;
       if (skipLevel && level <= skipLevel) skipLevel = 0;
@@ -208,7 +261,8 @@ function skipDevSections(markdown) {
       }
     }
     if (!skipLevel) kept.push(line);
-  }
+    return line;
+  });
   return { text: kept.join("\n").trim(), skipped };
 }
 
@@ -255,7 +309,7 @@ function catalogDelta(before, after) {
   return { added, updated };
 }
 
-/** Body of a new tracking note (properties are written separately with processFrontMatter). */
+/** Body of a new library note (properties are written separately with processFrontMatter). */
 function noteBody(heading = t("note.myNotes")) {
   return `# ${heading}\n\n\n# README\n${README_START}\n${README_END}\n`;
 }
@@ -263,32 +317,30 @@ function noteBody(heading = t("note.myNotes")) {
 /** Notes made before 0.9 start with the description; it lives in the `description` property now. */
 function stripDescription(content, description) {
   if (!description) return content;
-  const fm = content.match(/^---\n[\s\S]*?\n---\n/);
+  const fm = content.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n/);
   const head = fm ? fm[0] : "";
   const body = content.slice(head.length);
-  const line = `${description.trim()}\n\n`;
-  const start = body.match(/^\n*/)[0].length;
-  return body.startsWith(line, start) ? head + body.slice(0, start) + body.slice(start + line.length) : content;
+  const start = body.match(/^(?:\r?\n)*/)[0].length;
+  const escaped = description.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = body.slice(start).match(new RegExp(`^${escaped}\\r?\\n\\r?\\n`));
+  return match ? head + body.slice(0, start) + body.slice(start + match[0].length) : content;
 }
 
-/** Turns the H2 headings of 0.1 notes into H1; touches no other line. */
+/** Turns the "## Notlarım" heading of 0.1 notes into H1; touches no other line. */
 function migrateHeadings(content) {
-  return content
-    .replace(/^## Notlarım[ \t]*$/m, "# Notlarım")
-    .replace(/^## README[ \t]*\n(?=<!-- plugin-tracker:readme-start -->)/m, "# README\n");
+  return content.replace(/^## Notlarım[ \t]*(\r?)$/m, "# Notlarım$1");
 }
 
-/** Turns 0.7.1's status values (candidate, trying, using, dropped) into today's (see LEGACY_STATUS). */
+/** Turns 0.7.1's status values (candidate, trying, using, dropped) into today's (see LEGACY_STATUS), frontmatter only. */
 function migrateStatuses(content) {
-  return content.replace(/^status: (candidate|trying|using|dropped)[ \t]*$/m, (all, old) => `status: ${LEGACY_STATUS[old]}`);
+  const fm = content.match(/^(---\r?\n[\s\S]*?\r?\n---\r?\n)/);
+  if (!fm) return content;
+  const updated = fm[1].replace(/^status: (candidate|trying|using|dropped)([ \t]*\r?)$/m, (all, old, tail) => `status: ${LEGACY_STATUS[old]}${tail}`);
+  return updated === fm[1] ? content : updated + content.slice(fm[1].length);
 }
 
-/** Swaps the README markers of notes made before 0.6.1 for hidden Obsidian comments. */
-function migrateMarkers(content) {
-  return content.replace(LEGACY_README_START, README_START).replace(LEGACY_README_END, README_END);
-}
 
-/** The Bases file listing the tracking notes in `folder` (written by "Create / reset Bases view"). */
+/** The Bases file listing the library notes in `folder` (written by "Create / reset Bases view"). */
 function baseFile(folder) {
   const q = JSON.stringify;  // a JSON string is a valid YAML string
   const links = ["obsidian", "github"];
@@ -299,10 +351,13 @@ function baseFile(folder) {
     "    order:",
     ...["file.name", ...columns, ...links].map((c) => `      - ${c}`),
   ];
+  const folderExpr = `file.inFolder(${q(folder)})`;
+  // quote YAML scalar when folder name contains `: ` or ` #` which would break YAML parsing
+  const folderFilter = /:\s|\s#/.test(folderExpr) ? q(folderExpr) : folderExpr;
   return [
     "filters:",
     "  and:",
-    `    - file.inFolder(${q(folder)})`,
+    `    - ${folderFilter}`,
     "views:",
     ...view(t("base.all"), [], ["groups", "status", "rating", "note", "downloads", "version", "updated", "reviewed"]),
     ...view(t("base.topRated"), ["    filters:", "      and:", `        - rating >= ${TOP_RATING}`], ["groups", "status", "rating", "note", "downloads", "updated"]),
@@ -329,18 +384,18 @@ function groupsOf(fm) {
   return uniqueNames(raw.map((g) => String(g ?? "")));
 }
 
-/** Trimmed, non-empty names without case-insensitive duplicates; the first spelling wins. */
+/** Trimmed, non-empty names without case-insensitive duplicates (locale-safe); the first spelling wins. */
 function uniqueNames(names) {
   const seen = new Set();
   return names.map((n) => n.replace(/\s+/g, " ").trim()).filter((n) => {
-    const key = n.toLocaleLowerCase();
+    const key = fold(n);
     if (!n || seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 }
 
-/** Tracking record from a note's frontmatter (only notes with `plugin_id`). */
+/** Library record from a note's frontmatter (only notes with `plugin_id`). */
 function noteFromFrontmatter(path, fm) {
   if (!fm || !fm.plugin_id) return null;
   return {

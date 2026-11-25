@@ -2,8 +2,7 @@ const SETTING_TABS = ["general", "notes", "data", "ai", "hidden"];   // the sett
 
 /**
  * Settings › Translation effect's preview: a small copy of the details window (the description, one Overview part) in
- * English, as an original is, shown as being read with `fx` by the same showReading the window uses. Redrawn on every
- * change; its effect ends with it (a Matrix one stops when the box leaves the page).
+ * English, as an original is, shown as being read with pure-CSS `fx` by showReading.
  */
 function fxPreview(box, fx) {
   box.empty();
@@ -14,9 +13,8 @@ function fxPreview(box, fx) {
   const part = parts.createDiv({ cls: "pdt-overview-part is-lead" });
   part.createEl("h4", { text: tIn("en", "details.what") });
   part.createEl("p").createSpan({ cls: "pdt-ln", text: FX_PREVIEW.summary });
-  const still = document.body.classList.contains(STILL_CLASS);
-  showReading(desc, fx, 0, still);
-  showReading(parts, fx, 1, still);
+  showReading(desc, fx, 0);
+  showReading(parts, fx, 1);
 }
 
 class RadarSettingTab extends PluginSettingTab {
@@ -27,6 +25,7 @@ class RadarSettingTab extends PluginSettingTab {
   }
 
   display() {
+    this.displaySeq = (this.displaySeq || 0) + 1;
     const { containerEl } = this;
     const plugin = this.plugin;
     const settings = plugin.data.settings;
@@ -42,7 +41,7 @@ class RadarSettingTab extends PluginSettingTab {
   /** The tab strip: one section of the settings at a time (Hidden carries its count). */
   renderTabs(containerEl, current) {
     const strip = containerEl.createDiv({ cls: "pdt-settings-tabs", attr: { role: "tablist" } });
-    const hidden = Object.values(this.plugin.hiddenCounts()).reduce((a, b) => a + b, 0);
+    const hidden = this.plugin.ops.hiddenTotal();
     for (const key of SETTING_TABS) {
       const on = key === current;
       const button = strip.createEl("button", { cls: `pdt-settings-tab${on ? " is-active" : ""}`, text: t(`set.tab.${key}`), attr: { type: "button", role: "tab", "aria-selected": String(on) } });
@@ -58,12 +57,14 @@ class RadarSettingTab extends PluginSettingTab {
       .setName(t("set.language"))
       .setDesc(t("set.languageDesc"))
       .addDropdown((d) => {
-        d.addOption("auto", t("set.languageAuto", { name: STRINGS[matchLanguage(obsidianLanguage())]["language.name"] }));
-        for (const [code, strings] of Object.entries(STRINGS)) d.addOption(code, strings["language.name"]);
+        const autoCode = matchLanguage(obsidianLanguage());
+        d.addOption("auto", t("set.languageAuto", { name: LOCALE_NAMES[autoCode] || STRINGS[autoCode]?.["language.name"] || "English" }));
+        for (const [code, name] of Object.entries(LOCALE_NAMES)) d.addOption(code, name);
         d.setValue(settings.language).onChange(async (value) => {
           settings.language = value;
           await save();
-          setLanguage(plugin.uiLanguage());
+          await plugin.applyLanguage();
+          plugin.addCommands();
           plugin.redraw(true);
           this.display();
         });
@@ -78,18 +79,18 @@ class RadarSettingTab extends PluginSettingTab {
           await save();
         }));
 
+    const applyNewDays = debounce(async () => { await save(); plugin.redraw(true); }, 300, true);
     new Setting(containerEl)
       .setName(t("set.newDays"))
       .setDesc(t("set.newDaysDesc"))
       .addText((text) => {
         text.inputEl.type = "number";
         text.inputEl.min = "1";
-        text.setValue(String(settings.newDays)).onChange(async (value) => {
+        text.setValue(String(settings.newDays)).onChange((value) => {
           const n = Math.round(Number(value));
           if (!(n >= 1)) return;
           settings.newDays = n;
-          await save();
-          plugin.redraw(true);
+          applyNewDays();
         });
       });
 
@@ -136,27 +137,28 @@ class RadarSettingTab extends PluginSettingTab {
     }
   }
 
-  /** Notes: where tracking notes live, their heading, the status field, the Bases table. */
+  /** Notes: where library notes live, their heading, the status field, the Bases table. */
   displayNotes(containerEl, settings, save) {
     const plugin = this.plugin;
+    const applyFolder = debounce(async () => { await save(); plugin.notes.rebuild(); plugin.redraw(true); }, 350, true);
+    const saveSoon = debounce(() => save(), 350, true);
     new Setting(containerEl)
       .setName(t("set.folder"))
       .setDesc(t("set.folderDesc"))
-      .addText((text) => text.setValue(settings.folder).onChange(async (value) => {
+      .addText((text) => text.setValue(settings.folder).onChange((value) => {
         settings.folder = value.trim() || defaultSettings().folder;
-        await save();
-        plugin.notes.rebuild();
+        applyFolder();
       }));
 
     new Setting(containerEl)
       .setName(t("set.notesHeading"))
       .setDesc(t("set.notesHeadingDesc"))
-      .addText((text) => text.setPlaceholder(t("note.myNotes")).setValue(settings.notesHeading).onChange(async (value) => {
+      .addText((text) => text.setPlaceholder(t("note.myNotes")).setValue(settings.notesHeading).onChange((value) => {
         settings.notesHeading = value.trim();
-        await save();
+        saveSoon();
       }));
 
-    const basePath = plugin.basePath();
+    const basePath = plugin.readmes.basePath();
     const baseExists = Boolean(this.app.vault.getAbstractFileByPath(basePath));
     new Setting(containerEl)
       .setName(t("set.base"))
@@ -165,8 +167,9 @@ class RadarSettingTab extends PluginSettingTab {
         b.setButtonText(t(baseExists ? "set.baseReset" : "set.baseCreate"));
         if (baseExists) b.setWarning();
         b.onClick(async () => {
-          await plugin.writeBase();
-          this.display();
+          const seq = this.displaySeq;
+          b.setDisabled(true);
+          try { await plugin.readmes.writeBase(); } finally { if (this.displaySeq === seq) this.display(); }
         });
       });
 
@@ -192,9 +195,9 @@ class RadarSettingTab extends PluginSettingTab {
       .setName(t("set.syncNow"))
       .setDesc(catalog ? t("set.lastSync", { time: formatTime(catalog.fetchedAt, now), age: formatAge(now - catalog.fetchedAt) }) : t("set.neverSynced"))
       .addButton((b) => b.setButtonText(t("set.syncNow")).setCta().onClick(async () => {
+        const seq = this.displaySeq;
         b.setDisabled(true);
-        await plugin.refresh();
-        this.display();
+        try { await plugin.sync.refresh(); } finally { if (this.displaySeq === seq) this.display(); }
       }));
     new Setting(containerEl)
       .setName(t("set.readmeMode"))
@@ -211,14 +214,15 @@ class RadarSettingTab extends PluginSettingTab {
       .setName(t("set.historySource"))
       .setDesc(timeline.to ? t("set.historyDesc", { from: dayString(timeline.from), to: dayString(timeline.to) }) : t("set.notBuilt"))
       .addButton((b) => b.setButtonText(t("set.rebuild")).onClick(async () => {
-        await plugin.downloadHistory();
-        this.display();
+        const seq = this.displaySeq;
+        b.setDisabled(true);
+        try { await plugin.sync.downloadHistory(); } finally { if (this.displaySeq === seq) this.display(); }
       }));
   }
 
   /** Hidden: the three kinds, each opening the Hidden page on it (search, sort and Restore are there). */
   displayHidden(containerEl) {
-    const counts = this.plugin.hiddenCounts();
+    const counts = this.plugin.ops.hiddenCounts();
     for (const kind of LIST_MODES) {
       new Setting(containerEl)
         .setName(`${t(`mode.${kind}`)} (${formatCount(counts[kind])})`)
@@ -239,41 +243,49 @@ class RadarSettingTab extends PluginSettingTab {
         this.display();
       }));
     if (!settings.statusEnabled) return;
+    const saveAndRedraw = debounce(async () => { await save(); this.plugin.redraw(true); }, 300, true);
     const move = async (from, to) => {
       const list = [...settings.statuses];
       list.splice(to, 0, ...list.splice(from, 1));
       settings.statuses = list;
       await save();
+      this.plugin.redraw(true);
       this.display();
     };
     settings.statuses.forEach((status, i) => {
       new Setting(containerEl)
         .setClass("pdt-status-setting")
         .setDesc(t("set.statusKey", { key: status.key }))
-        .addText((text) => text.setValue(status.label).onChange(async (value) => {
+        .addText((text) => text.setValue(status.label).onChange((value) => {
           status.label = value.trim() || status.key;   // the key in your notes never changes
-          await save();
+          saveAndRedraw();
         }))
         .addExtraButton((b) => b.setIcon("arrow-up").setTooltip(t("set.statusUp")).setDisabled(i === 0).onClick(() => move(i, i - 1)))
         .addExtraButton((b) => b.setIcon("arrow-down").setTooltip(t("set.statusDown")).setDisabled(i === settings.statuses.length - 1).onClick(() => move(i, i + 1)))
         .addExtraButton((b) => b.setIcon("trash-2").setTooltip(t("set.statusRemove")).onClick(async () => {
           settings.statuses = settings.statuses.filter((st) => st !== status);
           await save();
+          this.plugin.redraw(true);
           this.display();
         }));
     });
     let draft = "";
+    const addStatus = async () => {
+      const label = draft.trim();
+      if (!label) return;
+      settings.statuses = [...settings.statuses, { key: statusKey(label, settings.statuses.map((st) => st.key)), label }];
+      await save();
+      this.plugin.redraw(true);
+      this.display();
+    };
     new Setting(containerEl)
       .setName(t("set.statusAdd"))
       .setDesc(t("set.statusAddDesc"))
-      .addText((text) => text.setPlaceholder(t("set.statusPlaceholder")).onChange((value) => { draft = value; }))
-      .addButton((b) => b.setButtonText(t("groups.add")).onClick(async () => {
-        const label = draft.trim();
-        if (!label) return;
-        settings.statuses = [...settings.statuses, { key: statusKey(label, settings.statuses.map((st) => st.key)), label }];
-        await save();
-        this.display();
-      }));
+      .addText((text) => {
+        text.setPlaceholder(t("set.statusPlaceholder")).onChange((value) => { draft = value; });
+        text.inputEl?.addEventListener?.("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); addStatus(); } });
+      })
+      .addButton((b) => b.setButtonText(t("groups.add")).onClick(addStatus));
   }
 
   /** AI: provider, key, model, target language, README translation, the instructions (folded), saved translations. */
@@ -314,13 +326,13 @@ class RadarSettingTab extends PluginSettingTab {
 
       const description = [
         settings.modelCost ? t("set.modelPrice", { price: formatPrice(settings.modelCost) }) : "",
-        this.modelList && provider !== "openrouter" ? t("set.noPrices") : "",
+        provider !== "openrouter" ? t("set.noPrices") : "",
         t("set.modelHint"),
       ].filter(Boolean).join(" ");
       new Setting(containerEl)
         .setName(settings.model ? `${t("set.model")}: ${settings.model}` : t("set.model"))
         .setDesc(description)
-        .addButton((b) => b.setButtonText(t("set.modelPick")).setCta().onClick(() => this.pickModel(settings, save)))
+        .addButton((b) => b.setButtonText(t("set.modelPick")).setCta().onClick(() => this.pickModel(settings, save, b)))
         .addButton((b) => b.setButtonText(t("set.modelTest")).setDisabled(!translator.ready).onClick(async () => {
           b.setDisabled(true);
           try {
@@ -333,11 +345,12 @@ class RadarSettingTab extends PluginSettingTab {
 
       this.renderThinking(containerEl, settings, save);
 
+      const applyLang = debounce(async () => { await save(); this.plugin.redraw(true); }, 350, true);
       new Setting(containerEl)
         .setName(t("set.targetLang"))
-        .addText((text) => text.setValue(settings.targetLang).onChange(async (value) => {
+        .addText((text) => text.setValue(settings.targetLang).onChange((value) => {
           settings.targetLang = value.trim() || defaultSettings().targetLang;
-          await save();
+          applyLang();
         }));
       new Setting(containerEl)
         .setName(t("set.translatedFirst"))
@@ -366,28 +379,34 @@ class RadarSettingTab extends PluginSettingTab {
           await save();
           this.plugin.redraw(true);   // the selection bar's Group with AI
         }));
-      // the instructions sent with each translation (folded: rarely changed); the reply format after them stays fixed
+      const savePrompt = debounce(() => save(), 350, true);
       const advanced = containerEl.createEl("details", { cls: "pdt-settings-advanced" });
       advanced.createEl("summary", { text: t("set.advanced") });
       for (const kind of Object.keys(DEFAULT_PROMPTS)) {
         const mine = settings.prompts?.[kind] || "";
+        let resetBtn = null;
         new Setting(advanced)
           .setName(t(`set.prompt.${kind}`))
           .setDesc(t("set.promptDesc"))
           .setClass("pdt-setting-prompt")
           .addTextArea((area) => {
-            area.setPlaceholder(DEFAULT_PROMPTS[kind]).setValue(mine || DEFAULT_PROMPTS[kind]).onChange(async (value) => {
+            area.setPlaceholder(DEFAULT_PROMPTS[kind]).setValue(mine || DEFAULT_PROMPTS[kind]).onChange((value) => {
               const text = value.trim();
-              settings.prompts = { ...settings.prompts, [kind]: text === DEFAULT_PROMPTS[kind] ? "" : text };
-              await save();
+              const custom = text === DEFAULT_PROMPTS[kind] ? "" : text;
+              settings.prompts = { ...settings.prompts, [kind]: custom };
+              resetBtn?.setDisabled(!custom);
+              savePrompt();
             });
             area.inputEl.rows = 4;
           })
-          .addExtraButton((b) => b.setIcon("rotate-ccw").setTooltip(t("set.promptReset")).setDisabled(!mine).onClick(async () => {
-            settings.prompts = { ...settings.prompts, [kind]: "" };
-            await save();
-            this.display();
-          }));
+          .addExtraButton((b) => {
+            resetBtn = b;
+            b.setIcon("rotate-ccw").setTooltip(t("set.promptReset")).setDisabled(!mine).onClick(async () => {
+              settings.prompts = { ...settings.prompts, [kind]: "" };
+              await save();
+              this.display();
+            });
+          });
       }
     }
 
@@ -460,18 +479,19 @@ class RadarSettingTab extends PluginSettingTab {
       ["set.todo.overview", { n: overviews, estimate: plugin.estimateOverviews(overviews) }],
     ];
     const part = ([key, { n, estimate }]) => [t(key, { n: formatCount(n) }), n ? estimateCost(estimate) || t("details.tokens", { n: formatCount(estimate.tokens) }) : null].filter(Boolean).join(" ");
+    const seq = this.displaySeq;
     const line = containerEl.createDiv({ cls: "pdt-usage-todo setting-item-description" });
-    const draw = (readme) => line.setText(t("set.todo", { list: [...known.map(part), readme ? part(["set.todo.readme", readme]) : t("set.todo.counting")].join(" · ") }));
+    const draw = (readme) => {
+      if (readme && this.displaySeq !== seq) return;
+      line.setText(t("set.todo", { list: [...known.map(part), readme ? part(["set.todo.readme", readme]) : t("set.todo.counting")].join(" · ") }));
+    };
     draw(null);
-    plugin.untranslatedReadmes().then(draw).catch((error) => console.warn("[Community Radar] untranslated READMEs", error));
+    plugin.readmes.untranslated().then(draw).catch((error) => console.warn("[Community Radar] untranslated READMEs", error));
   }
 
-  /**
-   * Thinking: the model's default or off. Greyed out, with the reason under it, where it can't apply: a provider
-   * without the switch (THINKING_NOTES), a model that must think, or one that doesn't think at all.
-   */
+  /** Thinking: the model's default or off, greyed out where the provider or model doesn't allow switching. */
   renderThinking(containerEl, settings, save) {
-    const note = THINKING_NOTES[settings.provider]
+    const note = (!PROVIDERS[settings.provider]?.thinking ? "set.thinking.elsewhere" : null)
       || { mandatory: "set.thinking.mandatory", none: "set.thinking.none" }[settings.modelThinking];
     new Setting(containerEl)
       .setName(t("set.thinking"))
@@ -497,20 +517,32 @@ class RadarSettingTab extends PluginSettingTab {
       });
   }
 
-  /** Loads the model list once (if it can), then opens the filtering picker; typed names are allowed. */
-  async pickModel(settings, save) {
-    if (!this.modelList) {
-      try {
-        this.modelList = await this.plugin.translator.models(settings.provider);
-      } catch (error) {
-        new Notice(t("notice.modelsFailed", { error: error.message }));
+  /** Loads the model list once per provider, then opens the picker; guards concurrent clicks and provider switches. */
+  async pickModel(settings, save, button = null) {
+    if (this.pickingModel) return;
+    this.pickingModel = true;
+    button?.setDisabled?.(true);
+    const provider = settings.provider;
+    try {
+      if (!this.modelList?.length) {
+        try {
+          const list = await this.plugin.translator.models(provider);
+          if (settings.provider !== provider) return;   // provider changed while loading
+          if (list.length) this.modelList = list;
+        } catch (error) {
+          new Notice(t("notice.modelsFailed", { error: error.message }));
+        }
       }
+      if (settings.provider !== provider) return;
+      const model = await this.plugin.pickModel(this.modelList || []);
+      if (!model || settings.provider !== provider) return;
+      Object.assign(settings, { model: model.id, modelCost: model.price || null, modelThinking: model.thinking ?? null });
+      await save();
+      this.display();
+    } finally {
+      this.pickingModel = false;
+      button?.setDisabled?.(false);
     }
-    const model = await this.plugin.pickModel(this.modelList || []);
-    if (!model) return;
-    Object.assign(settings, { model: model.id, modelCost: model.price || null, modelThinking: model.thinking ?? null });
-    await save();
-    this.display();
   }
 }
 

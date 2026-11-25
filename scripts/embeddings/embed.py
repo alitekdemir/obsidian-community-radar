@@ -16,14 +16,13 @@ import argparse
 import datetime
 import hashlib
 import json
-import re
-import urllib.request
+import sys
 from pathlib import Path
 
 import numpy as np
 
-LISTING_URL = "https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json"
-UNREVIEWED_NOTE = re.compile(r"\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*", re.I)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common import LISTING_URL, clean_description, fetch_json
 
 # key → Hugging Face id, vector size (None = the model's own), extra load arguments
 MODELS = {
@@ -43,10 +42,9 @@ REPORT_TOP = 8
 
 
 def load_catalog():
-    """The official plugin list: [{id, name, description}], descriptions without Obsidian's review note."""
-    with urllib.request.urlopen(LISTING_URL, timeout=60) as response:
-        plugins = json.load(response)
-    return [{"id": p["id"], "name": p["name"], "text": f'{p["name"]}: {UNREVIEWED_NOTE.sub(" ", p.get("description", "")).strip()}'}
+    """The official plugin list: [{id, name, text}], descriptions without Obsidian's review note."""
+    plugins = fetch_json(LISTING_URL)
+    return [{"id": p["id"], "name": p["name"], "text": f'{p["name"]}: {clean_description(p.get("description"))}'}
             for p in plugins]
 
 
@@ -87,11 +85,16 @@ def build(catalog, key, out):
                                normalize_embeddings=True, convert_to_numpy=True)
         fresh = dict(zip((hashes[i] for i in missing), to_int8(vectors.astype(np.float32))))
     matrix = np.stack([fresh.get(h, cached.get(h)) for h in hashes])
+    ids = [p["id"] for p in catalog]
+    meta_path = out / f"{key}.json"
+    old = json.loads(meta_path.read_text()) if meta_path.exists() else {}
+    # same plugins, same texts: keep the stamp, so the hourly Similar job sees nothing new and skips its scoring
+    same = bool(not missing and old.get("ids") == ids and old.get("hashes") == hashes and old.get("built"))
+    built = old["built"] if same else datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     matrix.tofile(out / f"{key}.bin")
-    (out / f"{key}.json").write_text(json.dumps({
+    meta_path.write_text(json.dumps({
         "model": model_id, "dim": int(matrix.shape[1]), "count": len(catalog),
-        "built": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "ids": [p["id"] for p in catalog], "hashes": hashes,
+        "built": built, "ids": ids, "hashes": hashes,
     }, separators=(",", ":")))
     return matrix
 

@@ -17,10 +17,12 @@ const profileCategories = (profile) => (profile ? [profile.primary, ...(profile.
  * tags (the index's counts, most used first).
  */
 function profileFacets(index) {
-  const counts = {};
-  for (const profile of Object.values(index?.plugins || {})) for (const c of profileCategories(profile)) counts[c] = (counts[c] || 0) + 1;
+  const counts = new Map();
+  for (const profile of Object.values(index?.plugins || {})) {
+    for (const c of profileCategories(profile)) counts.set(c, (counts.get(c) || 0) + 1);
+  }
   return {
-    categories: (index?.categories || []).map((name) => ({ name, count: counts[name] || 0 })),
+    categories: (index?.categories || []).map((name) => ({ name, count: counts.get(name) || 0 })),
     tags: Object.entries(index?.tags || {}).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)),
   };
 }
@@ -47,7 +49,11 @@ const PROFILE_TEXT_KEYS = ["summary", "problem", "disambiguation", "extras"];
  * Is a saved Overview translation current: in `lang` and made from this summary? The summary (the first text sent)
  * is the one part every plugin has here without downloading its profile; the rest is checked when it's sent again.
  */
-const overviewCurrent = (saved, summary, lang) => Boolean(saved) && saved.lang === lang && saved.src.split("\n", 1)[0] === (summary || "");
+const overviewCurrent = (saved, summary, lang) => {
+  if (!saved || saved.lang !== lang || typeof saved.src !== "string") return false;
+  const first = String(summary || "").replace(/\r?\n/g, " ");
+  return saved.src.split("\n", 1)[0] === first || saved.src.startsWith(`${String(summary || "")}\n`) || saved.src === String(summary || "");
+};
 
 /** The Overview's texts as one list, for a translation request (an empty one stays ""): see profileFromTexts. */
 const profileTexts = (parts) => [...PROFILE_TEXT_KEYS.map((key) => parts[key] || ""), ...parts.capabilities, ...parts.needs];
@@ -69,20 +75,76 @@ function profileFromTexts(parts, texts) {
 
 /** Writing systems a translation is checked against; Latin is always allowed (names, code, Obsidian's own words). */
 const SCRIPTS = {
-  cjk: /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u,
-  cyrillic: /\p{Script=Cyrillic}/u, arabic: /\p{Script=Arabic}/u, greek: /\p{Script=Greek}/u,
-  hebrew: /\p{Script=Hebrew}/u, thai: /\p{Script=Thai}/u, devanagari: /\p{Script=Devanagari}/u,
+  han: /\p{Script=Han}/u,
+  kana: /[\p{Script=Hiragana}\p{Script=Katakana}]/u,
+  hangul: /\p{Script=Hangul}/u,
+  cyrillic: /\p{Script=Cyrillic}/u,
+  arabic: /\p{Script=Arabic}/u,
+  greek: /\p{Script=Greek}/u,
+  hebrew: /\p{Script=Hebrew}/u,
+  thai: /\p{Script=Thai}/u,
+  devanagari: /\p{Script=Devanagari}/u,
 };
+const SCRIPT_ENTRIES = Object.entries(SCRIPTS);
+const LATIN_LETTER = /\p{Script=Latin}/u;
 const NON_LATIN = /[^\P{L}\p{Script=Latin}]/u;   // a letter of any other script
+const MATH_GREEK = /[αβγδεθλμπσωΔΣΩ]/;           // technical/math symbols allowed in Latin technical translations
 const FOREIGN_SHARE = 0.15;      // more of the letters than this in another script: the wrong language
 const UNTRANSLATED_SHARE = 0.5;  // at least this share of the texts sent back as they were: not translated
 const LONG_TEXT = 20;            // shorter texts (a name, "API key") may rightly stay as they are
 
-/** The script of a letter (a key of SCRIPTS), or null for Latin and non-letters. */
-const scriptOf = (ch) => Object.keys(SCRIPTS).find((key) => SCRIPTS[key].test(ch)) ?? null;
+/** Scripts allowed for a target language script group. */
+const ALLOWED_SCRIPTS = {
+  japanese: ["han", "kana"],
+  chinese: ["han"],
+  korean: ["hangul", "han"],
+  cjk: ["han", "kana", "hangul"],
+};
 
-/** The script your target language is written in, read from its name ("Türkçe": null = Latin, "日本語": cjk). */
-const scriptOfLanguage = (lang) => scriptOf([...String(lang)].find((ch) => NON_LATIN.test(ch)) ?? "");
+/** Latin-spelled target language names → script group (so typing "Japanese" or "Russian" in Settings works). */
+const LANG_NAME_SCRIPTS = [
+  [/\b(ja|jp|jpn|japanese|japanisch|japonca|japonais|japon[eé]s|nihongo)\b/i, "japanese"],
+  [/\b(zh|cn|zho|chi|chinese|mandarin|cantonese|chinesisch|[cç]ince|chinois|chino)\b/i, "chinese"],
+  [/\b(ko|kr|kor|korean|koreanisch|korece|cor[eé]en|coreano|hangul)\b/i, "korean"],
+  [/\b(ru|uk|bg|sr|mk|be|kk|ky|mn|russian|ukrainian|bulgarian|serbian|belarusian|kazakh|macedonian|cyrillic|russisch|rus[cç]a|ukraynaca)\b/i, "cyrillic"],
+  [/\b(ar|fa|ur|ps|arabic|persian|farsi|urdu|arabisch|arap[cç]a|fars[cç]a)\b/i, "arabic"],
+  [/\b(el|gr|greek|griechisch|yunanca)\b/i, "greek"],
+  [/\b(he|iw|hebrew|hebr[aä]isch|ibranice)\b/i, "hebrew"],
+  [/\b(th|thai|tayca)\b/i, "thai"],
+  [/\b(hi|mr|ne|sa|hindi|marathi|nepali|sanskrit|devanagari|hint[cç]e)\b/i, "devanagari"],
+];
+
+/** The script of a letter (a key of SCRIPTS), or null for Latin and non-letters. */
+function scriptOf(ch) {
+  if (LATIN_LETTER.test(ch)) return null;
+  for (const [key, re] of SCRIPT_ENTRIES) if (re.test(ch)) return key;
+  return null;
+}
+
+/** Whether letter `ch` belongs to target language script group `langScript`. */
+function matchesScript(ch, langScript) {
+  if (!langScript) return false;
+  const group = ALLOWED_SCRIPTS[langScript];
+  if (group) return group.some((k) => SCRIPTS[k].test(ch));
+  return Boolean(SCRIPTS[langScript]?.test(ch));
+}
+
+/** The script your target language is written in: native script chars first ("日本語" → japanese), else Latin name ("Japanese" → japanese). */
+function scriptOfLanguage(lang) {
+  const text = String(lang || "");
+  let hasHan = false;
+  for (const ch of text) {
+    if (!NON_LATIN.test(ch)) continue;
+    const s = scriptOf(ch);
+    if (s === "kana") return "japanese";
+    if (s === "hangul") return "korean";
+    if (s === "han") { hasHan = true; continue; }
+    if (s) return s;
+  }
+  if (hasHan) return /\b(ja|jp|japanese)\b/i.test(text) ? "japanese" : "chinese";
+  for (const [re, group] of LANG_NAME_SCRIPTS) if (re.test(text)) return group;
+  return null;
+}
 
 /**
  * Is this translation usable? `sources[i]` was translated into `texts[i]` (in `lang`).
@@ -98,6 +160,7 @@ function translationProblem(sources, texts, lang) {
   const out = texts.filter(Boolean).join("\n");
   if (!NON_LATIN.test(out)) return null;   // Latin letters only: the usual case, nothing to count
   const target = scriptOfLanguage(lang);
+  const allowed = target ? (ALLOWED_SCRIPTS[target] || [target]) : [];
   const source = sources.join("\n");
   let letters = 0;
   let foreign = 0;
@@ -106,15 +169,17 @@ function translationProblem(sources, texts, lang) {
     if (!/\p{L}/u.test(ch)) continue;
     letters++;
     const script = scriptOf(ch);
-    if (!script || script === target) continue;
+    if (!script || allowed.includes(script)) continue;
+    if (script === "greek" && MATH_GREEK.test(ch)) continue;
     foreign++;
     if (!source.includes(ch)) added++;
   }
-  return foreign / letters > FOREIGN_SHARE || added >= 2 ? "script" : null;
+  return (letters && foreign / letters > FOREIGN_SHARE) || added >= 2 ? "script" : null;
 }
 
 /** A kept translation's sources and texts, side by side (see translationProblem). */
 function translationPairs(kind, entry) {
   if (kind === "description") return { sources: [entry.src], texts: [entry.text] };
-  return { sources: String(entry.src ?? "").split("\n"), texts: profileTexts({ capabilities: [], needs: [], ...entry.parts }) };
+  const texts = profileTexts({ capabilities: [], needs: [], ...entry.parts });
+  return { sources: String(entry.src ?? "").split("\n").slice(0, texts.length), texts };
 }

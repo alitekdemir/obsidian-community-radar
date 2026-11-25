@@ -24,10 +24,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - id: week
+        run: echo "key=$(date -u +%G-W%V)" >> "$GITHUB_OUTPUT"
+
       - uses: actions/cache@v4
         with:
           path: obsidian-releases
-          key: obsidian-releases-${{ github.run_id }}
+          key: obsidian-releases-${{ steps.week.outputs.key }}
           restore-keys: obsidian-releases-
 
       - name: obsidian-releases with its full history (~300 MB the first time, then only new commits)

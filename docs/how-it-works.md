@@ -35,6 +35,7 @@ Community Radar only makes these requests:
 | `raw.githubusercontent.com` | Sync, README updates | The public plugin list and stats, and plugin READMEs |
 | `api.github.com` | Only when a README isn't at a usual path | The README. Unauthenticated, 60 requests an hour |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/` | Sync, when a newer build is out | Release history and download metrics (~600 KB) |
+| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/<version>/locales/` (`HEAD` when that version has no complete file) | Only for a UI language other than English: once on its first use, then after an update of the plugin | That language's UI strings (~60–90 KB); English is built in |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/` | Sync, at most once a day and only when changed; the details window | The AI profiles' index (~5.6 MB), the Similar lists (~2.8 MB, ~1.2 MB sent compressed), one plugin's profile (~2 KB) |
 | Your AI provider (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` or `openrouter.ai`) | **Only** when you translate or ask for group suggestions, with a provider set up | Plugin names and descriptions, the names of your groups, a README or an Overview you ask to translate |
 
@@ -44,7 +45,7 @@ No telemetry, no account, nothing about your vault is sent anywhere. In the vaul
 
 | Data | Where |
 |---|---|
-| Your groups, ratings, statuses, notes, review dates | Your tracking notes |
+| Your groups, ratings, statuses, notes, review dates | Your library notes |
 | Settings, page queries, saved views, ignored plugins, recent actions | `.obsidian/plugins/plugin-radar/data.json` |
 | Short description and Overview translations | `.obsidian/plugins/plugin-radar/translations.jsonl` |
-| Catalog, release history, similar lists and AI profiles (caches, rebuilt on demand) | `.obsidian/plugins/plugin-radar/cache/` |
+| Catalog, release history, similar lists, AI profiles and your UI language's strings (caches, rebuilt on demand) | `.obsidian/plugins/plugin-radar/cache/` |

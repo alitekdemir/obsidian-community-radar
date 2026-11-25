@@ -61,8 +61,8 @@ const QUERY_FIELDS = {
   group: { type: "list", group: true, get: (s, p) => s.notes.get(p.id)?.groups || [] },
   status: { type: "list", group: true, get: (s, p) => { const st = s.notes.get(p.id)?.status; return st ? [st] : []; } },
   installed: { type: "bool", get: (s, p) => s.installed.has(p.id) },
-  tracked: { type: "bool", get: (s, p) => s.notes.has(p.id) },
-  unreviewed: { type: "bool", get: (s, p) => { const note = s.notes.get(p.id); return Boolean(note) && isUnreviewed(p, note); } },   // tracked, released since you reviewed it
+  library: { type: "bool", get: (s, p) => s.notes.has(p.id) },   // has a note (the Library page); `tracked` before 0.16 (migrateLibraryField)
+  unreviewed: { type: "bool", get: (s, p) => { const note = s.notes.get(p.id); return Boolean(note) && isUnreviewed(p, note); } },   // in your library, released since you reviewed it
   dismissed: { type: "bool", get: (s, p) => Boolean(s.dismissed?.has(p.id)) },
   // hidden plugins: lists leave them out unless the query names one of these
   excluded: { type: "bool", get: (s, p) => Boolean(s.excluded?.has(p.id)) },
@@ -82,7 +82,8 @@ const QUERY_FIELDS = {
   translated: { type: "list", get: (s, p) => {
     const saved = s.translations;
     if (!saved) return [];
-    const description = p.description && saved.description[p.id]?.src === p.description;
+    const desc = saved.description[p.id];
+    const description = p.description && desc?.src === p.description && (!desc.lang || desc.lang === s.targetLang);
     const overview = overviewCurrent(saved.overview[p.id], profileOf(s, p)?.summary, s.targetLang);
     return [description && "description", overview && "overview"].filter(Boolean);
   } },
@@ -97,18 +98,25 @@ const TAIL_PARTS = ["group", "order", "limit"];
 /** A field name as a clause, not as a value (`name ~ busy` stays): after neither an operator nor a word or quote. */
 const asClause = (word) => new RegExp(`(?<![=~<>!]\\s*)(?<![\\w"])${word}(?![\\w(])`, "gi");
 
+/** Runs `fn` on a query's text outside "quoted strings" and /regex/, which stay as written. */
+const outsideQuotes = (text, fn) => String(text).split(/("(?:[^"\\]|\\.)*"|\/(?:[^/\\]|\\.)+\/[a-z]*)/)
+  .map((part, idx) => (idx % 2 === 1 ? part : fn(part))).join("");
+
 /**
  * A query saved before 0.11 in today's fields: busy → releases(180d) > 9, new → listed <= 14d, gain7 / rise30 →
- * gain(7d) / rise(30d), a bare milestone → milestone(). The rest stays as written.
+ * gain(7d) / rise(30d), a bare milestone → milestone(). Quoted strings and /regex/ stay untouched.
  */
 function migrateQuery(text, newDays = DEFAULT_NEW_DAYS) {
-  return String(text)
+  return outsideQuotes(text, (part) => part
     .replace(/\bNOT\s+busy\b/gi, `releases(${BUSY_DAYS}d) <= ${BUSY_LIMIT}`)
     .replace(asClause("busy"), `releases(${BUSY_DAYS}d) > ${BUSY_LIMIT}`)
     .replace(asClause("new"), `listed <= ${newDays}d`)
     .replace(asClause("(gain|rise)(7|30)"), "$1($2d)")
-    .replace(asClause("milestone"), "milestone()");
+    .replace(asClause("milestone"), "milestone()"));
 }
+
+/** 0.16: the `tracked` field is `library` (the Library page); values, quotes and /regex/ stay. */
+const libraryQuery = (text) => outsideQuotes(text, (part) => part.replace(asClause("tracked"), "library"));
 
 /** 0.10: a tab's days, pause, Hide busy and Downloads ≥ become its query; changes `st` (the settings) in place. */
 function migratePageQueries(st) {
@@ -126,13 +134,19 @@ function migratePageQueries(st) {
   delete st.queryMode;
 }
 
-/** 0.11: every saved query (pages, boxes, recent ones, views) in today's fields (see migrateQuery); changes `st` in place. */
-function migrateFields011(st) {
-  const move = (q) => (typeof q === "string" ? migrateQuery(q, st.newDays) : q);   // a missing query stays missing
-  const each = (byPage) => Object.fromEntries(Object.entries(byPage || {}).map(([page, q]) => [page, move(q)]));
-  Object.assign(st, { pageQueries: each(st.pageQueries), queries: each(st.queries), recentQueries: (st.recentQueries || []).map(move) });
-  if (st.home?.views) st.home.views = st.home.views.map((v) => ({ ...v, query: move(v.query) }));
+/** Every saved query (pages, boxes, recent ones, views) through `move`; changes `st` (the settings) in place. */
+function mapSavedQueries(st, move) {
+  const each = (q) => (typeof q === "string" ? move(q) : q);   // a missing query stays missing
+  const byPage = (queries) => Object.fromEntries(Object.entries(queries || {}).map(([page, q]) => [page, each(q)]));
+  Object.assign(st, { pageQueries: byPage(st.pageQueries), queries: byPage(st.queries), recentQueries: (st.recentQueries || []).map(each) });
+  if (st.home?.views) st.home.views = st.home.views.map((v) => ({ ...v, query: each(v.query) }));
 }
+
+/** 0.11: every saved query in today's fields (see migrateQuery). */
+const migrateFields011 = (st) => mapSavedQueries(st, (q) => migrateQuery(q, st.newDays));
+
+/** 0.16: every saved query with `library` for `tracked` (see libraryQuery). */
+const migrateLibraryField = (st) => mapSavedQueries(st, libraryQuery);
 
 /** A parameter as the field reads it (days or a count); null if it isn't one. */
 function paramValue(field, text) {
@@ -189,24 +203,33 @@ function containsWords(text) {
   };
 }
 
-/** Is this an advanced query (a field followed by an operator, a keyword, or `order by`)? */
-function isAdvancedQuery(query) {
+/** Precompiled detectors for advanced query syntax (clauses/tails are case-insensitive; standalone AND/OR/NOT are uppercase). */
+const ADVANCED_CLAUSE_RE = (() => {
   const fields = Object.keys(QUERY_FIELDS).join("|");
   const calls = Object.keys(QUERY_FIELDS).filter((k) => QUERY_FIELDS[k].param).join("|");
-  return new RegExp(`(^|[\\s(])(${fields})\\s*(=|!=|~|!~|>=?|<=?|\\bin\\b|\\bnot\\s+in\\b|\\bis\\b)|(^|[\\s(])(${calls})\\s*\\(|\\b(order|group)\\s+by\\b|\\blimit\\s+\\d|(^|\\s)(AND|OR|NOT)(\\s|$)`, "i").test(query);
+  return new RegExp(`(^|[\\s(])(${fields})\\s*(=|!=|~|!~|>=?|<=?|\\bin\\b|\\bnot\\s+in\\b|\\bis\\b)|(^|[\\s(])(${calls})\\s*\\(|\\b(order|group)\\s+by\\b|\\blimit\\s+\\d`, "i");
+})();
+const ADVANCED_BOOL_RE = /(?:^|\s)(?:AND|OR|NOT)(?:\s|$)/;
+
+/** Is this an advanced query (a field followed by an operator, uppercase AND/OR/NOT, or `order by`)? */
+function isAdvancedQuery(query) {
+  return ADVANCED_CLAUSE_RE.test(query) || ADVANCED_BOOL_RE.test(query);
 }
 
 /** Splits a query into tokens: words, "quoted", /regex/, operators, ( ) and commas, each with its position. */
 function tokenize(query) {
   const tokens = [];
-  const re = /\s*(?:("(?:[^"\\]|\\.)*"?)|(\/(?:[^/\\]|\\.)+\/[a-z]*)|(!=|!~|>=|<=|[=~<>(),])|([^\s=!~<>(),"]+))/gy;
+  const re = /\s*(?:("(?:[^"\\]|\\.)*"?)|(\/(?:[^/\\]|\\.)+\/[a-z]*)|(!=|!~|>=|<=|[=~<>(),!])|([^\s=!~<>(),"]+))/gy;
   let match;
   while (re.lastIndex < query.length && (match = re.exec(query))) {
     const [all, quoted, regex, op, word] = match;
     const at = match.index + all.length - (quoted || regex || op || word || "").length;
     const end = re.lastIndex;
-    if (quoted != null) tokens.push({ kind: "value", text: quoted.slice(1, quoted.length > 1 && quoted.endsWith('"') ? -1 : undefined).replace(/\\"/g, '"'), at, end, quoted: true });
-    else if (regex) tokens.push({ kind: "regex", text: regex, at, end });
+    if (quoted != null) {
+      const closed = quoted.length > 1 && /(?:^|[^\\])(?:\\\\)*"$/.test(quoted);
+      const raw = quoted.slice(1, closed ? -1 : undefined).replace(/\\([\\"])/g, "$1");
+      tokens.push({ kind: "value", text: raw, at, end, quoted: true, ...(closed ? {} : { unclosed: true }) });
+    } else if (regex) tokens.push({ kind: "regex", text: regex, at, end });
     else if (op) tokens.push({ kind: op === "(" || op === ")" || op === "," ? op : "op", text: op, at, end });
     else if (word) tokens.push({ kind: "word", text: word, at, end });
     if (!all) break;
@@ -234,9 +257,25 @@ class QueryError extends Error {
 }
 
 /**
- * Parses an advanced query into {test(state, p, now), order, clauses, free, spans}. `spans` are what the box paints:
- * {from, to, kind: clause|neg|order}. Throws a QueryError with the position of what it couldn't read, plus the
- * spans so far and the broken part (from, to).
+ * Compares a plugin's timestamp `at2` against a date target `moment` using `opText`.
+ * `at2 == null` never matches; `at2 === 0` means "before history started" (matches `<` / `<=` / `!=`).
+ * Equality (`=` / `!=`) compares local calendar days so `released = 2026-01-01` and `released = today()` work.
+ */
+function compareMoment(at2, moment, opText) {
+  if (at2 == null || moment == null) return false;
+  if (opText === "=" || opText === "!=") {
+    const same = at2 > 0 && dayStart(dayString(at2)) === dayStart(dayString(moment));
+    return opText === "=" ? same : !same;
+  }
+  if (at2 === 0) return opText === "<" || opText === "<=";
+  return QUERY_CMP[opText](at2, moment);
+}
+
+/**
+ * Parses an advanced query into {test(state, p, now), order, group, limit, pins, clauses, free, spans, fields, ast}.
+ * `spans` are what the box paints: {from, to, kind: clause|neg|order}. `ast` holds structured clauses and feature
+ * flags so Query → Basic and diff helpers share one grammar without re-tokenizing. Throws a QueryError with the
+ * position of what it couldn't read, plus the spans so far and the broken part (from, to).
  */
 function parseQuery(query, { strict = false } = {}) {
   const tokens = tokenize(query);
@@ -244,6 +283,7 @@ function parseQuery(query, { strict = false } = {}) {
   let clauses = 0;
   const fields = new Set();   // the fields the query names (discover keeps hidden plugins when it names `excluded` or `snoozed`)
   const pins = {};            // field → the values its = / in / is empty clauses ask for, outside any NOT (group by's sections)
+  const ast = { clauses: [], funcs: [], hasOr: false, hasNeg: false, hasParens: false, hasRegex: false, hasIn: false };
   let negated = 0;            // how many NOTs the clause being read is under
   let current = null;   // where the clause being read starts
   const free = [];
@@ -274,7 +314,7 @@ function parseQuery(query, { strict = false } = {}) {
   };
 
   const valueOf = (field, token) => {
-    if (!token || (token.kind !== "word" && token.kind !== "value" && token.kind !== "regex")) fail("value", { field });
+    if (!token || token.unclosed || (token.kind !== "word" && token.kind !== "value" && token.kind !== "regex")) fail("value", { field }, token?.at);
     return token;
   };
 
@@ -288,35 +328,41 @@ function parseQuery(query, { strict = false } = {}) {
     take();
     const token = peek()?.kind === "word" ? take() : null;
     if (take()?.kind !== ")") fail("paren");
-    const text = token?.text ?? field.param.fallback;
+    const text = (token?.text ?? field.param.fallback)?.toLowerCase() ?? null;
     const arg = text == null ? null : paramValue(field, text);
     if (text != null && arg == null) fail(`param.${field.param.kind}`, { field: `${name}()` }, token?.at);
     const bound = { ...field, get: (s, p, now) => field.get(s, p, now, arg) };
     if (field.at) bound.at = (s, p, now) => field.at(s, p, now, arg);
-    return { bound, text: text ?? "" };
+    return { bound, text: text ?? "", arg };
   };
 
   /** One field's clause, its field (bound to its parameter) already taken. */
-  const clause = (name, field, at) => {
+  const clause = (name, field, at, call = null) => {
     clauses++;
     fields.add(name);
     let op = peek();
-    if (field.type === "bool" && (!op || op.kind !== "op")) return (s, p, now) => field.get(s, p, now);   // `installed`
-    if (word("not") && fold(tokens[i + 1]?.text) === "in") { take(); take(); op = { text: "not in" }; }
-    else if (word("in")) { take(); op = { text: "in" }; }
+    const isKwOp = word("in") || word("is") || (word("not") && fold(tokens[i + 1]?.text) === "in");
+    if (field.type === "bool" && (!op || (op.kind !== "op" && !isKwOp))) {   // `installed`
+      ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: null, value: true, from: at, to: end() });
+      return (s, p, now) => field.get(s, p, now);
+    }
+    if (word("not") && fold(tokens[i + 1]?.text) === "in") { const opAt = take().at; take(); op = { text: "not in", at: opAt }; }
+    else if (word("in")) { const opAt = take().at; op = { text: "in", at: opAt }; }
     else if (word("is")) {
-      take();
+      const opAt = take().at;
       const negate = word("not") ? (take(), true) : false;
       if (!word("empty")) fail("empty", { field: name });
       take();
-      if (!QUERY_OPS[field.type].includes("is")) fail("op", { field: name, op: "is", ops: QUERY_OPS[field.type].join(" ") }, at);
+      if (!QUERY_OPS[field.type].includes("is")) fail("op", { field: name, op: "is", ops: QUERY_OPS[field.type].join(" ") }, opAt);
       if (!negate) pin(name, [""]);
+      ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: negate ? "is not empty" : "is empty", from: at, to: end() });
       return (s, p, now) => { const v = field.get(s, p, now); const empty = v == null || (Array.isArray(v) && !v.length); return negate ? !empty : empty; };
     } else if (op?.kind === "op") take();
     else fail("op", { field: name, op: op?.text ?? "…", ops: QUERY_OPS[field.type].join(" ") });
     if (!QUERY_OPS[field.type].includes(op.text)) fail("op", { field: name, op: op.text, ops: QUERY_OPS[field.type].join(" ") }, op.at);
 
     if (op.text === "in" || op.text === "not in") {
+      ast.hasIn = true;
       if (take()?.kind !== "(") fail("paren");
       const list = [];
       while (peek() && peek().kind !== ")") {
@@ -325,9 +371,11 @@ function parseQuery(query, { strict = false } = {}) {
       }
       if (take()?.kind !== ")") fail("paren");
       if (op.text === "in") pin(name, list);
+      ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: op.text, values: list, from: at, to: end() });
+      const set = new Set(list);
       const has = field.type === "list"
-        ? (s, p, now) => field.get(s, p, now).some((g) => list.includes(fold(g)))
-        : (s, p, now) => list.includes(fold(field.get(s, p, now)));
+        ? (s, p, now) => field.get(s, p, now).some((g) => set.has(fold(g)))
+        : (s, p, now) => set.has(fold(field.get(s, p, now)));
       return op.text === "in" ? has : (s, p, now) => !has(s, p, now);
     }
 
@@ -338,28 +386,38 @@ function parseQuery(query, { strict = false } = {}) {
       take();
       const shift = peek()?.kind === "word" && /^[+-]?\d+$/.test(peek().text) ? Number(take().text) : 0;
       if (take()?.kind !== ")") fail("paren");
-      const cmp = QUERY_CMP[op.text];
-      return (s, p, now) => { const at2 = field.at(s, p, now); const moment = fn(now, shift, s); return at2 > 0 && moment != null && cmp(at2, moment); };
+      ast.funcs.push(`${token.text}()`);
+      ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: op.text, kind: "func", raw: `${token.text}()`, from: at, to: end() });
+      let cachedNow = NaN, cachedState = null, cachedMoment = null;
+      const opText = op.text;
+      return (s, p, now) => {
+        if (now !== cachedNow || s !== cachedState) { cachedNow = now; cachedState = s; cachedMoment = fn(now, shift, s); }
+        return compareMoment(field.at(s, p, now), cachedMoment, opText);
+      };
     }
     if (field.type === "bool") {
       const v = fold(token.text);
       if (v !== "true" && v !== "false") fail("bool", { field: name }, token.at);
       const want = (v === "true") === (op.text === "=");
+      ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: op.text, value: want, from: at, to: end() });
       return (s, p, now) => field.get(s, p, now) === want;
     }
     if (field.type === "number") {
       const value = queryNumber(token.text, field.days);
       if (!value || Number.isNaN(value.n)) fail(field.days ? "days" : "number", { field: name }, token.at);
       if (value.date && !field.at) fail("days", { field: name }, token.at);
+      ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: op.text, number: value, from: at, to: end() });
       // a date compares moments (released > 2026-01-01: after it); a span compares days ago
-      const cmp = QUERY_CMP[op.text];
+      const opText = op.text;
+      const cmp = QUERY_CMP[opText];
       return value.date
-        ? (s, p, now) => { const at2 = field.at(s, p, now); return at2 > 0 && cmp(at2, value.date); }
+        ? (s, p, now) => compareMoment(field.at(s, p, now), value.date, opText)
         : (s, p, now) => { const v = field.get(s, p, now); return v != null && cmp(v, value.n); };
     }
     // text and list: = exact (case folded), ~ contains or /regex/
     let match;
     if (token.kind === "regex") {
+      ast.hasRegex = true;
       const re = regexOf(token);
       match = (v) => re.test(String(v ?? ""));
     } else {
@@ -367,6 +425,7 @@ function parseQuery(query, { strict = false } = {}) {
       match = op.text === "~" || op.text === "!~" ? containsWords(token.text) : (v) => fold(v) === want;
       if (op.text === "=") pin(name, [want]);
     }
+    ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: op.text, value: token.text, isRegex: token.kind === "regex", from: at, to: end() });
     const hit = field.type === "list" ? (s, p, now) => field.get(s, p, now).some(match) : (s, p, now) => match(field.get(s, p, now));
     return op.text.startsWith("!") ? (s, p, now) => !hit(s, p, now) : hit;
   };
@@ -375,6 +434,7 @@ function parseQuery(query, { strict = false } = {}) {
     const token = peek();
     if (!token) fail("end");
     if (token.kind === "(") {
+      ast.hasParens = true;
       take();
       const inner = or();
       if (take()?.kind !== ")") fail("paren");
@@ -385,8 +445,9 @@ function parseQuery(query, { strict = false } = {}) {
     if (named && (next?.kind === "op" || ["in", "is", "not"].includes(fold(next?.text)) || named.type === "bool" || (named.param && next?.kind === "("))) {
       take();
       current = token.at;
-      const field = named.param ? callArgs(fold(token.text)).bound : named;
-      const test = clause(fold(token.text), field, token.at);
+      const call = named.param ? callArgs(fold(token.text)) : null;
+      const field = call ? call.bound : named;
+      const test = clause(fold(token.text), field, token.at, call);
       spans.push({ from: token.at, to: end(), kind: "clause" });
       current = null;
       return test;
@@ -394,10 +455,12 @@ function parseQuery(query, { strict = false } = {}) {
     if (token.kind === "word" || token.kind === "value" || token.kind === "regex") {   // free text
       // in Query mode a bare word must be a field (a typo isn't a silent text search): "calendar" or text ~ calendar searches
       if (strict && token.kind === "word") fail("unknown", { text: token.text }, token.at);
+      if (token.unclosed) fail("value", { field: "text" }, token.at);
       take();
       free.push(token.text);
       const text = (s, p) => QUERY_FIELDS.text.get(s, p);
       if (token.kind === "regex") {
+        ast.hasRegex = true;
         const re = regexOf(token);
         return (s, p) => re.test(text(s, p));
       }
@@ -408,6 +471,7 @@ function parseQuery(query, { strict = false } = {}) {
   };
   const not = () => {
     if (!word("not")) return primary();
+    ast.hasNeg = true;
     const from = take().at;
     negated++;
     const inner = not();
@@ -428,6 +492,7 @@ function parseQuery(query, { strict = false } = {}) {
   const or = () => {
     let left = and();
     while (word("or")) {
+      ast.hasOr = true;
       take();
       const right = and();
       const l = left;
@@ -476,8 +541,7 @@ function parseQuery(query, { strict = false } = {}) {
   }
   if (peek()) fail(TAIL_PARTS.some((part) => word(part)) ? "tailOrder" : "unexpected", { text: peek().text });
   // with an OR, a value isn't asked of every row: group by then shows every section a row has
-  const any = tokens.some((tok) => tok.kind === "word" && fold(tok.text) === "or");
-  return { test, order, group, limit, pins: any ? {} : pins, clauses, free, spans, fields };
+  return { test, order, group, limit, pins: ast.hasOr ? {} : pins, clauses, free, spans, fields, ast };
 }
 
 /** Suggestions where the caret is: fields, then the operators of that field's type, then its values, then AND / OR. */
@@ -522,18 +586,27 @@ function querySuggestions(text, caret, data) {
     if (field.type === "number") return ["100", "1k", "10k", "100k"].map((v) => ({ label: v, insert: v }));
     return [];
   };
-  // inside `field in (`: values of that field
+  // inside `field in (`: values of that field (case-folded NOT IN, deduped by both label and insert key)
   const open = tokens.map((tok, k) => [tok, k]).filter(([tok]) => tok.kind === "(" || tok.kind === ")");
   const lastOpen = open.at(-1);
-  if (lastOpen?.[0].kind === "(" && fold(tokens[lastOpen[1] - 1]?.text) === "in" && isField(tokens[lastOpen[1] - 2]?.text === "not" ? tokens[lastOpen[1] - 3] : tokens[lastOpen[1] - 2])) {
+  if (lastOpen?.[0].kind === "(" && fold(tokens[lastOpen[1] - 1]?.text) === "in" && isField(fold(tokens[lastOpen[1] - 2]?.text) === "not" ? tokens[lastOpen[1] - 3] : tokens[lastOpen[1] - 2])) {
     const fieldTok = fold(tokens[lastOpen[1] - 2]?.text) === "not" ? tokens[lastOpen[1] - 3] : tokens[lastOpen[1] - 2];
     const listed = new Set(tokens.slice(lastOpen[1] + 1).filter((tok) => tok.kind === "word" || tok.kind === "value").map((tok) => fold(tok.text)));
-    return { from, items: pick(values(fold(fieldTok.text)).filter((x) => !listed.has(fold(x.label)))) };
+    const unquote = (s) => fold(String(s).replace(/^"|"$/g, ""));
+    return { from, items: pick(values(fold(fieldTok.text)).filter((x) => !listed.has(fold(x.label)) && !listed.has(unquote(x.insert)))) };
   }
   if (prev?.kind === "(" && queryFunc(before2?.text)) return { from, items: [] };
   if (prev?.kind === "(" && QUERY_FIELDS[fold(before2?.text)]?.param) return { from, items: [] };   // gain(… : the parameter is yours
   const valueField = prev?.kind === "op" ? fieldAt(tokens.length - 2) : null;
   if (valueField) return { from, items: pick(values(fold(valueField.text))) };
+  // check `order by <field>` and `group by <field>` BEFORE `opField` so `order by downloads ` offers desc/asc (not `=`)
+  const sorted = fieldAt(tokens.length - 1);
+  const sortedAt = sorted ? tokens.lastIndexOf(sorted) : -1;
+  if (sorted && fold(tokens[sortedAt - 1]?.text) === "by") {
+    const head = fold(tokens[sortedAt - 2]?.text);
+    if (head === "order") return { from, items: pick(["desc", "asc"].map((d) => ({ label: d, insert: d }))) };
+    if (head === "group") return { from, items: pick(["order by", "limit"].map((w) => ({ label: w, insert: w }))) };
+  }
   const opField = typing ? null : fieldAt(tokens.length - 1);
   if (opField && QUERY_FIELDS[fold(opField.text)].type !== "bool") {   // a yes/no field stands alone: `NOT installed`
     const type = QUERY_FIELDS[fold(opField.text)].type;
@@ -544,8 +617,6 @@ function querySuggestions(text, caret, data) {
   if (fold(prev?.text) === "by" && fold(before2?.text) === "group") return { from, items: pick(Object.keys(QUERY_FIELDS).filter((k) => QUERY_FIELDS[k].group).map(fieldItem)) };
   if (fold(prev?.text) === "by") return { from, items: pick(Object.keys(QUERY_FIELDS).filter((k) => QUERY_FIELDS[k].sort).map(fieldItem)) };
   if (fold(prev?.text) === "limit") return { from, items: pick(["50", "100", "1-100", "101-200"].map((v) => ({ label: v, insert: v, hint: t("query.limitHint") }))) };
-  const sorted = fieldAt(tokens.length - 1);
-  if (sorted && fold(tokens[tokens.indexOf(sorted) - 1]?.text) === "by") return { from, items: pick(["desc", "asc"].map((d) => ({ label: d, insert: d }))) };
   // a clause's start: fields (in plain search only once you type two letters), then the keywords
   if (!isAdvancedQuery(text) && partial.length < 2) return { from, items: [] };
   const fields = Object.keys(QUERY_FIELDS).map(fieldItem);
@@ -611,14 +682,14 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
   if (x.listed != null) parts.push(`listed <= ${x.listed}d`);
   if (x.author) parts.push(`author ~ ${quoteValue(x.author)}`);
   if (x.installed) parts.push("installed");
-  if (mode === "tracked") parts.push(...trackedClauses(settings));
+  if (mode === "library") parts.push(...libraryClauses(settings));
   const field = sortField(opts.sort);
   const sorted = order && field && settings.sortBy?.[mode];
   return [parts.join(" AND "), sorted ? `order by ${field} ${opts.sortDir}` : ""].filter(Boolean).join("\n");
 }
 
-/** The Tracked tab's Group and Status menus as clauses (Basic → Query): what the query box says for them. */
-function trackedClauses({ trackedGroup: group, trackedStatus: status, statusEnabled }) {
+/** The Library page's Group and Status menus as clauses (Basic → Query): what the query box says for them. */
+function libraryClauses({ libraryGroup: group, libraryStatus: status, statusEnabled }) {
   const clauses = [];
   if (group === UNGROUPED) clauses.push("group is empty");
   else if (group === UPDATES) clauses.push("unreviewed");
@@ -631,14 +702,31 @@ function trackedClauses({ trackedGroup: group, trackedStatus: status, statusEnab
 /**
  * A query split at its tail (TAIL_PARTS, always last): {filter, group, order, limit}, each part's text as written
  * ("group by category", "order by downloads desc", "limit 100"), "" when it has none.
+ * Uses tokenize() at top-level depth so quoted strings and /regex/ are never split on `limit`/`order by`/`group by`.
  */
 function splitQuery(text) {
-  const parts = { filter: String(text).trim(), group: "", order: "", limit: "" };
-  const starts = { group: /(^|\s)group\s+by\b/i, order: /(^|\s)order\s+by\b/i, limit: /(^|\s)limit\s/i };
-  const found = TAIL_PARTS.map((part) => [part, String(text).search(starts[part])]).filter(([, at]) => at >= 0).sort((x, y) => x[1] - y[1]);
+  const raw = String(text);
+  const parts = { filter: raw.trim(), group: "", order: "", limit: "" };
+  const tokens = tokenize(raw);
+  const found = [];
+  const seen = new Set();
+  let depth = 0;
+  for (let k = 0; k < tokens.length; k++) {
+    const tok = tokens[k];
+    if (tok.kind === "(") { depth++; continue; }
+    if (tok.kind === ")") { depth = Math.max(0, depth - 1); continue; }
+    if (depth > 0 || tok.kind !== "word") continue;
+    const prev = tokens[k - 1];
+    if (prev?.kind === "op") continue;   // e.g. `name = limit`
+    const w = fold(tok.text);
+    const nextW = tokens[k + 1]?.kind === "word" ? fold(tokens[k + 1].text) : "";
+    if (w === "group" && nextW === "by" && !seen.has("group")) { seen.add("group"); found.push(["group", tok.at]); }
+    else if (w === "order" && nextW === "by" && !seen.has("order")) { seen.add("order"); found.push(["order", tok.at]); }
+    else if (w === "limit" && tokens[k + 1] && !seen.has("limit")) { seen.add("limit"); found.push(["limit", tok.at]); }
+  }
   if (!found.length) return parts;
-  parts.filter = text.slice(0, found[0][1]).trim();
-  found.forEach(([part, at], k) => { parts[part] = text.slice(at, found[k + 1]?.[1] ?? text.length).trim(); });
+  parts.filter = raw.slice(0, found[0][1]).trim();
+  found.forEach(([part, at], k) => { parts[part] = raw.slice(at, found[k + 1]?.[1] ?? raw.length).trim(); });
   return parts;
 }
 
@@ -652,15 +740,24 @@ function splitOrder(text) {
 }
 
 /**
- * The query without one clause (a span from parseQuery): the AND / OR that joined it goes too, so the rest still
- * parses. `a AND b` without b → `a`; without a → `b`. Space-joined clauses need no cleanup.
+ * The query without one clause (a span from parseQuery): the AND / OR that joined it goes too, plus any empty `()`
+ * left behind, so the rest still parses. `a AND b` without b → `a`; without a → `b`.
  */
 function dropClause(query, { from, to }) {
   const before = query.slice(0, from);
   const after = query.slice(to);
   const joinerBefore = /\s*\b(AND|OR)\s*$/i;   // "a AND " — the clause came after its joiner
-  if (joinerBefore.test(before)) return `${before.replace(joinerBefore, "")}${after}`.trim();
-  return `${before}${after.replace(/^\s*(AND|OR)\b\s*/i, "")}`.trim();   // " AND b" — the joiner follows it
+  let out = joinerBefore.test(before)
+    ? `${before.replace(joinerBefore, "")}${after}`.trim()
+    : `${before}${after.replace(/^\s*(AND|OR)\b\s*/i, "")}`.trim();   // " AND b" — the joiner follows it
+  // collapse any empty `()` created when the last clause inside parentheses was dropped
+  while (/\(\s*\)/.test(out)) {
+    out = out
+      .replace(/\s*\b(?:AND|OR)\s*\(\s*\)/gi, "")
+      .replace(/\(\s*\)\s*(?:\b(?:AND|OR)\b\s*)?/gi, "")
+      .trim();
+  }
+  return out;
 }
 
 /** What `order by` writes for a list sort key (they're the same text: `released`, `gain(7d)`); null if it can't sort. */
@@ -681,17 +778,24 @@ function joinQuery(page, mine) {
 
 /**
  * Query → Basic for a page: the box must still start with the page's own query; what follows becomes filters
- * ({patch}), or the reason it can't ({reason}).
+ * ({patch}), or the reason it can't ({reason}). Compares group/order/limit tails individually so changing only
+ * `order by` on Library (keeping `group by group`) stays reversible to Basic.
  */
 function queryToBasic(text, settings, mode) {
   const norm = (x) => x.replace(/\s+/g, " ").trim();
-  const page = splitOrder(pageQuery(settings, mode));
-  const mine = splitOrder(text);
+  const page = splitQuery(pageQuery(settings, mode));
+  const mine = splitQuery(text);
   const head = norm(page.filter);
   const body = norm(mine.filter);
   if (head && !(body === head || body.startsWith(`${head} `))) return { reason: t("query.basicChanged") };
-  const order = mine.order && norm(mine.order) !== norm(page.order) ? mine.order : "";
-  const rest = [body.slice(head.length).trim().replace(/^AND\s+/i, ""), order].filter(Boolean).join("\n");
+  if (page.group && norm(mine.group) !== norm(page.group)) return { reason: t("query.basicChanged") };
+  if (page.limit && norm(mine.limit) !== norm(page.limit)) return { reason: t("query.basicChanged") };
+  const tailDiff = [
+    !page.group && mine.group ? mine.group : "",
+    mine.order && norm(mine.order) !== norm(page.order) ? mine.order : "",
+    !page.limit && mine.limit ? mine.limit : "",
+  ].filter(Boolean);
+  const rest = [body.slice(head.length).trim().replace(/^AND\s+/i, ""), ...tailDiff].filter(Boolean).join("\n");
   const { patch, reason } = rest ? queryToFilters(rest, settings, mode) : { patch: { query: "", extraFilters: { ...settings.extraFilters, [mode]: {} } } };
   if (reason) return { reason };
   const { [mode]: gone, ...queries } = settings.queries || {};
@@ -700,53 +804,48 @@ function queryToBasic(text, settings, mode) {
 }
 
 /**
- * Query → Basic: the settings that say the same with filters ({patch}), or why they can't ({reason}). Every clause
- * needs a filter of its own: downloads >=, released <=, incubated >=, gain(30d) >=, listed <=, author ~, installed; one
- * order by; free words become the plain search. OR, ( ), in (…), NOT, regex and functions don't fit.
+ * Query → Basic: the settings that say the same with filters ({patch}), or why they can't ({reason}). Reads `q.ast`
+ * directly from parseQuery so one grammar governs parsing and reverse-mapping. Every clause needs a filter of its own:
+ * downloads >=, released <=, incubated >=, gain(30d) >=, listed <=, author ~, installed; one valid Basic sort;
+ * free words become the plain search. OR, ( ), in (…), NOT, regex and functions don't fit.
  */
 function queryToFilters(query, settings, mode) {
   let q;
   try { q = parseQuery(String(query), { strict: true }); } catch (error) { return { reason: error.message }; }
-  const tokens = tokenize(String(query));
   const bad = new Set();
-  tokens.forEach((tok, k) => {
-    const prev = fold(tokens[k - 1]?.text);
-    if (tok.kind === "word" && fold(tok.text) === "or") bad.add("OR");
-    if (tok.kind === "regex") bad.add("/regex/");
-    if (tok.kind === "(" && !QUERY_FIELDS[prev]?.param) bad.add(prev === "in" ? "in (…)" : queryFunc(prev) ? `${tokens[k - 1].text}()` : "( )");
-  });
-  if (q.spans.some((span) => span.kind === "neg")) bad.add("NOT");
+  if (q.ast.hasOr) bad.add("OR");
+  if (q.ast.hasRegex) bad.add("/regex/");
+  if (q.ast.hasIn) bad.add("in (…)");
+  for (const fn of q.ast.funcs) bad.add(fn);
+  if (q.ast.hasParens) bad.add("( )");
+  if (q.ast.hasNeg) bad.add("NOT");
   if (q.group) bad.add("group by");
   if (q.limit) bad.add("limit");
+  if (q.order && !SORT_KEYS.includes(q.order.key)) bad.add(`order by ${q.order.key}`);
   const extras = {};
-  const menus = {};   // the Tracked tab's Group and Status menus (trackedClauses, backwards)
+  const menus = {};   // the Library page's Group and Status menus (libraryClauses, backwards)
   let downloads = null;
   const own = (key) => !EXTRA_FILTERS[key].skip?.includes(mode);
   const set = (key, value, text) => (key in extras || !own(key) ? bad.add(text) : (extras[key] = value));
-  for (const span of q.spans.filter((x) => x.kind === "clause")) {
-    const text = String(query).slice(span.from, span.to);
-    const inSpan = tokens.filter((tok) => tok.at >= span.from && tok.end <= span.to);
-    const call = inSpan[1]?.kind === "(" ? inSpan.splice(1, inSpan.findIndex((tok) => tok.kind === ")")) : [];   // gain(30d): its ( 30d )
-    const [f, op, v, ...rest] = inSpan;
-    const field = fold(f.text) + call.map((tok) => tok.text).join("");   // "gain(30d)"
-    const days = v && queryNumber(v.text, true);
-    const count = v && queryNumber(v.text, false);
-    const lower = op?.text === "<=" || op?.text === "<";
-    if (rest.length) bad.add(text);
-    else if (field === "installed" && !op) set("installed", true, text);
-    else if (field === "downloads" && op?.text === ">=" && count?.n >= 0 && downloads == null) downloads = Math.round(count.n);
-    else if (field === "released" && lower && days?.n >= 0) set("released", Math.round(days.n), text);
-    else if (field === "listed" && lower && days?.n >= 0) set("listed", Math.round(days.n), text);
-    else if (field === "incubated" && op?.text === ">=" && days?.n >= 0) set("incubated", Math.round(days.n), text);
-    else if (field === "gain(30d)" && op?.text === ">=" && count?.n >= 0) set("growth", Math.round(count.n), text);
-    else if (field === "author" && op?.text === "~" && v.kind !== "regex") set("author", v.text, text);
-    else if (mode === "tracked" && menus.group == null && trackedMenu(field, op, v) != null) menus.group = trackedMenu(field, op, v);
-    else if (mode === "tracked" && menus.status == null && field === "status" && op?.text === "=" && v.kind !== "regex") menus.status = v.text;
+  for (const c of q.ast.clauses) {
+    const text = String(query).slice(c.from, c.to);
+    if (c.kind === "func" || c.op === "in" || c.op === "not in" || c.isRegex) continue;   // already flagged above
+    const lower = c.op === "<=" || c.op === "<";
+    const num = c.number && !c.number.date && c.number.n >= 0 ? Math.round(c.number.n) : null;
+    if (c.field === "installed" && c.op === null) set("installed", true, text);
+    else if (c.field === "downloads" && c.op === ">=" && num != null && downloads == null) downloads = num;
+    else if (c.field === "released" && lower && num != null) set("released", num, text);
+    else if (c.field === "listed" && lower && num != null) set("listed", num, text);
+    else if (c.field === "incubated" && c.op === ">=" && num != null) set("incubated", num, text);
+    else if (c.field === "gain" && c.arg === 30 && c.op === ">=" && num != null) set("growth", num, text);
+    else if (c.field === "author" && c.op === "~") set("author", c.value, text);
+    else if (mode === "library" && menus.group == null && libraryMenu(c) != null) menus.group = libraryMenu(c);
+    else if (mode === "library" && settings.statusEnabled && menus.status == null && c.field === "status" && c.op === "=") menus.status = c.value;
     else bad.add(text);
   }
   if (bad.size) return { reason: t("query.basicNo", { what: [...bad].join(", ") }) };
   const patch = {
-    ...(mode === "tracked" ? { trackedGroup: menus.group ?? "", trackedStatus: menus.status ?? "" } : {}),
+    ...(mode === "library" ? { libraryGroup: menus.group ?? "", libraryStatus: menus.status ?? "" } : {}),
     query: q.free.join(", "),
     extraFilters: { ...settings.extraFilters, [mode]: extras },
     sortBy: q.order ? { ...settings.sortBy, [mode]: q.order } : settings.sortBy,
@@ -758,12 +857,12 @@ function queryToFilters(query, settings, mode) {
   return { patch };
 }
 
-/** A Tracked clause that a Group menu choice writes (trackedClauses): the choice; null when it isn't one. */
-function trackedMenu(field, op, v) {
-  if (field === "unreviewed" && !op) return UPDATES;
-  if (field === "rating" && op?.text === ">=" && Number(v?.text) === TOP_RATING) return TOP_RATED;
-  if (field === "group" && fold(op?.text) === "is" && fold(v?.text) === "empty") return UNGROUPED;
-  if (field === "group" && op?.text === "=" && v?.kind !== "regex") return v.text;
+/** A Library AST clause that a Group menu choice writes (libraryClauses): the choice; null when it isn't one. */
+function libraryMenu(c) {
+  if (c.field === "unreviewed" && c.op === null) return UPDATES;
+  if (c.field === "rating" && c.op === ">=" && c.number && !c.number.date && c.number.n === TOP_RATING) return TOP_RATED;
+  if (c.field === "group" && c.op === "is empty") return UNGROUPED;
+  if (c.field === "group" && c.op === "=" && !c.isRegex) return c.value;
   return null;
 }
 
@@ -773,20 +872,20 @@ function trackedMenu(field, op, v) {
  */
 const QUERY_PRESETS = [
   { key: "month", cat: "discover", query: "released >= startOfMonth()\norder by downloads desc" },
-  { key: "fast", cat: "discover", query: "listed <= 60d AND downloads >= 1k AND NOT tracked\norder by downloads desc" },
-  { key: "gems", cat: "discover", query: "downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT tracked\norder by rise(30d) desc" },
-  { key: "awake", cat: "discover", query: "incubated >= 180d AND hatched <= 30d AND NOT tracked\norder by hatched desc" },
-  { key: "popular", cat: "discover", query: "downloads >= 50k AND released <= 14d AND NOT tracked\norder by released desc" },
+  { key: "fast", cat: "discover", query: "listed <= 60d AND downloads >= 1k AND NOT library\norder by downloads desc" },
+  { key: "gems", cat: "discover", query: "downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library\norder by rise(30d) desc" },
+  { key: "awake", cat: "discover", query: "incubated >= 180d AND hatched <= 30d AND NOT library\norder by hatched desc" },
+  { key: "popular", cat: "discover", query: "downloads >= 50k AND released <= 14d AND NOT library\norder by released desc" },
   { key: "milestones", cat: "notify", query: "milestone(10k) <= 30d\norder by downloads desc" },
-  { key: "active", cat: "discover", query: "releases(30d) >= 3 AND downloads >= 1k AND NOT tracked\norder by gain(30d) desc" },
+  { key: "active", cat: "discover", query: "releases(30d) >= 3 AND downloads >= 1k AND NOT library\norder by gain(30d) desc" },
   { key: "stale", cat: "vault", query: "installed AND released >= 1y\norder by released asc" },
-  { key: "totry", cat: "track", query: "tracked AND NOT installed\norder by rating desc" },
-  { key: "ungrouped", cat: "track", query: "tracked AND group is empty\norder by name asc" },
-  { key: "unrated", cat: "track", query: "tracked AND rating is empty\norder by downloads desc" },
-  { key: "sleeping", cat: "track", query: "tracked AND released >= 1y\norder by released asc" },
+  { key: "totry", cat: "library", query: "library AND NOT installed\norder by rating desc" },
+  { key: "ungrouped", cat: "library", query: "library AND group is empty\norder by name asc" },
+  { key: "unrated", cat: "library", query: "library AND rating is empty\norder by downloads desc" },
+  { key: "sleeping", cat: "library", query: "library AND released >= 1y\norder by released asc" },
 ];
 /** The gallery's sections in order, with their icons; "hidden" is your hidden widgets, the rest group the presets. */
-const GALLERY_SECTIONS = { hidden: "eye-off", discover: "compass", notify: "bell", vault: "shield-check", track: "bookmark" };
+const GALLERY_SECTIONS = { hidden: "eye-off", discover: "compass", notify: "bell", vault: "shield-check", library: "bookmark" };
 
 /** A query on one line (a list label, a preview). */
 const flatQuery = (q) => String(q).replace(/\s*\n\s*/g, " ");
@@ -843,10 +942,31 @@ function queryDiff(a, b) {
 }
 
 /**
+ * Finds the owning field of token at `idx` in `allTokens` by walking back over operators and parametric `(arg)` calls
+ * (e.g., `downloads >= 1m` → `downloads`, `milestone(10k) <= 30d` → `milestone`).
+ */
+function ownerFieldFor(allTokens, idx, prev) {
+  if (allTokens && idx > 0) {
+    let k = idx - 1;
+    // step past an operator if the hovered token is the value (`downloads >= 1m`)
+    if (allTokens[k]?.cls === "op") k--;
+    // step past parametric call `)` ... `(` (`milestone(10k) <= 30d`)
+    if (allTokens[k]?.kind === ")") {
+      k--;
+      while (k > 0 && allTokens[k].kind !== "(") k--;
+      if (allTokens[k]?.kind === "(") k--;
+    }
+    const f = allTokens[k]?.cls === "field" ? QUERY_FIELDS[fold(allTokens[k].text)] : null;
+    if (f) return f;
+  }
+  return QUERY_FIELDS[fold(prev?.text)] || null;
+}
+
+/**
  * A word of the box explained, for its tooltip: a field (its type, meaning and an example), an operator, a value's
  * unit, a function (with the day it means now), AND / OR / NOT / order by. Null for plain text and punctuation.
  */
-function queryTip(tok, prev, now = Date.now(), state = {}) {
+function queryTip(tok, prev, now = Date.now(), state = {}, allTokens = null, idx = -1) {
   const w = fold(tok.text);
   if (tok.cls === "field") {
     const f = QUERY_FIELDS[w];
@@ -855,8 +975,9 @@ function queryTip(tok, prev, now = Date.now(), state = {}) {
     return { head: f.param ? `${tok.text}()` : tok.text, kind: t(`query.type.${f.days ? "days" : f.type}`), body: t(`query.field.${w}`), example };
   }
   if (tok.cls === "op") {
-    const op = w === "not" ? "not_in" : w === "is" || w === "empty" ? "is_empty" : w;
-    const days = QUERY_FIELDS[fold(prev?.text)]?.days && ["<", "<=", ">", ">="].includes(w);
+    const op = w === "not" ? (fold(prev?.text) === "is" ? "is_empty" : "not_in") : w === "is" || w === "empty" ? "is_empty" : w;
+    const owner = ownerFieldFor(allTokens, idx, prev);
+    const days = owner?.days && ["<", "<=", ">", ">="].includes(w);
     return { head: tok.text, body: days ? t(`query.tip.days${w.startsWith("<") ? "Within" : "Over"}`) : t(`query.op.${op}`) };
   }
   if (tok.cls === "number" && fold(prev?.text) === "limit") {   // limit 100 · limit 101-200
@@ -868,7 +989,10 @@ function queryTip(tok, prev, now = Date.now(), state = {}) {
     const m = tok.text.toLowerCase().match(/^([+-]?\d+(?:\.\d+)?)([kmdwy]?)$/);
     if (!m) return /^\d{4}-\d{2}-\d{2}$/.test(tok.text) ? { head: tok.text, body: t("query.help.date") } : null;
     const [, n, unit] = m;
-    const days = QUERY_FIELDS[fold(prev?.text)]?.days || QUERY_FIELDS[fold(prev?.text)] == null;
+    const owner = ownerFieldFor(allTokens, idx, prev);
+    // inside parametric call `gain(30d)` vs `milestone(10k)`: check param.kind when prev is `(`
+    const insideParam = prev?.kind === "(" && allTokens && idx >= 2 ? QUERY_FIELDS[fold(allTokens[idx - 2]?.text)]?.param : null;
+    const days = insideParam ? insideParam.kind === "days" : owner ? Boolean(owner.days) : true;
     const body = unit === "k" || (unit === "m" && !days) ? formatCount(Number(n) * (unit === "k" ? 1e3 : 1e6))
       : unit ? t(`query.tip.unit.${unit}`, { n }) : null;
     return body ? { head: tok.text, body } : null;
@@ -881,7 +1005,7 @@ function queryTip(tok, prev, now = Date.now(), state = {}) {
   if (tok.cls === "kw" || tok.cls === "neg") {
     const key = w === "by" ? fold(prev?.text) : w;   // `by` says what its `order` / `group` says
     const tail = { order: "order by", group: "group by", limit: "limit" }[key];
-    const example = { group: "tracked group by group", limit: "NOT translated = overview order by downloads desc limit 100" }[key];
+    const example = { group: "library group by group", limit: "NOT translated = overview order by downloads desc limit 100" }[key];
     return { head: tail || tok.text.toUpperCase(), body: t(`query.tip.${key}`), ...(example ? { example } : {}) };
   }
   if (tok.cls === "value" && tok.quoted && prev?.cls !== "op" && prev?.kind !== "(" && prev?.kind !== ",") return { head: `"${tok.text}"`, body: t("query.field.text") };

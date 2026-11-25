@@ -1,16 +1,15 @@
 "use strict";
 /*
  * Community Radar — discover community plugins, spot the ones that woke up after a long pause,
- * and track the ones you care about as notes. Plain JavaScript; scripts/build.js joins src/*.js in
+ * and keep the ones you care about as notes in your library. Plain JavaScript; scripts/build.js joins src/*.js in
  * file-name order (one shared scope, no imports) and embeds locales/*.json into the main.js Obsidian loads.
  *
  * Layers (each depends only on the ones above it):
  *   00     Constants and i18n
  *   10–19  Core: pure functions (dates, catalog, release history, discovery, README, translation, similarity,
  *          home widgets, query language, AI profiles)
- *   20     Services: GitHub client, cache, notes, translator
- *   30–39  UI: modals, details window, the view (32) and its parts (34 Home, 35 search box, 36 filter bar,
- *          37 rows, 38 bulk bar, 39 Similar filter), settings tab
+ *   20–24  Services: GitHub client, cache, notes, translator, migrations, sync, READMEs, bulk ops
+ *   29–39  UI: primitives/popovers, modals, details window, view (32), settings, Home, search, filters, rows, bulk, Similar
  *   40     Plugin class: wires everything together
  */
 const obsidian = require("obsidian");
@@ -22,8 +21,7 @@ const {
 // ─── 1. Constants ───────────────────────────────────────────────────────────
 const VIEW_TYPE = "plugin-radar-view";
 const ICON = "plugin-radar";
-// Other ids the plugin ran under, newest first: "community-radar" (0.5.2 only), "plugin-discovery-tracker" (private "Eklenti Takip").
-const LEGACY_PLUGIN_IDS = ["community-radar", "plugin-discovery-tracker"];
+const PLUGIN_REPO = "alitekdemir/obsidian-community-radar";
 const REPO = "obsidianmd/obsidian-releases";
 const STATS_FILE = "community-plugin-stats.json";
 const RAW = "https://raw.githubusercontent.com";
@@ -43,16 +41,17 @@ const WAVE_DAYS = 7;               // releases within a week of a wave's first o
 const HISTORY_STALE_DAYS = 2;     // the server builds the history daily; older than this, the status line says so
 const RECENT_QUERIES = 10;          // the empty query box remembers this many of your last queries
 const OPS_CAP = 20;                // bulk actions kept for Recent actions (each with what it changed, for Undo)
-const SEEN_AFTER_MS = 10_000;      // a tracked plugin's new release counts as seen after this long in its details window
+const SEEN_AFTER_MS = 10_000;      // a library plugin's new release counts as seen after this long in its details window
 const BUSY_DAYS = 180;             // "busy" (Updated hides it: releases(180d) <= 9): update waves counted over this window…
 const BUSY_LIMIT = 9;              // …more than this (about every three weeks) hides it from Updated (setting: hideBusy)
 const PARALLEL = 4;                // snapshots downloaded at once
 const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
 const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sync is due (no network)
 const SYNC_DELAY_MS = 60_000;      // at startup Obsidian loads every plugin at once: a due sync waits until it has settled
+const LOCALE_WAIT_MS = 3_000;      // first use of a language: how long startup waits for its download before going on in English
 const README_MODES = ["open", "sync", "manual"];
 const PAGE_SIZE = 50;
-const TRANSLATE_FX = ["marker", "shimmer", "line", "scan", "ring", "pulse", "snake", "snakes", "decode", "sparks", "wave"];   // Settings › Translation effect; styles.css .pdt-fx-<key>
+const TRANSLATE_FX = ["clean", "shimmer", "marker", "ring", "pulse"];   // Settings › Translation effect; styles.css .pdt-fx-<key>
 const FX_PREVIEW = {   // Settings › Translation effect's sample: an original, so English in every UI language
   description: "Run Claude Code as a local AI collaborator in your vault.",
   summary: "Runs agent CLIs in the vault for sidebar chat and inline editing; publishes notes to social platforms.",
@@ -69,7 +68,7 @@ const PROFILE_NEEDS = { apiKey: "key-round", paidService: "credit-card", account
 const VISIBLE_SUGGESTIONS = 5;     // AI chips shown before "+n more"
 /** Keyboard shortcuts of the view (when enabled in settings): keys → help text key. */
 const KEY_HELP = [
-  [["j", "k"], "keys.move"], [["f"], "keys.track"], [["g"], "keys.groups"], [["x"], "keys.ignore"],
+  [["j", "k"], "keys.move"], [["l"], "keys.library"], [["g"], "keys.groups"], [["x"], "keys.ignore"],
   [["h"], "keys.snooze"], [["t"], "keys.translate"], [["r"], "keys.readme"], [["s"], "keys.similar"],
   [["o"], "keys.open"], [["Enter"], "keys.expand"], [["1", "…", "5"], "keys.rate"], [["0"], "keys.unrate"],
 ];
@@ -77,8 +76,8 @@ const SIMILAR_TOP = 50;            // a Similar list's length (scripts/similar/b
 const VERY_CLOSE_RANK = 5;         // closeness labels by place in the list: 1–5 very close, 6–15 close, the rest related
 const CLOSE_RANK = 15;
 const SIMILAR_STEPS = 10;          // Similar → Similar steps that ‹ can go back through (this session only)
-const METRICS_URL = `${RAW}/alitekdemir/obsidian-community-radar/metrics`;   // built daily by .github/workflows/metrics.yml
-const PROFILES_URL = `${RAW}/alitekdemir/obsidian-community-radar/profiles`;   // AI profiles, .github/workflows/profiles.yml (hourly)
+const METRICS_URL = `${RAW}/${PLUGIN_REPO}/metrics`;   // built daily by .github/workflows/metrics.yml
+const PROFILES_URL = `${RAW}/${PLUGIN_REPO}/profiles`;   // AI profiles, .github/workflows/profiles.yml (hourly)
 const PROFILES_CHECK_HOURS = 24;   // the profiles branch's files (index ~5.6 MB, similar ~2.8 MB) are asked for at most once a day, and only if they changed (ETag)
 const TIMELINE_VERSION = 3;        // 2: first-seen dates added; 3: downloads series and removed plugins
 // the downloads series keeps calendar days (as scripts/metrics/build.py writes them): Mondays back a year, then daily
@@ -95,11 +94,9 @@ const MAX_OUTPUT_TOKENS = 32000;   // a reply's ceiling where the provider needs
 // (installing, building, contributing, licence, privacy…: for developers, and the store installs plugins anyway)
 const DEV_SECTION = /\b(install(ation|ing)?|build(ing)?|develop(ment|ing)?|contribut(e|ing|ors?)|change ?log|release notes|licen[cs]e|privacy|metadata|credits?|acknowledge?ments?|support|sponsor(s|ship)?|donat(e|ions?)|funding|roadmap)\b/i;
 // Markers before 0.6.1 (HTML comments show up in Live Preview); notes are migrated once.
-const LEGACY_README_START = "<!-- plugin-tracker:readme-start -->";
-const LEGACY_README_END = "<!-- plugin-tracker:readme-end -->";
 const UNREVIEWED_NOTE = /\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*/gi;
 
-const MODE_KEYS = ["all", "new", "updated", "awakened", "tracked", "suggested"];
+const MODE_KEYS = ["all", "new", "updated", "awakened", "library", "suggested"];
 const LIST_MODES = ["excluded", "snoozed", "dismissed"];   // the Hidden page, one kind at a time: reached from the ⋮ menu and settings, not from a tab
 // sort keys are what `order by` writes: a field, with its parameter where it takes one
 const SORT_KEYS = ["downloads", "gain(7d)", "gain(30d)", "rise(7d)", "rise(30d)", "released", "name", "listed", "incubated", "hatched", "rating"];
@@ -107,9 +104,9 @@ const SIMILAR_SORT_KEYS = ["relevance", "downloads", "gain(30d)", "released", "n
 // by field name (gain(7d) sorts like gain)
 const NATURAL_DIR = { downloads: "desc", gain: "desc", rise: "desc", releases: "desc", released: "desc", name: "asc", listed: "desc", incubated: "desc", hatched: "desc", rating: "desc", milestone: "desc" };
 const MILESTONE_DAYS = 30;         // a row shows a milestone passed within this many days
-// Tracked tab "group" filters besides real groups; the \u0000 prefix can't clash with a group name
+// Library page "group" filters besides real groups; the \u0000 prefix can't clash with a group name
 const UNGROUPED = "\u0000ungrouped";
-const UPDATES = "\u0000updates";     // tracked plugins with a release since you reviewed them
+const UPDATES = "\u0000updates";     // library plugins with a release since you reviewed them
 const TOP_RATED = "\u0000starred";   // rated TOP_RATING or more (the old "starred" value: a filter saved with it still works)
 const TOP_RATING = 4;
 const DEFAULT_STATUSES = ["to-try", "watching", "testing", "adopted", "replaced"];   // labels come from the locale
@@ -124,7 +121,7 @@ const TAB_DEFAULTS = {
   updated: { downloads: false, sort: "downloads" },   // thresholds live in the page queries now
   awakened: { downloads: false, sort: "hatched" },   // the latest hatching first: every one gets its turn on top
   suggested: { downloads: false, sort: "downloads" },
-  tracked: { downloads: false, sort: "rating" },
+  library: { downloads: false, sort: "rating" },
   excluded: { downloads: false, sort: "name" },
   snoozed: { downloads: false, sort: "name" },
   dismissed: { downloads: false, sort: "name" },
@@ -144,18 +141,27 @@ const ICON_SVG = `<g transform="scale(4.1667)" fill="none" stroke="currentColor"
 <circle cx="4" cy="20" r="1.6" fill="currentColor" stroke="none"/><circle cx="16.5" cy="14" r="2" fill="currentColor" stroke="none"/></g>`;
 
 // ─── i18n ───────────────────────────────────────────────────────────────────
+/** Supported locale codes → native language names, filled at build time from locales/*.json. */
+const LOCALE_NAMES = /* LOCALE_NAMES */ {};
 /**
- * UI strings, one table per language, filled at build time from locales/*.json (see scripts/build.js).
- * Values are text with {placeholders}; plural text is {one, other, …} picked by Intl.PluralRules on {n}.
+ * UI strings, keyed by language code. `en` is embedded at build time as the universal fallback;
+ * other locales are fetched on demand from GitHub and cached locally under `cache/locale-<code>.json`.
  */
 const STRINGS = /* LOCALES */ {};
+
+/** How many of this build's keys (embedded English, the SSOT) a downloaded locale has: all of them = complete. */
+function localeKeyCount(strings) {
+  return Object.keys(STRINGS.en).reduce((n, key) => n + (strings && key in strings ? 1 : 0), 0);
+}
+
+const isCompleteLocale = (strings) => localeKeyCount(strings) === Object.keys(STRINGS.en).length;
 
 let language = "en";
 
 /** The locale for a code like "tr", "pt-BR" or "en-gb": exact match, then same base language, then English. */
 function matchLanguage(code) {
   const wanted = String(code || "").toLowerCase();
-  const codes = Object.keys(STRINGS);
+  const codes = [...new Set([...Object.keys(LOCALE_NAMES), ...Object.keys(STRINGS)])];
   return codes.find((c) => c.toLowerCase() === wanted)
     || codes.find((c) => wanted && wanted.split("-")[0] === c.toLowerCase().split("-")[0])
     || "en";
@@ -179,17 +185,30 @@ function t(key, vars = {}) {
 /** t() in a given language: labels that go with a text in that language (the details window's Original). */
 function tIn(lang, key, vars = {}) {
   let value = STRINGS[lang]?.[key] ?? STRINGS.en[key] ?? key;
-  if (typeof value === "object") value = value[intl(Intl.PluralRules).select(Number(vars.n))] ?? value.other;
+  if (typeof value === "object") {
+    const raw = vars.n;
+    const num = typeof raw === "number" ? raw : Number(String(raw ?? "").replace(",", "."));
+    const locale = STRINGS[lang]?.locale ?? STRINGS.en.locale;
+    value = value[intlFor(locale, Intl.PluralRules).select(Number.isFinite(num) ? num : 0)] ?? value.other;
+  }
   return value.replace(/\{(\w+)\}/g, (all, name) => (name in vars ? String(vars[name]) : all));
 }
 
 const intlCache = new Map();   // "Kind|locale|options" → formatter
 
-/** One Intl formatter (NumberFormat, PluralRules…) per UI locale and options: making one is slow, a list formats hundreds. */
-function intl(Kind, options = {}) {
-  const key = `${Kind.name}|${t("locale")}|${JSON.stringify(options)}`;
-  if (!intlCache.has(key)) intlCache.set(key, new Kind(t("locale"), options));
-  return intlCache.get(key);
+/** One Intl formatter (NumberFormat, PluralRules…) per locale and options: making one is slow, a list formats hundreds. */
+function intlFor(locale, Kind, options) {
+  const key = options ? `${Kind.name}|${locale}|${JSON.stringify(options)}` : `${Kind.name}|${locale}`;
+  let fmt = intlCache.get(key);
+  if (!fmt) {
+    fmt = new Kind(locale, options);
+    intlCache.set(key, fmt);
+  }
+  return fmt;
+}
+
+function intl(Kind, options) {
+  return intlFor(STRINGS[language]?.locale ?? STRINGS.en.locale, Kind, options);
 }
 
 function defaultSettings() {
@@ -199,15 +218,15 @@ function defaultSettings() {
     days: UPDATED_DAYS,
     newDays: DEFAULT_NEW_DAYS,
     hideBusy: true,       // Updated: hide plugins with more than BUSY_LIMIT releases in BUSY_DAYS
-    section: "home",      // home | list (All, a widget's list, or a page a widget opens: Tracked, Hidden)
+    section: "home",      // home | list (All, a widget's list, or a page a widget opens: Library, Hidden)
     start: "home",        // the section the view opens on: home | last
     home: homeDefaults(),
     minDownloads: 100,
     downloadFilter: {},   // tab → on/off; missing tabs use TAB_DEFAULTS
     extraFilters: {},     // tab → {filter: value} added in the Filter panel (EXTRA_FILTERS)
     quickFilters: {},     // tab → true: the filters in effect show as chips under the bar
-    trackedGroup: "",     // Tracked tab: "" = all, a group name, or UNGROUPED
-    trackedStatus: "",
+    libraryGroup: "",     // Library page: "" = all, a group name, or UNGROUPED
+    libraryStatus: "",
     statusEnabled: false,  // the status field is optional; its values stay in the notes when it's off
     statuses: DEFAULT_STATUSES.map((key) => ({ key, label: t(`statusDefault.${key}`) })),
     sortBy: {},           // tab → {key, dir}; missing tabs use TAB_DEFAULTS
@@ -223,10 +242,10 @@ function defaultSettings() {
     modelThinking: null,      // does the model think: "none", "optional", "mandatory" (OpenRouter's list says); null: unknown
     thinking: "default",      // "off": ask the model not to think (where the provider can: PROVIDERS[…].thinking)
     keyNames: {},
-    targetLang: t("language.name"),
+    targetLang: LOCALE_NAMES[language] || t("language.name"),
     prompts: {},              // your translation instructions: {description, readme}; empty uses DEFAULT_PROMPTS
     language: "auto",
-    translateFx: "marker",   // how a text being translated is shown in the details window (TRANSLATE_FX)
+    translateFx: "clean",   // how a text being translated is shown in the details window (TRANSLATE_FX)
     motion: "system",       // animations: "system" follows the OS's reduce-motion setting; "on" / "off" override it
     syncHours: 24,        // 0 = manual
     readmeMode: "open",   // open | sync | manual
@@ -234,7 +253,7 @@ function defaultSettings() {
     similarSort: { key: "relevance", dir: "desc" },   // the Similar filter's own sort
     layout: "list",           // "list", "cards" or "table"
     tableColumns: {},         // tab → the table's columns in order (TABLE_COLUMNS); missing tabs use TABLE_DEFAULT
-    notesHeading: "",         // heading above your own notes in new tracking notes; "" = "My notes" in the UI language
+    notesHeading: "",         // heading above your own notes in new library notes; "" = "My notes" in the UI language
     detailFull: false,        // the details window fills the screen (its ⤢ button)
     translatedFirst: true,    // texts show in your language wherever a translation is kept (description, Overview, README)
     readmeTranslation: "ask", // "ask": README in your language on request (details window, command); "off"

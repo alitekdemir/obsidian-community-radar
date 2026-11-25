@@ -11,7 +11,7 @@ order by gain(30d) desc
 
 ## Koşullar
 
-Bir koşul `alan operatör değer` biçimindedir. Koşulları `AND`, `OR` ve `NOT` ile bağlayın, `( )` ile gruplayın. Evet/hayır alanı tek başına yazılır: `installed`, `NOT tracked`. Koşullar arasındaki boşluk da AND demektir. Satır sonları ve fazla boşluklar önemsizdir. Sorgu modunda koşul olmayan bir kelime hatadır; metin aramasını tırnak içine alın: `"daily note"`.
+Bir koşul `alan operatör değer` biçimindedir. Koşulları `AND`, `OR` ve `NOT` ile bağlayın, `( )` ile gruplayın. Evet/hayır alanı tek başına yazılır: `installed`, `NOT library`. Koşullar arasındaki boşluk da AND demektir. Satır sonları ve fazla boşluklar önemsizdir. Sorgu modunda koşul olmayan bir kelime hatadır; metin aramasını tırnak içine alın: `"daily note"`.
 
 Sorgunun sonuna şu sırayla ekleyebilirsiniz: `group by alan` listeyi her değer için ayrı bir bölüme ayırır (group, category, primary, tag, intent, lifecycle, status, author; birden çok değeri olan eklenti her bölümde görünür, değeri olmayanlar en sonda yer alır); `order by alan desc` (ya da `asc`) sıralar; `limit 100` ilk 100'ü, `limit 101-200` 101. ile 200. arasını bırakır.
 
@@ -37,8 +37,8 @@ primary = tasks group by intent order by downloads desc limit 50
 | `group` | liste | notunuzdaki bir grup |
 | `status` | liste | notunuzdaki durum |
 | `installed` | evet/hayır | bu kasada kurulu |
-| `tracked` | evet/hayır | takipte (notu var) |
-| `unreviewed` | evet/hayır | takipte ve incelediğinizden beri yeni sürümü var |
+| `library` | evet/hayır | kitaplığınızda (notu var) |
+| `unreviewed` | evet/hayır | kitaplığınızda ve incelediğinizden beri yeni sürümü var |
 | `dismissed` | evet/hayır | Önerilerden çıkarılmış |
 | `excluded` | evet/hayır | sizin dışladıklarınız |
 | `snoozed` | evet/hayır | sonraki sürümüne kadar gizli |
@@ -78,7 +78,7 @@ Bunlar fonksiyon gibi yazılır. Parametreyi siz belirlersiniz; `()` varsayılan
 Her sayı olur: `gain(21d)`, `rise(45d)`, `milestone(7k)`. İndirme geçmişi son bir yılı kapsar: son ay gün gün, öncesi hafta hafta (aradaki bir pencere orantılı okunur). `( )` olmadan düz `gain` yazmak, nasıl yazılacağını söyleyen bir hata verir.
 
 ```
-gain(21d) >= 500 AND NOT tracked
+gain(21d) >= 500 AND NOT library
 milestone(10k) <= 30d order by downloads desc
 releases(180d) > 9
 ```
@@ -150,10 +150,10 @@ listed >= lastSync()
 
 1. **Boyut:** dev değil. `downloads <= 10k`
 2. **Canlılık:** bakımı süren ve büyüyen. `AND released <= 30d AND rise(30d) >= 20`
-3. **Sizin için yeni:** `AND NOT tracked`, ardından sıralama: `order by rise(30d) desc`
+3. **Sizin için yeni:** `AND NOT library`, ardından sıralama: `order by rise(30d) desc`
 
 ```
-downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT tracked
+downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library
 order by rise(30d) desc
 ```
 
@@ -166,17 +166,17 @@ Ana sayfadaki **Widget ekle** ve boş sorgu kutusuyla aynı liste. **+ Ekle** bi
 | Ad | Sorgu | Bulduğu |
 |---|---|---|
 | Bu ay güncellenenler | `released >= startOfMonth() order by downloads desc` | ayın 1'inden beri sürüm çıkaranlar |
-| Hızlı çıkış yapanlar | `listed <= 60d AND downloads >= 1k AND NOT tracked order by downloads desc` | son 2 ayda listelenip 1K'yı geçmişler |
-| Gizli cevherler | `downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT tracked order by rise(30d) desc` | 1K–10K, bu ay güncellenmiş, %20+ büyüyen |
-| Uykudan uyananlar | `incubated >= 180d AND hatched <= 30d AND NOT tracked order by hatched desc` | 6+ aydan sonra bu ay dönenler |
-| Popülerlerde yeni sürüm | `downloads >= 50k AND released <= 14d AND NOT tracked order by released desc` | çok kişiye ulaşan değişiklikler |
+| Hızlı çıkış yapanlar | `listed <= 60d AND downloads >= 1k AND NOT library order by downloads desc` | son 2 ayda listelenip 1K'yı geçmişler |
+| Gizli cevherler | `downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library order by rise(30d) desc` | 1K–10K, bu ay güncellenmiş, %20+ büyüyen |
+| Uykudan uyananlar | `incubated >= 180d AND hatched <= 30d AND NOT library order by hatched desc` | 6+ aydan sonra bu ay dönenler |
+| Popülerlerde yeni sürüm | `downloads >= 50k AND released <= 14d AND NOT library order by released desc` | çok kişiye ulaşan değişiklikler |
 | 10K'yı yeni aşanlar | `milestone(10k) <= 30d order by downloads desc` | bu ay 10K'ya ulaşanlar, sonra nereye vardıklarından bağımsız |
-| Aktif geliştirilenler | `releases(30d) >= 3 AND downloads >= 1k AND NOT tracked order by gain(30d) desc` | bu ay 3+ güncelleme |
+| Aktif geliştirilenler | `releases(30d) >= 3 AND downloads >= 1k AND NOT library order by gain(30d) desc` | bu ay 3+ güncelleme |
 | Terk edilmiş kurulu eklentiler | `installed AND released >= 1y order by released asc` | kurulu, bir yıldır güncellenmemiş |
-| Denenecekler | `tracked AND NOT installed order by rating desc` | takipte, burada kurulu değil |
-| Grupsuzlar | `tracked AND group is empty order by name asc` | takipte, grubu yok |
-| Puansızlar | `tracked AND rating is empty order by downloads desc` | takipte, henüz puanlanmamış |
-| Takipte uyuyanlar | `tracked AND released >= 1y order by released asc` | takipte, bir yıldır sürüm yok |
+| Denenecekler | `library AND NOT installed order by rating desc` | kitaplıkta, burada kurulu değil |
+| Grupsuzlar | `library AND group is empty order by name asc` | kitaplıkta, grubu yok |
+| Puansızlar | `library AND rating is empty order by downloads desc` | kitaplıkta, henüz puanlanmamış |
+| Kitaplıkta uyuyanlar | `library AND released >= 1y order by released asc` | kitaplıkta, bir yıldır sürüm yok |
 
 Ana sayfadaki **Kategori izleme** widget'ı (**+ Widget ekle › Bildirim** içinde) asıl kategorisi o olan eklentileri, en çok indirilen üstte listeler; listeye yeni girenleri "+N yeni" ile işaretler: `primary = tasks AND NOT removed order by downloads desc`.
 

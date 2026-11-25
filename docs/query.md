@@ -11,7 +11,7 @@ order by gain(30d) desc
 
 ## Clauses
 
-A clause is `field operator value`. Join clauses with `AND`, `OR` and `NOT`, group them with `( )`. A yes/no field stands alone: `installed`, `NOT tracked`. A space between clauses also means AND. Line breaks and extra spaces don't matter. In Query mode a word that isn't a clause is an error; put a text search in quotes: `"daily note"`.
+A clause is `field operator value`. Join clauses with `AND`, `OR` and `NOT`, group them with `( )`. A yes/no field stands alone: `installed`, `NOT library`. A space between clauses also means AND. Line breaks and extra spaces don't matter. In Query mode a word that isn't a clause is an error; put a text search in quotes: `"daily note"`.
 
 At the end, in this order: `group by field` splits the list into sections, one per value (group, category, primary, tag, intent, lifecycle, status, author; a plugin with several shows under each, the ones without come last); `order by field desc` (or `asc`) sorts it; `limit 100` keeps the first 100, `limit 101-200` the 101st to the 200th.
 
@@ -37,8 +37,8 @@ primary = tasks group by intent order by downloads desc limit 50
 | `group` | list | a group in your note |
 | `status` | list | the status in your note |
 | `installed` | yes/no | installed in this vault |
-| `tracked` | yes/no | tracked (has a note) |
-| `unreviewed` | yes/no | tracked, with a release since you reviewed it |
+| `library` | yes/no | in your library (has a note) |
+| `unreviewed` | yes/no | in your library, with a release since you reviewed it |
 | `dismissed` | yes/no | removed from Suggested |
 | `excluded` | yes/no | ignored by you |
 | `snoozed` | yes/no | hidden until its next release |
@@ -78,7 +78,7 @@ These are written like a function. The parameter is yours; `()` takes the defaul
 Any number works: `gain(21d)`, `rise(45d)`, `milestone(7k)`. The download history covers the last year: day by day for the last month, week by week before it (a window in between is read in proportion). A plain `gain` without `( )` is an error that says how to write it.
 
 ```
-gain(21d) >= 500 AND NOT tracked
+gain(21d) >= 500 AND NOT library
 milestone(10k) <= 30d order by downloads desc
 releases(180d) > 9
 ```
@@ -150,10 +150,10 @@ listed >= lastSync()
 
 1. **Size:** not a giant. `downloads <= 10k`
 2. **Life:** maintained and growing. `AND released <= 30d AND rise(30d) >= 20`
-3. **New to you:** `AND NOT tracked`, then the order: `order by rise(30d) desc`
+3. **New to you:** `AND NOT library`, then the order: `order by rise(30d) desc`
 
 ```
-downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT tracked
+downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library
 order by rise(30d) desc
 ```
 
@@ -166,17 +166,17 @@ The same list as **+ Add widget** on Home and the empty query box. **Add** puts 
 | Name | Query | Finds |
 |---|---|---|
 | Updated this month | `released >= startOfMonth() order by downloads desc` | released since the 1st |
-| Fast starters | `listed <= 60d AND downloads >= 1k AND NOT tracked order by downloads desc` | listed in the last 2 months, past 1K already |
-| Hidden gems | `downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT tracked order by rise(30d) desc` | 1K–10K, updated this month, growing 20%+ |
-| Awake again | `incubated >= 180d AND hatched <= 30d AND NOT tracked order by hatched desc` | back this month after 6+ months |
-| New releases of popular plugins | `downloads >= 50k AND released <= 14d AND NOT tracked order by released desc` | changes that reach many people |
+| Fast starters | `listed <= 60d AND downloads >= 1k AND NOT library order by downloads desc` | listed in the last 2 months, past 1K already |
+| Hidden gems | `downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library order by rise(30d) desc` | 1K–10K, updated this month, growing 20%+ |
+| Awake again | `incubated >= 180d AND hatched <= 30d AND NOT library order by hatched desc` | back this month after 6+ months |
+| New releases of popular plugins | `downloads >= 50k AND released <= 14d AND NOT library order by released desc` | changes that reach many people |
 | Just passed 10K | `milestone(10k) <= 30d order by downloads desc` | reached 10K this month, whatever they reached after |
-| Actively developed | `releases(30d) >= 3 AND downloads >= 1k AND NOT tracked order by gain(30d) desc` | 3+ updates this month |
+| Actively developed | `releases(30d) >= 3 AND downloads >= 1k AND NOT library order by gain(30d) desc` | 3+ updates this month |
 | Abandoned installs | `installed AND released >= 1y order by released asc` | installed, no update for a year |
-| To try | `tracked AND NOT installed order by rating desc` | tracked, not installed here |
-| Ungrouped | `tracked AND group is empty order by name asc` | tracked without a group |
-| Unrated | `tracked AND rating is empty order by downloads desc` | tracked, not rated yet |
-| Sleeping tracked plugins | `tracked AND released >= 1y order by released asc` | tracked, no release for a year |
+| To try | `library AND NOT installed order by rating desc` | in your library, not installed here |
+| Ungrouped | `library AND group is empty order by name asc` | in your library, without a group |
+| Unrated | `library AND rating is empty order by downloads desc` | in your library, not rated yet |
+| Sleeping plugins in your library | `library AND released >= 1y order by released asc` | in your library, no release for a year |
 
 On Home, the **Category watch** widget (in **+ Add widget › Notify**) lists the plugins that call a category home, the most downloaded first, and marks newly listed ones as "+N new": `primary = tasks AND NOT removed order by downloads desc`.
 

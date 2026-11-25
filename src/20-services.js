@@ -1,16 +1,30 @@
 // ─── 3. Services ────────────────────────────────────────────────────────────
+/** Reads `res.json` safely, throwing a clear Error on non-JSON 200 replies (e.g. proxy/captive portal HTML). */
+function readJsonResponse(res, label) {
+  try {
+    return res.json;
+  } catch {
+    throw new Error(`${label}: invalid JSON`);
+  }
+}
+
 /** All GitHub requests. `requestUrl` isn't subject to CORS and works on mobile. */
 class GitHub {
   async json(url) {
     const res = await requestUrl({ url, throw: false, headers: { Accept: "application/vnd.github+json" } });
     if (res.status === 403 || res.status === 429) throw new Error(t("notice.rateLimit"));
     if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${url}`);
-    return res.json;
+    return readJsonResponse(res, url);
   }
 
-  async text(url) {
+  async text(url, { strict = false } = {}) {
     const res = await requestUrl({ url, throw: false });
-    return res.status < 400 ? res.text : null;
+    if (res.status < 400) return res.text;
+    if (strict && res.status !== 404) {
+      if (res.status === 403 || res.status === 429) throw new Error(t("notice.rateLimit"));
+      throw new Error(`GitHub ${res.status}: ${url}`);
+    }
+    return null;
   }
 
   async catalog() {
@@ -41,9 +55,10 @@ class GitHub {
     const url = `${PROFILES_URL}/${file}`;
     const res = await requestUrl({ url, throw: false, headers: etag ? { "If-None-Match": etag } : {} });
     if (res.status === 304) return null;
+    if (res.status === 403 || res.status === 429) throw new Error(t("notice.rateLimit"));
     if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${url}`);
     const header = Object.entries(res.headers || {}).find(([name]) => name.toLowerCase() === "etag");   // the header's case varies
-    return { json: res.json, etag: header?.[1] ?? null };
+    return { json: readJsonResponse(res, url), etag: header?.[1] ?? null };
   }
 
   /** One plugin's whole profile (problem, capabilities…); null when there's none; throws when it can't be downloaded. */
@@ -51,14 +66,39 @@ class GitHub {
     const url = `${PROFILES_URL}/profiles/${encodeURIComponent(id)}.json`;
     const res = await requestUrl({ url, throw: false });
     if (res.status === 404) return null;
+    if (res.status === 403 || res.status === 429) throw new Error(t("notice.rateLimit"));
     if (res.status >= 400) throw new Error(`GitHub ${res.status}: ${url}`);
-    return res.json;
+    return readJsonResponse(res, url);
   }
 
-  /** README: tries raw file names first (no rate limit), then falls back to the API (60/hour). */
+  /**
+   * Downloads a UI locale JSON for `version`, falling back to `HEAD` on 404 or when `version` is an older release tag
+   * missing keys added in an unreleased build; returns the most complete valid locale object.
+   */
+  async locale(code, version) {
+    const refs = version ? [encodeURIComponent(version), "HEAD"] : ["HEAD"];
+    let best = null;
+    for (const ref of refs) {
+      const url = `${RAW}/${PLUGIN_REPO}/${ref}/locales/${encodeURIComponent(code)}.json`;
+      const res = await requestUrl({ url, throw: false });
+      if (res.status === 404) continue;
+      if (res.status === 403 || res.status === 429) throw new Error(t("notice.rateLimit"));
+      if (res.status >= 400) { if (best) break; throw new Error(`GitHub ${res.status}: ${url}`); }
+      const json = readJsonResponse(res, url);
+      if (!json || typeof json.locale !== "string") throw new Error(`${url}: invalid locale file`);
+      if (isCompleteLocale(json)) return json;   // complete for this build: no need to try HEAD
+      if (!best || localeKeyCount(json) > localeKeyCount(best)) best = json;
+    }
+    return best;
+  }
+
+  /**
+   * README: tries raw file names first (no rate limit), then falls back to the API (60/hour).
+   * Returns null only when genuinely absent (404); throws on rate-limit/5xx/network errors so callers don't overwrite a good README.
+   */
   async readme(repo) {
     for (const name of ["README.md", "readme.md", "Readme.md", "README.MD"]) {
-      const text = await this.text(`${RAW}/${repo}/HEAD/${name}`);
+      const text = await this.text(`${RAW}/${repo}/HEAD/${name}`, { strict: true });
       if (text != null) return text;
     }
     const res = await requestUrl({
@@ -66,7 +106,10 @@ class GitHub {
       throw: false,
       headers: { Accept: "application/vnd.github.raw" },
     });
-    return res.status < 400 ? res.text : null;
+    if (res.status < 400) return res.text;
+    if (res.status === 404) return null;
+    if (res.status === 403 || res.status === 429) throw new Error(t("notice.rateLimit"));
+    throw new Error(`GitHub ${res.status}: ${repo}/readme`);
   }
 }
 
@@ -81,10 +124,16 @@ class Cache {
     return `${this.dir}/${name}.${ext}`;
   }
 
-  /** Makes the folder of `path` (the cache folder, or one inside it such as readmes/) on its first write. */
+  /** Makes the folder of `path` (and parents) safely under concurrent writes. */
   async ensureDir(path) {
-    const dir = path.slice(0, path.lastIndexOf("/"));
-    if (!(await this.adapter.exists(dir))) await this.adapter.mkdir(dir);
+    const parts = path.slice(0, path.lastIndexOf("/")).split("/").filter(Boolean);
+    let cur = "";
+    for (const part of parts) {
+      cur = cur ? `${cur}/${part}` : part;
+      if (!(await this.adapter.exists(cur))) {
+        try { await this.adapter.mkdir(cur); } catch { if (!(await this.adapter.exists(cur))) throw new Error(`mkdir failed: ${cur}`); }
+      }
+    }
   }
 
   async read(name, fallback) {
@@ -130,27 +179,35 @@ class TranslationStore {
    * Reads the file; a broken line (the one a crash cut short) is skipped, two that lost the newline between them
    * (two writers at once, e.g. the plugin reloaded mid-run) are read apart. Rewritten when it's mostly old lines.
    */
-  async load() {
-    const text = (await this.adapter.exists(this.path)) ? await this.adapter.read(this.path) : "";
-    let lines = 0;
-    const read = (line) => {
-      const { k, id, ...entry } = JSON.parse(line);
-      if (TranslationStore.KINDS[k] && id) this[TranslationStore.KINDS[k]][id] = entry;
-    };
-    for (const line of text.split("\n")) {
-      if (!line.trim()) continue;
-      lines++;
+  load() {
+    return this.queue(async () => {
+      let text = "";
       try {
-        read(line);
-      } catch {
+        text = (await this.adapter.exists(this.path)) ? await this.adapter.read(this.path) : "";
+      } catch (error) {
+        console.warn("[Community Radar] couldn't read translations.jsonl", error);
+        return;
+      }
+      let lines = 0;
+      const read = (line) => {
+        const { k, id, ...entry } = JSON.parse(line);
+        if (TranslationStore.KINDS[k] && id) this[TranslationStore.KINDS[k]][id] = entry;
+      };
+      for (const line of text.split("\n")) {
+        if (!line.trim()) continue;
+        lines++;
         try {
-          line.split(/(?<=\})(?=\{"k":)/).forEach(read);   // only here: splitting every line costs ~100 ms at startup
+          read(line);
         } catch {
-          console.warn("[Community Radar] skipped a broken line in translations.jsonl");
+          try {
+            line.split(/(?<=\})(?=\{"k":)/).forEach(read);   // only here: splitting every line costs ~100 ms at startup
+          } catch {
+            console.warn("[Community Radar] skipped a broken line in translations.jsonl");
+          }
         }
       }
-    }
-    if (lines > 1.5 * this.count() + 100) await this.rewrite();   // a translation made again leaves its old line behind
+      if (lines > 1.5 * this.count() + 100) await this.writeAll();   // a translation made again leaves its old line behind
+    });
   }
 
   /**
@@ -186,18 +243,34 @@ class TranslationStore {
    * @returns {Promise<null|string>} null when kept, else why not (translationProblem); a kept one stays as it was
    */
   async put(kind, id, entry) {
-    const problem = this.problem(kind, entry);
-    if (problem) return problem;
-    this[kind][id] = entry;
+    return (await this.putMany(kind, [{ id, entry }]))[0];
+  }
+
+  /** Keeps many translations of `kind` in a single append; returns per-item problems (null = kept). */
+  async putMany(kind, items) {
     const k = Object.keys(TranslationStore.KINDS).find((key) => TranslationStore.KINDS[key] === kind);
-    await this.queue(() => this.adapter.append(this.path, `${JSON.stringify({ k, id, ...entry })}\n`));
-    return null;
+    const valid = [];
+    const problems = items.map(({ id, entry }) => {
+      const problem = this.problem(kind, entry);
+      if (!problem) valid.push({ id, entry });
+      return problem;
+    });
+    if (valid.length) {
+      const chunk = valid.map(({ id, entry }) => `${JSON.stringify({ k, id, ...entry })}\n`).join("");
+      await this.queue(async () => {
+        await this.adapter.append(this.path, chunk);
+        for (const { id, entry } of valid) this[kind][id] = entry;
+      });
+    }
+    return problems;
   }
 
   /** Forgets every translation of a kind (the file is rewritten without them). */
   clear(kind) {
-    this[kind] = {};
-    return this.queue(() => this.writeAll());
+    return this.queue(() => {
+      this[kind] = {};
+      return this.writeAll();
+    });
   }
 
   rewrite() {
@@ -213,12 +286,13 @@ class TranslationStore {
 
   /** Runs a write after the ones before it (a failed one doesn't stop the next). */
   queue(write) {
-    this.writing = this.writing.then(write, write);
-    return this.writing;
+    const run = this.writing.then(write, write);
+    this.writing = run.catch(() => {});
+    return run;
   }
 }
 
-/** Tracking notes in the notes folder: index, creation, properties and README updates. */
+/** Library notes in the notes folder: index, creation, properties and README updates. */
 class Notes {
   constructor(app, settings) {
     this.app = app;
@@ -227,11 +301,17 @@ class Notes {
   }
 
   get folder() {
-    return normalizePath(this.settings.folder);
+    const norm = normalizePath(this.settings.folder || "");
+    return norm === "/" ? "" : norm;
+  }
+
+  hasPath(path) {
+    const f = this.folder;
+    return f ? path.startsWith(`${f}/`) : Boolean(path);
   }
 
   inFolder(file) {
-    return file instanceof TFile && file.extension === "md" && file.path.startsWith(`${this.folder}/`);
+    return file instanceof TFile && file.extension === "md" && this.hasPath(file.path);
   }
 
   /** Markdown files inside the notes folder only; the rest of the vault is never listed. */
@@ -243,8 +323,8 @@ class Notes {
         else if (child instanceof TFile && child.extension === "md") files.push(child);
       }
     };
-    const root = this.app.vault.getAbstractFileByPath(this.folder);
-    if (root instanceof TFolder) walk(root);
+    const root = this.folder ? this.app.vault.getAbstractFileByPath(this.folder) : this.app.vault.getRoot?.();
+    if (root instanceof TFolder || root?.children) walk(root);
     return files;
   }
 
@@ -275,7 +355,11 @@ class Notes {
   members() {
     const members = new Map();
     for (const note of this.index.values()) {
-      for (const g of note.groups) members.set(g, [...(members.get(g) || []), note.id]);
+      for (const g of note.groups) {
+        let list = members.get(g);
+        if (!list) members.set(g, (list = []));
+        list.push(note.id);
+      }
     }
     return members;
   }
@@ -286,11 +370,14 @@ class Notes {
     for (const file of this.files()) {
       const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
       if (!fm?.plugin_id || !("group" in fm)) continue;
+      let written = null;
       await this.app.fileManager.processFrontMatter(file, (data) => {
         data.groups = groupsOf(data);
         delete data.group;
+        written = { ...data };
       });
-      this.refresh(file);
+      const note = written && noteFromFrontmatter(file.path, written);
+      if (note) this.index.set(note.id, note);
       moved++;
     }
     return moved;
@@ -303,8 +390,21 @@ class Notes {
   }
 
   uniquePath(plugin) {
-    const base = `${this.folder}/${safeFileName(plugin.name)}`;
-    return this.app.vault.getAbstractFileByPath(`${base}.md`) ? `${base} (${safeFileName(plugin.id)}).md` : `${base}.md`;
+    const prefix = this.folder ? `${this.folder}/` : "";
+    const base = `${prefix}${safeFileName(plugin.name)}`;
+    const exists = (p) => {
+      if (this.app.vault.getAbstractFileByPath(p)) return true;
+      // case-insensitive collision check for Windows / macOS vaults
+      const lower = p.toLowerCase();
+      return this.files().some((f) => f.path.toLowerCase() === lower);
+    };
+    if (!exists(`${base}.md`)) return `${base}.md`;
+    const withId = `${base} (${safeFileName(plugin.id)}).md`;
+    if (!exists(withId)) return withId;
+    for (let n = 2; ; n++) {
+      const alt = `${base} (${safeFileName(plugin.id)} ${n}).md`;
+      if (!exists(alt)) return alt;
+    }
   }
 
   /**
@@ -316,7 +416,9 @@ class Notes {
     let file = this.file(plugin.id);
     const created = !file;
     if (created) {
-      if (!this.app.vault.getAbstractFileByPath(this.folder)) await this.app.vault.createFolder(this.folder);
+      if (this.folder && !this.app.vault.getAbstractFileByPath(this.folder)) {
+        try { await this.app.vault.createFolder(this.folder); } catch { /* created concurrently */ }
+      }
       file = await this.app.vault.create(this.uniquePath(plugin), noteBody(this.settings.notesHeading.trim() || undefined));
     }
     let written = {};
@@ -337,11 +439,24 @@ class Notes {
     const file = this.file(plugin.id);
     if (!file) return false;
     const fresh = sourceFields(plugin);
-    const current = this.app.metadataCache.getFileCache(file)?.frontmatter || {};
-    const changed = Object.entries(fresh).some(([key, value]) => String(current[key] ?? "") !== String(value ?? ""));
-    if (changed) await this.app.fileManager.processFrontMatter(file, (fm) => Object.assign(fm, fresh));
-    if (current.description == null && plugin.description) await this.app.vault.process(file, (content) => stripDescription(content, plugin.description));
-    return String(current.updated ?? "").slice(0, 10) !== String(fresh.updated ?? "");
+    const cachedFm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+    const indexed = this.index.get(plugin.id);
+    const current = cachedFm || indexed || {};
+    // never wipe a known release date when catalog stats temporarily lack `updated`
+    const next = fresh.updated == null && current.updated ? { ...fresh, updated: current.updated } : fresh;
+    const changed = Object.entries(next).some(([key, value]) => String(current[key] ?? "") !== String(value ?? ""));
+    if (changed) {
+      let written = null;
+      await this.app.fileManager.processFrontMatter(file, (fm) => { Object.assign(fm, next); written = { ...fm }; });
+      const note = written && noteFromFrontmatter(file.path, written);
+      if (note) this.index.set(plugin.id, note);
+    }
+    if (cachedFm && cachedFm.description == null && plugin.description) {
+      await this.app.vault.process(file, (content) => stripDescription(content, plugin.description));
+    }
+    const prevUpdated = String(current.updated ?? "").slice(0, 10);
+    const nextUpdated = String(next.updated ?? "").slice(0, 10);
+    return Boolean(prevUpdated && nextUpdated && prevUpdated !== nextUpdated);
   }
 
   async writeReadme(file, plugin, readme) {
@@ -367,7 +482,7 @@ class Notes {
     });
   }
 
-  /** Applies a one-time text change to every tracking note; writes only the notes that change and returns their count. */
+  /** Applies a one-time text change to every library note; writes only the notes that change and returns their count. */
   async migrate(transform) {
     let changed = 0;
     for (const file of this.files()) {
@@ -387,12 +502,23 @@ class Notes {
 function errorDetail(res) {
   let detail = null;
   try {
-    detail = res.json?.error?.message || res.json?.error;
+    const json = res.json;
+    detail = json?.error?.message || json?.error;
   } catch {
     // not JSON: the text below says it
   }
   detail ||= res.text?.slice(0, 200) || "";
   return typeof detail === "string" ? detail : JSON.stringify(detail);
+}
+
+/** Parses Retry-After header (seconds or HTTP-date) into ms, or null if absent/invalid. */
+function parseRetryAfter(headers) {
+  const raw = Object.entries(headers || {}).find(([name]) => name.toLowerCase() === "retry-after")?.[1];
+  if (raw == null || String(raw).trim() === "") return null;
+  const secs = Number(raw);
+  if (Number.isFinite(secs) && secs >= 0) return Math.min(secs * 1000, 60000);
+  const dateMs = Date.parse(raw);
+  return Number.isFinite(dateMs) ? Math.min(Math.max(0, dateMs - Date.now()), 60000) : null;
 }
 
 /**
@@ -406,16 +532,34 @@ class Translator {
     this.app = app;
     this.settings = settings;
     this.watchers = new Set();   // (event, data) => void: "usage" after each reply, "rateLimited" on a 429 (bulk runs)
-    this.halted = false;         // a bulk run was stopped: a request waiting to try again gives up
+    this._halted = false;        // a bulk run was stopped: a request waiting to try again gives up immediately
+    this._abort = null;          // AbortController cancelled when halted becomes true
+  }
+
+  get halted() { return this._halted; }
+  set halted(on) {
+    this._halted = Boolean(on);
+    if (this._halted) {
+      this._abort?.abort();
+      this._abort = null;
+    } else if (!this._abort && typeof AbortController !== "undefined") {
+      this._abort = new AbortController();
+    }
   }
 
   /**
-   * Is thinking turned off for the requests? Only where it can be: the provider has the switch (PROVIDERS[…].thinking)
-   * and the model may stop thinking (one that must think would refuse the request; one that never does needs nothing).
+   * Is thinking turned off for `model`? Only where it can be: the provider has the switch (PROVIDERS[…].thinking)
+   * and when using the Settings model, it may stop thinking (an overridden model has unknown capability, so default).
    */
-  get thinkingOff() {
+  thinkingOffFor(model = this.settings.model) {
     const { thinking, provider, modelThinking } = this.settings;
-    return thinking === "off" && Boolean(PROVIDERS[provider]?.thinking) && modelThinking !== "mandatory" && modelThinking !== "none";
+    if (thinking !== "off" || !PROVIDERS[provider]?.thinking) return false;
+    if (model && model !== this.settings.model) return false;   // unknown whether an override model forbids thinking:off
+    return modelThinking !== "mandatory" && modelThinking !== "none";
+  }
+
+  get thinkingOff() {
+    return this.thinkingOffFor(this.settings.model);
   }
 
   get supported() {
@@ -435,46 +579,61 @@ class Translator {
     return Boolean(PROVIDERS[this.settings.provider] && this.settings.model && this.key());
   }
 
-  async call({ url, headers, body }) {
-    const res = await requestUrl({
-      url,
-      method: body ? "POST" : "GET",
-      headers: { ...headers, ...(body ? { "Content-Type": "application/json" } : {}) },
-      body: body ? JSON.stringify(body) : undefined,
-      throw: false,
-    });
-    if (res.status >= 400) {
-      const label = PROVIDERS[this.settings.provider]?.label || t("provider.generic");
-      const error = new Error(`${label} ${res.status}: ${errorDetail(res)}`);
-      const header = Object.entries(res.headers || {}).find(([name]) => name.toLowerCase() === "retry-after");
-      Object.assign(error, { status: res.status, retryAfter: Number(header?.[1]) || null });   // seconds the provider asks for
+  async call({ url, headers, body }, provider = this.settings.provider) {
+    let res;
+    try {
+      res = await requestUrl({
+        url,
+        method: body ? "POST" : "GET",
+        headers: { ...headers, ...(body ? { "Content-Type": "application/json" } : {}) },
+        body: body ? JSON.stringify(body) : undefined,
+        throw: false,
+      });
+    } catch (error) {
+      error.network = true;
       throw error;
     }
-    return res.json;
+    const label = PROVIDERS[provider]?.label || t("provider.generic");
+    if (res.status >= 400) {
+      const error = new Error(`${label} ${res.status}: ${errorDetail(res)}`);
+      Object.assign(error, { status: res.status, retryAfterMs: parseRetryAfter(res.headers) });
+      throw error;
+    }
+    const json = readJsonResponse(res, label);
+    // OpenRouter can return HTTP 200 with an embedded `{ error: { message, code } }` payload
+    if (json?.error) {
+      const code = Number(json.error?.code) || 502;
+      const msg = json.error?.message || (typeof json.error === "string" ? json.error : JSON.stringify(json.error));
+      const error = new Error(`${label} ${code}: ${msg}`);
+      Object.assign(error, { status: code });
+      throw error;
+    }
+    return json;
   }
 
   /**
-   * `send()` again after a failure in passing: no connection, a timeout, a rate limit (429) or the provider's own
-   * error (5xx), waiting RETRY_MS (or what the provider asks, up to a minute) in between. Other errors (a wrong key,
-   * a model that doesn't exist) fail at once; so does every wait once a bulk run is stopped.
+   * `send()` again after a transient failure: network error, timeout (408), rate limit (429) or 5xx,
+   * waiting RETRY_MS + jitter (or Retry-After, up to 60s). Immediately aborts sleep when `halted` is set.
    */
-  async retrying(send) {
+  async retrying(send, { haltable = false } = {}) {
     for (let attempt = 0; ; attempt++) {
+      if (haltable && this.halted) throw new Error("halted");
       try {
         return await send();
       } catch (error) {
-        const passing = error.status == null || error.status === 408 || error.status === 429 || error.status >= 500;
-        if (!passing || attempt >= Translator.RETRY_MS.length || this.halted) throw error;
+        const passing = Boolean(error.network) || error.status === 408 || error.status === 429 || error.status >= 500;
+        if (!passing || attempt >= Translator.RETRY_MS.length || (haltable && this.halted)) throw error;
         if (error.status === 429) this.emit("rateLimited", error);
-        const wait = error.retryAfter ? Math.min(error.retryAfter * 1000, 60000) : Translator.RETRY_MS[attempt];
-        await sleep(wait);
-        if (this.halted) throw error;
+        const base = error.retryAfterMs != null ? error.retryAfterMs : Translator.RETRY_MS[attempt];
+        const wait = error.retryAfterMs != null ? base : Math.round(base * (0.8 + Math.random() * 0.4));
+        await sleep(wait, haltable ? this._abort?.signal : null);
+        if (haltable && this.halted) throw error;
       }
     }
   }
 
-  emit(event, data) {
-    for (const watch of this.watchers) watch(event, data);
+  emit(event, data, runId = null) {
+    for (const watch of this.watchers) watch(event, data, runId);
   }
 
   /** The provider's models: [{id, price}] (price only when the list has it). */
@@ -482,23 +641,25 @@ class Translator {
     const spec = PROVIDERS[provider];
     const key = this.key(provider);
     if (!spec || !key) throw new Error(t("error.noKey", { name: this.keyName(provider) }));
-    return spec.modelList(await this.call(spec.models(key))).sort((a, b) => a.id.localeCompare(b.id));
+    return spec.modelList(await this.call(spec.models(key), provider)).sort((a, b) => a.id.localeCompare(b.id));
   }
 
   /**
-   * One prompt to the chosen model: {text, usage} as the provider reported them. The usage goes to `onUsage` (the AI
-   * tab's table and the estimates, under `kind`: description | overview | readme | groups) and to the watchers.
-   * A reply cut short (the model ran out of room) is a ReplyError: what came is paid for, but unusable.
+   * One prompt to the chosen model: {text, usage} as the provider reported them. Usage is forwarded to `onUsage`
+   * and watchers (scoped by optional `runId` so independent modal requests don't pollute a bulk run's budget).
    */
-  /** One AI request; `model`: another one than Settings' for this request only (Translate again… picks it). */
-  async request(prompt, kind, model = this.settings.model) {
+  async request(prompt, kind, model = this.settings.model, { runId = null } = {}) {
     const { provider, routeSort } = this.settings;
     const spec = PROVIDERS[provider];
-    const thinking = this.thinkingOff ? "off" : "default";
-    const json = await this.retrying(() => this.call(spec.chat(model, this.key(), prompt, { thinking, sort: routeSort })));   // only OpenRouter reads the sort
+    if (!spec) throw new Error(t("notice.translateSetup"));
+    const thinking = this.thinkingOffFor(model) ? "off" : "default";
+    const json = await this.retrying(
+      () => this.call(spec.chat(model, this.key(), prompt, { thinking, sort: routeSort }), provider),
+      { haltable: runId != null },
+    );
     const usage = { ...spec.usage(json), chars: prompt.length };
     this.onUsage?.(provider, model, usageKind(kind, thinking), usage);
-    this.emit("usage", usage);
+    this.emit("usage", usage, runId);
     if (spec.truncated?.(json)) throw new ReplyError(t("error.truncated"));
     return { text: spec.text(json), usage };
   }
@@ -509,18 +670,20 @@ class Translator {
   }
 
   /**
-   * translate(), with what it took: {texts, model, tokens, cost} as the provider reported them (sumUsage). A reply
-   * that doesn't fit (ReplyError) is asked for again `retries` times; each try is billed and counted.
+   * translate(), with what it took: {texts, model, tokens, cost} summed across ALL billed attempts (including
+   * ReplyError retries).
    */
-  async translateWithUsage(texts, kind = "description", retries = 1, model = null) {
+  async translateWithUsage(texts, kind = "description", retries = 1, model = null, { runId = null } = {}) {
     const prompt = translationPrompt(texts, this.settings.targetLang, this.settings.prompts);
     const asked = model || this.settings.model;
+    const usages = [];
     for (let attempt = 0; ; attempt++) {
       try {
-        const { text, usage } = await this.request(prompt, kind, asked);
-        return { texts: parseTranslations(text, texts.length), ...sumUsage([usage], asked) };
+        const { text, usage } = await this.request(prompt, kind, asked, { runId });
+        usages.push(usage);
+        return { texts: parseTranslations(text, texts.length), ...sumUsage(usages, asked) };
       } catch (error) {
-        if (!(error instanceof ReplyError) || attempt >= retries || this.halted) throw error;
+        if (!(error instanceof ReplyError) || attempt >= retries || (runId != null && this.halted)) throw error;
       }
     }
   }
@@ -529,7 +692,7 @@ class Translator {
    * Group suggestions for up to AI_BATCH plugins in one request.
    * @param {object[]} plugins  catalog entries
    * @param {{name: string, examples: string[]}[]} groups  the user's groups with a few plugin names each
-   * @returns {Promise<Object<string, string[]>>} plugin id → suggestions
+   * @returns {Promise<{found: Object<string, string[]>, usage: object}>}
    */
   async suggestGroups(plugins, groups) {
     const { text, usage } = await this.request(groupPrompt(plugins, groups, this.settings.targetLang), "groups");
@@ -537,36 +700,33 @@ class Translator {
   }
 
   /**
-   * Translates a README into the target language, whole, in one request (today's models take it easily).
-   * @returns {Promise<{body: string, model: string, tokens: number, cost: ?number}>} the text and what it took (sumUsage)
+   * Translates a README into the target language, whole, in one request (with 1 ReplyError retry).
+   * @returns {Promise<{body: string, model: string, tokens: number, cost: ?number}>}
    */
-  async translateMarkdown(markdown, model = null) {
+  async translateMarkdown(markdown, model = null, { runId = null } = {}) {
     const asked = model || this.settings.model;
-    const { text, usage } = await this.request(readmePrompt(markdown, this.settings.targetLang, this.settings.prompts), "readme", asked);
-    const body = text.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, "$1");   // some models wrap it in a fence
-    if (!body) throw new ReplyError(t("error.emptyText"));
-    return { body, ...sumUsage([usage], asked) };
+    const prompt = readmePrompt(markdown, this.settings.targetLang, this.settings.prompts);
+    const usages = [];
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const { text, usage } = await this.request(prompt, "readme", asked, { runId });
+        usages.push(usage);
+        const trimmed = text.trim();
+        // strip outer markdown fence only if it wraps the entire reply (no closing fence earlier)
+        const m = trimmed.match(/^```(?:markdown|md)?\r?\n([\s\S]*)\r?\n```$/i);
+        const body = m && !m[1].includes("\n```") ? m[1].trim() : trimmed;
+        if (!body) throw new ReplyError(t("error.emptyText"));
+        return { body, ...sumUsage(usages, asked) };
+      } catch (error) {
+        if (!(error instanceof ReplyError) || attempt >= 1 || (runId != null && this.halted)) throw error;
+      }
+    }
   }
-
 
   /** A one-line translation to confirm that the provider, key and model work together. */
   async test() {
     const [sample] = await this.translate(["A plugin that tracks new releases."]);
     return sample;
-  }
-
-  /** Copies keys saved under 0.2's plugin-specific names to the shared suggested names. */
-  migrateLegacyKeys() {
-    if (!this.app.secretStorage) return 0;
-    let moved = 0;
-    for (const provider of Object.keys(PROVIDERS)) {
-      const legacy = this.app.secretStorage.getSecret(`plugin-tracker-${provider}-key`);
-      if (legacy && !this.app.secretStorage.getSecret(KEY_NAMES[provider])) {
-        this.app.secretStorage.setSecret(KEY_NAMES[provider], legacy);
-        moved++;
-      }
-    }
-    return moved;
   }
 }
 

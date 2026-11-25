@@ -8,12 +8,14 @@
  */
 function closestGroup(targetId, members, similar, profiles) {
   const own = new Map(similarIds(similar, targetId).map((id, i) => [id, i + 1]));
+  const targetIdx = similar?.row?.get(targetId);
   const linked = (id) => {
-    const back = similarIds(similar, id).indexOf(targetId) + 1;   // 0: the target isn't in its list
+    const rowIdx = targetIdx == null ? null : similar.row.get(id);
+    const back = rowIdx == null ? 0 : similar.lists[rowIdx].indexOf(targetIdx) + 1;   // 0: target not in its list
     return (own.has(id) ? 1 / own.get(id) : 0) + (back ? 1 / back : 0);
   };
   const home = profiles?.[targetId]?.primary;
-  const sameHome = (id) => (home && profiles[id]?.primary === home ? 1 : 0);
+  const sameHome = (id) => (id !== targetId && home && profiles[id]?.primary === home ? 1 : 0);
   return bestGroup(members, linked, true) || bestGroup(members, sameHome, false);
 }
 
@@ -52,28 +54,35 @@ function groupPrompt(plugins, groups, language) {
  * (existing groups keep their spelling). Unknown ids and malformed entries are dropped.
  */
 function parseGroupSuggestions(reply, ids, existing) {
-  const start = reply.indexOf("{");
-  const end = reply.lastIndexOf("}");
-  if (start === -1 || end <= start) throw new Error(t("error.noJsonObject"));
-  const data = JSON.parse(reply.slice(start, end + 1));
-  const spelling = new Map(existing.map((g) => [g.toLocaleLowerCase(), g]));
+  const data = extractJson(String(reply ?? ""), "{", "}", "error.noJsonObject");
+  if (!data || typeof data !== "object" || Array.isArray(data)) throw new ReplyError(t("error.noJsonObject"));
+  const spelling = new Map(existing.map((g) => [fold(g), g]));
   return Object.fromEntries(ids.map((id) => {
     const raw = Array.isArray(data?.[id]) ? data[id].filter((g) => typeof g === "string") : [];
     const clean = uniqueNames(raw)
-      .filter((g) => g.length <= 40 && g.split(" ").length <= 4)
-      .map((g) => spelling.get(g.toLocaleLowerCase()) || g);
+      .map((g) => spelling.get(fold(g)) || g)
+      .filter((g) => spelling.has(fold(g)) || (g.length <= 40 && g.split(" ").length <= 4));
     return [id, clean.slice(0, AI_GROUPS)];
   }));
 }
 
-/** Waits `ms`. */
-const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+/** Waits `ms`, resolving immediately when `cancel` (AbortSignal) fires. */
+function sleep(ms, signal = null) {
+  if (signal?.aborted) return Promise.resolve();
+  return new Promise((resolve) => {
+    const done = () => { signal?.removeEventListener("abort", onAbort); resolve(); };
+    const onAbort = () => { globalThis.clearTimeout(id); done(); };
+    const id = globalThis.setTimeout(done, ms);
+    signal?.addEventListener("abort", onAbort, { once: true });
+  });
+}
 
 /** Runs `worker` with limited concurrency; results keep the input order. */
 async function mapLimit(items, limit, worker) {
   const results = new Array(items.length);
+  const cap = Math.max(1, Math.floor(limit || 1));
   let next = 0;
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {
+  await Promise.all(Array.from({ length: Math.min(cap, items.length) }, async () => {
     while (next < items.length) {
       const index = next++;
       results[index] = await worker(items[index], index);

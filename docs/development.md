@@ -4,14 +4,14 @@
 
 ## Building
 
-`src/*.js` is the plugin, joined in file-name order; `npm run build` also embeds `locales/*.json` into the `main.js` Obsidian loads. There are no runtime dependencies. Tests run offline in Node with a small fake of the Obsidian API:
+`src/*.js` is the plugin, joined in file-name order; `npm run build` embeds `locales/en.json` (the fallback) and the language list into `main.js`, while other `locales/*.json` files are fetched from GitHub on demand and cached locally. There are no runtime dependencies. Tests run offline in Node with a small fake of the Obsidian API:
 
 ```sh
 npm install
 npm test        # builds main.js first
 ```
 
-To try a change in a vault, run `npm run build` and copy `main.js`, `manifest.json` and `styles.css` into `<vault>/.obsidian/plugins/plugin-radar/`, then reload the plugin.
+To try a change in a vault, run `npm run build:dev` (it embeds every `locales/*.json`, so your own translation edits show without pushing them first) and copy `main.js`, `manifest.json` and `styles.css` into `<vault>/.obsidian/plugins/plugin-radar/`, then reload the plugin.
 
 ## Between releases
 
@@ -58,7 +58,7 @@ Obsidian's own words come from its [official translations](https://github.com/ob
 | keychain | anahtar deposu | Schlüsselbund | связка ключей | キーチェーン | 钥匙串 |
 | command palette | komut paleti | Befehlspalette | палитра команд | コマンドパレット | 命令面板 |
 | release | sürüm | Version | релиз | リリース | 版本 / 发布 |
-| track, tracked | takip et, takip | verfolgen, Verfolgt | отслеживать, Отслеживаемые | 追跡, 追跡中 | 跟踪, 已跟踪 |
+| library, add to / remove from library | kitaplık, kitaplığa ekle / kitaplıktan çıkar | Bibliothek, zur Bibliothek hinzufügen / aus der Bibliothek entfernen | библиотека, в библиотеку / убрать из библиотеки | ライブラリ, ライブラリに追加 / 削除 | 插件库, 加入 / 移出插件库 |
 | incubation, hatched | kuluçka, kuluçkadan çıkış | Inkubation, aus der Inkubation | инкубация, выход из инкубации | 休眠期間, 休眠明け | 休眠期, 复苏 |
 | query, view | sorgu, görünüm | Abfrage, Ansicht | запрос, вид | クエリ, ビュー | 查询, 视图 |
 | AI | yapay zekâ | KI | ИИ | AI | AI |

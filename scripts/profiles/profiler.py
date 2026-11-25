@@ -300,12 +300,6 @@ def evidence_source(plugin: dict) -> str:
     return squash(plugin["text"] + " " + plugin["description"])
 
 
-def parse_json(content: str) -> dict:
-    """JSON from a model answer, tolerating ```json fences and leading prose."""
-    match = re.search(r"\{.*\}", content, re.S)
-    return json.loads(match.group(0) if match else content)
-
-
 def user_message(plugin: dict) -> str:
     """The per-plugin input: name, manifest description and the full README."""
     return (f"Plugin: {plugin['name']} (id: {plugin['id']})\n"

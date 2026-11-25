@@ -1,12 +1,35 @@
 const core = {
-  setLanguage, matchLanguage, t, defaultSettings, dayString, dayStart, formatCount, formatCost, formatShort, formatAge, relativeDays,
-  formatTime, safeFileName, cleanDescription, parseCatalog, newTimeline, mergeTimeline, seriesDays,
-  ageLabel, recentMilestone, fieldRef, gainOver, reachedAt, downloadsAgo, sortLabel, naturalDir, widgetResult, widgetRows, riseShare, sinceParams, recordVisit, within, widgetParams, homeWidget, legacyViewQuery, freshRows, seenIds, normalizeHome, unplacedWidgets, defaultGroups, sinceMoment, passedAt, milestoneSteps, HOME_WIDGETS, lastHatch, updateWaves, releaseWaves, releaseGaps, spanLabel, isNewPlugin, isUnreviewed, compileQuery, migrateQuery, migratePageQueries, migrateFields011, narrowQuery, parseQuery, isAdvancedQuery, querySuggestions, tokenize, QUERY_FIELDS, queryHighlight, filtersToQuery, queryToFilters, queryToBasic, queryStarters, QUERY_PRESETS, GALLERY_SECTIONS, queryDiff, queryChanges, queryTip, sameQuery, QUERY_FUNCS, defaultPageQuery, pageQuery, joinQuery, withOrder, sortField, splitOrder, dropClause, modeOptions, TABLE_COLUMNS, tableColumns, EXTRA_FILTERS, addableFilters, extraValueText, clearedFilters, changedFilters, filterSummary, discover, discoverGrouped, matchCount, matchRows, splitQuery, removedRows, sortRows, modeCounts, isSnoozed, trackedMatch,
-  groupSections, groupHue, statusKey, UNGROUPED, UPDATES, TOP_RATED, escapeOutsideCode,
-  absolutizeLinks, readmeBody, readmeSection, readmeVersion, readmeMeta, textHash, translationSection, replaceReadme, catalogDelta, noteBody, stripDescription, migrateHeadings, migrateStatuses, migrateMarkers, migrateImages, baseFile, sourceFields, noteFromFrontmatter,
-  PROVIDERS, KEY_NAMES, STRINGS, addUsage, sumUsage, tokenPrice, formatPrice, filterModels, rememberModel, historyModels, openRouterRouting, translationPrompt,
-  parseTranslations, foreignShare, isEnglishText, englishLink, englishSection, translationProblem, translationPairs, containsWords, estimateGap, mapLimit, groupsOf, uniqueNames, parseSimilar, similarIds, closeness, closenessShare, sharedFacets, closestGroup, readmeText, readmeTranslation, replaceReadmeTranslation, skipDevSections, aiEstimate, usageKind, releaseCadence, cadenceLabel, cadenceSub, cadenceNote,
-  groupPrompt, parseGroupSuggestions, errorDetail, profileOf, profileNeeds, profileCategories, profileFacets, profileParts, profileTexts, profileFromTexts,
-  constants: { DAY_MS, RELEASES_CAP, DEFAULT_NEW_DAYS, HATCHED_DAYS, README_START, README_END, README_TR_START, README_TR_END, LEGACY_README_START, LEGACY_README_END, TIMELINE_VERSION },
+  // i18n, formatting & settings
+  setLanguage, matchLanguage, t, tIn, LOCALE_NAMES, STRINGS, defaultSettings,
+  dayString, dayStart, formatCount, formatCost, formatShort, relativeDays, formatTime, safeFileName,
+  // catalog, timeline & discovery
+  parseCatalog, newTimeline, mergeTimeline, seriesDays, gainOver, reachedAt, passedAt, milestoneSteps,
+  lastHatch, updateWaves, releaseWaves, releaseGaps, releaseCadence, cadenceLabel, cadenceSub, cadenceNote, spanLabel,
+  isNewPlugin, isUnreviewed, isSnoozed, catalogDelta, removedRows,
+  modeOptions, tableColumns, addableFilters, clearedFilters, changedFilters, filterSummary,
+  discover, matchCount, matchRows, sortRows, modeCounts, groupSections, groupHue, statusKey,
+  UNGROUPED, UPDATES, TOP_RATED,
+  // home widgets
+  HOME_WIDGETS, widgetResult, widgetRows, sinceParams, recordVisit, within,
+  legacyViewQuery, normalizeHome, unplacedWidgets, sinceMoment,
+  // query language
+  QUERY_FIELDS, QUERY_FUNCS, QUERY_PRESETS, GALLERY_SECTIONS,
+  compileQuery, parseQuery, tokenize, isAdvancedQuery, querySuggestions, queryHighlight, queryTip,
+  filtersToQuery, queryToFilters, queryToBasic, queryStarters, queryDiff, queryChanges, sameQuery,
+  defaultPageQuery, pageQuery, joinQuery, withOrder, splitQuery, splitOrder, dropClause, narrowQuery,
+  migrateQuery, migrateFields011, libraryQuery, migrateLibraryField, migrateLibraryNames,
+  // markdown, README & notes
+  escapeOutsideCode, absolutizeLinks, readmeBody, readmeSection, readmeVersion, readmeMeta, readmeText,
+  textHash, translationSection, replaceReadme, readmeTranslation, replaceReadmeTranslation, skipDevSections,
+  noteBody, stripDescription, migrateHeadings, migrateStatuses, migrateImages,
+  baseFile, sourceFields, noteFromFrontmatter, groupsOf, uniqueNames,
+  // AI, translation, profiles & similar
+  PROVIDERS, KEY_NAMES, sumUsage, tokenPrice, formatPrice, filterModels, aiEstimate, errorDetail,
+  translationPrompt, parseTranslations, groupPrompt, parseGroupSuggestions,
+  foreignShare, scriptOfLanguage, translationProblem, englishLink, englishSection,
+  parseSimilar, similarIds, closeness, closenessShare, sharedFacets, closestGroup,
+  mapLimit,
+  constants: {
+    DAY_MS, HATCHED_DAYS, README_START, README_END, README_TR_START,
+  },
 };
-

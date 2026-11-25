@@ -38,9 +38,13 @@ const PROVIDERS = {
       headers: { "x-goog-api-key": key },
       body: { contents: [{ parts: [{ text: prompt }] }] },
     }),
-    text: (json) => (json.candidates?.[0]?.content?.parts || []).map((part) => part.text || "").join(""),
+    text: (json) => (json.candidates?.[0]?.content?.parts || []).filter((part) => !part.thought).map((part) => part.text || "").join(""),
     truncated: (json) => json.candidates?.[0]?.finishReason === "MAX_TOKENS",
-    usage: (json) => ({ input: json.usageMetadata?.promptTokenCount, output: json.usageMetadata?.candidatesTokenCount, model: json.modelVersion }),
+    usage: (json) => ({
+      input: json.usageMetadata?.promptTokenCount,
+      output: (json.usageMetadata?.candidatesTokenCount || 0) + (json.usageMetadata?.thoughtsTokenCount || 0) || undefined,
+      model: json.modelVersion,
+    }),
     models: (key) => ({ url: "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", headers: { "x-goog-api-key": key } }),
     modelList: (json) => (json.models || [])
       .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
@@ -80,9 +84,6 @@ function openRouterRouting(sort, thinking) {
   if (!sort) return {};
   return { provider: { sort, ...(thinking === "off" ? { require_parameters: true } : {}) } };
 }
-
-/** Why the Thinking setting doesn't apply to a provider (shown under it, greyed out). */
-const THINKING_NOTES = { anthropic: "set.thinking.elsewhere", openai: "set.thinking.elsewhere", gemini: "set.thinking.elsewhere" };
 
 /** A reply the model got wrong (not JSON, the wrong count, empty texts, cut short): worth one more try. */
 class ReplyError extends Error {}
@@ -148,11 +149,14 @@ function sumUsage(usages, asked) {
   return { model: usages.findLast((u) => u.model)?.model || asked, tokens, cost: usages.length ? cost : null };
 }
 
-/** OpenRouter price (USD per token, as text) → {input, output} per 1M tokens; null if unreadable. */
+/** OpenRouter price (USD per token, as text) → {input, output} per 1M tokens; null if unreadable, empty, or dynamic (-1). */
 function tokenPrice(pricing) {
-  const input = Number(pricing?.prompt) * 1e6;
-  const output = Number(pricing?.completion) * 1e6;
-  return Number.isFinite(input) && Number.isFinite(output) ? { input, output } : null;
+  const p = pricing?.prompt;
+  const c = pricing?.completion;
+  if (p == null || c == null || String(p).trim() === "" || String(c).trim() === "") return null;
+  const input = Number(p) * 1e6;
+  const output = Number(c) * 1e6;
+  return Number.isFinite(input) && Number.isFinite(output) && input >= 0 && output >= 0 ? { input, output } : null;
 }
 
 /** "$0.30 / $2.50 · 1M tokens" (input / output); free models say so. */
@@ -184,7 +188,7 @@ function rememberModel(history = [], id) {
  * thinking) or as typed when it isn't listed; `head` names the section its first row opens.
  */
 function historyModels(models, history = []) {
-  const rows = (pinned) => history.filter((h) => h.pinned === pinned)
+  const rows = (pinned) => history.filter((h) => Boolean(h.pinned) === pinned)
     .map((h, k) => ({ ...(models.find((m) => m.id === h.id) || { id: h.id, price: null }), history: h, head: k === 0 ? t(pinned ? "model.pinned" : "model.recent") : "" }));
   return [...rows(true), ...rows(false)];
 }
@@ -226,17 +230,23 @@ function translationPrompt(texts, targetLanguage, prompts) {
   ].join("\n");
 }
 
+/** Extracts the first parseable JSON array/object from a model reply (tolerates fences and surrounding prose). */
+function extractJson(reply, open, close, errKey) {
+  const fenced = reply.match(/```(?:json)?\r?\n([\s\S]*?)\r?\n```/i);
+  const candidates = fenced ? [fenced[1], reply] : [reply];
+  for (const src of candidates) {
+    const end = src.lastIndexOf(close);
+    if (end === -1) continue;
+    for (let pos = src.indexOf(open); pos !== -1 && pos < end; pos = src.indexOf(open, pos + 1)) {
+      try { return JSON.parse(src.slice(pos, end + 1)); } catch { /* try next opener */ }
+    }
+  }
+  throw new ReplyError(t(errKey));
+}
+
 /** Extracts the translations from the model's reply (code fences and surrounding text are tolerated). */
 function parseTranslations(reply, expected) {
-  const start = reply.indexOf("[");
-  const end = reply.lastIndexOf("]");
-  if (start === -1 || end <= start) throw new ReplyError(t("error.noJsonArray"));
-  let list;
-  try {
-    list = JSON.parse(reply.slice(start, end + 1));
-  } catch {
-    throw new ReplyError(t("error.noJsonArray"));
-  }
+  const list = extractJson(String(reply ?? ""), "[", "]", "error.noJsonArray");
   if (!Array.isArray(list) || list.length !== expected || !list.every((s) => typeof s === "string")) {
     throw new ReplyError(t("error.countMismatch", { expected, got: Array.isArray(list) ? list.length : "?" }));
   }

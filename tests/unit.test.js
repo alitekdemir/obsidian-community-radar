@@ -4,6 +4,13 @@ const fake = require("./fake-obsidian");
 const load = Module._load;
 Module._load = function (req, ...rest) { return req === "obsidian" ? fake : load.call(this, req, ...rest); };
 const { core } = require("../main.js");
+const fs = require("fs");
+const path = require("path");
+const embeddedLocales = Object.keys(core.STRINGS);
+for (const file of fs.readdirSync(path.join(__dirname, "../locales")).filter((f) => f.endsWith(".json"))) {
+  const code = path.basename(file, ".json");
+  if (!core.STRINGS[code]) core.STRINGS[code] = JSON.parse(fs.readFileSync(path.join(__dirname, "../locales", file), "utf8"));
+}
 core.setLanguage("tr");  // most expectations below are written for the Turkish UI
 const assert = require("assert/strict");
 const { DAY_MS } = core.constants;
@@ -53,7 +60,7 @@ const tests = {
     const fresh = (newDays) => core.discover(state, { mode: "new", minDownloads: 0, query: "", sort: "name", newDays }, NOW).map((p) => p.id);
     assert.deepEqual(fresh(14), ["young"]);
     assert.deepEqual(fresh(7), []);
-    assert.equal(core.pageQuery({ newDays: 7 }, "new"), "listed <= 7d AND NOT tracked\norder by listed desc");
+    assert.equal(core.pageQuery({ newDays: 7 }, "new"), "listed <= 7d AND NOT library\norder by listed desc");
     assert.equal(core.updateWaves(state.releases.busy, ago(180), NOW), 25);   // 26 releases, the last two the same day
     // 21 hotfixes in two sittings are two updates, not a busy plugin
     const sittings = [...Array.from({ length: 11 }, (_, i) => ago(120) + i * 6 * 3600e3), ...Array.from({ length: 10 }, (_, i) => ago(10) + i * 6 * 3600e3)];
@@ -131,7 +138,7 @@ const tests = {
     assert.deepEqual(card.milestone, ["ms"], "reached 10K within 7 days");
     assert.deepEqual(card.risingpct, ["grow"]);
     assert.ok(card.updated.includes("edge"), "the 14th day is in");
-    assert.deepEqual(card.tracked, ["tr", "tr2"], "newest release first, as the list sorts it");
+    assert.deepEqual(card.libraryReleases, ["tr", "tr2"], "newest release first, as the list sorts it");
     assert.deepEqual(card.suggested, ["inst"], "a tracked plugin isn't a suggestion");
     assert.deepEqual(card.awakened, ["back"]);
     // a tab's widget is the tab: its card counts the tab's query, saved changes included
@@ -140,9 +147,9 @@ const tests = {
     assert.equal(core.HOME_WIDGETS.updated.query({ ...ctx, settings: mine }, {}), "released <= 3d\norder by name asc");
     assert.equal(core.HOME_WIDGETS.updated.query({ ...ctx, settings: mine }, { since: ago(3) }), `released >= ${core.dayString(ago(3))}\norder by name asc`, "N new: its own window gives way to the day");
     const since = `listed >= ${core.dayString(ago(3))}`;
-    assert.equal(core.narrowQuery("listed <= 14d AND NOT tracked\norder by listed desc", "listed", since), `${since} AND NOT tracked\norder by listed desc`);
-    assert.equal(core.narrowQuery("NOT tracked", "listed", since), `NOT tracked AND ${since}`, "no window of its own: joined");
-    assert.equal(core.narrowQuery("tracked OR installed", "listed", since), `(tracked OR installed) AND ${since}`, "an OR keeps its parentheses");
+    assert.equal(core.narrowQuery("listed <= 14d AND NOT library\norder by listed desc", "listed", since), `${since} AND NOT library\norder by listed desc`);
+    assert.equal(core.narrowQuery("NOT library", "listed", since), `NOT library AND ${since}`, "no window of its own: joined");
+    assert.equal(core.narrowQuery("library OR installed", "listed", since), `(library OR installed) AND ${since}`, "an OR keeps its parentheses");
   },
 
   "downloads series: kept on calendar days; delta.json joins on to the copy, a gap asks for the whole file"() {
@@ -179,6 +186,38 @@ const tests = {
     assert.equal(core.migrateQuery("NOT new AND gain30 >= 1k\norder by rise7 desc"), "NOT listed <= 14d AND gain(30d) >= 1k\norder by rise(7d) desc");
     assert.equal(core.migrateQuery("milestone <= 30d order by milestone desc"), "milestone() <= 30d order by milestone() desc");
     assert.equal(core.migrateQuery('name ~ new AND "busy" AND milestone(10k) <= 30d AND gain(7d) > 0'), 'name ~ new AND "busy" AND milestone(10k) <= 30d AND gain(7d) > 0', "values and today's fields stay");
+    // 0.16: tracked → library in every saved query; values, quotes and regexes stay
+    assert.equal(core.libraryQuery('NOT tracked AND name ~ tracked AND "tracked" AND description ~ /tracked/\norder by name asc'),
+      'NOT library AND name ~ tracked AND "tracked" AND description ~ /tracked/\norder by name asc');
+    assert.equal(core.libraryQuery("tracked\ngroup by group\norder by rating desc"), "library\ngroup by group\norder by rating desc");
+    const saved = { pageQueries: { library: "tracked AND rating >= 4" }, queries: { all: "(tracked OR installed)" }, recentQueries: ["NOT tracked", null],
+      home: { views: [{ id: "v", name: "Mine", query: "tracked = false" }] } };
+    core.migrateLibraryField(saved);
+    assert.deepEqual([saved.pageQueries.library, saved.queries.all, ...saved.recentQueries, saved.home.views[0].query],
+      ["library AND rating >= 4", "(library OR installed)", "NOT library", null, "library = false"]);
+    // 0.16: the settings, columns, card and Undo entries named after "tracked" take the Library's names
+    const old = {
+      settings: {
+        mode: "tracked", trackedGroup: "Tasks", trackedStatus: "using",
+        sortBy: { tracked: { key: "name", dir: "asc" }, all: { key: "downloads", dir: "desc" } }, queries: { tracked: "library" },
+        pageQueries: { tracked: "library\norder by name asc" }, downloadFilter: { tracked: true }, extraFilters: { tracked: { author: "x" } },
+        quickFilters: { tracked: true }, tableColumns: { tracked: ["tracked", "rating"], all: ["downloads", "tracked"] },
+        home: { groups: [{ id: "news", items: ["new", "tracked"] }], params: { tracked: { since: true } }, seen: { tracked: ["a"] } },
+      },
+      ops: [{ kind: "track", changes: [] }, { kind: "rating", changes: [] }],
+    };
+    core.migrateLibraryNames(old);
+    const st = old.settings;
+    assert.deepEqual([st.mode, st.libraryGroup, st.libraryStatus, "trackedGroup" in st, "trackedStatus" in st], ["library", "Tasks", "using", false, false]);
+    for (const key of ["sortBy", "queries", "pageQueries", "downloadFilter", "extraFilters", "quickFilters", "tableColumns"]) {
+      assert.ok("library" in st[key] && !("tracked" in st[key]), key);
+    }
+    assert.deepEqual(st.tableColumns, { library: ["library", "rating"], all: ["downloads", "library"] });
+    assert.deepEqual([st.home.groups[0].items, Object.keys(st.home.params), Object.keys(st.home.seen)], [["new", "libraryReleases"], ["libraryReleases"], ["libraryReleases"]]);
+    assert.deepEqual(old.ops.map((op) => op.kind), ["library", "rating"]);
+    const again = JSON.stringify(old);
+    core.migrateLibraryNames(old);
+    assert.equal(JSON.stringify(old), again, "running it again changes nothing");
     const state = { catalog: [P("a")], notes: new Map(), excluded: new Set(), dismissed: new Set(), installed: new Set(), snoozed: {}, firstSeen: {}, releases: {} };
     assert.deepEqual(core.discover(state, { mode: "updated", pageQueries: { updated: "NOT busy" }, minDownloads: 0, query: "" }, NOW), [], "a stale saved query: nothing, not everything");
   },
@@ -213,10 +252,10 @@ const tests = {
   "home groups: defaults, the layout before groups becomes groups, each widget once a group"() {
     assert.deepEqual(core.normalizeHome().groups.map((g) => [g.id, g.look, g.since]), [["news", "small", true], ["state", "small", false], ["discover", "big", false]]);
     const legacy = core.normalizeHome({
-      order: ["rising", "new", "view:a", "mine"], hidden: ["new"], since: { show: true, period: 7, order: ["updated", "new", "tracked"] },
+      order: ["rising", "new", "view:a", "mine"], hidden: ["new"], since: { show: true, period: 7, order: ["updated", "new", "libraryReleases"] },
       views: [{ id: "a", name: "A", query: "x" }],
     });
-    assert.deepEqual(legacy.groups.map((g) => [g.id, g.items]), [["news", ["updated", "new", "tracked"]], ["state", ["mine", "suggested", "hidden"]], ["discover", ["rising", "view:a"]]]);
+    assert.deepEqual(legacy.groups.map((g) => [g.id, g.items]), [["news", ["updated", "new", "libraryReleases"]], ["state", ["mine", "suggested", "hidden"]], ["discover", ["rising", "view:a"]]]);
     assert.equal(legacy.since.period, 7);
     assert.ok(!("order" in legacy) && !("hidden" in legacy));
     assert.ok(core.unplacedWidgets(legacy).includes("milestone") && !core.unplacedWidgets(legacy).includes("view:a"));
@@ -239,7 +278,7 @@ const tests = {
     // asked "since", a widget's window is in its query, from that day on
     assert.equal(core.within("listed", core.sinceParams({ days: 30 }, ago(3))), `listed >= ${core.dayString(ago(3))}`);
     assert.equal(core.within("listed", { days: 30 }), "listed <= 30d");
-    assert.equal(core.HOME_WIDGETS.tracked.query({}, { since: ago(3) }), `unreviewed AND released >= ${core.dayString(ago(3))}\norder by released desc`);
+    assert.equal(core.HOME_WIDGETS.libraryReleases.query({}, { since: ago(3) }), `unreviewed AND released >= ${core.dayString(ago(3))}\norder by released desc`);
   },
 
 
@@ -282,8 +321,8 @@ const tests = {
     assert.deepEqual(ids({}), ["a"]);                       // b old, c excluded, d few downloads, e tracked
     assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { incubated: 90 }) }), ["a"]);     // a was quiet for 299 days
     assert.deepEqual(ids({ mode: "awakened", ...page("awakened", { incubated: 365 }) }), []);
-    assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.UPDATES }), ["e"]);   // reviewed 10 days ago, released 1 day ago
-    assert.deepEqual(ids({ mode: "tracked", trackedGroup: core.TOP_RATED }), []);   // e has no rating
+    assert.deepEqual(ids({ mode: "library", libraryGroup: core.UPDATES }), ["e"]);   // reviewed 10 days ago, released 1 day ago
+    assert.deepEqual(ids({ mode: "library", libraryGroup: core.TOP_RATED }), []);   // e has no rating
     assert.deepEqual(ids({ mode: "suggested" }), ["a"]);   // installed and not tracked (e has a note)
     state.dismissed.add("a");
     assert.deepEqual(ids({ mode: "suggested" }), []);
@@ -292,7 +331,7 @@ const tests = {
     assert.deepEqual(ids({ mode: "new" }), []);                                // …but below 100 downloads
     assert.deepEqual(ids({ mode: "new", filterDownloads: false, newDays: 3 }), []);   // Settings › New plugin period: the New tab follows it
     const counts = core.modeCounts(state, opts, NOW);   // each tab with its default Downloads on/off (New: off)
-    assert.deepEqual(counts, { all: 4, new: 1, updated: 1, awakened: 1, tracked: 1, suggested: 1 });  // all: every plugin but the excluded c (no Downloads ≥ by default)
+    assert.deepEqual(counts, { all: 4, new: 1, updated: 1, awakened: 1, library: 1, suggested: 1 });  // all: every plugin but the excluded c (no Downloads ≥ by default)
     const off = core.modeCounts(state, { ...opts, downloadFilter: { all: false } }, NOW);
     assert.equal(off.all, 4);                                 // All with the filter off: d is back
     assert.deepEqual(ids({ query: "a, desc" }), ["a"]);
@@ -351,9 +390,10 @@ const tests = {
     assert.deepEqual(ids("group is empty"), ["old"]);
     assert.deepEqual(ids("rating >= 4 OR author ~ abb"), ["cal", "old"]);
     assert.deepEqual(ids('author in ("ilker çalışkan", abbys)'), ["tasks", "old"], "Turkish İ folds");
-    assert.deepEqual(ids("tracked = true calendar"), ["cal"], "words that aren't a clause search the text");
-    assert.deepEqual(ids("downloads > 0 AND tracked"), ["cal", "tasks"], "a yes/no field alone, once the query is advanced");
-    assert.deepEqual(ids("(group = takvim OR downloads < 100) tracked = false"), ["old"]);
+    assert.deepEqual(ids("library = true calendar"), ["cal"], "words that aren't a clause search the text");
+    assert.deepEqual(ids("downloads > 0 AND library"), ["cal", "tasks"], "a yes/no field alone, once the query is advanced");
+    assert.deepEqual(ids("(group = takvim OR downloads < 100) library = false"), ["old"]);
+    assert.ok(core.compileQuery("downloads > 0 AND tracked", state, now, true).error, "tracked is gone: library is the field");
     assert.deepEqual(ids("name ~ /^t/"), ["tasks"]);
     assert.deepEqual(ids("gain(30d) > 1k"), ["cal"]);
     assert.deepEqual(ids("gain() > 1k"), ["cal"], "() is 30 days");
@@ -364,7 +404,7 @@ const tests = {
     const bad = core.compileQuery("author ~ brenan rating = on", state, now);
     assert.ok(bad.error && bad.at === 25 && bad.test(plugins[0]));
     assert.ok(core.compileQuery("group > 3", state, now).error, "a list has no >");
-    assert.ok(core.compileQuery("tracked = maybe", state, now).error);
+    assert.ok(core.compileQuery("library = maybe", state, now).error);
     assert.ok(core.compileQuery('group in ("a", b', state, now).error);
     assert.equal(core.isAdvancedQuery("task, project"), false, "plain search stays plain");
     // suggestions: fields, then the type's operators, then the field's values
@@ -372,7 +412,9 @@ const tests = {
     const sug = (text) => core.querySuggestions(text, text.length, data).items.map((x) => x.insert);
     assert.ok(sug("dow").includes("downloads"));
     assert.deepEqual(sug("group "), ["=", "!=", "in (", "not in (", "is empty"]);
-    assert.ok(!sug("tracked ").includes(">"), "no number operators for a yes/no field");
+    assert.ok(!sug("library ").includes(">"), "no number operators for a yes/no field");
+    assert.ok(sug("lib").includes("library"), "library is offered as a field");
+    assert.equal(core.querySuggestions("lib", 3, data).items.find((x) => x.insert === "library")?.hint, core.t("query.field.library"));
     assert.deepEqual(sug("group in ("), ["Görev", '"Not alma"']);
     assert.deepEqual(sug('group in ("Görev", N'), ['"Not alma"']);
     assert.deepEqual(sug("author = a"), ["abbys"]);
@@ -396,6 +438,7 @@ const tests = {
     assert.equal(roles('name = new AND author in (a, "b c") NOT installed cal order by gain(30d) desc'),
       'field:name op:= value:new kw:AND field:author op:in -:( value:a -:, value:b c -:) neg:NOT field:installed -:cal kw:order kw:by field:gain -:( number:30d -:) value:desc');
     assert.equal(roles("released >= startOfMonth(-1)"), "field:released op:>= fn:startOfMonth -:( number:-1 -:)");
+    assert.equal(roles("NOT library"), "neg:NOT field:library", "library paints as a field");
 
     // date functions on date fields: today(), startOfWeek(), startOfMonth(n), startOfYear(), lastSync()
     const local = new Date(now);
@@ -444,7 +487,7 @@ const tests = {
     // a sort from a header or the Sort menu replaces the query's order by, by its field name
     assert.equal(core.withOrder("installed AND downloads >= 1k\norder by downloads desc", "gain(30d)", "asc"), "installed AND downloads >= 1k\norder by gain(30d) asc");
     assert.equal(core.withOrder("", "released", "desc"), "order by released desc");
-    assert.equal(core.parseQuery(core.withOrder("tracked", "rise(7d)", "desc")).order.key, "rise(7d)");
+    assert.equal(core.parseQuery(core.withOrder("library", "rise(7d)", "desc")).order.key, "rise(7d)");
     // Basic → Query → Basic untouched: no filter counts as changed (your own sort comes back as your sort)
     for (const mode of ["new", "awakened"]) {
       const st = { query: "", minDownloads: 100, pageQueries: {}, queries: {}, extraFilters: {}, downloadFilter: { awakened: false }, sortBy: { new: { key: "listed", dir: "asc" }, awakened: { key: "incubated", dir: "desc" } } };
@@ -454,10 +497,10 @@ const tests = {
       assert.deepEqual(round.sortBy[mode], st.sortBy[mode]);
     }
     // what changed, short; a word explained
-    assert.equal(core.queryDiff("released <= 14d AND NOT tracked\norder by downloads desc", "released <= 30d AND NOT tracked\norder by downloads desc"), "14d → 30d");
-    assert.equal(core.queryDiff("name ~ x", "name ~ x AND installed AND tracked\norder by name asc"), "+2 koşul · sıralama");
-    assert.equal(core.queryDiff("NOT tracked", "tracked"), "NOT tracked → tracked");
-    const tips = core.queryHighlight("released <= 30d AND NOT tracked AND startOfMonth() order by name desc");
+    assert.equal(core.queryDiff("released <= 14d AND NOT library\norder by downloads desc", "released <= 30d AND NOT library\norder by downloads desc"), "14d → 30d");
+    assert.equal(core.queryDiff("name ~ x", "name ~ x AND installed AND library\norder by name asc"), "+2 koşul · sıralama");
+    assert.equal(core.queryDiff("NOT library", "library"), "NOT library → library");
+    const tips = core.queryHighlight("released <= 30d AND NOT library AND startOfMonth() order by name desc");
     const tip = (i) => core.queryTip(tips[i], tips[i - 1], NOW, {});
     assert.deepEqual(tip(0), { head: "released", kind: "gün / tarih", body: core.t("query.field.released"), example: "released <= 30d" });
     assert.equal(tip(1).body, core.t("query.tip.daysWithin"), "<= on a days field: at most that long ago");
@@ -470,7 +513,7 @@ const tests = {
     assert.equal(tip(10).head, "order by");
     // a view saved before 0.10 (a tab + filters) becomes the query it meant
     const legacy = core.legacyViewQuery({ mode: "new", filters: { query: "kanban", extraFilters: { new: { author: "abbys" } } } }, { pageQueries: {}, sortBy: {} });
-    assert.equal(legacy, 'listed <= 14d AND NOT tracked AND "kanban" AND author ~ abbys\norder by listed desc');
+    assert.equal(legacy, 'listed <= 14d AND NOT library AND "kanban" AND author ~ abbys\norder by listed desc');
     const starters = core.queryStarters("downloads >= 1k");
     assert.equal(starters[0].insert, "downloads >= 1k");
     assert.ok(starters[0].head && starters[1].head && starters.length === 1 + core.QUERY_PRESETS.length, "your filters, then the presets");
@@ -501,7 +544,7 @@ const tests = {
     assert.equal(core.modeOptions(settings, "changed").filterDownloads, false); // default
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "all")[k]), ["name", "desc"]);
     assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "new")[k]), ["listed", "desc"]);
-    assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "tracked")[k]), ["rating", "desc"]);
+    assert.deepEqual(["sort", "sortDir"].map((k) => core.modeOptions(settings, "library")[k]), ["rating", "desc"]);
     const rated = [{ id: "b", name: "B" }, { id: "a", name: "A" }, { id: "c", name: "C" }];
     const notes = new Map([["c", { rating: 5 }], ["b", { rating: 3 }]]);
     assert.deepEqual(core.sortRows(rated, "rating", "desc", { notes }).map((p) => p.id), ["c", "b", "a"]);
@@ -700,7 +743,7 @@ const tests = {
     assert.ok(noMarkers.includes("\n# README\n"));
   },
 
-  "noteBody uses H1; migrateHeadings changes only our two headings"() {
+  "noteBody uses H1; migrateHeadings changes only the Notlarım heading"() {
     const body = core.noteBody();
     assert.ok(body.startsWith("# Notlarım\n") && body.includes("\n# README\n"), "no description in the body: it's a property");
     const desc = "Create and use dynamic templates.";
@@ -710,15 +753,12 @@ const tests = {
     assert.equal(core.sourceFields(P("x", { description: desc })).description, desc);
     const old = [
       "açıklama", "", "## Notlarım", "kendi notum", "## Kendi başlığım", "",
-      "## README", core.constants.LEGACY_README_START, "## README içindeki başlık", core.constants.LEGACY_README_END,
+      "# README", core.constants.README_START, "## README içindeki başlık", core.constants.README_END,
     ].join("\n");
     const out = core.migrateHeadings(old);
-    assert.ok(out.includes("\n# Notlarım\n") && out.includes("\n# README\n" + core.constants.LEGACY_README_START));
+    assert.ok(out.includes("\n# Notlarım\n"));
     assert.ok(out.includes("## Kendi başlığım") && out.includes("## README içindeki başlık"));
     assert.equal(core.migrateHeadings(out), out);   // a second run changes nothing
-    const hidden = core.migrateMarkers(out);
-    assert.ok(hidden.includes(core.constants.README_START) && hidden.includes(core.constants.README_END) && !hidden.includes("<!--"));
-    assert.equal(core.migrateMarkers(hidden), hidden);
   },
 
   "formatShort and relativeDays (Turkish)"() {
@@ -788,6 +828,8 @@ const tests = {
   },
 
   "locales: every language has English's keys and placeholders; plural forms are valid"() {
+    assert.deepEqual(embeddedLocales, ["en"], "only English is embedded into main.js; other locales load on demand");
+    assert.deepEqual(Object.keys(core.LOCALE_NAMES), ["de", "en", "ja", "ru", "tr", "zh"], "all locale names are embedded for the language picker");
     const placeholders = (value) => [...new Set(Object.values(typeof value === "object" ? value : { other: value })
       .flatMap((text) => text.match(/\{\w+\}/g) || []))].sort();
     const en = core.STRINGS.en;
@@ -843,9 +885,9 @@ const tests = {
   },
 
   "note migrations: each changes an old note, and twice is the same as once"() {
-    const { LEGACY_README_START, LEGACY_README_END } = core.constants;
-    const old = `---\nstatus: trying\n---\n## Notlarım\nmine\n\n## README\n${LEGACY_README_START}\n![x](https://github.com/o/r/blob/main/a.png)\n${LEGACY_README_END}\n`;
-    for (const fn of [core.migrateHeadings, core.migrateStatuses, core.migrateMarkers, core.migrateImages]) {
+    const { README_START, README_END } = core.constants;
+    const old = `---\nstatus: trying\n---\n## Notlarım\nmine\n\n# README\n${README_START}\n![x](https://github.com/o/r/blob/main/a.png)\n${README_END}\n`;
+    for (const fn of [core.migrateHeadings, core.migrateStatuses, core.migrateImages]) {
       const once = fn(old);
       assert.notEqual(once, old, `${fn.name} changes an old note`);
       assert.equal(fn(once), once, `${fn.name} twice is once`);
@@ -873,14 +915,14 @@ const tests = {
       const from = query.indexOf(clause);
       return core.dropClause(query, { from, to: from + clause.length });
     };
-    const q = "listed <= 14d AND NOT tracked\norder by listed desc";
-    assert.equal(cut(q, "listed <= 14d"), "NOT tracked\norder by listed desc");
-    assert.equal(cut(q, "NOT tracked"), "listed <= 14d\norder by listed desc");
+    const q = "listed <= 14d AND NOT library\norder by listed desc";
+    assert.equal(cut(q, "listed <= 14d"), "NOT library\norder by listed desc");
+    assert.equal(cut(q, "NOT library"), "listed <= 14d\norder by listed desc");
     assert.equal(cut("a ~ x OR b ~ y", "b ~ y"), "a ~ x");
     assert.equal(cut("downloads >= 1k name ~ z", "name ~ z"), "downloads >= 1k", "space-joined: nothing else to clean");
     assert.equal(cut("(a ~ x OR b ~ y) AND c ~ z", "a ~ x"), "(b ~ y) AND c ~ z");
     assert.equal(cut("author ~ x AND name ~ y", "name ~ y"), "author ~ x", "author's \"or\" isn't a joiner");
-    for (const clause of ["listed <= 14d", "NOT tracked"]) assert.equal(core.compileQuery(cut(q, clause), null, NOW, true).error, "");
+    for (const clause of ["listed <= 14d", "NOT library"]) assert.equal(core.compileQuery(cut(q, clause), null, NOW, true).error, "");
   },
 
   "errorDetail: the JSON error, else the reply's text (an HTML page has no JSON)"() {
@@ -915,6 +957,55 @@ const tests = {
     });
     assert.deepEqual(out, [50, 10, 30, 20]);
     assert.equal(peak, 2);
+  },
+
+  "regression: tIn cross-locale plurals, Latin script names, math Greek, tokenPrice & Turkish uniqueNames"() {
+    assert.equal(core.tIn("ru", "filter.days", { n: 2 }), "2 дня", "Russian few plural even when active UI is Turkish");
+    assert.equal(core.scriptOfLanguage("Japanese"), "japanese");
+    assert.equal(core.scriptOfLanguage("Russian"), "cyrillic");
+    assert.equal(core.scriptOfLanguage("Arabic"), "arabic");
+    assert.equal(core.translationProblem(["Compute alpha and beta"], ["α ve β değerlerini hesapla"], "Türkçe"), null, "math Greek symbols are not foreign script");
+    assert.equal(core.tokenPrice({ prompt: "-1", completion: "0" }), null, "negative sentinel rejected");
+    assert.equal(core.tokenPrice({ prompt: "", completion: "" }), null, "empty string rejected");
+    assert.deepEqual(core.uniqueNames(["AI", "ai", "Aİ"]), ["AI"], "Turkish dotted/dotless i folds");
+  },
+
+  "regression: query AST, tokenizer !, quoted splitQuery, uppercase bools, suggestions, tips & Library Basic roundtrip"() {
+    assert.equal(core.isAdvancedQuery("light or dark"), false, "lowercase or stays Basic");
+    assert.equal(core.isAdvancedQuery("notes and tasks"), false, "lowercase and stays Basic");
+    assert.equal(core.isAdvancedQuery("a OR b"), true, "uppercase OR enters Query mode");
+    const toks = core.tokenize("!installed");
+    assert.deepEqual(toks.map((x) => `${x.kind}:${x.text}`), ["op:!", "word:installed"], "lone ! never halts tokenize");
+    const split = core.splitQuery('description ~ "rate limit exceeded" order by downloads desc');
+    assert.equal(split.filter, 'description ~ "rate limit exceeded"');
+    assert.equal(split.order, "order by downloads desc");
+    assert.equal(split.limit, "");
+    const data = { groups: [], statuses: [{ key: "using", label: "Using" }], authors: [] };
+    const sug = (text) => core.querySuggestions(text, text.length, data).items.map((x) => x.insert);
+    assert.deepEqual(sug("order by downloads "), ["desc", "asc"], "order by <field> suggests direction, not =");
+    assert.deepEqual(sug("group by category "), ["order by", "limit"], "group by <field> suggests tail keywords, not desc or =");
+    assert.deepEqual(sug("status in (using, "), [], "status in ( dedupes by key as well as label");
+    const hl = core.queryHighlight("downloads >= 1m AND milestone(10k) <= 30d");
+    const mTip = core.queryTip(hl[2], hl[1], NOW, {}, hl, 2);
+    assert.equal(mTip.body, core.formatCount(1e6), "1m after downloads >= is 1,000,000, not 1 month");
+    const opTip = core.queryTip(hl[8], hl[7], NOW, {}, hl, 8);
+    assert.equal(opTip.body, core.t("query.tip.daysWithin"), "<= after milestone(10k) sees days field");
+    const basic = core.queryToBasic("library\ngroup by group\norder by name asc", { ...core.defaultSettings(), pageQueries: {} }, "library");
+    assert.ok(basic.patch && !basic.reason, "changing only order by on Tracked stays reversible to Basic");
+    assert.deepEqual(basic.patch.sortBy.library, { key: "name", dir: "asc" });
+    assert.equal(core.dropClause("(a ~ x) AND b ~ y", { from: 1, to: 6 }), "b ~ y", "empty parens cleaned up");
+  },
+
+  "regression: markdown CRLF, YAML quoting, absolutizeLinks fences & mergeTimeline milestone guard"() {
+    assert.ok(core.baseFile("a: b").includes('    - "file.inFolder(\\"a: b\\")"'), "YAML folder expression containing ': ' is quoted");
+    const md = "```md\n![skip](local.png)\n```\n![keep](real.png)";
+    const abs = core.absolutizeLinks(md, "o/r");
+    assert.ok(abs.includes("![skip](local.png)") && abs.includes("![keep](https://raw.githubusercontent.com/o/r/HEAD/real.png)"));
+    const crlf = "---\r\nstatus: trying\r\n---\r\nstatus: trying\r\n";
+    const mig = core.migrateStatuses(crlf);
+    assert.ok(mig.startsWith("---\r\nstatus: testing\r\n---\r\nstatus: trying\r\n"), "migrateStatuses updates frontmatter only & preserves CRLF");
+    const tl = core.mergeTimeline(core.newTimeline(), { version: 3, to: NOW, from: ago(10), milestoneSteps: [1000], milestones: { x: [ago(2), ago(1)] } });
+    assert.equal(tl, null, "mismatched milestone array longer than steps is rejected");
   },
 };
 

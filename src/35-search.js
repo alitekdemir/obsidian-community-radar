@@ -40,14 +40,16 @@ class SearchBox extends ViewPart {
     setTooltip(badge, t("search.regex"));
     const help = iconButton(search, "help-circle", t("query.help.title"), "pdt-qhelp-button");
     help.onclick = () => new HelpModal(this.app, this.view, { tab: "guide", onPick: (text) => {   // a click puts it at the caret
-      const at = input.selectionStart ?? input.value.length;
-      const before = input.value.slice(0, at);
+      const target = this.view.refs.search || input;
+      if (!target) return;
+      const at = target.selectionStart ?? target.value.length;
+      const before = target.value.slice(0, at);
       const glue = before && !/\s$/.test(before) ? " " : "";
-      input.value = `${before}${glue}${text} ${input.value.slice(input.selectionEnd ?? at)}`;
+      target.value = `${before}${glue}${text} ${target.value.slice(target.selectionEnd ?? at)}`;
       const caret = before.length + glue.length + text.length + 1;
-      input.focus();
-      input.setSelectionRange(caret, caret);
-      input.dispatchEvent(new Event("input"));
+      target.focus();
+      target.setSelectionRange(caret, caret);
+      target.dispatchEvent(new Event("input"));
     } }).open();
     const seg = modes === true && this.renderQueryModes(search, queryMode);
     if (modes === true) {
@@ -84,16 +86,22 @@ class SearchBox extends ViewPart {
       more.setText(lines ? t("search.more", { n: lines }) : "");
       if (seg) seg.refresh(text);
     };
-    if (QuerySuggest) new QuerySuggest(this.app, input, () => this.queryData(modes === true));
+    const suggest = QuerySuggest ? new QuerySuggest(this.app, input, () => this.queryData(modes === true)) : null;
+    if (suggest) this.view.onCleanup(() => suggest.close?.());
     mark();
     this.queryTips(box, input, paint, () => tokens);
     let timer;
+    this.view.onCleanup(() => clearTimeout(timer));
     const apply = (delay) => {
       clearTimeout(timer);
       timer = setTimeout(() => onChange(input.value), delay);
     };
+    input.repaint = () => { clearTimeout(timer); mark(); };
     input.oninput = () => {
-      if (modes === true && !queryMode && isAdvancedQuery(input.value)) return this.toQueryMode(input);   // typed a query: Query mode
+      if (modes === true && !queryMode && isAdvancedQuery(input.value)) {
+        suggest?.close?.();
+        return this.toQueryMode(input);   // typed a query: Query mode
+      }
       mark();
       apply(input.value.trim() ? 1000 : 0);
     };
@@ -107,7 +115,8 @@ class SearchBox extends ViewPart {
         event.preventDefault();
         event.stopPropagation();
         input.value = queryMode ? pageQuery(this.view.pageSettings, this.view.page) : "";
-        input.oninput();
+        mark();
+        apply(0);
         return;
       }
       if (event.key !== "Enter" || event.defaultPrevented || event.isComposing) return;   // a picked suggestion took it
@@ -129,9 +138,11 @@ class SearchBox extends ViewPart {
     let timer;
     let shown = null;
     const hide = () => { clearTimeout(timer); shown?.remove(); shown = null; };
+    this.view.onCleanup(hide);
     input.addEventListener("mousemove", (event) => {
       hide();
       timer = setTimeout(() => {
+        if (!input.isConnected) return;
         input.style.pointerEvents = "none";
         paint.style.pointerEvents = "auto";
         const el = doc.elementFromPoint(event.clientX, event.clientY);
@@ -139,7 +150,8 @@ class SearchBox extends ViewPart {
         const k = el?.dataset?.k;
         if (k == null) return;
         const list = tokens();
-        const tip = queryTip(list[k], list[k - 1], Date.now(), this.plugin.state());
+        const idx = Number(k);
+        const tip = queryTip(list[idx], list[idx - 1], Date.now(), this.plugin.state(), list, idx);
         if (!tip) return;
         shown = doc.body.createDiv({ cls: "pdt-qtip" });
         const head = shown.createDiv({ cls: "pdt-qtip-head" });
@@ -148,7 +160,14 @@ class SearchBox extends ViewPart {
         shown.createDiv({ text: tip.body });
         if (tip.example) shown.createDiv({ cls: "pdt-qtip-example", text: tip.example });
         const r = el.getBoundingClientRect();
-        Object.assign(shown.style, { left: `${Math.round(r.left)}px`, top: `${Math.round(r.bottom + 6)}px` });
+        const win = doc.defaultView || window;
+        const vw = doc.documentElement.clientWidth || win.innerWidth || 0;
+        const vh = doc.documentElement.clientHeight || win.innerHeight || 0;
+        const w = shown.offsetWidth || 240;
+        const h = shown.offsetHeight || 80;
+        const left = Math.max(8, vw ? Math.min(r.left, vw - w - 8) : r.left);
+        const top = vh && r.bottom + 6 + h > vh - 8 ? Math.max(8, r.top - h - 6) : r.bottom + 6;
+        Object.assign(shown.style, { left: `${Math.round(left)}px`, top: `${Math.round(top)}px` });
       }, 300);
     });
     for (const type of ["mouseleave", "keydown", "input", "blur"]) input.addEventListener(type, hide);
@@ -191,8 +210,9 @@ class SearchBox extends ViewPart {
       const mine = splitOrder(typed);   // your own order by replaces the page's
       const joint = /^(AND|OR)\b/i.test(mine.filter) ? " " : " AND ";   // after the page's query, joined by AND
       const filter = [lead.filter, mine.filter].filter(Boolean).join(joint);
-      text = typed.startsWith(lead.filter) ? typed : [filter, mine.order || lead.order].filter(Boolean).join("\n");
-      caret = typed.startsWith(lead.filter) ? input.selectionStart : mine.filter ? (input.selectionStart ?? typed.length) + filter.length - mine.filter.length : text.length;
+      const alreadyHasLead = Boolean(lead.filter) && typed.startsWith(lead.filter);
+      text = alreadyHasLead ? typed : [filter, mine.order || lead.order].filter(Boolean).join("\n");
+      caret = alreadyHasLead ? input.selectionStart : mine.filter ? (input.selectionStart ?? typed.length) + filter.length - mine.filter.length : text.length;
     }
     const valid = !compileQuery(text, null, Date.now(), true).error;
     const { [mode]: sort, ...sortBy } = settings.sortBy || {};
@@ -232,9 +252,10 @@ class SearchBox extends ViewPart {
   /** Query mode: the box back to the page's own query. */
   async revertQuery() {
     const mode = this.view.page;
-    this.settings.queries = { ...this.settings.queries, [mode]: pageQuery(this.settings, mode) };
+    this.settings.queries = { ...this.settings.queries, [mode]: pageQuery(this.view.pageSettings, mode) };
     this.view.queryDraft = null;
     this.view.visible = PAGE_SIZE;
+    this.view.bulkBar.clearSelection();
     this.view.render();
     await this.plugin.saveData(this.plugin.data);
   }
@@ -259,12 +280,12 @@ class SearchBox extends ViewPart {
    * query finds without it, most first (what emptied a list).
    */
   clauseCounts(query, without = false) {
-    const spans = compileQuery(query, null, Date.now(), true).spans || [];
+    const now = Date.now();
+    const state = this.plugin.state();
+    const mode = this.view.page;
+    const spans = compileQuery(query, null, now, true).spans || [];
     const top = spans.filter((x) => x.kind !== "order" && !spans.some((y) => y !== x && y.from <= x.from && y.to >= x.to && y.kind === "neg"));
-    const count = (text) => {
-      const mode = this.view.page;
-      return discover(this.plugin.state(), modeOptions({ ...this.view.pageSettings, queries: { ...this.settings.queries, [mode]: text } }, mode), Date.now()).length;
-    };
+    const count = (text) => matchRows(state, modeOptions({ ...this.view.pageSettings, queries: { ...this.settings.queries, [mode]: text } }, mode), now).rows.length;
     const rows = top.map((x) => {
       const clause = query.slice(x.from, x.to);
       return [clause, count(without ? dropClause(query, x) : clause)];
@@ -298,9 +319,9 @@ class SearchBox extends ViewPart {
     setTooltip(badge, broken ? t("query.cantSave") : diff || t("query.changed"));
     badge.onclick = () => {
       if (this.view.changesPop?.isOpen) return this.view.changesPop.close();
-      this.view.changesPop = new Popover(badge, { cls: "pdt-changes-pop", label: t("query.changed"), keep: ".pdt-q-changes", fill: (box, pop) => {
+      this.view.changesPop = this.view.trackPopover(new Popover(badge, { cls: "pdt-changes-pop", label: t("query.changed"), keep: ".pdt-q-changes", fill: (box, pop) => {
         this.fillChanges(box, pop, { base, text, broken, preset, view });
-      } }).open();
+      } }).open());
     };
   }
 

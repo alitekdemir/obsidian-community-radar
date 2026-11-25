@@ -33,10 +33,12 @@ function formatCount(value) {
 /** 2575475 → "2.6M" / "2,6 Mn"; 354882 → "355K" / "355 bin" */
 function formatShort(value) {
   if (value == null) return "–";
+  const sign = value < 0 ? "-" : "";
+  const abs = Math.abs(value);
   const gap = t("unit.thousandSpace");
-  if (value >= 1e6) return `${decimal(value / 1e6)}${t("unit.millionSpace")}${t("unit.million")}`;
-  if (value >= 1e4) return `${Math.round(value / 1e3)}${gap}${t("unit.thousand")}`;
-  if (value >= 1e3) return `${decimal(value / 1e3)}${gap}${t("unit.thousand")}`;
+  if (abs >= 999_500) return `${sign}${decimal(abs / 1e6)}${t("unit.millionSpace")}${t("unit.million")}`;
+  if (abs >= 1e4) return `${sign}${Math.round(abs / 1e3)}${gap}${t("unit.thousand")}`;
+  if (abs >= 1e3) return `${sign}${decimal(abs / 1e3)}${gap}${t("unit.thousand")}`;
   return String(value);
 }
 
@@ -54,7 +56,7 @@ function relativeDays(ms, now) {
   if (days <= 0) return t("rel.today");
   if (days === 1) return t("rel.yesterday");
   if (days < 60) return t("rel.days", { n: days });
-  if (days < YEAR_DAYS) return t("rel.months", { n: Math.round(days / 30) });
+  if (days < YEAR_DAYS) return t("rel.months", { n: Math.min(11, Math.round(days / MONTH_DAYS)) });
   return t("rel.years", { n: decimal(days / YEAR_DAYS) });
 }
 
@@ -71,19 +73,23 @@ function recentMilestone(milestones, now, days = MILESTONE_DAYS, steps = OLD_MIL
 function ageLabel(listed, now) {
   const days = Math.max(0, Math.floor((now - listed) / DAY_MS));
   if (days < 60) return t("age.daysOld", { n: days });
-  if (days < YEAR_DAYS) return t("age.monthsOld", { n: Math.round(days / 30) });
+  if (days < YEAR_DAYS) return t("age.monthsOld", { n: Math.min(11, Math.round(days / MONTH_DAYS)) });
   return t("age.yearsOld", { n: decimal(days / YEAR_DAYS) });
 }
 
 /** Clock time for today ("14:05"), date and time before that. */
 function formatTime(ms, now) {
   const sameDay = dayString(ms) === dayString(now);
-  return new Date(ms).toLocaleString(t("locale"), sameDay ? { hour: "2-digit", minute: "2-digit" } : { dateStyle: "short", timeStyle: "short" });
+  return intl(Intl.DateTimeFormat, sameDay ? { hour: "2-digit", minute: "2-digit" } : { dateStyle: "short", timeStyle: "short" }).format(ms);
 }
+
+const WINDOWS_RESERVED = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])$/i;
 
 /** A valid note file name derived from a plugin name. */
 function safeFileName(name) {
-  return name.replace(/[\\/:*?"<>|#^[\]]/g, " ").replace(/\s+/g, " ").trim().replace(/^\.+|\.+$/g, "") || t("untitled");
+  const clean = String(name ?? "").replace(/[\x00-\x1f\\/:*?"<>|#^[\]]/g, " ").replace(/\s+/g, " ").trim().replace(/^\.+|\.+$/g, "");
+  if (!clean) return t("untitled");
+  return WINDOWS_RESERVED.test(clean) ? `${clean}_` : clean;
 }
 
 /** Removes Obsidian's "not manually reviewed" note from a description. */
@@ -96,8 +102,8 @@ function cleanDescription(text) {
  * @returns {{id,name,author,repo,description,downloads,updated,version}[]}
  */
 function parseCatalog(listing, stats) {
-  // the highest version among a plugin's stats keys; each key is split once (a sort split them ~2·n·log n times)
-  const key = (tag) => tag.replace(/^v/i, "").split(/[.-]/).map((p) => (/^\d+$/.test(p) ? Number(p) : -1));
+  // the highest version among a plugin's stats keys; strips +build metadata and splits once
+  const key = (tag) => tag.replace(/^v/i, "").split("+", 1)[0].split(/[.-]/).map((p) => (/^\d+$/.test(p) ? Number(p) : -1));
   const newer = (x, y) => {   // is x a higher version than y?
     for (let i = 0; i < Math.max(x.length, y.length); i++) if ((x[i] ?? 0) !== (y[i] ?? 0)) return (x[i] ?? 0) > (y[i] ?? 0);
     return false;
@@ -105,7 +111,7 @@ function parseCatalog(listing, stats) {
   const versionOf = (stat) => {
     let best = null;
     let bestKey = null;
-    for (const tag in stat) {
+    for (const tag of Object.keys(stat)) {
       if (tag === "downloads" || tag === "updated" || !/\d/.test(tag)) continue;
       const k = key(tag);
       if (!bestKey || !newer(bestKey, k)) [best, bestKey] = [tag, k];   // on a tie the later key wins, as the sort's pop() did
@@ -113,7 +119,7 @@ function parseCatalog(listing, stats) {
     return best;
   };
   return listing.filter((e) => e && e.id).map((entry) => {
-    const stat = stats[entry.id];
+    const stat = Object.hasOwn(stats, entry.id) ? stats[entry.id] : null;
     const hasStats = stat && typeof stat.downloads === "number";
     return {
       id: String(entry.id),
@@ -152,27 +158,43 @@ function seriesCountsOf(points) {
  * download the whole file). The series is kept on seriesDays of the new last day.
  */
 function mergeTimeline(timeline, delta) {
-  const own = timeline.series;
-  const add = delta.series;
-  if (delta.v !== timeline.v || !own || add.days[0] > own.days.at(-1)) return null;
+  const own = timeline?.series;
+  const add = delta?.series;
+  if (!own?.days?.length || !add?.days?.length || delta.v !== timeline.v || add.days[0] > own.days.at(-1)) return null;
+  if (delta.to && timeline.to && delta.to < timeline.to) return null;
+  // mismatched milestone step schema (e.g. 6-step delta into a 3-step pre-0.9.2 copy): force full download
+  const steps = delta.milestoneSteps || timeline.milestoneSteps;
+  const maxMs = Object.values(delta.milestones || {}).reduce((m, a) => (Array.isArray(a) && a.length > m ? a.length : m), 0);
+  if (maxMs > (steps || OLD_MILESTONE_STEPS).length) return null;
   const releases = { ...timeline.releases };
-  for (const [id, dates] of Object.entries(delta.releases)) {
+  for (const [id, dates] of Object.entries(delta.releases || {})) {
     releases[id] = [...new Set([...(releases[id] || []), ...dates])].sort((a, b) => a - b).slice(-RELEASES_CAP);
   }
   const days = seriesDays(add.days.at(-1));
   const points = {};
-  for (const [id, added] of Object.entries(add.points)) {   // the plugins listed today
-    const byDay = new Map();
-    if (own.points[id]) seriesCountsOf(own.points[id]).forEach((count, i) => byDay.set(own.days[i], count));
-    seriesCountsOf(added).forEach((count, i) => byDay.set(add.days[i], count));
-    const known = [...byDay.keys()].sort((a, b) => a - b);
-    let k = -1;
-    // each kept day: the count of the latest day known on or before it (none: not listed yet, 0)
-    const counts = days.map((day) => { while (k + 1 < known.length && known[k + 1] <= day) k++; return k < 0 ? 0 : byDay.get(known[k]); });
-    points[id] = counts.map((count, i) => (i ? count - counts[i - 1] : count));
+  const ownDays = own.days;
+  const addDays = add.days;
+  const addStart = addDays[0];
+  const countAt = (srcDays, counts, day) => {
+    if (!counts) return 0;
+    let at = -1;
+    while (at + 1 < srcDays.length && srcDays[at + 1] <= day) at++;
+    return at >= 0 ? counts[at] : 0;
+  };
+  for (const [id, added] of Object.entries(add.points || {})) {   // the plugins listed today
+    const ownCounts = own.points[id] ? seriesCountsOf(own.points[id]) : null;
+    const addCounts = seriesCountsOf(added);
+    let prev = 0;
+    points[id] = days.map((day, i) => {
+      const val = day >= addStart ? countAt(addDays, addCounts, day) : countAt(ownDays, ownCounts, day);
+      const diff = i ? val - prev : val;
+      prev = val;
+      return diff;
+    });
   }
   return {
     ...timeline,
+    ...(steps ? { milestoneSteps: steps } : {}),
     to: delta.to,
     months: Math.max(1, Math.round((delta.to - timeline.from) / (MONTH_DAYS * DAY_MS))),
     releases,
@@ -187,6 +209,8 @@ function newTimeline() {
   return { v: TIMELINE_VERSION, from: 0, to: 0, releases: {}, firstSeen: {} };
 }
 
+const hatchCache = new WeakMap();   // releases map → Map(id → {updated, result})
+
 /**
  * The plugin's latest hatching: the first release after a pause of at least INCUBATION_PRESETS[0] days between
  * update waves (a hotfix days after a release isn't a pause). {at, days}: when it hatched and how long it incubated;
@@ -194,12 +218,18 @@ function newTimeline() {
  */
 function lastHatch(releases, plugin) {
   if (!plugin.updated) return null;
-  const waves = releaseWaves([...(releases[plugin.id] || []).filter((m) => m < plugin.updated), plugin.updated]);
+  let byId = releases && typeof releases === "object" ? hatchCache.get(releases) : null;
+  if (releases && typeof releases === "object" && !byId) hatchCache.set(releases, (byId = new Map()));
+  const cached = byId?.get(plugin.id);
+  if (cached && cached.updated === plugin.updated) return cached.result;
+  const waves = releaseWaves([...(releases?.[plugin.id] || []).filter((m) => m < plugin.updated), plugin.updated]);
+  let result = null;
   for (let i = waves.length - 1; i > 0; i--) {
     const days = Math.floor((waves[i][0] - waves[i - 1].at(-1)) / DAY_MS);   // last release before → first of this wave
-    if (days >= INCUBATION_PRESETS[0]) return { at: waves[i][0], days };
+    if (days >= INCUBATION_PRESETS[0]) { result = { at: waves[i][0], days }; break; }
   }
-  return null;
+  byId?.set(plugin.id, { updated: plugin.updated, result });
+  return result;
 }
 
 /** Releases as update waves (arrays of dates): a release less than WAVE_DAYS after its wave's first one belongs to it. */
@@ -242,13 +272,13 @@ function spanLabel(days) {
  * the rhythm up to the latest release. Null with no releases known.
  */
 function releaseCadence(releases, end) {
-  if (!releases?.length) return null;
+  if (!releases?.length || end < releases[0]) return null;
   const startMs = Math.max(end - YEAR_DAYS * DAY_MS, releases[0]);
   const fromRelease = startMs === releases[0];
-  const waves = updateWaves(releases, fromRelease ? startMs - 1 : startMs, end) - (fromRelease ? 1 : 0);
-  const span = (end - startMs) / DAY_MS;
+  const waves = Math.max(0, updateWaves(releases, fromRelease ? startMs - 1 : startMs, end) - (fromRelease ? 1 : 0));
+  const span = Math.max(0, (end - startMs) / DAY_MS);
   const young = span < YEAR_DAYS - 1;
-  const i = releases.findIndex((m) => m > startMs);
+  const i = releases.findIndex((m) => m >= startMs);
   return {
     waves, span, young, total: releases.length, releases: releases.filter((m) => m >= startMs && m <= end).length,
     days: waves ? span / waves : null,
@@ -269,7 +299,7 @@ function cadenceLabel(c) {
 function cadenceSub(c) {
   if (c.before) return t("details.cadenceBefore", { rhythm: cadenceLabel(c.before) });
   if (!c.waves && !c.young) return t("details.singleSub");   // quiet for a year, and only ever one release
-  return c.young ? t("details.cadenceSpan", { n: c.releases, days: Math.round(c.span) }) : t("details.cadenceSub", { n: c.releases });
+  return c.young ? t("details.cadenceSpan", { n: c.releases, days: Math.max(1, Math.round(c.span)) }) : t("details.cadenceSub", { n: c.releases });
 }
 
 /** The sentence under the release history: updates and releases counted, the year-plus pause before them, or how long it's been quiet. */
@@ -279,7 +309,7 @@ function cadenceNote(c, last, now) {
     if (c.young) return t("details.noteOneWave", { n: c.releases });
     return `${quiet} · ${c.before ? t("details.cadenceBefore", { rhythm: cadenceLabel(c.before) }) : t("details.singleSub")}`;
   }
-  const count = `${t(c.young ? "details.noteSpan" : "details.noteYear", { n: c.waves, days: Math.round(c.span) })}, ${t("details.historyLabel", { n: c.releases })}`;
+  const count = `${t(c.young ? "details.noteSpan" : "details.noteYear", { n: c.waves, days: Math.max(1, Math.round(c.span)) })}, ${t("details.historyLabel", { n: c.releases })}`;
   return c.prevGap >= YEAR_DAYS ? `${count} · ${t("details.prevGap", { n: decimal(c.prevGap / YEAR_DAYS) })}` : count;
 }
 
@@ -290,9 +320,23 @@ function isNewPlugin(firstSeen, plugin, now, days = DEFAULT_NEW_DAYS) {
   return seen > 0 && now - seen <= days * DAY_MS;
 }
 
-/** Released again after the day you tracked or reviewed it? */
+/** Released again after the day you added or reviewed it? */
 function isUnreviewed(plugin, note) {
   return Boolean(note && note.reviewed && plugin.updated && dayString(plugin.updated) > String(note.reviewed));
+}
+
+const parsedQueryCache = new Map();   // "lang|strict|query" → {ok, value} (avoids re-parsing the same query 3× per refresh)
+
+function cachedParseQuery(text, strict) {
+  const key = `${language}|${strict ? 1 : 0}|${text}`;
+  let hit = parsedQueryCache.get(key);
+  if (!hit) {
+    try { hit = { ok: true, value: parseQuery(text, { strict }) }; } catch (error) { hit = { ok: false, value: error }; }
+    if (parsedQueryCache.size >= 16) parsedQueryCache.delete(parsedQueryCache.keys().next().value);
+    parsedQueryCache.set(key, hit);
+  }
+  if (!hit.ok) throw hit.value;
+  return hit.value;
 }
 
 /**
@@ -304,7 +348,7 @@ function isUnreviewed(plugin, note) {
 function compileQuery(query, state = null, now = Date.now(), advanced = false) {
   if (advanced || isAdvancedQuery(String(query || ""))) {   // the query language (16-query.js); Query mode reads even plain words as it
     try {
-      const q = parseQuery(String(query), { strict: advanced });
+      const q = cachedParseQuery(String(query), advanced);
       return { test: (p) => !state || q.test(state, p, now), order: q.order, group: q.group, limit: q.limit, pins: q.pins, clauses: q.clauses, free: q.free, spans: q.spans, fields: q.fields, advanced: true, regex: false, error: "" };
     } catch (error) {
       if (!(error instanceof QueryError)) throw error;
@@ -322,8 +366,9 @@ function compileQuery(query, state = null, now = Date.now(), advanced = false) {
       return { test: () => true, regex: true, error: error.message };
     }
   }
-  const terms = String(query || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
-  return { test: (p) => { const hay = text(p).toLowerCase(); return terms.every((s) => hay.includes(s)); }, regex: false, error: "" };
+  const terms = String(query || "").split(",").map((s) => fold(s).trim()).filter(Boolean);
+  if (!terms.length) return { test: () => true, regex: false, error: "" };
+  return { test: (p) => { const hay = fold(text(p)); return terms.every((s) => hay.includes(s)); }, regex: false, error: "" };
 }
 
 /**
@@ -338,9 +383,9 @@ const EXTRA_FILTERS = {
   growth: { icon: "trending-up", kind: "number", presets: [100, 1000, 10000], value: 1000,
     test: (s, p, n) => (gainOver(s.timeline, p.id, 30) ?? 0) >= n },
   listed: { icon: "cake", kind: "number", unit: "days", presets: [7, 30, 90, 365], value: 30, skip: ["new"],
-    test: (s, p, n, now) => s.firstSeen[p.id] > 0 && now - s.firstSeen[p.id] <= n * DAY_MS },
+    test: (s, p, n, now) => isNewPlugin(s.firstSeen, p, now, n) },
   author: { icon: "user", kind: "text", value: "",
-    test: (s, p, text) => String(p.author || "").toLowerCase().includes(String(text).trim().toLowerCase()) },
+    test: (s, p, text) => fold(p.author).includes(fold(text).trim()) },
   installed: { icon: "package-check", kind: "toggle", value: true, skip: ["suggested"],
     test: (s, p) => s.installed.has(p.id) },
 };
@@ -366,22 +411,22 @@ const TABLE_COLUMNS = {
   listed: { group: "time", field: "listed", sort: "listed", text: (s, p, now) => (s.firstSeen[p.id] > 0 ? ageLabel(s.firstSeen[p.id], now) : "–") },
   incubated: { group: "time", field: "incubated", align: "right", sort: "incubated", text: (s, p) => { const n = lastHatch(s.releases, p)?.days; return n == null ? "–" : t("filter.days", { n }); } },
   cadence: { group: "time", text: (s, p, now) => { const c = releaseCadence(s.releases[p.id], now); return c ? cadenceLabel(c) : "–"; } },
-  tracked: { group: "yours", field: "tracked", align: "center", text: (s, p) => (s.notes.has(p.id) ? "🔔" : "") },   // the view shows a 🔔 button
+  library: { group: "yours", field: "library", align: "center", text: (s, p) => (s.notes.has(p.id) ? "🔖" : "") },   // the view shows a 🔖 button
   rating: { group: "yours", field: "rating", sort: "rating", text: (s, p) => { const n = s.notes.get(p.id)?.rating; return n ? ratingStars(n) : "·"; } },
   groups: { group: "yours", field: "group", text: (s, p) => (s.notes.get(p.id)?.groups || []).join(", ") },
   status: { group: "yours", field: "status", text: (s, p) => s.notes.get(p.id)?.status || "" },   // the view shows its label
   author: { group: "info", field: "author", text: (s, p) => p.author || "" },
   description: { group: "info", field: "description", text: (s, p) => p.description || "" },
 };
-const TABLE_DEFAULT = ["downloads", "released", "tracked"];
-const gainText = (n) => (n == null ? "–" : `+${formatCount(n)}`);
+const TABLE_DEFAULT = ["downloads", "released", "library"];
+const gainText = (n) => (n == null ? "–" : `${n >= 0 ? "+" : ""}${formatCount(n)}`);
 const riseText = (n) => (n == null ? "–" : t("table.percent", { n: formatCount(Math.round(n)) }));
 const ratingStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
 /** The table's columns on a page (a tab, a saved view, a widget's list): yours (shown, in your order) or the default few. */
 function tableColumns(settings, page) {
   const mine = settings.tableColumns?.[page];
-  return (Array.isArray(mine) ? mine : TABLE_DEFAULT).filter((k) => TABLE_COLUMNS[k]);
+  return (Array.isArray(mine) ? mine : TABLE_DEFAULT).filter((k) => Object.hasOwn(TABLE_COLUMNS, k));
 }
 
 /** The filter options of one tab: its own Downloads on/off and sort, shared days and thresholds. */
@@ -408,7 +453,7 @@ function inQueryMode(settings, mode) {
 
 /** The filter settings a page narrows its query with in Basic (sort and layout aren't filters). */
 function filterKeys(mode) {
-  return ["query", ...(mode === "tracked" ? ["trackedGroup", "trackedStatus"] : []), "minDownloads", "downloadFilter", "extraFilters"];
+  return ["query", ...(mode === "library" ? ["libraryGroup", "libraryStatus"] : []), "minDownloads", "downloadFilter", "extraFilters"];
 }
 
 /** The settings that put a tab's filters back to their defaults. */
@@ -432,10 +477,15 @@ function changedFilters(settings, mode) {
 function changedFilterKeys(settings, mode) {
   const cleared = clearedFilters(settings, mode);
   const def = (TAB_DEFAULTS[mode] || TAB_DEFAULTS.all).downloads;
-  const own = Object.keys(cleared).filter((k) => k !== "extraFilters"
-    && (k === "downloadFilter" ? (settings.downloadFilter?.[mode] ?? def) !== def : settings[k] !== cleared[k]));   // a saved value equal to the default isn't a change
+  const dlOn = settings.downloadFilter?.[mode] ?? def;
+  const own = Object.keys(cleared).filter((k) => {
+    if (k === "extraFilters") return false;
+    if (k === "downloadFilter") return dlOn !== def;
+    if (k === "minDownloads") return dlOn && settings[k] !== cleared[k];   // only counts where Downloads ≥ is on
+    return settings[k] !== cleared[k];
+  });
   if (inQueryMode(settings, mode)) return own.filter((k) => !["query", "minDownloads", "downloadFilter"].includes(k));   // those live in the query
-  const extras = Object.keys(settings.extraFilters?.[mode] || {}).map((k) => `extra.${k}`);
+  const extras = Object.keys(settings.extraFilters?.[mode] || {}).filter((k) => Object.hasOwn(EXTRA_FILTERS, k)).map((k) => `extra.${k}`);
   return [...new Set(own.map((k) => (k === "minDownloads" ? "downloadFilter" : k))), ...extras];
 }
 
@@ -446,8 +496,8 @@ function filterSummary(settings, mode) {
   const opts = modeOptions(settings, mode);
   const line = {
     query: () => t("filter.tipSearch", { q: settings.query.trim() }),
-    trackedGroup: () => t("filter.tipGroup"),
-    trackedStatus: () => t("filter.tipStatus"),
+    libraryGroup: () => t("filter.tipGroup"),
+    libraryStatus: () => t("filter.tipStatus"),
     downloadFilter: () => (opts.filterDownloads ? `${t("filter.downloads")} ${formatCount(settings.minDownloads)}` : t("filter.tipDownloadsOff")),
   };
   const extra = (k) => `${t(`filter.x.${k}`)} ${extraValueText(k, opts.extras[k])}`.trim();
@@ -466,8 +516,9 @@ function extraValueText(key, value) {
  * Installed plugins that Obsidian took off its list (they're not in the catalog any more): rows from their own
  * manifest, marked `removed` {at, reason}, so `installed AND removed` finds them. Other removed plugins aren't shown.
  */
-function removedRows(removed = {}, manifests = {}) {
-  return Object.entries(removed).filter(([id]) => manifests[id]).map(([id, [at, reason]]) => {
+function removedRows(removed, manifests) {
+  if (!removed || !manifests) return [];
+  return Object.entries(removed).filter(([id]) => Object.hasOwn(manifests, id) && manifests[id]).map(([id, [at, reason]]) => {
     const m = manifests[id];
     return { id, name: m.name || id, author: m.author || "", repo: "", description: m.description || "", version: m.version || "", downloads: null, updated: null, removed: { at, reason } };
   });
@@ -478,23 +529,23 @@ function isSnoozed(plugin, snoozed) {
   return snoozed != null && plugin.id in snoozed && (plugin.updated || 0) <= snoozed[plugin.id];
 }
 
-/** Does a tracked plugin pass the Tracked tab's group menu (a group, Ungrouped, Starred, New releases) and status filter? */
-function trackedMatch(note, opts, plugin) {
+/** Does a library plugin pass the Library page's group menu (a group, Ungrouped, Starred, New releases) and status filter? */
+function libraryMatch(note, opts, plugin) {
   if (!note) return false;
-  if (opts.statusEnabled && opts.trackedStatus && note.status !== opts.trackedStatus) return false;
-  switch (opts.trackedGroup) {
+  if (opts.statusEnabled && opts.libraryStatus && note.status !== opts.libraryStatus) return false;
+  switch (opts.libraryGroup) {
     case "": case undefined: return true;
     case UNGROUPED: return !note.groups.length;
     case TOP_RATED: return note.rating >= TOP_RATING;
     case UPDATES: return isUnreviewed(plugin, note);
-    default: return note.groups.includes(opts.trackedGroup);
+    default: return note.groups.includes(opts.libraryGroup);
   }
 }
 
 /**
  * Rows of the discovery view, sorted (see matchRows for what they are).
  * @param {object} state  {catalog, releases, firstSeen, notes: Map(id→note), excluded: Set, dismissed: Set, installed: Set, snoozed: {id: ms}}
- * @param {object} opts   {mode, days, newDays, hideBusy, minDownloads, filterDownloads, sort, sortDir, query, tracked…} (see modeOptions)
+ * @param {object} opts   {mode, days, newDays, hideBusy, minDownloads, filterDownloads, sort, sortDir, query, libraryGroup…} (see modeOptions)
  */
 function discover(state, opts, now) {
   return discoverGrouped(state, opts, now).rows;
@@ -529,17 +580,20 @@ function matchRows(state, opts, now) {
   if (page.error) return { rows: [], order: null, group: null, limit: null, pins: {} };   // a saved query that doesn't parse (a field since renamed) finds nothing, not everything
   const words = inQuery ? null : compileQuery(opts.query, state, now);
   const minDownloads = opts.filterDownloads ? opts.minDownloads : 0;
-  const extras = Object.entries(opts.extras || {}).filter(([k]) => EXTRA_FILTERS[k]);
-  // hidden plugins stay out unless the query asks for them; Tracked and Dismissed show yours whatever you hid
-  const keepHidden = page.fields?.has("excluded") || page.fields?.has("snoozed") || mode === "tracked" || mode === "dismissed";
-  const hidden = (p) => (!keepHidden && (state.excluded.has(p.id) || isSnoozed(p, state.snoozed))) || (p.removed && !page.fields?.has("removed"));
+  const extras = Object.entries(opts.extras || {}).filter(([k]) => Object.hasOwn(EXTRA_FILTERS, k));
+  // hidden plugins stay out unless the query asks for them; Library and Dismissed show yours whatever you hid
+  const keepExcluded = page.fields?.has("excluded") || mode === "library" || mode === "dismissed";
+  const keepSnoozed = page.fields?.has("snoozed") || mode === "library" || mode === "dismissed";
+  const hidden = (p) => (!keepExcluded && state.excluded.has(p.id))
+    || (!keepSnoozed && isSnoozed(p, state.snoozed))
+    || (p.removed && !page.fields?.has("removed"));
   const shown = (p) => !hidden(p) && page.test(p) && (!words || words.test(p)) && (p.downloads ?? 0) >= minDownloads
     && extras.every(([k, v]) => EXTRA_FILTERS[k].test(state, p, v, now))
-    && (mode !== "tracked" || (inQuery ? notes.has(p.id) : trackedMatch(notes.get(p.id), opts, p)));   // in Query mode the box says it all
+    && (mode !== "library" || (inQuery ? notes.has(p.id) : libraryMatch(notes.get(p.id), opts, p)));   // in Query mode the box says it all
   // sort: Query mode follows its order by; Basic your sort, else the page query's
   const order = (inQuery || opts.sorted === false ? page.order : null) || { key: opts.sort, dir: opts.sortDir };
   // Basic's Group menu narrows like a clause would: `group = "Tasks" group by group` shows the Tasks section only
-  const menu = mode === "tracked" && !inQuery && opts.trackedGroup;
+  const menu = mode === "library" && !inQuery && opts.libraryGroup;
   const pins = menu === UNGROUPED ? { ...page.pins, group: new Set([""]) } : menu && ![UPDATES, TOP_RATED].includes(menu) ? { ...page.pins, group: new Set([fold(menu)]) } : page.pins;
   return { rows: catalog.filter(shown), order, group: page.group ?? null, limit: page.limit ?? null, pins: pins || {} };
 }
@@ -564,11 +618,11 @@ function defaultPageQuery(mode, { days = UPDATED_DAYS, newDays = DEFAULT_NEW_DAY
   const all = (...parts) => parts.filter(Boolean).join(" AND ");   // AND written out: easier to read than a space
   return {
     all: "order by downloads desc",
-    new: `${all(`listed <= ${newDays}d`, "NOT tracked")}\norder by listed desc`,   // Settings › New plugin period, like the badge
-    updated: `${all(`released <= ${days}d`, "NOT tracked", busy && `releases(${BUSY_DAYS}d) <= ${BUSY_LIMIT}`, min)}\norder by downloads desc`,   // new ones too: add NOT listed <= 14d to leave them out
-    awakened: `${all(`incubated >= ${incubated}d`, `hatched <= ${HATCHED_DAYS}d`, "NOT tracked", min)}\norder by hatched desc`,
-    suggested: `${all("installed", "NOT tracked", "NOT dismissed")}\norder by downloads desc`,
-    tracked: "tracked\ngroup by group\norder by rating desc",   // a section per group, then Ungrouped
+    new: `${all(`listed <= ${newDays}d`, "NOT library")}\norder by listed desc`,   // Settings › New plugin period, like the badge
+    updated: `${all(`released <= ${days}d`, "NOT library", busy && `releases(${BUSY_DAYS}d) <= ${BUSY_LIMIT}`, min)}\norder by downloads desc`,   // new ones too: add NOT listed <= 14d to leave them out
+    awakened: `${all(`incubated >= ${incubated}d`, `hatched <= ${HATCHED_DAYS}d`, "NOT library", min)}\norder by hatched desc`,
+    suggested: `${all("installed", "NOT library", "NOT dismissed")}\norder by downloads desc`,
+    library: "library\ngroup by group\norder by rating desc",   // a section per group, then Ungrouped
     excluded: "excluded\norder by name asc",
     snoozed: "snoozed\norder by name asc",
     dismissed: "dismissed\norder by name asc",
@@ -582,13 +636,14 @@ function defaultPageQuery(mode, { days = UPDATED_DAYS, newDays = DEFAULT_NEW_DAY
  */
 function sortRows(rows, key, dir, state, now = Date.now()) {
   const byName = (a, b) => a.name.localeCompare(b.name, t("locale"), { sensitivity: "base" });
-  const ref = fieldRef(key)?.field.sort ? fieldRef(key) : fieldRef("downloads");
+  const parsed = fieldRef(key);
+  const ref = parsed?.field.sort ? parsed : fieldRef("downloads");
   if (ref.name === "name") return rows.sort((a, b) => (dir === "desc" ? -byName(a, b) : byName(a, b)));
-  const s = { ...state, position: new Map((state.catalog || []).map((p, i) => [p.id, i])) };   // listed: the official order
+  const s = ref.name === "listed" ? { ...state, position: new Map((state.catalog || []).map((p, i) => [p.id, i])) } : state;   // listed: the official order
   const { field, arg } = ref;
   const value = field.rank || field.at || field.get;
   const values = new Map(rows.map((p) => [p.id, value(s, p, now, arg) ?? null]));   // once per plugin: incubation reads its release waves
-  const sign = (dir || NATURAL_DIR[ref.name]) === (NATURAL_DIR[ref.name] || "desc") ? 1 : -1;
+  const sign = (dir || NATURAL_DIR[ref.name] || "desc") === "desc" ? 1 : -1;
   const isRating = ref.name === "rating";
   return rows.sort((a, b) => {
     const x = values.get(a.id);
@@ -615,7 +670,11 @@ function groupSections(rows, by, state, now, pins = {}) {
     const values = (Array.isArray(raw) ? raw : [raw]).filter((v) => v != null && v !== "");
     if (!values.length) { none.push(p); continue; }
     const kept = wanted ? values.filter((v) => wanted.has(fold(v))) : values;
-    for (const v of kept.length ? kept : values) sections.set(v, [...(sections.get(v) || []), p]);
+    for (const v of kept.length ? kept : values) {
+      let list = sections.get(v);
+      if (!list) sections.set(v, (list = []));
+      list.push(p);
+    }
   }
   const named = [...sections].sort((a, b) => String(a[0]).localeCompare(String(b[0]), t("locale"))).map(([name, list]) => ({ name, rows: list }));
   return none.length ? [...named, { name: UNGROUPED, rows: none }] : named;   // every row shows somewhere

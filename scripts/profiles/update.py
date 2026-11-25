@@ -22,7 +22,6 @@ starts itself again, so a long queue goes on run after run until it or the day's
 import hashlib
 import json
 import os
-import re
 import sys
 import threading
 import time
@@ -34,16 +33,14 @@ from pathlib import Path
 
 import jsonschema
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common import LISTING_URL, STATS_URL, clean_description
 import index
 import openrouter
 import profiler
 
-RELEASES = "https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD"
-LISTING_URL = f"{RELEASES}/community-plugins.json"
-STATS_URL = f"{RELEASES}/community-plugin-stats.json"
 README_NAMES = ("README.md", "readme.md", "Readme.md", "README.MD")
 BACKLOG = Path(__file__).with_name("english-backlog.txt")
-UNREVIEWED_NOTE = re.compile(r"\s*-?\s*This plugin has not been manually reviewed by Obsidian staff\.?\s*", re.I)
 
 RATE = 18              # model calls started a minute: the free models allow 20
 TIME_BUDGET = 20 * 60  # s from the run's start: no new calls after this, so it saves its work before the 30-minute job limit
@@ -292,7 +289,7 @@ def main(data: Path) -> None:
                 state["updated"][pid] = stats.get(pid, {}).get("updated", 0)  # new release, same README text
                 continue
             plugin = catalog[pid]
-            description = UNREVIEWED_NOTE.sub(" ", plugin.get("description", "")).strip()
+            description = clean_description(plugin.get("description"))
             jobs.append(({"id": pid, "name": plugin["name"], "description": description}, raw, source))
     english = sum(source[1] != "README.md" for _, _, source in jobs)
     print(f"📋 {len(catalog):,} plugins · {len(new)} new · {len(released)} released · {len(delisted)} delisted "

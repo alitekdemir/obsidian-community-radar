@@ -162,7 +162,25 @@ const profilesIndex = {
       requires: [{ kind: "apiKey", name: "OpenAI API key", optional: false }, { kind: "paidService", name: "OpenAI", optional: false }] },
   },
 };
+let localeOffline = false;
+let localeHang = null;   // a promise: the next locale request answers only once it resolves (a slow network)
+const localeDownloads = [];
+const serveLocale = (request) => {
+  const { url } = request;
+  if (localeHang) {
+    const held = localeHang;
+    localeHang = null;
+    return held.then(() => serveLocale(request));
+  }
+  if (localeOffline) return { status: 503, text: "offline" };
+  localeDownloads.push(url);
+  const code = url.split("/").pop().replace(/\.json$/, "");
+  const file = require("path").join(__dirname, "../locales", `${code}.json`);
+  return require("fs").existsSync(file) ? { status: 200, json: JSON.parse(require("fs").readFileSync(file, "utf8")) } : { status: 404, text: "" };
+};
 fake.network.handlers.push(
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/HEAD/locales/", serveLocale],
+  ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/0.15.0/locales/", serveLocale],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/meta.json", () => (serverTimeline ? { status: 200, json: { to: serverTimeline.to, deltaFrom: serverDelta?.from } } : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/timeline.json", () => (serverTimeline ? (downloaded.timeline++, { status: 200, json: serverTimeline }) : { status: 404 })],
   ["https://raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/delta.json", () => (serverDelta ? (downloaded.delta++, { status: 200, json: serverDelta }) : { status: 404 })],
@@ -180,28 +198,18 @@ fake.network.handlers.push(
 );
 
 const tests = {
-  async "data from the newest other install (community-radar) is imported once; old notes get H1 headings"(ctx) {
+  async "an old vault opens: its settings and lists stay, old notes get H1 headings and a groups list"(ctx) {
     const app = fake.makeApp();
-    app.vault.adapter.disk.set(".obsidian/plugins/community-radar/data.json", JSON.stringify({
-      settings: { folder: "Eklentiler", mode: "updated", days: 14 }, excluded: { busy: "2026-10-01" }, translations: {},
-      migrations: {},
-    }));
-    app.vault.adapter.disk.set(".obsidian/plugins/plugin-discovery-tracker/data.json", JSON.stringify({
-      settings: { folder: "Older" }, excluded: { stale: "2026-01-01" }, translations: {}, migrations: {},
-    }));
     app.vault.files.set("Eklentiler/Homepage.md",
-      `---\nplugin_id: homepage\ngroup: ai\nreviewed: '${core.dayString(ago(20))}'\n---\nx\n\n## Notlarım\nmine\n\n## README\n${core.constants.LEGACY_README_START}\n${core.constants.LEGACY_README_END}\n`);
-    app.secretStorage.setSecret("plugin-tracker-anthropic-key", "sk-legacy");
+      `---\nplugin_id: homepage\ngroup: ai\nreviewed: '${core.dayString(ago(20))}'\n---\nx\n\n## Notlarım\nmine\n\n# README\n${core.constants.README_START}\n${core.constants.README_END}\n`);
     const plugin = new PluginRadar(app, { dir: ".obsidian/plugins/plugin-radar" });
+    plugin._data = { settings: { folder: "Eklentiler", mode: "updated", days: 14 }, excluded: { busy: "2026-10-01" }, migrations: {} };
     await plugin.onload();
     await tick(10);
     assert.equal(plugin.data.settings.folder, "Eklentiler");
     assert.deepEqual(Object.keys(plugin.data.excluded), ["busy"]);
     const homepage = app.vault.files.get("Eklentiler/Homepage.md");
     assert.ok(homepage.includes("\n# Notlarım\nmine"));
-    assert.ok(homepage.includes(`\n# README\n${core.constants.README_START}\n${core.constants.README_END}`), "markers migrated");
-    assert.ok(!homepage.includes("<!--"));
-    assert.equal(app.secretStorage.getSecret("anthropic-api-key"), "sk-legacy");
     assert.deepEqual(plugin.notes.index.get("homepage").groups, ["ai"]);
     const migrated = app.vault.files.get("Eklentiler/Homepage.md");
     assert.match(migrated, /\ngroups:\n\s+- ai\n/);                 // `group: ai` became a list…
@@ -225,7 +233,7 @@ const tests = {
   },
 
   async "refresh + history (from GitHub): first-seen, gaps and modes"({ plugin }) {
-    await plugin.refresh();
+    await plugin.sync.refresh();
     const { timeline } = plugin;
     assert.equal(timeline.firstSeen.fresh, ago(1));       // appeared in the last snapshot
     assert.equal(timeline.firstSeen.homepage, 0);         // already there at the start
@@ -264,7 +272,7 @@ const tests = {
   },
 
   async "note migrations change nothing the second time"({ plugin }) {
-    for (const fn of [core.migrateHeadings, core.migrateStatuses, core.migrateMarkers, core.migrateImages]) {
+    for (const fn of [core.migrateHeadings, core.migrateStatuses, core.migrateImages]) {
       assert.equal(await plugin.notes.migrate(fn), 0, fn.name);
     }
   },
@@ -275,7 +283,7 @@ const tests = {
     plugin._data = { settings: { home: { views: [{ id: "v1", name: "Mine", mode: "updated", filters: {} }] } }, migrations: {} };
     await plugin.onload();
     await tick(10);
-    const steps = ["h1Headings", "groupsList", "statusKeys", "readmeMarkers", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages", "keyNames", "viewQueriesRepair"];
+    const steps = ["h1Headings", "groupsList", "statusKeys", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages", "viewQueriesRepair"];
     assert.deepEqual(Object.keys(plugin.data.migrations).filter((k) => steps.includes(k)), steps, "all recorded, in this order");
     const [view] = plugin.data.settings.home.views;
     assert.notEqual(view.query, "undefined");
@@ -283,9 +291,33 @@ const tests = {
     assert.equal(core.compileQuery(view.query, null, NOW, true).error, "", "it parses");
   },
 
+  async "migrations: a 0.15 data.json opens on the Library with its menus, columns, card and Undo entries"() {
+    const plugin = new PluginRadar(fake.makeApp(), { dir: ".obsidian/plugins/plugin-radar" });
+    plugin._data = {
+      settings: {
+        mode: "tracked", section: "list", trackedGroup: "Tasks", trackedSections: false,
+        pageQueries: { tracked: "tracked AND rating >= 4\norder by name asc" }, tableColumns: { tracked: ["tracked", "rating"] },
+        home: { groups: [{ id: "news", name: "", look: "small", since: true, items: ["new", "tracked"] }] },
+      },
+      ops: [{ kind: "track", at: 1, changes: [] }],
+      migrations: Object.fromEntries(["h1Headings", "groupsList", "statusKeys", "newDays14", "pageQueries",
+        "viewQueries", "fields011", "readmeImages", "viewQueriesRepair", "dropVectors"].map((k) => [k, "2026-11-01"])),   // where 0.15 stands
+    };
+    await plugin.onload();
+    await tick(10);
+    const st = plugin.data.settings;
+    assert.equal(st.mode, "library", "kept, not reset to All by the mode check");
+    assert.equal(st.libraryGroup, "Tasks");
+    assert.equal(st.pageQueries.library, "library AND rating >= 4\norder by name asc", "renamed key, query field moved, no group by added (Sections was off)");
+    assert.deepEqual(st.tableColumns.library, ["library", "rating"]);
+    assert.deepEqual(st.home.groups[0].items, ["new", "libraryReleases"], "the card survives normalizeHome");
+    assert.equal(plugin.data.ops[0].kind, "library");
+    assert.ok(!JSON.stringify(st).includes("tracked"), "no old name left in the settings");
+  },
+
   async "migrations: a view the old order left as \"undefined\" gets its query back"() {
     const plugin = new PluginRadar(fake.makeApp(), { dir: ".obsidian/plugins/plugin-radar" });
-    const done = Object.fromEntries(["legacyImport", "h1Headings", "groupsList", "statusKeys", "readmeMarkers", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages", "keyNames"].map((k) => [k, "2026-10-01"]));
+    const done = Object.fromEntries(["h1Headings", "groupsList", "statusKeys", "newDays14", "pageQueries", "viewQueries", "fields011", "readmeImages"].map((k) => [k, "2026-10-01"]));
     const broken = { id: "v1", name: "Mine", mode: "updated", filters: {}, query: "undefined" };
     const fine = { id: "v2", name: "Ok", query: "downloads >= 1k" };
     plugin._data = { settings: { home: { views: [broken, fine] } }, migrations: done };
@@ -537,21 +569,21 @@ const tests = {
     view.render();
   },
 
-  async "row actions: 🔔 creates a note with README; double click runs once"({ app, plugin, view }) {
+  async "row actions: 🔖 creates a note with README; double click runs once"({ app, plugin, view }) {
     const el = view.contentEl;
     let calls = 0;
-    const original = plugin.toggleTrack.bind(plugin);
-    plugin.toggleTrack = async (p) => { calls++; await tick(20); return original(p); };
+    const original = plugin.toggleLibrary.bind(plugin);
+    plugin.toggleLibrary = async (p) => { calls++; await tick(20); return original(p); };
     const row = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Fresh Plugin");
-    const bell = row.querySelector('[data-icon="bell-plus"]');
-    await Promise.all([bell.onclick(), bell.onclick()]);
+    const add = row.querySelector('[data-icon="bookmark-plus"]');
+    await Promise.all([add.onclick(), add.onclick()]);
     await tick(20);
     assert.equal(calls, 1);
     const note = app.vault.files.get("Eklentiler/Fresh Plugin.md");
-    assert.ok(note.includes("plugin_id: fresh") && !note.includes("favorite"), "tracked: a note, no favorite field");
+    assert.ok(note.includes("plugin_id: fresh") && !note.includes("favorite"), "in the library: a note, no favorite field");
     assert.match(note, /obsidian: ["']\[plugin\]\(obsidian:\/\/show-plugin\?id=fresh\)["']/);  // quoted, so YAML keeps it a string
     assert.ok(note.includes("\\#tag") && note.includes("\n#keep\n"), "tags escaped outside code only");
-    plugin.toggleTrack = original;
+    plugin.toggleLibrary = original;
   },
 
   async "model picker: filters as you type, offers typed aliases, latest-only toggle"({ app, plugin }) {
@@ -622,7 +654,7 @@ const tests = {
   async "status line: last sync, what the sync brought, a labelled Sync button"({ plugin, view }) {
     const el = view.contentEl;
     plugin.catalog.plugins = plugin.catalog.plugins.filter((p) => p.id !== "fresh");  // pretend "fresh" is new
-    await plugin.refresh();
+    await plugin.sync.refresh();
     view.refresh();
     const status = $(el, ".pdt-status").textContent;
     assert.ok(status.includes(core.t("status.lastSync", { time: "", age: core.t("age.justNow") }).split(" · ")[0]), status);
@@ -637,14 +669,14 @@ const tests = {
     const notices = fake.Notice.all.length;
     settings.syncHours = 0;
     plugin.catalog.fetchedAt = NOW - 30 * DAY;
-    await plugin.syncIfDue();
+    await plugin.sync.syncIfDue();
     assert.equal(syncs(), 0);                              // manual
     settings.syncHours = 6;
     plugin.catalog.fetchedAt = Date.now() - 2 * 3600_000;
-    await plugin.syncIfDue();
+    await plugin.sync.syncIfDue();
     assert.equal(syncs(), 0);                              // 2 h old, not due
     plugin.catalog.fetchedAt = Date.now() - 7 * 3600_000;
-    await plugin.syncIfDue();
+    await plugin.sync.syncIfDue();
     assert.equal(syncs(), 1);                              // due
     assert.equal(fake.Notice.all.length, notices);         // quiet: no notice
     settings.syncHours = 24;
@@ -771,19 +803,19 @@ const tests = {
     tab.tab = "general";
     tab.display();
     const preview = () => $(tab.containerEl, ".pdt-fx-preview");
-    assert.ok($(preview(), ".pdt-detail-about.pdt-fx-marker.is-translating") && $(preview(), ".pdt-overview-parts.pdt-fx-marker"), "the default, on a description and an Overview part");
-    const pick = $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "decode"));
-    pick.value = "decode";
+    assert.ok($(preview(), ".pdt-detail-about.pdt-fx-clean.is-translating") && $(preview(), ".pdt-overview-parts.pdt-fx-clean"), "the default, on a description and an Overview part");
+    const pick = $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "ring"));
+    pick.value = "ring";
     await pick.onchange();
-    assert.equal(settings.translateFx, "decode");
-    assert.ok($(preview(), ".pdt-fx-decode .pdt-ch"), "redrawn with the new one: Matrix splits the letters");
+    assert.equal(settings.translateFx, "ring");
+    assert.ok($(preview(), ".pdt-detail-about.pdt-fx-ring.is-translating") && $(preview(), ".pdt-overview-parts.pdt-fx-ring"), "redrawn with the new pure-CSS effect");
     const motion = $$(tab.containerEl, "select").find((d) => [...d.options].some((o) => o.value === "off"));
     motion.value = "off";
     await motion.onchange();
-    assert.ok(document.body.classList.contains("pdt-still") && !$(preview(), ".pdt-ch"), "animations off: still, no changing letters");
+    assert.ok(document.body.classList.contains("pdt-still"), "animations off: body gets pdt-still");
     motion.value = "system";
     await motion.onchange();
-    settings.translateFx = "marker";
+    settings.translateFx = "clean";
   },
 
   async "suggest groups for the picked rows: one request, chips under the rows, a click saves at once"({ app, plugin, view }) {
@@ -814,17 +846,17 @@ const tests = {
     assert.ok(!$(rowOf("fresh"), ".pdt-gchip"), "no picks, no chips");
 
     // Settings' Suggest groups: Tracked › Ungrouped with its plugins picked and their groups under the rows
-    await plugin.track(plugin.pluginById("busy"), {});
+    await plugin.saveToLibrary(plugin.pluginById("busy"), {});
     fake.network.prompts.length = 0;
     await plugin.groupUngrouped();
     await tick(20);
-    assert.equal(plugin.data.settings.mode, "tracked");
-    assert.equal(plugin.data.settings.trackedGroup, core.UNGROUPED);
+    assert.equal(plugin.data.settings.mode, "library");
+    assert.equal(plugin.data.settings.libraryGroup, core.UNGROUPED);
     assert.ok(view.selected.has("busy"));
     await chipOf("busy", "Productivity").onclick();
     await tick();
     assert.deepEqual(plugin.notes.index.get("busy").groups, ["Productivity"]);
-    Object.assign(plugin.data.settings, { trackedGroup: "" });
+    Object.assign(plugin.data.settings, { libraryGroup: "" });
     await view.update("mode", "all");
   },
 
@@ -836,8 +868,8 @@ const tests = {
     plugin.catalog = { ...catalog, plugins: [...catalog.plugins,   // two more start pages, so Homepage has company
       { id: "startpage", name: "Startpage", author: "a", repo: "a/startpage", description: "A workspace on startup with quick access to recent notes.", downloads: 900, updated: Date.now() },
       { id: "hometab", name: "Home Tab", author: "b", repo: "b/hometab", description: "A homepage tab on startup, like a browser.", downloads: 500, updated: Date.now() }] };
-    await view.update("mode", "tracked");
-    await plugin.track(plugin.pluginById("homepage"), {});
+    await view.update("mode", "library");
+    await plugin.saveToLibrary(plugin.pluginById("homepage"), {});
     view.render();
     const rowOf = (name) => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === name);
     const seed = plugin.pluginById("homepage");
@@ -904,7 +936,7 @@ const tests = {
     const esc = view.scope.keys.find((k) => k.key === "Escape");
     assert.equal(esc.fn(), false);
     assert.equal(view.similar, null);
-    assert.equal(settings.mode, "tracked");
+    assert.equal(settings.mode, "library");
     assert.ok(rowOf(seed.name).classList.contains("is-flash") && rowOf(seed.name).classList.contains("is-cursor"));
     assert.equal(esc.fn(), false, "no filter: Esc steps back to Home");
     assert.equal(settings.section, "home");
@@ -920,14 +952,14 @@ const tests = {
     plugin.similar = null;
     await plugin.cache.remove("similar-meta");
     Object.assign(downloaded, { similar: 0, similar304: 0 });   // earlier syncs fetched it too
-    await plugin.syncSimilar(() => {});
+    await plugin.sync.syncSimilar(() => {});
     assert.equal(downloaded.similar, 1, "no copy yet: the whole file");
     assert.equal(plugin.similar?.row.size, 6, "downloaded and parsed");
     assert.ok(app.vault.adapter.disk.has(`${plugin.cache.dir}/similar.json`), "cached");
-    await plugin.syncSimilar(() => {});
+    await plugin.sync.syncSimilar(() => {});
     assert.equal(downloaded.similar + downloaded.similar304, 1, "checked today: no request");
     await plugin.cache.write("similar-meta", { etag: similarEtag, checkedAt: Date.now() - 25 * 3600_000 });
-    await plugin.syncSimilar(() => {});
+    await plugin.sync.syncSimilar(() => {});
     assert.deepEqual([downloaded.similar, downloaded.similar304], [1, 1], "a day later: asked with the ETag, unchanged");
     assert.deepEqual(plugin.similarTo({ id: "listed-today" }), [], "no list yet");
     const homepageGroup = [...plugin.notes.members()].find(([, ids]) => ids.includes("homepage"))?.[0] ?? null;
@@ -967,7 +999,7 @@ const tests = {
     assert.ok($(modal.contentEl, ".pdt-detail-readme-body.is-empty button"), "a Translate button");
     assert.ok(plugin.translator.ready, "the earlier tests set up a provider");
     {
-      await modal.translate(homepage);                                         // tracked: kept in its note
+      await modal.translate(homepage);                                         // in the library: kept in its note
       await tick(5);
       const text = app.vault.files.get(plugin.notes.index.get("homepage").path);
       const saved = core.readmeTranslation(text);
@@ -980,9 +1012,9 @@ const tests = {
       assert.match($(modal.contentEl, ".pdt-detail-readme-body .md").textContent, /^TR /);
       assert.ok($(modal.contentEl, ".pdt-detail-info").textContent.includes("or/model-001"), "what it took, bottom left");
       assert.equal($(modal.contentEl, ".pdt-detail-stale"), null, "not outdated");
-      const { original } = await plugin.readmeParts(homepage);
-      assert.equal(await plugin.newerReadme(homepage, original), null, "same text on GitHub: nothing to tell");
-      assert.ok(await plugin.newerReadme(homepage, { ...original, hash: "00000000" }), "changed text: offered");
+      const { original } = await plugin.readmes.parts(homepage);
+      assert.equal(await plugin.readmes.newer(homepage, original), null, "same text on GitHub: nothing to tell");
+      assert.ok(await plugin.readmes.newer(homepage, { ...original, hash: "00000000" }), "changed text: offered");
     }
     // the language chip before the description swaps it in place: "EN", then the target's code (blue)
     modal.setLanguage(homepage, false);   // the original first: Original | <language> also picks it
@@ -999,7 +1031,7 @@ const tests = {
     assert.ok(!$(modal.titleEl, ".pdt-detail-about").textContent.includes("TR: "), "again: the original");
     // the list's shortcut keys, when they're on
     const key = (k) => modal.scope.keys.find((x) => x.key === k).fn();
-    assert.equal(key("f"), true, "shortcuts off: the key is left to Obsidian");
+    assert.equal(key("l"), true, "shortcuts off: the key is left to Obsidian");
     plugin.data.settings.keyboard = true;
     modal.render();
     assert.ok($(modal.contentEl, ".pdt-detail-foot .pdt-keys"), "⌨ at the bottom");
@@ -1009,8 +1041,8 @@ const tests = {
     assert.equal(plugin.notes.index.get("homepage").rating, 3);
     key(String(rating || 0));
     await tick(20);
-    // 🔔, ★ and ⋯ sit in the head row
-    assert.ok($(modal.titleEl, '[data-icon="bell-ring"]') && $(modal.titleEl, ".pdt-rate") && $(modal.titleEl, ".pdt-row-menu"));
+    // 🔖, ★ and ⋯ sit in the head row
+    assert.ok($(modal.titleEl, '[data-icon="bookmark-check"]') && $(modal.titleEl, ".pdt-rate") && $(modal.titleEl, ".pdt-row-menu"));
     key("j");                                                                    // j walks like →
     const second = $(modal.titleEl, ".pdt-detail-name").textContent;
     assert.notEqual(second, "Homepage");
@@ -1026,7 +1058,7 @@ const tests = {
       assert.ok(cached.readme && cached.translation.body.startsWith("TR "), "in the cache");
       assert.equal(plugin.notes.file(p.id), null, "no note made");
       const asked = fake.network.prompts.length;
-      await plugin.track(p, {});
+      await plugin.saveToLibrary(p, {});
       await tick(20);
       const text = app.vault.files.get(plugin.notes.index.get(p.id).path);
       assert.ok(core.readmeTranslation(text).body.startsWith("TR "), "tracking it moves the translation into the note");
@@ -1056,16 +1088,16 @@ const tests = {
     plugin.catalog = catalog;
   },
 
-  async "Tracked tab: Group menu, sections per group, new releases, rows stay after an action, rating and custom statuses"({ app, plugin, view }) {
+  async "Library page: Group menu, sections per group, new releases, rows stay after an action, rating and custom statuses"({ app, plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
-    await plugin.track(plugin.pluginById("homepage"), { groups: ["ai", "Planning"] });
-    await view.update("mode", "tracked");
-    assert.ok($(el, '.pdt-tab[data-key="tracked"].is-page.is-active'), "Tracked: a page its widget opens, its tab while open");
+    await plugin.saveToLibrary(plugin.pluginById("homepage"), { groups: ["ai", "Planning"] });
+    await view.update("mode", "library");
+    assert.ok($(el, '.pdt-tab[data-key="library"].is-page.is-active'), "Library: a page its widget opens, its tab while open");
     fake.menus.length = 0;
-    $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith(core.t("tracked.group"))).onclick();
+    $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith(core.t("library.group"))).onclick();
     const titles = fake.menus[0].items.map((i) => i.title);
-    assert.ok(titles[1].startsWith(core.t("tracked.updates", { n: "" }).trim()) && titles.some((x) => x.startsWith("Planning")));
+    assert.ok(titles[1].startsWith(core.t("library.updates", { n: "" }).trim()) && titles.some((x) => x.startsWith("Planning")));
     const sections = () => $$(el, ".pdt-section").map((s) => [$(s, ".pdt-section-name").textContent, $$(s, ".pdt-name").map((a) => a.textContent)]);
     const byName = Object.fromEntries(sections());
     assert.ok(byName.ai.includes("Homepage") && byName.Planning.includes("Homepage"), "in both of its groups");
@@ -1075,7 +1107,7 @@ const tests = {
     view.collapsed.clear();
 
     // New releases filter: the row has a NEW RELEASE signal; no ✓ (opening its details or note marks it seen)
-    await view.update("trackedGroup", core.UPDATES);
+    await view.update("libraryGroup", core.UPDATES);
     const updated = $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
     assert.ok($(updated, ".pdt-signal.is-changed"));
     assert.ok(!updated.querySelector('[data-icon="check"]'));
@@ -1084,19 +1116,19 @@ const tests = {
     await view.update("mode", "all");
     const pill = $$(el, ".pdt-pill.is-group").find((b) => b.textContent === "Planning");
     await pill.onclick();
-    assert.equal(settings.mode, "tracked");
-    assert.equal(settings.trackedGroup, "Planning");
+    assert.equal(settings.mode, "library");
+    assert.equal(settings.libraryGroup, "Planning");
     view.render();
     assert.ok($$(el, ".pdt-name").every((a) => plugin.notes.index.get(a.closest(".pdt-row").dataset.id).groups.includes("Planning")));
 
     // rating from the star's popover; a row that leaves the filter stays (faded) until the view is redrawn
-    await view.update("trackedGroup", "");
+    await view.update("libraryGroup", "");
     const homepageRow = () => $$(el, ".pdt-row").find((r) => $(r, ".pdt-name").textContent === "Homepage");
     await $$(homepageRow(), ".pdt-rate-star")[1].onclick();                // the second from the left in DOM order is 4
     assert.equal(plugin.notes.index.get("homepage").rating, 4);
     assert.match(app.vault.files.get(plugin.notes.index.get("homepage").path), /\nrating: 4\n/);
     assert.equal($(homepageRow(), ".pdt-rate-value").textContent, "4", "the rating sits next to the star");
-    await view.update("trackedGroup", core.TOP_RATED);
+    await view.update("libraryGroup", core.TOP_RATED);
     assert.ok(homepageRow(), "rated 4: under ★ 4+");
     await $(homepageRow(), ".pdt-rate-clear").onclick();                   // cleared: it no longer matches ★ 4+…
     assert.ok(homepageRow(), "…but stays in place");
@@ -1107,7 +1139,7 @@ const tests = {
 
     // custom statuses: off by default; when on, chosen from your list and stored by key
     assert.equal(settings.statusEnabled, false);
-    await view.update("trackedGroup", "");
+    await view.update("libraryGroup", "");
     assert.equal($(el, ".pdt-pill.is-status"), null);
     settings.statusEnabled = true;
     view.render();
@@ -1121,7 +1153,7 @@ const tests = {
     $(homepageRow(), ".pdt-pill.is-status").onclick();
     await fake.menus[0].items[0].click();                                  // "No status" removes the property
     assert.ok(!/\nstatus:/.test(app.vault.files.get(plugin.notes.index.get("homepage").path)));
-    Object.assign(settings, { trackedStatus: "", trackedGroup: "", statusEnabled: false });
+    Object.assign(settings, { libraryStatus: "", libraryGroup: "", statusEnabled: false });
     await view.update("mode", "all");
   },
 
@@ -1142,7 +1174,7 @@ const tests = {
     assert.ok($(el, ".pdt-list").classList.contains("is-selecting") && rows()[1].classList.contains("is-selected"));
     assert.equal($(el, ".pdt-bulk-bar .pdt-bulk-badge").textContent, "3");
     assert.deepEqual($$(el, ".pdt-bulk-bar button.pdt-bulk-action").map((b) => b.textContent),
-      ["bulk.track", "bulk.rate", "bulk.group", "bulk.suggest", "bulk.translate", "bulk.snooze", "bulk.exclude"].map((k) => core.t(k)), "the same names as the menu, in groups");
+      ["bulk.library", "bulk.rate", "bulk.group", "bulk.suggest", "bulk.translate", "bulk.snooze", "bulk.exclude"].map((k) => core.t(k)), "the same names as the menu, in groups");
     // like Gmail: the shown rows first, then every row of the list
     view.bulkBar.clearSelection();
     view.selected.add(view.rows[0].id);
@@ -1185,38 +1217,38 @@ const tests = {
     // reviewed marks set on one day for many plugins can be taken back (and that undone too)
     const day = "2026-01-02";
     const tracked = [...plugin.notes.index.keys()].slice(0, 3);
-    for (const id of tracked) await plugin.track(plugin.pluginById(id), { reviewed: day });
-    assert.deepEqual(plugin.massReviews(3).map((m) => m.date), [day]);
-    const unreviewed = await plugin.unreview(day);
+    for (const id of tracked) await plugin.saveToLibrary(plugin.pluginById(id), { reviewed: day });
+    assert.deepEqual(plugin.ops.massReviews(3).map((m) => m.date), [day]);
+    const unreviewed = await plugin.ops.unreview(day);
     assert.ok(tracked.every((id) => !plugin.notes.index.get(id).reviewed));
-    await plugin.undo(unreviewed);
+    await plugin.ops.undo(unreviewed);
     assert.ok(tracked.every((id) => plugin.notes.index.get(id).reviewed === day));
-    for (const id of tracked) await plugin.track(plugin.pluginById(id), { reviewed: null });
+    for (const id of tracked) await plugin.saveToLibrary(plugin.pluginById(id), { reviewed: null });
 
     // note fields: Undo turns back only what the action did
     const p = plugin.pluginById("homepage");
     const before = plugin.notes.index.get("homepage")?.groups || [];
-    const grouped = await plugin.bulk("group", [p], "Start pages");
+    const grouped = await plugin.ops.bulk("group", [p], "Start pages");
     assert.ok(plugin.notes.index.get("homepage").groups.includes("Start pages"));
-    await plugin.undo(grouped);
+    await plugin.ops.undo(grouped);
     assert.deepEqual(plugin.notes.index.get("homepage").groups, before);
     const ratingBefore = plugin.notes.index.get("homepage").rating;
-    const rated = await plugin.bulk("rating", [p], ratingBefore === 2 ? 3 : 2);
+    const rated = await plugin.ops.bulk("rating", [p], ratingBefore === 2 ? 3 : 2);
     assert.notEqual(plugin.notes.index.get("homepage").rating, ratingBefore);
-    await plugin.undo(rated);
+    await plugin.ops.undo(rated);
     assert.equal(plugin.notes.index.get("homepage").rating, ratingBefore);
     plugin.data.ops = [];
     await view.update("mode", "all");
   },
 
-  async "table: few columns by default, header sorts, 🔔 cell, your columns per tab, picks work"({ plugin, view }) {
+  async "table: few columns by default, header sorts, 🔖 cell, your columns per tab, picks work"({ plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
     await view.update("mode", "all");
     settings.minDownloads = 0;
     await view.update("layout", "table");
     const heads = () => $$(el, ".pdt-table thead th").map((th) => th.textContent.trim()).filter(Boolean);
-    assert.deepEqual(heads().slice(0, 4), [core.t("col.name"), `${core.t("col.downloads")} ↓`, core.t("col.released"), core.t("col.tracked")]);
+    assert.deepEqual(heads().slice(0, 4), [core.t("col.name"), `${core.t("col.downloads")} ↓`, core.t("col.released"), core.t("col.library")]);
     assert.equal($$(el, ".pdt-trow").length, view.rows.length);
     $$(el, ".pdt-table-sort")[0].onclick();   // Name
     await tick();
@@ -1248,7 +1280,7 @@ const tests = {
     $(el, ".pdt-table-cols .pdt-icon").onclick();
     const pop = () => document.querySelector(".pdt-cols-pop");
     const shown = () => [...pop().querySelectorAll(".pdt-cols-list .pdt-cols-row")].map((r) => r.dataset.key);
-    assert.deepEqual(shown(), ["downloads", "released", "tracked"]);
+    assert.deepEqual(shown(), ["downloads", "released", "library"]);
     const first = pop().querySelector(".pdt-cols-list .pdt-cols-row");
     assert.equal(first.querySelector(".pdt-cols-field").textContent, "downloads");
     assert.ok(first.querySelector(".pdt-cols-sorted"), "the sorted column is marked");
@@ -1256,16 +1288,16 @@ const tests = {
     assert.ok(pop().querySelector(".pdt-cols-foot button").disabled, "already the default");
     [...pop().querySelectorAll(".pdt-cols-chip")].find((c) => c.textContent.includes(core.t("col.rise30"))).onclick();
     await tick();
-    assert.deepEqual(settings.tableColumns.all, ["downloads", "released", "tracked", "rise30"]);
+    assert.deepEqual(settings.tableColumns.all, ["downloads", "released", "library", "rise30"]);
     assert.ok($(el, ".pdt-trow td.is-rise30"), "the table behind changes at once");
     pop().querySelector(".pdt-cols-list .pdt-cols-row[data-key=released] .pdt-cols-x").onclick();
     await tick();
-    assert.deepEqual(shown(), ["downloads", "tracked", "rise30"]);
+    assert.deepEqual(shown(), ["downloads", "library", "rise30"]);
     document.body.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
     assert.ok(!pop(), "Esc closes it");
     // a page keeps its own columns: another tab still has the default
     await view.update("mode", "new");
-    assert.deepEqual(core.tableColumns(settings, "new"), ["downloads", "released", "tracked"]);
+    assert.deepEqual(core.tableColumns(settings, "new"), ["downloads", "released", "library"]);
     await view.update("mode", "all");
     $(el, ".pdt-table-cols .pdt-icon").onclick();
     pop().querySelector(".pdt-cols-foot button").onclick();
@@ -1297,7 +1329,7 @@ const tests = {
     const el = view.contentEl;
     const names = () => $$(el, ".pdt-name").map((a) => a.textContent);
     const dataview = plugin.pluginById("dataview");
-    await plugin.snooze(dataview);
+    await plugin.ops.snooze(dataview);
     assert.ok(!names().includes("Dataview"));
     assert.ok(core.isSnoozed(dataview, plugin.data.snoozed));
     assert.ok(!core.isSnoozed({ ...dataview, updated: dataview.updated + 1 }, plugin.data.snoozed), "a newer release brings it back");
@@ -1305,7 +1337,7 @@ const tests = {
     assert.equal($(el, ".pdt-toast span:not(.pdt-toast-icon)").textContent, core.t("notice.snoozed", { name: "Dataview" }));
     await $(el, ".pdt-toast-undo").onclick();
     assert.ok(!("dataview" in plugin.data.snoozed) && names().includes("Dataview"), "undone");
-    await plugin.snooze(dataview);
+    await plugin.ops.snooze(dataview);
 
     // ⋮ → Hidden: a page (its tab while open), three kinds, each a query
     const menu = new fake.Menu();
@@ -1330,18 +1362,18 @@ const tests = {
     // restore all shown asks twice, on this kind only
     await view.showHidden("excluded");
     view.refresh();
-    assert.equal($(el, '.pdt-tab[data-key="excluded"] .pdt-n').textContent, core.formatCount(view.hiddenTotal()), "the Hidden tab keeps its total after a refresh");
+    assert.equal($(el, '.pdt-tab[data-key="excluded"] .pdt-n').textContent, core.formatCount(plugin.ops.hiddenTotal()), "the Hidden tab keeps its total after a refresh");
     const all = $(el, ".pdt-banner .mod-warning");
     await all.onclick();                                                    // first click only arms it
-    assert.equal(plugin.hiddenCounts().excluded, 1);
+    assert.equal(plugin.ops.hiddenCounts().excluded, 1);
     await all.onclick();
     assert.equal(Object.keys(plugin.data.excluded).length, 0);
-    await plugin.exclude(plugin.pluginById("busy"));                        // back as the earlier tests expect
+    await plugin.ops.exclude(plugin.pluginById("busy"));                    // back as the earlier tests expect
     plugin.data.settings.queries = {};
     await view.update("mode", "all");
   },
 
-  async "keyboard: off by default; when on, j/k move the highlight and f acts on it without clicking"({ plugin, view }) {
+  async "keyboard: off by default; when on, j/k move the highlight and l acts on it without clicking"({ plugin, view }) {
     const el = view.contentEl;
     const settings = plugin.data.settings;
     const key = (k) => view.scope.keys.find((x) => x.key === k).fn({ key: k });
@@ -1357,10 +1389,10 @@ const tests = {
     assert.ok(rows[1].classList.contains("is-cursor"));
     const id = rows[1].dataset.id;
     assert.ok(plugin.notes.index.has(id), "a tracked row, its note holding your things");
-    key("f");                                                                // f: stop tracking…
+    key("l");                                                                // l: remove from library…
     await tick(20);
     const ask = modals.at(-1);
-    assert.equal(ask.heading, core.t("untrack.title", { name: plugin.pluginById(id).name }), "…asked first");
+    assert.equal(ask.heading, core.t("removeFromLibrary.title", { name: plugin.pluginById(id).name }), "…asked first");
     ask.close();                                                             // cancelled
     await tick(20);
     assert.ok(plugin.notes.index.has(id), "still tracked");
@@ -1457,7 +1489,7 @@ const tests = {
       ...serverHistory, to: NOW,
       series: grown, milestones: { homepage: [ago(800), ago(5), null] },
     };
-    await plugin.refresh();
+    await plugin.sync.refresh();
     assert.equal(plugin.timeline.to, NOW, "newer: downloaded");
     assert.equal(core.gainOver(plugin.timeline, "homepage", 30), 200);
     await view.update("mode", "all");
@@ -1475,16 +1507,16 @@ const tests = {
       series: { days: [today - 1, today, today + 1], points: { homepage: [1150, 50, 30], dataview: [10005, 15, 10] } } };
     serverTimeline = { ...serverTimeline, to: NOW + DAY };
     const before = { ...downloaded };
-    await plugin.refresh();
+    await plugin.sync.refresh();
     assert.deepEqual([downloaded.delta - before.delta, downloaded.timeline - before.timeline], [1, 0], "the delta, not the whole file");
     assert.equal(plugin.timeline.to, NOW + DAY);
     assert.equal(core.gainOver(plugin.timeline, "homepage", 1), 30, "the new day is in the series");
     assert.ok(plugin.timeline.releases.homepage.includes(NOW));
     serverDelta = null;
     serverTimeline = null;                                                     // GitHub down: ours stays
-    await plugin.refresh();
+    await plugin.sync.refresh();
     assert.equal(plugin.timeline.to, NOW + DAY);
-    await assert.rejects(plugin.downloadHistory().then((r) => { if (r === undefined) throw new Error("failed"); }));
+    await assert.rejects(plugin.sync.downloadHistory().then((r) => { if (r === undefined) throw new Error("failed"); }));
     serverTimeline = serverHistory;
     plugin.timeline = ours;
   },
@@ -1496,7 +1528,7 @@ const tests = {
       ...serverHistory, to: NOW + 1, milestoneSteps: [1000, 5000, 10000, 25000, 50000, 100000],
       milestones: { dataview: [0, ago(400), ago(5), null, null, null] }, series: grown,
     };
-    await plugin.refresh();
+    await plugin.sync.refresh();
     plugin.pluginById("dataview").downloads = 10200;   // as its history says: past 10K five days ago
     await view.update("section", "home");
     const el = view.contentEl;
@@ -1662,10 +1694,10 @@ const tests = {
 
     // a page's widget opens the page itself (Tracked, with its groups); the page's tab ✕ goes back home
     assert.ok(state("mine") && state("hidden") && !card("mine"), "your tracked plugins and what you hid: at the top, not in the grid");
-    assert.equal(core.HOME_WIDGETS.mine.page, "tracked");
-    await view.openPage("tracked");
-    assert.ok($(el, '.pdt-tab[data-key="tracked"].is-active'));
-    $(el, '.pdt-tab[data-key="tracked"] .pdt-similar-step').onclick({ stopPropagation() {} });
+    assert.equal(core.HOME_WIDGETS.mine.page, "library");
+    await view.openPage("library");
+    assert.ok($(el, '.pdt-tab[data-key="library"].is-active'));
+    $(el, '.pdt-tab[data-key="library"] .pdt-similar-step').onclick({ stopPropagation() {} });
     assert.equal(settings.section, "home");
 
     // each widget list keeps its own tab, with its count, until you close it
@@ -1695,17 +1727,17 @@ const tests = {
     for (const id of ["new", "updated", "awakened", "suggested", "mine"]) assert.ok(!/[{}]|<=|>=|order by/.test(info(id)), `${id}: ${info(id)}`);
   },
 
-  async "a row: 🔔, ★ and ⋯ only; the name opens GitHub, the description translates, a right click opens the menu"({ plugin, view }) {
+  async "a row: 🔖, ★ and ⋯ only; the name opens GitHub, the description translates, a right click opens the menu"({ plugin, view }) {
     const busyExcluded = "busy" in plugin.data.excluded;
-    if (busyExcluded) await plugin.restoreFrom("excluded", ["busy"]);   // a row to look at…
+    if (busyExcluded) await plugin.ops.restoreFrom("excluded", ["busy"]);   // a row to look at…
     const busyNote = plugin.notes.index.get("busy");
     plugin.notes.index.delete("busy");                                     // …that isn't tracked (every fixture plugin is by now)
     view.settings.section = "list";
     await view.update("mode", "all");
     const rowOf = (id) => $$(view.contentEl, ".pdt-row").find((r) => r.dataset.id === id);
     const icons = (row) => $$(row, ".pdt-actions [data-icon]").map((b) => b.dataset.icon);
-    assert.deepEqual(icons(rowOf("dataview")), ["bell-ring", "star", "more-horizontal"], "🔔 tracking, ★ rating, ⋯");
-    assert.deepEqual(icons(rowOf("busy")).slice(0, 1), ["bell-plus"]);
+    assert.deepEqual(icons(rowOf("dataview")), ["bookmark-check", "star", "more-horizontal"], "🔖 library, ★ rating, ⋯");
+    assert.deepEqual(icons(rowOf("busy")).slice(0, 1), ["bookmark-plus"]);
     assert.equal($(rowOf("dataview"), ".pdt-name").getAttribute("href"), "https://github.com/blacksmithgu/obsidian-dataview");
     assert.ok(!$(rowOf("dataview"), ".pdt-meta"), "no README · GitHub · Similar · Translate links");
 
@@ -1715,11 +1747,11 @@ const tests = {
       return fake.menus.at(-1).items.map((i) => i.title);
     };
     view.refresh();
-    assert.ok(titles("busy").includes(core.t("action.snooze")), "not tracked: hide until the next release");
-    assert.ok(!titles("homepage").includes(core.t("action.snooze")), "tracked: nothing to hide or mark");
+    assert.ok(titles("busy").includes(core.t("action.snooze")), "not in the library: hide until the next release");
+    assert.ok(!titles("homepage").includes(core.t("action.snooze")), "in the library: nothing to hide or mark");
     assert.ok(titles("homepage").includes(core.t("menu.readmeOpen")) && titles("busy").includes(core.t("menu.readmeDownload")));
-    assert.deepEqual(titles("homepage").slice(0, 2), [core.t("action.untrack"), core.t("rating.set")], "🔔 and ★ first");
-    assert.equal(titles("busy")[0], core.t("action.track"));
+    assert.deepEqual(titles("homepage").slice(0, 2), [core.t("action.removeFromLibrary"), core.t("rating.set")], "🔖 and ★ first");
+    assert.equal(titles("busy")[0], core.t("action.addToLibrary"));
     // the menu's Rate: the same stars beside it, on hover; a click keeps them after the menu closes
     titles("homepage");
     const menu = fake.menus.at(-1);
@@ -1789,10 +1821,10 @@ const tests = {
     view.openHelp("start");   // Help › Quick start says the same, at the level of someone new to the plugin
     const help = modals.at(-1).contentEl;
     assert.deepEqual($$(help, ".pdt-help-card-list li").map((li) => li.textContent),
-      ["track", "rate", "name", "desc", "empty", "details", "profile", "menu", "bulk", "seen"].map((k) => core.t(`help.card.${k}`)));
+      ["library", "rate", "name", "desc", "empty", "details", "profile", "menu", "bulk", "seen"].map((k) => core.t(`help.card.${k}`)));
     modals.at(-1).close();
     plugin.notes.index.set("busy", busyNote);
-    if (busyExcluded) await plugin.exclude(plugin.pluginById("busy"));   // as the other tests expect
+    if (busyExcluded) await plugin.ops.exclude(plugin.pluginById("busy"));   // as the other tests expect
   },
 
   async "a tracked plugin's new release counts as seen: at once when its note opens, after 10 s in its details"({ app, plugin, view }) {
@@ -1802,7 +1834,7 @@ const tests = {
     const today = core.dayString(Date.now());
     const reviewed = () => plugin.notes.index.get("homepage").reviewed;
 
-    await plugin.track(p, { reviewed: old });
+    await plugin.saveToLibrary(p, { reviewed: old });
     await app.workspace.trigger("file-open", plugin.notes.file("homepage"));
     assert.equal(reviewed(), today, "its note opened");
 
@@ -1811,7 +1843,7 @@ const tests = {
     let wait = null;
     globalThis.setTimeout = (fn, ms, ...rest) => (ms === 10000 ? (wait = fn, 0) : realSetTimeout(fn, ms, ...rest));
     try {
-      await plugin.track(p, { reviewed: old });
+      await plugin.saveToLibrary(p, { reviewed: old });
       view.rowRenderer.openDetails(p);
       let modal = modals.at(-1);
       assert.ok(wait, "a 10 s timer starts");
@@ -1828,20 +1860,20 @@ const tests = {
     } finally {
       globalThis.setTimeout = realSetTimeout;
     }
-    await plugin.track(p, { reviewed: was || null });
+    await plugin.saveToLibrary(p, { reviewed: was || null });
   },
 
   async "AI profiles: downloaded once a day (304 when unchanged), query fields, the category TOP10 and the details window"({ plugin, view }) {
     plugin.profiles = null;
     await plugin.cache.remove("profiles-meta");
     Object.assign(downloaded, { profiles: 0, profiles304: 0 });   // earlier syncs fetched it too
-    await plugin.syncProfiles(() => {});
+    await plugin.sync.syncProfiles(() => {});
     assert.equal(downloaded.profiles, 1, "no copy yet: the whole index");
     assert.equal(plugin.profiles.plugins.dataview.primary, "data");
-    await plugin.syncProfiles(() => {});
+    await plugin.sync.syncProfiles(() => {});
     assert.equal(downloaded.profiles + downloaded.profiles304, 1, "checked today: no request");
     await plugin.cache.write("profiles-meta", { etag: profilesEtag, checkedAt: Date.now() - 25 * 3600_000 });
-    await plugin.syncProfiles(() => {});
+    await plugin.sync.syncProfiles(() => {});
     assert.deepEqual([downloaded.profiles, downloaded.profiles304], [1, 1], "a day later: asked with the ETag, unchanged");
 
     const ids = (q) => core.widgetRows(view.home.context(Date.now()), { query: () => q }, {}).map((p) => p.id).sort();
@@ -1923,7 +1955,7 @@ const tests = {
     const ask = plugin.translateWithOverview.bind(plugin);
     plugin.translateWithOverview = (p) => {
       const reading = $(next.contentEl, ".pdt-overview-parts.is-translating");
-      Object.assign(seen, { marker: reading?.classList.contains("pdt-fx-marker") && reading.querySelector(".pdt-ln")?.style.getPropertyValue("--i") === "1", overview: reading?.textContent, desc: Boolean($(next.modalEl, ".pdt-detail-about.is-translating")) });
+      Object.assign(seen, { clean: reading?.classList.contains("pdt-fx-clean") && reading.querySelector(".pdt-ln")?.style.getPropertyValue("--i") === "1", overview: reading?.textContent, desc: Boolean($(next.modalEl, ".pdt-detail-about.is-translating")) });
       return ask(p);
     };
     next.onKey("t");
@@ -1931,8 +1963,8 @@ const tests = {
     delete plugin.translateWithOverview;
     assert.ok(seen.overview?.includes("Opens a chosen note at startup."), "while it translates, the original stays, shown as being read");
     assert.ok(seen.desc, "the description too");
-    assert.equal(settings.translateFx, "marker", "the default effect: highlighter");
-    assert.ok(seen.marker, "drawn line by line: each text an inline unit in the stagger");
+    assert.equal(settings.translateFx, "clean", "the default effect: clean shimmer");
+    assert.ok(seen.clean, "drawn line by line: each text an inline unit in the stagger");
     assert.equal($(next.modalEl, ".is-translating"), null, "done: no effect left");
     assert.equal(fake.network.prompts.length, 1, "one request for both");
     assert.ok(plugin.translations.description.homepage && plugin.translations.overview.homepage, "each kept as its own");
@@ -1951,7 +1983,7 @@ const tests = {
   },
 
   async "bulk: Translate menu (descriptions, Overviews, READMEs) with estimates, progress with Stop, Rate with Clear, Esc"({ plugin, view }) {
-    await plugin.syncProfiles(() => {});
+    await plugin.sync.syncProfiles(() => {});
     await view.update("section", "list");
     await view.update("mode", "all");
     const ids = ["dataview", "homepage"];
@@ -2006,14 +2038,14 @@ const tests = {
     // READMEs: downloaded without AI (no note for an untracked one), then translated whole, one after another
     const untracked = plugins.find((p) => !plugin.notes.file(p.id));
     await view.bulkBar.downloadReadmes(plugins);
-    for (const p of plugins) assert.ok((await plugin.readmeParts(p)).original, `${p.id}: README kept`);
+    for (const p of plugins) assert.ok((await plugin.readmes.parts(p)).original, `${p.id}: README kept`);
     if (untracked) assert.ok(!plugin.notes.file(untracked.id), "no note is made");
     await view.bulkBar.translateReadmes(plugins);
     const readmeAsk = asked.at(-1);   // an earlier test translated one already: only the others are asked
     assert.equal(readmeAsk.title, core.t("bulk.tr.ask.readme", { n: readmeAsk.plugins.length, lang: plugin.data.settings.targetLang }));
     assert.ok(readmeAsk.text.includes("tokens"), "with the estimate, after the download");
     for (const p of plugins) {
-      const { original, translation } = await plugin.readmeParts(p);
+      const { original, translation } = await plugin.readmes.parts(p);
       assert.equal(translation?.hash, original.hash, `${p.id}: translated, its fingerprint kept`);
     }
 
@@ -2073,18 +2105,143 @@ const tests = {
   async "stop tracking: the note goes to the trash; Undo of a bulk Track does the same"({ app, plugin }) {
     const p = plugin.pluginById("fresh");
     const was = plugin.notes.index.get("fresh");
-    if (!was) await plugin.track(p, {});
+    if (!was) await plugin.saveToLibrary(p, {});
     await tick(20);                                                          // its README lands first
     const path = plugin.notes.index.get("fresh").path;
-    assert.ok(await plugin.untrack(p, false));
+    assert.ok(await plugin.removeFromLibrary(p, false));
     assert.ok(!app.vault.files.has(path) && !plugin.notes.index.has("fresh"), "trashed, out of the index");
-    assert.equal(await plugin.untrack(p), false, "nothing to stop");
-    const op = await plugin.bulk("track", [p]);
+    assert.equal(await plugin.removeFromLibrary(p), false, "nothing to stop");
+    const op = await plugin.ops.bulk("library", [p]);
     assert.ok(plugin.notes.index.has("fresh") && op.changes.length === 1);
     await tick(20);
-    await plugin.undo(op);
+    await plugin.ops.undo(op);
     assert.ok(!plugin.notes.index.has("fresh"), "Undo trashes the note it made");
-    if (was) await plugin.track(p, { groups: was.groups, rating: was.rating || null });   // as before
+    if (was) await plugin.saveToLibrary(p, { groups: was.groups, rating: was.rating || null });   // as before
+  },
+
+  async "regression: bulk rating/unrate Undo removes orphan notes, cachedTranslation checks targetLang, Similar from Home & onClose"({ app, plugin, view }) {
+    // 1. Bulk rating on untracked creates note → Undo removes orphan note; double Undo is a no-op
+    const fresh = plugin.pluginById("fresh");
+    const prevFresh = plugin.notes.index.get("fresh");
+    if (prevFresh) await plugin.removeFromLibrary(fresh, false);
+    const rateOp = await plugin.ops.bulk("rating", [fresh], 4);
+    assert.equal(plugin.notes.index.get("fresh")?.rating, 4);
+    const undone1 = await plugin.ops.undo(rateOp);
+    assert.equal(undone1.restored, 1);
+    assert.ok(!plugin.notes.index.has("fresh"), "Undo removes orphan note created by bulk rating");
+    const undoneAgain = await plugin.ops.undo(rateOp);
+    assert.equal(undoneAgain.restored, 0, "second Undo is a no-op");
+
+    // 2. Bulk unrate (null) on rated plugin → Undo restores original rating
+    const hp = plugin.pluginById("homepage");
+    await plugin.setNoteField(hp, "rating", 5);
+    const clearOp = await plugin.ops.bulk("rating", [hp], null);
+    assert.equal(plugin.notes.index.get("homepage")?.rating || 0, 0);
+    await plugin.ops.undo(clearOp);
+    assert.equal(plugin.notes.index.get("homepage")?.rating, 5, "Undo restores rating after bulk clear");
+
+    // 3. cachedTranslation respects targetLang
+    const prevLang = plugin.data.settings.targetLang;
+    plugin.translations.description.homepage = { src: hp.description, text: "TR metin", lang: "Türkçe" };
+    plugin.data.settings.targetLang = "Türkçe";
+    assert.equal(plugin.cachedTranslation(hp), "TR metin");
+    plugin.data.settings.targetLang = "Deutsch";
+    assert.equal(plugin.cachedTranslation(hp), null, "cached translation ignored for different targetLang");
+    plugin.data.settings.targetLang = prevLang;
+
+    // 4. SimilarFilter opened from Home restores Home on close
+    await view.update("section", "home");
+    view.similarFilter.open(hp);
+    assert.equal(view.settings.section, "list");
+    assert.equal(view.settings.mode, "all");
+    view.similarFilter.close();
+    assert.equal(view.settings.section, "home", "closing Similar returns to Home");
+
+    // 5. SimilarFilter applies EXTRA_FILTERS (installed, author, released) via matchRows SSOT without throwing, and skips snoozed
+    plugin.similar = core.parseSimilar(similarFile);
+    app.plugins.manifests.dataview = { id: "dataview", name: "Dataview" };
+    plugin.data.settings.extraFilters = { all: { installed: true, author: "brenan", released: 500 } };
+    view.similarFilter.open(hp);
+    assert.deepEqual(view.rows.map((p) => p.id), ["dataview"], "EXTRA_FILTERS on All filter Similar cleanly via matchRows");
+    plugin.data.snoozed.dataview = hp.updated + 999999999;
+    view.refresh();
+    assert.deepEqual(view.rows.map((p) => p.id), [], "snoozed plugin is hidden from Similar");
+    delete plugin.data.snoozed.dataview;
+    delete app.plugins.manifests.dataview;
+    plugin.data.settings.extraFilters = {};
+    view.similarFilter.close();
+
+    // 6. Removed installed plugin is resolved by pluginById (so shortcuts and BulkOps.undo work on it)
+    plugin.timeline.removed = { legacyx: [ago(5), "deprecated"] };
+    app.plugins.manifests.legacyx = { id: "legacyx", name: "Legacy X", version: "0.1.0" };
+    const rem = plugin.pluginById("legacyx");
+    assert.equal(rem?.name, "Legacy X", "pluginById resolves installed removed plugin");
+    const remOp = await plugin.ops.bulk("library", [rem]);
+    assert.ok(plugin.notes.index.has("legacyx"));
+    const remUndo = await plugin.ops.undo(remOp);
+    assert.equal(remUndo.restored, 1, "Undo works on removed installed plugin");
+    assert.ok(!plugin.notes.index.has("legacyx"));
+    delete plugin.timeline.removed;
+    delete app.plugins.manifests.legacyx;
+
+    // 7. On-demand locales: fetched once from versioned GitHub URL, cached locally, offline fallback to English, completed on sync
+    localeDownloads.length = 0;
+    plugin.manifest.version = "0.15.0";
+    delete core.STRINGS.de;
+    plugin.data.settings.language = "de";
+    await plugin.applyLanguage();
+    assert.equal(localeDownloads.length, 1);
+    assert.ok(localeDownloads[0].includes("/0.15.0/locales/de.json"), "fetches version-pinned locale");
+    assert.equal(core.t("set.language"), "Sprache");
+    assert.ok(app.vault.adapter.disk.has(`${plugin.cache.dir}/locale-de.json`), "cached on disk");
+    delete core.STRINGS.de;
+    await plugin.applyLanguage();
+    assert.equal(localeDownloads.length, 1, "second load reads from local cache with zero network requests");
+    assert.equal(core.t("set.language"), "Sprache");
+    delete core.STRINGS.ru;
+    localeOffline = true;
+    plugin.data.settings.language = "ru";
+    await plugin.applyLanguage();
+    assert.equal(core.t("set.language"), "Language", "offline first-time locale falls back cleanly to embedded English");
+    localeOffline = false;
+    await plugin.sync.refresh({ quiet: true });
+    assert.equal(core.t("set.language"), "Язык", "subsequent sync completes the missing locale automatically");
+
+    // 8. A cached locale missing keys of this build (a build ahead of GitHub) is downloaded again in the background
+    const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
+    const partial = JSON.parse(require("fs").readFileSync(require("path").join(__dirname, "../locales/de.json"), "utf8"));
+    delete partial["set.translateFx.clean"];
+    await plugin.cache.write("locale-de", { version: "0.15.0", strings: partial });
+    delete core.STRINGS.de;
+    localeDownloads.length = 0;
+    plugin.data.settings.language = "de";
+    await plugin.applyLanguage();
+    assert.equal(core.t("set.language"), "Sprache", "the cached copy shows at once");
+    await settle();
+    assert.equal(localeDownloads.length, 1, "an incomplete cache is refreshed even on the same version");
+    assert.ok("set.translateFx.clean" in core.STRINGS.de, "the refreshed copy has the missing key");
+    assert.ok("set.translateFx.clean" in (await plugin.cache.read("locale-de", null)).strings, "and is cached");
+    await plugin.applyLanguage();
+    await settle();
+    assert.equal(localeDownloads.length, 1, "a complete cache of this version needs no request");
+
+    // 9. A slow first download doesn't hold up startup: English first, the language once it lands
+    let release;
+    localeHang = new Promise((resolve) => { release = resolve; });
+    delete core.STRINGS.ja;
+    plugin.data.settings.language = "ja";
+    const startedAt = Date.now();
+    await plugin.applyLanguage({ wait: 30 });
+    assert.ok(Date.now() - startedAt < 1000, "applyLanguage returns after `wait`");
+    assert.equal(core.t("set.language"), "Language", "English while the download is pending");
+    release();
+    await settle();
+    assert.equal(core.t("set.language"), "言語", "the language takes over when it arrives");
+    plugin.data.settings.language = "auto";
+    delete plugin.manifest.version;
+    await plugin.applyLanguage();
+
+    if (prevFresh) await plugin.saveToLibrary(fresh, { groups: prevFresh.groups, rating: prevFresh.rating || null });
   },
 
 };

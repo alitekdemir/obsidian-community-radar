@@ -23,7 +23,7 @@ class HomePage extends ViewPart {
   /** Sync and the page's ⋮ go next to the section switch. */
   renderTools(bar) {
     const sync = bar.createEl("button", { cls: "pdt-home-tool", text: t("set.syncNow"), attr: { type: "button" } });
-    sync.onclick = () => this.plugin.refresh();
+    sync.onclick = () => this.plugin.sync.refresh();
     const more = bar.createEl("button", { cls: "pdt-home-tool is-icon", attr: { type: "button", "aria-label": t("home.menu") } });
     setIcon(more, "more-vertical");
     more.onclick = (event) => this.pageMenu(event);
@@ -46,10 +46,9 @@ class HomePage extends ViewPart {
       this.renderGroup(groups, ctx, group, first);
       first += group.items.length;
     }
-    this.sortable(groups, ".pdt-home-group-grip", (ids) => this.save((h) => { h.groups = ids.map((id) => h.groups.find((g) => g.id === id)); }));
+    this.sortable(groups, ".pdt-home-group-grip", (ids) => this.save((h) => { h.groups = ids.map((id) => h.groups.find((g) => g.id === id)).filter(Boolean); }));
     // "+ Add widget": the gallery, then where it goes
     const add = this.card(page.createDiv({ cls: "pdt-home-grid" }), "pdt-home-add", 0, () => this.addMenu());
-    add.onclick = () => this.addMenu();   // the whole card: it has no buttons of its own
     setIcon(add.createSpan({ cls: "pdt-home-add-icon" }), "plus");
     add.createSpan({ cls: "pdt-home-add-title", text: t("home.addWidget") });
     add.createSpan({ cls: "pdt-home-add-hint", text: t("home.addHint") });
@@ -87,9 +86,15 @@ class HomePage extends ViewPart {
     return widget.view?.name ?? (widget.tab === id ? t(`mode.${id}`) : t(`home.${id}`));   // a page's widget: the page's name
   }
 
+  /** Unique short id (monotonic counter avoids same-ms collisions). */
+  newId() {
+    this._seq = (this._seq || 0) + 1;
+    return `${Date.now().toString(36)}${this._seq > 1 ? `_${this._seq}` : ""}`;
+  }
+
   /** Saves a query as a view: a widget in `groupId` (default: the first big-card group), its matches so far seen. */
   async saveView(name, query, rows, groupId) {
-    const view = { id: Date.now().toString(36), name, query };
+    const view = { id: this.newId(), name, query };
     const id = VIEW_PREFIX + view.id;
     await this.save((h) => {
       h.views = [...(h.views || []), view];
@@ -114,15 +119,18 @@ class HomePage extends ViewPart {
 
   /** A new empty group of one look, after `after` (else last); returns it. Not saved: the caller saves. */
   addGroup(name, look, home = this.home, after = null) {
-    const group = { id: Date.now().toString(36), name, look, half: false, since: false, items: [] };
+    const group = { id: this.newId(), name, look, half: false, since: false, items: [] };
     const at = home.groups.findIndex((g) => g.id === after);
     home.groups.splice(at === -1 ? home.groups.length : at + 1, 0, group);
     return group;
   }
 
-  /** Changes one group and saves. */
+  /** Changes one group and saves (no-op if the group was deleted meanwhile). */
   saveGroup(id, change) {
-    return this.save((h) => change(h.groups.find((g) => g.id === id)));
+    return this.save((h) => {
+      const group = h.groups.find((g) => g.id === id);
+      if (group) change(group);
+    });
   }
 
   /** A group's name: yours, else the built-in group's own. */
@@ -188,6 +196,7 @@ class HomePage extends ViewPart {
    */
   renderMini(grid, ctx, group, id, index, preview = null) {
     const widget = preview?.widget ?? homeWidget(this.home, id);
+    if (!widget) return;
     const own = preview ? { ...widget.defaults } : widgetParams(this.home, id);
     const then = sinceMoment(this.home, ctx.now);
     const { params, rows, label, info } = group.since ? this.sinceCount(ctx, id, widget, own, then) : {
@@ -200,6 +209,9 @@ class HomePage extends ViewPart {
     card.dataset.id = id;
     if (!preview) {
       this.grip(card);
+      const more = card.createEl("button", { cls: "pdt-home-more pdt-home-mini-more", attr: { type: "button", "aria-label": t("home.widgetMenu") } });
+      setIcon(more, "more-vertical");
+      more.onclick = (event) => { event.stopPropagation(); this.widgetMenu(event, id, group); };
       card.addEventListener("contextmenu", (event) => { event.preventDefault(); this.widgetMenu(event, id, group); });
     }
     setIcon(card.createSpan({ cls: "pdt-home-mini-icon" }), widget.icon);
@@ -210,13 +222,13 @@ class HomePage extends ViewPart {
   }
 
   /**
-   * A small card in a "since" group: the widget asked from `then` on. Tracked, since your last visit, is what you
+   * A small card in a "since" group: the widget asked from `then` on. New in your library, since your last visit, is what you
    * haven't reviewed (no day); a saved view counts the matches you haven't seen. Returns {params, rows, label, info}.
    */
   sinceCount(ctx, id, widget, own, then) {
     const period = this.home.since.period;
     const builtIn = SINCE_CARDS.includes(id);   // these have their own "since" wording
-    const reviewBased = id === "tracked" && period === "seen";
+    const reviewBased = id === "libraryReleases" && period === "seen";
     if (widget.view) {
       const all = widgetRows(ctx, widget, own);
       return { params: own, rows: freshRows(ctx, widget, own, all, then) ?? all, label: this.title(id, widget), info: this.widgetInfo(id, own, widget) };
@@ -228,7 +240,7 @@ class HomePage extends ViewPart {
       params,
       rows: widgetRows(ctx, widget, params),
       label: builtIn ? t(`home.since.${id}`, words) : this.title(id, widget),
-      info: builtIn ? t(id === "tracked" && !reviewBased ? "home.since.tracked.infoDays" : `home.since.${id}.info`, words) : this.widgetInfo(id, own, widget),
+      info: builtIn ? t(id === "libraryReleases" && !reviewBased ? "home.since.libraryReleases.infoDays" : `home.since.${id}.info`, words) : this.widgetInfo(id, own, widget),
     };
   }
 
@@ -298,7 +310,7 @@ class HomePage extends ViewPart {
       item.createSpan({ cls: "pdt-home-item-name", text: p.name });
       item.createSpan({ cls: "pdt-home-item-value", text: widget.value(ctx, p, params) });
     }
-    if (!rows.length) top.createDiv({ cls: "pdt-home-item is-empty", text: t(id === "tracked" ? "home.tracked.empty" : "home.none") });
+    if (!rows.length) top.createDiv({ cls: "pdt-home-item is-empty", text: t(id === "libraryReleases" ? "home.libraryReleases.empty" : "home.none") });
     card.createSpan({ cls: "pdt-home-cta", text: t("home.open") });
   }
 
@@ -306,7 +318,7 @@ class HomePage extends ViewPart {
   card(grid, cls, index, onOpen) {
     const card = grid.createDiv({ cls: `${cls} is-in`, attr: { role: "link", tabindex: "0" } });
     card.style.setProperty("--pdt-i", String(index));
-    card.onclick = (event) => { if (!event.target.closest("button, .pdt-grip")) onOpen(); };
+    card.onclick = (event) => { if (!event?.target?.closest?.("button, .pdt-grip")) onOpen(); };
     onActivate(card, onOpen);
     return card;
   }
@@ -321,15 +333,17 @@ class HomePage extends ViewPart {
     setTooltip(icon, text, { delay: 100 });
   }
 
-  /** Drag by `handle` to reorder; the new order of the children's `data-id`s is saved. */
+  /** Drag by `handle` to reorder; tracked on the view so render()/onClose() always destroys it. */
   sortable(grid, handle, onOrder) {
     if (typeof Sortable === "undefined" || !grid.children.length) return;
-    Sortable.create(grid, {
+    this.view.trackSortable(Sortable.create(grid, {
       handle,
       animation: 180,
+      delayOnTouchOnly: true,
+      delay: 120,
       ghostClass: "is-ghost",
-      onEnd: () => onOrder([...grid.children].map((el) => el.dataset.id)),
-    });
+      onEnd: (evt) => { if (evt.oldIndex !== evt.newIndex) onOrder([...grid.children].map((el) => el.dataset.id)); },
+    }));
   }
 
   sinceLabel(period) {

@@ -1,5 +1,7 @@
 /** A short tag for the language translations go to: its code when the UI has it ("Türkçe" → TR), else its start. */
-const languageTag = (name) => (Object.keys(STRINGS).find((code) => STRINGS[code]["language.name"] === name) || String(name).slice(0, 2)).toUpperCase();
+const languageTag = (name) => (Object.keys(LOCALE_NAMES).find((code) => LOCALE_NAMES[code] === name)
+  || Object.keys(STRINGS).find((code) => STRINGS[code]["language.name"] === name)
+  || String(name).slice(0, 2)).toUpperCase();
 
 /**
  * A text in one language at a time behind its language chip: "文A EN", or "文A TR" (blue) when it shows the
@@ -56,10 +58,12 @@ class DetailModal extends Modal {
     this.newer = new Map();     // id → the README now on GitHub when it changed (null: asked, nothing new)
     this.busy = "";             // progress of a translation in this window
     this.working = null;        // {id, desc, overview}: the texts an AI request is translating now (shown as being read)
+    this.renderSeq = 0;         // incremented on each render() to discard stale async callbacks
+    this.readmeComponent = null;
     this.translated = this.plugin.data.settings.translatedFirst;   // Original | <language>: this window's choice, from Settings
     this.scope.register([], "ArrowLeft", () => { this.step(-1); return false; });
     this.scope.register([], "ArrowRight", () => { this.step(1); return false; });
-    for (const key of ["j", "k", "f", "g", "x", "h", "t", "r", "s", "o", "0", "1", "2", "3", "4", "5"]) {
+    for (const key of ["j", "k", "l", "g", "x", "h", "t", "r", "s", "o", "0", "1", "2", "3", "4", "5"]) {
       this.scope.register([], key, () => this.onKey(key));
     }
   }
@@ -86,7 +90,8 @@ class DetailModal extends Modal {
     this.component.registerEvent(this.app.metadataCache.on("changed", (file) => {
       const p = this.p;
       if (!this.infoEl || this.tab !== "readme" || file.path !== this.plugin.notes.index.get(p.id)?.path) return;   // Overview has its own
-      this.plugin.readmeParts(p).then((parts) => { if (this.p === p && !this.closed) this.renderInfo(this.infoEl, parts); });
+      const seq = this.renderSeq;
+      this.plugin.readmes.parts(p).then((parts) => { if (this.p === p && !this.closed && this.tab === "readme" && this.renderSeq === seq) this.renderInfo(this.infoEl, parts); });
     }));
     // grow out of the card: the animation starts at the card's centre (no motion if the system asks for less)
     const from = this.origin?.getBoundingClientRect?.();
@@ -94,17 +99,21 @@ class DetailModal extends Modal {
     if (from && box) this.modalEl.setCssProps({ "--pdt-origin": `${from.left + from.width / 2 - box.left}px ${from.top + from.height / 2 - box.top}px` });
     this.modalEl.addClass("is-growing");
     // a right click opens the row's menu; links and the README keep the browser's own (copy, open link)
-    this.modalEl.addEventListener("contextmenu", (event) => {
+    const onMenu = (event) => {
       if (event.target.closest?.("a, input, textarea, .markdown-rendered")) return;
       event.preventDefault();
       this.view.rowRenderer.showRowMenu(this.p, event, this.effects());
-    });
+    };
+    if (this.component.registerDomEvent) this.component.registerDomEvent(this.modalEl, "contextmenu", onMenu);
+    else this.modalEl.addEventListener("contextmenu", onMenu);
     this.render();
   }
 
   onClose() {
     this.closed = true;
     clearTimeout(this.seenTimer);
+    this.readmeComponent?.unload();
+    this.readmeComponent = null;
     this.component?.unload();
     this.contentEl.empty();
     this.view.refresh();
@@ -112,12 +121,13 @@ class DetailModal extends Modal {
 
   async act(fn) {
     await fn();
-    this.render();
+    if (!this.closed) this.render();
   }
 
   /** Hide / Exclude: the plugin leaves this list and the next one shows; the window closes after the last. */
   async drop(fn) {
     await fn();
+    if (this.closed) return;
     this.rows.splice(this.index, 1);
     if (!this.rows.length) return this.close();
     this.index = Math.min(this.index, this.rows.length - 1);
@@ -139,21 +149,26 @@ class DetailModal extends Modal {
    * model you pick (pinned and recent ones first); it then shows in your language. The text stays while it's read.
    */
   async retranslate(p) {
+    if (this.busy) return;
     const model = await this.plugin.pickModel();
-    if (!model) return;
+    if (!model || this.closed) return;
     const readme = this.tab === "readme";
     this.setLanguage(p, true);
     this.busy = t("details.translating");
     this.working = { id: p.id, desc: !readme, overview: !readme };
     this.render();
-    const done = readme
-      ? await this.plugin.translateReadme(p, (text) => { this.busy = text; if (this.p === p) this.render(); }, false, model.id)
-      : await this.plugin.retranslate(p, model.id);
-    this.busy = "";
-    this.working = null;
+    let done = false;
+    try {
+      done = readme
+        ? await this.plugin.readmes.translate(p, (text) => { this.busy = text; if (!this.closed && this.p === p) this.render(); }, false, model.id)
+        : await this.plugin.retranslate(p, model.id);
+    } finally {
+      this.busy = "";
+      this.working = null;
+    }
     if (done && !readme) this.view.setDescTranslated(p, true);
     this.descLang = null;
-    this.render();
+    if (!this.closed) this.render();
   }
 
   /**
@@ -161,7 +176,8 @@ class DetailModal extends Modal {
    * shown. Returns true to leave the key to Obsidian (shortcuts off, typing in a field, a translation running).
    */
   onKey(key) {
-    const typing = globalThis.document?.activeElement?.closest?.("input, textarea, select, [contenteditable]");
+    const doc = this.modalEl?.ownerDocument || globalThis.document;
+    const typing = doc?.activeElement?.closest?.("input, textarea, select, [contenteditable]");
     if (!this.plugin.data.settings.keyboard || typing || this.busy) return true;
     if (key === "j" || key === "k") {
       this.step(key === "j" ? 1 : -1);
@@ -172,37 +188,40 @@ class DetailModal extends Modal {
     return false;
   }
 
-  /**
-   * `t`: the description and the Overview in your language, or both back in the original. Turning it on asks for
-   * whatever is missing in one request (the Overview only while translations are on); Original | <language> follows,
-   * so the tabs show it. The language chip and those buttons keep doing one thing each, with their costs shown.
-   */
   async toggleTranslation(p) {
-    const tabs = this.plugin.data.settings.readmeTranslation !== "off";   // Original | <language> is there
+    if (this.busy) return;
+    const tabs = this.plugin.data.settings.readmeTranslation !== "off";
     if (tabs && this.tab === "readme") return this.toggleReadme(p);
     const on = !this.descriptionTranslated(p);
-    if (tabs) this.setLanguage(p, on);   // first: the Overview tab shows the request's progress
+    if (tabs) this.setLanguage(p, on);
     if (on) {
       this.busy = t("details.translating");
       this.working = { id: p.id, desc: this.plugin.cachedTranslation(p) == null, overview: tabs };
       this.render();
-      const done = await (tabs ? this.plugin.translateWithOverview(p) : this.plugin.translateRows([p]));
-      this.busy = "";
-      this.working = null;
-      if (!done) return this.render();
+      let done = false;
+      try {
+        done = await (tabs ? this.plugin.translateWithOverview(p) : this.plugin.translateRows([p]));
+      } finally {
+        this.busy = "";
+        this.working = null;
+      }
+      if (!done) { if (!this.closed) this.render(); return; }
     }
-    this.view.setDescTranslated(p, on);   // the list's row follows, as with the chip
-    this.descLang = null;   // the window's choice again
+    this.view.setDescTranslated(p, on);
+    this.descLang = null;
     this.view.refresh();
-    this.render();
+    if (!this.closed) this.render();
   }
 
   /** `t` on the README tab: the README in your language (translated the first time) or back in the original. */
   async toggleReadme(p) {
     const on = !this.wantsTranslation;
     this.setLanguage(p, on);
-    if (on && !(await this.plugin.readmeParts(p)).translation) return this.translate(p);
-    this.render();
+    if (on && !(await this.plugin.readmes.parts(p)).translation) {
+      if (!this.closed) return this.translate(p);
+      return;
+    }
+    if (!this.closed) this.render();
   }
 
   /** Is `part` ("desc" | "overview") of `p` being translated right now? Then it stays as it is, shown as being read. */
@@ -215,15 +234,9 @@ class DetailModal extends Modal {
     if (this.plugin.cachedTranslation(p) == null) return false;
     const own = this.descLang?.id === p.id ? this.descLang.lang : null;
     if (own) return own === "target";
-    // with Original | <language> the window's choice, without it (README translation off) the list's
     return this.plugin.data.settings.readmeTranslation !== "off" ? this.translated : this.view.descTranslated(p);
   }
 
-  /**
-   * The description, in one language at a time behind its language chip (see languageChip), as in the list; the
-   * first time asks the AI. By default your language when you chose it (Original | <language>) or turned it on for
-   * this plugin in the list, and there is a translation.
-   */
   renderDescription(parent, p) {
     const desc = parent.createEl("p", { cls: "pdt-detail-about" });
     if (!p.description) return desc.setText("–");
@@ -231,21 +244,36 @@ class DetailModal extends Modal {
     const translated = this.descriptionTranslated(p);
     desc.addClass("pdt-detail-desc");
     languageChip(desc, { original: p.description, translation, translated, target: this.plugin.data.settings.targetLang, swap: async () => {
-      if (!translated && translation == null) await this.view.rowRenderer.toggleTranslation(p);   // asks the AI once
-      this.descLang = { id: p.id, lang: translated ? "original" : "target" };
-      this.render();
+      if (this.busy) return;
+      if (!translated && translation == null) {
+        this.busy = t("details.translating");
+        this.working = { id: p.id, desc: true, overview: false };
+        this.render();
+        try {
+          const ok = await this.plugin.translateRows([p]);
+          if (!ok) return;
+        } finally {
+          this.busy = "";
+          this.working = null;
+        }
+      }
+      const next = !translated;
+      this.descLang = { id: p.id, lang: next ? "target" : "original" };
+      this.view.setDescTranslated(p, next);
+      this.view.refresh();
+      if (!this.closed) this.render();
     } });
     if (this.isWorking(p, "desc")) this.showReading(desc, 0);
   }
 
-  /** A text being translated: it stays, shown as being read with the effect from Settings (showReading). */
+  /** A text being translated: it stays, shown as being read with the pure-CSS effect from Settings (showReading). */
   showReading(box, first) {
-    showReading(box, this.plugin.data.settings.translateFx, first, document.body.classList.contains(STILL_CLASS));
+    showReading(box, this.plugin.data.settings.translateFx, first);
   }
 
   /**
-   * A tracked plugin with a new release: after SEEN_AFTER_MS on screen here it counts as seen (a quick look past it,
-   * or closing the window sooner, doesn't).
+   * A library plugin with a new release: after SEEN_AFTER_MS on screen here it counts as seen (no modal redraw,
+   * so reading scroll position and text selection stay intact).
    */
   watchSeen(p, note) {
     clearTimeout(this.seenTimer);
@@ -253,45 +281,45 @@ class DetailModal extends Modal {
     this.seenTimer = setTimeout(async () => {
       if (this.closed || this.p !== p) return;
       await this.plugin.markSeen(p);
-      this.render();
     }, SEEN_AFTER_MS);
   }
 
   render() {
+    if (this.closed) return;
+    this.renderSeq++;
     const p = this.p;
     const plugin = this.plugin;
     const note = plugin.notes.index.get(p.id);
-    if (this.watching !== p.id) {   // once per plugin shown, not on every redraw
+    if (this.watching !== p.id) {
       this.watching = p.id;
       this.watchSeen(p, note);
     }
     const { releases } = plugin.timeline;
+    const dates = releases[p.id] || [];
     const now = Date.now();
+    const cadence = releaseCadence(dates, now);
     this.renderHead(p, note);
     const el = this.contentEl;
     el.empty();
-    this.renderStats(el.createDiv({ cls: "pdt-detail-stats" }), p, now);
+    this.renderStats(el.createDiv({ cls: "pdt-detail-stats" }), p, now, cadence);
 
     const columns = el.createDiv({ cls: "pdt-detail-columns" });
     const main = columns.createDiv({ cls: "pdt-detail-main" });
     if (note?.note) this.section(main, t("details.yourNote")).box.createEl("p", { text: note.note });
-    const footer = el.createDiv({ cls: "pdt-detail-foot" });      // under the columns; made here for the tabs to fill its info
+    const footer = el.createDiv({ cls: "pdt-detail-foot" });
     this.infoEl = footer.createDiv({ cls: "pdt-detail-info" });
     this.renderTabs(main, p, note, this.infoEl);
 
     const column = columns.createDiv({ cls: "pdt-detail-side" });
-    const side = column.createDiv({ cls: "pdt-detail-side-top" });       // scrolls when it doesn't fit
+    const side = column.createDiv({ cls: "pdt-detail-side-top" });
     const profile = plugin.profiles?.plugins?.[p.id];
     if (profile) this.renderNeeds(side, p, profile);
     this.renderSimilar(side, p);
 
-    // pinned to the bottom of the column, level with the tabs' box: release history, then the repository
     const history = this.section(column, t("details.history"), " is-bottom");
-    const dates = releases[p.id] || [];
-    // the server keeps the last RELEASES_CAP releases: a busy plugin had more, and its strip starts at the oldest kept one
     const capped = dates.length >= RELEASES_CAP;
     if (dates.length) history.head.createSpan({ cls: "pdt-detail-head-note", text: t(capped ? "details.historyCapped" : "details.historyLabel", { n: dates.length }) });
-    this.renderHistory(history.box.createDiv({ cls: "pdt-detail-card" }), dates, now);
+    this.renderHistory(history.box.createDiv({ cls: "pdt-detail-card" }), dates, now, cadence);
 
     this.renderNav(footer);
   }
@@ -333,6 +361,7 @@ class DetailModal extends Modal {
       item.createSpan({ cls: "pdt-detail-near-close", text: t(closeness(x.rank)) });
       setTooltip(item, x.p.description || x.p.name);
       item.onclick = () => {   // look at it here; ← comes back
+        if (this.busy) return;
         this.rows.splice(this.index + 1, 0, x.p);
         this.step(1);
       };
@@ -384,7 +413,7 @@ class DetailModal extends Modal {
   }
 
   /**
-   * Name, version and author on one line; on the right 🔔 (track), ★ (1–5 on hover) and ⋯ (the row's menu), "Open in Obsidian",
+   * Name, version and author on one line; on the right 🔖 (library), ★ (1–5 on hover) and ⋯ (the row's menu), "Open in Obsidian",
    * ⤢ and ✕. Your groups and rating under the name, when there are any.
    */
   renderHead(p, note) {
@@ -409,7 +438,7 @@ class DetailModal extends Modal {
       const tags = left.createDiv({ cls: "pdt-detail-tags" });
       for (const g of note.groups) tags.createSpan({ cls: `pdt-pill is-group pdt-hue-${groupHue(g)}`, text: g });
       if (note.rating) tags.createSpan({ cls: "pdt-detail-stars", text: ratingStars(note.rating) });
-      tags.createSpan({ cls: "pdt-detail-muted", text: t("details.tracked") });
+      tags.createSpan({ cls: "pdt-detail-muted", text: t("details.inLibrary") });
     }
     const actions = title.createDiv({ cls: "pdt-detail-head-actions" });
     const rows = this.view.rowRenderer;
@@ -418,7 +447,7 @@ class DetailModal extends Modal {
       button.onclick = () => this.act(fn);
       return button;
     };
-    rows.renderTrack(act, p, note);
+    rows.renderLibraryButton(act, p, note);
     rows.renderRating(actions, p, note, (fn) => this.act(fn));
     iconButton(actions, "more-horizontal", t("row.menu"), "pdt-row-menu").onclick = (event) => rows.showRowMenu(p, event, this.effects());
     const open = actions.createEl("a", { cls: "pdt-detail-open", text: t("details.openInObsidian"), href: `obsidian://show-plugin?id=${encodeURIComponent(p.id)}` });
@@ -434,8 +463,10 @@ class DetailModal extends Modal {
     const settings = this.plugin.data.settings;
     const button = parent.createEl("button", { cls: "clickable-icon pdt-detail-size", attr: { type: "button" } });
     const show = () => {
+      const tip = t(settings.detailFull ? "details.restore" : "details.maximize");
       setIcon(button, settings.detailFull ? "minimize-2" : "maximize-2");
-      button.setAttribute("aria-label", t(settings.detailFull ? "details.restore" : "details.maximize"));
+      button.setAttribute("aria-label", tip);
+      setTooltip(button, tip);
     };
     show();
     button.addEventListener("click", async () => {
@@ -449,8 +480,8 @@ class DetailModal extends Modal {
   }
 
   /** Four equal tiles: label, value, and what the value means. */
-  renderStats(stats, p, now) {
-    const { firstSeen, releases, from } = this.plugin.timeline;
+  renderStats(stats, p, now, cadence) {
+    const { firstSeen, from } = this.plugin.timeline;
     const stat = (label, value, sub) => {
       const box = stats.createDiv({ cls: "pdt-detail-stat" });
       box.createDiv({ cls: "pdt-detail-label", text: label });
@@ -458,12 +489,9 @@ class DetailModal extends Modal {
       box.createDiv({ cls: "pdt-detail-sub", text: sub || " " });
     };
     const seen = firstSeen[p.id];
-    const dates = releases[p.id] || [];
-    const cadence = releaseCadence(dates, now);
     const gained = gainOver(this.plugin.timeline, p.id, 30);
     stat(t("details.downloads"), p.downloads == null ? "–" : formatCount(p.downloads), gained != null ? t("details.growth30", { n: formatShort(gained) }) : t("details.downloadsSub"));
     stat(t("details.lastRelease"), p.updated ? relativeDays(p.updated, now) : "–", p.version);
-    // age counts from the day it was listed; 0: it was there before the history starts
     const before = t("details.ageBeforeYears", { n: Math.max(1, Math.floor((now - from) / (YEAR_DAYS * DAY_MS))) });
     stat(t("details.age"), seen > 0 ? ageLabel(seen, now) : seen === 0 ? before : "–", seen > 0 ? t("details.listedOn", { date: dayString(seen) }) : t("details.listed"));
     stat(t("details.cadence"), cadence ? cadenceLabel(cadence) : t("details.noData"), cadence ? cadenceSub(cadence) : t("details.noDataSub"));
@@ -505,7 +533,7 @@ class DetailModal extends Modal {
     if (note) tabs.createEl("a", { cls: "pdt-detail-note-link", text: t("details.openNote"), href: "#" }).onclick = (event) => {
       event.preventDefault();
       this.close();
-      plugin.openReadme(p);
+      plugin.readmes.openReadme(p);
     };
     const showLanguage = plugin.data.settings.readmeTranslation !== "off" ? this.renderLanguage(tabs, p) : () => {};
     const body = box.createDiv({ cls: "pdt-detail-readme-body" });
@@ -552,28 +580,29 @@ class DetailModal extends Modal {
    */
   renderOverview(body, p, info, showLanguage) {
     const plugin = this.plugin;
+    const seq = this.renderSeq;
     const profile = plugin.profiles?.plugins?.[p.id];
     const translated = this.inYourLanguage(p, Boolean(plugin.profileTranslation(p.id)));
     const saved = translated ? plugin.profileTranslation(p.id) : null;
     showLanguage(translated);
     body.addClass("pdt-overview");
-    const working = this.isWorking(p, "overview");   // being translated: the original stays, shown as being read
+    const working = this.isWorking(p, "overview");
     if (translated && !saved && !working) {
       this.renderUntranslated(body, t("details.overviewNotTranslated", { lang: plugin.data.settings.targetLang }), t("details.translateOverview"), () => this.translateOverview(p));
-      if (!this.busy) plugin.profileFile(p.id).then((file) => {   // what it would take, once the texts are in
-        if (this.p === p && !this.closed && !this.busy) this.renderEstimate(body, this.plugin.estimate("overview", { text: profileTexts(profileParts(profile, file)).join("\n") }));
+      if (!this.busy) plugin.sync.profileFile(p.id).then((file) => {
+        if (this.renderSeq === seq && this.p === p && !this.closed && !this.busy) this.renderEstimate(body, this.plugin.estimate("overview", { text: profileTexts(profileParts(profile, file)).join("\n") }));
       });
       return;
     }
     const shown = body.createDiv({ cls: "pdt-overview-parts" });
-    const fill = (parts) => {   // the parts, shown as being read while they're translated
+    const fill = (parts) => {
       this.renderParts(shown, parts, Boolean(saved));
       if (working) this.showReading(shown, 1);
     };
     fill(saved?.parts || profileParts(profile, null));
-    this.renderCategories(body, profile);   // under the parts: they keep their place while the file comes in
-    plugin.profileFile(p.id).then((file) => {
-      if (this.p !== p || this.closed || this.tab !== "overview") return;
+    this.renderCategories(body, profile);
+    plugin.sync.profileFile(p.id).then((file) => {
+      if (this.renderSeq !== seq || this.p !== p || this.closed || this.tab !== "overview") return;
       const parts = profileParts(profile, file);
       this.renderOverviewInfo(info, file, saved);
       if (!saved) {
@@ -634,32 +663,39 @@ class DetailModal extends Modal {
     if (first) body.prepend(row);   // a bar added after the text: still on top
   }
 
-  /** Bottom left on Overview: which model wrote the profile, and what its translation took (as the provider reported it). */
+  /** Appends translation usage info (shared by Overview and README footers). */
+  renderTranslationUsage(info, record) {
+    if (!record?.model) return;
+    const took = [record.model, t("details.tokensUsed", { n: formatShort(record.tokens || 0) })];
+    if (typeof record.cost === "number") took.push(formatCost(record.cost));
+    if (record.from) took.unshift(t("details.translatedFrom", { name: record.from }));
+    setTooltip(info.createSpan({ text: t("details.infoTranslation", { took: took.join(" · ") }) }), t("details.infoTranslationTip", { date: record.date || "–" }));
+  }
+
+  /** Bottom left on Overview: which model wrote the profile, and what its translation took. */
   renderOverviewInfo(info, file, saved) {
     info.empty();
-    const model = String(file?.model || "").replace(/@v\d+$/, "");   // "<model>@v<prompt>": the prompt version is ours
+    const model = String(file?.model || "").replace(/@v\d+$/, "");
     if (model) setTooltip(info.createSpan({ text: t("details.infoProfile", { model: model.split("/").pop() }) }), file.model);
-    if (!saved?.model) return;
-    const took = [saved.model, t("details.tokensUsed", { n: formatShort(saved.tokens || 0) })];
-    if (typeof saved.cost === "number") took.push(formatCost(saved.cost));
-    setTooltip(info.createSpan({ text: t("details.infoTranslation", { took: took.join(" · ") }) }), t("details.infoTranslationTip", { date: saved.date || "–" }));
+    this.renderTranslationUsage(info, saved);
   }
 
   /** The Overview's Translate button: the original stays on screen, shown as being read, until the translation comes. */
   async translateOverview(p) {
+    if (this.busy) return;
     this.busy = t("details.translating");
     this.working = { id: p.id, desc: false, overview: true };
     this.render();
-    await this.plugin.translateProfile(p);
-    this.busy = "";
-    this.working = null;
-    this.render();
+    try {
+      await this.plugin.translateProfile(p);
+    } finally {
+      this.busy = "";
+      this.working = null;
+    }
+    if (!this.closed) this.render();
   }
 
-  /**
-   * Bottom left: where the README comes from (your note or the cache), its version and when it was fetched; then
-   * what its translation took, as the provider reported it: model, tokens and the cost (when it tells it).
-   */
+  /** Bottom left on README: where it comes from and what its translation took. */
   renderInfo(info, { source, original, translation }) {
     info.empty();
     if (original) {
@@ -669,71 +705,60 @@ class DetailModal extends Modal {
         date: original.date || "–",
       }) });
     }
-    if (!translation?.model) return;   // made before 0.12: nothing was recorded
-    const took = [translation.model, t("details.tokensUsed", { n: formatShort(translation.tokens || 0) })];
-    if (typeof translation.cost === "number") took.push(formatCost(translation.cost));
-    if (translation.from) took.unshift(t("details.translatedFrom", { name: translation.from }));   // its English version
-    const item = info.createSpan({ text: t("details.infoTranslation", { took: took.join(" · ") }) });
-    setTooltip(item, t("details.infoTranslationTip", { date: translation.date || "–" }));
+    this.renderTranslationUsage(info, translation);
   }
 
-  /**
-   * The release history as a strip of the pauses between update waves, colored by length (under a month, 1–6 months,
-   * 6–12 months, over a year), the last one striped while it lasts. Widths grow with the log of the pause, so a
-   * 4-year silence is wider than a 1-year one without squeezing the busy months into a point.
-   */
-  renderHistory(box, dates, now) {
+  renderHistory(box, dates, now, cadence) {
     if (!dates.length) {
       box.createEl("p", { cls: "pdt-detail-muted", text: t("details.noHistory") });
       return;
     }
     const gaps = releaseGaps(dates, now);
-    const weight = (g) => Math.log1p(g.days) || 0.1;   // an update today still gets a sliver
+    const weight = (g) => Math.log1p(g.days) || 0.1;
     const total = gaps.reduce((sum, g) => sum + weight(g), 0);
     const strip = box.createDiv({ cls: "pdt-gaps", attr: { role: "img", "aria-label": t("details.historyLabel", { n: dates.length }) } });
     for (const g of gaps) {
-      const tone = g.days < 30 ? "short" : g.days < YEAR_DAYS / 2 ? "mid" : g.days < YEAR_DAYS ? "long" : "gap";   // under a month, 1–6 months, 6–12, a year+
+      const tone = g.days < 30 ? "short" : g.days < YEAR_DAYS / 2 ? "mid" : g.days < YEAR_DAYS ? "long" : "gap";
       const cell = strip.createSpan({ cls: `pdt-gap is-${tone}${g.open ? " is-open" : ""}` });
       cell.setCssProps({ "--pdt-w": String(weight(g) / total) });
       if (g.days >= 30 && weight(g) / total >= 0.09) cell.setText(spanLabel(g.days));
       const span = spanLabel(g.days);
-      const dates = g.releases > 1 ? `${dayString(g.from)} – ${dayString(g.last)}` : dayString(g.from);
+      const range = g.releases > 1 ? `${dayString(g.from)} – ${dayString(g.last)}` : dayString(g.from);
       const after = g.open ? t("details.gapOpen", { span }) : t("details.gapNext", { span, date: dayString(g.to) });
-      setTooltip(cell, `${t("details.gapWave", { date: dates, n: g.releases })}\n${after}`, { delay: 100 });
+      setTooltip(cell, `${t("details.gapWave", { date: range, n: g.releases })}\n${after}`, { delay: 100 });
     }
     const ends = box.createDiv({ cls: "pdt-history-ends" });
     ends.createSpan({ text: dates.length >= RELEASES_CAP ? t("details.historySince", { date: dayString(dates[0]) }) : dayString(dates[0]) });
     ends.createSpan({ text: t("details.today") });
-    const cadence = releaseCadence(dates, now);
     if (cadence) box.createDiv({ cls: "pdt-history-note", text: cadenceNote(cadence, dates.at(-1), now) });
   }
 
-  /**
-   * The README tab. The original shows right away: from your note or the cache, fetched the first time. In your
-   * language: the translation, made on request, with a bar when the README's text changed since (an unchanged README
-   * of a newer release doesn't count).
-   */
   async renderReadme(body, p, note, info, showLanguage) {
     const plugin = this.plugin;
-    const parts = await plugin.readmeParts(p);
-    if (this.p !== p || this.closed) return;   // moved on while reading
+    const seq = this.renderSeq;
+    const parts = await plugin.readmes.parts(p);
+    if (this.renderSeq !== seq || this.p !== p || this.closed || this.tab !== "readme") return;
     const { original, translation } = parts;
-    this.readmeKept = translation ? p.id : null;   // ⋯ › Translate again… on this tab
+    this.readmeKept = translation ? p.id : null;
     const translated = this.inYourLanguage(p, Boolean(translation));
     showLanguage(translated);
     const outdated = Boolean(original && translation?.hash && translation.hash !== original.hash);
     this.renderInfo(info, parts);
     const render = (markdown) => {
+      // unload previous README's MarkdownRenderChild tree so children never accumulate across renders
+      this.readmeComponent?.unload();
+      this.readmeComponent = new obsidian.Component();
+      this.readmeComponent.load();
       body.addClass("markdown-rendered");
-      obsidian.MarkdownRenderer.render(this.app, markdown, body, note?.path || "", this.component);
+      obsidian.MarkdownRenderer.render(this.app, markdown, body, note?.path || "", this.readmeComponent);
     };
     if (!translated) {
       if (original) {
         const newer = this.checkNewer(p, original);
         if (newer) this.staleBar(body, t("details.readmeChanged", { version: p.version }), t("details.readmeUpdate"), async () => {
-          await plugin.keepReadme(p, newer);
+          await plugin.readmes.keep(p, newer);
           this.newer.set(p.id, null);
-          this.render();
+          if (!this.closed) this.render();
         });
         return render(original.text);
       }
@@ -743,32 +768,31 @@ class DetailModal extends Modal {
       this.loadReadme(p);
       return;
     }
-    const estimate = plugin.estimate("readme", { text: plugin.translationSource(original?.text || "").text });
-    const price = estimate.cost != null ? ` (${t("details.cost", { cost: formatCost(estimate.cost) })})` : "";
+    const estimate = original ? plugin.estimate("readme", { text: plugin.readmes.translationSource(original.text).text }) : null;
+    const costLabel = estimate ? estimateCost(estimate) : null;
+    const price = costLabel ? ` (${costLabel})` : "";
     if (translation && !this.busy) {
       if (outdated) this.staleBar(body, t("details.outdatedNote"), `${t("details.translateAgain")}${price}`, () => this.translate(p));
       return render(translation.body);
     }
     this.renderUntranslated(body, t("details.notTranslated", { lang: plugin.data.settings.targetLang }), t("details.translate"), () => this.translate(p));
     if (this.busy) return;
-    if (original) return this.renderEstimate(body, plugin.estimate("readme", { text: plugin.translationSource(original.text).text }));
-    if (p.repo && this.loads.get(p.id) !== "done") {   // not downloaded yet: fetch it for the estimate (it redraws)
+    if (estimate) return this.renderEstimate(body, estimate);
+    if (p.repo && this.loads.get(p.id) !== "done") {
       body.createEl("p", { cls: "pdt-detail-muted", text: t("details.loadingReadme") });
       this.loadReadme(p);
     }
   }
 
-  /** Under a Translate button: what the translation would take — characters · tokens · cost (with a price set) · model. */
   renderEstimate(body, estimate) {
     body.createEl("p", { cls: "pdt-detail-muted", text: estimateLine(estimate, this.plugin.data.settings) });
   }
 
-  /** A README not seen before: fetched in the background (into your note, else the cache), then shown. Once per window. */
   async loadReadme(p) {
     if (this.loads.has(p.id)) return;
     this.loads.set(p.id, "busy");
     try {
-      await this.plugin.fetchReadme(p);
+      await this.plugin.readmes.fetch(p);
     } catch (error) {
       console.warn("[Community Radar] couldn't fetch the README", error);
     }
@@ -776,15 +800,11 @@ class DetailModal extends Modal {
     if (this.p === p && !this.closed) this.render();
   }
 
-  /**
-   * The README now on GitHub when the kept one is from an older release and its text changed; null otherwise.
-   * GitHub is asked once per window, in the background; the answer redraws the window when there's something new.
-   */
   checkNewer(p, original) {
     if (this.newer.has(p.id)) return this.newer.get(p.id);
     if (!p.version || original.version === p.version) return null;
     this.newer.set(p.id, null);
-    this.plugin.newerReadme(p, original).then((readme) => {
+    this.plugin.readmes.newer(p, original).then((readme) => {
       if (!readme) return;
       this.newer.set(p.id, readme);
       if (this.p === p && !this.closed) this.render();
@@ -793,11 +813,15 @@ class DetailModal extends Modal {
   }
 
   async translate(p) {
+    if (this.busy) return;
     this.busy = t("details.translating");
     this.render();
-    await this.plugin.translateReadme(p, (text) => { this.busy = text; if (this.p === p) this.render(); });
-    this.busy = "";
-    this.render();
+    try {
+      await this.plugin.readmes.translate(p, (text) => { this.busy = text; if (!this.closed && this.p === p) this.render(); });
+    } finally {
+      this.busy = "";
+    }
+    if (!this.closed) this.render();
   }
 }
 

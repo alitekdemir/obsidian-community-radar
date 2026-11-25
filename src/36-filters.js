@@ -1,29 +1,29 @@
 // ─── FilterBar ─────────────────────────────────────────────────────
 /**
- * The bar above the list: Filter ▾ and its panel, quick-filter chips, Sort, the Tracked tab's menus, layout and
+ * The bar above the list: Filter ▾ and its panel, quick-filter chips, Sort, the Library page's menus, layout and
  * key help. Works on the view's state (see ViewPart).
  */
 class FilterBar extends ViewPart {
   /**
-   * Tracked tab, in Basic: one Group menu (All, New releases, Starred, Ungrouped, then your groups) and Status; in the
-   * query box they read as clauses (trackedClauses). Sections come from the page query's `group by group`.
+   * Library page, in Basic: one Group menu (All, New releases, Starred, Ungrouped, then your groups) and Status; in the
+   * query box they read as clauses (libraryClauses). Sections come from the page query's `group by group`.
    * In Query mode the box says it all: no menus.
    */
-  renderTrackedBar(bar) {
+  renderLibraryBar(bar) {
     const settings = this.settings;
     const notes = [...this.plugin.notes.index.values()];
     const state = this.plugin.state();
     const options = [
-      ["", t("tracked.allCount", { n: notes.length })],
-      [UPDATES, t("tracked.updates", { n: this.plugin.updatesCount(state, Date.now()) })],
-      [TOP_RATED, t("tracked.topCount", { n: notes.filter((n) => n.rating >= TOP_RATING).length })],
-      [UNGROUPED, t("tracked.ungroupedCount", { n: notes.filter((n) => !n.groups.length).length })],
+      ["", t("library.allCount", { n: notes.length })],
+      [UPDATES, t("library.updates", { n: this.plugin.updatesCount(state, Date.now()) })],
+      [TOP_RATED, t("library.topCount", { n: notes.filter((n) => n.rating >= TOP_RATING).length })],
+      [UNGROUPED, t("library.ungroupedCount", { n: notes.filter((n) => !n.groups.length).length })],
       ...this.plugin.notes.groups().map((g) => [g.name, `${g.name}  ${formatCount(g.count)}`]),
     ];
-    menuChip(bar, t("tracked.group"), options, settings.trackedGroup, (value) => this.view.update("trackedGroup", value));
+    menuChip(bar, t("library.group"), options, settings.libraryGroup, (value) => this.view.update("libraryGroup", value));
     if (settings.statusEnabled) {
-      menuChip(bar, t("tracked.status"), [["", t("tracked.anyStatus")], ...settings.statuses.map((st) => [st.key, st.label])],
-        settings.trackedStatus, (value) => this.view.update("trackedStatus", value));
+      menuChip(bar, t("library.status"), [["", t("library.anyStatus")], ...settings.statuses.map((st) => [st.key, st.label])],
+        settings.libraryStatus, (value) => this.view.update("libraryStatus", value));
     }
   }
 
@@ -56,7 +56,7 @@ class FilterBar extends ViewPart {
     this.renderFilterButton(bar, mode, opts);   // always first, never moves
     if (this.view.preset?.onlyNew) this.view.renderOnlyNew(bar);   // a widget's "N new": only those (✕ shows all)
     if (this.view.similar) this.view.similarFilter.renderChip(bar);   // the same bar as All, plus the Similar chip
-    if (mode === "tracked" && !this.view.inQuery) this.renderTrackedBar(bar);
+    if (mode === "library" && !this.view.inQuery) this.renderLibraryBar(bar);
 
     this.view.refs.sort = bar.createDiv({ cls: "pdt-sort" });
     const similar = this.view.similar;
@@ -99,7 +99,9 @@ class FilterBar extends ViewPart {
     }
     if (this.settings.keyboard) renderKeyHelp(bar, KEY_HELP);
     // quick filters (Jira style): the changed and added ones as chips on a row of their own, under the bar
-    if (this.quickFilters && !this.view.inQuery) this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
+    if (this.quickFilters && !this.view.inQuery && changedFilterKeys(this.filterState(), mode).length) {
+      this.renderFilterChips(bar.parentElement.createDiv({ cls: "pdt-quick" }), mode, opts, false);
+    }
     bar.toggleClass("is-query", this.view.inQuery);   // Filter and Sort step back: the query decides
     this.updateFilterHead();
   }
@@ -140,7 +142,9 @@ class FilterBar extends ViewPart {
     if (!this.view.filtersOpen) return;
 
     const panel = wrap.createDiv({ cls: "pdt-filter-panel", attr: { role: "dialog", "aria-label": t("filter.more") } });
-    panel.addEventListener("keydown", (event) => { if (event.key === "Escape") { this.view.filtersOpen = false; this.view.render(); } });
+    panel.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") { event.stopPropagation(); this.view.closeFiltersPanel(); }
+    });
     this.renderFilterChips(panel, mode, opts, true);
     const addable = this.view.inQuery ? [] : addableFilters(this.settings, mode);
     if (this.view.inQuery) panel.createDiv({ cls: "pdt-filter-note", text: t("filter.queryNote") });
@@ -194,12 +198,12 @@ class FilterBar extends ViewPart {
     }
     const extras = Object.entries(opts.extras).filter(([key]) => EXTRA_FILTERS[key]);
     if (all && extras.length) parent.createDiv({ cls: "pdt-filter-group", text: t("filter.addedTitle") });
-    for (const [key, value] of extras) this.renderExtraChip(parent, key, value);
+    for (const [key, value] of extras) this.renderExtraChip(parent, key, value, all);
     if (!all && changed.size) parent.createEl("button", { cls: "pdt-filter-clear", text: t("filter.resetAll"), attr: { type: "button" } }).onclick = () => this.clearFilters();
   }
 
   /** A filter added with "+ Filter": its icon, name and value (typed, or a preset), ✕ removes it. */
-  renderExtraChip(panel, key, value) {
+  renderExtraChip(panel, key, value, focusEmpty = false) {
     const filter = EXTRA_FILTERS[key];
     const label = t(`filter.x.${key}`);
     const set = (v) => this.setExtra(key, v);
@@ -220,7 +224,7 @@ class FilterBar extends ViewPart {
     setIcon(icon, filter.icon);
     chip.prepend(icon);
     smallButton(chip, "x", t("filter.remove"), () => this.setExtra(key, undefined), "pdt-chip-act");
-    if (filter.kind === "text" && !value) chip.querySelector("input")?.focus();
+    if (focusEmpty && filter.kind === "text" && !value) chip.querySelector("input")?.focus();
   }
 
   /** Adds, changes (a value) or removes (undefined) a filter added with "+ Filter" on this tab. */

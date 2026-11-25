@@ -4,14 +4,14 @@
 
 ## Derleme
 
-Eklenti `src/*.js` dosyalarından oluşur, dosya adı sırasıyla birleştirilir; `npm run build` ayrıca `locales/*.json` dosyalarını Obsidian'ın yüklediği `main.js` içine gömer. Çalışma zamanı bağımlılığı yoktur. Testler Node'da, Obsidian API'sinin küçük bir taklidiyle çevrimdışı çalışır:
+Eklenti `src/*.js` dosyalarından oluşur, dosya adı sırasıyla birleştirilir; `npm run build` ayrıca `locales/en.json` dosyasını (yedek kaynak olarak) ve dil listesini `main.js` içine gömer, diğer `locales/*.json` dosyaları ise seçildiğinde GitHub'dan indirilip yerel olarak önbelleklenir. Çalışma zamanı bağımlılığı yoktur. Testler Node'da, Obsidian API'sinin küçük bir taklidiyle çevrimdışı çalışır:
 
 ```sh
 npm install
 npm test        # önce main.js'i derler
 ```
 
-Bir değişikliği bir kasada denemek için `npm run build` çalıştırın, `main.js`, `manifest.json` ve `styles.css` dosyalarını `<kasa>/.obsidian/plugins/plugin-radar/` içine kopyalayın ve eklentiyi yeniden yükleyin.
+Bir değişikliği bir kasada denemek için `npm run build:dev` çalıştırın (tüm `locales/*.json` dosyalarını gömer; çeviri değişiklikleriniz push etmeden görünür), `main.js`, `manifest.json` ve `styles.css` dosyalarını `<kasa>/.obsidian/plugins/plugin-radar/` içine kopyalayın ve eklentiyi yeniden yükleyin.
 
 ## Sürümler arasında
 
@@ -58,7 +58,7 @@ Obsidian'ın kendi kelimeleri onun [resmî çevirilerinden](https://github.com/o
 | keychain | anahtar deposu | Schlüsselbund | связка ключей | キーチェーン | 钥匙串 |
 | command palette | komut paleti | Befehlspalette | палитра команд | コマンドパレット | 命令面板 |
 | release | sürüm | Version | релиз | リリース | 版本 / 发布 |
-| track, tracked | takip et, takip | verfolgen, Verfolgt | отслеживать, Отслеживаемые | 追跡, 追跡中 | 跟踪, 已跟踪 |
+| library, add to / remove from library | kitaplık, kitaplığa ekle / kitaplıktan çıkar | Bibliothek, zur Bibliothek hinzufügen / aus der Bibliothek entfernen | библиотека, в библиотеку / убрать из библиотеки | ライブラリ, ライブラリに追加 / 削除 | 插件库, 加入 / 移出插件库 |
 | incubation, hatched | kuluçka, kuluçkadan çıkış | Inkubation, aus der Inkubation | инкубация, выход из инкубации | 休眠期間, 休眠明け | 休眠期, 复苏 |
 | query, view | sorgu, görünüm | Abfrage, Ansicht | запрос, вид | クエリ, ビュー | 查询, 视图 |
 | AI | yapay zekâ | KI | ИИ | AI | AI |

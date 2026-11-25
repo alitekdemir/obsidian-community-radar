@@ -35,6 +35,7 @@ Community Radar yalnızca şu istekleri yapar:
 | `raw.githubusercontent.com` | Eşitleme, README güncellemeleri | Herkese açık eklenti listesi ve istatistikleri, eklenti README'leri |
 | `api.github.com` | Yalnızca README alışılmış bir yolda değilse | README. Kimlik doğrulaması gerektirmez, saatte 60 istek |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/metrics/` | Eşitleme, daha yeni bir derleme çıktığında | Sürüm geçmişi ve indirme metrikleri (~600 KB) |
+| `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/<sürüm>/locales/` (o sürümde eksiksiz dosya yoksa `HEAD`) | Yalnızca İngilizce dışında bir arayüz dili için: ilk kullanımda bir kez, sonra eklenti güncellendiğinde | O dilin arayüz metinleri (~60–90 KB); İngilizce eklentinin içinde gelir |
 | `raw.githubusercontent.com/alitekdemir/obsidian-community-radar/profiles/` | Eşitleme, günde en fazla bir kez ve yalnızca değiştiyse; ayrıntılar penceresi | AI profillerinin dizini (~5,6 MB), benzerlik listeleri (~2,8 MB, sıkıştırılmış ~1,2 MB gelir), tek eklentinin profili (~2 KB) |
 | Yapay zekâ sağlayıcınız (`api.anthropic.com`, `api.openai.com`, `generativelanguage.googleapis.com` ya da `openrouter.ai`) | **Yalnızca** bir sağlayıcı ayarlıyken çeviri yaptığınızda ya da grup önerisi istediğinizde | Eklenti adları ve açıklamaları, gruplarınızın adları ve çevirmesini istediğiniz README ya da Genel bakış |
 
@@ -44,7 +45,7 @@ Telemetri yok, hesap yok, kasanız hakkında hiçbir şey hiçbir yere gönderil
 
 | Veri | Nerede |
 |---|---|
-| Gruplarınız, puanlarınız, durumlarınız, notlarınız, inceleme tarihleri | Takip notlarınız |
+| Gruplarınız, puanlarınız, durumlarınız, notlarınız, inceleme tarihleri | Kitaplık notlarınız |
 | Ayarlar, sayfa sorguları, kayıtlı görünümler, dışlanan eklentiler, son işlemler | `.obsidian/plugins/plugin-radar/data.json` |
 | Kısa açıklama ve Genel bakış çevirileri | `.obsidian/plugins/plugin-radar/translations.jsonl` |
-| Katalog, sürüm geçmişi, benzerlik listeleri ve AI profilleri (önbellek, gerektiğinde yeniden oluşturulur) | `.obsidian/plugins/plugin-radar/cache/` |
+| Katalog, sürüm geçmişi, benzerlik listeleri, AI profilleri ve arayüz dilinizin metinleri (önbellek, gerektiğinde yeniden oluşturulur) | `.obsidian/plugins/plugin-radar/cache/` |

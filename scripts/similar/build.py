@@ -20,7 +20,8 @@ Usage:
                 yet: it scores 0 on the description and is left out of the description's min–max
 
 Output, similar.json: {"built", "top", "ids": [...], "lists": [[index into ids, ...], ...]}
-Writes `changed=true|false` to $GITHUB_OUTPUT when the lists differ from the file already there.
+        similar.stamp.json: {"vectors"}, the vectors build it was scored on (--skip-if-current reads it)
+Writes `changed=true|false` to $GITHUB_OUTPUT: true when the lists or the stamp differ from the files already there.
 """
 
 import argparse
@@ -29,15 +30,17 @@ import math
 import os
 import re
 import sys
-import urllib.request
 from datetime import UTC, datetime
 from pathlib import Path
 
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-LISTING_URL = "https://raw.githubusercontent.com/obsidianmd/obsidian-releases/HEAD/community-plugins.json"
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common import LISTING_URL, fetch_json
+
 VECTORS = "granite-311m"
+STAMP = "similar.stamp.json"   # the vectors build the lists were scored on: a sidecar, so similar.json's ETag moves only with the lists
 WEIGHTS = {"desc": 2, "name": 1, "overview": 3, "cat": 1, "tag": 1}
 STRETCHED = {"desc", "name", "overview"}   # cosines bunch up per plugin; category and tags are 0–1 already
 TOP = 50            # list length per plugin
@@ -50,8 +53,7 @@ NAME_NOISE = {"obsidian", "plugin", "for", "the", "and"}
 # ── Inputs ──────────────────────────────────────────────────────────────────
 def load_catalog(profiles_dir):
     """Listed, not delisted plugins with a profile: (ids, listing by id, index entry by id)."""
-    with urllib.request.urlopen(LISTING_URL, timeout=60) as response:
-        listing = {p["id"]: p for p in json.load(response)}
+    listing = {p["id"]: p for p in fetch_json(LISTING_URL)}
     index = json.loads((profiles_dir / "index.json").read_text(encoding="utf-8"))["plugins"]
     ids = sorted(k for k, p in index.items() if k in listing and not p.get("delisted"))
     return ids, listing, index
@@ -204,12 +206,37 @@ def write_output(changed):
             out.write(f"changed={'true' if changed else 'false'}\n")
 
 
+def vectors_built(vectors_dir: Path) -> str:
+    """The description vectors' build stamp ("" when missing)."""
+    meta = vectors_dir / f"{VECTORS}.json"
+    return json.loads(meta.read_text(encoding="utf-8")).get("built", "") if meta.exists() else ""
+
+
+def scored_on(profiles_dir: Path) -> str:
+    """The vectors stamp the current similar.json was scored on ("" when unknown)."""
+    stamp = profiles_dir / STAMP
+    return json.loads(stamp.read_text(encoding="utf-8")).get("vectors", "") if stamp.exists() else ""
+
+
+def is_up_to_date(profiles_dir: Path, vectors_dir: Path) -> bool:
+    """True when similar.json exists and was scored on the current description vectors."""
+    current = vectors_built(vectors_dir)
+    return bool(current) and (profiles_dir / "similar.json").exists() and scored_on(profiles_dir) == current
+
+
 def main():
     args = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     args.add_argument("--profiles", type=Path, required=True)
     args.add_argument("--vectors", type=Path, required=True)
     args.add_argument("--gold", type=Path, default=Path(__file__).with_name("gold.json"))
+    args.add_argument("--skip-if-current", action="store_true",
+                      help="skip scoring when profiles did not change and similar.json was scored on these vectors")
     opts = args.parse_args()
+
+    if opts.skip_if_current and is_up_to_date(opts.profiles, opts.vectors):
+        print("similar.json already up to date with profiles and vectors; skipped")
+        write_output(False)
+        return
 
     ids, listing, index = load_catalog(opts.profiles)
     signals = Signals(ids, listing, index, opts.profiles, load_vectors(opts.vectors, ids))
@@ -223,14 +250,17 @@ def main():
 
     path = opts.profiles / "similar.json"
     old = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-    changed = old.get("ids") != ids or old.get("lists") != lists
-    if changed:
+    lists_changed = old.get("ids") != ids or old.get("lists") != lists
+    if lists_changed:
         built = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
         path.write_text(json.dumps({"built": built, "top": TOP, "ids": ids, "lists": lists}, separators=(",", ":")),
                         encoding="utf-8")
-    print(f"similar.json {'written' if changed else 'unchanged'}")
-    write_output(changed)
-
+    vectors = vectors_built(opts.vectors)
+    stamp_changed = scored_on(opts.profiles) != vectors
+    if stamp_changed:   # publishes the stamp too (at most once per vectors build), so later runs can skip
+        (opts.profiles / STAMP).write_text(json.dumps({"vectors": vectors}), encoding="utf-8")
+    print(f"similar.json {'written' if lists_changed else 'unchanged'} · stamp {'updated' if stamp_changed else 'current'}")
+    write_output(lists_changed or stamp_changed)
 
 if __name__ == "__main__":
     main()

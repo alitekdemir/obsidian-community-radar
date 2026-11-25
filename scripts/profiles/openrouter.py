@@ -113,6 +113,24 @@ def free_requests_left(key: str) -> dict | None:
     return request(key, "key").get("data", {}).get("free_model_daily_requests")
 
 
+def extract_json_object(content: str) -> dict:
+    """Extracts the first valid JSON object from a model reply, tolerating code fences and trailing prose."""
+    fenced = re.search(r"```(?:json)?\s*\r?\n(.*?)\r?\n```", content, re.I | re.S)
+    candidates = [fenced.group(1), content] if fenced else [content]
+    decoder = json.JSONDecoder()
+    for source in candidates:
+        pos = source.find("{")
+        while pos != -1:
+            try:
+                obj, _ = decoder.raw_decode(source, pos)
+                if isinstance(obj, dict):
+                    return obj
+            except json.JSONDecodeError:
+                pass
+            pos = source.find("{", pos + 1)
+    raise ValueError("no valid JSON object in the answer")
+
+
 def ask_json(key: str, models: list[str], system: str, user: str) -> tuple[dict, dict]:
     """One JSON answer from the first model that gives one; returns (answer, call info for the log)."""
     body = {"models": models,  # OpenRouter moves on to the next model on errors or limits
@@ -121,10 +139,11 @@ def ask_json(key: str, models: list[str], system: str, user: str) -> tuple[dict,
     started = time.time()
     data = within(CALL_DEADLINE, chat, key, body)
     content = data["choices"][0]["message"].get("content") or ""
-    match = re.search(r"\{.*\}", content, re.S)  # tolerate ```json fences and leading prose
-    if not match:
-        raise ValueError(f"no JSON in the answer (finish_reason={data['choices'][0].get('finish_reason')})")
+    try:
+        parsed = extract_json_object(content)
+    except ValueError as err:
+        raise ValueError(f"{err} (finish_reason={data['choices'][0].get('finish_reason')})") from None
     usage = data.get("usage", {})
     info = {"model": data.get("model"), "provider": data.get("provider"), "cost": usage.get("cost") or 0,
             "seconds": round(time.time() - started, 1)}
-    return json.loads(match.group(0)), info
+    return parsed, info

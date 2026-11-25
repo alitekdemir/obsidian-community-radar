@@ -1,370 +1,10 @@
-// ─── 4. UI ──────────────────────────────────────────────────────────────────
-
-/** Obsidian's own tooltip (1.4.4+); falls back to the browser tooltip. */
-const setTooltip = obsidian.setTooltip || ((el, text) => el.setAttribute("title", text));
-
-function onActivate(el, handler) {
-  el.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") { event.preventDefault(); handler(); }
-  });
-}
-
-/**
- * A small round icon button inside a chip, tab or toast (✕ close, ‹ back, ↺ reset). Its click stays with it, so it
- * never also opens what it sits on.
- */
-function smallButton(parent, icon, tip, onClick, cls = "") {
-  const button = parent.createEl("button", { cls: `pdt-similar-step ${cls}`.trim(), attr: { type: "button", "aria-label": tip } });
-  setIcon(button, icon);
-  setTooltip(button, tip);
-  button.onclick = (event) => {
-    event?.stopPropagation?.();
-    onClick();
-  };
-  return button;
-}
-
-/** Obsidian's built-in icon button look (clickable-icon): transparent, highlighted on hover. */
-function iconButton(parent, icon, tip, cls = "") {
-  const button = parent.createDiv({ cls: `clickable-icon pdt-icon ${cls}`.trim(), attr: { "aria-label": tip, role: "button", tabindex: "0" } });
-  setIcon(button, icon);
-  setTooltip(button, tip);
-  onActivate(button, () => button.click());
-  return button;
-}
-
-/** Obsidian's menu of `options` ([value, title]), `current` checked; a pick calls onPick(value). Not shown yet. */
-function menuOf(options, current, onPick) {
-  const menu = new Menu();
-  for (const [value, title] of options) {
-    menu.addItem((item) => item.setTitle(title).setChecked(value === current).onClick(() => onPick(value)));
-  }
-  return menu;
-}
-
-/** menuOf right under `anchor`. */
-function showMenuBelow(anchor, options, current, onPick) {
-  const rect = anchor.getBoundingClientRect();
-  return menuOf(options, current, onPick).showAtPosition({ x: rect.left, y: rect.bottom + 4 });
-}
-
-/** A filter chip whose options open in Obsidian's own menu. */
-function menuChip(parent, label, options, current, onPick) {
-  const chip = parent.createDiv({ cls: "pdt-chip is-menu", attr: { role: "button", tabindex: "0" } });
-  chip.createSpan({ text: label });
-  const selected = options.some(([value]) => value === current) ? current : options[0][0];  // invalid here → first option
-  chip.createSpan({ cls: "pdt-chip-value", text: options.find(([value]) => value === selected)[1] });
-  setIcon(chip.createSpan({ cls: "pdt-chip-caret" }), "chevron-down");
-  const open = () => showMenuBelow(chip, options, selected, onPick);
-  chip.onclick = open;
-  onActivate(chip, open);
-  return chip;
-}
-
-/** A chip with a typed whole number (e.g. "Last [7] days"); the caret opens presets (days unless `format` says) in Obsidian's menu. */
-function numberChip(parent, { label, unit, value, min, max, presets, onChange, format = (n) => t("filter.days", { n }) }) {
-  const chip = parent.createDiv({ cls: "pdt-chip is-number" });
-  chip.createSpan({ text: label });
-  const input = chip.createEl("input", { type: "number", value: String(value), attr: { min: String(min), max: String(max), "aria-label": label } });
-  chip.createSpan({ text: unit });
-  input.onchange = () => {
-    const n = Math.round(Number(input.value));
-    onChange(Number.isFinite(n) && input.value !== "" ? Math.min(max, Math.max(min, n)) : value);
-  };
-  const caret = chip.createSpan({ cls: "pdt-chip-caret is-button", attr: { role: "button", tabindex: "0", "aria-label": t("filter.presets") } });
-  setIcon(caret, "chevron-down");
-  setTooltip(caret, t("filter.presets"));
-  const open = () => showMenuBelow(chip, presets.map((n) => [n, format(n)]), value, onChange);
-  caret.onclick = open;
-  onActivate(caret, open);
-  return chip;
-}
-
-/** An on/off chip: a check mark and the label; a click or Enter flips it. Returns the chip (more can go inside). */
-function switchChip(parent, { label, on, tip, onToggle }) {
-  const chip = parent.createDiv({ cls: `pdt-chip is-toggle${on ? " is-on" : ""}` });
-  const button = chip.createSpan({ cls: "pdt-toggle", attr: { role: "button", tabindex: "0", "aria-pressed": String(on) } });
-  setIcon(button.createSpan({ cls: "pdt-toggle-check" }), "check");
-  button.createSpan({ text: label });
-  if (tip) setTooltip(button, tip);
-  button.onclick = () => onToggle(!on);
-  onActivate(button, () => onToggle(!on));
-  return chip;
-}
-
-/** A filter chip that is itself the on/off switch, with a number to type (Downloads ≥ [100]). */
-function toggleChip(parent, { label, value, on, onToggle, onValue }) {
-  const chip = switchChip(parent, { label, on, tip: t(on ? "filter.toggleOn" : "filter.toggleOff"), onToggle });
-  const input = chip.createEl("input", { type: "number", value: String(value), attr: { min: "0", "aria-label": label } });
-  input.onchange = () => onValue(Math.max(0, Math.round(Number(input.value)) || 0));
-  return chip;
-}
-
-/** A SuggestModal that resolves a promise with the chosen item (or null when dismissed). */
-class PickerModal extends SuggestModal {
-  constructor(app, placeholder) {
-    super(app);
-    this.setPlaceholder(placeholder);
-    this.result = new Promise((resolve) => { this.resolve = resolve; });
-    this.chosen = null;
-  }
-
-  onChooseSuggestion(item) {
-    this.chosen = item;
-  }
-
-  onClose() {
-    // Obsidian closes the modal before reporting the choice; one tick later the choice is final
-    setTimeout(() => this.resolve(this.chosen), 0);
-  }
-}
-
-/** Asks for one line of text (a name); `ask()` resolves with it trimmed, or null when dismissed or left empty. */
-class TextModal extends Modal {
-  constructor(app, { title, value = "", cta }) {
-    super(app);
-    Object.assign(this, { heading: title, value, cta, answer: null });
-  }
-
-  ask() {
-    return new Promise((resolve) => { this.resolve = resolve; this.open(); });
-  }
-
-  onOpen() {
-    this.titleEl.setText(this.heading);
-    const input = this.contentEl.createEl("input", { type: "text", value: this.value, cls: "pdt-text-input" });
-    const done = () => { this.answer = input.value.trim() || null; this.close(); };
-    input.addEventListener("keydown", (event) => { if (event.key === "Enter") done(); });
-    const row = this.contentEl.createDiv({ cls: "modal-button-container" });
-    row.createEl("button", { text: this.cta, cls: "mod-cta" }).onclick = done;
-    input.select();
-  }
-
-  onClose() {
-    this.contentEl.empty();
-    this.resolve?.(this.answer);
-  }
-}
-
-/** A small box under a button (or over it: `above`), over the view; Esc or a click outside closes it. */
-class Popover {
-  /** `keep`: a selector a click on doesn't close it (its own button, which toggles); `fill(box)` draws it. */
-  constructor(anchor, { cls, label, keep, fill, above = false } = {}) {
-    Object.assign(this, { anchor, cls, label, keep, above, fillWith: fill });
-  }
-
-  open() {
-    this.el = document.body.createDiv({ cls: `pdt-popover ${this.cls || ""}`, attr: { role: "dialog", "aria-label": this.label || "" } });
-    const at = this.anchor.getBoundingClientRect();
-    if (this.above) {   // opens upward from the button, its left edge on the button's
-      this.el.style.bottom = `${window.innerHeight - at.top + 6}px`;
-      this.el.style.left = `${Math.max(8, at.left)}px`;
-    } else {
-      this.el.style.top = `${at.bottom + 4}px`;
-      this.el.style.right = `${Math.max(8, window.innerWidth - at.right)}px`;
-    }
-    this.outside = (event) => { if (!this.el.contains(event.target) && !(this.keep && event.target.closest?.(this.keep))) this.close(); };
-    this.esc = (event) => { if (event.key === "Escape") { event.stopPropagation(); this.close(); } };
-    document.addEventListener("mousedown", this.outside, true);
-    document.addEventListener("keydown", this.esc, true);
-    this.render();
-    return this;
-  }
-
-  get isOpen() { return Boolean(this.el); }
-
-  close() {
-    if (!this.el) return;
-    document.removeEventListener("mousedown", this.outside, true);
-    document.removeEventListener("keydown", this.esc, true);
-    this.el.remove();
-    this.el = null;
-  }
-
-  render() {
-    this.el.empty();
-    this.fill(this.el);
-  }
-
-  fill(box) {
-    this.fillWith?.(box, this);
-  }
-}
-
-/**
- * The table's column picker, under its button: the shown columns in order (drag by the grip, ✕ hides), the rest as
- * chips in groups (a click adds one at the end). Each change goes to the table behind at once; Esc or a click
- * outside closes it. Name always stays first.
- */
-class ColumnsPopover extends Popover {
-  constructor(anchor, { page, columns, sort, sample, onChange }) {
-    super(anchor, { cls: "pdt-cols-pop", label: t("table.columns"), keep: ".pdt-table-cols" });
-    Object.assign(this, { page, sort, sample, onChange, shown: [...columns] });
-  }
-
-  fill(box) {
-    const head = box.createDiv({ cls: "pdt-cols-head" });
-    head.createEl("b", { text: t("table.columns") });
-    head.createSpan({ cls: "pdt-cols-page", text: this.page });
-    const section = (label, hint) => {
-      const el = box.createDiv({ cls: "pdt-cols-sec" });
-      el.createSpan({ text: label });
-      el.createSpan({ cls: "pdt-cols-hint", text: hint });
-    };
-    const row = (parent, key, label, field, value) => {
-      const el = parent.createDiv({ cls: "pdt-cols-row" });
-      el.dataset.key = key;
-      const name = el.createSpan({ cls: "pdt-cols-name", text: label });
-      if ((key === "name" ? "name" : TABLE_COLUMNS[key].sort) === this.sort) name.createSpan({ cls: "pdt-cols-sorted", text: t("table.sorted") });
-      el.createSpan({ cls: "pdt-cols-field", text: field || "" });
-      el.createSpan({ cls: "pdt-cols-sample", text: value });
-      return el;
-    };
-
-    section(t("table.shown", { n: this.shown.length + 1 }), t("table.dragHint"));
-    const lock = row(box, "name", t("col.name"), "name", t("table.fixed"));
-    lock.addClass("is-fixed");
-    setIcon(lock.createSpan({ cls: "pdt-cols-grip" }), "lock");
-    lock.prepend(lock.lastChild);
-    lock.createSpan();
-    const list = box.createDiv({ cls: "pdt-cols-list" });
-    for (const key of this.shown) {
-      const el = row(list, key, columnLabel(key), TABLE_COLUMNS[key].field, this.sample(key));
-      setIcon(el.createSpan({ cls: "pdt-cols-grip" }), "grip-vertical");
-      el.prepend(el.lastChild);
-      const hide = el.createEl("button", { cls: "pdt-cols-x clickable-icon", attr: { type: "button", "aria-label": t("table.hide", { name: columnLabel(key) }) } });
-      setIcon(hide, "x");
-      hide.onclick = () => this.save(this.shown.filter((k) => k !== key));
-    }
-    if (typeof Sortable !== "undefined") {
-      Sortable.create(list, { handle: ".pdt-cols-grip", animation: 150, onEnd: () => this.save([...list.children].map((el) => el.dataset.key)) });
-    }
-
-    const hidden = Object.keys(TABLE_COLUMNS).filter((k) => !this.shown.includes(k));
-    if (hidden.length) section(t("table.add"), t("table.addHint"));
-    for (const group of ["numbers", "time", "yours", "info"]) {
-      const keys = hidden.filter((k) => TABLE_COLUMNS[k].group === group);
-      if (!keys.length) continue;
-      const line = box.createDiv({ cls: "pdt-cols-group" });
-      line.createSpan({ cls: "pdt-cols-glabel", text: t(`table.group.${group}`) });
-      const chips = line.createDiv({ cls: "pdt-cols-chips" });
-      for (const key of keys) {
-        const { field } = TABLE_COLUMNS[key];
-        const chip = chips.createEl("button", { cls: "pdt-cols-chip", text: `+ ${columnLabel(key)}`, attr: { type: "button" } });
-        const value = this.sample(key);
-        setTooltip(chip, [field ? `${field} · ${t(`query.field.${field}`)}` : t(`table.hint.${key}`), !["", "–", "·"].includes(value) && t("table.example", { value })].filter(Boolean).join("\n"), { delay: 300 });
-        chip.onclick = () => this.save([...this.shown, key]);
-      }
-    }
-
-    const foot = box.createDiv({ cls: "pdt-cols-foot" });
-    const reset = foot.createEl("button", { cls: "pdt-bulk-link", text: t("table.reset"), attr: { type: "button" } });
-    reset.disabled = this.shown.join() === TABLE_DEFAULT.join();
-    reset.onclick = () => this.save(null);
-  }
-
-  /** Your columns (null: the default few) to the table, and this list redrawn. */
-  save(columns) {
-    this.shown = columns ? columns : [...TABLE_DEFAULT];
-    this.onChange(columns);
-    this.render();
-  }
-}
-
-/** A column's name in the picker (the 🔔 column reads as "Tracking 🔔"). */
-const columnLabel = (key) => t(key === "tracked" ? "table.tracked" : `col.${key}`);
-
-/**
- * The search box's suggestions for the query language: fields, then the operators that fit the field, then its
- * values (your groups and statuses, authors), as you type. Obsidian's own suggestion popup.
- */
-const QuerySuggest = obsidian.AbstractInputSuggest && class extends obsidian.AbstractInputSuggest {
-  constructor(app, input, data) {
-    super(app, input);
-    Object.assign(this, { input, data });
-    // opens only while typing: on focus or a click the caret isn't where it lands yet; capture runs before the suggest's own listener
-    input.addEventListener("input", () => { this.typed = true; }, true);
-    for (const type of ["focus", "mousedown"]) input.addEventListener(type, () => { this.typed = false; }, true);
-  }
-
-  getSuggestions() {
-    const data = this.data();
-    if (!this.input.value.trim()) {   // the empty box: your filters as a query, then examples (also on focus)
-      Object.assign(this, { from: 0, caret: this.input.value.length });
-      return queryStarters(data.fromFilters, data.recent);
-    }
-    if (!this.typed) return [];
-    const caret = this.input.selectionStart ?? this.input.value.length;
-    const { from, items } = querySuggestions(this.input.value, caret, data);
-    this.from = from;
-    this.caret = caret;
-    return items;
-  }
-
-  renderSuggestion(item, el) {
-    el.addClass("pdt-qs");
-    if (item.head) el.createDiv({ cls: "pdt-qs-head", text: item.head, attr: { lang: language } });
-    el.createSpan({ cls: "pdt-qs-label", text: item.label });
-    if (item.hint) el.createSpan({ cls: "pdt-qs-hint", text: item.hint });
-  }
-
-  selectSuggestion(item) {
-    this.close();   // the input below may redraw the box (Query mode), so this list goes first
-    const value = this.input.value;
-    const insert = item.insert.endsWith("(") ? item.insert : `${item.insert} `;
-    this.input.value = value.slice(0, this.from) + insert + value.slice(this.caret).replace(/^[ \t]+/, "");
-    const caret = this.from + insert.length;
-    this.input.setSelectionRange(caret, caret);
-    this.input.dispatchEvent(new Event("input"));
-    this.input.focus();
-  }
-};
-
-/** A few names for a sentence: "A, B, C +4". */
-function namesLine(plugins, max = 5) {
-  const names = plugins.slice(0, max).map((p) => p.name).join(", ");
-  return plugins.length > max ? `${names} +${plugins.length - max}` : names;
-}
-
-/** Asks before a bulk action: what it does, to which plugins, that it can be undone. `ask()` resolves true or false. */
-class ConfirmModal extends Modal {
-  /** @param {string} [footnote]  the faint line under the text; by default that Recent actions can undo it */
-  constructor(app, { title, plugins = [], text, cta, footnote = t("bulk.undoable") }) {
-    super(app);
-    Object.assign(this, { heading: title, plugins, text, cta, footnote, answer: false });
-  }
-
-  ask() {
-    return new Promise((resolve) => { this.resolve = resolve; this.open(); });
-  }
-
-  onOpen() {
-    this.titleEl.setText(this.heading);
-    if (this.plugins.length) {
-      const list = this.contentEl.createEl("ul", { cls: "pdt-confirm-list" });
-      for (const p of this.plugins.slice(0, 5)) list.createEl("li", { text: p.name });
-      if (this.plugins.length > 5) list.createEl("li", { cls: "pdt-detail-muted", text: t("bulk.more", { n: this.plugins.length - 5 }) });
-    }
-    if (this.text) this.contentEl.createEl("p", { text: this.text });
-    if (this.footnote) this.contentEl.createEl("p", { cls: "pdt-detail-muted", text: this.footnote });
-    const row = this.contentEl.createDiv({ cls: "modal-button-container" });
-    row.createEl("button", { text: t("bulk.cancel") }).onclick = () => this.close();
-    const go = row.createEl("button", { text: this.cta, cls: "mod-cta" });
-    go.onclick = () => { this.answer = true; this.close(); };
-    go.focus();
-  }
-
-  onClose() {
-    this.contentEl.empty();
-    this.resolve?.(this.answer);
-  }
-}
+// ─── 4b. Domain modals (Recent, Group, Model, Help, Gallery, Place) ─────────
 
 /** Recent actions: the last bulk actions, newest first, each with Undo (or when it was undone). */
 class RecentModal extends Modal {
   constructor(plugin, onUndo) {
     super(plugin.app);
-    Object.assign(this, { plugin, onUndo });
+    Object.assign(this, { plugin, onUndo, closed: false });
   }
 
   onOpen() {
@@ -373,20 +13,25 @@ class RecentModal extends Modal {
   }
 
   render() {
+    if (this.closed) return;
     const box = this.contentEl;
     box.empty();
     box.createEl("p", { cls: "pdt-detail-muted", text: t("bulk.recentHint", { n: OPS_CAP }) });
-    // reviewed marks set on one day for many plugins (before Recent actions existed): taken back here
-    for (const { date, ids } of this.plugin.massReviews()) {
+    const mass = this.plugin.ops.massReviews();
+    for (const { date, ids } of mass) {
       const row = box.createDiv({ cls: "pdt-op" });
       row.createSpan({ cls: "pdt-op-when", text: date });
       const what = row.createDiv({ cls: "pdt-op-what" });
       what.createEl("b", { text: t("bulk.massReviewed", { n: ids.length }) });
       what.createSpan({ cls: "pdt-detail-muted", text: t("bulk.massHint") });
-      row.createEl("button", { text: t("bulk.unreview") }).onclick = async () => { await this.plugin.unreview(date); this.render(); };
+      const btn = row.createEl("button", { text: t("bulk.unreview"), attr: { type: "button" } });
+      btn.onclick = async () => {
+        btn.disabled = true;
+        try { await this.plugin.ops.unreview(date); } finally { if (!this.closed) this.render(); }
+      };
     }
     const ops = this.plugin.data.ops || [];
-    if (!ops.length) box.createEl("p", { text: t("bulk.recentNone") });
+    if (!ops.length && !mass.length) box.createEl("p", { text: t("bulk.recentNone") });
     for (const op of ops) {
       const row = box.createDiv({ cls: "pdt-op" });
       row.createSpan({ cls: "pdt-op-when", text: formatTime(op.at, Date.now()) });
@@ -395,46 +40,24 @@ class RecentModal extends Modal {
       what.createSpan({ cls: "pdt-detail-muted", text: namesLine(op.changes.map((c) => this.plugin.pluginById(c.id) || { name: c.id }), 3) });
       if (op.undone) row.createSpan({ cls: "pdt-detail-muted", text: t("bulk.undone") });
       else if (op.changes.length) {
-        row.createEl("button", { text: t("bulk.undo") }).onclick = async () => { await this.onUndo(op); this.render(); };
+        const btn = row.createEl("button", { text: t("bulk.undo"), attr: { type: "button" } });
+        btn.onclick = async () => {
+          btn.disabled = true;
+          try { await this.onUndo(op); } finally { if (!this.closed) this.render(); }
+        };
       }
     }
   }
 
   onClose() {
+    this.closed = true;
     this.contentEl.empty();
   }
 }
 
-/** What an operation did, in a sentence: "3 plugins hidden", "12 plugins added to Tasks". */
-function opLabel(op) {
-  return t(`bulk.done.${opKey(op)}`, { n: op.changes.length, value: op.value ?? "" });
-}
-
-/** The texts an operation goes by: its kind, but "unrate" for a rating cleared. */
-function opKey({ kind, value }) {
-  return kind === "rating" && value == null ? "unrate" : kind;
-}
-
-/** A group chip: a button you switch on and off. */
-function groupChip(parent, { name, on, removable = false, star = false, starTip = "", meta = "", onToggle }) {
-  const chip = parent.createEl("button", { cls: `pdt-gchip${on ? " is-on" : ""}`, attr: { type: "button", "aria-pressed": String(on) } });
-  if (on && !removable) setIcon(chip.createSpan({ cls: "pdt-gchip-icon" }), "check");
-  chip.createSpan({ text: name });
-  if (star) {
-    setIcon(chip.createSpan({ cls: "pdt-gchip-star" }), "star");
-    setTooltip(chip, starTip);
-  }
-  if (meta) chip.createSpan({ cls: "pdt-gchip-meta", text: meta });
-  if (removable) setIcon(chip.createSpan({ cls: "pdt-gchip-icon" }), "x");
-  chip.onclick = onToggle;
-  return chip;
-}
-
 /**
- * One plugin's groups: the selected ones, your groups (the closest starred), AI suggestions (unless turned off in
- * Settings) and a box for a new name. The ★ comes at once from the Similar lists (picked too when they're sure) and
- * moves to the model's choice among your groups when it answers: it has read what the plugin does. `result` resolves
- * with the chosen groups on Confirm, or null when closed.
+ * One plugin's groups: selected, yours (closest starred), AI suggestions and a new-name box.
+ * Preserves input focus when async AI suggestions arrive; `result` resolves with chosen groups or null.
  */
 class GroupModal extends Modal {
   constructor(plugin, target) {
@@ -446,12 +69,13 @@ class GroupModal extends Modal {
     const hint = plugin.closestGroupFor(target);
     this.closest = hint?.name ?? null;
     this.touched = Boolean(note?.groups.length);
-    this.selected = this.touched ? [...note.groups] : hint?.sure ? [hint.name] : [];   // a category guess is only starred
+    this.selected = this.touched ? [...note.groups] : hint?.sure ? [hint.name] : [];
     const aiState = !plugin.data.settings.aiGroups ? "off" : plugin.translator.ready ? "loading" : "setup";
     this.ai = { state: aiState, list: [], error: "" };
     this.showAll = false;
     this.draft = "";
     this.saved = null;
+    this.closed = false;
     this.result = new Promise((resolve) => { this.resolve = resolve; });
   }
 
@@ -462,6 +86,7 @@ class GroupModal extends Modal {
   }
 
   onClose() {
+    this.closed = true;
     this.contentEl.empty();
     this.resolve(this.saved);
   }
@@ -469,17 +94,27 @@ class GroupModal extends Modal {
   async loadSuggestions() {
     try {
       const { list, usage } = await this.plugin.suggestGroups(this.target);
+      if (this.closed) return;
       const known = new Set(this.mine.map((g) => g.name));
       const pick = list.find((g) => known.has(g));
-      if (pick) {   // the model's choice among your groups beats the lists'
+      if (pick) {
         this.closest = pick;
         if (!this.touched) this.selected = [pick];
       }
       this.ai = { state: "ready", list: list.filter((g) => !known.has(g)), error: "", usage };
     } catch (error) {
+      if (this.closed) return;
       this.ai = { state: "failed", list: [], error: error.message };
     }
+    // preserve input focus & caret if the user is typing a new group name when AI finishes
+    const active = this.contentEl.ownerDocument?.activeElement;
+    const typing = active?.matches?.(".pdt-gm-new input");
+    const pos = typing ? [active.selectionStart, active.selectionEnd] : null;
     this.render();
+    if (typing) {
+      const input = this.contentEl.querySelector(".pdt-gm-new input");
+      if (input) { input.focus(); if (pos) input.setSelectionRange(pos[0], pos[1]); }
+    }
   }
 
   toggle(name) {
@@ -492,7 +127,8 @@ class GroupModal extends Modal {
     const [typed] = uniqueNames([this.draft]);
     this.draft = "";
     if (typed) {
-      const known = [...this.mine.map((g) => g.name), ...this.ai.list].find((g) => g.toLocaleLowerCase() === typed.toLocaleLowerCase());
+      const pool = [...this.selected, ...this.mine.map((g) => g.name), ...this.ai.list];
+      const known = pool.find((g) => fold(g) === fold(typed));
       const name = known || typed;
       if (!this.selected.includes(name)) this.selected = [...this.selected, name];
       this.touched = true;
@@ -500,7 +136,6 @@ class GroupModal extends Modal {
     this.render();
   }
 
-  /** The AI suggestions' section: loading, setup, failed or the new names (VISIBLE_SUGGESTIONS, then "+N more"). */
   renderAi(section) {
     const { state, list, error, usage } = this.ai;
     const ai = section(state === "ready" ? t("groups.aiCount", { n: list.length }) : t("groups.ai"), usage && ((head) => usageTag(head, usage)));
@@ -520,6 +155,7 @@ class GroupModal extends Modal {
   }
 
   render() {
+    if (this.closed) return;
     const el = this.contentEl;
     el.empty();
     this.titleEl.setText(this.target.version ? `${this.target.name} ${this.target.version}` : this.target.name);
@@ -529,7 +165,7 @@ class GroupModal extends Modal {
 
     const section = (label, aside) => {
       const box = el.createDiv({ cls: "pdt-gm-section" });
-      const head = box.createDiv({ cls: "pdt-gm-label", text: label, attr: { lang: language } });   // uppercase by the UI's rules, not Obsidian's (i → I, not İ)
+      const head = box.createDiv({ cls: "pdt-gm-label", text: label, attr: { lang: language } });
       aside?.(head);
       return box.createDiv({ cls: "pdt-gm-chips" });
     };
@@ -572,13 +208,15 @@ class GroupModal extends Modal {
 }
 
 /**
- * Model picker: filters as you type, shows prices, accepts names that aren't listed. An empty box lists your pinned
- * and recent models (historyModels); ☆ pins any row, ✕ takes one off the list. `onHistory` saves the changed list.
+ * Model picker: filters as you type, shows prices, accepts custom ids, pins/remembers recent models.
+ * Extends SuggestModal directly (no single-subclass PickerModal wrapper).
  */
-class ModelModal extends PickerModal {
+class ModelModal extends SuggestModal {
   constructor(app, models, history, onHistory) {
-    super(app, t("model.placeholder"));
-    Object.assign(this, { models, history: history || [], onHistory, latestOnly: false });
+    super(app);
+    this.setPlaceholder(t("model.placeholder"));
+    Object.assign(this, { models, history: history || [], onHistory, latestOnly: false, chosen: null });
+    this.result = new Promise((resolve) => { this.resolve = resolve; });
   }
 
   onOpen() {
@@ -587,14 +225,23 @@ class ModelModal extends PickerModal {
     if (!container) return;
     const bar = createDiv({ cls: "pdt-model-bar" });
     container.after(bar);
-    const toggle = bar.createDiv({ cls: "pdt-chip is-menu", text: t("model.latestOnly"), attr: { role: "button", tabindex: "0" } });
+    const toggle = bar.createDiv({ cls: "pdt-chip is-menu", text: t("model.latestOnly"), attr: { role: "button", tabindex: "0", "aria-pressed": "false" } });
     const flip = () => {
       this.latestOnly = !this.latestOnly;
       toggle.toggleClass("is-active", this.latestOnly);
+      toggle.setAttribute("aria-pressed", String(this.latestOnly));
       this.inputEl.dispatchEvent(new Event("input"));
     };
     toggle.onclick = flip;
     onActivate(toggle, flip);
+  }
+
+  onChooseSuggestion(item) {
+    this.chosen = item;
+  }
+
+  onClose() {
+    setTimeout(() => this.resolve(this.chosen), 0);
   }
 
   getSuggestions(query) {
@@ -604,30 +251,28 @@ class ModelModal extends PickerModal {
 
   renderSuggestion(model, el) {
     el.addClass("pdt-model-item");
-    if (model.head) el.createDiv({ cls: "pdt-qs-head", text: model.head });   // the section this row opens
+    if (model.head) el.createDiv({ cls: "pdt-qs-head", text: model.head });
     el.createDiv({ cls: "pdt-model-id", text: model.custom ? t("model.custom", { name: model.id }) : model.id });
     if (model.price) el.createDiv({ cls: "pdt-model-price", text: formatPrice(model.price) });
-    if (model.custom) return;   // a typed name joins the list once it's chosen
+    if (model.custom) return;
     const pinned = this.history.some((h) => h.id === model.id && h.pinned);
     this.rowButton(el, "star", t(pinned ? "model.unpin" : "model.pin"), pinned, () => this.pin(model.id, !pinned));
     if (model.history) this.rowButton(el, "x", t("model.forget"), false, () => this.change(this.history.filter((h) => h.id !== model.id)));
   }
 
-  /** A small icon button on a row: its click acts without choosing the row (the modal handles clicks on rows). */
   rowButton(el, icon, label, active, act) {
-    const button = el.createDiv({ cls: `pdt-model-act${active ? " is-active" : ""}`, attr: { role: "button", "aria-label": label } });
+    const button = el.createDiv({ cls: `pdt-model-act${active ? " is-active" : ""}`, attr: { role: "button", tabindex: "0", "aria-label": label } });
     setIcon(button, icon);
-    button.addEventListener("mousedown", (e) => e.preventDefault());   // keeps the focus in the box
+    button.addEventListener("mousedown", (e) => e.preventDefault());
     button.addEventListener("click", (e) => { e.stopPropagation(); act(); });
+    onActivate(button, act);
   }
 
-  /** Pins or unpins a model; pinning one that isn't in the list yet adds it at the end. */
   pin(id, pinned) {
     const known = this.history.some((h) => h.id === id);
     this.change(known ? this.history.map((h) => (h.id === id ? { ...h, pinned } : h)) : [...this.history, { id, pinned }]);
   }
 
-  /** Keeps the changed list, saves it and redraws the suggestions in place. */
   change(history) {
     this.history = history;
     this.onHistory?.(history);
@@ -635,63 +280,26 @@ class ModelModal extends PickerModal {
   }
 }
 
+/** Help › Quick start: what a click on each part of a card does. */
+const HELP_CARD_TIPS = [["bookmark-plus", "library"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["sparkles", "profile"], ["more-horizontal", "menu"], ["square-check", "bulk"], ["bell-ring", "seen"]];
+const DOCS_URL = `https://github.com/${PLUGIN_REPO}/blob/main/docs/`;
 
-/** Help › Quick start: what a click on each part of a card does ([icon, help.card.<key>]), in the order you meet them. */
-const HELP_CARD_TIPS = [["bell-plus", "track"], ["star", "rate"], ["github", "name"], ["languages", "desc"], ["mouse-pointer-click", "empty"], ["panel-top", "details"], ["sparkles", "profile"], ["more-horizontal", "menu"], ["square-check", "bulk"], ["bell-ring", "seen"]];
-
-/** What AI requests spent, as the provider reported it: "18,420 tokens · $0.0021" (the cost only when it told it). */
-/**
- * How far what a job took was from its estimate: "16% under the estimate" / "8% over" / "as estimated", by cost when
- * both have one, else by tokens; null when there's nothing to compare.
- */
-function estimateGap(usage, expected) {
-  const byCost = typeof usage.cost === "number" && expected.cost != null;
-  const [got, want] = byCost ? [usage.cost, expected.cost] : [usage.tokens, expected.tokens];
-  if (!want || got == null) return null;
-  const pct = Math.round(((got - want) / want) * 100);
-  if (pct === 0) return t("bulk.tr.asEstimated");
-  return t(pct < 0 ? "bulk.tr.underEstimate" : "bulk.tr.overEstimate", { n: Math.abs(pct) });
-}
-
-function spentText(usage) {
-  return [t("details.tokensUsed", { n: formatCount(usage.tokens) }), typeof usage.cost === "number" ? formatCost(usage.cost) : null].filter(Boolean).join(" · ");
-}
-
-/**
- * What an AI request just took, faint at the end of a title row: the cost when the provider told it, else the
- * tokens; the model on hover. Shown once, not kept (a group suggestion costs next to nothing).
- */
-function usageTag(parent, usage) {
-  const tag = parent.createSpan({ cls: "pdt-usage-tag", text: typeof usage.cost === "number" ? formatCost(usage.cost) : t("details.tokensUsed", { n: formatShort(usage.tokens) }) });
-  setTooltip(tag, `${usage.model} · ${t("details.tokensUsed", { n: formatShort(usage.tokens) })}`);
-}
-
-/** The docs folder on GitHub; the Help window's last link adds the UI language's guide file (help.guideFile). */
-const DOCS_URL = "https://github.com/alitekdemir/obsidian-community-radar/blob/main/docs/";
-
-/** The query guide's field groups, from each field's own type (no second list to keep): which group a field is in. */
 function fieldGroup(field) {
   if (field.profile) return "profile";
   if (field.param) return "params";
   if (field.days) return "days";
-  return { text: "text", number: "numbers" }[field.type] || "flags";   // flags: yes/no and your note's lists
+  return { text: "text", number: "numbers" }[field.type] || "flags";
 }
 
-/** The guide's rows after the fields: what's shown, what a click puts in the box, and its text (help.<key>). */
 const GUIDE_ROWS = {
   ops: [["=  /  !=", "=", "help.op.eq"], [">  /  >=", ">=", "help.op.gt"], ["<  /  <=", "<=", "help.op.lt"], ["~  /  !~", "~", "help.op.has"],
     ["in (…) / not in (…)", "in (", "help.op.in"], ["is empty", "is empty", "help.op.empty"], ["AND / OR / NOT", "AND", "help.op.bool"], ["order by … desc", "order by", "help.op.order"],
     ["group by …", "group by", "help.op.group"], ["limit 100 · limit 101-200", "limit", "help.op.limit"]],
-  functions: Object.keys(QUERY_FUNCS).map((f) => [`${f}()`, `${f}()`, `query.fn.${f}`]),   // the same text as the box's hints
+  functions: Object.keys(QUERY_FUNCS).map((f) => [`${f}()`, `${f}()`, `query.fn.${f}`]),
   values: [["10k · 1.5m", "10k", "help.value.count"], ["14d · 2w · 6m · 1y", "14d", "help.value.span"], ["2026-01-01", "2026-01-01", "help.value.date"],
-    [null, '""', "help.value.quoted"], ['("Tasks", Calendar)', "(", "help.value.list"]],   // null: the example is in your language
+    [null, '""', "help.value.quoted"], ['("Tasks", Calendar)', "(", "help.value.list"]],
 };
 
-/**
- * Help: Quick start (three steps, each one click), Ready-made queries (the gallery) and the Query guide (fields by
- * group, operators, date functions, values). Opened from the view's ? (`tab`), the query box's ? (the guide; a
- * click on an item puts it in the box: `onPick`), the Quick start card and the Help command.
- */
 class HelpModal extends Modal {
   constructor(app, view, { tab = "start", onPick = null } = {}) {
     super(app);
@@ -706,6 +314,7 @@ class HelpModal extends Modal {
   }
 
   onClose() {
+    this.gallery.closed = true;
     this.contentEl.empty();
   }
 
@@ -724,13 +333,12 @@ class HelpModal extends Modal {
     else this.renderGuide(body);
   }
 
-  /** Three steps, each with what to do and a button that does it. */
   renderStart(el) {
     const view = this.view;
     const steps = [
       ["explore", () => { view.settings.section = "list"; return view.update("mode", "all"); }],
-      ["track", () => view.openPage("tracked")],
-      ["query", () => view.openQuery("gain(30d) >= 500 AND NOT tracked\norder by gain(30d) desc")],
+      ["library", () => view.openPage("library")],
+      ["query", () => view.openQuery("gain(30d) >= 500 AND NOT library\norder by gain(30d) desc")],
     ];
     steps.forEach(([key, run], i) => {
       const step = el.createDiv({ cls: "pdt-help-step" });
@@ -745,7 +353,6 @@ class HelpModal extends Modal {
     el.createEl("a", { cls: "pdt-help-more", text: t("help.more"), href: DOCS_URL + t("help.guideFile") });
   }
 
-  /** "Getting to know a card": where to click on a plugin's card or row, and what happens. */
   renderCardTips(el) {
     const box = el.createDiv({ cls: "pdt-help-cards" });
     box.createDiv({ cls: "pdt-help-step-title", text: t("help.card.title") });
@@ -757,13 +364,12 @@ class HelpModal extends Modal {
     }
   }
 
-  /** The query language in short: fields by group, then operators, date functions and values; a group may carry a hint. */
   renderGuide(el) {
     const group = (key, rows) => {
       const head = el.createEl("h4");
       head.createSpan({ cls: "pdt-help-group-name", text: t(`help.group.${key}`) });
       const hint = t(`help.group.${key}.hint`);
-      if (hint !== `help.group.${key}.hint`) head.createSpan({ cls: "pdt-help-group-hint", text: `· ${hint}` });   // only some groups have one
+      if (hint !== `help.group.${key}.hint`) head.createSpan({ cls: "pdt-help-group-hint", text: `· ${hint}` });
       const list = el.createDiv({ cls: "pdt-help-list" });
       for (const [code, insert, text] of rows) {
         const item = list.createEl(this.onPick ? "button" : "div", { cls: "pdt-help-item", attr: this.onPick ? { type: "button" } : {} });
@@ -772,7 +378,6 @@ class HelpModal extends Modal {
         if (this.onPick) item.onclick = () => { this.close(); this.onPick(insert); };
       }
     };
-    // a field as it's written: gain(30d) for one with a parameter
     const written = (k) => { const p = QUERY_FIELDS[k].param; return p ? `${k}(${p.fallback ?? "10k"})` : k; };
     for (const key of ["text", "numbers", "days", "params", "flags", "profile"]) {
       const fields = Object.keys(QUERY_FIELDS).filter((k) => fieldGroup(QUERY_FIELDS[k]) === key);
@@ -783,36 +388,26 @@ class HelpModal extends Modal {
   }
 }
 
-/**
- * The ready-made queries (QUERY_PRESETS) by section, after your hidden widgets to bring back. Each row says what it
- * finds and why it helps, shows its query and how many plugins it finds now; Add saves it as a view (a Home widget
- * that marks new matches), "Try in query" opens it in the list to edit first. Drawn into any element: "+ Add widget"
- * and Help's Ready-made queries share it; `close` closes the window it's in.
- */
 class GalleryPanel {
-  /** `target`: the group a group's "Add widget" opened it for (else the Add window asks where). */
   constructor(home, close, target = null) {
-    Object.assign(this, { home, close, target, section: "all", open: null });   // open: the query whose row is unfolded
-    this.counts = new Map();   // query → how many it finds: worked out once while the panel is open
+    Object.assign(this, { home, close, target, section: "all", open: null, closed: false });
+    this.counts = new Map();
   }
 
-  /** How many plugins a query finds now (a chip or an unfolded row redraws the panel; the counts stay). */
   count(ctx, query) {
     if (!this.counts.has(query)) this.counts.set(query, queryRows(ctx, query).length);
     return this.counts.get(query);
   }
 
-  /** The rows of every section, worked out now: [{section, rows: [{title, desc, why, query, count, action, done, run}]}]. */
   sections(ctx) {
     const home = this.home.home;
-    // a built-in widget with a `cat` is offered in that section, the rest you removed under Hidden
     const unplaced = unplacedWidgets(home).map((id) => {
       const widget = homeWidget(home, id);
       const params = widgetParams(home, id);
       const title = this.home.title(id);
       const query = widget.query(ctx, params);
       return {
-        title, cat: widget.cat || "hidden",
+        rowKey: `widget:${id}`, title, cat: widget.cat || "hidden",
         desc: widget.view ? "" : this.home.widgetInfo(id, params),
         query, count: this.count(ctx, query), action: t(widget.cat ? "gallery.add" : "gallery.restore"),
         run: async () => {
@@ -823,14 +418,16 @@ class GalleryPanel {
     });
     const preset = (p) => {
       const title = t(`preset.${p.key}`);
-      const done = (home.views || []).some((v) => sameQuery(v.query, p.query));   // added already
-      const widget = viewWidget({ id: "preview", name: title, query: p.query }, null);   // how it will look, before it's saved
-      return { title, desc: t(`preset.${p.key}.desc`), why: t(`preset.${p.key}.why`), query: p.query, count: this.count(ctx, p.query),
-        action: t(done ? "gallery.added" : "gallery.add"), done,
+      const done = (home.views || []).some((v) => sameQuery(v.query, p.query));
+      const widget = viewWidget({ id: "preview", name: title, query: p.query }, null);
+      return {
+        rowKey: `preset:${p.key}`, title, desc: t(`preset.${p.key}.desc`), why: t(`preset.${p.key}.why`),
+        query: p.query, count: this.count(ctx, p.query), action: t(done ? "gallery.added" : "gallery.add"), done,
         run: async () => {
           const at = await this.home.ask({ id: VIEW_PREFIX + widget.view.id, widget, name: title, groupId: this.target });
-          if (at) await this.home.saveView(title, p.query, queryRows(ctx, p.query), at.group);   // its matches so far: seen
-        } };
+          if (at) await this.home.saveView(title, p.query, queryRows(ctx, p.query), at.group);
+        },
+      };
     };
     return Object.keys(GALLERY_SECTIONS)
       .map((section) => ({ section, rows: [...unplaced.filter((w) => w.cat === section), ...QUERY_PRESETS.filter((p) => p.cat === section).map(preset)] }))
@@ -852,7 +449,7 @@ class GalleryPanel {
     };
     chip("all", sections.reduce((n, s) => n + s.rows.length, 0));
     for (const s of sections) chip(s.section, s.rows.length);
-    for (const s of sections) if (this.section === "all" || this.section === s.section) this.renderSection(el, s, () => this.render(host));
+    for (const s of sections) if (this.section === "all" || this.section === s.section) this.renderSection(el, s, () => { if (!this.closed) this.render(host); });
 
     const foot = el.createDiv({ cls: "pdt-gallery-foot" });
     foot.createSpan({ text: t("gallery.own") });
@@ -860,19 +457,15 @@ class GalleryPanel {
     own.onclick = () => { this.close(); this.home.view.openQuery(""); };
   }
 
-  /**
-   * A section: its heading, then one row per widget or preset. A row is one line (title, what it finds, count, Add);
-   * a click on it unfolds why it helps, its whole query and "Try in query".
-   */
   renderSection(el, { section, rows }, redraw) {
-    const head = el.createDiv({ cls: "pdt-gallery-head", attr: { "data-section": section } });   // data-section: its tone (CSS)
+    const head = el.createDiv({ cls: "pdt-gallery-head", attr: { "data-section": section } });
     head.createEl("h3", { text: t(`gallery.section.${section}`) });
     head.createSpan({ text: t(`gallery.section.${section}.hint`) });
     for (const row of rows) {
-      const open = this.open === row.query;
+      const open = this.open === row.rowKey;
       const item = el.createDiv({ cls: `pdt-gallery-row${open ? " is-open" : ""}`, attr: { "data-section": section } });
       const line = item.createDiv({ cls: "pdt-gallery-line", attr: { role: "button", tabindex: "0", "aria-expanded": String(open) } });
-      const toggle = () => { this.open = open ? null : row.query; redraw(); };
+      const toggle = () => { this.open = open ? null : row.rowKey; redraw(); };
       line.onclick = (event) => { if (!event.target.closest?.("button")) toggle(); };
       onActivate(line, toggle);
       setIcon(line.createSpan({ cls: "pdt-gallery-icon", attr: { "aria-hidden": "true" } }), open ? "chevron-down" : "chevron-right");
@@ -883,9 +476,13 @@ class GalleryPanel {
       side.createSpan({ cls: "pdt-gallery-n", text: formatCount(row.count) });
       const act = side.createEl("button", { cls: row.done ? "pdt-gallery-done" : "mod-cta", text: row.action, attr: { type: "button" } });
       act.disabled = Boolean(row.done);
-      act.onclick = async () => { await row.run(); redraw(); };
+      act.onclick = async () => {
+        if (act.disabled) return;
+        act.disabled = true;
+        try { await row.run(); } finally { redraw(); }
+      };
 
-      const more = item.createDiv({ cls: "pdt-gallery-more" });   // shown when the row is open (CSS)
+      const more = item.createDiv({ cls: "pdt-gallery-more" });
       if (row.why) more.createDiv({ cls: "pdt-gallery-why", text: row.why });
       const query = more.createDiv({ cls: "pdt-gallery-query" });
       query.createEl("code", { text: row.query });
@@ -895,7 +492,6 @@ class GalleryPanel {
   }
 }
 
-/** "+ Add widget": the gallery in a window of its own; from a group's ⋯, it adds into that group. */
 class GalleryModal extends Modal {
   constructor(app, home, target = null) {
     super(app);
@@ -909,26 +505,18 @@ class GalleryModal extends Modal {
   }
 
   onClose() {
+    this.panel.closed = true;
     this.contentEl.empty();
   }
 }
 
-const NEW_GROUP = "\u0000new";   // the group list's "+ New group…" (no group id can be it)
+const NEW_GROUP = "\u0000new";
 
-/**
- * Where a widget goes on Home: a small or a big card, each drawn as it will look (the small one after the group's
- * last cards), then a group of that kind or a new one. With `askName` (the list saved as a widget) its name first.
- * `ask()` resolves {name, group} (a new group is made, unsaved: placing it saves) or null.
- */
-class PlaceModal extends Modal {
+class PlaceModal extends ResultModal {
   constructor(home, { id, widget, name, askName, groupId }) {
-    super(home.plugin.app);
+    super(home.plugin.app, null);
     const target = home.home.groups.find((g) => g.id === groupId);
-    Object.assign(this, { home, id, widget, name, askName, look: target?.look ?? "big", group: groupId, newName: "", answer: null });
-  }
-
-  ask() {
-    return new Promise((resolve) => { this.resolve = resolve; this.open(); });
+    Object.assign(this, { home, id, widget, name, askName, look: target?.look ?? "big", group: groupId, newName: "" });
   }
 
   onOpen() {
@@ -937,12 +525,6 @@ class PlaceModal extends Modal {
     this.draw();
   }
 
-  onClose() {
-    this.contentEl.empty();
-    this.resolve?.(this.answer);
-  }
-
-  /** The groups of the chosen kind; the pick stays when it's one of them, else the first (none: a new one). */
   groups() {
     const groups = this.home.home.groups.filter((g) => g.look === this.look);
     if (this.group !== NEW_GROUP && !groups.some((g) => g.id === this.group)) this.group = groups[0]?.id ?? NEW_GROUP;
@@ -952,9 +534,11 @@ class PlaceModal extends Modal {
   draw() {
     const el = this.contentEl;
     el.empty();
+    const onEnter = (event) => { if (event.key === "Enter") { event.preventDefault(); this.done(); } };
     if (this.askName) {
       const name = el.createEl("input", { type: "text", value: this.name, cls: "pdt-text-input pdt-place-name", attr: { "aria-label": t("home.place.name") } });
       name.oninput = () => { this.name = name.value; };
+      name.addEventListener("keydown", onEnter);
     }
     const groups = this.groups();
     const group = groups.find((g) => g.id === this.group);
@@ -968,7 +552,6 @@ class PlaceModal extends Modal {
       head.createSpan({ cls: "pdt-place-look-title", text: t(`home.place.${look}`) });
       head.createSpan({ cls: "pdt-place-look-where", text: t(`home.place.${look}.hint`) });
       const frame = option.createDiv({ cls: "pdt-place-frame" });
-      // each option draws the card the way it will look: the small one among the chosen small group's cards
       this.home.preview(frame, ctx, look, this.id, this.widget, look === this.look ? group : this.home.home.groups.find((g) => g.look === look));
       const pick = () => { this.look = look; this.draw(); };
       option.onclick = pick;
@@ -985,6 +568,7 @@ class PlaceModal extends Modal {
     if (this.group === NEW_GROUP) {
       const input = row.createEl("input", { type: "text", value: this.newName, cls: "pdt-text-input", attr: { placeholder: t("home.place.newGroupName") } });
       input.oninput = () => { this.newName = input.value; };
+      input.addEventListener("keydown", onEnter);
     }
 
     const buttons = el.createDiv({ cls: "modal-button-container" });

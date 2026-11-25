@@ -47,7 +47,7 @@ const seriesAges = (timeline) => seriesRead(timeline.series).ages;
 function downloadsAgo(timeline, id, days) {
   const counts = seriesOf(timeline, id);
   const ages = counts && seriesAges(timeline);
-  if (!counts || !(days >= 0) || days > ages[0]) return null;
+  if (!counts || !ages?.length || !(days >= 0) || days > ages[0]) return null;
   const i = ages.findIndex((age) => age <= days);   // ages go down: the first point at or after that day
   if (i === 0 || ages[i] === days) return counts[i];
   const [older, newer] = [ages[i - 1], ages[i]];
@@ -61,16 +61,17 @@ function gainOver(timeline, id, days) {
 }
 
 /**
- * When the downloads first reached `n` (ms). Within the series: the day of its first point at or over n (to the week
- * before the last month). Already over n when the series starts: a milestone step's own date, else 0 (long ago).
- * Null: not yet.
+ * When the downloads first reached `n` (ms). Prefers the exact milestone date when `n` is a recorded milestone step;
+ * otherwise within the series uses its first point at or over n (0 if already over n when the series starts, null if not yet).
  */
 function reachedAt(timeline, id, n) {
+  const exact = passedAt(timeline, id, n);
+  if (exact != null) return exact;
   const counts = seriesOf(timeline, id);
-  if (!counts) return passedAt(timeline, id, n);
+  if (!counts) return null;
   const i = counts.findIndex((count) => count >= n);
   if (i < 0) return null;
-  return i > 0 ? timeline.to - seriesAges(timeline)[i] * DAY_MS : passedAt(timeline, id, n) ?? 0;
+  return i > 0 ? timeline.to - seriesAges(timeline)[i] * DAY_MS : 0;
 }
 
 const RISING_BASE = 1000;    // downloads before the period, so 10 → 30 isn't "rising"
@@ -108,17 +109,19 @@ const within = (field, params) => (params.since ? `${field} >= ${dayString(param
  */
 function narrowQuery(text, field, condition) {
   const { filter, order } = splitOrder(text);
-  const own = new RegExp(`(^|[\\s(])${field}\\s*<=?\\s*[^\\s)]+`, "i");   // the field's "within N days"
-  const narrowed = own.test(filter)
+  const escaped = field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const hasOr = /\bOR\b/i.test(filter);
+  const own = new RegExp(`(?<!\\bNOT\\s)(^|[\\s(])${escaped}\\s*<=?\\s*[^\\s)]+`, "i");   // unnegated "within N days"
+  const narrowed = !hasOr && own.test(filter)
     ? filter.replace(own, `$1${condition}`)
-    : [filter && (/\bOR\b/i.test(filter) ? `(${filter})` : filter), condition].filter(Boolean).join(" AND ");
+    : [filter && (hasOr ? `(${filter})` : filter), condition].filter(Boolean).join(" AND ");
   return [narrowed, order].filter(Boolean).join("\n");
 }
 
 /**
  * A page's widget: the page's own query, so the card counts the page (change one, the other follows). Asked "since",
  * `field` says from which day its plugins came in ("N new"); a page without one (Suggested) has no "new".
- * `page`: a click opens the page itself (Tracked, with its groups) instead of a list of the query.
+ * `page`: a click opens the page itself (Library, with its groups) instead of a list of the query.
  */
 const tabWidget = (mode, look, field, value, page = false) => ({
   tab: mode, ...look, value, params: {}, defaults: {}, page: page && mode,
@@ -133,7 +136,7 @@ const downloadsValue = (ctx, p) => formatShort(p.downloads ?? 0);
  * their own.
  */
 const HOME_WIDGETS = {
-  mine: tabWidget("tracked", { icon: "bookmark", tone: "yellow" }, null, (ctx, p) => "★".repeat(ctx.state.notes.get(p.id)?.rating || 0) || downloadsValue(ctx, p), true),
+  mine: tabWidget("library", { icon: "bookmark", tone: "yellow" }, null, (ctx, p) => "★".repeat(ctx.state.notes.get(p.id)?.rating || 0) || downloadsValue(ctx, p), true),
   new: { ...tabWidget("new", { icon: "sparkles", tone: "purple" }, "listed", downloadsValue), words: (settings) => ({ days: settings.newDays }) },
   // passed n downloads in the period (9,999 → 10K), whatever it reached after
   milestone: {
@@ -143,7 +146,7 @@ const HOME_WIDGETS = {
     at: (ctx, p, params) => reachedAt(ctx.timeline, p.id, params.n),
     value: downloadsValue,
   },
-  awakened: { ...tabWidget("awakened", { icon: "egg", tone: "orange" }, "hatched", (ctx, p) => t("filter.days", { n: lastHatch(ctx.state.releases, p)?.days })), words: () => ({ incubated: INCUBATION_DAYS }) },
+  awakened: { ...tabWidget("awakened", { icon: "egg", tone: "orange" }, "hatched", (ctx, p) => { const d = lastHatch(ctx.state.releases, p)?.days; return d != null ? t("filter.days", { n: d }) : "–"; }), words: () => ({ incubated: INCUBATION_DAYS }) },
   // by "pct": grew by at least RISING_SHARE on a base of RISING_BASE (a big plugin's +900K isn't news); "abs": most gained
   rising: {
     icon: "trending-up", tone: "green",
@@ -162,12 +165,12 @@ const HOME_WIDGETS = {
     query: () => "excluded OR snoozed OR dismissed\norder by name asc",
     value: (ctx, p) => t(`hidden.kind.${LIST_MODES.find((kind) => QUERY_FIELDS[kind].get(ctx.state, p, ctx.now))}`),
   },
-  updated: { ...tabWidget("updated", { icon: "filter", tone: "blue" }, "released", (ctx, p) => relativeDays(p.updated, ctx.now)), words: () => ({ days: UPDATED_DAYS }) },
+  updated: { ...tabWidget("updated", { icon: "filter", tone: "blue" }, "released", (ctx, p) => (p.updated ? relativeDays(p.updated, ctx.now) : "–")), words: () => ({ days: UPDATED_DAYS }) },
   // "since your last visit" asks it without `since`: not reviewed yet is what you haven't seen (see renderSince)
-  tracked: {
+  libraryReleases: {
     icon: "bell-ring", tone: "yellow",
     params: {}, defaults: {},
-    query: (ctx, params) => `unreviewed${params.since ? ` AND ${within("released", params)}` : ""}\norder by released desc`,   // unreviewed: tracked already
+    query: (ctx, params) => `unreviewed${params.since ? ` AND ${within("released", params)}` : ""}\norder by released desc`,   // unreviewed: in your library already
     at: (ctx, p) => p.updated,
     value: (ctx, p) => p.version || "",
   },
@@ -210,7 +213,8 @@ function viewWidget(view, seen) {
 
 /** A widget by id: a built-in one, or one of your saved views (undefined: a view since deleted). */
 function homeWidget(home, id) {
-  if (!id.startsWith(VIEW_PREFIX)) return HOME_WIDGETS[id];
+  if (typeof id !== "string") return undefined;
+  if (!id.startsWith(VIEW_PREFIX)) return Object.hasOwn(HOME_WIDGETS, id) ? HOME_WIDGETS[id] : undefined;
   const view = home.views?.find((v) => VIEW_PREFIX + v.id === id);
   return view && viewWidget(view, home.seen?.[id]);
 }
@@ -220,10 +224,10 @@ function seenIds(rows) {
   return rows.length <= VIEW_SEEN_CAP ? rows.map((p) => p.id) : null;
 }
 
-const HOME_ORDER = ["tracked", "new", "milestone", "awakened", "rising", "updated"];
+const HOME_ORDER = ["libraryReleases", "new", "milestone", "awakened", "rising", "updated"];
 const HOME_HIDDEN = ["milestone"];   // in the gallery to bring back
 // At a glance, first group: each card is a widget asked "since" your last visit day (see recordVisit)
-const SINCE_CARDS = ["new", "tracked", "updated"];
+const SINCE_CARDS = ["new", "libraryReleases", "updated"];
 // At a glance, second group: where you stand, whatever the period (a total each)
 const STATE_CARDS = ["mine", "suggested", "hidden"];
 const SINCE_PERIODS = ["seen", 7, 30];
@@ -265,11 +269,12 @@ function normalizeHome(saved = {}) {
 function legacyGroups(saved, groups) {
   if (!saved.order) return groups;
   const [news, state, discover] = groups;
-  if (saved.since?.show === false) return [discover];
+  const main = { ...discover, items: saved.order.filter((id) => !(saved.hidden || []).includes(id) && !STATE_CARDS.includes(id)) };
+  if (saved.since?.show === false) return [main];
   return [
     { ...news, items: saved.since?.order || news.items },
     state,
-    { ...discover, items: saved.order.filter((id) => !(saved.hidden || []).includes(id) && !STATE_CARDS.includes(id)) },
+    main,
   ];
 }
 
@@ -281,13 +286,13 @@ function unplacedWidgets(home) {
 
 /** A widget's settings: its defaults, then yours. */
 function widgetParams(home, id) {
-  return { ...homeWidget(home, id).defaults, ...home.params?.[id] };
+  return { ...homeWidget(home, id)?.defaults, ...home.params?.[id] };
 }
 
 /** The options of a widget setting (a list, or one worked out from the data, like milestone steps). */
 function paramOptions(ctx, id, key) {
-  const options = homeWidget(ctx.settings.home, id).params[key];
-  return typeof options === "function" ? options(ctx) : options;
+  const options = homeWidget(ctx.settings.home, id)?.params?.[key];
+  return typeof options === "function" ? options(ctx) : options || [];
 }
 
 /**
@@ -315,11 +320,11 @@ function freshRows(ctx, widget, params, rows, then) {
 }
 
 /**
- * One widget worked out: its rows, its new ones and its headline. A built-in widget's new ones are its query asked
- * "since" (what its "N new" opens); a saved view's are the matches you hadn't seen; null when it can't tell.
+ * One widget worked out: its rows, its new ones and its headline. New ones are always a subset of `rows` using the
+ * same `freshRows` cutoff that opening the list uses, so card counts and list badges always agree.
  */
 function widgetResult(ctx, widget, params, then) {
   const rows = widgetRows(ctx, widget, params);
-  const fresh = widget.at ? widgetRows(ctx, widget, sinceParams(params, then)) : freshRows(ctx, widget, params, rows, then);
+  const fresh = freshRows(ctx, widget, params, rows, then);
   return { rows, fresh, headline: widget.headline ? widget.headline(ctx, rows, params) : formatCount(rows.length) };
 }
