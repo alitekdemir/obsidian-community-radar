@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.17.0
 
 ### Changed
 - **Community Radar is now Pindex:** a shorter name, easy to say in any language: *query, pin and track Obsidian's plugin directory*. The plugin id stays `plugin-radar`, so your settings, cache and library notes carry on. The README markers in your library notes become `%% pindex:readme-… %%` by themselves on first start. The repository moved to `alitekdemir/obsidian-pindex` (the old address redirects). The ribbon and tab icon is a P holding an i ("Pi") instead of the radar.
