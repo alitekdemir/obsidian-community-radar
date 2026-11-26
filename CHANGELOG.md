@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.18.0
 
 ### Changed
 - **New and Updated are New plugins and New versions, and they never share a plugin:** New versions leaves out the plugins still under New plugins (Settings › New plugin period), so a just-listed plugin is in one list, not both. On Home's "since your last visit" cards the same holds for the day you pick.
