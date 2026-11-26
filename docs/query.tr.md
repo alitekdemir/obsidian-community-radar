@@ -117,6 +117,41 @@ listed ── sürüm ── … kuluçka … ── kuluçkadan çıkış · d�
 
 Bir alanda değeri olmayan eklenti (henüz geçmişi yok, indirme istatistiği yok, `rise` için 1K'nın altında) o alandaki hiçbir karşılaştırmaya uymaz ve o alana göre sıralarken, iki yönde de **en sona** düşer. Bunları `is empty` bulur.
 
+### `released` ile `hatched` farkı
+
+İkisi de bir sürüm tarihi okur, ama farklı sürümleri:
+
+| Alan | Okuduğu sürüm | Yeni sürüm çıkınca |
+|---|---|---|
+| `released` | en **son** sürüm | her sürümle ilerler |
+| `hatched` | 30+ günlük bir duraklamadan sonraki **ilk** sürüm | yerinde kalır; yalnızca yeni bir 30+ günlük duraklama onu taşır |
+
+Bir hafta içinde çıkan sürümler tek bir güncelleme dalgasıdır: dalga içindeki bir düzeltme duraklama sayılmaz. `incubated` bir tarih değil, duraklamanın **uzunluğudur**.
+
+Örnek bir eklenti:
+
+```
+10 Oca   1.0
+         ┆  120 gün sessizlik ─────────── incubated = 120d
+10 May   1.1     ← kuluçkadan çıkış: hatched
+13 May   1.1.1   ← aynı dalga (3 gün sonra): düzeltme
+ 5 Haz   1.2     ← 23 gün sonra: duraklama değil
+ 8 Haz   bugün
+```
+
+Her sürümden sonra alanların değeri:
+
+| Tarih | Çıkan sürüm | `released` | `hatched` | `incubated` |
+|---|---|---|---|---|
+| 10 Oca | 1.0 | 10 Oca | — | — |
+| 10 May | 1.1 | 10 May | 10 May | 120d |
+| 13 May | 1.1.1 | 13 May | 10 May | 120d |
+| 5 Haz | 1.2 | 5 Haz | 10 May | 120d |
+
+Her sürüm, çıktığı anda `released` olur; bir sonraki sürüm gelince yerini ona bırakır. `hatched` ise 10 May'da kalır. Bugün (8 Haz) bu eklenti `released <= 3d`, `hatched <= 29d` ve `incubated >= 120d` koşullarına uyar.
+
+1.2, 1.1.1'den 30 gün ya da daha sonra çıksaydı yeni bir kuluçkadan çıkış olurdu: `hatched` 1.2'ye, `incubated` o duraklamanın uzunluğuna taşınırdı. Hiç 30 günlük duraklama vermemiş ya da geçmişi henüz olmayan bir eklentinin `hatched` değeri boştur; `released` her zaman doludur.
+
 ## Değerler
 
 | Değer | Örnek |

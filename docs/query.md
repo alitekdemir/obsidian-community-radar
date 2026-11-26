@@ -117,6 +117,41 @@ listed ── release ── … incubation … ── hatching · hotfix ──
 
 A plugin that has no value for a field (no history yet, no download stats, under 1K for `rise`) never matches a comparison on it and goes **last** when you sort by it, in either direction. `is empty` finds those.
 
+### `released` vs `hatched`
+
+Both read a release date, but not the same release:
+
+| Field | Reads | When a new release comes out |
+|---|---|---|
+| `released` | the **latest** release | moves with every release |
+| `hatched` | the **first** release after a pause of 30+ days | stays put; only a new 30+ day pause moves it |
+
+Releases within a week of each other are one update wave: a fix inside a wave isn't a pause. `incubated` isn't a date but the pause's **length**.
+
+An example plugin:
+
+```
+Jan 10   1.0
+         ┆  120 days of silence ───────── incubated = 120d
+May 10   1.1     ← out of incubation: hatched
+May 13   1.1.1   ← same wave (3 days later): a fix
+Jun  5   1.2     ← 23 days later: not a pause
+Jun  8   today
+```
+
+The fields after each release:
+
+| Date | Release | `released` | `hatched` | `incubated` |
+|---|---|---|---|---|
+| Jan 10 | 1.0 | Jan 10 | — | — |
+| May 10 | 1.1 | May 10 | May 10 | 120d |
+| May 13 | 1.1.1 | May 13 | May 10 | 120d |
+| Jun 5 | 1.2 | Jun 5 | May 10 | 120d |
+
+Each release is `released` when it comes out and gives way to the next one. `hatched` stays at May 10. Today (Jun 8) this plugin matches `released <= 3d`, `hatched <= 29d` and `incubated >= 120d`.
+
+Had 1.2 come out 30 or more days after 1.1.1, it would be a new hatching: `hatched` would move to 1.2 and `incubated` to that pause's length. A plugin that never paused 30 days, or has no history yet, has no `hatched`; `released` is always there.
+
 ## Values
 
 | Value | Example |
