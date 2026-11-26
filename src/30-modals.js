@@ -296,7 +296,7 @@ const GUIDE_ROWS = {
     ["in (…) / not in (…)", "in (", "help.op.in"], ["is empty", "is empty", "help.op.empty"], ["AND / OR / NOT", "AND", "help.op.bool"], ["order by … desc", "order by", "help.op.order"],
     ["group by …", "group by", "help.op.group"], ["limit 100 · limit 101-200", "limit", "help.op.limit"]],
   functions: Object.keys(QUERY_FUNCS).map((f) => [`${f}()`, `${f}()`, `query.fn.${f}`]),
-  values: [["10k · 1.5m", "10k", "help.value.count"], ["14d · 2w · 6m · 1y", "14d", "help.value.span"], ["2026-01-01", "2026-01-01", "help.value.date"],
+  values: [["10k · 1.5m", "10k", "help.value.count"], ["-14d · -2w · -6m · -1y", "-14d", "help.value.ago"], ["14d · 2w · 6m · 1y", "14d", "help.value.span"], ["2026-01-01", "2026-01-01", "help.value.date"],
     [null, '""', "help.value.quoted"], ['("Tasks", Calendar)', "(", "help.value.list"]],
 };
 

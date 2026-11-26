@@ -47,7 +47,7 @@ At the top, **What's new** counts new arrivals, updates to plugins in your libra
 Some of the most exciting moments in the ecosystem happen when an abandoned favorite suddenly ships a major rewrite—yet in a standard "sort by updated" list, it vanishes within hours under daily hotfixes.
 
 - **Incubation** surfaces plugins that shipped a new version after lying dormant for 60 to 360+ days—showing exact context like *"4 days ago (after a 1,462-day incubation)"*. Better yet, every comeback gets the same 30 days on the tab, the latest on top, and keeps them even if it ships a hotfix the next day.
-- **Updated** automatically sets aside hyper-active plugins (more than 9 update waves in 6 months), giving thoughtful, less frequent releases room to breathe.
+- **New versions** shows the latest releases of plugins that aren't new (those are under **New plugins**) and that at least 1,000 people use: maintained, trusted plugins, newest release first.
 
 ---
 
@@ -58,7 +58,7 @@ Some of the most exciting moments in the ecosystem happen when an abandoned favo
 Prefer visual controls? Stay in **Basic** mode to combine search terms, `/regex/`, and quick filter chips behind the **Filter** menu. Want total precision? Flip to **Query** mode—because under the hood, **every list in Pindex is just an editable query**:
 
 ```sql
-listed <= 30d AND downloads >= 50 AND NOT library
+listed >= -30d AND downloads >= 50 AND NOT library
 order by gain(30d) desc
 ```
 

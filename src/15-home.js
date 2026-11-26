@@ -100,22 +100,36 @@ function sinceParams(params, since) {
   return { ...rest, since };
 }
 
-/** A widget's time window on a days field: its last N days, or (asked "since") from that day on. */
-const within = (field, params) => (params.since ? `${field} >= ${dayString(params.since)}` : `${field} <= ${params.days}d`);
+/** A widget's time window on a moment field: its last N days, or (asked "since") from that day on. Same `>=` either way. */
+const within = (field, params) => `${field} >= ${params.since ? dayString(params.since) : `-${params.days}d`}`;
+
+/** `field` as a regex part (`milestone(10k)` has brackets). */
+const fieldPattern = (field) => field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /**
- * A query asked "since": its own window on `field` (`listed <= 14d`) gives way to `condition` (`listed >= 2026-11-13`);
+ * A query asked "since": its own window on `field` (`listed >= -14d`) gives way to `condition` (`listed >= 2026-11-13`);
  * a query without one gets it joined (in parentheses only when it has an OR). Its order is kept.
  */
 function narrowQuery(text, field, condition) {
   const { filter, order } = splitOrder(text);
-  const escaped = field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const hasOr = /\bOR\b/i.test(filter);
-  const own = new RegExp(`(?<!\\bNOT\\s)(^|[\\s(])${escaped}\\s*<=?\\s*[^\\s)]+`, "i");   // unnegated "within N days"
+  const own = new RegExp(`(?<!\\bNOT\\s)(^|[\\s(])${fieldPattern(field)}\\s*>=?\\s*-[^\\s)]+`, "i");   // unnegated "the last N days"
   const narrowed = !hasOr && own.test(filter)
     ? filter.replace(own, `$1${condition}`)
     : [filter && (hasOr ? `(${filter})` : filter), condition].filter(Boolean).join(" AND ");
   return [narrowed, order].filter(Boolean).join("\n");
+}
+
+/**
+ * Asked "since", a left-out window also leaves out what the card of that field finds from that day: New versions'
+ * `NOT listed >= -14d` (the New plugins page) gets `AND NOT listed >= 2026-11-13` (the New plugins card). The card
+ * then shares no plugin with either, and stays part of its page's list.
+ */
+function narrowLeftOut(text, field, params) {
+  const { filter, order } = splitOrder(text);
+  const leftOut = new RegExp(`\\bNOT\\s+${fieldPattern(field)}\\s*>=?\\s*-[^\\s)]+`, "gi");
+  const both = (clause) => (/\bOR\b/i.test(filter) ? `(${clause} AND NOT ${within(field, params)})` : `${clause} AND NOT ${within(field, params)}`);
+  return [filter.replace(leftOut, both), order].filter(Boolean).join("\n");
 }
 
 /**
@@ -125,7 +139,9 @@ function narrowQuery(text, field, condition) {
  */
 const tabWidget = (mode, look, field, value, page = false) => ({
   tab: mode, ...look, value, params: {}, defaults: {}, page: page && mode,
-  query: (ctx, params) => (params.since && field ? narrowQuery(pageQuery(ctx.settings, mode), field, within(field, params)) : pageQuery(ctx.settings, mode)),
+  query: (ctx, params) => (params.since && field
+    ? narrowLeftOut(narrowQuery(pageQuery(ctx.settings, mode), field, within(field, params)), "listed", params)
+    : pageQuery(ctx.settings, mode)),
   ...(field && { at: (ctx, p) => QUERY_FIELDS[field].at(ctx.state, p, ctx.now) }),
 });
 const downloadsValue = (ctx, p) => formatShort(p.downloads ?? 0);

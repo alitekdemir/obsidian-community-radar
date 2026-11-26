@@ -287,7 +287,7 @@ const tests = {
     assert.deepEqual(Object.keys(plugin.data.migrations).filter((k) => steps.includes(k)), steps, "all recorded, in this order");
     const [view] = plugin.data.settings.home.views;
     assert.notEqual(view.query, "undefined");
-    assert.ok(view.query.startsWith("released <= 14d"), view.query);
+    assert.ok(view.query.startsWith("released >= -14d"), view.query);
     assert.equal(core.compileQuery(view.query, null, NOW, true).error, "", "it parses");
   },
 
@@ -324,7 +324,7 @@ const tests = {
     await plugin.onload();
     await tick(10);
     const [repaired, kept] = plugin.data.settings.home.views;
-    assert.ok(repaired.query.startsWith("released <= 14d"), repaired.query);
+    assert.ok(repaired.query.startsWith("released >= -14d"), repaired.query);
     assert.deepEqual(kept, fine, "a view with a real query is left alone");
   },
 
@@ -342,14 +342,14 @@ const tests = {
     assert.deepEqual($$(el, ".pdt-tab").map((tab) => tab.dataset.key), ["home", "all", "updated"]);
     assert.ok($(el, '.pdt-tab[data-key="updated"] .pdt-similar-step'), "a page's tab closes");
     const names = $$(el, ".pdt-name").map((a) => a.textContent);
-    assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy excluded, homepage tracked
+    assert.deepEqual(names, ["Dataview", "Fresh Plugin"].filter((n) => names.includes(n)));  // busy under 1K downloads, homepage tracked
     assert.ok(!names.includes("Busy Plugin") && !names.includes("Homepage"));
     const sort = $$(el, ".pdt-chip.is-menu").find((c) => c.textContent.startsWith("Sırala") || c.textContent.startsWith("Sort"));
     fake.menus.length = 0;
     sort.onclick();
-    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [true, ...Array(10).fill(false)]);   // same eleven sorts on every tab
-    await fake.menus[0].items[5].click();   // updated (SORT_KEYS order)
-    assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "released", dir: "desc" });
+    assert.deepEqual(fake.menus[0].items.map((i) => i.checked), [...Array(5).fill(false), true, ...Array(5).fill(false)]);   // eleven sorts; New versions: its query's latest release first
+    await fake.menus[0].items[0].click();   // downloads (SORT_KEYS order)
+    assert.deepEqual(plugin.data.settings.sortBy.updated, { key: "downloads", dir: "desc" });
     assert.ok($(el, ".pdt-icon").classList.contains("clickable-icon"));
 
     // All tab: tracked Homepage is listed with its note badge; four sorts; back to Updated shows a valid sort
@@ -366,8 +366,8 @@ const tests = {
     assert.deepEqual($$(el, ".pdt-name").map((a) => a.textContent), [...allNames].sort((a, b) => a.localeCompare(b, core.t("locale"))));
     await view.update("mode", "updated");
     const chipText = sortChip().textContent;
-    assert.ok(chipText.endsWith(core.t("sort.released")), chipText);   // each tab keeps its own sort
-    await view.filterBar.updateTab("sortBy", { key: "downloads", dir: "desc" });
+    assert.ok(chipText.endsWith(core.t("sort.downloads")), chipText);   // each tab keeps its own sort (downloads, picked above)
+    await view.filterBar.updateTab("sortBy", { key: "released", dir: "desc" });   // back to the page query's own order
     ctx.view = view;
   },
 
@@ -480,7 +480,7 @@ const tests = {
     assert.equal(settings.queries.updated, core.pageQuery(settings, "updated"));
     const changes = () => $(el, ".pdt-q-changes:not(.is-hidden)");
     assert.ok(!changes(), "unchanged: nothing to save");
-    const wider = core.pageQuery(settings, "updated").replace("released <= 14d", "released <= 30d");
+    const wider = core.pageQuery(settings, "updated").replace("released >= -14d", "released >= -30d");
     await typeQuery(wider);
     assert.equal(changes()?.textContent, `● ${core.t("query.changes", { n: 1 })}`, "changed: a badge in the box");
     assert.ok(!$(el, ".pdt-search.is-changed"), "no colored edge");
@@ -488,7 +488,7 @@ const tests = {
     changes().onclick();
     const pop = () => document.querySelector(".pdt-changes-pop");
     assert.equal(pop().querySelector(".pdt-changes-where").textContent, core.t("query.unsavedPage", { name: core.t("mode.updated") }), "where it is unsaved");
-    assert.deepEqual([...pop().querySelectorAll(".pdt-changes-line")].map((l) => l.textContent), ["−released <= 14d", "+released <= 30d"], "the clause that went, the one that came");
+    assert.deepEqual([...pop().querySelectorAll(".pdt-changes-line")].map((l) => l.textContent), ["−released >= -14d", "+released >= -30d"], "the clause that went, the one that came");
     const actions = () => [...pop().querySelectorAll(".pdt-changes-actions button")];
     assert.deepEqual(actions().map((b) => b.textContent), [core.t("query.replacePage", { name: core.t("mode.updated") }), core.t("query.newView")], "the save that fits first, stacked");
     assert.equal(pop().querySelector(".pdt-changes-discard").textContent, core.t("query.discard"), "Discard: a quiet link at the bottom");
@@ -503,7 +503,7 @@ const tests = {
     assert.ok(!$(el, ".pdt-filter-save"));
     await modeButton(0).onclick();
     assert.equal(settings.queries.updated, undefined);
-    assert.ok(box().getAttribute("placeholder").includes("released <= 30d"), "Basic: the page's query, faint in the box");
+    assert.ok(box().getAttribute("placeholder").includes("released >= -30d"), "Basic: the page's query, faint in the box");
     settings.pageQueries = {};
 
     // nothing found: the status names the clause that emptied the list; applied queries are remembered; Esc reverts
@@ -1308,11 +1308,11 @@ const tests = {
 
     // Query mode: a header click writes the query's order by (the list follows it, the save bar shows it)
     await view.searchBox.toQueryMode();
-    $$(el, ".pdt-table-sort").find((b) => b.textContent.startsWith(core.t("col.released"))).onclick();
+    $$(el, ".pdt-table-sort").find((b) => b.textContent.startsWith(core.t("col.name"))).onclick();
     await tick();
-    assert.equal(settings.queries.all, "order by released desc");   // All's query is only its sort
-    assert.deepEqual(view.filterBar.listSort, { key: "released", dir: "desc" });
-    assert.ok($$(el, ".pdt-table-sort.is-on")[0].textContent.startsWith(core.t("col.released")));
+    assert.equal(settings.queries.all, "order by name asc");   // All's query is only its sort (latest release first by default)
+    assert.deepEqual(view.filterBar.listSort, { key: "name", dir: "asc" });
+    assert.ok($$(el, ".pdt-table-sort.is-on")[0].textContent.startsWith(core.t("col.name")));
     assert.ok($(el, ".pdt-q-changes:not(.is-hidden)"), "the changed query can be saved");
     const typed = $(el, ".pdt-search .pdt-q-input");
     typed.value = "downloads >= 1\norder by name asc";
@@ -1585,7 +1585,7 @@ const tests = {
     assert.equal(el.getAttribute("lang"), "en", "uppercase headings follow the UI's language, not Obsidian's");
     assert.equal($(card("new"), ".pdt-home-n").textContent, "0", "the New tab's query: Fresh Plugin is tracked");
     // a tab's widget is the tab: save your own query over the tab's and the card follows; ⋮ resets it
-    settings.pageQueries = { ...settings.pageQueries, new: "listed <= 14d\norder by downloads desc" };
+    settings.pageQueries = { ...settings.pageQueries, new: "listed >= -14d\norder by downloads desc" };
     await view.update("section", "home");
     assert.equal($(card("new"), ".pdt-home-n").textContent, "1", "Fresh Plugin, listed yesterday");
     $(card("new"), ".pdt-home-more").onclick({ stopPropagation() {} });

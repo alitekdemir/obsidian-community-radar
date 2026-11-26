@@ -2,10 +2,10 @@
 
 *[English](query.md) · Türkçe*
 
-Pindex'teki her liste bir sorgudur: *Tümü* ve Ana sayfadaki her kart (*Yeni*, *Güncellenen*, *Kuluçka*, *Öneriler*, kaydettiğiniz görünümler…). Kart kendi listesini açar; kutunun yanındaki **Sorgu**'ya basınca sorgusunu görür, değiştirirsiniz; **Basit** düz aramaya ve **Filtre** paneline döner. Değişen bir sorgu **● N değişiklik** rozeti gösterir: onu bir görünüm olarak (Ana sayfada kendi kartı olur) ya da hazır bir kartsa kartın kendi sorgusunun üzerine kaydedin (kartın **⋮ › “…” sorgusunu düzenle** seçeneği; kendi sorgunuzu kaydettikten sonra **Sorguyu varsayılana döndür** varsayılanı geri getirir).
+Pindex'teki her liste bir sorgudur: *Tümü* ve Ana sayfadaki her kart (*Yeni Eklentiler*, *Yeni Sürümler*, *Kuluçka*, *Öneriler*, kaydettiğiniz görünümler…). Kart kendi listesini açar; kutunun yanındaki **Sorgu**'ya basınca sorgusunu görür, değiştirirsiniz; **Basit** düz aramaya ve **Filtre** paneline döner. Değişen bir sorgu **● N değişiklik** rozeti gösterir: onu bir görünüm olarak (Ana sayfada kendi kartı olur) ya da hazır bir kartsa kartın kendi sorgusunun üzerine kaydedin (kartın **⋮ › “…” sorgusunu düzenle** seçeneği; kendi sorgunuzu kaydettikten sonra **Sorguyu varsayılana döndür** varsayılanı geri getirir).
 
 ```
-downloads > 500 AND released < 30d AND group in ("Tasks", Calendar) AND NOT installed
+downloads > 500 AND released > -30d AND group in ("Tasks", Calendar) AND NOT installed
 order by gain(30d) desc
 ```
 
@@ -29,10 +29,10 @@ primary = tasks group by intent order by downloads desc limit 50
 | `author` | metin | yazarı |
 | `id` | metin | eklenti id'si |
 | `downloads` | sayı | indirme sayısı |
-| `released` | gün | son sürümden bu yana geçen gün ya da bir tarih |
-| `listed` | gün | listede geçen gün ya da bir tarih (geçmiş Ekim 2020'de başlamadan önce listelenenler: o tarihten sayılır) |
-| `incubated` | gün | son kuluçkasının ne kadar sürdüğü: güncelleme dalgaları arasındaki 30+ günlük son duraklama |
-| `hatched` | gün | o kuluçkadan çıkalı geçen gün ya da bir tarih; sonraki sürümler bunu değiştirmez |
+| `released` | an | son sürümün çıktığı an: `-30d` (30 gün önce) ya da bir tarih |
+| `listed` | an | listeye eklendiği an: `-30d` ya da bir tarih (geçmiş Ekim 2020'de başlamadan önce listelenenler: o tarihten sayılır) |
+| `incubated` | uzunluk | son kuluçkasının ne kadar sürdüğü: güncelleme dalgaları arasındaki 30+ günlük son duraklama |
+| `hatched` | an | o kuluçkadan çıktığı an: `-30d` ya da bir tarih; sonraki sürümler bunu değiştirmez |
 | `rating` | sayı | puanınız, 1–5 |
 | `group` | liste | notunuzdaki bir grup |
 | `status` | liste | notunuzdaki durum |
@@ -46,6 +46,23 @@ primary = tasks group by intent order by downloads desc limit 50
 | `translated` | liste | dilinizde olanlar: `description`, `overview` (güncel) |
 
 Alan adları her dilde İngilizcedir; böylece kayıtlı sorgular dil değişikliğinden etkilenmez. Değerler sizindir (grup adlarınız, durumlarınız).
+
+## Hangi zaman alanı?
+
+Her zaman alanı tek bir soruyu cevaplar. Alanı kelimeye göre değil, soruya göre seçin:
+
+| Alan | Sorar | Değişir | Liste |
+|---|---|---|---|
+| `listed` | listeye **ne zaman girdi**? | hiç: doğum günüdür | *Yeni Eklentiler* |
+| `released` | **son sürümü** ne zaman çıktı? | her sürümle, düzeltmeler dahil | *Tümü*, *Yeni Sürümler* |
+| `releases(180d)` | **ne kadar aktif**: 180 günde kaç güncelleme dalgası? | pencere kaydıkça | liste değil, filtre: `releases(180d) >= 2` = bakımı sürüyor |
+| `hatched` | 30+ günlük bir aradan **ne zaman döndü**? | yalnızca yeni bir aradan sonra | *Kuluçka* |
+| `incubated` | o ara **ne kadar sürdü**? | yalnızca yeni bir aradan sonra | *Kuluçka* |
+| `milestone(10k)` | 10K indirmeye **ne zaman ulaştı**? | bir kez, barajda | *10K'yı yeni aşanlar* sorgusu |
+
+`order by released desc` ile `order by listed desc` birbirine benzer ama farklı soruları cevaplar. Git listeye 2020'de girdi, dün sürüm çıkardı: `order by released desc` sıralamasında en üsttedir (son güncellenenler), `order by listed desc` sıralamasında en alta yakındır (son eklenenler). Her liste kendi alanıyla süzülür ve sıralanır: *Yeni Eklentiler* `listed`, *Yeni Sürümler* `released`, *Kuluçka* `hatched` ile.
+
+`released >= -14d` ile `releases(14d) >= 1` neredeyse aynı eklentileri bulur (ikincisi eski bir dalganın içindeki düzeltmeyi dışarıda bırakır, yaklaşık %5'i). "Ne yeni?" için `released`, "ne kadar aktif?" için `releases()` kullanın.
 
 ## AI profili alanları
 
@@ -72,14 +89,14 @@ Bunlar fonksiyon gibi yazılır. Parametreyi siz belirlersiniz; `()` varsayılan
 |---|---|---|
 | `gain(30d)` | `gain()` = 30 gün | son N günde kazanılan indirme |
 | `rise(30d)` | `rise()` = 30 gün | son N gündeki % büyüme (yalnızca 1K indirmeden itibaren) |
-| `releases(30d)` | `releases()` = 30 gün | son N gündeki güncellemeler (bir hafta içindeki sürümler bir kez sayılır) |
-| `milestone(10k)` | `milestone()` = son barajı | N indirmeye ulaşalı geçen gün |
+| `releases(30d)` | `releases()` = 30 gün | son N gündeki güncelleme dalgaları (bir hafta içindeki sürümler bir kez sayılır): ne kadar yakın değil, ne kadar aktif |
+| `milestone(10k)` | `milestone()` = son barajı | N indirmeye ulaştığı an: `-30d` ya da bir tarih |
 
 Her sayı olur: `gain(21d)`, `rise(45d)`, `milestone(7k)`. İndirme geçmişi son bir yılı kapsar: son ay gün gün, öncesi hafta hafta (aradaki bir pencere orantılı okunur). `( )` olmadan düz `gain` yazmak, nasıl yazılacağını söyleyen bir hata verir.
 
 ```
 gain(21d) >= 500 AND NOT library
-milestone(10k) <= 30d order by downloads desc
+milestone(10k) >= -30d order by downloads desc
 releases(180d) > 9
 ```
 
@@ -94,16 +111,17 @@ releases(180d) > 9
 
 ## Gün alanlarını okumak
 
-Gün alanı **bugünden geriye** sayar; bu yüzden küçük sayı daha yakın tarihtir:
+Tarih alanı (`released`, `listed`, `hatched`, `milestone()`) bir **andır**. Bugünden geriye eksi işaretiyle yazılır, `-30d` 30 gün önce demektir, ya da bir tarih olarak. **`>=` her zaman daha yeni demektir**; `-30d` de yazsanız `2026-11-01` de. Uzunluk (`incubated`) eksi almaz: bir şeyin ne kadar sürdüğüdür.
 
 | Yazdığınız | Anlamı |
 |---|---|
-| `released <= 30d` | son 30 gün **içinde** sürüm çıkmış |
-| `released >= 1y` | bir yıl ya da daha uzun süredir **sürüm yok** |
-| `listed <= 14d` | son iki haftada listelenmiş |
+| `released >= -30d` | son 30 gün **içinde** sürüm çıkmış |
+| `released <= -1y` | bir yıl ya da daha uzun süredir **sürüm yok** |
+| `released >= 2026-11-01` | 1 Kasım'da ya da sonrasında sürüm çıkmış |
+| `listed >= -14d` | son iki haftada listelenmiş |
 | `incubated >= 60d` | son kuluçkası **60 gün ya da daha uzun** sürmüş |
-| `hatched <= 30d` | son 30 gün **içinde** kuluçkadan çıkmış |
-| `milestone(10k) <= 30d` | bu ay 10K indirmeye ulaşmış |
+| `hatched >= -30d` | son 30 gün **içinde** kuluçkadan çıkmış |
+| `milestone(10k) >= -30d` | bu ay 10K indirmeye ulaşmış |
 
 Bir eklentinin zaman çizelgesinde dört gün alanı:
 
@@ -148,7 +166,7 @@ Her sürümden sonra alanların değeri:
 | 13 May | 1.1.1 | 13 May | 10 May | 120d |
 | 5 Haz | 1.2 | 5 Haz | 10 May | 120d |
 
-Her sürüm, çıktığı anda `released` olur; bir sonraki sürüm gelince yerini ona bırakır. `hatched` ise 10 May'da kalır. Bugün (8 Haz) bu eklenti `released <= 3d`, `hatched <= 29d` ve `incubated >= 120d` koşullarına uyar.
+Her sürüm, çıktığı anda `released` olur; bir sonraki sürüm gelince yerini ona bırakır. `hatched` ise 10 May'da kalır. Bugün (8 Haz) bu eklenti `released >= -3d`, `hatched >= -29d` ve `incubated >= 120d` koşullarına uyar.
 
 1.2, 1.1.1'den 30 gün ya da daha sonra çıksaydı yeni bir kuluçkadan çıkış olurdu: `hatched` 1.2'ye, `incubated` o duraklamanın uzunluğuna taşınırdı. Hiç 30 günlük duraklama vermemiş ya da geçmişi henüz olmayan bir eklentinin `hatched` değeri boştur; `released` her zaman doludur.
 
@@ -184,11 +202,11 @@ listed >= lastSync()
 *Gizli cevherler*: henüz ünlü olmayan iyi eklentiler.
 
 1. **Boyut:** dev değil. `downloads <= 10k`
-2. **Canlılık:** bakımı süren ve büyüyen. `AND released <= 30d AND rise(30d) >= 20`
+2. **Canlılık:** bakımı süren ve büyüyen. `AND released >= -30d AND rise(30d) >= 20`
 3. **Sizin için yeni:** `AND NOT library`, ardından sıralama: `order by rise(30d) desc`
 
 ```
-downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library
+downloads <= 10k AND released >= -30d AND rise(30d) >= 20 AND NOT library
 order by rise(30d) desc
 ```
 
@@ -201,17 +219,17 @@ Ana sayfadaki **Widget ekle** ve boş sorgu kutusuyla aynı liste. **+ Ekle** bi
 | Ad | Sorgu | Bulduğu |
 |---|---|---|
 | Bu ay güncellenenler | `released >= startOfMonth() order by downloads desc` | ayın 1'inden beri sürüm çıkaranlar |
-| Hızlı çıkış yapanlar | `listed <= 60d AND downloads >= 1k AND NOT library order by downloads desc` | son 2 ayda listelenip 1K'yı geçmişler |
-| Gizli cevherler | `downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library order by rise(30d) desc` | 1K–10K, bu ay güncellenmiş, %20+ büyüyen |
-| Uykudan uyananlar | `incubated >= 180d AND hatched <= 30d AND NOT library order by hatched desc` | 6+ aydan sonra bu ay dönenler |
-| Popülerlerde yeni sürüm | `downloads >= 50k AND released <= 14d AND NOT library order by released desc` | çok kişiye ulaşan değişiklikler |
-| 10K'yı yeni aşanlar | `milestone(10k) <= 30d order by downloads desc` | bu ay 10K'ya ulaşanlar, sonra nereye vardıklarından bağımsız |
+| Hızlı çıkış yapanlar | `listed >= -60d AND downloads >= 1k AND NOT library order by downloads desc` | son 2 ayda listelenip 1K'yı geçmişler |
+| Gizli cevherler | `downloads <= 10k AND released >= -30d AND rise(30d) >= 20 AND NOT library order by rise(30d) desc` | 1K–10K, bu ay güncellenmiş, %20+ büyüyen |
+| Uykudan uyananlar | `incubated >= 180d AND hatched >= -30d AND NOT library order by hatched desc` | 6+ aydan sonra bu ay dönenler |
+| Popülerlerde yeni sürüm | `downloads >= 50k AND released >= -14d AND NOT library order by released desc` | çok kişiye ulaşan değişiklikler |
+| 10K'yı yeni aşanlar | `milestone(10k) >= -30d order by downloads desc` | bu ay 10K'ya ulaşanlar, sonra nereye vardıklarından bağımsız |
 | Aktif geliştirilenler | `releases(30d) >= 3 AND downloads >= 1k AND NOT library order by gain(30d) desc` | bu ay 3+ güncelleme |
-| Terk edilmiş kurulu eklentiler | `installed AND released >= 1y order by released asc` | kurulu, bir yıldır güncellenmemiş |
+| Terk edilmiş kurulu eklentiler | `installed AND released <= -1y order by released asc` | kurulu, bir yıldır güncellenmemiş |
 | Denenecekler | `library AND NOT installed order by rating desc` | kitaplıkta, burada kurulu değil |
 | Grupsuzlar | `library AND group is empty order by name asc` | kitaplıkta, grubu yok |
 | Puansızlar | `library AND rating is empty order by downloads desc` | kitaplıkta, henüz puanlanmamış |
-| Kitaplıkta uyuyanlar | `library AND released >= 1y order by released asc` | kitaplıkta, bir yıldır sürüm yok |
+| Kitaplıkta uyuyanlar | `library AND released <= -1y order by released asc` | kitaplıkta, bir yıldır sürüm yok |
 
 Ana sayfadaki **Kategori izleme** widget'ı (**+ Widget ekle › Bildirim** içinde) asıl kategorisi o olan eklentileri, en çok indirilen üstte listeler; listeye yeni girenleri "+N yeni" ile işaretler: `primary = tasks AND NOT removed order by downloads desc`.
 
@@ -221,8 +239,9 @@ Daha fazlası: `author ~ zsviczian` (bir yazarın tüm eklentileri), `"daily not
 
 - **`~` kelime arar, ifade değil.** `name ~ "side note"` SideNote ve Side-Notes'u, Mobile Sidebar Notes'u da bulur: her kelime adın bir yerinde geçer; boşluk, tire ve büyük-küçük harf sayılmaz. Birebir metin için `=`, bu sırayla kelimeler için regex: `name ~ /side.?note/`.
 - **`rise()` 1K indirmenin altında boştur.** 10 → 30 yükseliş sayılmaz; küçük eklentiler için `gain()` kullanın.
-- **`milestone(10k)` 10K'ya ulaştığı gündür,** sonrasında kaç indirmeye ulaştığından bağımsızdır: bu ay 9K'dan 30K'ya çıkan bir eklenti hem `milestone(10k) <= 30d` hem de `milestone(25k) <= 30d` içindedir.
-- **Güncellenen, yeni eklentileri dışarıda bırakmaz.** Onları yalnızca Yeni'de görmek istiyorsanız sorgusuna `NOT listed <= 14d` ekleyin.
+- **`milestone(10k)` 10K'ya ulaştığı gündür,** sonrasında kaç indirmeye ulaştığından bağımsızdır: bu ay 9K'dan 30K'ya çıkan bir eklenti hem `milestone(10k) >= -30d` hem de `milestone(25k) >= -30d` içindedir.
+- **Yeni Sürümler hiçbir yeni eklentiyi göstermez.** Sorgusu Yeni Eklentiler'in süresini dışarıda bırakır (`NOT listed >= -14d`, Ayarlar › Yeni eklenti süresi); iki sayfa hiçbir eklentiyi paylaşmaz.
+- **Tarih alanı eksi işaret alır.** `released <= 14d` artık hatadır: `released >= -14d` yazın (0.18'den beri; daha önce kaydedilmiş bir sorgu, siz değiştirene kadar hatayı gösterir).
 - **Dışlanan ve gizlenen eklentiler** sorgu `excluded` ya da `snoozed` demedikçe hiçbir listede görünmez.
 - **Kuluçkadan çıkış herkes için aynı 30 gündür.** Bir yıl uyumak daha uzun kalma hakkı kazandırmaz; en son dönen en üsttedir. Dönüşten sonraki sürümler eklentiyi listeden çıkarmaz.
 

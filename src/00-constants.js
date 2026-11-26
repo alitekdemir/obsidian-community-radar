@@ -42,8 +42,9 @@ const HISTORY_STALE_DAYS = 2;     // the server builds the history daily; older 
 const RECENT_QUERIES = 10;          // the empty query box remembers this many of your last queries
 const OPS_CAP = 20;                // bulk actions kept for Recent actions (each with what it changed, for Undo)
 const SEEN_AFTER_MS = 10_000;      // a library plugin's new release counts as seen after this long in its details window
-const BUSY_DAYS = 180;             // "busy" (Updated hides it: releases(180d) <= 9): update waves counted over this window…
-const BUSY_LIMIT = 9;              // …more than this (about every three weeks) hides it from Updated (setting: hideBusy)
+const BUSY_DAYS = 180;             // a pre-0.11 query's `busy` field, written out by migrateQuery: waves over this window…
+const BUSY_LIMIT = 9;              // …more than this
+const TRUSTED_DOWNLOADS = 1000;    // New versions lists the releases of plugins this many people use
 const PARALLEL = 4;                // snapshots downloaded at once
 const SYNC_HOURS = [0, 6, 24, 168]; // sync frequency choices; 0 = manual
 const SYNC_CHECK_MS = 30 * 60_000;   // how often the plugin checks whether a sync is due (no network)
@@ -216,7 +217,6 @@ function defaultSettings() {
     mode: "all",
     days: UPDATED_DAYS,
     newDays: DEFAULT_NEW_DAYS,
-    hideBusy: true,       // Updated: hide plugins with more than BUSY_LIMIT releases in BUSY_DAYS
     section: "home",      // home | list (All, a widget's list, or a page a widget opens: Library, Hidden)
     start: "home",        // the section the view opens on: home | last
     home: homeDefaults(),

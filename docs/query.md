@@ -2,10 +2,10 @@
 
 *English · [Türkçe](query.tr.md)*
 
-Every list in Pindex is a query: *All*, and every card on Home (*New*, *Updated*, *Incubation*, *Suggested*, your saved views…). A card opens its list; press **Query** next to the box to see its query and change it; **Basic** goes back to plain search and the **Filter** panel. A changed query shows a **● N changes** badge: save it as a view (a card of its own on Home), or, for a built-in card, over the card's own query (its **⋮ › Edit the query**; **Reset the query to default** brings the default back once you saved your own).
+Every list in Pindex is a query: *All*, and every card on Home (*New plugins*, *New versions*, *Incubation*, *Suggested*, your saved views…). A card opens its list; press **Query** next to the box to see its query and change it; **Basic** goes back to plain search and the **Filter** panel. A changed query shows a **● N changes** badge: save it as a view (a card of its own on Home), or, for a built-in card, over the card's own query (its **⋮ › Edit the query**; **Reset the query to default** brings the default back once you saved your own).
 
 ```
-downloads > 500 AND released < 30d AND group in ("Tasks", Calendar) AND NOT installed
+downloads > 500 AND released > -30d AND group in ("Tasks", Calendar) AND NOT installed
 order by gain(30d) desc
 ```
 
@@ -29,10 +29,10 @@ primary = tasks group by intent order by downloads desc limit 50
 | `author` | text | its author |
 | `id` | text | its plugin id |
 | `downloads` | number | downloads |
-| `released` | days | days since the latest release, or a date |
-| `listed` | days | days in the list, or a date (listed before the history began in October 2020: counted from then) |
-| `incubated` | days | how long its latest incubation lasted: the last pause of 30+ days between update waves |
-| `hatched` | days | days since it came out of that incubation, or a date; later releases don't change it |
+| `released` | moment | when the latest release came out: `-30d` (30 days ago) or a date |
+| `listed` | moment | when it was listed: `-30d` or a date (listed before the history began in October 2020: counted from then) |
+| `incubated` | length | how long its latest incubation lasted: the last pause of 30+ days between update waves |
+| `hatched` | moment | when it came out of that incubation: `-30d` or a date; later releases don't change it |
 | `rating` | number | your rating, 1–5 |
 | `group` | list | a group in your note |
 | `status` | list | the status in your note |
@@ -46,6 +46,23 @@ primary = tasks group by intent order by downloads desc limit 50
 | `translated` | list | what's in your language: `description`, `overview` (up to date) |
 
 Field names are English in every language, so saved queries survive a language switch. Values are yours (your group names, your statuses).
+
+## Which time field?
+
+Each time field answers one question. Pick it by the question, not by the word:
+
+| Field | Asks | Changes | Lists |
+|---|---|---|---|
+| `listed` | when did it **come in**? | never: its birthday | *New plugins* |
+| `released` | when was its **latest release**? | with every release, fixes too | *All*, *New versions* |
+| `releases(180d)` | **how active** is it: how many update waves in 180 days? | as the window moves | a filter, not a list: `releases(180d) >= 2` = still maintained |
+| `hatched` | when did it **come back** from a pause of 30+ days? | only after a new pause | *Incubation* |
+| `incubated` | **how long** was that pause? | only after a new pause | *Incubation* |
+| `milestone(10k)` | when did it **reach** 10K downloads? | once, at the milestone | the *Just passed 10K* query |
+
+`order by released desc` and `order by listed desc` look alike but answer different questions. Git came into the list in 2020 and released yesterday: it's at the top of `order by released desc` (recently updated) and near the bottom of `order by listed desc` (recently added). Each list filters and sorts on its own field: *New plugins* on `listed`, *New versions* on `released`, *Incubation* on `hatched`.
+
+`released >= -14d` and `releases(14d) >= 1` find nearly the same plugins (the second leaves out a fix inside an older update wave, about 5% of them). For "what's new", use `released`; keep `releases()` for "how active".
 
 ## AI profile fields
 
@@ -72,14 +89,14 @@ These are written like a function. The parameter is yours; `()` takes the defaul
 |---|---|---|
 | `gain(30d)` | `gain()` = 30 days | downloads gained in the last N days |
 | `rise(30d)` | `rise()` = 30 days | % growth in the last N days (only from 1K downloads up) |
-| `releases(30d)` | `releases()` = 30 days | updates in the last N days (releases within a week count once) |
-| `milestone(10k)` | `milestone()` = its latest milestone | days since it reached N downloads |
+| `releases(30d)` | `releases()` = 30 days | update waves in the last N days (releases within a week count once): how active, not how recent |
+| `milestone(10k)` | `milestone()` = its latest milestone | when it reached N downloads: `-30d` or a date |
 
 Any number works: `gain(21d)`, `rise(45d)`, `milestone(7k)`. The download history covers the last year: day by day for the last month, week by week before it (a window in between is read in proportion). A plain `gain` without `( )` is an error that says how to write it.
 
 ```
 gain(21d) >= 500 AND NOT library
-milestone(10k) <= 30d order by downloads desc
+milestone(10k) >= -30d order by downloads desc
 releases(180d) > 9
 ```
 
@@ -94,16 +111,17 @@ releases(180d) > 9
 
 ## Reading days
 
-A days field counts **back from today**, so the smaller number is the more recent one:
+A date field (`released`, `listed`, `hatched`, `milestone()`) is a **moment**. Write it counted back from today with a minus, `-30d` is 30 days ago, or as a date. **`>=` always means later**, whether you write `-30d` or `2026-11-01`. A length (`incubated`) has no minus: it's how long something lasted.
 
 | You write | It means |
 |---|---|
-| `released <= 30d` | released **within** the last 30 days |
-| `released >= 1y` | **no release for** a year or more |
-| `listed <= 14d` | listed in the last two weeks |
+| `released >= -30d` | released **within** the last 30 days |
+| `released <= -1y` | **no release for** a year or more |
+| `released >= 2026-11-01` | released on or after November 1 |
+| `listed >= -14d` | listed in the last two weeks |
 | `incubated >= 60d` | its latest incubation lasted **60 days or more** |
-| `hatched <= 30d` | came out of incubation **within** the last 30 days |
-| `milestone(10k) <= 30d` | reached 10K downloads this month |
+| `hatched >= -30d` | came out of incubation **within** the last 30 days |
+| `milestone(10k) >= -30d` | reached 10K downloads this month |
 
 The four day fields on one plugin's timeline:
 
@@ -148,7 +166,7 @@ The fields after each release:
 | May 13 | 1.1.1 | May 13 | May 10 | 120d |
 | Jun 5 | 1.2 | Jun 5 | May 10 | 120d |
 
-Each release is `released` when it comes out and gives way to the next one. `hatched` stays at May 10. Today (Jun 8) this plugin matches `released <= 3d`, `hatched <= 29d` and `incubated >= 120d`.
+Each release is `released` when it comes out and gives way to the next one. `hatched` stays at May 10. Today (Jun 8) this plugin matches `released >= -3d`, `hatched >= -29d` and `incubated >= 120d`.
 
 Had 1.2 come out 30 or more days after 1.1.1, it would be a new hatching: `hatched` would move to 1.2 and `incubated` to that pause's length. A plugin that never paused 30 days, or has no history yet, has no `hatched`; `released` is always there.
 
@@ -184,11 +202,11 @@ listed >= lastSync()
 *Hidden gems*: good plugins that aren't famous yet.
 
 1. **Size:** not a giant. `downloads <= 10k`
-2. **Life:** maintained and growing. `AND released <= 30d AND rise(30d) >= 20`
+2. **Life:** maintained and growing. `AND released >= -30d AND rise(30d) >= 20`
 3. **New to you:** `AND NOT library`, then the order: `order by rise(30d) desc`
 
 ```
-downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library
+downloads <= 10k AND released >= -30d AND rise(30d) >= 20 AND NOT library
 order by rise(30d) desc
 ```
 
@@ -201,17 +219,17 @@ The same list as **+ Add widget** on Home and the empty query box. **Add** puts 
 | Name | Query | Finds |
 |---|---|---|
 | Updated this month | `released >= startOfMonth() order by downloads desc` | released since the 1st |
-| Fast starters | `listed <= 60d AND downloads >= 1k AND NOT library order by downloads desc` | listed in the last 2 months, past 1K already |
-| Hidden gems | `downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library order by rise(30d) desc` | 1K–10K, updated this month, growing 20%+ |
-| Awake again | `incubated >= 180d AND hatched <= 30d AND NOT library order by hatched desc` | back this month after 6+ months |
-| New releases of popular plugins | `downloads >= 50k AND released <= 14d AND NOT library order by released desc` | changes that reach many people |
-| Just passed 10K | `milestone(10k) <= 30d order by downloads desc` | reached 10K this month, whatever they reached after |
+| Fast starters | `listed >= -60d AND downloads >= 1k AND NOT library order by downloads desc` | listed in the last 2 months, past 1K already |
+| Hidden gems | `downloads <= 10k AND released >= -30d AND rise(30d) >= 20 AND NOT library order by rise(30d) desc` | 1K–10K, updated this month, growing 20%+ |
+| Awake again | `incubated >= 180d AND hatched >= -30d AND NOT library order by hatched desc` | back this month after 6+ months |
+| New releases of popular plugins | `downloads >= 50k AND released >= -14d AND NOT library order by released desc` | changes that reach many people |
+| Just passed 10K | `milestone(10k) >= -30d order by downloads desc` | reached 10K this month, whatever they reached after |
 | Actively developed | `releases(30d) >= 3 AND downloads >= 1k AND NOT library order by gain(30d) desc` | 3+ updates this month |
-| Abandoned installs | `installed AND released >= 1y order by released asc` | installed, no update for a year |
+| Abandoned installs | `installed AND released <= -1y order by released asc` | installed, no update for a year |
 | To try | `library AND NOT installed order by rating desc` | in your library, not installed here |
 | Ungrouped | `library AND group is empty order by name asc` | in your library, without a group |
 | Unrated | `library AND rating is empty order by downloads desc` | in your library, not rated yet |
-| Sleeping plugins in your library | `library AND released >= 1y order by released asc` | in your library, no release for a year |
+| Sleeping plugins in your library | `library AND released <= -1y order by released asc` | in your library, no release for a year |
 
 On Home, the **Category watch** widget (in **+ Add widget › Notify**) lists the plugins that call a category home, the most downloaded first, and marks newly listed ones as "+N new": `primary = tasks AND NOT removed order by downloads desc`.
 
@@ -221,8 +239,9 @@ More: `author ~ zsviczian` (everything by one author), `"daily note" OR "journal
 
 - **`~` looks for words, not a phrase.** `name ~ "side note"` finds SideNote, Side-Notes and also Mobile Sidebar Notes: each word is somewhere in the name; spaces, hyphens and case don't count. For the exact text use `=`, for words in that order a regex: `name ~ /side.?note/`.
 - **`rise()` is empty under 1K downloads.** 10 → 30 isn't rising; use `gain()` for small plugins.
-- **`milestone(10k)` is the day it reached 10K,** whatever it reached after: a plugin that went from 9K to 30K this month is in `milestone(10k) <= 30d` and in `milestone(25k) <= 30d`.
-- **Updated doesn't leave new plugins out.** Add `NOT listed <= 14d` to its query if you want them only on New.
+- **`milestone(10k)` is the day it reached 10K,** whatever it reached after: a plugin that went from 9K to 30K this month is in `milestone(10k) >= -30d` and in `milestone(25k) >= -30d`.
+- **New versions never shows a new plugin.** Its query leaves out New plugins' period (`NOT listed >= -14d`, Settings › New plugin period), so the two pages never share a plugin.
+- **A date field takes a minus.** `released <= 14d` is an error now: write `released >= -14d` (since 0.18; a query saved before shows the error until you change it).
 - **Ignored and hidden plugins stay out** of every list unless the query names `excluded` or `snoozed`.
 - **Out of incubation is the same 30 days for everyone.** A year asleep earns no longer stay; the latest comeback is on top. Releases after the comeback don't take a plugin off.
 

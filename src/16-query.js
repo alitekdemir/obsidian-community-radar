@@ -1,5 +1,5 @@
 // ─── Query language (advanced search) ───────────────────────────────────────
-// JQL-like: `downloads > 500 released < 30d group in ("Tasks", Calendar) NOT installed calendar order by gain(30d) desc`.
+// JQL-like: `downloads > 500 released >= -30d group in ("Tasks", Calendar) NOT installed calendar order by gain(30d) desc`.
 // A field with a parameter is written like a function: `gain(21d)`; `gain()` takes its default (`param`).
 // Field names are English only (one vocabulary: saved queries survive a language switch); values are yours.
 // A space is AND; AND, OR, NOT and ( ) work too. Words that aren't a clause search the name, author, id and
@@ -29,7 +29,9 @@ const milestoneAt = (s, p) => { const n = topMilestone(s, p); return n == null ?
 const reachedOrLatest = (s, p, n) => (n == null ? milestoneAt(s, p) : reachedAt(s.timeline, p.id, n));
 
 /**
- * The fields: type, value (null: empty), and for dates the moment itself (`at`) so `released > 2026-01-01` works.
+ * The fields: type, value (null: empty), and for dates the moment itself (`at`): such a field is a moment, written
+ * `released >= -14d` (14 days ago or later) or `released > 2026-01-01`; `>=` is always "later". A days field without
+ * `at` (incubated) is a length: `incubated >= 60d`.
  * `sort`: `order by` can use it (`rank`, when given, is its sort value instead of `at` or the value). `param`: it takes
  * one, written like a function: `kind` days or count, `fallback` what `()` means (null: the field's own default).
  */
@@ -103,14 +105,14 @@ const outsideQuotes = (text, fn) => String(text).split(/("(?:[^"\\]|\\.)*"|\/(?:
   .map((part, idx) => (idx % 2 === 1 ? part : fn(part))).join("");
 
 /**
- * A query saved before 0.11 in today's fields: busy → releases(180d) > 9, new → listed <= 14d, gain7 / rise30 →
+ * A query saved before 0.11 in today's fields: busy → releases(180d) > 9, new → listed >= -14d, gain7 / rise30 →
  * gain(7d) / rise(30d), a bare milestone → milestone(). Quoted strings and /regex/ stay untouched.
  */
 function migrateQuery(text, newDays = DEFAULT_NEW_DAYS) {
   return outsideQuotes(text, (part) => part
     .replace(/\bNOT\s+busy\b/gi, `releases(${BUSY_DAYS}d) <= ${BUSY_LIMIT}`)
     .replace(asClause("busy"), `releases(${BUSY_DAYS}d) > ${BUSY_LIMIT}`)
-    .replace(asClause("new"), `listed <= ${newDays}d`)
+    .replace(asClause("new"), `listed >= -${newDays}d`)
     .replace(asClause("(gain|rise)(7|30)"), "$1($2d)")
     .replace(asClause("milestone"), "milestone()"));
 }
@@ -118,9 +120,9 @@ function migrateQuery(text, newDays = DEFAULT_NEW_DAYS) {
 /** 0.16: the `tracked` field is `library` (the Library page); values, quotes and /regex/ stay. */
 const libraryQuery = (text) => outsideQuotes(text, (part) => part.replace(asClause("tracked"), "library"));
 
-/** 0.10: a tab's days, pause, Hide busy and Downloads ≥ become its query; changes `st` (the settings) in place. */
+/** 0.10: a tab's days, pause and Downloads ≥ become its query; changes `st` (the settings) in place. */
 function migratePageQueries(st) {
-  const old = { days: st.days ?? 14, incubated: st.dormantDays ?? INCUBATION_DAYS, busy: st.hideBusy !== false };
+  const old = { days: st.days ?? 14, incubated: st.dormantDays ?? INCUBATION_DAYS };
   const min = (mode) => (st.downloadFilter?.[mode] ?? true ? st.minDownloads ?? 100 : 0);   // on by default there
   const mine = {
     new: defaultPageQuery("new", old),
@@ -237,17 +239,27 @@ function tokenize(query) {
   return tokens;
 }
 
-/** A number value: 500, 10k, 1.5m; with `days`, a span (30d, 2w, 6m, 1y) or a date (2026-01-01 → that day's start on your clock). */
+/**
+ * A number value: 500, 10k, 1.5m. With `days`: a span (30d, 2w, 6m, 1y: {n}), a moment counted back from today
+ * (-30d: {ago}, in days) or a date (2026-01-01 → that day's start on your clock: {date}).
+ */
 function queryNumber(text, days) {
   const date = /^\d{4}-\d{2}-\d{2}$/.test(text) && dayStart(text);
   if (date) return days ? { date } : null;
-  const m = String(text).toLowerCase().match(/^(\d+(?:\.\d+)?)([kmdwy]?)$/);
+  const m = String(text).toLowerCase().match(/^(-?)(\d+(?:\.\d+)?)([kmdwy]?)$/);
   if (!m) return null;
-  const n = Number(m[1]);
-  const unit = m[2];
-  if (days) return { n: n * ({ "": 1, d: 1, w: 7, m: MONTH_DAYS, y: YEAR_DAYS }[unit] ?? NaN) };
+  const [, minus, digits, unit] = m;
+  const n = Number(digits);
+  if (days) {
+    const span = n * ({ "": 1, d: 1, w: 7, m: MONTH_DAYS, y: YEAR_DAYS }[unit] ?? NaN);
+    return minus ? { ago: span } : { n: span };
+  }
+  if (minus) return null;   // counts don't go below zero
   return { n: n * ({ "": 1, k: 1e3, m: 1e6 }[unit] ?? NaN) };
 }
+
+/** `released >= -14d` asks for "14 days ago or later": the days since it, the other way round (≤ 14). */
+const AGO_FLIP = { "=": "=", "!=": "!=", ">": "<", ">=": "<=", "<": ">", "<=": ">=" };
 
 class QueryError extends Error {
   constructor(key, vars, at) {
@@ -404,15 +416,17 @@ function parseQuery(query, { strict = false } = {}) {
     }
     if (field.type === "number") {
       const value = queryNumber(token.text, field.days);
-      if (!value || Number.isNaN(value.n)) fail(field.days ? "days" : "number", { field: name }, token.at);
-      if (value.date && !field.at) fail("days", { field: name }, token.at);
+      // a moment field (released, listed…) takes a moment: -14d or a date; a length (incubated) and a count, a plain number
+      const wrong = !value || Number.isNaN(value.n ?? value.ago)
+        || (field.at ? value.n != null : value.ago != null || value.date);
+      if (wrong) fail(field.at ? "ago" : field.days ? "days" : "number", { field: name }, token.at);
       ast.clauses.push({ field: name, param: call?.text ?? "", arg: call?.arg ?? null, op: op.text, number: value, from: at, to: end() });
-      // a date compares moments (released > 2026-01-01: after it); a span compares days ago
       const opText = op.text;
-      const cmp = QUERY_CMP[opText];
-      return value.date
-        ? (s, p, now) => compareMoment(field.at(s, p, now), value.date, opText)
-        : (s, p, now) => { const v = field.get(s, p, now); return v != null && cmp(v, value.n); };
+      if (value.date) return (s, p, now) => compareMoment(field.at(s, p, now), value.date, opText);   // after / before that day
+      // -Nd: compared on the days since it, as a span would be (a release 14.5 days ago is 14 days ago)
+      const cmp = QUERY_CMP[value.ago != null ? AGO_FLIP[opText] : opText];
+      const n = value.ago ?? value.n;
+      return (s, p, now) => { const v = field.get(s, p, now); return v != null && cmp(v, n); };
     }
     // text and list: = exact (case folded), ~ contains or /regex/
     let match;
@@ -580,7 +594,7 @@ function querySuggestions(text, caret, data) {
     if (name === "rating") return [5, 4, 3, 2, 1].map((n) => ({ label: String(n), insert: String(n), hint: "★".repeat(n) }));
     if (field.type === "bool") return ["true", "false"].map((v) => ({ label: v, insert: v }));
     if (field.days) {
-      const spans = ["7d", "30d", "90d", "1y"].map((v) => ({ label: v, insert: v }));
+      const spans = (field.at ? ["-7d", "-30d", "-90d", "-1y"] : ["7d", "30d", "90d", "1y"]).map((v) => ({ label: v, insert: v }));   // a moment counts back
       return field.at ? [...spans, ...Object.keys(QUERY_FUNCS).map((f) => ({ label: `${f}()`, insert: `${f}()`, hint: t(`query.fn.${f}`) }))] : spans;
     }
     if (field.type === "number") return ["100", "1k", "10k", "100k"].map((v) => ({ label: v, insert: v }));
@@ -676,10 +690,10 @@ function filtersToQuery(settings, mode, { order = true } = {}) {
   const parts = isAdvancedQuery(query) || /^\/.+\/$/.test(query) ? [query] : query.split(",").map((w) => w.trim()).filter(Boolean).map(quoted);
   if (opts.filterDownloads && opts.minDownloads > 0) parts.push(`downloads >= ${queryCount(opts.minDownloads)}`);
   const x = opts.extras;
-  if (x.released != null) parts.push(`released <= ${x.released}d`);
+  if (x.released != null) parts.push(`released >= -${x.released}d`);
   if (x.incubated != null) parts.push(`incubated >= ${x.incubated}d`);
   if (x.growth != null) parts.push(`gain(30d) >= ${queryCount(x.growth)}`);
-  if (x.listed != null) parts.push(`listed <= ${x.listed}d`);
+  if (x.listed != null) parts.push(`listed >= -${x.listed}d`);
   if (x.author) parts.push(`author ~ ${quoteValue(x.author)}`);
   if (x.installed) parts.push("installed");
   if (mode === "library") parts.push(...libraryClauses(settings));
@@ -806,7 +820,7 @@ function queryToBasic(text, settings, mode) {
 /**
  * Query → Basic: the settings that say the same with filters ({patch}), or why they can't ({reason}). Reads `q.ast`
  * directly from parseQuery so one grammar governs parsing and reverse-mapping. Every clause needs a filter of its own:
- * downloads >=, released <=, incubated >=, gain(30d) >=, listed <=, author ~, installed; one valid Basic sort;
+ * downloads >=, released >= -Nd, incubated >=, gain(30d) >=, listed >= -Nd, author ~, installed; one valid Basic sort;
  * free words become the plain search. OR, ( ), in (…), NOT, regex and functions don't fit.
  */
 function queryToFilters(query, settings, mode) {
@@ -830,12 +844,12 @@ function queryToFilters(query, settings, mode) {
   for (const c of q.ast.clauses) {
     const text = String(query).slice(c.from, c.to);
     if (c.kind === "func" || c.op === "in" || c.op === "not in" || c.isRegex) continue;   // already flagged above
-    const lower = c.op === "<=" || c.op === "<";
-    const num = c.number && !c.number.date && c.number.n >= 0 ? Math.round(c.number.n) : null;
+    const num = c.number?.n >= 0 ? Math.round(c.number.n) : null;
+    const since = (c.op === ">=" || c.op === ">") && c.number?.ago >= 0 ? Math.round(c.number.ago) : null;   // released >= -14d: Basic's ≤ 14
     if (c.field === "installed" && c.op === null) set("installed", true, text);
     else if (c.field === "downloads" && c.op === ">=" && num != null && downloads == null) downloads = num;
-    else if (c.field === "released" && lower && num != null) set("released", num, text);
-    else if (c.field === "listed" && lower && num != null) set("listed", num, text);
+    else if (c.field === "released" && since != null) set("released", since, text);
+    else if (c.field === "listed" && since != null) set("listed", since, text);
     else if (c.field === "incubated" && c.op === ">=" && num != null) set("incubated", num, text);
     else if (c.field === "gain" && c.arg === 30 && c.op === ">=" && num != null) set("growth", num, text);
     else if (c.field === "author" && c.op === "~") set("author", c.value, text);
@@ -872,17 +886,17 @@ function libraryMenu(c) {
  */
 const QUERY_PRESETS = [
   { key: "month", cat: "discover", query: "released >= startOfMonth()\norder by downloads desc" },
-  { key: "fast", cat: "discover", query: "listed <= 60d AND downloads >= 1k AND NOT library\norder by downloads desc" },
-  { key: "gems", cat: "discover", query: "downloads <= 10k AND released <= 30d AND rise(30d) >= 20 AND NOT library\norder by rise(30d) desc" },
-  { key: "awake", cat: "discover", query: "incubated >= 180d AND hatched <= 30d AND NOT library\norder by hatched desc" },
-  { key: "popular", cat: "discover", query: "downloads >= 50k AND released <= 14d AND NOT library\norder by released desc" },
-  { key: "milestones", cat: "notify", query: "milestone(10k) <= 30d\norder by downloads desc" },
+  { key: "fast", cat: "discover", query: "listed >= -60d AND downloads >= 1k AND NOT library\norder by downloads desc" },
+  { key: "gems", cat: "discover", query: "downloads <= 10k AND released >= -30d AND rise(30d) >= 20 AND NOT library\norder by rise(30d) desc" },
+  { key: "awake", cat: "discover", query: "incubated >= 180d AND hatched >= -30d AND NOT library\norder by hatched desc" },
+  { key: "popular", cat: "discover", query: "downloads >= 50k AND released >= -14d AND NOT library\norder by released desc" },
+  { key: "milestones", cat: "notify", query: "milestone(10k) >= -30d\norder by downloads desc" },
   { key: "active", cat: "discover", query: "releases(30d) >= 3 AND downloads >= 1k AND NOT library\norder by gain(30d) desc" },
-  { key: "stale", cat: "vault", query: "installed AND released >= 1y\norder by released asc" },
+  { key: "stale", cat: "vault", query: "installed AND released <= -1y\norder by released asc" },
   { key: "totry", cat: "library", query: "library AND NOT installed\norder by rating desc" },
   { key: "ungrouped", cat: "library", query: "library AND group is empty\norder by name asc" },
   { key: "unrated", cat: "library", query: "library AND rating is empty\norder by downloads desc" },
-  { key: "sleeping", cat: "library", query: "library AND released >= 1y\norder by released asc" },
+  { key: "sleeping", cat: "library", query: "library AND released <= -1y\norder by released asc" },
 ];
 /** The gallery's sections in order, with their icons; "hidden" is your hidden widgets, the rest group the presets. */
 const GALLERY_SECTIONS = { hidden: "eye-off", discover: "compass", notify: "bell", vault: "shield-check", library: "bookmark" };
@@ -943,14 +957,14 @@ function queryDiff(a, b) {
 
 /**
  * Finds the owning field of token at `idx` in `allTokens` by walking back over operators and parametric `(arg)` calls
- * (e.g., `downloads >= 1m` → `downloads`, `milestone(10k) <= 30d` → `milestone`).
+ * (e.g., `downloads >= 1m` → `downloads`, `milestone(10k) >= -30d` → `milestone`).
  */
 function ownerFieldFor(allTokens, idx, prev) {
   if (allTokens && idx > 0) {
     let k = idx - 1;
     // step past an operator if the hovered token is the value (`downloads >= 1m`)
     if (allTokens[k]?.cls === "op") k--;
-    // step past parametric call `)` ... `(` (`milestone(10k) <= 30d`)
+    // step past parametric call `)` ... `(` (`milestone(10k) >= -30d`)
     if (allTokens[k]?.kind === ")") {
       k--;
       while (k > 0 && allTokens[k].kind !== "(") k--;
@@ -971,14 +985,14 @@ function queryTip(tok, prev, now = Date.now(), state = {}, allTokens = null, idx
   if (tok.cls === "field") {
     const f = QUERY_FIELDS[w];
     const name = f.param ? `${tok.text}(${f.param.fallback ?? "10k"})` : tok.text;
-    const example = { bool: `NOT ${name}`, list: `${name} in (…)`, text: `${name} ~ …` }[f.type] || (f.days ? `${name} <= 30d` : `${name} >= 1k`);
+    const example = { bool: `NOT ${name}`, list: `${name} in (…)`, text: `${name} ~ …` }[f.type] || (f.at ? `${name} >= -30d` : f.days ? `${name} >= 60d` : `${name} >= 1k`);
     return { head: f.param ? `${tok.text}()` : tok.text, kind: t(`query.type.${f.days ? "days" : f.type}`), body: t(`query.field.${w}`), example };
   }
   if (tok.cls === "op") {
     const op = w === "not" ? (fold(prev?.text) === "is" ? "is_empty" : "not_in") : w === "is" || w === "empty" ? "is_empty" : w;
     const owner = ownerFieldFor(allTokens, idx, prev);
-    const days = owner?.days && ["<", "<=", ">", ">="].includes(w);
-    return { head: tok.text, body: days ? t(`query.tip.days${w.startsWith("<") ? "Within" : "Over"}`) : t(`query.op.${op}`) };
+    const moment = owner?.at && ["<", "<=", ">", ">="].includes(w);   // on a moment field > is later, < earlier
+    return { head: tok.text, body: moment ? t(`query.tip.${w.startsWith(">") ? "later" : "earlier"}`) : t(`query.op.${op}`) };
   }
   if (tok.cls === "number" && fold(prev?.text) === "limit") {   // limit 100 · limit 101-200
     const [, a, b] = tok.text.match(/^(\d+)(?:-(\d+))?$/) || [];
@@ -993,8 +1007,10 @@ function queryTip(tok, prev, now = Date.now(), state = {}, allTokens = null, idx
     // inside parametric call `gain(30d)` vs `milestone(10k)`: check param.kind when prev is `(`
     const insideParam = prev?.kind === "(" && allTokens && idx >= 2 ? QUERY_FIELDS[fold(allTokens[idx - 2]?.text)]?.param : null;
     const days = insideParam ? insideParam.kind === "days" : owner ? Boolean(owner.days) : true;
+    const ago = n.startsWith("-");   // -30d: 30 days ago
+    const span = unit && t(`query.tip.unit.${unit}`, { n: ago ? n.slice(1) : n });
     const body = unit === "k" || (unit === "m" && !days) ? formatCount(Number(n) * (unit === "k" ? 1e3 : 1e6))
-      : unit ? t(`query.tip.unit.${unit}`, { n }) : null;
+      : span ? (ago ? t("query.tip.ago", { span }) : span) : null;
     return body ? { head: tok.text, body } : null;
   }
   if (tok.cls === "fn") {

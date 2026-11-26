@@ -16,7 +16,7 @@ const core = {
   QUERY_FIELDS, QUERY_FUNCS, QUERY_PRESETS, GALLERY_SECTIONS,
   compileQuery, parseQuery, tokenize, isAdvancedQuery, querySuggestions, queryHighlight, queryTip,
   filtersToQuery, queryToFilters, queryToBasic, queryStarters, queryDiff, queryChanges, sameQuery,
-  defaultPageQuery, pageQuery, joinQuery, withOrder, splitQuery, splitOrder, dropClause, narrowQuery,
+  defaultPageQuery, pageQuery, joinQuery, withOrder, splitQuery, splitOrder, dropClause, narrowQuery, narrowLeftOut,
   migrateQuery, migrateFields011, libraryQuery, migrateLibraryField, migrateLibraryNames,
   // markdown, README & notes
   escapeOutsideCode, absolutizeLinks, readmeBody, readmeSection, readmeVersion, readmeMeta, readmeText,

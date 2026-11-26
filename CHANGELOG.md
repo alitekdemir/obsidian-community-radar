@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- **New and Updated are New plugins and New versions, and they never share a plugin:** New versions leaves out the plugins still under New plugins (Settings › New plugin period), so a just-listed plugin is in one list, not both. On Home's "since your last visit" cards the same holds for the day you pick.
+- **New versions lists trusted plugins, newest release first:** it shows plugins at least 1,000 people use, sorted by their latest release, and no longer hides the most active ones (the "more than 9 waves in 180 days" rule and its Hide busy setting are gone). *All* sorts by the latest release too, like Obsidian's own plugin list.
+- Query guide: a "Which time field?" section says what `listed`, `released`, `releases()`, `hatched`, `incubated` and `milestone()` each ask.
+- **Date fields read as moments, so `>=` always means later:** `released >= -14d` (14 days ago or later) and `released >= 2026-11-13` now point the same way; `released <= -1y` is "no release for a year". This applies to `released`, `listed`, `hatched` and `milestone()`; `incubated` stays a length (`incubated >= 60d`). A positive span on a date field (`released <= 14d`) is an error that says how to write it; queries saved before this aren't rewritten and show that error until you change them.
+- The operator and value tips follow: `>=` on a date field says *later*, `-30d` says *30 days ago*; Help › Values lists `-14d · -2w · -6m · -1y`.
+
 ## 0.17.0
 
 ### Changed

@@ -545,7 +545,7 @@ function libraryMatch(note, opts, plugin) {
 /**
  * Rows of the discovery view, sorted (see matchRows for what they are).
  * @param {object} state  {catalog, releases, firstSeen, notes: Map(id→note), excluded: Set, dismissed: Set, installed: Set, snoozed: {id: ms}}
- * @param {object} opts   {mode, days, newDays, hideBusy, minDownloads, filterDownloads, sort, sortDir, query, libraryGroup…} (see modeOptions)
+ * @param {object} opts   {mode, days, newDays, minDownloads, filterDownloads, sort, sortDir, query, libraryGroup…} (see modeOptions)
  */
 function discover(state, opts, now) {
   return discoverGrouped(state, opts, now).rows;
@@ -610,17 +610,19 @@ function pageQuery(settings, mode) {
 }
 
 /**
- * The default queries, the tab rules as they were: Updated hides busy plugins, Incubation shows the ones
- * just out of a long pause, and so on. `opts` carry the days and thresholds (older settings, the widgets).
+ * The default queries. Each list filters and sorts on its own moment: New plugins on `listed` (when it came in),
+ * New versions on `released` (its latest release), Incubation on `hatched`; All is every plugin, latest release
+ * first. `opts` carry the days and thresholds (older settings, the widgets).
  */
-function defaultPageQuery(mode, { days = UPDATED_DAYS, newDays = DEFAULT_NEW_DAYS, incubated = INCUBATION_DAYS, busy = true, downloads = 100 } = {}) {
-  const min = downloads > 0 ? `downloads >= ${queryCount(downloads)}` : "";
+function defaultPageQuery(mode, { days = UPDATED_DAYS, newDays = DEFAULT_NEW_DAYS, incubated = INCUBATION_DAYS, downloads } = {}) {
+  const min = (n) => (n > 0 ? `downloads >= ${queryCount(n)}` : "");
   const all = (...parts) => parts.filter(Boolean).join(" AND ");   // AND written out: easier to read than a space
   return {
-    all: "order by downloads desc",
-    new: `${all(`listed <= ${newDays}d`, "NOT library")}\norder by listed desc`,   // Settings › New plugin period, like the badge
-    updated: `${all(`released <= ${days}d`, "NOT library", busy && `releases(${BUSY_DAYS}d) <= ${BUSY_LIMIT}`, min)}\norder by downloads desc`,   // new ones too: add NOT listed <= 14d to leave them out
-    awakened: `${all(`incubated >= ${incubated}d`, `hatched <= ${HATCHED_DAYS}d`, "NOT library", min)}\norder by hatched desc`,
+    all: "order by released desc",   // what Obsidian's own plugin list sorts by: recently updated
+    new: `${all(`listed >= -${newDays}d`, "NOT library")}\norder by listed desc`,   // Settings › New plugin period, like the badge
+    // New versions: plugins already in the list (New's left out, so the two never share one) that many people use
+    updated: `${all(`released >= -${days}d`, `NOT listed >= -${newDays}d`, "NOT library", min(downloads ?? TRUSTED_DOWNLOADS))}\norder by released desc`,
+    awakened: `${all(`incubated >= ${incubated}d`, `hatched >= -${HATCHED_DAYS}d`, "NOT library", min(downloads ?? 100))}\norder by hatched desc`,
     suggested: `${all("installed", "NOT library", "NOT dismissed")}\norder by downloads desc`,
     library: "library\ngroup by group\norder by rating desc",   // a section per group, then Ungrouped
     excluded: "excluded\norder by name asc",

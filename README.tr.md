@@ -47,7 +47,7 @@ En üstteki **Yeni gelişmeler** şeridi; yeni çıkan eklentileri, kitaplığı
 Ekosistemdeki en heyecan verici anlardan biri, terk edildiğini sandığınız sevilen bir eklentinin aylar sonra yepyeni bir sürümle geri dönmesidir; ancak sıradan bir listede bu dönüş birkaç saat içinde günlük yamaların altında kaybolur.
 
 - **Kuluçka**, en az 60–360+ gün sessiz kaldıktan sonra yeniden sürüm çıkaran eklentileri yakalar ve *"4 gün önce (1.462 günlük kuluçkadan sonra)"* gibi net bir bağlamla sunar. Geri dönen her eklenti, en yenisi üstte olacak şekilde listede 30 gün boyunca kalır; ertesi gün düzeltme sürümü çıkarsa bile bu süreyi korur.
-- **Güncellenen** kartı ise çok sık sürüm çıkaranları (6 ayda 9'dan fazla güncelleme dalgası) otomatik olarak kenara çekerek daha seyrek ama anlamlı güncellemelerin görülmesini sağlar.
+- **Yeni Sürümler** kartı yeni olmayan (yeniler **Yeni Eklentiler**'dedir) ve en az 1.000 kişinin kullandığı eklentilerin son sürümlerini, en yenisi üstte gösterir: bakımı süren, güvenilir eklentiler.
 
 ---
 
@@ -58,7 +58,7 @@ Ekosistemdeki en heyecan verici anlardan biri, terk edildiğini sandığınız s
 Görsel kontrollerle mi çalışmak istiyorsunuz? **Basit** modda arama terimlerini, `/regex/` ifadelerini ve **Filtre** menüsündeki hızlı çipleri kullanın. Tam kontrol mü istiyorsunuz? Tek tıkla **Sorgu** moduna geçin—çünkü arka planda **Pindex'teki her liste aslında okunabilir ve değiştirilebilir bir sorgudur**:
 
 ```sql
-listed <= 30d AND downloads >= 50 AND NOT library
+listed >= -30d AND downloads >= 50 AND NOT library
 order by gain(30d) desc
 ```
 
