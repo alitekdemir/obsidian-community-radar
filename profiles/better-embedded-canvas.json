@@ -1,0 +1,62 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Embed canvases or single cards in notes with adjustable height, title, and card ID autocompletion",
+  "Interact with embedded canvases via panning, zooming, and card selection (read-only)",
+  "Preview canvases by hovering internal links through the Page preview plugin",
+  "Embed canvases inside other canvases with configurable nesting depth",
+  "Apply Advanced Canvas styling features to embedded canvases"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uses monkey patching and internal APIs not covered by the public plugin API, which the README flags as a warning; nested interactive canvases are disabled by default for performance and can raise reload prompts when toggled alongside Advanced Canvas.",
+ "intent": "improve",
+ "intentEvidence": "this plugin already fulfills the need for a full preview of embedded canvas",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "canvas",
+ "problem": "Obsidian embeds canvases in notes only as static, non-interactive minimaps, with no panning, zooming, or embedding of individual cards.",
+ "readmeHash": "582e3fd3bb4faf827adb9443b63cc23fcf715285",
+ "relations": [
+  {
+   "evidence": "Support advanced customization from Advanced Canvas.",
+   "plugin": "Advanced Canvas",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced Canvas",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Page preview (core plugin)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Canvas embed enhancer that makes embedded canvases interactive in notes with panning, zooming, single-card embeds, hover previews, and Advanced Canvas styling.",
+ "tags": [
+  "card-embed",
+  "hover-preview",
+  "zoom-to-fit",
+  "advanced-canvas",
+  "monkey-patch",
+  "canvas-minimap"
+ ]
+}

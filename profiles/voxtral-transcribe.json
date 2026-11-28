@@ -1,0 +1,77 @@
+{
+ "also": [
+  "audio",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Dictate notes in real time with spoken commands for headings, lists, tables, and formatting",
+  "Transcribe existing audio files or embedded recordings into notes, with optional speaker labels",
+  "Correct spelling, punctuation, and misheard terms automatically using custom and vault vocabulary",
+  "Watch a vault folder for new audio recordings and offer or run transcription automatically",
+  "Read selected text or paragraphs aloud using text-to-speech voices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Several features are marked experimental (mid-sentence punctuation, listen back text-to-speech, dual-delay mode, local server mode, which needs a ~16 GB GPU). The Mistral API key is free to create; audio and vocabulary terms are sent to Mistral's cloud unless a custom base URL is used. The author accepts donations via Buy Me a Coffee.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people who think out loud (researchers, consultants) whose best ideas arrive mid-sentence, so talk, typing, and structuring happen in one flow.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in speech-to-text, and typical dictation tools leave users a wall of unstructured text to clean up and format afterwards.",
+ "readmeHash": "3f03bcd439ae24217d9df38d03bb4fe967f5615a",
+ "relations": [
+  {
+   "evidence": "A transcript is raw thinking; Parallax turns it into structured research.",
+   "plugin": "Parallax",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the plugin's file transcription is a natural intake for Quadro's Data/ folder",
+   "plugin": "Quadro",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It runs on Mistral's Voxtral, a speech model built for transcription from the ground up",
+   "plugin": "Mistral Voxtral",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Mistral API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "local vLLM server (for experimental local server mode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Dictation plugin that transcribes speech live into notes via Mistral's Voxtral, adds structure by voice, and transcribes existing audio files.",
+ "tags": [
+  "dictation",
+  "speech-to-text",
+  "transcription",
+  "mistral",
+  "voxtral",
+  "diarization",
+  "voice-commands",
+  "text-to-speech"
+ ]
+}

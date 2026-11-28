@@ -1,0 +1,71 @@
+{
+ "also": [
+  "code",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse the LeetCode problem list with search and difficulty/status filters",
+  "Open problems as notes with locked frontmatter and a rendered problem statement",
+  "Write solutions in an embedded code editor with syntax highlighting and vim mode",
+  "Run code against sample or custom tests and submit to LeetCode's judge",
+  "Write technique wikilinks and backlinks into notes on accepted submissions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "AI features incur per-call provider costs (~$0.01-0.05 per accepted solution); docs include a migration path from v1.0-v1.2 with automatic backups, known limitations (vim toggle requires reload), and a troubleshooting section.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says solved problems should become 'tagged, linked, and discoverable' notes so practice builds a knowledge graph instead of scattered code files.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to fetch coding problems, edit solutions with a real code editor, or submit them to LeetCode's judge, so practice ends up as scattered code files.",
+ "readmeHash": "c9df305a9398aa6d818e2368994b5c8bd7f0d8cd",
+ "relations": [
+  {
+   "evidence": "This plugin communicates with leetcode.com to fetch problems and submit solutions.",
+   "plugin": "leetcode.com",
+   "type": "integrates"
+  },
+  {
+   "evidence": "only when you have configured an active AI provider in Settings → AI",
+   "plugin": "Anthropic, OpenAI, OpenRouter, Ollama, AWS Bedrock",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "leetcode.com session",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "LeetCode integration that lets you browse problems, solve them in an embedded code editor, and run or submit solutions from inside your vault.",
+ "tags": [
+  "coding-interview",
+  "algorithm-practice",
+  "code-runner",
+  "syntax-highlighting",
+  "wikilinks",
+  "contest"
+ ]
+}

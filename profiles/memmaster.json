@@ -1,0 +1,61 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Turn notes or editor selections into flashcards by tag or folder",
+  "Schedule reviews with FSRS and rate recall as Again, Hard, Good, or Easy",
+  "Show a review list of due cards and tests sorted by urgency",
+  "Generate multiple-choice tests from flashcards with OpenAI, DeepSeek, or a local AI server",
+  "Revise generated tests from natural-language instructions while preserving review progress"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy note: flashcard review is local-only, but AI generation and editing send the source card content to the selected provider; there is no automatic fallback between AI providers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in spaced repetition, so users have no native way to schedule note reviews or generate quizzes from their notes.",
+ "readmeHash": "122f94be6a1e48b15856b6b081270b0dfea9c338",
+ "relations": [
+  {
+   "evidence": "MemMaster uses FSRS (Free Spaced Repetition Scheduler) through the ts-fsrs package.",
+   "plugin": "ts-fsrs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or DeepSeek API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local AI server (Ollama, LM Studio, LocalAI, llama.cpp)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Spaced repetition plugin that turns notes into flashcards with FSRS scheduling and generates multiple-choice tests from them using AI providers.",
+ "tags": [
+  "fsrs",
+  "spaced-repetition",
+  "multiple-choice",
+  "openai",
+  "deepseek",
+  "ollama"
+ ]
+}

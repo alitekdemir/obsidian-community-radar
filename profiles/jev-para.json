@@ -1,0 +1,69 @@
+{
+ "also": [
+  "files",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Classify Inbox notes into PARA destination folders using folder criteria and a hosted Jev API",
+  "Define folder eligibility and include/exclude criteria in each folder's INDEX.md",
+  "Preview suggested destinations with confidence and probability, then move selected or all ready notes",
+  "Automatically move notes after a settle time when confidence and probability thresholds are met",
+  "Undo the last move run and restore files to their original locations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Classification sends note titles, content, and folder criteria to the Jev/TypeSafe API endpoint and may incur API charges; development documents (IMPLEMENTATION_PROMPT.md, TEST_SCENARIOS.md) are currently in Korean.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian offers no automatic way to file new notes from an Inbox into a PARA folder structure; users must sort each note by hand.",
+ "readmeHash": "1b79a678c61d7abed8117cb5c334367999f584bd",
+ "relations": [
+  {
+   "evidence": "Classification requires a Jev/TypeSafe account and an API token with access to its hosted API.",
+   "plugin": "Jev (TypeSafe)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Jev/TypeSafe account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Jev API token",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Jev hosted API usage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI-assisted organizer that classifies notes in an Inbox folder into PARA folders using per-folder criteria and a hosted Jev API.",
+ "tags": [
+  "para",
+  "jev",
+  "typesafe",
+  "inbox",
+  "classification",
+  "index-md"
+ ]
+}

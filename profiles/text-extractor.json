@@ -1,0 +1,49 @@
+{
+ "also": [
+  "search",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extract text from images via OCR",
+  "Extract text from PDFs and Office documents",
+  "Cache extracted texts as local JSON files",
+  "Expose an extractText() API for other plugins"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marked unmaintained (pull requests and forks welcome) and still a beta; requires an Internet connection to download Tesseract language files (processing is local); text extraction does not work on mobile, which falls back to synced cache files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "deprecated",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a unified text-extraction service so other plugins can use it without reimplementing it or consuming extra resources.",
+ "primary": "ocr",
+ "problem": "Text extraction is hard to implement and resource-hungry, so plugins like Omnisearch cannot easily search inside images and PDFs.",
+ "readmeHash": "905d7cc92770d05558ffb605c2c2de31391e08e8",
+ "relations": [
+  {
+   "evidence": "It's mainly useful when used in conjunction with other plugins (like Omnisearch)",
+   "plugin": "Omnisearch",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "OCR companion plugin that extracts text from images, PDFs, and Office documents and exposes it to other plugins via an API.",
+ "tags": [
+  "tesseract-js",
+  "pdf-extract",
+  "omnisearch",
+  "searchable-pdfs",
+  "developer-api"
+ ]
+}

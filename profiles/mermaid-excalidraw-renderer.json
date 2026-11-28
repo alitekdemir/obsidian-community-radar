@@ -1,0 +1,63 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render standard and dedicated mermaid blocks as Excalidraw diagrams in Reading view and Live Preview",
+  "Fall back to Mermaid SVG images for Class, ER, State, Gantt, Pie, Venn and other unsupported types",
+  "Open an enlarged preview with zoom, pan, fit and reset controls",
+  "Configure font size, roughness, canvas height, padding and light/dark theme following",
+  "Reject resource-capable Mermaid source (images, URLs, metadata) with inline errors before conversion"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not an Excalidraw drawing tool; both displays are read-only and the plugin changes only how Mermaid blocks look, never the Markdown source.",
+ "extras": "Requires Obsidian 1.14.4+ desktop; mobile is untested. The bundled main.js is about 26 MB, which exceeds Obsidian Sync Standard's 5 MB file limit, so the plugin must be installed separately on each device. Bundles offline fonts and renderers; appearance is normalized to monochrome and Mermaid's original colors are not preserved.",
+ "intent": "new",
+ "intentEvidence": "The plugin works independently of the Excalidraw community plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian's core Mermaid rendering only produces standard SVG diagrams, with no hand-drawn style, inline pan/zoom, or enlarged preview.",
+ "readmeHash": "2725d1372c78f144016534fa0026efef6c17e2d5",
+ "relations": [
+  {
+   "evidence": "Rendering uses Excalidraw, mermaid-to-excalidraw, Mermaid and React.",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Rendering uses Excalidraw, mermaid-to-excalidraw, Mermaid and React.",
+   "plugin": "mermaid-to-excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Rendering uses Excalidraw, mermaid-to-excalidraw, Mermaid and React.",
+   "plugin": "Mermaid",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders Mermaid code blocks in notes as hand-drawn Excalidraw diagrams, with SVG fallback for diagram types the converter cannot transform.",
+ "tags": [
+  "excalidraw",
+  "mermaid-to-excalidraw",
+  "flowchart",
+  "sequence-diagram",
+  "pie-chart",
+  "hand-drawn",
+  "svg-fallback"
+ ]
+}

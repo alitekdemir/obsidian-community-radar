@@ -1,0 +1,89 @@
+{
+ "also": [
+  "tags",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add, update and delete YAML properties and inline Dataview fields",
+  "Define Auto Properties with pre-defined selectable values",
+  "Auto-update progress properties from task completion counts",
+  "Rename body #tags and edit frontmatter tags lists",
+  "Expose an API for other plugins and Templater templates"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a metadata viewer or query tool; it edits property values rather than displaying or searching them.",
+ "extras": "Full documentation lives at metaedit.obsidian.guide; API examples for task completion require Dataview, Templater or Buttons, and the docs state explicitly which actions (vault-wide tag rename, frontmatter tag widget) are left to Obsidian itself.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian has no convenient way to edit frontmatter properties, inline Dataview fields or tags in place without manually opening and rewriting YAML.",
+ "readmeHash": "6d60c0b02202f199d650c4c36129ba15f19d5d78",
+ "relations": [
+  {
+   "evidence": "Auto update properties in files linked to from Kanban boards on lane change",
+   "plugin": "Kanban",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add or update Yaml properties and Dataview fields easily",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "API to use in other plugins and Templater templates.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "when the Obsidian Tracker plugin is installed, write its #tag:value data syntax",
+   "plugin": "Tracker",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Complete Task in Dataview Table (Buttons version)",
+   "plugin": "Buttons",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian Kanban",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Metadata editor that adds, updates, transforms and deletes YAML properties and inline Dataview fields from prompts, menus and an API.",
+ "tags": [
+  "yaml",
+  "dataview",
+  "inline-fields",
+  "templater",
+  "kanban",
+  "auto-properties"
+ ]
+}

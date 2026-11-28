@@ -1,0 +1,82 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes or selections aloud with text-to-speech from a panel or command",
+  "Control playback with pause, rewind, skip, speed and volume",
+  "Highlight and scroll to the part currently being read in the editor",
+  "Generate audio in the background without playing it",
+  "Save generated audio (.mp3 or .wav) in the vault and link it from the note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin itself is free but reading always costs provider API credits; Apple OS local voices are planned but not yet available. Full documentation lives outside the README. Obsidian's plugin scanner reports 'vault enumeration' because the plugin checks other notes' audio-path properties to protect shared saved audio. Known limitations (e.g. HTML comments being read aloud) are listed in the docs. Requires Obsidian 1.13.1 or newer.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to have a note read aloud, so users must copy text into a separate TTS service or app.",
+ "readmeHash": "1686185bd017d134d92d04d336d2b66b88d5aaf2",
+ "relations": [
+  {
+   "evidence": "reads your notes aloud using text to speech, with ElevenLabs, OpenAI, Google Gemini or Amazon Polly",
+   "plugin": "ElevenLabs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "reads your notes aloud using text to speech, with ElevenLabs, OpenAI, Google Gemini or Amazon Polly",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "reads your notes aloud using text to speech, with ElevenLabs, OpenAI, Google Gemini or Amazon Polly",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "reads your notes aloud using text to speech, with ElevenLabs, OpenAI, Google Gemini or Amazon Polly",
+   "plugin": "Amazon Polly",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ElevenLabs, OpenAI, Google or AWS account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Provider API key (or AWS access keys)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Provider charges per generated audio; ElevenLabs and Google Gemini have limited free tiers",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Text-to-speech plugin that reads notes aloud via ElevenLabs, OpenAI, Google Gemini or Amazon Polly, with playback controls, highlighting and saved audio.",
+ "tags": [
+  "text-to-speech",
+  "elevenlabs",
+  "openai",
+  "gemini",
+  "amazon-polly",
+  "ai-voices",
+  "audiobooks"
+ ]
+}

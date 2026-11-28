@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create and edit shapes, text labels, frames, lines, arrows and Mermaid diagrams on an open board",
+  "Check layouts for overlapping shapes, overflowing text, crossing arrows and disconnected arrows",
+  "Export the board or selected elements as PNG or SVG for visual inspection or vault embeds",
+  "Align, distribute, restack, pan, zoom and search elements",
+  "Run a local MCP bridge with configurable port and optional bearer token"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. The bridge binds strictly to 127.0.0.1 and exposes no arbitrary JavaScript evaluation; clear_scene needs explicit confirmation and vault saves accept only safe relative paths. Stdio clients need mcp-server.js from the GitHub Releases page.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI assistants cannot see or change what is on an Obsidian Excalidraw board, so diagrams have to be drawn, arranged and checked by hand.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "d9059892454fc6bff9d4b9683151eaa2da4244b2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Let AI assistants create, edit, align, layout-check, and visually inspect your Excalidraw drawings right inside Obsidian",
+   "plugin": "Excalidraw",
+   "type": "extends"
+  },
+  {
+   "evidence": "this plugin is detected automatically over local HTTP",
+   "plugin": "Antidian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Using with stdio MCP clients (Claude Desktop, Antigravity CLI, etc.)",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP-capable AI client",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18+ (for stdio clients)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Local MCP bridge that lets AI assistants create, edit, layout-check and export Excalidraw drawings inside Obsidian.",
+ "tags": [
+  "mcp",
+  "excalidraw",
+  "ai-agents",
+  "diagrams",
+  "svg",
+  "png"
+ ],
+ "textHash": "c41dcd63e299c0f449cbe6e2b96458383845906c"
+}

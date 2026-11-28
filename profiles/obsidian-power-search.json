@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations",
+  "editing"
+ ],
+ "audience": [
+  "anki-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "search notes automatically from the current line or block while typing",
+  "index Obsidian notes and Anki notes via AnkiConnect",
+  "show results in a pane that can be reopened by command",
+  "toggle indexes and set debounce refresh timeouts in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a replacement for the core Search panel; it searches live for the line being typed and shows results in a side pane.",
+ "extras": "Several README sections (external indexes, config, integrations, API) are marked TODO; the README contains a long roadmap of planned features. Anki setup requires adding app://obsidian.md to AnkiConnect's webCorsOriginList.",
+ "intent": "new",
+ "intentEvidence": "inspired by siac section in readme",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author lists benefits: linking similar ideas while writing, preventing redundant notes, and easier maintenance by updating past notes on sight.",
+ "primary": "search",
+ "problem": "Obsidian's built-in search requires manually opening the search UI, so you cannot see existing similar notes while writing a line.",
+ "readmeHash": "8e6adb3150b45f52533166f1da59e7b9a396b0b8",
+ "relations": [
+  {
+   "evidence": "Install ankiconnect in anki if you haven't already",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "inspired by siac section in readme",
+   "plugin": "siac",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with AnkiConnect",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "As-you-type search that finds matching Obsidian and Anki notes based on the current line you are writing.",
+ "tags": [
+  "anki",
+  "ankiconnect",
+  "as-you-type",
+  "incremental-search",
+  "flexsearch"
+ ]
+}

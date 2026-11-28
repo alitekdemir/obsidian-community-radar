@@ -1,0 +1,57 @@
+{
+ "also": [
+  "properties",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt selected or typed text into age-encrypted inline tokens or fenced blocks",
+  "Reveal, copy, and relock decrypted secrets in Reading mode and Live Preview",
+  "Encrypt attachment files to .age sidecars and preview or save decrypted copies",
+  "Encrypt scalar values in secure-properties blocks while keeping keys readable",
+  "Re-encrypt vault secrets after adding or removing age recipients"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns that lost keys or passphrases mean unrecoverable ciphertext and to keep private key files outside the synced vault. Describes a security boundary section noting clipboard managers, sync tools, and editor history can still expose revealed plaintext. Includes manual install instructions from the repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to store secrets as ciphertext inside notes, so sensitive values sit in plaintext in the vault.",
+ "readmeHash": "857b9da06507d032b1c59a2d74ff5ee211487a03",
+ "relations": [
+  {
+   "evidence": "Keep interoperability with the age CLI.",
+   "plugin": "age CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "age CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Encryption plugin that encrypts selected text, typed plaintext, property values, and attachments in notes using age encryption, revealed on click.",
+ "tags": [
+  "age-encryption",
+  "encryption",
+  "secrets",
+  "ciphertext",
+  "passphrase",
+  "x25519"
+ ]
+}

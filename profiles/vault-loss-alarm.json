@@ -1,0 +1,61 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compare the vault file list against a saved baseline at startup and on demand",
+  "Alarm when files go missing, notes become empty, or delete events spike",
+  "Report missing paths with their last known sizes",
+  "Write a restore checklist note listing missing and emptied files",
+  "Compare dated manifests to list changes over time (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a backup tool; it detects and reports lost or emptied files but cannot recover their contents.",
+ "extras": "Freemium: core checks are free; Pro (30-day history, folder thresholds, restore checklists) needs a GitHub Sponsors payment. The What's new tab promotes other NoteMods plugins and Zovo Chat and can be turned off. Requires Obsidian 1.13.4 or later. The FAQ lists many untested scenarios (mobile, Linux, Windows, concurrent sync providers, large vaults) and warns that cloud offload and renames can cause false alarms.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian gives no warning when sync or backup failures delete notes or attachments, so data loss is often noticed only after it happens.",
+ "readmeHash": "d066e5fcd2a55d8b42efe85ad0ef67ecd76fe94f",
+ "relations": [
+  {
+   "evidence": "Sign in uses the GitHub device flow.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once) for Pro features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vault loss monitor that compares the vault against a saved baseline and alarms when notes or attachments go missing or turn empty.",
+ "tags": [
+  "data-loss",
+  "file-monitoring",
+  "baseline",
+  "sync-verification",
+  "restore-checklist",
+  "github-sponsors"
+ ]
+}

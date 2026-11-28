@@ -1,0 +1,66 @@
+{
+ "also": [
+  "navigation",
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search and open files with customizable ranking and preset search commands",
+  "grep note contents with ripgrep, sorted by modified time",
+  "search and navigate headers, links, and backlinks from within dialogs",
+  "preview notes without closing the dialog, with optional auto preview",
+  "move files between folders and batch-open or insert multi-selected results"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher",
+   "Command palette",
+   "Search"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The author says they rarely use Obsidian anymore and will only fix reported security vulnerabilities; no new features or non-security bug fixes are planned. The public API for external scripts is labeled experimental and may change. Mobile support is not personally verified by the author.",
+ "intent": "improve",
+ "intentEvidence": "This is an Obsidian plugin which is another choice of Quick switcher.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in Quick Switcher only does basic file-name lookup, without custom ranking, property/tag/header matching, content grep, or previewing without leaving the dialog.",
+ "readmeHash": "3198a72d5c5078598054c0312758713a3e1c5f41",
+ "relations": [
+  {
+   "evidence": "This feature requires ripgrep and set the executable command",
+   "plugin": "ripgrep",
+   "type": "integrates"
+  },
+  {
+   "evidence": "allows external scripts (e.g., Templater) to programmatically open the file picker dialog",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ripgrep",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Replacement quick switcher with custom search commands, ripgrep grep, backlink/link/header search, in-dialog preview, batch actions, and a command palette.",
+ "tags": [
+  "ripgrep",
+  "fuzzy-search",
+  "backlinks",
+  "command-palette",
+  "2-hop-link",
+  "multi-select"
+ ]
+}

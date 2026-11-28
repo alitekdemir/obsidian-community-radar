@@ -1,0 +1,98 @@
+{
+ "also": [
+  "import",
+  "formats"
+ ],
+ "audience": [
+  "korean-institutional-document-authors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import HWP, HWPX, PDF, DOCX and XLSX files as Markdown notes",
+  "Export notes to HWPX, DOCX, HTML and PDF",
+  "Fill HWPX forms from note properties",
+  "Compare two document versions into a change table",
+  "Manage HWPX templates with document styles and fonts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires Obsidian 1.8.9 or newer; scanned PDFs are not OCRed and password-protected PDFs cannot be imported; official-document notation checks are Korean-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Keep the source of knowledge in portable Markdown and produce HWPX, DOCX, HTML or PDF only when an institution requires it.",
+ "primary": "export",
+ "problem": "Korean institutions require HWP/HWPX documents while Obsidian notes are Markdown, so content has to be retyped or converted by hand.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "b248f0bcd4951e530cfde65f4f32d8786bbb5215",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Kordoc 4.25.0 built in: imports, generates, validates, compares, and fills documents without external setup.",
+   "plugin": "Kordoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the project that powered HanMark's earlier HWPX workflow",
+   "plugin": "pypandoc-hwpx",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Pandoc — optional advanced DOCX conversion only; DOCX works without it.",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "be sent to the active CMDS Eagle cloud provider",
+   "plugin": "CMDS Eagle",
+   "type": "integrates"
+  },
+  {
+   "evidence": "generated styles expose real font names and paragraph properties in Hancom Office's toolbar",
+   "plugin": "Hancom Office",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "CMDS Eagle",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Microsoft Word",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloudflare R2 Worker API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop plugin that imports HWP, HWPX, PDF, DOCX and XLSX files as Markdown notes and exports notes to HWPX, DOCX, HTML and PDF.",
+ "tags": [
+  "docx",
+  "korean",
+  "pandoc",
+  "mermaid"
+ ],
+ "textHash": "b1a7aa9258699d1cd117076c7632a0544e2afa70"
+}

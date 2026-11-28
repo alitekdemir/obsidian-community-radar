@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files with OneDrive, SharePoint and Teams libraries",
+  "Merge concurrent edits with 3-way diff3",
+  "Share vaults with read/write or read-only access",
+  "Browse and restore note version history",
+  "Sync shared .obsidian settings while excluding tokens"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Enterprise use needs a one-time Entra ID public-client app registration by an administrator; organizations can add their email domain to a built-in configuration lookup by pull request. Diagnostic logs redact tokens and signatures.",
+ "intent": "alternative",
+ "intentEvidence": "Official Obsidian Sync requires a separate subscription and stores vault data outside your organization's Microsoft 365 tenant.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted the OneNote-on-SharePoint workflow — Entra ID access control, per-project sharing and built-in version history — available for Obsidian vaults.",
+ "primary": "syncing",
+ "problem": "Teams using Microsoft 365 had no way to collaborate on Obsidian vaults without external servers, duplicate conflict files or a separate sync subscription.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "884df6284bebd71576c42c81e943757b18044d1f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Official Obsidian Sync requires a separate subscription and stores vault data outside your organization's Microsoft 365 tenant.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Custom sync tools (CouchDB / LiveSync, Git, S3/WebDAV) require provisioning external servers",
+   "plugin": "LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Syncing a vault folder with the OneDrive desktop client frequently creates Note (Work PC's conflicted copy).md duplicates",
+   "plugin": "OneDrive desktop client",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account or Microsoft Entra ID work account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Microsoft 365 with SharePoint Online and Teams (enterprise sync)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs Obsidian vaults through Microsoft OneDrive, SharePoint and Teams, with per-vault sharing, 3-way merge and version restore.",
+ "tags": [
+  "onedrive",
+  "oauth",
+  "conflict-resolution",
+  "version-history",
+  "two-way-sync"
+ ],
+ "textHash": "0fb1f80ab958e4f2f3e4d1d1f84d3d942876f80e"
+}

@@ -1,0 +1,47 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Poll the vault every 8 seconds for files added or changed on disk",
+  "Reconcile new external files into the file explorer, search, and graph view",
+  "Update open tabs whose file content changed outside Obsidian",
+  "Run an on-demand scan via the Refresh vault now command",
+  "Retry failed reconciliations on the next poll"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync service; it only makes Obsidian aware of files already written to disk by outside processes.",
+ "extras": "Uses vault.adapter.reconcileFile(), an undocumented internal Obsidian API that may break with future versions. Desktop only. Polling interval can only be changed by editing main.js.",
+ "intent": "alternative",
+ "intentEvidence": "The community Auto Refresh plugin addresses a related issue but requires explicitly listing each folder to watch",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's filesystem watchers miss external file changes in some environments (Flatpak, network drives, restricted inotify), so new files don't appear and open tabs show stale content until a restart or manual reopen.",
+ "readmeHash": "9782e1631358f652af22b50795fefc7986935b42",
+ "relations": [
+  {
+   "evidence": "The community Auto Refresh plugin addresses a related issue but requires explicitly listing each folder to watch",
+   "plugin": "Auto Refresh",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Background poller that scans the vault every 8 seconds to pick up files created or changed on disk outside Obsidian.",
+ "tags": [
+  "file-explorer",
+  "one-way-sync"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

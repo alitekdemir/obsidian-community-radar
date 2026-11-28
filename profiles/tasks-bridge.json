@@ -1,0 +1,65 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "todoist-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render Todoist filters inside notes with query blocks and cache-first loading",
+  "Sync Todoist projects into vault folders as one Markdown file per task",
+  "Display optional completed-task history with cursor pagination",
+  "Edit, complete, and reopen tasks through a Tasks List Base view",
+  "Reconcile renames and deletions with ownership-based safety handling"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone task manager; it bridges Obsidian to external task services that remain the systems of record.",
+ "extras": "Detailed installation, query syntax, and usage documentation are kept in a separate docs site rather than the README. The manifest notes the plugin has not been manually reviewed by Obsidian staff, and the README states it is not affiliated with or endorsed by Doist.",
+ "intent": "alternative",
+ "intentEvidence": "Tasks Bridge is based on the original Todoist Sync plugin created by Jamie Brynes.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no native way to view or work with tasks stored in external task-management services like Todoist.",
+ "readmeHash": "d3a287b2cf0fac2298728d4e6fe4b2385a59f718",
+ "relations": [
+  {
+   "evidence": "Tasks Bridge is based on the original Todoist Sync plugin created by Jamie Brynes.",
+   "plugin": "Todoist Sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "Todoist is the first supported backend.",
+   "plugin": "Todoist",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Todoist account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Integration layer that connects Obsidian to external task services, currently Todoist, via in-note query blocks and one-way project-to-folder sync.",
+ "tags": [
+  "todoist",
+  "query-blocks",
+  "heatmap",
+  "system-of-record",
+  "folder-mapping",
+  "completed-history"
+ ]
+}

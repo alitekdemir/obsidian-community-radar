@@ -1,0 +1,86 @@
+{
+ "also": [
+  "import",
+  "integrations"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import characters from Hephaistos via public share IDs",
+  "Fill note frontmatter with character stats",
+  "Update existing notes' frontmatter without touching note content",
+  "Create hyperlinks based on the Community SRD vault structure",
+  "Generate fields compatible with Initiative Tracker and Fantasy Statblocks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a character sheet manager or builder; it only pulls existing Hephaistos character data into note frontmatter.",
+ "extras": "Unaffiliated with Hephaistos and Obsidian. Known issue: characters not saved on Hephaistos since 3 February 2025 fail to import until re-saved.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Starfinder players and GMs using Obsidian must otherwise manually copy character stats from Hephaistos into their notes.",
+ "readmeHash": "438f755babe0bbeeaea1183c1d376c103f42beef",
+ "relations": [
+  {
+   "evidence": "A plugin for Obsidian allowing for import of characters from Hephaistos.",
+   "plugin": "Hephaistos",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The importer can generate fields compatible with Javalent's Initiative Tracker.",
+   "plugin": "Javalent's Initiative Tracker",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The importer can format fields to work with Javalent's Fantasy Statblocks.",
+   "plugin": "Javalent's Fantasy Statblocks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The links are based on the Community SRD vault's structure",
+   "plugin": "Community SRD vault",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hephaistos",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Initiative Tracker",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Fantasy Statblocks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Imports Starfinder RPG character stats from the Hephaistos website into Obsidian notes as frontmatter.",
+ "tags": [
+  "starfinder",
+  "hephaistos",
+  "character-sheets",
+  "srd",
+  "initiative-tracker",
+  "fantasy-statblocks"
+ ]
+}

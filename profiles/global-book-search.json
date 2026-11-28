@@ -1,0 +1,126 @@
+{
+ "also": [
+  "research",
+  "templating"
+ ],
+ "audience": [
+  "book-collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search multiple book catalogs by title, ISBN or barcode",
+  "Merge conflicting metadata fields from different sources field by field",
+  "Create book notes from ready-made or custom templates with Templater support",
+  "Check for duplicate notes by ISBN or file name and update their metadata",
+  "Browse and bulk-import from a Calibre library or an ISBN list"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It searches online book catalogs and your Calibre library, not the notes inside your vault.",
+ "extras": "StoryGraph login uses two browser cookies that work like a password; the free LibraryThing token allows 50 searches a day; the Google Books key is stored in data.json while other credentials go to Obsidian's secret storage.",
+ "intent": "improve",
+ "intentEvidence": "It builds on obsidian-book-search-plugin by anpigon.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up book metadata across multiple catalogs and turn it into a structured book note with frontmatter and cover.",
+ "readmeHash": "017b7226013444854ede8f4c6d712524e4b8ea15",
+ "relations": [
+  {
+   "evidence": "It builds on obsidian-book-search-plugin by anpigon.",
+   "plugin": "obsidian-book-search-plugin by anpigon",
+   "type": "extends"
+  },
+  {
+   "evidence": "If the Templater plugin is installed and is not already set to run on new files, the plugin runs it",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Turn on Calibre's content server (Connect/share → Start Content server",
+   "plugin": "Calibre",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The most complete source: translators, original titles, first publication, series, genres, characters, places, ASINs.",
+   "plugin": "Goodreads",
+   "type": "integrates"
+  },
+  {
+   "evidence": "StoryGraph has no public API and puts a Cloudflare check in front of every request that is not signed in",
+   "plugin": "StoryGraph",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Books works without a key, but the free quota it shares with every user often runs out",
+   "plugin": "Google Books",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The exact edition an ISBN names, often with its original title and translator; open data and covers.",
+   "plugin": "Open Library",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Hardcover",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin searches LibraryThing through its Talpa Search API, which needs a free API token.",
+   "plugin": "LibraryThing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calibre content server",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "StoryGraph login (cookies)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Hardcover API token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LibraryThing Talpa API token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Book search plugin that queries Goodreads, StoryGraph, Google Books, Open Library, Hardcover, LibraryThing and Calibre to build templated book notes.",
+ "tags": [
+  "goodreads",
+  "storygraph",
+  "google-books",
+  "open-library",
+  "hardcover",
+  "librarything",
+  "calibre",
+  "isbn"
+ ]
+}

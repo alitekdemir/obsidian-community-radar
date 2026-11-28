@@ -1,0 +1,76 @@
+{
+ "also": [
+  "images",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload images, video, audio, PDF and Office files to a configured storage provider",
+  "Browse uploaded images in a gallery with lightbox, multi-select and batch actions",
+  "Insert links or embeds for uploaded files into notes",
+  "Search images by description or visual similarity with a locally run embedding model",
+  "Delete remote files and cache local thumbnails"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Attachments"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a gallery viewer; its main job is uploading files from notes to external storage providers.",
+ "extras": "Desktop only and requires Obsidian 1.7.2+. Credentials are stored in plain text in .obsidian/plugins/oss-gallery/data.json. Semantic search is opt-in, needs a hardware GPU with WebGPU (no CPU fallback), and downloads a ~343 MB model from Hugging Face and GitHub with SHA-256 verification. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps attachments inside the vault and offers no way to upload media to external object storage or browse those files in a gallery.",
+ "readmeHash": "59a2f6d5960b5b5710bf511526da28d727e18504",
+ "relations": [
+  {
+   "evidence": "Upload images, videos, audio and documents from Obsidian to your own storage (S3, R2, MinIO",
+   "plugin": "S3",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Imgur | yes | no | no | no | no | Upload only, images only",
+   "plugin": "Imgur",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the model (EmbeddingGemma 2, q4, about 316 MB) from Hugging Face at a pinned revision",
+   "plugin": "Hugging Face",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "storage provider account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "provider API keys or access keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Media uploader and gallery that stores images, video, audio and documents on S3-compatible, Chinese cloud, GitHub, Imgur or local storage, with local semantic image search.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "minio",
+  "imgur",
+  "github",
+  "semantic-search",
+  "webgpu",
+  "embeddings"
+ ]
+}

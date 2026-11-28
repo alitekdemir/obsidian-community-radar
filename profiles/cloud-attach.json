@@ -1,0 +1,81 @@
+{
+ "also": [
+  "attachments",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse WebDAV and S3 cloud directories in a sidebar",
+  "Insert single or batch Markdown links to cloud files",
+  "Upload local attachments to the server and rewrite references",
+  "Generate signed URLs with sign tokens",
+  "Preview images, video, audio, documents and PDFs inline"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Embeds",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault sync tool; it keeps files on the remote server and inserts links to them rather than downloading them into the vault.",
+ "extras": "README is bilingual (Chinese | English). Notes that object storage may not support iframe preview due to provider restrictions, with a workaround of mounting the storage via OpenList. Office preview is listed as planned. PDF.js is downloaded automatically when selected in Advanced Settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author describes being a firm believer in the 'Zero-Attachment' workflow in Obsidian and a heavy OpenList user with no coding background, and built the plugin AI-assisted.",
+ "primary": "integrations",
+ "problem": "Attachments stored in the vault consume local space, and Obsidian has no built-in way to reference files kept on a WebDAV or S3 server.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "154474b65e75a4834542d5c539d32c11c8950b53",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "Compatible with OpenList, theoretically supports all WebDAV services (Alist, Synology, QNAP, etc.)",
+   "plugin": "OpenList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the plugin auto-downloads and applies it",
+   "plugin": "PDF.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenList or WebDAV server",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible object storage (e.g. Cloudflare R2)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV or S3 credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Plugin that connects to OpenList/WebDAV and S3 object storage to browse cloud files, insert signed links, and upload attachments out of the vault.",
+ "tags": [
+  "webdav",
+  "s3",
+  "cloudflare",
+  "openlist",
+  "pdf-annotation",
+  "image-viewer",
+  "multi-account"
+ ],
+ "textHash": "14df3bf891dd78e38c3ce8f8a49d0860686b5171"
+}

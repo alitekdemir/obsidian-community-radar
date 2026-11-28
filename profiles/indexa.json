@@ -1,0 +1,52 @@
+{
+ "also": [
+  "links",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Analyze the vault with local embeddings and community detection (Louvain)",
+  "Propose index notes with names, confidence scores and multi-index memberships",
+  "Review proposals by renaming, merging, splitting, ignoring or moving notes",
+  "Apply the index structure with frontmatter keys and links, and undo applies from a journal",
+  "Suggest indexes for new or edited notes incrementally after the first apply"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a search tool; it builds topic-based index notes that link related notes, it does not query note content.",
+ "extras": "Desktop only (Obsidian 1.13+). Early 0.0.x version; the author advises trying it on a copy of the vault first. Downloads a ~130 MB embedding model once; all analysis runs locally with no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to group notes by meaning automatically, so organizing a large vault's structure is manual work.",
+ "readmeHash": "d726608759decf28c2ee171d614eab9d5fcd9628",
+ "relations": [
+  {
+   "evidence": "The plugin makes exactly one kind of network request: downloading the embedding model",
+   "plugin": "Xenova/multilingual-e5-small (Hugging Face model)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Semantic organizer that runs local embedding models to cluster notes by meaning and propose index notes linking them.",
+ "tags": [
+  "embeddings",
+  "louvain",
+  "hnsw",
+  "clustering",
+  "onnx",
+  "zettelkasten",
+  "local-inference"
+ ]
+}

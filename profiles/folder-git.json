@@ -1,0 +1,76 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Track one Git repository per vault folder",
+  "Stage, commit, push, pull, sync and fetch from a Source Control panel",
+  "Create remote repositories on GitHub or Forgejo",
+  "Auto-commit and auto-push on a per-repository interval",
+  "Browse commit history and restore a file to an earlier version"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.11.4+); Git must be on PATH or set in settings. Tokens are kept in Obsidian SecretStorage outside the vault. No rebase, tags, branch rename or per-hunk staging; amending a pushed commit needs a terminal.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Git plugins for Obsidian treat the whole vault as one repository, so folders that belong in separate repositories cannot be tracked independently.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "a65d239ac22ace0cc1e1c4ed2149f168e8a74014",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Folder Git brings VS Code-style Git source control to Obsidian.",
+   "plugin": "VS Code",
+   "type": "inspired"
+  },
+  {
+   "evidence": "It works with GitHub and Forgejo / Gitea (including Codeberg and self-hosted instances).",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It works with GitHub and Forgejo / Gitea (including Codeberg and self-hosted instances).",
+   "plugin": "Forgejo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub or Forgejo access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Per-folder Git source control panel that manages a separate repository for each vault folder, with GitHub and Forgejo integration.",
+ "tags": [
+  "github",
+  "gitea",
+  "version-history",
+  "conflict-resolution",
+  "diff"
+ ],
+ "textHash": "d83ca6c2020f952b370ce603fd018afd00037247"
+}

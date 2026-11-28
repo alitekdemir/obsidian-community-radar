@@ -1,0 +1,60 @@
+{
+ "also": [
+  "files",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", "
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires local installation of ImageMagick 7. The plugin works locally and makes no network requests.",
+ "intent": "new",
+ "intentEvidence": "It keeps each PNG as the original, creates a same-name WebP companion, and changes only verified image links to use the WebP.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Users need to optimize image file sizes by converting PNG assets to WebP while ensuring the original PNG is preserved and all internal links are correctly updated.",
+ "readmeHash": "49d55066d05ebc93f796317709ebcc3e9079089d",
+ "relations": [
+  {
+   "evidence": "Creates name.webp beside name.png with ImageMagick 7",
+   "plugin": "ImageMagick 7",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ImageMagick 7",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "local filesystem vault",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A non-destructive desktop plugin that converts PNG images to WebP format, preserves the original PNG, and updates internal links to the new WebP file.",
+ "tags": [
+  "webp",
+  "imagemagick",
+  "file-normalization",
+  "non-destructive",
+  "image-optimization"
+ ]
+}

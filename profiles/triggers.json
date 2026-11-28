@@ -1,0 +1,69 @@
+{
+ "also": [
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run palette commands automatically when a file or view is opened",
+  "Match rules by path, view type, Base view, and frontmatter properties",
+  "Pass context variables (path, rule, tags, properties) to QuickAdd choices",
+  "Group rules and order them so all matching rules run top to bottom"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin browser; installs via BRAT or manually from GitHub releases. Requires Obsidian 1.13.0 or later. Detailed reference lives in docs/reference.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian can only run commands manually; there is no way to make the vault react automatically to which file or view you open.",
+ "readmeHash": "de776eb4ccea802453e0c3a1ecd07bba12b98c89",
+ "relations": [
+  {
+   "evidence": "A QuickAdd action receives the context as variables — where you are, which rule fired",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Triggers runs commands. Together they do something neither does alone",
+   "plugin": "Sidebar Layouts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Markdown, Bases, Canvas, and Excalidraw when that plugin is installed",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "QuickAdd",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Rule-based automation plugin that runs palette commands or QuickAdd choices when you open a note, Canvas, Base, or Excalidraw file.",
+ "tags": [
+  "quickadd",
+  "sidebar-layouts",
+  "excalidraw",
+  "rule-engine",
+  "regular-expressions"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "tables",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Toggle checkboxes inside Markdown table cells",
+  "Set custom task statuses from a right-click menu",
+  "Preserve single-character status markers in the Markdown source",
+  "Render status icons through the theme's data-task styling",
+  "Flag unrecognized status characters with an Important indicator"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task-management or query plugin; it only renders interactive checkboxes and preserves status characters in the source.",
+ "extras": "Status icons come from the user's checkbox theme, not the plugin; with the default theme statuses round-trip in source but render as plain checkboxes. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "It also adds a right-click status menu to ordinary block-list tasks, so you can set any status",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Markdown table cells are inline-only, so tasks written in a cell render as dead text that cannot be toggled, and Obsidian's task lists offer no custom statuses.",
+ "readmeHash": "2eee43bc33ecfa0fe0bc9178eca389ef7507b001",
+ "relations": [
+  {
+   "evidence": "Minimal — works out of the box. This is the theme the plugin is developed against.",
+   "plugin": "Minimal",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Prism renders them once you install the Style Settings plugin and enable Prism → \"Enable Prism Alternative Checkboxes\"",
+   "plugin": "Prism",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task checkbox plugin that makes checkboxes interactive inside Markdown table cells and adds custom task statuses via a right-click menu.",
+ "tags": [
+  "checkboxes",
+  "custom-statuses",
+  "data-task",
+  "right-click-menu",
+  "minimal-theme"
+ ]
+}

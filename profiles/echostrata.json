@@ -1,0 +1,80 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record microphone and Mac system audio from within the current note",
+  "Transcribe recordings locally with whisper.cpp and label speakers as Me/Others",
+  "Generate titles, summaries and action-item checklists with local Ollama models",
+  "Create custom summary templates with a name, purpose and prompt",
+  "Mute or pause individual audio tracks mid-recording from a floating bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop macOS 13+ only; uses Node.js filesystem and shell execution that Obsidian's plugin review flags, and the manifest notes the plugin has not been manually reviewed by Obsidian staff; installable via BRAT; release assets carry GitHub build-provenance attestations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because meeting tools upload conversations to someone else's servers, and Echostrata keeps everything on the Mac.",
+ "primary": "audio",
+ "problem": "Obsidian's audio recorder only embeds recordings, and meeting tools upload conversations to cloud servers; there is no local in-note transcription and summarisation.",
+ "readmeHash": "b1b5441d59b940286d141d1a5171a72a1bd1a463",
+ "relations": [
+  {
+   "evidence": "Inspired by Lecture Transcriber by AbyssLotus.",
+   "plugin": "Lecture Transcriber by AbyssLotus",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Speech recognition: whisper.cpp by Georgi Gerganov, using OpenAI's Whisper models.",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local language models: Ollama.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional loopback driver: BlackHole by Existential Audio.",
+   "plugin": "BlackHole",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Homebrew and whisper.cpp",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "macOS in-note recorder that captures mic and system audio, then writes a local whisper.cpp transcript and an Ollama-generated summary into the note.",
+ "tags": [
+  "whisper-cpp",
+  "ollama",
+  "transcription",
+  "meeting-notes",
+  "system-audio",
+  "blackhole",
+  "speech-to-text",
+  "local-ai"
+ ]
+}

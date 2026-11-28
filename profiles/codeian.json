@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run Codex CLI prompts from a sidebar, workspace tab, or pop-out window",
+  "Queue and guide follow-up prompts while a Codex run is active",
+  "Insert current-note context and @-suggest vault Markdown files",
+  "Select model, reasoning effort, and file-access sandbox per run",
+  "Manage reusable prompt templates in a library"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because mobile Obsidian cannot launch local CLI processes. Manifest notes the plugin has not been manually reviewed by Obsidian staff. Warns before YOLO (danger-full-access) runs and before running non-codex commands; third-party keys require Obsidian 1.11.4+ native secret storage and are not written to data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it is built for users who want to ask Codex for help while staying in Obsidian, with the vault as the working context.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run Codex agent sessions with the vault as working context, forcing users to leave the app or a terminal.",
+ "readmeHash": "8ee251f2c9c54f8bff207bf020f590c216c48402",
+ "relations": [
+  {
+   "evidence": "the local codex CLI as the execution engine",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Zhipu uses a current locally installed Claude Code CLI",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Third-party provider API keys (MiniMax, Kimi, DeepSeek, Zhipu)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar, workspace-tab, and pop-out interface for running the local Codex CLI inside Obsidian, with streaming Markdown answers and vault context.",
+ "tags": [
+  "codex-cli",
+  "ai-agent",
+  "prompt-templates",
+  "sandbox",
+  "streaming",
+  "deepseek",
+  "kimi",
+  "minimax"
+ ]
+}

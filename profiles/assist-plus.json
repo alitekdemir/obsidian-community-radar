@@ -1,0 +1,67 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Claude in a streaming sidebar",
+  "Attach notes explicitly to set what the model can see",
+  "Review and apply suggested edits as line-by-line diffs",
+  "Enforce allowlist, denylist, and frontmatter opt-out rules",
+  "Export conversations to notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet publicly released (v0.1 M1, manual install only); Anthropic-only by design, no multi-provider support; manifest notes it has not been manually reviewed by Obsidian staff; usage billed to the user's own Anthropic account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it around the idea that \"an AI assistant in your vault must be default-deny\" — nothing is read or written without explicit user action.",
+ "primary": "ai",
+ "problem": "AI assistants in Obsidian typically read broadly or write automatically, so users lack strict control over exactly what content leaves the vault and what gets changed.",
+ "readmeHash": "9cb47d76e188f2c33e539d2105724b83f1a797a7",
+ "relations": [
+  {
+   "evidence": "requests go directly from the plugin to api.anthropic.com using your own API key",
+   "plugin": "Anthropic API (api.anthropic.com)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "assist-plus",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic account with billing",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Privacy-first Claude chat sidebar that only sends notes you explicitly attach and applies suggested edits through per-hunk diff review.",
+ "tags": [
+  "anthropic",
+  "claude",
+  "chatbot",
+  "privacy",
+  "diff-review",
+  "streaming",
+  "api-key"
+ ]
+}

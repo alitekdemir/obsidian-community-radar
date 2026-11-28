@@ -1,0 +1,69 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open Google placeholder files in embedded views and wikilink embeds",
+  "Link placeholders to Google URLs automatically via the Windows Shell copy-link action",
+  "Accept manually pasted Google URLs when automatic linking fails",
+  "Manage a local registry of path-to-URL mappings with import, export, update, copy, removal, and rename migration",
+  "Apply an adjustable dark filter to embedded Google pages"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general link manager; it only opens Google Drive placeholder files in embedded views.",
+ "extras": "Automatic linking temporarily overwrites the Windows clipboard. macOS and Linux are not supported and the author asks for a macOS contributor. Dark mode is labelled experimental and may leave visual artefacts in Google-hosted iframes. No telemetry, paid features, or use of the Google Drive API.",
+ "intent": "alternative",
+ "intentEvidence": "GLink is a standalone plugin because it solves a different Google Drive storage case.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because, with Google Drive's streamed-file mode on Windows, placeholders cannot be opened or downloaded for parsing, so the shortcut-JSON approach of the existing GDocs plugin does not work.",
+ "primary": "integrations",
+ "problem": "Obsidian cannot open Google Drive streamed-file cloud placeholders, which standard file reads cannot parse and which lack the shortcut JSON other tools rely on.",
+ "readmeHash": "93a9d462080de63a03b97d4a75ee6fe586f4fcf7",
+ "relations": [
+  {
+   "evidence": "The file-view, embedded-webview, and extension-registration approach is derived from oilandrust/obsidian-gdocs, used under the MIT License.",
+   "plugin": "oilandrust/obsidian-gdocs",
+   "type": "alternative"
+  },
+  {
+   "evidence": "It is developed and tested with Google Drive for desktop on Windows 11.",
+   "plugin": "Google Drive for desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Drive for desktop",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Opens Google Drive placeholder files (.gdoc, .gsheet, .gslides) in embedded Obsidian views on Windows using a local path-to-URL registry.",
+ "tags": [
+  "google-drive",
+  "google-docs",
+  "placeholder-files",
+  "webview",
+  "windows",
+  "dark-mode"
+ ]
+}

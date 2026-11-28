@@ -1,0 +1,70 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Record an append-only audit.v1 receipt for every agent inference",
+  "Ingest receipts from an OM-1 audit inbox file with deduplication",
+  "Verify ledger integrity by detecting malformed blocks, duplicates, and sequence gaps",
+  "Write a rolling digest with counts, statuses, tokens, and durations",
+  "Install vault-scoped audit hooks for local agents like Claude Code"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-19",
+ "disambiguation": "Not a forensic or tamper-proof audit system; the README calls it a journal of your own agents with no crypto and no tamper-evidence.",
+ "extras": "Not distributed via the Obsidian community directory; BRAT can track the repo for updates. Requires Obsidian 1.13.0+. The receipt writer ships only with source installs, not plugin releases. Detailed specs live in separate SPEC.md and INTEGRATION.md files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI agents acting in a vault leave no trace of what they did, when, or with which model, so there is no way to review or verify their activity.",
+ "readmeHash": "2f5cfeefd8a5783476085b84836fd4eefffbd6cd",
+ "relations": [
+  {
+   "evidence": "Speaks OM-1 (Obsidian Messenger): agents, other plugins, or a shell one-liner can all file receipts",
+   "plugin": "OM-1 (Obsidian Messenger)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install agent audit hooks writes vault-scoped configs (Claude Code, OpenCode) so local agents file their own receipts",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "See INTEGRATION.md for wiring up curtis-ai-chat.",
+   "plugin": "curtis-ai-chat",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local AI agents (Claude Code, OpenCode, Codex, Gemini CLI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Local-first audit trail that logs each AI agent action as an append-only markdown receipt in per-day ledger files in your vault.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "gemini-cli",
+  "opencode",
+  "om-1",
+  "append-only-log",
+  "agent-hooks"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Snapshot the vault to Dropbox on a schedule",
+  "Deduplicate identical files with content-addressed storage",
+  "Prune old snapshots with hierarchical retention tiers",
+  "Browse snapshots and restore individual files",
+  "Recover files with a standalone Node CLI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-archiving or read-later tool; it backs up vault files to Dropbox and restores them.",
+ "extras": "Backups are stored as content-addressed blobs and manifests rather than plain files, so recovery goes through the in-app browser or the bundled Node CLI; the README asks users to keep a second independent backup until 1.0.",
+ "intent": "alternative",
+ "intentEvidence": "There's another Obsidian community plugin that also backs up to Dropbox: Aut-O-Backups by ryanpcmcquen",
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Whole-vault snapshots and syncing tools make it hard to recover one note's earlier version after an accidental delete, bad merge or overwrite.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "be6166fb81cbcc77eed910adfae8b09727925619",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "There's another Obsidian community plugin that also backs up to Dropbox: Aut-O-Backups by ryanpcmcquen",
+   "plugin": "Aut-O-Backups",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Archivist runs in the background, snapshots your Obsidian vault to Dropbox on a schedule you control",
+   "plugin": "Dropbox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Dropbox",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Versioned vault backup plugin that snapshots notes to Dropbox with content-addressed deduplication, tiered retention and per-file restore.",
+ "tags": [
+  "dropbox",
+  "version-history",
+  "oauth",
+  "cli",
+  "local-first"
+ ],
+ "textHash": "d10ee481dc47da716b979d77b6203952b4fa5a9f"
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "research",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "classify uncategorized articles from source directories",
+  "extract source-backed knowledge into Wiki sections",
+  "update Wiki index, source mappings and logs",
+  "review low-quality sources with cleanup or keep actions",
+  "build a Canvas knowledge map from Wiki content"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Proprietary license despite visible source code; manifest notes the plugin has not been manually reviewed by Obsidian staff. Author warns to test on a copy of the vault since classification changes file paths and model judgments can be wrong. Default source paths are Chinese reading directories (Xiaohongshu, WeChat official accounts). No telemetry; API key stored unencrypted in the vault's plugin data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Reading notes pile up as unclassified raw files; Obsidian has no workflow to turn them into an organized, source-backed Wiki with quality review.",
+ "readmeHash": "874d2d7bc597eb6e9c6996e48dad13efb532d12a",
+ "relations": [
+  {
+   "evidence": "LLM Base URL / API Key / Model：兼容 OpenAI Chat Completions 的服务配置",
+   "plugin": "OpenAI Chat Completions",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM service API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "LLM provider usage costs per request",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "LLM-powered curator that classifies reading sources and writes them into a maintained Wiki with indexes, source maps and reviewable cleanup suggestions.",
+ "tags": [
+  "llm",
+  "wiki",
+  "curation",
+  "citations",
+  "openai-compatible",
+  "json-schema",
+  "knowledge-map"
+ ]
+}

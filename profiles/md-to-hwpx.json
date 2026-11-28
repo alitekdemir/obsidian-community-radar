@@ -1,0 +1,55 @@
+{
+ "also": [
+  "integrations",
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert a note, selection of folder, or current note to .hwpx",
+  "Apply character and paragraph formatting from HWPX template markers",
+  "Install and inspect bundled HWPX templates and template guide",
+  "Capture Mermaid and SVG blocks as images during export",
+  "Expose export tools to AI agent hosts through an agentinterop v1 provider"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Hangul/HWPX editor or viewer; it only writes .hwpx files and opens them in the system default app.",
+ "extras": "Desktop only because it uses Node.js fs. No network access, telemetry, or account. Third-party code-block renderers run other plugins' code and are off by default. The agentinterop v1 provider is the author's own convention, not an official standard; Verbex (EverydayMind/obsidian-verbex) is currently the only agent host implementing it. Converter derived from pypandoc-hwpx (MIT); bundles marked, JSZip, fast-xml-parser, gray-matter.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no way to produce Hangul (Hancom Office) HWPX documents from notes, and plugin-controlled styling cannot match a Korean office document's formatting.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "0bbd5c10e5ef297dd230c62e31ab33a790dea2a2",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hangul (Hancom Office) or another HWPX viewer",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Exporter that converts Markdown notes to Hangul HWPX documents using formatting markers from an HWPX template.",
+ "tags": [
+  "docx",
+  "mermaid",
+  "svg",
+  "templates",
+  "mcp",
+  "local-first"
+ ],
+ "textHash": "67e45e81d0a274e0108d646fa74355eb088ac7f8"
+}

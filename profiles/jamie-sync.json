@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Poll the Jamie API for meetings and render each one to a Markdown note with frontmatter, summary callout, and action-item checkboxes",
+  "Write a linked transcript file for each meeting with note-to-transcript wikilinks",
+  "Sync into one of three destinations: a dedicated folder, per-day folders, or sections appended to the day's daily note",
+  "Re-sync edited meetings in place using content-hash change detection without creating duplicates",
+  "Configure API key, folders, sync interval, and shared-meeting inclusion, and run sync commands manually"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Lists features not yet implemented (private notes at top, conflict handling for locally edited files, webhook push). Stores the API key in the plugin's data.json inside the vault and discloses that it makes authenticated HTTPS calls only to the Jamie API. Includes Vitest unit tests that run without a live API key.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull meeting notes and transcripts from Jamie into the vault as Markdown files.",
+ "readmeHash": "3f5f1d8f7c917ff726f24fa2d890ca61ba8d45f2",
+ "relations": [
+  {
+   "evidence": "Syncs your Jamie meeting notes and transcripts into an Obsidian vault by polling Jamie's public API",
+   "plugin": "Jamie",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Jamie personal API key (jk_...)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Jamie account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Jamie paid plan",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs Jamie meeting notes and transcripts into the vault by polling Jamie's API and writing Markdown notes with linked transcript files.",
+ "tags": [
+  "jamie",
+  "meeting-notes",
+  "transcripts",
+  "api-key",
+  "action-items",
+  "wikilinks"
+ ]
+}

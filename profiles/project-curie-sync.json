@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize notes and attachments with a self-hosted Project Curie server in the background",
+  "Preserve both versions side-by-side when concurrent edits conflict",
+  "Connect to a server via URL, email, and password in an onboarding flow",
+  "Discover and match remote vaults to the current local vault",
+  "Inspect connection status and trigger manual syncs from a dashboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries the standard warning that the plugin has not been manually reviewed by Obsidian staff. Server setup instructions live in a separate Project Curie repository, not in this README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian offers no built-in way to keep a vault synchronized with your own server while storing notes as plain files on that server.",
+ "readmeHash": "c87cbbd99796a56d56c6f5bdd3085335957c5487",
+ "relations": [
+  {
+   "evidence": "designed specifically to synchronize notes and attachments with a self-hosted instance of Project Curie",
+   "plugin": "Project Curie",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Project Curie server (Fastify and SQLite backend)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Curie account email and password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sync plugin that bidirectionally synchronizes a vault's notes and attachments with a self-hosted Project Curie server, preserving both sides of conflicts.",
+ "tags": [
+  "self-hosted",
+  "fastify",
+  "sqlite",
+  "conflict-resolution",
+  "dashboard"
+ ]
+}

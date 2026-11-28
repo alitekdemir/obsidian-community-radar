@@ -1,0 +1,67 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Copies WhatsApp chats into vault notes",
+  "Splits notes by year, month, week or day",
+  "Appends only new messages incrementally",
+  "Prunes old days with optional TTL",
+  "Syncs on schedule or at Obsidian launch"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a WhatsApp client or web bridge; it only reads the Mac app's local database and writes notes.",
+ "extras": "Requires macOS Full Disk Access for all of Obsidian; notes contain other people's messages and phone numbers; fully offline, read-only; UI in Portuguese or English.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "WhatsApp Desktop keeps conversations in a local SQLite database that Obsidian cannot open, so chats stay outside the vault.",
+ "profiledAt": "2026-11-18",
+ "provider": "Ant Digital",
+ "readmeHash": "d35a7e2567ef61faabaeeb0baf722cbf4ae331bd",
+ "relations": [
+  {
+   "evidence": "Requer o app oficial do WhatsApp Desktop para Mac",
+   "plugin": "WhatsApp Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "fáceis de filtrar em Bases ou Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Official WhatsApp Desktop for Mac, opened at least once",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian 1.13+ desktop from a recent installer (built-in SQLite)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "macOS sync plugin that copies WhatsApp Desktop chats into Obsidian notes, one folder per chat, incremental and fully local.",
+ "tags": [
+  "macos",
+  "sqlite",
+  "local-first",
+  "privacy"
+ ],
+ "textHash": "053534df2c96014b947bffc06ff007c1e01ae0d7"
+}

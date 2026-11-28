@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [
+  "goods-traders"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Collect product details (price, final price, shipping, shop rating, sales) from a link, share text or product ID",
+  "Collect shop info and the product list visible on a shop homepage",
+  "Save results as a Markdown note with frontmatter properties and a daily tracking table, updating the same note on re-collection",
+  "Copy collected results as JSON",
+  "Expose checkDeps/collect/mode/setMode API so other plugins can use the collector as a data backend"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a search tool for finding products; it collects details for a specific product or shop link, share text or ID that the user pastes.",
+ "extras": "The manifest says it ships a bundled Python script, but the README states the collector is built in and needs no Python; only the separately distributed AI-tool skill version requires Python 3.7+. Command names and the default save folder are in Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to pull Xiaohongshu product or shop data, so users must manually copy prices, ratings, sales and shipping details into their notes.",
+ "readmeHash": "96213e5b786281346bac49ceada25e8acc3a7cab",
+ "relations": [
+  {
+   "evidence": "exposes a small API (checkDeps() / collect() / mode() / setMode()) so other plugins can use it as a data backend",
+   "plugin": "goods-trading workbench plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "same idea as the note-collector plugin",
+   "plugin": "note-collector plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The same collection engine is packaged as a portable skill for AI tools",
+   "plugin": "WorkBuddy / Claude Code / Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Collector that turns Xiaohongshu product or shop links into structured JSON or Markdown notes with frontmatter, and exposes an API for other plugins.",
+ "tags": [
+  "xiaohongshu",
+  "e-commerce",
+  "web-scraping",
+  "product-tracking",
+  "shop-ratings",
+  "share-links",
+  "python"
+ ]
+}

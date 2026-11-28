@@ -1,0 +1,74 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rank dormant notes by relevance to the active note in an aging-pot sidebar",
+  "Blend two or more selected notes into a new AI-generated note without modifying originals",
+  "Notify at startup when notes reach a maturity threshold",
+  "Switch embedding providers between OpenAI and local Ollama, and blend providers between OpenAI and Anthropic",
+  "Manually re-index the vault to compute embeddings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is largely in Japanese. Warning that API keys are stored as plain text in data.json. Embeddings are not recalculated on every edit; a manual vault re-index command is needed after adding or heavily editing notes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Old, untouched notes get forgotten, and there is no built-in way to rediscover them or combine them with current thinking when writing.",
+ "readmeHash": "8c1842086931c7a6e3de2f2b1af2717d1595ff3d",
+ "relations": [
+  {
+   "evidence": "OpenAI or local Ollama for embeddings (similarity search)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI or Claude (Anthropic) for blend generation",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI or Claude (Anthropic) for blend generation",
+   "plugin": "Claude (Anthropic)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (for local embeddings)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI plugin that resurfaces dormant notes similar to the note you are viewing and blends two or more selected notes into a new AI-generated idea note.",
+ "tags": [
+  "openai",
+  "ollama",
+  "anthropic",
+  "embeddings",
+  "similarity-search",
+  "dormant-notes",
+  "idea-generation"
+ ]
+}

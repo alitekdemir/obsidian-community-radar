@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio via microphone and transcribe it with OpenAI Speech-to-Text",
+  "insert, append, or copy transcribed text into the active note",
+  "configure recognition language and UI language independently (ja/en/zh/ko)",
+  "clean up transcriptions with optional dictionary-based post-processing",
+  "auto-save in-progress drafts and restore them on reopen"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Windows/macOS), requires Obsidian 1.8.0+, OpenAI API usage is billed, optional local VAD requires manually installing fvad.wasm, and the plugin has not been manually reviewed by Obsidian staff. README is duplicated in Japanese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in speech-to-text dictation, so users who want to capture notes by voice must use outside tools and paste results manually.",
+ "readmeHash": "adbcf2f6a2225b7222f4a6c2d7c39e1f77ab2835",
+ "relations": [
+  {
+   "evidence": "Capture notes with high-accuracy multilingual voice input using OpenAI Speech-to-Text.",
+   "plugin": "OpenAI Speech-to-Text",
+   "type": "integrates"
+  },
+  {
+   "evidence": "download fvad.wasm from the fvad‑wasm project and place it in the same plugin folder",
+   "plugin": "fvad-wasm",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "fvad.wasm file (for optional local voice activity detection)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Voice dictation plugin that records microphone audio, transcribes it with OpenAI GPT-4o models, and inserts the text into notes.",
+ "tags": [
+  "openai",
+  "speech-to-text",
+  "transcription",
+  "dictation",
+  "push-to-talk",
+  "voice-activity-detection"
+ ]
+}

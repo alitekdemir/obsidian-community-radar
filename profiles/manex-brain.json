@@ -1,0 +1,64 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions about the vault using a local MLX language model",
+  "Index all notes for vault-wide semantic retrieval (RAG)",
+  "Include the active note, linked notes, backlinks, and shared-tag notes as context",
+  "Open source notes by clicking links in answers",
+  "Re-index notes automatically on create, edit, rename, or delete"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS with Apple Silicon (M1+) only; first run installs a Python venv and downloads a ~2.3 GB model, taking several minutes. A command opens the manex.app web app. The manifest carries an unreviewed-plugin notice.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI question answering, and cloud AI assistants require sending note content to external servers or API keys.",
+ "readmeHash": "d6f53ff56ba10f6e9cd76fcd5e29adce63dbcea0",
+ "relations": [
+  {
+   "evidence": "inference runs on-device via Apple's MLX framework",
+   "plugin": "MLX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Downloads and starts mlx-community/Qwen3-4B-4bit (~2.3 GB, downloaded once)",
+   "plugin": "mlx-community/Qwen3-4B-4bit",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3 via Homebrew with a local MLX server and Qwen3-4B model",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local AI chat plugin that indexes vault notes and answers questions with a RAG pipeline running an on-device Apple Silicon MLX model.",
+ "tags": [
+  "rag",
+  "local-llm",
+  "mlx",
+  "apple-silicon",
+  "qwen",
+  "semantic-search",
+  "chat"
+ ]
+}

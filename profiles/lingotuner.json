@@ -1,0 +1,82 @@
+{
+ "also": [
+  "writing",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite selected text, note body or pasted text in a different communication style",
+  "Set four style dials with five steps each plus a priority note",
+  "Stream the rewrite from a local OpenAI-compatible server",
+  "Write the result back to the selection, note or a new note",
+  "Keep round history, presets and prompt overrides"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery",
+   "Properties view",
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Runs locally by default; a hosted provider is only used if the user adds its address and key. API keys are stored in Obsidian's keychain. Requires CORS configuration on the local server for streaming (app://obsidian.md), with a non-streaming retry fallback. The README reports testing against a 35B local mixture-of-experts model where two of sixteen dial steps missed the concreteness of the reference text, and warns that very small models tend to shorten instead of rephrase. Install is documented via AnySource Sideloader catalog, manual file copy, or from source.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author built it as an interpreter between neurodivergent and neurotypical communication styles, which differ along directness, spelled-out context, social framing and literalness.",
+ "primary": "ai",
+ "problem": "Neurodivergent and neurotypical readers can differ in how direct, explicit, socially framed and literal a text is, and Obsidian has no way to restate a text in another style.",
+ "profiledAt": "2026-11-26",
+ "provider": "Baidu",
+ "readmeHash": "445887b43ef65d46a6d28d9f8ed22ce926000ea2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Every call is also reported to LLM Lab if that plugin is installed.",
+   "plugin": "LLM Lab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tune with Claude through the LLM Endpoint Manager; your text goes to Anthropic",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local server (LM Studio, Ollama or MLX) with a chat model loaded",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key, only if a hosted provider endpoint is added",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Apple Shortcuts, for the Apple Intelligence endpoint guide",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local-LLM style rewriter that adjusts a text's directness, context, social nuance and literalness with four dials.",
+ "tags": [
+  "local-llm",
+  "llm",
+  "openai-compatible",
+  "lm-studio",
+  "ollama",
+  "mlx",
+  "text-styling",
+  "bilingual"
+ ],
+ "textHash": "286dee4f96cbd88cbbef2966c383b5811392d125"
+}

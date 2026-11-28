@@ -1,0 +1,64 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "add selected editor or reading-view text as a Dida365/TickTick task",
+  "prompt for a task list and an optional reason before creating",
+  "clean decorative symbols like 《》 from task titles",
+  "append the source note link ([[note path]]) to the task description",
+  "reuse DidaSync's OAuth connection instead of managing tokens itself"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual/development install only (copy main.js and manifest.json into the plugin folder and enable); README is written in Chinese; contact email divaliu1408@qq.com; task creation happens in TickTick, not inside the vault.",
+ "intent": "improve",
+ "intentEvidence": "复用 DidaSync 插件的连接与同步管线（app.plugins.plugins[\"didasync\"]），不自行管理 OAuth/token",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push a selected passage into TickTick as a task, and DidaSync alone does not create tasks from note selections.",
+ "readmeHash": "522a417fe529e2169f6749b7516f51b6a68c468d",
+ "relations": [
+  {
+   "evidence": "复用 DidaSync 插件的连接与同步管线（app.plugins.plugins[\"didasync\"]），不自行管理 OAuth/token",
+   "plugin": "DidaSync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "在编辑视图/阅读视图选中文字后右键，即可把选中内容添加为 Dida365 / TickTick 任务",
+   "plugin": "TickTick",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "DidaSync (installed, enabled, OAuth logged in)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Dida365/TickTick account via DidaSync OAuth",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Right-click command that turns selected note text into a Dida365/TickTick task, reusing the DidaSync plugin's connection.",
+ "tags": [
+  "ticktick",
+  "dida365",
+  "context-menu",
+  "source-link"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "project-management",
+  "tasks"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search active and archived OpenSpec changes by title, folder name or main repository",
+  "Preview task checkmarks and specification changes before archiving",
+  "Archive a change and sync the selected tasks and specs",
+  "Update the archive note and affected Markdown links",
+  "Resume an unfinished archive document update"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a spec editor; it browses, previews and archives existing OpenSpec changes.",
+ "extras": "Windows desktop only, with a Simplified Chinese interface. Previews run the CLI on copies in the system temporary directory, which are removed afterwards; OpenSpec CLI telemetry is disabled. An optional Xrzc index adaptation also reads the parent project's HANDOFF.MD and docs/ Markdown files when the vault opens openspec/ directly.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Archiving an OpenSpec change by hand means editing task checkmarks, spec files, archive notes and links across the vault with no preview of the result.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "c4f683a30c5aab623191640f2bb108f21edce31b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "runs a separately installed local OpenSpec CLI from the project root",
+   "plugin": "OpenSpec CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenSpec CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20.19 or later",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Panel that browses, previews and archives OpenSpec CLI changes, syncing selected task checkmarks, spec edits and affected links into the vault.",
+ "tags": [
+  "cli",
+  "archiving",
+  "local-first"
+ ],
+ "textHash": "c7b74372f52dd3320fb925648d1a364437069709"
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault with Google Drive in two-way mirror, one-way backup, or historic archive modes",
+  "Reconcile Markdown conflicts using SHA-256 hashes across local, cloud, and last-synced states",
+  "Upload large files in chunks via resumable Google Drive sessions",
+  "Run background auto-sync on a configurable interval with mobile catch-up sync",
+  "Ignore selected folders and choose the remote vault folder in Drive"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the general-sounding name, it syncs only with Google Drive, not other cloud providers.",
+ "extras": "The manifest carries an 'not manually reviewed by Obsidian staff' notice. Google Cloud apps left in 'Testing' status expire logins after about 7 days, requiring weekly re-login unless the app is formally verified. Credentials are stored in Obsidian SecretStorage since v1.1.0, but older settings backups may contain plaintext credentials.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault synchronized with Google Drive without a paid service or an intermediary server.",
+ "readmeHash": "77f8f980e041dfdd8dc1d05955ed6b8319fd8da8",
+ "relations": [
+  {
+   "evidence": "All communication happens directly between your device and Google's servers using OAuth credentials you generate yourself",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Self-generated Google Cloud OAuth client ID and secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Google Drive synchronization engine that mirrors vault files directly to the user's own Drive account using self-generated OAuth credentials.",
+ "tags": [
+  "google-drive",
+  "byok",
+  "oauth",
+  "conflict-resolution",
+  "resumable-uploads",
+  "sha-256"
+ ]
+}

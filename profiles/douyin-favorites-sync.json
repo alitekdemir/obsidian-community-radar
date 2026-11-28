@@ -1,0 +1,62 @@
+{
+ "also": [
+  "import",
+  "video"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch Douyin favorites and import them as Markdown notes",
+  "Download videos and generate Whisper speech transcripts in Heavy mode",
+  "Schedule daily automatic syncs with retry and deduplication",
+  "Show backend connection state and sync progress in the status bar",
+  "Configure note, attachment, and sync-mode settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only because it uses Node.js fs to copy attachments; the community review flags a Direct Filesystem Access warning, which the README explains in detail. Includes a disclaimer that users are responsible for complying with Douyin's Terms of Service. Heavy mode requires downloading a Whisper model on first run.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to import Douyin favorites as notes with their media and transcripts.",
+ "readmeHash": "6fc118baa0a7f37c4c9891e054f53cac7dd3e494",
+ "relations": [
+  {
+   "evidence": "This plugin communicates with a local Python backend service. Please set up douyin-favorites-sync-backend first.",
+   "plugin": "douyin-favorites-sync-backend",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Download watermark-free videos + Whisper speech transcription",
+   "plugin": "Whisper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "douyin-favorites-sync-backend (local Python service)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Plugin that syncs Douyin favorites into Obsidian notes with captions, tags, covers, videos, and Whisper transcripts via a local Python backend.",
+ "tags": [
+  "douyin",
+  "whisper",
+  "speech-to-text",
+  "transcription",
+  "video-download",
+  "scheduled-sync"
+ ]
+}

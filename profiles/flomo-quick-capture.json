@@ -1,0 +1,69 @@
+{
+ "also": [
+  "audio",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture text, tags, recordings and images",
+  "Transcribe recordings with Tencent Cloud",
+  "Maintain annual noteCount",
+  "Clean up unreferenced attachments",
+  "Review old records via Daily Reunion"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite its name, it does not sync with the flomo app; it captures text, recordings and images into local yearly Markdown notes.",
+ "extras": "Transcription requires the user's own Tencent Cloud account and is billed to them; credentials are stored in device SecretStorage and must be set separately on each device. The plugin id changed from obsidian-flomo in v1.4.0, with a data.json migration step.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian has no built-in one-key way to capture text, voice recordings and images into organized, dated notes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "b6a8443d345f8d24a9effb0f453db948f7b0705a",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "recordings are uploaded to Tencent Cloud and billed by your account",
+   "plugin": "Tencent Cloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Tencent Cloud account with flash recording-file recognition enabled",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tencent Cloud AppID, SecretId and SecretKey",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Quick capture plugin that saves text, tags, recordings and images into yearly Markdown notes, with Tencent Cloud transcription and note counts.",
+ "tags": [
+  "quick-capture",
+  "flomo",
+  "transcription",
+  "voice-memos",
+  "chinese",
+  "note-creation"
+ ],
+ "textHash": "506965130d258259b7a96d7777d360c2e242ed26"
+}

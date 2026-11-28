@@ -1,0 +1,49 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule flashcard reviews with the FSRS-6 algorithm",
+  "Record review ratings in each note's frontmatter reviews field",
+  "Display review queues with customizable fsrs-table blocks",
+  "Insert review buttons into notes",
+  "Configure target retention and interval parameters and view statistics"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not the FSRS algorithm library itself; it is an Obsidian plugin that applies the algorithm to schedule and review note-based flashcards.",
+ "extras": "Weight retraining on the user's own review statistics is not yet supported. iOS and macOS are listed as untested; a step-by-step usage guide with screenshots is linked separately.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in spaced repetition scheduling, so learners must review notes with a separate flashcard application.",
+ "readmeHash": "bdeb8d2161ac5d06a9ef7365e8b4207590cb9cab",
+ "relations": [
+  {
+   "evidence": "The plugin uses rs-fsrs — the official Rust FSRS implementation by the algorithm authors",
+   "plugin": "rs-fsrs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Spaced repetition scheduler that turns notes into flashcards using the FSRS-6 algorithm, storing review history in frontmatter and showing queues in tables.",
+ "tags": [
+  "fsrs",
+  "anki",
+  "sql",
+  "forgetting-curve",
+  "wasm"
+ ]
+}

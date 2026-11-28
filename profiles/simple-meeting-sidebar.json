@@ -1,0 +1,81 @@
+{
+ "also": [
+  "integrations",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show today's Apple Calendar events in a right sidebar and as inline banners below daily notes",
+  "Add an event as a task under the Tasks heading of the daily note",
+  "Create and open a meeting note linked from the daily note",
+  "Sync calendar snapshots, dismissals, and meeting records across devices through vault files",
+  "Filter events by calendar or by Google Meet, Zoom, and Microsoft Teams links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Includes a bundled Swift helper (source in helper/CalendarHelper.swift) embedded in main.js that reads Apple Calendar through EventKit; it only reads events and requires macOS Calendar permission. Mobile devices never contact Apple Calendar and rely on a synced snapshot file, so device clocks must be set automatically.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian cannot read Apple Calendar directly, so meetings have to be checked elsewhere and manually turned into tasks or notes.",
+ "readmeHash": "df0eba2f6ba1004258b3ae2d3c1a8100da10d787",
+ "relations": [
+  {
+   "evidence": "Macs read Apple Calendar and publish a vault snapshot.",
+   "plugin": "Apple Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Advanced URI installed, commands can be triggered with a URL such as:",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Banners sit directly above Influx's footer, also work without Influx",
+   "plugin": "Influx",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin follows your Daily Notes or Periodic Notes folder and date format.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Calendar on macOS (via a bundled native helper)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Advanced URI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sidebar that shows today's Apple Calendar events on macOS and adds them as daily-note tasks or meeting notes.",
+ "tags": [
+  "apple-calendar",
+  "macos",
+  "meeting-notes",
+  "google-meet",
+  "zoom",
+  "microsoft-teams",
+  "eventkit"
+ ]
+}

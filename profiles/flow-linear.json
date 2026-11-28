@@ -1,0 +1,72 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add Linear tickets to Focus by pasting a ticket link",
+  "Poll Linear every few minutes for the state of linked tickets",
+  "Complete Focus items when tickets are completed, cancelled or deleted",
+  "Relink Focus items when tickets change team and update their project labels",
+  "Manage multiple Linear workspaces with per-device API keys"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Linear client; it only mirrors ticket status into Flow's Focus list and never writes to Linear.",
+ "extras": "README warns that any device still running Flow 1.3.12 or earlier will delete the plugin's Linear items from Focus and sync that deletion, so Flow must be updated on every syncing device first. It is read-only against Linear, stores API keys in Obsidian's secret storage per device, and requires Obsidian 1.13+ on desktop.",
+ "intent": "improve",
+ "intentEvidence": "Flow Linear adds Linear tickets to the Focus list of the Flow plugin for Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Flow's Focus list has no way to track the real state of Linear tickets, so items must be completed by hand after work finishes in Linear.",
+ "readmeHash": "86d5579b5b9471a6261d5860b42a4bffc1bcdc4c",
+ "relations": [
+  {
+   "evidence": "adds Linear tickets to the Focus list of the Flow plugin for Obsidian",
+   "plugin": "Flow",
+   "type": "extends"
+  },
+  {
+   "evidence": "Flow Linear only reads from Linear. It never changes tickets",
+   "plugin": "Linear",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Flow",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Linear",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Linear personal API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Linear integration that adds Linear tickets to the Flow plugin's Focus list and completes them when the tickets are finished in Linear.",
+ "tags": [
+  "linear",
+  "api-key",
+  "polling",
+  "read-only",
+  "focus-list"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions using vault notes as automatic per-message context",
+  "Read and suggest or apply edits to the active note",
+  "Create, update, move, and delete notes and folders with confirmation",
+  "Connect to MCP servers for external tools such as GitHub",
+  "Save remembered facts to a knowledge file used in future conversations"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that the API key and MCP tokens are stored in plain text in data.json, and installation is manual (copying main.js, manifest.json, and styles.css into the vault).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant that can use your own notes as context and take actions in the vault on your behalf.",
+ "readmeHash": "51b8a40cf0ff8a31922b48f2816a07a6443355e9",
+ "relations": [
+  {
+   "evidence": "Your OpenAI (or compatible) API key. Stored in plain text in data.json",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The included GitHub MCP support lets you query repos, issues, and pull requests",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI (or compatible) API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Docker (for the GitHub MCP server)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar AI chat assistant that searches your vault for context, reads and edits notes, manages files, and connects to MCP server tools.",
+ "tags": [
+  "mcp",
+  "openai",
+  "chat",
+  "rag",
+  "github"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "links",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Find semantically similar notes in a live side panel, ranked by similarity score",
+  "Embed notes with a built-in offline model, Ollama, or an existing index file",
+  "Batch-populate a related: frontmatter field across the vault or the current note",
+  "Suggest [[links]] while typing when text matches an existing note title or alias",
+  "Visualize similar notes in a native-style graph view with drag-to-link nodes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free with optional Ko-fi tips; desktop only (Windows, macOS, Linux) and requires Obsidian 1.7.2 or later; built-in model (~25 MB) downloads on first index from Hugging Face and jsDelivr, then runs offline.",
+ "intent": "improve",
+ "intentEvidence": "It was intended to replace Local Graph View by showing more info and expanding linking functionality.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built the graph view to offer more information and linking functionality than Obsidian's native local graph.",
+ "primary": "search",
+ "problem": "Obsidian's graph view only reflects manually created links, so notes that are related in meaning but never linked stay disconnected as a vault grows.",
+ "readmeHash": "e22cbd0f87a80035532f8da5fcbe5aaf79efa01e",
+ "relations": [
+  {
+   "evidence": "connect any locally-running Ollama embedding model for full control and more powerful models",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "point it at a custom frontmatter date field combined with Linter plugin",
+   "plugin": "Linter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Linter",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Semantic similarity plugin that finds related notes with embeddings and shows them in a side panel, with batch linking via a related frontmatter field.",
+ "tags": [
+  "embeddings",
+  "semantic-search",
+  "vector-index",
+  "ollama",
+  "transformers-js",
+  "hugging-face",
+  "cosine-similarity"
+ ]
+}

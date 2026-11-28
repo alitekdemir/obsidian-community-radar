@@ -1,0 +1,76 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [
+  "digital-garden-publishers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish flagged notes and their embedded images to a GitHub repository",
+  "Rewrite ![[image]] embeds to relative image paths and co-locate assets per note",
+  "Preview new, changed, unchanged, and failed notes before uploading",
+  "Write gh-published and gh-published-url status back into note frontmatter",
+  "Mark or unmark the active note for publishing via a command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Git backup or version-control tool for the vault; it publishes only flagged notes to a repo and never deletes or syncs the whole vault.",
+ "extras": "The GitHub token is stored in plaintext in the vault's data.json, which the README warns about; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Design inspired by oleeskild/obsidian-digital-garden, but lighter: it only syncs files",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to push selected notes and their co-located images to a GitHub repository for use with a static-site generator or as a Markdown archive.",
+ "readmeHash": "52f5d05c3985f23f39b8f0451bed48c5ad6e08d5",
+ "relations": [
+  {
+   "evidence": "Design inspired by oleeskild/obsidian-digital-garden, but lighter",
+   "plugin": "oleeskild/obsidian-digital-garden",
+   "type": "inspired"
+  },
+  {
+   "evidence": "publishes vault notes together with their images to a GitHub repository",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It currently pairs smoothly with the Amytis digital garden setup.",
+   "plugin": "Amytis",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub token with Contents: Read and write",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account and an existing initialized repository",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publishes notes flagged gh-publish: true, with their embedded images, to a GitHub repository as Markdown files, incrementally and in one atomic commit.",
+ "tags": [
+  "github",
+  "digital-garden",
+  "jekyll",
+  "hugo",
+  "image-embeds",
+  "static-site-generators"
+ ]
+}

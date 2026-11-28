@@ -1,0 +1,68 @@
+{
+ "also": [
+  "flashcards",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "detect flashcards in notes using a Remnote-like format",
+  "expand brief card keywords into full content with OpenAI models",
+  "sync cards to Anki via AnkiConnect, adding new and updating existing cards",
+  "assign Anki decks automatically from file names",
+  "assign hierarchical tags from note headings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Syncing requires configuring AnkiConnect's webCorsOriginList to allow app://obsidian.md and restarting Anki; AI enhancement can be disabled, making the OpenAI key optional.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to create flashcards and sync them to Anki, and writing full, well-formatted cards by hand is slow.",
+ "readmeHash": "2ec516c272af7dc9092554c2916353d2c66054b2",
+ "relations": [
+  {
+   "evidence": "This plugin uses the AnkiConnect add-on for Anki",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI enhancement is currently powered by OpenAI's GPT-4o series",
+   "plugin": "OpenAI GPT-4o",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with the AnkiConnect add-on",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Flashcard plugin that detects Remnote-style cards in notes, optionally expands them with OpenAI models, and syncs them to Anki via AnkiConnect.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "openai",
+  "gpt-4o",
+  "spaced-repetition",
+  "remnote",
+  "system-prompt"
+ ]
+}

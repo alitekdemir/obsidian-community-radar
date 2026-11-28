@@ -1,0 +1,68 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [
+  "remarkable-tablet-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Push the active note to a reMarkable tablet via ribbon icon or command",
+  "Show live reMark Bridge sync status in the status bar",
+  "Refresh sync status by command or status-bar click",
+  "Configure the bridge server URL and bearer token in settings",
+  "Retry failed pushes with exponential back-off and surface errors as notices"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not the sync server itself; it is a client for a separately running reMark Bridge instance on your own machine, VPS, or Docker stack.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Docs cover setup, usage, retry behavior, and offline troubleshooting, but the bridge server itself must be installed and a token issued separately.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to send notes to a reMarkable tablet or watch an external sync bridge's status from inside the app.",
+ "readmeHash": "5cd6e980b6d458613494879e8e2db203407f6aa8",
+ "relations": [
+  {
+   "evidence": "This plugin talks HTTP to a running reMark Bridge instance (≥ v0.6.0)",
+   "plugin": "reMark Bridge",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Push the active Obsidian note to your reMarkable tablet with a single command",
+   "plugin": "reMarkable tablet",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "reMark Bridge server (v0.6.0+)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "bearer token issued by the bridge server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Companion plugin that pushes the active note to a reMarkable tablet via a self-hosted reMark Bridge server and shows its sync status in the status bar.",
+ "tags": [
+  "remarkable-tablet",
+  "self-hosted",
+  "http-api",
+  "bearer-token",
+  "e-ink",
+  "tailscale"
+ ]
+}

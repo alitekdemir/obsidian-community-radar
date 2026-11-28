@@ -1,0 +1,63 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt and decrypt notes to age .age files via command-palette commands",
+  "Edit .age notes in an in-memory live-preview editor that re-encrypts on save",
+  "Encrypt to multiple age recipients and rotate vault keys to the current set",
+  "Unlock encrypted notes on mobile with a passphrase-protected key copy",
+  "Expose a Journal API restricted to one folder for the gabbro plugin"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Free and open source with an optional donation. Detailed threat model states what is and is not protected; encrypted notes are excluded from search index, backlinks, and embeds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because plaintext on disk became the main vault risk in the AI era, with LLM desktop tools, sync providers, and indexers like Microsoft Recall able to read note files.",
+ "primary": "files",
+ "problem": "Obsidian notes are plaintext on disk, so cloud sync providers, AI desktop tools with file access, and disk indexers can read them.",
+ "readmeHash": "80303d360ecf57908e0b42c5d2f206f4cfcab429",
+ "relations": [
+  {
+   "evidence": "Rune can let one other plugin, gabbro's Journal tab, read and edit your encrypted journal",
+   "plugin": "gabbro",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Halfday Rune wraps typage (the TypeScript port of age)",
+   "plugin": "typage",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "age identity and recipient keys",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Age (X25519) encryption for vault notes: opens .age files as in-memory editors, re-encrypts on save, with multi-recipient keys, rotation, and mobile unlock.",
+ "tags": [
+  "age",
+  "x25519",
+  "encryption",
+  "key-rotation",
+  "passphrase-unlock",
+  "typage"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record microphone input as 16 kHz mono WAV files in the vault",
+  "transcribe recordings locally with whisper-cli and a GGML Whisper model",
+  "write Markdown notes with transcript timestamps that link back to the audio",
+  "generate optional Codex summaries, decisions, tasks, and open questions linked to transcript segments",
+  "recover saved audio chunks, pending transcripts, and failed note writes through a Recovery Center"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS desktop only (no Windows, Linux, or mobile); captures one microphone input, not system or meeting-app audio; no telemetry or plugin-side payments; listing carries a note that it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to record microphone audio and turn it into a note with a transcript whose timestamps link back to the recording.",
+ "readmeHash": "a580afbd9181cf54ac0e603837730e379897ac2b",
+ "relations": [
+  {
+   "evidence": "whisper-cli from whisper.cpp",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex is not required for recording or local transcription.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If <vault-config-dir>/plugins/codex-recording-minutes/data.json exists, the new plugin offers a user-initiated, read-only index import",
+   "plugin": "codex-recording-minutes",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "whisper-cli (whisper.cpp) and a GGML Whisper model",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI account (sign-in and quota) for optional Codex summaries",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "macOS plugin that records microphone audio to WAV in the vault, transcribes it locally with whisper-cli, and writes timestamped, source-linked Markdown notes.",
+ "tags": [
+  "whisper",
+  "whisper-cpp",
+  "speech-to-text",
+  "codex",
+  "wav",
+  "meeting-minutes",
+  "local-transcription"
+ ]
+}

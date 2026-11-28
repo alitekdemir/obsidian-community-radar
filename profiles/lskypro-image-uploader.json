@@ -1,0 +1,65 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dropped images to LskyPro and replace them with Markdown URLs",
+  "Upload images via right-click menu, drag-and-drop, or command palette",
+  "Batch upload all local images in the current note with configurable concurrency",
+  "Batch download all remote images in a note to local storage",
+  "Optionally process network image links and delete local source files after upload"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that the mobile attachment auto-upload feature hasn't been thoroughly tested and may have compatibility issues; the planned-features list mentions a known frontmatter override inconsistency between paste and drop handlers.",
+ "intent": "alternative",
+ "intentEvidence": "Formerly LskyPro Upload V2 (lskypro-upload-v2).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores pasted images as local vault files, so using a LskyPro image host means manually uploading files and rewriting links.",
+ "readmeHash": "1d0500f2464f4589cc40e7bf1b6a223c7a216921",
+ "relations": [
+  {
+   "evidence": "This plugin is based on NekoTarou/lskypro-auto-upload, with LskyPro V2 API support",
+   "plugin": "NekoTarou/lskypro-auto-upload",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Special thanks to the following projects for inspiration and reference",
+   "plugin": "renmu123/obsidian-image-auto-upload-plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LskyPro image hosting service",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LskyPro Access Token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Image uploader that automatically uploads pasted, dropped, or selected local images to a LskyPro image host and replaces them with hosted URLs.",
+ "tags": [
+  "lskypro",
+  "image-hosting",
+  "clipboard-upload",
+  "batch-upload",
+  "concurrency"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "files",
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse tables, views, and indexes",
+  "Inspect schema and source SQL",
+  "Preview rows with caps and filtering",
+  "Run read-only SELECT and WITH queries",
+  "Show database metadata"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general SQL IDE or database editor; it only inspects SQLite files read-only and omits editing, exports, and charting.",
+ "extras": "Bundles sql.js (SQLite compiled to WebAssembly) into main.js, making it much larger than a plain text viewer; the elapsed-time guard cannot interrupt a single expensive synchronous query step. Also registers WAL/SHM sidecar extensions to show an explanation instead of failing.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin exists only as a minimal, stricter read-only variant.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author built it as a minimal, stricter read-only variant because existing community plugins already cover broader SQLite workflows.",
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to open or inspect the local SQLite database files stored in a vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "fcb49e02203a3fa7104f8239080dd15f1aea70e2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "SQLite Explorer is close to this scope and offers table selection, schema inspection, and a read-only SQL runner.",
+   "plugin": "SQLite Explorer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "SQLite DB Viewer uses sql.js and describes broader query/edit/visualization behavior.",
+   "plugin": "SQLite DB Viewer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "SQLite DB focuses on queries, charts, and exports from notes.",
+   "plugin": "SQLite DB",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens local SQLite database files to browse tables, views, schemas, and run capped SELECT queries.",
+ "tags": [
+  "sqlite",
+  "read-only",
+  "local-first",
+  "query-language"
+ ],
+ "textHash": "406c7306544d1e8ac78f6ba11af154609c3f6532"
+}

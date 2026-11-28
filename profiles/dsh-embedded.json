@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Embed the dsh agent web UI in a side panel",
+  "Spawn a dsh subprocess bound to the vault root",
+  "Register the vault as a dsh workspace",
+  "Reap orphaned dsh processes from crashed sessions",
+  "Locate dsh and Node binaries across common install paths"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. Desktop only (Obsidian 1.13.0+). Runs a loopback-only local HTTP server and discloses file access outside the vault; the plugin itself makes no network calls except an opt-in npm/pnpm install of recommended dsh plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run a vault-aware AI agent that can operate on vault files and persist agent memory inside the vault.",
+ "readmeHash": "d14e623e5d687992f0bedeff93da067cf1f6820f",
+ "relations": [
+  {
+   "evidence": "Host DeepSeek Harness (dsh) inside Obsidian — let the dsh agent read and write your Vault files",
+   "plugin": "dsh",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dsh-market — a visual plugin marketplace inside the dsh web UI",
+   "plugin": "dsh-market",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "dsh CLI and Node.js 22.20+, installed globally",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider credentials configured in ~/.dsh/ (e.g. DeepSeek, OpenAI-compatible endpoints)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Hosts the DeepSeek Harness (dsh) agent inside Obsidian, letting it read and write vault files and keep working memory in the vault.",
+ "tags": [
+  "deepseek",
+  "ai-agent",
+  "llm",
+  "nodejs",
+  "iframe",
+  "subprocess"
+ ]
+}

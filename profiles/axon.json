@@ -1,0 +1,79 @@
+{
+ "also": [
+  "tasks",
+  "ai"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "extract draft tasks from the current note via a local Claude Code CLI run",
+  "review and select task drafts in a sidebar with sure and maybe sections",
+  "edit date, time, project, priority, labels, and Markdown description per draft",
+  "create selected tasks in Vikunja with a link back to the note",
+  "detect tasks already in Vikunja and remember handled tasks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.11.4+ on macOS and Linux). Sends note text plus Vikunja project, label, and open-task titles to Anthropic through the local Claude Code CLI; token stored in Obsidian's keychain; no telemetry; beta install via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Action items buried in journals, meeting notes, and brain dumps are easy to forget and tedious to copy into a separate task manager by hand.",
+ "readmeHash": "5172a717f3c9c90f89925ac4ec9123768f735d37",
+ "relations": [
+  {
+   "evidence": "Axon runs your own local Claude Code, so it uses your existing login and plan.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Vikunja",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI, installed and logged in",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Vikunja server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude account (via Claude Code) and Vikunja account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Vikunja API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task extractor that drafts tasks from the current note using your local Claude Code and adds the ones you pick to a self-hosted Vikunja server.",
+ "tags": [
+  "claude-code",
+  "vikunja",
+  "self-hosted",
+  "task-extraction",
+  "anthropic",
+  "keychain"
+ ]
+}

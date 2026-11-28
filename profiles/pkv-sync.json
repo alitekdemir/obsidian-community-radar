@@ -1,0 +1,78 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [
+  "self-hosters",
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize vaults across devices through a self-hosted server",
+  "Maintain per-file version history with diff and restore",
+  "Roll back an entire vault",
+  "Resolve concurrent edits with three-way merge and conflict files",
+  "Provide read-only Git clone access and a built-in MCP server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires deploying and operating a self-hosted PKV Sync server; no telemetry. The server administrator can read vault content. The README is a release mirror and points to separate user and admin manuals.",
+ "intent": "alternative",
+ "intentEvidence": "One-command migration from Obsidian Sync",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian users who want multi-device vault sync and versioned backup without a third-party service must otherwise combine separate sync and backup tools.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "4c8d2a52dac57af1884e9bfa93009ce652508eef",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "One-command migration from Obsidian Sync",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Git is the source of truth: every change is a commit",
+   "plugin": "Git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PKV Sync server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "PKV Sync server account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Self-hosted Git-backed synchronization plugin for Obsidian vaults with version history, conflict resolution, and MCP access.",
+ "tags": [
+  "self-hosted",
+  "obsidian-sync",
+  "version-history",
+  "conflict-resolution",
+  "mcp",
+  "multi-vault",
+  "docker"
+ ],
+ "textHash": "a8d37c84a60d19b48444ccb576e0fa2a309ca0a5"
+}

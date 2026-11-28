@@ -1,0 +1,89 @@
+{
+ "also": [
+  "tasks",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Plan projects, milestones, tasks, logs, habits and events as markdown notes with frontmatter",
+  "Visualize the same data in Kanban, Timeline (Gantt), Calendar and Table views with filtering, search and drag-and-drop",
+  "Create and update items by talking to a voice/text Gemini Live assistant gated by confirmation modals",
+  "Pull Apple Calendar events into the vault as one-way, recurrence-aware event notes (macOS)",
+  "Scaffold per-project skill files so coding agents like Claude Code and Cursor can update tasks and append work logs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Apple Calendar sync and possibly other features are macOS-only and hide themselves on other platforms. Security issues are handled via SECURITY.md rather than public issues. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no built-in way to plan projects with multiple coordinated views (Kanban, Gantt, calendar) over plain markdown notes, or to drive planning with voice AI and external calendars.",
+ "readmeHash": "02f2a53a8040999cbe457d88d3198b3f842a7654",
+ "relations": [
+  {
+   "evidence": "Talk to your planner — voice or text — via Google Gemini Live.",
+   "plugin": "Google Gemini Live",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pull any of your Apple Calendars into the vault as real Marvis events",
+   "plugin": "Apple Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the bundled marvis-project skill teaches Claude Code, Cursor, etc. how to pick tasks",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the bundled marvis-project skill teaches Claude Code, Cursor, etc. how to pick tasks",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "fully compatible with Dataview/Bases",
+   "plugin": "Dataview",
+   "type": "extends"
+  },
+  {
+   "evidence": "fully compatible with Dataview/Bases",
+   "plugin": "Bases",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Apple Calendar (macOS) for calendar sync; Claude Code/Cursor for agent skill",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Multi-view project planner and habit tracker that stores projects, tasks, milestones, logs and events as markdown notes rendered in Kanban, Timeline, Calendar and Table views.",
+ "tags": [
+  "kanban",
+  "gantt",
+  "gemini",
+  "apple-calendar",
+  "rrule",
+  "claude-code",
+  "cursor",
+  "voice-assistant"
+ ]
+}

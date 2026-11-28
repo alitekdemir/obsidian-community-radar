@@ -1,0 +1,85 @@
+{
+ "also": [
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create timestamped audio quotes with embedded replayable players",
+  "Generate live-updating quotes while audio plays",
+  "Transcribe online audio files with Deepgram",
+  "Import existing .srt subtitle files as transcripts",
+  "Record quick voice messages with transcription"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Deepgram transcription is paid but offers around 12,000 free minutes during the trial; online-file transcription only (local file transcription listed as in progress); mobile workflow described only for Android.",
+ "intent": "improve",
+ "intentEvidence": "We've expanded the functionality of Audio Recorder to add transcripts of your voice messages",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian offers no way to capture timestamped quotes from audio playback while listening, so noting what a podcast said means manually scrubbing and typing.",
+ "readmeHash": "c5fcbe64bb3cdbeba8be923cc841aca3c10fffa9",
+ "relations": [
+  {
+   "evidence": "We've expanded the functionality of Audio Recorder to add transcripts of your voice messages",
+   "plugin": "Audio Recorder",
+   "type": "extends"
+  },
+  {
+   "evidence": "Install the Media Extended plugin.",
+   "plugin": "Media Extended",
+   "type": "integrates"
+  },
+  {
+   "evidence": "First, you'll need an API Key from Deepgram AI.",
+   "plugin": "Deepgram AI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can use OpenAI Whisper to generate a transcript from an audio file",
+   "plugin": "OpenAI Whisper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Deepgram API key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Media Extended",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI Whisper",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Plugin that creates timestamped audio quotes with embedded players for podcasts and audio files, with optional transcripts.",
+ "tags": [
+  "deepgram",
+  "whisper",
+  "speech-to-text",
+  "podcasts",
+  "srt",
+  "youtube",
+  "voice-memos",
+  "timestamps"
+ ]
+}

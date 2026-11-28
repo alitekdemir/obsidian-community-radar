@@ -1,0 +1,65 @@
+{
+ "also": [
+  "export",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Meters active note and wikilink neighbor token costs across six models",
+  "Bundles a note with 0-2 hop wikilinks and embeds to the clipboard",
+  "Redacts secrets, PII and custom aliases into placeholders and restores them",
+  "Audits vault token heatmaps, orphan notes and broken wikilinks",
+  "Exports folders to redacted, heading-chunked RAG JSONL"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Word count",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault encryption or access-control tool; redaction only applies to text you copy out of Obsidian.",
+ "extras": "Free tier covers token metering, context bundling and redaction; the vault audit and RAG JSONL export need a paid Pro license verified offline with ES256. Redaction mappings are held in memory only and cleared on unload.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Pasting notes into AI chats leaks client names, emails and API keys, and there is no way to see how many tokens linked notes will cost before sending.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "3496954f9c62ff4f535d47994800c31c1310f251",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Install the community plugin BRAT in Obsidian",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "VaultLens Pro (GitHub Sponsors)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Bundles a note and its linked notes into a redacted clipboard pack, with live token and cost estimates and an offline vault audit.",
+ "tags": [
+  "token-usage",
+  "redaction",
+  "privacy",
+  "wikilinks",
+  "rag",
+  "local-first",
+  "clipboard"
+ ],
+ "textHash": "7dbc764e03c532af3442b00b9288e7162b45d177"
+}

@@ -1,0 +1,76 @@
+{
+ "also": [
+  "science"
+ ],
+ "audience": [
+  "chemists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search vault Markdown files for chemical substructures drawn in Ketcher",
+  "Manage container inventory as tagged Markdown files with structured metadata",
+  "Fetch safety data and PubChem CIDs to generate LCSS links",
+  "Compute molecular weight, exact mass and elemental analysis offline",
+  "Generate ACS-style experimental sections and electrolysis calculations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not only a search tool; it also manages a reagent inventory and runs offline chemistry calculators.",
+ "extras": "Installation is manual only (no community store link in the README). Without a drawing plugin installed, substructure search falls back to manual SMILES input.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian has no way to search notes by chemical structure or to track physical chemical containers and their safety data.",
+ "readmeHash": "a08db805843e29c722d570e85ceb9bb5ffebc70a",
+ "relations": [
+  {
+   "evidence": "you must install one of the compatible chemical drawing plugins",
+   "plugin": "ChemEdit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can build powerful dashboards using the Dataview plugin",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenChemLib for offline molecular parsing and substructure search algorithms",
+   "plugin": "OpenChemLib",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PubChem PUG REST and NIH CACTUS for web chemical identifier resolution",
+   "plugin": "PubChem PUG REST",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "ChemEdit or ChemEdit Universal",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Chemistry plugin that runs vault-wide substructure searches on SMILES strings, manages a container inventory as Markdown files, and computes offline chemoinformatics values.",
+ "tags": [
+  "chemistry",
+  "smiles",
+  "ketcher",
+  "pubchem",
+  "chemoinformatics",
+  "inventory",
+  "substructure-search"
+ ]
+}

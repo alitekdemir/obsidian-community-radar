@@ -1,0 +1,73 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Review vault and GitLab changes in a source-control-style sidebar",
+  "Sync a vault or folder with one GitLab branch as a single commit",
+  "Resolve conflicts by choosing mine, theirs, or both",
+  "Connect a GitLab account and create projects via an access token",
+  "Download an existing GitLab project into a new vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it does not use git locally; all syncing happens through GitLab's HTTP API, so no git installation is needed.",
+ "extras": "Warns against running it alongside Obsidian Sync, iCloud, Dropbox or Syncthing on the same vault; files over 20 MB are skipped by default; Git LFS is unsupported; releases carry signed GitHub build attestations; no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Keeping an Obsidian vault backed up or mirrored across devices via GitLab normally requires git, SSH keys and the command line, which mobile users lack.",
+ "readmeHash": "cec08dfacbc8636cd5b22834a146ab066810dac5",
+ "relations": [
+  {
+   "evidence": "install it with BRAT, a plugin for installing plugins straight from GitHub",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It talks to GitLab's API directly, so there's no git to install",
+   "plugin": "GitLab",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitLab account (GitLab.com or self-hosted)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitLab personal access token with api permission",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT (only until the plugin is in the directory)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs an Obsidian vault or one folder with a single GitLab branch through GitLab's API, with a review sidebar and manual conflict resolution.",
+ "tags": [
+  "gitlab",
+  "access-token",
+  "conflict-resolution",
+  "commit",
+  "brat",
+  "multi-device"
+ ]
+}

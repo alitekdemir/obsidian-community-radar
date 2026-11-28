@@ -1,0 +1,68 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render offline SVG previews of draw.io diagrams in code blocks and embeds",
+  "Edit diagrams in an embedded draw.io editor (bundled offline webapp or diagrams.net)",
+  "Store diagrams as uncompressed XML in .drawio, .drawio.svg, or .drawio.png files",
+  "Navigate multi-page diagrams and open embeds on named pages",
+  "Migrate old Diagrams plugin .svg files and export plain SVG/PNG images"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds",
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Editing is desktop-only; phones and tablets get previews only. The bundled offline editor (~145 MB webapp, one-time ~53 MB download) must be installed separately or Editor source switched to Online. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Migrate from the old Diagrams plugin — scan the vault for ordinary .svg files",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "drawing",
+ "problem": "Obsidian has no built-in way to create, edit, or preview draw.io diagrams inside notes and vault files.",
+ "readmeHash": "c130dfa4939fbf9be768f5b6cba01d7e644bb615",
+ "relations": [
+  {
+   "evidence": "Migrate from the old Diagrams plugin — scan the vault for ordinary .svg files",
+   "plugin": "Diagrams plugin",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Same format as the VS Code drawio extension, so the files are interchangeable.",
+   "plugin": "VS Code drawio extension",
+   "type": "integrates"
+  },
+  {
+   "evidence": "previews are produced by drawio's own viewer bundled into the plugin",
+   "plugin": "draw.io",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "diagrams.net",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Draw.io diagram tool that embeds, previews, and edits diagrams as code blocks, .drawio files, and embeds with offline SVG rendering.",
+ "tags": [
+  "diagrams-net",
+  "mxgraph",
+  "svg",
+  "png",
+  "offline-editor"
+ ]
+}

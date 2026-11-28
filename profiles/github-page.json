@@ -1,0 +1,68 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview the production-rendered site beside the editor with debounced rebuilds on save",
+  "Publish changes through a guided review, commit, fast-forward pull, and push flow",
+  "Create author branches and open GitHub pull requests for collaboration",
+  "Initialize a starter site without overwriting existing files",
+  "Render wikilinks, embeds, callouts, task lists, GFM tables, footnotes, code blocks, and math"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Windows, macOS, Linux) and requires Obsidian 1.7.2+. Does not store GitHub tokens; authentication uses the user's Git credential helper or SSH setup. The README warns that build exclusions like draft: true are publishing controls, not confidentiality boundaries.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to author, locally preview with production-accurate rendering, and publish a GitHub Pages site or collaborate on one through Git.",
+ "readmeHash": "f39f40c2b6ecadbcd3bd98890c31c5521d94bdd9",
+ "relations": [
+  {
+   "evidence": "Deploy the same renderer through GitHub Actions and the public npm CLI.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin starts the locally installed git executable with an argument array and shell: false.",
+   "plugin": "Git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub repository with origin remote",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Desktop publishing tool that edits, previews, and publishes a GitHub Pages site from a vault using a shared renderer and Git-based workflow.",
+ "tags": [
+  "github-pages",
+  "static-site",
+  "git-workflow",
+  "local-preview",
+  "pull-requests",
+  "handlebars-themes"
+ ]
+}

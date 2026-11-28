@@ -1,0 +1,70 @@
+{
+ "also": [
+  "appearance"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Applies named appearance themes per folder with longest-path matching",
+  "Configures width, typography, colors, background, opacity and blur per theme",
+  "Adds e-ink mode that grayscales the workspace and removes motion",
+  "Builds a dashboard home tab from statistics, field, note, GitHub and Dataview blocks",
+  "Shows the active theme name in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the dashboard GitHub token is stored in plaintext in data.json and advises a fine-grained read-only token; appearance is applied through CSS variables and a static styles.css, not generated stylesheets.",
+ "intent": "improve",
+ "intentEvidence": "Values of 0 or an empty field mean \"follow the current Obsidian theme\".",
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "theming",
+ "problem": "Obsidian applies one theme to the whole vault, so different folders cannot have their own reading width, typography, background or e-ink treatment.",
+ "profiledAt": "2026-11-26",
+ "provider": "Ant Digital",
+ "readmeHash": "0901049a80c252660ab91f7108874bd18e221dfb",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a file from a repository, refreshed on a schedule",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Folder-scoped appearance plugin that applies per-folder themes for typography, background, transparency and e-ink, plus a customizable dashboard home tab.",
+ "tags": [
+  "e-ink",
+  "dashboard",
+  "dataview",
+  "localization"
+ ],
+ "textHash": "90ce250e7b28ae13712427fd23f17b751532d632"
+}

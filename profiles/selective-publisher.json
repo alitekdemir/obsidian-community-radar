@@ -1,0 +1,67 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Filter publishable notes by tag, frontmatter key, title, path, or content regex, combined with AND, OR, and NOT",
+  "Copy matching notes and their attachments to a configured publishing folder",
+  "Preview matching files with new, modified, deleted, or unmodified status and file diffs before publishing",
+  "Commit and push changes to the target Git repository, or commit locally only"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README discloses network use, access outside the vault, running external git commands, and AI agents used during development, per Obsidian developer policies; the plugin is not manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Publishes via the GitHub API rather than a local Git repository.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to push only selected notes and attachments to a Git-hosted site while reviewing the exact changes before they are committed.",
+ "readmeHash": "b224eb1efac548107ed3797f6a4de3d38077deae",
+ "relations": [
+  {
+   "evidence": "Publishes via the GitHub API rather than a local Git repository.",
+   "plugin": "Enveloppe",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Publishes through authentication to different Git providers.",
+   "plugin": "Quartz Syncer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "the repository should typically contain a static site generator which is able to process Obsidian Markdown files, such as Quartz",
+   "plugin": "Quartz",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes selected notes and attachments to a Git repository, filtering by tag, frontmatter, path, title, or content with a diff preview before publishing.",
+ "tags": [
+  "quartz",
+  "github-pages",
+  "static-site",
+  "diff-preview",
+  "regex",
+  "commit-and-push"
+ ]
+}

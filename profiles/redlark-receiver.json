@@ -1,0 +1,62 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "receive current-page captures from RedLark Clipper on 127.0.0.1:27124",
+  "save captured pages as notes with locally stored attachment images",
+  "capture post and comment images using Obsidian's attachment location settings",
+  "return complete, partial, or failed statuses after vault readback",
+  "render Xiaohongshu captures in a reading layout with source card, gallery, and comments"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone Xiaohongshu importer; it only stores captures sent by the paired RedLark Clipper extension and has no manual import command.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Ordinary Chrome clipping works without the Receiver, but enhanced local image and comment saving requires both components and Obsidian kept open. Release maintenance and Community Plugins submission details are deferred to PUBLISHING.md.",
+ "intent": "improve",
+ "intentEvidence": "Portions of the Vault path and attachment handling were adapted from xhs-importer 1.0.3 by lxl448080113",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README does not state a motivation; it only notes the product purpose and user flow differ from the xhs-importer plugin it adapted code from.",
+ "primary": "integrations",
+ "problem": "Enhanced web clipping from Xiaohongshu and Feishu/Lark needs an Obsidian-side listener to save captures, images, and comment threads as local notes; ordinary browser clipping alone cannot store these locally.",
+ "readmeHash": "3d8de4c602458cfdb55e5a30dd466e0cb3165b9b",
+ "relations": [
+  {
+   "evidence": "This folder contains the Obsidian-side companion for RedLark Clipper.",
+   "plugin": "RedLark Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Portions of the Vault path and attachment handling were adapted from xhs-importer 1.0.3",
+   "plugin": "xhs-importer",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "RedLark Clipper (Chrome extension)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Local receiver that stores page captures sent by the RedLark Clipper Chrome extension as notes with locally saved images and comments.",
+ "tags": [
+  "xiaohongshu",
+  "feishu",
+  "lark",
+  "chrome-extension",
+  "web-clipping",
+  "localhost",
+  "comments"
+ ]
+}

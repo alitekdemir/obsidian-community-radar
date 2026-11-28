@@ -1,0 +1,60 @@
+{
+ "also": [
+  "autocomplete"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "complete note text inline as you type, from an LLM server",
+  "accept suggestions whole-line or word-by-word via Tab and Ctrl+→",
+  "run instruction-based inline edits on the cursor position or selection",
+  "configure server URL, model, subject line, key, and generation parameters"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Installation is manual: copy main.js, manifest.json, and styles.css from a release into the vault's plugins folder. Failures to reach the server are silent by design; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in inline completion, and many AI plugins are tied to a specific hosted service rather than a user-chosen local server.",
+ "readmeHash": "c8105f69e19d1b4455c9a81f2e0b5a37219576e3",
+ "relations": [
+  {
+   "evidence": "Needs a server exposing an OpenAI-compatible /v1/completions, plus /v1/chat/completions for inline edit. With llama.cpp:",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible LLM server (e.g. llama.cpp)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI plugin that shows inline text completions from any OpenAI-compatible LLM server and runs instruction-based inline edits in the editor.",
+ "tags": [
+  "llm",
+  "openai-compatible",
+  "inline-completion",
+  "inline-edit",
+  "llama-cpp",
+  "self-hosted"
+ ]
+}

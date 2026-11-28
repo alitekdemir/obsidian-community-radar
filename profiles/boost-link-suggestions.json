@@ -1,0 +1,53 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Trigger a searchable file-link suggestion menu with b[ or a command",
+  "Sort suggestions by incoming link count in the vault",
+  "Boost specific files via a frontmatter key",
+  "Optionally show boost score calculations in the suggestion interface"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation steps are documented; the README notes the repo lacks automated tests and asks for help with end-to-end testing.",
+ "intent": "alternative",
+ "intentEvidence": "Alternative inline link suggester that orders results by link count and manual boosts.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because the core suggester ignores how often files are linked to, causing users typing quickly to pick less-frequently-linked files that appear higher in the list.",
+ "primary": "autocomplete",
+ "problem": "Obsidian's built-in link suggestions rank files only by search match, so frequently linked files can be buried below alphabetically earlier ones and chosen by mistake when writing quickly.",
+ "readmeHash": "3d9d9b4e353f3a7fb06a3e00d6bece9a8a293daf",
+ "relations": [
+  {
+   "evidence": "If you have the Obsidian Tasks plugin installed and enabled, using the Tasks' plugin's default settings, link suggestions will not appear",
+   "plugin": "Obsidian Tasks plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Tasks plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Link suggester triggered by b[ that orders file suggestions by incoming link count plus manual boost scores from frontmatter.",
+ "tags": [
+  "wikilinks",
+  "link-count",
+  "boost-score",
+  "autosuggest"
+ ]
+}

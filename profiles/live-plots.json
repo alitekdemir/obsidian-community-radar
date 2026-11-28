@@ -1,0 +1,66 @@
+{
+ "also": [
+  "math",
+  "latex"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render desmos-graph code blocks as interactive Desmos calculators in Reading view and Live Preview",
+  "Pan, zoom, and drive graphs with generated slider controls",
+  "Save viewport bounds and slider values back into the block text",
+  "Download and cache the Desmos API calculator.js using a personal API key",
+  "Auto-label curves with typeset labels in the curve's colour"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOn true, no mobile support). Requires a free Desmos Personal Project API key; the API file is downloaded from desmos.com because its terms forbid bundling. Not yet in the community directory, so BRAT or manual install is described. Grammar is ported from Nigecat/obsidian-desmos under GPL-3.0; the code was written with Anthropic's Claude. No 3D calculator support.",
+ "intent": "alternative",
+ "intentEvidence": "The grammar is a strict superset of obsidian-desmos 0.6.8, so notes written for that plugin render unchanged.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian has no built-in way to turn desmos-graph code blocks into a live graphing calculator inside a note, and existing rendering plugins cannot be swapped without conflicts.",
+ "readmeHash": "149cc720147d2d6c464f7ba9ecf7507c91069bc0",
+ "relations": [
+  {
+   "evidence": "If you are coming from obsidian-desmos, disable it first — only one plugin can render a given code fence",
+   "plugin": "obsidian-desmos",
+   "type": "replaces"
+  },
+  {
+   "evidence": "it downloads Desmos's calculator.js from desmos.com with your API key",
+   "plugin": "Desmos",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Desmos API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "desmos.com sign-in to obtain a key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders desmos-graph code blocks as interactive, pan-and-zoom Desmos calculators with sliders, and writes the saved view back into the block.",
+ "tags": [
+  "desmos",
+  "graphing-calculator",
+  "code-blocks",
+  "sliders",
+  "viewport"
+ ]
+}

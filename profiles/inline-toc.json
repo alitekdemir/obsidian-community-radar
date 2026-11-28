@@ -1,0 +1,66 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "insert a live table of contents code block that rebuilds from headings as you type",
+  "write a plain Markdown table of contents between markers that refreshes itself after heading edits",
+  "fold TOC branches and highlight the section currently being read",
+  "adopt existing TOC lists from other plugins or hand-written heading links",
+  "convert a TOC between live block and Markdown form while keeping its options"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Migration notes for three earlier TOC plugins; warns that only one plugin can render a code block language, so Automatic Table of Contents must be disabled first. Includes an accessibility section (aria attributes, reduced motion) and CSS variables for theming.",
+ "intent": "alternative",
+ "intentEvidence": "table-of-contents blocks written for Automatic Table of Contents work as they are",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "outlining",
+ "problem": "Obsidian's outline lives in a sidebar and code-block TOCs do not render as lists in Publish or exports, so in-note tables of contents go stale or disappear.",
+ "readmeHash": "dddce8f326a2f80af6fca984966d9a6fd6724ef9",
+ "relations": [
+  {
+   "evidence": "table-of-contents blocks written for Automatic Table of Contents work as they are",
+   "plugin": "Automatic Table of Contents",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Turns a list of heading links (from Table of Contents, Insta TOC or by hand)",
+   "plugin": "Table of Contents",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Insta TOC: the same command turns its block into a marked list.",
+   "plugin": "Insta TOC",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Style Settings can change the indent.",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Table of contents generator that renders a live, foldable heading list inside a note, or a self-updating plain Markdown list for Publish and exports.",
+ "tags": [
+  "obsidian-publish",
+  "auto-refresh",
+  "code-block",
+  "heading-links",
+  "accessibility"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync tagged or all notes to a self-hosted Second Brain Worker, on demand, in bulk, or on save",
+  "Route each note to a personal memory or a shared team memory",
+  "Import memories from the Second Brain back into the vault as Markdown notes",
+  "Chunk long notes with overlap so embeddings stay clean",
+  "Show last sync time in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault sync between devices; it pushes selected notes to a separate Cloudflare-hosted memory service and pulls memories back.",
+ "extras": "Not usable without first deploying the companion Second Brain Worker (separate GitHub repo); setup, connection test, and safety behavior on ambiguous team destinations are documented. Plugin is marked as not reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to push notes into a personal or team AI memory store or pull what AI tools have remembered back into the vault.",
+ "readmeHash": "f67f1b30729800fc4ed0b7fa2deea5bcb06ee7b6",
+ "relations": [
+  {
+   "evidence": "You need a running Second Brain Worker before this plugin is useful.",
+   "plugin": "Second Brain (Cloudflare Worker)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built on Cloudflare Workers + Vectorize. Your data stays on your own infrastructure.",
+   "plugin": "Cloudflare Workers + Vectorize",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Second Brain Cloudflare Worker",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AUTH_TOKEN secret",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs notes to a self-hosted AI memory service on Cloudflare Workers and imports memories back into the vault as Markdown notes.",
+ "tags": [
+  "cloudflare-workers",
+  "vectorize",
+  "embeddings",
+  "semantic-search",
+  "mcp",
+  "self-hosted",
+  "ai-memory"
+ ]
+}

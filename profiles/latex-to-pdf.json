@@ -1,0 +1,63 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Build the LaTeX code block of the open note into a PDF",
+  "Build every note named .tex.md in one command",
+  "Choose between an installed pdflatex, xelatex or lualatex and a built-in pdfTeX",
+  "Write the PDF beside the note or to a path set in the pdf property",
+  "Fetch and cache TeX classes, packages and fonts for the built-in engine"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.8.10+ on a computer). The built-in engine needs the network on a document's first build and fetches TeX files from texlive.texlyre.org, keeping them in the plugin folder; it is pdfTeX only and uses a 2020 LaTeX. With an installed program, bibtex and biber are not run, so .bib citations are left out.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "LaTeX inside an Obsidian note stays as plain code, so producing a PDF otherwise means copying the document out and running a TeX program by hand.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "3b656ccceea7394711bed09add9ce024dfc8e365",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "With obsidian-cmd-runner, a PDF is built by a script or on a build server",
+   "plugin": "obsidian-cmd-runner",
+   "type": "integrates"
+  },
+  {
+   "evidence": "with pdfTeX made into WebAssembly by the SwiftLaTeX project, which runs inside Obsidian",
+   "plugin": "SwiftLaTeX",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TeX Live, MacTeX or MiKTeX",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Builds the LaTeX document kept in a note's code block into a PDF beside the note, with an installed TeX program or a built-in pdfTeX.",
+ "tags": [
+  "offline",
+  "cli"
+ ],
+ "textHash": "4227fbf661c4d887b91a7592e6d1dfd0c7a07f3b"
+}

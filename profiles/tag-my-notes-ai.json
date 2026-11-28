@@ -1,0 +1,83 @@
+{
+ "also": [
+  "tags",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Apply AI-generated tags to notes",
+  "Choose which notes and which tags to process",
+  "Customize the model's chain-of-thought reasoning",
+  "Configure AI model, parameters, and tag descriptions in settings",
+  "View, cancel, and delete persistent tagging operations"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns that more reasoning steps significantly increase token cost and tagging time, and that reasoning steps must keep the {description} and {tag} placeholders. Notes that a third-party service is required unless the AI model is self-hosted. The manifest states the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to apply tags automatically with an AI model, so tagging many notes by hand is slow.",
+ "readmeHash": "9448e3d06af8a069487982f89907fe3ba8dca164",
+ "relations": [
+  {
+   "evidence": "Supports the Vercel Gateway, OpenAI, Ollama, OpenRouter and Mistral with custom endpoints",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports the Vercel Gateway, OpenAI, Ollama, OpenRouter and Mistral with custom endpoints",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports the Vercel Gateway, OpenAI, Ollama, OpenRouter and Mistral with custom endpoints",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports the Vercel Gateway, OpenAI, Ollama, OpenRouter and Mistral with custom endpoints",
+   "plugin": "Mistral",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports the Vercel Gateway, OpenAI, Ollama, OpenRouter and Mistral with custom endpoints",
+   "plugin": "Vercel Gateway",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, OpenRouter, Mistral, or Vercel Gateway API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (self-hosted model)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI-powered tagging plugin that applies user-defined tags to selected notes using a configurable model, reasoning steps, and per-tag scoping.",
+ "tags": [
+  "openai",
+  "ollama",
+  "openrouter",
+  "mistral",
+  "vercel-gateway",
+  "chain-of-thought",
+  "token-cost"
+ ]
+}

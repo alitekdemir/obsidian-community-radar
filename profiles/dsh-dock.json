@@ -1,0 +1,71 @@
+{
+ "also": [
+  "sidebar",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Dock DeepSeek Harness Web UI",
+  ": Run dsh CLI sessions",
+  ": Handle cross-site authentication via reverse proxy",
+  ": Isolate sessions per vault",
+  ": Bridge Obsidian API to DSH tools"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": sidebar",
+   ": files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It is a UI embedding tool for the DeepSeek Harness Web, not merely a CLI wrapper.",
+ "extras": "Requires specific Node versions and relies on the ~/.dsh/.credentials.yaml file for authentication.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "It addresses the difficulty of running and authenticating the DeepSeek Harness Web UI and CLI while maintaining context within a specific Obsidian vault.",
+ "readmeHash": "038c3c3bded81b41cf3d6ff8ff7c48411a3d8e0e",
+ "relations": [
+  {
+   "evidence": "与 dsh-tool-obsidian-vault 联动，Obsidian 内直接驱动 Agent 笔记工作流",
+   "plugin": "dsh-tool-obsidian-vault",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "deepseek-ai/dsh",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "DSH credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "DSH Dock embeds the DeepSeek Harness Web UI into an Obsidian sidebar panel, running the dsh CLI and providing per-vault session isolation.",
+ "tags": [
+  "deepseek",
+  "harness",
+  "cli",
+  "web-ui",
+  "proxy",
+  "session-isolation",
+  "agent-workflow"
+ ]
+}

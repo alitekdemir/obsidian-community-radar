@@ -1,0 +1,66 @@
+{
+ "also": [
+  "formats",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert local files into notes as embeds",
+  "Preview docx, xlsx, pptx, html and csv files inline",
+  "Show a file card for unsupported formats",
+  "Scope embeds to pages, slides, sheets, cell ranges or headings",
+  "Open files in a full tab with outline, search and position memory"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free and MIT-licensed with no network requests; HTML embeds may still load external assets referenced by the embedded page. Opening files with the system app or revealing them in the file manager is desktop-only.",
+ "intent": "improve",
+ "intentEvidence": "Write ![[filename.ext]] in a note to preview it inline",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian renders only a few file types natively, so Office documents and HTML files kept in a vault cannot be viewed inside notes.",
+ "profiledAt": "2026-11-20",
+ "provider": "Particle AI",
+ "readmeHash": "59eec9f83aab45ab900e05690975aec4f032f7d4",
+ "relations": [
+  {
+   "evidence": "Compared to WASM-based viewers (e.g. styled-ms-office-viewer), docx/pptx fidelity is lower; both can coexist",
+   "plugin": "styled-ms-office-viewer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "HTML sandbox approach adapted from mnaoumov/obsidian-embed-html",
+   "plugin": "obsidian-embed-html",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Inserts and previews Word, Excel, PowerPoint, HTML and CSV files inside notes, with a file card fallback for other types.",
+ "tags": [
+  "docx",
+  "excel",
+  "pptx",
+  "embeds",
+  "file-extensions"
+ ],
+ "textHash": "d183c75d0fb57179b338ddd590690529c8f43b12"
+}

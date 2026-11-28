@@ -1,0 +1,61 @@
+{
+ "also": [
+  "templating",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Define button properties with labels and Templater file paths globally",
+  "Render clickable buttons inside Bases table cells",
+  "Run Templater templates against the note in the clicked Base row",
+  "Suggest matching template file paths while typing in settings",
+  "Confirm button runs on mobile before executing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community directory, so it must be installed manually from GitHub releases; the README warns that DOM manipulation of Bases views may break with future Obsidian updates.",
+ "intent": "improve",
+ "intentEvidence": "render as clickable buttons in core Bases tables",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Obsidian Bases tables have no built-in way to trigger an action or run a template from a table cell.",
+ "readmeHash": "80c6de1139c2537ec3993d34c91076c1a8f75304",
+ "relations": [
+  {
+   "evidence": "Each button runs a configured Templater template against the note represented by the property",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin is based on the original Custom Selectors plugin by hodie.",
+   "plugin": "Custom Selectors",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Adds configurable button properties to Obsidian Bases tables that run Templater templates against the note in the clicked row.",
+ "tags": [
+  "templater",
+  "buttons",
+  "row-actions"
+ ]
+}

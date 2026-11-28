@@ -1,0 +1,83 @@
+{
+ "also": [
+  "autocomplete"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight glossary terms in any inflected word form in Reading view and the editor",
+  "Convert highlighted terms into [[Title|word]] links per note, selection, or vault with preview",
+  "Collect new aliases from hand-written links, with collision warnings",
+  "Suggest glossary links while typing (optional autocomplete)",
+  "Show a glossary overview with term usage counts and candidate terms"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The catalog listing carries the notice 'This plugin has not been manually reviewed by Obsidian staff.' Beta builds are available via BRAT; the README also points to sibling plugins Code Linker and Reference Linker.",
+ "intent": "alternative",
+ "intentEvidence": "It was inspired by Virtual Linker, but it matches inflected forms instead of exact spellings only.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a linker that matches inflected word forms, which Virtual Linker's exact-spelling matching does not do.",
+ "primary": "links",
+ "problem": "Obsidian only links exact note titles, so plurals, cases and other inflected mentions of a term stay as unlinked plain text.",
+ "readmeHash": "87a9e09e0388b126e5d5cae701310d9e48af1c86",
+ "relations": [
+  {
+   "evidence": "It was inspired by Virtual Linker, but it matches inflected forms instead of exact spellings only.",
+   "plugin": "Virtual Linker",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Heading Linker — the file-based sibling of this plugin: each heading inside a chosen file is a term",
+   "plugin": "Heading Linker",
+   "type": "extends"
+  },
+  {
+   "evidence": "How a highlight looks is exposed to the Style Settings plugin under a Glossary Linker section",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview — query the glossary from DataviewJS through the public API",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Glossary auto-linker that highlights term mentions in any inflected word form and converts them to wiki links on demand, using per-language stemmers.",
+ "tags": [
+  "stemming",
+  "morphology",
+  "inflection",
+  "plurals",
+  "hover-preview",
+  "snowball"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "also": [
+  "ai",
+  "git"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Automatically pull, commit, and push the vault to a Git remote in the background",
+  "Create symlinks that point AI tools (Claude Code, Cursor, Windsurf) at a vault AI-Brain folder",
+  "Edit AI system prompts, project rules, and coding standards in a visual manager",
+  "Scan outgoing commits for API keys and tokens and block matches",
+  "Create GitHub Issues from inside Obsidian"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not an AI agent itself; it manages Git sync and the configuration files of external AI coding tools.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires Node.js fs and child_process permissions to run Git outside the sandbox. Secret scanning is heuristic, inbound sync is not scanned, and public-remote protection works only with github.com (no GitHub Enterprise); the README strongly recommends a private repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it bridges the gap between local OS-level AI tools (Claude Code, Cursor, etc.) and the Obsidian knowledge base.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in Git synchronization, and AI coding tool configs and prompts live outside the vault, scattered per machine and hard to share or back up.",
+ "readmeHash": "0d12ccf5ad361ff93148eba931f2f0a027dd7bd5",
+ "relations": [
+  {
+   "evidence": "Claude Code (~/.claude)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cursor (AppData/Roaming/Cursor/User)",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Create GitHub Issues directly from inside Obsidian without ever opening a browser.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git and a GitHub remote (GitHub CLI for issues)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "At least one supported AI coding tool (Claude Code, Cursor, Windsurf, Gemini CLI, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Git-based vault sync plugin that manages AI agent system prompts and links local AI coding tools to the vault via symlinks.",
+ "tags": [
+  "github",
+  "claude-code",
+  "cursor",
+  "symlinks",
+  "secret-scanning"
+ ]
+}

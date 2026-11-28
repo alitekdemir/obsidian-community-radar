@@ -1,0 +1,56 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Authenticate with GitHub and create repositories",
+  "Publish a vault folder as a Quartz site on GitHub Pages",
+  "Push incremental note changes after initial publish",
+  "Publish multiple folders to separate repositories",
+  "Track GitHub Actions build progress until the site is live"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Cannot delete published sites or repositories from within the plugin; users must delete them on GitHub. Site deletion is not implemented. Optional anonymous usage counters are reported during deploys.",
+ "intent": "improve",
+ "intentEvidence": "The plugin uses Quartz as a site generator and GitHub Pages for hosting, but does all the configuration setup for you.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Publishing notes with free tools like Quartz and GitHub Pages normally requires manual configuration and learning the toolchain.",
+ "readmeHash": "61f4c1cf8e7e9c0c24982b5e932e31a9fa561e18",
+ "relations": [
+  {
+   "evidence": "The plugin uses Quartz as a site generator and GitHub Pages for hosting, but does all the configuration setup for you.",
+   "plugin": "Quartz",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that deploys vault notes as a Quartz static site on GitHub Pages with one-click GitHub setup.",
+ "tags": [
+  "github-pages",
+  "quartz",
+  "static-site",
+  "oauth"
+ ]
+}

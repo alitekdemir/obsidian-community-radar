@@ -1,0 +1,70 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault with a GitHub remote from a ribbon button",
+  "Rebase local edits onto remote changes instead of creating merge commits",
+  "Write commit messages counting links, tags and tasks that changed",
+  "Suspend sync while conflict markers remain and open git mergetool",
+  "Control notice levels and hide the success message"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault summariser or digest newsletter; the digest is the commit message written during a git sync.",
+ "extras": "Desktop only; the directory flags shell execution and filesystem access because it runs the git binary inside the vault folder. No branching support: everything is pushed to main (or a configured branch). No telemetry, and the commit summary is computed locally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author keeps a private GitHub repository for Markdown notes and wanted to pull and push from inside Obsidian without opening a command line or setting up a timer-based auto sync script.",
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices through git means leaving Obsidian to run pull and push commands, and merge commits pile up between devices.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "5f8b5c071b99f2a6832bff77d536d800d9971e92",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Sync your vault to a personal GitHub repo for syncing across devices",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Ribbon-button git sync that pulls and pushes a vault to a GitHub repo with rebased history and commit messages summarising note changes.",
+ "tags": [
+  "github",
+  "two-way-sync",
+  "conflict-resolution",
+  "version-history"
+ ],
+ "textHash": "b38ad2e02a0bc0b44debc2b20ae6630721fe1c8e"
+}

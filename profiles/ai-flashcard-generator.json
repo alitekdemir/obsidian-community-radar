@@ -1,0 +1,71 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate flashcards from the current note or selection via Gemini",
+  "Preview and edit card fronts, backs and inclusion before saving",
+  "Match evidence quotes locally and flag duplicates, conflicts and overlong fields",
+  "Save Markdown decks with Spaced Repetition separators, tags and chosen filenames",
+  "Store the Gemini API key in Obsidian Secret Storage per device"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone spaced-repetition app; it only generates decks for the Spaced Repetition plugin, which handles all reviewing.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that free-tier Gemini content may be used to improve Google products, that native Linux/Android/iOS testing is still pending, and that a sent request may still be billed after cancellation.",
+ "intent": "improve",
+ "intentEvidence": "The plugin does not implement scheduling. Spaced Repetition provides the review experience.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian's Spaced Repetition plugin reviews cards but does not create them from existing note content, and writing decks by hand is slow.",
+ "readmeHash": "108ed0c24f144b4c7ebb4046000f5330451469b5",
+ "relations": [
+  {
+   "evidence": "Spaced Repetition enabled with a matching root tag.",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "sends the selected source text and chosen prompt instructions directly to the standard Gemini generateContent endpoint",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Spaced Repetition",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Gemini-powered generator that turns the current note or selection into editable Spaced Repetition flashcards saved as a Markdown deck.",
+ "tags": [
+  "gemini",
+  "google-ai-studio",
+  "spaced-repetition",
+  "bidirectional-cards",
+  "evidence-quotes",
+  "custom-prompts"
+ ]
+}

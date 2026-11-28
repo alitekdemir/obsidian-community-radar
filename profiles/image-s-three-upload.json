@@ -1,0 +1,71 @@
+{
+ "also": [
+  "images",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted and dragged images to S3-compatible storage",
+  "Insert Markdown links for uploaded images",
+  "Upload all image references in a note, including remote HTTP(S) images",
+  "Download remote images into the local attachment folder",
+  "Test connection and public URL access"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Credentials are stored unencrypted in the plugin's data.json and may be copied by vault sync or backups; uploaded objects are not made public, so a read policy or CDN is needed for links to work. The fork uses a new plugin ID, so users of the original plugin must reinstall into a new directory.",
+ "intent": "alternative",
+ "intentEvidence": "No PicGo, desktop helper, or upload server is required.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian stores pasted images as local attachments, with no built-in way to host them on S3-compatible object storage and link to them from notes.",
+ "profiledAt": "2026-11-19",
+ "provider": "Particle AI",
+ "readmeHash": "3e9f8023b423cf4a5c9a7d4748b0922c21c75bbd",
+ "relations": [
+  {
+   "evidence": "No PicGo, desktop helper, or upload server is required.",
+   "plugin": "PicGo",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Starting with 5.0.2, this fork uses the plugin ID image-s-three-upload",
+   "plugin": "image-s3-upload",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible object storage (AWS S3, MinIO)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key ID and secret access key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Uploads pasted, dragged or note-referenced images to S3-compatible object storage and replaces them with Markdown links.",
+ "tags": [
+  "s3",
+  "image-hosting",
+  "clipboard",
+  "drag-and-drop"
+ ],
+ "textHash": "1cbefd68c1004a35e0078a830ec01c222213bbda"
+}

@@ -1,0 +1,52 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Break down nested tags into their parent tags",
+  "Insert the generated tags in a comment block at the top of the file on save",
+  "Replace an existing generated comment block instead of duplicating it",
+  "Skip files whose frontmatter contains tag-gen-ignore: true"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only processes tags in the note body; tags in frontmatter are ignored.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Obsidian keeps nested tags hierarchical, so there is no built-in way to derive flat parent tags from them for easier filtering.",
+ "readmeHash": "2729d1ff39be996633926477a21a3d7ab0932469",
+ "relations": [
+  {
+   "evidence": "you need to install custom save plugin first",
+   "plugin": "custom save",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "custom save",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Tag processor that breaks nested tags (a/b/c) into their parent tags and writes them at the top of the file on save.",
+ "tags": [
+  "nested-tags",
+  "custom-save",
+  "on-save"
+ ]
+}

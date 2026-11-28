@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "filter new arXiv papers against user-defined research topics and directions",
+  "generate a daily report note of up to 20 papers grouped by topic",
+  "create longer per-paper notes on demand or by arXiv ID",
+  "schedule runs inside Obsidian or via CLI/cron",
+  "optionally index personal PDFs and send an email digest"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Also ships as a standalone CLI + browser workbench and a DeepSeek Harness sidebar plugin; Obsidian and CLI configuration values and API keys do not synchronize. Detailed setup guides (Getting Started, CLI reference) live in external documentation. The manifest carries an unreviewed-plugin notice.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to follow new arXiv output, filter it to your research directions, and turn it into structured daily notes.",
+ "readmeHash": "7baf3c19c163e96c53cebc539ecc4f2c470d1137",
+ "relations": [
+  {
+   "evidence": "a DeepSeek Harness (DSH) extension that work without Obsidian",
+   "plugin": "DeepSeek Harness (DSH)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a short digest after a successful day (your Resend key, or Official delivery Beta)",
+   "plugin": "Resend",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM model connection",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Resend key for email digest",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Daily arXiv tracker that filters new papers by your research topics and writes LLM-summarized daily reports and per-paper notes into the vault.",
+ "tags": [
+  "arxiv",
+  "llm",
+  "deepseek",
+  "resend",
+  "cli",
+  "paper-summaries"
+ ]
+}

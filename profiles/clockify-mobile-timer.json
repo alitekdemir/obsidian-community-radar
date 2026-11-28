@@ -1,0 +1,75 @@
+{
+ "also": [
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start, stop and switch Clockify timers from commands, notes or task lines",
+  "Show the running timer and today's total in a panel or the desktop status bar",
+  "Render report blocks grouped by project, day or description",
+  "Edit and delete past time entries from the timer panel",
+  "Queue timer starts and stops offline and send them when back online"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a local Pomodoro or stopwatch timer; it remotely controls time tracking in the Clockify service through its API.",
+ "extras": "Freemium: core timer control is free; reports, entry editing, project/tag pickers and the offline queue require a $5/month or $15 one-time GitHub Sponsors sponsorship. The README details privacy: note titles or task lines are sent to Clockify as timer descriptions, and a What's new tab promotes the author's other plugins and Zovo Chat (can be turned off).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to control a Clockify timer, and phones have no status bar to show a running timer.",
+ "readmeHash": "672835152e22f22d829eedc9ee5c7ab636efdbe9",
+ "relations": [
+  {
+   "evidence": "Mobile Timer for Clockify talks to Clockify through its public API",
+   "plugin": "Clockify",
+   "type": "integrates"
+  },
+  {
+   "evidence": "without list and checkbox marks, link brackets, block ids and Tasks plugin dates",
+   "plugin": "Tasks plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Clockify account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Clockify API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account for Pro sign-in",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike for Pro features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Clockify integration that starts, stops and switches timers from notes or task lines and shows the running timer and today's total.",
+ "tags": [
+  "clockify",
+  "time-tracking",
+  "timer",
+  "reports",
+  "api-key"
+ ]
+}

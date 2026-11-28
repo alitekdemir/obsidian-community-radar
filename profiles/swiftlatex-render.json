@@ -1,0 +1,61 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render latex code blocks as embedded PDFs",
+  "Render latexsvg code blocks as SVG via pdftocairo",
+  "Fetch LaTeX packages on demand from CTAN",
+  "Cache generated PDFs and downloaded packages",
+  "Invert SVG colors to match light or dark themes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not inline math typesetting like Obsidian's Math feature; it compiles whole LaTeX documents from code blocks into PDF/SVG images.",
+ "extras": "README warns that XeTeX currently does not work with CTAN-fetched packages, mobile support is listed only as a TODO, and some SVGs may not display in reading mode or PDF export due to a suspected Obsidian bug.",
+ "intent": "improve",
+ "intentEvidence": "Thanks to fenjalien who created  which this plugin is based on",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Compiling full LaTeX documents in Obsidian normally requires a local TeX installation, and core math rendering only handles math snippets, not whole documents.",
+ "readmeHash": "c0132c23fec548a188598f2ba37023169715405f",
+ "relations": [
+  {
+   "evidence": "Thanks to fenjalien who created  which this plugin is based on",
+   "plugin": "obsidian-tikzjax",
+   "type": "extends"
+  },
+  {
+   "evidence": "This is achieved using the SwiftLaTeX wasm LaTeX compiler built into the plugin",
+   "plugin": "SwiftLaTeX",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "LaTeX compiler plugin that renders latex code blocks into embedded PDFs or SVGs using a built-in SwiftLaTeX WebAssembly compiler, with no local TeX install.",
+ "tags": [
+  "swiftlatex",
+  "webassembly",
+  "pdftex",
+  "xetex",
+  "ctan",
+  "pdf-embed",
+  "svg",
+  "color-inversion"
+ ]
+}

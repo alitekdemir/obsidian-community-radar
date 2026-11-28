@@ -1,0 +1,87 @@
+{
+ "also": [
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Index vault notes into a knowledge graph",
+  "Surface contradictions, gaps and forgotten connections",
+  "Queue findings for accept or reject review",
+  "Export the graph as JSON-LD or GraphML",
+  "Serve the graph to external LLMs over MCP"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an ontology editor; it builds a knowledge graph from your notes and reports findings for you to accept or reject.",
+ "extras": "Freemium: the free plan covers one initial indexing, 30 credits per month and the weekly report; extra extraction needs a paid plan bought on the vendor's site, not in the plugin. Browsing the database, export, the weekly report and local MCP work without a hub account. Collecting from folders outside the vault and from Bear is desktop-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Large vaults hide notes that contradict each other, concepts that are linked everywhere but never explained, and the same idea written twice, and nothing in Obsidian points these out.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "8a7ab977ef4518389c6fbaa7ede2acfd37d82177",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "external AIs such as Claude or GPT connect to your knowledge over MCP",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own endpoint (Ollama, vLLM, LM Studio)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notes outside Obsidian (plain Markdown folders, Logseq, Bear, OneNote, Evernote, Notion, Google Drive, Dropbox",
+   "plugin": "Logseq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "only Notion takes an internal integration token",
+   "plugin": "Notion",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Moayo hub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "OntoFlow paid plan",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama, vLLM or LM Studio endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Knowledge-graph plugin that indexes your vault and surfaces contradictions, unexplained concepts and duplicate ideas for you to review.",
+ "tags": [
+  "knowledge-graph",
+  "llm",
+  "mcp",
+  "sqlite",
+  "local-llm",
+  "ollama",
+  "byok",
+  "local-first"
+ ],
+ "textHash": "c408849f8c6eef2e30b106d6efb0a0166e882ebc"
+}

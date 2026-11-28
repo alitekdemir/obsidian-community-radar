@@ -1,0 +1,64 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Uploads pasted or dropped images to a public GitHub repository",
+  "Inserts raw.githubusercontent.com links without creating local attachments",
+  "Connects via GitHub App browser login or a personal access token",
+  "Converts HEIC and HEIF images to JPEG locally before upload",
+  "Saves the image to the vault when an upload fails, if enabled"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warnings: repository must be public so uploads are publicly accessible; PATs stay unencrypted in plugin data.json; browser login depends on a hosted auth relay with Cloudflare Free-plan limits, and only trusted relays should be used.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores pasted images as local attachments in the vault; this plugin keeps them out of the vault by hosting them on GitHub.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "2348b8fde989bacdd2ba036f441b9e52c7a46fa8",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Upload pasted or dropped images to your public GitHub repository and embed their URLs in Obsidian.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with a public image repository",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token (only in PAT mode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Uploads pasted or dropped images to a public GitHub repository and inserts the raw CDN link instead of saving them locally.",
+ "tags": [
+  "github",
+  "oauth",
+  "heic"
+ ],
+ "textHash": "31ff66c32cb7a6bab41de3b34d4984317c923834"
+}

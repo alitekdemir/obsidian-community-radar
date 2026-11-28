@@ -1,0 +1,100 @@
+{
+ "also": [
+  "research",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "add and update literature notes from a bibliography file",
+  "export notes to docx with Pandoc citeproc citations",
+  "search the Zotero style repository and set CSL properties",
+  "copy and export PDFs listed in note properties",
+  "remove named YAML properties across literature notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Properties view",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Citekeys containing # ^ [ ] | \\ / : are skipped since Obsidian filenames cannot contain them; BetterBibTeX JSON cannot be used with the Pandoc export feature while Better CSL JSON contains less data unless extended via postscript.",
+ "intent": "improve",
+ "intentEvidence": "reinforces the workflow between Zotero and Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to keep literature notes in sync with a Zotero bibliography or to convert wiki-link citations into formatted references when exporting documents.",
+ "readmeHash": "95975662e4835a6430f228cc86de85a90dac1695",
+ "relations": [
+  {
+   "evidence": "reinforces the workflow between Zotero and Obsidian",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requiring the installation of Better Bibtex for Zotero and Pandoc",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "requires pandoc",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it is recommended to use Dataview or Bases for setting dynamic templates",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "if you use Bases (Obsidian's built-in database feature, requires v1.9+) instead of (or alongside) Dataview",
+   "plugin": "Bases",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero with Better BibTeX",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Poppler",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Zotero bridge that imports literature notes from a Better BibTeX bibliography file and exports notes to docx via Pandoc citeproc.",
+ "tags": [
+  "zotero",
+  "pandoc",
+  "better-bibtex",
+  "literature-notes",
+  "csl",
+  "citations",
+  "academic-writing",
+  "dataview"
+ ]
+}

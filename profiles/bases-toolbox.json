@@ -1,0 +1,90 @@
+{
+ "also": [
+  "bases",
+  "csv"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Find and replace property values across the vault or a base's results",
+  "Bulk edit, roll up, and sync formulas into frontmatter properties",
+  "Import CSV as notes and export bases or folders to CSV",
+  "Color Bases rows and cells with conditional formatting rules",
+  "Index and audit vault properties, fix type mismatches, and merge duplicate notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Runs entirely locally with no network access or telemetry. The README documents CSV export limitations inline and warns that Obsidian's own property-menu forgetting can't be patched, only worked around via the property index.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian Bases and the properties editor lack bulk editing, vault-wide value replacement, CSV import/export, an always-complete property list, and safe fixing of mistyped property values.",
+ "readmeHash": "055ce6be1523a86e382118cb71bc90390cc721b8",
+ "relations": [
+  {
+   "evidence": "Reviewing its code later inspired several history refinements here — selective per-file revert, the force-revert option",
+   "plugin": "Mass Editor",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Opens an editable, spreadsheet-style grid over a folder's notes, using the separate GridSense plugin.",
+   "plugin": "GridSense",
+   "type": "integrates"
+  },
+  {
+   "evidence": "clicking a note in a base that lives in a Stashpad folder opens it in the Stashpad view",
+   "plugin": "Stashpad",
+   "type": "integrates"
+  },
+  {
+   "evidence": "converts Dataview inline key:: value fields into frontmatter properties",
+   "plugin": "Dataview to Properties",
+   "type": "inspired"
+  },
+  {
+   "evidence": "our conditional formatting instead colors whole rows by explicit rules",
+   "plugin": "Colored Bases Properties",
+   "type": "alternative"
+  },
+  {
+   "evidence": "our merge adds frontmatter awareness: list union + per-conflict picker",
+   "plugin": "Merge Notes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "the companion browser tool our CSV import's converter core is ported from",
+   "plugin": "CSV-to-Obsidian-Properties-for-Bases",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "GridSense",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Toolbox for Obsidian Bases and frontmatter properties: bulk edits, vault-wide find & replace, CSV import/export, conditional formatting, and a property index.",
+ "tags": [
+  "bulk-edit",
+  "find-and-replace",
+  "conditional-formatting",
+  "undo-history",
+  "kanban",
+  "duplicate-detection",
+  "dataview"
+ ]
+}

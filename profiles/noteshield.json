@@ -1,0 +1,54 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "scan the vault or current note for sensitive data patterns",
+  "verify candidate matches with checksums (Luhn, mod-97, modulo 11)",
+  "redact findings in reports and exported reports",
+  "silence findings per note block or via frontmatter",
+  "save the last scan report as a note in the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an encryption or access-control tool; it only detects and reports sensitive data, it does not remove or protect it.",
+ "extras": "Manifest carries the disclaimer that the plugin has not been manually reviewed by Obsidian staff; MIT licensed; rule packs emphasize Polish identifiers (PESEL, NIP, REGON) alongside international patterns.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Notes accumulate sensitive data pasted or typed in and forgotten, which then gets synced, shared, or published along with the vault.",
+ "readmeHash": "e405336b4084e585d4b8a4413c4e0a1c5a36e411",
+ "relations": [
+  {
+   "evidence": "What makes it different from grep",
+   "plugin": "grep",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault scanner that finds sensitive data — national IDs, bank accounts, cards, API keys — and verifies matches with checksums, fully offline.",
+ "tags": [
+  "privacy",
+  "pii",
+  "sensitive-data",
+  "checksums",
+  "iban",
+  "luhn",
+  "redaction",
+  "offline"
+ ]
+}

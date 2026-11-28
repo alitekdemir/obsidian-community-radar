@@ -1,0 +1,61 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Record LLM calls to rotating JSONL trace files",
+  "Rate and tag recordings in a review view",
+  "Mask secrets and personal-data patterns",
+  "Skip calls that used notes from excluded folders",
+  "Pause recording for the current session"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an LLM client; it only records calls other plugins already sent and received and never contacts a model or endpoint.",
+ "extras": "Infrastructure for plugin authors, not a standalone feature; it records nothing unless a sibling plugin calls its API. README stresses that masking is pattern-only and not a general anonymizer, so traces are as confidential as the notes and prompts that produced them. Full API contract, guides, and troubleshooting live in separate files (AGENTS.md, docs).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "To let the good answers from local LLM calls be rated and turned into evaluation or fine-tuning material.",
+ "primary": "ai",
+ "problem": "Obsidian plugins that call local LLMs keep no record of how well those calls go, so good answers can't be rated or reused.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "4771f4027517c48b54af774e28219fb1ffcdb86f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The first consumer is vault-rag.",
+   "plugin": "vault-rag",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "A plugin that calls the LLM Lab API (first consumer: vault-rag)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Recorder that logs local LLM calls made by other Obsidian plugins into rotating JSONL trace files stored inside the vault.",
+ "tags": [
+  "llm",
+  "local-llm",
+  "activity-log",
+  "local-first",
+  "redaction"
+ ],
+ "textHash": "3307935498a19168b735f90fce64721f041b623f"
+}

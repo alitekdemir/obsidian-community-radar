@@ -1,0 +1,52 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Stamp authorship frontmatter fields (created_by, last_modified_by, edit_count, content_origin) when you type",
+  "Append section-level change summaries to a daily JSONL log",
+  "Attribute files created in mapped auto-import folders to a configured source and trust level",
+  "Classify content trust using suggested content_origin values such as primary or ai-generated",
+  "Query the provenance fields with Dataview"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README documents privacy guarantees (no network requests, no telemetry, no runtime dependencies) and known limitations: no retroactive attribution, content_origin fixed at creation, regex pattern screening is not a sandbox, log pruning only runs at startup, and disabling the plugin drops pending edits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "In vaults where humans, AI assistants, and scripts all edit notes, every note looks the same, so you cannot tell who wrote a note or how much to trust its content.",
+ "readmeHash": "7c0dbded1235ead4ed98e02d7ef0bc0f655658ab",
+ "relations": [
+  {
+   "evidence": "Because everything is plain frontmatter, you can query it with Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Provenance tracker that stamps authorship frontmatter fields on edited notes and keeps a daily JSONL log of who changed what.",
+ "tags": [
+  "provenance",
+  "attribution",
+  "jsonl",
+  "ai-assistants",
+  "trust-levels",
+  "dataview"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search books by title, author, or ISBN from the command palette or ribbon",
+  "Create a note from the selected result with metadata and cover image",
+  "Customize note templates, save location, and filename format in settings",
+  "Test the Kakao REST API key connection",
+  "Toggle cover image display in the search results list"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Detailed setup instructions are in Korean; the plugin must be built from TypeScript source to main.js and manually copied into the vault. It uses Obsidian's requestUrl() instead of fetch() to avoid CORS issues.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up book metadata online and generate book notes, so users must search elsewhere and enter details by hand.",
+ "readmeHash": "fe66cbfa9284fe3a310e831d4d4e4dd4f3f05c76",
+ "relations": [
+  {
+   "evidence": "기존에 쓰던 Templater 템플릿과 이름이 다를 때도 그대로 재사용할 수 있게",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Kakao REST API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Kakao developer account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Book search plugin that queries the Kakao Book Search API and creates a note with cover, authors, translators, publisher, ISBN, and description.",
+ "tags": [
+  "kakao",
+  "isbn",
+  "book-metadata",
+  "cover-images",
+  "rest-api",
+  "book-notes"
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lock vault notes into an encrypted container and remove the plaintext",
+  "Unlock notes from the container back into the vault",
+  "Generate Shamir token shares for unlocking",
+  "Gather extra key entropy by drawing with the pointer",
+  "Configure container path, token file path and CLI binary"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not a vault backup, sync or management tool; it encrypts notes in place behind a lock/unlock cycle.",
+ "extras": "Desktop-only. On first use the plugin downloads the tvault-core binary from a pinned release and verifies a SHA-256 checksum; a custom binary path can be set. README warns that passphrases are passed as CLI flags (briefly visible to process inspection), tokens are shown only once, and losing token shares or the integrity passphrase makes data unrecoverable. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian stores notes as plaintext Markdown files, so there is no built-in way to encrypt the whole vault when it is not in use.",
+ "readmeHash": "a29a7e9bf6fd07c0396ebcee7e3123b396388a3e",
+ "relations": [
+  {
+   "evidence": "Desktop-only Obsidian plugin that wraps the tvault-core CLI and turns a vault into a lockable safe",
+   "plugin": "tvault-core",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault encryption plugin that locks all notes into an encrypted container and unlocks them again via the tvault-core CLI.",
+ "tags": [
+  "encryption",
+  "shamir-secret-sharing",
+  "entropy-drawing",
+  "container",
+  "passphrase",
+  "cli"
+ ]
+}

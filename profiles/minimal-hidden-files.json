@@ -1,0 +1,54 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Reveal allowed dotfiles and dotfolders in the native File Explorer",
+  "Enable Obsidian's unsupported-file visibility setting and restore the previous value on disable",
+  "Keep .obsidian, the vault config directory, .trash and .git hidden",
+  "Hide SQLite WAL/SHM sidecars with an option to reveal them for diagnosis",
+  "Rescan the vault manually to discover existing hidden paths"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a tool for concealing files; it reveals a fixed allowlist of dotfiles and dotfolders in the native File Explorer.",
+ "extras": "Desktop-only; patches Obsidian's internal reconcileDeletion method and uses the internal showUnsupportedFiles setting, so it may need maintenance if those internals change. Makes no network requests and uses no telemetry. The v0.1 denylist is hardcoded, and revealed files are not forced read-only.",
+ "intent": "improve",
+ "intentEvidence": "reveals safe dotfiles and dotfolders in Obsidian's native File Explorer",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian hides dot-prefixed files and folders during vault reconciliation, so config files like .gitignore or .env cannot be seen or opened from the File Explorer.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "fccba0bdb0287b0d85877ca6619acbc1bc7b5c4e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Show Hidden Files",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Desktop-only plugin that reveals allowed dotfiles and dotfolders, such as .gitignore, .env and .claude/, in Obsidian's native File Explorer.",
+ "tags": [
+  "file-explorer",
+  "file-extensions"
+ ],
+ "textHash": "3ed1131d28e85fa0c67f54968d7d186be651dfa6"
+}

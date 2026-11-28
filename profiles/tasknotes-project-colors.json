@@ -1,0 +1,56 @@
+{
+ "also": [
+  "theming",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Color TaskNotes task cards automatically by project name",
+  "Compute a deterministic hue from a DJB2 hash of the project name",
+  "Tint card backgrounds and left borders in both light and dark themes",
+  "Allow saturation and lightness overrides via a CSS snippet"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general task colorizer; it only colors cards rendered by the TaskNotes plugin and has no effect on other notes or plugins.",
+ "extras": "The manifest states the plugin has not been manually reviewed by Obsidian staff. It works by watching the DOM, so colors depend on TaskNotes's current markup.",
+ "intent": "improve",
+ "intentEvidence": "The plugin watches the DOM for TaskNotes task cards. When a card contains a project link",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "appearance",
+ "problem": "TaskNotes renders task cards looking alike regardless of project, making it hard to visually tell projects apart without manual per-project configuration.",
+ "readmeHash": "1d75b6473a3e66c754c6475ceea28859f86c75d0",
+ "relations": [
+  {
+   "evidence": "Automatically colors TaskNotes task cards by project.",
+   "plugin": "TaskNotes",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Color-coding plugin that gives TaskNotes task cards a distinct background color and left border derived from each project's name.",
+ "tags": [
+  "tasknotes",
+  "color-coding",
+  "css-snippets",
+  "hash-based",
+  "kanban",
+  "deterministic"
+ ]
+}

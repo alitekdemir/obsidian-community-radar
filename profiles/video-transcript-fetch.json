@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import YouTube and Bilibili transcripts as notes, one URL per line up to 100 per batch",
+  "Sign in to Bilibili with a QR code for account-gated captions",
+  "Transcribe unavailable captions with Groq or OpenAI speech recognition",
+  "Insert transcripts as new notes or at the selection with configurable filename and metadata templates",
+  "Pause and resume batch imports across Obsidian restarts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README includes manual installation from release files and says 'Use a disposable vault first', suggesting it is not yet installed from the community directory. Warns that API keys and the Bilibili session are stored unencrypted in data.json. Documents rate-limit handling, bot-verification pauses, and possible recognition charges for retries.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to fetch video captions or transcripts from YouTube and Bilibili into notes.",
+ "readmeHash": "9a658067e691952c4f1e6367a98474c522248962",
+ "relations": [
+  {
+   "evidence": "then optionally transcribe unavailable captions with Groq or OpenAI",
+   "plugin": "Groq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "then optionally transcribe unavailable captions with Groq or OpenAI",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Groq or OpenAI key for speech recognition",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili account for QR login",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Recognition provider charges for audio transcription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Transcript importer that saves YouTube and Bilibili video captions as Markdown notes, with optional speech recognition via Groq or OpenAI.",
+ "tags": [
+  "youtube",
+  "bilibili",
+  "transcripts",
+  "captions",
+  "speech-recognition",
+  "groq",
+  "openai"
+ ]
+}

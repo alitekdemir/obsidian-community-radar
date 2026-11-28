@@ -1,0 +1,87 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [
+  "vim-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Provide a Neovim-compatible Vim editing engine with Markdown text objects, motions, surround, and folding",
+  "Configure behavior with Lua (.obsidian.init.lua) and a built-in vimrc loader with hot-reload",
+  "Jump within and across notes using flash/EasyMotion labels, marks, and a cross-note jump list",
+  "Manage files, tables, headings, and workspace panes with Vim commands and keyboard navigation",
+  "Optionally delegate editing to a user-supplied Neovim 0.12+ binary over msgpack-RPC"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not just motion keybindings; it is a full Vim engine with Lua configuration, a file explorer, a fuzzy picker, snippets, and an optional external Neovim backend.",
+ "extras": "The README requires disabling Obsidian's built-in Vim mode. RPC mode runs the user's Neovim binary and config as arbitrary code with no sandbox. Several features (Neovim backend, external grep, IM switching, vim in text areas, reveal table mode) are desktop-only or experimental; the raw table mode is deprecated. Full documentation lives on an external site.",
+ "intent": "improve",
+ "intentEvidence": "Vim Motions adds what's missing from Obsidian's built-in Vim mode: Markdown-aware text objects, structural navigation",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "Obsidian's built-in Vim mode lacks Markdown-aware text objects, Lua scripting, and most Neovim features, limiting keyboard-driven editing.",
+ "readmeHash": "51c474b0d9a5906932c8c6e342a52e00a9cef08b",
+ "relations": [
+  {
+   "evidence": "Vim Motions provides its own enhanced vim engine — a fork of codemirror-vim",
+   "plugin": "codemirror-vim",
+   "type": "fork"
+  },
+  {
+   "evidence": "Flash motions — enhanced f/F/t/T with labels on all visible matches (flash.nvim-inspired)",
+   "plugin": "flash.nvim",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Oil explorer — oil.nvim-inspired file manager: edit directories as buffers",
+   "plugin": "oil.nvim",
+   "type": "inspired"
+  },
+  {
+   "evidence": "add, change, or delete surrounding delimiters (vim-surround with Markdown support",
+   "plugin": "vim-surround",
+   "type": "replaces"
+  },
+  {
+   "evidence": null,
+   "plugin": "yanky.nvim",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Neovim 0.12+ binary",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ripgrep or GNU grep binary",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Neovim-style Vim engine for Obsidian with Markdown text objects, Lua configuration, EasyMotion jumps, surround, folding, and an optional external Neovim backend.",
+ "tags": [
+  "neovim",
+  "lua",
+  "msgpack-rpc",
+  "easymotion",
+  "flash-nvim",
+  "oil-nvim",
+  "harpoon",
+  "which-key"
+ ]
+}

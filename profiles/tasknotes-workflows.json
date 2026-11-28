@@ -1,0 +1,68 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Automate TaskNotes tasks with Markdown-defined trigger-and-step pipelines",
+  "Start and stop time tracking and clean up scheduled dates from status changes",
+  "Roll over overdue tasks and escalate priority as due dates approach",
+  "Connect cross-application contract events and actions via mdbase",
+  "Edit, dry-run, and enable workflows in a Bases-backed workflow view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Legacy 0.1.x workflow files run through a compatibility reader, and the migration command creates backups before rewriting frontmatter. Interoperability requires enabling Allow local application interoperability in mdbase settings; host grants are default-deny.",
+ "intent": "improve",
+ "intentEvidence": "an optional companion plugin for TaskNotes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "TaskNotes has no built-in automation, so recurring task housekeeping such as time tracking, date rollovers, and priority escalation must be done by hand.",
+ "readmeHash": "1553b06f2a73afc8f7c5138895b0112c407dc3fd",
+ "relations": [
+  {
+   "evidence": "optional companion plugin for TaskNotes",
+   "plugin": "TaskNotes",
+   "type": "extends"
+  },
+  {
+   "evidence": "required for cross-application contract events and contract actions",
+   "plugin": "mdbase-obsidian",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "mdbase-obsidian",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Markdown-defined workflow automation companion for TaskNotes that runs trigger-and-step pipelines on task status, dates, and cross-application events.",
+ "tags": [
+  "tasknotes",
+  "time-tracking",
+  "yaml-pipelines",
+  "cloudevents",
+  "mdbase",
+  "bases-formulas"
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize vault files with a self-hosted Private Sync Server over HTTP/HTTPS",
+  "Pair devices and manage server vaults, approvals, and storage from a sidebar view",
+  "Resolve file conflicts and browse file revision history",
+  "Sync selected Obsidian settings and community plugin settings across devices",
+  "Encrypt selected notes client-side with a separate encryption password"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest description carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' The server backend is a separate component set up with syncctl and is not included in the plugin itself.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README emphasizes that the plugin has no author-hosted default cloud and sends no data to external services, indicating the author wanted a privacy-focused, self-hosted sync option.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync relies on a paid hosted service, while some users want to sync their vault through their own server without sending data to a third-party cloud.",
+ "readmeHash": "ac9a651b0fe44a8cde7c896de866af666a1880df",
+ "relations": [
+  {
+   "evidence": "synchronizes an Obsidian vault with a self-hosted Private Sync Server backend",
+   "plugin": "Private Sync Server",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Private Sync Server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Self-hosted sync client that synchronizes an Obsidian vault with a user-run Private Sync Server, including settings and plugin settings.",
+ "tags": [
+  "self-hosted",
+  "client-side-encryption",
+  "device-pairing",
+  "revision-history",
+  "websocket"
+ ]
+}

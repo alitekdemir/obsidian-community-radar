@@ -1,0 +1,50 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lock and unlock notes with a vault-wide or per-note password",
+  "Encrypt note bodies in place inside a fenced locker block while keeping .md storage",
+  "Auto-lock notes on navigation, inactivity timeout, and quit",
+  "Show a status-bar count of unlocked notes and lock all at once",
+  "Re-secure notes left exposed after a crash using a recovery ledger"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns there is no password recovery, plaintext is written to disk while a note is unlocked, and the protection targets casual at-rest access rather than a determined attacker with live vault access. Manifest notes the plugin has not been manually reviewed by Obsidian staff; pre-release builds are available via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian stores notes as unencrypted text on disk, so sensitive note bodies are readable by anyone with access to the vault files or a synced copy.",
+ "readmeHash": "8b837de26d24c35cc5c96499d5f6696931ed74aa",
+ "relations": [
+  {
+   "evidence": "Track pre-release builds by adding the repo danzar/Obsidian-Locker in the BRAT plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Note encryption plugin that locks note contents at rest with AES-GCM-256 while keeping titles visible and files as plain .md.",
+ "tags": [
+  "encryption",
+  "aes-gcm",
+  "pbkdf2",
+  "passwords",
+  "privacy",
+  "at-rest"
+ ]
+}

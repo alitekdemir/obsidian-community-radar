@@ -1,0 +1,61 @@
+{
+ "also": [
+  "tags",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Suggest tags and links for the active note or a whole folder via AI",
+  "Merge duplicate and cross-language tags into a canonical tag",
+  "Scan the vault for broken links, empty notes, orphans, duplicates, and untagged notes",
+  "Redact or exclude private content before it is sent to the AI provider",
+  "Log every applied change and restore deleted, archived, or merged states"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view",
+   "Outgoing links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "DeepSeek support was removed in v1.0.2 because it lacks an embedding API; embedding-based features (tag similarity, link suggestions) degrade without a provider that supports embeddings. The manifest notes the plugin has not been manually reviewed by Obsidian staff. All AI calls consume tokens and the plugin displays per-call cost estimates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README frames the goal as \"Focus on writing. Let AI handle the organization.\"",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to automatically tag, link, and clean up notes at scale, so users must organize large vaults manually.",
+ "readmeHash": "cb723eb235cf7b77e3fd4fe301f90c99a94d39a6",
+ "relations": [
+  {
+   "evidence": "Select your provider (OpenAI, Google Gemini, Ollama, or Custom) and enter your API key",
+   "plugin": "OpenAI, Google Gemini, Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Google Gemini, or Custom provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI-powered vault maintenance plugin that suggests tags and links, merges duplicate tags, and scans for broken links, orphans, and duplicates.",
+ "tags": [
+  "openai",
+  "gemini",
+  "ollama",
+  "embeddings",
+  "broken-links",
+  "tf-idf",
+  "undo"
+ ]
+}

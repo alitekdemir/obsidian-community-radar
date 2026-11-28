@@ -1,0 +1,67 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync finished BrainPost notes into the vault's Inbox folder",
+  "Verify an Identity Token and connect the vault to a BrainPost project",
+  "Download and verify binary attachments and link them relatively",
+  "Acknowledge sync events to prevent duplicate delivery",
+  "Preserve or trash status notes depending on local edits"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian 1.11.4+); does not support mobile. Any BrainPost service plans are billed on brainpost.me, not through the plugin. Includes a detailed data/network-use and privacy section; troubleshooting covers conflicts, verification failures, and connectivity.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Notes captured through the BrainPost web and mobile apps have to be moved into an Obsidian vault by hand; this plugin delivers them automatically.",
+ "readmeHash": "9bbc1bdee63a66e6975fcd27f4019f93a1b7382e",
+ "relations": [
+  {
+   "evidence": "BrainPost automatically syncs finished notes from brainpost.me into the Inbox/ folder of your local Obsidian vault.",
+   "plugin": "BrainPost",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "BrainPost account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "BrainPost Identity Token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "BrainPost service (brainpost.me)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs finished notes captured in BrainPost into an Inbox folder of the local vault, including verified attachments.",
+ "tags": [
+  "brainpost",
+  "capture",
+  "inbox",
+  "identity-token",
+  "offline"
+ ]
+}

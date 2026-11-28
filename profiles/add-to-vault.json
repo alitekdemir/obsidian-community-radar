@@ -1,0 +1,81 @@
+{
+ "also": [
+  "integrations",
+  "ai"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pull generated markdown notes from the server's inbox into a vault folder",
+  "Push vault filenames and tags to the backend as LLM context",
+  "Switch and validate LLM providers with API keys or a local Ollama URL",
+  "Point Archivist, Analyst, and Synthesist modes at local prompt template files",
+  "Authenticate to the backend with a bearer token from its web dashboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone web clipper; it only exchanges notes and vault context with its companion self-hosted Add To Vault backend.",
+ "extras": "Code was primarily written by Google Gemini Pro under human direction. Not yet in the official community plugin directory, so manual installation from GitHub releases is required. Only filenames and tags are uploaded to the backend, never file contents.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to capture web articles, have them summarized by an LLM you control, and receive the resulting notes with links based on your existing vault.",
+ "readmeHash": "f4354ec53bd10ffa6ba754108a7f75488d8d1b76",
+ "relations": [
+  {
+   "evidence": "or completely local Ollama instances",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini, OpenAI, Anthropic, Mistral AI, Kimi, or Ollama",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini, OpenAI, Anthropic, Mistral AI, Kimi, or Ollama",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Add To Vault backend (FastAPI server)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "account on the backend's web dashboard",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key or local Ollama URL",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Companion plugin that pulls LLM-summarized article notes from a self-hosted backend and pushes a vault filename index as LLM context.",
+ "tags": [
+  "self-hosted",
+  "web-clipping",
+  "llm",
+  "rag",
+  "ollama",
+  "bearer-token"
+ ]
+}

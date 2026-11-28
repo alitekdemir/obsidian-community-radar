@@ -1,0 +1,47 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Opens .toml and .ini files from the file explorer",
+  "Renders a parsed config tree with sections, keys, values, and type labels",
+  "Filters the tree and switches to a line-numbered source view",
+  "Reports TOML parse errors and INI duplicate-key, duplicate-section, and malformed-line warnings",
+  "Caps rendered nodes and refreshes after external file changes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "TOML is parsed with the smol-toml dependency; INI uses a local conservative parser. The parsed tree caps at 2,000 nodes, but the source view always shows the full file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": "TOML and INI files rely on comments, ordering, whitespace, and tool-specific conventions that an editor can silently change, so the viewer never writes to disk.",
+ "primary": "formats",
+ "problem": "Obsidian has no built-in way to inspect TOML or INI config files, and editing them in a form editor or formatter could strip comments, reorder sections, or normalize syntax.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "e37ce21ae6c41f0bf88031f9b411e826d5755d1a",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens .toml and .ini files as a searchable config tree with source view, parse warnings, and large-file caps.",
+ "tags": [
+  "read-only",
+  "syntax-highlighting",
+  "file-extensions"
+ ],
+ "textHash": "99529497a183490ce333c0f4201c511d11aa01a7"
+}

@@ -1,0 +1,48 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "register Obsidian to start when the current Windows user logs in",
+  "start minimized to the taskbar or hidden to the tray on a marked launch",
+  "delay startup by a set number of seconds and optionally open a named default vault",
+  "add a per-vault tray icon with Show, Hide, and Quit this vault controls",
+  "keep the vault running when its main window is closed (close to tray)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Uses Node APIs Obsidian flags as elevated access (fs, child_process reg.exe query); relies on a non-public Electron bridge, so compatibility is runtime-checked and directory acceptance is not guaranteed; disabling/uninstalling does not remove the startup entry, so Start with Windows must be turned off first; positive delays require Windows Script Host/VBScript.",
+ "intent": "new",
+ "intentEvidence": "This is independent implementation informed by MIT-licensed Background Tray, not a fork.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to launch itself at Windows login, start minimized or hidden to tray, or keep a vault running when its window is closed.",
+ "readmeHash": "e1db3ceccd707060409b517cc2e2a02718f73e62",
+ "relations": [
+  {
+   "evidence": "This is independent implementation informed by MIT-licensed Background Tray, not a fork.",
+   "plugin": "Background Tray",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Windows-only plugin that starts Obsidian at login and optionally keeps each vault in the system tray with show/hide, quit, and close-to-tray controls.",
+ "tags": [
+  "autostart",
+  "system-tray",
+  "windows-registry",
+  "electron",
+  "login-items",
+  "startup-delay"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "syncing",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror selected notes and folders to a Cloudflare R2 bucket",
+  "Expose the mirror as a remote MCP server endpoint",
+  "Search and read notes through MCP tools",
+  "Upload only attachments referenced by permitted notes",
+  "Optionally sync notes two-way between devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an in-vault AI chat client; it mirrors selected notes to a remote MCP server that outside AI apps read.",
+ "extras": "Windows setup uses a downloadable wizard; macOS, Linux and CLI users follow a separate manual setup guide. Licensed under PolyForm Noncommercial 1.0.0. MCP clients have no write access to the mirror; writes go through Obsidian URIs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted tools to do what they are best at: write in Obsidian, ask directly in any remote AI, and read from any device, even when the vault's computer is off.",
+ "primary": "integrations",
+ "problem": "Remote AI clients cannot reach a vault unless the computer holding it is powered on and the AI runs on the same device.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "5528bf45232031909469df31b683fafc7e4a0c12",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Context Anywhere syncs your selected notes to your own Cloudflare account",
+   "plugin": "Cloudflare",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account with R2 enabled",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI client supporting remote MCP and OAuth",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloudflare R2 (payment method required, free tier available)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs chosen notes and referenced attachments to a private Cloudflare mirror and serves them to remote MCP AI clients for read-only search and reading.",
+ "tags": [
+  "mcp",
+  "cloudflare",
+  "cloudflare-workers",
+  "oauth",
+  "ai-agents",
+  "two-way-sync",
+  "read-only"
+ ],
+ "textHash": "7ea7e917f197e51cdbd29522eb1f9aee03b59bea"
+}

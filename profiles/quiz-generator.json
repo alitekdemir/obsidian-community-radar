@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "generate quiz questions from selected notes and folders using LLM providers",
+  "answer generated questions in an interactive quiz UI with real-time feedback",
+  "save questions as callouts or obsidian-spaced-repetition flashcards",
+  "create and review quiz questions manually without the generator"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Callouts"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Two providers (Google and Cohere) are described as free to use; generation requires an API key from the chosen provider, but manually creating and reviewing questions works without one. A large roadmap of upcoming features is listed under 'Coming Soon'.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to turn notes into interactive quizzes with real-time feedback, or to auto-generate flashcards and exam questions from note content.",
+ "readmeHash": "c5864597ba843cd23219b68bd3e048b9989277f0",
+ "relations": [
+  {
+   "evidence": "Inline and multiline flashcards compatible with obsidian-spaced-repetition.",
+   "plugin": "obsidian-spaced-repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI: Advanced models for high-quality question generation.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama: Local LLMs for enhanced privacy and offline processing.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider (OpenAI, Google, Anthropic, Perplexity, Mistral, Cohere)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider account to obtain an API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Quiz generator that creates interactive exam-style questions from selected notes using LLM providers, with a quiz UI, manual question authoring, and spaced-repetition export.",
+ "tags": [
+  "quiz",
+  "llm",
+  "openai",
+  "ollama",
+  "spaced-repetition",
+  "multiple-choice",
+  "fill-in-the-blank"
+ ]
+}

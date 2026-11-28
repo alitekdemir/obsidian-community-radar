@@ -1,0 +1,76 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview and publish single or batch notes to GitHub",
+  "Upload referenced local images and set Fluid cover and banner images",
+  "Choose existing Hexo categories and target folders",
+  "Check local publishing status and GitHub Actions deployment",
+  "Withdraw published articles and merge publishing conflicts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general note-sync or vault-bridging tool; it only publishes notes to a Hexo repository.",
+ "extras": "Manual install from release files (manifest.json, main.js, styles.css); requires Obsidian 1.11.4+; token kept in Obsidian SecretStorage; no telemetry; every GitHub write needs explicit confirmation; further documentation is linked externally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Moving notes and their images from Obsidian into a Hexo blog means manual conversion, uploads and Git commits, with no way to check status or recover from conflicts.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "ef7e76a457d846358f1f09361df71ccba3ff7482",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "publishes Markdown notes and referenced images to a Hexo source repository through GitHub",
+   "plugin": "Hexo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses api.github.com to read the configured repository, branch, and Actions status",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "可用图床链接或本地图片设置 Fluid 首页封面和文章页头图",
+   "plugin": "Fluid",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishes selected notes and referenced images to a Hexo source repository via GitHub, with previews, covers, categories and deployment checks.",
+ "tags": [
+  "github",
+  "blog",
+  "static-site"
+ ],
+ "textHash": "38ba321187636090f3040e397da98a86470d4b6b"
+}

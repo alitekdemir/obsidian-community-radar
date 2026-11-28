@@ -1,0 +1,65 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI model in a sidebar panel with streaming replies",
+  "Read, create, patch, and overwrite notes through agent tools",
+  "Search the vault full-text and list files and folders on request",
+  "Switch model and reasoning effort from the composer",
+  "Point requests at any endpoint implementing the Anthropic /v1/messages streaming API"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Pending review and not yet in the community plugin list; manual or BRAT installation only. The API key is stored in plaintext in the vault's plugin data file and travels with synced vaults. Prompts and the content of read or edited notes are sent to Anthropic, or to whatever Base URL is configured; there is no other telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and AI plugins that rely on Node.js, a local CLI, or a companion server do not run on Obsidian mobile.",
+ "readmeHash": "fe98b86b791bd58d2223a2bb41fe7314d38d3c58",
+ "relations": [
+  {
+   "evidence": "It calls the Anthropic Messages API directly from the client",
+   "plugin": "Anthropic Messages API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install BRAT and add the beta plugin Charlesxiaomi/claudian-mobile.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Anthropic account (or a compatible provider)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Minimal AI chat agent that calls the Anthropic Messages API directly and can read, write, edit, and search vault notes on mobile and desktop.",
+ "tags": [
+  "anthropic",
+  "claude",
+  "llm",
+  "chatbot",
+  "mobile",
+  "streaming",
+  "api-key"
+ ]
+}

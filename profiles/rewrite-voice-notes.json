@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record or paste speech and transcribe it via 8 cloud or local providers",
+  "clean and structure transcripts into templated Markdown notes with an LLM",
+  "dictate in real time at the cursor with Deepgram or AssemblyAI",
+  "batch-process audio dropped into auto-ingest folders",
+  "encrypt API keys at rest using OS secret storage or a passphrase"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Several provider adapters (OpenAI Whisper, Groq, Deepgram, Rev.ai, Gemini) are listed as untested, meaning implemented but not verified against live accounts. Full documentation lives in the repo wiki rather than the README. No audio playback or waveform display, no streaming LLM output, and no long-audio chunking. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to turn spoken audio into clean, structured notes; users must transcribe and rewrite recordings by hand with separate tools.",
+ "readmeHash": "7f4f746f769da5528d25be7a91c5c99658ff641b",
+ "relations": [
+  {
+   "evidence": "Scribe by Mike Alicea: prior art for the record, transcribe, cleanup, and templated-insert flow",
+   "plugin": "Scribe",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Magic Mic by Drew McDonald (MIT, archived): originator of the MIME-type fallback and MediaRecorder patterns",
+   "plugin": "Magic Mic",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "transcription and LLM provider keys",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama / llama.cpp / whisper.cpp for fully local processing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Voice-notes plugin that records or ingests audio, transcribes it with a provider you choose, cleans and structures it with an LLM, and inserts templated notes.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "whisper-cpp",
+  "ollama",
+  "deepgram",
+  "speaker-diarization",
+  "llm"
+ ]
+}

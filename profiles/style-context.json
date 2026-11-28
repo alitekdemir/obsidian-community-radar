@@ -1,0 +1,52 @@
+{
+ "also": [
+  "theming",
+  "appearance"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Register vault images as stable CSS variables for use in background-image",
+  "Apply a vault image or remote URL as a canvas background layer with opacity, blend mode and layout controls",
+  "Add a theme-specific class to the top-level DOM for scoped theme override snippets",
+  "Auto-assign a CSS class to notes in folders matching configured path prefixes",
+  "Copy the current theme class or image variable via settings or a command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Author solicits Ko-fi donations and links to their other plugins. Warns that remote background image URLs contact the image host and may disclose network request information. Includes a detailed theme-compatibility section naming specific themes that need selector adjustments.",
+ "intent": "improve",
+ "intentEvidence": "Add CSS that only applies to a specific theme, so you can patch/tune theme details without editing the theme's original CSS.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wrote it after trying around a hundred themes and wanting to tweak details; it grew out of a personal CST script meant to solve their own daily workflow first, then be shared.",
+ "primary": "css",
+ "problem": "Vault resource URLs are regenerated on reload so local images cannot be used reliably in url(), and theme tweaks require editing theme files that updates can overwrite.",
+ "readmeHash": "65829dd69edb9779b000a4d3f4c397c6b0cf71a3",
+ "relations": [
+  {
+   "evidence": "If a theme supports Style Settings, great, use that first. If it does not, this module gives you a reliable fallback.",
+   "plugin": "Style Settings",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "CSS snippet helper that publishes vault image paths and the active theme as stable CSS variables and classes, with an optional canvas background-image layer.",
+ "tags": [
+  "css-variables",
+  "style-settings",
+  "background-image",
+  "theme-overrides",
+  "cssclasses"
+ ]
+}

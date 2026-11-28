@@ -1,0 +1,54 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Apply pending shared operations from the vault's operation cache without a server",
+  "Maintain a per-device CRDT cache for each collaborating node",
+  "Register participant nodes and evict expired ones by TTL",
+  "Create shared CRDT snapshots and rebuild local caches",
+  "Run manual or polled background sync from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a file-sync service; it assumes the vault files are already synchronized by shared storage and adds conflict-free collaborative editing on top.",
+ "extras": "All collaborators must have the plugin installed and preferably on the same version; the underlying storage must already sync the files; the user ID is fixed to a per-device node ID and is not configurable; the manifest notes it has not been reviewed by Obsidian staff; the README also covers developer lint/release workflow.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in way for multiple people to edit the same vault concurrently without merge conflicts or a dedicated collaboration server.",
+ "readmeHash": "e7ea897463b774605615aa514eadd6048a99b171",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Shared Vault on every collaborator's device",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "any shared storage that synchronizes the vault files",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Serverless conflict-free collaboration layer that syncs vault edits between devices via Yjs operation files stored inside the vault.",
+ "tags": [
+  "yjs",
+  "crdt",
+  "serverless",
+  "operation-log",
+  "conflict-resolution"
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Expand search queries across Simplified and Traditional Chinese",
+  "Bridge Taiwan/Mainland term variants like 軟體 ↔ 软件 via OpenCC",
+  "Preserve IME composition while typing queries",
+  "Pass through path operators, regex queries, and non-CJK text unchanged"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Pending community-store approval, so manual installation from GitHub Releases is documented. Hooks Obsidian internal search APIs (SearchView.setQuery, SearchComponent.changeCallback), which may break on Obsidian upgrades; requires Obsidian ≥ 1.5.0; ~2 MB bundle due to OpenCC dictionaries, lazy-loaded.",
+ "intent": "improve",
+ "intentEvidence": "closes that gap by rewriting your query using Obsidian's native OR syntax before it hits the search engine",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's native global search treats Simplified and Traditional Chinese as different strings, so queries miss notes written in the other script.",
+ "readmeHash": "dc57137d14f8583e61bf7caa9d21b24f0e2da766",
+ "relations": [
+  {
+   "evidence": "Quick Switcher (Cmd+O) — use lazyloong/obsidian-fuzzy-chinese for that",
+   "plugin": "lazyloong/obsidian-fuzzy-chinese",
+   "type": "alternative"
+  },
+  {
+   "evidence": "bridges common Taiwan/Mainland term variants like 軟體 ↔ 軟件 ↔ 软件 via OpenCC's s2tw / tw2s mapping",
+   "plugin": "OpenCC",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Search enhancer that rewrites global search queries with OpenCC so Simplified and Traditional Chinese variants match each other.",
+ "tags": [
+  "cjk",
+  "chinese",
+  "simplified-chinese",
+  "traditional-chinese",
+  "opencc",
+  "query-rewriting",
+  "ime"
+ ]
+}

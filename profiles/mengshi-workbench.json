@@ -1,0 +1,74 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [
+  "feishu-users",
+  "claude-code-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse a calendar with daily notes and generate weekly/monthly report skeletons from diary drafts",
+  "Auto-scan project folders and organize them with editable categories and tags",
+  "Aggregate checkbox todos from multiple sources with write-back to the source file",
+  "Schedule phases and milestones on a drag-and-drop Gantt chart synced with README files",
+  "Browse Feishu Wiki/Drive and view, archive, or resume Claude Code and CodeM sessions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI coding tool; the Sessions tab only visualizes and archives Claude Code session records stored on disk.",
+ "extras": "The manifest carries an unreviewed-plugin notice. The Feishu tab calls Feishu cloud APIs through the external lark-cli tool using the user's own credentials; all other processing is local.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no unified dashboard for daily planning, project tracking, task aggregation, and timeline views, so users juggle separate panels for each.",
+ "readmeHash": "c90e35384a3c1c0c330083ccca7a498cc0ed3b08",
+ "relations": [
+  {
+   "evidence": "Feishu Wiki / Drive browsing, project categorization, link checks, smart meeting notes",
+   "plugin": "Feishu",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Visualize Claude Code and CodeM sessions, group by project, archive & harvest status",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "lark-cli (Feishu panel)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (Sessions panel resume/open)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Multi-tab dashboard plugin combining a calendar with daily notes, project scanning, todo aggregation, a Gantt chart, Feishu browsing, and Claude Code session viewing.",
+ "tags": [
+  "feishu",
+  "lark-cli",
+  "gantt",
+  "claude-code",
+  "codem",
+  "dashboard",
+  "weekly-report"
+ ]
+}

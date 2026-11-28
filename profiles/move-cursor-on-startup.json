@@ -1,0 +1,51 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move the cursor right and left briefly on startup",
+  "Trigger DataView expressions in the first opened note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a cursor or editing tool; the cursor movement is only a trick to trigger DataView rendering at startup.",
+ "extras": "The README's problem and solution examples are images (removed in this text); contribution guidance points to the Obsidian docs.",
+ "intent": "new",
+ "intentEvidence": "Obsidian plugin to move the cursor to the right and back to the left when starting up.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "DataView expressions embedded in the first note opened (such as a Home file) do not run until the user interacts, leaving them blank on startup.",
+ "readmeHash": "285bd715d0553d6e9a7c2dd020cef671e4ad4c86",
+ "relations": [
+  {
+   "evidence": "To keep DataView expressions from not running on the first load of, say, your Home file.",
+   "plugin": "DataView",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "DataView",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Startup utility that nudges the cursor right then left in the first opened note so DataView expressions render without user interaction.",
+ "tags": [
+  "dataview",
+  "startup",
+  "cursor",
+  "home-note"
+ ]
+}

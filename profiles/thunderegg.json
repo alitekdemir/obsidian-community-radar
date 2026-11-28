@@ -1,0 +1,65 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert attachments (PDF, Word, Excel, PowerPoint, email, images) to Markdown with YAML frontmatter",
+  "Transcribe audio and video recordings on-device into structured meeting summaries",
+  "Convert clipboard content into a new note via the command palette",
+  "Track note maturity with Grades (Blank to Gem) shown in an info bar and status bar",
+  "Surface hub notes as Condensers and show Bond counts from the link graph"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and macOS-only; the companion Thunderegg app is closed source (the plugin itself is MIT). Freemium: conversion is free and unlimited, Pro is a $19.95 one-time purchase, no account. README includes detailed privacy disclosures: no network calls by default, on-device conversion and transcription, optional Canvas publish is the only plugin network feature.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn PDFs, Office files, images, emails or meeting recordings into clean Markdown notes with frontmatter.",
+ "readmeHash": "6806443149ca40a984671f72440181acb7b6867a",
+ "relations": [
+  {
+   "evidence": "This plugin is the Obsidian half; the Thunderegg app does the converting",
+   "plugin": "Thunderegg app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Image OCR uses the Apple Vision ocr helper that ships with the Thunderegg app",
+   "plugin": "Apple Vision",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Thunderegg app (macOS)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Thunderegg Pro ($19.95 once) for meeting recording, transcription and AI write-up",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Attachment-to-Markdown converter that shells out to a local macOS engine, plus a Refinery layer that tracks note maturity and link-based connections.",
+ "tags": [
+  "docx",
+  "transcription",
+  "meeting-notes"
+ ]
+}

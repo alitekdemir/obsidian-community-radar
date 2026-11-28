@@ -1,0 +1,87 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run a Discord bot that chats with LLM Hub models from DMs, mentions, or allowed channels",
+  "Switch model, RAG, and skills per Discord channel with commands",
+  "Answer Kakeratta persona and direct requests using models, Vault notes, RAG, and skills",
+  "Migrate Discord and Kakeratta settings from LLM Hub's built-in connections with rollback",
+  "Store bot tokens and connection keys in Obsidian SecretStorage"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Listed as not manually reviewed by Obsidian staff. Desktop only (Obsidian 1.13.0+) and needs LLM Hub with public API support (protocolVersion 1); warns against sharing a data.json containing tokens or connection keys.",
+ "intent": "alternative",
+ "intentEvidence": "On first connection, LLM Connect Hub copies the Discord/Kakeratta settings and credentials saved in LLM Hub",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Users who want their LLM Hub models, RAG, and skills reachable from Discord or Kakeratta previously had to rely on LLM Hub's built-in connections instead of a dedicated, separately managed connector.",
+ "readmeHash": "b1cfee49b9d266e390803666a9ec4cadf62ccec5",
+ "relations": [
+  {
+   "evidence": "connects Discord and Kakeratta to the models, RAG, skills, and Vault tools provided by LLM Hub",
+   "plugin": "LLM Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Discord bot — Chat with LLM Hub models from Discord DMs, mentions, or allowed channels.",
+   "plugin": "Discord",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Kakeratta personas can delegate their answers to LLM Connect Hub.",
+   "plugin": "Kakeratta",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "LLM Hub",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Discord",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Kakeratta",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Discord Developer Portal bot",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Discord bot token / Kakeratta connection key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Connects a Discord bot and Kakeratta personas to LLM Hub models, RAG, skills, and Vault tools from inside Obsidian.",
+ "tags": [
+  "discord-bot",
+  "kakeratta",
+  "llm-hub",
+  "rag",
+  "mcp",
+  "secret-storage",
+  "deep-research"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Collect RSS/Atom feeds into local SQLite",
+  "Screen papers across five status baskets",
+  "Prioritize the queue with a local TF-IDF model",
+  "Translate paper titles",
+  "Review pending papers with an LLM"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; requires Obsidian 1.13.0+ and a bundled Node.js 22.16+ runtime exposing node:sqlite (no sql.js fallback). Title translation is an experimental reading aid using an unofficial Google web API and is not for formal citation. No account or telemetry; the LLM key is stored in Obsidian SecretStorage. Extensive separate documentation (architecture, database, development, troubleshooting, security) is linked but hosted outside the README. LLM and translation API charges may apply.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to subscribe to academic RSS feeds and triage incoming papers into a prioritized local reading queue.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "4df7762a2b79147fc2f1ba7b0ae20c4222547477",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "When upgrading manually from the former rss-reader plugin ID",
+   "plugin": "rss-reader",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Choose Google web translation (default) or an OpenAI-compatible LLM",
+   "plugin": "Google web translation",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ask a configured OpenAI-compatible service to review only the papers that remain pending",
+   "plugin": "OpenAI-compatible service",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible LLM endpoint",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google web translation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Desktop Obsidian plugin that collects academic RSS/Atom feeds into a local SQLite queue for screening, translating, and prioritizing papers.",
+ "tags": [
+  "rss",
+  "sqlite",
+  "local-first",
+  "llm",
+  "openai-compatible",
+  "translation",
+  "opml"
+ ],
+ "textHash": "c8eb8a07b7d0c37e949a9ffb1ec81ed095eee185"
+}

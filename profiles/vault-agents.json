@@ -1,0 +1,117 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with local AI CLI agents from a side panel",
+  "Switch between agents and models",
+  "Attach vault notes and documents to prompts",
+  "Inspect streaming reasoning and tool call inputs and outputs",
+  "Track sessions, context usage and token cost"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Chat history is saved in plain text in the plugin's data.json inside the vault and therefore syncs with synced vaults; persistence can be turned off. Auto-approve and hosted OCR are off by default, and remote media in replies is neutralized.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with local AI CLI agents or hand them vault notes and documents as context.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "953d6e40f2fd123a3caefd83be3a67989cec7e8f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Switch between Antigravity (agy), OpenCode (opencode), Hermes Agent (hermes), and Pi (pi)",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenCode 2.x JSON stream & local DB/API (1.x not supported).",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Hermes Agent | hermes | 0.22+ | 0.22.5 | Nous Research CLI (--format stream-json).",
+   "plugin": "Hermes Agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pi Coding Agent | pi | 0.60+ | 0.68.0 | @mariozechner/pi-coding-agent (--print --mode json).",
+   "plugin": "Pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional PDF, Word, and Excel conversion to Markdown via anydoc (hosted OCR is off by default).",
+   "plugin": "anydoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "enabling Send documents to hosted OCR uploads scanned files to Firecrawl Parse (off by default).",
+   "plugin": "Firecrawl Parse",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Antigravity CLI (agy)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenCode CLI (opencode)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Hermes Agent CLI (hermes)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Pi Coding Agent CLI (pi)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "sqlite3",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "anydoc",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Google AI Pro subscription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Chat panel that connects local AI CLI agents (Antigravity, OpenCode, Hermes, Pi) to a vault, with note attachments and tool-call inspection.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "cli",
+  "llm",
+  "antigravity",
+  "opencode"
+ ],
+ "textHash": "d92d35785550fe447e2221d3d75cfdf5104524d1"
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files live across devices",
+  "Merge concurrent edits and keep conflicted copies",
+  "Encrypt file contents, names and metadata end to end",
+  "Browse and restore earlier versions of a file",
+  "Add a new device by scanning a QR code"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No hosted service exists; the user must run the server themselves (Docker or a Kubernetes chart) with a Cloudflare R2 bucket. The .obsidian settings folder is not synchronised, files over 100 MB stay on the device, and only one sync tool should be used per vault.",
+ "intent": "alternative",
+ "intentEvidence": "Red Sync is a self-hosted alternative to a sync subscription.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Keeping a vault identical on several devices normally means a paid hosted sync service, and there is no built-in way to route that traffic through storage you control.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "cad1db17f26f560afb4c62e3ed33f3aa2ec498e6",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Red Sync is a self-hosted alternative to a sync subscription.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Red Sync server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "invite code from the server's owner",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted sync plugin that keeps vaults in step across devices through a server you run, with optional end-to-end encryption and file history.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "cloudflare",
+  "docker",
+  "version-history",
+  "qr-code"
+ ],
+ "textHash": "9657c869afa1bd2c1f43e3f1fbe2cd05dc27477c"
+}

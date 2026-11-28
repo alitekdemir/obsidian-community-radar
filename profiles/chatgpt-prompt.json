@@ -1,0 +1,60 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send templated prompts to ChatGPT when opening a tagged note",
+  "Map tags to prompt templates in settings",
+  "Chat with ChatGPT in a sidebar scoped to the active note",
+  "Retain conversations for a configurable number of days",
+  "Customize ChatGPT's system behavior"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general-purpose AI chat panel; prompts are triggered automatically by tags on the opened note.",
+ "extras": "Storing conversations too long hurts performance (30-day cap); free ChatGPT accounts face API quota limits, so retention length affects quota usage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Getting useful answers from ChatGPT requires writing good prompts and manually copying note context into a separate chat window, which adds friction to working with notes.",
+ "readmeHash": "e1164302f4314580064f94481480780307b8665e",
+ "relations": [
+  {
+   "evidence": "this plugin will send a prompt to ChatGPT using your template",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT account (free tier has API quota limits)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sends templated ChatGPT prompts automatically when you open a tagged note, with a per-note chat sidebar for follow-up questions.",
+ "tags": [
+  "chatgpt",
+  "openai",
+  "prompt-templates",
+  "conversation-history",
+  "chat"
+ ]
+}

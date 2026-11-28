@@ -1,0 +1,72 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Output Markdown from Dataview DQL query code blocks",
+  "Run Dataview JS via eval() and output Markdown strings from dv.markdownTable, dv.markdownList and dv.markdownTaskList",
+  "Insert and update Dataview publish blocks via commands",
+  "Automatically update output blocks on file save",
+  "Narrow updates to files matching a configured Dataview source"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone publishing tool; it generates updatable Markdown blocks and relies on the core Publish plugin to publish them.",
+ "extras": "Installed through the BRAT beta installer rather than the community plugin store. Dataview JS is labeled experimental and executes code via eval(), with a warning to only run trusted code. The installation section appears to contain a copy-paste error, telling users to enable the 'Checkbox Time Tracker' plugin.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Dataview query results only render live in notes and do not persist as Markdown or appear in Obsidian Publish sites.",
+ "readmeHash": "28e2c8403c90f45386bbf8f0f3e38f53b6051638",
+ "relations": [
+  {
+   "evidence": "This plugin uses the following two plugins, so you must install them: - Dataview",
+   "plugin": "Dataview",
+   "type": "extends"
+  },
+  {
+   "evidence": "- Publish (Core Plugin)",
+   "plugin": "Publish (Core Plugin)",
+   "type": "extends"
+  },
+  {
+   "evidence": "This plugin highly inspired by this article. Using Dataview on Obsidian Publish",
+   "plugin": "Using Dataview on Obsidian Publish (article)",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Publish (Core Plugin)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Generates updatable Markdown output from Dataview queries in code blocks, ready to publish via the Obsidian Publish core plugin.",
+ "tags": [
+  "dataview",
+  "dql",
+  "dataviewjs",
+  "obsidian-publish",
+  "markdown-output"
+ ]
+}

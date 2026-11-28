@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Share the open note, current headings, and selected text with Claude Code sessions",
+  "Write reading context to a state file that a Claude Code hook adds to prompts",
+  "Pause or resume sharing from the status bar, command palette, or settings",
+  "Limit context sharing to sessions in the vault or its git project, or share with all sessions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Desktop only; one vault at a time; reading-view line numbers rely on non-public Obsidian internals. Detailed privacy section: the plugin makes no network requests, and context is sent to Anthropic only via the Claude Code prompt.",
+ "intent": "alternative",
+ "intentEvidence": "Claude Code's VS Code extension tells Claude which file you have open and what you selected. This does the same",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted Obsidian to work like Claude Code's VS Code extension, which already tells Claude which file is open and what is selected.",
+ "primary": "ai",
+ "problem": "Claude Code sessions know nothing about what you are reading in Obsidian, so you must manually paste note text and explain where you are.",
+ "readmeHash": "fd9833c3fb4239a05ee050e44a42657c3c8c9c0f",
+ "relations": [
+  {
+   "evidence": "Ask Claude Code about the note you are reading without pasting it in.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "obsidian-context, a Claude Code plugin | Claude Code | adds that to your prompt",
+   "plugin": "obsidian-context (Claude Code plugin)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code with the obsidian-context plugin",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20 or newer on PATH",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Context-sharing plugin that sends your current note, section, and text selection to Claude Code so you can ask about them without pasting.",
+ "tags": [
+  "claude-code",
+  "anthropic",
+  "selection-sharing",
+  "hook",
+  "context"
+ ]
+}

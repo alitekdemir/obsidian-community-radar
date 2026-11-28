@@ -1,0 +1,81 @@
+{
+ "also": [
+  "search",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the current note, selection, files, or whole vault in a sidebar",
+  "Run AI text transformations like fix grammar, summarize, reformat, and change tone",
+  "Search the vault semantically using vector embeddings",
+  "Create personas and scoped projects with custom system prompts",
+  "Extend the AI with MCP servers, SKILL.md files, and custom prompt actions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Cloud providers require paid API keys; Ollama offers a fully offline option. No telemetry, per the README.",
+ "intent": "alternative",
+ "intentEvidence": "AI Copilot brings Notion AI-like capabilities directly into your vault.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, text transformation, or semantic search, so users must leave the app or wire up separate tools to use LLMs with their notes.",
+ "readmeHash": "78160527232179ecccc662052c4f0ada93fee77b",
+ "relations": [
+  {
+   "evidence": "brings Notion AI-like capabilities directly into your vault",
+   "plugin": "Notion AI",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic (Claude 3.5/4 Sonnet, Opus, etc.)",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama (Local models — fully offline, privacy-first)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (OpenAI, Anthropic, Google Gemini, or Groq)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama for local models; local MCP servers for extended tools",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "AI assistant plugin that adds a chat sidebar over your vault, text transformation commands, semantic vault search, personas, and MCP/skills extensibility.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "gemini",
+  "groq",
+  "ollama",
+  "embeddings",
+  "mcp",
+  "function-calling"
+ ]
+}

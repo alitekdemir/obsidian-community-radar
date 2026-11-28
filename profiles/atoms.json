@@ -1,0 +1,85 @@
+{
+ "also": [
+  "thinking",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture quick thoughts as daily-note bullets or via phone shortcuts",
+  "Classify past captures into flat atomic notes via the Anthropic API",
+  "Generate titles, tags, and reason-bearing links between atoms",
+  "Resurface filed atoms on a mobile home view",
+  "Mirror atoms to a cloud copy so Claude or ChatGPT can search them"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: the plugin code is MIT and free, but filing always costs money — either an Anthropic API key you pay for directly or an Atoms Plus subscription (pricing and free trial at tryatoms.app). Previously named obsidian-ai-linker. Each classify run sends note titles, tags, person-hub titles, and capture text to the Anthropic API over TLS; API keys are stored in SecretStorage, not data.json. Automatic filing is off by default and requires a one-time privacy acknowledgment.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Capturing thoughts as daily-note bullets leaves them unfiled and unlinked; Obsidian has no built-in way to automatically classify past captures into a linked note library.",
+ "readmeHash": "4f477309c938ab5c3d966e4fec61d55a12d38b60",
+ "relations": [
+  {
+   "evidence": "Classify past daily-note captures into linked atomic notes via the Anthropic API.",
+   "plugin": "Anthropic API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "keeps a cloud copy of Atoms/ current while Obsidian is open, so Claude and ChatGPT can ask",
+   "plugin": "Claude and ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Android: install Atoms Capture from Play, or open Settings → Atoms → 1 · Capture",
+   "plugin": "Atoms Capture",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Atoms Plus subscription",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Atoms Plus account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Atoms Capture (Android) or iOS Shortcut",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI classifier that turns past daily-note bullet captures into flat, linked atomic notes filed under Atoms/ and resurfaces them for later expansion.",
+ "tags": [
+  "anthropic",
+  "claude",
+  "chatgpt",
+  "second-brain",
+  "capture",
+  "ios-shortcuts"
+ ]
+}

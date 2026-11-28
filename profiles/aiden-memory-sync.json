@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize memory notes between the vault root and an AIDEN server",
+  "Upload drafts named AIDEN-Draft-*.md and rename them to their server IDs",
+  "Preserve conflict copies instead of overwriting existing vault files",
+  "Delete a server memory explicitly via a confirmation-prompted revision-checked DELETE",
+  "Run automatic sync on plugin load and every five minutes, with manual sync commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Synced notes are stored directly in the vault root as AIDEN-<id>.md files; only the generated Index.md is an overview. Private finance records are excluded from sync and backup exports. The README covers troubleshooting for token and JSON parse errors and iOS background suspension limits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a set of memory notes in sync with an external AIDEN server across devices, including while offline.",
+ "readmeHash": "c6a05a872d737a213bb8fbee5ecf7f333a8a1df3",
+ "relations": [
+  {
+   "evidence": "It synchronizes individual Markdown memory notes directly in the Obsidian vault root with an AIDEN server.",
+   "plugin": "AIDEN",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AIDEN server (node)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AIDEN Obsidian sync token",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Replit external access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sync plugin that synchronizes Markdown memory notes in the vault root with an AIDEN server, using the server's PostgreSQL records as the source of truth.",
+ "tags": [
+  "aiden",
+  "replit",
+  "postgresql",
+  "conflict-resolution",
+  "bearer-auth",
+  "memory-notes"
+ ]
+}

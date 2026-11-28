@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt and decrypt notes with a GPG key pair from the note context menu",
+  "Encrypt all notes automatically upon modification",
+  "Choose between OpenPGP.js and a GnuPG CLI wrapper as backend",
+  "Use OpenPGP smartcards such as YubiKey or Nitrokey through the local GnuPG installation",
+  "Configure password memory duration and how the file recovery core plugin handles encrypted notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns that encrypted notes may still be stored unencrypted on disk due to Obsidian caching or coredumps. Mobile is supported only with the OpenPGP.js backend. Limitations: Markdown files only, no signature support, no symmetric encryption. Includes FAQ, manual install steps, and dev/test commands.",
+ "intent": "new",
+ "intentEvidence": "meld-cp partly inspired me with his Meld Encrypt plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian stores notes as plain text files on disk, so sensitive notes are readable by anyone with access to the vault folder.",
+ "readmeHash": "7c6ee5bb38fa18876581f5bdf342813856cfb829",
+ "relations": [
+  {
+   "evidence": "meld-cp partly inspired me with his Meld Encrypt plugin.",
+   "plugin": "Meld Encrypt",
+   "type": "inspired"
+  },
+  {
+   "evidence": "It integrates OpenPGP.js or your local GnuPG installation.",
+   "plugin": "GnuPG",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "gpgCrypt",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "GnuPG (GPG CLI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Encrypts Markdown notes with GPG via OpenPGP.js or a local GnuPG installation, including OpenPGP smartcard support.",
+ "tags": [
+  "encryption",
+  "gpg",
+  "gnupg",
+  "openpgp",
+  "smartcard",
+  "yubikey",
+  "nitrokey",
+  "security"
+ ]
+}

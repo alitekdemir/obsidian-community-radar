@@ -1,0 +1,84 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run coding agents in a built-in terminal emulator",
+  "Stream the active file path and text selection to Claude Code over a local WebSocket",
+  "Expose vault tools (getLatestSelection, getOpenEditors, getWorkspaceFolders) over a local MCP HTTP server",
+  "Show read-only diff previews of agent-proposed edits with terminal-gated approval",
+  "Switch between enabled agents from a dropdown and detect missing CLIs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not just an MCP server; it also ships a full terminal emulator and a Claude Code IDE integration with diff previews.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; the README discloses automated-review warnings for direct filesystem access and shell execution. Desktop only (no mobile); on Windows the built-in terminal does not work yet, though the MCP server and diff previews do. Free, no telemetry, no account; both local servers bind to 127.0.0.1 only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants LLMs to handle the brunt work in maintaining a knowledge base or task manager.",
+ "primary": "ai",
+ "problem": "Coding agents run outside Obsidian with no access to vault context, so LLMs helping maintain a knowledge base cannot see the active file, selection, or open editors.",
+ "readmeHash": "fd8e0c59059425a793de85db4634dc2d12636f4f",
+ "relations": [
+  {
+   "evidence": "Connect Obsidian to coding agents like Claude Code and Codex so they can work with your vault context.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Exposes a modern Streamable HTTP endpoint at /mcp for Codex",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This option runs ollama launch claude, which is Claude Code pointed at a local model",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Full terminal emulator inside Obsidian, powered by xterm.js",
+   "plugin": "xterm.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Agent CLI (claude, codex, or ollama + claude)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3 on PATH (for the built-in terminal)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or OpenAI account/key, depending on agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Runs coding agents (Claude Code, Codex, Ollama) in a built-in Obsidian terminal and exposes the active selection and open editors to them over MCP.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "ollama",
+  "mcp",
+  "terminal",
+  "xterm-js"
+ ]
+}

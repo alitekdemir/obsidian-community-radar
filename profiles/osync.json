@@ -1,0 +1,72 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault changes across devices in real time with a status-bar indicator",
+  "Encrypt all files on-device with AES-256-GCM before upload so the server stores only ciphertext",
+  "Configure per-device attachment types, config-folder sync, and folder exclusions",
+  "Browse file version history, restore deleted files, and resolve sync conflicts",
+  "Self-host the server via Docker and manage users, invite codes, groups, and storage in an admin UI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README notes the plugin has not been manually reviewed by Obsidian staff, warns that the vault password is unrecoverable from the server, and documents extensive self-hosting troubleshooting (reverse proxy, presigned S3 URLs, AVX2 baseline builds). Docs are bilingual (Korean/English).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync relies on the vendor's service and pricing, and plain file-sync solutions lack zero-knowledge encryption, version history, and conflict handling.",
+ "readmeHash": "3e4abe0bdf8ec25526b36f6a1aee6784863227dd",
+ "relations": [
+  {
+   "evidence": "the plugin uploads/downloads encrypted blobs directly to MinIO, bypassing the API",
+   "plugin": "MinIO",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Configure the Telegram notification integration (bot token + chat ID, with a test button)",
+   "plugin": "Telegram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Docker server (thomasjeong/osync image)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "server account with vault password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted, end-to-end encrypted vault sync that syncs your vault across devices through a Docker-based server you run yourself.",
+ "tags": [
+  "self-hosted",
+  "docker",
+  "end-to-end-encryption",
+  "zero-knowledge",
+  "minio",
+  "postgres",
+  "version-history",
+  "conflict-resolution"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "tasks",
+  "files"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Send a line or selected lines to OpenTodo as tasks",
+  "Parse checkbox and quick-add task syntax into dates, priorities and labels",
+  "Show a confirmation sheet before sending",
+  "Link each task back to its source note and repair links after renames",
+  "Sync a vault folder with OpenTodo in two directions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task manager inside Obsidian; it sends tasks to a self-hosted OpenTodo server and syncs a folder with it.",
+ "extras": "The plugin does nothing until connected to a server; the API token is kept in Obsidian's device storage rather than the vault's data.json, so each device needs its own token. The README's table of manual folder-sync runs on real devices lists every run as not yet run.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Turning a line in a note into a task on an external task server, and keeping a folder of task files in step with it, is manual work in Obsidian.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "33058db24ecd030468a3af8e45e99c983e781ffb",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "with the files and rules of ot vault",
+   "plugin": "ot vault",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenTodo server 0.19.1 or newer",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenTodo account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenTodo API token with Full scope",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sends note lines to a self-hosted OpenTodo server as tasks that link back to the note, and keeps a vault folder in two-way sync.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "offline",
+  "two-way-sync",
+  "quick-capture"
+ ],
+ "textHash": "2d0d68e0b3e306fa19cf3ee8dcf36e6c3af3aca8"
+}

@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ai",
+  "export"
+ ],
+ "audience": [
+  "content-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite the note into a spoken-word script via a cloud LLM (OpenAI or DeepSeek)",
+  "Synthesize the voiceover locally with Kokoro TTS via sherpa-onnx",
+  "Fetch or collect per-segment images from Pexels, note embeds, or a folder",
+  "Render the 9:16 MP4 with captions, background music and cover via ffmpeg",
+  "Embed the finished video and cover image back into the note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (uses Node/Electron APIs); local Kokoro voice needs an Apple Silicon Mac, other platforms fall back to the system voice. The README warns that the note's text is sent to the configured cloud LLM endpoint during the script step, and states the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian has no way to turn a written note into a finished short-form video for platforms like TikTok, Reels or YouTube Shorts.",
+ "readmeHash": "2d28415cd76d8e199fa8f6cf6db9ec592e876bc3",
+ "relations": [
+  {
+   "evidence": "Cloud LLM (required). Your note's text is sent to the LLM endpoint you configure (OpenAI api.openai.com",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek api.deepseek.com, or any OpenAI-compatible URL you enter) using your own API key",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Voiceover — synthesizes narration locally with Kokoro TTS (via sherpa-onnx), English and Chinese.",
+   "plugin": "Kokoro TTS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you add a Pexels API key, short English image keywords (not your note text) are sent to api.pexels.com",
+   "plugin": "Pexels",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or DeepSeek API key (required for the script step)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Pexels API key (for auto images)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg (auto-downloaded on macOS or user-provided)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Note-to-video generator that renders a note as a 9:16 vertical MP4 with LLM-written script, local TTS voiceover, auto images, captions, music and a cover.",
+ "tags": [
+  "openai",
+  "deepseek",
+  "pexels",
+  "kokoro-tts",
+  "ffmpeg",
+  "tiktok",
+  "youtube-shorts"
+ ]
+}

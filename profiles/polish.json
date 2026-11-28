@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fix spelling of selected text via LanguageTool",
+  "Rewrite selected text with AI without changing its meaning",
+  "Pick a text kind such as bug report, summary, title, or message",
+  "Preview, edit, copy, or retry AI results before applying",
+  "Give custom rewrite instructions like 'make it more formal'"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Works with no setup: the default engine sends text through the plugin's Cloudflare server, which uses Gemini with a shared free limit of 6 requests per minute per IP. On Gemini's free plan Google may use the sent text to improve its models; only the selected text is ever sent. UI and examples are largely in Portuguese, with Brazilian Portuguese as the default spell-check language. Requires Obsidian 1.13.0 or newer.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian's spellcheck only flags mistakes and offers no way to correct or rewrite selected text in place with one command.",
+ "readmeHash": "e935a6736118ff407dd796943884ce22925addbf",
+ "relations": [
+  {
+   "evidence": "Corrigir ortografia fixes spelling with LanguageTool, right away.",
+   "plugin": "LanguageTool",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the text goes through the plugin's server, which uses Google Gemini",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama: runs on your own computer, so the text never leaves it.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Text polisher that fixes spelling of selected text with LanguageTool and rewrites it with AI while protecting Markdown syntax.",
+ "tags": [
+  "languagetool",
+  "gemini",
+  "ollama",
+  "portuguese",
+  "text-rewriting",
+  "grammar"
+ ]
+}

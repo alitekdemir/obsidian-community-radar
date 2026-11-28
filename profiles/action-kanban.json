@@ -1,0 +1,68 @@
+{
+ "also": [
+  "project-management",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Turn a folder of frontmatter-tagged notes into a Kanban board",
+  "Drag cards between columns and reorder them within priority groups",
+  "Show due-date countdowns and days-in-status aging rings on cards",
+  "Embed boards inline in notes via code blocks or callouts",
+  "Create Action notes with default frontmatter from the toolbar or command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Cards are notes called 'Actions', not Obsidian checkbox tasks; it does not manage items from the Tasks plugin.",
+ "extras": "The README discloses that the code is written entirely by Claude under human direction with pre-release audits. The only network request is an opt-in, off-by-default daily Bing wallpaper background; no vault data is sent. Card meta fields are flagged experimental, and mobile drag-and-drop is untested.",
+ "intent": "alternative",
+ "intentEvidence": "Bases Kanban comes closest to what I actually need from a board, even though its underlying approach is quite different",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a board that reads frontmatter directly without Dataview or Bases, embeds inside a daily note, and shows priority, due date, and time-in-status markers borrowed from Jira.",
+ "primary": "tasks",
+ "problem": "Kanban views in Obsidian typically require Dataview or the Bases feature, and boards cannot be embedded directly inside notes like a daily note.",
+ "readmeHash": "3cea1e6b6994c239c56f26656fee7c41009d907d",
+ "relations": [
+  {
+   "evidence": "Bases Kanban comes closest to what I actually need from a board, even though its underlying approach is quite different",
+   "plugin": "Bases Kanban",
+   "type": "alternative"
+  },
+  {
+   "evidence": "no need for the Dataview plugin or Obsidian's own Bases feature",
+   "plugin": "Dataview",
+   "type": "alternative"
+  },
+  {
+   "evidence": "it pairs nicely if you want note-creation prompts",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Frontmatter-driven Kanban board that turns Action notes into drag-and-drop cards with priority, due dates, and aging, standalone or embedded inline.",
+ "tags": [
+  "kanban",
+  "drag-and-drop",
+  "due-date",
+  "jira",
+  "templater",
+  "bing",
+  "aging"
+ ]
+}

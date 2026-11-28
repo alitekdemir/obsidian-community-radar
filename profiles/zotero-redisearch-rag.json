@@ -1,0 +1,95 @@
+{
+ "also": [
+  "integrations",
+  "research"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import Zotero items and extract PDF text with Docling, including OCR",
+  "Index document chunks in Redis for local vector retrieval",
+  "Answer questions over the library with grounded, clickable citations",
+  "Sync metadata and annotations bidirectionally between Zotero and notes",
+  "Edit chunk text in notes and incrementally reindex only changed chunks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Heavy prerequisites: Docker/Podman running a Redis Stack container plus a Python worker, and a local or cloud LLM server. First startup can take 10+ minutes while images build. API keys are stored in plugin settings masked but not encrypted at rest. The README includes a detailed security disclosure (filesystem access, child processes, clipboard, third-party services) and troubleshooting section; the plugin has no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because Zotero is the source of truth for references and Obsidian is where the user thinks, and nothing connected the two.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask questions over a Zotero literature library and get answers grounded in the PDFs with clickable citations back to the source.",
+ "readmeHash": "77d5a22562113131187971180285c9a542b7054d",
+ "relations": [
+  {
+   "evidence": "Zotero is your source of truth for references, and Obsidian is where you think. This plugin connects them",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For citekey, Zotero -> note sync always applies (including Better BibTeX-generated keys).",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open LM Studio and start the local server.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install Ollama and ensure the daemon is running",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7/8/9 desktop",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Docker Desktop or Podman",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio, Ollama, or OpenAI-compatible server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud LLM / Zotero Web API / PaddleOCR API keys",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Zotero companion XPI for annotation images",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "RAG assistant that imports Zotero items, extracts and OCRs their PDFs into a Redis vector index, and answers questions with chunk-level citations.",
+ "tags": [
+  "zotero",
+  "rag",
+  "redis",
+  "docling",
+  "local-llm",
+  "citations"
+ ]
+}

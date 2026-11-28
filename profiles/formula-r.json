@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai",
+  "autocomplete"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Validate algebraic equivalence between consecutive lines of an align block",
+  "Highlight incorrect lines with red wavy underlines and uncertain lines with orange dashed underlines",
+  "Show hover tooltips explaining errors or uncertainties",
+  "Suggest next derivation steps when typing \\\\ at the end of a block",
+  "Check algebraic equivalence offline using mathjs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a LaTeX editor or renderer; it only verifies and completes derivations already written in align blocks.",
+ "extras": "When AI validation or autocomplete is enabled, the content of the align block being validated is sent to the configured API endpoint; both features can be disabled for fully local operation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "math",
+ "problem": "Obsidian renders LaTeX math but does not verify whether the algebraic steps in a derivation are actually correct or help continue a derivation.",
+ "readmeHash": "2cfd7c4b579f0d80f397d7a7828b5f578a69895b",
+ "relations": [
+  {
+   "evidence": "algebraic equivalence is checked first with mathjs, so basic errors are caught without any API call",
+   "plugin": "mathjs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "powered by any Claude or OpenAI-compatible API",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude or any OpenAI-compatible endpoint (e.g. Ollama, OpenAI, local models)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic Claude or OpenAI-compatible API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or other OpenAI-compatible endpoint (optional)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "LaTeX derivation checker that validates steps in align blocks with offline algebraic checks and optional AI error explanations and next-step suggestions.",
+ "tags": [
+  "latex-align",
+  "mathjs",
+  "claude",
+  "openai-compatible",
+  "ollama",
+  "error-checking",
+  "derivation-steps"
+ ]
+}

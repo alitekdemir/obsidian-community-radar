@@ -1,0 +1,50 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files and attachments to a WebDAV-backed repository",
+  "Detect and resolve local/remote conflicts, including three-way Markdown merge",
+  "Browse commit history, pending changes, and sync logs in a sync center",
+  "Probe WebDAV server capabilities and guard remote HEAD updates",
+  "Run automatic sync checks on startup, resume, local changes, and polling"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "It does not mirror the vault as plain files on the remote; remote data lives as immutable blobs and commits in its own repository format.",
+ "extras": "The manifest notes the plugin has not been reviewed by Obsidian. Real sync is disabled by default; the plugin starts in planning-only mode and must be explicitly enabled in settings. No screenshots or step-by-step setup guide are included in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault to a user's own WebDAV server with conflict detection and history instead of plain file overwriting.",
+ "readmeHash": "df41f273189a4da4b3c19087908f8bfe1e36750b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Experimental sync plugin that stores the vault in a WebDAV repository using content-addressed objects, commit snapshots, and a conflict-resolution workspace.",
+ "tags": [
+  "webdav",
+  "content-addressed-storage",
+  "sha-256",
+  "three-way-merge",
+  "etag",
+  "conflict-resolution"
+ ]
+}

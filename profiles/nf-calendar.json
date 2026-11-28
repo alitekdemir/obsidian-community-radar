@@ -1,0 +1,74 @@
+{
+ "also": [
+  "dates",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open or create daily, weekly and monthly notes from a calendar view",
+  "Choose templates by date rules, weekdays, holidays and even/odd weeks",
+  "Carry open tasks from the previous daily note via {{carryover}}",
+  "Mark holidays and important days with an upcoming list and calendar highlights",
+  "Show monthly statistics with word counts, task charts and completion streaks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin catalog; installed from GitHub Releases. The README discloses npm-audit findings (mostly in dev tooling) and a remaining Svelte DOM-clobbering advisory, and points to docs/ARCHITECTURE.md (in Russian) for more detail. Upgrades from the old plugin id calendar-weekday-templates require manual cleanup and re-configuration.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin replaces Calendar + the core Daily Notes plugin + Periodic Notes (weekly / monthly part).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Stock Obsidian splits calendar, daily and periodic notes across plugins, and daily-note templates cannot vary by weekday, date rules or holidays.",
+ "readmeHash": "8b9d29b6360aa39c2529775dab3a30d64b28f6c4",
+ "relations": [
+  {
+   "evidence": "This is a fork of Calendar by Liam Cain, released under the MIT license",
+   "plugin": "Calendar (by Liam Cain)",
+   "type": "fork"
+  },
+  {
+   "evidence": "This plugin replaces Calendar + the core Daily Notes plugin + Periodic Notes (weekly / monthly part).",
+   "plugin": "Periodic Notes",
+   "type": "replaces"
+  },
+  {
+   "evidence": "You can turn the core Daily notes plugin off completely",
+   "plugin": "Daily Notes (core plugin)",
+   "type": "replaces"
+  },
+  {
+   "evidence": "If Templater's \"Trigger Templater on new file creation\" is on, Templater processes the new note itself.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Fork of the Calendar plugin combining daily, weekly and monthly notes with rule-based date templates, holidays, task carryover and statistics.",
+ "tags": [
+  "periodic-notes",
+  "task-carryover",
+  "holidays",
+  "weekday-rules",
+  "word-count",
+  "streaks"
+ ]
+}

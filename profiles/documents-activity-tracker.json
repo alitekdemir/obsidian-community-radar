@@ -1,0 +1,52 @@
+{
+ "also": [
+  "sidebar",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track reading time per document with focused/away/idle/paused channels",
+  "Show daily and weekly totals plus a four-track heatmap in a sidebar view",
+  "Run an independent stopwatch with pause, resume and notes",
+  "Run countdown, pomodoro and irregular-interval plans",
+  "Edit recorded sessions and classify each segment as reading, paused or ignored"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-25",
+ "disambiguation": "Not a task or project timer; it measures reading time per document and keeps two independent manual timers.",
+ "extras": "Refactor release (v1.8.2): storage moved from JSON to SQLite (sql.js/WASM) and source split into TypeScript modules under src/. No history migration: the new database starts empty and the old JSON file is left untouched. Requires Obsidian 1.15.0 or newer because the countdown flow diagram uses the built-in Pele renderer via loadMermaid(). Installation is manual: copy manifest.json plus four runtime files from dist/ (including sql-wasm.wasm) into the plugin folder. Known sync limitation: concurrent writes from multiple devices can resurrect deleted records, and deletion sync is not implemented. Mobile foreground/background detection relies on Capacitor appStateChange and pause/resume events plus Page Lifecycle, with heartbeat-gap fallback when the process is killed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to see how much time is spent reading each document, nor any standalone stopwatch or countdown timer.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "2b6301222fab5cdfb5f8af7ed98398da95f58b4a",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Sidebar plugin that tracks reading time per document (focused vs. away), plus separate stopwatch and countdown timers, with data in SQLite.",
+ "tags": [
+  "time-tracking",
+  "pomodoro",
+  "timer",
+  "sqlite",
+  "heatmap",
+  "reading-tracker",
+  "statistics",
+  "focus-mode"
+ ],
+ "textHash": "f1cd4c49d5425e8717a373e788867d6e52dfb4bc"
+}

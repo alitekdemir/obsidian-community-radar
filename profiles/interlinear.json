@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "translate whole notes paragraph-by-paragraph in reading view on explicit trigger",
+  "toggle between bilingual and translation-only display without re-translating",
+  "configure LLM or traditional machine-translation backends with per-service credentials",
+  "cache translations locally keyed by content hash",
+  "style rendered translations with CSS presets including a learning mask"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Translation works only in Reading view, not Live Preview or editing. The manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that synced settings files carry credentials across devices and advises gitignoring them.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in translation, so reading foreign-language notes means copying text out to another tool and pasting results back.",
+ "readmeHash": "fde3b5d08fc0cfa0192fe72b72c86fc5a433d899",
+ "relations": [
+  {
+   "evidence": "LLM (default): DeepSeek, OpenAI, SiliconFlow, Ollama, or any custom OpenAI-compatible endpoint",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LLM (default): DeepSeek, OpenAI, SiliconFlow, Ollama, or any custom OpenAI-compatible endpoint",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Traditional machine translation: Baidu Translate (百度翻译) and Youdao (有道智云)",
+   "plugin": "Baidu Translate",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM service API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local) or Baidu/Youdao developer account credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Reading-view plugin that renders paragraph-by-paragraph translations of notes alongside the original, using BYOK LLM or machine-translation backends.",
+ "tags": [
+  "machine-translation",
+  "byok",
+  "deepseek",
+  "openai",
+  "ollama",
+  "baidu-translate",
+  "youdao",
+  "bilingual"
+ ]
+}

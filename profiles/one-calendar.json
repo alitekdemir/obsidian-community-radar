@@ -1,0 +1,80 @@
+{
+ "also": [
+  "calendar",
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture tasks and ideas into daily note sections",
+  "Manage lightweight projects with memo files and multi-project task links",
+  "View tasks, ideas and repeating tasks on lists, boards and 3-day/week/month calendars",
+  "Pull read-only events from CalDAV or Feishu calendars and write task reminders to them",
+  "Export event reminders as .ics files or phone calendar entries"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README states the Feishu API provider, Android notification delivery and two-device Nutstore sync are unverified on real devices. It is free with no paid tiers; the data folder is a legacy 'TaskCalendar' directory hidden from the file explorer.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in dashboard for capturing quick ideas, tracking lightweight projects and repeating tasks, and viewing them on calendars or boards.",
+ "readmeHash": "afe133349b097cec17c5c74c1f0602885fefb5ff",
+ "relations": [
+  {
+   "evidence": "If Periodic Notes manages daily notes, that interface uses its daily configuration.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync it together with diary, Projects and TaskCalendar using Nutstore Sync.",
+   "plugin": "Nutstore Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Feishu API provider needs an authorized user token and calendar permissions.",
+   "plugin": "Feishu",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a Tasker task with Browse URL can open the copied URI",
+   "plugin": "Tasker",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CalDAV or Feishu calendar service",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Feishu account with calendar permissions or CalDAV credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Personal task, idea and project manager with list, board and calendar views that stores records as Markdown sections in daily notes.",
+ "tags": [
+  "caldav",
+  "feishu",
+  "ics",
+  "nutstore",
+  "tasker",
+  "recurring-tasks",
+  "kanban"
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "also": [
+  "calendar",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "detect calendar events in note text with NLP",
+  "synchronize detected events with Apple Calendar or Google Calendar",
+  "embed two-way-synchronized inline event views in notes",
+  "ban false-positive patterns or define custom event delimiters",
+  "log in to calendar providers from the plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a calendar viewer plugin; its core job is extracting events from note text and syncing them to external calendars.",
+ "extras": "Google integration was pending review by the Google Trust & Safety team at the time of writing. Apple credentials are stored locally AES-encrypted because Apple lacks OAuth support. The plugin mentions legacy name iCalSync in the How it works section.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no calendar integration, so events written in notes must be manually copied into an external calendar app.",
+ "readmeHash": "60acfa5726ce7a95970e653f4dd4348c40b476e9",
+ "relations": [
+  {
+   "evidence": "the supported calendars are: - Apple Calendar - Google Calendar",
+   "plugin": "Apple Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google, on the other hand, supports OAuth2 authentication",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin works on top of a NLP library (NLP wink)",
+   "plugin": "NLP wink",
+   "type": "extends"
+  },
+  {
+   "evidence": "The communication with iCloud wouldn't be possible without the help of iCloud.js",
+   "plugin": "iCloud.js",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Calendar or Google Calendar",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "iCloud or Google account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "NLP-based plugin that detects calendar events written in Markdown notes and synchronizes them with Apple Calendar or Google Calendar.",
+ "tags": [
+  "natural-language-processing",
+  "apple-calendar",
+  "google-calendar",
+  "icloud",
+  "event-extraction",
+  "nlp-wink"
+ ]
+}

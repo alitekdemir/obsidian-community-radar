@@ -1,0 +1,66 @@
+{
+ "also": [
+  "publishing",
+  "images"
+ ],
+ "audience": [
+  "wechat-official-account-authors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create a WeChat Official Account draft from the current Markdown note",
+  "Convert Markdown to the inline HTML the WeChat editor accepts",
+  "Upload body and cover images, re-hosting remote ones and cropping covers to 900×500",
+  "Prompt for missing title, digest, author and cover, then write answers back to frontmatter",
+  "Publish article bundles as folders, including translation selection via index.md"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it never publishes an article; it only creates a draft in the WeChat draft box for manual publishing.",
+ "extras": "Desktop only, with runtime messages in Chinese. Credentials deliberately live outside the vault so they never reach synced storage; the plugin reads only that one file and writes nothing outside the vault. Publishing aborts rather than shipping a draft with un-replaced image references, and failed drafts release the cover's permanent-material slot.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "WeChat's editor accepts only inline HTML and its own image URLs, so pasting a Markdown note in loses formatting and pictures; Obsidian has no way to push notes to a WeChat draft box.",
+ "readmeHash": "0f1738fd7d9176886629137784dfe23e5cfe26c1",
+ "relations": [
+  {
+   "evidence": "Turn the Markdown note you are editing into a WeChat Official Account draft",
+   "plugin": "WeChat Official Account",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account with material and draft API permission",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AppSecret stored in a file outside the vault, with IP whitelisted",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "WeChat Official Account publisher that turns the current Markdown note into a WeChat draft with inline HTML and re-hosted images.",
+ "tags": [
+  "wechat",
+  "appsecret",
+  "inline-html",
+  "cover-image",
+  "image-upload",
+  "draft-box"
+ ]
+}

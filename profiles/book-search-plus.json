@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search books by title, author, publisher, or ISBN via the Google Books or Naver API",
+  "Create book notes from a configurable template with book metadata variables",
+  "Download and save book cover images into a designated vault folder",
+  "Render array fields like authors and categories as YAML lists or wikilinks with list, enum, and wikilist modifiers",
+  "Run inline scripts against the book object for custom template output"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault search tool; it searches external book catalogs and creates new book notes from the results.",
+ "extras": "Maintained fork of an inactive plugin; author discloses that some work is AI-assisted. Warns that Keychain-stored API secrets stay on one device and do not sync, and documents a migration path from plaintext keys. Notes the Google Books API's low free quota for unauthenticated requests.",
+ "intent": "alternative",
+ "intentEvidence": "This is a personal fork of obsidian-book-search-plugin by anpigon, which has not been updated since October 2024.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked obsidian-book-search-plugin, which had not been updated since October 2024, to apply fixes and improvements unavailable upstream.",
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to look up book metadata from an online catalog and turn it into a structured book note, so authors, ISBNs, and covers must be entered by hand.",
+ "readmeHash": "59d0557a23d7a0e74832847845ac248800854c67",
+ "relations": [
+  {
+   "evidence": "This is a personal fork of obsidian-book-search-plugin by anpigon",
+   "plugin": "obsidian-book-search-plugin",
+   "type": "fork"
+  },
+  {
+   "evidence": "Here is the dataview query used in the demo",
+   "plugin": "dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The banner at the top of the document is rendered using Obsidian-banners plugin.",
+   "plugin": "Obsidian-banners",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key (free, to raise rate limits) or Naver clientId/clientSecret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Book note creator that searches Google Books or Naver by title, author, publisher, or ISBN and generates templated notes with metadata and cover images.",
+ "tags": [
+  "google-books-api",
+  "naver",
+  "isbn",
+  "book-covers",
+  "dataview",
+  "templater",
+  "keychain",
+  "api-key"
+ ]
+}

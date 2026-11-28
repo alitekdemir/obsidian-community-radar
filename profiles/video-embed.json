@@ -1,0 +1,57 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert YouTube URLs pasted on empty lines into markdown, iframe, or div embeds",
+  "Recognize youtu.be, Shorts, and embed URL formats",
+  "Route restricted-video embeds through a configurable Invidious instance",
+  "Let users choose the default embed style in settings",
+  "Work on desktop and mobile"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it currently handles only YouTube URLs; other providers like Vimeo are roadmap goals, not features.",
+ "extras": "Roadmap features (more providers, auto-imported metadata) are gated behind GitHub star milestones and not yet available; embeds for restricted videos can bypass YouTube Error 153 via Invidious.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian leaves pasted YouTube links as plain URLs, so users must manually write embed syntax or HTML to get a video player.",
+ "readmeHash": "9be8fc842a3b3a6e50b787aec7d712dec9be102c",
+ "relations": [
+  {
+   "evidence": "Enable Use alternative embed server in settings to route embeds through an Invidious instance instead.",
+   "plugin": "Invidious",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Invidious instance",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Paste-trigger plugin that converts YouTube URLs pasted on an empty line into markdown, iframe, or div embeds.",
+ "tags": [
+  "youtube",
+  "iframe",
+  "invidious",
+  "embed",
+  "paste"
+ ]
+}

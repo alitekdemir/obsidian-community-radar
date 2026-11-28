@@ -1,0 +1,85 @@
+{
+ "also": [
+  "calendar",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track build, avoidance, and zero-goal habits on daily to annual cadences",
+  "Import habit data from HTTP API endpoints and an Android companion app",
+  "View heat-map calendars, configurable dashboards, and per-habit analytics",
+  "Embed live loggers and dashboards in notes via codeblocks",
+  "Transfer habit files between desktop and mobile over local Wi-Fi"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that local peer sync has not undergone an independent cryptographic assessment and that shared challenges are an exploratory roadmap item, not a committed feature.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in way to track habits or combine manual logging with data from services like Health Connect, GitHub, or Duolingo in one place.",
+ "readmeHash": "24d5f2388b707eb55a2d2d1f0f1eed126bec32e6",
+ "relations": [
+  {
+   "evidence": "The companion app reads permission-granted Android Health Connect metrics (sleep, hydration, steps, nutrition calories, exercise)",
+   "plugin": "Temperance Companion",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Health Connect: Sleep duration, hydration volume, daily steps, nutrition calories, and exercise minutes.",
+   "plugin": "Health Connect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connected APIs: GitHub contributions, Monkeytype typing duration, and Duolingo streak tracking.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connected APIs: GitHub contributions, Monkeytype typing duration, and Duolingo streak tracking.",
+   "plugin": "Monkeytype",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connected APIs: GitHub contributions, Monkeytype typing duration, and Duolingo streak tracking.",
+   "plugin": "Duolingo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Temperance Companion app",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API credentials (e.g. Monkeytype ApeKey)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Habit tracker that logs manual and API-imported entries into daily Markdown notes, with heat-map calendars, analytics, and peer-to-peer sync.",
+ "tags": [
+  "heatmap",
+  "streaks",
+  "health-connect",
+  "github",
+  "duolingo",
+  "monkeytype",
+  "qr-pairing"
+ ]
+}

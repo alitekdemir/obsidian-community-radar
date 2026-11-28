@@ -1,0 +1,56 @@
+{
+ "also": [
+  "calendar",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture notes and tasks under today's heading with a hotkey, without opening the journal file",
+  "Insert recent or frequent vault tags from the capture window and autocomplete after typing #",
+  "Jump to or create any day from a sidebar calendar with entry markers",
+  "Configure journal path, heading level, and Moment.js date format",
+  "Detect and offer to turn off conflicting per-day daily-notes plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is provided in both English and Chinese. The plugin makes no network requests and collects no data. It warns once about conflicting plugins (core Daily notes, Calendar, Periodic Notes, Journals) and only disables them after confirmation.",
+ "intent": "alternative",
+ "intentEvidence": "Moving from QuickAdd + Single File Daily Notes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted sparse journalers to keep everything in one Markdown file with a heading per day instead of accumulating tiny daily files.",
+ "primary": "dates",
+ "problem": "Obsidian's daily-notes workflow creates a separate file for every day, leaving sparse writers with a folder full of tiny files.",
+ "readmeHash": "d3ff1318215280c26a9c730176ea6e157371670b",
+ "relations": [
+  {
+   "evidence": "Disable QuickAdd's capture and Single File Daily Notes if you no longer need them.",
+   "plugin": "QuickAdd",
+   "type": "replaces"
+  },
+  {
+   "evidence": "your journal already uses the format Unidaily expects (### YYYY-MM-DD dddd headings with list items)",
+   "plugin": "Single File Daily Notes",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Single-file daily journal that appends notes and tasks under today's heading via a hotkey capture window, with tag suggestions and a sidebar calendar.",
+ "tags": [
+  "quick-capture",
+  "journal",
+  "single-file",
+  "heading-per-day"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "syntax"
+ ],
+ "audience": [
+  "security-analysts"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight code blocks in 31 languages using Tree-sitter grammars, including code inside code",
+  "Apply built-in, imported Helix, or exported Neovim themes to code blocks",
+  "Show #hex, rgb() and hsl() color codes on their own color",
+  "Flag security indicators, leaked secrets, and hidden characters in code and inline code",
+  "Open CVE, CWE, and MITRE ATT&CK reference pages from IDs in code"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (macOS, Windows, Linux); phone and tablet support planned, and Windows/Linux not yet tested. Plugin file is about 4 MB because all grammars are bundled. Code and README were generated with Claude under the author's direction; build checks are described in SECURITY.md. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian's default code block highlighting is less accurate than Tree-sitter parsing and offers no color previews or warnings for leaked secrets and hidden characters.",
+ "readmeHash": "d7c4d645ccf3db0b600166dafe3174d6c123e7f1",
+ "relations": [
+  {
+   "evidence": "Highlight queries from nvim-treesitter (Apache License 2.0), with Treelights' own additions",
+   "plugin": "nvim-treesitter",
+   "type": "extends"
+  },
+  {
+   "evidence": "Import a Helix theme (.toml), or export your Neovim color scheme",
+   "plugin": "Helix",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An optional pack adds LazyVim's highlighting extras for Lua and Markdown",
+   "plugin": "LazyVim",
+   "type": "extends"
+  },
+  {
+   "evidence": "export your Neovim color scheme with tools/export-nvim-theme.lua and load it as a theme file",
+   "plugin": "Neovim",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Tree-sitter-based syntax highlighting for code blocks in 31 languages, with themes, color previews, and warnings for secrets and hidden characters.",
+ "tags": [
+  "syntax-highlighting",
+  "code-blocks",
+  "color-palette"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

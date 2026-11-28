@@ -1,0 +1,108 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record audio inside Obsidian",
+  "Transcribe recordings into text",
+  "Polish transcripts into readable notes",
+  "Translate speech during recording",
+  "Generate Mermaid diagrams"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: recording, notes, and transcription/polish of recordings up to 5 minutes are free; longer recordings, live translation, dictation, speaker labeling, Todo collection, and imported/computer-audio transcription require a paid license key (search RedNote for 焦应行). Closed-source and minified/obfuscated to protect license verification; no telemetry. Resojot CLI is a testing feature whose contract may change. Full guides are in the Resojot knowledge base. Warning: do not publish .obsidian/plugins/resojot/data.json; it may contain settings and legacy credentials.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Turning spoken recordings into searchable, organized text notes normally requires stitching together separate recording, transcription, and cleanup tools.",
+ "profiledAt": "2026-11-27",
+ "provider": "Baidu",
+ "readmeHash": "a404560a250d04b128ae62b4e00335a365ec0308",
+ "readmeSource": "README-en.md",
+ "relations": [
+  {
+   "evidence": "Write recordings into the current day's note already created by Daily Notes, Periodic Notes, Journals, or similar tools.",
+   "plugin": "Daily Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Write recordings into the current day's note already created by Daily Notes, Periodic Notes, Journals, or similar tools.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT: install BRAT, choose Add Beta plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex, Claude Code, and other external agents can call Resojot through the official Obsidian CLI.",
+   "plugin": "Obsidian CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex, Claude Code, and other external agents can call Resojot",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex, Claude Code, and other external agents can call Resojot",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Transcription and polish provider API key (e.g., SiliconFlow)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Resojot license key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian CLI (official desktop installer 1.12.7+)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Audio recording and transcription plugin that turns speech into searchable Markdown notes, with AI polish, translation, and diagrams.",
+ "tags": [
+  "speech-to-text",
+  "transcription",
+  "voice-memos",
+  "translation",
+  "mermaid",
+  "speaker-diarization"
+ ],
+ "textHash": "3d1c988ecaf79abf78e517eb1aaf3b3e7a7f2148"
+}

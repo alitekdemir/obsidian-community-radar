@@ -1,0 +1,77 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers",
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run agent CLIs such as Claude Code on a remote Linux server or locally on desktop",
+  "Resume agent sessions across devices with async turn recovery",
+  "Chat directly with LLM providers through their APIs without a server",
+  "Export phase-gated plans to Markdown notes and Canvas files",
+  "Operate a remote PTY terminal over private overlay networks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free and open source under the MIT license; API usage is billed to the user's own provider accounts; the README explicitly says it is not for users who only want Claude chat on their phone without Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run AI coding agents against a vault from a separate host or to continue an agent session across desktop and mobile devices.",
+ "readmeHash": "981e87a6d898e81659805bcf9e3fa2653de5e04d",
+ "relations": [
+  {
+   "evidence": "Claude Code (claude, tested versions 0.2.29–0.2.32) is the primary supported agent CLI.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Model APIs provided by Anthropic, Google, DeepSeek, and Ollama.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "xterm.js by SourceLair and Christopher Jeffrey (MIT)",
+   "plugin": "xterm.js",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Linux host running darjeeling-server with Claude Code CLI (remote mode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Self-hosted AI agent client that runs Claude Code and other agent CLIs on a Linux server and lets you resume the same sessions on desktop or phone.",
+ "tags": [
+  "claude-code",
+  "self-hosted",
+  "llm-providers",
+  "tmux",
+  "terminal",
+  "tailscale",
+  "websocket"
+ ]
+}

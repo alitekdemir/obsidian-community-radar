@@ -1,0 +1,87 @@
+{
+ "also": [
+  "editing",
+  "syntax"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-indent, close brackets and comment lines while typing in code blocks",
+  "Suggest names and expand live templates and postfix snippets",
+  "Show indent guides, coloured brackets, sticky headers and folding",
+  "Check code as you type and offer quick fixes on desktop",
+  "Format blocks, jump to definitions and rewrite code with a local AI model"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a code runner; it edits and checks code inside code blocks, while running code is left to Tahoe Run.",
+ "extras": "Desktop features run locally installed tools and write code to temporary files outside the vault; AI requests go only to Ollama on localhost. Developed and tested on macOS, with Windows and Linux support untested. No telemetry, accounts or payments. Other plugins can register completion providers through a public API.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Code blocks in Obsidian are plain text, so there is no indentation help, completion, error checking or navigation while writing code in a note.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "e79074f5ca342ea8d21278e54c3edba8e16308fa",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "With Tahoe Run: Python and MATLAB suggestions come from the note's running session",
+   "plugin": "Tahoe Run",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Tahoe Intelligence: Apple Intelligence can be the model for ghost text, ⌘I and equation to code",
+   "plugin": "Tahoe Intelligence",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Tahoe: suggestion lists, hover docs and problem cards appear as solid, readable cards",
+   "plugin": "Tahoe",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The AI features use Ollama on your computer",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Language servers, checkers and formatters (clangd, Pyright, ruff, black, gofmt and others)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tahoe Run",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Code-block IDE for notes: smart Enter and indentation, bracket closing, suggestions, live templates, sticky headers, desktop linting and AI edits.",
+ "tags": [
+  "code-blocks",
+  "syntax-highlighting",
+  "text-expansion",
+  "ollama",
+  "local-llm"
+ ],
+ "textHash": "45ef29f7b9939ace504ecf9ffaec26d13f0c7626"
+}

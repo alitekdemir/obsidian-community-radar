@@ -1,0 +1,53 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Intercept Alt+Backspace when the cursor follows Thai or Japanese text",
+  "Find word boundaries with the browser's Intl.Segmenter API",
+  "Delete exactly one word segment per keypress",
+  "Fall through to Obsidian's default behavior for space-delimited languages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Internally implemented as a CodeMirror 6 extension registered with highest priority; no settings or configuration are described.",
+ "intent": "improve",
+ "intentEvidence": "An Obsidian plugin that fixes Option+Backspace (delete word) for Thai and Japanese text.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Thai and Japanese have no spaces between words, so Obsidian's default Alt+Backspace deletes the entire sentence up to the last space.",
+ "readmeHash": "57a7412de1f0bd9002641fe810f4c12624909ebb",
+ "relations": [
+  {
+   "evidence": "Google Docs and Microsoft Word handle this correctly because they use language-aware word segmentation.",
+   "plugin": "Google Docs",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Google Docs and Microsoft Word handle this correctly because they use language-aware word segmentation.",
+   "plugin": "Microsoft Word",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Editor fix that makes Option+Backspace delete one word at a time in Thai and Japanese text using Intl.Segmenter.",
+ "tags": [
+  "thai",
+  "japanese",
+  "intl-segmenter",
+  "word-segmentation",
+  "text-deletion"
+ ]
+}

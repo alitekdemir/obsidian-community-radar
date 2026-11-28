@@ -1,0 +1,65 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Records system audio and microphone on macOS",
+  "Generates a live Mandarin Chinese transcript",
+  "Refines transcripts with a local Whisper model",
+  "Places slides on the transcript timeline",
+  "Imports AnnotateScreen screenshots from ~/Downloads"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "One-time Terminal setup required (zsh install.sh) and must be re-run after each plugin update; install.sh downloads Homebrew packages and a 1.6 GB Whisper model from Hugging Face. Plugin and recorder make no network requests; recognition uses macOS built-in recognizers and a local model. Free, no account, payment, ads or telemetry; optional Ko-fi support. Interface language forced via \"lang\" in data.json (default auto).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no way to capture meeting audio from the Mac, transcribe it live, or align presentation slides with the transcript.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "46398e5e3bc2751d4a0959f59e3d682ae9a37bdc",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "watches ~/Downloads for AnnotateScreen screenshots to import",
+   "plugin": "AnnotateScreen",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "macOS 26 or later on Apple Silicon, desktop only",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Swift recorder installed by running zsh install.sh into ~/.config/meeting-recorder/",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 4
+ },
+ "summary": "macOS plugin that records system audio and microphone, with live Mandarin transcript, local Whisper refinement, and slides on the transcript timeline.",
+ "tags": [
+  "whisper",
+  "speech-to-text",
+  "transcription",
+  "macos",
+  "offline",
+  "chinese"
+ ],
+ "textHash": "319ae663e15ba03a9804ed43ce48a8d16c376817"
+}

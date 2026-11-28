@@ -1,0 +1,83 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate deterministic terrain and settlement maps from a seed",
+  "Tune maps in a live side-panel preview",
+  "Embed reproducible maps via town-forge code blocks",
+  "Read map settings from note properties or a linked note",
+  "Export interactive pinned maps with per-place notes to TTRPG Tools: Maps"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it also generates terrain-only landscape maps, not just settlements.",
+ "extras": "Still in beta; recommended install is via BRAT. Extra setup docs live in docs/randomness-templater-setup.md. Map icons only render if the corresponding keys exist in the maps plugin's icon library.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Obsidian has no built-in way to generate reproducible fantasy landscape and settlement maps for game preparation.",
+ "readmeHash": "750f82b9d089ad132d9f509091d5907a8f45606d",
+ "relations": [
+  {
+   "evidence": "Town Forge can hand a finished map to the TTRPG Tools: Maps community plugin (formerly Zoom Map)",
+   "plugin": "TTRPG Tools: Maps",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Randomness — drives rich, correlated place names and note bodies from your templates.",
+   "plugin": "Randomness",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Any Randomness or Templater syntax in the template is left intact",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TTRPG Tools: Maps",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Randomness",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Procedural fantasy map generator for tabletop RPGs, building seeded terrain and settlement maps as code blocks, PNGs, or pinned interactive maps.",
+ "tags": [
+  "procedural-generation",
+  "cartography",
+  "fantasy-maps",
+  "settlements",
+  "seeded-generation",
+  "brat"
+ ]
+}

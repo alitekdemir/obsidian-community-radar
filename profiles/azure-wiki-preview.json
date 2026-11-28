@@ -1,0 +1,53 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render :::mermaid blocks through Obsidian's mermaid pipeline",
+  "Show [[_TOC_]] and [[_TOSP_]] macros as labelled chips",
+  "Render headings written without a space after the hashes",
+  "Decode Azure-encoded page filenames across the interface",
+  "Diagnose why a :::mermaid diagram did not render"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not connect to Azure DevOps or publish anything; it only renders files in a locally cloned wiki vault.",
+ "extras": "The heading and page-name decoding settings should stay off unless the vault is an Azure Wiki clone; in ordinary vaults they would turn tags like #todo into headings or read every hyphen as a space. Known limitation: spaceless headings remain indexed as tags in search, tag pane, and graph.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because the dialect differences are silent: pages look fine locally and break once published, and the plugin renders Azure's dialect without changing the source.",
+ "primary": "markdown",
+ "problem": "Azure DevOps Wiki markdown differs silently from Obsidian's, so a cloned wiki page can look fine locally but break once published, or vice versa.",
+ "readmeHash": "c8323453019217b167e4e183cdd1ab42ee44e874",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Azure DevOps Wiki (cloned git repository)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders Azure DevOps Wiki markdown dialects in Obsidian: :::mermaid blocks, TOC macros, spaceless headings, and encoded page names.",
+ "tags": [
+  "azure-devops",
+  "mermaid",
+  "table-of-contents",
+  "percent-encoding",
+  "headings"
+ ]
+}

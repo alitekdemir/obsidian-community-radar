@@ -1,0 +1,71 @@
+{
+ "also": [
+  "search",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show similar notes below the open note and in a sidebar view",
+  "Search the vault by meaning from the command palette or sidebar",
+  "Insert wikilinks to notes picked by meaning with ;; or a link button",
+  "Run a built-in local embedding model or connect Ollama, OpenAI-compatible APIs, or Gemini",
+  "Export similar-note results to JSON for external coding agents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks",
+   "Quick switcher"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Mobile installs default to the OpenAI provider because large built-in models can crash Obsidian on low-memory phones. The index is stored in IndexedDB and does not sync across devices, while settings and API keys are stored in plain text in the plugin data.json inside the vault. Built-in models require ONNX weights; many Hugging Face repos only ship PyTorch/safetensors and fail to load.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's built-in search matches keywords, so notes about the same topic with different wording stay undiscovered.",
+ "profiledAt": "2026-11-28",
+ "provider": "Baidu",
+ "readmeHash": "b78b1723fb105a8dbf7f72974490dbc8b8f3b73a",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, OpenAI-compatible, or Google Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama server",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenRouter account for ZDR setting",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI plugin that shows semantically similar notes, offers meaning-based search, and inserts links to related notes.",
+ "tags": [
+  "embeddings",
+  "semantic-search",
+  "ollama",
+  "openai-compatible",
+  "gemini",
+  "openrouter",
+  "local-llm",
+  "hugging-face"
+ ],
+ "textHash": "5d1f6945f0850dd6e7663656ef3ff9f109b7eb37"
+}

@@ -1,0 +1,49 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create prompts in pc code blocks parameterized with {{mustache}} placeholders",
+  "Define placeholder values as static frontmatter values or Obsidian links",
+  "Resolve linked note content, including specific sections via [[file#header]]",
+  "Recursively resolve nested pc blocks using the host note's frontmatter",
+  "Copy resolved prompts into ChatGPT or another LLM"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin resolves prompts only; it does not call an LLM API itself — resolved prompts are copied and pasted into an external chat interface.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn vault notes into parameterized, reusable prompts, so users rewrite the same reusable data into prompts for each LLM session.",
+ "readmeHash": "d1dcf7dc70eb089f57d4350adac01e3728980af6",
+ "relations": [
+  {
+   "evidence": "Copy the resolved pc block and paste it into ChatGPT or another LLM.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Prompt builder that composes reusable LLM prompts from pc code blocks with mustache placeholders resolved from frontmatter and vault links.",
+ "tags": [
+  "llm",
+  "chatgpt",
+  "mustache",
+  "prompt-engineering",
+  "code-blocks"
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync meetings from the Fathom API on demand via command or ribbon",
+  "Create one note per meeting with properties, summary, action-item tasks and a recording link",
+  "Store the Fathom API key in Obsidian's secret storage",
+  "Remember deleted notes so a later sync does not recreate them",
+  "Apply templates, tags, extra properties, daily note links and date or participant filters (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault or note-sync tool; it only imports Fathom meeting notes into your vault.",
+ "extras": "Freemium: core sync is free; Pro features (transcripts, templates, filters, tags, extra properties) require a $5/month or one-time $15 GitHub Sponsors sponsorship. Unofficial and not affiliated with Fathom; the README documents privacy and network behavior in detail. After updates it opens a What's new tab that promotes other NoteMods plugins and Zovo Chat (can be disabled).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull meeting summaries and action items from a Fathom account into the vault as notes.",
+ "readmeHash": "bd086efd4950abd69ffa12826ddd98fc8f39f218",
+ "relations": [
+  {
+   "evidence": "The plugin only reads your own meetings through the public Fathom API, with an API key",
+   "plugin": "Fathom",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It checks if the signed-in account sponsors theluckystrike",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Fathom account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "personal Fathom API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike for Pro features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Unofficial Fathom integration that syncs meeting summaries, action items and transcripts from the Fathom API into one vault note per meeting.",
+ "tags": [
+  "fathom",
+  "meeting-notes",
+  "transcripts",
+  "action-items",
+  "github-sponsors",
+  "api-key"
+ ]
+}

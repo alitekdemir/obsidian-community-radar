@@ -1,0 +1,78 @@
+{
+ "also": [
+  "code",
+  "files"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ", "
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Files",
+   "Tags"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin. All data processing is local-first and vault-contained.",
+ "intent": "alternative",
+ "intentEvidence": "Most Obsidian ↔ AI plugins are either a chat panel or a bridge that hands an agent broad read/write/edit access to your notes. Engram is neither:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Existing AI plugins often give agents broad read/write access to notes, risking silent corruption or unauthorized changes to the vault.",
+ "readmeHash": "5c705361fa61dde468671d99af0c51b80ad619fd",
+ "relations": [
+  {
+   "evidence": "Safe, reviewable memory for Claude Code",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "delegates to the Text Extractor plugin if you have it",
+   "plugin": "Text Extractor",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A safe, reviewable memory layer for AI coding agents like Claude Code, storing structured memory as local Markdown files in the vault.",
+ "tags": [
+  "claude-code",
+  "local-first",
+  "review-inbox",
+  "bm25",
+  "vector-search"
+ ]
+}

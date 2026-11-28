@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import exported Pages Markdown files into vault notes with a text-only preview",
+  "Verify figure-to-HTML pairings by ID, reference and SHA-256 before moving sources into place",
+  "Restore embedded PNG/JPEG/GIF/WebP images and convert bare latex blocks to display math",
+  "Watch a folder and automatically clean up new exports in place",
+  "Back up notes before writes and skip identical or conflicting imports"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a ChatGPT conversation importer; it imports ChatGPT Pages documents whose HTML visualizations were prepared with a companion authoring skill.",
+ "extras": "Free and open source with no account, API key, payment or network requests from the importer itself; interactive HTML executes only after explicit trust and may make network requests. Documentation lives largely in linked external guides; interface supports English, Traditional and Simplified Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "ChatGPT Pages exports only carry native image references, so interactive charts, images and formulas arrive in Obsidian as broken references or raw code blocks.",
+ "readmeHash": "1bd94f10915c4cc45996e875be0fe6fae68dec86",
+ "relations": [
+  {
+   "evidence": "use the separately installed Polyglot Renderer to render html fences",
+   "plugin": "Polyglot Renderer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GPT Pages Importer connects exported Markdown with complete, portable HTML sources",
+   "plugin": "ChatGPT Pages",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ChatGPT Pages with an AI agent running the authoring skill",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Polyglot Renderer",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Importer that turns ChatGPT Pages Markdown exports into Obsidian notes, restoring verified portable HTML charts, embedded images and display math.",
+ "tags": [
+  "chatgpt-pages",
+  "interactive-charts",
+  "plotly",
+  "mathbox",
+  "sha-256",
+  "portable-html"
+ ]
+}

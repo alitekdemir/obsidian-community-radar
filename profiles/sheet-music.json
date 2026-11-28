@@ -1,0 +1,77 @@
+{
+ "also": [
+  "audio",
+  "import"
+ ],
+ "audience": [
+  "musicians",
+  "guitarists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render ABC notation blocks with playback, tempo and transposition controls",
+  "Render strumming patterns with stroke tokens and animated playback",
+  "Render chord sheets with guitar, ukulele and piano diagrams, transposition and lyrics translation",
+  "Write chord progressions as Roman numerals or chord names with harmonic-function coloring and a rendered score",
+  "Capture MIDI keyboard input into notes and export .mid files"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Makes network requests only for lyrics translation (Google Translate) and song import from Ultimate Guitar or GuitarTuna links; imported lyrics are for personal use and subject to the source sites' terms. Packages (ABC, strumming, chords, progression, MIDI, import) can each be toggled independently in settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "music",
+ "problem": "Obsidian has no built-in way to render playable music notation, chord diagrams or strumming patterns inside notes, so musicians must keep songs elsewhere.",
+ "readmeHash": "a669da9651e7aa5934af6c62797cabc7a2947735",
+ "relations": [
+  {
+   "evidence": "Any abcjs visual parameter is accepted.",
+   "plugin": "abcjs",
+   "type": "extends"
+  },
+  {
+   "evidence": "Numerals follow the RomanText chord grammar, the standard used by music21.",
+   "plugin": "music21",
+   "type": "inspired"
+  },
+  {
+   "evidence": "paste a link to a chord page on a supported site",
+   "plugin": "Ultimate Guitar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Translation uses Google Translate (internet connection required)",
+   "plugin": "Google Translate",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MIDI keyboard",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Renders ABC notation, strumming patterns, chord sheets and Roman numeral progressions in notes, with playback, MIDI capture and song import.",
+ "tags": [
+  "abc-notation",
+  "midi",
+  "chords",
+  "roman-numeral-analysis",
+  "romantext",
+  "guitar",
+  "ukulele",
+  "google-translate"
+ ]
+}

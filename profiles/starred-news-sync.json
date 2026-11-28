@@ -1,0 +1,74 @@
+{
+ "also": [
+  "import",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import starred RSS reader items as notes with YAML frontmatter",
+  "Sync manually, on startup, or on an interval while Obsidian is open",
+  "Fetch article pages and extract readable content with Defuddle",
+  "Deduplicate imports by URL and rss_hash frontmatter fields",
+  "Render imported notes from Templater-compatible templates"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an RSS reader itself; it syncs already-starred items from an external reader service or server into Obsidian.",
+ "extras": "Extensive security notes: article fetching blocks private-network hosts, strips scripts and inline handlers, and removes remote images by default because previewing notes may contact image hosts and disclose your IP address. Credentials are stored in the plugin's Obsidian data file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull starred items from an external RSS reader into the vault as notes.",
+ "readmeHash": "d2534885d348fe4702cebac323b215e18a652a14",
+ "relations": [
+  {
+   "evidence": "If Templater is installed, Templater commands are rendered with the imported RSS item injected as rss.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "consider using an attachment-localizing Obsidian plugin such as Local Images Plus",
+   "plugin": "Local Images Plus",
+   "type": "integrates"
+  },
+  {
+   "evidence": "consider using the AI for Templater plugin",
+   "plugin": "AI for Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an RSS reader (FreshRSS, Tiny Tiny RSS, Inoreader, Feedly, Miniflux, or compatible API)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API tokens or credentials for the reader (bearer token, API password, or username/password)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Imports starred or saved items from RSS readers (FreshRSS, Feedly, Inoreader, Miniflux, Tiny Tiny RSS) into the vault as Markdown notes with YAML frontmatter.",
+ "tags": [
+  "rss",
+  "freshrss",
+  "feedly",
+  "inoreader",
+  "miniflux",
+  "tiny-tiny-rss",
+  "defuddle",
+  "google-reader-api"
+ ]
+}

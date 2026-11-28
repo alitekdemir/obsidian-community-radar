@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run article presets (summarize, translate, rewrite, key points, title + tags) on the current note or selection and copy, insert, append, or apply results",
+  "Chat with the note or selection attached in multi-tab conversations with streamed replies and resumable history",
+  "Run a chosen preset over every note in a folder, writing results into each note",
+  "Apply JSON Schema preset output to note frontmatter, merging title and tags",
+  "Configure the agy executable path, model, reply language, tool access, and custom instructions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not the Antigravity CLI itself; it is an Obsidian bridge that drives the already-installed and signed-in agy executable.",
+ "extras": "Desktop only (the plugin spawns a local process); only Windows 10 was manually tested, macOS and Linux use the same protocol but are unverified. Installable via BRAT while pending directory acceptance.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI text processing, and most AI plugins require an API key stored in the vault instead of reusing an existing signed-in CLI.",
+ "readmeHash": "e01c4d055e8f00ec1c45c9b294d200c6175a0905",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Antigravity CLI (agy)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Antigravity CLI (agy), installed and signed in",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google Antigravity account via the CLI's own sign-in",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI assistant that runs Gemini models through the locally installed Antigravity CLI to summarize, translate, rewrite, and chat about notes, with batch folder runs.",
+ "tags": [
+  "gemini",
+  "agy-cli",
+  "chat",
+  "summarization",
+  "translation",
+  "batch-processing",
+  "json-schema"
+ ]
+}

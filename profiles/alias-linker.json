@@ -1,0 +1,60 @@
+{
+ "also": [
+  "navigation",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Resolve bare [[alias]] wikilinks to notes that define that alias",
+  "Keep default Obsidian resolution when a link matches a real file name",
+  "Pick the nearest note by folder distance when multiple notes share an alias",
+  "Support bare aliases in graph view, backlinks, embeds, and preview link state",
+  "Index aliases and refresh the index when files or metadata change"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Graph view",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not in the community plugin store; installed via BRAT or by manually copying main.js and manifest.json. The README warns that reused aliases across notes need explicit [[file|alias]] links for deterministic targeting, and notes that letting other plugins like DataView resolve bare aliases is untested.",
+ "intent": "improve",
+ "intentEvidence": "Internally, the plugin extends Obsidian's link lookup step with an alias fallback.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian resolves wikilinks only by file path, so linking via an alias requires writing the verbose [[filename|alias]] form.",
+ "readmeHash": "05b5e74b8a3c31dd150175482d3c6581604bf205",
+ "relations": [
+  {
+   "evidence": "The original idea and a working prototype came from nothingislost/obsidian-auto-linker.",
+   "plugin": "nothingislost/obsidian-auto-linker",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Link-resolution patch that lets bare wikilinks like [[alias]] open notes that define that alias as if the alias were the file name.",
+ "tags": [
+  "aliases",
+  "wikilinks",
+  "link-resolution",
+  "metadata-cache",
+  "brat"
+ ]
+}

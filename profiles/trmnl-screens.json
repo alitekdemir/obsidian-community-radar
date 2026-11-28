@@ -1,0 +1,89 @@
+{
+ "also": [
+  "tasks",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push six screen types (daily tasks, due tasks, Dataview query, resurfaced note, writing stats, pinned note) to a TRMNL display",
+  "Send screen data as JSON to a TRMNL webhook automatically after edits and on a regular check",
+  "Support full-screen and mashup layouts on TRMNL OG and TRMNL X",
+  "Preview exactly what would be sent before pushing",
+  "Store webhook URLs in Obsidian's secret storage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Rate-limited to 12 pushes per hour and 5 KB per push (30 and 10 KB with TRMNL+); on mobile, pushes happen only while Obsidian is open; requires Obsidian 1.11.4 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to show vault data like today's tasks or writing streaks on an external e-ink display.",
+ "readmeHash": "79f48d8c95a8e11d0c3833ad9dcc9edbbb3438fd",
+ "relations": [
+  {
+   "evidence": "Put your Obsidian vault on a TRMNL e-ink display.",
+   "plugin": "TRMNL",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The rows of any Dataview TABLE or LIST query. Needs the Dataview plugin.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Reads the Tasks plugin's 📅 2026-10-09 and Dataview's [due:: 2026-10-09].",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uses your Daily Notes or Periodic Notes settings.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TRMNL display and account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "TRMNL+ (higher push limits)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Pushes a screen of vault data (tasks, Dataview queries, resurfaced notes, writing stats, a pinned note) to a TRMNL e-ink display.",
+ "tags": [
+  "e-ink-display",
+  "webhook",
+  "dataview",
+  "tasks-plugin-format",
+  "writing-streak",
+  "resurfacing"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "automation",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Update a note's property with the Kanban column name when its card is moved",
+  "Customize the property name to update",
+  "Toggle notifications when a status changes",
+  "Enable debug logging and a test scan of the active board"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README notes that cards must contain internal links to notes and suggests using a dataview query (e.g. all notes with status != 'Done') to build cross-board views.",
+ "intent": "alternative",
+ "intentEvidence": "Alternative I found to this (MetaEdit plugin) was slow and buggy",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found MetaEdit, an alternative approach, slow and buggy, and wanted a lightweight plugin that is snappy and just works.",
+ "primary": "project-management",
+ "problem": "Obsidian Kanban boards don't sync column changes back to the linked notes, so card status and note properties drift apart.",
+ "readmeHash": "c76fdac513cc1382fb122677d5f116a11431f806",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Obsidian Kanban",
+   "type": "extends"
+  },
+  {
+   "evidence": "Alternative I found to this (MetaEdit plugin) was slow and buggy",
+   "plugin": "MetaEdit",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Kanban",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Kanban workflow helper that automatically writes a Kanban card's column name to the linked note's status property when the card is moved.",
+ "tags": [
+  "kanban",
+  "dataview",
+  "task-status"
+ ]
+}

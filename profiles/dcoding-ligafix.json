@@ -1,0 +1,70 @@
+{
+ "also": [
+  "theming",
+  "appearance"
+ ],
+ "audience": [
+  "korean-language-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Reset heading letter-spacing to normal so ligatures render in H1-H6",
+  "Leave body-text styling under theme control",
+  "Generate D2_LigaFix derivative fonts from NAVER D2Coding with a bundled Python converter",
+  "Verify derivative font structure and hashes before export"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin ships no font file; ligatures only appear after the user builds and installs the D2_LigaFix derivative font (Python 3.10+ needed for the converter, which verifies SHA-256 and Git blob hashes against upstream). The README is written in Korean. Marked as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "fonts",
+ "problem": "Chromium disables OpenType ligatures on elements with non-zero letter-spacing, so themed headings fail to render ligatures that work in body text.",
+ "readmeHash": "93c06044f951eb55e7ac3d4fe47239d83522e517",
+ "relations": [
+  {
+   "evidence": "D2Coding에서는 ->, =>, !=, <=, >= 같은 programming ligature가 지원됩니다.",
+   "plugin": "D2Coding",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "D2 LigaFix",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "D2_LigaFix font installed system-wide (built from NAVER D2Coding via the bundled converter)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10+ (only to run the font converter)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "CSS-only plugin that restores D2Coding programming ligatures (->, =>, !=, <=, >=) in headings by resetting the theme's letter-spacing.",
+ "tags": [
+  "d2coding",
+  "ligatures",
+  "hangul",
+  "letter-spacing",
+  "font-converter",
+  "opentype"
+ ]
+}

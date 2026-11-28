@@ -1,0 +1,78 @@
+{
+ "also": [
+  "project-management",
+  "dates"
+ ],
+ "audience": [
+  "academics",
+  "phd-students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Add typed tasks to daily notes via a role → project → type toolbar",
+  "Sort task lists by role, project, due date and created date",
+  "Render tasks as colored role, project and type badges",
+  "Show progress with a Today panel, role dividers and filters",
+  "Track tasks, time periods and timesheets in a dashboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not general PhD thesis management; it only organizes tasks, time tracking and progress from daily notes.",
+ "extras": "Listing notes the plugin has not been manually reviewed by Obsidian staff. Roles and projects are stored in a roles-projects-themes.json file that stays in sync with settings and can be edited as code.",
+ "intent": "improve",
+ "intentEvidence": "Every role, project and type is pushed into Custom Badges as a badge",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian task lists have no built-in way to group tasks by role and project, order them by role/due/created date, or render typed metadata as colored badges.",
+ "readmeHash": "023b05b8485f58b28d2802532821c853d3430d64",
+ "relations": [
+  {
+   "evidence": "Every role, project and type is pushed into Custom Badges as a badge",
+   "plugin": "Custom Badges",
+   "type": "extends"
+  },
+  {
+   "evidence": "Due date is the Tasks plugin's 📅 YYYY-MM-DD",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It runs automatically when a new daily note is created (after Rollover adds yesterday's tasks",
+   "plugin": "Rollover",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Custom Badges",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Rollover",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Task manager that adds role- and project-typed tasks from daily notes, sorts them, and renders them as colored Custom Badges.",
+ "tags": [
+  "custom-badges",
+  "daily-notes",
+  "rollover",
+  "time-tracking",
+  "dashboard",
+  "roles"
+ ]
+}

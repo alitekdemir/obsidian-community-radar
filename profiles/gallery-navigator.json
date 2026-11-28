@@ -1,0 +1,70 @@
+{
+ "also": [
+  "files",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "browse the vault as a folder/tag tree with a cover-image card wall",
+  "search notes and PDFs with a built-in BM25 full-text index",
+  "preview images in a Quick Look-style peek with share and copy actions",
+  "render bare URLs as rich link preview cards",
+  "reorder, recolor, hide and batch-move folders and cards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Search"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not just an image-gallery viewer; it is a full vault navigator whose cards cover notes, PDFs, Canvas and Base files, and web links.",
+ "extras": "Includes a detailed network-use and file-access disclosure (link metadata fetches, favicon service, optional Instagram oEmbed calls; no telemetry). Not yet in the community store; install manually or via BRAT. Settings and caches from the absorbed standalone plugins are not migrated.",
+ "intent": "alternative",
+ "intentEvidence": "Both of my earlier standalone plugins are now built into Gallery Navigator as the Image peek and Link cards modules.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian's built-in file explorer is a text list, which makes browsing image-heavy or visual collections hard to scan.",
+ "readmeHash": "7ec5ded1f9473b5c9bb2242adef0929f2b1291ad",
+ "relations": [
+  {
+   "evidence": "Coming from Image Peek or Link Card Preview? Disable them first.",
+   "plugin": "Image Peek",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Both of my earlier standalone plugins are now built into Gallery Navigator as the Image peek and Link cards modules.",
+   "plugin": "Link Card Preview",
+   "type": "replaces"
+  },
+  {
+   "evidence": "PDF text is read from the Text Extractor plugin's cache when available",
+   "plugin": "Text Extractor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Text Extractor",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Visual file navigator that replaces the file list with a folder/tag tree and a masonry wall of cover-image cards for notes, images, PDFs, Canvas and links.",
+ "tags": [
+  "masonry",
+  "cover-image",
+  "bm25",
+  "link-previews",
+  "tracking-parameters",
+  "thumbnails"
+ ]
+}

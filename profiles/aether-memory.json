@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai",
+  "syncing"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes to an aether-mcp server",
+  "Filter private notes and ignored paths before upload",
+  "Review and approve AI-proposed memories in a sidebar inbox",
+  "Run Git lattice sync for team vaults",
+  "Warm a GPU KV cache on an inference server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a personal memory or spaced-repetition tool; it feeds vault notes to an external AI memory server.",
+ "extras": "Requires running the aether-mcp control plane locally or connecting to a remote team gateway; remote and loopback https endpoints need an API key. Launch video and full docs are hosted outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI agents have no access to vault knowledge, and pushing notes to a server risks sending private ones off disk.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "2bfc67be2dd62d1df1e5d8a53320b590eb63fa23",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "connects Obsidian Desktop to an aether-mcp control-plane server",
+   "plugin": "aether-mcp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "users who run their own vLLM or SGLang server",
+   "plugin": "vLLM",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "aether-mcp",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "scoped bearer API key (aek_...)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Syncs vault notes to an aether-mcp server so AI agents can use them as memory, while keeping private notes on disk.",
+ "tags": [
+  "mcp",
+  "ai-agents",
+  "llm",
+  "local-first",
+  "privacy"
+ ],
+ "textHash": "1a95563ec67ffc60def09adb2c78a3582afabcc7"
+}

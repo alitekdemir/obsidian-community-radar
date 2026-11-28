@@ -1,0 +1,70 @@
+{
+ "also": [
+  "links",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Automatically tag and link notes to related notes via an LLM",
+  "Create new notes with a template from the sidebar",
+  "Query the vault with natural-language questions",
+  "Keep the graph and vector database updated as notes change",
+  "Run the LLM locally through Ollama or through the Gemini API"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Tags view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "An LLM is required for the main workflow, either locally via Ollama (models must be downloaded first) or via a Gemini API key; the README references an architecture diagram and workflow code in the repository's workflows folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author kept abandoning note-taking because finding and applying an organization method took more time than creating the notes themselves.",
+ "primary": "ai",
+ "problem": "Organizing notes manually takes so much effort that users get stuck researching note-taking methods instead of writing content.",
+ "readmeHash": "7014422f2af05ef98df390e9f84731659a127612",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "put it into the plugin settings and it will use it to organize and query your notes",
+   "plugin": "Gemini API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "LLM-powered organizer that automatically tags and links new notes to related notes using the Zettelkasten method, with natural-language querying.",
+ "tags": [
+  "zettelkasten",
+  "ollama",
+  "gemini",
+  "langchain",
+  "vector-database",
+  "local-llm"
+ ]
+}

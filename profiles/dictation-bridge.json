@@ -1,0 +1,73 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record dictation in desktop Obsidian and stop or cancel a session",
+  "Send recordings to a self-hosted HTTPS transcription gateway",
+  "Insert the transcript at the captured cursor or selection",
+  "Configure expected languages, a vocabulary of up to 50 terms, and whole-line Markdown formatting commands",
+  "Recover pending transcripts in a dialog when the target note or selection has changed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; requires Obsidian 1.14.5+, OS-encrypted SecretStorage and microphone access. Recordings capped at 4 minutes 55 seconds and 5 MiB. No hosted service or API key is supplied, and provider charges fall under the operator's OpenAI account. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in speech-to-text, and dictating without uploading note content to a hosted service requires a transcription setup of your own.",
+ "readmeHash": "6056f0a4a648461cd47d92d1949d9d118c5a884b",
+ "relations": [
+  {
+   "evidence": "If Cipherfold is present, dictation requires an unlocked compatible session and is cancelled before lock.",
+   "plugin": "Cipherfold",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a self-hosted gateway and a paid OpenAI API account",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted HTTPS transcription gateway",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "OpenAI API",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Dictation plugin that records audio in desktop Obsidian and inserts the transcript from a self-hosted HTTPS gateway at the cursor.",
+ "tags": [
+  "speech-to-text",
+  "transcription",
+  "openai",
+  "microphone",
+  "self-hosted",
+  "voice"
+ ]
+}

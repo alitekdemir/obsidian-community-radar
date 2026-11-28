@@ -1,0 +1,61 @@
+{
+ "also": [
+  "backup",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push or pull vault files between local and remote directories via rsync",
+  "Schedule automatic syncs at a set interval in minutes",
+  "Preview changes with dry-run mode before syncing",
+  "Exclude files or directories from syncing by pattern",
+  "Log sync operations to a file and connect over SSH with password or private key"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "On Windows, rsync is not natively available; the README documents setting it up through WSL, including finding the rsync binary path.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, so users need a way to sync their vault across devices using their own rsync setup.",
+ "readmeHash": "0f3aff2a10c7c5ad96ee5431a9ed5f54462a8e89",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "rsync",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "WSL (Windows Subsystem for Linux)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "SSH credentials (password or private key) for the remote server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Rsync-based sync plugin that pushes or pulls vault files to a remote server over SSH, with scheduled automatic syncing.",
+ "tags": [
+  "rsync",
+  "ssh",
+  "wsl",
+  "remote-server"
+ ]
+}

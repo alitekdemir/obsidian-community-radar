@@ -1,0 +1,57 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show a floating overlay while sync is running",
+  "Display a completion notice that hides after 5 seconds or stays visible",
+  "Distinguish checking, paused, disconnected, error, and unrecognized states",
+  "Switch to a 30px icon-only overlay with rotating spinner and status icons",
+  "Limit automatic notices to the first sync after launch"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not sync files itself; it only displays the status reported by the official Sync core plugin.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. It relies on undocumented internal APIs (app.internalPlugins, getStatus, status-change/new-log events) that may break in future Obsidian versions, and mobile behavior has not been verified on real Android/iOS devices. Manual installation from GitHub Releases is required.",
+ "intent": "improve",
+ "intentEvidence": "为官方 Obsidian Sync 增加电脑、Android、iOS 都可显示的中文浮窗",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync has no clear, persistent on-screen indicator of sync status, so users can start editing before syncing finishes, especially on mobile.",
+ "readmeHash": "161d808277015a8517cd07d3ad2bfb9ec5ad32f6",
+ "relations": [
+  {
+   "evidence": "需要开启官方核心插件 Sync 并连接远程仓库",
+   "plugin": "Obsidian Sync (official core plugin)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Official Sync core plugin with a connected remote vault",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Floating status window that shows the official Obsidian Sync progress, completion, and error states on desktop and mobile.",
+ "tags": [
+  "sync-status",
+  "floating-overlay",
+  "status-notification",
+  "mobile",
+  "internal-api"
+ ]
+}

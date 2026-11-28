@@ -1,0 +1,108 @@
+{
+ "also": [
+  "navigation",
+  "bases"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Register folders as object types",
+  "Browse types and folders in a sidebar navigator",
+  "Generate type pages and folder boards backed by Bases",
+  "Show daily notes and tasks in a calendar",
+  "Provide a Home dashboard and new-tab search panel"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Bookmarks",
+   "Bases",
+   "Search",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a text-folding or typing tool: it registers folders as object types and builds navigation, pages and boards around them.",
+ "extras": "Weather in the Home greeting is off by default and requests open-meteo.com only; no other network requests or telemetry. The plugin hooks into Obsidian internals for embedded Bases tabs, File explorer reveal and the New tab command, all undone when disabled. A demo vault is included.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted Obsidian to work like object-based note apps, where a folder of notes becomes a type.",
+ "primary": "folders",
+ "problem": "Notes in Obsidian have no type beyond frontmatter, so a folder of similar notes gets no shared page, board or navigation of its own.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "eaa5f1404c8c4082d7c91dcf24e1ce077a97ff78",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Notion-style Board / List / Feed views for type pages and boards (otherwise core Table and Cards are used)",
+   "plugin": "Extended Base",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Folder notes, clicking a folder opens its folder note with a board of that folder's notes.",
+   "plugin": "Folder notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TaskNotes — one note per task; add them in natural language",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tasks — the checkbox tasks the Tasks plugin tracks, with its global filter",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a Notion-like search panel in every new tab",
+   "plugin": "Notion",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Extended Base",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Folder notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Plugin that turns folders into object types, adding a sidebar navigator, type pages with Bases boards, a Home dashboard and a new-tab search panel.",
+ "tags": [
+  "folder-structure",
+  "file-explorer",
+  "dashboard",
+  "daily-notes",
+  "tasknotes",
+  "tasks-plugin",
+  "notion"
+ ],
+ "textHash": "488e431f44f63046cd5ee5aa600cc0908840fb4c"
+}

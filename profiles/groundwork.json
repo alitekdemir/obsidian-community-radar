@@ -1,0 +1,94 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Plan goals with due dates, starting from foundations and working up",
+  "Grade concept knowledge as solid, shaky, learning, rusty, or not started via diagnostic quizzes",
+  "Generate and study flashcard decks in one sitting",
+  "Chat with the tutor and attach slides, PDFs, or images from allowed folders",
+  "Publish the concept map to your Groundwork profile (optional)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: free tier with monthly limits, $6 bring-your-own-model and $20 hosted plans. Desktop-only. Account is required before the tutor runs; tutor memory lives on the account, not the vault. README includes detailed network, privacy, and filesystem disclosure. Flashcard ratings do not affect concept-map marks; publishing the map is off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian stores what you write but has no built-in way to diagnose what you know, plan study toward a dated goal, or quiz you on it.",
+ "readmeHash": "f7edc67a91b658a0f715569bb6759af946ac4cad",
+ "relations": [
+  {
+   "evidence": "Anthropic, through Claude Code on this computer, runs the tutor when you use your own Claude subscription.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It uses the Claude subscription on your computer, or a key from OpenRouter, Anthropic, Google, xAI, or OpenAI.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or a key from OpenRouter, Anthropic, Google, xAI, or OpenAI",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Paid plans are billed on the Groundwork website through Stripe.",
+   "plugin": "Stripe",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sign in with Google on that website.",
+   "plugin": "Google",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Groundwork account (Google sign-in)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Groundwork paid plan ($6 or $20/month)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model key (OpenRouter, Anthropic, Google, xAI, or OpenAI)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code executable (for bring-your-own Claude subscription)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI tutor that maps the concepts behind a learning goal, grades your knowledge with quizzes, and plans the next study step, storing memory on its account.",
+ "tags": [
+  "claude",
+  "openrouter",
+  "anthropic",
+  "openai",
+  "concept-map",
+  "diagnostic-quiz",
+  "tutor-chat"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Expose REST endpoints for Obsidian-only plugin features via Local REST API",
+  "Dispatch Templater, Dataview, Tasks, Excalidraw, Git and Remotely Save operations to the MCP server",
+  "Reuse Local REST API bearer-token authentication",
+  "Migrate settings from the formerly named Reliquary-TC version on first load"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "A small optional bridge plugin, not the reliquary-tc MCP server itself; every filesystem-level server feature works without it.",
+ "extras": "Most of the linked README documents the reliquary-tc MCP server, not the plugin; plugin-specific detail is deferred to packages/plugin/README.md. Desktop-only. The repo notes that headline retrieval figures were withdrawn as unreproducible (relevant to the server, not this bridge).",
+ "intent": "improve",
+ "intentEvidence": "It extends Local REST API with endpoints for Obsidian-only features (Templater, Dataview, Tasks, Excalidraw, Git, Remotely Save)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "External MCP servers can read vault files directly but cannot reach Obsidian-internal plugin features like Templater, Dataview, Tasks, Excalidraw, Git or Remotely Save.",
+ "readmeHash": "b69f6e1ddb9f7ae35c626c4084fcbf40b97f742f",
+ "relations": [
+  {
+   "evidence": "It extends Local REST API with endpoints for Obsidian-only features",
+   "plugin": "Local REST API",
+   "type": "extends"
+  },
+  {
+   "evidence": "it's a small optional bridge, not the server described above",
+   "plugin": "reliquary-tc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Local REST API",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "reliquary-tc MCP server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Companion bridge plugin that extends Local REST API with endpoints exposing Obsidian-only plugins to the reliquary-tc MCP server.",
+ "tags": [
+  "mcp",
+  "local-rest-api",
+  "templater",
+  "dataview",
+  "excalidraw",
+  "remotely-save",
+  "ai-agents"
+ ]
+}

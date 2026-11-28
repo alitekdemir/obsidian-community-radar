@@ -1,0 +1,61 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files in both directions over WebDAV",
+  "Transfer only chunks missing on the receiving side",
+  "Keep a conflict copy when both devices edit a file",
+  "Encrypt remote chunks and the file index end to end",
+  "Save local history snapshots before a download overwrites a file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a diff viewer; it uses content-defined chunking to sync only changed blocks and keeps conflicts as copies.",
+ "extras": "Desktop only, Obsidian 1.13.0 or later; interface in English and Simplified Chinese; MIT licensed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault through a WebDAV server otherwise moves whole files on every change, which is slow and bandwidth-heavy for large notes and attachments.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "bb09117c5376bf3cbe446c462231842abbc00986",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "A WebDAV server you can read and write to, such as Nextcloud, ownCloud, Synology, or Nutstore.",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "WebDAV sync plugin that splits files into content-defined chunks and transfers only the blocks the receiving device is missing.",
+ "tags": [
+  "webdav",
+  "nextcloud",
+  "end-to-end-encryption",
+  "conflict-resolution",
+  "version-history"
+ ],
+ "textHash": "d56d455bb36908a70e1da1ac4ba50247f61b162f"
+}

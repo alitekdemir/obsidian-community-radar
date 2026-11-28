@@ -1,0 +1,82 @@
+{
+ "also": [
+  "canvas",
+  "code"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run any command in a terminal tile",
+  "Show web pages in tiles",
+  "Restore tiles and agent conversations after a restart",
+  "Let coding agents open, fork and write to tiles",
+  "Stop all running programs from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a life-science or plant tracker; the tiles are terminals, web pages and running programs.",
+ "extras": "Not in the community plugin directory; built from source. macOS and Linux only, no Windows or mobile support. Installs files outside the vault (tmux server, ~/.vivarium, agent skills) and lists them in the README; tile files store commands and URLs, so secrets should not be put in them.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built for personal use, with the priority on getting a working prototype done quickly.",
+ "primary": "developers",
+ "problem": "Notes and canvas cards are static, so terminals, dev servers and coding agents run in separate windows away from the notes they belong to.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "7a86edfba3215c496b2b3f3c3ecdd05de62ab7b4",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Inspired by FlutterFlow's Campus.",
+   "plugin": "Campus",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Claude Code and Codex tiles resume their own conversation.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code and Codex tiles resume their own conversation.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "programs run outside Obsidian, in tmux",
+   "plugin": "tmux",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "tmux",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Canvas tiles that run terminals, coding agents, dev servers and web pages, kept alive in tmux after Obsidian closes.",
+ "tags": [
+  "terminal",
+  "claude-code",
+  "codex",
+  "ai-agents",
+  "webview",
+  "cli",
+  "macos",
+  "linux"
+ ],
+ "textHash": "abd6785aff929f71d826fc7829b50da57ced1855"
+}

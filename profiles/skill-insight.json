@@ -1,0 +1,78 @@
+{
+ "also": [
+  "data",
+  "visualization"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Detect installed agent skills on startup",
+  "Mine usage from local session transcripts",
+  "Visualize usage, sessions, and revisions in a dashboard",
+  "Detect and preview unregistered skill revisions",
+  "Report data sources with ingest controls"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not about Obsidian's own capabilities; it tracks usage of AI agent skills recorded in Codex CLI and Claude Code sessions.",
+ "extras": "Desktop only; requires Node.js filesystem access. No network calls and no vault writes; data stays in the plugin folder. .zst-compressed transcript archives are skipped. Not yet in the community store (install via BRAT or manual copy).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Users cannot see which AI agent skills they actually use, how often, or how those skills change over time.",
+ "profiledAt": "2026-11-24",
+ "provider": "Baidu",
+ "readmeHash": "9bdf94518f24750fcbb2be444bd41306bc4b2ea8",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "local agent session transcripts (Codex CLI, Claude Code)",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Only Codex CLI and Claude Code transcripts are mined today",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "sessions registered by the Claudian plugin for the current vault",
+   "plugin": "Claudian",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI or Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Claudian",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Desktop-only dashboard that mines local AI agent session transcripts to show skill usage, sessions, and revisions.",
+ "tags": [
+  "agent-skills",
+  "ai-agents",
+  "claude-code",
+  "codex",
+  "dashboard",
+  "heatmap"
+ ],
+ "textHash": "cadad6a5a3efa028ddb21515ab1dddce27223ce1"
+}

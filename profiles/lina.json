@@ -1,0 +1,75 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Index notes locally for fast keyword text search",
+  "Find notes by meaning with vector semantic and hybrid search",
+  "Run AI slash commands (/ask, /tags, /yaml) on the active note",
+  "Coordinate search data across devices with Producer and Companion roles",
+  "Suggest tags and frontmatter properties that require explicit confirmation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns the plugin is in alpha and that vault backups are recommended. Remote AI providers bill the user directly; Lina does not resell API credits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search is keyword-only, and AI plugins typically send note content to providers without clear local-first boundaries or cost control.",
+ "readmeHash": "8e0b83872a5b0bce41a960e530b95706a81ff441",
+ "relations": [
+  {
+   "evidence": "Local AI (Ollama): Operates entirely on your local machine with complete privacy and zero API billing.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Remote AI (Mistral, OpenRouter): Requires an API key and internet connectivity.",
+   "plugin": "Mistral",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Remote AI (Mistral, OpenRouter): Requires an API key and internet connectivity.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Mistral or OpenRouter API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Privacy-first search and note assistant that indexes notes locally and adds optional semantic search and AI slash commands.",
+ "tags": [
+  "semantic-search",
+  "hybrid-search",
+  "embeddings",
+  "ollama",
+  "mistral",
+  "openrouter",
+  "slash-commands",
+  "privacy"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture messages from Telegram, WhatsApp, Slack, email, SMS or Raycast",
+  "Save captures directly to Obsidian notes using a configured template",
+  "Route captures through a Hints bot and the Hints web app",
+  "Select captures with a tag (default #obsidian) configured in a Hints flow"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone AI assistant; it depends on the external Hints web app and bot to route captures into the vault.",
+ "extras": "Requires setup outside Obsidian: a free Hints account, creating a flow in the Hints web app, and publishing it before use; advanced use cases are documented on the author's website, not in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to remotely capture content from messaging apps and other external services into vault notes.",
+ "readmeHash": "14b5de600a94f9eb8e6a210826ea70afa9bc31b2",
+ "relations": [
+  {
+   "evidence": "Forward or send any message to Hints bot via Telegram, WhatsApp or Slack",
+   "plugin": "Telegram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send via Email, SMS or capture with RayCast",
+   "plugin": "Raycast",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Hints Web App account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Telegram, WhatsApp, Slack, Email, SMS or Raycast",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Quick-capture plugin that saves messages sent through Hints AI from Telegram, WhatsApp, Slack, email, SMS or Raycast into notes using a template.",
+ "tags": [
+  "telegram",
+  "whatsapp",
+  "slack",
+  "raycast",
+  "email",
+  "sms",
+  "quick-capture",
+  "ai-assistant"
+ ]
+}

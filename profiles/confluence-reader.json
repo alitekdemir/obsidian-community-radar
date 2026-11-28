@@ -1,0 +1,61 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull single Confluence pages by URL, page ID, or title",
+  "Recursively pull page trees into folder hierarchies",
+  "Re-pull changed pages with version tracking",
+  "Convert Confluence macros to Markdown, callouts, and wikilinks",
+  "Download page attachments and map metadata to frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Read-only: it pulls pages from Confluence into the vault but never writes changes back to Confluence.",
+ "extras": "Flagged as not manually reviewed by Obsidian staff. Limited to Confluence Server/Data Center (REST API v1) with PAT auth, not Confluence Cloud; desktop only, Obsidian 1.5.0+. Includes a Skip SSL verification option for self-signed certificates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to fetch Confluence Server pages and convert their macros, links and attachments into Markdown notes.",
+ "readmeHash": "3528305d2fb76f839c5f2d473ac2b9b187ad57b4",
+ "relations": [
+  {
+   "evidence": "Install the plugin (BRAT or manual)",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Confluence Server / Data Center",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Confluence Personal Access Token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Confluence importer that pulls Confluence Server pages into a vault as Markdown files, with attachments, frontmatter and version-based re-sync.",
+ "tags": [
+  "confluence",
+  "atlassian",
+  "rest-api",
+  "personal-access-token",
+  "callouts",
+  "wikilinks"
+ ]
+}

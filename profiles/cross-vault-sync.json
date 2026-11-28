@@ -1,0 +1,54 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs note content bi-directionally across vaults",
+  "Mirrors whole folders through a SYNC.md manifest",
+  "Detects external edits and resolves conflicts with backups",
+  "Copies sync targets from the file menu",
+  "Maps vault names to per-computer folders in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a whole-vault sync service; it syncs only the individual notes listed in sync_targets, keeping real .md copies in each vault.",
+ "extras": "Desktop-only (Obsidian 1.13.4+); uses no network; deletions are not propagated; install the same plugin version in every vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Filesystem links (symbolic links, junctions, hardlinks) fail with Obsidian Sync, cloud storage and mobile, so the same note cannot live as a real file in several vaults.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "cd194e8351a9b0ccd773536bc5828d2f75dab1ad",
+ "relations": [
+  {
+   "evidence": "Copies in other vaults are plain file writes, which Obsidian Sync picks up when that vault is open",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Frontmatter-driven sync plugin that keeps individual notes identical across multiple Obsidian vaults.",
+ "tags": [
+  "multi-vault",
+  "two-way-sync",
+  "conflict-resolution",
+  "obsidian-sync",
+  "local-first"
+ ],
+ "textHash": "0ca13108e4a5b4e7caa8e276103e8cbe02aaa394"
+}

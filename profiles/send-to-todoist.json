@@ -1,0 +1,65 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send the task at the cursor or each selected line to Todoist",
+  "Send every open task carrying a marker tag in a note",
+  "Convert Obsidian dates, priorities, tags and wikilinks into Todoist syntax",
+  "Turn child tasks into subtasks and other child lines into the task description",
+  "Check note targets against Todoist projects, sections and labels in a doctor tab"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way sync tool: it only sends tasks out and leaves a pointer line behind.",
+ "extras": "Installed by copying main.js, manifest.json and styles.css from a release into the plugins folder; needs Obsidian 1.11.4 or later. The API token is kept in Obsidian's secret storage on each device separately. The plugin talks only to api.todoist.com and has no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Keep roadmaps and checklists in Obsidian and send only the tasks that need a date or a reminder.",
+ "primary": "integrations",
+ "problem": "Roadmaps and checklists live in Obsidian, but tasks that need a date or a reminder belong in Todoist, and there is no way to hand a single line over.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "9d3b805f8c73e0a62281b83137a76c7ff114da96",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "moves a task line into Todoist, one way",
+   "plugin": "Todoist",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Todoist account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Todoist API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sends a task line from Obsidian to Todoist one way, leaving the line as a [>] pointer with a link to the Todoist task.",
+ "tags": [
+  "todoist",
+  "natural-language-dates",
+  "obsidian-uri",
+  "subtasks"
+ ],
+ "textHash": "8ac40f87ec3858df51b8d9bc10b040ae3365d4f9"
+}

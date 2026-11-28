@@ -1,0 +1,64 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Query files in vault",
+  ": Freeze query results",
+  ": Read remote URLs",
+  ": Schedule data refreshes",
+  ": Join local and cloud data"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The MotherDuck token is stored plaintext in the plugin's data.json.",
+ "intent": "new",
+ "intentEvidence": "This plugin solves the opposite problem: pulling external data (CSV, Parquet, JSON, Excel, Iceberg, Delta, geospatial files, plus your MotherDuck cloud) into a note via DuckDB SQL, and joining across them when you want.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Users need a way to analyze external data sources (CSV, Parquet, cloud databases) directly within Obsidian notes without exporting data or relying on external tools.",
+ "readmeHash": "452c4fbebe696196934544937d590c26f4536b8f",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Dataview",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.5+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Internet connection",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "MotherDuck token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Rule-based SQL engine that allows users to query local files and cloud data within Obsidian notes and freeze results as markdown tables.",
+ "tags": [
+  "duckdb",
+  "motherduck",
+  "sql",
+  "parquet",
+  "cloud-compute",
+  "scheduled-refresh"
+ ]
+}

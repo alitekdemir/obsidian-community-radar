@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ocr",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Organize attachments into configured folders with date, type, or token-based subfolders",
+  "Rename pasted or dropped files using date or custom token patterns",
+  "Find and purge unlinked attachments with a confirmation modal",
+  "Extract text from images and PDFs via OCR providers",
+  "Auto-process new and modified files in watch folders with batch and rate-limit handling"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a vault backup or maintenance tool; it manages attachments and extracts text via OCR.",
+ "extras": "README warns the plugin is AI-generated ('vibe coded') and unreviewed by Obsidian staff; install is documented via the BRAT beta tool only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian only offers a basic default-location setting for new attachments and provides no renaming on paste, cleanup of unlinked files, or text extraction from images.",
+ "readmeHash": "654b5623cc05f37d4609968058f57daea9ca295d",
+ "relations": [
+  {
+   "evidence": "OpenAI — save your API key as a secret and set a vision-capable model",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic — save your API key as a secret and set a Claude model",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini — save your API key as a secret and pick a model",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a custom/self-hosted OpenAI-compatible server (Ollama, LM Studio, vLLM, llama.cpp, LiteLLM)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, or Google Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Self-hosted OpenAI-compatible server (e.g. Ollama)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Attachment manager that organizes files into folders, renames pastes, purges unlinked attachments, and OCRs images and PDFs.",
+ "tags": [
+  "ollama",
+  "openai",
+  "anthropic",
+  "gemini",
+  "vision-models",
+  "unlinked-files"
+ ]
+}

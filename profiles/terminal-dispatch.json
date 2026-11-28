@@ -1,0 +1,89 @@
+{
+ "also": [
+  "integrations",
+  "commands"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Turn shell commands into command palette entries",
+  "Fill command variables from the vault path, active file and its frontmatter",
+  "Dispatch the active note to Claude Code or another CLI agent",
+  "Show a status bar count of running Claude Code sessions",
+  "Show a notice when an agent finishes or needs input"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an embedded terminal; it runs your commands in an external terminal app.",
+ "extras": "Desktop only; the Focus terminal option uses open -a and is macOS only. Claude Code status needs a hook script added to the vault by hand and does not cover sessions that were already open. Installed by copying release files into the plugins folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian cannot hand the note you are reading to a local shell command or CLI coding agent, and gives no signal when that agent finishes or needs input.",
+ "profiledAt": "2026-11-17",
+ "provider": "Particle AI",
+ "readmeHash": "7d11e67ee052977b95a4cad098ce9ffe75e6336f",
+ "relations": [
+  {
+   "evidence": "hand the note to Claude Code, Codex, or any CLI agent in a new terminal window",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "hand the note to Claude Code, Codex, or any CLI agent in a new terminal window",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Both use sesh window connect, which opens a new window in the vault's session",
+   "plugin": "sesh",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Terminal app",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "jq",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "sesh",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Turns shell commands into command palette entries that run on the active note, and reports when Claude Code sessions finish.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "cli",
+  "terminal",
+  "agent-skills",
+  "notifications"
+ ],
+ "textHash": "73995794eef19c4c98e13636d2bc5fd0130e63f5"
+}

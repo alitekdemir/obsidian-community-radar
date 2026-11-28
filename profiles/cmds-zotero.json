@@ -1,0 +1,113 @@
+{
+ "also": [
+  "research",
+  "import"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Insert citations through [@ citekey completion backed by a local Better BibTeX index",
+  "Import literature notes and PDF annotations into managed, previewed note sections",
+  "Show references and annotations sidebars with CSL bibliographies for the active note",
+  "Write CSL-JSON bibliography sidecars and Word export kits for pandoc",
+  "Query the citation index through an agent CLI and paper-ingest service"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Autocomplete"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; mobile not supported. Templates from Zotero Integration or ZotLit are not interchangeable. Ships an agent CLI, a migration helper from its predecessor cmds-link-zotero, detailed privacy disclosures, and a user guide in English and Korean.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to connect a local Zotero library's citations, annotations, and reading history into vault notes.",
+ "readmeHash": "a32a4d5f7f93081180bc9b9b71ce620885e0b361",
+ "relations": [
+  {
+   "evidence": "Verified Zotero sources, citations, annotations, and literature notes for a local-first research vault.",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cite As You Write citation insertion through Better BibTeX (BBT).",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Copyable Markdown links for Hookmark (Zotero item, Obsidian file, rename-safe identity link)",
+   "plugin": "Hookmark",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run pandoc after export runs pandoc --defaults <kit>/defaults.yaml in the kit folder",
+   "plugin": "pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an obsidian://advanced-uri?…&filepath=… row when the peer vault's community plugin list includes Advanced URI",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For an existing cmds-link-zotero installation, use the explicit, reversible helper.",
+   "plugin": "cmds-link-zotero",
+   "type": "replaces"
+  },
+  {
+   "evidence": "This is not full Zotero Integration or ZotLit compatibility.",
+   "plugin": "Zotero Integration",
+   "type": "alternative"
+  },
+  {
+   "evidence": "This is not full Zotero Integration or ZotLit compatibility.",
+   "plugin": "ZotLit",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX (Zotero plugin)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "pandoc",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Hookmark",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Zotero integration that imports literature notes and PDF annotations, completes citekeys, renders CSL bibliographies, and exports to Word via pandoc.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "citations",
+  "literature-notes",
+  "csl",
+  "pandoc",
+  "hookmark",
+  "pdf-annotations"
+ ]
+}

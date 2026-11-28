@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [
+  "bible-study"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Replace a selected Bible reference with a Markdown link via a command",
+  "Parse references in natural format, including abbreviations and verse ranges",
+  "Configure link URL templates with verse, version, book, and chapter tokens",
+  "Choose built-in presets for BibleGateway, Olive Tree, and route.bible",
+  "Validate book names against an internal dictionary"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Book-name recognition currently supports only Spanish (sp) and English (en) languages; Olive Tree links ignore Bible versions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian has no built-in way to turn Bible references in notes into links that open the passage on an external Bible tool.",
+ "readmeHash": "5a08d80b054f511cb6208ca0f49259ee4ef8d59c",
+ "relations": [
+  {
+   "evidence": "BibleGateway for providing a great and free online Bible tool.",
+   "plugin": "BibleGateway",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Olive Tree: olivetree://bible/{{book}}.{{chapter}}.{{verse}}",
+   "plugin": "Olive Tree",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bible reference linker that replaces a selected reference like John 3:16 with a Markdown link to a configured online Bible site or app.",
+ "tags": [
+  "bible",
+  "biblegateway",
+  "olive-tree",
+  "scripture-references",
+  "url-template"
+ ]
+}

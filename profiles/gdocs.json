@@ -1,0 +1,57 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open Google Drive shortcut files in an embedded webview or the system browser",
+  "Embed shortcut files in notes with wikilink embeds",
+  "Build document URLs from doc_id, url or resource_id in the shortcut JSON",
+  "Show supported shortcut extensions in the file explorer",
+  "Persist webview cookies and cache across restarts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not sync, create or edit Google documents; it only opens and embeds the shortcut files that Drive sync tools place in the vault.",
+ "extras": "Warns against moving shortcut files out of the synced Drive folder, as Google may delete the online document. Embedded browser is unavailable on mobile, where the plugin instead shows the URL with copy and open buttons.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "When a vault is stored in Google Drive, Workspace files appear as tiny JSON shortcut files that Obsidian cannot recognize or open.",
+ "readmeHash": "a2805ab5f63bdefa8ce8715344b9bab2a4b263f3",
+ "relations": [
+  {
+   "evidence": "When Google Drive for Desktop (or similar sync) stores Docs, Sheets, and other Workspace files in your vault",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Drive",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Google Drive shortcut-file handler that opens and embeds .gdoc, .gsheet and similar files in an embedded browser or the system browser.",
+ "tags": [
+  "google-drive",
+  "google-workspace",
+  "webview",
+  "shortcut-files",
+  "drive-for-desktop"
+ ]
+}

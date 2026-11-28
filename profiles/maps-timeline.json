@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display visits, routes and GPS tracks on an interactive map pane",
+  "Filter the view by day, week, month or custom date range",
+  "Resolve coordinate-only visit names via the Places API and cache them",
+  "Read per-year JSON files converted from Google Takeout or on-device exports",
+  "Switch between OpenStreetMap, Esri and Google basemaps"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general maps or note-embedding tool; it only visualizes exported Google Timeline JSON files.",
+ "extras": "Data must first be exported from Google and converted to the plugin's per-year JSON format using scripts in tools/; OpenStreetMap and Esri basemaps need no key, Google tiles and place-name lookups do; the plugin claims all location data stays local.",
+ "intent": "new",
+ "intentEvidence": "Interaction design inspired by kurupted/google-maps-timeline-viewer.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no way to display exported Google Maps Timeline location data inside the vault; the plugin turns exported JSON into a browsable map and timeline view.",
+ "readmeHash": "241650a3f34037af49702fd96b5cf328d0af04de",
+ "relations": [
+  {
+   "evidence": "Interaction design inspired by kurupted/google-maps-timeline-viewer.",
+   "plugin": "kurupted/google-maps-timeline-viewer",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account (to export Timeline data via Takeout or on-device export)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Maps API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "A two-pane viewer that renders Google Maps Timeline location history (visits, routes, GPS tracks) on an interactive map with day and date-range pickers.",
+ "tags": [
+  "google-maps",
+  "location-history",
+  "takeout",
+  "gps-tracks",
+  "leaflet",
+  "places-api"
+ ]
+}

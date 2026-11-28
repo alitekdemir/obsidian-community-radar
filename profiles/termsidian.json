@@ -1,0 +1,43 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a real system shell (PowerShell, bash, zsh) in the right sidebar",
+  "Run interactive programs with colors, Tab completion, history and Ctrl+C",
+  "Start the shell in the vault folder and resize with the panel",
+  "Match the Obsidian theme's monospace font and colors",
+  "Kill the shell and its child processes when the panel closes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "On Flatpak installs, the plugin needs a sandbox permission granted via flatpak-spawn --host; macOS builds are untested; the platform helper binary is written to disk from main.js on first terminal open; the plugin itself is unreviewed by Obsidian staff; security issues must be reported privately per SECURITY.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author avoided node-pty (breaks on Electron updates) and Python helpers (needs Python, no pty on Windows) and chose a single dependency-free Go binary per system.",
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in terminal, so running shell commands in the vault folder means switching to a separate app.",
+ "readmeHash": "6032b079f171c1d9c278437cc34681c53df3adc4",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Terminal emulator for the right sidebar that runs the system shell via a bundled Go PTY helper, starting in the vault folder.",
+ "tags": [
+  "terminal",
+  "shell",
+  "pty",
+  "xterm",
+  "go",
+  "conpty",
+  "flatpak"
+ ]
+}

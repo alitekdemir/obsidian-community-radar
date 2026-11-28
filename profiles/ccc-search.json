@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault with natural-language queries from a quick-switcher-style modal",
+  "Open results scrolled to the matching section, or in a new tab",
+  "Keep the ccc index current automatically on each search",
+  "Configure the ccc binary path, result limit, and minimum relevance score"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; Obsidian mobile cannot run the local ccc program. First search after boot can take up to a minute while ccc loads its model. Privacy notes: plugin makes no network requests, but an API-based embedding provider in ccc would receive queries and note contents. The plugin never installs or updates ccc; the index lives outside the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search matches keywords only, so notes that never contain the query words can't be found.",
+ "readmeHash": "79c8afe921c9de6be6c193b27c2f6c86b8b8c052",
+ "relations": [
+  {
+   "evidence": "This plugin is a front end for ccc, a separate command-line tool you install yourself.",
+   "plugin": "cocoindex-code (ccc)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ccc (cocoindex-code) v0.2.38 or newer",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API-based embedding provider (only if ccc is not configured with a local embedding model)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Semantic search modal that finds vault notes by meaning using the local ccc (cocoindex-code) command-line tool.",
+ "tags": [
+  "semantic-search",
+  "embeddings",
+  "natural-language",
+  "cocoindex",
+  "local-first",
+  "cli"
+ ]
+}

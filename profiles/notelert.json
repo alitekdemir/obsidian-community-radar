@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule one-time and recurring reminders with date, time, and recurrence rules",
+  "Insert reminders from notes using the :@ trigger and quick actions like today or in one hour",
+  "Deliver reminders through Android push, email, Google Calendar, and Telegram channels",
+  "Create location-based reminders that fire on arrival via the Notelert Android app",
+  "Embed a return link that opens the originating Obsidian note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Reminders require remote backend services (Firebase/Google Cloud) because they must fire while Obsidian is closed; the README details what data is sent, data deletion, and privacy policy. iOS push and location delivery are not available. The manifest notes the plugin has not been manually reviewed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian has no built-in way to schedule notifications that fire while the app is closed or on other devices.",
+ "readmeHash": "f06f9c8389ce3780bd89fadcd56ff64513607f4a",
+ "relations": [
+  {
+   "evidence": "Google Calendar: enable its toggle and approve Google OAuth once.",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Telegram: enable its toggle, open the Notelert bot, and press Start once.",
+   "plugin": "Telegram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Notelert account via App link token or email verification",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Notelert Android app (for push and location reminders)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reminder plugin that turns selected note lines into scheduled alerts delivered via Android push, email, Google Calendar, Telegram, or location triggers.",
+ "tags": [
+  "reminders",
+  "notifications",
+  "google-calendar",
+  "telegram",
+  "push-notifications",
+  "location-based",
+  "recurrence",
+  "android"
+ ]
+}

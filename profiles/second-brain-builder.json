@@ -1,0 +1,82 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a folder of 8-15 interlinked notes with an index hub and mermaid map from a topic",
+  "Explain a selected word or phrase into its own wiki-linked note",
+  "Enhance selected text in place with nine inline actions like expand, simplify, and summarize",
+  "Fill empty stub notes using their titles and backlink context",
+  "Append study aids such as review questions and fill-in-the-gap exercises to finished notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Desktop only; it does not work in the Obsidian mobile app because it must run local programs. The README warns that Anthropic has announced (currently paused) plans to bill programmatic claude -p usage separately from subscription limits, and that batch generation can consume many tokens.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because most AI note plugins ask for an API key and bill per token, and wanted note generation to cost nothing extra beyond the AI plan the user already has.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate whole linked note series, and most AI note plugins require API keys with per-token billing on top of existing AI subscriptions.",
+ "readmeHash": "a94da32097aafecfc881146c3475c56245a2b27a",
+ "relations": [
+  {
+   "evidence": "The plugin calls the CLI in read-only mode with file-modifying tools disabled.",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin runs Gemini with --approval-mode plan, so it cannot modify files.",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin runs codex exec --sandbox read-only and reads the final message from a file",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Point it at a local Ollama model. It costs nothing and your notes never leave your computer.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI, Gemini CLI, Codex CLI, or Ollama",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude, Google, or ChatGPT account for CLI backends",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude, Google, or ChatGPT subscription (Ollama is free)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI note generator that turns topics or selections into interlinked, wiki-linked study notes using Claude Code, Gemini, Codex CLI, or a local Ollama model.",
+ "tags": [
+  "claude-code",
+  "gemini-cli",
+  "codex",
+  "ollama",
+  "mermaid",
+  "wiki-links",
+  "study-notes"
+ ]
+}

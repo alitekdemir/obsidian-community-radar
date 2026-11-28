@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dropped images and replace placeholders with remote links",
+  "Upload to GitHub via the Contents API with branches and date paths",
+  "Upload to a generic image host via POST multipart/form-data",
+  "Build CDN or proxy URLs from a base directory (GitHub Raw, jsDelivr, Statically)",
+  "Restore the local image link when an upload fails"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Attachments"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that the GitHub token is stored as plain text in data.json and advises a least-privilege, revocable token; it also notes that Raw and public CDN links cannot read private repositories anonymously.",
+ "intent": "new",
+ "intentEvidence": "Pastepic is an independently implemented MIT-licensed project.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to keep one paste-to-upload image workflow across desktop, tablet, and mobile Obsidian, since existing workflows were desktop-oriented.",
+ "primary": "images",
+ "problem": "Manually opening an image host, uploading, copying a URL, and pasting it back breaks the writing flow, and local images make the vault grow quickly.",
+ "readmeHash": "4fca9915f85fd8301c9f051f0af78af87edf6616",
+ "relations": [
+  {
+   "evidence": "image-paste events, uploader abstraction, and failure fallback",
+   "plugin": "gavvvr/obsidian-imgur-plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "GitHub Contents API, multi-host settings, and CDN URL organization",
+   "plugin": "yaleiyale/obsidian-emo-uploader",
+   "type": "inspired"
+  },
+  {
+   "evidence": "paste placeholders, drag-and-drop uploads, and image-host workflows",
+   "plugin": "renmu123/obsidian-image-auto-upload-plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Uploads pasted, dropped, or newly inserted images to GitHub or a custom image host and replaces them with remote Markdown CDN links.",
+ "tags": [
+  "github",
+  "cdn",
+  "jsdelivr",
+  "image-hosting",
+  "clipboard",
+  "multipart-form-data"
+ ]
+}

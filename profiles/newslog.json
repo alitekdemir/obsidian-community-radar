@@ -1,0 +1,71 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Download a daily bundle of newsletters, RSS items, and articles into the vault as Markdown",
+  "Upload a Kindle's My Clippings.txt file to the newslog server for highlight processing",
+  "Download highlighted articles with embedded highlights into a configured vault folder",
+  "Configure API credentials, folder paths, and per-date download history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The service is currently in free waitlist mode; pricing will be introduced later. Kindle highlight processing happens on the newslog servers (the My Clippings.txt file is uploaded), which is worth noting for privacy-sensitive users.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author couldn't find a good way to manage newsletters and RSS feeds: they were lost in the inbox, read-later apps forced in-app reading, and Kindle-sending apps cluttered the device; they wanted the full article synced with highlights embedded for PKM.",
+ "primary": "integrations",
+ "problem": "Newsletters and read-it-later articles get lost in the inbox, and read-it-later apps capture highlights without the surrounding article context your vault needs.",
+ "readmeHash": "2ac4cef69c43220d28e82964d4ff40e0cfd4a5f2",
+ "relations": [
+  {
+   "evidence": "Download your complete daily digests in Markdown format directly into your Obsidian vault.",
+   "plugin": "newslog.me service",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync your highlights by uploading the My Clippings.txt file from your Kindle device.",
+   "plugin": "Kindle",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "newslog.me account with API Key and API Password",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "newslog.me pricing planned for the future",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Kindle via USB for My Clippings.txt (highlights sync only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs daily newsletter and RSS digest bundles from newslog.me, plus Kindle highlights with full article context, into your vault as Markdown.",
+ "tags": [
+  "kindle",
+  "newsletters",
+  "rss",
+  "read-it-later",
+  "highlights",
+  "ai-summaries",
+  "email-address"
+ ]
+}

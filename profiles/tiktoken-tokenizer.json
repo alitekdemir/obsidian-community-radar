@@ -1,0 +1,51 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "display the active note's token count in the status bar",
+  "recalculate tokens as the note is edited with a 150 ms debounce",
+  "switch between exact GPT-4o/GPT-5 and approximate Claude tokenizer modes",
+  "estimate Claude token counts locally using cl100k_base plus a +15% margin"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It only counts tokens locally; it does not call any AI service or send notes anywhere.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; Claude token counts are approximations because Anthropic publishes no offline tokenizer.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "status-bar",
+ "problem": "Obsidian's word count does not tell you how many LLM tokens a note uses when budgeting a context window.",
+ "readmeHash": "65c35baac5a45ad7292ed749f730a8a1da9aa7fb",
+ "relations": [
+  {
+   "evidence": "It uses the js-tiktoken library, JavaScript port of OpenAI's tiktoken",
+   "plugin": "js-tiktoken",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Status bar plugin that shows the live token count of the active note using TikToken's o200k_base encoding for GPT-4o/GPT-5.",
+ "tags": [
+  "tiktoken",
+  "tokenization",
+  "gpt-4o",
+  "claude",
+  "context-window",
+  "openai"
+ ]
+}

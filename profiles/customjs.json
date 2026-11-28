@@ -1,0 +1,68 @@
+{
+ "also": [
+  "templating",
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "load user JavaScript classes into a global customJS object",
+  "run invocable scripts via commands and hotkeys",
+  "execute startup scripts when the plugin loads",
+  "persist data across reloads via customJS.state",
+  "call deconstructor hooks for cleanup on reload"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns that code must be one class per file (no exports or bare functions), that paths must use forward slashes, and that the window.customJS object is recreated whenever any JS file changes.",
+ "intent": "improve",
+ "intentEvidence": "call anywhere you can write JS — including dataviewjs blocks and templater templates",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian offers no built-in way to reuse your own JavaScript code from other plugins' script contexts or to bind custom scripts to commands and hotkeys.",
+ "readmeHash": "986219dba3014abe094a47d34f49001d738859ac",
+ "relations": [
+  {
+   "evidence": "such as Templater and its startup template, or JS Engine",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "other plugins as well (such as Templater and its startup template, or JS Engine)",
+   "plugin": "JS Engine",
+   "type": "integrates"
+  },
+  {
+   "evidence": "including dataviewjs blocks and templater templates",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater / Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "JavaScript loader that makes your own JS classes available across Obsidian, dataviewjs blocks, Templater templates, commands and hotkeys.",
+ "tags": [
+  "javascript",
+  "dataviewjs",
+  "templater",
+  "singleton",
+  "hotkey"
+ ]
+}

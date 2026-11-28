@@ -1,0 +1,52 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "reveal whitelisted dot-folders in the native file explorer",
+  "index injected folders for search, graph, and metadata cache",
+  "add or remove revealed folders from plugin settings",
+  "rescan hidden folders via a command",
+  "reject paths with .. segments or absolute paths"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Search",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns that revealed folders become ordinary vault files readable by all plugins, including sync plugins that could upload secrets; recommends never revealing .env, .git, or token folders. Desktop only, and it relies on undocumented Obsidian internals with a load-time check that keeps it inactive if those methods disappear. Not reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Revealing everything is dangerous because pointing Obsidian at a large folder like .git can freeze the app, so the author chose per-folder opt-in instead.",
+ "primary": "files",
+ "problem": "Obsidian filters out every path starting with . at the vault-adapter level, so dot-folders never appear in the file explorer, search, or graph.",
+ "readmeHash": "386130c47d9821087ba90bb8658cb882d74fa392",
+ "relations": [
+  {
+   "evidence": "Technique derived from the MIT-licensed dsebastien/obsidian-hidden-folders-access.",
+   "plugin": "dsebastien/obsidian-hidden-folders-access",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Injects whitelisted dot-folders such as .claude or .github into the vault cache so they appear in the native file explorer, search, and graph.",
+ "tags": [
+  "dot-folders",
+  "file-explorer",
+  "vault-cache",
+  "hidden-folders"
+ ]
+}

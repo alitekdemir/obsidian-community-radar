@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Runs configured Codex actions on the active note",
+  "Creates a new Markdown file next to the note with the result",
+  "Configures actions with a name, model, and prompt",
+  "Signs in through ChatGPT and lists models",
+  "Retries failed saves with the already generated text"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the generic name, it is not a general action or automation panel; it only runs Codex CLI actions on the active note.",
+ "extras": "Interface is Russian-only; requires desktop Obsidian 1.12.7+; tested on macOS with Codex CLI 0.171.0; usage limits and charges depend on the ChatGPT plan.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run a local Codex CLI action with a custom prompt on the current note and save the result as a new file.",
+ "profiledAt": "2026-11-23",
+ "provider": "Ant Digital",
+ "readmeHash": "c4c9b353c47fa33ef6dc036f9b87de20ba2d93a7",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The plugin launches the local Codex executable directly as a child process.",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex connects to OpenAI for sign-in, the model list, and generation.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT account with access to Codex",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Panel that runs configurable Codex CLI actions on the active Markdown note, generating new note files from custom prompts.",
+ "tags": [
+  "codex",
+  "openai",
+  "llm",
+  "prompts"
+ ],
+ "textHash": "56ae9408ca2a1a7571f10bc516e6679787db397a"
+}

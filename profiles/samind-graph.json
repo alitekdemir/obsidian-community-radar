@@ -1,0 +1,64 @@
+{
+ "also": [
+  "ai",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a 3D force-directed graph of vault links",
+  "Color and group notes by AI-generated topic clusters with boundary boxes and labels",
+  "Tune cluster physics with live sliders for radius, force strength, and separation",
+  "Surface gap insights between clusters and highlight them in the graph",
+  "Run an optional local MCP server so AI tools can query the graph and drive highlights"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "The plugin calls no AI backend itself; it renders clustering from an analysis.json file that an external AI assistant generates.",
+ "extras": "Flagged as not manually reviewed by Obsidian staff. Author says it is built for personal use with rough edges and requires manual installation. Privacy section: no network requests; the optional MCP server only listens on localhost and is off by default.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from Obsidian 3D Graph by Alexander Weichart, extended with:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's graph view is flat and 2D and offers no clustering or analysis of structural gaps between topics in a vault.",
+ "readmeHash": "9685d4f32e1779bbccf8b4a9c90d6f6faafc465f",
+ "relations": [
+  {
+   "evidence": "Forked from Obsidian 3D Graph by Alexander Weichart, extended with:",
+   "plugin": "Obsidian 3D Graph by Alexander Weichart",
+   "type": "fork"
+  },
+  {
+   "evidence": "lets an MCP-compatible AI tool (e.g. OpenCode) query the graph",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AI assistant such as Claude Code or Claude Desktop",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "3D force-directed graph view that colors and groups notes by an AI-generated topic clustering and surfaces gap insights between clusters.",
+ "tags": [
+  "3d",
+  "force-directed-graph",
+  "topic-clustering",
+  "gap-analysis",
+  "mcp",
+  "claude"
+ ]
+}

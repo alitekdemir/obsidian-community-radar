@@ -1,0 +1,68 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "send Markdown or HTML notes to Instapaper via its official API",
+  "embed local images and rasterize SVGs in the converted article",
+  "preview the converted article and review conversion losses before sending",
+  "keep a local transfer journal to reconcile uncertain uploads",
+  "export a standalone HTML reading file without an account"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No paid tier; interface labels are in Korean; requires desktop Obsidian 1.13.0+, validated mainly on macOS; live image testing covers one sample, with mobile and larger documents unverified.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes cannot be sent to Instapaper with local images embedded, footnotes and callouts preserved, or unconfirmed uploads reconciled.",
+ "readmeHash": "f50cab70980cfb3f37597ec864caa7d9f18e76d3",
+ "relations": [
+  {
+   "evidence": "Save to Instapaper home or an existing private folder using the official API.",
+   "plugin": "Instapaper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "choose Bedrock API key, Gemini, OpenAI, or AWS profile",
+   "plugin": "Bedrock, Gemini, OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Instapaper",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Bedrock, Gemini, or OpenAI key for optional AI review",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sends Markdown and HTML notes to Instapaper as readable articles, embedding local images and previewing conversion losses before upload.",
+ "tags": [
+  "instapaper",
+  "read-later",
+  "image-embedding",
+  "aws-bedrock",
+  "gemini",
+  "openai"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chain AI operation blocks whose output feeds the next step",
+  "process, write, or rewrite Markdown files and folders with prompts",
+  "pass prompt instructions via frontmatter-annotated Markdown files",
+  "save and load chains as JSON presets",
+  "preview chain reads and writes with a dry run"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only, since it calls Ollama's local API. Includes a protected-paths safety feature to block overwrites and token cost estimates for cloud API comparison.",
+ "intent": "alternative",
+ "intentEvidence": "Busy Goblins evolved from an earlier plugin by the same author called The Director",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author rebuilt an earlier single-agent folder-run plugin (The Director) from scratch to add chaining, presets, and more operations.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to compose reusable multi-step AI operations (read, prompt, write) over vault files with a local model.",
+ "readmeHash": "e2782d6acef87b1b90abaa8c29e89307554f89b3",
+ "relations": [
+  {
+   "evidence": "evolved from an earlier plugin by the same author called The Director",
+   "plugin": "The Director",
+   "type": "replaces"
+  },
+  {
+   "evidence": "The FolderSuggest component is adapted from Synod by slaymish",
+   "plugin": "Synod by slaymish",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Process, write, and rewrite Markdown files using a local Ollama model",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI-chain builder that runs sequences of local Ollama model steps over Markdown files, saving each chain as a reusable one-click preset.",
+ "tags": [
+  "ollama",
+  "local-models",
+  "ai-chains",
+  "presets",
+  "token-cost",
+  "prompt-files"
+ ]
+}

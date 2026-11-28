@@ -1,0 +1,45 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open vault .html and .htm files as fully rendered pages",
+  "Toggle render mode between Electron webview and iframe",
+  "Reclaim .html and .htm file registration from other plugins",
+  "Reload, zoom and open pages in the default browser",
+  "Hand obsidian://, https and mailto links to the operating system"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only because it relies on Electron's <webview>. The README warns that rendered pages execute their own scripts, so users should only open HTML files they trust. Only one plugin can own the .html extension; a command and setting let this plugin take ownership back from another HTML plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "html",
+ "problem": "Obsidian's HTML handling sanitizes pages by stripping scripts, so generated or interactive HTML files open blank or dead.",
+ "readmeHash": "95066017aaad0e805c4316c3947d12d256e1ab87",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "HTML file viewer that opens vault .html and .htm files in a webview or iframe with scripts, styles and interactivity running.",
+ "tags": [
+  "webview",
+  "iframe",
+  "electron",
+  "javascript",
+  "canvas-api"
+ ]
+}

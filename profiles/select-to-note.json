@@ -1,0 +1,68 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "clip selected page elements or dragged rectangles via Ctrl+Shift+X",
+  "append captured Markdown with source URL and capture time to the active note",
+  "authenticate the browser extension with a shared local token over 127.0.0.1",
+  "optionally translate selections via browser built-in, Baidu, Azure, Google Cloud, or OpenAI-compatible engines",
+  "prompt for a target file or new Clippings/ file when no Markdown note is active"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a full-page web archiver; it captures selected elements or dragged rectangles only.",
+ "extras": "Chrome installation requires Developer mode and loading an unpacked ZIP from GitHub releases; Edge installs from the add-ons store. Translation is off by default and cloud engines receive the selected text. README states the local receiver binds to 127.0.0.1 and no telemetry or remote service is used.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to clip selected elements from a web page into the note you are currently working in.",
+ "readmeHash": "6eaa27ee9e3399e746917fe11088c27b201aacf4",
+ "relations": [
+  {
+   "evidence": "The browser extension works in Chrome and Microsoft Edge.",
+   "plugin": "Chrome",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The browser extension works in Chrome and Microsoft Edge.",
+   "plugin": "Microsoft Edge",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Select to Note browser extension (Chrome or Microsoft Edge)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Baidu, Azure, Google Cloud, or OpenAI-compatible credentials for optional translation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Web clipper that captures selected browser content through a companion Chrome/Edge extension and appends it as Markdown to the active Obsidian note.",
+ "tags": [
+  "web-clipper",
+  "browser-extension",
+  "chrome",
+  "microsoft-edge",
+  "translation",
+  "element-selection",
+  "local-http",
+  "shared-token"
+ ]
+}

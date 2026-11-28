@@ -1,0 +1,71 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search TMDB with autocomplete for movies, series, seasons, episodes and people",
+  "Insert embed cards at the cursor with poster, credits, synopsis and TMDB attribution",
+  "Insert cast cards with an actor carousel",
+  "Target specific seasons or episodes with s01e03-style search syntax",
+  "Show personal viewing statistics on person cards from an exported Track 'n' Review profile"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a movie tracker itself; it only inserts TMDB cards and reads statistics from the separate Track 'n' Review iPhone app.",
+ "extras": "README is written in Portuguese; the plugin interface and TMDB data are localized for pt-BR and en-US. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires Obsidian 1.13.0 or higher.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up film or TV metadata and insert rich cards for it, so users must compile that information by hand.",
+ "readmeHash": "43bcc209de037ebef0381588201bccdb9c29fb02",
+ "relations": [
+  {
+   "evidence": "busca filmes, séries e pessoas no TMDB e insere cards com embed",
+   "plugin": "TMDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "lê os dados do seu perfil do app Track 'n' Review (grátis no iPhone",
+   "plugin": "Track 'n' Review app",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Free TMDB account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "TMDB API Read Access Token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Track 'n' Review iPhone app with an exported profile folder",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Searches TMDB for movies, series, seasons, episodes and people, and inserts embed cards with credits and cast at the cursor.",
+ "tags": [
+  "tmdb",
+  "movies",
+  "tv-series",
+  "cast-carousel",
+  "episode-lookup",
+  "film-cards"
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "configure socks, http, and https proxy addresses",
+  "fall back from socks to http/https to direct connections",
+  "declare Plugin Tokens to proxy plugins with their own network sessions",
+  "bypass proxy for blacklisted URLs using pattern rules"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Some plugins maintain their own network connections that bypass Obsidian's default session and cannot be proxied unless a Plugin Token is declared for them.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Users in areas with restricted networks cannot easily route Obsidian's requests (including some plugins' own connections) through a proxy from within Obsidian.",
+ "readmeHash": "026769b6fd06fe8da1e9e3d9d166404138c56a51",
+ "relations": [
+  {
+   "evidence": "Here are some Plugin Token examples for popular Obsidian plugins. Repo | Plugin Token Obsidian-Surfing",
+   "plugin": "Obsidian-Surfing",
+   "type": "integrates"
+  },
+  {
+   "evidence": "media-extended | persist:mx-player-${appId}",
+   "plugin": "media-extended",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Network proxy configuration utility that applies socks, http, and https proxies to Obsidian's outgoing requests, with fallback ordering and URL bypass rules.",
+ "tags": [
+  "proxy",
+  "socks",
+  "http",
+  "https",
+  "network",
+  "bypass-rules",
+  "cidr"
+ ]
+}

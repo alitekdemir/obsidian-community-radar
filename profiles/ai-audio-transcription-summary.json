@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio inside Obsidian with selectable input devices",
+  "transcribe recordings via OpenAI Whisper or Google Gemini with automatic size chunking",
+  "clean up transcripts using Anthropic, OpenAI, or Gemini with custom formatting instructions",
+  "create Markdown notes from date/time templates or paste output at the cursor",
+  "save the audio file and note even when transcription or post-processing fails"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Per the README, direct recording is supported on macOS and iOS only; API keys are required for transcription and post-processing, though failed runs still save the audio and note.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian can record audio but cannot transcribe or summarize it, so users must handle recordings in external tools.",
+ "readmeHash": "a5ab7a425613240b5b728dd362d8cc6d767bca76",
+ "relations": [
+  {
+   "evidence": "transcribe them using OpenAI Whisper or Google Gemini with automatic size-chunking",
+   "plugin": "OpenAI Whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini: Transcribes using the latest stable Gemini API (e.g., gemini-2.5-flash)",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Automatically cleans up transcripts using Anthropic (Claude), OpenAI (GPT), or Google (Gemini)",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI Whisper API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Audio recorder that transcribes recordings with OpenAI Whisper or Google Gemini and summarizes them with an LLM of your choice.",
+ "tags": [
+  "whisper",
+  "gemini",
+  "openai",
+  "anthropic",
+  "transcription",
+  "speech-to-text",
+  "meetings"
+ ]
+}

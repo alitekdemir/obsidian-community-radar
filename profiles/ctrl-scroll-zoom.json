@@ -1,0 +1,60 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Zoom notes with Ctrl+mouse wheel or trackpad pinch",
+  "Choose between note-content and whole-app zoom targets",
+  "Scale images and figures past the pane edge with scrolling",
+  "Show and reset the zoom level from a status-bar indicator",
+  "Run zoom in, out, and reset commands from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; the README says mobile is covered by a companion plugin but never names it. Beta releases can be tracked via BRAT. The README notes the default zoom target changed from whole app to note content in v1.4.0 and warns about modifier conflicts with Mousewheel Image Zoom.",
+ "intent": "alternative",
+ "intentEvidence": "Unlike image-only zoom plugins, this scales the whole note",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "appearance",
+ "problem": "Obsidian has no browser-style Ctrl+mouse-wheel zoom; its built-in zoom is keyboard-based and scales the whole UI rather than just the note.",
+ "readmeHash": "272810fe829d26797fa59a18e39989c5f6bd8d27",
+ "relations": [
+  {
+   "evidence": "Plays nice with Canvas and Excalidraw — Ctrl+scroll over these keeps their own spatial zoom",
+   "plugin": "Canvas",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Plays nice with Canvas and Excalidraw — Ctrl+scroll over these keeps their own spatial zoom",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you use Mousewheel Image Zoom with Ctrl as its modifier, the two may overlap",
+   "plugin": "Mousewheel Image Zoom",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Ctrl+wheel zoom plugin that scales note content or the whole Obsidian window like a browser, with a status-bar zoom indicator.",
+ "tags": [
+  "mouse-wheel",
+  "pinch-to-zoom",
+  "electron",
+  "codemirror",
+  "excalidraw",
+  "pdf-zoom"
+ ]
+}

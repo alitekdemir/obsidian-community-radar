@@ -1,0 +1,95 @@
+{
+ "also": [
+  "calendar",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show a home dashboard with quick search, folder cards and a clock",
+  "Manage a local .ics calendar with month, week and day views",
+  "Run Markdown-backed kanban task boards",
+  "Connect Microsoft, Google, CalDAV, ICS and IMAP accounts and turn mail into notes",
+  "Open an e-book bookshelf and market quote panels"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "First run auto-installs NyaLingo (needs network, then one reload); IMAP mail is desktop only; authorization codes are stored AES-256-GCM encrypted with a machine-local key; the README includes donation links.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian's entry point is scattered across the file explorer, search and separate plugins, with no single page for the day's events, mail and tasks.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "0e3a7ca7cf46b6cb0aa3b5f63ac6201e3255dd14",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "mail and note translation use the shared NyaLingo plugin",
+   "plugin": "NyaLingo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a button in the home header opens the NyaReader bookshelf",
+   "plugin": "NyaReader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install the separate NyaHome Mobile plugin to share local calendars, sketches, stars and task boards",
+   "plugin": "NyaHome Mobile",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "NyaLingo",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "NyaReader",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "NyaHome Mobile",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "IMAP/SMTP account",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Microsoft or Google account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 1
+ },
+ "summary": "Unified home page with quick search, folder cards, clock, local .ics calendar, Markdown task boards, optional mail and calendar services, plus e-book and market panels.",
+ "tags": [
+  "dashboard",
+  "email",
+  "ics",
+  "caldav",
+  "kanban",
+  "local-first",
+  "epub"
+ ],
+ "textHash": "db3e24b88c284ade050c7e1d24f749facf77afd2"
+}

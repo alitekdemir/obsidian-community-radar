@@ -1,0 +1,127 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Choose the folder each new attachment goes into from a token pattern",
+  "Rename attachments by a token pattern, with links following",
+  "Collect a note's existing attachments into the configured folder",
+  "Delete unused attachments after a confirmation",
+  "Keep attachments following their note on rename, move and delete"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a folder setting; it also renames, collects and deletes attachments and keeps them following their notes.",
+ "extras": "Documentation is a demo vault shipped with each release and readable on GitHub; the plugin publishes an API for other plugin developers; git-based undo of bulk commands is desktop only and off by default; original-name sync storage uses a dedicated folder listed in Obsidian's Excluded files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian puts pasted images in one shared folder under generic timestamped names that say nothing about which note they belong to.",
+ "readmeHash": "654136f68073b240e93b8ce796e6bf28809ab10d",
+ "relations": [
+  {
+   "evidence": "which this plugin requires and installs for you in one click",
+   "plugin": "Advanced Rename and Delete Handler",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Same routing goal; one token pattern can read paths and frontmatter",
+   "plugin": "Attachment Location Manager",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Overlaps on naming and collection; delegates note moves/renames to Advanced Rename and Delete Handler",
+   "plugin": "Attachment Management",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Overlaps on per-note folders; supports other layouts through patterns",
+   "plugin": "Attachment Manager",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Routes new attachments by usage and insertion rules",
+   "plugin": "Attachment Placement",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Overlaps on naming; also chooses the folder",
+   "plugin": "Attachment Renamer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Overlaps on templating; also collects existing attachments and deletes unused ones",
+   "plugin": "Attachment Steward",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Complementary: chooses new attachment folders and names",
+   "plugin": "Consistent Attachments and Links",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same routing goal; token patterns; no assets page",
+   "plugin": "Foldwise",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader scope: every attachment type",
+   "plugin": "Image Renamer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Overlaps on per-note folders; supports other pattern-based layouts too",
+   "plugin": "Note Companion Folder",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Pasted-image names from a pattern or prompt",
+   "plugin": "Paste image rename",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Names derived from content hashes",
+   "plugin": "Unique attachments",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Customize attachment location with variables($filename, $data, etc) like Typora",
+   "plugin": "Typora",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced Rename and Delete Handler",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Pattern-based attachment router that chooses the folder and file name of each attachment and keeps them collected, renamed and cleaned up.",
+ "tags": [
+  "typora",
+  "pasted-images",
+  "excalidraw",
+  "token-patterns",
+  "momentjs"
+ ]
+}

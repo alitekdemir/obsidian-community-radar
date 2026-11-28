@@ -1,0 +1,56 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "detect GitHub repository URLs in notes",
+  "display star counts inline next to links in Reading View and Live Preview",
+  "embed star counts into Markdown files and remove them again",
+  "cache star counts and refresh them per note or vault-wide",
+  "format counts as full or abbreviated numbers (1.2k)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Works without a token but limited to 60 GitHub API requests per hour; token raises this to 5,000 per hour and triggers token-missing warnings during manual refresh.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian renders GitHub repository links as plain text, so readers cannot see a repository's popularity without opening the link.",
+ "readmeHash": "a3bdaa86b747c7cbe7c201df749af24ea4adaf6f",
+ "relations": [
+  {
+   "evidence": "It fetches fresh star counts from GitHub for every repository in the active note",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Link enhancer that shows GitHub star counts next to repository URLs in Reading View and Live Preview and can write them into Markdown.",
+ "tags": [
+  "github-api",
+  "star-count",
+  "api-token",
+  "rate-limit",
+  "caching",
+  "link-decoration"
+ ]
+}

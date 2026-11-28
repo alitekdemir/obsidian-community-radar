@@ -1,0 +1,65 @@
+{
+ "also": [
+  "publishing",
+  "formatting"
+ ],
+ "audience": [
+  "wechat-publishers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open the current note in the Mobi editor via command, sidebar button, or file menu",
+  "Typeset the note online in a tab or offline via a local loopback server",
+  "Copy the formatted result for pasting into WeChat Official Accounts",
+  "Optionally write edits back to the note (two-way sync)",
+  "Download and SHA-256-verify the offline bundle on first use"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an editor for .mobi ebook files; 'Mobi' is the name of a WeChat typesetting web app (mobieditor.cn) embedded in a tab.",
+ "extras": "README carries a detailed network/privacy section: online mode loads mobieditor.cn in an iframe and passes note text via postMessage; offline mode serves an ~8 MB bundle (mobi-offline.bin) from a 127.0.0.1-only server, downloaded once from the plugin's GitHub release and verified by size and SHA-256. Anonymous usage stats are off by default. The listing notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to typeset a note for WeChat Official Accounts, whose editor requires formatted rich text rather than raw Markdown.",
+ "readmeHash": "2eb7968685ef6ff2080a68e9f4bb036e141e5ead",
+ "relations": [
+  {
+   "evidence": "Open Mobi inside Obsidian desktop, format a note, and copy it into WeChat Official Accounts.",
+   "plugin": "Mobi (mobieditor.cn web app)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Mobi web app (mobieditor.cn)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider and image host credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Bridge that opens the Mobi web editor inside Obsidian desktop to typeset a Markdown note and copy it into WeChat Official Accounts.",
+ "tags": [
+  "wechat",
+  "typesetting",
+  "image-hosting",
+  "mathjax",
+  "offline-bundle",
+  "loopback-server",
+  "two-way-sync"
+ ]
+}

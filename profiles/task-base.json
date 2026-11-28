@@ -1,0 +1,62 @@
+{
+ "also": [
+  "bases"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture and edit tasks through a form that writes note-per-task records",
+  "build RFC 5545 RRULE recurrence rules with a visual builder and English preview",
+  "compute next due dates and reschedule overdue tasks in bulk with a preview",
+  "display tasks in a sidebar pane partitioned into Overdue, Today, This week, Needs attention, Later",
+  "link tasks to asset notes via a type-ahead property and create asset notes in place"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Bases plugin or a checkbox tracker like Tasks; each task is its own note carrying a type: task property, and the base file is optional.",
+ "extras": "Makes no network requests, collects no telemetry, and never deletes notes; it finds tasks by reading frontmatter across the whole vault, narrowable via an Excluded folders setting. Includes mobile-specific UI for the notes field and warns that new vaults need four settings configured.",
+ "intent": "alternative",
+ "intentEvidence": "TaskNotes is also note-per-task, built around a calendar, pomodoro and time tracking. If you want time tracking, use that.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in recurring-task system, and existing task plugins track inline checkboxes or add time tracking instead of storing standard RRULE rules on notes.",
+ "readmeHash": "94d6168b52b956719de77857b26bfe0fe7f8d503",
+ "relations": [
+  {
+   "evidence": "Tasks manages checkboxes written inline in note bodies. Different unit of work entirely",
+   "plugin": "Tasks",
+   "type": "alternative"
+  },
+  {
+   "evidence": "TaskNotes is also note-per-task, built around a calendar, pomodoro and time tracking",
+   "plugin": "TaskNotes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "main.js is a bundle: it contains rrule (BSD-3-Clause)",
+   "plugin": "rrule",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Note-per-task manager that stores RFC 5545 RRULE recurrence in frontmatter, with a capture form, sidebar pane, and optional Bases table view.",
+ "tags": [
+  "rrule",
+  "rfc5545",
+  "recurrence",
+  "maintenance",
+  "chores",
+  "note-per-task"
+ ]
+}

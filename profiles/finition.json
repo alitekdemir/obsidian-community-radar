@@ -1,0 +1,93 @@
+{
+ "also": [
+  "editing",
+  "languages"
+ ],
+ "audience": [
+  "french-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight stylistic patterns in notes: repetitions, hedges, clichés, monotonous sentence lengths, tricolons, and sentence forms",
+  "Correct French spelling and grammar with Grammalecte or a local neural model",
+  "Normalize French punctuation, non-breaking spaces, apostrophes, and dashes",
+  "Look up synonyms, definitions, antonyms, phonetics, rhymes, and quotations in downloadable French dictionaries",
+  "Run AI corrections and contextual synonyms via Anthropic, OpenAI, Codex, Claude Code, or a local Ollama server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README is in French and targets French-language writing only. Core features are free and work offline after downloading dictionaries; AI features are optional and may incur provider costs. Detailed data-format and resource-license docs live in separate linked pages. Beta versions install via BRAT from the tcrouzet/finition repository. The neural engine and the Claude Code integration are described as experimental.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian has no built-in tool for reviewing French writing style — repeated words, clichés, monotony, punctuation rules — beyond basic spellcheck.",
+ "readmeHash": "406312465721c28cd3279b58be23f88c20362e5c",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Grammalecte",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Le modèle public CamemBERT se charge dans les réglages.",
+   "plugin": "CamemBERT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Avec Ollama ou un autre serveur compatible OpenAI, renseigner Serveur local",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code peut aussi servir aux corrections et synonymes, avec son installation native déjà connectée.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sur ordinateur, si Codex CLI est détecté, Codex apparaît dans Modèle par défaut",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT sert à tester les versions bêta",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or OpenAI secret for cloud AI corrections",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI or Claude Code for those AI backends",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "French prose checker that highlights repetitions, clichés, and sentence-rhythm patterns, corrects grammar and punctuation, and provides French dictionaries.",
+ "tags": [
+  "french",
+  "grammalecte",
+  "camembert",
+  "ollama",
+  "codex",
+  "claude-code",
+  "prose-analysis",
+  "typography"
+ ]
+}

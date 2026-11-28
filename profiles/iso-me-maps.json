@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "quantified-self"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render inline Leaflet maps from Whereday, OwnTracks, Overland, GeoJSON, and GPX exports",
+  "Plot duration-encoded visit markers and GPS route polylines",
+  "Filter visits, routes, and outings by day and time of day",
+  "Show export stats such as visit count, distance, and top repeated place",
+  "Insert compact figures and Field Journal notes from loaded exports"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general map embed tool; it renders location-tracking export files stored in the vault, not arbitrary geographic data.",
+ "extras": "The plugin has not been manually reviewed by Obsidian staff. Basemap tile requests go to the selected external provider, but a no-basemap mode avoids all tile requests. OSM tiles are blocked on desktop due to referer policy.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no built-in way to visualize location-tracking data such as visited places and GPS tracks from export files inside notes.",
+ "readmeHash": "329aaeef20c7ca8978572e1f5e24ed956e06de4a",
+ "relations": [
+  {
+   "evidence": "Render interactive Leaflet maps inline in Obsidian notes from Whereday (formerly iso.me) exports",
+   "plugin": "Whereday (formerly iso.me)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Render interactive Leaflet maps inline in Obsidian notes",
+   "plugin": "Leaflet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Detected when the JSON root is an array whose first object looks like an OwnTracks location",
+   "plugin": "OwnTracks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Detected when the JSON root has a locations array of GeoJSON point features",
+   "plugin": "Overland",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Whereday (iso.me) exports or compatible location data files",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "some tile providers may require an API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Renders interactive Leaflet maps inline in notes from Whereday (iso.me), OwnTracks, Overland, GeoJSON, and GPX location exports, with stats and filters.",
+ "tags": [
+  "leaflet",
+  "whereday",
+  "gps",
+  "gpx",
+  "geojson",
+  "owntracks",
+  "overland",
+  "location-history"
+ ]
+}

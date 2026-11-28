@@ -1,0 +1,61 @@
+{
+ "also": [
+  "math",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with an AI assistant in the right sidebar",
+  "persist a profile, memory cards, idea memos and conversation evidence as Markdown in .deepseek/",
+  "search notes and all memory layers together with note_recall",
+  "review, correct or archive memory cards in a memory panel",
+  "automatically find, configure and run the local dsh service"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Prototype at version 0.8.3; the author says understanding-building features (knowing where you are stuck, what to practise) are planned for 1.0 and tracked in docs/README.md. Everything runs locally on port 3180 (the regular dsh web on 3080 can run at the same time); requires Node.js 22.5+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Chat assistants forget everything when a conversation ends, so a new session cannot pick up where the last one stopped.",
+ "readmeHash": "323b51827834d1bee451c6c50f9b8c0661afcc04",
+ "relations": [
+  {
+   "evidence": "DeepSeek Harness (@deepseek-ai/dsh, requires ≥ 0.1.7-rc.2) with a configured DeepSeek model.",
+   "plugin": "DeepSeek Harness (@deepseek-ai/dsh)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness (@deepseek-ai/dsh)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "configured DeepSeek model",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Math-notes AI assistant in the right sidebar that keeps layered long-term memory as Markdown in your vault across chat sessions.",
+ "tags": [
+  "deepseek",
+  "long-term-memory",
+  "chat-assistant",
+  "localhost",
+  "idea-memos"
+ ]
+}

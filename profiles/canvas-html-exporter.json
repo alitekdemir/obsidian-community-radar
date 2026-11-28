@@ -1,0 +1,64 @@
+{
+ "also": [
+  "canvas",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export the active canvas as an HTML package or single self-contained file",
+  "Preserve canvas layout, styling, and Advanced Canvas attributes in the export",
+  "Follow linked subcanvases and wiki links recursively with cycle-safe navigation",
+  "Add folding, branch focus, search, minimap, and zoom controls to exported pages",
+  "Render Markdown nodes with links, embeds, KaTeX math, and Shiki code highlighting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because exports use local filesystem access. The author accepts donations via Ko-fi. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Preserve supported Advanced Canvas shapes, borders, text alignment, edge paths, edge heads, and saved colors",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Canvas files can only be viewed inside Obsidian, so there is no built-in way to share a canvas as a self-contained, viewable HTML document.",
+ "readmeHash": "f67a28f04688a9c7e51894e9f5ba50e849a978dd",
+ "relations": [
+  {
+   "evidence": "Canvas HTML Exporter reads supported Advanced Canvas attributes directly from the saved .canvas file.",
+   "plugin": "Advanced Canvas",
+   "type": "extends"
+  },
+  {
+   "evidence": "Canvas Folding is an optional companion plugin, not a dependency.",
+   "plugin": "Canvas Folding",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Canvas Folding",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Exports Obsidian canvases as interactive, portable HTML pages or packages with folding, search, navigation, and zoom controls.",
+ "tags": [
+  "advanced-canvas",
+  "canvas-folding",
+  "katex",
+  "shiki",
+  "standalone-html",
+  "minimap"
+ ]
+}

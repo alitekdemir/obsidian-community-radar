@@ -1,0 +1,84 @@
+{
+ "also": [
+  "pdf",
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert supported files (PDF, docx, pptx, xlsx, images, HTML, EPUB, audio) to Markdown via right-click or command palette",
+  "Save converted Markdown next to the source file or in a custom folder",
+  "Embed source images as base64 data in the output Markdown",
+  "Run AI-powered OCR on scanned PDFs through markitdown-ocr with an OpenAI vision model",
+  "Send PDFs to Azure Document Intelligence for higher-accuracy text extraction"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (uses Node.js child_process, cannot run on Obsidian Mobile). Audio conversion requires ffmpeg. AI OCR and Azure features send data to third-party services and are billed per use; API keys are stored in the vault at .obsidian/plugins/docdrop/data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to convert documents like PDFs, Word files, or spreadsheets into Markdown notes locally inside the vault.",
+ "readmeHash": "75d184237a14d237efd85f8efa40e1fc9ad9919f",
+ "relations": [
+  {
+   "evidence": "converts documents, spreadsheets, images, and more to Markdown using Microsoft's MarkItDown CLI tool",
+   "plugin": "MarkItDown",
+   "type": "integrates"
+  },
+  {
+   "evidence": "markitdown-ocr is a separately-installed plugin that adds AI-powered OCR",
+   "plugin": "markitdown-ocr",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Azure AI Document Intelligence is a paid Microsoft Azure cloud service that uses AI to extract text from PDFs",
+   "plugin": "Azure AI Document Intelligence",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it uses a vision-capable language model (such as OpenAI GPT-4o) to read text from images",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10+ and MarkItDown CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key (for markitdown-ocr)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Azure Document Intelligence subscription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Document converter that turns PDFs, Office files, images, and other formats into Markdown files in the vault using Microsoft's MarkItDown CLI.",
+ "tags": [
+  "markitdown",
+  "docx",
+  "xlsx",
+  "epub",
+  "openai",
+  "azure"
+ ]
+}

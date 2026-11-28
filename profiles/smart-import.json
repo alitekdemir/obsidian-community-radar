@@ -1,0 +1,97 @@
+{
+ "also": [
+  "files",
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", "
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin; best-tested on macOS; includes dependency install wizard.",
+ "intent": "new",
+ "intentEvidence": "Desktop-only Obsidian plugin for importing external files into your vault and converting them into Markdown.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Users often struggle to import and convert diverse external file formats (like DOCX, PDF, or EPUB) into a usable Markdown format within Obsidian.",
+ "readmeHash": "999034dc0462e1ba0be793a332b274f7a8fff7ec",
+ "relations": [
+  {
+   "evidence": "Required for general conversion:",
+   "plugin": "markitdown",
+   "type": "integrates"
+  },
+  {
+   "evidence": "pandoc for EPUB fallback conversion",
+   "plugin": "pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Calibre / ebook-convert for MOBI and AZW3 fallback conversion",
+   "plugin": "Calibre",
+   "type": "integrates"
+  },
+  {
+   "evidence": "When AI features are enabled and an OpenAI-compatible provider is configured",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "markitdown",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "python3",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "tesseract",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LibreOffice or soffice",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "pandoc",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Calibre / ebook-convert",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI-compatible provider",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 1
+ },
+ "summary": "Smart Import is a desktop-only plugin that imports external files and converts them into Markdown notes while preserving original source assets.",
+ "tags": [
+  "office-documents",
+  "pdf-conversion",
+  "ebook-import",
+  "natural-language-lookup",
+  "ai-cleanup"
+ ]
+}

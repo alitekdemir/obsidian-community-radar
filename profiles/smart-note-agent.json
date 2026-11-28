@@ -1,0 +1,88 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an autonomous tool-calling agent about vault notes",
+  "Search, read, and traverse notes via vault tools (backlinks, outgoing links, folders)",
+  "Propose note edits as unified diffs that require approval before writing",
+  "Run scheduled background tasks like daily summaries and weekly reviews",
+  "Configure multiple LLM providers with per-provider keys, base URLs, and models"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Remote LLM providers bill API usage directly to the user; the plugin itself is free. Detailed disclosures cover network use, vault read/write access, and clipboard behavior.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant that can search the vault, reason over notes, and propose note changes for review inside a chat.",
+ "readmeHash": "c25e17a5abfe2b99ac86e0287fe1a0c1cee3c002",
+ "relations": [
+  {
+   "evidence": "Multiple providers — OpenAI, Anthropic, DeepSeek, Qwen (Alibaba), Kimi (Moonshot), Zhipu (GLM), MiniMax, OpenRouter, Ollama (local)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Multiple providers — OpenAI, Anthropic, DeepSeek, Qwen (Alibaba), Kimi (Moonshot), Zhipu (GLM), MiniMax, OpenRouter, Ollama (local)",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama (local), and any custom OpenAI- or Anthropic-compatible endpoint",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter | Any model via openrouter.ai",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LM Studio | Local models via LM Studio",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Remote LLM provider account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Agentic AI chat assistant that reads vault notes and, with per-change diff approval, creates, edits, deletes, and moves them via your chosen LLM provider.",
+ "tags": [
+  "llm",
+  "chatbot",
+  "tool-calling",
+  "diff-review",
+  "openai",
+  "anthropic",
+  "ollama",
+  "scheduled-tasks"
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "also": [
+  "links",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Maintains a self-updating backlink index",
+  "Indexes note names and aliases for autocomplete",
+  "Answers title, property, tag and unlinked-mention lookups",
+  "Records heading times and block metadata",
+  "Publishes a versioned API for other plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Outgoing links",
+   "Graph view",
+   "Quick switcher",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Aimed at large vaults; ships an interactive demo vault; API reference in docs/api.md; derived caches stay per-device while heading history and registered property names sync through ordinary vault files.",
+ "intent": "improve",
+ "intentEvidence": "replacing the method that already asks the question, so nothing has to know the plugin is installed",
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian answers several vault-wide questions with no index behind them, so backlinks, name autocomplete and property lookups rescan every note on every call and feel slow on large vaults.",
+ "profiledAt": "2026-11-25",
+ "provider": "Ant Digital",
+ "readmeHash": "c8a761ddb00b91f3d6f800317adcf62950811938",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Supersedes Backlink Cache: includes its backlink index",
+   "plugin": "Backlink Cache",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Same approach for different core lookups: metadata calls, not full-text search",
+   "plugin": "Indexed Search",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The handle comes from the @mnaoumov/obsidian-lib plugin registry",
+   "plugin": "@mnaoumov/obsidian-lib",
+   "type": "integrates"
+  },
+  {
+   "evidence": "frontmatter markdown links when Frontmatter Markdown Links is installed",
+   "plugin": "Frontmatter Markdown Links",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "@mnaoumov/obsidian-lib",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault-index plugin that maintains backlink, name, title, property and tag indexes so Obsidian's built-in lookups and plugin calls stop rescanning every note.",
+ "tags": [
+  "backlinks",
+  "unlinked-mentions"
+ ],
+ "textHash": "68e7078ad0689e596350786c44eb11704d176baa"
+}

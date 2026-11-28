@@ -1,0 +1,78 @@
+{
+ "also": [
+  "annotation",
+  "export"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish a note to reMarkable as a PDF",
+  "Pull handwritten annotations back into the note",
+  "Transcribe page images with a vision LLM",
+  "Show page count and ask consent before paid transcription",
+  "Cache transcription results by PDF content hash"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires terminal setup of a Python CLI; publishing sends PDFs to reMarkable Cloud and pulling sends page images to OpenRouter; macOS, Linux and native Windows topologies are listed as untested; not yet on PyPI.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built first for an AI agent workflow that pushes artifacts to e-ink, then pulls handwritten feedback back into the conversation.",
+ "primary": "integrations",
+ "problem": "Handwritten annotations made on an e-ink tablet cannot be brought back into an Obsidian note as editable text.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "584494addfa67317dc74a09ba323610251e27483",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "rmapi (a third-party Go binary downloaded from ddvk/rmapi releases, version-pinned and sha256-verified)",
+   "plugin": "rmapi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "each page is rendered to a PNG image and sent to OpenRouter for vision transcription",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "reMarkable",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ormb CLI (Python 3.10+)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bridge that publishes notes to a reMarkable tablet as PDFs and pulls handwritten annotations back into the note as text.",
+ "tags": [
+  "handwriting",
+  "transcription",
+  "openrouter",
+  "vision-models",
+  "e-ink",
+  "cli"
+ ],
+ "textHash": "f6b84f92e5de05e413104d64b66fb33a94c762f4"
+}

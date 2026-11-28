@@ -1,0 +1,59 @@
+{
+ "also": [
+  "automation",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sort Inbox notes into configured Projects, Areas, Resources, and Archives folders",
+  "Reschedule, archive, or trash notes whose expiration date has passed",
+  "Archive and return whole Projects with a movement history in the main note",
+  "Fill in only missing required metadata (links, expiration dates) when sorting notes",
+  "Run review sessions through hotkey-bound commands with pause, skip, and close states"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Review here means triaging an Inbox and overdue notes into PARA folders, not spaced-repetition flashcard review.",
+ "extras": "Detailed product documentation is maintained separately, in Russian, in the author's own vault; community directory submission is pending, and the plugin is stated to be local-only with no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "folders",
+ "problem": "Obsidian has no guided workflow for triaging accumulated Inbox notes and overdue dated notes into a PARA folder structure with safe, reversible moves.",
+ "readmeHash": "3be905f779550da227e6ebe0155da58d231d9f66",
+ "relations": [
+  {
+   "evidence": "two user-started review workflows shared with nvim-obsidian-para-flow",
+   "plugin": "nvim-obsidian-para-flow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "PARA review workflow that sorts Inbox notes and expired notes into configured Projects, Areas, Resources, and Archives folders with transactional safety checks.",
+ "tags": [
+  "para-method",
+  "inbox-review",
+  "expired-notes",
+  "fifo-queue",
+  "transactional-file-moves",
+  "project-archiving"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Roll initiative for creatures and sort the order",
+  "Advance the turn and count rounds",
+  "Track HP, AC and conditions per combatant",
+  "Read HP, AC and Dex from Fantasy Statblocks creature notes",
+  "Write every change back into the note as plain text"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Shows one static ad inside the tracker: the Players button, which promotes the maker's paid DM Screen and can be turned off in settings. A browser demo runs the plugin over a sample note. Creatures kept only in Fantasy Statblocks' own bestiary are not read; their hp and ac must be written on the line.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The fight is kept as plain text so it syncs, survives restarts, and still reads fine if the plugin is uninstalled.",
+ "primary": "ttrpg",
+ "problem": "Running a fight in Obsidian means keeping turn order, hit points and conditions somewhere outside the note, where they do not sync or survive a restart.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "18c2add23fc0733956fa3a9a75c9317742645a93",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Quick Initiative reads the frontmatter that Fantasy Statblocks uses",
+   "plugin": "Fantasy Statblocks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With it installed, fights log themselves: when they start, each round, every hit",
+   "plugin": "Session Log",
+   "type": "integrates"
+  },
+  {
+   "evidence": "plan fights against the 5E XP budget, then start them in Quick Initiative",
+   "plugin": "Encounter Builder",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With DM Screen installed, the Players button in the tracker starts sharing",
+   "plugin": "DM Screen",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Fantasy Statblocks",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "DM Screen",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Initiative tracker that keeps a whole combat as plain text in a note, rolling initiative, advancing turns and tracking HP, AC and conditions.",
+ "tags": [
+  "dnd-5e",
+  "initiative-tracker",
+  "statblocks",
+  "plain-text"
+ ],
+ "textHash": "072d7a26a90473d59761a67b9f16f1c77b5f3e2d"
+}

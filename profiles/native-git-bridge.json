@@ -1,0 +1,83 @@
+{
+ "also": [
+  "files",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", ",
+  "Execute Git operations",
+  "Display status panel",
+  "Render diff panes",
+  "View repository history"
+ ],
+ "coreOverlap": {
+  "features": [
+   "git"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Android only. Requires Termux and a companion app.",
+ "intent": "alternative",
+ "intentEvidence": "none of them works with a native sparse-checkout index, which is the entire reason this one exists",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because existing mobile Git implementations (like isomorphic-git) do not understand native Git indices, leading to misreading sparse omissions as mass deletions.",
+ "primary": "git",
+ "problem": "Existing mobile Git implementations fail to correctly handle native Git features like sparse-checkout, often misinterpreting sparse omissions as mass deletions.",
+ "readmeHash": "aadb6c28a75b6edacf6e1d2581b7e2a9e425e2ee",
+ "relations": [
+  {
+   "evidence": "obsidian-git uses isomorphic-git on mobile, which does not understand a native Git index",
+   "plugin": "obsidian-git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "obsidian-git uses isomorphic-git on mobile, which does not understand a native Git index",
+   "plugin": "isomorphic-git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "This plugin needs Termux and a small companion app",
+   "plugin": "Termux",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or GitHub's OAuth device flow through the GitHub CLI (gh)",
+   "plugin": "GitHub CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Termux",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Git Bridge Companion APK",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "GitHub CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A Git bridge for Android that executes native Git commands via Termux, providing sparse-checkout safety and full Git functionality on mobile devices.",
+ "tags": [
+  "android",
+  "termux",
+  "sparse-checkout",
+  "ssh",
+  "github-cli"
+ ]
+}

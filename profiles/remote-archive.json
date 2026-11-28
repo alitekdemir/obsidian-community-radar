@@ -1,0 +1,69 @@
+{
+ "also": [
+  "files",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Archive files to S3, Nextcloud or WebDAV storage, leaving a .remote marker",
+  "Rewrite internal links and frontmatter between [[file]] and [[file.remote]]",
+  "Stream remote audio, video and images in a built-in .remote viewer",
+  "Restore files from remote storage with SHA-256 and size verification",
+  "Delete remote objects via a context menu with confirmation modal"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a backup plugin; it offloads large files to cloud storage to free disk space, and restoring deletes the remote copy.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Credentials are stored locally in data.json and never written to .remote marker files. Interface is bilingual (English and Russian). Exposes a public plugin API for other plugins and Dataview scripts.",
+ "intent": "new",
+ "intentEvidence": "Important: This is not a backup plugin. It is designed to free up local disk space",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to free up local disk space by moving large files out of the vault while keeping them seamlessly accessible inside it.",
+ "primary": "attachments",
+ "problem": "Large media files (videos, audio, images, PDFs) fill up local disk space, and Obsidian has no built-in way to offload them while keeping them accessible.",
+ "readmeHash": "24696486feef4eeb0037f69e1d6318de808319e5",
+ "relations": [
+  {
+   "evidence": "S3-compatible: AWS S3, Cloudflare R2, Backblaze B2, MinIO, Wasabi, Ceph",
+   "plugin": "S3-compatible storage (AWS S3, Cloudflare R2, MinIO, Wasabi)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Nextcloud: Native Nextcloud WebDAV API with OCS public share link generation",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Generic WebDAV: Standard WebDAV servers with optional read-only public CDN base URL",
+   "plugin": "WebDAV servers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3-compatible, Nextcloud or WebDAV storage account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Moves large vault files to S3, Nextcloud or WebDAV storage, leaving .remote JSON markers and streaming content on demand.",
+ "tags": [
+  "s3",
+  "nextcloud",
+  "webdav",
+  "cloudflare-r2",
+  "disk-space",
+  "offloading",
+  "streaming",
+  "sha256"
+ ]
+}

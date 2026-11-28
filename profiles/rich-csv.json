@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Sort CSV data in memory",
+  ": Filter CSV data by column",
+  ": Edit CSV cells directly",
+  ": Compute derived columns",
+  ": Write changes back byte-for-byte"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin makes no network requests, collects no telemetry, and requires no account.",
+ "intent": "alternative",
+ "intentEvidence": "This is the third answer: the sorting, and the care with the bytes.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to provide a complete solution that addresses the limitations of existing plugins, specifically regarding sorting and maintaining byte-level data integrity.",
+ "primary": "csv",
+ "problem": "Standard CSV files are displayed as raw text, and existing table views often risk data loss or modify the file structure during sorting or filtering.",
+ "readmeHash": "e7c59c3067bac9ba568a9281f88c6ff50f8a293a",
+ "relations": [
+  {
+   "evidence": "One plugin per extension. Obsidian hands .csv to whichever plugin registered it; CSV Lite, CSV Editor and csvzall all want the same one. Disable the others first.",
+   "plugin": "CSV Lite",
+   "type": "alternative"
+  },
+  {
+   "evidence": "One plugin per extension. Obsidian hands .csv to whichever plugin registered it; CSV Lite, CSV Editor and csvzall all want the same one. Disable the others first.",
+   "plugin": "CSV Editor",
+   "type": "alternative"
+  },
+  {
+   "evidence": "One plugin per extension. Obsidian hands .csv to whichever plugin registered it; CSV Lite, CSV Editor and csvzall all want the same one. Disable the others first.",
+   "plugin": "csvzall",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A CSV file view that allows sorting, filtering, and editing in a table format while ensuring data integrity by writing changes back byte-for-byte.",
+ "tags": [
+  "csv-editing",
+  "data-view",
+  "table-sorting",
+  "round-trip",
+  "derived-columns",
+  "markdown-conversion"
+ ]
+}

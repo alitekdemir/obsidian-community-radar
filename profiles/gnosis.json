@@ -1,0 +1,65 @@
+{
+ "also": [
+  "ai",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault with BM25+ keyword and hybrid semantic search",
+  "Find related notes similar to the current note, including unlinked mentions",
+  "Search images and PDFs with scope prefixes like img: and pdf:",
+  "Build an incremental portable index locally in the vault",
+  "Run embedding models locally in a worker via WebAssembly or WebGPU"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; the plugin hides itself on mobile. Model files are large (hundreds of MB) and are downloaded only after the user agrees, then cached. The ONNX Runtime engine is downloaded from jsDelivr rather than bundled and is verified with a SHA-256 hash.",
+ "intent": "improve",
+ "intentEvidence": "searches your vault with the retrieval pipeline of gnosis",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search is keyword-only, cannot find notes by meaning, and does not search image content or PDF text.",
+ "readmeHash": "1b01ba2e19def13870f4639d15274c400f10133a",
+ "relations": [
+  {
+   "evidence": "the lexical channel, the BM25+ parameters, the title bonus, the fusion weight",
+   "plugin": "gnosis CLI",
+   "type": "extends"
+  },
+  {
+   "evidence": "The WebAssembly engine of ONNX Runtime, from jsDelivr.",
+   "plugin": "onnxruntime-web",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "gnosis CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local hybrid search plugin that indexes the vault on the user's machine and runs keyword, semantic, image and PDF search through the gnosis retrieval pipeline compiled to WebAssembly.",
+ "tags": [
+  "bm25",
+  "hybrid-search",
+  "embeddings",
+  "clip",
+  "onnx",
+  "webgpu",
+  "hugging-face"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "soc-analysts"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Track cases on kanban boards with issue keys, swimlanes, WIP limits, and a JQL-lite query bar",
+  "Set per-severity SLA policies with live countdowns and breach notices",
+  "Record, defang, and optionally reputation-check indicators via VirusTotal, AbuseIPDB, and abuse.ch",
+  "Analyse pasted email headers or .eml files offline and turn alerts into cases",
+  "Generate case reports, shift handover notes, and SLA/performance statistics"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest states the plugin has not been reviewed by Obsidian staff. README warns to disable any other plugin reading the same pm-project/pm-task frontmatter, since both would write the same files. Reputation checks are off until the user adds their own API keys, and indicator values are only sent when the check button is clicked; case views never open links or load remote images.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no structured case-management system for security operations work like alert triage, SLA tracking, indicator handling, and audit timelines.",
+ "readmeHash": "47108daffb3a924d5424696274cf07a6c6a57069",
+ "relations": [
+  {
+   "evidence": "Works alongside SOC Toolkit: descriptions are plain notes, so its defang and IP-reputation commands work",
+   "plugin": "SOC Toolkit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional live reputation checks on indicator rows — VirusTotal (IP, domain, hash, URL",
+   "plugin": "VirusTotal",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "VirusTotal / AbuseIPDB / abuse.ch keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "SOC case and incident response tracker with kanban boards, issue keys, SLA timers, IOC handling, phishing analysis, reports, and shift handover notes.",
+ "tags": [
+  "soc",
+  "incident-response",
+  "sla",
+  "ioc",
+  "phishing",
+  "virustotal",
+  "abuseipdb",
+  "jira"
+ ]
+}

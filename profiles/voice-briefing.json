@@ -1,0 +1,93 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate briefing scripts from notes with AI providers (Gemini, Grok, OpenAI, Claude) in several styles and languages",
+  "Convert scripts to audio with TTS engines (Edge TTS, Gemini TTS, OpenAI TTS, ElevenLabs)",
+  "Upload audio to Google Drive and create public sharing links",
+  "Embed the audio at the bottom of the note as an HTML player, Markdown link, or direct URL"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a voice recorder; it generates spoken briefings from existing note text.",
+ "extras": "Manifest description warns the plugin has not been manually reviewed by Obsidian staff. Desktop-only. Part of the README (Google Drive setup and submission checklist) is written in Korean. Several providers require paid accounts or have free tiers; Edge TTS and Gemini are presented as free options.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to convert note content into spoken audio summaries or share them as playable links.",
+ "readmeHash": "1c6a045e43bfe1e998161aadd58ca704474fc75e",
+ "relations": [
+  {
+   "evidence": "Edge TTS - Free local Microsoft voices (edge-tts CLI)",
+   "plugin": "edge-tts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TTS by Microsoft Edge TTS and ElevenLabs",
+   "plugin": "ElevenLabs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cloud storage by Google Drive",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI powered by Google Gemini, XAI, OpenAI, and Anthropic",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI script and speech APIs, when OpenAI is selected",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider (Gemini, xAI, OpenAI, or Anthropic)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Edge TTS CLI for the free TTS option",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "ElevenLabs or Google account depending on chosen engine/sharing",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "TTS provider key (ElevenLabs, Gemini, or OpenAI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Turns notes into 1-2 minute AI-generated audio briefings using LLM script writing, text-to-speech engines, and optional Google Drive sharing.",
+ "tags": [
+  "text-to-speech",
+  "gemini",
+  "eleven-labs",
+  "edge-tts",
+  "openai",
+  "google-drive",
+  "claude",
+  "script-generation"
+ ]
+}

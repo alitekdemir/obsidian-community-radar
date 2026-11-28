@@ -1,0 +1,64 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes and attachments across devices through an ATProto PDS",
+  "Encrypt notes, attachments, filenames, and titles end-to-end with a passphrase-derived key",
+  "Merge edits with three-way, character-level merging and keep losing versions in Sync Conflicts/",
+  "Publish individual notes as public plaintext records with embedded images",
+  "Sync a plain vault folder via the atpsync CLI and daemon without Obsidian"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Companion CLI/daemon (atpsync) and MCP interface ship in the repo; a public web viewer for published notes is planned at notesky.app. Files over the PDS blob limit (~5 MB) stay local-only, and losing the encryption passphrase makes server-side notes unrecoverable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices normally relies on Obsidian's own Sync service or third-party servers; this plugin instead stores notes as encrypted records in the user's own ATProto PDS repo.",
+ "readmeHash": "0860f7fe81e22a9ec5d0a09e8070e9089007640c",
+ "relations": [
+  {
+   "evidence": "character-level merging (the same algorithm Obsidian Sync uses)",
+   "plugin": "Obsidian Sync",
+   "type": "inspired"
+  },
+  {
+   "evidence": "sign in with Bluesky (OAuth) or with an app password",
+   "plugin": "Bluesky",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Bluesky or other ATProto PDS account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "End-to-end encrypted vault sync to your own ATProto PDS (Bluesky, Blacksky, Eurosky, or self-hosted), with per-note public publishing.",
+ "tags": [
+  "atproto",
+  "bluesky",
+  "pds",
+  "self-hosted",
+  "e2e-encryption",
+  "xchacha",
+  "cli"
+ ]
+}

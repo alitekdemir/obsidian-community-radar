@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert the current note to an HTML presentation with Marp CLI and open it in the browser",
+  "Animate termlogue blocks so commands type out and output appears line by line",
+  "Keep Marp running in watch mode so edits refresh the presentation",
+  "Export the presentation as HTML next to the note inside the vault",
+  "Stop a running watch process"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only: it spawns Marp CLI as a separate program, which the mobile app cannot do. The user must install Marp CLI themselves; the plugin never downloads it. Generated presentations are written to the system temporary directory (except opt-in HTML export into the vault) and contain no executed code from termlogue blocks.",
+ "intent": "improve",
+ "intentEvidence": "It is the presentation half of Terminalogue, whose Obsidian plugin renders those same blocks in Reading View.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian cannot turn Marp-formatted notes into standalone HTML slide decks, and slide previews cannot play animated terminal sessions on a slide.",
+ "readmeHash": "f79cbe601334be9cd69eae42a1505c056f5c44a6",
+ "relations": [
+  {
+   "evidence": "It is the presentation half of Terminalogue, whose Obsidian plugin renders those same blocks in Reading View.",
+   "plugin": "Terminalogue",
+   "type": "extends"
+  },
+  {
+   "evidence": "converts it with Marp CLI, and opens the result in your default browser",
+   "plugin": "Marp CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Marp CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Marp-based converter that turns a Marp note into a self-contained HTML presentation with animated terminal sessions, opened in the default browser.",
+ "tags": [
+  "marp",
+  "marp-cli",
+  "terminal-animation",
+  "cli-demo",
+  "self-contained-html",
+  "watch-mode"
+ ]
+}

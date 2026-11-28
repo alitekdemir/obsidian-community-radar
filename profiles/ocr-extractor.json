@@ -1,0 +1,94 @@
+{
+ "also": [
+  "pdf",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extract text from PDFs, images and documents embedded in notes using OCR",
+  "Insert extracted text as an expandable callout below the embedded attachment",
+  "Run extraction on the active note, a folder, all notes, or a selection, with progress tracking and cancellation",
+  "Choose among OCR engines: Tesseract, Mistral OCR, OpenAI-compatible APIs, or a custom command",
+  "Expose a public API so other plugins can run the configured OCR engine"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Tesseract is free and fully local; Mistral OCR sends attachments to a third-party service. Custom commands are not supported on mobile (falls back to Tesseract). Extracted-text examples for each engine are hosted on Obsidian Publish, not in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Text inside embedded attachments like PDFs and images is invisible to Obsidian's search and other tools, because it is not stored as note text.",
+ "readmeHash": "bd6994c6e1b9e0bd5a541b69ff77204822b2c28b",
+ "relations": [
+  {
+   "evidence": "Tesseract (the default option) is a popular open source OCR engine.",
+   "plugin": "Tesseract",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Mistral OCR is a powerful AI model for quickly extracting text from complex documents",
+   "plugin": "Mistral OCR",
+   "type": "integrates"
+  },
+  {
+   "evidence": "either locally (e.g. with Ollama or LM Studio), or via a cloud provider like OpenRouter",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "either locally (e.g. with Ollama or LM Studio), or via a cloud provider like OpenRouter",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "either locally (e.g. with Ollama or LM Studio), or via a cloud provider like OpenRouter",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "macOCR (a third-party tool, review before installing) allows you to easily use Apple's built-in Vision OCR engine",
+   "plugin": "macOCR",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Mistral AI API key for the Mistral OCR engine",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid Mistral AI account (about $4 per 1000 pages)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama, LM Studio, macOCR, or another external tool for custom-command setups",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "OCR plugin that extracts text from PDFs, images and documents embedded in notes and stores it below the attachment as a searchable callout.",
+ "tags": [
+  "tesseract",
+  "mistral-ai",
+  "ollama",
+  "lm-studio",
+  "openrouter",
+  "macocr",
+  "handwriting",
+  "callout"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "import",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import selected Distari projects as Markdown papers and notes",
+  "Write bibliographic frontmatter (title, authors, year, venue, DOI, tags) on paper files",
+  "Rewrite distari:// paper and note links into vault wiki links",
+  "Run imports on demand or automatically every 30 minutes",
+  "Preserve locally edited files as dated conflict copies instead of overwriting them"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way sync: imports run only from Distari to the vault, and local edits are never uploaded.",
+ "extras": "Free plugin; the notes and note-assets API endpoints it depends on are outside Distari's supported public API; iOS is untested; the README gives detailed update, rollback, and privacy guidance.",
+ "intent": "new",
+ "intentEvidence": "Distari maintains this official plugin as a first-party Distari client, including any future community-directory release.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to bring research papers and their notes from a Distari account into a vault as linked Markdown files.",
+ "readmeHash": "d6537aede200cec560cd2c7c1c569c868acffe05",
+ "relations": [
+  {
+   "evidence": "Distari maintains this official plugin as a first-party Distari client",
+   "plugin": "Distari",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Distari account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Distari personal access token with read scope",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "One-way importer that pulls Distari papers, summaries, and notes into a vault as Markdown files with bibliographic frontmatter and wiki links.",
+ "tags": [
+  "distari",
+  "personal-access-token",
+  "doi",
+  "wikilinks",
+  "conflict-copies"
+ ]
+}

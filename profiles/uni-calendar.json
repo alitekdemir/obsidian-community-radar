@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Aggregate events from Google Calendar, CalDAV, and ICS feed sources into one month view",
+  "Color-code and deduplicate events across and within sources",
+  "Annotate date cells with Chinese lunar dates, festivals, solar terms, and public holidays",
+  "Filter events by title matching rules without deleting underlying data",
+  "Auto-sync sources on a configurable interval or via manual command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Holiday data is fetched from the jsdelivr CDN and cached locally; the plugin otherwise operates locally with credentials stored in the vault's plugin data file. Google setup includes proxy modes for networks that cannot reach Google endpoints.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian has no built-in calendar view that can display events from external calendar services alongside the vault, so users must check separate apps or switch calendars manually.",
+ "readmeHash": "b600f9b293384093f963ad74b2412aa9471b22de",
+ "relations": [
+  {
+   "evidence": "aggregates events from Google Calendar, CalDAV servers, and ICS feeds into a single month view",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "connect to Nextcloud, iCloud, Fastmail, or any CalDAV-compatible server",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account and OAuth client ID/secret",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "CalDAV server username and password",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Unified month-view calendar that aggregates events from Google Calendar, CalDAV servers, and ICS feeds, with Chinese lunar and holiday annotations.",
+ "tags": [
+  "google-calendar",
+  "caldav",
+  "ics",
+  "nextcloud",
+  "icloud",
+  "fastmail",
+  "lunar-calendar",
+  "solar-terms"
+ ]
+}

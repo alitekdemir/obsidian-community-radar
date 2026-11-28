@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations",
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the current note or selected notes to a configured GitHub repository",
+  "Apply framework presets for post paths, image paths, and frontmatter conventions",
+  "Commit local images in the same commit and rewrite Markdown and wiki image links to public site paths",
+  "Track per-note sync status, including Modified after local changes, on a filterable status page",
+  "Sync via direct commits to the target branch or pull requests from a custom branch"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-sync tool; it publishes selected notes to a GitHub blog repository, one manual sync at a time.",
+ "extras": "Desktop-only. Manual sync only; no automatic watcher or scheduled sync. Token must start with ghp_; OAuth not supported. Local images only (no PicGo or image hosting). Not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to push notes to a self-hosted Markdown static-site blog, including converting image links and filling frontmatter per framework conventions.",
+ "readmeHash": "ffdfa8f8815d16df07ac0634ffb1552cf530e516",
+ "relations": [
+  {
+   "evidence": "Blog Bridge sends requests to the GitHub REST API to read repository refs, create blobs, commits, branches, and pull requests",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with a blog repository",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub classic personal access token (ghp_ prefix)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs selected Obsidian notes to GitHub-backed Markdown static-site blogs (Hexo, Hugo, Jekyll, Astro, VitePress, MkDocs) with image handling and sync status tracking.",
+ "tags": [
+  "github",
+  "hexo",
+  "hugo",
+  "jekyll",
+  "astro",
+  "static-site",
+  "vitepress",
+  "mkdocs"
+ ]
+}

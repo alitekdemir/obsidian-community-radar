@@ -1,0 +1,72 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "insert many attachments in one command from the palette, ribbon, or right-click menu",
+  "embed each file at the cursor with configurable prefix, delimiter, and suffix text",
+  "save files to the vault's native attachment folder like the built-in command",
+  "open a bundled demo vault documenting every feature"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation ships as a demo vault included with each release and readable on GitHub; beta versions install via BRAT; debug messages are hidden by default. The README lists similar plugins and was last checked for alternatives on 2026-10-26.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's built-in Insert attachment command opens a file picker that accepts exactly one file.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian's built-in Insert attachment command accepts exactly one file per dialog, so attaching several files means repeating the command once per file.",
+ "readmeHash": "a5e5fe060387a99f74c378f680a9be68514c4a59",
+ "relations": [
+  {
+   "evidence": "Same batch-insert goal; configurable link prefix, delimiter and suffix",
+   "plugin": "Add Attachment",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Different insertion point: current cursor; any file type",
+   "plugin": "Bulk Image to File Importer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Narrower focus: batch attachment insertion; configurable text around links",
+   "plugin": "Mobile UX",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Broader input: any file type; follows link-format settings; configurable surrounding text",
+   "plugin": "Simple Image Inserter",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Multi-file attachment picker that saves and embeds any number of selected files at the cursor in a single command.",
+ "tags": [
+  "batch-insert",
+  "file-picker",
+  "embeds",
+  "ribbon",
+  "mobile-toolbar",
+  "brat"
+ ]
+}

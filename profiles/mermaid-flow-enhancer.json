@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compact flowchart spacing and readable labels",
+  "Align branches leaving decision nodes and route connectors with rounded corners",
+  "Highlight the ancestor path of a hovered or keyboard-focused node",
+  "Style diagrams for light and dark themes",
+  "Opt out per diagram with a %% mfe:off comment"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "New releases require a documented VirusTotal scan of the plugin files; mobile support is unverified (isDesktopOnly left disabled); demo-vault fixture diagrams are explicitly not performance guarantees.",
+ "intent": "improve",
+ "intentEvidence": "Works with both of Obsidian's diagram renderers: Mermaid.js up to Obsidian 1.14, and Pele from Obsidian 1.15.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian renders Mermaid flowcharts with default spacing and no interaction, making process diagrams hard to read and hard to trace node by node.",
+ "readmeHash": "d90e3732e98e6a87b88456993cfb39926bbb4b33",
+ "relations": [
+  {
+   "evidence": "Up to Obsidian 1.14, the plugin wraps Mermaid's render function and adjusts the generated SVG.",
+   "plugin": "Mermaid.js",
+   "type": "extends"
+  },
+  {
+   "evidence": "From Obsidian 1.15, it passes its layout settings to Pele and marks up each diagram Pele draws",
+   "plugin": "Pele",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Mermaid renderer enhancement that compacts flowchart layouts, aligns decision branches, and highlights ancestor paths when hovering or focusing nodes.",
+ "tags": [
+  "mermaid",
+  "flowchart",
+  "svg",
+  "pele",
+  "path-highlighting",
+  "hover"
+ ]
+}

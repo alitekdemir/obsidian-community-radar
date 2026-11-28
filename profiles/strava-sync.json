@@ -1,0 +1,88 @@
+{
+ "also": [
+  "import",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync recent activities from Strava via the API",
+  "Import a Strava bulk export CSV of historical activities",
+  "Render imported activities with Handlebars.js templates",
+  "Configure which activity fields are written to front matter properties",
+  "Show per-sport icons for use with Iconize"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Notes that the bulk export CSV format differs from the API JSON format, so some fields are not imported; also suggests excluding the sync folder from Obsidian search and graph views.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author states the purpose is to let activities be more easily referenced, tracked and visualized within Obsidian, especially through Dataview.",
+ "primary": "integrations",
+ "problem": "Strava activities are hard to reference, track, and visualize inside Obsidian because there is no built-in way to pull them in as notes.",
+ "readmeHash": "485b9a2dbc5d39cac05b306a159f6c17f1555f88",
+ "relations": [
+  {
+   "evidence": "the real power of this plugin comes from the Dataview integration",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the ability to use the Charts plugin to visualize historical activity data",
+   "plugin": "Charts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This example requires that the Contribution Graph plugin first be installed and enabled.",
+   "plugin": "Contribution Graph",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Per-sport icons for use with Iconize",
+   "plugin": "Iconize",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It's also possible to install an unreleased (beta) version using the BRAT plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Strava account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Strava API Client ID and Client Secret",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview / Charts / Contribution Graph / Iconize",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Strava integration that imports activities via the Strava API or bulk-export CSV into templated notes with customizable front matter.",
+ "tags": [
+  "strava",
+  "fitness",
+  "handlebars",
+  "dataview",
+  "api",
+  "bulk-export-csv",
+  "sports"
+ ]
+}

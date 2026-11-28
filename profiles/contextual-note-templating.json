@@ -1,0 +1,84 @@
+{
+ "also": [
+  "commands",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create notes by running intents defined in a note's frontmatter",
+  "Prompt for typed variable values (text, number, natural date, note, folder)",
+  "Insert variable values into templates, output paths, and note names",
+  "Import and merge intents from other configuration notes",
+  "Prepopulate prompts from selected text and replace selection with a link"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Notes that the GIFs show outdated frontmatter configuration; full schema lives in a separate Intents Schema File, so troubleshooting points to the developer console and external docs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "templating",
+ "problem": "Obsidian's core Templates inserts static content and offers no way to capture values through prompts or configure note creation per note.",
+ "readmeHash": "fd55d59d5e4e1c498265a38b74b93e6dfafc9710",
+ "relations": [
+  {
+   "evidence": "Another plugin called \"Filtered Opener\" is required to select a note from your vault.",
+   "plugin": "Filtered Opener",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A natural date provided the natural language dates plugin.",
+   "plugin": "Natural language dates plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it will run its templating after the variables of this plugin are replaced",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Both plugins show prompts and use the selection to pre-populate fields",
+   "plugin": "Note from template",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Filtered Opener",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Natural language dates",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Templating plugin that runs frontmatter-configured intents to create notes, prompting for typed variable values inserted into templates, paths, and names.",
+ "tags": [
+  "prompts",
+  "intents",
+  "variables",
+  "natural-language-dates",
+  "filtered-opener",
+  "text-selection"
+ ]
+}

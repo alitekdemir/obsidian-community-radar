@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move nodes and groups with Alt + left drag from any point",
+  "Resize nodes with Alt + right drag using AltSnap-style zones",
+  "Move or resize multi-node selections as one box",
+  "Snap dragged edges to nearby neighbor edges",
+  "Configure hotkeys, zones, snapping, and touch behavior in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not the AltSnap window manager itself; it only applies AltSnap-style Alt-drag moving and resizing to Obsidian canvas nodes.",
+ "extras": "Uses Obsidian's undocumented internal canvas API, so Obsidian updates may require plugin updates. If AltSnap itself is running, it intercepts Alt + drag unless Obsidian is fullscreen or blacklisted in AltSnap. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": "i vibed this to copy AltSnap functionality but just for the canvas nodes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found canvas node resize boundaries too tiny and built the plugin to copy AltSnap's behavior for canvas nodes.",
+ "primary": "canvas",
+ "problem": "Obsidian's canvas resize handles are tiny, so resizing or moving nodes means hunting for small corner boundaries.",
+ "readmeHash": "dce28df21ade249556af746523f24f10d1910996",
+ "relations": [
+  {
+   "evidence": "Resize zone logic is ported from AltSnap by RamonUnch (GPL-3.0).",
+   "plugin": "AltSnap",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Canvas utility that moves and resizes canvas nodes AltSnap-style: hold Alt and drag anywhere on a node, with touch support.",
+ "tags": [
+  "altsnap",
+  "alt-drag",
+  "snapping",
+  "touch-input",
+  "canvas-groups"
+ ]
+}

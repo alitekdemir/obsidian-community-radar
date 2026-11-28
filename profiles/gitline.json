@@ -1,0 +1,52 @@
+{
+ "also": [
+  "status-bar",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show git blame (author, time, message, hash) at the end of the cursor line",
+  "Configure the blame display with {date} {time} {author} {message} {hash} placeholders",
+  "Choose relative or absolute timestamp formatting",
+  "Mark uncommitted lines and optionally ignore whitespace-only changes (git blame -w)",
+  "Show the current line's author in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Status bar"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (uses Node.js APIs); requires git on PATH. README notes the plugin has not been manually reviewed by Obsidian staff and describes its security approach (execFile, no shell).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian gives no way to see who last changed the line you are editing when the vault is tracked in Git.",
+ "readmeHash": "90100c3f6d1ef50b67cfa84e52765e523fc30453",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git blame plugin that shows the current line's committer, commit time, and commit message as an inline annotation at the line end.",
+ "tags": [
+  "git-blame",
+  "version-control",
+  "inline-annotation",
+  "cursor-line",
+  "lru-cache"
+ ]
+}

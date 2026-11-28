@@ -1,0 +1,84 @@
+{
+ "also": [
+  "integrations",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Insert citations from the EndNote library with @ autocomplete and a search dialog",
+  "Render live CSL-formatted citations and auto-updating bibliography blocks in notes",
+  "Search and browse the EndNote library, groups, and records in a sidebar",
+  "Export notes to .docx, LaTeX/BibTeX, or CSL-JSON using pandoc",
+  "Produce Word documents with real EndNote ADDIN EN.CITE fields via Word and the Cite While You Write add-in"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop Obsidian 1.5+ only (Node APIs); mobile unsupported. Manual install by copying plugin files into .obsidian/plugins. Detailed disclosures: no network traffic, .enl opened read-only outside the vault, shell used only for exports (pandoc, PowerShell/Word COM).",
+ "intent": "alternative",
+ "intentEvidence": "An Obsidian take on EndNote's Word add-in: the library is read straight out of EndNote's own .enl database",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "An Obsidian take on EndNote's Word add-in: the library is read straight out of EndNote's own .enl database, so nothing has to be exported by hand.",
+ "primary": "research",
+ "problem": "Obsidian has no built-in citation tooling, and using an EndNote library normally means exporting references by hand instead of citing directly while writing.",
+ "readmeHash": "b52ea78ca3af27466b08f1fa97527fe7089fdd33",
+ "relations": [
+  {
+   "evidence": "Opens .enl files read-only (they are SQLite under the hood) and reloads automatically whenever EndNote saves.",
+   "plugin": "EndNote",
+   "type": "integrates"
+  },
+  {
+   "evidence": "hands the document to Word + EndNote so they write real ADDIN EN.CITE fields",
+   "plugin": "Microsoft Word",
+   "type": "integrates"
+  },
+  {
+   "evidence": "pandoc + citeproc, fully offline",
+   "plugin": "pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "EndNote with a SQLite-based .enl library (EndNote 20/21/2025)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "pandoc on PATH for Word/LaTeX export",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Microsoft Word desktop with the Cite While You Write add-in",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "EndNote licence",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Citation plugin that reads an EndNote .enl library for autocomplete citing, live CSL-formatted citations, and Word/LaTeX export via pandoc.",
+ "tags": [
+  "endnote",
+  "csl",
+  "pandoc",
+  "bibtex",
+  "docx",
+  "cite-while-you-write"
+ ]
+}

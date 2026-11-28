@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert images of handwriting, whiteboards and diagrams into Markdown notes",
+  "Rebuild diagrams from images as Mermaid blocks",
+  "Export images as editable .drawio diagram files",
+  "Process images on-device (EXIF orientation, downscaling, JPEG encoding) before upload",
+  "Configure Claude model, effort level, output folder and per-conversion instructions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a drawing or inking tool; it converts images of handwriting and drawings into notes and diagram files.",
+ "extras": "Listed as not manually reviewed by Obsidian staff. Each conversion costs paid Anthropic API usage (amount shown after each conversion). HEIC photos cannot be decoded on desktop and must be exported as JPEG or PNG first. Images and conversion instructions are sent to api.anthropic.com; no other vault content or telemetry is sent.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Obsidian has no built-in way to turn photos of handwritten notes, whiteboards or sketches into editable Markdown text and diagrams.",
+ "readmeHash": "882fb2754972919f705955f3d5cb35d3a08563fb",
+ "relations": [
+  {
+   "evidence": "InkMagix uses Anthropic's Claude models to read your images.",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Anthropic API usage (billed per conversion)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "draw.io editor plugin or desktop app (to open .drawio output)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Image-to-note converter that turns photos of handwriting, whiteboards and diagrams into Markdown notes with Mermaid diagrams or editable draw.io files using Claude.",
+ "tags": [
+  "claude",
+  "anthropic",
+  "mermaid",
+  "drawio",
+  "handwriting",
+  "whiteboard"
+ ]
+}

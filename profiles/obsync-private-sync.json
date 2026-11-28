@@ -1,0 +1,73 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes, attachments and filenames across devices via your own server",
+  "Encrypt files end-to-end on the device so the server never gets the key",
+  "Pair additional devices using a setup token and recovery backup",
+  "Restore retained earlier versions of a note",
+  "Manage paired devices and revoke access from a server dashboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Manifest carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' The README warns never to run it alongside another sync on one vault, and stresses keeping the 24-word recovery backup off the device that made it. Full documentation lives on an external documentation site.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync options rely on a hosted subscription service or cloud folders, leaving no way to sync entirely through a private server you control.",
+ "readmeHash": "07567529dcabe656243d16103ea01ab15d388ec9",
+ "relations": [
+  {
+   "evidence": "Put it behind my own proxy (Caddy, nginx, Traefik, HAProxy)",
+   "plugin": "Caddy",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Put it behind my own proxy (Caddy, nginx, Traefik, HAProxy)",
+   "plugin": "nginx",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Cloudflare (optional) | Cloudflare",
+   "plugin": "Cloudflare",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsync server (Docker, Compose, static binary, or Kubernetes)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "TLS proxy or tunnel (Caddy, nginx, Traefik, HAProxy, Cloudflare)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted, end-to-end encrypted live sync plugin that keeps a vault in sync through an obsync server you run yourself.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "docker",
+  "kubernetes",
+  "version-history",
+  "recovery-key"
+ ]
+}

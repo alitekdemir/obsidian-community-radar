@@ -1,0 +1,65 @@
+{
+ "also": [
+  "annotation",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read PDFs, EPUBs, saved web articles and YouTube transcripts inside Obsidian",
+  "Clip selected text or page regions into notes as quotes or PNG images",
+  "Nest clips under parent clips while reading",
+  "Track reading progress in a library of in-progress documents",
+  "Import a Readwise export as ordinary notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a bulk PDF-to-Markdown converter; nothing enters the vault until you clip it yourself.",
+ "extras": "Opt-in AI transcription is the only network feature and stays fully offline when the key is unset; the key is stored in Obsidian's secure storage and migrated from older plaintext versions. YouTube transcript saving and Apple Books import are desktop-only (the latter needs macOS Full Disk Access). MIT licensed with a Buy Me a Coffee link; the README documents a versioned public API for other plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "In the vault it was built for, 174 of 348 PDF page references in Excalidraw drawings were already broken because the named PDF no longer existed; the author decided a pointer is not storage, so clips become real files in the vault.",
+ "primary": "research",
+ "problem": "Reading sources and taking quotes usually means external apps or bulk PDF-to-Markdown converters that dump a transcript into the vault, with no link between the highlight and the note you write about it.",
+ "readmeHash": "3ba74b7689217c357967d65e471dd36d5c39f99e",
+ "relations": [
+  {
+   "evidence": "Import from a Readwise export turns the two files Readwise hands you on the way out",
+   "plugin": "Readwise",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send clips from this note to Excalidraw opens a gallery of every image clip",
+   "plugin": "Excalidraw",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Document reader for PDFs, EPUBs, web articles and video transcripts; clip passages as quotes or images and write your own text underneath.",
+ "tags": [
+  "readwise",
+  "excalidraw",
+  "epub",
+  "youtube",
+  "read-later",
+  "highlights",
+  "anthropic"
+ ]
+}

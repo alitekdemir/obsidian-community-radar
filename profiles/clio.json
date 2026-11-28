@@ -1,0 +1,79 @@
+{
+ "also": [
+  "writing",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render daily quote, word, history, and prompt cards via code blocks in notes",
+  "capture, index, and browse quotes in a sidebar library with search and tag filters",
+  "track up to four daily intentions with per-item streaks and completion percentages",
+  "keep a one-line daily journal with past-year entries",
+  "migrate existing blockquote quotes into structured clio-quote blocks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Runs fully offline if the two online lookups (word definitions, Wikipedia feed) are disabled; only two free unauthenticated API calls are made, cached per day, and no vault content is sent.",
+ "intent": "alternative",
+ "intentEvidence": "Upgrading from Muse or Almanac (pre-release)? Install this plugin as Clio (clio).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian daily notes start blank, so users who want a structured morning ritual (quote, word, prompt, intentions) must assemble it by hand.",
+ "readmeHash": "f49f33cf466798982ff5a1b5ef1356e3113a3b12",
+ "relations": [
+  {
+   "evidence": "Upgrading from Muse or Almanac (pre-release)? Install this plugin as Clio (clio).",
+   "plugin": "Muse",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Existing muse-quote, almanac-quote, muse-static, and almanac-static blocks still work",
+   "plugin": "Almanac",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Pulls a curated set of significant historical events for today's date from the Wikimedia featured-content feed",
+   "plugin": "Wikimedia featured-content feed",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Looks up definition and example sentences from the free dictionaryapi.dev API",
+   "plugin": "dictionaryapi.dev",
+   "type": "integrates"
+  },
+  {
+   "evidence": "perfect for Templater dropping the day's value into a daily note",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Daily-ritual plugin that renders code-block cards in daily notes: vault quote of the day, word of the day, on-this-day history, reflection prompt, journal, and intentions.",
+ "tags": [
+  "wikipedia",
+  "dictionaryapi",
+  "quotes",
+  "moon-phase",
+  "streaks",
+  "reflection-prompts"
+ ]
+}

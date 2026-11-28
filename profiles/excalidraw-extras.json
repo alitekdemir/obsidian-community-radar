@@ -1,0 +1,59 @@
+{
+ "also": [
+  "latex",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Host the MathjaxToSVG and MermaidToExcalidraw conversion libraries for the main plugin",
+  "Provide file system, network, and Electron IPC access for PDF printing and export",
+  "Verify its version when the main Excalidraw plugin requests a feature",
+  "Expose a strictly typed API published to NPM for inter-plugin communication"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid",
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does nothing on its own; it is an optional dependency package the main Excalidraw plugin detects and calls when LaTeX, Mermaid, or PDF export features are used.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README discloses its high-privilege capabilities (file system, network, IPC) as a security transparency measure, and notes that eval and btoa logic remain in the core plugin.",
+ "intent": "improve",
+ "intentEvidence": "Excalidraw Extras is a companion plugin for the Obsidian Excalidraw Plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README explains the architectural split keeps the main Excalidraw plugin lightweight, fast-loading, compatible with Obsidian Sync Basic, and compliant with Obsidian's security guidelines.",
+ "primary": "drawing",
+ "problem": "Heavy dependencies and OS-level operations in the main Excalidraw plugin would bloat it, slow loading, and conflict with Obsidian's security policies and Sync Basic constraints.",
+ "readmeHash": "15b93f75bfcded2fad1034488ba53804cfe38adf",
+ "relations": [
+  {
+   "evidence": "Excalidraw Extras is a companion plugin for the Obsidian Excalidraw Plugin.",
+   "plugin": "Excalidraw Plugin",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Excalidraw Plugin",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Companion dependency package for the Excalidraw plugin that hosts its heavy libraries (LaTeX, Mermaid) and high-privilege operations.",
+ "tags": [
+  "excalidraw",
+  "mermaid",
+  "mathjax",
+  "pdf-export",
+  "electron",
+  "ipc"
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pair a device with the inbox server using a one-time setup code",
+  "Poll the server every 10 seconds for items waiting for the device",
+  "Download files to temporary .part files, place them, and verify SHA-256 checksums",
+  "Mirror an optional shared knowledge base into a dedicated vault folder",
+  "Unbind the current device from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general data-transfer or two-way sync tool; it only receives items from the server and never pushes vault changes back.",
+ "extras": "README is written in Chinese. It documents migration from an earlier mirror mode: switching to inbox mode deletes unchanged mirrored files and the local .git folder while preserving edited and user-written files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to receive notes and attachments delivered from an outside server; sync tools are typically two-way and can overwrite local edits.",
+ "readmeHash": "8e6ee0528bcd4c7b4a84818ae7bcf15316a44922",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "personal inbox server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Pulls items from a personal inbox server into the vault every 10 seconds after one-time code pairing, adding files without overwriting or deleting.",
+ "tags": [
+  "inbox-server",
+  "one-way-pull",
+  "sha-256",
+  "device-token",
+  "shared-knowledge-base",
+  "etag"
+ ]
+}

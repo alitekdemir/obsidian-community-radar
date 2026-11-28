@@ -1,0 +1,77 @@
+{
+ "also": [
+  "data",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "collect candidate evidence from a folder scope, backlinks, and outlinks",
+  "review and include or exclude candidate notes before synthesis",
+  "synthesize reports, dashboards, link audits, and metadata audits via local Codex CLI",
+  "compile report notes only after explicit user approval",
+  "check frontmatter fields for metadata gaps"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks",
+   "Outgoing links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because it launches a local Node process; Codex synthesis is optional and collection plus deterministic report compilation work without it. README discloses no telemetry, no silent edits, and that data.json should not be published.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Compiling findings across many notes requires either manual review of query results or sending the whole vault to an AI service, with no step to select only vetted evidence first.",
+ "readmeHash": "231534b32bddd0a219aa0b40a5b8406e5de30592",
+ "relations": [
+  {
+   "evidence": "Starts Codex through the installed local Codex CLI using the user's existing Codex login.",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uses Dataview when available for structured metadata access.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Codex login",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Vault analysis plugin that collects reviewed evidence notes and synthesizes reports, dashboards, and audits through a local Codex CLI session.",
+ "tags": [
+  "codex-cli",
+  "dataview",
+  "evidence-review",
+  "query-plan",
+  "link-audit",
+  "metadata-audit",
+  "report-generation"
+ ]
+}

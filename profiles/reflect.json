@@ -1,0 +1,82 @@
+{
+ "also": [
+  "ai",
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse passages from current and recent notes by date, people, themes, or projects",
+  "Scan selected notes with a language model to find recurring ideas",
+  "Keep an idea as a Markdown note with links to its source passages",
+  "Add source links back from notes into kept ideas",
+  "Ask questions of selected notes and save findings with their original passages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a journaling or daily-reflection tool; it resurfaces passages from notes you already have and links ideas back to their sources.",
+ "extras": "Pre-alpha; the workflow may change. Free to install and use, but optional hosted models require a provider account or API key and may incur provider charges. Requires Obsidian Desktop 1.15.0 or later. Detailed data-and-privacy section explains what is sent to each model provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author is exploring how to help people come back to their notes, and expects the workflow to change as they learn what users find useful.",
+ "primary": "thinking",
+ "problem": "Obsidian has no built-in way to come back to what you have written and see which ideas keep recurring across notes over time.",
+ "readmeHash": "9054c0a627311d6f6dc15c4c26936ead14ce2ea7",
+ "relations": [
+  {
+   "evidence": "Start Ollama and enter a downloaded model ID from ollama list.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Start the LM Studio server and enter a model ID.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose an OpenRouter API key and enter the full model ID.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose a Claude Console API key and enter the model ID.",
+   "plugin": "Claude API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The optional Codex companion requires an installed, signed-in Codex CLI.",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local models",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter, Claude, or OpenAI-compatible endpoint key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Note-review tool that gathers related passages from your notes and uses language models to surface recurring ideas as linked notes.",
+ "tags": [
+  "ollama",
+  "lm-studio",
+  "openrouter",
+  "claude-api",
+  "llm",
+  "idea-resurfacing"
+ ]
+}

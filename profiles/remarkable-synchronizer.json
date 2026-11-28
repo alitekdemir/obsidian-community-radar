@@ -1,0 +1,68 @@
+{
+ "also": [
+  "syncing",
+  "import"
+ ],
+ "audience": [
+  "remarkable-tablet-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Connect to the reMarkable cloud with a one-time code or a self-hosted rmfakecloud server",
+  "Render .rm v6 stroke data to PNG, JPEG, or WebP page images",
+  "Browse notebooks in a sidebar panel with folder hierarchy, search, and multi-select",
+  "Export notebooks as PDFs, including annotated copies and text-highlight annotations",
+  "Import local .rmdoc files and turn typed text and wikilinks into markdown notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault-sync tool; it pulls reMarkable tablet notebook content into the vault rather than syncing notes across devices.",
+ "extras": "Mobile support is experimental and the author asks for device and OS details in bug reports. Device tokens are stored in Obsidian's secret storage, not in the vault. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to access notebooks and handwritten pages stored on a reMarkable tablet or its cloud.",
+ "readmeHash": "357d19cac495abec408efb22592ee2b98484b78c",
+ "relations": [
+  {
+   "evidence": "connect to a self-hosted rmfakecloud server as an alternative to the official cloud",
+   "plugin": "rmfakecloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "connects to the reMarkable cloud to list, download, and sync notebook pages as images",
+   "plugin": "reMarkable cloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "reMarkable account with cloud sync enabled",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "rmfakecloud server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs reMarkable tablet notebooks into the vault as rendered page images, annotated PDFs, highlight notes, and typed-text notes.",
+ "tags": [
+  "remarkable",
+  "rmfakecloud",
+  "handwriting",
+  "rmdoc",
+  "page-rendering"
+ ]
+}

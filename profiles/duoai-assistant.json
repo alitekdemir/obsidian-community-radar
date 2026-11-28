@@ -1,0 +1,77 @@
+{
+ "also": [
+  "writing",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate continuations from the text before the cursor",
+  "Summarize, translate, polish and explain selected text",
+  "Show ghost-text completions after a configurable idle delay",
+  "Run custom prompts with a {{text}} placeholder",
+  "Answer free-form questions in a dialog and insert the reply"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Bilingual Chinese/English README and settings panel; API usage is billed by the chosen provider; ghost-completion diagnostics are written to ghost-diag.txt in the plugin folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to send note text to an LLM for continuation, summarization, translation or rewriting.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "ff8e148faf796f6155c1a63ded9caad30f39dc92",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Works with OpenAI-compatible APIs as well as Anthropic Claude's native Messages API.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic uses the native Messages API (/v1/messages) automatically; no extra configuration is needed.",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For local Ollama, any placeholder value works as the API key",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for the chosen LLM provider",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI writing assistant that connects to any OpenAI-compatible or Anthropic API to continue, summarize, translate, polish and explain text in notes.",
+ "tags": [
+  "llm",
+  "byok",
+  "openai-compatible",
+  "ghost-text",
+  "prompts",
+  "ollama",
+  "claude"
+ ],
+ "textHash": "72ee53518bd3fbd9c497a1ff3e8ef1ee6dfad116"
+}

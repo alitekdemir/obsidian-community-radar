@@ -1,0 +1,83 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault between desktop, iOS and Android through a self-hosted server",
+  "Encrypt notes and file names end-to-end with AES-256-GCM before they leave the device",
+  "Surface same-line edit conflicts and ask the user, naming the device each side came from",
+  "Restore deleted files from any device for thirty days",
+  "Set up new devices by QR code with per-device revocable tokens"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that the vault passphrase is permanent and unrecoverable, and warns readers to check the bind mount in the provided docker-compose.yml before running it. A community guide covers setup on a Ugreen NAS (UGOS).",
+ "intent": "alternative",
+ "intentEvidence": "If you have looked at Obsidian Sync, Remotely Save, Self-hosted LiveSync, Syncthing or Git",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that every self-hosted sync asks for something first (CouchDB, Docker, Cloudflare, cloud storage) and wanted one small binary on a machine the user already has.",
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid subscription, and other self-hosted sync options require cloud storage, CouchDB, Docker, or a Cloudflare account.",
+ "readmeHash": "be807b5f443d9efeb970294014aaef1e8b3a9cbd",
+ "relations": [
+  {
+   "evidence": "If you have looked at Obsidian Sync, Remotely Save, Self-hosted LiveSync, Syncthing or Git",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Remotely Save wants the cloud storage you were trying to leave.",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "LiveSync wants a CouchDB.",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "If you have looked at Obsidian Sync, Remotely Save, Self-hosted LiveSync, Syncthing or Git",
+   "plugin": "Syncthing",
+   "type": "alternative"
+  },
+  {
+   "evidence": "A private network like Tailscale works: point the plugin at the private address and skip TLS entirely.",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Lockstep sync server binary on a Linux box, VPS, or container host",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale (alternative to a domain name and TLS)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted vault sync plugin that keeps desktop and mobile devices in sync through your own server, with end-to-end encryption and no subscription.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "sqlite",
+  "docker",
+  "tailscale",
+  "qr-code"
+ ]
+}

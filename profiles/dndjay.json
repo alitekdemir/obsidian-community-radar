@@ -1,0 +1,60 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Mix four audio channels with faders, mute and live VU meters",
+  "Trigger looping beds and one-shots from 12-pad loadouts",
+  "Stage and switch scenes with smooth or sudden crossfades",
+  "Frame vault images and videos with pan, zoom and rotate",
+  "Stream framed battlemaps to a Raspberry Pi driving an HDMI display"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The Battlemap tab is hidden in the current release (re-enable via BATTLEMAP_ENABLED in src/view/ConsoleView.ts). Mobile audio pauses when Obsidian is backgrounded due to webview throttling; VU meters are inactive on mobile. The Pi agent, systemd units and protocol details live in the repo (pi-agent/).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Obsidian has no built-in tool for running ambience, music and one-shot effects during tabletop sessions, or for pushing a battlemap to a second screen.",
+ "readmeHash": "021f52657fd5432329845a62764585e3eed89790",
+ "relations": [
+  {
+   "evidence": "The agent converts the plugin's intuitive wire units to mpv: video-zoom = log2(scale)",
+   "plugin": "mpv",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Raspberry Pi running the bundled DnDJay agent (mpv, systemd services)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Tabletop session console with a 4-channel Web Audio soundboard, scene switching, loadouts, and a battlemap tab that streams framed maps to a Raspberry Pi display.",
+ "tags": [
+  "soundboard",
+  "mixer",
+  "web-audio",
+  "raspberry-pi",
+  "battlemap",
+  "crossfade",
+  "ambience",
+  "mpv"
+ ]
+}

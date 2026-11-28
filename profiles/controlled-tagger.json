@@ -1,0 +1,74 @@
+{
+ "also": [
+  "tags",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Suggest tags from a saved registry using an OpenAI-compatible model",
+  "Review suggestions and append or replace frontmatter tags",
+  "Import, add, search and persist allowed tags in a registry",
+  "Rename or delete a tag across the vault after confirmation",
+  "Build and refresh a cached tag semantic library"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "API key is stored in plaintext in the plugin's data.json; vault-wide rename and delete are not transactional, so the README advises backing up first. No telemetry or author-operated backend.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Model-generated tags can be arbitrary or invented, with no built-in way to keep them inside a trusted tag set or review them before they reach a note.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "a18b7952c491db926abf3e37688fc75c10375bff",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "SiliconFlow presets plus custom OpenAI-compatible endpoints and model IDs",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the Obsidian community plugin BRAT.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible model API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible model provider",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI tag suggester that limits an OpenAI-compatible model to a saved tag registry and requires review before writing frontmatter tags.",
+ "tags": [
+  "auto-tagging",
+  "openai-compatible",
+  "api-key",
+  "byok",
+  "llm",
+  "nested-tags"
+ ],
+ "textHash": "5a195584d6bdfdc8cf42ccd455105930898df4af"
+}

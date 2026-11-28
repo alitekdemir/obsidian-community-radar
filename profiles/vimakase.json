@@ -1,0 +1,85 @@
+{
+ "also": [
+  "hotkeys",
+  "navigation"
+ ],
+ "audience": [
+  "vim-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Add space leader key sequences for editor and other views",
+  "Provide neo-tree-style keyboard control of the file explorer",
+  "Sync vim yanks, deletes and pastes with the system clipboard",
+  "Remap select-all, copy, cut and paste keys in vim mode",
+  "Show which-key-style popups for pending key sequences"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; editor leader keys require Obsidian's built-in vim mode to be enabled. Not yet in the community plugin directory, so it must be installed manually. Uses undocumented internals for the file explorer and vim register syncing, which may break on Obsidian updates.",
+ "intent": "improve",
+ "intentEvidence": "neo-tree-style keys for Obsidian's built-in file explorer in the sidebar",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "Obsidian's vim mode has no leader keys, and the built-in file explorer cannot be driven from the keyboard like a Neovim file tree.",
+ "readmeHash": "f4c8a60bdf28e5d4f42293899dde1420ac118fcd",
+ "relations": [
+  {
+   "evidence": "Find files (Omnisearch if installed, otherwise the quick switcher)",
+   "plugin": "Omnisearch",
+   "type": "integrates"
+  },
+  {
+   "evidence": "space g g | Git view (Obsidian Git)",
+   "plugin": "Obsidian Git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Inspired by LazyVim, neo-tree.nvim and Sidebar Keyboard Navigation.",
+   "plugin": "LazyVim",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Inspired by LazyVim, neo-tree.nvim and Sidebar Keyboard Navigation.",
+   "plugin": "neo-tree.nvim",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Inspired by LazyVim, neo-tree.nvim and Sidebar Keyboard Navigation.",
+   "plugin": "Sidebar Keyboard Navigation",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Omnisearch",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian Git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vim-style keyboard setup that adds LazyVim-style space leader keys and neo-tree-style file explorer navigation to Obsidian.",
+ "tags": [
+  "lazyvim",
+  "neo-tree",
+  "which-key",
+  "leader-keys",
+  "clipboard"
+ ]
+}

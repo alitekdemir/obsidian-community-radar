@@ -1,0 +1,44 @@
+{
+ "also": [
+  "pdf",
+  "theming"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preserve the active light/dark palette in native PDF exports",
+  "Repeat content padding on every exported PDF page",
+  "Adjust top, right, bottom, and left margins from 0 to 40 mm",
+  "Restore native export behavior by disabling the plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a PDF exporter or new export flow; it only styles the output of Obsidian's built-in Export to PDF command.",
+ "extras": "Not in the community catalog; manual installation from Release downloads is required. Repeated page padding needs Chromium 130+ and app version 1.9.0+; older engines keep original pagination and show a settings warning. Tested only on Windows with the Border theme; other themes, landscape, oversized elements, and dynamic embeds need separate testing. No network requests; the temporary reading-view clone used for color sampling is removed synchronously, including on error.",
+ "intent": "improve",
+ "intentEvidence": "No system print dialog or replacement export command is added.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian's native PDF export follows the OS color scheme instead of the reading palette, and its page margins clip full-bleed backgrounds supplied by themes and snippets.",
+ "readmeHash": "800da77808e9fc14ed5e19af4e4b561bdc5ef926",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Export-styling bridge that carries the active Obsidian light/dark palette and per-page content padding into the built-in Export to PDF output.",
+ "tags": [
+  "dark-mode",
+  "light-mode",
+  "page-margins",
+  "full-bleed",
+  "paper-texture",
+  "print-layout"
+ ]
+}

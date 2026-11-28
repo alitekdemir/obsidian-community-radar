@@ -1,0 +1,71 @@
+{
+ "also": [
+  "templating",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create notes from dragged-and-dropped Outlook .msg meeting files",
+  "Fill note frontmatter and body from meeting details via Mustache templates",
+  "Customize filename patterns and folder locations, including folder-per-date structures",
+  "Format dates and fields with helper fields and functions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not sync or connect to Outlook live; it only processes .msg files that you drag or save from the Outlook desktop app.",
+ "extras": "For recurring meetings, the .msg file does not indicate which occurrence was dropped, so the first occurrence's start date/time is used; the docs suggest using helper_currentDT in the filename. Works with the Outlook Classic desktop app; by design avoids Microsoft Graph API dependence and Microsoft 365 admin authorization.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn Outlook meetings into notes, and connecting via the Microsoft Graph API requires app code inside Outlook or Microsoft 365 admin approval.",
+ "readmeHash": "ad53c73b57f243edca9e5d9c71ae95ae2f98ca82",
+ "relations": [
+  {
+   "evidence": "The plugin relies on the wonderful msgreader, mustache.js, and mustache-validator libraries.",
+   "plugin": "msgreader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin relies on the wonderful msgreader, mustache.js, and mustache-validator libraries.",
+   "plugin": "mustache.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin relies on the wonderful msgreader, mustache.js, and mustache-validator libraries.",
+   "plugin": "mustache-validator",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Outlook Meeting Notes",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Outlook Classic desktop app",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Creates meeting notes from Outlook appointments by processing .msg files dragged from the Outlook desktop app onto a ribbon icon, using customizable templates.",
+ "tags": [
+  "outlook",
+  "msg-files",
+  "mustache",
+  "meetings",
+  "drag-and-drop",
+  "microsoft-365"
+ ]
+}

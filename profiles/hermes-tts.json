@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ai",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate MP3 speech audio from the current note via TTS providers (OpenAI, Gemini, Google Cloud, Azure, ElevenLabs, AWS Polly, or OpenAI-compatible endpoints)",
+  "Prepend a timestamped metadata callout with an embedded audio link to the note",
+  "Select providers and voices through dropdowns in settings, with an optional global voice prompt for speaking style",
+  "Retry or fall back automatically when Gemini errors (segmented mode or Google Cloud TTS fallback)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Network access is required because note text is sent to the selected TTS provider. The README states other providers currently ignore the voice prompt field. Docs links in the README appear empty.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian cannot turn notes into spoken audio on its own; doing so requires juggling external TTS services and manually embedding the result.",
+ "readmeHash": "c8f05e8a7bf3d2c39473cba785fc83c145edbcd8",
+ "relations": [
+  {
+   "evidence": "This plugin now uses an Aloud-style API link-up pattern",
+   "plugin": "Aloud",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Google, Azure, ElevenLabs, AWS, or OpenAI-compatible API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "external provider account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Converts a Markdown note into MP3 speech audio via cloud TTS providers and prepends a timestamped metadata callout with an embedded audio link.",
+ "tags": [
+  "text-to-speech",
+  "openai",
+  "gemini",
+  "elevenlabs",
+  "azure-speech",
+  "aws-polly",
+  "mp3"
+ ]
+}

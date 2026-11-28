@@ -1,0 +1,66 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to and from a private GitHub repository",
+  "Resolve conflicts with a three-way comparison",
+  "Skip unmodified files using delta hashing",
+  "Transfer binary files byte for byte",
+  "Report sync state in the status bar and a sync log"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a local Git client or version-control tool; it copies vault files to and from a GitHub repository over the REST API without Git installed.",
+ "extras": "Setup instructions, authentication modes and troubleshooting are in a separate USAGE.md; the token is kept in browser localStorage rather than data.json, and files over 25 MB are skipped.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault synchronized across devices through GitHub without installing Git locally.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "9c43f3e0ba65e382021f527e7ce574fbd22201a6",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Upload, download, and commit vault files to a private GitHub repository",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub Personal Access Token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Syncs a vault across desktop, iOS and Android through a private GitHub repository via the REST API, with three-way conflict resolution.",
+ "tags": [
+  "github",
+  "conflict-resolution",
+  "ios",
+  "android",
+  "offline"
+ ],
+ "textHash": "820a1292b678c8a81914af539f999b7e670cfe5e"
+}

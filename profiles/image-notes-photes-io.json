@@ -1,0 +1,65 @@
+{
+ "also": [
+  "ocr",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a text note from an image with AI",
+  "Import Pixno notebooks together with their source images",
+  "Sync Pixno note changes into the vault",
+  "Upload images from a phone through a QR sign-in",
+  "Log in to and out of a Pixno account"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4 or later. Generation uses AI credits with a minimum of 4 per successful image and is never retried automatically. The session credential is kept in the vault's SecretStorage, and each vault has its own connection. Imports are capped at 50 images and 50 MiB per notebook; local images up to 20 MiB are accepted and resized to fit the 3 MiB request limit.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Images such as photos and screenshots have to be retyped by hand, and notes kept in Pixno have no direct path into an Obsidian vault.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "f3ecb26fe0138f5d818c4aae28bd86127f7b381f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Generate notes from images, import notebooks with their source images, and sync Pixno changes into your vault.",
+   "plugin": "Pixno",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Pixno account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Pixno AI credits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Plugin that turns images into AI-written text notes and imports and syncs Pixno notebooks into a vault.",
+ "tags": [
+  "transcription",
+  "one-way-sync",
+  "qr-code",
+  "llm",
+  "quick-capture"
+ ],
+ "textHash": "be2d3894c19c6de324d120bf32be164f4e77e255"
+}

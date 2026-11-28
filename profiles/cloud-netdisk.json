@@ -1,0 +1,67 @@
+{
+ "also": [
+  "files",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse 115 folders in a sidebar tree with breadcrumbs, name search and quota bar",
+  "Sign in to 115 by scanning a QR code in settings",
+  "Serve 115 read and write tools over a local MCP endpoint guarded by a token header",
+  "Enforce a hard-coded safety policy: single-item requests, quarantine before delete, write rate limits, audit log",
+  "Run an opt-in vault backup through a local Python helper script"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general MCP server host; it only exposes 115 cloud drive tools from its own local endpoint.",
+ "extras": "Desktop only. Write tools are off by default and stay disabled until read-only browsing works. The plugin listens on 127.0.0.1 and requires an x-115-token header on every request; the 115 cookie is kept in the plugin's data.json and audit logs go to the plugin's data/ subfolder. The optional backup feature needs filesystem and process access to spawn a user-configured Python interpreter and script path, and shares a cross-process lock file with the Python batch scripts that can live outside the vault. Not yet in the community directory (\"once approved\"). README is bilingual English/Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Managing files on a 115 cloud drive normally means leaving Obsidian for a web or mobile client, and letting an agent touch that drive risks uncontrolled batch deletions.",
+ "profiledAt": "2026-11-24",
+ "provider": "Baidu",
+ "readmeHash": "97add041715e26579e665972374595bfcb829570",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "115 cloud drive account and mobile app for QR login",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js and local 115-MCP-Server Python helper",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Agent MCP client (Copilot / OpenCode / Claude)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Sidebar file browser for a 115 cloud drive that also exposes token-protected 115 read/write tools to agents over a local MCP endpoint.",
+ "tags": [
+  "mcp",
+  "self-hosted",
+  "local-server",
+  "audit",
+  "file-explorer",
+  "privacy"
+ ],
+ "textHash": "969e261b2d919322bbf67191b3be0d382f79f218"
+}

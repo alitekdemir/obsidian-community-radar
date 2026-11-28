@@ -1,0 +1,74 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "View notes on a calendar by a YAML key or file name date",
+  "Create notes for a chosen date with folder, prefix and template settings",
+  "Open or create daily and weekly notes with commands",
+  "Filter calendar dots and the file list with Obsidian Search-style queries",
+  "Show colored badges from a frontmatter property in the file list"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a daily-notes-only calendar; dates can come from any YAML key or be parsed out of file names, not one fixed date field.",
+ "extras": "Warns that if the date format contains month or weekday names and existing notes use English names, 'Use Obsidian Language for Dates' must stay disabled or those notes will not be recognized; also warns that the default YAML date format contains characters not valid in file names when switching the date source to File Name.",
+ "intent": "new",
+ "intentEvidence": "This plugin is created to help users easily view notes on Calendar using any YAML key or File Name with a custom date value.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Finding notes by a date stored in a custom YAML key or embedded anywhere in a file name is not possible with a fixed daily-notes calendar, so users must search manually.",
+ "readmeHash": "e377e466fa0eaf5345fe9097614c560cf11f431d",
+ "relations": [
+  {
+   "evidence": "If the Templater plugin is enabled, Templater commands (<% ... %>) are processed as well.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can customize some of the calendar style settings using the Style Settings Plugin.",
+   "plugin": "Style Settings Plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The {{...}} syntax is the same as the core Templates plugin, but it is filled in by OZ Calendar",
+   "plugin": "core Templates",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Calendar view that shows notes as dots using a date from any configurable YAML key or from the file name, with daily and weekly notes, templates and search filters.",
+ "tags": [
+  "yaml",
+  "moment-js",
+  "week-numbers",
+  "templater",
+  "file-name-parsing",
+  "search-queries"
+ ]
+}

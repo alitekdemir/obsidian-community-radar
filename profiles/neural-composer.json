@@ -1,0 +1,78 @@
+{
+ "also": [
+  "graph"
+ ],
+ "audience": [
+  "researchers",
+  "ttrpg-game-masters",
+  "writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault notes using graph RAG with cited sources",
+  "Automatically start, stop, and monitor a local LightRAG server",
+  "Ingest notes in many file formats and re-index a watched folder on save",
+  "Explore the knowledge graph in 2D or 3D views",
+  "Expose the graph to MCP clients such as Claude Desktop"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a text-composition or writing assistant; it is a chat interface over a knowledge graph of your vault.",
+ "extras": "Full documentation lives in a separate wiki; mobile support works only against a remote LightRAG server over HTTP. The README includes a privacy section and explains why the Obsidian scanner flags certain capabilities (filesystem writes, child_process, vault enumeration).",
+ "intent": "alternative",
+ "intentEvidence": "Forked from Smart Composer by glowingjade",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Keyword and vector search in Obsidian return fragmented matches and miss multi-hop relationships between entities across notes.",
+ "readmeHash": "4d9cf34660ecc7e84e04ba2b45a760f599d1c391",
+ "relations": [
+  {
+   "evidence": "Forked from Smart Composer by glowingjade",
+   "plugin": "Smart Composer",
+   "type": "fork"
+  },
+  {
+   "evidence": "Powered by LightRAG",
+   "plugin": "LightRAG",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Ollama for a fully offline setup, or any hosted provider you prefer",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LightRAG Python backend (Python 3.10+, lightrag-hku[api])",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for a hosted AI provider (OpenAI, Anthropic, Gemini, Groq, etc.)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Graph RAG chat plugin that runs a local LightRAG server, indexes vault notes into a knowledge graph, and answers questions with citations.",
+ "tags": [
+  "lightrag",
+  "rag",
+  "knowledge-graph",
+  "ollama",
+  "mcp",
+  "vector-search",
+  "embeddings"
+ ]
+}

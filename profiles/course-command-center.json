@@ -1,0 +1,82 @@
+{
+ "also": [
+  "tasks",
+  "properties"
+ ],
+ "audience": [
+  ", students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ", Track deadlines across courses",
+  "Generate course dashboards",
+  "Create structured notes from artifacts",
+  "Perform course health checks",
+  "Sync Canvas calendar events"
+ ],
+ "coreOverlap": {
+  "features": [
+   ", Properties",
+   "Tasks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a full learning-management system or a replacement for existing task managers; it is a workflow layer over an existing Markdown structure.",
+ "extras": "Local-first, no telemetry, no AI, no cloud sync.",
+ "intent": "new",
+ "intentEvidence": "It's a layer over an existing folder-and-Markdown workflow.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Students struggle to aggregate and manage deadlines, assignments, and progress across multiple courses using only local Markdown files.",
+ "readmeHash": "c0edf8124a27a9822cf1179b998224782e08ff85",
+ "relations": [
+  {
+   "evidence": "Tasks installed: the Tasks-style due-date emoji (📅 YYYY-MM-DD) is also recognized on in-body checklist lines, in addition to frontmatter due.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the dashboard-insert command can optionally add a Dataview query block, only after you choose that option.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Canvas LMS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "if a configured template file contains Templater syntax, the plugin creates the note first, then makes a best-effort, documented-API-only attempt to trigger Templater's processing on it.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "QuickAdd, Obsidian Git.",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Canvas",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "A local-first academic dashboard and workflow layer that uses Markdown properties to track course assignments, deadlines, and progress.",
+ "tags": [
+  "academic",
+  "course-management",
+  "frontmatter",
+  "canvas-sync",
+  "workflow",
+  "dashboard"
+ ]
+}

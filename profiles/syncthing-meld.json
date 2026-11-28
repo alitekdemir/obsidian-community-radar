@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "syncthing-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Find every *.sync-conflict-* file in the vault",
+  "Open each conflict next to its original as a Meld tab",
+  "Merge changes into the original files",
+  "Delete confirmed conflict files via a checklist",
+  "Configure the Meld executable path in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; does not work on mobile because it launches an external program and reads and deletes files. On Windows, a very large number of conflicts could exceed the command-line length limit.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncthing leaves conflict copies alongside originals when devices edit the same file, and Obsidian offers no way to review and clean them up.",
+ "readmeHash": "37c63a03b47137c4564745f412511ecca4e2d51f",
+ "relations": [
+  {
+   "evidence": "Resolve Syncthing sync conflicts in your Obsidian vault with Meld.",
+   "plugin": "Meld",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin only deletes files matching Syncthing's conflict naming pattern",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Meld",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Conflict resolver that collects Syncthing *.sync-conflict-* files in the vault, opens them as Meld diff tabs, and deletes the ones you confirm.",
+ "tags": [
+  "meld",
+  "syncthing",
+  "diff-merge",
+  "conflict-resolution",
+  "desktop-only"
+ ]
+}

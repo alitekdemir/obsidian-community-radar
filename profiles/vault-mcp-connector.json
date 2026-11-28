@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Expose an allowlisted vault index to MCP clients via search, list, and fetch tools",
+  "Run an embedded local MCP server without an external Node installation",
+  "Enforce access levels (Off, scoped read, scoped read/write, GOD) for local file tools",
+  "Queue hosted write proposals for Obsidian-side diff review, approval, and apply",
+  "Time-box local filesystem access with a session window, user_intent gate, and JSONL audit trail"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; it is a public alpha installed via BRAT or manual release assets, with detailed setup and self-host docs in separate files (docs/self-host.md, docs/deployment.md, docs/local-server-mode.md). It includes extensive security disclosures, and local-only mode needs no accounts, telemetry, or paid service.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to give AI/MCP clients controlled access to vault context and files under user-defined allowlists, access levels, and audit rules.",
+ "readmeHash": "3e3f65dd649a16756c3e4413cf04f2bcfc4a1bd0",
+ "relations": [
+  {
+   "evidence": "Vault MCP Connector connects Obsidian to ChatGPT, Claude, Codex, and other MCP clients.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Vault MCP Connector connects Obsidian to ChatGPT, Claude, Codex, and other MCP clients.",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Vault MCP Connector connects Obsidian to ChatGPT, Claude, Codex, and other MCP clients.",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an MCP client (ChatGPT, Claude, Codex, or similar)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "hosting/database/MCP client provider accounts for hosted mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "MCP connector that exposes an allowlisted vault index and optional local file tools to ChatGPT, Claude, Codex and other MCP clients with explicit access controls.",
+ "tags": [
+  "mcp",
+  "chatgpt",
+  "claude",
+  "codex",
+  "oauth",
+  "allowlist",
+  "audit-trail"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "tasks",
+  "status-bar"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync assigned GitHub issues into mapped notes",
+  "Add Tasks-compatible IDs and creation dates",
+  "Notify about new assignments in notice and status bar",
+  "Preview repository README files read-only",
+  "Append a configurable source tag on sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Built-in GitHub App supports the Committed Sins account only; other accounts must configure a Device Flow-enabled GitHub App with Issues: read-only. Tokens are kept in Obsidian SecretStorage, while imported titles and links are stored in the vault. Minimum Obsidian 1.11.4, searchable settings on 1.13+, tested on Windows with Obsidian 1.15.1 (0.1.8). Mobile, live token renewal and private README access are unverified. Recurring tasks and automatic deletion are unsuitable for imported issues; GitHub controls titles and open/closed status. Releases ship SHA-256 checksums and build-provenance attestations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Issues assigned to you on GitHub live outside the vault, so they cannot be tracked next to existing notes and their Tasks metadata.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "9fd16fa869dd16487ac28495ad1e5eb913d9b277",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Respect Obsidian Tasks is enabled by default",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using the saved Tasks emoji or Dataview format and global filter",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitHub",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "GitHub integration that syncs issues assigned to you into existing notes as native Markdown tasks, with assignment notices and README previews.",
+ "tags": [
+  "github",
+  "issue-tracking",
+  "tasks-plugin",
+  "notifications",
+  "secret-storage"
+ ],
+ "textHash": "9faf7abf5a111a84afdedb0f44ae4efc16c3db34"
+}

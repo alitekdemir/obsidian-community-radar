@@ -1,0 +1,85 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render agent-button code blocks as clickable buttons that run Claude Code or OpenCode on the note",
+  "Show agent runs in a live xterm.js terminal that accepts typing",
+  "Template prompts with note frontmatter, tags, dates, and constrained expressions",
+  "Capture finished agent output and write it back into the note",
+  "Hand off prompts to HTTP agent runtimes such as OpenClaw or Hermes Agent"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin that spawns child processes and reads the filesystem, which the README says triggers a Warning in Obsidian's automated review; the manifest notes it has not been manually reviewed by Obsidian staff. Requires python3 instead of node-pty for PTY allocation, and completion detection and output cleanup are tuned only against Claude Code's observed output, so OpenCode runs with those features are unverified. Runtime tokens are stored in Obsidian's per-device secret storage, never in data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built to replace plain-text \"Run features/learning-artefacts/teacher-artefact-leveller.md\" instructions scattered across a note system with something clickable.",
+ "primary": "ai",
+ "problem": "Obsidian notes accumulate plain-text \"run this workflow\" instructions that must be manually copied into a terminal; there is no way to trigger a CLI agent directly from a note.",
+ "readmeHash": "c2aa98b0438db87ef3e0aeb11af6a54205d9f803",
+ "relations": [
+  {
+   "evidence": "it fires Claude Code or OpenCode at the note, in a live terminal right underneath",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it fires Claude Code or OpenCode at the note, in a live terminal right underneath",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A button can also hand its prompt off to an HTTP agent runtime (OpenClaw, Hermes Agent,",
+   "plugin": "OpenClaw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an HTTP agent runtime (OpenClaw, Hermes Agent, or any OpenAI-compatible endpoint)",
+   "plugin": "Hermes Agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Feeds the PTY's output into an xterm.js terminal instance rendered in an accordion",
+   "plugin": "xterm.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or OpenCode CLI (and python3 for PTY allocation)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Token for HTTP agent runtimes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plugin that renders agent-button code blocks as clickable buttons that run Claude Code or OpenCode on the note, with a live terminal underneath.",
+ "tags": [
+  "claude-code",
+  "opencode",
+  "openclaw",
+  "hermes-agent",
+  "terminal",
+  "pty",
+  "xterm",
+  "openai-compatible"
+ ]
+}

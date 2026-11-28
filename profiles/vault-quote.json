@@ -1,0 +1,71 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Register local vault folders, including paths outside the current vault, as read-only retrieval sources",
+  "Index and search notes locally with BM25 and Chinese bigram lexical retrieval",
+  "Extract coding rules and generate sourced project-spec briefs with character budgets",
+  "Expose six MCP tools, an HTTP API, and a browser panel to AI clients",
+  "Track queries and cited fragments in a local citation ledger"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Much of the README is in Chinese. Desktop only. The 0.2.10 community-review status was unverified at publication; tokens are stored in plaintext in data.json and the exported connection config. The plugin was previously named Obsidian Quote and still uses that brand for its client integrations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI coding assistants have no built-in way to pull context and coding rules from the user's own local notes while writing code.",
+ "readmeHash": "cd8822d7236ccede2c4e0f0f4cf254d83a704e1e",
+ "relations": [
+  {
+   "evidence": "DeepSeek Harness provides its own sidebar, Codex has a settings panel where supported",
+   "plugin": "DeepSeek Harness",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex 桌面版 提供本项目的设置按钮与弹出检索面板",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code、Codex CLI 主要通过六个 MCP 工具和对话返回结果",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex, Claude Code, DeepSeek Harness, or another local MCP client",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local service that registers Obsidian vaults as read-only reference sources for AI coding tools, serving cited snippets, rules, and briefs via MCP and HTTP.",
+ "tags": [
+  "mcp",
+  "bm25",
+  "retrieval",
+  "codex",
+  "claude-code",
+  "deepseek-harness"
+ ]
+}

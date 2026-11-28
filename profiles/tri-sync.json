@@ -1,0 +1,79 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files across devices through WebDAV, S3-compatible storage, or Baidu Netdisk",
+  "Preview planned uploads, downloads, conflicts and skips before running a sync",
+  "Save conflicting edits as copies and keep local backups of replaced content",
+  "Exclude folders, paths or file extensions from upload and download",
+  "Review recent sync results and restore backups or conflict copies as new files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Interface is currently in Chinese. Credentials are stored unencrypted in data.json; there is no end-to-end encryption, deletions and renames are not propagated, and real-account and mobile device testing was still pending at publication.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no core way to sync a vault through a user-configured WebDAV server, S3-compatible bucket, or Baidu Netdisk account instead of the built-in Sync service.",
+ "readmeHash": "3b7cd53508e16829401c3ab1e034b3f5e1bf79f1",
+ "relations": [
+  {
+   "evidence": "适用于标准 WebDAV 服务，如坚果云、Nextcloud、NAS",
+   "plugin": "WebDAV",
+   "type": "integrates"
+  },
+  {
+   "evidence": "使用 AWS SigV4 和 ListObjectsV2；可配置 AWS S3、R2、MinIO 等兼容接口",
+   "plugin": "S3-compatible storage",
+   "type": "integrates"
+  },
+  {
+   "evidence": "实现文件列表、预上传、4 MB 分片、创建文件、获取下载链接",
+   "plugin": "Baidu Netdisk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server, S3-compatible storage, or Baidu Netdisk account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access/secret keys or Baidu Netdisk access_token",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "storage provider fees for storage, requests or bandwidth",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sync plugin that keeps vault notes in sync across devices via WebDAV, S3-compatible storage, or Baidu Netdisk, with conflict copies and local backups.",
+ "tags": [
+  "webdav",
+  "s3",
+  "baidu-netdisk",
+  "conflict-resolution",
+  "sha-256",
+  "nas",
+  "aws-sigv4"
+ ]
+}

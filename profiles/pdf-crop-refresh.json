@@ -1,0 +1,55 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save a selected PDF link rectangle as a PNG image embed",
+  "Keep a registry of crop sources with path, page, rectangle and render metadata",
+  "Refresh registered PNG crops in the active note or a folder from their source PDFs",
+  "Report crops whose source PDF changed, is missing, or conflicts on output path"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: free commands cover single-note save and refresh; folder refresh and changed-source reports are Pro. After sign-in the plugin queries GitHub's API for sponsorship status (no vault data sent, token kept in Obsidian secret storage). Requires Obsidian 1.13.4+. README lists untested cases (mobile, password-protected PDFs, Linux/Windows desktop) and warns that saved paths do not track file renames.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian embeds of PDF regions become stale when the source PDF is edited, and there is no built-in way to re-render a saved crop in place while keeping the image link.",
+ "readmeHash": "bae315c4d98d2324303492519d2c5647563ebf83",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 total)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account (Pro features only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Saves a rectangle from a local PDF page as a PNG image in the vault and re-renders it from the source PDF after the source changes.",
+ "tags": [
+  "png",
+  "crop",
+  "image-embed",
+  "crop-registry",
+  "pdf-points"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert plain-language instructions into regex",
+  "Preview each match with checkboxes before applying",
+  "Refine instructions across a kept history",
+  "Run vault-wide replacements with snapshots and restore",
+  "Screen generated patterns for unsafe backtracking"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general vault-hygiene or bulk-text-transformation suite; it only turns a plain-language instruction into a reviewed regex replacement.",
+ "extras": "Documentation is hosted externally (Getting started, Features and usage, Troubleshooting). With a Claude endpoint, note text samples and earlier instructions are sent to Anthropic, and the fixed temperature 0 is not sent, so identical input may not produce identical rules. Interface is bilingual (English/German). The README notes ksawl/obsidian-alchemist shares the alchemy imagery but is a general vault-hygiene toolkit with a different job.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Writing correct regular expressions for search-and-replace is hard and error-prone, and unreviewed replacements can silently change the wrong text.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "3b444878bce3cb69ec404b06a87f67da67052af5",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "With the LLM Endpoint Manager plugin and a Claude entry in it, Transmute can use Claude",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Transmute can use Claude instead of a local model",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible LLM server (e.g. LM Studio or Ollama)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude (Anthropic)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Natural-language search-and-replace tool where a local LLM writes the regex and you review each match before applying.",
+ "tags": [
+  "find-and-replace",
+  "regex",
+  "local-llm",
+  "openai-compatible",
+  "ollama",
+  "lm-studio",
+  "claude"
+ ],
+ "textHash": "1c64da033170413807f6a618526a2292527ed9f5"
+}

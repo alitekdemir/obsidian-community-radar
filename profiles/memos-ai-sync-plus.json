@@ -1,0 +1,66 @@
+{
+ "also": [
+  "syncing",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync memos from a Memos server into a vault folder",
+  "Download and embed memo attachments (images and files)",
+  "Generate optional AI summaries, tags, and weekly digests",
+  "Filter syncing by date and per-sync limit, manually or on an interval",
+  "Download resources via the classic {base}o/r/{id}/{filename} URL pattern"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not Obsidian Sync-style device syncing; it pulls notes from a self-hosted Memos app into the vault.",
+ "extras": "Not manually reviewed by Obsidian staff. Installation is manual (copying main.js and manifest.json into the plugins folder). Only supports Memos v0.21 and earlier; for v0.22+ the README directs users to the original plugin or another fork.",
+ "intent": "alternative",
+ "intentEvidence": "A fork of leoleelxh/obsidian-memos-ai-sync by erbanku, updated to support Memos v0.21 and earlier API.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The original plugin only supports the newer Memos gRPC-gateway API, so users running Memos v0.21 or earlier cannot sync their memos into Obsidian.",
+ "readmeHash": "e3d211587a8cbeabd379c86319738c7924ae95c0",
+ "relations": [
+  {
+   "evidence": "A fork of leoleelxh/obsidian-memos-ai-sync by erbanku, updated to support Memos v0.21 and earlier API.",
+   "plugin": "leoleelxh/obsidian-memos-ai-sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "obsidian-memos-sync-plugin, sync Memos content to Obsidian with AI enhancement.",
+   "plugin": "Memos",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Memos (v0.21 or earlier)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Memos personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Fork of obsidian-memos-ai-sync that syncs notes from a self-hosted Memos instance (v0.21 or earlier API) into the vault, with optional AI summaries, tags, and weekly digests.",
+ "tags": [
+  "memos",
+  "self-hosted",
+  "ai-summaries",
+  "weekly-digest",
+  "auto-sync"
+ ]
+}

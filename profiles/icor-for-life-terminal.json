@@ -1,0 +1,65 @@
+{
+ "also": [
+  "utilities",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run a login shell in a pane that lives in Obsidian's tabs and splits",
+  "Launch Claude Code sessions already pointed at the vault folder",
+  "Keep the command palette reachable while the terminal captures the keyboard",
+  "Reopen the terminal in the same folder after a reload",
+  "Rename terminal panes from their tab"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-27",
+ "disambiguation": null,
+ "extras": "The README leads with a security disclosure: the terminal runs programs on your machine with your permissions and can reach files outside the vault. It makes no network connections of its own. Desktop only, macOS and Linux; no Windows terminal pane in this version.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Work in the vault often needs a command run against the vault folder, and switching to a separate terminal app means finding the right window and typing the right cd every time.",
+ "readmeHash": "f54cfc9e74cf8434dcdbdf93e34e8ab2ab26fb81",
+ "relations": [
+  {
+   "evidence": "a one-command start for Claude Code already pointed at your vault",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "INKLINE skins it, and it stays legible on any other theme",
+   "plugin": "INKLINE",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Terminal pane plugin that runs your login shell in an Obsidian tab or split, starting in the vault folder, with a one-command Claude Code launcher.",
+ "tags": [
+  "terminal",
+  "shell",
+  "claude-code",
+  "tmux",
+  "macos",
+  "linux"
+ ]
+}

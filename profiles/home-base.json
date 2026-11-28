@@ -1,0 +1,80 @@
+{
+ "also": [
+  "workspaces",
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a configurable home base (file, workspace, graph view, random file, or periodic note) on startup or by command",
+  "Replace new empty tabs with the home base or a separate designated file",
+  "Pin a sticky home icon to the tab bar with a hidden tab on desktop",
+  "Configure separate home pages and new tab behavior for mobile",
+  "Run an Obsidian command automatically when the home base opens"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Workspaces",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README promotes the developer's paid Zeku desktop app and the Vault CMS project.",
+ "intent": "improve",
+ "intentEvidence": "While Obsidian 1.11.0+ includes a native \"Default file to open\" feature, Home Base provides several advanced capabilities not available natively",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian's native default-file-to-open setting only opens a single file and offers no workspace or graph home pages, new tab replacement, command execution, or mobile-specific configuration.",
+ "readmeHash": "bd9616e1f45ec709c0119bfb31790719ad8bc762",
+ "relations": [
+  {
+   "evidence": "Homepage - Startup behavior, command execution, and ribbon icon patterns",
+   "plugin": "Homepage",
+   "type": "inspired"
+  },
+  {
+   "evidence": "New Tab Default Page - New tab replacement logic and layout-change detection",
+   "plugin": "New Tab Default Page",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Journal: Open today's journal entry (requires Journals plugin)",
+   "plugin": "Journals",
+   "type": "integrates"
+  },
+  {
+   "evidence": "requires Periodic Notes plugin or Daily Notes core plugin",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Journals",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Home page launcher that opens a designated file, workspace, graph view, or random note on startup, in new tabs, or via a sticky home icon.",
+ "tags": [
+  "startup",
+  "new-tab",
+  "sticky-icon",
+  "mobile",
+  "astro",
+  "vault-cms"
+ ]
+}

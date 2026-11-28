@@ -1,0 +1,73 @@
+{
+ "also": [
+  "search",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions with numbered citations retrieved from one or more vaults",
+  "Search multiple vaults through federated OHS MCP endpoints",
+  "Open cited notes at the matching passage using preview anchors",
+  "Filter retrieval with YAML @property directives",
+  "Configure OpenAI-compatible chat provider profiles with streamed answers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian 1.13+, macOS/Windows/Linux, not mobile or web). The plugin does no indexing, embedding, or reindexing itself and is not bundled with OHS; manifest notes it has not been manually reviewed by Obsidian staff. Chat sessions and retrieved source text are stored in plugin data.json and may sync with the vault.",
+ "intent": "improve",
+ "intentEvidence": "Hybrid Chat is a thin client over existing services and depends on:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in retrieval-augmented chat, and no way to query several vaults at once through a single grounded conversation.",
+ "readmeHash": "b4d8672b96bf3f8faee6df645ac3d4fe2652cd83",
+ "relations": [
+  {
+   "evidence": "federated, provider-neutral RAG chat over existing Obsidian Hybrid Search (OHS) services",
+   "plugin": "Obsidian Hybrid Search (OHS)",
+   "type": "extends"
+  },
+  {
+   "evidence": "for example a local LM Studio server (default base URL",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a running OHS Streamable HTTP MCP endpoint per vault",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "an OpenAI-compatible chat server (e.g. LM Studio)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "provider API key stored in Obsidian SecretStorage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Federated, provider-neutral RAG chat that answers questions over one or more vaults via Obsidian Hybrid Search MCP endpoints and OpenAI-compatible providers.",
+ "tags": [
+  "rag",
+  "llm",
+  "mcp",
+  "citations",
+  "lm-studio",
+  "chat",
+  "retrieval"
+ ]
+}

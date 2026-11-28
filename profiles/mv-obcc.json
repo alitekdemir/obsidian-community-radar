@@ -1,0 +1,116 @@
+{
+ "also": [
+  "vim",
+  "git"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Connect AI agents to live editor context",
+  "Provide in-editor AI assistants and inline completion",
+  "Run an embedded terminal and Vim engine",
+  "Manage Git repositories from the vault",
+  "Edit source files and open external files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; requires Obsidian 1.7.2 or later. API keys are stored as plain text in the vault's data.json. mv-agent carries a maintenance notice due to frequent breaking changes in DSH. Full documentation lives in an external feature guide.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian lacks the AI agents, embedded terminal, source-code tooling, and desktop file workflows of a full IDE.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "b67eb01cb9583fd5532e88d3cb134383e53edc13",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "Claude Code, Codex CLI, and any MCP agent can read active tabs, selections, diagnostics, terminal output",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code, Codex CLI, general MCP clients, and DeepSeek Harness (DSH) are supported.",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code, Codex CLI, general MCP clients, and DeepSeek Harness (DSH) are supported.",
+   "plugin": "DeepSeek Harness (DSH)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Source Assist's Code Suite kernel is based on obsidian-latex-suite 1.11.5 with its MIT notice preserved.",
+   "plugin": "obsidian-latex-suite",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The CodeMirror architecture of Inline Completion was informed by the public design of obsidian-github-copilot",
+   "plugin": "obsidian-github-copilot",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the terminal process bridge by obsidian-claude-sidebar",
+   "plugin": "obsidian-claude-sidebar",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The Git integration's command design and testing approach were informed by Obsidian Git (MIT)",
+   "plugin": "Obsidian Git",
+   "type": "inspired"
+  },
+  {
+   "evidence": "configuration UX were informed by the public documentation and user-visible ideas of obsidian-vimrc-support and Vim Motions",
+   "plugin": "obsidian-vimrc-support",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js, DSH, and pnpm",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible or Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex CLI, or an MCP agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 1
+ },
+ "summary": "All-in-one AI IDE that adds coding agents, in-editor AI, a terminal, Vim, source tools, a file opener, and Git to Obsidian.",
+ "tags": [
+  "ai-agents",
+  "claude",
+  "codex",
+  "deepseek",
+  "mcp",
+  "terminal"
+ ],
+ "textHash": "fbb51b1282690254d64ea6990b781c5dc29d4d34"
+}

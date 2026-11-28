@@ -1,0 +1,51 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Map aliases from tsconfig.json compilerOptions.paths",
+  "Rewrite image paths at render time in reading view and live preview",
+  "Auto-reload aliases when tsconfig.json changes",
+  "Retry unresolved relative paths as vault-root paths"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general tsconfig or path-alias tool; it only rewrites image paths at render time so embedded images display.",
+ "extras": "No prebuilt release is documented; users must build the plugin themselves and copy main.js and manifest.json into the plugins folder. Needs a tsconfig.json with compilerOptions.paths at the vault root.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian cannot resolve @/ style path-alias image links from Astro/Vite projects, so those images show as file-not-found.",
+ "readmeHash": "feb713b3211693d1132aded9deaf45696130087a",
+ "relations": [
+  {
+   "evidence": "Astro / Vite projects (e.g. Astro Paper) reference images with aliases like ![alt](@/assets/images/example.jpg).",
+   "plugin": "Astro Paper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders images referenced with tsconfig.json path aliases (@/assets/...) by rewriting those paths at render time in reading view and live preview.",
+ "tags": [
+  "tsconfig",
+  "path-alias",
+  "astro",
+  "vite"
+ ]
+}

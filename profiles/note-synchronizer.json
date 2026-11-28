@@ -1,0 +1,67 @@
+{
+ "also": [
+  "flashcards"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import Anki note types into the vault as template files",
+  "Sync Obsidian notes, folders, and tags to Anki notes, decks, and tags",
+  "Create notes from generated templates with fields mapped to filename, body, and headings",
+  "Convert Obsidian wikilinks to Obsidian URL Markdown links",
+  "Import content as raw Markdown or rendered HTML"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the generic name and manifest wording about 'other note-based software', the README only describes syncing with Anki.",
+ "extras": "Setup depends on enabling the Obsidian core Templates plugin and configuring the Anki Connect addon config; only one Anki profile can be synced at a time, and troubleshooting relies on the developer console.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants to follow Zettelkasten principles more strictly by treating each file as a note, mirroring that structure directly into Anki.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn its notes into Anki flashcards while keeping a strict one-file-per-note correspondence between the vault and Anki decks.",
+ "readmeHash": "4b828816731b51b1b41d8d5ca51cd7e9319a01f5",
+ "relations": [
+  {
+   "evidence": "Support arbitrary Anki note type by importing Anki note types as Obsidian note templates",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install Anki Connect in the same way as other Anki plugins.",
+   "plugin": "Anki Connect",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with the Anki Connect addon installed and configured",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian core plugin 'Templates' must be enabled",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs Obsidian notes to Anki with 1:1 note/deck/tag correspondence, importing Anki note types as templates and syncing in Markdown or HTML mode.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "spaced-repetition",
+  "zettelkasten",
+  "katex"
+ ]
+}

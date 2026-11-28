@@ -1,0 +1,97 @@
+{
+ "also": [
+  "integrations",
+  "charts"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log workouts with sets, RPE and duration",
+  "Compute daily readiness from sleep, HRV and training load",
+  "Generate training and nutrition recommendations with cited sources",
+  "Build weekly plans, programs and goals",
+  "Import runs from Garmin Connect, Strava, Runna and GPX/TCX/FIT files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a form-building tool; 'form' here means physical fitness — it is a workout, recovery and nutrition log.",
+ "extras": "Not a medical app; nutrition equations accurate to roughly ±10%. A detailed testing status lists features only covered by automated tests or previews. Interface in English and Czech; passed the directory's automated checks but was not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian offers no way to log workouts, derive readiness from sleep and HRV, or produce training and nutrition advice while keeping everything in plain Markdown notes.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "3b15552b34ef97c94e4ab6aae12e7cc043ecd7db",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Garmin Connect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync has been tried against a real account, including on a phone.",
+   "plugin": "Strava",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runna in the ⋯ menu of Plan → Week then loads the next 4 weeks",
+   "plugin": "Runna",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Apple Health (export.xml from Export All Health Data)",
+   "plugin": "Apple Health",
+   "type": "integrates"
+  },
+  {
+   "evidence": "strength workout history from Strong and Hevy exports (CSV)",
+   "plugin": "Strong",
+   "type": "integrates"
+  },
+  {
+   "evidence": "strength workout history from Strong and Hevy exports (CSV)",
+   "plugin": "Hevy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Obsidian 1.13 or newer",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Garmin Connect personal API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Strava",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Training log that records workouts, sleep and nutrition in Markdown notes and gives daily readiness and recommendations with cited sources.",
+ "tags": [
+  "fitness",
+  "nutrition",
+  "habit-tracking",
+  "streaks",
+  "local-first"
+ ],
+ "textHash": "5f7b201fb642fc3b123dc22520e45527f6d836d6"
+}

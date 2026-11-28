@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run built-in AI skills (research, plan, outline, review, summarize) from the command palette",
+  "Assemble linked notes into a scored, token-budgeted context window for each skill run",
+  "Create custom skills by dropping SKILL.md files into an _agent/ folder",
+  "Chat with a tool-using vault agent that can read, search, and (opt-in) write notes",
+  "Import skills from GitHub or local disk"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Security notices: API keys are stored in plaintext in data.json (exclude from third-party sync), agent file writes are off by default, and CLI subprocesses run with shell: false. Mobile support and a skill marketplace are on the roadmap but not shipped. Agent skills only work with the Claude API or CLI providers.",
+ "intent": "alternative",
+ "intentEvidence": "ogstack takes that same format and brings it natively into Obsidian — no CLI, no terminal",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to use gstack skills for brainstorming, research, and writing inside Obsidian and found skills only worked in the CLI or IDE, so built the plugin in 48 hours.",
+ "primary": "ai",
+ "problem": "AI skills like gstack only ran in a CLI or IDE, so users had to leave Obsidian and manually copy note content into prompts.",
+ "readmeHash": "9612ae24d8e3a1e0587048392c1c0f7d8e1cc6f4",
+ "relations": [
+  {
+   "evidence": "ogstack takes that same format and brings it natively into Obsidian",
+   "plugin": "gstack",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Claude, OpenAI, Gemini, or Grok API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (local) or a CLI binary (claude, codex, gemini)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI skill runner that walks a note's link graph, assembles relevant linked notes as context, and streams model output back into notes via gs: commands.",
+ "tags": [
+  "claude",
+  "openai",
+  "gemini",
+  "ollama",
+  "skill-md",
+  "context-assembly",
+  "tool-use",
+  "claude-code"
+ ]
+}

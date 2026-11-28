@@ -1,0 +1,69 @@
+{
+ "also": [
+  "research",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate bookmarklets that capture web highlights as Markdown",
+  "Send clips to daily or weekly periodic notes, any Markdown note, or a canvas",
+  "Build a Chrome-based browser extension wrapper around a bookmarklet via an external service",
+  "Convert highlighted HTML to Markdown with Turndown, including tables"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone browser extension; it is an Obsidian plugin that generates bookmarklets (and optionally extension wrappers) for capturing highlights.",
+ "extras": "The plugin calls an author-maintained external service to build the Chrome extension wrapper; the extension must be loaded manually via developer mode, and detailed docs live on a separate site.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author got the idea from modifying a Gist posted in an Obsidian forum thread and used other plugin repos as examples for building it.",
+ "primary": "import",
+ "problem": "There is no built-in way to grab highlighted text from a browser and write it into a chosen Obsidian note, periodic note, or canvas.",
+ "readmeHash": "32abc5deb0d20c9aa5b40757453839b06fbba909",
+ "relations": [
+  {
+   "evidence": "Weekly clippers need the Periodic Notes plugin with weekly notes turned on",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "I used the following Obsidian Plugin repos as examples of accomplishing my goal",
+   "plugin": "Obsidian Advanced URI",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Turndown is used in the bookmarklet code to parse highlighted HTML and convert it to Markdown",
+   "plugin": "Turndown",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily notes, Periodic Notes, Calendar, or Canvas (depending on clipper type)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Configurable bookmarklet and Chrome extension generator that captures web highlights as Markdown entries into Obsidian notes or canvases.",
+ "tags": [
+  "web-clipper",
+  "bookmarklet",
+  "highlights",
+  "turndown",
+  "chrome-extension",
+  "html-to-markdown"
+ ]
+}

@@ -1,0 +1,89 @@
+{
+ "also": [
+  "review",
+  "dates"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule review dates in note frontmatter via an interactive modal or batch selection",
+  "Sync due SRS notes to InnerLevel as grouped or individual action cards",
+  "Capture selected text or the current note as a quick InnerLevel card",
+  "Auto-sync due notes once daily on Obsidian startup",
+  "Self-heal syncs by re-creating cards deleted in InnerLevel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault-sync tool for keeping files across devices in sync; it pushes study-note metadata to the InnerLevel app.",
+ "extras": "Sends card titles, excerpts, and obsidian:// deep links to a user-configured Supabase backend on sync; supports English and Spanish frontmatter keys and interface; installable via BRAT; includes network and vault-access disclosures.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push due study notes and captures into an external gamified task app, so reviewing stays disconnected from the user's productivity workflow.",
+ "readmeHash": "ab139006e053e7d8127c6caec407eff657b0ac8d",
+ "relations": [
+  {
+   "evidence": "Detects notes using properties from popular community plugins like Spaced Repetition (cards-deck, deck)",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview fields (category, topic, subject), or simply your vault's folder organization",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "integrates your Obsidian vault notes and Spaced Repetition System (SRS) with the InnerLevel gamified productivity app",
+   "plugin": "InnerLevel",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install and enable InnerLevel Sync in Obsidian Settings (via Community Plugins or BRAT)",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "InnerLevel account (email and password)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Supabase URL and anon key for the InnerLevel project",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "InnerLevel web app",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Spaced Repetition or Dataview metadata (optional; falls back to folder names)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Obsidian SRS due notes and quick captures into gamified action cards in the InnerLevel productivity app via Supabase.",
+ "tags": [
+  "spaced-repetition",
+  "supabase",
+  "gamification",
+  "review-scheduler",
+  "deep-links",
+  "bilingual"
+ ]
+}

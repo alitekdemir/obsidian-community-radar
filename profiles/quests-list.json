@@ -1,0 +1,82 @@
+{
+ "also": [
+  "calendar",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Manage nested to-do lists with colors and icons",
+  "Set optional start and due dates with or without time",
+  "Encrypt private lists with AES-256-GCM and auto-lock",
+  "Sync tasks with Google, Yandex and CalDAV calendars",
+  "Reorder tasks by drag and drop or sorting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is a plain to-do list manager, not a game or RPG quest tracker.",
+ "extras": "No telemetry, no ads; works offline with no account; data stored in the vault's Quests folder (quests.json plus attachments) and merged per task across devices; MIT license, bundles ical.js (MPL 2.0); a forgotten private-list password cannot be recovered.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian's checkbox tasks offer no nested lists, password-protected encrypted lists, or two-way sync with external calendars.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "6a2cec681425a3ea516816d3c311651fbbda5723",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "Google Calendar (with your own OAuth \"Desktop app\" client, see the steps above)",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Yandex Calendar and other CalDAV servers (iCloud, Nextcloud, Fastmail)",
+   "plugin": "Yandex Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tasks can be sent to CalDAV and Google calendars as events",
+   "plugin": "CalDAV",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Account with a calendar service (Google, Yandex, iCloud, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google OAuth \"Desktop app\" client",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CalDAV server or .ics feed for calendar sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "To-do plugin with nested lists, encrypted private lists, start/due dates, attachments, and Google, Yandex and CalDAV calendar sync.",
+ "tags": [
+  "google-calendar",
+  "caldav",
+  "encryption",
+  "ics",
+  "due-dates"
+ ],
+ "textHash": "a6ff8f20faa3545c02c9529f87957feb010659ac"
+}

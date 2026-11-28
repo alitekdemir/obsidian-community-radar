@@ -1,0 +1,79 @@
+{
+ "also": [
+  "tasks",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan notes for upper-case keywords, list callouts and open checkbox tasks",
+  "Filter and sort results by source, done state, and line, label, date or name",
+  "Jump to an item's line by click or next/previous commands",
+  "Mark items done by striking keywords or checking tasks, with undo",
+  "Build and refresh a cached whole-vault index with excluded folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a task manager; it also finds bare keywords like FIXME and list callouts, and only edits a line when you press its check button.",
+ "extras": "Scanning is read-only and local: the vault index is a disposable cache in the plugin folder and \"nothing leaves the vault\"; the manifest carries the unreviewed-plugin notice.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian has no built-in view that collects TODO/FIXME-style keywords, list callouts and open checkbox tasks from a note or vault into one clickable list.",
+ "readmeHash": "3b1d0bf0e73d0eeb6f722d55b0a34dc72b59e717",
+ "relations": [
+  {
+   "evidence": "Inspired by todo-comments.nvim.",
+   "plugin": "todo-comments.nvim",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "trouble.nvim",
+   "type": "inspired"
+  },
+  {
+   "evidence": "\"Import from List Callouts\" copies them from the List Callouts plugin.",
+   "plugin": "List Callouts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With the Vimrc Support plugin you can bind the commands to motions",
+   "plugin": "Vimrc Support",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Vimrc Support",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "List Callouts",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sidebar panel that scans the current note or the whole vault for TODO-style keywords, list callouts and open checkboxes, and jumps to any item on click.",
+ "tags": [
+  "neovim",
+  "todo-comments-nvim",
+  "fixme",
+  "todo-keywords",
+  "checkboxes"
+ ]
+}

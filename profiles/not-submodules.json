@@ -1,0 +1,55 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan the vault for nested .git entries and classify clones, worktrees, and real submodules",
+  "Install a POSIX pre-commit hook that keeps a managed .gitignore block in sync",
+  "Group repo locations that share the same origin remote",
+  "Clone, push, pull, stash, switch branches, and delete nested repo locations",
+  "Detect and repair worktrees whose folders were moved outside git worktree move"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a git client for the vault's own repo; it manages nested repositories inside the vault and keeps them ignored by the vault's git history.",
+ "extras": "Desktop-only because it shells out to the local git binary; manual installation from release files; includes a one-step migration from the plugin's own earlier naming-convention system.",
+ "intent": "alternative",
+ "intentEvidence": "replaces git submodules with plain nested git repos",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Submodules are brittle, especially on mobile and when using Obsidian with iOS through terminal emulators such as iSH, so the author avoids them entirely.",
+ "primary": "git",
+ "problem": "Git submodules are brittle in Obsidian, especially on mobile and iOS via terminal emulators, and the workarounds require naming conventions, frontmatter, or manual .gitignore editing.",
+ "readmeHash": "3dbc81b9d1151febbf2c677132db91ead0324ada",
+ "relations": [
+  {
+   "evidence": "it shells out to your local git",
+   "plugin": "git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git submodule replacement that manages plain nested git repositories inside a vault and keeps them out of the vault's repo via a self-maintaining pre-commit hook.",
+ "tags": [
+  "folder-structure",
+  "batch-processing"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

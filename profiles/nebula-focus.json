@@ -1,0 +1,88 @@
+{
+ "also": [
+  "navigation",
+  "appearance"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Navigate pages via a Codex-style sidebar",
+  "Aggregate unfinished tasks into a reminders page",
+  "Render compact Bases tables with colored tags and covers",
+  "Edit records inline with database undo/redo",
+  "Toggle enhanced and native Obsidian appearance"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Files",
+   "Search",
+   "Bookmarks",
+   "Tags view",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a focus timer or distraction-free writing mode; it reworks page navigation, reminders, and Bases table views.",
+ "extras": "Requires Obsidian 1.14.5 or later; targets macOS desktop and iPhone only (Android, iPad and third-party themes unvalidated). No telemetry or network server; optional AI recording sends data to a user-configured API only when sending. Some Bases enhancements depend on internal view structures and fall back to native controls. GPL-3.0-only with a bundled LXGW WenKai font (SIL OFL).",
+ "intent": "improve",
+ "intentEvidence": "Configured tables support linked record titles, colored tags, content-driven row heights, compact thumbnails and linked records.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Navigating and editing local Markdown notes and Bases lacks a focused, compact workspace with clear page navigation and Notion-like table views.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "2d32e6d099b3172ce64457b2f8ea032c0cd8b003",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Disable the old native-reading-ui development plugin first if present; transfer its data.json",
+   "plugin": "native-reading-ui",
+   "type": "replaces"
+  },
+  {
+   "evidence": "The project initially borrowed from Notion's database presentation",
+   "plugin": "Notion",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Its navigation and typography take cues from Codex",
+   "plugin": "Codex",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the mobile sidebar follows ChatGPT's restrained layout",
+   "plugin": "ChatGPT",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases (core plugin)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, DeepSeek, or compatible API for AI recording",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Workspace plugin that adds a Codex-style page sidebar, reminders, and Notion-like compact Bases tables with colored tags and inline editing.",
+ "tags": [
+  "notion",
+  "codex",
+  "inline-editing",
+  "kanban",
+  "reminders",
+  "color-coding"
+ ],
+ "textHash": "4247a3930ad88e3911075631237a1bb03c74354c"
+}

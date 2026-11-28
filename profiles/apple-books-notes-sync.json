@@ -1,0 +1,73 @@
+{
+ "also": [
+  "annotation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync EPUB highlights and notes into Markdown",
+  "Sync PDF annotations with rendered PDF page images",
+  "Split heavily annotated books into chapter notes",
+  "Create a Bases view for browsing synced book notes",
+  "Run sync, plan, and doctor commands via the absync CLI for automation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; mobile Obsidian is not supported. Requires macOS. The absync CLI must be installed separately and needs vault-scoped plugin settings, so it cannot run without the plugin enabled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull highlights, notes, and PDF annotations out of Apple Books into vault notes.",
+ "readmeHash": "63c66d1f1088499e1562e01d1030e26c97bd7904",
+ "relations": [
+  {
+   "evidence": "syncs Apple Books highlights, notes, and PDF annotations into local Markdown notes",
+   "plugin": "Apple Books",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin uses a companion CLI, absync, to read local Apple Books data",
+   "plugin": "absync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Books",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js >=20.16.0 and sqlite3",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "PDF renderer (pdftocairo, mutool, or swift)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs Apple Books highlights, notes, and PDF annotations into local Markdown notes using the companion absync CLI.",
+ "tags": [
+  "apple-books",
+  "highlights",
+  "epub",
+  "pdf-annotations",
+  "absync",
+  "nodejs"
+ ]
+}

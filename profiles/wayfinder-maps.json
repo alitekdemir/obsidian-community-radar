@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations",
+  "visualization"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Visualize wayfinder:map GitHub issues as dependency-layered ticket trees",
+  "Filter and navigate maps by repository, completion state, and ticket state",
+  "Show ticket details with descriptions, blockers, comments, and GitHub links",
+  "Copy /wayfinder commands for the next takeable ticket",
+  "Sync issue data on open, on focus, and on a configurable poll interval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a geographic mapping or navigation tool; 'maps' here are GitHub issues that group tickets into dependency trees.",
+ "extras": "The README warns that the GitHub token is stored in plain text in the vault's plugin data.json, so anything syncing the vault exposes it; Plugin 1.x is aligned to the v1.1.0 wayfinder skills release.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no built-in way to view a GitHub repo's issues, their blocker relationships, and what is safe to pick up next without leaving the app.",
+ "readmeHash": "22cfc6c05395eecfce16d8213791d7e05bfd6792",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Matt Pocock's skills repo (wayfinder skill)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitHub",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "fine-grained personal access token with read-only Issues permission",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Plugin that renders a GitHub repo's wayfinder:map issues as head cards with tickets in dependency-layered trees, synced from GitHub inside Obsidian.",
+ "tags": [
+  "github",
+  "github-issues",
+  "dependency-tree",
+  "blocked-by",
+  "issue-tracker",
+  "wayfinder-skill",
+  "afk-hitl"
+ ]
+}

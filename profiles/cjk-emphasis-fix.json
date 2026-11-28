@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Render emphasis next to CJK punctuation",
+  ": Apply bold, italic, highlight, and strikethrough styling",
+  ": Neutralize excess styling from the parser",
+  ": Rewrite source Markdown for cross-platform compatibility"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview",
+   "Markdown"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin is theme agnostic and never modifies the note text.",
+ "intent": "improve",
+ "intentEvidence": "Render bold and italic next to CJK punctuation in Obsidian Live Preview.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formatting",
+ "problem": "CommonMark parsers fail when emphasis markers (like `**`) are adjacent to CJK punctuation (like `。`), causing the markers to render literally instead of applying bold/italic styling.",
+ "readmeHash": "6fc4dece95282e64c04f93d4d24a32ae802f9a7a",
+ "relations": [
+  {
+   "evidence": "obsidian-cjk-bold-fix — an earlier plugin that patches the same Live Preview behaviour; this project adds source-level rewriting and code/math masking",
+   "plugin": "obsidian-cjk-bold-fix",
+   "type": "alternative"
+  },
+  {
+   "evidence": "markdown-cjk-friendly — a spec-level fix for CJK emphasis",
+   "plugin": "markdown-cjk-friendly",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "A formatter that fixes CommonMark parsing issues by rendering bold and italic emphasis correctly next to CJK punctuation in Live Preview and rewriting source code.",
+ "tags": [
+  "cjk",
+  "commonmark",
+  "parser",
+  "punctuation",
+  "typesetting"
+ ]
+}

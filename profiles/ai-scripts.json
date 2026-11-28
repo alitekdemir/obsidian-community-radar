@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "define scripts as Markdown notes with YAML frontmatter and parameter schemas",
+  "validate required parameters, types and constraints before spawning processes",
+  "run scripts via stdin, CLI args or temp files with streaming output and a stop button",
+  "expose scripts as MCP tools for AI agents",
+  "install starter vault-maintenance scripts such as broken-link and backup scripts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI assistant or model runner; it manages and executes local automation scripts that AI agents can invoke as tools.",
+ "extras": "Starter scripts ship with pt-BR guides and require python on the PATH; a setting to allow writing outside the vault exists but is not enforced yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian offers no safe, structured way to define, validate and execute local scripts that AI agents can call, with process control and secret handling.",
+ "readmeHash": "eb22b8a067781236179c18657caf0ab02bc26f8a",
+ "relations": [
+  {
+   "evidence": "The AI Ecosystem core can install Claude Code hooks and a setup skill for this module",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "and a block in GEMINI.md for Antigravity",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python on PATH (for starter scripts)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI agent client such as Claude Code for hooks and MCP tools",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Script manager that stores automation scripts as Markdown notes with validated parameters and runs them for AI agents with streaming terminal output.",
+ "tags": [
+  "mcp",
+  "claude-code",
+  "python",
+  "subprocess",
+  "parameter-validation",
+  "secrets",
+  "terminal",
+  "stdin"
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "also": [
+  "code"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Edit .typ files in a CodeMirror view with syntax and semantic highlighting",
+  "Provide language-server completion, diagnostics, hover docs, go to definition, rename, and typstyle formatting",
+  "Render math and content constructs in a live reading mode",
+  "Show an incremental SVG preview with two-way source and preview navigation",
+  "Build a same-stem PDF beside saved .typ files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview",
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13.7+ on a filesystem-backed desktop vault; mobile is not supported in this release. Tinymist must be installed separately (e.g. via Homebrew) and only one plugin should own the .typ editor per vault. AI completion additionally depends on the model provider configured in YOLO.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian has no built-in editor or preview for Typst documents, so .typ files get no language intelligence or rendered math.",
+ "readmeHash": "cf54bb5256bb4b5f84078597efb0b6e3df65de41",
+ "relations": [
+  {
+   "evidence": "an independent Obsidian frontend for the Tinymist language server",
+   "plugin": "Tinymist",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built on Tinymist, Typst, and typst.ts, with Obsidian's CodeMirror and Lezer runtime",
+   "plugin": "Typst",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional YOLO bridge | AI ghost text in .typ files using your separately configured YOLO plugin",
+   "plugin": "YOLO",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Earlier personal development installs used obsidian-tinymist; disable that copy before enabling this release",
+   "plugin": "obsidian-tinymist",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tinymist",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "YOLO",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Typst editor and previewer for Obsidian that uses the Tinymist language server for completion, diagnostics, live math rendering, and incremental preview.",
+ "tags": [
+  "typst",
+  "tinymist",
+  "language-server",
+  "typstyle",
+  "svg-preview",
+  "ghost-text"
+ ]
+}

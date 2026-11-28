@@ -1,0 +1,82 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Walk attachments and linked notes into a checkbox dependency tree",
+  "Export a bundle or ZIP that keeps vault-relative paths",
+  "Render checked notes as an EPUB or PDF document",
+  "Offer backlinks as optional unchecked files",
+  "Show a live file count and total size before writing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Markdown format converter; it collects notes, attachments and linked notes into a bundle, EPUB or PDF.",
+ "extras": "Full documentation is a separate demo vault shipped with each release and readable on GitHub; beta builds install through BRAT. On mobile the bundle goes to a vault-relative folder because there is no system directory picker.",
+ "intent": "alternative",
+ "intentEvidence": "Alternative workflow: reviewed bundle export with linked-note traversal",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "export",
+ "problem": "A note sent on its own arrives with missing images and dead links, while copying the whole folder shares too much.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "4ddf25fc242a3d20cbbf6bdb4de1a9d239f406f6",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Overlapping formats (Markdown bundle, EPUB, PDF); adds: linked notes and attachments offered in a tree",
+   "plugin": "Document Exporter",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same EPUB output; different selection: notes reached through links, picked in a tree",
+   "plugin": "EPUB Exporter",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same ZIP goal; per-file selection; mobile too",
+   "plugin": "Export Markdown ZIP",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same bundle goal; reviewed file tree with per-file choices; no depth setting",
+   "plugin": "Linked Note Exporter",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same bundle goal; preserves separate paths and offers per-file choices",
+   "plugin": "Obsidian Bundler",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Exports a note, folder or selection together with its attachments and linked notes, picked in a checkbox tree, as a bundle, ZIP, EPUB or PDF.",
+ "tags": [
+  "epub",
+  "zip",
+  "backlinks",
+  "dataview",
+  "relative-paths"
+ ],
+ "textHash": "dda6afcb789c46037ac1abc8569689d6dc7ae77b"
+}

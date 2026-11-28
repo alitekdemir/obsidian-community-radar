@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture text typed into the Kanban new-card form",
+  "List saved drafts with board path, lane label, and capture time",
+  "Copy a saved draft to the clipboard",
+  "Dismiss recovery records and their earlier versions",
+  "Search drafts and set per-board retention limits (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Kanban board editor; it only observes the new-card form and offers a separate recovery dialog, never inserting cards.",
+ "extras": "Freemium: capture, copy, and dismiss are free; version history, search, and retention limits require a $5/month or $15 GitHub Sponsors payment. After updates it opens a What's new tab promoting other NoteMods plugins and Zovo Chat; untested platforms include mobile, popout windows, and Kanban versions other than 2.0.51.",
+ "intent": "improve",
+ "intentEvidence": "This companion needs the Kanban community plugin. The integration uses its released form classes.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "The Kanban plugin discards text typed into the Add a card form when a click outside or Escape closes it, with no way to recover it.",
+ "readmeHash": "907457a78f1b76b2171b517340ecda8fa3642f0c",
+ "relations": [
+  {
+   "evidence": "This companion needs the Kanban community plugin. The integration uses its released form classes.",
+   "plugin": "Kanban",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Kanban",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Draft recovery companion for the Kanban plugin that saves text typed into the new-card form and lets you copy it back after the form closes.",
+ "tags": [
+  "kanban",
+  "draft-recovery",
+  "clipboard",
+  "text-snapshots",
+  "github-sponsors"
+ ]
+}

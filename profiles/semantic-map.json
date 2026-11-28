@@ -1,0 +1,67 @@
+{
+ "also": [
+  "graph",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encode notes into cached embeddings",
+  "Show the 10 most related notes around the active note",
+  "Zoom the sidebar graph with the mouse wheel",
+  "Report encoding progress in the status bar and map view",
+  "Use SiliconFlow BGE-M3 or a custom embedding endpoint"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a mind-map or canvas editor; it draws a read-only graph of notes ranked by embedding similarity.",
+ "extras": "With a remote provider selected, the plugin sends the beginning of each note, up to a configured character limit, to that service; embeddings, note paths, timestamps, settings and API keys are stored in the vault's plugin data. Version 1.0.1 rebuilds old embeddings on the next scan and requires re-entering a custom endpoint key set in 1.0.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Notes that are related in meaning but not linked or sharing obvious keywords are hard to discover inside Obsidian.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "a2012a125b4585fa41bf579e455aca67ed5f6337",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Supports SiliconFlow BAAI/bge-m3 and a custom embedding endpoint as opt-in alternatives.",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "SiliconFlow API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Custom embedding endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Encodes Markdown notes into cached embeddings and shows a sidebar graph of the 10 notes most related to the active note.",
+ "tags": [
+  "embeddings",
+  "semantic-search",
+  "api-key",
+  "offline"
+ ],
+ "textHash": "64794d19739e6d90831cfeab00235b615f72e252"
+}

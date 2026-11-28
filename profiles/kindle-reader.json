@@ -1,0 +1,76 @@
+{
+ "also": [
+  "research",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read EPUB, FB2 and PDF books in a paged one- or two-column layout with themes and typography controls",
+  "Highlight passages in four colours, attach comments, and turn highlights into notes or export them by chapter",
+  "Store paragraph-anchored reading progress as vault files that ride existing sync services",
+  "Browse a visual library grid with covers, progress and categories",
+  "Translate or AI-explain a selected passage via Google Translate or a chosen AI provider (off by default)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an Amazon Kindle sync tool; it reads EPUB, FB2 and PDF files directly in Obsidian with a Kindle-inspired look.",
+ "extras": "Not yet in the community plugin catalog; install manually or via BRAT. Works fully offline except the opt-in translation and AI features. Feedback goes through a Telegram bot; donations accepted. Manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Kindle-reader is based on Book Reader by Elton, which provided the original URL import base. This project was substantially rewritten and extended",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in way to read e-books, so readers must switch to separate apps and manually move highlights and quotes into their notes.",
+ "readmeHash": "c539625615e2b9392a7108ca15266615bec109c0",
+ "relations": [
+  {
+   "evidence": "Kindle-reader is based on Book Reader by Elton, which provided the original URL import base.",
+   "plugin": "Book Reader by Elton",
+   "type": "fork"
+  },
+  {
+   "evidence": "Translate a selection | Google Translate (translate.googleapis.com) | Only the passage you selected | Off",
+   "plugin": "Google Translate",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The service you pick — OpenRouter, OpenAI, or a local Ollama / LM Studio",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choosing Ollama or LM Studio keeps everything on your own machine",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider key (OpenRouter or OpenAI)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local AI passage breakdown",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "EPUB, FB2 and PDF e-book reader that works inside Obsidian, with highlights, comments, notes, reading progress and a visual book library.",
+ "tags": [
+  "epub",
+  "fb2",
+  "ebooks",
+  "highlights",
+  "google-translate"
+ ]
+}

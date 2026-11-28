@@ -1,0 +1,74 @@
+{
+ "also": [
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture thoughts into an inbox note through guided prompts",
+  "Clarify each inbox task as actionable, project, waiting-for, someday or reference",
+  "Label tasks with context, energy, duration and priority",
+  "File tasks into projects, notes and headings",
+  "Review tasks across the vault with Tasks-style queries"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not only clarification: it also captures items through Sweep and labels and files tasks through Organise.",
+ "extras": "Marked \"Status: new\" and used daily by one person on a real vault; the README advises trying it on a backed-up vault. Query filters are the plugin's own subset of the Tasks query language, not the language itself, and unsupported filters are reported as errors.",
+ "intent": "improve",
+ "intentEvidence": "It works on top of the Tasks plugin, which it uses for editing individual task lines.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author notes that captured wording is usually the first thing that came to mind and that clarifying it is the step people most often skip, so the plugin asks rather than assumes; doing two-minute tasks mid-processing also derails a review.",
+ "primary": "tasks",
+ "problem": "GTD reviews stall because clarifying each captured item — deciding whether it is actionable, rewording it as a next action and filing it — is tedious and easy to skip.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "5017f6ff2f2363f8be5551526d8c4aa09fbd7f86",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "It works on top of the Tasks plugin, which it uses for editing individual task lines.",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "Templater is optional — if it is installed, templates can use Templater syntax",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Sidebar pane that walks through GTD reviews one question at a time: capturing thoughts, clarifying inbox tasks, labelling and filing them via the Tasks plugin.",
+ "tags": [
+  "gtd",
+  "tasks-plugin",
+  "inbox",
+  "quick-capture",
+  "action-items",
+  "natural-language-dates",
+  "templater"
+ ],
+ "textHash": "2c3c5eca94dc84f8db37102ff72bfa79ce132984"
+}

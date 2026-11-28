@@ -1,0 +1,82 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run Fabric patterns against the current note or clipboard content",
+  "Detect YouTube links and transcribe them with whisper before applying a pattern",
+  "Search the web via the Tavily API and process results through a pattern",
+  "Sync custom pattern markdown files between a vault folder and Fabric",
+  "Select models and configure Fabric Connector API settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README opens by pointing readers to the author's newer plugin that does the same without requiring Fabric or Fabric Connector to be installed, suggesting this one is superseded even though it does not state deprecated status. Includes Fabric 2.0 compatibility toggle, buy-me-a-coffee link, and a community pattern repo users fork to submit patterns.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to run Fabric patterns and models against note content, clipboard text or web search results.",
+ "readmeHash": "0fb362d604314d1fe730ae9aa994ea43486e5e3f",
+ "relations": [
+  {
+   "evidence": "Fabric Connector: Install Fabric Connector from chasebank87/fabric-connector.",
+   "plugin": "fabric-connector (chasebank87/fabric-connector)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fabric: Install Fabric from danielmiessler/fabric.",
+   "plugin": "Fabric (danielmiessler/fabric)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "External API Integration: Connect to Fabric Connector API and Tavily API for enhanced content manipulation.",
+   "plugin": "Tavily API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it accomplishes the same thing as this one without having to have fabric or fabric-connector installed",
+   "plugin": "my new plugin (unnamed successor)",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Fabric and Fabric Connector",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fabric Connector API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "AI integration that sends notes, clipboard text, YouTube links and Tavily searches to Fabric patterns through the Fabric Connector API and saves output to the vault.",
+ "tags": [
+  "fabric",
+  "fabric-connector",
+  "danielmiessler",
+  "tavily",
+  "llm-patterns",
+  "youtube-transcription",
+  "whisper"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "attachments",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Intercept pasted and dropped images",
+  "Convert images to WebP and compress them",
+  "Upload files to an S3-compatible bucket",
+  "Insert Markdown image links into notes",
+  "Overlay text or logo watermarks with live preview"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Previously named Watermark Bucket Uploader; existing installations and settings continue to work. Credentials are stored locally in the plugin data folder and no telemetry is collected. Requires Obsidian 1.6.6 or later; desktop and mobile supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted pasting an image to be zero-friction while keeping images on storage the user owns and controls.",
+ "primary": "integrations",
+ "problem": "Images pasted into notes stay as local vault files with no public URL, so notes and published pages carry large files and cannot reference hosted images.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "26a1ba4509512b443f03e43c67dd347a67ba3918",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Works with any S3-compatible storage — Cloudflare R2, AWS S3, MinIO, Backblaze B2, and more.",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with any S3-compatible storage — Cloudflare R2, AWS S3, MinIO, Backblaze B2, and more.",
+   "plugin": "AWS S3",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3-compatible storage bucket",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key and secret key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Uploader that intercepts pasted or dropped images, converts and compresses them, uploads them to an S3-compatible bucket and inserts a Markdown link.",
+ "tags": [
+  "s3",
+  "webp",
+  "image-compression",
+  "watermark",
+  "cloudflare",
+  "image-hosting",
+  "drag-and-drop"
+ ],
+ "textHash": "c212b2f61c2f84eece0060fccf2c5114df7ee4f8"
+}

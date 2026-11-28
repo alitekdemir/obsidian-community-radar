@@ -1,0 +1,65 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [
+  "developers",
+  "data-scientists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run code blocks in Obsidian across Python, Julia, R, JavaScript, TypeScript, Bash, Rust and other Jupyter kernels",
+  "Capture rich outputs such as plots, images, dataframes and magic commands below each code block",
+  "Convert Markdown notes into .ipynb notebooks and .ipynb notebooks into Markdown notes",
+  "Sync changes bidirectionally between paired .md and .ipynb files, including output metadata",
+  "Keep variables and imports from earlier code blocks available in later ones"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin; requires a local Python tooling environment, which can be set up from the plugin settings. The README includes a security section noting that executed code runs with Obsidian's operating-system permissions and warns to only run trusted notebooks. No telemetry or network requests, except user-confirmed package installs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian has no way to execute code blocks or treat Markdown notes as runnable Jupyter notebooks with persistent outputs.",
+ "readmeHash": "65117b0fe2d4cfb88171a1cb57ed99d8a402a463",
+ "relations": [
+  {
+   "evidence": "Python is necessary as a tooling environment to invoke Jupytext and Jupyter Client",
+   "plugin": "Jupytext",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Python is necessary as a tooling environment to invoke Jupytext and Jupyter Client",
+   "plugin": "Jupyter Client",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python with Jupytext and Jupyter Client (plus language kernels for non-Python languages)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Jupyter notebook integration that turns Markdown notes into executable notebooks with live code outputs and two-way syncing with .ipynb files.",
+ "tags": [
+  "jupyter",
+  "jupytext",
+  "ipynb",
+  "python",
+  "kernels",
+  "matplotlib",
+  "pandas"
+ ]
+}

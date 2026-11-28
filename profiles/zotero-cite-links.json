@@ -1,0 +1,68 @@
+{
+ "also": [
+  "research",
+  "links"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open cited PDFs in Zotero via Cmd-click on a Pandoc @citekey",
+  "Jump to the cited page using locators like [p. 8]",
+  "Resolve citation keys to PDF attachments over the local Better BibTeX JSON-RPC port",
+  "Refresh the list of searchable Zotero libraries from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.4.0+, uses local Node http); communicates only with Zotero over 127.0.0.1 with no other network requests. The manifest carries an 'not manually reviewed by Obsidian staff' notice.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's citation-aware plugins (e.g. Pandoc Reference List) show a bibliography sidebar and tooltips, but their best \"open\" action drops",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's Why section says the plugin was built to close the last step that existing citation-aware plugins leave open — manually finding the PDF and page in Zotero.",
+ "primary": "integrations",
+ "problem": "Citation plugins like Pandoc Reference List only drop you in the Zotero collection view, leaving you to navigate to the PDF and page yourself.",
+ "readmeHash": "35817522ded0122a5ec3b2a0052ef374c729a366",
+ "relations": [
+  {
+   "evidence": "Zotero with the Better BibTeX extension installed and running",
+   "plugin": "Zotero with Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Better BibTeX integration approach draws on patterns from mgmeyers/obsidian-pandoc-reference-list",
+   "plugin": "mgmeyers/obsidian-pandoc-reference-list",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Obsidian's citation-aware plugins (e.g. Pandoc Reference List) show a bibliography sidebar and tooltips",
+   "plugin": "Pandoc Reference List",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero with the Better BibTeX extension",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Citation-link plugin that opens cited PDFs in Zotero at the cited page when you Cmd-click a Pandoc @citekey in a note.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "pandoc-citekeys",
+  "citations",
+  "pdf-page-locators"
+ ]
+}

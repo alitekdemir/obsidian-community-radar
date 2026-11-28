@@ -1,0 +1,56 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lock plugin versions by prefixing manifest.json versions with 9999.",
+  "Batch lock or unlock all visible plugins after search or filtering",
+  "Snapshot and restore plugin files (main.js, styles.css, manifest.json)",
+  "Preview GitHub release notes and compare versions for identified repositories",
+  "Export and import lock settings as JSON files in the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that locking directly rewrites other plugins' manifest.json files inside the vault configuration directory and that snapshots store backup copies of plugin assets; the changelog feature makes network requests to GitHub only when enabled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author states many plugins ship breaking changes between versions and built it for users who prefer to stay on a stable, known-good version until ready to migrate.",
+ "primary": "utilities",
+ "problem": "Obsidian updates community plugins automatically, and breaking changes between versions can disrupt a working setup with no built-in way to stay pinned.",
+ "readmeHash": "efb53d6d31290c4de0b672ee271c9cf43fc22ddf",
+ "relations": [
+  {
+   "evidence": "The changelog feature sends requests to the GitHub Releases API when you click a plugin name",
+   "plugin": "GitHub Releases API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitHub Releases API",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Plugin version pinning tool that freezes selected community plugins by rewriting their manifest.json version so Obsidian treats them as up to date.",
+ "tags": [
+  "version-pinning",
+  "manifest-json",
+  "github-releases",
+  "breaking-changes",
+  "snapshot",
+  "batch-operations"
+ ]
+}

@@ -1,0 +1,51 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Reveal an embedded file in the system file explorer",
+  "Reveal an embedded file in Obsidian's File Explorer sidebar",
+  "Copy the embedded file object to the OS clipboard",
+  "Copy the embedded file's absolute path or its parent folder path"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a tool for creating or managing embeds; it only adds a right-click menu to files that are already embedded.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Copying binary file objects on Linux requires wl-copy (Wayland) or xclip (X11); some actions are desktop-only.",
+ "intent": "improve",
+ "intentEvidence": "Native right-click file operations for embedded attachments in Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because interacting with the underlying file of an embed required locating it manually in the File Explorer sidebar first.",
+ "primary": "files",
+ "problem": "Interacting with the actual file behind an embed usually requires hunting it down in the sidebar first, since embedded attachments offer no file operations in place.",
+ "readmeHash": "00cf0bf208db0cf19ff3babbf147cbf8e3560a9b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "wl-copy or xclip",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Context menu plugin that adds reveal, locate, and copy file operations to embedded attachments in reading view.",
+ "tags": [
+  "context-menu",
+  "clipboard",
+  "file-explorer",
+  "embeds",
+  "wayland",
+  "xclip"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync Trakt.tv watched history into a bulleted list in a note",
+  "generate date-specific backlinks for watched shows and movies",
+  "import watch history and ratings from a Trakt ZIP data export",
+  "connect to the Trakt API via OAuth with a developer app"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault or file syncing tool; it writes Trakt.tv watch data into a single note file.",
+ "extras": "Free Trakt accounts cannot use third-party OAuth, so they must use the manual ZIP export path; API/OAuth sync requires Trakt VIP or a registered developer application.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull your Trakt.tv viewing history and ratings into your notes.",
+ "readmeHash": "e3bcfeee8ba9859fa7bda8bd12efac9377dba37c",
+ "relations": [
+  {
+   "evidence": "This project syncs your Trakt checkins to a file in Obsidian",
+   "plugin": "Trakt.tv",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Trakt.tv account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Trakt developer app Client ID and Secret",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Trakt VIP for API/OAuth sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Trakt.tv integration that syncs your watch history and ratings into a vault note with date-specific backlinks.",
+ "tags": [
+  "trakt-tv",
+  "watch-history",
+  "movies",
+  "tv-shows",
+  "oauth",
+  "zip-export",
+  "ratings"
+ ]
+}

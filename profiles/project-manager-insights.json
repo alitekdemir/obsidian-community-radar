@@ -1,0 +1,56 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "aggregate cross-project and per-member workload",
+  "track delivery stage progress and acceptance readiness",
+  "assess schedule risk against delivery gates and owner capacity",
+  "surface data-quality gaps and delivery exceptions",
+  "trace metrics and warnings back to source tasks in Project Manager"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a project-management tool itself; it only reads and analyzes data from the Project Manager plugin without writing to any task note.",
+ "extras": "Requires Obsidian 1.7.2 or later and at least one Project Manager project; explicitly has no network integration and uploads nothing. Interface supports English and Simplified Chinese, and the README includes fictional demo data and screenshots.",
+ "intent": "improve",
+ "intentEvidence": "A read-only insight layer for Project Manager that extends its projects, tasks, hierarchy, tags, and statuses",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Project Manager data can only be viewed one project or one task at a time, so teams lack cross-project workload, delivery, and risk insight.",
+ "readmeHash": "5656fd0920c8c22f70dca4bc9ae6b86f069b56ac",
+ "relations": [
+  {
+   "evidence": "Project Manager is the data foundation and task-operation layer for this plugin.",
+   "plugin": "Project Manager",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Project Manager",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Read-only analytics dashboard that aggregates Project Manager plugin data into cross-project workload, delivery progress, data quality, and schedule risk views.",
+ "tags": [
+  "workload",
+  "schedule-risk",
+  "delivery-stages",
+  "task-hierarchy",
+  "capacity-planning",
+  "acceptance"
+ ]
+}

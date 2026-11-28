@@ -1,0 +1,50 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert wiki-link embeds to Markdown images",
+  "Convert Markdown images back to wiki-link embeds",
+  "Preview per-file diffs before writing",
+  "Back up, roll back, and prune timestamped backups",
+  "Scope runs to the current note, current folder, a set folder, or the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a link-path resolver or attachment manager; it rewrites embed syntax only and never changes a link target.",
+ "extras": "README is bilingual (English and Chinese) and explains limits extensively, including syntax it refuses to touch and size-parameter handling options.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants a reversible conversion: rewriting paths would make mistakes permanent and the conversion irreversible, so the design keeps every path byte-for-byte unchanged.",
+ "primary": "markdown",
+ "problem": "Obsidian's wiki-link embed syntax is non-standard, so notes stop rendering correctly in other Markdown tools, and manually converting hundreds of embeds is error-prone and hard to undo.",
+ "readmeHash": "bff7c30577b5c4b38c368fb7b567c8d1c8a09447",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "obsidian-image-captions",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Batch converter that rewrites Obsidian wiki-link embeds to Markdown image syntax and back, scoped to a note, folder, or whole vault.",
+ "tags": [
+  "wiki-links",
+  "image-embeds",
+  "round-trip",
+  "preview-diff",
+  "backup-rollback",
+  "html-img"
+ ]
+}

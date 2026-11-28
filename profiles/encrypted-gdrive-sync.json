@@ -1,0 +1,63 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally with Google Drive",
+  "Encrypt file contents with AES-256-GCM before upload",
+  "Protect the master key with a password-derived key",
+  "Resolve sync conflicts by creating local copies",
+  "Run sync manually or on a configurable auto-sync interval"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (uses Node.js for the OAuth loopback flow). Deletion is intentionally never propagated: deleting a file on one side restores it from the other, and permanent removal requires deleting everywhere before syncing. Warns that 'Remember password' stores the password in plugin data readable by anyone with vault access, and advises backing up before first sync. Setup requires creating a Google Cloud project and OAuth client; version 1.1.x renamed the plugin ID from e2e-gdrive-sync with migration instructions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault to Google Drive normally stores readable file contents in the cloud, with no built-in option for end-to-end encryption.",
+ "readmeHash": "10b7ba4ee24fd20f1105f6c06797947876f31104",
+ "relations": [
+  {
+   "evidence": "Paste the Client ID and Client Secret, then click Connect Google Drive.",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth client ID and secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Encrypted vault sync to your own Google Drive using AES-256-GCM, with keys derived and kept on your device.",
+ "tags": [
+  "google-drive",
+  "aes-256-gcm",
+  "e2e-encryption",
+  "oauth",
+  "pbkdf2",
+  "conflict-resolution"
+ ]
+}

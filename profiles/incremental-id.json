@@ -1,0 +1,65 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate unique incremental IDs with configurable prefixes",
+  "Insert a defined ID into a note via a command",
+  "Auto-generate IDs from Templater templates",
+  "Reuse the same generated ID multiple times within a template"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": "A plugin that allows you to generate a unique id like in Jira.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it while starting to use the Kanban plugin and wanting to reference specific notes in commits.",
+ "primary": "templating",
+ "problem": "Notes lack stable short identifiers, making it hard to reference a specific note from outside the vault, such as in commit messages.",
+ "readmeHash": "df4ab4c9254cbaa2d6f22afb9e36f1610f82ca72",
+ "relations": [
+  {
+   "evidence": "you can add the code to the templater and do it automatically",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "I'm starting to use the kanban plugin and I want to have the option to reference a specific note",
+   "plugin": "Kanban",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Generate Jira-like IDs for each note",
+   "plugin": "Jira",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Generates Jira-style unique IDs with custom prefixes (e.g. DN-1) and inserts them into notes via commands or Templater templates.",
+ "tags": [
+  "jira",
+  "unique-id",
+  "prefix",
+  "counter",
+  "kanban",
+  "templater"
+ ]
+}

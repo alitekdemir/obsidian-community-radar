@@ -1,0 +1,74 @@
+{
+ "also": [
+  "tasks",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compute Tasks check-off results",
+  "Handle recurring-task output lines",
+  "Return edited line text without writing files",
+  "Report Tasks status and error codes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Minimal provider with no commands, editor features, or network access; it never writes files (edits go through Verbex's Diff approval). Requires Verbex 0.2.0+ and shows a notice with older Verbex. Automated tests use a fake Tasks API rather than the real plugin.",
+ "intent": "improve",
+ "intentEvidence": "lets the Verbex AI agent compute Tasks check-off results, including recurrence, through the Tasks plugin",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The Verbex AI agent has no way to compute Tasks check-off results, including recurrence, without directly editing note files.",
+ "profiledAt": "2026-11-27",
+ "provider": "Baidu",
+ "readmeHash": "89919bde512ef362653ffe7ccccfbe33534a10bc",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "the first Verbex release that hosts Bridges",
+   "plugin": "Verbex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Bridge calls its apiV1.executeToggleTaskDoneCommand(line, path)",
+   "plugin": "Tasks plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Listing is done with a Dataview TASK query (Verbex Dataview Bridge, when installed)",
+   "plugin": "Verbex Dataview Bridge",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Verbex 0.2.0 or later",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks plugin (obsidian-tasks-plugin)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bridge plugin that lets the Verbex AI agent compute Tasks check-off results, including recurrence, via the Tasks plugin without writing files.",
+ "tags": [
+  "tasks-plugin",
+  "ai-agents",
+  "agent-skills",
+  "tool-calling",
+  "recurring-tasks"
+ ],
+ "textHash": "32ae0937adeae72ba509287fd1f1aefabded6dfe"
+}

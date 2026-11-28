@@ -1,0 +1,57 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Intercept console.*() output and write it to a vault file",
+  "Log uncaught exceptions, including async and promise errors",
+  "Format logs as NDJSON, a Markdown table, or Markdown code blocks",
+  "Name log files after the device via the Sync plugin's device name",
+  "Filter NDJSON logs with tools like jq"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns to use at your own risk and always back up data; logs only output produced after the plugin is enabled; when proxying, all console output appears as coming from plugin:logstravaganza; author promotes his Actions for Obsidian app.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Lets plugin authors ask their users to install the plugin and send back the resulting log file when reporting bugs.",
+ "primary": "developers",
+ "problem": "Obsidian gives no way to capture console output and crashes from a running vault, making it hard for plugin developers to collect error logs from users.",
+ "readmeHash": "592e9226b0eb1d9a4b7663f5094fd7b043b7243a",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Obsidian42 - BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DEVICE-NAME is a placeholder for the actual device name as returned by the core Sync plugin",
+   "plugin": "Sync (core plugin)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Developer debugging utility that proxies console.*() calls and uncaught exceptions into a log note inside the vault.",
+ "tags": [
+  "console",
+  "logging",
+  "debugging",
+  "ndjson",
+  "exceptions",
+  "jq"
+ ]
+}

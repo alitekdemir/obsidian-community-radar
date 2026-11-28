@@ -1,0 +1,89 @@
+{
+ "also": [
+  "music",
+  "import"
+ ],
+ "audience": [
+  "record collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import NetEase Cloud Music songs into notes",
+  "Import Discogs collection records into notes",
+  "Render notes from a swappable Markdown template",
+  "Deduplicate notes by ID",
+  "Keep covers as URLs or download them locally"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault or cross-device sync tool; 'sync' means importing external music and record collections into notes.",
+ "extras": "Full documentation is in Chinese; the English text is a reviewer summary. Desktop only. No audio is downloaded, only metadata, lyrics and tracklists. The Discogs half works standalone without NetEase.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn your music listening history or physical record collection into structured notes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "0fd7f0c46794395a3dd42bd9a062c63ccb55313d",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "translated titles from NetEase's official endpoint",
+   "plugin": "NetEase Cloud Music",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses the official API + a personal token to pull your entire collection",
+   "plugin": "Discogs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "genre/region come from Last.fm",
+   "plugin": "Last.fm",
+   "type": "integrates"
+  },
+  {
+   "evidence": "reads the local cache of MusicLyricApp (metadata + timestamped lyrics)",
+   "plugin": "MusicLyricApp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Discogs personal token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Last.fm API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MusicLyricApp",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Music sync plugin that turns NetEase Cloud Music songs and Discogs records into notes with metadata, lyrics and tracklists, deduplicated by ID.",
+ "tags": [
+  "lyrics",
+  "cover-art",
+  "duplicate-detection",
+  "api-key",
+  "privacy"
+ ],
+ "textHash": "de23007bb2f25fa70444d17b3ff7ace4d9598359"
+}

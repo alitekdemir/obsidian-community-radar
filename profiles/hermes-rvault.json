@@ -1,0 +1,58 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt notes client-side (XChaCha20-Poly1305) before upload",
+  "Sync the vault bidirectionally with Cloudflare R2 using last-writer-wins conflict resolution",
+  "Track file revisions and restore single files or the whole vault to a point in time",
+  "Resolve sync conflicts in a Conflict Center UI",
+  "Plan retention and safely garbage-collect deleted files and old revisions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only: the Obsidian mobile app lacks the SecretStorage API needed for keys and tokens. Detailed protocol, security-model and threat-model docs live outside the README. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync notes end-to-end encrypted to a storage endpoint the user controls.",
+ "readmeHash": "c6890c29748e57b564593ec692dcef952099d36d",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hermes VPS control API and Cloudflare R2",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Access token stored via SecretStorage",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Encrypted vault sync that uploads client-side encrypted notes to Cloudflare R2 via a Hermes control API, with revision history and restore.",
+ "tags": [
+  "cloudflare-r2",
+  "xchacha20-poly1305",
+  "argon2id",
+  "end-to-end-encryption",
+  "last-writer-wins",
+  "garbage-collection",
+  "content-addressable-storage"
+ ]
+}

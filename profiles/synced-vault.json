@@ -1,0 +1,79 @@
+{
+ "also": [
+  "files",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to Dropbox with a change preview before applying",
+  "Record deletion tombstones so stale devices cannot restore deleted notes",
+  "Preserve concurrent edits as copies in Sync Conflicts/",
+  "Show sync status and controls in a left sidebar panel",
+  "Verify downloaded payloads against SHA-256 content hashes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual sync only; 100 MiB per-file limit; .obsidian config, .trash, .git and empty directories excluded by default; OAuth refresh tokens stored in local plugin data; changing Dropbox account, App Key, or Vault ID after syncing is unsupported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync across Windows and iPhone through Dropbox while preserving deletions and concurrent edits.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "496d7851d84af4b33acb090ec34dca51a6ff54cc",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Do not run Remotely Save and Synced Vault simultaneously on the same vault.",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "the visible Trash/ folder used by Synced Trash",
+   "plugin": "Synced Trash",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Dropbox",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Dropbox account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Dropbox App Key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Preview-first Dropbox sync plugin for Obsidian on Windows and iPhone that syncs notes, attachments, images, and the visible Trash/ folder.",
+ "tags": [
+  "dropbox",
+  "two-way-sync",
+  "windows",
+  "ios",
+  "trash",
+  "conflict-resolution",
+  "local-first"
+ ],
+ "textHash": "8316e0610cea4ef6afdb5a570ce2cd124568abda"
+}

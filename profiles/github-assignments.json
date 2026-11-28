@@ -1,0 +1,68 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "fetch assigned GitHub issues and pull requests",
+  "append them to the note as checkbox tasks",
+  "configure task prefixes, suffixes, and created-date tags",
+  "avoid duplicating tasks already in the note",
+  "insert tasks at the cursor position"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull your assigned GitHub issues and pull requests into notes as task list items.",
+ "readmeHash": "97b9697141a73d2b732de01443b2a3b19f36c12b",
+ "relations": [
+  {
+   "evidence": "Fetch currently assigned GitHub issues and pull requests.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional created date tag ([created:: YYYY-MM-DD]) for use with the Tasks plugin.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub username",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Command-based plugin that fetches GitHub issues and pull requests assigned to you and appends them as checkbox tasks to the current note.",
+ "tags": [
+  "github",
+  "tasks-plugin",
+  "personal-access-token",
+  "checkbox-tasks"
+ ]
+}

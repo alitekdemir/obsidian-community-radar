@@ -1,0 +1,57 @@
+{
+ "also": [
+  "files",
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Apply extension rules matching directory path, file content via regex, or both",
+  "Fix the extension of the current file via a command palette command",
+  "Read the true extension from the file path when other plugins spoof it"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that Obsidian won't see non-.md files unless configured, that Sync must be set to process unsupported files, and that renaming fails when a file with the same name exists. Auto-run on save is off by default to avoid race conditions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian mostly ignores non-.md files, so users with MD-like filetypes have no automatic way to keep their extensions consistent.",
+ "readmeHash": "b4d068de307673d1aa2d450bfe4268273d948c79",
+ "relations": [
+  {
+   "evidence": "if another plugin spoofs that (e.g. Anything as MD reports custom extensions as md)",
+   "plugin": "Anything as MD",
+   "type": "integrates"
+  },
+  {
+   "evidence": "avoid race conditions with other file-processing plugins (Linter, Templater, etc.)",
+   "plugin": "Linter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "avoid race conditions with other file-processing plugins (Linter, Templater, etc.)",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Rule-based tool that automatically renames file extensions using trickle-down rules matching directory path, file content regex, or both.",
+ "tags": [
+  "regex",
+  "file-rename",
+  "extensions",
+  "md-like-filetypes"
+ ]
+}

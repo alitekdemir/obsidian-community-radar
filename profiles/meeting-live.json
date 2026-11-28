@@ -1,0 +1,90 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record meetings locally and embed a live meeting card in a note",
+  "Transcribe live audio and recorded files through speech recognition services",
+  "Write AI stage summaries and meeting minutes into the note",
+  "Convert existing audio files into notes with speaker labels and time links",
+  "Manage accounts, keys, and settings for speech and language model services"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.11.4+); local transcription setup is tested on macOS only, Windows and Linux steps are untested. API keys are stored in Obsidian's secret storage, a consent dialog is required before audio or transcripts go to each service host, and the plugin states it has no telemetry or ads. The README warns to get participants' consent before recording and notes cloud services charge for use.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to record a meeting, transcribe it, and produce summaries and minutes inside the note itself.",
+ "readmeHash": "cafd4fc17d8ba9d2b60ebb5002590909efdfc084",
+ "relations": [
+  {
+   "evidence": "one Volcengine key gives you live transcription and recorded files",
+   "plugin": "Volcengine speech",
+   "type": "integrates"
+  },
+  {
+   "evidence": "1.25x real time for Deepgram and AssemblyAI, and the same cautious default",
+   "plugin": "Deepgram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AssemblyAI. Live model universal-3-5-pro (Mandarin and Japanese among its languages, hotwords, optional speaker labels)",
+   "plugin": "AssemblyAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "add Local (sherpa-onnx) for live transcription and Local Whisper (whisper.cpp) for recorded files",
+   "plugin": "sherpa-onnx",
+   "type": "integrates"
+  },
+  {
+   "evidence": "whisper.cpp's whisper-server speaks the OpenAI transcription format",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "speech or LLM service accounts",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API keys for cloud speech or language model services",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "local sherpa-onnx or whisper.cpp server for offline transcription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Live meeting workspace that embeds a recording card in Markdown notes, transcribes in real time, writes AI stage summaries, and turns recordings into notes.",
+ "tags": [
+  "transcription",
+  "speech-recognition",
+  "meeting-minutes",
+  "volcengine",
+  "deepgram",
+  "assemblyai",
+  "whisper-cpp",
+  "sherpa-onnx"
+ ]
+}

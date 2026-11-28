@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "embed AI chat web UIs in notes via provider codeblocks",
+  "save each thread's durable URL back into the note",
+  "resume saved conversations from the same note",
+  "mark threads done and query thread state with Dataview"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not its own AI assistant or API client; it embeds the providers' web chat UIs and stores thread links in notes, with no API key required.",
+ "extras": "Has a paid 'Smart Chat Pro' tier (universal codeblock, API chat). Embedded chat UI works on Obsidian desktop only; mobile gets saved thread links but not the full web UI. Claude and Google sign-in require enabling the Web viewer core plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI chat conversations live in provider apps or browser tabs, detached from the notes they belong to, so threads are hard to resume and track.",
+ "readmeHash": "e765c452fa57ebf0d8956841fe3ef668301133e9",
+ "relations": [
+  {
+   "evidence": "Because Smart Chat stores thread state directly in your notes, Dataview can turn your vault into an async dashboard.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Can I use Open WebUI (Ollama) with Smart Chat? Yes.",
+   "plugin": "Open WebUI (Ollama)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "provider accounts (ChatGPT, Claude, Gemini, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for Pro API chat",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Embeds AI chat web UIs like ChatGPT and Claude in note codeblocks and saves each thread's URL with the note so chats stay linked to work.",
+ "tags": [
+  "chatgpt",
+  "claude",
+  "gemini",
+  "grok",
+  "dataview",
+  "openwebui",
+  "embeds"
+ ]
+}

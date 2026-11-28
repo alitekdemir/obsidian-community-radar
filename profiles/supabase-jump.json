@@ -1,0 +1,83 @@
+{
+ "also": [
+  "integrations",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs notes and attachments to a Supabase project in real time",
+  "Merges simultaneous edits to one note with live cursors",
+  "Keeps up to 50 versions per note and restores them",
+  "Saves conflict copies and restores deleted notes",
+  "Syncs themes, snippets, hotkeys and plugins across devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Supabase database client; it syncs vault files, attachments and settings to your own Supabase project.",
+ "extras": "Unofficial sync method; the Supabase project can be hosted (free plan) or self-hosted with Docker. Password and access token are kept in Obsidian's secret storage, and the README states there is no tracking or analytics.",
+ "intent": "alternative",
+ "intentEvidence": "this is an unofficial way to sync and back up your notes. Obsidian Sync is the official option",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Local vault files alone cannot stay in sync across devices, and two devices cannot edit the same note at the same time without overwriting each other.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "4262f458ec3a5f581011aac6e4de0e1bde00637c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian vault with your own Supabase project",
+   "plugin": "Supabase",
+   "type": "integrates"
+  },
+  {
+   "evidence": "this is an unofficial way to sync and back up your notes. Obsidian Sync is the official option",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Supabase project",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Supabase project URL and anon key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Supabase account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Supabase personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Syncs a vault to your own Supabase project in real time, with live co-editing, version history, attachment storage and settings sync.",
+ "tags": [
+  "supabase",
+  "crdt",
+  "self-hosted",
+  "version-history",
+  "conflict-resolution"
+ ],
+ "textHash": "f7d02b38285855e1292c2db816187aa543f0ce1e"
+}

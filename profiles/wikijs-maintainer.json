@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes from a sync folder as Wiki.js pages, mapping folder structure to wiki paths",
+  "Pull changed or new wiki pages into the vault",
+  "Re-check remote timestamps before every write and show a diff on drift",
+  "Convert Obsidian markdown on push (wikilinks to wiki links, callouts to blockquote classes)",
+  "Show a per-page sync status view with push, pull, adopt and discard actions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Marked as an MVP: text only, no attachment sync, no automatic merge, and no pull out of conflicts yet. Listed since 2026-08-12 and not manually reviewed by Obsidian staff. Further documentation lives in an external docs index, including troubleshooting.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to a self-hosted Wiki.js instance or keep local notes and wiki pages in sync safely.",
+ "readmeHash": "2661f0bed19acdb3ee760827585111a8f2d7bcde",
+ "relations": [
+  {
+   "evidence": "publishes and syncs notes from one folder of your vault to a Wiki.js 2.x instance",
+   "plugin": "Wiki.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Wiki.js 2.x instance over HTTPS",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Wiki.js API key with page-write access",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publishes and syncs notes from one vault folder to a Wiki.js 2.x wiki over GraphQL, with drift detection and manual conflict resolution.",
+ "tags": [
+  "wikijs",
+  "graphql",
+  "wiki",
+  "wikilinks",
+  "callouts",
+  "drift-detection"
+ ]
+}

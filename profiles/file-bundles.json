@@ -1,0 +1,63 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Declare companion files and folders in the main file's frontmatter",
+  "Move and rename locked bundles as one unit",
+  "Delete and duplicate a bundle together with its dependents",
+  "Lock or unlock a bundle to hide or restore dependents in the File Explorer",
+  "Create sidecar notes that declare bundles on behalf of non-markdown files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an attachment-capture tool; it groups already-existing files declared in frontmatter, it does not set where new attachments go.",
+ "extras": "Full documentation ships as a demo vault bundled with each release rather than inline in the README; the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": "A bundle is declared, not inferred from a naming convention.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian treats an HTML page and its assets, a note and its pasted images, or an invoice and its note as separate files, so moving or deleting the main file leaves the rest behind or orphaned.",
+ "readmeHash": "ebc11e438ea1b19f65be13a7502e97437c0a61a5",
+ "relations": [
+  {
+   "evidence": "Alternative grouping: declarations, not matching names; any number of files/folders",
+   "plugin": "Sidecars",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative UI: keeps File Explorer; declared grouping controls its rows",
+   "plugin": "Nested Notes",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Frontmatter-declared file bundles that let a main file move, rename, duplicate and delete together with the files and folders it declares as dependents.",
+ "tags": [
+  "file-dependencies",
+  "sidecar",
+  "frontmatter-declaration",
+  "locking",
+  "html-assets",
+  "context-menu"
+ ]
+}

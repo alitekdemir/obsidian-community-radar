@@ -1,0 +1,78 @@
+{
+ "also": [
+  "writing",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Writes a weekly letter note from vault notes",
+  "Finds recurring themes across folders",
+  "Quotes contradicting notes with links",
+  "Flags duplicate titles, unlinked related notes and overdue reviews",
+  "Compares saved clippings with own writing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community directory; installed by hand from release files. AI is off by default and no network request is made without it. A separate Mind Letter agent skill covers letters across several sources such as Notion.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Patterns across a vault, such as recurring topics, contradicting notes, unlinked related notes and a saved-versus-written imbalance, are hard to spot when you are the one writing the notes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "cb376e6c7e519bd8da72102ef68b0ddef5e05ead",
+ "relations": [
+  {
+   "evidence": "The plugin runs the claude program on your computer with all tools turned off",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Text goes only to a server on this computer (localhost).",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud API key (OpenAI, Anthropic, Google Gemini)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Rule-based generator that reads your vault notes once a week and writes a short linked letter of themes, contradictions and loose threads.",
+ "tags": [
+  "weekly-review",
+  "local-first",
+  "privacy",
+  "unlinked-mentions",
+  "llm",
+  "claude-code",
+  "ollama"
+ ],
+ "textHash": "af2b38c368d3da7f6c3e7e7f211be5f27af77724"
+}

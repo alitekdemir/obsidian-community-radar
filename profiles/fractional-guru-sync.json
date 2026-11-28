@@ -1,0 +1,67 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "select folders and individual Markdown notes to sync (nothing selected by default)",
+  "connect via a scoped Fractional Guru integration token",
+  "sync notes one-way to the knowledge base with a first-upload confirmation",
+  "detect note changes incrementally with SHA-256 and retry failed uploads",
+  "delete remote copies of previously synced notes removed locally"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Mobile runtime testing and real-vault acceptance testing are still outstanding; notes over 1 MB are skipped, and non-Markdown attachments, bidirectional sync and conflict resolution are explicitly out of scope for v0.1.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish selected notes into an external Fractional Guru knowledge base, so users would have to copy content there manually.",
+ "readmeHash": "154cc20847f7b8ad1c5641e62d485038544c5c71",
+ "relations": [
+  {
+   "evidence": "Sync only the Markdown notes and folders you choose from the current Obsidian vault into your Fractional Guru knowledge base",
+   "plugin": "Fractional Guru",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Fractional Guru",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fractional Guru integration token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Fractional Guru account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that pushes user-selected Markdown notes and folders from a vault into a Fractional Guru knowledge base.",
+ "tags": [
+  "fractional-guru",
+  "knowledge-base",
+  "one-way-sync",
+  "incremental-sync",
+  "integration-token"
+ ]
+}

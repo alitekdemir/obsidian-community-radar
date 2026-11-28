@@ -1,0 +1,69 @@
+{
+ "also": [
+  "dates",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture quick text or photo moments",
+  "show a newest-first daily timeline",
+  "edit and delete recorded moments",
+  "navigate between previous, next, and today",
+  "write moments into daily Markdown notes with stable entry markers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a full journaling or diary tool; it only records short timestamped moments in daily notes.",
+ "extras": "Available via BRAT while awaiting community directory approval; releases include signed GitHub provenance attestations. States no database, cloud service, telemetry, or AI.",
+ "intent": "alternative",
+ "intentEvidence": "Momentlog uses a new plugin ID, momentlog, so it installs as a separate plugin from the earlier Timelog beta.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to capture small moments between longer notes that are easy to lose.",
+ "primary": "calendar",
+ "problem": "Obsidian's daily notes require opening and editing a note file, which is slow for jotting a passing thought or photo in a few seconds.",
+ "readmeHash": "d2da098db17c49878bc29faa9ce8289ce0b9849b",
+ "relations": [
+  {
+   "evidence": "Momentlog still reads legacy ## Timelog sections and timelog-entry blocks.",
+   "plugin": "Timelog",
+   "type": "replaces"
+  },
+  {
+   "evidence": "It can also share the same daily Markdown file as Obsidian's Daily Notes core plugin.",
+   "plugin": "Daily Notes core plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install BRAT and add this repository as a beta plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily Notes core plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Quick-capture panel that records short text notes and photos as timestamped moments in a daily Markdown timeline inside the vault.",
+ "tags": [
+  "quick-capture",
+  "timestamp",
+  "timeline",
+  "photos",
+  "daily-log",
+  "brat"
+ ]
+}

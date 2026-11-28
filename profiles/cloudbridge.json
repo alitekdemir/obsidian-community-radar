@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Two-way sync the vault with a chosen cloud folder",
+  "Resolve sync conflicts by keeping both newer and conflicting versions",
+  "Upload a note's images and files to the cloud and rewrite embeds to public links",
+  "Show sync progress and last-sync time in the status bar",
+  "Run sync on an interval, on save, or manually"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The directory listing carries the warning \"This plugin has not been manually reviewed by Obsidian staff.\" Syncing requires a paid CloudBridge API add-on. Deletions are not propagated by default; true mirroring needs the \"Propagate deletions\" setting. The README is provided in English and Russian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid single service, and there is no built-in way to keep a vault mirrored to a cloud storage provider of the user's own choice.",
+ "readmeHash": "d1c3582427c3f1784a42362a22682edd609aa3e1",
+ "relations": [
+  {
+   "evidence": "File operations go through the CloudBridge network drive (/dav/) — the same WebDAV endpoint",
+   "plugin": "CloudBridge",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "CloudBridge account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "CloudBridge API key (cb_live_…)",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "CloudBridge API add-on",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Vault sync plugin that mirrors an Obsidian vault two-way to 20+ cloud storages (Yandex Disk, Google Drive, Dropbox, Telegram, MEGA) through a CloudBridge account.",
+ "tags": [
+  "webdav",
+  "yandex-disk",
+  "google-drive",
+  "dropbox",
+  "telegram",
+  "mega",
+  "vk-cloud"
+ ]
+}

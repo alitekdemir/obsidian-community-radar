@@ -1,0 +1,81 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create a disposable Mail.tm mailbox in one click",
+  "Fetch email from a user-configured IMAP server",
+  "Save each message as a note with From, To, CC, Subject, Body and attachments",
+  "Set note path, name and body with templates and frontmatter",
+  "Leave messages unread on the server to preserve read state"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is shipped as a demo vault included with each release and browsable on GitHub; README warns that in Mail.tm mode messages route through the third-party service mail.tm and are retained there up to 7 days, so sensitive information should not be sent.",
+ "intent": "alternative",
+ "intentEvidence": "Same forwarded-mail goal; ready-made mailbox or own IMAP account",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because things worth keeping arrive by email and getting them into the vault meant copying, pasting and re-saving attachments by hand.",
+ "primary": "integrations",
+ "problem": "Getting emails worth keeping into Obsidian requires manually copying, pasting and re-saving message bodies and attachments.",
+ "readmeHash": "071b7590aec8964b3923758dc302a2897443b7dc",
+ "relations": [
+  {
+   "evidence": "Inspired by Save emails into Evernote.",
+   "plugin": "Save emails into Evernote",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Same IMAP goal; ready-made mailbox option; note path/body templates",
+   "plugin": "E-mail Importer (IMAP)",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same forwarded-mail goal; own IMAP account option and note body templates",
+   "plugin": "mail-to-note",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same forwarded-mail goal; ready-made mailbox or own IMAP account",
+   "plugin": "Send Email into Vault",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same forwarded-mail goal; IMAP option and scheduled imports",
+   "plugin": "Sync Emails",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "own IMAP email account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Mail.tm third-party service (built-in mode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Email-to-note plugin that saves incoming mail as Obsidian notes via a one-click disposable Mail.tm mailbox or the user's own IMAP server.",
+ "tags": [
+  "imap",
+  "mail-tm",
+  "gmail",
+  "outlook",
+  "email-forwarding",
+  "email-to-note"
+ ]
+}

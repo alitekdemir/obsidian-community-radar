@@ -1,0 +1,67 @@
+{
+ "also": [
+  "files",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Merge byte-identical duplicate attachments by SHA-256",
+  "Scan and clean orphan local and remote attachments",
+  "Check broken wikilinks, missing embeds and HTTP 404 remote links",
+  "Upload or download note attachments to a self-hosted server with link rewriting",
+  "Rename server files vault-wide with an alias grace period"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general file explorer; it manages attachment storage, deduplication, cleanup and remote hosting.",
+ "extras": "Local deduplication, orphan cleanup, broken-link checks and analytics work without a server; WebP optimization, watermarks, remote renames, gallery and recycle bin need the separate file-master-server backend. Plugin 1.2.9+ requires server 1.2.8+; on mobile the server URL must be reachable from the phone rather than localhost. Install via BRAT or manually; MIT licensed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author found that attachment management gets messy as a vault grows: bloated local storage, duplicate and orphan files, publishing friction, and painful renames.",
+ "primary": "attachments",
+ "problem": "Vault attachments accumulate as duplicates and orphans, and moving them to remote storage or renaming them breaks links inside notes.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "c8496c8a687b6152af72740a669300b9c738034a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "works across Markdown, Canvas, and Excalidraw files",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "File Master Server",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "File Master Server API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Attachment manager that deduplicates files by SHA-256, cleans orphan attachments, checks broken links, and can upload media to a self-hosted server.",
+ "tags": [
+  "self-hosted",
+  "webp",
+  "broken-links",
+  "image-hosting",
+  "gallery"
+ ],
+ "textHash": "e622840390ce82947ac5e3075533d7327dd42166"
+}

@@ -1,0 +1,61 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build routes between waypoints in a block",
+  "Generate isochrone reachability polygons around a center point",
+  "Read elevation for the points of a track",
+  "Snap recorded tracks to the road or path network",
+  "Identify the named ways a track follows"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a stand-alone mapping or routing plugin; it only works as a provider installed alongside Places.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; usage examples live in a separate sandbox rather than the README.",
+ "intent": "improve",
+ "intentEvidence": "This is not a stand-alone plugin, to use, install along side Places.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "The Places plugin needs a routing engine to build routes, isochrones, and track analysis, and Valhalla is not available out of the box.",
+ "readmeHash": "52c37a37f31a6902144579258d760d549347f1f4",
+ "relations": [
+  {
+   "evidence": "This is not a stand-alone plugin, to use, install along side Places.",
+   "plugin": "Places",
+   "type": "extends"
+  },
+  {
+   "evidence": "Routing provider for Places using Valhalla, with directions, isochrones, elevation replacement, track snapping, and track matching.",
+   "plugin": "Valhalla",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Provider plugin that adds Valhalla routing to Places: directions, isochrones, elevation lookup, track snapping, and track matching.",
+ "tags": [
+  "valhalla",
+  "routing",
+  "maps",
+  "isochrones",
+  "elevation",
+  "gps-tracks"
+ ]
+}

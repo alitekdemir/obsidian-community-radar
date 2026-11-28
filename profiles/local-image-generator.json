@@ -1,0 +1,90 @@
+{
+ "also": [
+  "images",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate images from a prompt on the local GPU",
+  "Send prompts to a local A1111-compatible image server",
+  "Run ComfyUI workflows to generate, edit or upscale",
+  "Save results as attachments or as a note with the recipe",
+  "Reload past generations from history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Model files (SD-Turbo ≈ 2.6 GB, SDXL-Turbo ≈ 7.1 GB) are downloaded only when the user clicks Download, checksum-verified, and stored in Obsidian's Cache API outside the vault. Built-in, Server and ComfyUI modes need desktop Obsidian; mobile works only through Image Playground on iOS/macOS 26+ with Apple Intelligence. The plugin also exposes a generation API to other plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Image generation normally means a cloud service and an account, so prompts and images leave the machine and results are not saved into the vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "592cd5adcebd806892d5dcf6ac41e95556056d03",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "a local image server you run yourself — Draw Things, AUTOMATIC1111, Forge, or SD.Next",
+   "plugin": "Draw Things",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AUTOMATIC1111 (stable-diffusion-webui): Launch it with the --api flag",
+   "plugin": "AUTOMATIC1111",
+   "type": "integrates"
+  },
+  {
+   "evidence": "point it at your own running ComfyUI server and a vault folder of workflows you exported in the API format",
+   "plugin": "ComfyUI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Runs entirely on-device through Apple's Image Playground via a Shortcut you install once",
+   "plugin": "Image Playground",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Draw Things, AUTOMATIC1111, Forge or SD.Next server",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ComfyUI server",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Apple Shortcuts with Image Playground",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "AnySource Sideloader",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Image generator that runs SD-Turbo on your GPU inside Obsidian, or connects to a local Draw Things/A1111/ComfyUI server, saving results as attachments.",
+ "tags": [
+  "image-generation",
+  "local-first",
+  "privacy",
+  "offline",
+  "apple-shortcuts"
+ ],
+ "textHash": "820abf40f4d6ac600e8f8ef01480d34c86bbfc64"
+}

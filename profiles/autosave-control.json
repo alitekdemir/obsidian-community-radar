@@ -1,0 +1,60 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Delay autosave until a configurable idle period after the last edit",
+  "Disable automatic saving and save only via the Save File command",
+  "Defer writes to the workspace.json layout file",
+  "Show save state as a color-coded status bar indicator",
+  "Warn on quitting with unsaved changes and list affected notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns that changes held in memory can be lost if Obsidian or the system crashes before a save, that save-reactive features (e.g. the Outline pane) update late, and that force-killing the mobile app right after editing can lose the last edit. Also documents compatibility behavior with disk-rewriting plugins like Templater, Linter, Frontmatter Modified Date, and Custom Attachment Location.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian saves every ~2 seconds while typing, which can cause sync conflicts with cloud storage, performance issues on large files, and battery drain.",
+ "readmeHash": "ab3b3d614bca41882427dafba4611e6211e87d9c",
+ "relations": [
+  {
+   "evidence": "This plugin can be installed and auto-updated with BRAT (Beta Reviewers Auto-update Tester)",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Plugins that rewrite a note directly on disk (Frontmatter Modified Date, Linter, Templater, sync clients, ...)",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Save-control plugin that delays Obsidian's automatic saves or disables them, letting users save manually to reduce file writes.",
+ "tags": [
+  "autosave",
+  "sync-conflicts",
+  "workspace-json",
+  "debouncing",
+  "manual-save"
+ ]
+}

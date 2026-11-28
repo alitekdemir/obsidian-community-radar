@@ -1,0 +1,55 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask configured local agent CLIs questions about the vault",
+  "Search the vault and send bounded evidence excerpts to the agent",
+  "Select text and request explanations, ADR lookup, review suggestions, or comments",
+  "Add editable AI or manual review comments with citations that jump to source headings",
+  "Interrupt agent processes, including child process trees, on Windows"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a built-in chat assistant; it shells out to user-configured local agent CLI commands rather than providing its own model.",
+ "extras": "Desktop-only. The manifest notes the plugin has not been manually reviewed by Obsidian staff. If the chosen agent uses a remote model, prompt and evidence excerpts may be sent to that provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to query AI agents about vault content with bounded evidence, citations, and review comments stored in the source notes.",
+ "readmeHash": "a2110f4854a74dfa1b26dbc2f5102cfa9dec0f31",
+ "relations": [
+  {
+   "evidence": "For Hermes, a selected model is passed with -m.",
+   "plugin": "Hermes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local AI agent CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Desktop plugin that sends questions about a Markdown vault to locally configured AI agent CLIs and keeps evidence-linked review notes.",
+ "tags": [
+  "local-llm",
+  "agent-cli",
+  "citations",
+  "adr",
+  "hermes"
+ ]
+}

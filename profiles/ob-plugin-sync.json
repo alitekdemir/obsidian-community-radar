@@ -1,0 +1,50 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan all vaults and list installed plugins per vault",
+  "Push selected plugins from the current vault to other vaults",
+  "Pull plugins from a source vault after reviewing a diff",
+  "Optionally copy plugin settings (data.json) between vaults",
+  "Warn on downgrades and version conflicts before overwriting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note or vault sync tool; it only copies plugin folders between vaults on one machine, not note content or devices.",
+ "extras": "Desktop only (isDesktopOnly: true); no network access, data stays local. Bilingual English/Chinese README, though some command names appear only in Chinese; architecture docs live in docs/DESIGN.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author maintains multiple vaults (work / life / demos) and had to install the same set of plugins over and over in each one.",
+ "primary": "utilities",
+ "problem": "Obsidian stores plugins per vault, so people maintaining several vaults must reinstall the same plugins in each one by hand.",
+ "readmeHash": "7dc3acb2b7a9a142d68dedc47e489b4251122ad8",
+ "relations": [
+  {
+   "evidence": "pull mode uses the BRAT flow (loadManifests() + enablePluginAndSave(), takes effect immediately)",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Cross-vault plugin manager that pushes or pulls community plugins between your local vaults with a diff view and per-vault selection.",
+ "tags": [
+  "multi-vault",
+  "plugin-management",
+  "brat",
+  "push-pull",
+  "diff-view",
+  "local-only"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [
+  "musicians"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render jps code blocks and .jps files as SVG jianpu",
+  "Play back scores with Web Audio synthesis",
+  "Edit scores in a built-in iJipu editor",
+  "Adjust page layout by dragging guide lines",
+  "Add watermarks and background images to pages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "First playback downloads a ~32 MB GeneralUser GS SoundFont from a GitHub link and caches it locally; a local .sf2 can be imported instead. No telemetry or account. The desktop-only built-in editor is served from a temporary 127.0.0.1 HTTP server with a one-time token. Licensed AGPL-3.0-or-later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "music",
+ "problem": "Obsidian cannot display or play jianpu (numbered notation) scores, so score source and rendered sheet music cannot live together in a note.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "d8563cb325e18107d5a09447823d0678b564a8f3",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "渲染引擎复用 @ijipu/engine（与 iJipu 应用一致），设置项与 iJipu 一脉传承",
+   "plugin": "iJipu",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "GeneralUser GS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "特别致谢「番茄简谱」原作与社区",
+   "plugin": "番茄简谱",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Renders .jps jianpu scripts from code blocks or files as SVG sheet music with playback, and edits scores in a built-in editor on desktop.",
+ "tags": [
+  "svg",
+  "lyrics",
+  "watermark",
+  "local-server"
+ ],
+ "textHash": "d307fa5841c384a97f248d67f348abd2ecc55c3c"
+}

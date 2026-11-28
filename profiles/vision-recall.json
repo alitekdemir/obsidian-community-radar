@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Monitor an intake folder and automatically process new screenshots",
+  "Extract text from images with Tesseract OCR",
+  "Analyze screenshot content with vision LLMs like GPT-4o or Ollama models",
+  "Generate notes combining OCR text, vision analysis, and AI-suggested tags",
+  "Browse, filter, and search screenshots in gallery and list views"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Troubleshooting is handled outside the README via a wiki and a Discord server; LLM providers include OpenAI, OpenRouter, and Ollama or any OpenAI-compatible endpoint.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Screenshots saved into a vault stay unsearchable images; Obsidian has no way to extract their text and content into organized notes.",
+ "readmeHash": "c972e109d98786d94bd6078cba026aa875ae05fa",
+ "relations": [
+  {
+   "evidence": "Optical Character Recognition (OCR): Extract text from images with Tesseract OCR.",
+   "plugin": "Tesseract OCR",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Vision LLM Integration: Leverage powerful Vision Language Models (like OpenAI's GPT-4o or Ollama models)",
+   "plugin": "OpenAI GPT-4o",
+   "type": "integrates"
+  },
+  {
+   "evidence": "like OpenAI's GPT-4o or Ollama models) to analyze image content and understand the context.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "enter your API key (if using OpenAI or OpenRouter)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or OpenRouter API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Screenshot knowledge base that turns screenshots into searchable, tagged Obsidian notes using OCR and vision LLM analysis.",
+ "tags": [
+  "screenshots",
+  "tesseract",
+  "gpt-4o",
+  "ollama",
+  "openrouter",
+  "clipboard",
+  "vision-llm"
+ ]
+}

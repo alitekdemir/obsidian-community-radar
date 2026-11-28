@@ -1,0 +1,79 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start and manage a shared local DevMate runtime from Obsidian",
+  "Share the vault with MCP clients as read-only or read-write",
+  "Expose note search, properties, graph and file operations to models",
+  "Notify when agents or clients await approval and open the workbench to answer"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Files",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a coding assistant inside Obsidian; the plugin only shares the vault and its note tools with external AI clients through a local runtime.",
+ "extras": "Desktop only; the runtime keeps running after Obsidian closes until stopped; state and credentials live in ~/.devmate/runtime outside the vault; no telemetry, account or payment; macOS and Linux untested; not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way for cloud AI chat clients to work directly on vault notes through the Model Context Protocol.",
+ "readmeHash": "25a41518fabf65ea40e6cbae26cc0e77169b9123",
+ "relations": [
+  {
+   "evidence": "The main use is connecting the chat window you already use (ChatGPT on the web, Claude) to your machine",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For ChatGPT on the web or Claude.ai, run DevMate: Configure Connection once",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "devmate client add claude-code (or by hand: claude mcp add --scope user --transport http devmate",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compiler, type and lint errors come straight from VS Code, without running a build",
+   "plugin": "VS Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 24+, Git 2.41+, ripgrep",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT or Claude account for cloud clients",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local MCP gateway plugin that shares the vault with AI chat clients such as ChatGPT and Claude for reading, searching and editing notes.",
+ "tags": [
+  "mcp",
+  "chatgpt",
+  "claude",
+  "coding-agents",
+  "local-runtime",
+  "tunnel"
+ ]
+}

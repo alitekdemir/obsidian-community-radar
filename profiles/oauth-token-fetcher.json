@@ -1,0 +1,57 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "fetch OAuth2 client-credentials tokens from configurable token endpoints",
+  "refresh tokens on a fixed interval or at token expiry",
+  "store client secrets and tokens in Obsidian's SecretStorage",
+  "optionally reload a consumer plugin after each token refresh",
+  "debug-log token requests and responses for troubleshooting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that reloading other plugins uses undocumented internal Obsidian APIs that may break in future releases, and that debug logs contain client secrets and tokens in plaintext, so copied logs should be treated as sensitive.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Plugins that call OAuth2-protected APIs have no built-in way to obtain, refresh, or securely store access tokens.",
+ "readmeHash": "0483fa1fb7ccac3a006ca302f23ee9a0ac2d4301",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an OAuth2 token endpoint",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "a consumer plugin that reads the stored secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Developer utility that periodically fetches OAuth2 client-credentials tokens and stores them in Obsidian's SecretStorage for other plugins to read.",
+ "tags": [
+  "oauth2",
+  "client-credentials",
+  "rfc-6749",
+  "secret-storage",
+  "token-refresh",
+  "api-authentication"
+ ]
+}

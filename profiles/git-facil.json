@@ -1,0 +1,75 @@
+{
+ "also": [
+  "syncing",
+  "backup"
+ ],
+ "audience": [
+  "non-developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Commit and push vault changes in one click",
+  "Pull and push for full bidirectional sync",
+  "Clone a vault from a GitHub repository inside the app",
+  "Run scheduled auto-backup (auto-sync)",
+  "Show a Git status side panel with checkboxes and masked token handling"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The interface and commands are in Spanish; the full manual lives in a separate MANUAL.md rather than the README. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Característica / Feature | GitFacil | Plugin de Git Convencional",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for users of all types, from beginners who do not know how to program to advanced users wanting instant, reliable sync.",
+ "primary": "git",
+ "problem": "Using Git with Obsidian normally requires terminal commands and CLI tools, and mobile support typically depends on Termux, which excludes non-developers.",
+ "readmeHash": "9dd06c9987402c07fb4f78e37cba2f56935dbd9b",
+ "relations": [
+  {
+   "evidence": "GitFacil opera 100% de forma local y directa con tus repositorios de GitHub.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Motor puro en JavaScript (isomorphic-git) optimizado con el adaptador de archivos de Obsidian",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token (repo scope)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Native Git executable (desktop only; mobile uses isomorphic-git)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git backup plugin that commits, pushes, pulls and clones an Obsidian vault to GitHub in one click, without terminal commands, on desktop and mobile.",
+ "tags": [
+  "github",
+  "isomorphic-git",
+  "one-click",
+  "mobile",
+  "spanish-interface"
+ ]
+}

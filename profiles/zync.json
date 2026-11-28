@@ -1,0 +1,64 @@
+{
+ "also": [
+  "backup",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files two ways through S3-compatible storage",
+  "Propagate uploads, downloads, and deletes across devices",
+  "Create conflict copies when both sides edited a file",
+  "Encrypt a protected folder with AES-256-GCM before upload",
+  "Ignore configured globs and always skip config and trash folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in Community plugins at the time of writing (install listed as 'after approval'); manual install and BRAT are documented. By default files are stored unencrypted in the bucket; only the optional protected folder is encrypted. Credentials are stored in plaintext in the vault's plugin data (data.json) on each device. On desktop, Node fs is used to write already-encrypted note contents when Obsidian quits or hides with a protected folder unlocked.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync is a paid service, and users who already have S3-compatible storage have no first-party way to keep multiple devices' vaults in sync through it.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "3681c5e271712b5a8d3865e616568f614a7bd9d8",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible storage bucket (Cloudflare R2, AWS S3, Backblaze B2, MinIO, or other SigV4 S3 API)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "S3 access key and secret with list/get/put/delete permissions",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync plugin that replicates notes across devices through S3-compatible object storage such as Cloudflare R2, AWS S3, Backblaze B2, and MinIO.",
+ "tags": [
+  "s3",
+  "cloudflare",
+  "r2",
+  "minio",
+  "encryption",
+  "conflict-resolution",
+  "two-way-sync",
+  "mobile"
+ ],
+ "textHash": "ba8099a5c33ee0ac8c30a242de2496b57f371931"
+}

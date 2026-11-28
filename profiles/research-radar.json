@@ -1,0 +1,83 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch papers from PubMed, Crossref, Europe PMC and allowlisted RSS feeds",
+  "Filter results by topics, journal sources and keyword rules",
+  "Translate selected titles and abstracts via Ollama or online services",
+  "Show read-only Zotero match status and local PDF detection per paper",
+  "Generate agent prompts and save reading tasks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a tool that scans your own notes; it discovers and filters published literature from online sources.",
+ "extras": "Desktop only (Obsidian 1.13.7+), runtime verified on macOS only. Translation is disabled by default and online services need explicit consent. The plugin does not launch an agent, download PDFs or write to Zotero; detailed guides live in external docs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Keeping up with new papers across several publication sources and reading foreign-language abstracts means leaving Obsidian and checking each service by hand.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "ae508c9aff257b85dc2175891c3182e17a4cac6c",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "Zotero uses a local read-only API and may inspect local attachment headers.",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Select Ollama or an online service, save, check the connection",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Online translation service credentials",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Microsoft/DeepL or AI translation API",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Literature discovery workspace that pulls papers from PubMed, Crossref, Europe PMC and RSS, filters them by topic and keywords, and translates abstracts.",
+ "tags": [
+  "zotero",
+  "translation",
+  "ollama",
+  "rss",
+  "crossref",
+  "literature-notes"
+ ],
+ "textHash": "d92d34f4782e60af4ceb3f0c334b692a8b3f4c58"
+}

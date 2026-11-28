@@ -1,0 +1,84 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull articles and messages shared to the WeChat service account into the vault",
+  "Localize remote images and attachments into configured vault folders",
+  "Customize front matter, file naming, folder paths and body templates per note type",
+  "Run syncs manually, on startup, or on a configured timer",
+  "Delete server-stored content on request (burn after reading, clear server content)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general web clipper or cross-device vault sync; it only pulls content that was forwarded to the Note Sync Helper WeChat official account.",
+ "extras": "Freemium: the backing service has a free quota and paid VIP tiers, with WeChat payment QR codes shown in settings and an expiry reminder after manual syncs. The README contains unusually detailed disclosures on network endpoints, data sent, no self-update, and no cross-plugin scripting; template-variable documentation lives in a separate TEMPLATE-VARIABLES.md.",
+ "intent": "alternative",
+ "intentEvidence": "the bundle includes the @omnivore-app/api client library (this plugin began as an Omnivore fork)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to save WeChat articles, chat messages and forwarded files, which need an external service to fetch and clean the content first.",
+ "readmeHash": "d13ca782d122b49cc4b5d772756f8cbc216baf5f",
+ "relations": [
+  {
+   "evidence": "the bundle includes the @omnivore-app/api client library (this plugin began as an Omnivore fork)",
+   "plugin": "Omnivore",
+   "type": "fork"
+  },
+  {
+   "evidence": "syncs content you collect through the WeChat official account 「笔记同步助手」",
+   "plugin": "WeChat",
+   "type": "integrates"
+  },
+  {
+   "evidence": "files created by this plugin are marked so the Templater plugin (if installed) will not execute template commands",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Note Sync Helper API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WeChat official account 「笔记同步助手」 binding",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "WeChat",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Note Sync Helper VIP membership",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Client for the WeChat Note Sync Helper service that pulls articles, chat messages, images and attachments you forward to the account into your vault.",
+ "tags": [
+  "wechat",
+  "xiaohongshu",
+  "zhihu",
+  "web-clipper",
+  "api-key",
+  "image-localization",
+  "graphql"
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "also": [
+  "syncing",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record path, size, SHA-256 and mtime of every vault file",
+  "detect removed, emptied and rolled-back files at runtime and at startup",
+  "group simultaneous changes into one incident alert",
+  "restore single files or whole incidents byte for byte, with a copy kept if the target changed",
+  "log quiet changes such as renames and your own deletions in an incident log"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync tool itself; it only watches for losses caused by sync tools and other outside changes.",
+ "extras": "Desktop only (tested on Obsidian 1.14.4 for Linux); the author calls it a safety net, not a backup. Copies live in app storage (IndexedDB), not the vault, with per-file and total size limits; use Clear stored copies before uninstalling.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Sync tools can silently apply an old state from another device, deleting notes or attachments or reverting edits, and the loss may go unnoticed for days.",
+ "readmeHash": "855856d493cb7aab5d134ffad36493529940245e",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "File Recovery (Obsidian core)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Data-loss watchdog that records vault files and alerts you once when a sync tool deletes, empties or rolls back notes, then restores them byte for byte.",
+ "tags": [
+  "sha-256",
+  "rollback-detection",
+  "data-loss",
+  "byte-for-byte-restore",
+  "incident-log",
+  "indexeddb"
+ ]
+}

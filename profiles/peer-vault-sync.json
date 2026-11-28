@@ -1,0 +1,73 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync whole vaults, including hidden folders, across devices",
+  "Connect devices directly over WebRTC",
+  "Relay end-to-end encrypted mailbox bundles through a self-hosted Cloudflare Worker",
+  "Three-way merge concurrent Markdown edits",
+  "Browse per-file history and restore deleted files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The relay is self-hosted on the user's own Cloudflare account; the README warns to back up the vault before the first sync, notes that iOS cannot sync in the background, and states there is no telemetry or analytics.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Keeping a full vault, including plugins, themes and settings, identical across your own devices usually means depending on a third-party sync service.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "7ea0fe4e78d4628f928ba3e25dfb3cf527fd5183",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "hand off end-to-end encrypted \"mailbox\" bundles through a self-hosted relay on Cloudflare Workers",
+   "plugin": "Cloudflare Workers",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Under Settings you can add TURN credentials (Cloudflare Realtime) for strict networks (optional)",
+   "plugin": "Cloudflare Realtime",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Peer-to-peer sync for a whole Obsidian vault, including attachments and .obsidian settings, over WebRTC with an encrypted relay fallback.",
+ "tags": [
+  "end-to-end-encryption",
+  "cloudflare-workers",
+  "self-hosted",
+  "device-pairing",
+  "conflict-resolution",
+  "version-history"
+ ],
+ "textHash": "5a89209c93599473b7c001220796b6ed155f9915"
+}

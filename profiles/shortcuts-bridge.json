@@ -1,0 +1,70 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run an Apple Shortcut with the selection, line, note, title, path or clipboard as input",
+  "Turn favourite shortcuts into command palette commands with hotkeys",
+  "Return shortcut output to the cursor, over the selection, at line end or into a property (Pro)",
+  "Assign a default shortcut per folder (Pro)",
+  "Insert in-note buttons as shortcut code blocks (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a keyboard-shortcut or hotkey tool; it bridges to the Apple Shortcuts app and only works on Apple devices.",
+ "extras": "Freemium: core features are free; Pro (output handling, folder defaults, buttons) needs a GitHub Sponsors sponsorship, one payment unlocking Pro in all NoteMods plugins. Testing is caveated: links and callback handling were tested on Mac desktop only with a stand-in stub; the Shortcuts app itself, iPhone and iPad were not tested, and screenshots show simulated output. After updates it opens a What's new tab that promotes other NoteMods plugins and Zovo Chat (disable in settings); sign-in is via the GitHub device flow and sends no note content.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to start an Apple Shortcuts automation on iPhone, iPad or Mac and hand it text from a note.",
+ "readmeHash": "410a1c1942b9f5298ee0708fe195d2b1085ba758",
+ "relations": [
+  {
+   "evidence": "The Actions URI plugin works the other way: Shortcuts calls Obsidian.",
+   "plugin": "Actions URI",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The Shell commands plugin needs a shell, which iPhone and iPad do not have.",
+   "plugin": "Shell commands",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Shortcuts app",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account for Pro sign-in",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Runs Apple Shortcuts from commands, favourites or note buttons, passing selection, line or note text, with Pro features returning output to notes.",
+ "tags": [
+  "apple-shortcuts",
+  "x-callback-url",
+  "ios",
+  "macos",
+  "ipados"
+ ]
+}

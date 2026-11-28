@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Turn canvas text nodes into title-only cards with hidden Markdown bodies",
+  "Open and edit card bodies in a popup with Obsidian's Markdown renderer",
+  "Search card titles and hidden bodies across all canvases",
+  "Export a card to a Markdown note with source frontmatter",
+  "Show the first image embed in a body as a card cover thumbnail"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a flashcard or spaced-repetition plugin; 'cards' here are canvas text nodes whose Markdown body is hidden behind a clickable title.",
+ "extras": "Desktop only (isDesktopOnly); mobile is not supported. Card data is stored in a custom node field inside .canvas files, so cards survive opening the vault without the plugin. Uses some undocumented Canvas internals (not public API). Additional docs live in docs/ (DESIGN.md, VERIFICATION.md).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "canvas",
+ "problem": "Canvas text nodes display their full text on the board, and bodies stored outside node titles are invisible to Obsidian's global search, which only indexes node titles.",
+ "readmeHash": "797d877aa8b866ba402493c65047f9f4d6e631a8",
+ "relations": [
+  {
+   "evidence": "Tested with Obsidian 1.14.4 on Windows and with Advanced Canvas 7.1.0 enabled (cards, dragging, context menus and Advanced Canvas features coexist).",
+   "plugin": "Advanced Canvas",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Canvas extension that turns text nodes into cards showing only a clickable title, with the full Markdown body hidden until opened in a popup.",
+ "tags": [
+  "popup",
+  "cards",
+  "hidden-content",
+  "thumbnails",
+  "advanced-canvas"
+ ]
+}

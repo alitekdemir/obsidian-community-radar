@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "lawyers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run a local MCP server inside Obsidian bound to 127.0.0.1 with token authentication",
+  "Connect Claude Desktop with one click or Claude Code with one command",
+  "Expose read tools for listing folders, reading notes, searching text and tags, and backlinks",
+  "Expose write tools (create, append, replace, move, trash, edit frontmatter) behind an allow-writing toggle",
+  "Look up and verify Brazilian court súmula citations against an embedded official-text database"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the legal branding and the built-in Brazilian súmula database, it serves any vault, not only legal work.",
+ "extras": "Also ships projurista-sumulas.mjs, a standalone Node.js script with the three súmula tools for use without Obsidian; no telemetry, ads, payment, or account; main.js is about 1.6 MB because the súmula database is embedded.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people using artificial intelligence applied to law, though it works for any vault.",
+ "primary": "ai",
+ "problem": "AI assistants cannot see an Obsidian vault, and setting up an MCP connection normally requires installing Node.js, certificates, and hand-editing Claude's config JSON.",
+ "readmeHash": "022ea9d30bb8755da3d6be81982ef289054ba110",
+ "relations": [
+  {
+   "evidence": "o Projurista MCP detecta o Smart Connections e passa a oferecer buscar_semantica",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Conecte o Claude Desktop e o Claude Code ao seu cofre do Obsidian com um clique",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code: clique em \"Copiar comando do Claude Code\" e cole no terminal",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Desktop, Claude Code, or another MCP client",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Smart Connections",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local MCP server that connects Claude Desktop, Claude Code and other MCP clients to the vault for reading, searching and editing notes.",
+ "tags": [
+  "mcp",
+  "claude-desktop",
+  "claude-code",
+  "local-server",
+  "token-auth",
+  "brazilian-law",
+  "sumulas"
+ ]
+}

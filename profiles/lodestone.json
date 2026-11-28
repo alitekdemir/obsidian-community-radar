@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "chat with ACP-compatible AI agents inside Obsidian views",
+  "review agent file edits in a side-by-side diff before approving",
+  "approve or deny terminal commands requested by agents",
+  "save agent conversations as timestamped markdown files",
+  "trigger agents from frontmatter and expose Obsidian commands via an MCP server"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (requires Node.js child processes); not yet in the Community Plugins store. README carries a security warning that agents can execute arbitrary terminal commands with Obsidian's permissions, and recommends vault backups. Metadata triggers, the MCP server, and the Obsidian-focused prompt are marked ALPHA.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to work with external AI agents that can read and modify vault files and execute shell commands under user approval.",
+ "readmeHash": "addc0c837b5445afaca186105bc1ba92ffd46dac",
+ "relations": [
+  {
+   "evidence": "Claude Code is Anthropic's official CLI agent with excellent ACP support.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Critical backup when using auto-approve write permissions",
+   "plugin": "Obsidian Git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ACP-compatible agent (Claude Code, Gemini CLI, OpenCode, Mistral)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Agent provider authentication (e.g. claude-code auth)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Agent Client Protocol client that lets AI coding agents like Claude Code chat with you, edit vault files, and run terminal commands.",
+ "tags": [
+  "agent-client-protocol",
+  "claude-code",
+  "gemini-cli",
+  "opencode",
+  "mistral",
+  "mcp",
+  "terminal-commands",
+  "diff-review"
+ ]
+}

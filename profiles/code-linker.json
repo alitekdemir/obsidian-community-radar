@@ -1,0 +1,83 @@
+{
+ "also": [
+  "links",
+  "code"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Autocomplete code symbol references via a trigger and insert markdown deep links",
+  "Open links at the exact line in VS Code, JetBrains IDEs, file://, or GitHub/GitLab permalinks",
+  "Embed code snippets inline with fenced code-link blocks and hover previews",
+  "Pin links to symbols, kinds or lines and repair drifted links after refactors",
+  "Index code repositories on disk with custom language definitions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds",
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It links notes to source files outside the vault; it does not run, format or lint code inside notes.",
+ "extras": "Desktop-only: it reads repositories through Node's filesystem API, which isn't available on mobile. Beta builds are available via BRAT. On Linux, index auto-refresh falls back to per-directory watching and can hit the OS watch limit on very large trees. A custom languages file is run as-is with no safety validation, which the README flags.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "It is written as the source-code counterpart to the author's Reference Linker, which does the same for PDFs and Office documents outside the vault.",
+ "primary": "autocomplete",
+ "problem": "Notes can't deep-link to a specific symbol or line in a codebase outside the vault, and links break when the code moves.",
+ "readmeHash": "4e1a321c0a2b227e80e1c37d4e4bbd997f27daec",
+ "relations": [
+  {
+   "evidence": "It's the source-code counterpart to Reference Linker, which does the same for PDFs and Office documents",
+   "plugin": "Reference Linker",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Also by the author — the rest of the linker family",
+   "plugin": "Glossary Linker",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Heading Linker — the file-based sibling of Glossary Linker",
+   "plugin": "Heading Linker",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Everything the plugin draws is exposed to the Style Settings plugin under a Code Linker section",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "VS Code, JetBrains IDE or another editor",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "GitHub or GitLab remote repository",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Autocompletes references to source-code symbols and inserts deep links that open the exact line in an IDE or on GitHub/GitLab, or embed live code snippets.",
+ "tags": [
+  "vs-code",
+  "jetbrains",
+  "github-permalink",
+  "gitlab",
+  "source-code",
+  "prism",
+  "symbols"
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite exact plain-text paths, including the .md extension, after a move or rename",
+  "Batch-scan all Markdown notes after a 2-second pause following a folder move",
+  "Collect unchanged mentions with their file and line number",
+  "Append a log entry to a chosen Markdown note after each move",
+  "Restrict rewriting to notes inside selected folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general link fixer; it never touches wikilinks or Markdown links and only rewrites plain-text paths.",
+ "extras": "Warns that moves made outside Obsidian (file manager, git, scripts) do not fire the rename event and cannot be detected. README includes a Korean-language summary. Requires Obsidian's 'Automatically update internal links' setting to be on for wikilink handling.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian updates wikilinks and Markdown links when you move a note, but it leaves plain-text paths alone.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian only rewrites wikilinks and Markdown links when notes move, so plain-text paths in frontmatter values or inline code break silently.",
+ "readmeHash": "65ccc36335b1c88603e7ff8cecc881a354f2666f",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Path rewriter that updates plain-text file paths in notes after you move or rename files, covering paths Obsidian's link updater leaves unchanged.",
+ "tags": [
+  "plain-text-paths",
+  "inline-code",
+  "path-rewriting",
+  "rename",
+  "batch-move"
+ ]
+}

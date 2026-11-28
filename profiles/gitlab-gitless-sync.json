@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs vault files with one GitLab branch over HTTPS REST API",
+  "Creates ordinary Git commits with a configured author name and email",
+  "Auto-merges text conflicts and keeps both versions as conflict copies",
+  "Triggers sync on startup, edits, timer, and app foreground/background",
+  "Stores the GitLab token in Obsidian SecretStorage and keeps sync state local"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4+; AGPL-3.0 licensed. GitLab-only, one project and one branch; no merge, rebase, force push, branch switching, LFS, submodules, symlinks or multiple remotes; background sync on mobile is unstable.",
+ "intent": "alternative",
+ "intentEvidence": "independently maintained GitLab rewrite, based on GitHub Gitless Sync by Silvano Cerza",
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Git cannot be installed on mobile devices, so there is no way to keep a vault in sync with a self-hosted or gitlab.com repository without it.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "c5781e26d5cbfcacef54fb1880d780257bae3d85",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "independently maintained GitLab rewrite, based on GitHub Gitless Sync by Silvano Cerza",
+   "plugin": "GitHub Gitless Sync",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitLab account with a project (gitlab.com or self-managed)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitLab fine-grained or project access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs an Obsidian vault with a single GitLab repository branch over the GitLab REST API, with no local Git required.",
+ "tags": [
+  "two-way-sync",
+  "conflict-resolution",
+  "self-hosted",
+  "android",
+  "ios"
+ ],
+ "textHash": "d36167f5f2a07663b2ba33d6199f17b93e859ed5"
+}

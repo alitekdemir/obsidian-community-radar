@@ -1,0 +1,113 @@
+{
+ "also": [
+  "integrations",
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run several external AI agents from a sidebar chat",
+  "Sign in in-app by device flow, API key or OAuth",
+  "Gate reads, writes and deletes with three-tier confirmations",
+  "Search the web and pull pages or images into notes",
+  "Reopen recent sessions from local history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, local filesystem vaults. Installed manually by copying build artifacts (main.js, mcp-bridge.js, manifest.json, styles.css) into .obsidian/plugins/. WorkBuddy credentials are Tencent-KMS encrypted and cannot be read locally; QwenWork/Qoder CN sessions expire after about 10 days; chat history is stored in the plugin folder's history.json (last 50 sessions). README states no telemetry and lists every contacted endpoint.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to let external coding agents read and edit vault notes, so using them normally means a separate terminal with unrestricted machine access.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "c35d5cb7d5ab8340aa5807173f75c72b420909b5",
+ "relations": [
+  {
+   "evidence": "Built-in Anthropic Messages protocol; API Key or local Claude Code OAuth sign-in",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex | Built-in OpenAI protocol; API Key",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "QwenWork",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Qoder CN",
+   "type": "integrates"
+  },
+  {
+   "evidence": "In-app managed official CLI codebuddy (auto install + REPL /login auto authorization)",
+   "plugin": "WorkBuddy",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Volcano Ark OpenAI-compatible protocol; API Key",
+   "plugin": "Doubao",
+   "type": "integrates"
+  },
+  {
+   "evidence": "COSY 协议部分移植自 MIT 社区项目 @magpie-community/opencode-qoder-auth / CLIProxyAPI，保留其版权声明",
+   "plugin": "@magpie-community/opencode-qoder-auth",
+   "type": "fork"
+  },
+  {
+   "evidence": "COSY 协议部分移植自 MIT 社区项目 @magpie-community/opencode-qoder-auth / CLIProxyAPI",
+   "plugin": "CLIProxyAPI",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WorkBuddy official codebuddy CLI (auto-installed in-app)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, Volcano Ark or other OpenAI-compatible key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "QwenWork, Qoder CN or Claude Code account for sign-in",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Agent provider credits or API billing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar hub that runs multiple AI agents (Claude Code, Codex, QwenWork, Qoder CN, WorkBuddy, Doubao, custom APIs) on the vault with permission gating.",
+ "tags": [
+  "ai-agents",
+  "claude-code",
+  "codex",
+  "qwen",
+  "mcp",
+  "tool-calling",
+  "byok"
+ ],
+ "textHash": "d3938d6ff7c897b106ced15a23825f9b70dadc10"
+}

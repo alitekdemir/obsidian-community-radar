@@ -1,0 +1,95 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull database rows in as Markdown notes",
+  "Push frontmatter edits back to the remote record",
+  "Resolve field conflicts with manual, Obsidian-wins or remote-wins modes",
+  "Refetch computed fields after a push",
+  "Build notes from {{field}} templates and sort them into subfolders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not only a one-way importer: it also pushes local frontmatter edits back to the database.",
+ "extras": "No telemetry; Supabase publishable keys need a one-time SECURITY DEFINER SQL function before saving; Notion page bodies are pull-only and local body edits are overwritten on the next pull.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Database records and vault notes have to be copied by hand, so edits made on either side go stale.",
+ "profiledAt": "2026-11-20",
+ "provider": "Particle AI",
+ "readmeHash": "7fee3bd67d95219a7edb8cae718d0a58b5a0181e",
+ "relations": [
+  {
+   "evidence": "Point it at Airtable, SeaTable, Supabase, or Notion",
+   "plugin": "Airtable",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Point it at Airtable, SeaTable, Supabase, or Notion",
+   "plugin": "SeaTable",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Point it at Airtable, SeaTable, Supabase, or Notion",
+   "plugin": "Supabase",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Point it at Airtable, SeaTable, Supabase, or Notion",
+   "plugin": "Notion",
+   "type": "integrates"
+  },
+  {
+   "evidence": "point the Bases plugin at it, and edit your database in table/card views",
+   "plugin": "Bases",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Airtable personal access token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "SeaTable base API token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Supabase project URL and API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Notion internal integration token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync between Obsidian notes and Airtable, SeaTable, Supabase or Notion databases, with templates, subfolders and conflict resolution.",
+ "tags": [
+  "notion",
+  "supabase",
+  "two-way-sync",
+  "conflict-resolution",
+  "yaml"
+ ],
+ "textHash": "c2dc77dc5b6b3ee5d4e4ada1f25480908728bde4"
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files across devices over HTTPS and WebSocket",
+  "Encrypt file contents and paths on the device before upload",
+  "Merge non-overlapping Markdown edits and preserve overlapping conflicts as copies",
+  "Restore previous versions and deleted files from encrypted history",
+  "Deploy a self-hosted server on Cloudflare, Docker, or systemd"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: hosted Synch Cloud has free and paid plans billed through Polar. The README warns users to back up their vault before installing or migrating sync providers and not to run multiple sync providers against the same vault. Deployment guides are linked externally.",
+ "intent": "alternative",
+ "intentEvidence": "Every option has a different balance of convenience, control, and setup effort.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README offers it for users who want a simple, open-source, privacy-focused sync workflow, without stating a personal motivation.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in privacy-focused sync option that combines end-to-end encryption, self-hosting, and automatic conflict merging across devices.",
+ "readmeHash": "87c1f657afa3a21a8c12314631c5b0037bdda517",
+ "relations": [
+  {
+   "evidence": "Obsidian Sync | E2EE by default; standard encryption is also available | Obsidian-hosted",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Self-hosted LiveSync | E2EE | Self-hosted CouchDB, object storage, or optional WebRTC",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Remotely Save | Optional password-based E2EE | Your S3, WebDAV, Dropbox, OneDrive, Google Drive",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Synch account",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Synchrun plugin",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Synch Cloud paid plans (Sync Starter)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that uploads device-side encrypted files to Synch Cloud or a self-hosted server, with version history and Markdown conflict merging.",
+ "tags": [
+  "e2ee",
+  "self-hosted",
+  "cloudflare",
+  "docker",
+  "version-history",
+  "conflict-merging",
+  "websocket"
+ ]
+}

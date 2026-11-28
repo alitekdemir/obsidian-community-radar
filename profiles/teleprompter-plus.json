@@ -1,0 +1,93 @@
+{
+ "also": [
+  "audio",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-scroll notes at variable speed",
+  "Track voice to keep your place",
+  "Float the script over video calls",
+  "Read the script aloud with text-to-speech",
+  "Control playback from a phone or Stream Deck"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. ElevenLabs text-to-speech is opt-in and paid (consumes your credits); Kokoro, macOS say, and Web Speech run locally. The companion Stream Deck plugin is built but not released. Phone remote traffic is unencrypted, so use a trusted network. Runs local speech programs and writes some files outside the vault; see ATTACKSURFACE.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian has no built-in teleprompter, so reading a script aloud during recordings or calls means losing your place.",
+ "profiledAt": "2026-11-28",
+ "provider": "Baidu",
+ "readmeHash": "18b0577842529cb43a4527b58c75ddf72601f9e0",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The voice-tracking matcher (speech-to-script alignment) is ported from jlecomte/voice-activated-teleprompter (MIT)",
+   "plugin": "jlecomte/voice-activated-teleprompter",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the edit-distance core from js-levenshtein (MIT)",
+   "plugin": "js-levenshtein",
+   "type": "inspired"
+  },
+  {
+   "evidence": "With an Elgato Prompter connected, it opens there and fills the screen with just the script",
+   "plugin": "Elgato Prompter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A Stream Deck plugin with live keys is built but not released yet",
+   "plugin": "Stream Deck",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OBS integration — start/stop recording synced with teleprompter playback",
+   "plugin": "OBS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ElevenLabs (cloud, opt-in, bring-your-own-key)",
+   "plugin": "ElevenLabs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "ElevenLabs",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OBS",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Teleprompter that auto-scrolls notes with voice tracking, a floating window, phone remote, and text-to-speech read-aloud.",
+ "tags": [
+  "speech-to-text",
+  "text-to-speech",
+  "elevenlabs",
+  "macos",
+  "local-server",
+  "countdown"
+ ],
+ "textHash": "a636b85d25cf243da86ca09355ca8e5d05ebbe0e"
+}

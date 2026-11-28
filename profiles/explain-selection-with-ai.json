@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add a context-menu item that prompts an LLM to elaborate on selected text",
+  "Connect to OpenAI models via an API key",
+  "Connect to locally run Ollama models such as llama3 and mistral",
+  "Configure custom local or remote endpoints with a base URL, endpoint and optional key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns against the custom-endpoint route for users unfamiliar with Hugging Face Text Generation Interface (TGI).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get an AI explanation of selected text from a user-configured LLM endpoint.",
+ "readmeHash": "243ee711f41dabb212e78bca27ed89416a6e33e4",
+ "relations": [
+  {
+   "evidence": "Such a system supports the OpenAI Chat Completion API format, so it has been added as an easy integration",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama is an open-source way to manage locally installed and ran large-language models",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or a local/remote model server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "AI plugin that sends selected text to any OpenAI Chat Completion-compatible endpoint and explains it in the context of the current note.",
+ "tags": [
+  "openai",
+  "ollama",
+  "llm",
+  "llama3",
+  "mistral",
+  "chat-completions",
+  "context-menu",
+  "huggingface-tgi"
+ ]
+}

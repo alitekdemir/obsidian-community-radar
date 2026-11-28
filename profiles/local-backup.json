@@ -1,0 +1,69 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Back up the vault on startup, quit, or at a set interval",
+  "Include or exclude folders and files using wildcard patterns",
+  "Back up through external archivers such as 7-Zip, WinRAR, or Bandizip",
+  "Customize the backup output path and file naming",
+  "Create a specific backup file from the command palette or sidebar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that interval backups consume CPU and disk I/O and recommends a frequency of at least 10 minutes; external archiver backup is marked experimental for large vaults. Backups are local only, not cloud sync. The author asks for donations via buy-me-a-coffee.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian keeps notes as plain files but has no built-in scheduled or automatic local backup beyond File recovery snapshots, so users must back up the vault manually or with outside tools.",
+ "readmeHash": "c8151781cbfab63ee3bfb0fa9076072aea3dd9ef",
+ "relations": [
+  {
+   "evidence": "Backup by calling archiver (7-Zip, WinRAR, Bandizip)",
+   "plugin": "7-Zip",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Backup by calling archiver (7-Zip, WinRAR, Bandizip)",
+   "plugin": "WinRAR",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Backup by calling archiver (7-Zip, WinRAR, Bandizip)",
+   "plugin": "Bandizip",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "7-Zip, WinRAR, or Bandizip",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Automatic local backup plugin that archives the vault on startup, quit, or at intervals, with wildcard include/exclude filters.",
+ "tags": [
+  "7-zip",
+  "winrar",
+  "bandizip",
+  "zip-archive",
+  "wildcard-filters",
+  "interval-backup",
+  "auto-backup"
+ ]
+}

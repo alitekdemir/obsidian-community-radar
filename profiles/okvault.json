@@ -1,0 +1,92 @@
+{
+ "also": [
+  "search",
+  "review"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Answer FAQ questions from stored FAQ notes",
+  "Map folders, note types and links on a circular bundle map",
+  "Inspect a note's authorship, review state, links and format problems",
+  "List questions assistants asked that no note answers",
+  "Show git sync state and notes waiting to be checked"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Search",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a password vault or backup tool; it builds a shared knowledge base and review view over existing Markdown notes.",
+ "extras": "Desktop only (Windows, macOS, Linux); the companion program is downloaded separately and must be kept on the same version as the plugin; the bundle map works without it, other views do not; full guide in docs/server.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Notes written for people give assistants no stored answers or review state, and there is no single view of which notes are broken, stale or unchecked.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "c39fdcce03b3ac5af687e55b727b21ea6e90ecae",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Assistants such as Claude Code look things up in the same notes",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It can also link notes to Jira tickets",
+   "plugin": "Jira",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A team usually keeps the vault in a shared git repository, for example on GitHub.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "okvault companion program",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or another MCP assistant",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Jira",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Knowledge-base layer that answers FAQ questions from notes, maps note types and links, and flags notes that need review.",
+ "tags": [
+  "ai-agents",
+  "mcp",
+  "claude-code",
+  "jira",
+  "github",
+  "knowledge-graph"
+ ],
+ "textHash": "be4109f81e2552041072e27c9fd5db862fdedf0b"
+}

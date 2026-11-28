@@ -1,0 +1,93 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync saved items and covers from five platforms",
+  "Search, filter and bulk-copy collected items",
+  "Group items into topics and series with wikilinks",
+  "Index local Markdown and PDF files and link them by source URL",
+  "Suggest tags, topics and summaries with optional AI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bookmarks",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; installing the three plugin files is not enough, a matching local engine must be built and deployed and the data-directory and engine-script fields edited in data.json. AI is off by default and manual prompt mode needs no API key. Cookies are encrypted with AES-256-GCM, but the separate yt-dlp cookie file is plaintext.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author notes that a tutorial on Bilibili, a reference on Xiaohongshu and a guide on Xiaoheihe may all belong to the same project, so they should be collected in one place instead of searched platform by platform.",
+ "primary": "integrations",
+ "problem": "Saved references are scattered across several content platforms, so finding and reusing an item means searching each site separately.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "87ffed32be944fda04fe3b6cad4492f312d51a2f",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "Dataview can render dynamic indexes",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Breadcrumbs can support your own topic hierarchy",
+   "plugin": "Breadcrumbs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install BRAT, add simonemuller6127-png/omni-collector",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 24 LTS local engine",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Playwright Chromium",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili / YouTube / Xiaohongshu / MakerWorld / Xiaoheihe account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek or OpenAI-compatible API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Collector that syncs saved items from Bilibili, YouTube, Xiaohongshu, MakerWorld and Xiaoheihe into a searchable Obsidian library.",
+ "tags": [
+  "bilibili",
+  "youtube",
+  "xiaohongshu",
+  "dataview",
+  "deepseek",
+  "local-first"
+ ],
+ "textHash": "b3aa40a031ba7987b6892ab697db090b9cf57e28"
+}

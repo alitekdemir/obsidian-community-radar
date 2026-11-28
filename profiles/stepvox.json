@@ -1,0 +1,93 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "transcribe speech via StepFun ASR and send it to an LLM with vault tools",
+  "read, search, create, append, update, move, and open notes by voice",
+  "speak replies aloud via text-to-speech with barge-in support",
+  "answer questions beyond the vault via optional Tavily or Exa web search",
+  "trigger recording from any app through a local HTTP server and global hotkey"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Pending Obsidian community plugin review; the README recommends installing via BRAT in the meantime. Requires Obsidian 1.7.0+ on desktop. Audio, transcripts, and vault snippets are sent to StepFun, the chosen LLM provider, and optionally Tavily/Exa; API keys are stored in plaintext in data.json. Documentation is bilingual (English/Chinese).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to control the vault by voice, so hands-free querying and note-taking requires an external assistant.",
+ "readmeHash": "68ae9825ce1c9740658e15654802d905e681da36",
+ "relations": [
+  {
+   "evidence": "StepFun API key（ASR & TTS）",
+   "plugin": "StepFun",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Multi-provider LLM — StepFun, OpenAI, Anthropic, or any OpenAI-compatible endpoint.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "StepFun, OpenAI, Anthropic, or any OpenAI-compatible endpoint.",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Web search — optional Tavily or Exa integration for questions beyond your vault.",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Web search — optional Tavily or Exa integration for questions beyond your vault.",
+   "plugin": "Exa",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "StepFun",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider (StepFun, OpenAI, Anthropic, or custom endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily or Exa (for web search)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Microphone permission for Obsidian",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Voice-controlled AI assistant that turns speech into LLM actions to query, edit, create, and open notes, with spoken replies via ASR and TTS.",
+ "tags": [
+  "voice-assistant",
+  "speech-recognition",
+  "text-to-speech",
+  "stepfun",
+  "openai",
+  "anthropic",
+  "tavily",
+  "exa"
+ ]
+}

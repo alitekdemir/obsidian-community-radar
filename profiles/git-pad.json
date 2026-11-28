@@ -1,0 +1,65 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [
+  "ipados-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "pull changed files from a configured GitHub branch",
+  "commit and push local changes as a single commit",
+  "clone a repository into a blank vault",
+  "report conflicts and repository status in a sidebar",
+  "sync supported .obsidian settings, snippets, and themes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Git client; it works only with one GitHub repository over the REST API, without arbitrary remotes, SSH, staging, or merges.",
+ "extras": "Sync runs are manual only, with no automatic background pull or push; remote deletions are non-destructive and no three-way merge or visual conflict resolver exists. The manifest notes the plugin has not been manually reviewed by Obsidian staff. BRAT is supported as an install method but only receives published GitHub releases.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's mobile app cannot run native Git, so syncing a vault with a Git host is impractical on iPadOS devices.",
+ "readmeHash": "bdb5aa67caaf3789443cda1b6eab7e600bce15ba",
+ "relations": [
+  {
+   "evidence": "synchronizes notes with one GitHub repository through the GitHub REST API",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Mobile-first plugin that syncs Markdown notes and Obsidian configuration with a GitHub repository via the REST API, without native Git.",
+ "tags": [
+  "github",
+  "rest-api",
+  "ipados",
+  "mobile",
+  "clone",
+  "conflict-detection"
+ ]
+}

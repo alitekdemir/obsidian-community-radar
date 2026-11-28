@@ -1,0 +1,83 @@
+{
+ "also": [
+  "automation",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate text at the cursor",
+  "Generate and save images",
+  "Reuse prompt templates",
+  "Search indexed note collections for context",
+  "Schedule automated generation and email"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual features are free; scheduled generation, SMTP email, and background indexing require a purchased activation code (offline Ed25519 verification, no device binding or revocation). Full maintenance source is kept in a private repo. API keys, SMTP passwords, local tokens, and activation codes are stored in the vault's plugin data.json. Some right-click launchers (PowerShell, iflow) are Windows-only, and the local HTTP interface on 127.0.0.1:27123 is off by default.",
+ "intent": "alternative",
+ "intentEvidence": "upgrading from the older manual plugin with ID obsidian-ai-auto",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate AI text or images, ground prompts in your own notes, or run AI tasks on a schedule.",
+ "profiledAt": "2026-11-28",
+ "provider": "Baidu",
+ "readmeHash": "93f26db6e9f7bfc6886e47b45d84825712418335",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "upgrading from the older manual plugin with ID obsidian-ai-auto",
+   "plugin": "obsidian-ai-auto",
+   "type": "replaces"
+  },
+  {
+   "evidence": "sign in to Codex CLI or OpenCode CLI on your computer",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "sign in to Codex CLI or OpenCode CLI on your computer",
+   "plugin": "OpenCode CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider credentials (OpenRouter, DeepSeek, Gemini, SiliconFlow, or OpenAI-compatible)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI or OpenCode CLI",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "activation code for scheduled generation, email, and background indexing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "AI assistant that generates and saves text and images, reuses prompt templates, searches indexed notes for context, and runs scheduled automations.",
+ "tags": [
+  "image-generation",
+  "rag",
+  "openrouter",
+  "deepseek",
+  "gemini",
+  "ollama",
+  "codex",
+  "opencode"
+ ],
+ "textHash": "988951fb922b26333ce07cf7eb2a02733576a58f"
+}

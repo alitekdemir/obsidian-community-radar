@@ -1,0 +1,68 @@
+{
+ "also": [
+  "search",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search notes and saved memories from a panel",
+  "Save selected note text as a memory with its note path",
+  "List memories related to the open note",
+  "Show ModelBrain connection status and version in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI chat plugin; it only searches and saves memories through the separate ModelBrain app and writes no answers itself.",
+ "extras": "Desktop only (macOS, Windows, Linux). The plugin runs two helper programs installed by the ModelBrain app and makes no network requests. The plugin is MIT-licensed open source, but the ModelBrain app itself is closed source. Free without an account; paid plans only cover sync and team sharing the plugin does not use.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way for outside AI assistants to search a vault or remember facts the user has told them across sessions.",
+ "readmeHash": "372c989f6d0163bb2dc94e310a16bcc4935cd742",
+ "relations": [
+  {
+   "evidence": "This plugin is a window onto the ModelBrain desktop app. It does nothing without it.",
+   "plugin": "ModelBrain desktop app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "save a selection as a memory that Claude, ChatGPT and Cursor can all recall",
+   "plugin": "Claude, ChatGPT and Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ModelBrain desktop app",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "ModelBrain paid sync and team sharing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Window onto the free ModelBrain desktop app that lets Claude, ChatGPT and Cursor search this vault and recall saved memories, indexed locally.",
+ "tags": [
+  "claude",
+  "chatgpt",
+  "cursor",
+  "mcp",
+  "memory-layer",
+  "local-index"
+ ]
+}

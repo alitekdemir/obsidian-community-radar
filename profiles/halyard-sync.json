@@ -1,0 +1,80 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault with a remote git repository over HTTPS on desktop and mobile",
+  "Resolve conflicting edits by pushing a sync-conflict branch and opening a pull or merge request",
+  "Set per-plugin distribution policy for sharing or keeping community plugin files and settings local",
+  "Show the latest commit that changed the active note in a sidebar panel",
+  "Decrypt and re-encrypt git-crypt-protected paths during sync using imported keys"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not yet listed in the community plugin directory; install via BRAT or manual release download. README discloses that the plugin was built with AI assistance (Claude). HTTPS only — SSH is unsupported; no submodules, LFS or rebase; shallow clones by default and large vaults can hit mobile memory limits. Tokens fall back to plain-text data.json where OS keychain storage is unavailable, with a settings warning.",
+ "intent": "alternative",
+ "intentEvidence": "Halyard Sync differs by compiling libgit2 to WebAssembly for real mobile support, and by refusing to write conflict markers into notes.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Existing git-in-Obsidian workflows need a native git binary, which mobile devices cannot provide, and typical merges write conflict markers into notes.",
+ "readmeHash": "b2b58e60355cbcdb7e3786238600a5c77194ec80",
+ "relations": [
+  {
+   "evidence": "Halyard Sync differs by compiling libgit2 to WebAssembly for real mobile support",
+   "plugin": "obsidian-git (Vinzent03)",
+   "type": "alternative"
+  },
+  {
+   "evidence": "libgit2 — the actual git implementation this plugin runs",
+   "plugin": "libgit2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "powered the engine before the libgit2 cutover, and its onAuth and HttpClient shapes still inform",
+   "plugin": "isomorphic-git",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "git-crypt (Andrew Ayer)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT (beta) — install BRAT, then \"Add beta plugin\"",
+   "plugin": "BRAT (TfTHacker)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "git hosting account (GitHub, GitLab, Bitbucket, Gitea/Forgejo, Azure DevOps or other HTTPS host)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Git-based vault sync over HTTPS to GitHub, GitLab, Bitbucket, Gitea/Forgejo, Azure DevOps or any host, using bundled libgit2-WASM on desktop and mobile.",
+ "tags": [
+  "github",
+  "gitlab",
+  "bitbucket",
+  "gitea",
+  "forgejo",
+  "azure-devops",
+  "libgit2",
+  "git-crypt"
+ ]
+}

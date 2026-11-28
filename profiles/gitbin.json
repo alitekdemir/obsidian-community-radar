@@ -1,0 +1,51 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files across devices via a Git repository",
+  "Merge concurrent text edits using CRDTs",
+  "Browse sync history and compare local, remote, and merged files",
+  "Download files on demand to save local storage",
+  "Consolidate old history or repair damaged metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Mobile support is experimental and untested on physical devices. On-demand downloads mean file contents must be fetched before search, backlinks, or other plugins can read them. Symbolic links and junctions in the vault are unsafe and warned against. More detail lives in separate FEATURES.md and CONTRIBUTING.md files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync costs money and plain Git syncs do not merge concurrent edits, so users need a way to sync offline changes without manual conflict resolution.",
+ "readmeHash": "31005f698554abed662f44836cc57c2858c29f88",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git host with a repository and credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs a vault across devices using a Git repository, merging concurrent text edits automatically with CRDTs so offline work converges.",
+ "tags": [
+  "crdt",
+  "offline",
+  "conflict-resolution",
+  "version-control",
+  "on-demand-download"
+ ]
+}

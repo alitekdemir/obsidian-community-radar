@@ -1,0 +1,68 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "wechat-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "capture WeChat Official Account articles via share menu or clipboard link",
+  "convert article HTML to clean Markdown with frontmatter metadata",
+  "download remote article images into local attachments",
+  "save quick text memos from the mobile Mini Program",
+  "sync to multiple bound Obsidian devices with hash-based deduplication"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault-to-vault file sync tool; 'sync' here means delivering captured WeChat articles and memos from a cloud buffer into the local vault.",
+ "extras": "Cloud storage acts only as a transient sync buffer; notes are written directly to local vault files. Bilingual English/Chinese documentation with detailed binding walkthrough. Author solicits donations via Afdian. Listing carries the note 'This plugin has not been manually reviewed by Obsidian staff.'",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Articles read in WeChat on a phone are hard to get into Obsidian cleanly; capture normally requires manual copying, cleanup, and Obsidian running at the time.",
+ "readmeHash": "e73a306fb994c8ea68829a41297543fd99f13ca6",
+ "relations": [
+  {
+   "evidence": "配合微信小程序 「Obsidian同步助手」，它可以将你在手机微信上浏览到的优质长文",
+   "plugin": "Obsidian同步助手 (WeChat Mini Program)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Deployed globally on Cloudflare Workers and Cloudflare D1 (SQLite) with sub-10ms response times",
+   "plugin": "Cloudflare Workers / Cloudflare D1",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Powered by Readability and custom Turndown AST rules to extract pure Markdown",
+   "plugin": "Readability",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeChat Mini Program 「Obsidian同步助手」",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Capture and sync engine that saves WeChat Official Account articles, web pages, and mobile memos into an Obsidian vault as structured Markdown.",
+ "tags": [
+  "wechat",
+  "mini-program",
+  "web-clipper",
+  "cloudflare-workers",
+  "readability",
+  "turndown"
+ ]
+}

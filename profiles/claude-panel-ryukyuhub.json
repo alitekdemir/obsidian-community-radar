@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Runs the Claude Code CLI in a right-sidebar terminal",
+  "Streams chat replies with tool-use pills and per-turn cost",
+  "Passes the active note, folder and selection as context",
+  "Attaches files and pasted clipboard images",
+  "Shows Claude plan and rate-limit usage"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Claude API chat client; it drives the locally installed Claude Code CLI as a subprocess.",
+ "extras": "Desktop only. The terminal UI is untested on Linux and needs Python 3.8+ or the script command on macOS/Linux, or Windows PowerShell 5.1 on Windows; the chat UI avoids PowerShell. The plugin opens a loopback HTTP hook server, writes temporary scripts to the OS temp folder, and sends prompts, note paths and selections to Anthropic through the CLI. UI available in English and Japanese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to hand notes to an AI agent that can read, search and edit the vault from inside the app.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "6f296d1f71da2ae66df4c5a761a0d988d0deb292",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "It runs the claude CLI with the active vault as its working directory",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (claude)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude Pro / Max subscription or Anthropic API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.8 or later (macOS / Linux terminal UI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Right-sidebar panel that runs the Claude Code CLI against the vault, offering a terminal UI or a streaming chat UI.",
+ "tags": [
+  "claude-code",
+  "claude",
+  "ai-chat",
+  "cli",
+  "terminal",
+  "mcp"
+ ],
+ "textHash": "9f5cf462a1a4bc807d0b4e4e0035dff4d64b35b2"
+}

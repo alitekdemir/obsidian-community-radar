@@ -1,0 +1,79 @@
+{
+ "also": [
+  "appearance",
+  "theming"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read @settings blocks from themes, snippets and plugin styles",
+  "Render a settings panel with all Style Settings setting types",
+  "Import saved values from Style Settings data",
+  "Reset individual settings or whole sections",
+  "Export and import values as JSON (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a CSS editor or theme designer; it only reads existing @settings blocks and never writes to a CSS file.",
+ "extras": "Free core features; Pro (presets, JSON import/export, gradients, search, undo) requires a GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once) and GitHub sign-in. Conflicts with Style Settings, Style Manager or Style Tuner: it applies nothing while those are enabled. The conflict check uses an undocumented part of Obsidian and may silently stop working after an update. No network requests until Pro sign-in; no telemetry.",
+ "intent": "alternative",
+ "intentEvidence": "The saved data has the same layout as the data of Style Settings.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "css",
+ "problem": "Theme and snippet settings blocks in CSS have no built-in UI, so users must edit CSS or rely on a single third-party plugin to change them.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "72a293c351bb93eabdb112820f924f00622352db",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Select \"Import values from style settings\" in the settings tab",
+   "plugin": "Style Settings",
+   "type": "alternative"
+  },
+  {
+   "evidence": "in the Style Settings format you already use",
+   "plugin": "Style Settings",
+   "type": "inspired"
+  },
+  {
+   "evidence": "When Style Settings, Style Manager or Style Tuner is on, CSS Settings Panel applies nothing.",
+   "plugin": "Style Manager",
+   "type": "alternative"
+  },
+  {
+   "evidence": "When Style Settings, Style Manager or Style Tuner is on, CSS Settings Panel applies nothing.",
+   "plugin": "Style Tuner",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account for Pro sign-in",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Settings panel that reads /* @settings */ blocks from themes, snippets and plugin styles in the Style Settings format and applies the values.",
+ "tags": [
+  "style-settings",
+  "themes",
+  "color-picker",
+  "undo"
+ ],
+ "textHash": "de488db887694f327e0a056ba0760df779513bc0"
+}

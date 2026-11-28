@@ -1,0 +1,65 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search movies by title, year, or IMDB ID via OMDb",
+  "Fetch YouTube trailers for movies",
+  "Create movie notes in a configurable folder",
+  "Download movie images into an assets folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires a folder named movies (configurable Main Path) and a folder named assets (configurable Image Path) in the vault; trailer retrieval needs a YouTube API key that may be hard to obtain.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up movie information or trailers and turn them into notes.",
+ "readmeHash": "9ab5fc9adf27ba143c59e1d8e2f251ea9cc2cdda",
+ "relations": [
+  {
+   "evidence": "crawl movie data from omdb and Youtube trailers",
+   "plugin": "omdb",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You need to get an API key from Youtube and set it in the plugin settings",
+   "plugin": "YouTube",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OMDb API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "YouTube API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Movie data plugin that searches OMDb for film information and YouTube trailers and saves them as notes in the vault.",
+ "tags": [
+  "omdb",
+  "youtube",
+  "imdb",
+  "movies",
+  "trailers",
+  "api-key"
+ ]
+}

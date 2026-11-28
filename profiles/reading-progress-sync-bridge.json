@@ -1,0 +1,76 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Merge per-device reading position records using the latest reading timestamp",
+  "Hook into Remotely Save runs to export positions before sync and verify and merge after",
+  "Resolve equal-timestamp conflicts manually and skip malformed or future-dated records",
+  "Back up the local position database before importing remote progress",
+  "Restore the merged position on demand or jump to it after syncing"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault sync plugin; it makes no network requests itself and relies on Remotely Save to transfer its progress records.",
+ "extras": "Settings and notices currently use Simplified Chinese only. Desktop-only; PDF and mobile are not supported. Wraps non-public runtime methods of both dependencies, so their updates may require compatibility fixes. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Sync Markdown reading positions across multiple computers by connecting Remember cursor position and Remotely Save.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Remember Cursor Position stores reading positions only in each computer's local vault, so progress does not follow you when you switch devices.",
+ "readmeHash": "a311f3edffcb543b74cc00e4f6705bd51684ce0b",
+ "relations": [
+  {
+   "evidence": "Remember cursor position records and restores positions",
+   "plugin": "Remember Cursor Position",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Remotely Save handles cloud synchronization",
+   "plugin": "Remotely Save",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Remember Cursor Position",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Remotely Save",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Remote storage service configured in Remotely Save",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Remote storage service may require payment",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bridge that syncs Markdown reading positions across computers by merging Remember Cursor Position records through Remotely Save.",
+ "tags": [
+  "remember-cursor-position",
+  "remotely-save",
+  "reading-progress",
+  "conflict-resolution",
+  "multi-device",
+  "cursor-position"
+ ]
+}

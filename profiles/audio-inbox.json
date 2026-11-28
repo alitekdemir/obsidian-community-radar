@@ -1,0 +1,86 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record voice memos with one click on desktop and mobile",
+  "Transcribe recordings using SiliconFlow, compatible APIs, or Doubao Voice",
+  "Generate structured summary notes with extracted to-do lists via DeepSeek",
+  "Classify recordings as memos, reminders, or both",
+  "Copy the to-do list to the clipboard for Apple Reminders sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Plugin is free but the speech and summary APIs may charge fees; credentials are stored in the vault's plugin config, so users syncing vaults should manage that file; mobile recording requires the app to stay in the foreground; some Doubao upload behavior is tested but not officially documented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Recording voice notes in Obsidian yields raw audio files with no transcription or summarization, and most speech-to-text options rely on services that are hard to reach from China.",
+ "readmeHash": "dbc93687df8fdc52ebb5a1df9303608f6f07336a",
+ "relations": [
+  {
+   "evidence": "SiliconFlow, compatible transcription APIs, or Doubao Voice standard 2.0 / flash",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "豆包在本插件中负责语音转文字（ASR）",
+   "plugin": "Doubao Voice",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek (default deepseek-v4-flash) generates a structured note with a summary",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a clean to-do list is copied to your clipboard for iOS Shortcuts",
+   "plugin": "Apple Reminders",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "SiliconFlow (or compatible STT service / Doubao Voice)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Volcano Engine (Volcano Engine) account for Doubao",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Voice-capture plugin that records audio, transcribes it via SiliconFlow or Doubao, and saves a DeepSeek-generated summary note with a to-do list.",
+ "tags": [
+  "speech-to-text",
+  "siliconflow",
+  "deepseek",
+  "doubao",
+  "volcengine",
+  "apple-reminders",
+  "ios-shortcuts",
+  "transcription"
+ ]
+}

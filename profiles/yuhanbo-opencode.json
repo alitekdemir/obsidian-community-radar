@@ -1,0 +1,71 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault notes in a sidebar panel",
+  "Reference notes with @ and search the vault",
+  "Insert or replace selected text with model output",
+  "Save conversations as Markdown notes",
+  "Run scheduled prompts and bulk note updates"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free edition covers chat, note references, search and editor insert/replace; scheduled tasks, bulk note updates and SMTP notifications need a maintainer-issued activation code verified offline with an Ed25519 key. Scheduled tasks only run while Obsidian and the plugin stay open. Source lives in a private repository; only build artifacts are public.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to send note content to a local AI agent, apply its answers back into notes, or run prompts on a schedule.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "74ef14d6f07e38417747851271aad1adf8518855",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Use OpenCode in the Obsidian desktop sidebar to chat with vault notes",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "按 WikiLink、Dataview 或 DataviewJS 查询结果批量追加或覆盖笔记",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenCode",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Automation activation code",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Sidebar chat panel that connects to a local OpenCode service to query notes, rewrite selections, and run scheduled prompts.",
+ "tags": [
+  "ai-chat",
+  "llm",
+  "local-server",
+  "prompts",
+  "scheduling"
+ ],
+ "textHash": "d4dc678ddc2c6d6b8916763ed015ed397ce055af"
+}

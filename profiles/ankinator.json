@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate flashcards from the active note, selected text, or multiple Markdown files using an LLM",
+  "Send generated cards to Anki through AnkiConnect",
+  "Configure target deck, Anki note types, and card field names",
+  "Use a local OpenAI-compatible LLM (e.g. Ollama) or a cloud provider with an API key",
+  "Retry pending or unconfirmed cards without regenerating them"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marketplace listing notes the plugin has not been manually reviewed by Obsidian staff. When a cloud LLM provider is selected, note content is sent to that provider; local LLMs (e.g. Ollama) keep content on-device. No payment, account, or telemetry required.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the goal is to speed up flashcard creation without leaving the Obsidian workflow.",
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to turn notes into Anki flashcards, so users must manually copy content into Anki.",
+ "readmeHash": "971a32692b6a40cd113b8d3caf85d0fcada38a8c",
+ "relations": [
+  {
+   "evidence": "Sends generated cards to Anki through AnkiConnect.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin connects to the AnkiConnect URL configured by you",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can use a local OpenAI-compatible service, such as Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an external provider such as OpenAI, OpenRouter, Groq, Together AI, DeepSeek, Mistral",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with the AnkiConnect add-on",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (OpenAI, OpenRouter, Groq, Together, DeepSeek, Mistral, or custom)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Flashcard generator that turns notes, selected text, or multiple files into Anki cards using LLMs and sends them via AnkiConnect.",
+ "tags": [
+  "anki",
+  "ankiconnect",
+  "llm",
+  "ollama",
+  "openai",
+  "spaced-repetition"
+ ]
+}

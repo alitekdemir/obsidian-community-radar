@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create literature notes with CSL-JSON metadata in YAML frontmatter",
+  "Fetch reference metadata via DOI, ISBN, PubMed ID, arXiv ID, or URL",
+  "Import references from the Zotero browser connector",
+  "Export bibliographies as CSL-JSON or BibTeX files",
+  "Template filenames, citekeys, and note content with Handlebars syntax"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Detailed documentation lives on a separate docs site. The Zotero connector requires the Zotero desktop app to be closed during import, and only works on desktop. A companion command-line tool, biblib-cli, is mentioned. The README warns that Obsidian's Properties panel may show warnings for nested YAML fields like author arrays.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to create literature notes, look up bibliographic metadata, or export bibliographies for citation workflows.",
+ "readmeHash": "0730fdb002fc202e0f3c5d93d842a0367e054f1e",
+ "relations": [
+  {
+   "evidence": "The Zotero browser connector can send references directly to Obsidian (desktop only).",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "These files can be used with Pandoc for citation formatting.",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero desktop app",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Reference manager that stores each bibliographic reference as a Markdown note with CSL-JSON metadata in YAML frontmatter.",
+ "tags": [
+  "csl-json",
+  "bibtex",
+  "zotero",
+  "doi",
+  "isbn",
+  "pandoc",
+  "citekey"
+ ]
+}

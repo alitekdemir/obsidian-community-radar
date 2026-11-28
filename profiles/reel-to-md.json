@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Instagram video URLs from a queue note into Markdown notes",
+  "Extract captions and source metadata with yt-dlp",
+  "Transcribe audio locally with faster-whisper (English-only or multilingual)",
+  "Canonicalize URL variants and deduplicate sources by shortcode",
+  "Run dependency and network checks from the plugin settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory, so installation is manual (ZIP plus a Python wheel). Desktop-only because it spawns local processes. Tested end-to-end only on Ubuntu; Windows and macOS are untested. Photo-only /p/ posts are rejected.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn Instagram video posts into notes with caption, metadata, and a transcript.",
+ "readmeHash": "9d04289544c38932cb09b5bf2230e489f5a31089",
+ "relations": [
+  {
+   "evidence": "Extracts caption and source metadata with yt-dlp.",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Creates temporary 16 kHz mono audio for local transcription with faster-whisper.",
+   "plugin": "faster-whisper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10+ CLI and ffmpeg",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Imports Instagram video URLs as structured Markdown notes with captions, metadata, and optional local Whisper transcription via a Python CLI.",
+ "tags": [
+  "instagram",
+  "yt-dlp",
+  "faster-whisper",
+  "transcription",
+  "ffmpeg",
+  "python-cli"
+ ]
+}

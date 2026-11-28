@@ -1,0 +1,70 @@
+{
+ "also": [
+  "syncing",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push notes to CloudBrain with incremental hashing and per-note updates",
+  "Upload documents (PDF, Office, images, EPUB and more) from chosen folders",
+  "Read text in images and scanned PDFs via server-side OCR",
+  "Exclude files with glob patterns and dashboard rules before upload",
+  "Query the vault through a chat on WhatsApp, Telegram or the web"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a two-way sync: it only pushes copies to CloudBrain and never writes back into the vault.",
+ "extras": "The settings interface is in Italian. It is a paid service with a free trial. The server rejects files that look like credentials; the plugin claims no telemetry. Documents sync is off by default and limited to 25 MB on mobile data.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Notes stored locally in Obsidian cannot be searched or answered from messaging apps or the web; this sends copies to a service that offers chat-based retrieval.",
+ "readmeHash": "5adab3c5780eea307eedfdc38a53eb9eeff62327",
+ "relations": [
+  {
+   "evidence": "The plugin sends the content of your Markdown notes to the CloudBrain server you configure",
+   "plugin": "CloudBrain",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "CloudBrain account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "CloudBrain API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "CloudBrain paid service with free trial",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that pushes Markdown notes and optional documents to CloudBrain, making the vault searchable via WhatsApp, Telegram and web chat with citations.",
+ "tags": [
+  "cloudbrain",
+  "whatsapp",
+  "telegram",
+  "chat-search",
+  "citations",
+  "office-files",
+  "epub"
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "also": [
+  "pdf",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "edit .tex files in a live rendered view with formulas, theorem blocks and reference chips",
+  "compile locally and preview the PDF with bidirectional source/PDF navigation",
+  "configure custom template visualization profiles and environment/command rules",
+  "explore proof-reference graphs built from \\ref calls",
+  "export a self-contained HTML reading edition"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Markdown math preview tool; it edits .tex project files and compiles them with an installed TeX distribution.",
+ "extras": "Desktop only (no iPad editing); requires Obsidian 1.13.7+. Manifest notes the plugin is not manually reviewed by Obsidian staff. Shell escape and YOLO AI completion are off by default; the README warns YOLO may send writing context to its configured model provider. HTML export does not support LuaLaTeX.",
+ "intent": "alternative",
+ "intentEvidence": "Advantages over Overleaf for individual writing",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian has no way to work on real LaTeX projects with local compilation, a synced PDF preview, and rendered mathematics while editing the source.",
+ "readmeHash": "4b40e2eab897662d04fe48052364c91e5246f5a9",
+ "relations": [
+  {
+   "evidence": "Advantages over Overleaf for individual writing",
+   "plugin": "Overleaf",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Optional YOLO completion is off by default. Enabling it uses the separate YOLO plugin",
+   "plugin": "YOLO",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With LaTeX Suite enabled, its snippets also expand in LaTeX documents",
+   "plugin": "LaTeX Suite",
+   "type": "integrates"
+  },
+  {
+   "evidence": "texlab supplies completion and snippets",
+   "plugin": "texlab",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local TeX distribution (TeX Live, MacTeX, pdfLaTeX/XeLaTeX/LuaLaTeX)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "texlab",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "YOLO",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Live LaTeX editor for .tex projects that compiles with a local TeX distribution, shows a native PDF preview, and renders formulas and theorem blocks in place.",
+ "tags": [
+  "latexmk",
+  "texlab",
+  "beamer",
+  "tikz",
+  "overleaf",
+  "mathjax",
+  "texlive"
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Hide selected text as a masked secret via context menu or command palette",
+  "Reveal, edit, and save a secret by clicking its mask in Live Preview",
+  "Copy the underlying secret value to the clipboard",
+  "Restore the original text by removing a secret",
+  "Configure the mask symbol and mask length in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a password manager or secure storage; secrets are stored in the note as reversible base64url encoding, not encryption.",
+ "extras": "README warns that secrets are base64url-encoded, not encrypted, and that sharing, syncing, or transferring a note may expose them; it explicitly says not to use Veilbit as secure password storage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian notes are plain Markdown, so sensitive values like passwords or tokens stay visible to anyone who reads, shares, or syncs the note.",
+ "readmeHash": "83d8d23031f34c487476c645ef1d524183792411",
+ "relations": [
+  {
+   "evidence": "Copycel copies the secret text instead of the mask when you copy a table cell that contains one.",
+   "plugin": "Copycel",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Masks secret values in notes with a configurable mask and lets you reveal, edit, or copy them on click in Live Preview and Reading view.",
+ "tags": [
+  "secrets",
+  "masking",
+  "base64url",
+  "context-menu",
+  "clipboard"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [
+  "technical-bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create a draft article on DEV from the active note",
+  "Update the existing DEV article with note changes",
+  "Map embedded images to public URLs",
+  "Convert inline and block Mathjax to DEV KaTeX blocks",
+  "Resolve medialink URLs from linked notes' url properties"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Publishes to the DEV blogging platform, not to Obsidian's own Publish service.",
+ "extras": "The README warns prominently that the DEV API key is stored unencrypted in the vault's plugin configuration, telling users not to use the plugin if they don't understand the security implications. New articles are always created as drafts. Image uploads are not supported by the DEV API, so images must be uploaded manually. Docs include a bug-reporting procedure and a donation link.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author explains their own note layout (links before the H1, tags for note purpose rather than topics) and built the H1 and tag handling around that workflow.",
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to create or update articles on DEV, and DEV's API requires manual handling of keys, tags and images.",
+ "readmeHash": "79f102b47bb96bfbde92cd0fe015e3cf4816624b",
+ "relations": [
+  {
+   "evidence": "Obsidian plugin that allows you to publish notes as articles on DEV",
+   "plugin": "DEV (dev.to)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DEV API access token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "DEV account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "DEV publishing plugin that pushes the active note to dev.to as a draft article and updates it on later changes.",
+ "tags": [
+  "dev-to",
+  "api-key",
+  "mathjax",
+  "katex",
+  "draft-articles",
+  "article-series"
+ ]
+}

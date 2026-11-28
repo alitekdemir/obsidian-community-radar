@@ -1,0 +1,84 @@
+{
+ "also": [
+  "automation",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI agents in group Channels and direct messages",
+  "Create reusable subagent role prompts with chosen models and tools",
+  "Save, browse and edit agent memory records across chats",
+  "Schedule recurring or file-triggered agent Events",
+  "Connect LLM providers, local model servers and MCP servers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Currently in alpha; requires Obsidian desktop 1.11.4+ and a separate runtime install; Windows x64 is primary, macOS and Linux experimental, mobile unsupported. Core harness is free with model costs paid to providers; support via Patreon. Notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to work with AI agents that can read and edit notes, run tools, remember context across chats, or work on a schedule.",
+ "readmeHash": "ed17d594e3b2da9d21fc5e78f4dd19975a976d3c",
+ "relations": [
+  {
+   "evidence": "Build repeatable capture with QuickAdd, generate notes with Templater, or schedule agent work in Events.",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Build repeatable capture with QuickAdd, generate notes with Templater, or schedule agent work in Events.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use local models, subscriptions or API keys. Connect Ollama or LM Studio, sign in with ChatGPT, GitHub Copilot or xAI",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect Ollama or LM Studio, sign in with ChatGPT, GitHub Copilot or xAI, or use API-token plans",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "model provider API key, subscription or local model server",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider account (ChatGPT, GitHub Copilot, xAI) or local server",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "runtime installation step and optionally Ollama / LM Studio",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI agent chat for Obsidian with multi-agent channels, custom subagents, memory, scheduled tasks, tool use, MCP support and many LLM providers.",
+ "tags": [
+  "mcp",
+  "multi-agent",
+  "subagents",
+  "agent-memory",
+  "scheduled-tasks",
+  "ollama",
+  "lm-studio",
+  "local-llm"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan notes and the vault for local attachments",
+  "Upload attachments to S3-compatible storage (Cloudflare R2, AWS S3, MinIO)",
+  "Replace local links in notes with remote URLs",
+  "Delete local files after replacement via ask, immediate, or delayed policies",
+  "Preview replacements in dry-run mode before changing anything"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not limited to images despite the name; it also handles PDFs, audio, video, documents and custom file types.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that S3 credentials are stored locally in data.json and should never be committed to public repositories. Auto-scan, delayed deletes, and file-type configuration are desktop-only; mobile supports manual and foreground batch uploads only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian stores attachments as local vault files, and there is no built-in way to offload them to cloud storage and rewrite note links to remote URLs.",
+ "readmeHash": "3dc7212614a8a0a505fdc950798fcfd8746734fc",
+ "relations": [
+  {
+   "evidence": "Uploads them to S3-compatible cloud storage (Cloudflare R2, AWS S3, MinIO, etc.)",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uploads them to S3-compatible cloud storage (Cloudflare R2, AWS S3, MinIO, etc.)",
+   "plugin": "AWS S3",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uploads them to S3-compatible cloud storage (Cloudflare R2, AWS S3, MinIO, etc.)",
+   "plugin": "MinIO",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3-compatible storage provider",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key ID and secret access key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Attachment uploader that scans notes for local attachments, uploads them to S3-compatible cloud storage, and replaces local links with remote URLs.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "aws-s3",
+  "minio",
+  "cloud-storage",
+  "link-replacement"
+ ]
+}

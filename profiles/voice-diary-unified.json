@@ -1,0 +1,78 @@
+{
+ "also": [
+  "audio",
+  "tasks"
+ ],
+ "audience": [
+  "chinese-language-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe saved audio recordings into diary notes locally with SenseVoice",
+  "Clean up, translate, polish, or summarize transcript text via an optional text API",
+  "Extract spoken to-dos into Markdown task notes with dates and checkboxes",
+  "Review tomorrow, next-week, and unfinished task items in dedicated views",
+  "Process incoming recordings automatically from a configured vault folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not record audio itself; recording is done by the separate Voice Diary Recorder plugin, and this one only processes saved audio files.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Local transcription is verified only on Windows x64; the plugin was split from an earlier combined plugin, keeping the id voice-diary-unified. API keys and device state are stored in plaintext outside the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn voice recordings into notes, and online transcription requires sending audio off the device.",
+ "readmeHash": "4c14cb7dcac5e4e537d9d8a3d5420150dc2be751",
+ "relations": [
+  {
+   "evidence": "Pair this desktop plugin with Voice Diary Recorder to record on a phone",
+   "plugin": "Voice Diary Recorder",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using local SenseVoice speech recognition",
+   "plugin": "SenseVoice",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Syncthing, Obsidian Sync, or another reliable tool that synchronizes vault files",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10-3.12 environment with SenseVoiceSmall INT8, sherpa-onnx, NumPy, and FFmpeg (Windows x64)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Compatible text API endpoint and key for cleanup and API task extraction",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop plugin that transcribes saved audio recordings into diary and task notes using local SenseVoice speech recognition, with optional text-API cleanup.",
+ "tags": [
+  "sensevoice",
+  "speech-to-text",
+  "transcription",
+  "sherpa-onnx",
+  "ffmpeg",
+  "syncthing",
+  "diary",
+  "chinese"
+ ]
+}

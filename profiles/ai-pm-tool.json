@@ -1,0 +1,81 @@
+{
+ "also": [
+  "integrations",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Parse requirement frontmatter into a filterable project overview",
+  "Compare SVN working-copy snapshots and commit frontmatter changes",
+  "Generate requirement notes from a description via Templater and an LLM",
+  "Draft, preview, and send milestone emails over SMTP with sent records archived in the note",
+  "Configure OpenAI-compatible LLM providers with keys in the system keychain"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Properties view",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general SVN client; it only runs svn commands against your configured SVN working copy for snapshot sync and commits.",
+ "extras": "Desktop only, not available on mobile. Manual install from release files (main.js, manifest.json, styles.css) until listed in the community directory. SVN calls use child_process.execFile with fixed argument arrays, 60s timeout, and input validation; svn is never bundled. API keys are stored via Obsidian SecretStorage in the system keychain. No telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Project management busywork such as tracking requirement status, milestone progress, and stakeholder emails is scattered and manual, with no version history for note changes.",
+ "profiledAt": "2026-11-20",
+ "provider": "Baidu",
+ "readmeHash": "27e8fc9d3490f8565ceecb7e418425ff11af6186",
+ "relations": [
+  {
+   "evidence": "The \"✨ Add requirement\" flow calls the Templater plugin's API (only if you have it installed & enabled)",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "svn command-line client",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM provider API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "SMTP server for sending mail",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop-only plugin that turns requirement notes into a project overview, syncs SVN snapshots, and uses an LLM to draft milestone emails and reminders.",
+ "tags": [
+  "llm",
+  "openai-compatible",
+  "svn",
+  "smtp",
+  "milestones",
+  "templater",
+  "frontmatter",
+  "desktop"
+ ],
+ "textHash": "b8a21d024a62af57d0792d026353e90f93170471"
+}

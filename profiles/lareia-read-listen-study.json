@@ -1,0 +1,59 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send the open note, its front matter metadata and embedded images to Lareia",
+  "Update the same text on resend instead of creating a duplicate",
+  "Pair each Obsidian install with a Lareia account via a one-time code",
+  "Write a lareia-leitor identity line into the note's front matter",
+  "Exclude chosen ## sections from the send"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a reader, listener or study tool inside Obsidian; it only packages and sends the note to the Lareia app, where reading happens.",
+ "extras": "Free within the account's sending limits; enforces size caps (4 MiB note, 32 MiB with images) and refuses oversized sends on-device; bilingual English/Portuguese interface; not affiliated with Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Notes in the vault can't be read or listened to in the Lareia app without manually copying text and images over, and repeated sends would pile up duplicates.",
+ "readmeHash": "7030a2d64f7e98dd55690af1328f56f5a0f1c8df",
+ "relations": [
+  {
+   "evidence": "sends a note from your vault to the Lareia app, with its images, to read, listen to and study there",
+   "plugin": "Lareia",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Lareia account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Lareia app (for pairing and reading)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sends an Obsidian note with its embedded images to the Lareia app to read, listen to and study there; resending updates the same text.",
+ "tags": [
+  "lareia",
+  "reading-lists",
+  "device-pairing",
+  "s3-upload"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "also": [
+  "project-management",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Register local Git repositories",
+  "Scan remote branches and commits via git fetch",
+  "Record delivery items, acceptance evidence, and release checks",
+  "Link commits to ZenTao tasks and Codex sessions",
+  "Store delivery records in a vault folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Scanning runs git fetch origin against registered remotes and may access the network; when optional Codex CLI smart linking is enabled, commit messages are sent to that service. ZenTao status reading requires a user-configured read-only client script and credentials (not bundled). Settings and delivery records are kept in plugin data (data.json), which should not be deleted on upgrade.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian has no built-in way to track software branch delivery records, linked tasks, and launch checklists alongside notes.",
+ "readmeHash": "2e61cbcd4bf5dd59d31e99be4a996067b12c2ce9",
+ "relations": [
+  {
+   "evidence": "Codex CLI：安装并在设置中指定其可执行文件后，可为提交提供智能关联建议。",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "禅道：可填写禅道网页地址，以便打开关联任务和 Bug。",
+   "plugin": "ZenTao",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ZenTao",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "ZenTao client access credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 3
+ },
+ "summary": "Git branch delivery manager that aggregates branches, commits, linked issues, acceptance evidence, and release checks for repositories registered in Obsidian.",
+ "tags": [
+  "git-branches",
+  "commits",
+  "delivery-records",
+  "release-checks",
+  "zentao",
+  "codex-cli",
+  "acceptance-evidence"
+ ]
+}

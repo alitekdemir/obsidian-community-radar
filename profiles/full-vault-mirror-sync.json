@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror a source folder to a target folder via robocopy /MIR",
+  "Run syncs manually, on a timer, or shortly after Obsidian starts",
+  "Validate paths before syncing and confirm before first sync into a non-empty target",
+  "Verify post-sync file presence, sizes, and modified times, with automatic retries",
+  "Report robocopy exit codes and destination-path errors"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a backup or versioned-backup tool; deletions in the source propagate to the target on the next mirror sync.",
+ "extras": "Windows desktop only (Obsidian 1.5.0+). Uses destructive robocopy /MIR, so extra files in the target can be deleted; the README repeatedly warns it is not a backup tool. Not yet manually reviewed by Obsidian staff. Bilingual English/Traditional Chinese documentation; further safety and release docs live in docs/SAFETY.md and docs/RELEASE.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault or folder mirrored to another local Windows path.",
+ "readmeHash": "a80c7ac7a36599369969e4ddf34da32a0de7a749",
+ "relations": [
+  {
+   "evidence": "performs one-way mirror sync from a source folder to a target folder by using Windows robocopy",
+   "plugin": "robocopy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Windows robocopy",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Windows-only plugin that one-way mirrors a source folder to a target folder using robocopy, with scheduled, startup, and manual sync options.",
+ "tags": [
+  "robocopy",
+  "windows",
+  "one-way-sync",
+  "mirror",
+  "folder-mirror"
+ ]
+}

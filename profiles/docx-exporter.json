@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export the current note to a DOCX file",
+  "Convert headings, bold, italics, lists, hyperlinks and code blocks to Word formatting",
+  "Embed local and web images and handle their formats and dimensions",
+  "Generate DOCX files compatible with Microsoft Word",
+  "Run on desktop and mobile without extra software"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README documents a known issue: exported files may show wrong formatting in Apple Pages or Preview until re-saved with Microsoft Word. A Chinese version of the README is available.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted note export to DOCX that runs on all Obsidian-supported platforms without installing additional external tools.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to export notes as Word docx files, and existing approaches require external tools that don't run on mobile.",
+ "readmeHash": "527872b9fe983050aee832614fddc672559458d2",
+ "relations": [
+  {
+   "evidence": "A powerful library for generating DOCX files in pure JavaScript/TypeScript.",
+   "plugin": "docx",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Used for packing and unpacking DOCX files, which are essentially zipped archives.",
+   "plugin": "JSZip",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "DOCX exporter that converts notes to Microsoft Word files without external dependencies like Pandoc, on desktop and mobile.",
+ "tags": [
+  "docx",
+  "microsoft-word",
+  "pandoc-free",
+  "mobile",
+  "rich-text"
+ ]
+}

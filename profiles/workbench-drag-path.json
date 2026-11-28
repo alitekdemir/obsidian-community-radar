@@ -1,0 +1,59 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "drag files and folders from the File Explorer as path text",
+  "copy the dragged path text to the clipboard as a fallback",
+  "configure absolute vs vault-relative paths and shell quoting",
+  "separate multiple selected paths with space or newline",
+  "append a trailing space so paths fit into commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; does not run on mobile. Drop support depends on the receiving terminal accepting text/plain data, and the File Explorer DOM it relies on may break after Obsidian updates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because file tree dragging is not optimized for terminal workflows when the vault doubles as a project notebook, AI context library, or operating console.",
+ "primary": "files",
+ "problem": "Obsidian's file tree delivers an internal drag object when dragged out, so passing note or folder paths into terminal and shell workflows is not direct.",
+ "readmeHash": "c7c96bb2b3c3d7746fdc0ad8e103bdb23164e9ee",
+ "relations": [
+  {
+   "evidence": "It is designed for people who use Obsidian next to Terminal.app, iTerm2, Termy, Claude Code, Codex, Gemini CLI",
+   "plugin": "Terminal.app, iTerm2, Termy, Claude Code, Codex, Gemini CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a terminal that accepts text/plain drops",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Drag-and-drop helper that turns File Explorer drags into terminal-ready absolute or vault-relative path text, with a clipboard fallback.",
+ "tags": [
+  "terminal",
+  "drag-and-drop",
+  "clipboard",
+  "shell",
+  "cli"
+ ]
+}

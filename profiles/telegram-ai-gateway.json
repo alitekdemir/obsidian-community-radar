@@ -1,0 +1,72 @@
+{
+ "also": [
+  "automation",
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Send notifications to Telegram.",
+  "Request user approvals via interactive buttons.",
+  "Handle asynchronous decision polling.",
+  "Securely store bot tokens using Environment Keys.",
+  "Queue messages for offline transmission."
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Features strict security controls, including rate limiting and quiet hours, and uses a 100% native Obsidian UI.",
+ "intent": "new",
+ "intentEvidence": "Telegram AI Gateway is an Obsidian plugin that enables AI agents (Claude Code, Antigravity) and automation scripts to send rich notifications and interactive approval requests with inline buttons to Telegram",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI agents and automation scripts require a secure, structured way to communicate with users and receive interactive decisions outside of the Obsidian vault.",
+ "readmeHash": "7890008b6e538e5a0c8822de1364ac9c8b0399af",
+ "relations": [
+  {
+   "evidence": "Claude Code's AskUserQuestion hook can use these tools to send its questions to Telegram.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Antigravity",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Environment Keys",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Telegram Bot Token",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Environment Keys",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A gateway allowing AI agents and automation scripts to send rich notifications and interactive approval requests to Telegram using secure, local routing.",
+ "tags": [
+  "telegram",
+  "ai-agents",
+  "claude-code",
+  "antigravity",
+  "environment-keys",
+  "mcp-tools"
+ ]
+}

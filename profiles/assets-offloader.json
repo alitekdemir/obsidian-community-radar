@@ -1,0 +1,61 @@
+{
+ "also": [
+  "files",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload note or folder attachments to an S3-compatible bucket",
+  "Rewrite embed links to public URLs and optionally trash local files",
+  "Download remote assets back into the vault and restore local links",
+  "Browse bucket objects by month in a gallery with preview, insert, and download",
+  "Convert wikilinks to markdown links and back, syntax only"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault sync tool; it only moves attachment files to a bucket and rewrites their links.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that recursive folder commands can process the whole vault and shows a confirm dialog first; R2 setup details live in a separate docs/r2-setup.md file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps all attachments inside the vault, so images, video, and other media bloat vault size and sync load.",
+ "readmeHash": "5a20b49131e343d85d9dd9c404e52900c3d2b660",
+ "relations": [
+  {
+   "evidence": "Cloudflare R2 is the documented target. Other S3-compatible providers work",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible storage bucket (Cloudflare R2 documented)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key and secret key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Attachment offloader that uploads vault media to an S3-compatible bucket, rewrites note links to public URLs, and downloads files back local on demand.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "cloud-storage",
+  "link-rewriting",
+  "bucket"
+ ]
+}

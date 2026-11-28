@@ -1,0 +1,88 @@
+{
+ "also": [
+  "research",
+  "editing"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Claude, Codex, OpenCode or local models",
+  "Search notes and PDF passages by keyword and on-device semantics",
+  "Assemble source-linked research records in Research Desk",
+  "Generate drafts, HTML artifacts, Canvas files and Bases",
+  "Review and accept or reject proposed note edits"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Canvas",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No telemetry; credentials are kept in Obsidian's encrypted secret storage rather than data.json. The optional MCP bridge binds to 127.0.0.1, needs a bearer token and keeps writes disabled until enabled; desktop shell execution is disabled on mobile. The repository also holds a separate obsidian-agent project of portable workflows that does not require this plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted notes, sources and AI in the same workspace, keeping sources, drafts and decisions together in the vault.",
+ "primary": "ai",
+ "problem": "Notes, sources and AI chat sit in separate tools, so drafts drift from the evidence behind them and AI edits reach notes without review.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "c340d6ea9c4da48a82664c8eb11dfc3dda059a6a",
+ "relations": [
+  {
+   "evidence": "choose a signed-in Claude Code, Codex, or OpenCode CLI on desktop",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama or an OpenAI-compatible endpoint for chat and utility work",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "sends search terms or bibliographic identifiers to OpenAlex, Crossref, arXiv, or Zotero",
+   "plugin": "Zotero",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex or OpenCode CLI",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or OpenAI-compatible endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI workspace that connects Claude, Codex, OpenCode or local models to vault notes for source-linked research, drafting and reviewed edits.",
+ "tags": [
+  "claude",
+  "claude-code",
+  "codex",
+  "ai-chat",
+  "semantic-search",
+  "mcp",
+  "ollama",
+  "local-llm"
+ ],
+ "textHash": "240a16c4d29315c245f3c35512e45231bed62bcf"
+}

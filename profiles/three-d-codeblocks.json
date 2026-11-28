@@ -1,0 +1,71 @@
+{
+ "also": [
+  "editing",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render GLB, glTF, STL, OBJ, PLY and other 3D files in a pane or as wiki embeds",
+  "Orbit, zoom and pan models and save camera angles into code blocks",
+  "Move and scale top-level nodes of glTF/GLB models in an edit mode",
+  "Describe models as text with the shapes code block or generate them from LLM prompts",
+  "Show gcode printer paths and xyz/pcd files as lines or point clouds"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Draco-compressed glTF files cannot be read (Meshopt works); mobile works but large models are slow and the browser caps simultaneous WebGL contexts. Model-by-prompt sends prompts to Anthropic when a Claude entry is used.",
+ "intent": "improve",
+ "intentEvidence": "3D files behave like PDFs: click to open, ![[…]] to embed.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states that generated 3D output usually lives next to the note discussing it, but you have to leave Obsidian to look at it; the plugin keeps it in place.",
+ "primary": "visualization",
+ "problem": "Generated 3D output (CAD exports, scans, floor plans) sits next to notes but Obsidian cannot display it, so users must leave the app to view it.",
+ "readmeHash": "0d562e617546fc7ec35f3e966054964d984fac0d",
+ "relations": [
+  {
+   "evidence": "src/viewer/ wraps three.js and knows nothing about Obsidian.",
+   "plugin": "three.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or a Claude entry of the LLM Endpoint Manager",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM endpoint or Claude",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "3D model viewer that renders GLB, glTF, STL and other 3D files inline in notes, with orbit/zoom/pan controls and a limited node editor.",
+ "tags": [
+  "gltf",
+  "glb",
+  "stl",
+  "three-js",
+  "webgl",
+  "point-clouds",
+  "cad",
+  "3d-printing"
+ ]
+}

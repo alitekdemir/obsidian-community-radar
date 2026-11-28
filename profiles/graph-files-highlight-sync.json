@@ -1,0 +1,57 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight a note's node and neighbours when hovering the note in the file explorer",
+  "Highlight all notes inside a hovered folder, including subfolders",
+  "Highlight the tag nodes used by a folder's notes on folder hover",
+  "Follow attachment links to and from highlighted notes in both directions",
+  "Configure fade opacity and label visibility for highlighted folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite \"Sync\" in the name, it does not sync files across devices; it syncs hover state between the file explorer and the graph view.",
+ "extras": "Relies on undocumented Obsidian internal renderer fields that could break in future releases; the author flags this as the first thing to check if the highlight stops working. Does nothing on mobile since touch has no hover.",
+ "intent": "improve",
+ "intentEvidence": "It mirrors the native \"hover a graph node\" effect, but triggered from the file list.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author describes it as a long-standing community feature request with no native solution, and found folder hover especially useful for checking whether a folder forms a cluster in a large vault.",
+ "primary": "graph",
+ "problem": "Obsidian lets you hover a graph node to spotlight it or a sidebar file to preview it, but there is no built-in way to hover a file in the sidebar and see where it sits in the graph.",
+ "readmeHash": "911a58b7f04539953f35e3d8c651c94fd39d2af4",
+ "relations": [
+  {
+   "evidence": "the same \"render proxy\" technique the Graph Style Customizer plugin uses",
+   "plugin": "Graph Style Customizer",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the same approach the Graph Search Sync plugin takes",
+   "plugin": "Graph Search Sync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Graph view helper that highlights the node of a note you hover in the file explorer, or all notes in a hovered folder, dimming the rest.",
+ "tags": [
+  "file-explorer",
+  "hover",
+  "local-graph",
+  "tag-nodes",
+  "node-highlighting",
+  "folder-clusters"
+ ]
+}

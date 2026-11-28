@@ -1,0 +1,60 @@
+{
+ "also": [
+  "integrations",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse and search remote Pageden documents",
+  "Download remote folders and documents into the vault",
+  "Push local edits and resolve conflicts with versioned metadata",
+  "Import an existing vault into a Pageden workspace",
+  "Co-edit live documents via a shared Yjs/WebSocket room"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general-purpose sync tool; it only connects vaults to Pageden servers, not arbitrary storage or other services.",
+ "extras": "Sends document content, metadata, attachments, and sync state to the configured Pageden server; supports self-hosted servers; live co-editing merges simultaneous edits and autosaves via the revision API; conflicts write the server copy as *.conflict.md without touching the local file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Teams whose Markdown documents live on a server cannot browse, edit, or keep those documents in sync with a local Obsidian vault.",
+ "readmeHash": "9c6adaf992a387db1e38eb6fc003e4760c466567",
+ "relations": [
+  {
+   "evidence": "Connect an Obsidian vault to Pageden, a server-owned Markdown workspace for teams and AI agents",
+   "plugin": "Pageden",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Pageden workspace account with personal access token or device-code login",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Two-way sync between an Obsidian vault and a Pageden server workspace, with remote browsing, search, vault import, and live co-editing.",
+ "tags": [
+  "pageden",
+  "server-owned-documents",
+  "yjs",
+  "websocket",
+  "real-time",
+  "conflict-resolution",
+  "device-code-login"
+ ]
+}

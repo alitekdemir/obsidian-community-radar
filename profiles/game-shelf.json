@@ -1,0 +1,81 @@
+{
+ "also": [
+  "data",
+  "project-management"
+ ],
+ "audience": [
+  "video game players"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search IGDB or Games Never Die for game metadata",
+  "Create game notes from configurable Markdown templates",
+  "Browse and filter a local backlog library by status, platform and genre",
+  "Log dated play sessions with optional minutes into the note",
+  "Refresh source properties with a per-field conflict review"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a game launcher or emulator; it only creates and organizes Markdown notes about games.",
+ "extras": "Requires Obsidian 1.13.7+; English lookups need a Twitch application for IGDB credentials, and the Client Secret is kept as an Obsidian SecretStorage reference. A demo MP4 is linked in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up game metadata, track a game backlog, or keep play sessions attached to a game note.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "63e9788f5a30d7e83137f77ab27b3ce35c06721a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "It creates ordinary Markdown notes using Games Never Die for Japanese game data or IGDB for English game data.",
+   "plugin": "IGDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Games Never Die supplies Japanese metadata; IGDB supplies its original game data, generally in English.",
+   "plugin": "Games Never Die",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Basic metadata, ratings, store links, overview, articles, media, and optional Steam data.",
+   "plugin": "Steam",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "IGDB",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "IGDB (Twitch application) Client ID and Client Secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Creates Markdown game notes from IGDB or Games Never Die data, with a local backlog library and dated play journals.",
+ "tags": [
+  "backlog",
+  "journaling",
+  "cover-art",
+  "japanese",
+  "api-key",
+  "steam"
+ ],
+ "textHash": "7a3612d9dff61f223525fd2295bc1309bfdd708b"
+}

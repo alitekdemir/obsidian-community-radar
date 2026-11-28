@@ -1,0 +1,92 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run Claude Code, Codex, or OpenCode agents against vault notes",
+  "Group ongoing work into projects with instructions and chat history",
+  "Save repeatable prompts as slash commands",
+  "Answer questions about a selection with Quick Ask",
+  "Use hosted, bring-your-own-key, or local models"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a code-completion assistant; it runs AI agents and chat over your notes.",
+ "extras": "Freemium: works without a Copilot license when you use your own agent account, provider key, or local model; hosted models and cloud-backed tools need a paid plan. Agent mode is desktop-only. The plugin frontend is open source, hosted backend services are proprietary, and paid access has a 14-day refund window.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Notes in a vault cannot be handed to AI agents, so research and writing with them means leaving Obsidian and copying context by hand.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "cd5e97ede66310cb2eda125efdc75da66e32f522",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "OpenCode (recommended): Let Copilot download and manage it, then use Copilot-hosted models",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect an existing installation. Copilot detects common install locations and uses your Claude Code login.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect Codex through the @agentclientprotocol/codex-acp adapter and use your existing Codex login.",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenCode",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model provider API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Copilot account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "AI agent workspace that runs Claude Code, Codex, or OpenCode inside Obsidian for research, writing, and knowledge work.",
+ "tags": [
+  "ai-agents",
+  "claude-code",
+  "codex",
+  "opencode",
+  "llm",
+  "byok",
+  "local-llm",
+  "prompts"
+ ],
+ "textHash": "be6fce5d3eba0e43b3f4551b19aec665e3c85940"
+}

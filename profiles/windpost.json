@@ -1,0 +1,82 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes to a GitHub-backed blog",
+  "Create WeChat Official Account drafts",
+  "Preview channel-specific content before publishing",
+  "Upload article images and cover to WeChat",
+  "Store credentials in Obsidian SecretStorage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS only and requires Obsidian Desktop 1.12.0 or later. Full setup and troubleshooting are in a separate user guide. No hosted relay, telemetry, or browser automation; credentials use Obsidian SecretStorage. WeChat publishing creates a draft only; final sending is manual in WeChat.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish a note to an external blog or a WeChat Official Account.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "1c04ee58bf8dd9eb1ab06f71aa79f044c7cb89ff",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "publishing the current Markdown note to a GitHub-backed blog",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or to a WeChat Official Account draft",
+   "plugin": "WeChat Official Account",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account and repository",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained token with Contents: write access",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "WeChat Official Account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "WeChat AppID and AppSecret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Desktop plugin that publishes the current Markdown note to a GitHub-backed blog or a WeChat Official Account draft.",
+ "tags": [
+  "github",
+  "wechat",
+  "blog",
+  "secret-storage"
+ ],
+ "textHash": "2f7c2114e72fe5e9df9c77723fa01082f5c75f04"
+}

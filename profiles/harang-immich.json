@@ -1,0 +1,65 @@
+{
+ "also": [
+  "images",
+  "attachments"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Insert images from an Immich server via a thumbnail gallery",
+  "Upload pasted or dragged images to Immich automatically",
+  "Connect to multiple Immich servers through named profiles",
+  "Prompt to trash or delete Immich assets when links are removed",
+  "Render Immich links inline in Live Preview and Reading view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Attachments"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full documentation (English/Korean), usage, architecture, and troubleshooting guides are hosted externally; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores pasted and dragged images as files inside the vault, which grows the vault; this offloads them to an external Immich photo server.",
+ "readmeHash": "9c9adf8a8ad463064c54fbad351eade20c9b62cf",
+ "relations": [
+  {
+   "evidence": "store note images in your own Immich server instead of inside the vault",
+   "plugin": "Immich",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Immich server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Immich API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Lets you browse, insert, and upload note images to a self-hosted Immich server instead of storing them inside the vault.",
+ "tags": [
+  "immich",
+  "self-hosted",
+  "thumbnails",
+  "clipboard-upload",
+  "drag-and-drop"
+ ]
+}

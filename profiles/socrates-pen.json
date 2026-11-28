@@ -1,0 +1,84 @@
+{
+ "also": [
+  "thinking"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Question highlighted passages Socratically",
+  "Answer follow-up questions using the note",
+  "Generate background deep-dive questions",
+  "Propose note edits for approval",
+  "Roll back note snapshots"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; first launch creates a Python venv and installs a local sidecar from GitHub/PyPI. The API key is stored in ~/.socrates-pen/llm.json, not the vault. Deep-dive questions work best with the eight-beat handbook format; only deepseek/deepseek-v4-flash was tested. A practice system is in development and off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built it after working through a 13,083-line handbook where the hard part was having nobody to ask when stuck.",
+ "primary": "ai",
+ "problem": "When working through a long handbook alone, there is no one who has read the book to ask at the point where you get stuck.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "d8fc87b3b091dab21170a2724ad508c1669f0ca6",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "the sidecar GETs DuckDuckGo's plain-HTML result page itself",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "falls back to Bing",
+   "plugin": "Bing",
+   "type": "integrates"
+  },
+  {
+   "evidence": "always asks Wikipedia too",
+   "plugin": "Wikipedia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "via an OpenRouter endpoint",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.11 or later",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible Chat Completions endpoint API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Sidebar Socratic tutor that questions a highlighted passage, answers follow-ups from the note, and writes approved edits back.",
+ "tags": [
+  "ai-chat",
+  "llm",
+  "openai-compatible",
+  "local-first",
+  "byok",
+  "web-search",
+  "deepseek",
+  "openrouter"
+ ],
+ "textHash": "2c67c6cb3e70ce44c5f0d52a736ecf298f5b64b4"
+}

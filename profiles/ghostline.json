@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Shows grey ghost-text suggestions for the rest of the current line",
+  "Accepts suggestions with Tab or word by word, dismisses with Escape",
+  "Sends requests to local LLM endpoints via LLM Endpoint Manager",
+  "Masks secrets like keys, e-mails and tokens before sending text",
+  "Excludes folders, files or notes from suggestions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; needs Obsidian 1.11.4+ for app.secretStorage keychain; settings reference and troubleshooting live in separate docs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Obsidian has no built-in inline completion that predicts how the current line continues while you type.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "590917db751e0210c9a2f5ed5c68b9db4486ced6",
+ "relations": [
+  {
+   "evidence": "endpoints, API keys and the model list come from the manager",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A local LLM server with a model loaded, for example LM Studio.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM server (e.g. LM Studio)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Inline ghost-text completion plugin that suggests how the current line continues, powered by a local LLM.",
+ "tags": [
+  "ghost-text",
+  "local-llm",
+  "lm-studio",
+  "local-first"
+ ],
+ "textHash": "05e84c7b969e2d8af5fe59be9c63c658519f4187"
+}

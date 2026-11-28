@@ -1,0 +1,75 @@
+{
+ "also": [
+  "data",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import an Apple Health export (Export.zip or Export.xml) as a stream into a local cache",
+  "Browse metrics in a dashboard with sparklines, time series, and period presets",
+  "Compare two metrics on one chart with separate axes",
+  "Write value tables as .md or .csv files into a chosen vault folder",
+  "Copy today's health values into daily-note properties for Bases and Dataview"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly: true). The manifest carries the note 'This plugin has not been manually reviewed by Obsidian staff.' Full documentation (getting started, troubleshooting) is linked on an external docs site. No network calls; the cache file health-cache.json is gitignored.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Apple's Export.xml reaches several gigabytes (2.6 GB with 5.7 million records in the author's test), and ordinary XML parsers load it all into memory and crash; the author built a streaming parser that keeps only compact daily aggregates.",
+ "primary": "charts",
+ "problem": "Obsidian runs in Electron with no HealthKit access, and Apple's multi-gigabyte Export.xml crashes ordinary in-memory XML parsers, so health data has no path into the vault.",
+ "readmeHash": "63502298a064e71b8ba4636ec70b3f0a4b31da2a",
+ "relations": [
+  {
+   "evidence": "reads Apple Health exports and makes the data searchable and visualizable inside your vault",
+   "plugin": "Apple Health (Health app on iPhone)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so Bases and Dataview can combine them with the rest of your vault",
+   "plugin": "Bases",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so Bases and Dataview can combine them with the rest of your vault",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The note's folder and name come from the core Daily notes plugin",
+   "plugin": "Daily notes (core plugin)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Health app on an iPhone (only to produce the export file)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Apple Health export files and shows health metrics in a dashboard with charts, tables, workouts, and values written into daily notes.",
+ "tags": [
+  "apple-health",
+  "xml",
+  "streaming-parser",
+  "sleep-stages",
+  "workouts",
+  "activity-rings",
+  "svg-charts"
+ ]
+}

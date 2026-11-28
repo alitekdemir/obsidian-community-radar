@@ -1,0 +1,62 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse files and folders on WebDAV servers",
+  "Drag and drop remote files into notes to generate markdown links",
+  "Preview videos and images inside Obsidian",
+  "Upload, download, and rename remote files and folders",
+  "Handle duplicate files on upload with overwrite, rename, or cancel options"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault file browser; it browses and manages files on remote WebDAV servers, not local vault files.",
+ "extras": "The README recommends configuring CORS headers on the WebDAV server for real-time previews; without CORS the plugin falls back to an authorization plus blob mode. The usage demo is only shown as a removed media/code block, so no working examples are visible.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to browse, preview, upload, or download files stored on a remote WebDAV server.",
+ "readmeHash": "54897f61cbebece96c9e8ec66b27f3df539982e1",
+ "relations": [
+  {
+   "evidence": "Preview videos and images directly within Obsidian (Videos require Media Extended plugin)",
+   "plugin": "Media Extended",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Media Extended",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "WebDAV client that browses remote servers, previews and transfers files, and generates markdown links via drag-and-drop.",
+ "tags": [
+  "webdav",
+  "drag-and-drop",
+  "remote-storage",
+  "file-transfer",
+  "cors",
+  "video-preview",
+  "image-preview"
+ ]
+}

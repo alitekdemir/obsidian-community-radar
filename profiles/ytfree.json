@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Play YouTube videos in a note with picture-in-picture, full screen and speed control",
+  "Insert clickable timestamps that jump to the playback moment",
+  "Import subscriptions and collect new videos in an Inbox",
+  "Search YouTube and fetch transcripts with most-replayed moments",
+  "Sync watch progress and history through the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No account, sign-in or payment; requests to YouTube are signed out and no telemetry is sent. The ad-free player relies on undocumented YouTube interfaces and can stop working until the plugin updates, falling back to YouTube's own player, which may show ads. No offline downloads, and pop-out windows are not supported. Hub data lives in a hidden .obsidian/plugins/ytfree/ folder that some sync tools skip.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Watching a YouTube video and writing notes about it means switching apps, and Obsidian has no built-in way to play a video and jump back to a moment from a note.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "e66ad2af6024de5e13a5502261868a1ec780e6e8",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Watch YouTube inside Obsidian, without the ads",
+   "plugin": "YouTube",
+   "type": "integrates"
+  },
+  {
+   "evidence": "import templates/webclipper-ytfree.json. It fires on any youtube.com/watch page.",
+   "plugin": "Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "templates/templater-ytfree.md asks for a link and builds the note.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install Finicky, copy scripts/finicky.js to ~/.finicky.js",
+   "plugin": "Finicky",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Embeds an ad-free YouTube player in notes, with clickable timestamps, transcripts, search and a subscriptions hub.",
+ "tags": [
+  "youtube",
+  "timestamps",
+  "transcription",
+  "web-clipper",
+  "templater",
+  "obsidian-uri",
+  "apple-shortcuts"
+ ],
+ "textHash": "7d05585a7e2c8e71da79dab04463aded92bfc765"
+}

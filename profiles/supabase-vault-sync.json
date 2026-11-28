@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Bidirectionally sync Markdown notes as PostgreSQL rows, including frontmatter as JSONB",
+  "Upload and delete binary attachments in a private Supabase Storage bucket",
+  "Queue changes offline and sync automatically when a connection returns",
+  "Resolve conflicts between devices using hashes and timestamps",
+  "Export the synced database to a local .sql backup file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns users to back up their vault before initial setup and testing; detailed setup, sync-strategy, and development guides live outside the README.",
+ "intent": "alternative",
+ "intentEvidence": "This is an unofficial sync solution. Obsidian Sync is the officially supported service.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid closed service, so users who want vault sync through their own database and storage backend have no built-in option.",
+ "readmeHash": "f128dcedb9205eb044b9b95ccc020968eefd0fff",
+ "relations": [
+  {
+   "evidence": "This is an unofficial sync solution. Obsidian Sync is the officially supported service.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "bidirectionally synchronizes vault notes to a Supabase PostgreSQL database",
+   "plugin": "Supabase",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Supabase account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Supabase Project URL and API Key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Offline-first plugin that bidirectionally syncs vault notes to a Supabase PostgreSQL database and attachments to Supabase Storage.",
+ "tags": [
+  "supabase",
+  "postgresql",
+  "offline-first",
+  "row-level-security",
+  "self-hosted",
+  "storage-bucket"
+ ]
+}

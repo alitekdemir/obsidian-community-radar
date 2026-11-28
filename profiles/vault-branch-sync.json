@@ -1,0 +1,79 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes and attachments through a private GitHub branch",
+  "Preview and select incoming and outgoing file changes",
+  "Merge non-overlapping Markdown edits",
+  "Resolve conflicts by keeping local, remote, or both copies",
+  "Restore earlier note versions from GitHub commit history"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uploads require a manual sync; automatic receive can be enabled. The GitHub token is stored in Obsidian's secret storage, and the plugin has no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices through GitHub otherwise requires manual Git commands and offers no guided way to review files or resolve conflicting edits.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "9555ac395a3d002f9287420dfa4092d9853c642d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "enable the Git community plugin and turn on Use the Git plugin on this computer",
+   "plugin": "Git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync notes and attachments between desktop and mobile through a private GitHub repository.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained token with Contents read and write",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs notes and attachments between desktop and mobile through a private GitHub branch, with selective uploads and conflict resolution.",
+ "tags": [
+  "github",
+  "conflict-resolution",
+  "version-history",
+  "offline",
+  "local-first",
+  "two-way-sync"
+ ],
+ "textHash": "9288e74b6fe138483123a3613f0f1b77b92fe0a8"
+}

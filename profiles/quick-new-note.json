@@ -1,0 +1,61 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create a new note in a folder picked from a note-header menu",
+  "Apply Templater folder templates, with parent-folder inheritance, to new notes",
+  "Maintain and reorder a favorite folder list with path aliases",
+  "Search all vault folders for a target folder via the Other folder… option",
+  "Trigger note creation from a ribbon icon, command, or mobile toolbar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Unique note creator"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest states the plugin has not been manually reviewed by Obsidian staff. The README notes it deliberately does not depend on the core Files plugin, and includes a table explaining template selection when Templater is absent or trigger mode is off.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "folders",
+ "problem": "Obsidian puts every new note in one default folder, so users with notes spread across folders must create a note and then move it each time.",
+ "readmeHash": "7932a3d4eaad2329ee41951c42f04e8882b35346",
+ "relations": [
+  {
+   "evidence": "Templates come from Templater. The note gets the template from Templater → Folder templates for its folder",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Already using Quick Move? One button in settings imports its folder list.",
+   "plugin": "Quick Move",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "New-note button that opens a menu of preset favorite folders, creates the note there, and applies the folder's Templater template.",
+ "tags": [
+  "templater",
+  "note-creation",
+  "folder-templates",
+  "mobile"
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create daily notes automatically on vault startup",
+  "Backfill daily notes for days the vault was not opened",
+  "Fill missing daily notes for an arbitrary past date range via a command",
+  "Reuse the settings and templates configured in the daily notes core plugin"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Known issues: misbehaves when daily notes use a folder structure (e.g. YYYY/MM/DD) or have extra text in the filename, due to limitations in the obsidian-daily-notes-interface package; asks for confirmation when backfilling more than a week of missed notes.",
+ "intent": "improve",
+ "intentEvidence": "designed to be an add-on to the daily notes core plugin, rather than a replacement",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "The daily notes core plugin only creates a note when you open it, so days you did not open the vault get no note, and the built-in startup option forces the daily note open.",
+ "readmeHash": "b6f9e29823a3688c2b59fb2fbaa4d47e89ee86a2",
+ "relations": [
+  {
+   "evidence": "It acts as an alternative to Auto Journal.",
+   "plugin": "Auto Journal",
+   "type": "alternative"
+  },
+  {
+   "evidence": "caused by the underlying obsidian-daily-notes-interface package",
+   "plugin": "obsidian-daily-notes-interface",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Add-on to the daily notes core plugin that automatically creates missing daily notes on startup or on demand for past date ranges.",
+ "tags": [
+  "backfill",
+  "startup",
+  "auto-journal"
+ ]
+}

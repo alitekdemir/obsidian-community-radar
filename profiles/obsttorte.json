@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync an entire vault, including config-folder plugins and settings, across devices",
+  "Self-host a sync server on Cloudflare Workers, D1, and R2 via a CLI",
+  "Resolve conflicts with per-file merging and a conflict-resolution UI",
+  "Restore files from revision history",
+  "Revoke device tokens to stop lost devices from syncing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Caveats in the README: files are stored unencrypted on the server, mobile syncing only runs while the app is in the foreground, files over 100 MB are not synced, and it must not be combined with Obsidian Sync, iCloud Drive, Dropbox, or similar sync services. The README also warns that plugins executing note content as JavaScript (e.g. Dataview dataviewjs, Templater) may run code synced from other devices, and states the developer is not responsible for data loss.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices normally relies on third-party services; some users want to sync through infrastructure they control.",
+ "readmeHash": "504b9edfbce9cd5b14973179c9d33ec5f6675f6a",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloudflare Workers Paid plan",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare Zero Trust",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Self-hosted vault sync that runs a server on your own Cloudflare account (Workers, D1, R2) and syncs notes, plugins, and settings across devices.",
+ "tags": [
+  "cloudflare",
+  "self-hosted",
+  "cloudflare-workers",
+  "conflict-resolution",
+  "revision-history",
+  "device-tokens"
+ ]
+}

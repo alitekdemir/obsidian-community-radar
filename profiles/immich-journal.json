@@ -1,0 +1,72 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Pick photos taken on the daily note's date from an Immich server",
+  "Insert selected photos as resized local copies with captions and Immich backlinks",
+  "Configure insert position, embed presets, and a custom metadata template",
+  "Detect the date from the note title or a frontmatter field",
+  "Verify server connection and API key permissions with a test button"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a journaling or diary plugin; it only inserts photos from an Immich server into notes based on the note's date.",
+ "extras": "Not yet released as a Community Plugin; install via BRAT until review passes. API key is stored in plain text in data.json. Docs include a settings reference table and a troubleshooting table for connection errors.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to browse a self-hosted photo library by date and insert images into daily notes, so journaling with personal photos requires manual exporting and resizing.",
+ "readmeHash": "12835c9b2631a1b44a2df22f6f5635333646a28b",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin that inserts photos from your self-hosted Immich server into your daily notes",
+   "plugin": "Immich",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Immich server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Immich API key (asset.read and asset.view)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Photo inserter that pulls photos taken on a daily note's date from a self-hosted Immich server and inserts them resized, captioned, and linked back to Immich.",
+ "tags": [
+  "immich",
+  "self-hosted",
+  "photo-picker",
+  "image-resizing",
+  "captions",
+  "tailscale",
+  "vpn"
+ ]
+}

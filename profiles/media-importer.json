@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Scans notes for external media URLs",
+  "Downloads media files",
+  "Rewrites note links to new locations",
+  "Stores files locally, on WebDAV, or S3",
+  "Filters media by host or size"
+ ],
+ "coreOverlap": {
+  "features": [
+   ", files",
+   "attachments",
+   "editing"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "External media links referenced in notes can break or become inaccessible, and managing these files across different storage locations is cumbersome.",
+ "readmeHash": "2958fffd9cb490378de3486d333c263b2fc2446e",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Media Importer",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "WebDAV/S3 service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Media Importer downloads remote media referenced in notes and stores it locally or on a remote backend like WebDAV or S3.",
+ "tags": [
+  "webdav",
+  "s3",
+  "remote-media",
+  "idempotent",
+  "dry-run",
+  "collision-safe"
+ ]
+}

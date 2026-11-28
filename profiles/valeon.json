@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publishes and updates posts on the Valeon dashboard",
+  "Lints frontmatter against the cached server schema",
+  "Uploads post assets and rewrites image links for transport",
+  "Pulls published posts, draft buffers and metadata into the vault",
+  "Generates covers, excerpts, alt text and tags with AI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Invite-only platform; needs Obsidian 1.11.4+ for secret storage. The token is stored per device in Obsidian's secret storage, not in the vault, so it must be set up on each device. AI cover, excerpt, alt-text and tag features use the Valeon image and text models.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Authors writing for the Valeon platform had to work in the web dashboard, with no way to draft in Obsidian, keep frontmatter valid against the server schema, or keep local notes and remote posts in step.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "ac3bd3b66512bb7ee6606aec833f1b4a94ab54e9",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "the two are complementary, not redundant",
+   "plugin": "Linter (obsidian-linter)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Valeon author account (invite-only)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Valeon API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plugin that publishes vault posts to the Valeon author dashboard, lints frontmatter against the live schema, uploads assets and pulls remote changes back.",
+ "tags": [
+  "blog",
+  "yaml",
+  "api-key",
+  "secret-storage",
+  "image-generation",
+  "auto-tagging",
+  "conflict-resolution"
+ ],
+ "textHash": "d69827e479a7ab455ab384cefd6eaf8039354ab7"
+}

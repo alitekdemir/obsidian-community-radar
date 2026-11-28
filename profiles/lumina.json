@@ -1,0 +1,126 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with cloud and local LLMs in a side panel",
+  "Index the vault with local or cloud embeddings for semantic search",
+  "Run terminal CLI agents with read-only or edit modes",
+  "Execute agent tasks with diff review and approval cards",
+  "Serve and connect external MCP servers and tools"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks",
+   "Outgoing links",
+   "Daily notes",
+   "Canvas",
+   "Task lists",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not only a chat panel; it also runs terminal CLI agents and exposes vault tools as an MCP server.",
+ "extras": "Many features are Desktop only: local LLMs, terminal CLI agents, external MCP client/server, and built-in offline embeddings; mobile needs a cloud embedding model for RAG. API keys are stored via Obsidian SecretStorage. Agent file edits use inline diff review with approval cards and automatic overwrite backups; the README advises monitoring agent operations closely. Debug logs may contain chat transcripts. A donation link is included.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with AI models over vault context, run semantic search, or let agents and external AI tools read and edit notes.",
+ "profiledAt": "2026-11-26",
+ "provider": "Baidu",
+ "readmeHash": "c354cfcdeec04192ecc681eacbc12e54c266fa0c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Run official terminal AI agents (Claude Code, Antigravity, OpenCode, Codex) inside Obsidian's side panel",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run official terminal AI agents (Claude Code, Antigravity, OpenCode, Codex) inside Obsidian's side panel",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run official terminal AI agents (Claude Code, Antigravity, OpenCode, Codex) inside Obsidian's side panel",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run official terminal AI agents (Claude Code, Antigravity, OpenCode, Codex) inside Obsidian's side panel",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local LLMs (Ollama, LM Studio) | ✅ | ❌ | Requires local desktop server runtime",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local LLMs (Ollama, LM Studio) | ✅ | ❌ | Requires local desktop server runtime",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Search the web using various providers like Tavily, Exa, Google with smart truncation",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Search the web using various providers like Tavily, Exa, Google with smart truncation",
+   "plugin": "Exa",
+   "type": "integrates"
+  },
+  {
+   "evidence": "external AI assistants (Claude, Cursor, etc.) or the Agent Mode AI to directly access your vault",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini or Groq (free tier available)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Terminal CLI agent binaries (Claude Code, Antigravity, OpenCode, Codex)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM server (Ollama, LM Studio)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Web search provider key (Tavily, Exa, Google)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "All-in-one AI assistant plugin that adds multi-LLM chat, zero-config RAG, terminal CLI agents, and bidirectional MCP tools to Obsidian.",
+ "tags": [
+  "mcp",
+  "ollama",
+  "lm-studio",
+  "claude-code",
+  "codex",
+  "rag",
+  "semantic-search",
+  "auto-tagging"
+ ],
+ "textHash": "4e29e15c7eae3e7fa95030247f0d39d2f6f5092e"
+}

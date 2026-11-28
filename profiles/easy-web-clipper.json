@@ -1,0 +1,54 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Clip a pasted web page URL into a Markdown note via ribbon icon or command palette",
+  "Extract the article body and remove ads, navigation, footers, and other noise",
+  "Generate YAML front matter with title, source URL, author, date, and excerpt",
+  "Clip a URL directly from the clipboard",
+  "Configure save path, filename templates, and front matter fields"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Cannot clip pages that require JavaScript rendering or login (e.g. Notion, GitHub Discussions); images keep original URLs and may be blocked by hotlink protection. Roadmap items (local image download, batch clipping, custom cleaning rules) are not yet implemented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says Obsidian has lacked a good web clipper and built this as a pure in-app solution with zero external dependencies.",
+ "primary": "import",
+ "problem": "Existing Obsidian clipping options require browser extensions, third-party services, or command-line tools, or produce poor extraction quality.",
+ "readmeHash": "eaec4b8efa82a4a1fc75f13ba7fcf111fa539adc",
+ "relations": [
+  {
+   "evidence": "Content extraction: Mozilla's Readability.js — the same engine behind Firefox Reader View",
+   "plugin": "Readability.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Markdown conversion: Turndown with GFM plugin",
+   "plugin": "Turndown",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Web clipper that converts a pasted URL into a clean Markdown note inside Obsidian, extracting the article body and stripping ads and navigation.",
+ "tags": [
+  "readability",
+  "turndown",
+  "html-to-markdown",
+  "reader-view",
+  "web-clipping"
+ ]
+}

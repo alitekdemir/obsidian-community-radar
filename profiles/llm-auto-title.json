@@ -1,0 +1,61 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a title for the current note via a local LLM",
+  "Batch-rename notes whose filenames match a timestamp pattern",
+  "Rename through fileManager.renameFile so backlinks update",
+  "Customize the system prompt, timestamp regex, and scan folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general AI writing assistant; it only generates titles and renames files.",
+ "extras": "Desktop only, since mobile cannot reach a desktop's local LLM server. All traffic stays local; the README includes a detailed privacy and permissions section. Installation is developer-style (copying main.js and manifest.json manually). UI is localized in English and Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Notes saved with timestamp filenames or untitled content stay hard to identify, and Obsidian offers no way to generate and apply titles automatically.",
+ "readmeHash": "db1dd278f605d231e484cc3db8879feb57cde770",
+ "relations": [
+  {
+   "evidence": "default LMStudio, works with any OpenAI-compatible server (Ollama, vLLM, …)",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Other OpenAI-compat servers (Ollama, vLLM, …): just change the Base URL in settings.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a local OpenAI-compatible LLM server such as LM Studio, Ollama, or vLLM",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Generates note titles with a local LLM server (LM Studio default), renaming the current note or batch-renaming timestamp-pattern notes.",
+ "tags": [
+  "llm",
+  "lm-studio",
+  "ollama",
+  "vllm",
+  "openai-compatible",
+  "local-server",
+  "batch-rename"
+ ]
+}

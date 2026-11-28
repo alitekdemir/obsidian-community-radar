@@ -1,0 +1,74 @@
+{
+ "also": [
+  "properties",
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Search frontmatter for URL keys",
+  ": Present matching URLs",
+  ": Open selected URLs",
+  ": Define quick URL keys in settings",
+  ": Map keybindings to quick URLs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view",
+   "Links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": "On any given note, you can use this to open urls that are mentioned in the note's YAML front matter.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author needed a way to correlate notes with external systems like task lists or file folders, especially when following methods like Tiago Forte's PARA.",
+ "primary": "links",
+ "problem": "The difficulty in quickly accessing external resources like task lists or file repositories linked within a note's metadata.",
+ "readmeHash": "e2bf1acb29cdf703fdcc7c8f88102668160ad0ca",
+ "relations": [
+  {
+   "evidence": "If you supply a tasksUrl that perhaps points to Asana or Clickup, you can open the correlating URL in seconds.",
+   "plugin": "Asana",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you supply a tasksUrl that perhaps points to Asana or Clickup, you can open the correlating URL in seconds.",
+   "plugin": "Clickup",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This is also true if you supply a filesUrl that may point to a Google Drive or Dropbox folder.",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This is also true if you supply a filesUrl that may point to a Google Drive or Dropbox folder.",
+   "plugin": "Dropbox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Open Related Url",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "A command that searches a note's YAML frontmatter for keys ending in 'Url' and allows the user to open the corresponding external links.",
+ "tags": [
+  "asana",
+  "clickup",
+  "google-drive",
+  "para",
+  "yaml"
+ ]
+}

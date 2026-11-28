@@ -1,0 +1,96 @@
+{
+ "also": [
+  "tasks",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scroll text under a fixed cursor with hotkeys",
+  "Track plans, due reminders and publishing dates from a start page",
+  "Copy notes as Facebook posts preserving blank lines and stripping Markdown",
+  "Fetch and sort your own Threads post metrics in a dashboard",
+  "Capture ideas and browse inbox, library, topics, skills and files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the Threads token is stored in plain text in the plugin's data.json and travels with vault sync or Git; AI titles and the Telegram inbox pull are off or desktop-only by default; each feature can be toggled off individually, requiring a plugin reload.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no typewriter scrolling, no way to copy notes pasted into Facebook without losing blank lines, and no way to view Threads post metrics inside the vault.",
+ "readmeHash": "34a85e3a4da61777a7c305f315e790f0fbdb0317",
+ "relations": [
+  {
+   "evidence": "It calls Meta's official Threads API to read your own account's data.",
+   "plugin": "Meta Threads API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With AI for titles set to Claude Code or Codex, quick capture first saves the idea",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Auto tries Claude Code first, then Codex.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Turns a finished note into plain text you can paste straight into Facebook.",
+   "plugin": "Facebook",
+   "type": "integrates"
+  },
+  {
+   "evidence": "every message sent from Telegram that is still in 收件匣/隨手記/",
+   "plugin": "Telegram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "runs my-AI-System's scripts/inbox.mjs pull, the same program the AI runs",
+   "plugin": "my-AI-System",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Threads access token from the Meta developer console",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Meta developer account for the Threads API token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or Codex installed locally for optional AI titles; my-AI-System paired for the Telegram inbox",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "A personal toolkit with a start page for plans and idea capture, typewriter-style scrolling, Facebook post copying, and read-only Threads metrics.",
+ "tags": [
+  "threads",
+  "facebook",
+  "telegram",
+  "claude-code",
+  "codex",
+  "typewriter-scrolling",
+  "publishing-schedule"
+ ]
+}

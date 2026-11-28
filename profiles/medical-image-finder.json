@@ -1,0 +1,85 @@
+{
+ "also": [
+  "search",
+  "ai"
+ ],
+ "audience": [
+  "medical students",
+  "clinicians"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Searches image providers for medical reference images",
+  "Previews results in an in-app lightbox with zoom and keyboard navigation",
+  "Copies images to the clipboard or saves them to Attachments/MedicalImages",
+  "Scans notes with AI to flag sections lacking illustrations",
+  "Inserts embeds under list items with matching indentation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a browser for images already in the vault; it searches online image providers and inserts the results into notes.",
+ "extras": "Windows-only. Default DuckDuckGo search needs no key; optional providers have free tiers (Bright Data 5,000 requests/month, Google CSE 100 searches/day). API keys are stored in Obsidian's plugin settings file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Notes on anatomy, radiology and clinical topics need reference images, but finding, previewing and embedding them means leaving Obsidian and saving files by hand.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "555ba424c57fdd5b1e97fbe0c5949791ce5506a6",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Uses DuckDuckGo Image Search by default — no API keys, accounts, or subscriptions needed.",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Switch easily between DuckDuckGo, Bright Data (5,000 free/mo), Wikimedia Commons",
+   "plugin": "Bright Data",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Wikimedia Commons: Free, public domain and Creative Commons medical atlas diagrams.",
+   "plugin": "Wikimedia Commons",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Bright Data, Google CSE, SerpApi or Brave Search key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Searches medical reference images from note selections, previews them in a sidebar lightbox, and copies or saves them into the vault.",
+ "tags": [
+  "web-search",
+  "gemini",
+  "groq",
+  "openrouter",
+  "clipboard"
+ ],
+ "textHash": "47bca92e823ef77a4f058d37e7bdf26d4a9632a5"
+}

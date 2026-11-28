@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Copy or export notes as portable Markdown with configurable transforms (wikilinks, embeds, callouts, frontmatter, attachments)",
+  "Send notes to and import from Bear, Youdao Note, Yinxiang, and WPS Cloud Note via CLIs, URL schemes, or APIs",
+  "Push notes to Flomo, WeKnora, IMA, and Octop via their MCP servers or REST APIs",
+  "Pick a target notebook, folder, or knowledge base from a shared fuzzy-search list",
+  "Enable and configure each provider independently in settings and via right-click context menu commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general file-format converter; it copies notes as portable Markdown and targets a fixed, curated set of named apps rather than any import format.",
+ "extras": "Not in the official community catalogue; installed via BRAT or GitHub releases. README discloses shell subprocess use, filesystem access outside the vault, and an Ajv dynamic-code-execution notice; Octop credentials may sync with the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "\"most people who care about Markdown portability use more than one of these apps\" and bundling them avoids duplicating the transform layer.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to convert its syntax into portable Markdown for other apps or to push and pull notes with external note services.",
+ "readmeHash": "f2424f18ba4023e95abd75572c9db73591977103",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Bear, WPS Cloud Note, Youdao Note, Flomo, Yinxiang, WeKnora, IMA, or Octop",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API keys or tokens for Youdao, Flomo, Yinxiang, WeKnora, IMA",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Username and password for self-hosted Octop",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Exports notes as portable Markdown and sends or imports them between the vault and Bear, Youdao, WPS Cloud Note, Flomo, Yinxiang, and other apps.",
+ "tags": [
+  "bear",
+  "flomo",
+  "youdao",
+  "wps-cloud-note",
+  "yinxiang",
+  "weknora",
+  "mcp"
+ ]
+}

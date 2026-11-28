@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault and arbitrary local folders with BM25 ranking (Markdown, code, csv, xlsx, docx, pdf)",
+  "Read note sections, full notes with frontmatter and links, tables, tags, and folder trees",
+  "Keep an in-memory index up to date from Obsidian events",
+  "Install Claude Code hooks and a setup skill that redirect Grep/Glob to these tools",
+  "Redact tokens and skip sensitive files like .env and SSH keys"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a UI search replacement; it exposes vault and disk search as MCP tools for AI agents.",
+ "extras": "Guided setup writes files into the vault's .claude/ folder after a confirmation screen; the folders-outside-index setting currently has no settings tab and is configured only through the guided setup; protection hooks fail open when Obsidian is not running.",
+ "intent": "improve",
+ "intentEvidence": "exposed as MCP tools through the AI Ecosystem core",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's search is a UI feature, so AI agents working in the vault have no programmatic, ranked way to query notes, sections, and other local files.",
+ "readmeHash": "268bdd97cabbe50f4ea07c3011fbe1a12e7cef41",
+ "relations": [
+  {
+   "evidence": "exposed as MCP tools through the AI Ecosystem core",
+   "plugin": "AI Ecosystem",
+   "type": "extends"
+  },
+  {
+   "evidence": "The AI Ecosystem core can install Claude Code hooks and a setup skill for this module",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "and a block in GEMINI.md for Antigravity",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "AI Ecosystem",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "MCP search server for AI agents that indexes the vault in memory with BM25 and also searches files in any local folder.",
+ "tags": [
+  "mcp",
+  "claude-code",
+  "bm25",
+  "ai-agents",
+  "ripgrep",
+  "xlsx"
+ ]
+}

@@ -1,0 +1,51 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "resolve GFM kebab-case heading links on click across files",
+  "support hover page preview for GFM links",
+  "insert GFM slugs with heading aliases via autocomplete",
+  "configure display prefixes and suffixes for autocomplete output"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a link formatter or exporter; it resolves GFM slugs at runtime without modifying files.",
+ "extras": "Detailed architecture and GFM spec documentation is hosted externally, not in the README. The README lists known limitations, including reliance on undocumented Obsidian autocomplete internals that may break duplicate-heading collision suffixes.",
+ "intent": "new",
+ "intentEvidence": "This plugin bridges that gap. Links written in GFM format resolve correctly at runtime",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian's heading slug format differs from GitHub Flavored Markdown, so links written in GFM format are dead links and unresolved wikilinks.",
+ "readmeHash": "fe26893168cb9092ce0d6c255991976b35a588e3",
+ "relations": [
+  {
+   "evidence": "Compatible with Better Markdown Links",
+   "plugin": "Better Markdown Links",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Link resolver that makes GFM-style kebab-case heading links (e.g. #my-heading) work in Obsidian at runtime, in both Live Preview and Reading view.",
+ "tags": [
+  "gfm",
+  "github-flavored-markdown",
+  "slugs",
+  "heading-links",
+  "wikilinks",
+  "monkeypatching"
+ ]
+}

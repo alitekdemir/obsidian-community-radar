@@ -1,0 +1,57 @@
+{
+ "also": [
+  "editing",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight proofreading findings in the note, colour-coded by category",
+  "Show the rule behind each finding on hover",
+  "Fix findings in place via a correction field, or resolve or dismiss them",
+  "List all findings for the open note in a panel",
+  "Run the Claude Code proofread skill from the plugin on desktop"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not proofread anything itself; it only draws the findings report that a Claude Code skill writes.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Findings render only in Source and Live Preview, not Reading view. Reports are stored as JSON under a dot-prefixed .proofread/ folder, and anything that writes that JSON format can serve as the report writer.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it so findings are drawn on the note itself, letting you work through them where the prose is rather than in a chat log.",
+ "primary": "writing",
+ "problem": "Obsidian has no built-in proofreading, and running checks in a chat log or separate report means editing prose away from the text itself.",
+ "readmeHash": "890795380bd26601320a1f06f4595acbd1f9416f",
+ "relations": [
+  {
+   "evidence": "It draws a report that the proofread skill for Claude Code, which lives in this repo, writes.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code (claude CLI on PATH)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Proofreading overlay that highlights grammar, vocabulary, clutter and clarity findings in a note and lets you fix each one in place.",
+ "tags": [
+  "claude-code",
+  "grammar",
+  "style-editing",
+  "proofreading"
+ ]
+}

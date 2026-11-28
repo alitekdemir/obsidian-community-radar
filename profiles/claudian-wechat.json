@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Relay WeChat text and images into a live Claudian session and stream responses back",
+  "Switch, list, and create Claudian sessions remotely via /ls, /goto, and /new",
+  "Run slash commands and change model, effort, and permission settings from WeChat",
+  "Mirror desktop Claudian turns to WeChat with /listen",
+  "Bootstrap and manage a local Python relay process with QR-code WeChat login"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not manually reviewed by Obsidian staff. Requires desktop Obsidian, Python 3.11+ on PATH, and Claudian configured with a working provider; the bundled relay.py runs in an auto-created virtualenv and all traffic stays on 127.0.0.1.",
+ "intent": "improve",
+ "intentEvidence": "Remote control your Claudian AI coding agent inside Obsidian directly from WeChat",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Claudian's AI agent only runs in the desktop Obsidian window, so there is no way to prompt it, send it images, or switch sessions while away from the computer.",
+ "readmeHash": "7cbf33d708597dd3fe92d529cc262b76f73b8200",
+ "relations": [
+  {
+   "evidence": "Claudian by Yishen Tu — The core Obsidian agent plugin driven by this bridge.",
+   "plugin": "Claudian",
+   "type": "extends"
+  },
+  {
+   "evidence": "wechat-clawbot by nightsailer (Pan Fan) — Python WeChat ClawBot iLink API client foundation.",
+   "plugin": "wechat-clawbot",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Claudian 2.3+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "WeChat with ClawBot access",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bridge that relays WeChat messages, images and slash commands into a Claudian AI coding agent session inside Obsidian and returns its responses.",
+ "tags": [
+  "wechat",
+  "claude-code",
+  "claudian",
+  "remote-control",
+  "python",
+  "qr-login"
+ ]
+}

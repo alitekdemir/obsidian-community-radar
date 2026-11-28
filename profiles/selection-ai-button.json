@@ -1,0 +1,60 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show a floating Ask AI button next to selected text in Live Preview",
+  "Open Copilot Quick Ask from the selection without the context menu",
+  "Optionally prefill the Quick Ask input with the selected text",
+  "Offer a Switch to Live Preview shortcut when text is selected in Reading view"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Free, makes no network requests, reads no API keys, and collects no telemetry; AI requests and costs come from Copilot and the chosen model provider. Compatibility is pinned to Copilot 4.0.15 and may break on Copilot updates. Desktop only; mobile, Source mode, and PDF selections are unsupported. Interface is Simplified Chinese or English.",
+ "intent": "improve",
+ "intentEvidence": "The integration targets Copilot 4.0.15 and depends on its copilot:trigger-quick-ask command, popup controller, and input structure.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Asking AI about selected text requires using the context menu or commands; there is no one-click button at the selection to open Copilot Quick Ask.",
+ "readmeHash": "75878b4ba38cc7404a7b72f9001a2b5435cca247",
+ "relations": [
+  {
+   "evidence": "Copilot, by Logan Yang, installed and enabled.",
+   "plugin": "Copilot (by Logan Yang)",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Copilot",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "model provider account via Copilot",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Floating button over selected text that opens Copilot's Quick Ask popup, with an optional setting to prefill the question box with the selection.",
+ "tags": [
+  "copilot",
+  "quick-ask",
+  "selection-button",
+  "prefill",
+  "floating-popup",
+  "bilingual"
+ ]
+}

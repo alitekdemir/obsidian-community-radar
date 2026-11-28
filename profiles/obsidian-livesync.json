@@ -1,0 +1,70 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters",
+  "developers",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronise vaults via CouchDB, object storage (S3, R2, MinIO), or WebRTC peer-to-peer",
+  "Merge conflicting modifications automatically",
+  "Encrypt synchronisation traffic end-to-end",
+  "Sync settings, snippets, themes, and plugins via Customisation Sync or Hidden File Sync",
+  "Show synchronisation status and progress indicators in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns to back up the vault before installing and not to run it alongside other sync solutions such as iCloud or Obsidian Sync; it includes a backend comparison table with cost estimates, community-hosted CouchDB providers it does not endorse, and a troubleshooting guide. Requires Obsidian 1.7.2 or later for version 1.0. Extension docs (development guide, detailed setup) live outside the README.",
+ "intent": "alternative",
+ "intentEvidence": "This plug-in is not compatible with the official \"Obsidian Sync\" and cannot synchronise with it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Self-hosting lets users choose a server they trust and manage it themselves; the plugin targets researchers, engineers, and developers who need notes to remain entirely private.",
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid hosted service, and users who need notes fully self-hosted for privacy or security have no built-in way to sync through their own server.",
+ "readmeHash": "68e84def05a9566732dadeaf1226815082b45089",
+ "relations": [
+  {
+   "evidence": "This plug-in is not compatible with the official \"Obsidian Sync\" and cannot synchronise with it.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "For backups, we also provide a plug-in called Differential ZIP Backup.",
+   "plugin": "Differential ZIP Backup",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CouchDB server or object storage bucket",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Fly.io, IBM Cloudant, Cloudflare R2, or AWS S3 for hosted backends",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vault synchronisation plugin that replicates notes to a self-hosted CouchDB or object storage backend, or between devices via WebRTC peer-to-peer.",
+ "tags": [
+  "couchdb",
+  "webrtc",
+  "e2e-encryption",
+  "self-hosted",
+  "object-storage",
+  "cloudflare-r2"
+ ]
+}

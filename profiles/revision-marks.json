@@ -1,0 +1,60 @@
+{
+ "also": [
+  "automation",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Update created and updated timestamps",
+  "Increment optional revision counters",
+  "Detect changes from editor, Properties, Bases and external edits",
+  "Defer metadata writes until leaving, reading view or save",
+  "Preserve unrelated frontmatter and property blocks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a track-changes or annotation tool; it only updates timestamp and revision-count properties.",
+ "extras": "Manual installation; warns to disable other automatic writers of these properties and test disposable notes before using a working vault; existing notes are not bulk-stamped or renamed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Automatic timestamp and revision metadata can be written during typing or on unchanged content, creating noise and interrupting editing.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "517462edaafad403f75f85a454c64b1d738e3c3f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "unrendered Templater expressions in frontmatter are deferred automatically.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Obsidian 1.15.0 or newer",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that updates created and updated timestamps and optional revision counts after editing sessions, deferring writes until a safe boundary.",
+ "tags": [
+  "timestamps",
+  "yaml",
+  "autosave"
+ ],
+ "textHash": "7a8dc3afdf24cebdde04341653565bbe48a0d3c6"
+}

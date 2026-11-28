@@ -1,0 +1,57 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "embed issue and pull request previews for GitHub links",
+  "embed file snippets scoped to line ranges via #L anchors",
+  "authenticate GitHub API calls with a personal access token",
+  "support private repositories via token permissions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Embeds currently work only in reading mode; the README's Todo lists editor-mode support and per-link opt-in/out as unfinished. The entire file is still requested even when limiting snippet lines, which may be slow for large files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "GitHub links in notes show only plain text unless opened in a browser, so issue details and file contents are not visible in context.",
+ "readmeHash": "bf167bcff70c2dbd496d1a59cffbf548f2408cc2",
+ "relations": [
+  {
+   "evidence": "In order to make use of GitHub's API, calls need to be authenticated.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Plugin that embeds previews of GitHub issues, pull requests, and code file snippets beneath GitHub links in reading mode.",
+ "tags": [
+  "github",
+  "issues",
+  "pull-requests",
+  "code-snippets",
+  "embeds",
+  "personal-access-token"
+ ]
+}

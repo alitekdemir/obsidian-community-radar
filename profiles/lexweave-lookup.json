@@ -1,0 +1,89 @@
+{
+ "also": [
+  "ai",
+  "pdf"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up a selected or double-clicked word and get the meaning that fits the sentence",
+  "Translate phrases or whole passages sentence by sentence and ask questions about them",
+  "Hear pronunciations via text-to-speech",
+  "Work inside Obsidian's PDF viewer, including control-hover lookup",
+  "Save lookups to a review note or insert meanings inline"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Source code is kept in a private repository, with only release files public. The plugin is free, but Google's APIs may charge according to your Google plan. API keys are stored in the vault's plugin data.json and will travel with the vault if it is synced or shared. No ads, analytics or telemetry; a privacy policy is linked externally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to look up or translate a word or passage while reading, especially inside its PDF viewer.",
+ "readmeHash": "8589615ce1070326b19bcb5b5c6797a552bf61d8",
+ "relations": [
+  {
+   "evidence": "Gemini API (generativelanguage.googleapis.com): the text you look up",
+   "plugin": "Gemini API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cloud Translation API (translation.googleapis.com), only if you add its key",
+   "plugin": "Cloud Translation API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cloud Text-to-Speech API (texttospeech.googleapis.com), only if you choose Google's voices",
+   "plugin": "Cloud Text-to-Speech API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key from Google AI Studio",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google account to create the Gemini key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud Translation key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud Text-to-Speech key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Google API usage charges",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "AI-powered lookup that explains English words, phrases and passages in context with translation, IPA and read-aloud, and saves results to a note.",
+ "tags": [
+  "gemini",
+  "translation",
+  "dictionary",
+  "ipa",
+  "text-to-speech",
+  "language-learning"
+ ]
+}

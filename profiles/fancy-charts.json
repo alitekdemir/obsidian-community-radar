@@ -1,0 +1,60 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render interactive charts inline inside notes",
+  "build and edit charts through a modal with live preview",
+  "store chart data as plain Markdown tables in fenced blocks",
+  "configure charts with YAML or raw ECharts options",
+  "generate chart blocks via AI coding agents using a provided skill"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Full block schema is documented separately in docs/schema.md; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author missed a modern chart plugin with self-contained blocks whose data stays readable and editable even without the plugin installed.",
+ "primary": "charts",
+ "problem": "Obsidian has no built-in charting, and the author found existing chart options lacked self-contained, human-readable data blocks that fit an AI-assisted workflow.",
+ "readmeHash": "3c2befc797b2dcb7fb812406aa41910c0d3fac5b",
+ "relations": [
+  {
+   "evidence": "Advanced mode — pass a raw ECharts option object for full control over every chart property",
+   "plugin": "ECharts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you use an agentic AI coding tool — Claude Code, Kiro, Codex, Pi",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "agentic AI coding tool (e.g. Claude Code) for the AI generation skill",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Chart plugin that renders interactive charts (bar, line, pie, scatter, area, funnel, heatmap, sankey) inline in notes from Markdown-table data blocks.",
+ "tags": [
+  "echarts",
+  "sankey-diagram",
+  "heatmap",
+  "ai-agents",
+  "data-visualization"
+ ]
+}

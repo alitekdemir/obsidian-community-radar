@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations",
+  "editing"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Translate selected words or sentences via configured engines",
+  "Insert translated words as word cards into notes",
+  "Save engine pronunciation audio files to the vault",
+  "Record custom pronunciations",
+  "Implement custom translation engines by extending the TranslationStrategy class"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is in Chinese only. A 2024-04-23 note says changes to Youdao's text translation API broke dictionary data, so Youdao now shows only basic definitions, links and pronunciation. Google Translate and Microsoft Translate engines are listed as unimplemented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to translate unfamiliar words or sentences quickly while building a knowledge base, without leaving note-taking.",
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to look up translations of unfamiliar words while writing and save them as vocabulary cards in the vault.",
+ "readmeHash": "8d68a97bcd2a237e44dfa5577e400e0cbd752b4d",
+ "relations": [
+  {
+   "evidence": "翻译引擎支持 - [x] 有道翻译",
+   "plugin": "有道翻译 (Youdao Translate)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "- [x] 百度智能云翻译",
+   "plugin": "百度智能云翻译 (Baidu Smart Cloud Translate)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Youdao Translate or Baidu Smart Cloud Translate",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "translation engine API credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Translation helper that underlines translations of selected words or sentences in notes and inserts them as word cards, with optional pronunciation audio.",
+ "tags": [
+  "youdao",
+  "baidu-cloud",
+  "dictionary",
+  "word-cards",
+  "pronunciation",
+  "translation-engines"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt notes and images in place with a password using the age format (.md.age)",
+  "Decrypt files on open and cache the password in memory for the session",
+  "Re-encrypt files when the last protected tab closes, after vault inactivity, or via a lock-now command",
+  "Decrypt all matching files in a folder from the file explorer context menu",
+  "Configure protected extensions and path exclusions via a shared .ageconfig policy"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a nested-vault or sandboxing tool; it encrypts selected files in place with a password while keeping them in their original folders.",
+ "extras": "Desktop-only (no mobile). The README warns that plaintext is written to disk while unlocked, search indexes and sync tools may retain plaintext, the project has no independent security audit, and there is no password recovery. An earlier development build under the id fileencrypt-age-viewer must be disabled before enabling this plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian stores notes as plaintext, so sensitive files stay readable in copied, backed-up, or synchronized vaults.",
+ "readmeHash": "5620688477a7f60b13611c7c037f8a9a4213d4b2",
+ "relations": [
+  {
+   "evidence": "To share one policy with the companion Go CLI, create .ageconfig in the vault root",
+   "plugin": "Go CLI companion",
+   "type": "integrates"
+  },
+  {
+   "evidence": "encrypted files remain compatible with standard passphrase-encrypted age tools",
+   "plugin": "age tools",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you're also using Obsidian calendar plugin, you may take a look at the updated version which support .md.age extension",
+   "plugin": "Obsidian calendar plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "File encryption plugin that password-encrypts selected notes and images in place and re-locks plaintext on tab close, inactivity, or on demand.",
+ "tags": [
+  "encryption",
+  "age-format",
+  "password-protection",
+  "privacy",
+  "encryption-at-rest"
+ ]
+}

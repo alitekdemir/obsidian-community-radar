@@ -1,0 +1,145 @@
+{
+ "also": [
+  "audio",
+  "flashcards"
+ ],
+ "audience": [
+  "English learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import timestamped transcripts from video, podcast, and local media",
+  "Play media with synced transcript highlighting and segment controls",
+  "Translate segments and generate study cards with AI providers",
+  "Look up words offline and build a vocabulary book",
+  "Practice dictation, shadowing, and spaced review"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Command palette",
+   "Hotkeys",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; mobile support is experimental. Public YouTube caption import uses an unofficial interface, and Bilibili/YouTube public interfaces may change. AI translation and chat require provider API keys and may incur charges; the interface and translation target are Simplified Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian lacks a built-in way to turn video and podcast transcripts into timestamped language-study material with playback, lookup, and review.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "e030952a15ab2b23bc173880947b5bb8ee878869",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "Embedded YouTube player using the privacy-enhanced youtube-nocookie.com domain",
+   "plugin": "YouTube",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local cached Bilibili playback with an optional cache folder outside the vault",
+   "plugin": "Bilibili",
+   "type": "integrates"
+  },
+  {
+   "evidence": "paste a Spotify show or episode link in the import dialog or RSS sidebar to use its public podcast feed",
+   "plugin": "Spotify",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Paste a Spotify or Apple Podcasts show or episode link to import a public podcast through its RSS feed",
+   "plugin": "Apple Podcasts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use Baidu Translate, DeepSeek, Kimi, or an OpenAI-compatible service in a draggable floating card",
+   "plugin": "Baidu Translate",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Models: deepseek-v4-flash or deepseek-v4-pro",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Model: kimi-k2.6",
+   "plugin": "Kimi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "HTTPS OpenAI Chat Completions-compatible providers",
+   "plugin": "OpenAI-compatible provider",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local Whisper Base English transcription when a video is spoken in English but has no English subtitle track",
+   "plugin": "Whisper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Automatic local yt-dlp fallback on desktop when it is already installed",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The compressed exam-and-frequency subset of ECDICT remains inside main.js",
+   "plugin": "ECDICT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "keep Hugging Face as the default or enter a trusted compatible HTTPS source",
+   "plugin": "Hugging Face",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Obsidian desktop 1.13.0 or later",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI translation or study-chat provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili login",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Translation provider API usage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Language-study workspace that imports timestamped YouTube, Bilibili, podcast, and local-video transcripts for playback, translation, dictation, and vocabulary review.",
+ "tags": [
+  "language-learning",
+  "youtube",
+  "bilibili",
+  "transcription",
+  "translation",
+  "vocabulary",
+  "spaced-repetition",
+  "whisper"
+ ],
+ "textHash": "ae0cb49eab220d916fc33bc25145e78d851cdb11"
+}

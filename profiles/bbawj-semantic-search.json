@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate an input CSV from note sections between headings",
+  "Obtain embeddings for those sections via a configured API endpoint",
+  "Search notes semantically from a query modal",
+  "Recommend related notes for the current selection and insert a markdown link",
+  "Configure API URL, model, batching, ignored folders, and cost estimation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README states the plugin is very much experimental, tested only on Windows, and warns that the API key is stored in plain text in data.json so the file should not be committed to a repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search matches literal text, so it cannot find notes based on what the user means rather than the exact words used.",
+ "readmeHash": "6720aa7f3f9fab88e958385fb2e22acf6e5251a8",
+ "relations": [
+  {
+   "evidence": "Thanks to Robert's blog post for the idea and inspiration!",
+   "plugin": "Robert's blog post",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "embeddings API endpoint (e.g. OpenAI or Ollama)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "OpenAI embeddings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Semantic search plugin that indexes note sections as embeddings and finds related notes through a query modal.",
+ "tags": [
+  "embeddings",
+  "openai",
+  "ollama",
+  "vector-search",
+  "wasm",
+  "rust"
+ ]
+}

@@ -1,0 +1,101 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "students",
+  "korean-speakers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import lectures from the Alt desktop app or a share link as per-slide notes",
+  "Generate per-slide commentary and wikilinked concept notes via Claude Code or Codex CLI",
+  "View the slide PDF and note side by side with synced scrolling and a transcript panel",
+  "Ask questions about the current slide with the lecture brief as context",
+  "Check your own notes or Notion pages against the slides and transcript with evidence links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Named for the Alt (altalt.io) lecture app, not a general importer; it only imports lectures from Alt or an Alt share link.",
+ "extras": "Desktop only (tested on macOS); needs Node 22.13+ inside Obsidian for node:sqlite; interface and generated notes are in Korean with academic terms in English; free but LLM features count against your Claude or ChatGPT plan; renamed from Alt2Obsidian before 2.0.0 with a separate plugin id migration path.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to import Alt lectures or turn lecture recordings and slide PDFs into structured, linked study notes.",
+ "readmeHash": "fa000c2f424cb09f958bff46dac2a191eaa5b919",
+ "relations": [
+  {
+   "evidence": "It reads the lectures in the Alt desktop app on your computer and writes one note per lecture",
+   "plugin": "Alt desktop app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Your Claude Code or Codex CLI writes a section per slide from the slide text",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Your Claude Code or Codex CLI writes a section per slide from the slide text",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a Notion page through your Notion MCP",
+   "plugin": "Notion",
+   "type": "integrates"
+  },
+  {
+   "evidence": "main.js bundles PDF.js (pdfjs-dist 4.10.38, Mozilla Foundation, Apache License 2.0",
+   "plugin": "PDF.js",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Alt desktop app",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code or Codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude or ChatGPT account with CLI access",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid Claude plan, API credits, or Codex-including ChatGPT plan",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Notion account for note checking",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Lecture importer that turns Alt app lecture recordings and slide PDFs into Obsidian notes with per-slide AI commentary, concept notes and a synced viewer.",
+ "tags": [
+  "altalt",
+  "claude-code",
+  "codex",
+  "notion-mcp",
+  "korean",
+  "lecture-notes",
+  "pdf-viewer"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "also": [
+  "ai",
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search the vault in semantic, keyword, or hybrid mode from a sidebar",
+  "Extract text from PDFs, scanned pages, and images with OCR and vision",
+  "Transcribe recorded audio into searchable text",
+  "Run and manage a vault-local Soma server that syncs hourly",
+  "Open results at the matching line in Markdown files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet reviewed by Obsidian staff. Multimedia extraction (OCR, vision, speech-to-text) may need up to 24 GB RAM while active; 8 GB RAM minimum. Desktop only, no mobile. Leaves a .soma index folder in the vault on uninstall; exclude it from sync services.",
+ "intent": "improve",
+ "intentEvidence": "Built-in search matches literal text in Markdown. Soma Search adds semantic and hybrid ranking and indexes PDFs, scanned pages, images, and audio.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Folders are not memory. Memory returns as a phrase, an image, or a half-formed question — rarely as a file path.",
+ "primary": "search",
+ "problem": "Obsidian's built-in search only matches literal text in Markdown, so scanned documents, images, recordings are invisible and fuzzy recall by meaning is impossible.",
+ "readmeHash": "a5286e176d4ab52d38ec9c7742e43c69da4fd4f9",
+ "relations": [
+  {
+   "evidence": "Soma — the local-first search engine powering this plugin (semantic, lexical, and hybrid search",
+   "plugin": "Soma",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Soma",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local semantic, keyword and hybrid search over notes, PDFs, scanned pages, images and audio, powered by a locally installed Soma search engine.",
+ "tags": [
+  "semantic-search",
+  "vector-search",
+  "hybrid-search",
+  "speech-to-text",
+  "local-first"
+ ]
+}

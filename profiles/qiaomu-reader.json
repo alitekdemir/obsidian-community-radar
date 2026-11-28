@@ -1,0 +1,97 @@
+{
+ "also": [
+  "pdf",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read EPUB, PDF, FB2, MOBI, AZW3 and CBZ books in a dedicated reader",
+  "Highlight passages and keep one linked Markdown reading note per book",
+  "Translate selections and save words to a vocabulary note",
+  "Ask an AI assistant about the book with custom quick prompts",
+  "Import books from Calibre and send books to Kindle"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an RSS or read-later service; it opens ebook and comic files kept in the vault.",
+ "extras": "AI is off by default and keys are stored with Obsidian SecretStorage; CLI providers are desktop-only; no built-in OCR or cross-book semantic search; physical mobile-device validation is pending; a separate community build excludes the ACP dependency installer.",
+ "intent": "alternative",
+ "intentEvidence": "If you used Qiaomu Book Reader before, back up your vault and disable it before enabling the new plugin",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian cannot open ebook files, so reading, highlights and reading notes end up outside the vault instead of linked to it.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "c4f7f964b174f96fa5eabc8b41ed56f87d73675b",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "If you used Qiaomu Book Reader before, back up your vault and disable it before enabling the new plugin",
+   "plugin": "Qiaomu Book Reader",
+   "type": "replaces"
+  },
+  {
+   "evidence": "On desktop, Add from Calibre copies selected books from a local Calibre library into the vault.",
+   "plugin": "Calibre",
+   "type": "integrates"
+  },
+  {
+   "evidence": "with optional sync to Anki through AnkiConnect",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "into one vocabulary note formatted for the Spaced Repetition plugin",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Right-click a book and choose Send to Kindle.",
+   "plugin": "Kindle",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calibre",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AnkiConnect",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "CLI provider account (Codex, Claude Code, Grok, Kimi, ZCode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Chinese-first ebook reader that opens EPUB, PDF, FB2, MOBI, AZW3 and CBZ files with linked highlights, notes, AI chat, translation and vocabulary review.",
+ "tags": [
+  "epub",
+  "annotations",
+  "highlights",
+  "translation",
+  "vocabulary",
+  "text-to-speech",
+  "anki"
+ ],
+ "textHash": "193cec0b4252cb2f5e7dc08ebc6dd8106b2f6eca"
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync selected vault folders to GitHub or Forgejo/Gitea repos",
+  "Push, pull or sync both ways per folder mapping",
+  "Resolve conflicts with mtime checks, 3-way merge and a per-file modal",
+  "Rewrite wikilinks, callouts, highlights and math for GitHub rendering",
+  "Encrypt file contents end-to-end before upload"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Git client for the vault; it syncs selected folders to a remote repo in a chosen direction.",
+ "extras": "Token is kept in the OS keychain on Obsidian 1.11.4+ and is per device. Encryption hides file contents only; names, sizes, timing and commit messages stay visible, and losing both passphrase and recovery key makes the remote copy unreadable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted a way to share or back up just one or two vault folders in a repo, since Obsidian's built-in Sync covers the whole vault.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync covers the whole vault, so there is no simple way to share or version only one or two folders in a repository.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "96bcb6d634653996c0e8a46dd14bdae36820a024",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "turn on Auto-export SVG (or PNG) in the Excalidraw plugin's settings",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "now also syncs to self-hosted Forgejo / Gitea instances",
+   "plugin": "Forgejo / Gitea",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plugin that syncs chosen vault folders with GitHub or Forgejo/Gitea repos in one or both directions, with conflict handling and backups.",
+ "tags": [
+  "github",
+  "gitea",
+  "two-way-sync",
+  "conflict-resolution",
+  "end-to-end-encryption",
+  "wikilinks"
+ ],
+ "textHash": "2c03222887f7fede5d059db5765636044089a57c"
+}

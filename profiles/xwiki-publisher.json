@@ -1,0 +1,94 @@
+{
+ "also": [
+  "publishing",
+  "syncing"
+ ],
+ "audience": [
+  "xwiki-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publishes notes to XWiki pages with their attachments",
+  "Pulls XWiki pages back into the vault as Markdown",
+  "Syncs whole XWiki spaces and mirrors folder structure",
+  "Converts non-Markdown XWiki pages to Markdown",
+  "Shows XWiki inline comments and user mentions in notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not publish-only: it also pulls XWiki pages back into the vault and syncs whole spaces in both directions.",
+ "extras": "Tokens are kept in Obsidian's secret storage and no telemetry is collected. Administrator setup docs (docs/XWIKI_SETUP.md, docs/OPENPROJECT_SETUP.md) are in Turkish. Math and Mermaid publish as text, and converting non-Markdown pages is lossy.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish notes to an XWiki instance or keep XWiki pages synchronized with vault notes as Markdown.",
+ "profiledAt": "2026-11-26",
+ "provider": "Ant Digital",
+ "readmeHash": "b59ced4782c0ad6792e0b055e1254b1a1c1d3201",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Publish notes from your vault to XWiki and pull XWiki pages back into your vault as Markdown.",
+   "plugin": "XWiki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenProject 17.6 or later with its XWiki integration.",
+   "plugin": "OpenProject",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Folder notes settings → Copy to take over its layout, then disable it so folders are not handled twice",
+   "plugin": "Folder notes plugin by Lost Paul",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "XWiki instance reachable over HTTPS with the Markdown Syntax 1.2 extension",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "XWiki account with view, edit and delete rights on the relevant spaces",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "XWiki access token (kept in Obsidian's secret storage)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenProject 17.6+ with its XWiki integration",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenProject API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync publishing Obsidian notes to XWiki pages as Markdown and pulling pages back into the vault, with attachments, comments and conflict handling.",
+ "tags": [
+  "two-way-sync",
+  "conflict-resolution",
+  "folder-notes",
+  "comments",
+  "secret-storage"
+ ],
+ "textHash": "57155d7eecdb6bce4af3b76c8dc14b2e5c33d501"
+}

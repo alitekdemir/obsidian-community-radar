@@ -1,0 +1,47 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate a file-index.json listing all vault file paths",
+  "Maintain a map of basenames to file paths",
+  "Exclude files from the index via regex rules in file-index-ignore.json"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warning in README: the plugin may have trouble distinguishing between files with the same basename in different folders.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to support externally rendering Wikilinks with no knowledge of the vault file structure, for example in Glassflame.",
+ "primary": "files",
+ "problem": "External tools that need to render wikilinks have no way to resolve basenames to vault file paths without knowing the vault structure.",
+ "readmeHash": "ac2cf1e5908eea053aefbf0b4ea14093d6c15496",
+ "relations": [
+  {
+   "evidence": "Useful to externally render Wikilinks with no knowledge of the file structure of the vault, for example in Glassflame.",
+   "plugin": "Glassflame",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that creates and maintains a file-index.json at the vault root listing all file paths and a basename-to-path map.",
+ "tags": [
+  "wikilinks",
+  "file-paths",
+  "basenames",
+  "glassflame",
+  "external-rendering"
+ ]
+}

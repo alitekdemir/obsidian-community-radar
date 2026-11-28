@@ -1,0 +1,61 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize existing child notes with changes to their declared template",
+  "Three-way merge template, baseline, and child content to keep child-only edits",
+  "Statically project Templater output without executing template code",
+  "Preview projected template defaults and unresolved expressions",
+  "Report per-note property, heading, and body-text changes after manual updates"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Automatic updates are off by default; the README advises enabling File Recovery and backing up the vault before the first large synchronization, and documents a manual ID migration from dynamically-updating-templates.",
+ "intent": "improve",
+ "intentEvidence": "It supports ordinary Markdown templates used by the core Templates plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "templating",
+ "problem": "Obsidian templates only apply when a note is created, so later edits to a template never propagate to notes already made from it.",
+ "readmeHash": "ad561e4f6e10cc1fab543c2ca64a5e1621a4bb11",
+ "relations": [
+  {
+   "evidence": "It supports ordinary Markdown templates used by the core Templates plugin",
+   "plugin": "Templates",
+   "type": "extends"
+  },
+  {
+   "evidence": "statically projects common Templater output without executing template code",
+   "plugin": "Templater",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Keeps existing child notes synchronized with their Templates or Templater source templates via a three-way merge that preserves child customizations.",
+ "tags": [
+  "templater",
+  "three-way-merge",
+  "static-projection",
+  "yaml"
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "also": [
+  "calendar",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Visualize tasks across Year, Month, Week, Day, Task, and Gantt views",
+  "Parse Tasks plugin emoji and Dataview inline-field task formats",
+  "Reschedule tasks by drag-and-drop on calendar and timeline canvases",
+  "Expand recurring tasks as virtual instances across all views",
+  "Sync tasks bidirectionally with Feishu via OAuth 2.0"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, the Gantt view is only one of six views; the plugin's core job is full calendar-based task management.",
+ "extras": "README warns to back up the vault before enabling Feishu sync, since the sync engine writes directly into Markdown files and is under active development. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Beta builds are available via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian renders tasks only as checkbox lists, with no calendar, timeline, or Gantt view for scheduling and rescheduling dated tasks.",
+ "readmeHash": "40e1b4f3f7f2b86f65463523651a8293547b47a6",
+ "relations": [
+  {
+   "evidence": "Full support for Tasks plugin (emoji) and Dataview plugin (inline field) formats",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Full support for Tasks plugin (emoji) and Dataview plugin (inline field) formats",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Obsidian core daily notes, Periodic Notes plugin, and custom paths",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bidirectional task sync with Feishu (Lark) via OAuth 2.0",
+   "plugin": "Feishu (Lark)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks and/or Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Feishu (Lark) account with a self-built app",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Visual task calendar that renders Markdown tasks from Tasks and Dataview formats across year, month, week, day, task list, and Gantt views, with Feishu sync.",
+ "tags": [
+  "feishu",
+  "lark",
+  "gantt-chart",
+  "heatmap",
+  "lunar-calendar",
+  "recurring-tasks",
+  "timeline"
+ ]
+}

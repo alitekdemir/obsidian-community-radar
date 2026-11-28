@@ -1,0 +1,62 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault with a GitHub repository via the GitHub REST API",
+  "Sync automatically on a fixed interval or manually via ribbon button and command",
+  "Resolve conflicts in a split or unified diff view or auto-prefer remote/local",
+  "Optionally sync the .obsidian config folder, including plugins and themes",
+  "Reset plugin settings and sync metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it uses no git at all: no branching, merging, or rebasing, and it only syncs with GitHub, not other git hosts.",
+ "extras": "README warns the plugin must not be used alongside other sync plugins because of its custom metadata file; the first sync requires one side (repo or vault) to be empty; syncing the .obsidian folder on a public repository exposes your token; file-type filtering is still TODO.",
+ "intent": "alternative",
+ "intentEvidence": "Most of those plugins though require the git executable to be present in your system",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted the same syncing experience on every platform, especially mobile, without relying on git being installed.",
+ "primary": "syncing",
+ "problem": "Other GitHub sync plugins require the git executable on your system and are hard to use on Windows and unstable on mobile.",
+ "readmeHash": "233ddc77758c4436c4625acc0d59ab4f8f9f4b54",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "obsidian-git",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "Obsidian-GitHub-Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained token with Contents read/write permission",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs an Obsidian vault with a GitHub repository using the GitHub REST API, with no git executable needed, on desktop and mobile.",
+ "tags": [
+  "github",
+  "rest-api",
+  "conflict-resolution",
+  "mobile",
+  "fine-grained-token"
+ ]
+}

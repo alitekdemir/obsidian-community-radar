@@ -1,0 +1,71 @@
+{
+ "also": [
+  "video"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open videos in VLC Player at a specified time via Obsidian URI links",
+  "Paste timestamped links of the current video position into the editor",
+  "Take and paste snapshot embeds from the current video frame",
+  "View .srt, .vtt, or .ass subtitles in a transcript view",
+  "Start Syncplay to control the VLC Player it opens"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires VLC's Web interface: on Windows you must select vlc.exe in settings, and the VLC Lua HTTP password and snapshot directory must be configured; VLC's Web port is fixed at 8080.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to control an external video player or insert timestamp links and frame snapshots while watching a video.",
+ "readmeHash": "eb70df0f500bfc69c098b1bdd27f4254efbae0f8",
+ "relations": [
+  {
+   "evidence": "Media Extended",
+   "plugin": "Media Extended",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Obsidian VLC Control",
+   "plugin": "Obsidian VLC Control",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Running Syncplay with plugin arguments",
+   "plugin": "Syncplay",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "VLC Media Player",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Syncplay",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "VLC integration that opens videos in VLC Player and pastes timestamped links and snapshots into notes.",
+ "tags": [
+  "vlc",
+  "syncplay",
+  "timestamps",
+  "snapshots",
+  "subtitles",
+  "srt"
+ ]
+}

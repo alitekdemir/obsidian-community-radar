@@ -1,0 +1,97 @@
+{
+ "also": [
+  "backup",
+  "ai"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes and attachments across devices through a self-hosted server",
+  "Browse, compare and restore note versions and deleted notes",
+  "Restore a folder or the whole vault to a chosen date and time",
+  "Serve notes to AI agents through a built-in MCP endpoint",
+  "Sync Obsidian settings, themes, snippets and plugin settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "delisted": "2026-11-27",
+ "disambiguation": null,
+ "extras": "Free and open source under MIT. No end-to-end encryption: the server stores notes, versions and filenames in plaintext, which is what allows the MCP endpoint to work. Windows is not supported and iOS is untested; files are limited to 64 MiB by default and plugins and hidden files do not sync.",
+ "intent": "alternative",
+ "intentEvidence": "TrewSync is a fork of Basalt Sync, made by its own author, Wayne Hoover",
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Users who want their vault synced through a server they run themselves, with full version history and agent access to the same notes, have no single tool that provides all three.",
+ "profiledAt": "2026-11-17",
+ "provider": "Particle AI",
+ "readmeHash": "4c4d5404fd33b6d6e05ed084b89cedd445a1a8f9",
+ "relations": [
+  {
+   "evidence": "TrewSync is a fork of Basalt Sync, made by its own author, Wayne Hoover",
+   "plugin": "Basalt Sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "Pick TrewSync for history on your own server and agents on the same notes.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Runs on | Your server | Obsidian's servers | Your backend, such as CouchDB or S3-compatible storage",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "An agent such as Claude Code searches, reads and edits the same notes your devices sync",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You need a Linux or macOS machine with Docker, and Tailscale on it and on each device.",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TrewSync server",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Docker",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Self-hosted sync server and Obsidian plugin that keeps every note version and lets AI agents read and edit the same notes over MCP.",
+ "tags": [
+  "self-hosted",
+  "obsidian-sync",
+  "mcp",
+  "version-history",
+  "ai-agents",
+  "claude-code",
+  "tailscale"
+ ],
+ "textHash": "1a9812825deb820cc1cbb7d5cfdb9e168d7b8582"
+}

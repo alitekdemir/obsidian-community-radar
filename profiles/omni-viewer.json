@@ -1,0 +1,65 @@
+{
+ "also": [
+  "files",
+  "utilities"
+ ],
+ "audience": [
+  "automotive-engineers",
+  "ml-engineers",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "View dozens of file formats in embedded viewers",
+  "Edit CSV cells, PDF pages, and images with write-back to the vault",
+  "Inspect ML model graphs, tensor metadata, and quantization summaries",
+  "Preview Jupyter notebooks, HAR captures, LaTeX, EPUB, and XML",
+  "Share files via encrypted upload links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Most viewers have per-format input size limits (e.g. 256 MB for PDFs and notebooks, 64 MB for XML and fonts); several desktop features (RAR/7z extraction, ffmpeg transcoding, LibreOffice fallback) are unavailable on mobile; 3D mesh viewing requires WebGL; the share feature uploads files to an external service covered by a privacy policy.",
+ "intent": "alternative",
+ "intentEvidence": "Obsidian port of the vscode-omni-viewer extension.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian natively opens only a small set of file types, so formats like archives, notebooks, HAR captures, or ML models require leaving the app for external tools.",
+ "readmeHash": "ea167fcf68d3b0ee98fa86944bc1ff5388f04edf",
+ "relations": [
+  {
+   "evidence": "Legacy viewers host the vscode extension's self-contained HTML templates in an iframe",
+   "plugin": "vscode-omni-viewer",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Omni Viewer share service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Multi-format viewer that opens audio, video, images, archives, PDFs, ML models, Jupyter notebooks, and many other file formats inside Obsidian, some editable.",
+ "tags": [
+  "pdf-annotation",
+  "jupyter-notebooks",
+  "onnx",
+  "dicom",
+  "epub",
+  "geospatial",
+  "hdf5",
+  "automotive"
+ ]
+}

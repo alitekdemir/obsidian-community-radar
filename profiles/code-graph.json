@@ -1,0 +1,63 @@
+{
+ "also": [
+  "graph",
+  "visualization"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "parse code files with tree-sitter to extract imports, calls, inherits, implements, uses-type, and contains edges",
+  "extract typed edges from @see, @tested-by, @adr, and @depends-on comment tags and frontmatter related-code fields",
+  "render an interactive force-directed graph with color modes, node sizing, and hover spotlight",
+  "highlight TODO/FIXME files, dead code, and community-detected module boundaries",
+  "seed domain, status, and author headers across a codebase with one command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (tree-sitter WASM workload not validated on mobile). main.js is ~5.8 MB, exceeding Obsidian Sync Standard's 5 MB file cap; the README suggests Sync Plus or another sync method. Ships GitHub artifact attestations for verifying release files; local-first with no network requests.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian's graph view only maps links between notes, so relationships between code files in the vault stay invisible.",
+ "readmeHash": "fdd672eef4ecbecf29a7f49fa58e5fda2ec2ee4b",
+ "relations": [
+  {
+   "evidence": "works with any agent that supports the skills.sh format — Claude Code, Cursor, OpenCode",
+   "plugin": "Claude Code / Cursor / OpenCode",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AI coding agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Code graph plugin that parses source files with tree-sitter and renders imports, calls, inheritance, and documentation-tag relationships as an interactive force-directed graph.",
+ "tags": [
+  "tree-sitter",
+  "dependency-graph",
+  "ast-parsing",
+  "dead-code",
+  "technical-debt",
+  "adr",
+  "comment-tags",
+  "ai-agents"
+ ]
+}

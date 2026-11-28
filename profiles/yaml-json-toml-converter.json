@@ -1,0 +1,66 @@
+{
+ "also": [
+  "json",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert selected YAML, JSON, or TOML data with a preview before replacement",
+  "Reject conversions that would drop keys, values, or unsupported constructs",
+  "Show parser errors with source locations for invalid selections",
+  "Validate selected JSON against a local JSON Schema file (Pro)",
+  "Extract labelled YAML, JSON, or TOML code blocks into new vault files (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a document format converter (e.g., Word to Markdown); it converts data serialization formats in a selected snippet, not whole files.",
+ "extras": "Freemium: conversion is free; schema validation and batch code-block extraction require a paid GitHub Sponsors tier. The plugin opens a What's new tab after updates that promotes other NoteMods plugins and Zovo Chat. Obsidian staff have not manually reviewed the plugin. Needs Obsidian 1.13.4 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian offers no built-in way to convert a selection of data between serialization formats while guarding against silent data loss.",
+ "readmeHash": "b277230fde6d16d791ac0d31f76ca3697593c603",
+ "relations": [
+  {
+   "evidence": "The validator supports Draft-07 rules through the bundled jsonschema library.",
+   "plugin": "jsonschema",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sign in uses the GitHub device flow.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Converts selected YAML, JSON, or TOML data in a note with a preview and checks that block lossy conversions.",
+ "tags": [
+  "yaml",
+  "toml",
+  "json-schema",
+  "github-sponsors",
+  "data-serialization"
+ ]
+}

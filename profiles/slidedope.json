@@ -1,0 +1,58 @@
+{
+ "also": [
+  "editing",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "edit slides with a thumbnail sidebar, drag-to-reorder, and a slide clipboard",
+  "type and format text directly on the slide canvas with a floating toolbar",
+  "paste, drag, and resize images with snap guides and percentage-based positions",
+  "play decks in any browser with keyboard navigation, fullscreen, and PDF export",
+  "scaffold decks from built-in templates and optionally regenerate slides via a local Claude Code CLI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (uses iframes, the local filesystem, and optionally a local CLI); requires Obsidian 1.5.0+; registers itself as the viewer for .html files and may conflict with other plugins that handle .html; AI mode may send slide content to Anthropic's API under the user's own account; UI ships in English and Traditional Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "html",
+ "problem": "Obsidian has no built-in way to author self-contained HTML slide decks with visual, PPTX-style editing inside the vault.",
+ "readmeHash": "338ef95e3935e7985b9335381a9cc635893a18d0",
+ "relations": [
+  {
+   "evidence": "sends the selected slide + the deck's CSS + your instruction to a local Claude Code CLI (claude -p)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Slide deck editor that builds single-file HTML presentations with drag-to-reorder slides, inline text editing, image placement, and a built-in player.",
+ "tags": [
+  "pptx",
+  "wysiwyg",
+  "self-contained-html",
+  "claude-code",
+  "slide-decks"
+ ]
+}

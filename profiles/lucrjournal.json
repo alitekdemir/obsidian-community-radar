@@ -1,0 +1,89 @@
+{
+ "also": [
+  "data",
+  "ocr"
+ ],
+ "audience": [
+  "traders"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Record positions with entry, exit, stop, target, and derived risk, P&L, and R:R",
+  "Link positions to accounts, symbols, key levels, news, confluences, and playbooks",
+  "Compute playbook win rate and net P&L from positions that used them",
+  "OCR MetaTrader and TradingView screenshots into reviewable evidence",
+  "Render candlestick charts with entry and exit markers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Journal access is gated behind a LucrTrade account and plan (upgrade screen shown if the plan lacks it); charts pull live data from Yahoo and crypto exchanges; an AI-agent skill and agent API are provided for automated journaling; documentation lives on an external site.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why keep the journal in Obsidian' section says records should stay in the vault with no cloud or lock-in, and trades should link to their context for review.",
+ "primary": "finance",
+ "problem": "Obsidian has no structured way to log trades and connect each position to the key levels, news, analysis, and playbook behind it.",
+ "readmeHash": "e476b11f68e015b647458ffbe64e95b3e6358852",
+ "relations": [
+  {
+   "evidence": "crypto from your account's exchange (Binance, Bybit, OKX)",
+   "plugin": "Binance",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TradingView-backed logos and types",
+   "plugin": "TradingView",
+   "type": "integrates"
+  },
+  {
+   "evidence": "futures data comes from Yahoo",
+   "plugin": "Yahoo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "local OCR recognizes MetaTrader and TradingView screenshots",
+   "plugin": "MetaTrader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI coding agents that can run shell commands (Claude Code, Codex, Cursor, …)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "LucrTrade account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "LucrTrade plan with journal access",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI coding agent (Claude Code, Codex, Cursor) for agent API use",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Trading journal that records positions, accounts, symbols, and playbooks as linked Markdown files in the vault, with OCR, charts, and playbook statistics.",
+ "tags": [
+  "journaling",
+  "statistics",
+  "tesseract",
+  "screenshots",
+  "wikilinks"
+ ],
+ "tagsBy": "particle-ai/particle-1:free"
+}

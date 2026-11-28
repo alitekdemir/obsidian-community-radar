@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Configure Git credentials",
+  ": Exchange encrypted data between apps",
+  ": Renew connection requests",
+  ": Fill missing Git author details"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": Git"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It is a credential configuration bridge between GitSync.md and Obsidian Git, not a full Git client.",
+ "extras": "Requires GitSync.md 2.8.0 or later with companion handoff support. The companion is free and MIT licensed.",
+ "intent": "improve",
+ "intentEvidence": "let this plugin configure Obsidian Git without asking for another GitHub sign-in.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Users must avoid manually entering GitHub credentials or performing a second sign-in process when setting up Obsidian Git on mobile devices.",
+ "readmeHash": "80a9001bbec3c1a298b2cd8d70c8793dc2aa2298",
+ "relations": [
+  {
+   "evidence": "Sign into GitHub in GitSync.md, clone a repository, then let this plugin configure Obsidian Git",
+   "plugin": "GitSync.md",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install and enable Git by Vinzent.",
+   "plugin": "Git by Vinzent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitSync.md",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Git by Vinzent",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A companion plugin that allows Obsidian to configure Git credentials using an existing GitHub sign-in established in the GitSync.md mobile application.",
+ "tags": [
+  "gitsync-md",
+  "github-oauth",
+  "mobile-handoff",
+  "credential-storage",
+  "p-256-crypto"
+ ]
+}

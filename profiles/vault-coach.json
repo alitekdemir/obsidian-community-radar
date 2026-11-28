@@ -1,0 +1,63 @@
+{
+ "also": [
+  "review",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions over notes and PDFs with heading, excerpt, and page citations",
+  "Generate scoped practice exams with local or model-assisted scoring",
+  "Extract concept and relationship candidates for manual review",
+  "Explore the confirmed knowledge graph in a Learning Map view",
+  "Track mastery from exam results and surface evidence-backed next review steps"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The Lite build caps local semantic graph rebuilding at 650 model-extraction windows; the planned Knowledge Engine Local Docker service is not included in this release. PDFs must have a native text layer, as OCR for scanned PDFs is not supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says a vault can hold years of notes while leaving questions unanswered and that reading 'feels productive, yet it does not show what you can explain without looking', so separate activities are combined into one evidence-backed learning loop.",
+ "primary": "ai",
+ "problem": "Obsidian offers no way to test what you can actually recall from your notes, and typical AI answers give no inspectable evidence of which note or PDF page supports them.",
+ "readmeHash": "3a7d654e5f5fa84cf3a8f1b51e66e95a1a77eb19",
+ "relations": [
+  {
+   "evidence": "A local Ollama configuration keeps model requests on the local endpoint you configure.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI learning assistant that indexes vault notes and text-based PDFs to give cited Q&A, generate practice exams, and track concept mastery in a reviewed knowledge graph.",
+ "tags": [
+  "rag",
+  "citations",
+  "ollama",
+  "onnx-embeddings",
+  "active-recall",
+  "exam-generation",
+  "knowledge-graph"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Stamp a configurable frontmatter property with the current date/time on note edits",
+  "Ignore modify events not caused by the user, such as sync, git pulls, and other plugins",
+  "Configure the property name and any moment.js date format with a live preview",
+  "Exclude folders from stamping and autofill exclusions from Templates and Templater",
+  "Skip Excalidraw drawings and apply a per-file cooldown between stamps"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not insert timestamps into note text; it only writes a frontmatter property.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Edits made outside the editor (Properties sidebar, Bases tables) do not update the timestamp.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian does not automatically record a last-modified timestamp in a note's properties, so tracking when a note was last changed requires manual work.",
+ "readmeHash": "03c149cd72f12041f48eb2d8bbd45524a0183eee",
+ "relations": [
+  {
+   "evidence": "reads the configuration of the core Templates plugin and the Templater community plugin",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Files produced by the Excalidraw plugin are detected (by filename or excalidraw-plugin frontmatter key) and skipped automatically",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Properties and Dataview read it as a date",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Timestamp plugin that writes the current date and time to a configurable frontmatter property each time a note is edited and saved.",
+ "tags": [
+  "timestamps",
+  "moment-js",
+  "dataview",
+  "templater",
+  "excalidraw",
+  "last-modified"
+ ]
+}

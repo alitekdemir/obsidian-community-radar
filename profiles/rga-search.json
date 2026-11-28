@@ -1,0 +1,68 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search full text inside PDFs, EPUBs and Office files",
+  "Open results at the matching page",
+  "Jump to the reference note that links a document",
+  "Warm the extraction cache for fast later searches",
+  "Search PowerPoint, Excel and Keynote files via adapters"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a replacement for Obsidian's note search; it only searches inside PDF, EPUB and Office documents, leaving Markdown notes to Obsidian.",
+ "extras": "Desktop only; the ripgrep-all CLI must be installed separately. Extracted text is cached outside the vault, and the first pass over a large library can take over an hour; scanned PDFs without a text layer cannot be searched.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's own search covers Markdown notes but not the text inside PDFs, EPUBs and Office documents stored in the vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "f6b373ae84311434ac75cc74d6b6bea414446ab1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Stacks files each PDF in your vault and links it from its reference note's pdf property.",
+   "plugin": "Stacks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ripgrep-all (rga)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "poppler (pdftotext)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "pandoc",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Full-text search inside PDFs, EPUBs and Office files in your vault, powered by ripgrep-all, with page-level results.",
+ "tags": [
+  "regex",
+  "cli"
+ ],
+ "textHash": "2379b5c7b6bb27f82c1a1c9cb0027619b5ad221c"
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "pdf",
+  "properties"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create paper notes from a DOI with metadata from OpenAlex or arXiv",
+  "Download open-access PDFs via Unpaywall into a configured folder",
+  "Query journal metrics (impact factor, JCR and CAS quartiles) from EasyScholar",
+  "Browse papers in tree and table views backed by a generated Bases file",
+  "Refresh metadata for single notes or all papers, tracking DOI changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is written in Chinese. Unpaywall requires a caller email in settings; PDF downloads only work for open-access papers. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "一个拥有和Zotero论文管理方式比肩的优秀视图",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to look up academic paper metadata from a DOI or retrieve open-access PDFs, so researchers must manage citations outside the vault.",
+ "readmeHash": "6ec5364e2f4ffe0636631b305fc386a80c1b3b41",
+ "relations": [
+  {
+   "evidence": "一个拥有和Zotero论文管理方式比肩的优秀视图",
+   "plugin": "Zotero",
+   "type": "alternative"
+  },
+  {
+   "evidence": "输入 DOI，自动从 OpenAlex 获取标题、作者、年份、期刊",
+   "plugin": "OpenAlex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "通过 arXiv API 获取 preprint 元数据（含完整摘要）",
+   "plugin": "arXiv API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "集成 Unpaywall 获取开放获取 PDF 直链",
+   "plugin": "Unpaywall",
+   "type": "integrates"
+  },
+  {
+   "evidence": "集成 EasyScholar 查询影响因子、JCR 分区、中科院分区",
+   "plugin": "EasyScholar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "EasyScholar Secret Key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Research paper manager that creates notes from a DOI with fetched metadata, downloads open-access PDFs, and shows papers in tree and table views.",
+ "tags": [
+  "doi",
+  "openalex",
+  "unpaywall",
+  "easyscholar",
+  "arxiv",
+  "impact-factor",
+  "citations"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations",
+  "sidebar"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run Claude Code and Antigravity CLI sessions as parallel sidebar terminal tabs",
+  "Track, resume, fork and search sessions from a per-vault session list",
+  "Render Claude conversations as a readable note view with clickable wikilinks",
+  "Show per-session model, effort, context fill and usage-limit bars",
+  "Send notes, selections and files to an agent session"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not implement its own AI agent; it hosts the official Claude Code and Antigravity command-line tools in a pseudo-terminal.",
+ "extras": "macOS only (Windows not supported) and needs Python 3 to run its pseudo-terminal helper; the plugin itself sends no network traffic and has no telemetry, but the agents it runs talk to Anthropic and Google servers; agents can modify vault files and the plugin adds no sandbox of its own; not affiliated with Anthropic, Google or Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no way to run terminal-based AI agent sessions next to your notes or track, resume and search them per vault.",
+ "readmeHash": "c4f629c6fbbc574d0d3cb032952e0e8ed8e12ab2",
+ "relations": [
+  {
+   "evidence": "It starts the official command-line tools in a real pseudo-terminal",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run Claude Code and Antigravity in a real terminal in Obsidian's right sidebar",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The terminal is xterm.js (MIT license, Copyright (c) The xterm.js authors)",
+   "plugin": "xterm.js",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code (claude) and/or Antigravity CLI (agy)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude subscription or API access, or a Google account for Antigravity",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Runs the Claude Code and Antigravity command-line agents in a real terminal in the sidebar, with a session list, reading view and usage limits.",
+ "tags": [
+  "claude-code",
+  "antigravity",
+  "anthropic",
+  "terminal",
+  "xtermjs",
+  "cli-agents",
+  "usage-limits"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations",
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Serve vault folders to AI agents over a local MCP server",
+  "Browse, search, read, graph and lint bundles through MCP tools",
+  "Queue agent writes as drafts for approval or rejection",
+  "Record provenance and audit logs for each note",
+  "Flag notes whose trust fields changed outside the plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a wiki editor or publishing tool; it serves existing vault folders to AI agents over a local MCP server.",
+ "extras": "Desktop only (Obsidian 1.13.1+). Runs a local server on 127.0.0.1:27150, starts only after an access token is created, and contacts no remote service. Optional Windows background server installed via Task Scheduler. Step-by-step guides and full reference live in a separate user manual.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted agents that remember things in notes to record where each fact came from, to leave the decision of what counts as reviewed to the user, and to keep notes as plain Markdown readable without the plugin.",
+ "primary": "ai",
+ "problem": "Agents that write into a vault leave no record of where facts came from or who reviewed them, and no way to keep unreviewed knowledge out of circulation.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "403a94b0f3e3510c1d401a55fd4a458034c0d925",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "obsidian-local-rest-api for the design of a local server inside Obsidian",
+   "plugin": "obsidian-local-rest-api",
+   "type": "inspired"
+  },
+  {
+   "evidence": "An MCP client that speaks streamable HTTP, such as Claude Code",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MCP client that speaks streamable HTTP",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js (for the optional Windows background server)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local MCP server that serves chosen vault folders to AI agents as Open Knowledge Format bundles, with drafts, provenance and review.",
+ "tags": [
+  "mcp",
+  "ai-agents",
+  "claude-code",
+  "provenance",
+  "local-server",
+  "drafts"
+ ],
+ "textHash": "b72dd4ad1a1150acd2fa9533f8b343f3487af32b"
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create a Substack newsletter draft from a note",
+  "Publish a note or a selected excerpt to Substack Notes",
+  "Map YAML properties to title, subtitle, image and caption",
+  "Resize and upload vault images to Substack",
+  "Mirror published Substack Notes to Mastodon"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uses Substack's undocumented API, which may change. Tables, PDFs, audio, video and embedded notes are unsupported. Automatic login is desktop-only; the mobile manual-connection workflow has not been validated. Interface available in English and French.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Moving a note into Substack means copying it by hand into the Substack editor, along with its images and metadata.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "7b051919f5c46160d92b27a715c842b20b959407",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Publish an Obsidian note as a newsletter article or a Substack Note.",
+   "plugin": "Substack",
+   "type": "integrates"
+  },
+  {
+   "evidence": "each published Substack Note is also posted to Mastodon",
+   "plugin": "Mastodon",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Substack",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Mastodon",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Publishes an Obsidian note to Substack as a newsletter draft or a Substack Note, using YAML for title, subtitle, image and caption.",
+ "tags": [
+  "blog",
+  "yaml"
+ ],
+ "textHash": "8d06cafa819e678dfde97af59ed6750fa8405ed5"
+}

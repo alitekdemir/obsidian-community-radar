@@ -1,0 +1,64 @@
+{
+ "also": [
+  "ai",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compute degree, betweenness, closeness, and eigenvector centrality for the vault graph",
+  "Render the vault as an interactive force-directed graph with centrality-based sizing and coloring",
+  "Generate AI summaries, keywords, and knowledge domains for each note",
+  "Identify knowledge bridges, foundations, authorities, gaps, and suggested connections",
+  "Write AI-recommended [[links]] into notes and track vault evolution over time"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (no mobile support); requires Obsidian 1.7.2+. AI features send note text to Google Gemini under the user's own API key, with free-tier limits of 250K TPM and 500 requests/day; graph computation is fully local.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says knowledge internalization becomes the bottleneck as note volume grows, and that making sense of a large vault needs graph structure and AI working together rather than either alone.",
+ "primary": "graph",
+ "problem": "Large, fast-growing vaults can no longer be understood by manual browsing, and Obsidian offers no way to see which notes are structurally load-bearing or where the network has gaps.",
+ "readmeHash": "6fb25e90c6165f518940d36addb996d49defc9d5",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "rustworkx",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vault analysis plugin that computes graph centrality metrics locally via Rust WASM and sends them to Google Gemini for structural AI analysis.",
+ "tags": [
+  "graph-theory",
+  "centrality",
+  "betweenness",
+  "rust",
+  "webassembly",
+  "gemini"
+ ]
+}

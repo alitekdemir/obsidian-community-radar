@@ -1,0 +1,66 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [
+  "journalers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render collapsed lookback rows for daily-note sections from prior years, months, or custom intervals",
+  "Lazy-load section content per row on expand or hover instead of at note open",
+  "Configure intervals, cutoffs, headings, and styles via code-block keys and settings",
+  "Insert, refresh, and expand/collapse lookback blocks through commands",
+  "Style rows with four presets and theme-derived accent colors"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community catalog; installation requires BRAT or manually copying release files into the plugins folder. README states the plugin makes zero network requests and renders lookback content read-only.",
+ "intent": "alternative",
+ "intentEvidence": "Native embeds load and render the entire source file at every note open.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that the standard template-script recipe of stamping native embeds taxed note-opening performance forever, and no existing plugin offered lazy lookbacks, so they built one.",
+ "primary": "calendar",
+ "problem": "Native embeds of past daily-note sections re-parse whole source files on every note open, so journals with years of template-stamped embeds open slowly, worst on mobile.",
+ "readmeHash": "116febfa28eaa4d1840a81ee8282fa6fdad01a97",
+ "relations": [
+  {
+   "evidence": "The plugin reads your Daily Notes (or Periodic Notes) folder and date format automatically",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install with BRAT pointed at this repo",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Code-block plugin that renders collapsed lookback rows of daily-note sections from past years, months, or custom intervals, loading content only on expand.",
+ "tags": [
+  "journaling",
+  "lazy-loading",
+  "embeds",
+  "retrospection",
+  "code-block",
+  "periodic-notes"
+ ]
+}

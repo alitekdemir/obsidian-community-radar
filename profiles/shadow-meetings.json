@@ -1,0 +1,74 @@
+{
+ "also": [
+  "bases",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a week timeline of Shadow meetings as a Bases view",
+  "Show people cards with meeting counts and last-met dates",
+  "Display meeting context for the open person or meeting page",
+  "Add links to today's meetings in the daily note",
+  "List all meetings in a sidebar grouped by date"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a meeting recorder; the plugin records and transcribes nothing itself and only displays meetings captured by the Shadow Mac app.",
+ "extras": "Desktop only and macOS only, because the Shadow app it depends on runs on Apple Silicon Macs. The plugin itself is free, makes no network requests, and never edits the pages Shadow manages; AI notes in Shadow require a paid plan ($12/month or $8/month yearly), but the plugin works the same on the free plan.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Meeting pages an external recorder writes into the vault are plain Markdown, with no week calendar, per-person history, or quick links to transcripts and notes.",
+ "readmeHash": "5eb1076c2077aa0ccafc5be5f20b0eafcb3608a0",
+ "relations": [
+  {
+   "evidence": "Requires the Shadow Mac app (Apple Silicon, macOS 14.2 or later), which records meetings without a bot",
+   "plugin": "Shadow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a link to each of today's meetings under a Meetings heading in today's daily note (core Daily notes or Periodic Notes)",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Shadow Mac app (Apple Silicon, macOS 14.2+)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Shadow account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Shadow Plus for AI notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bases views and sidebar panels for meetings recorded by the Shadow Mac app: a week timeline, people cards, per-page meeting context, and daily note links.",
+ "tags": [
+  "shadow-app",
+  "meetings",
+  "week-timeline",
+  "contacts",
+  "transcripts"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync thoughts into vault notes",
+  "Write category, kind, tag, date and repeat properties",
+  "Place notes in per-category folders",
+  "Copy photos, PDFs and voice clips into the vault",
+  "Preserve edits and mark trashed thoughts instead of deleting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view",
+   "Bases",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a free-writing or distraction-free editor; it copies thoughts from the ThoughtFree app into notes.",
+ "extras": "Sync runs on Obsidian start and every 30 minutes, one way only; access is read-only and never includes the diary. Sign-in is kept in Obsidian's secret storage per device, so each device signs in separately. If another service syncs the vault between devices, the README advises turning sync off on all but one. Security issues go to support@thoughtfree.io rather than a public issue.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Thoughts kept in the ThoughtFree app are not searchable, linkable or stored alongside the rest of a vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "7a77ce91acb7077d8cfd21c14b8d6bf63deba7e1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The plugin talks to one service, ThoughtFree, at mcp.thoughtfree.io, to sign in and to read what changed.",
+   "plugin": "ThoughtFree",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ThoughtFree account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ThoughtFree",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "One-way sync that turns ThoughtFree thoughts into vault notes with properties, category folders and copied attachments.",
+ "tags": [
+  "one-way-sync",
+  "note-creation"
+ ],
+ "textHash": "e0a20022cf914a29363ab26e1e33a5107a89192e"
+}

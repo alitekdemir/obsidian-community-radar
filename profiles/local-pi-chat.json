@@ -1,0 +1,58 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the local pi coding agent in a right-sidebar panel",
+  "Spawn pi as a subprocess and stream its text and tool calls",
+  "Expose vault files, search, tags, and backlinks over a local HTTP endpoint",
+  "Optionally let pi create or modify notes (writes off by default)",
+  "Configure pi executable path, model provider, and forbidden paths"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general AI chat plugin; it only talks to the pi coding agent running on the same machine.",
+ "extras": "Unreviewed by Obsidian staff; README explains three intentional linter warnings (direct filesystem access, shell execution, vault enumeration) and notes Allow writes is off by default; troubleshooting details live in a separate TROUBLESHOOTING.md.",
+ "intent": "new",
+ "intentEvidence": "obsidian-copilot-style multi-agent routing is out of scope here — this plugin talks to one agent (pi)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with a locally running AI coding agent and let that agent read or search vault notes.",
+ "readmeHash": "0d2489515d18c5615cd13142a5b11afee9ac6114",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pi coding agent CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "model provider (Anthropic, OpenAI, local, etc.) configured in pi",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI chat panel that runs the local pi coding agent as a subprocess and exposes the vault over a local HTTP server so it can read notes via curl.",
+ "tags": [
+  "local-ai",
+  "coding-agent",
+  "cli-subprocess",
+  "http-server",
+  "streaming",
+  "curl",
+  "privacy"
+ ]
+}

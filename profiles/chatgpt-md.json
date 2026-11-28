@@ -1,0 +1,83 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI models inside any note",
+  "Provide context by referencing notes with wiki links",
+  "Create and apply reusable AI agent personas",
+  "Approve tool calls to search the vault and browse the web",
+  "Switch between providers, models, and streaming options"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not ChatGPT-only; it also supports Anthropic, Gemini, OpenRouter, Z.AI, and local models via Ollama and LM Studio.",
+ "extras": "Extensive credential-migration and privacy notes with a SECURITY.md for vulnerability reporting; beta versions available via the BRAT plugin; requires Obsidian 1.11.4 or newer for secure key storage. Cloud providers receive chat messages and linked-note content; local providers keep data on the machine.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with language models or use vault notes as conversation context, so users must copy text between apps.",
+ "readmeHash": "d18470733c053fe67d18b6353298a571b135f892",
+ "relations": [
+  {
+   "evidence": "OpenAI | Reliable, GPT-4 | Pay per use",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic | Claude, great for long docs | Pay per use",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter | Access to ALL models | Pay per use",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama and LM Studio run AI locally on your machine. Completely free. Completely private.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama and LM Studio run AI locally on your machine. Completely free. Completely private.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, Gemini, OpenRouter, or Z.AI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI chat plugin that talks to OpenAI, Anthropic, OpenRouter, or local models inside notes, with wiki-link context, agents, and tool calling.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "openrouter",
+  "ollama",
+  "lm-studio",
+  "tool-calling",
+  "streaming",
+  "chat"
+ ]
+}

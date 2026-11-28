@@ -1,0 +1,53 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [
+  "creative-writers",
+  "japanese-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Transform Japanese prose into shuffled variations in a separate read-only view",
+  "Build a weighted vocabulary from the current note or selected notes",
+  "Generate Fake Dictionary definitions, fake proverbs and Recompose text from the vocabulary",
+  "Manually shuffle, restore or replace individual words in the generated text",
+  "Copy or collect generated fragments into a configured Markdown collection file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name suggesting semantic search or AI tooling, it is a local Japanese text-shuffling toy for creative writing with no network use.",
+ "extras": "Desktop only (requires Obsidian Desktop 1.13.7+); mobile unsupported. main.js is 14-16 MB because it embeds WebAssembly and the dictionary, exceeding Obsidian Sync Standard's 5 MB per-file limit. A browser-based web playground exists that needs no installation. Only Japanese text can be transformed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian has no built-in way to locally generate creative text variations of Japanese prose without altering the original note.",
+ "readmeHash": "6fe4e0b49d4284726a1f9d2931d5a9afa72a1a8d",
+ "relations": [
+  {
+   "evidence": "The analyzer is Lindera WebAssembly with an embedded compact IPADIC dictionary.",
+   "plugin": "lindera-wasm",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop-only creative writing plugin that makes meaning-disrupting variations of Japanese Markdown notes in a separate view, without changing the source note.",
+ "tags": [
+  "japanese",
+  "lindera",
+  "ipadic",
+  "morphological-analysis",
+  "creative-writing",
+  "offline"
+ ]
+}

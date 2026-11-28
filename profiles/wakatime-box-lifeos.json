@@ -1,0 +1,78 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "insert an empty WakaTime code block into the LifeOS daily note template",
+  "fill and update the stats box on note creation, hourly, or on demand",
+  "display the day's top projects, languages, editors and categories",
+  "sync stats for today or yesterday via commands and hotkeys",
+  "copy the stats of any date to the clipboard for weekly notes or reports"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Before community-plugin publication it can be installed via BRAT from GitHub releases.",
+ "intent": "alternative",
+ "intentEvidence": "Fork of simonla/obsidian_waka_box (MIT); the daily note layout follows LifeOS.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian daily notes have no built-in way to display coding time tracked by the WakaTime service.",
+ "readmeHash": "4f881ab880e77e99fee5129da95626e9fe3101c9",
+ "relations": [
+  {
+   "evidence": "LifeOS enabled, with Periodic Notes turned on",
+   "plugin": "LifeOS",
+   "type": "extends"
+  },
+  {
+   "evidence": "A WakaTime account; paste your personal OAuth token into the plugin settings",
+   "plugin": "WakaTime",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fork of simonla/obsidian_waka_box (MIT)",
+   "plugin": "simonla/obsidian_waka_box",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "LifeOS",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WakaTime",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "WakaTime OAuth token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "WakaTime stats box that writes your daily coding project, language, editor and category stats into your LifeOS daily note.",
+ "tags": [
+  "wakatime",
+  "lifeos",
+  "time-tracking",
+  "coding-stats",
+  "periodic-notes"
+ ]
+}

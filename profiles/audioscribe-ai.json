@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record voice notes with pause, resume, save, and discard controls",
+  "Transcribe audio from the vault, device imports, or embedded audio links",
+  "Generate transcripts, summaries, meeting notes, and action items",
+  "Save output to a new note, the cursor position, or a daily note",
+  "Recover the last completed unsaved transcription after reloads"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. API keys and the last unsaved transcript are stored unencrypted in data.json. Cancelled transcriptions may still incur provider charges because the upload cannot be aborted. Upload caps range from 14 MiB to 100 MiB depending on provider; audio is not transcoded or split.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian can record audio but cannot transcribe it, so users must leave the vault and use separate tools to turn recordings into text.",
+ "readmeHash": "85f0468eaec6a86804a6e3b232dbef00af97eae4",
+ "relations": [
+  {
+   "evidence": "Default model IDs: Gemini gemini-3.8-flash, Groq whisper-large-v3-turbo, OpenAI whisper-1, Deepgram nova-2.",
+   "plugin": "Gemini, Groq, OpenAI, Deepgram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Provider API key (Gemini, Groq, OpenAI, or Deepgram)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Audio recorder and transcriber that records or imports audio and sends it to Gemini, Groq, OpenAI, Deepgram, or a local Whisper-compatible endpoint.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "gemini",
+  "groq",
+  "openai",
+  "deepgram",
+  "whisper",
+  "arabic"
+ ]
+}

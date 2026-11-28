@@ -1,0 +1,69 @@
+{
+ "also": [
+  "folders",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create notes in configured folder paths via commands",
+  "apply Templater templates automatically on note creation",
+  "build dynamic paths with variables, regex, and moment.js date formats",
+  "control file naming, title incrementing, and post-creation focus",
+  "provide a quick-switcher command covering unregistered folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Focusing the inline title uses a hard-coded 50ms timeout that may need manual tuning in data.json on slow machines; installation via BRAT and manual release download is also documented.",
+ "intent": "improve",
+ "intentEvidence": "This functionality enables you to replicate the behavior of \"Folder Templates.\"",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "commands",
+ "problem": "Obsidian has no built-in way to define per-folder commands that create notes with preset paths, names, and templates.",
+ "readmeHash": "eb8bca70bb2d546c31b660461823752fdd0cfde7",
+ "relations": [
+  {
+   "evidence": "If you have the Templater plugin installed and configured, you can assign a template to a note.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This functionality enables you to replicate the behavior of \"Folder Templates.\"",
+   "plugin": "Folder Templates",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Many thanks to @SilentVoid13 and @RafaelGB for their Templater and dbFolder",
+   "plugin": "dbFolder",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Command-based note creator that adds commands to create notes in preset folders with variable paths, custom naming, and Templater templates.",
+ "tags": [
+  "templater",
+  "folder-templates",
+  "dynamic-paths",
+  "quick-switcher",
+  "moment-js"
+ ]
+}

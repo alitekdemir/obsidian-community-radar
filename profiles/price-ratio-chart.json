@@ -1,0 +1,66 @@
+{
+ "also": [
+  "finance"
+ ],
+ "audience": [
+  "traders",
+  "investors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Draw a two-ticker ratio chart in a ratio code block",
+  "Fit 200-, 400- and 1,000-day regression lines with standard deviation bands",
+  "Add a 14-day RSI panel and a 200-day z-score header",
+  "Replay the chart as of a past date",
+  "Cache Yahoo Finance daily closes for offline use"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Prices are cached in the plugin's own data file so notes open offline; no accounts, telemetry or analytics. Can be installed via BRAT before a community directory listing exists.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author found relative strength easier to read as a single ratio line than as two price charts, and wanted the regression bands and z-score to give a stretched reading a number instead of an eyeball.",
+ "primary": "charts",
+ "problem": "Reading relative strength between two tickers from two separate price charts is hard, and there is no built-in way to measure how far a ratio has drifted from its trend.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "3e44f41688ac2cf25039c94baadcf3f0c40c2988",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "the windows of Bloomberg's Multiperiod AutoReg template",
+   "plugin": "Bloomberg",
+   "type": "inspired"
+  },
+  {
+   "evidence": "downloading daily closing prices from Yahoo Finance",
+   "plugin": "Yahoo Finance",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Yahoo Finance",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Code-block chart plotting one ticker's price divided by another's, with regression channels, standard deviation bands, RSI and z-score from Yahoo Finance.",
+ "tags": [
+  "statistics",
+  "code-blocks",
+  "offline",
+  "local-first"
+ ],
+ "textHash": "c2c68fc80c6485e8f49fd59fb24ebf99ea3c0f61"
+}

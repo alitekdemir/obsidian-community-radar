@@ -1,0 +1,83 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault with a Git repository",
+  "Merge concurrent edits line by line",
+  "Keep both versions when edits conflict",
+  "Create one commit per sync named by device and changes",
+  "Set up provider tokens and repository selection"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "No telemetry; the access token is stored in Obsidian's keychain and never synced. Git over HTTPS only; files over 100 MB are skipped.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian users who want Git versioning and cross-device sync on mobile otherwise need an external git client and manual conflict handling.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "3aa4f7318716592230768d7acacdc2d5cc448d41",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Turn the Git plugin off on devices that use Easy Git Sync.",
+   "plugin": "Git plugin",
+   "type": "alternative"
+  },
+  {
+   "evidence": "GitHub, GitLab, Bitbucket, Forgejo / Gitea (Codeberg or your own server)",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub, GitLab, Bitbucket, Forgejo / Gitea (Codeberg or your own server)",
+   "plugin": "GitLab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub, GitLab, Bitbucket, Forgejo / Gitea (Codeberg or your own server)",
+   "plugin": "Bitbucket",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitHub, GitLab, Bitbucket, Forgejo / Gitea (Codeberg or your own server)",
+   "plugin": "Forgejo / Gitea",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Git host access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git-based vault sync plugin that commits and merges notes across desktop and mobile without an external git app.",
+ "tags": [
+  "github",
+  "gitlab",
+  "bitbucket",
+  "gitea",
+  "conflict-resolution",
+  "version-history",
+  "self-hosted"
+ ],
+ "textHash": "63c35e667a52aab47c1ddb3617720f5fe5bad7f7"
+}

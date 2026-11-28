@@ -1,0 +1,57 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Resolve {path} placeholders in a parent item's text from key:: value child bullets",
+  "Render the resolved summary inline in Live Preview, showing raw template on the cursor's line",
+  "Swap template and resolved values on fold and expand in Reading view",
+  "Look up values with dot-paths into nested lists up to 50 levels deep",
+  "Place templates at any level so any node summarizes its own subtree"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline",
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a folding or outline-management tool; it computes and displays an inline rollup of a list item's own child bullets.",
+ "extras": "Manual installation only (copy folder to .obsidian/plugins); ships a sample-test-note.md to verify behavior; the Live Preview feature uses editor internals and may not load on some builds, in which case Reading view still works; fold-tied behavior can vary by Obsidian version; not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Structured detail and a scannable overview pull in opposite directions: you either keep details visible and drown in them, or fold them away and lose the facts; the author wanted a computed view on the parent line without changing how notes are written.",
+ "primary": "outlining",
+ "problem": "A folded bullet shows only its own text, so collapsed outlines lose the at-a-glance facts stored in their child items; Obsidian has no concept of per-list-item attributes or rollups.",
+ "readmeHash": "556abbf3407550cf743f56763130b1c9dd9a39ed",
+ "relations": [
+  {
+   "evidence": "Outliner-first tools built around a node-with-attributes model — Logseq (block properties) and Tana",
+   "plugin": "Logseq",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Logseq (block properties) and Tana (fields on nodes) — do \"show a computed rollup on a node\" natively",
+   "plugin": "Tana",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Outline plugin that renders a template on a list item's line, pulling values from its nested child bullets so folded items read as summaries.",
+ "tags": [
+  "inline-fields",
+  "fold-aware",
+  "dot-notation",
+  "rollup",
+  "nested-lists"
+ ]
+}

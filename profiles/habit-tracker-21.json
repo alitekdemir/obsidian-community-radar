@@ -1,0 +1,61 @@
+{
+ "also": [
+  "calendar",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track daily habits in a clickable grid rendered from a code block",
+  "Count and display streaks with optional gap tolerance (maxGap)",
+  "Customize habit titles and colors via habit-file frontmatter",
+  "Open the daily note for a date by clicking it in the grid header",
+  "Configure per-tracker options (path, date range, colors, debug) in code block settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Clicking a date to open a daily note requires the Daily Notes core plugin or the Periodic Notes community plugin; without one, a notice appears on click. Habit data is stored in an \"entries\" frontmatter array managed by the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in way to track daily habits and visualize completion streaks inside notes.",
+ "readmeHash": "e22fcd0c7c1ad094afa8fabb3a73965618e5c385",
+ "relations": [
+  {
+   "evidence": "Requires the Daily Notes core plugin or the Periodic Notes community plugin",
+   "plugin": "Daily Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ensure either the Daily Notes core plugin or the Periodic Notes community plugin is enabled",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Habit tracker that renders a clickable grid of habits and days in a code block, with streak counts and per-habit frontmatter settings.",
+ "tags": [
+  "habits",
+  "streaks",
+  "code-block-renderer",
+  "grid",
+  "daily-logs"
+ ]
+}

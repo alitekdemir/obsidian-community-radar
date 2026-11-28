@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show comment count badges on mind map nodes",
+  "Resolve, reopen and review comments from the map",
+  "Filter badges by status and category",
+  "Jump to the next or previous node with comments",
+  "Start a comment on a node via Annoteca's form"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not create or edit mind maps; it only overlays Annoteca comment badges on the Mind map editor plugin's map.",
+ "extras": "Not made by Mind map editor's author; it reads the map externally, so badges switch off if a Mind map editor release changes what it reads. Explains why inline comment storage can be damaged by map edits and offers conversion to end-of-file storage. No network requests; support via Discord and GitHub issues.",
+ "intent": "improve",
+ "intentEvidence": "This plugin connects two other plugins. You need both:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Mind map editor shows nothing about Annoteca comments, so comment activity is invisible and hard to act on while working on a map.",
+ "readmeHash": "be9af49bd56a1062f18e86a48e0486082f2ee89b",
+ "relations": [
+  {
+   "evidence": "Annoteca 1.20.0 or later, for the comments.",
+   "plugin": "Annoteca",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It reads Mind map editor's map from the outside",
+   "plugin": "Mind map editor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Annoteca",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Mind map editor",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bridge that shows Annoteca comment badges on Mind map editor nodes and lets you create, resolve and navigate comments from the map.",
+ "tags": [
+  "mind-map",
+  "badges",
+  "comment-threads"
+ ]
+}

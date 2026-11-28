@@ -1,0 +1,79 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Collect sync logs from the vault",
+  "Match log lines against 22 failure signatures",
+  "Redact tokens, passwords, e-mails and paths before matching",
+  "Produce a report with fix steps and upstream issue links",
+  "Export the report as a note or as JSON"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a sync engine or repair tool; it only reads existing logs and reports which known failure matched and how to fix it.",
+ "extras": "No network calls or telemetry; redaction runs before matching and again when the report is rendered. Only Remotely Save and Self-hosted LiveSync are supported, the rules are static, and a paid hosted tier is described as not built yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Sync errors show up as cryptic console lines, leaving users to dig through hundreds of upstream GitHub issues to guess which failure applies to them.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "c05d087b24a5399e8d4f39e57e5e74326d8e692e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Supports Remotely Save and Self-hosted LiveSync.",
+   "plugin": "Remotely Save",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Remotely Save and Self-hosted LiveSync.",
+   "plugin": "Self-hosted LiveSync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the Logstravaganza plugin (the approach the Remotely Save docs recommend on iOS)",
+   "plugin": "Logstravaganza",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Remotely Save",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Self-hosted LiveSync",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Logstravaganza",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local health check that scans vault sync logs, matches them against 22 known failure signatures, and produces a redacted report with fix steps.",
+ "tags": [
+  "onedrive",
+  "webdav",
+  "redaction",
+  "privacy",
+  "local-first"
+ ],
+ "textHash": "40b5016192a8f1182c3f65653405527819b5a38d"
+}

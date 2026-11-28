@@ -1,0 +1,60 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render bare date links as formatted dates in live preview and reading view",
+  "Configure the filename pattern and display format for matching links",
+  "Show relative labels (Today, Yesterday, Tomorrow) for adjacent days",
+  "Limit the transformation to a chosen folder",
+  "Toggle live preview and reading view rendering independently"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Deliberately avoids private APIs, so file explorer, tab headers, quick switcher, search results and graph view still show raw filenames; supports manual installation and BRAT. The listing carries an unreviewed-plugin notice.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin instead renders a fixed, fully configurable date and works in reading view as well as live preview.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "Daily-note filenames like 2026-07-07 are sortable and easy to link but read poorly mid-sentence; fixing display usually means renaming files or adding aliases/frontmatter.",
+ "readmeHash": "294b6d24d549b25836ee1925accaf265c58e5b12",
+ "relations": [
+  {
+   "evidence": "displays dates as relative phrases (\"5 mins ago\", \"In 3 days\", \"Last week\") that keep shifting",
+   "plugin": "Human Readable Dates",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Relative Dates is in the same relative-phrases family as Human Readable Dates for @-date format",
+   "plugin": "Relative Dates",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Natural Language Dates is complementary rather than overlapping: it helps you insert date links",
+   "plugin": "Natural Language Dates",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Display-only plugin that renders bare date links like [[2026-07-07]] as readable dates (Tuesday, Jul 7, 2026) without altering note content.",
+ "tags": [
+  "daily-notes",
+  "moment-format",
+  "yyyy-mm-dd",
+  "codemirror",
+  "post-processor",
+  "reading-view"
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "start native OS file drags from the file explorer via Electron's webContents.startDrag",
+  "expose the real on-disk file path instead of an obsidian:// URL",
+  "trigger external drags with a configurable modifier key (Ctrl, Alt, Shift, or none)",
+  "drag multiple selected files at once",
+  "log resolved filesystem paths for debugging"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Only covers dragging files out of Obsidian to other apps; it does not change how files are dropped into the vault.",
+ "extras": "Not yet in the community plugin marketplace; manual installation from release assets is required. Desktop only (isDesktopOnly), tested mostly on Windows; macOS and Linux are less tested, and cloud placeholders like OneDrive files may need to download before the target app can use them.",
+ "intent": "improve",
+ "intentEvidence": "Drag Out intercepts file-tree drags when your configured modifier key is held",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Dragging a note from Obsidian's file tree hands other apps an obsidian:// link rather than the on-disk file, so browser upload fields, email attachments, and file managers reject it.",
+ "readmeHash": "1f7484d1dced52774f32c8c9ce367ada0de3d735",
+ "relations": [
+  {
+   "evidence": "uses Electron's webContents.startDrag API to expose the real on-disk file path",
+   "plugin": "Electron",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Modifier-key drag helper that lets you drag files from the file explorer into other apps as real filesystem files instead of obsidian:// URLs.",
+ "tags": [
+  "drag-and-drop",
+  "file-explorer",
+  "electron",
+  "native-os",
+  "multi-select",
+  "desktop-only"
+ ]
+}

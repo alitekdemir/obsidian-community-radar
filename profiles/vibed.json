@@ -1,0 +1,100 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse sessions from five agent backends",
+  "Embed session dashboards in notes",
+  "Stream live OpenCode chats and send prompts",
+  "Attach markdown notes and tags to sessions",
+  "Filter sessions by tag, state, model and directory"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI assistant of its own; it browses and drives sessions created by external agent tools.",
+ "extras": "Desktop only: it spawns sqlite3/zstd and talks to local servers. It reads agent history files outside the vault and writes only session notes inside it; no telemetry. In-app help covers the block syntax and filter language.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Agent session histories live in tool-specific databases and JSONL files outside the vault, so Obsidian users cannot read or continue them from their notes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "9c32a9a91418c9364eeb728004978bd2c95eb1fa",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Browse your OpenCode v2 sessions directly in Obsidian",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can add read-only connectors for OpenCode v1, Claude Code, Codex CLI, and Cursor Agent histories",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can add read-only connectors for OpenCode v1, Claude Code, Codex CLI, and Cursor Agent histories",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can add read-only connectors for OpenCode v1, Claude Code, Codex CLI, and Cursor Agent histories",
+   "plugin": "Cursor Agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenCode",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Cursor Agent",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "sqlite3",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Browser for AI agent sessions from OpenCode, Claude Code, Codex and Cursor, shown as a dedicated view or as dashboards embedded in notes.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "claude-code",
+  "codex",
+  "cursor",
+  "mcp",
+  "embeds"
+ ],
+ "textHash": "e0583a6af27e58d34a15e6e72f64b3e349930b77"
+}

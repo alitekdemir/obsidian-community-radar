@@ -1,0 +1,59 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "job-seekers",
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Parse pasted job postings into structured notes with deadline, salary, location and requirements",
+  "Track application statuses with a dated timeline and a board note showing due and stale items",
+  "Match resume bullets to posting requirements and suggest rewordings using a local model",
+  "Draft eight likely interview questions grounded in the posting",
+  "Export upcoming deadlines as an .ics calendar file"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Free and MIT licensed with no accounts, API keys or telemetry; without Ollama the regex parsing, board, status workflow and calendar export still work, only Tailor and Interview prep need the model.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Tracking job applications usually means spreadsheets or cloud services; Obsidian has no built-in way to turn a pasted posting into a structured note with deadline, status and fit tracking.",
+ "readmeHash": "f3a94397264575be3113e991a1ffe875bdfee5fc",
+ "relations": [
+  {
+   "evidence": "let a local model (via Ollama) point out which of your resume bullets answer which requirement",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Job application tracker that turns pasted postings into structured notes with a status board and uses a local model to tailor resumes and prep interviews.",
+ "tags": [
+  "ollama",
+  "job-applications",
+  "resume-tailoring",
+  "interview-prep",
+  "ics",
+  "regex-parsing"
+ ]
+}

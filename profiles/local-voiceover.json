@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Speak selected text with a floating Play button or a command palette command",
+  "Stop synthesis or playback with a Stop button or command",
+  "Configure speech speed, variation, and seed in settings",
+  "Cache model graphs and runtime assets locally for offline playback",
+  "Synthesize in a background worker so the editor stays responsive"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "First run downloads roughly 38 MB of model graphs plus runtime assets from jsDelivr and the official owensong/Inflect-Micro-v2-ONNX export; the model provides one fixed English male voice and is not voice cloning or multilingual. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": "Hosted TTS services require an account, an API key, and a copy of your writing on somebody else's server.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to hear selected passages without uploading writing to somebody else's server, and without provider configuration, a Python runtime, or a local server.",
+ "primary": "audio",
+ "problem": "Hosted TTS services require accounts, API keys, and sending note content to a third-party server; Obsidian has no built-in private, offline speech synthesis.",
+ "readmeHash": "24a59e9c035cd8d122b58d9b6dde3ece61bd9b9c",
+ "relations": [
+  {
+   "evidence": "it bundles ephone, an eSpeak-NG WebAssembly frontend under GPL-3.0-or-later",
+   "plugin": "ephone",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local Voiceover adapts the browser port of Inflect Micro v2 into an Obsidian plugin",
+   "plugin": "Inflect Micro v2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Text-to-speech plugin that speaks selected note text locally with the Inflect Micro v2 model via ONNX Runtime, with no API key or account.",
+ "tags": [
+  "text-to-speech",
+  "onnx",
+  "webgpu",
+  "offline",
+  "inflect-micro",
+  "privacy",
+  "english-only"
+ ]
+}

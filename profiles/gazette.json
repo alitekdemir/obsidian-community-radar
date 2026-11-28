@@ -1,0 +1,88 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish or update notes as Leaflet documents on your AT Protocol repository (PDS)",
+  "Publish whole folders or all notes marked with a publish property, after confirmation",
+  "Manage Leaflet posts in a list view: search, filter, relink to notes, republish, delete",
+  "Convert Obsidian Markdown (callouts, embeds, Dataview queries, Excalidraw, math, footnotes) to Leaflet content",
+  "Apply ordered regex text-replacement rules and per-note properties (slug, cover, publication) before publishing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general static-site or blog publisher; it only publishes to Leaflet publications on the AT Protocol.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; it can also be installed via BRAT or from release files. The README includes a privacy section listing exactly which services are contacted.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes as AT Protocol records to a Leaflet publication on the user's own PDS.",
+ "readmeHash": "c9a2c9afc8bbc4e179e1b7f221f82978fb7bd11e",
+ "relations": [
+  {
+   "evidence": "Publish your notes to Leaflet (leaflet.pub), the AT Protocol blogging platform.",
+   "plugin": "Leaflet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Create an app password in Bluesky: Settings → Privacy and security → App passwords.",
+   "plugin": "Bluesky",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview, Excalidraw and embed conversion come from Enveloppe",
+   "plugin": "Enveloppe",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Dataview queries (DQL, DataviewJS, inline) | Replaced by their result in Markdown (requires Dataview)",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw drawings ![[drawing.excalidraw]] | PNG image exported by Excalidraw (requires Excalidraw)",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Bluesky (AT Protocol) account with an app password",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that sends Obsidian notes to Leaflet (leaflet.pub) as AT Protocol records, with multi-publication support and a post manager.",
+ "tags": [
+  "at-protocol",
+  "bluesky",
+  "leaflet",
+  "pds",
+  "blog",
+  "app-password"
+ ]
+}

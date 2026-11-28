@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send selected Markdown notes to Escreva-me",
+  "Limit uploads to the whole vault, chosen folders, or chosen notes",
+  "Authenticate with a one-time plugin token from the Escreva-me account",
+  "Write exported reflections into the Escreva-me/Reflections/ folder",
+  "Remove already-imported notes when a folder is excluded"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a cross-device vault sync; it only exchanges notes with the Escreva-me service and its Reflections folder.",
+ "extras": "The README spells out what leaves the vault: note paths and contents of the chosen scope are stored on the user's Escreva-me account, and the plugin token is stored only as a hash; nothing is sent until settings are saved.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Escreva-me users keep their writing in Obsidian but have no built-in way to move those notes into their Escreva-me account or receive reflections back.",
+ "readmeHash": "15ca31eabdd459e70154fef2cacb7d330f2d7060",
+ "relations": [
+  {
+   "evidence": "sends the path and contents of the Markdown notes you choose to Escreva-me",
+   "plugin": "Escreva-me",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Escreva-me",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "registered Escreva-me account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Connector that sends selected vault Markdown notes to the Escreva-me service and writes exported daily reflections back into the vault.",
+ "tags": [
+  "journaling",
+  "reflections",
+  "token-auth"
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI models in a side panel with streaming output",
+  "Ask questions about selected text via a right-click popover",
+  "Insert results at the cursor or overwrite the selection",
+  "Attach notes to a chat using [[ suggestions",
+  "Manage multiple models with separate API keys and usage stats"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (Chinese and English); the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says the plugin exists purely for minimal, no-frills AI use: \"没有什么科技含量，单纯为极简使用AI\".",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and asking about a piece of selected text normally means leaving the editor or copying it into another app.",
+ "readmeHash": "17fc686421496af66d40aab3430aaf5b190698a2",
+ "relations": [
+  {
+   "evidence": "Gemini: model name e.g. gemini-3.5-flash; API key from Google AI Studio",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek: model name e.g. deepseek-chat / deepseek-reasoner; API key from DeepSeek Open Platform",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional base URL for gateway/proxy (e.g. OpenRouter, one-api)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "model provider API key (Google AI Studio, DeepSeek, or proxy gateway)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider account to obtain API keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI assistant plugin with a side-panel chat and a selection popover that answers questions about selected text and inserts or overwrites results.",
+ "tags": [
+  "gemini",
+  "deepseek",
+  "openrouter",
+  "streaming",
+  "selection-popover",
+  "api-key"
+ ]
+}

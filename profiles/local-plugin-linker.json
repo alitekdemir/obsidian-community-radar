@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Link a plugin folder into the vault as a symlink from settings",
+  "Reload a linked plugin when its build output files change",
+  "Install plugin builds from GitHub pull requests or branches",
+  "Override store-installed or BRAT-installed plugins and restore them after unlinking",
+  "Sign in to GitHub and download workflow artifacts, including from private repositories"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note-linking tool; it manages symlinks to plugin folders and GitHub Actions builds for plugin development and testing.",
+ "extras": "Folder links work only on desktop; GitHub builds work on desktop and mobile. Uses Obsidian's internal plugin API to enable, disable and reload plugins, which may change in future versions. Pre-release versions are available via BRAT (zachhannum/obsidian-local-plugin-linker). README includes a security disclosures section about file system and network access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Developing an Obsidian plugin requires placing files in the vault's plugins folder, and testing pull-request builds, especially on mobile, is not supported.",
+ "readmeHash": "24c56f52a00b1af26207ead775fb6f5af9623a43",
+ "relations": [
+  {
+   "evidence": "You can link a folder or install a build over a plugin that you installed from the store or from BRAT.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "GitHub (for artifact downloads and sign-in)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Developer tool that links plugin folders into a vault via symlink and installs plugin builds from GitHub pull requests and branches, reloading plugins on rebuild.",
+ "tags": [
+  "github",
+  "github-actions",
+  "symlink",
+  "hot-reload",
+  "pull-requests",
+  "brat",
+  "artifacts"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "latex"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render inline math, display math, and Typst code blocks with Typst",
+  "Expand snippets and wrap selections in Typst shortcuts while typing",
+  "Convert between LaTeX and Typst with TyLax",
+  "Copy rendered equations as SVG, PNG, or img tags",
+  "Customize rendering with preambles, templates, and custom CSS"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The plugin downloads a large WebAssembly binary from its Releases page at startup, so network access is needed for first use, package installation, and the Typst Tools (symbol lists, Detypify, Quiver). Local Typst packages are only imported on desktop. Detailed documentation lives in external pages linked from the README; the click-to-jump feature is marked experimental, and the README advises disabling background rendering if exports fail.",
+ "intent": "alternative",
+ "intentEvidence": "Render math expressions in Obsidian using Typst instead of MathJax.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "math",
+ "problem": "Obsidian renders math only through MathJax, which is slow with flickering inline previews and cannot use Typst syntax or packages.",
+ "readmeHash": "f14c153f7c51a323ef59995b23689b0b4c5d2ca1",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Typst",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bidirectional converter between TeX/LaTeX and Typst with TyLax",
+   "plugin": "TyLax",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw (use the typst-render-to-excalidraw command)",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "I strongly recommend installing the No more flickering inline math plugin by RyotaUshio",
+   "plugin": "No more flickering inline math",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "No more flickering inline math",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Typst math renderer that replaces Obsidian's MathJax engine for inline math, display math, and Typst code blocks, with snippets and Typst tools.",
+ "tags": [
+  "typst",
+  "mathjax",
+  "tylax",
+  "detypify",
+  "quiver",
+  "svg-export",
+  "excalidraw"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Delete empty markdown files and files containing only ignored frontmatter",
+  "Remove unused attachments by user-defined extensions",
+  "Delete empty folders recursively",
+  "Preview files before deletion and choose system trash, Obsidian trash, or permanent delete",
+  "Include or exclude specific folders and extensions from scans"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README ends mid-sentence in a credits section and references screenshots that are not present in the text; it mentions a known issue about attachments in Admonition code blocks (marked as fixed).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Over time a vault accumulates empty notes and attachments that are no longer referenced, and there is no built-in way to find and remove them in bulk.",
+ "readmeHash": "cd2ac9e72c0852280763ca82508cfe366cc8c167",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Admonition",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Admonition",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Cleanup tool that finds and deletes empty markdown files, unused attachments, and empty folders based on user-configured rules.",
+ "tags": [
+  "unused-attachments",
+  "empty-files",
+  "vault-cleanup",
+  "trash"
+ ]
+}

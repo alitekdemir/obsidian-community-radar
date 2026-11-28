@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Explains selected words in a side panel",
+  "Saves and exports a vocabulary library",
+  "Renders a mermaid word map of related words",
+  "Speaks pronunciations via TTS or system voice",
+  "Syncs saved words to Anki"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; requires Obsidian 1.15.0+. Selected text is sent to the configured AI endpoint; AnkiConnect and Ollama requests stay local. Exports are written to a 'LexiSide Exports' folder in the vault root.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in dictionary, so looking up a word's meanings, usage, nuance, and related words means leaving the note or switching apps.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "28ba97e11d922ee04dbd7af39e5bc94143ce2bda",
+ "relations": [
+  {
+   "evidence": "Uses the Pele mermaid renderer when it is available and falls back to Obsidian's built-in renderer.",
+   "plugin": "Pele",
+   "type": "integrates"
+  },
+  {
+   "evidence": "push saved words to Anki through AnkiConnect",
+   "plugin": "Anki",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek (default provider, or any OpenAI-compatible endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama server (alternative local provider)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AnkiConnect",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Pele",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Side-panel vocabulary explorer that explains selected English words with AI, showing structured meanings, usage, nuance, word family, and a mermaid word map.",
+ "tags": [
+  "vocabulary",
+  "language-learning",
+  "deepseek",
+  "ollama",
+  "anki",
+  "mermaid"
+ ],
+ "textHash": "85d0d01d0068db8ab0a0e8277eaf4ddf7924368c"
+}

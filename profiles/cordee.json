@@ -1,0 +1,74 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Share a vault with friends via a self-hosted server (Docker, Caddy/nginx, or Node)",
+  "Sync changes between members automatically within seconds",
+  "Merge notes edited by two people line by line without losing content",
+  "Create and join shared vaults through invitation links",
+  "View member activity, set a profile photo and display name, and pause or run syncs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Privacy caveats: the server host can read all shared content and there is no end-to-end encryption in version 0.1; the README warns to back up the vault before trying it and to keep .obsidian/ out of public repositories. Not yet installable from the official catalog pending review; BRAT or manual installation is required meanwhile. README is bilingual (English and French).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way for a group of users to share and sync one vault on a server they control without a paid service or third-party account.",
+ "readmeHash": "f5a0a43461efb818b457b0cd5202adbc3f7e1b3a",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "when you enable it, Cordee contacts the Moodle site you enter",
+   "plugin": "Moodle",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Cordee server",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Moodle",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Self-hosted vault sharing plugin that syncs a vault with friends on your own server and merges conflicting note edits line by line.",
+ "tags": [
+  "self-hosted",
+  "docker",
+  "caddy",
+  "conflict-merging",
+  "invitation-links",
+  "moodle",
+  "node"
+ ]
+}

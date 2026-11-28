@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [
+  ": developers",
+  ": academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Scan vault for personal data",
+  ": Redact sensitive findings",
+  ": Block risky Git commits",
+  ": Report findings via status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": files",
+   ": markdown"
+  ],
+  "level": "none"
+ },
+ "disambiguation": "Pattern matching, not legal advice.",
+ "extras": "The plugin is desktop only due to its use of Node.js APIs for the Git hook. It cannot prevent data from being uploaded via Obsidian Sync or Publish.",
+ "intent": "new",
+ "intentEvidence": "Finds personal data in your Obsidian vault before it ends up where it should not: IBANs, tax IDs, credit cards, API keys and more.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Users risk exposing sensitive personal or corporate data, such as financial IDs or API keys, within their notes or committing them to public repositories.",
+ "readmeHash": "c48e7be848aaefd1bd1b69dfacba7ea8ae0fa370",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A data protection plugin that scans Obsidian vaults for personal data like IBANs and API keys, redacts findings, and blocks risky Git commits.",
+ "tags": [
+  "gdpr",
+  "data-protection",
+  "redaction",
+  "pattern-matching",
+  "iban",
+  "api-keys"
+ ]
+}

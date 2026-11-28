@@ -1,0 +1,64 @@
+{
+ "also": [
+  "pdf",
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert EPUB to Markdown",
+  "Convert PDF to Markdown",
+  "Track reading progress per book",
+  "Show paginated reading mode",
+  "List converted books in a library"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general PDF annotation tool; it extracts text into one Markdown note and rejects scanned image-only PDFs.",
+ "extras": "Early first public release; tested on only a handful of EPUBs/PDFs and one synthetic Calibre file. MOBI/AZW3/FB2/DOCX conversion is desktop-only and needs a local Calibre install; scanned PDFs are rejected (no OCR). Illustrations as text art are off by default. Manual install or BRAT only.",
+ "intent": "new",
+ "intentEvidence": "If the sibling plugin Brailliant is conceptually its cousin (images → text), Feathershelf is the same idea applied to whole books.",
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author wanted books reduced to just the words so the result stays readable, searchable and genuinely light.",
+ "primary": "import",
+ "problem": "EPUB and PDF books are heavy binary containers that cannot be grepped, diffed or opened in a plain text editor.",
+ "profiledAt": "2026-11-28",
+ "provider": "Baidu",
+ "readmeHash": "82056f7e5a270928de42a1731d6b458521ce73fd",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "If the sibling plugin Brailliant is conceptually its cousin (images → text), Feathershelf is the same idea applied to whole books.",
+   "plugin": "Brailliant",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calibre (ebook-convert)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Book converter that turns EPUB/PDF files into a single plain-text Markdown note with reading progress, table of contents, font zoom and comments.",
+ "tags": [
+  "epub",
+  "docx",
+  "reading-progress",
+  "reading-tracker",
+  "table-of-contents",
+  "fuzzy-search"
+ ],
+ "textHash": "e5edcc6a8b000b39c11131fb27da3989aff87017"
+}

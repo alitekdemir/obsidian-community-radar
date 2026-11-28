@@ -1,0 +1,75 @@
+{
+ "also": [
+  "music"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log currently or recently played Spotify songs",
+  "Search Spotify for songs and albums",
+  "Create song and album notes with auto-populated frontmatter",
+  "Capture timestamped thoughts on songs",
+  "Link related songs and albums with wikilinks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Does not send listening data to Last.fm; 'scrobbling' here means writing your thoughts in a note for a song or album.",
+ "extras": "A Feb. 2026 change to the Spotify Developer Platform makes a Spotify Premium account required. Song notes are named with Spotify track IDs (to avoid filename conflicts), so the optional Front Matter Title plugin is strongly encouraged for readable titles. No support for podcasts, audiobooks, or Spotify local files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says scrobbling a song means writing thoughts on it, inspired by how Last.fm scrobbles record listened songs.",
+ "primary": "integrations",
+ "problem": "Obsidian has no way to pull song or album data from Spotify or quickly capture timestamped listening thoughts in structured notes.",
+ "readmeHash": "f92f4e1a25c84fa6df06b4353d8276dfa93c599c",
+ "relations": [
+  {
+   "evidence": "inspired by Last.fm scrobbles",
+   "plugin": "Last.fm",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Spotify Web API SDK - TypeScript for Spotify API types in types.ts",
+   "plugin": "Spotify Web API SDK",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Spotify for Developers client ID",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Spotify account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Spotify Premium",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Front Matter Title",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Spotify integration that logs thoughts on songs and albums in auto-created, frontmatter-populated notes.",
+ "tags": [
+  "spotify",
+  "lastfm",
+  "scrobbling",
+  "music-tracking",
+  "web-api"
+ ]
+}

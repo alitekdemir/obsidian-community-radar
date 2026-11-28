@@ -1,0 +1,59 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "connect to Oura via OAuth with automatic token refresh",
+  "insert daily sleep, readiness, and activity stats at the cursor",
+  "import stats for any date into YYYY-MM-DD-formatted notes",
+  "migrate legacy personal access tokens to OAuth"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that OAuth credentials and tokens are stored unencrypted in data.json and should be kept out of source control and device syncing; the release is pending marketplace review and must be installed manually or via BRAT; the custom-scheme OAuth callback still requires live verification, with a manual HTTPS callback fallback.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Oura health data lives in the Oura app and cloud API, so it is not available inside Obsidian notes.",
+ "readmeHash": "a135732afa9f9e86145a3c7200779f9765f800f3",
+ "relations": [
+  {
+   "evidence": "Enable community plugins and install Obsidian42 - BRAT",
+   "plugin": "Obsidian42 - BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Oura account with daily data access",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "personal Oura application client ID and client secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports Oura Ring sleep, readiness, and activity stats into a note for any date via the Oura API.",
+ "tags": [
+  "oura",
+  "wearables",
+  "sleep-tracking",
+  "health-metrics",
+  "oauth"
+ ]
+}

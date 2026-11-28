@@ -1,0 +1,70 @@
+{
+ "also": [
+  "bases",
+  "charts"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compose vault content into rows-and-columns dashboard layouts stored as YAML code blocks",
+  "Render inline or linked charts through the Bases Chart plugin",
+  "Edit layouts visually with a widget editor modal, drag-to-resize columns, and an insert command",
+  "Embed notes, headings, or blocks using native Obsidian embed syntax",
+  "Display stat KPI tiles, link cards, headings, and arbitrary markdown widgets"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone metrics app; dashboards are YAML code blocks that live inside regular vault notes.",
+ "extras": "The manifest carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' Requires Obsidian 1.10.0+ for the Bases code-block API; charts silently degrade to a notice if Bases Chart is missing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no built-in way to arrange notes, charts, and stats together in a rows-and-columns dashboard layout within a note.",
+ "readmeHash": "dae65feb24da2bf9d60c76232d8a22a5041001be",
+ "relations": [
+  {
+   "evidence": "Requires the Bases Chart plugin to be installed and enabled.",
+   "plugin": "Bases Chart",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works alongside Bases, Dataview, Tasks, Canvas, and any markdown plugin",
+   "plugin": "Bases",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works alongside Bases, Dataview, Tasks, Canvas, and any markdown plugin",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases Chart",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Dashboard builder that composes vault content into a 12-column grid inside a note, with chart, embed, stat, link, and markdown widgets.",
+ "tags": [
+  "grid-layout",
+  "kpi",
+  "yaml",
+  "widgets",
+  "drag-and-drop",
+  "bases-chart"
+ ]
+}

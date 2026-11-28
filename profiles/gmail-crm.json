@@ -1,0 +1,92 @@
+{
+ "also": [
+  "data",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create people and company notes from Gmail metadata",
+  "Score contact activity and flag contacts worth reconnecting with",
+  "Browse a local CRM table and people workspace",
+  "Open personal and shared People graphs in a tab",
+  "Enrich people notes with Anthropic using your own API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a two-way contacts sync; it reads Gmail and calendar metadata to generate people notes and relationship views.",
+ "extras": "Desktop only, requires Obsidian 1.15.0 or later. The OAuth grant is broader than the metadata the sync requests (gmail.readonly, calendar read, contacts read). Credentials, API keys and contact indexes are stored unencrypted in the vault's plugin data. Setup, scoring and troubleshooting are documented in an external plugin guide; relationship scores are described as estimates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "To make the network built over years more useful by adding context to people notes and surfacing reasons to reconnect.",
+ "primary": "integrations",
+ "problem": "Relationship history is scattered across Gmail, calendar activity and personal notes, so it is hard to see which contacts have gone quiet or why reconnecting might matter.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "d6eaaef46f7b96e678f63c6cf7ffd8c2de9f0357",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Gmail sync requires a Google account and Google OAuth authorization.",
+   "plugin": "Google",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally enrich people notes with Anthropic using your own API key.",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The optional hosted People graph requires a separate People sign-in and internet access",
+   "plugin": "People",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT remains an optional beta installation method.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "People sign-in",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "PeopleGraph CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Plugin that builds people and company notes from Gmail and calendar metadata, with relationship scores, a CRM table, and hosted network graphs.",
+ "tags": [
+  "contacts",
+  "email",
+  "google-calendar",
+  "oauth",
+  "knowledge-graph",
+  "claude",
+  "meeting-notes"
+ ],
+ "textHash": "e4e3c527c7df802124191ea0ab712398afa76c33"
+}

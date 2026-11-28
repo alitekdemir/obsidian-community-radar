@@ -1,0 +1,85 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "magic-the-gathering-players"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Track cards across several collection lists with finish, condition, language and grading",
+  "Build decks with mainboard, sideboard, maybeboard and a Commander slot",
+  "Keep wantlists and move acquired cards into the collection",
+  "Import and export CSV and plain-text decklists",
+  "Recognise a card from a photo and propose printings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Card recognition from a photo is labelled beta and downloads a 10.6 MB artwork index on first use; the plugin file grows to about 6 MB, which Obsidian Sync's Standard plan will not carry. GitHub storage is optional and keeps the token in Obsidian's secret storage. No analytics or telemetry; the README lists every network service and what it is asked for.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Plain notes cannot hold a card collection with per-card finish, condition, language and price, nor deck lists and wantlists that stay current with card data and prices.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "be69afba333236262f65383d940c313412cba620",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Card data, images and symbols come from Scryfall.",
+   "plugin": "Scryfall",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The price history is built from MTGJSON",
+   "plugin": "MTGJSON",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Card Kingdom column | Card Kingdom's public pricelist",
+   "plugin": "Card Kingdom",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Mana Pool column | Mana Pool's public price list on a computer",
+   "plugin": "Mana Pool",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import and export: CSV and plain-text decklists (Moxfield, Archidekt, MTGO, Arena)",
+   "plugin": "Moxfield",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plugin that tracks a physical Magic: The Gathering collection, decks and wantlists, with card data and prices from Scryfall.",
+ "tags": [
+  "inventory",
+  "tesseract",
+  "currency",
+  "github"
+ ],
+ "textHash": "4eaba8f7517caa46a21a0e531e2f27890d4c5539"
+}

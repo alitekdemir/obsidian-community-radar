@@ -1,0 +1,81 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "add custom URI commands to the command palette",
+  "insert file, selection, and metadata placeholders into URIs",
+  "open Obsidian URIs such as vault or note links from commands",
+  "open external URI schemes such as mailto, spotify, and calibre",
+  "toggle URL-encoding for placeholder substitution"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Links to the Obsidian URI documentation for further help; the meta placeholder only works with URL-encoding turned off.",
+ "intent": "improve",
+ "intentEvidence": "This plugin allows you to add custom URI commands to the command palette.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "commands",
+ "problem": "Running URIs (Obsidian's own scheme or external ones like mailto or calibre) from the command palette, with dynamic content from the current file, is not possible with core Obsidian.",
+ "readmeHash": "71a56ad3b49b62d03094d14a778595f0735823c6",
+ "relations": [
+  {
+   "evidence": "Append your selection to today's daily note (requires Advanced URI plugin)",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open this plugin's settings page (requires Hotkey Helper plugin)",
+   "plugin": "Hotkey Helper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requires MetaEdit.",
+   "plugin": "MetaEdit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Parts of this code, especially the icon picker, borrow heavily from phibr0's plugins",
+   "plugin": "Obsidian Macros and Customizable Sidebar",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced URI",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Hotkey Helper",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "MetaEdit",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Command builder that adds custom URI commands with file placeholders to the command palette, for Obsidian URIs and other URI schemes.",
+ "tags": [
+  "uri",
+  "obsidian-uri",
+  "url-encoding",
+  "placeholders"
+ ]
+}

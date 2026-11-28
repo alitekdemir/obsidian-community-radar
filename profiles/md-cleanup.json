@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [
+  "korean-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "strip bold markers outside code and math",
+  "remove non-breaking spaces from lines and inline text",
+  "merge runs of single-sentence paragraphs",
+  "fix colon spacing following Korean punctuation rules",
+  "re-wrap paragraphs and quotes at sentence boundaries"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Keeps code blocks, math, and YAML front matter untouched; warns to leave Prettier's proseWrap at its default when combining line-breaking with Prettier; shows notices explaining why nothing changed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formatting",
+ "problem": "Text pasted from chat assistants, web pages, or other editors arrives with stray bold markers, non-breaking spaces, one-sentence paragraphs, and wrong colon spacing that Obsidian's core commands do not fix.",
+ "readmeHash": "8d4afeb68f42597d098c499cf7e513ed544e4d1a",
+ "relations": [
+  {
+   "evidence": "The last command calls the Prettier community plugin if it is installed and enabled.",
+   "plugin": "Prettier",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Prettier",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Command-based Markdown cleaner that strips bold markers, non-breaking spaces, and fixes paragraph and colon spacing in pasted text, tuned for Korean.",
+ "tags": [
+  "korean",
+  "prettier",
+  "nbsp",
+  "line-wrapping",
+  "paste-cleanup"
+ ]
+}

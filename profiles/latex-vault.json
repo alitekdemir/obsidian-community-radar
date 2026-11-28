@@ -1,0 +1,62 @@
+{
+ "also": [
+  "math"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render LaTeX code blocks to SVG",
+  "Detect and load required LaTeX packages",
+  "Adapt rendered output to dark mode",
+  "Cache compiled SVGs on disk",
+  "Clear cache and toggle live preview from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a LaTeX editor or export tool; it only renders LaTeX code blocks into SVG images inside notes.",
+ "extras": "Desktop only (Obsidian 1.5.0+). Shell-escape is off by default and should be enabled only for trusted vaults, since it lets code blocks execute commands. Interface available in English and Italian.",
+ "intent": "alternative",
+ "intentEvidence": "Supports any LaTeX package (pgfplots, circuitikz, tikz-cd, forest, nicematrix, algorithmicx, listings, ...), unlike TikZJax.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "LaTeX diagrams that need packages beyond what built-in math rendering or TikZJax can load cannot be shown inside Obsidian notes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "bb184a4d26104cd6943f202722c18fdd3d56ccae",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Supports any LaTeX package (pgfplots, circuitikz, tikz-cd, forest, nicematrix, algorithmicx, listings, ...), unlike TikZJax.",
+   "plugin": "TikZJax",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TeX Live or MiKTeX with latex/pdflatex and dvisvgm",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders LaTeX code blocks such as TikZ diagrams, pgfplots, matrices, algorithms and math to SVG images using a local TeX installation.",
+ "tags": [
+  "tikz",
+  "svg",
+  "diagrams",
+  "code-blocks"
+ ],
+ "textHash": "3d787b6e78ca68241015c42ea06ea9c089968776"
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "export",
+  "syncing"
+ ],
+ "audience": [
+  "ereader-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert notes to EPUB with Obsidian's Markdown renderer",
+  "Send notes or folders to the reader over local Wi-Fi",
+  "Upload books to the Xteink Lover shelf via OPDS",
+  "Sync new and changed notes from chosen folders and a tag",
+  "Auto-send new notes appearing in a watched folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general vault-sync tool; it pushes notes one-way to a specific e-reader as EPUB files.",
+ "extras": "README warns that CrossPoint has no login or encryption, so Wi-Fi sends use plain HTTP and should stay on trusted networks; notes content stored on Xteink Lover can be avoided by self-hosting the server; no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to get notes onto an e-reader as EPUB without external tools like pandoc or a desktop app.",
+ "readmeHash": "7f2d35c29f05289404528e32a82807f1f362d0ca",
+ "relations": [
+  {
+   "evidence": "Uploads to your online shelf; the reader downloads it over OPDS",
+   "plugin": "Xteink Lover",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The default folder is Clippings, where Obsidian Web Clipper saves",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Send Obsidian notes to an Xteink X3/X4 e-reader running CrossPoint firmware",
+   "plugin": "CrossPoint firmware",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Xteink X3/X4 e-reader with CrossPoint firmware",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Xteink Lover (or self-hosted copy)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Xteink Lover app token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sends Obsidian notes to an Xteink X3/X4 e-reader running CrossPoint firmware as EPUB, over local Wi-Fi or via the Xteink Lover shelf.",
+ "tags": [
+  "epub",
+  "e-reader",
+  "e-ink",
+  "crosspoint",
+  "opds",
+  "web-clipper"
+ ]
+}

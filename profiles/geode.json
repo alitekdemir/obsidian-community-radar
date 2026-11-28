@@ -1,0 +1,66 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vaults across desktop and Android devices through a self-hosted server",
+  "Encrypt notes end-to-end with a passphrase-derived key before upload",
+  "Merge concurrent edits and keep unmergeable versions as side-by-side conflicts",
+  "Restore file history, deleted files and full decrypted vault exports",
+  "Manage joined devices, revoke lost ones, and pause or resume sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns to use one sync tool per vault (no iCloud or Google Drive alongside it), sets a 20 GiB default per-vault server cap, states it is not built for sharing a vault between people, and that a lost passphrase means server data cannot be decrypted. Additional docs live in docs/ (architecture, screenshots, testing) referenced from the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync options don't let users run their own server while keeping note contents and file names hidden from it.",
+ "readmeHash": "42e107c3228228ae8db34837a920305628cf6b0f",
+ "relations": [
+  {
+   "evidence": "To reach the server from outside your home, use Tailscale.",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT installs plugins straight from a GitHub repository, so it gets every release here",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Docker server (Geode image with Docker Compose, optionally Caddy and Tailscale)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted, end-to-end encrypted vault sync through a Docker server you run, with automatic merging, conflict review, file history and device revocation.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "docker",
+  "tailscale",
+  "caddy",
+  "file-history",
+  "conflict-resolution"
+ ]
+}

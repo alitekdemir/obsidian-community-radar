@@ -1,0 +1,57 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture GPS coordinates into daily note properties",
+  "look up a formatted address from coordinates via AMap",
+  "fetch the day's weather forecast with temperatures",
+  "run capture automatically when opening today's note",
+  "reuse existing coordinates and skip capture when weather is already set"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Mobile-only (requires Obsidian Mobile 1.11.0+); AMap coverage is China-focused and the README includes full Chinese documentation. The API key is stored in plain text in plugin data and coordinates are sent to AMap over HTTPS.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Daily notes contain no automatic real-world context; users must manually add where they were and what the weather was.",
+ "readmeHash": "e01c5470b546cf436d6f9e1ab868dfacff11dfe9",
+ "relations": [
+  {
+   "evidence": "with address lookup and weather data from AMap",
+   "plugin": "AMap",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AMap Web Service API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Mobile plugin that writes GPS coordinates, address, and daily weather into daily note properties using AMap lookups.",
+ "tags": [
+  "amap",
+  "gps",
+  "weather",
+  "geolocation",
+  "mobile"
+ ]
+}

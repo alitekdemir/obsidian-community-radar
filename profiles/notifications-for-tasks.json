@@ -1,0 +1,74 @@
+{
+ "also": [
+  "tasks",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send task reminders through ntfy and other channels",
+  "Schedule notifications in advance so they arrive while Obsidian is closed",
+  "Automatically complete recurring tasks through the Tasks plugin",
+  "Filter tasks by files, folders, tags, and quiet hours",
+  "Diagnose why a task received no notification with Why not"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free and open-source with optional donations; interface translations are distributed as separate JSON files outside the plugin. The ntfy server limits how far ahead messages can be scheduled, and non-ntfy channels require Obsidian to be running.",
+ "intent": "alternative",
+ "intentEvidence": "the modification diverged significantly from the original",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author used Ntfy Notifications by Murat, was missing a feature and added it himself, then kept developing independently with priorities of Tasks integration, ntfy, task automation, and mobile resource efficiency.",
+ "primary": "integrations",
+ "problem": "Obsidian cannot send task reminders on its own, and reminders stop when the app is closed; recurring tasks also have to be completed manually each time.",
+ "readmeHash": "aaeb0fd790e91f757cc93065389ea33f10dc9174",
+ "relations": [
+  {
+   "evidence": "This is an independent project developed and maintained by Alekcei-BAV, based on Murat's original work.",
+   "plugin": "Ntfy Notifications by Murat (@arias007)",
+   "type": "fork"
+  },
+  {
+   "evidence": "installing and enabling Tasks is recommended",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ntfy server and mobile app",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Lazy Loader",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Task reminder plugin that sends scheduled notifications via ntfy and other channels and auto-completes recurring tasks through the Tasks plugin.",
+ "tags": [
+  "ntfy",
+  "telegram",
+  "discord",
+  "push-notifications",
+  "recurring-tasks",
+  "quiet-hours"
+ ]
+}

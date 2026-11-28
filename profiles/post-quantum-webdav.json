@@ -1,0 +1,60 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "encrypt vault contents and file names with post-quantum cryptography (ML-KEM-768, ML-DSA-65)",
+  "sync encrypted files to any WebDAV server with chunked, resumable transfer",
+  "resolve conflicts across devices using vector clocks and last-write-wins",
+  "verify chunk and file integrity with AES-GCM and SHA-256",
+  "configure chunk size, parallel transfers, timeouts, and auto-sync intervals"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest description notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing to a self-hosted WebDAV server normally exposes plaintext note content and file paths to the server, which this avoids by encrypting everything on-device first.",
+ "readmeHash": "a35fd0774ffa4bc44e65a68f3685b96ae1a35333",
+ "relations": [
+  {
+   "evidence": "sync it to any WebDAV server (Nextcloud, etc.)",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server (e.g. Nextcloud)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "WebDAV sync plugin that encrypts vault contents and file names with post-quantum cryptography before uploading to any WebDAV server.",
+ "tags": [
+  "webdav",
+  "nextcloud",
+  "post-quantum-cryptography",
+  "encryption",
+  "ml-kem",
+  "ml-dsa",
+  "vector-clocks",
+  "e2ee"
+ ]
+}

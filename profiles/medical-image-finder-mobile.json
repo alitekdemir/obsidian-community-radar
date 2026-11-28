@@ -1,0 +1,96 @@
+{
+ "also": [
+  "search",
+  "ai"
+ ],
+ "audience": [
+  "medical students",
+  "clinicians"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search DuckDuckGo, Bright Data, Brave and Wikimedia Commons for medical images",
+  "Filter results with medical mode pills such as anatomy, radiology, histology and clinical",
+  "Scan a full note, selection, heading section or line range with an offline rules engine or Gemini",
+  "Review, retry and resize results in a batch modal",
+  "Insert images at a bullet or paragraph with list indentation and save them to an attachments folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Defaults to DuckDuckGo with no key; Bright Data is described as 5,000 free requests per month. Installable on mobile via LiveSync/Folder Sync or BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built a mobile version with no Node.js or Electron imports so the plugin loads natively in Obsidian on iPadOS and Android, with a touch-first interface.",
+ "primary": "images",
+ "problem": "On iPad and Android, finding suitable medical images and placing them at an exact bullet or paragraph is slow, since desktop-oriented plugins and hover-based interfaces do not work well there.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "3570ac9ed69aee8423a91673b76aa06a3d16446b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "search DuckDuckGo Images (free default, zero API keys)",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optional Bright Data Google Images (serp_api1) and Brave Image Search API",
+   "plugin": "Bright Data",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optional Bright Data Google Images (serp_api1) and Brave Image Search API",
+   "plugin": "Brave Image Search",
+   "type": "integrates"
+  },
+  {
+   "evidence": "with silent Wikimedia Commons fallback",
+   "plugin": "Wikimedia Commons",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Enter a free Google AI Studio key in Settings for 1-tap automated scanning",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Bright Data API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Brave Image Search API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google AI Studio (Gemini) API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 3
+ },
+ "summary": "Mobile-first plugin that searches image engines for medical images, scans notes for image needs, and inserts chosen images at a specific note point.",
+ "tags": [
+  "image-viewer",
+  "web-search",
+  "batch-processing",
+  "gemini",
+  "api-key"
+ ],
+ "textHash": "c7acd6ed7cce65c5b582da1066e28af6037af74f"
+}

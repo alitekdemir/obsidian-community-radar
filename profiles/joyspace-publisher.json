@@ -1,0 +1,69 @@
+{
+ "also": [
+  "publishing",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "publish the current note as a new JoySpace page and bind it via note properties",
+  "update the bound JoySpace page in place, skipping when content is unchanged",
+  "publish a note together with its one-level references, converting wiki links to JoySpace links",
+  "configure the default or per-note publish location in YAML properties",
+  "import a JoySpace document link as a new Markdown file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Publishes only to JoySpace pages, not to a personal website or blog.",
+ "extras": "README is in Chinese; setup is non-trivial (Python, browser_cookie3, Node.js WebCLI, browser login state), and the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wrote notes in Obsidian and wanted one-click publishing to JoySpace so colleagues could read them online.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to share local notes as JoySpace pages or pull JoySpace documents back into the vault.",
+ "readmeHash": "4339e0076b84a3052477973ef796106d2aec83fa",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "WebCLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "browser_cookie3",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3 with browser_cookie3 (publish/import) and WebCLI (updates)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "JoySpace login in a supported browser",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publishes, updates, and imports Markdown notes between Obsidian and JoySpace, with page binding stored in note properties.",
+ "tags": [
+  "joyspace",
+  "webcli",
+  "python",
+  "browser-cookie3",
+  "page-binding",
+  "chrome-cookies"
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize notes and attachments bidirectionally with a WebDAV server",
+  "Route desktop sync traffic through HTTP, HTTPS, SOCKS5 or SOCKS5H proxies",
+  "Run sync manually, at startup, or on a schedule",
+  "Keep local *.conflict-local-* copies when both sides changed a file",
+  "Exclude files by pattern and tune timeouts, retries and backoff"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Deletions are intentionally not propagated in the current version; a file deleted on one side is restored from the other. Credentials are stored unencrypted in data.json. The README notes the plugin was not yet accepted into the community directory at time of writing and advises backing up the vault before first sync.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Vaults stored on a self-hosted WebDAV server lack built-in sync, especially when the connection must go through an HTTP or SOCKS proxy.",
+ "readmeHash": "f7fcf974b1c6f87683c8a1ff01f2d04ecaf7d71f",
+ "relations": [
+  {
+   "evidence": "Handles zero-byte files from OpenList storage drivers that otherwise return HTTP 416",
+   "plugin": "OpenList",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a WebDAV server (and optional proxy)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bidirectional sync of notes and attachments with a WebDAV server, with HTTP, HTTPS, SOCKS5 and SOCKS5H proxy support on desktop.",
+ "tags": [
+  "webdav",
+  "socks5",
+  "openlist",
+  "conflict-copies",
+  "exponential-backoff",
+  "self-signed-certificates"
+ ]
+}

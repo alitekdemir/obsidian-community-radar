@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate an HTTPS redirect link for the active note via command palette",
+  "Copy the shareable link to the clipboard with toast feedback",
+  "Configure a custom redirect domain in settings",
+  "URL-encode vault and file names for special characters",
+  "Automate Cloudflare DNS and redirect-rule setup with a Python script"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a link rewriter for links inside the vault; it only generates a new shareable HTTPS URL for the currently open note.",
+ "extras": "Community-plugin listing is marked 'Coming Soon'; installation is currently manual via GitHub release files. Links only work after the user sets up their own Cloudflare redirect backend (automated script or manual DNS/redirect/security rules). README documents a known limitation: Cloudflare redirect rules run before WAF rules, so ../ path-traversal patterns in query strings cannot be validated server-side.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Platforms like Slack, Notion, and web forums block or don't recognize Obsidian's custom obsidian:// URI scheme, so vault links can't be shared directly.",
+ "readmeHash": "08a97970d48fc076c8208232a48952d1729e8ecc",
+ "relations": [
+  {
+   "evidence": "transforms it to an HTTPS URL using a configurable redirect service",
+   "plugin": "Cloudflare",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare account with API token and Zone ID",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Link generator that turns the active note's obsidian:// URI into an HTTPS redirect URL you can copy and share on external platforms.",
+ "tags": [
+  "cloudflare",
+  "deep-links",
+  "share-links",
+  "clipboard",
+  "url-encoding",
+  "dns"
+ ]
+}

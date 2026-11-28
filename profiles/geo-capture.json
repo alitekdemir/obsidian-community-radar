@@ -1,0 +1,67 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Insert current device coordinates",
+  "Capture nearby place candidates",
+  "Search places using various providers",
+  "Parse map links or coordinates from clipboard",
+  "Read EXIF GPS from local images"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It is not designed to replace a full map workspace; its job is to help insert useful place information into the note you are already writing.",
+ "extras": "Google Places requires an API key and may incur Google Maps Platform costs. The plugin does not include telemetry or analytics.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Manually capturing and inserting precise location data, coordinates, and map links into notes for travel journals and photo-based memories is cumbersome.",
+ "readmeHash": "ea417ffad5750f61d2e2cb3b924cf38ed2d837c3",
+ "relations": [
+  {
+   "evidence": "Geo Capture is designed to pair with fab34/cloudflare-media-sync:",
+   "plugin": "R2 Media Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Capture nearby place candidates with Google Places.",
+   "plugin": "Google Places",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Places API key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "cloudflare-media-sync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A note-first location capture plugin that allows users to insert coordinates, map links, and photo GPS data into notes for travel journals and logs.",
+ "tags": [
+  "travel-journal",
+  "location-capture",
+  "exif-data",
+  "google-places",
+  "openstreetmap",
+  "trip-log"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "code",
+  "autocomplete"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "link to code files as internal links and preview them",
+  "embed code file previews in reading view",
+  "search code symbols to link to a specific class, function or method",
+  "show the tag path of the linked symbol and jump between symbols in the preview",
+  "import code projects into the vault using symlinks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns that embed previews only render in reading view, tag search must be enabled in settings, and imported projects are symlinks that break if the original files are deleted. Symbol search supports C, C++, JavaScript, TypeScript, Rust, Go and Python, with new languages added via tree-sitter query files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian internal links, hover previews and embeds only work for vault notes, not for code files or for specific symbols inside them.",
+ "readmeHash": "0a1836daf993f5704f7cde2cafc23f5c34335e0d",
+ "relations": [
+  {
+   "evidence": "This feature is implemented with the help of TreeSitter and .scm files from the zed editor.",
+   "plugin": "TreeSitter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "implemented with the help of TreeSitter and .scm files from the zed editor",
+   "plugin": "Zed editor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Link to code files from notes with hover and embed previews, and link directly to symbols like classes or functions via tag search.",
+ "tags": [
+  "tree-sitter",
+  "symlinks",
+  "code-symbols",
+  "zed",
+  "source-code"
+ ]
+}

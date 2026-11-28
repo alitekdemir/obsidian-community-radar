@@ -1,0 +1,63 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "gnome-linux-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Hide the vault window to the GNOME system tray",
+  "Restore the hidden window from the panel menu",
+  "Keep background sync running after the window closes",
+  "Register a tray icon through a bundled Python helper",
+  "Restart or quit Obsidian from the tray menu"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires a GNOME panel with AppIndicators and system Python 3 (PyGObject, GTK 3, Ayatana AppIndicator 3); tested only on Ubuntu 24.04 with Obsidian 1.15.1. Companion plugin 'Start in Tray at Login' enables hidden startup at login. Early 0.1.x versions were based on Background Tray by Synaphi; 0.2.0 is an independent rewrite. Bilingual English/Russian README; MIT license.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "On GNOME, closing the Obsidian window quits the app and stops background sync, with no built-in way to keep it running hidden.",
+ "profiledAt": "2026-11-23",
+ "provider": "Baidu",
+ "readmeHash": "a181262986e370a4ad9e308b0e3e8af3d57a7e0e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Ранние версии 0.1.x в истории репозитория были основаны на Background Tray от Synaphi",
+   "plugin": "Background Tray",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GNOME desktop with Ubuntu AppIndicators or a compatible StatusNotifier panel",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3 with PyGObject, GTK 3, and Ayatana AppIndicator 3",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tray integration that hides the Obsidian window to the GNOME system tray so background sync continues, restoring it from the panel menu.",
+ "tags": [
+  "system-tray",
+  "linux"
+ ],
+ "textHash": "5d5565cc2561d3842ce579cc5602be2ac7514832"
+}

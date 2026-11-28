@@ -1,0 +1,72 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Manage a shared endpoint list with protocols, capabilities, default models and on/off switches",
+  "Store API tokens in Obsidian's keychain instead of data.json",
+  "Check endpoint reachability and report status with reasons",
+  "Detect backend server software such as LM Studio, Ollama and Open WebUI",
+  "Expose an API that lets other plugins resolve endpoints by capability"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not reviewed by Obsidian staff. Requires Obsidian 1.11.4+ because tokens use the keychain. The README documents a trust-model warning: any installed plugin can call the API and receive a token, and caller names are self-declared. Full documentation, getting-started and troubleshooting pages live outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Multiple AI plugins in a vault each ask separately for the same server addresses and API tokens, with no shared place to configure or store them.",
+ "readmeHash": "c3b0b66fc679288691e9ddb5a24c67e72fd9e31d",
+ "relations": [
+  {
+   "evidence": "lingotuner (since 0.10.0) and Koda (since 0.28.0) can use it already",
+   "plugin": "lingotuner",
+   "type": "integrates"
+  },
+  {
+   "evidence": "lingotuner (since 0.10.0) and Koda (since 0.28.0) can use it already",
+   "plugin": "Koda",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a reachable model server such as LM Studio, Ollama or a hosted OpenAI-compatible API",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "at least one plugin that consumes the endpoint API",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API token for hosted endpoints such as Anthropic's Claude API",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Central manager for LLM endpoint configurations (URLs, protocols, models, capabilities) with API tokens kept in Obsidian's keychain, shared with other plugins through an API.",
+ "tags": [
+  "llm",
+  "ollama",
+  "lm-studio",
+  "anthropic",
+  "openai-compatible",
+  "keychain",
+  "api"
+ ]
+}

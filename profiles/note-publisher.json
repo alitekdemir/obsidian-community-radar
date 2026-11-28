@@ -1,0 +1,73 @@
+{
+ "also": [
+  "export",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish the current note and its embedded images to a private GitHub repository",
+  "Generate a stable UUID in note properties and write the public link back to the note",
+  "Unpublish a note by deleting its folder from the repository",
+  "Copy the published public link to the clipboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a blog or full-site publisher; it shares individual notes via UUID links.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; the README documents its exact network usage and states the GitHub token is stored locally in the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to share a single note publicly without sending its content to a third-party publishing service.",
+ "readmeHash": "0d53a7aad67f94987c1f09cd2abbcf53b8d0eafd",
+ "relations": [
+  {
+   "evidence": "Using your fine-grained GitHub token, it commits the document as <root>/<uuid>/index.md",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The worker that turns <uuid> into a readable page is deployed by you.",
+   "plugin": "Cloudflare Worker",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with a private repository",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Fine-grained GitHub Personal Access Token (Contents: Read and write)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Deployed worker (Cloudflare or self-hosted) that renders the public pages",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes a single note with its embedded images to your private GitHub repo and shares it via a UUID-only link served by a self-hosted worker.",
+ "tags": [
+  "github",
+  "cloudflare-worker",
+  "uuid",
+  "self-hosted",
+  "privacy",
+  "personal-access-token"
+ ]
+}

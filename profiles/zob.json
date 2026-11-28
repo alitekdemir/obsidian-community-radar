@@ -1,0 +1,95 @@
+{
+ "also": [
+  "autocomplete",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "insert citations via an @ trigger as wikilinks or zotero:// links",
+  "complete equations, theorems, and figures from the current paper via a ;; trigger",
+  "import a meaningful paragraph with its equations by semantic search",
+  "track the current paper in Zotero and search the library",
+  "create and link literature notes for papers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Warns that 'Extract paper' uploads the PDF to MinerU's servers, so don't extract PDFs you can't share with a third party; Voyage also receives block text unless the local Ollama backend is used. Optional companion pieces (Zob Bridge, an MCP server) live in the same repo and must be built and installed separately.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "While reading a paper in Zotero, Obsidian offers no way to pull in its citations, equations, theorems, or figures as you write.",
+ "readmeHash": "eb9fcc373c58fbf1009f464afe0f56e5a03198c6",
+ "relations": [
+  {
+   "evidence": "reads the paper you're reading, metadata, fulltext, and annotations from Zotero's local API",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a Zotero plugin adding live tab tracking, current page, and selected annotations",
+   "plugin": "Zob Bridge (Zotero plugin)",
+   "type": "extends"
+  },
+  {
+   "evidence": "your PDF is uploaded to MinerU's servers to extract equations/theorems/figures",
+   "plugin": "MinerU",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama — local, no key, no rate limits, offline",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Voyage — cloud, free tier; sends block/query text to Voyage to embed",
+   "plugin": "Voyage",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "MinerU token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client (Claude Code / Codex / Cursor)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Voyage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Zotero integration that provides context-aware completions in Obsidian: citations, equations, theorems, and figures from the paper open in Zotero.",
+ "tags": [
+  "zotero",
+  "mineru",
+  "mcp",
+  "ollama",
+  "voyage",
+  "embeddings",
+  "academic-papers"
+ ]
+}

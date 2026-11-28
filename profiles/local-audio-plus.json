@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan notes for local audio links",
+  "Transcribe linked audio via OpenAI, Tencent Cloud ASR, or iFlytek ASR",
+  "Insert transcripts into notes",
+  "Run transcription manually or automatically on note changes",
+  "Separate speakers with a shared diarization setting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an audio player or recorder; it transcribes audio files already linked in notes.",
+ "extras": "Plugin has not been manually reviewed by Obsidian staff. Audio content is sent to the configured third-party transcription provider; Tencent Cloud local upload is limited to 5 MB files. README includes developer release and offline-install script instructions (partly in Chinese) alongside user documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian can link and record audio but cannot transcribe audio files referenced in notes, so users must transcribe externally and paste results manually.",
+ "readmeHash": "faee59d1763a9eb5611968daaa678a34e0e1130a",
+ "relations": [
+  {
+   "evidence": "Supported providers: - OpenAI Audio Transcriptions",
+   "plugin": "OpenAI Audio Transcriptions",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tencent Cloud recording file recognition (CreateRecTask with local base64 audio upload)",
+   "plugin": "Tencent Cloud recording file recognition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "iFlytek recording file transcription (/v2/upload + /v2/getResult)",
+   "plugin": "iFlytek recording file transcription",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key, Tencent Cloud ASR credentials, or iFlytek APPID/APIKey/APISecret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Audio transcription plugin that scans local audio links in notes and inserts transcripts from OpenAI, Tencent Cloud ASR, or iFlytek ASR.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "openai",
+  "tencent-cloud",
+  "iflytek",
+  "speaker-diarization",
+  "asr"
+ ]
+}

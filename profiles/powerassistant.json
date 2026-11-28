@@ -1,0 +1,75 @@
+{
+ "also": [
+  "audio",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record meetings and transcribe them with speaker labels and clickable timestamps",
+  "Generate summaries, decisions, and dated action items linked to owners",
+  "Capture web pages, videos, social posts, bills, and existing transcripts as notes",
+  "Answer questions about the vault with links back to source notes",
+  "Import calendars, draft follow-ups, and export recaps as Word documents or email"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general chatbot sidebar; its core job is turning recordings, pages, and documents into structured meeting notes.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Paid provider keys are optional end to end: self-hosted WhisperX and Ollama keep the whole pipeline local and free. Includes a detailed account of what the community catalog security scan reports and why.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to record meetings, transcribe speech with speaker labels, or generate summaries and action items from audio and web content.",
+ "readmeHash": "b256274563a77892a1e2cb9dc3b00cd4e82bd6a9",
+ "relations": [
+  {
+   "evidence": "With Power Explorer installed, Ask uses its vault-wide index instead",
+   "plugin": "Power Explorer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A standalone Model Context Protocol server in mcp/ exposes this vault to Claude Desktop and Claude Code",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "transcription and AI provider keys",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp, WhisperX server, or a local LLM server (Ollama, LM Studio, llama.cpp)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Microsoft 365 via your own Azure app registration",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Meeting recorder and AI assistant that turns audio, video, web pages, and documents into notes with transcripts, action items, and vault Q&A.",
+ "tags": [
+  "transcription",
+  "speaker-diarization",
+  "whisper",
+  "anthropic",
+  "ollama",
+  "microsoft-365",
+  "yt-dlp"
+ ]
+}

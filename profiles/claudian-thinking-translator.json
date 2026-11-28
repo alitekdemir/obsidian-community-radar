@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate expanded thinking blocks into Chinese as they stream",
+  "Toggle between translation and original text with one click",
+  "Switch translation engines including free Google, MyMemory fallback, and paid DeepSeek",
+  "Configure segment length, flush timing, and a term whitelist",
+  "Test the translation endpoint from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (uses Node APIs). Default engines are free with no API key; DeepSeek requires a paid key. Sends thinking-block text to third-party translation services, so users should collapse sensitive blocks or disable the plugin. Not reviewed by Obsidian staff; design docs live in docs/spec.md and docs/evidence.md.",
+ "intent": "improve",
+ "intentEvidence": "It reads the thinking blocks that Claudian renders in the chat view and adds a translation next to them.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Claudian's thinking blocks stream in English, so Chinese-reading users cannot comfortably follow the reasoning without a translation.",
+ "readmeHash": "f5b02b342c3d269218083c4c406d9149299323d3",
+ "relations": [
+  {
+   "evidence": "needs Claudian installed to be useful",
+   "plugin": "Claudian",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Claudian",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "1Password",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "DeepSeek API",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Companion plugin that translates the thinking blocks Claudian renders in chat into Chinese as they stream, only when a block is expanded.",
+ "tags": [
+  "chinese",
+  "translation",
+  "machine-translation",
+  "google-translate",
+  "mymemory",
+  "deepseek",
+  "streaming"
+ ]
+}

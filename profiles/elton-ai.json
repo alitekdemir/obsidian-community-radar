@@ -1,0 +1,90 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions by searching notes by keyword and meaning",
+  "Create and file notes from the user's own templates, folders and properties",
+  "Dictate by voice and have answers read aloud",
+  "Chat with the same assistant from Telegram and a companion phone app",
+  "Run routines such as daily digests and turn phrases into Kanban boards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: the author's own provider (Elton AI) has a free trial via promo code Gift and funds development, but any other provider works without it. The relay server for the phone app is closed-source, though it only carries end-to-end encrypted traffic and the plugin works fully without it. Keys are stored in plain text in data.json. The catalogue listing carries the note 'This plugin has not been manually reviewed by Obsidian staff.'",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask questions of your vault in plain language or to capture, dictate and file notes remotely when you are away from the app.",
+ "readmeHash": "baf3a4951675864556ff5b58a9847a12782fa9af",
+ "relations": [
+  {
+   "evidence": "Or bring your own key from OpenAI or OpenRouter",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Or bring your own key from OpenAI or OpenRouter",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or run a local model in Ollama: the plugin takes any of them",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A bot in your own Telegram. Ask on the go, get a formatted answer",
+   "plugin": "Telegram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Answers are read aloud by a cloud voice or a local Piper",
+   "plugin": "Piper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, OpenRouter or Elton AI key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Elton AI provider (free trial credits offered)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Telegram bot and companion phone app",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI assistant that answers questions from your notes, writes and files new notes from your templates, and also works via Telegram and a phone app.",
+ "tags": [
+  "telegram",
+  "openai",
+  "openrouter",
+  "ollama",
+  "semantic-search",
+  "voice-dictation",
+  "piper"
+ ]
+}

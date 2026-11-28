@@ -1,0 +1,79 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Underline errors Harper misses, such as agreement, tense, wrong-but-real words, and run-ons",
+  "Apply or Ignore suggestions from a hover card",
+  "Rewrite selected text via command palette or right-click",
+  "Skip Harper-flagged issues by querying Harper's plugin",
+  "Exclude chosen folders from being sent for checking"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone proofreader; it only flags what the Harper grammar plugin misses and requires Harper to be installed and enabled.",
+ "extras": "Desktop-only for now and needs Obsidian 1.11.4+; on Gemini's free tier Google may use sent text to improve its products. Deduplication was verified against a stand-in, not yet against Harper's actual plugin. Source lives in the phoenixak/margin monorepo, which also ships VS Code and browser extensions and a language server.",
+ "intent": "improve",
+ "intentEvidence": "An AI second pass for Harper in Obsidian: purple underlines for what Harper's rules can't catch",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Harper's rule-based grammar checking cannot catch contextual errors like agreement, tense, wrong-but-real words, and run-ons, so writers need a second pass that complements rule matching.",
+ "readmeHash": "d990e92bb8c86c5d657402730a669a9b34e601b3",
+ "relations": [
+  {
+   "evidence": "Margin asks Harper's own Obsidian plugin what it already flags and skips those",
+   "plugin": "Harper",
+   "type": "extends"
+  },
+  {
+   "evidence": "Gemini API: sent to Google with your key",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local model (Ollama / LM Studio): text stays on this device",
+   "plugin": "Ollama / LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Harper grammar plugin",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio (for local models)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key (for the Gemini provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "AI second-pass proofreader for the Harper grammar plugin that underlines errors Harper misses and offers Apply, Ignore, and selection rewrites via local models or Gemini.",
+ "tags": [
+  "harper",
+  "gemini",
+  "ollama",
+  "lm-studio",
+  "grammar-check",
+  "local-llm",
+  "rewrite"
+ ]
+}

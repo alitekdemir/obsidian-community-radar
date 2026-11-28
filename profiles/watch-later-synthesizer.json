@@ -1,0 +1,65 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync YouTube video metadata from Web Clipper notes into a cache",
+  "Generate per-video watch/skip verdicts with an AI provider",
+  "Surface recurring themes across the backlog",
+  "Flag time-sensitive videos whose value has expired",
+  "List low-value videos that are safe to delete"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not summarize or recap video content; it only produces verdicts and themes from metadata.",
+ "extras": "Freemium: 3 total video syncs free (stored per-vault locally, no server), Pro on Gumroad unlocks unlimited syncing. The manifest notes the plugin has not been manually reviewed by Obsidian. No transcripts are fetched because YouTube blocks client-side caption requests; small free models tend to under-skip.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author frames large watch-later backlogs as a source of accumulating guilt and argues the real question is whether anything worth the user's time was missed, not whether everything was watched.",
+ "primary": "ai",
+ "problem": "Watch Later lists grow faster than anyone can watch them, and there is no way to tell whether anything worth watching was missed without watching every video.",
+ "readmeHash": "ac4367a98e5cbecdc524436a50b1fea4699f164d",
+ "relations": [
+  {
+   "evidence": "expects watch-later videos as Obsidian notes produced by the official Web Clipper",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, OpenRouter, or custom OpenAI-compatible provider",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian Web Clipper (browser extension)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Pro license on Gumroad for unlimited video syncs",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "LLM-based triage tool that generates watch/skip verdicts, recurring themes, and a safe-to-delete list for a YouTube Watch Later backlog.",
+ "tags": [
+  "youtube",
+  "watch-later",
+  "triage",
+  "web-clipper",
+  "openai",
+  "anthropic",
+  "oembed"
+ ]
+}

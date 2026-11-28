@@ -1,0 +1,52 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Opens .eml files from the file explorer in a dedicated view",
+  "Parses From, To, Cc, Bcc, Subject, Date, Message-ID, In-Reply-To, and References headers",
+  "Shows Text, sanitized HTML, and Raw MIME body tabs",
+  "Lists attachment metadata only: filename, content type, size, disposition",
+  "Searches headers, body text, sanitized HTML text, and attachment names"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an email client; it only opens local .eml files read-only, with no sync, sending, remote images, or attachment opening.",
+ "extras": "Explicit privacy model: no network APIs, no mailbox sync, no remote image loading, no scripts in HTML preview. v0.1 limits: attachments are metadata-only, render caps apply to large bodies, and Raw MIME stays available when parsing is incomplete.",
+ "intent": "alternative",
+ "intentEvidence": "The existing community plugin Email Reader renders embedded .eml files in preview mode. EML Email Viewer is positioned differently",
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian cannot open .eml email files, so headers, body text, and attachment details are inaccessible without an external mail client.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "28bc8cd34b0493bc790e40dbab439c436d68f36e",
+ "relations": [
+  {
+   "evidence": "The existing community plugin Email Reader renders embedded .eml files in preview mode.",
+   "plugin": "Email Reader",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens local .eml files in Obsidian with parsed headers, sanitized body previews, attachment metadata, and raw MIME source.",
+ "tags": [
+  "read-only",
+  "privacy",
+  "local-first"
+ ],
+ "textHash": "b0aab866ab2b15a29ebeb50c3c6ebb024d942ca5"
+}

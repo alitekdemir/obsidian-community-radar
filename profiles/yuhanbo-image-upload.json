@@ -1,0 +1,89 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Uploads pasted images to the configured image host",
+  "Uploads all local images in a note from the command palette",
+  "Replaces local image links with hosted URLs",
+  "Downloads internet images to the vault",
+  "Uploads single images from the right-click menu"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Needs at least one uploader (PicGo app with its server enabled, PicList, or npm-installed picgo-core) plus an image host whose account, cost, and visibility are outside the plugin; per-note opt-out via frontmatter image-auto-upload: false; credentials stay in local plugin config; download-all-images only tested on Windows 10; manual install copies main.js and manifest.json into .obsidian/plugins/yuhanbo-image-upload/.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps pasted and embedded images as local attachments, so using an external image host means uploading manually and editing links by hand.",
+ "profiledAt": "2026-11-25",
+ "provider": "Ant Digital",
+ "readmeHash": "06b2f479bcdf8e982e8a1aed3e07def1f50b9e02",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "renmu123's Image auto upload",
+   "type": "fork"
+  },
+  {
+   "evidence": "It uses PicGo, PicList, or PicGo-Core to upload images.",
+   "plugin": "PicGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It uses PicGo, PicList, or PicGo-Core to upload images.",
+   "plugin": "PicList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It uses PicGo, PicList, or PicGo-Core to upload images.",
+   "plugin": "PicGo-Core",
+   "type": "integrates"
+  },
+  {
+   "evidence": "obsidian-imgur-plugin",
+   "plugin": "obsidian-imgur-plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PicGo",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "PicList",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "PicGo-Core",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Fork of Image auto upload that uploads pasted, dropped, or batch-selected local images to PicGo/PicList hosts and replaces note links with hosted URLs.",
+ "tags": [
+  "image-hosting",
+  "batch-processing",
+  "drag-and-drop",
+  "context-menu",
+  "clipboard"
+ ],
+ "textHash": "5139ddfc55d888d8d8d7f4037d64ba9cb37da303"
+}

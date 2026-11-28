@@ -1,0 +1,85 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run CodeM, Doubao CLI and Claude Code in parallel tabs",
+  "Stream replies with live thinking and tool-call cards",
+  "Browse, archive and roll back session history",
+  "Insert skills and @note or @folder references into prompts",
+  "Queue prompts and switch permission levels"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Windows 10/11 and Obsidian 1.7.2+; runs locally with no telemetry and reads session history from ~/.codem/sessions, ~/.claude/projects and ~/.claude/archives.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to talk to AI coding agents, so using them means leaving the vault for a terminal.",
+ "profiledAt": "2026-11-16",
+ "readmeHash": "d4c20f7c6e778434f3d285231b1474bff0a8ee4d",
+ "relations": [
+  {
+   "evidence": "run CodeM (Feishu AI coding agent), Doubao CLI and Claude Code side by side in one sidebar chat",
+   "plugin": "CodeM",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Doubao CLI backend: per-turn -p invocation with --resume session continuity",
+   "plugin": "Doubao CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code backend: stream-json true streaming with live thinking",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "布局与交互设计参考 Claudian（Obsidian AI 对话插件）",
+   "plugin": "Claudian",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CodeM CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Doubao CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sidebar chat that runs CodeM, Doubao CLI and Claude Code agents in parallel tabs, with the vault as their working directory.",
+ "tags": [
+  "ai-chat",
+  "claude-code",
+  "feishu",
+  "ai-agents",
+  "cli",
+  "llm"
+ ],
+ "textHash": "a8062d3b2abfa146f4b9b8e88e1d9d624ca1331c"
+}

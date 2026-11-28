@@ -1,0 +1,95 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Intercepts core and plugin UI text across four channels",
+  "Translates text through five configurable providers",
+  "Caches translations locally per language and model",
+  "Tracks token usage and cost in the status bar",
+  "Translates marketplace entries and READMEs on demand"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note-content translator; it only rewrites Obsidian core and plugin UI text, never notes, file names, or search results.",
+ "extras": "Desktop-only (isDesktopOnly); never translates note content; no telemetry; API keys encrypted via Electron safeStorage; detailed beginner guide in docs/使用说明.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian's community ecosystem is mostly English-only, and UI localization depends on each plugin author, leaving users waiting for translations.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "17fb863b7237da76d4bfa2502a69a18f966f957b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "OpenAI-compatible",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepL | Free/Pro endpoint auto-detected",
+   "plugin": "DeepL",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Cloud Translation | API key; broadest language coverage",
+   "plugin": "Google Cloud Translation",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Azure Translator | Key + region; 2M chars/month free",
+   "plugin": "Azure Translator",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI-compatible | Recommended: DeepSeek",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "translation API key (OpenAI-compatible, DeepL, Google Cloud, or Azure)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio (for free local translation)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "UI-text middleware that intercepts Obsidian core and plugin interface text, translates it through your chosen API, and writes it back with local caching.",
+ "tags": [
+  "api-key",
+  "byok",
+  "local-llm",
+  "multilingual",
+  "openai-compatible",
+  "privacy"
+ ],
+ "textHash": "d5b6b2dbcc95ccfc1cf073de0054cc71a74f8fe1"
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "status-bar",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display current weather and weather alerts in the status bar",
+  "Insert weather data into documents via eight customizable templates",
+  "Expand weather macros in daily notes and Obsidian/Templater templates",
+  "Preview weather templates before insertion from a picker modal",
+  "Render dynamic weather in notes using DIV classes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "A free API key is required and delivered by email after sign-up. Detailed macro and template references (Macros.md, Statusbar Templates.md, Weather Templates.md) live outside the README. The status bar weather display is not available on mobile. Ambiguous city names may need state/province appended to get correct data.",
+ "intent": "alternative",
+ "intentEvidence": "This is a replacement for my OpenWeather plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author switched to the Visual Crossing API because it offered features the OpenWeather API lacked and a free key without a credit card, allowing a rewrite once API 2.5 was discontinued.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in weather display, and the author's OpenWeather plugin stopped working after OpenWeather discontinued the free 2.5 API it was based on.",
+ "readmeHash": "53d1330b645c6fcd9fe7ef899157d578accc9642",
+ "relations": [
+  {
+   "evidence": "This is a replacement for my OpenWeather plugin.",
+   "plugin": "OpenWeather",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Insertion of the weather templates can be automated by using Obsidian or Templater plugin templates.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Visual Crossing Weather API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Visual Crossing account to obtain a free API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Weather plugin that pulls Visual Crossing API data for up to five locations and shows it in the status bar or inserts it via templates, macros, and DIVs.",
+ "tags": [
+  "visual-crossing",
+  "weather-api",
+  "forecast",
+  "weather-alerts",
+  "macros",
+  "daily-notes"
+ ]
+}

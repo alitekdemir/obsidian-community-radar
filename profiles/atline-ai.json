@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask AI questions inline using @agent triggers and a configurable hotkey",
+  "Stream AI responses into the note as blockquotes, callouts, plain text, or code blocks",
+  "Include wikilinked notes as context for the AI",
+  "Create multiple agents with different providers, models, and system prompts",
+  "Connect per provider via CLI tools or direct API keys"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (uses Node.js APIs, not available on Obsidian Mobile). Installable via BRAT for beta testing. Sends active note content, optionally wikilinked notes, and the query to external AI services; privacy policy links are documented, and Ollama keeps data local.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to query LLMs about note content and get streaming answers inserted directly where you asked them.",
+ "readmeHash": "ed528530d9e92dd93c33622ede65fe125dfe11a0",
+ "relations": [
+  {
+   "evidence": "Install the BRAT plugin from the Obsidian community plugins",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Multiple AI providers: Claude, Google Gemini, Ollama (local models), OpenAI",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, or Google AI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CLI tool (Claude CLI, Gemini CLI, Codex CLI) or Ollama for CLI/local mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI assistant plugin that answers questions inline in notes via @agent triggers, run with a hotkey, using Claude, Gemini, OpenAI, or Ollama.",
+ "tags": [
+  "anthropic",
+  "openai",
+  "gemini",
+  "ollama",
+  "claude-code",
+  "gemini-cli",
+  "streaming",
+  "inline-answers"
+ ]
+}

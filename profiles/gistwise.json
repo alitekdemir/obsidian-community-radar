@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ranks results by relevance with adjustable weights for title, aliases, headings, tags, properties, path and text",
+  "Shows matches as whole notes, sections or blocks with a reason for each",
+  "Handles word forms, typos and text typed in the wrong keyboard layout",
+  "Supports query syntax with phrases, exclusions, path/tag/property/link filters and OR groups, plus a click-based query builder and saved profiles",
+  "Searches by meaning with an on-device model and exposes a search tool to AI agents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a summarizer or note-condensing tool; it searches the vault and explains why each result matched.",
+ "extras": "Meaning search needs a one-time 111 MB download of the static-similarity-mrl-multilingual-v1 model (Apache-2.0) from Hugging Face, kept as a ~28 MB meaning.bin in the plugin folder; the AI agent tool and its settings rows appear only in the desktop app. No accounts, telemetry or clipboard access, and no network connections unless the model is downloaded.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search matches literal text, so it misses word forms, typos and wrong-layout typing, and it gives no reason for a match or a way to hand a narrow search to an AI agent.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "b35d72b4cf90d5a2f2e69a9d9c457ee4b71f681e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Choose Add to CLAUDE.md (Claude Code)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add to AGENTS.md (Codex, Cursor and other agents)",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "apps that connect tools over MCP (Claude Desktop, Cursor)",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "downloads it once from Hugging Face (111 MB)",
+   "plugin": "Hugging Face",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20.16 or newer",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Search plugin with ranked results by note, section or block, typo and word-form tolerance, query syntax, saved profiles and optional on-device meaning search.",
+ "tags": [
+  "fuzzy-search",
+  "semantic-search",
+  "query-language",
+  "ai-agents",
+  "mcp",
+  "local-first",
+  "privacy"
+ ],
+ "textHash": "52b18692b92dc47d688eba6d55339b88480a301d"
+}

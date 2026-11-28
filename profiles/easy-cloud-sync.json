@@ -1,0 +1,66 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault bidirectionally with S3-compatible stores using a three-way journal",
+  "Resolve conflicts per file with an inline unified diff and keep-this-device/keep-cloud/skip actions",
+  "Run syncs on startup, on an interval, or manually via a Sync now command",
+  "Create manual snapshot backups under a backup prefix and restore them",
+  "Reset local or cloud state by overwriting one side from the other"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a generic cloud sync; it only connects to S3-compatible object stores (AWS S3, Cloudflare R2, MinIO, custom endpoints) that you configure yourself.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns there is no client-side encryption in v1 (objects stored as-is), that syncing .obsidian/ can expose other plugins' secrets, and that Obsidian 1.13.0+ is required for secret storage. Chinese-language documentation is available in README.zh.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for people who want their own bucket, clear conflict handling, and a sync UI that works well on phone as well as desktop.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault to the user's own S3-compatible bucket with clear, per-file conflict handling.",
+ "readmeHash": "7153048b761bca3564aefb4160fc03f175f0e9f9",
+ "relations": [
+  {
+   "evidence": "Portions of the sync engine and S3 transport are adapted from sathinduga/obsidian-s3-sync-and-backup (MIT).",
+   "plugin": "sathinduga/obsidian-s3-sync-and-backup",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible object store (AWS S3, Cloudflare R2, MinIO, or custom endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key ID and secret access key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs an Obsidian vault to any S3-compatible object store with diff-based conflict resolution and a mobile-friendly sidebar.",
+ "tags": [
+  "s3",
+  "aws",
+  "cloudflare-r2",
+  "minio",
+  "object-storage",
+  "conflict-resolution",
+  "diff"
+ ]
+}

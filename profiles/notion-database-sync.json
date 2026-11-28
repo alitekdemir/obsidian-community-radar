@@ -1,0 +1,61 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "push the active note to a Notion database page",
+  "pull a linked Notion page back into the active note",
+  "map frontmatter keys to Notion properties",
+  "fetch the remote database property schema for mapping dropdowns",
+  "store the linked Notion page ID as notionPageId in frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns users to keep the integration token private and not to commit it to source control. No bulk 'sync all databases' command; only active-note workflows. UI copy is available in English and Simplified Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push or pull individual notes and their properties against Notion database pages.",
+ "readmeHash": "1330b623003e9e4fc1de4f04d2efcfbd54977be9",
+ "relations": [
+  {
+   "evidence": "syncing the active Markdown note with a selected Notion database",
+   "plugin": "Notion",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Notion",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Notion internal integration token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bidirectional sync of the active Markdown note with a Notion database, mapping frontmatter properties and storing the linked page ID.",
+ "tags": [
+  "notion",
+  "notion-api",
+  "bidirectional-sync",
+  "property-mapping",
+  "integration-token",
+  "bilingual-ui"
+ ]
+}

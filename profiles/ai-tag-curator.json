@@ -1,0 +1,73 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse and filter tags with related notes",
+  "Rename and merge tags with per-occurrence review",
+  "Check tag health with rule-based evidence",
+  "Suggest tags for the current note or a folder via AI",
+  "Undo and recover changes through an operation history"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI-only tool; browsing, rename/merge, and rule-based health checks all work locally without any AI provider.",
+ "extras": "Tested only on macOS with Obsidian 1.8.7 and 1.14.4; Windows, Linux, and mobile are unverified. Several linked documents (roadmap, acceptance report, technical design) are in Chinese. Sends note content to the configured AI endpoint even when the provider is marked local, and cancelling a request cannot revoke already-sent work.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Obsidian offers no built-in way to rename or merge tags across notes or to detect duplicate and inconsistent tag naming, so tag hygiene must be maintained by hand.",
+ "readmeHash": "f181aef1ccf48930609dc25be821432e127bfb10",
+ "relations": [
+  {
+   "evidence": "OpenAI / DeepSeek | Remote OpenAI-compatible service",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama / LM Studio / LiteRT-LM CLI | Your running local OpenAI-compatible server",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.8.7 or later",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for remote OpenAI-compatible providers (OpenAI, DeepSeek)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Running local OpenAI-compatible server (Ollama, LM Studio, LiteRT-LM CLI) for local AI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tag manager that browses, renames, and merges Obsidian tags locally, with optional AI suggestions and rule-based tag health checks.",
+ "tags": [
+  "openai",
+  "deepseek",
+  "ollama",
+  "lm-studio",
+  "local-llm",
+  "openai-compatible"
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a vault-aware agent that reads, writes, and reorganizes notes",
+  "Create agents and skills as Markdown files in the vault",
+  "Run MCP tools with per-call approval",
+  "Switch between Claude and local Ollama models",
+  "Message agents remotely through Telegram"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README carries prominent security cautions: the agent may autonomously read any accessible file in its working directory, run tools and commands, and the optional Telegram bot runs unattended with bypassed tool approval for allowlisted users. Detailed documentation lives in an external wiki. Requires Obsidian Desktop 1.13.0 or newer. An optional companion theme is mentioned.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Most AI tools require copying notes into a chat window and pasting answers back, instead of letting an agent work directly on vault files.",
+ "readmeHash": "cdad5f8b5da25c733c1fd59ed54bbe98c0e3d8d9",
+ "relations": [
+  {
+   "evidence": "Thank you to Alexandre Vieira, for the work on obsidian-sidekick, a sibling of Synapse.",
+   "plugin": "obsidian-sidekick",
+   "type": "inspired"
+  },
+  {
+   "evidence": "It integrates the Claude Agent SDK and Claude CLI",
+   "plugin": "Claude Agent SDK",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Synapse runs Claude and local models through Ollama in the same agent.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Or message your agents from your phone through Telegram.",
+   "plugin": "Telegram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama v0.14.0+",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Claude subscription (OAuth)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Anthropic API usage and Ollama Cloud may incur provider charges",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI agent plugin that runs Claude and local Ollama models inside the vault, reading and writing notes through agents, skills, and MCP tools.",
+ "tags": [
+  "claude",
+  "anthropic-api",
+  "ollama",
+  "mcp",
+  "telegram",
+  "local-llm",
+  "writing-style"
+ ]
+}

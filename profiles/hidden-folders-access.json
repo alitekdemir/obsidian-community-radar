@@ -1,0 +1,62 @@
+{
+ "also": [
+  "search",
+  "bases"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Index user-selected hidden root-level folders into the vault cache",
+  "Show hidden-folder files in file explorer, Quick Switcher, search, and graph",
+  "Propagate create, modify, rename, and delete events via filesystem watchers",
+  "Query hidden-folder notes from Bases, Dataview, and vault-API plugins",
+  "Remove all injected entries when a folder or the plugin is disabled"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Search",
+   "Graph view",
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not for hiding or protecting folders; it does the opposite, making already-hidden dot-folders visible inside Obsidian.",
+ "extras": "Desktop-only and requires Obsidian 1.13.0+ (declarative settings API); full user documentation lives in docs/. Warns that third-party sync plugins (Remotely Save, LiveSync, obsidian-git) may not exclude hidden paths and to test on a copy with backups; notes other plugins can now modify the exposed files.",
+ "intent": "improve",
+ "intentEvidence": "makes hidden root-level folders (names starting with a dot, e.g. .claude, .github) fully visible to Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted content in dot-folders to participate in search, the link graph, and Bases without renaming folders or using symlinks that break Obsidian Sync and cross-platform workflows.",
+ "primary": "files",
+ "problem": "Obsidian ignores all paths starting with a dot, so content stored in folders like .claude or .github cannot be searched, linked, or queried without renaming them (which breaks external tools) or using symlinks (which break Sync).",
+ "readmeHash": "2e5d291bc94c2352acf4b2d5765d2c3ffcf981db",
+ "relations": [
+  {
+   "evidence": "Full integration: file explorer, Quick Switcher, search, graph, metadata cache, Bases, Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Sync: safe. Sync never syncs paths starting with .",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault-index plugin that injects whitelisted hidden root-level dot-folders (e.g. .claude) into Obsidian's file tree, search, graph, metadata cache and Bases.",
+ "tags": [
+  "dot-folders",
+  "vault-cache",
+  "filesystem-watcher",
+  "claude-code",
+  "dataview"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pair Obsidian with the computer bridge by pairing code or QR code",
+  "Chat with a Pi agent beside notes",
+  "Attach notes and images to messages",
+  "Switch model and reasoning effort",
+  "Resume earlier conversations from history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Raspberry Pi or edge-computing tool; it is a client that connects Obsidian to a Pi agent running on your computer.",
+ "extras": "Requires a bridge process kept running on a computer; messages and attachments pass through that computer to the model provider, chat text may sync with the vault, and no telemetry or hosted relay is used. Full access is the default permission and allows file edits and shell commands; permission presets are not filesystem sandboxes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with an agent running on your own computer, or to bring note context into that chat from desktop and mobile.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "ff8247a20a39f0ae95a7817d260cf79a1530ea6d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The bridge bundles Pi Durable and starts it by default",
+   "plugin": "Pi Durable",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For remote access, use Tailscale on both devices.",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pi with a connected model provider",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 22.19+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Bridge that connects Obsidian to a Pi Durable agent on your computer, with one-time pairing, chat, note attachments and model switching.",
+ "tags": [
+  "ai-chat",
+  "ai-agents",
+  "llm",
+  "local-llm",
+  "tailscale",
+  "sqlite"
+ ],
+ "textHash": "ed9621071da015292e381f01763fdddfb413e9da"
+}

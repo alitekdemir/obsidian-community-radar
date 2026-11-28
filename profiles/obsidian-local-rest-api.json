@@ -1,0 +1,91 @@
+{
+ "also": [
+  "automation",
+  "ai"
+ ],
+ "audience": [
+  "developers",
+  "AI agent users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Serve an authenticated HTTPS REST API",
+  "Expose a built-in MCP server for AI agents",
+  "Read, write, patch, move, copy, and delete vault files",
+  "Search notes and list tags",
+  "Stream vault events and execute Obsidian commands"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Command palette",
+   "Tags view",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Runs a local HTTPS server with a self-signed certificate authority; access to Obsidian's configuration directory is blocked by default. Includes a built-in MCP server and an extension API for other plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Inspired by Vinzent03's advanced-uri plugin, with the goal of expanding automation options beyond the constraints of custom URL schemes.",
+ "primary": "developers",
+ "problem": "Obsidian has no built-in authenticated interface for external scripts, browser extensions, or AI agents to read and modify vault notes.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "bc09da07b86ddbe1811ba65efdc1102fd7e14632",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Inspired by Vinzent03's advanced-uri plugin, with the goal of expanding automation options beyond the constraints of custom URL schemes.",
+   "plugin": "advanced-uri",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Claude Code has native HTTP MCP support.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cursor supports the Streamable HTTP MCP transport.",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "bridge it with mcp-remote (requires Node.js)",
+   "plugin": "mcp-remote",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Periodic Notes: Adds support for periodic notes",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MCP client",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Secure local REST API and MCP server that lets scripts, browser extensions, and AI agents read, write, search, and patch vault notes.",
+ "tags": [
+  "rest-api",
+  "mcp",
+  "api-key",
+  "ai-agents",
+  "local-server",
+  "tool-calling",
+  "claude-code",
+  "cursor"
+ ],
+ "textHash": "5899042cb48feb521d8e37f947d89201b6d481f7"
+}

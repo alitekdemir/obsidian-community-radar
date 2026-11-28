@@ -1,0 +1,64 @@
+{
+ "also": [
+  "bases",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Route notes to folders mapped from project statuses",
+  "Create project issues from Markdown templates with per-project identifiers",
+  "Reorder Kanban cards with a numeric order property",
+  "Configure custom text-value sort orders and apply them to a Base",
+  "Open embedded Kanban boards in a new tab and compact card layout"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not add its own Kanban view; it works alongside the built-in Bases Kanban by routing note folders, creating issues, and adjusting card behavior.",
+ "extras": "Desktop-only; mobile is not enabled and several features are gated to the tested Obsidian 1.14.4 build, with card ordering marked experimental and relying on undocumented internal APIs. Installation is manual (no community plugin store listing described). The README includes extensive safety warnings: no rules run by default, no startup scan, and vault backups are advised; it is not a backup or move-history system.",
+ "intent": "improve",
+ "intentEvidence": "rather than replacing the official Kanban view or adding another layout",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "folders",
+ "problem": "Bases Kanban changes status properties but leaves notes in place, so status columns and physical folder organization can drift apart.",
+ "readmeHash": "a6fd0c2ba19ca2e84ce2a530e90806f9f3e7575f",
+ "relations": [
+  {
+   "evidence": "Enable the Bases core plugin to use the official Kanban view.",
+   "plugin": "Bases",
+   "type": "extends"
+  },
+  {
+   "evidence": "Import settings from Project Task Router version 2 without rewriting note properties.",
+   "plugin": "Project Task Router",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases core plugin",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Folder-routing and task-creation companion for the built-in Bases Kanban view that moves project notes between status-mapped folders.",
+ "tags": [
+  "kanban",
+  "issue-tracker",
+  "card-ordering",
+  "drag-and-drop",
+  "status-workflow"
+ ]
+}

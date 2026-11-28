@@ -1,0 +1,62 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Claude, GPT, or Gemini from a sidebar or main tab",
+  "Let the AI read, write, edit, and search vault files and run shell commands via tool use",
+  "Require approval modals for dangerous file paths and commands, even in permissive modes",
+  "Switch between six provider modes (three APIs, three local CLIs) per conversation",
+  "Define custom slash-command skills as Markdown files in a vault folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. It was briefly published as Hermes v1.0.0 and renamed to Gryphon, with migration steps for Hermes users (copy data.json; vault folder auto-renames). README discloses bundled-SDK endpoints not reached in normal use, known multi-instance races (provenance tags, shared chat history), and points to SECURITY.md for vulnerability reports.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and existing AI integrations let the model edit files and run shell commands with no independent guardrail against dangerous paths or commands.",
+ "readmeHash": "479c3b91ce20e6b767bdd54a061a51cb3035e1f7",
+ "relations": [
+  {
+   "evidence": "Spawns a locally-installed claude binary as a subprocess and streams JSON over stdin/stdout.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, or Google API key (or Brave Search key for WebSearch)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Locally installed claude, codex, or gemini CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI chat panel connecting the vault to Claude, GPT, or Gemini via API or local CLI, letting the model read, edit, and run commands behind approval guardrails.",
+ "tags": [
+  "anthropic",
+  "openai",
+  "gemini",
+  "claude-code",
+  "tool-use",
+  "prompt-injection",
+  "brave-search"
+ ]
+}

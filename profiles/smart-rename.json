@@ -1,0 +1,71 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rename a note and rewrite backlinks to the new title",
+  "Keep the old title as the link display text",
+  "Store the old title as an alias",
+  "Rename a linked note from the cursor without opening it",
+  "Sync the first heading and a frontmatter title key with the new name"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a bulk or pattern-based file renamer; it renames a single note and updates the links pointing to it.",
+ "extras": "Documentation is a demo vault that ships with each release and can be opened with a command; beta builds are installed through BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's own renames ask what they are for.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Renaming a note silently changes the words readers see in links, so carefully written prose ends up saying something the author did not write.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "581580d49813fd5ec55eee9736219c533028ba56",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Covers part of it: also renames a link's target from the cursor",
+   "plugin": "F2 Quick Rename",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Different trigger: a rename rather than a sync command; adds: old title kept in backlinks",
+   "plugin": "File Title Updater",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Opposite goal: links keep the old display text instead of following the new title",
+   "plugin": "Title As Link Text",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Note renamer that rewrites links to the new title while keeping the old title as their display text and as an alias.",
+ "tags": [
+  "wikilinks",
+  "aliases",
+  "backlinks",
+  "rename"
+ ],
+ "textHash": "5b7405cb13d0cd88b8a8656a621c678f2320dc64"
+}

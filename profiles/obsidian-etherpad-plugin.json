@@ -1,0 +1,61 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload a note to an Etherpad Lite server",
+  "Pull the latest pad content into the note when it opens",
+  "Replace note content from the server on demand",
+  "Open the pad in the system browser to share the URL",
+  "Configure the server host, port, and API key"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a whole-vault sync tool; it only syncs individual notes whose frontmatter links them to an Etherpad Lite pad.",
+ "extras": "Requires the user to set up and host their own Etherpad Lite server (e.g. on AWS or Heroku); README warns the plugin is currently broken on mobile due to dependency issues, and lists a TODO of unfinished features.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was repeatedly cutting and pasting drafts into Google Docs to collaborate, losing search, tags, and links in the vault, and wanted collaboration to happen on notes that stay in the vault.",
+ "primary": "integrations",
+ "problem": "Collaborative drafting usually means copying notes into Google Docs, which leaves the vault with unsearchable, untaggable, unlinkable placeholders instead of the actual work.",
+ "readmeHash": "e389ceb6ac206158e81935ebc73d63134c139af7",
+ "relations": [
+  {
+   "evidence": "This plugin uses an Etherpad-Lite server as a lightweight collaboration tool.",
+   "plugin": "Etherpad-Lite",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Etherpad Lite server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Etherpad API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Etherpad integration that uploads a note to an Etherpad Lite server for web-based collaborative editing and syncs changes back into the vault.",
+ "tags": [
+  "etherpad-lite",
+  "collaborative-editing",
+  "self-hosted",
+  "web-editor"
+ ]
+}

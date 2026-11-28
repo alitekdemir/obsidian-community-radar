@@ -1,0 +1,64 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a 3x3 grid of recent tabs with a modifier+Tab hotkey",
+  "Jump to a file by pressing 1-9 or tapping its cell on mobile",
+  "Page through multiple grids and swipe horizontally to switch between them",
+  "Show bookmark groups from the core Bookmarks plugin as grids",
+  "Open a configured quick switcher or search command from the grid"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher",
+   "Bookmarks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The author states they are not a developer and built the plugin with limited AI tokens. Known limitations include OS interference with Alt+Tab, reliance on internal Obsidian APIs for Bookmarks and command execution, and imperfect 'already open' tab detection.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says position-based tab hotkeys never worked for them because they could not mentally map tab positions, and the Tab Switcher plugin hides file names until after switching, which fails with gibberish filenames and similarly named notes; they call it a gap nobody has addressed.",
+ "primary": "navigation",
+ "problem": "The quick switcher finds any file in the vault, but nothing helps you move between the files you are currently working on when you have dozens of tabs and can't recall exact filenames.",
+ "readmeHash": "af7feaafdc1e5069d28a1deed9b0a5ac242c2175",
+ "relations": [
+  {
+   "evidence": "There is a plugin called tab switcher that does let you switch between recent tabs",
+   "plugin": "Tab Switcher",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Omnisearch (requires the Omnisearch community plugin)",
+   "plugin": "Omnisearch",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Omnisearch",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "3x3 grid switcher that opens with a modifier+Tab hotkey and lets you jump to recent tabs or bookmarked files by number key or tap.",
+ "tags": [
+  "tabs",
+  "recent-files",
+  "bookmarks",
+  "grid",
+  "touch",
+  "swipe-gestures"
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "also": [
+  "pdf",
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Write and erase ink on fixed-size paginated notebooks",
+  "Snap strokes into shapes and select, move and recolour ink",
+  "Annotate imported PDF pages, pictures and scanned documents",
+  "Read handwriting on device with Grape for search, titles and links",
+  "Record audio and tap writing to replay that moment"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas",
+   "Audio recorder",
+   "Search",
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Markdown editor or an infinite-canvas whiteboard; handwriting lives in its own .notebook.md files and cannot be placed inside other notes.",
+ "extras": "Free, no account, no telemetry; works fully offline. Requires Obsidian 1.13 or later. Grape is described as a work in progress needing more training on real handwriting. Optional network use: Grape model download, template gallery, interface language files, daily update check, and AI requests after you add a key. Do not run InkedMark in the same vault, since both open .ink.md files. iPad tip: turn off Apple Pencil Scribble in iPadOS settings or fast strokes can go missing. Beta versions are distributed via BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "Handwriting notebooks for any stylus, inspired by Goodnotes",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author built it as a personal project after tiring of paid App Store note apps, of companies holding notes in their cloud, and of sync problems between a Windows PC and Apple devices.",
+ "primary": "drawing",
+ "problem": "Native handwriting apps such as Goodnotes and Notability are paid and keep notes in their own cloud, and Apple Notes performs poorly, so there is no local-file handwriting notebook that syncs across iPad, Android and desktop.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "6f1fc16a681c2cc91854c3ea7f4026ff232840e1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The purpose of this plugin is to be a complete alternative to those note-taking apps.",
+   "plugin": "Goodnotes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "I was tired of all the paid note-taking apps on the App Store, such as Goodnotes and Notability",
+   "plugin": "Notability",
+   "type": "alternative"
+  },
+  {
+   "evidence": "combined with the bad performance of Apple Notes as an alternative",
+   "plugin": "Apple Notes",
+   "type": "alternative"
+  },
+  {
+   "evidence": "FineNotes began as a fork of InkedMark by Pascal Crausaz, and has since been rewritten",
+   "plugin": "InkedMark",
+   "type": "fork"
+  },
+  {
+   "evidence": "Coming from GoodObsidian? Your settings carry over the first time FineNotes starts.",
+   "plugin": "GoodObsidian",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Beta versions: install the BRAT plugin, and add Joost-8/FineNotes.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Stylus or pen input device (Apple Pencil, Android tablet pen, pen tablet, or mouse/finger)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Grape handwriting model download (3.5 MB, GitHub releases)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic, OpenAI, Google Gemini, OpenRouter or custom OpenAI-compatible endpoint key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "PaddleOCR reader download for scanned PDF text",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Handwriting notebook plugin for any stylus that keeps paginated notebooks as plain Markdown files in the vault, with on-device handwriting recognition.",
+ "tags": [
+  "handwriting",
+  "stylus",
+  "apple-shortcuts",
+  "pdf-annotation",
+  "speech-to-text",
+  "local-first",
+  "offline"
+ ],
+ "textHash": "00a5db24cb30a861258859272f5a3af0a3db1893"
+}

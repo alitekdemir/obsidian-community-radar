@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "micro-blog-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish the active note to Micro.blog via Micropub",
+  "Save notes as Micro.blog drafts",
+  "Upload embedded local images to the media endpoint",
+  "Update a previously published post using microblog_url frontmatter",
+  "Cross-post to Mastodon only when a note opts in via frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The app token is stored with Obsidian secret storage rather than the plugin settings JSON, and the README includes data-sending disclosures.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to a Micro.blog site, so posts must be composed and uploaded outside the vault.",
+ "readmeHash": "8efabe2637a45ac10f03deb1a598a1d566168c4e",
+ "relations": [
+  {
+   "evidence": "Publish the active Obsidian note to Micro.blog with Micropub.",
+   "plugin": "Micro.blog",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Mastodon cross-posting when explicitly requested",
+   "plugin": "Mastodon",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Micro.blog account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Micro.blog app token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publisher that sends the active note to Micro.blog over the Micropub API, with drafts, categories, image uploads, and updating existing posts.",
+ "tags": [
+  "micropub",
+  "micro-blog",
+  "mastodon",
+  "indieweb"
+ ]
+}

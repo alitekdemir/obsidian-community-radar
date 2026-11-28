@@ -1,0 +1,78 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault context in a sidebar using your own LLM keys",
+  "Read, search, create, and edit notes through tools and sub-agents",
+  "Review, accept, or discard AI file edits with checkpoints",
+  "Define custom right-click AI actions and custom sub-agents",
+  "Transcribe audio, generate images, and search the web as optional tools"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Several features are flagged experimental (custom agents, embeddings, JavaScript Code Executor), and the README warns the code executor runs through the plugin, not a hardened sandbox. Works on desktop and mobile with UI translations in five languages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, so using AI with vault context means switching to outside tools or manually pasting notes back and forth.",
+ "readmeHash": "b2165b54e2321639cd6d43122e8195e26b1ae7c2",
+ "relations": [
+  {
+   "evidence": "Add your own keys: OpenAI-compatible endpoints (including OpenAI, Azure OpenAI, and comparable hosts)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI-compatible endpoints (including OpenAI, Azure OpenAI, and comparable hosts), Anthropic (Claude), Google Gemini",
+   "plugin": "Anthropic (Claude)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic (Claude), Google Gemini, and saved profiles so switching models isn't rewriting forms",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Richer tooling — connect MCP servers for capabilities your admin or community provides.",
+   "plugin": "MCP servers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider key (OpenAI-compatible, Anthropic, or Gemini)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Speech-to-text keys for DashScope or Tencent Cloud",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Vault-connected sidebar AI assistant that chats with vault context, drafts and edits notes, and reviews or rewinds AI changes via checkpoints.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "gemini",
+  "mcp",
+  "sub-agents",
+  "checkpoints",
+  "embeddings",
+  "speech-to-text"
+ ]
+}

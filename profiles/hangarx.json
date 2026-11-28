@@ -1,0 +1,76 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes into an entity-and-relationship knowledge graph with vector embeddings",
+  "Answer questions in a sidebar chat with citations linking back to source notes",
+  "Expose MCP tools so external agents can query, search, and write to the vault",
+  "Suggest [[wikilinks]] as ghost text while typing, driven by graph entity matches",
+  "Highlight cited entities and dim other nodes in Obsidian's native graph view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest carries an unreviewed-plugin warning. Cloud mode uses HangarX's hosted API (no LLM key needed) while local mode runs Docker containers with your own keys; the plugin also polls a /health endpoint every 30 seconds while the chat or stats panel is open.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author argues the bottleneck isn't capturing knowledge but making it usable by the agents used every day, since Claude Desktop and Cursor each forget decisions and repeat context.",
+ "primary": "ai",
+ "problem": "Obsidian's search can't answer questions, and AI agents have no persistent memory of vault content, so users re-explain their projects in every new chat.",
+ "readmeHash": "a6cf2834bc4ede5a7559c84de0f28f8cdc2506e9",
+ "relations": [
+  {
+   "evidence": "One-click connect to Claude Desktop, Claude Code, Cursor, Cline, Windsurf",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One-click connect to Claude Desktop, Claude Code, Cursor, Cline, Windsurf",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "HangarX account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM provider keys (BYOK)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP agents (Claude Desktop, Cursor, etc.) and Docker Desktop for local mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Vault-to-AI-memory plugin that syncs notes into a knowledge graph, answers questions with citations, and exposes MCP tools to agents like Claude and Cursor.",
+ "tags": [
+  "mcp",
+  "claude",
+  "cursor",
+  "knowledge-graph",
+  "rag",
+  "embeddings",
+  "ollama",
+  "docker"
+ ]
+}

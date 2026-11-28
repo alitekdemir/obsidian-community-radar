@@ -1,0 +1,55 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync tagged Markdown tasks bidirectionally with a CalDAV server on file save",
+  "map multiple CalDAV calendars to different tags with separate credentials",
+  "store task UIDs as invisible HTML comments in notes",
+  "resolve conflicts between local checkbox state and remote VTODO status",
+  "verify CalDAV URLs and credentials with curl before setup"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest carries the warning: \"This plugin has not been manually reviewed by Obsidian staff.\" README documents v1 limits: no background polling, no pulling remote-only tasks into notes, and no recurring tasks, due dates, or priorities.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian tasks live only in notes, with no built-in way to keep them in sync with task lists on CalDAV servers like mailcow, SOGo, Nextcloud, or Baikal.",
+ "readmeHash": "9381e04e1a4c4de94d078d83c17ff625b877a53a",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "A CalDAV server that supports VTODO (e.g. mailcow, SOGo, Nextcloud, Baikal)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Username and password for each mapped calendar",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync that pushes Markdown tasks tagged with a configured tag to a CalDAV server and pulls remote status changes back.",
+ "tags": [
+  "caldav",
+  "vtodo",
+  "mailcow",
+  "sogo",
+  "nextcloud",
+  "baikal"
+ ]
+}

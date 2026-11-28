@@ -1,0 +1,64 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Host and join real-time editing sessions with live cursors",
+  "Sync file creates, deletes, renames, and binary files between participants",
+  "Set guest permissions, approvals, and host transfer",
+  "Follow, summon, and present navigation to participants",
+  "Encrypt shared content end-to-end with AES-256-GCM"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a publishing tool or personal device sync; it hosts live co-editing sessions where the host's vault is the source of truth.",
+ "extras": "Requires running a relay server (included, self-hostable) at a URL you configure; full threat model is in a separate docs/security.md; binary files up to 50 MB; without GitHub OAuth an anonymous local ID is used.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in way for multiple people to edit the same vault together in real time.",
+ "readmeHash": "a6728796032808db040491fd63df0c426904c28b",
+ "relations": [
+  {
+   "evidence": "Or install via BRAT for automatic updates.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "relay server (self-hostable, included)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub OAuth login",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Real-time collaborative editing plugin that shares vault files over a self-hostable relay server with live cursors, presence, and end-to-end encryption.",
+ "tags": [
+  "yjs",
+  "crdt",
+  "real-time",
+  "e2e-encryption",
+  "self-hosted",
+  "relay-server",
+  "websockets"
+ ]
+}

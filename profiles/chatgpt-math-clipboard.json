@@ -1,0 +1,66 @@
+{
+ "also": [
+  "latex"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert KaTeX nodes to $...$ and $$...$$ LaTeX when copying from ChatGPT",
+  "Copy responses as plain-text Markdown via ChatGPT's native copy button",
+  "Restrict activation to chatgpt.com pages in Web Viewer",
+  "Fall back to native copy behavior when strict DOM extraction fails"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a ChatGPT client or AI assistant; it only rewrites the clipboard when you use ChatGPT's copy button inside Web Viewer.",
+ "extras": "Strict conversion depends on ChatGPT's current DOM; validated against Obsidian 1.12.7 and the ChatGPT DOM of May 30, 2026. If the DOM changes, native copy behavior is preserved. Runs locally, makes no network requests, and is not manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "An Obsidian desktop plugin that copies ChatGPT formulas from the built-in Web Viewer",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "ChatGPT's native copy button places rich HTML on the clipboard, so pasted formulas and formatting do not render correctly in Obsidian notes.",
+ "readmeHash": "352aabb36cc83eaaeb7c3b237c3a5e0c04ff2b80",
+ "relations": [
+  {
+   "evidence": "It only activates for Web Viewer pages whose host is exactly chatgpt.com.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An Obsidian desktop plugin that copies ChatGPT formulas from the built-in Web Viewer",
+   "plugin": "Web Viewer",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Web Viewer",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ChatGPT",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Clipboard converter that copies ChatGPT responses from Obsidian's Web Viewer as Markdown with KaTeX math converted to $...$ and $$...$$ LaTeX.",
+ "tags": [
+  "chatgpt",
+  "katex",
+  "clipboard",
+  "plain-text",
+  "dom-extraction"
+ ]
+}

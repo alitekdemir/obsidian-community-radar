@@ -1,0 +1,74 @@
+{
+ "also": [
+  "review",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Turn notes tagged #decks into flashcards from headings, tables, cloze highlights, and image occlusion",
+  "Schedule reviews with FSRS-6 and train algorithm weights on your own review history",
+  "Run graded exam sessions with multiple-choice, type-in, and cloze questions",
+  "Import Anki .apkg collections and migrate cards from the Spaced Repetition plugin",
+  "Sync card state across devices via sync logs and a SQLite database, with optional AI card generation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "AI card generation is freemium via DecksMD Pro or your own API key; the ready-made deck directory requires a free DecksMD account; full documentation lives at decksmd.app; the engine is AGPL-3.0 licensed.",
+ "intent": "alternative",
+ "intentEvidence": "Decks was built as an alternative for users who want a different architectural approach",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it as an alternative offering purely structural Markdown (no special syntax) and conflict-free syncing via a local SQLite database.",
+ "primary": "flashcards",
+ "problem": "Flashcards in Obsidian usually require special inline syntax or an external app like Anki; this plugin instead parses the note structure you already write, and carries review history across devices and from other tools.",
+ "readmeHash": "77df2e421e828e8611497362df0ff8a81690eace",
+ "relations": [
+  {
+   "evidence": "Decks was built as an alternative for users who want a different architectural approach",
+   "plugin": "Spaced Repetition",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Coming from Anki? Import an Anki .apkg export in one click",
+   "plugin": "Anki",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Decks is built on @decks/core — the open-source (AGPL-3.0) engine",
+   "plugin": "@decks/core",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, Google, or OpenAI-compatible endpoint",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "free DecksMD account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Spaced-repetition flashcard system that turns ordinary note structure (headings, tables, cloze highlights, image occlusion) into cards scheduled with FSRS-6.",
+ "tags": [
+  "fsrs",
+  "anki",
+  "apkg",
+  "cloze",
+  "image-occlusion",
+  "sqlite"
+ ]
+}

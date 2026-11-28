@@ -1,0 +1,56 @@
+{
+ "also": [
+  "files",
+  "theming"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "scan hidden configuration directories and group files by customisation role",
+  "compare candidate files against the current config directory",
+  "select and apply plugin, theme, snippet, and JSON setting candidates",
+  "merge JSON files or copy them, trashing existing destinations",
+  "duplicate or delete other devices' config folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a sync engine; it does not replicate files between devices and only compares and applies candidates already made available by another transport.",
+ "extras": "Installed via BRAT; README warns users to back up their vault and configuration folders before applying candidates and flags the delete-config-folder action as 'tremendously dangerous'.",
+ "intent": "improve",
+ "intentEvidence": "designed as a companion tool for Self-hosted LiveSync users who use Hidden File Sync",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "When Obsidian configuration folders are synced across devices, each device receives every change, but users have no way to inspect and selectively apply only the customisation files they want on a given device.",
+ "readmeHash": "cffabf882f8fd4e5a05508f0bfa321d55e7fc604",
+ "relations": [
+  {
+   "evidence": "designed as a companion tool for Self-hosted LiveSync users who use Hidden File Sync",
+   "plugin": "Self-hosted LiveSync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Self-hosted LiveSync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Configuration directory manager that inspects candidates from other .obsidian folders and selectively applies plugin, theme, snippet, and setting files.",
+ "tags": [
+  "self-hosted-livesync",
+  "hidden-file-sync",
+  "device-profiles",
+  "dot-obsidian",
+  "json-merge"
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vaults or folders between devices with end-to-end encryption (rclone crypt)",
+  "Publish selected notes to the server so MCP clients can read and search them",
+  "Apply AI-suggested edits only when access rules allow and the note has not changed",
+  "Add devices by QR code and manage vaults, devices, tokens and assistant access keys",
+  "Onboard users through accounts, invitations and a first-launch setup wizard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "delisted": "2026-11-17",
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory; installed via BRAT or manually. Full user guide is only in Russian (docs/PLUGIN.md). AI access is off by default; allowed notes are published to the server in plain text for indexing, unlike encrypted synced files. A warning notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices normally requires a hosted service, and there is no built-in way to give AI assistants controlled, rule-based access to specific notes.",
+ "readmeHash": "81b81bfb42ad47e27d1494736f32b708f571c8ac",
+ "relations": [
+  {
+   "evidence": "It works with your own server, sync-and-mcp-backend.",
+   "plugin": "sync-and-mcp-backend",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With BRAT (recommended). Install BRAT, run the command \"BRAT: Add a beta plugin for testing\"",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin then shows a ready command for Claude Code, a config for Claude Desktop",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "sync-and-mcp-backend",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "server account or administrator invitation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Self-hosted, end-to-end encrypted vault sync that also exposes selected notes to AI assistants through an MCP endpoint.",
+ "tags": [
+  "mcp",
+  "end-to-end-encryption",
+  "self-hosted",
+  "rclone-crypt",
+  "claude",
+  "chatgpt",
+  "qr-code"
+ ]
+}

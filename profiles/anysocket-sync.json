@@ -1,0 +1,60 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files across devices through a self-hosted server",
+  "Encrypt sync traffic with AES-256-GCM",
+  "Merge concurrent edits and keep both versions of conflicts",
+  "Restore file version history and recover deleted files",
+  "Approve new devices from an already-syncing device or the server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns to always back up your vault before installing. Notes an upcoming 1.7 release that drops older device versions and requires SSL (wss) by default, with an 'Allow insecure connection' setting as fallback. Mentions screenshots (removed from this text) and points bug reports to the GitHub issue tracker.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through a server you host yourself, so users must rely on paid services or hand-rolled setups.",
+ "readmeHash": "a92750300e9c0b5363a90edc7863d4e615ed4290",
+ "relations": [
+  {
+   "evidence": "Built with: anysocket",
+   "plugin": "AnySocket",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted AnySocket server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Self-hosted vault synchronization that encrypts traffic, merges concurrent edits, and keeps version history and deleted-file recovery on your own server.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "conflict-resolution",
+  "version-history",
+  "offline",
+  "anysocket"
+ ]
+}

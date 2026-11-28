@@ -1,0 +1,80 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start and stop timers on checkbox tasks",
+  "Show a live timer in the status bar",
+  "Review sessions by day, week or custom range",
+  "Filter history by client and project",
+  "Export sessions as generic, Toggl or Clockify CSV"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full documentation is hosted on a separate site; more export formats (Harvest, Everhour) are planned; importing entries into Clockify requires a paid plan or trial on Clockify's side.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built it for personal use because they could not find a plugin that did what they wanted.",
+ "primary": "tasks",
+ "problem": "Obsidian has no built-in way to track time on tasks, and existing timers do not combine checkbox-based tracking with export to outside tools.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "f7d5644867f371d17a33c157d1a5473f1db3724c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "compatible with the Tasks plugin format, with no external services involved at any point",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "Plays nicely with Dataview, but never depends on it",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Toggl-formatted CSV — matches the exact columns expected by Toggl's official importer",
+   "plugin": "Toggl",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Clockify-formatted CSV — matches the exact columns expected by Clockify's Timesheets importer",
+   "plugin": "Clockify",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Toggl",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Clockify",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Local-first timer that tracks time on checkbox tasks and exports sessions as CSV for Toggl or Clockify importers.",
+ "tags": [
+  "time-tracking",
+  "tasks-plugin",
+  "dataview",
+  "local-first"
+ ],
+ "textHash": "91c9bac244e8ea9b3f71bbf7653608bea9f77a9d"
+}

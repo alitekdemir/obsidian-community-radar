@@ -1,0 +1,56 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert pasted \\( \\) and \\[ \\] delimiters into inline and display math",
+  "Recover original TeX from rendered HTML that preserves KaTeX, MathML, or MathJax annotations",
+  "Wrap bare TeX expressions in prose as inline math and formula-only lines as display math",
+  "Protect code blocks, URLs, Markdown links, and existing math from reprocessing",
+  "Fall back to native Obsidian paste when no eligible formula is found"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Mobile devices have not been tested and clipboard behavior can vary by platform; the README notes Community Plugins review status is still pending.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "math",
+ "problem": "Pasting AI responses or rich text into Obsidian leaves math in \\( \\) / \\[ \\] delimiters, bare TeX, or rendered HTML, which the editor does not render without manual fixing.",
+ "readmeHash": "3a15f346b0ab5203e2a8e1bb210209af1491b191",
+ "relations": [
+  {
+   "evidence": "automatically converts LaTeX math from ChatGPT, Codex, and other sources",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "converts LaTeX math from ChatGPT, Codex, and other sources to Obsidian's native math syntax",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Paste handler that converts LaTeX math from ChatGPT, Codex, and other sources into Obsidian's native $...$ and $$...$$ math syntax.",
+ "tags": [
+  "chatgpt",
+  "codex",
+  "katex",
+  "mathjax",
+  "clipboard"
+ ]
+}

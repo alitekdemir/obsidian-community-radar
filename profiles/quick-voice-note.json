@@ -1,0 +1,65 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record long voice memos with one tap on mobile or desktop",
+  "Transcribe recordings via OpenAI-compatible APIs (OpenAI, Groq, local Whisper server)",
+  "Append timestamped memo entries to today's daily note or the current note",
+  "Save audio files to a recordings folder in the vault",
+  "Trigger recording from iOS/Android shortcuts or NFC tags via obsidian://voice-note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Transcription is optional; without a key users still get one-tap audio capture filed into daily notes. Audio only leaves the device if transcription is enabled. Unreviewed by Obsidian staff per the manifest. Marketing site at quickvoicenote.com.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people who think out loud away from a desk, such as students recapping lectures or founders noting ideas in the car.",
+ "primary": "audio",
+ "problem": "Capturing long spoken thoughts on mobile and getting them filed, transcribed and timestamped into the right note requires manual recording and copy-paste work.",
+ "readmeHash": "e29d9786acf3b124ac51f285e222f81053ef2241",
+ "relations": [
+  {
+   "evidence": "Bring your own key (OpenAI, Groq, or a local Whisper server)",
+   "plugin": "OpenAI / Groq / Whisper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Groq, or local Whisper server key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloud managed transcription key (A$9/month)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Voice memo recorder that saves long audio recordings to the vault and appends transcribed, timestamped entries to the daily note.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "whisper",
+  "openai",
+  "groq",
+  "voice-memo",
+  "nfc-tag"
+ ]
+}

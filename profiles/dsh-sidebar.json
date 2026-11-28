@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Embed the DeepSeek Harness web UI in a sidebar iframe",
+  "Start, stop and restart the local dsh web server on a free port",
+  "Install a graphify bridge that gives agents graphify_search and graphify_stats tools over pre-extracted concepts",
+  "Configure CLI path, port, embed mode and extra server arguments",
+  "Inspect server logs and open the panel URL in the default browser"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone AI chat plugin; it embeds and manages the external DeepSeek Harness application inside a sidebar panel.",
+ "extras": "Desktop-only (Obsidian 1.4.0+) because it spawns a local process; the manifest notes the plugin has not been manually reviewed by Obsidian staff; all traffic stays on 127.0.0.1 with no telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to run external AI agents from inside the vault without switching to another app or terminal.",
+ "readmeHash": "1daf1d4acb8485c3d20d6c127edab40aa19ebe4a",
+ "relations": [
+  {
+   "evidence": "Claudian — the Obsidian plugin that inspired embedding an AI agent in a sidebar panel.",
+   "plugin": "Claudian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the VS Code extension whose spawn/ready-line and cookie-proxy approach this plugin follows",
+   "plugin": "deepseek-harness-vscode",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness (dsh CLI on PATH)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model credentials configured in DSH (e.g. DEEPSEEK_API_KEY)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar panel that embeds the DeepSeek Harness web UI in Obsidian, manages its local server, and optionally gives agents a local knowledge graph.",
+ "tags": [
+  "deepseek-harness",
+  "ai-agents",
+  "knowledge-graph",
+  "iframe",
+  "localhost",
+  "token-saving"
+ ]
+}

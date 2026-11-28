@@ -1,0 +1,65 @@
+{
+ "also": [
+  "files",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", Encrypt files locally",
+  "Synchronize vaults to self-hosted servers",
+  "Handle file conflicts",
+  "Rotate encryption keys",
+  "Verify vault integrity"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The system is not metadata-private; the server operator can see file paths, sizes, and timestamps. The E2EE password can be stored on disk or in session-only memory.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Standard cloud synchronization methods may compromise the privacy of sensitive vault content, requiring a secure, private alternative.",
+ "readmeHash": "a641d2783b04c0de06dd65215fa4f4623e73907e",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "E2EE Vault Sync",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API bearer token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Obsidian account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "File-by-file, end-to-end encrypted synchronization for Obsidian vaults against a self-hosted server, supporting desktop and mobile platforms.",
+ "tags": [
+  "aes-gcm",
+  "pbkdf2",
+  "self-hosted",
+  "end-to-end-encryption",
+  "chunked-transfer"
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "also": [
+  "project-management",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sends the active note (frontmatter removed, embeds expanded) to the Refinr server",
+  "Previews the proposed backlog of epics, stories and sub-tasks with readiness verdicts",
+  "Creates issues in Jira or OpenProject from the preview",
+  "Records created issues and verdicts in the note's refinr frontmatter property",
+  "Reassesses or validates stories awaiting a human decision"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Windows/macOS/Linux); mobile untested and not offered. No telemetry; requests go only to the configured Refinr server. API key kept in Obsidian SecretStorage, per device. Cannot tell apart two instances of the same tracker name; long operations cannot be cancelled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to turn a note into a structured, agent-ready backlog of Epics, Stories and Sub-tasks created as issues in Jira or OpenProject.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "486f905c42da24a265227d1bafc89f8625ba9e5a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The plugin sends the note to your Refinr server",
+   "plugin": "Refinr",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Turn the active note into an agent-ready backlog (Epics, Stories, Sub-tasks) in Jira or OpenProject, via Refinr.",
+   "plugin": "Jira",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Turn the active note into an agent-ready backlog (Epics, Stories, Sub-tasks) in Jira or OpenProject, via Refinr.",
+   "plugin": "OpenProject",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Self-hosted Refinr server 1.3.0+ (1.4.0+ for full features)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Jira or OpenProject account (used by the Refinr server)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "AI provider account for the Refinr server (not needed with a local model)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Refinr API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Obsidian client for the self-hosted Refinr server that turns the active note into an agent-ready Epic/Story/Sub-task backlog in Jira or OpenProject.",
+ "tags": [
+  "backlog",
+  "issue-tracking",
+  "ai-agents",
+  "api-key",
+  "self-hosted"
+ ],
+ "textHash": "969851888feb6f05377e886d6cbebe984c872c95"
+}

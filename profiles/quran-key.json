@@ -1,0 +1,72 @@
+{
+ "also": [],
+ "audience": [
+  "islamic-studies-researchers",
+  "arabic-students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Extract Quran verses from cursor context, selections, and shorthand citations",
+  "Search the full corpus by text or Arabic root",
+  "Fetch and cache tafsir commentary from 40+ books",
+  "Journal reflections, benefits, and notes in per-ayah notes",
+  "Link related ayahs and convert orphan Quran passages into ayah-note links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Network is used only for explicit tafsir commands; extraction, search, and journaling work fully offline with no telemetry. Tafsir cache files carry SHA-256 checksums for integrity. Additional docs (source decision, roadmap, vault-note schema) live outside the README, and a video walkthrough is linked. The bundled QPC Hafs v18 font drops U+06DF because it renders unreliably.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to resolve Quran citations, search the corpus by root, or retrieve tafsir commentary, so studying the Quran in notes means manual copying and linking.",
+ "readmeHash": "3487c6628517f72537e4ad64550c838b3f8d6ef3",
+ "relations": [
+  {
+   "evidence": "makes outgoing HTTPS requests to tafsir.app (or custom API endpoints configured by the user in Settings)",
+   "plugin": "tafsir.app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The bundled Quran corpus is based on Tanzil Quran Text (Uthmani, Version 1.1)",
+   "plugin": "Tanzil Quran Text",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Root search uses the Quranic Arabic Corpus morphology data, version 0.4",
+   "plugin": "Quranic Arabic Corpus",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "tafsir.app (or custom API endpoint)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Quran research toolkit that extracts verses from cursor context, fetches multi-source tafsir, and journals reflections in ayah notes.",
+ "tags": [
+  "quran",
+  "islam",
+  "tafsir",
+  "arabic",
+  "tanzil",
+  "quranic-arabic-corpus",
+  "tashkeel",
+  "uthmani"
+ ]
+}

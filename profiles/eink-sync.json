@@ -1,0 +1,91 @@
+{
+ "also": [
+  "syncing",
+  "ocr"
+ ],
+ "audience": [
+  "remarkable-tablet-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync reMarkable documents over SFTP or Syncthing",
+  "Extract PDF text highlights into Markdown notes with backlinks",
+  "Render pen-stroke annotations and notebook pages as PNG images",
+  "Browse, archive, delete, and send documents from a library view",
+  "Run local handwriting OCR for searchable notebook text"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not general vault syncing between devices; it imports documents and annotations from a reMarkable tablet into the vault.",
+ "extras": "Enabling Developer Mode for SSH access factory-resets the tablet; the README warns users to back up first. The plugin requires broad permissions (shell execution, direct filesystem access) and has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "No reMarkable Cloud required.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull documents, text highlights, and handwritten annotations from a reMarkable tablet without going through reMarkable Cloud.",
+ "readmeHash": "14315fe031ce68f19bdfd9d1f8dd9675dda8e00d",
+ "relations": [
+  {
+   "evidence": "Provides continuous background sync as an alternative to SFTP",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  },
+  {
+   "evidence": "E-Ink Sync uses rmscene to parse those files",
+   "plugin": "rmscene",
+   "type": "integrates"
+  },
+  {
+   "evidence": "and PyMuPDF to match highlight coordinates with PDF text",
+   "plugin": "PyMuPDF",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Search handwriting (OCR) setting needs Tesseract plus two Python packages",
+   "plugin": "Tesseract",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Notes written by the pre-rename plugin (which used <!-- remarkable-bridge:start/end -->) are still recognised",
+   "plugin": "remarkable-bridge",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Syncthing",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tesseract",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs reMarkable tablet documents over SFTP or Syncthing and extracts PDF highlights and pen annotations into Markdown notes, without reMarkable Cloud.",
+ "tags": [
+  "remarkable-tablet",
+  "sftp",
+  "syncthing",
+  "ssh",
+  "highlights",
+  "python",
+  "tesseract",
+  "rmscene"
+ ]
+}

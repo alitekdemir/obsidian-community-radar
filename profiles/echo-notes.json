@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe microphone input and vault audio files",
+  "Create Markdown transcripts with source links",
+  "Generate AI analyses from configurable templates",
+  "Extract and review memory candidates",
+  "Build profiles and context packages"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Sends audio and transcript text to configured external providers; Echo Memory is marked experimental; local service commands run verbatim under the user account.",
+ "intent": "improve",
+ "intentEvidence": "In offline mode, enable or disable Obsidian's core Audio recorder and save hotkeys for its commands.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted recordings, transcripts, and analyses to become linked personal knowledge and long-term context for a personal AI, not isolated meeting output.",
+ "primary": "audio",
+ "problem": "Meeting audio, transcripts, and AI notes often stay in separate tools and are not linked back into the Obsidian vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "e02ac45438ab239b315d043b3bbf12997ae01d6f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Obsidian's Audio recorder core plugin is used only by the offline workflow",
+   "plugin": "Obsidian core Audio recorder",
+   "type": "extends"
+  },
+  {
+   "evidence": "Ollama through its local OpenAI-compatible /audio/transcriptions endpoint",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LM Studio through its local OpenAI-compatible /audio/transcriptions endpoint",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Cloud transcription or AI analysis provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Volcengine AgentPlan",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Audio transcription and AI meeting-note plugin that creates Markdown transcripts, template-based analyses, and memory profiles.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "meeting-notes",
+  "speaker-diarization",
+  "llm",
+  "local-llm",
+  "ollama",
+  "lm-studio"
+ ],
+ "textHash": "90d37dc050b52a4af0f0b8c5b933e1392233e4ad"
+}

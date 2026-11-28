@@ -1,0 +1,63 @@
+{
+ "also": [
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Draw freehand marker, highlighter, and washi-tape annotations stored as inline SVG",
+  "Create blank, new, or existing-note cards in a single drag",
+  "Drag a marquee to create and rename canvas sections",
+  "Build and edit borderless interactive tables with reorder and resize handles",
+  "Insert vault images via a thumbnail picker or upload"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Relies on undocumented Canvas internals (posFromEvt, createTextNode, etc.) and may need a patch after Obsidian updates; ink renders as raw SVG on devices without the plugin, though content is never lost. Pending community plugin review; manual install instructions provided.",
+ "intent": "improve",
+ "intentEvidence": "A complete re-vamp of the obsidian's canvas experience.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "canvas",
+ "problem": "Obsidian's canvas has no drawing, annotation, or fast card-creation tools, and no official plugin API to add them.",
+ "readmeHash": "0093aff6a692516c9eb4f478781bdd6f733be70d",
+ "relations": [
+  {
+   "evidence": "Handwriting to text — MyScript application + HMAC keys and the recognition language.",
+   "plugin": "MyScript",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MyScript",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "MyScript HMAC keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Canvas toolkit that adds drawing and annotation tools, quick note cards, drag-to-make sections, and interactive tables to Obsidian Canvas.",
+ "tags": [
+  "svg-ink",
+  "figma-frames",
+  "myscript",
+  "handwriting-recognition",
+  "washi-tape",
+  "ipad"
+ ]
+}

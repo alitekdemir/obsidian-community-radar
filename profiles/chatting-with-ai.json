@@ -1,0 +1,74 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI that reads and edits notes, files, properties, links and Canvas cards via 22 built-in tools",
+  "Attach images, PDFs and Office documents or send a text selection as chat context",
+  "Teach vault conventions with AGENTS.md files and reusable Skills invoked with /name",
+  "Review, jump to and undo an answer's vault changes from recorded snapshots",
+  "Track token use and cost, and compact long conversations; talk via voice with a ChatGPT account"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas",
+   "Search",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Remote MCP is only available with Anthropic/OpenAI API keys, not the ChatGPT account connection; only public HTTPS MCP servers are supported. Undo is session-bound and unavailable after restart. Vault chat files do not sync by themselves. A detailed user guide is linked separately; installation previously via BRAT is covered with migration steps.",
+ "intent": "alternative",
+ "intentEvidence": "Originally derived from omarshahine/obsidian-chat (MIT); the original copyright is preserved in LICENSE.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in conversational agent that can act on vault content, so users must leave the app and manually apply AI suggestions to their notes.",
+ "readmeHash": "da0543eb46eb37f771e78b8778cb32d3a1761985",
+ "relations": [
+  {
+   "evidence": "Originally derived from omarshahine/obsidian-chat (MIT); the original copyright is preserved in LICENSE.",
+   "plugin": "omarshahine/obsidian-chat",
+   "type": "fork"
+  },
+  {
+   "evidence": "Skills use the Claude Code / Codex folder format.",
+   "plugin": "Claude Code / Codex",
+   "type": "inspired"
+  },
+  {
+   "evidence": "If you previously installed the beta through BRAT, move to the community version",
+   "plugin": "BRAT",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT plan with Codex access (for account sign-in and voice)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Agentic AI chat assistant that reads, edits and organizes vault notes, files, properties, links and Canvas through natural conversation.",
+ "tags": [
+  "anthropic",
+  "openai",
+  "chatgpt",
+  "codex",
+  "mcp",
+  "agents-md",
+  "voice-chat"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compare local notes and attachments with a WebDAV folder by content",
+  "Inspect line-level differences and conflicts",
+  "Merge independent line edits with a three-way merge",
+  "Choose per-block or whole-version resolutions",
+  "Retain previous versions and check write preconditions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; no mobile support. Existing-file WebDAV writes require a strong ETag and conditional-request support. Passwords stay in memory by default, with optional SecretStorage. Excludes .obsidian and other configured folders.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to compare a vault with a WebDAV folder by content and resolve conflicts before syncing.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "35c7d85a4e75c0fa0d775285338c10006013e1a2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "the project's MDSync development origins are documented in THIRD_PARTY_NOTICES.md",
+   "plugin": "MDSync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "WebDAV content comparison and conflict-resolution plugin that checks notes and attachments, merges independent line edits, and writes only after confirmation.",
+ "tags": [
+  "webdav",
+  "conflict-resolution",
+  "diff",
+  "yaml",
+  "version-history"
+ ],
+ "textHash": "1d360f49f578819d79a12e65835e1f72decd5033"
+}

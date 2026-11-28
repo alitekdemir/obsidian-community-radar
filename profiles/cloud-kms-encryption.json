@@ -1,0 +1,81 @@
+{
+ "also": [
+  "integrations",
+  "backup"
+ ],
+ "audience": [
+  "developers",
+  "teams"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt secret blocks between %%secret-start%%/%%secret-end%% markers automatically on file save",
+  "Encrypt binary files (PDF, images, audio) in place and decrypt them in memory on open",
+  "Manage multi-key access so different AWS IAM users or teams can decrypt only their blocks",
+  "Re-encrypt an entire vault with a new KMS key via the ocke-rekey CLI",
+  "Show a KMS connection status indicator and warn when encryption on save is unavailable"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a sync or backup tool; it only encrypts note blocks and files at rest using AWS KMS.",
+ "extras": "Warns that monkey-patching the vault adapter may conflict with other plugins that modify file I/O; recommends a pre-commit Git hook to catch unencrypted plaintext; provides CLI decryption tools and an SLSA-provenance/SBOM release verification process; requires Obsidian desktop >= 1.4.0.",
+ "intent": "alternative",
+ "intentEvidence": "Cloud KMS Encryption — team knowledge bases with IAM access control, DevOps secrets in Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a Zero Trust Storage model for vaults kept in remote storage, where only ciphertext exists on disk and decryption happens locally in memory.",
+ "primary": "files",
+ "problem": "Vault contents stored in remote storage such as S3 or Git are readable by anyone who gains access to that storage.",
+ "readmeHash": "65ac7ea85e8c0f8b2f038e87f30fd07841180a0d",
+ "relations": [
+  {
+   "evidence": "transparent encryption of secret blocks and binary files using AWS KMS",
+   "plugin": "AWS KMS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Meld Encrypt — personal password-protected notes, single-user",
+   "plugin": "Meld Encrypt",
+   "type": "alternative"
+  },
+  {
+   "evidence": "SOPS — CI/CD secrets in YAML/JSON files, GitOps workflows",
+   "plugin": "SOPS",
+   "type": "alternative"
+  },
+  {
+   "evidence": "git-crypt — whole-file encryption in Git repos, developer workflows",
+   "plugin": "git-crypt",
+   "type": "alternative"
+  },
+  {
+   "evidence": "This is the same approach used by gpgCrypt",
+   "plugin": "gpgCrypt",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AWS credentials (~/.aws/credentials or AWS SSO)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Envelope-encryption plugin that transparently encrypts secret blocks in notes and binary files with AWS KMS, keeping no plaintext on disk.",
+ "tags": [
+  "aws-kms",
+  "envelope-encryption",
+  "aes-256-gcm",
+  "encryption-at-rest",
+  "iam",
+  "zero-trust",
+  "cli"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "dates",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show daily notes on a monthly calendar with photo covers, mood markers and weather icons",
+  "Search and filter a journal timeline by date range, source, mood, favorite, location, tag and media type",
+  "Record five-level moods with notes and labels, then review trends and reports",
+  "Fetch current and historical weather for dates from Open-Meteo",
+  "Resurface past entries and photos through an On This Day panel"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a journaling editor with its own entry format; it indexes existing Markdown daily notes and leaves their bodies as they are.",
+ "extras": "Mood records are stored in a separate JSON file (default Calendar/journal-metadata.json) with optional frontmatter mirroring; weather needs no API key; EXIF GPS reverse geocoding is off until enabled; HEIC/HEIF thumbnail conversion runs on desktop only.",
+ "intent": "improve",
+ "intentEvidence": "It runs on Obsidian desktop and mobile, and is built for vaults that already use Daily Notes.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Daily notes are plain files with no visual way to browse them by date, mood, weather or media, and users do not want their notes moved or rewritten.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "f45081a8a0ebb035ae4f96f94b6054a8f1f1172d",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "Dayline migrates settings from an earlier dayline installation or Calendar Sidebar 1.x.",
+   "plugin": "Calendar Sidebar",
+   "type": "replaces"
+  },
+  {
+   "evidence": "create the missing note from your Daily Notes template (Templater supported)",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily Notes",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Open-Meteo",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Visual journal that turns a folder of Markdown daily notes into a calendar and searchable timeline with mood, weather, photos and On This Day memories.",
+ "tags": [
+  "daily-notes",
+  "mood-tracking",
+  "weather",
+  "exif",
+  "heic",
+  "timeline",
+  "on-this-day",
+  "journaling"
+ ],
+ "textHash": "612d45568e6afdd6db6f93c319fa3ba70236eeaf"
+}

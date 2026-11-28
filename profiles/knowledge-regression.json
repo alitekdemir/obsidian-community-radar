@@ -1,0 +1,55 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Define test rules as Markdown files with YAML frontmatter in a test folder",
+  "Check note existence, link resolution, backlink counts, frontmatter fields, and source links",
+  "Rerun only tests affected by edited, renamed, or deleted notes",
+  "Show pass/fail results and failure reasons in a sidebar view",
+  "Get plain-language help interpreting failures via an optional OpenAI-compatible endpoint"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a statistics or data-regression tool; 'regression' here means re-running pass/fail tests to catch vault decay.",
+ "extras": "The optional AI assistance sends data to an external endpoint, but only when manually triggered; the plugin otherwise runs fully locally and never modifies notes. Manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because vaults 'rot quietly' and there was no way to define what a healthy vault looks like and check it automatically.",
+ "primary": "data",
+ "problem": "Vaults degrade silently: renamed notes break links, required frontmatter fields get forgotten, and nothing flags it until much later.",
+ "readmeHash": "1c2000ddbdfa0bcfa41afb2752a608381b431d6e",
+ "relations": [
+  {
+   "evidence": "lets you connect an OpenAI-compatible endpoint (provider URL, model, API key)",
+   "plugin": "OpenAI-compatible endpoint",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault test runner that checks notes, links, backlinks, and frontmatter against Markdown-defined rules and reports pass/fail results.",
+ "tags": [
+  "ci",
+  "testing",
+  "link-checking",
+  "vault-health",
+  "openai"
+ ]
+}

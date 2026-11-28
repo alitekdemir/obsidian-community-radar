@@ -1,0 +1,60 @@
+{
+ "also": [
+  "navigation",
+  "hotkeys"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a Space leader menu of commands with customizable keymap files",
+  "Navigate Reading view with Vimium-style keys and letter-labeled link hints",
+  "Jump the cursor to on-screen characters or words by typing labels",
+  "Pin files as numbered marks and jump back to them Harpoon-style",
+  "Run .obsidian.vimrc mappings and switch keyboard layout between Insert and Normal modes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a text editor replacement; it layers Vim-style keys on top of Obsidian's existing editor and Reading view.",
+ "extras": "Desktop only. Layout switching is off by default and requires installing a small external command-line tool. It can import existing Spacekeys keymaps, Harpoon lists and .obsidian.vimrc files, and keeps replaced plugins' matching features off until they are disabled.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's Vim mode only works while you edit a note; Vim Layer adds the rest",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "Obsidian's built-in Vim key bindings only work while editing a note; there is no Vim-style control in Reading view, no leader menu, and no layout handling for non-Latin keyboards.",
+ "readmeHash": "9c7fce5ce4a0a99ba6153fa4c4e6f9655ede7178",
+ "relations": [
+  {
+   "evidence": "Vim Layer covers Spacekeys, Vimium+, Harpoon, Vim IM Control, Vimrc Support and the editor jumps of Jump to link",
+   "plugin": "Spacekeys, Vimium+, Harpoon, Vim IM Control, Vimrc Support, Jump to link",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "macism, im-select, or fcitx5-remote command-line tool",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vim-keys extension that adds a Space leader menu, Vimium-style Reading-view navigation, labeled jumps, Harpoon-style file marks, .vimrc mappings and layout switching.",
+ "tags": [
+  "leader-key",
+  "vimium",
+  "harpoon",
+  "vimrc",
+  "keyboard-layout",
+  "link-hints",
+  "flash-nvim"
+ ]
+}

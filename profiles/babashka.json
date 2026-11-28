@@ -1,0 +1,61 @@
+{
+ "also": [
+  "automation",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Evaluate Clojure and ClojureScript code blocks and print output inside or outside the block",
+  "Start and connect to a Babashka nREPL server",
+  "Expose vault bindings for the current file to evaluated code",
+  "Load dependencies from bb.edn and nbb.edn in a configurable vault directory",
+  "Kill all running eval and nREPL processes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Users must set absolute paths to the bb, node, and nbb binaries in plugin settings before evaluating code blocks; output can be capped at 1000 lines, and the dependency directory can be moved outside the vault to avoid syncing installed packages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian cannot execute Clojure or ClojureScript code blocks, so scripting over vault documents from notes requires leaving the app.",
+ "readmeHash": "8bb5e6059f398976daa2d3bc4b1b47a0390b0d0c",
+ "relations": [
+  {
+   "evidence": "lets you run Clojure and ClojureScript code blocks via Babashka and Node Babashka",
+   "plugin": "Babashka",
+   "type": "integrates"
+  },
+  {
+   "evidence": "run Clojure and ClojureScript code blocks via Babashka and Node Babashka respectively",
+   "plugin": "Node Babashka",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Babashka (bb) and/or Node with Node Babashka (nbb)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Clojure code runner that evaluates Clojure and ClojureScript code blocks in notes via Babashka and Node Babashka, with vault bindings and an nREPL server.",
+ "tags": [
+  "code-blocks",
+  "local-server",
+  "cli"
+ ]
+}

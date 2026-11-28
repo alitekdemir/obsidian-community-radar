@@ -1,0 +1,55 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log in to Flomo from Obsidian without copying tokens",
+  "Fetch all Flomo memos and convert them to Markdown files",
+  "Organize memos into folders matching the Flomo tag hierarchy",
+  "Detect and apply new, updated, and deleted memos incrementally",
+  "Convert HTML rich text to Markdown with YAML frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "One-way import from Flomo into the vault; it does not push Obsidian edits back to Flomo.",
+ "extras": "Uses Flomo's unofficial internal API and may break if Flomo changes it; auto-login is desktop-only (Electron) and the plugin does not work on mobile; community plugin listing marked 'coming soon', so manual install is currently the path; token may expire and require re-login.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull Flomo memos, and Flomo has no official integration, so users must copy tokens and export content manually.",
+ "readmeHash": "30bdb71d8ac61a1c88b724a49a13fe402dfb90e8",
+ "relations": [
+  {
+   "evidence": "This plugin uses Flomo's internal web API (the same endpoints used by the Flomo web app).",
+   "plugin": "Flomo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Flomo account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs Flomo memos into the vault as Markdown files with tag-based folders, auto-login, and incremental updates.",
+ "tags": [
+  "flomo",
+  "memo-app",
+  "auto-login",
+  "incremental-updates",
+  "html-conversion"
+ ]
+}

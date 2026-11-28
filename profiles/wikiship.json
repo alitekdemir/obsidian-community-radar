@@ -1,0 +1,56 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "run an authenticated local MCP server inside Obsidian",
+  "connect local AI agents such as Codex to vault content",
+  "record agent file changes in a review panel",
+  "undo or approve agent-made changes",
+  "stage file deletions until approval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that shell or filesystem tools can change vault files without appearing in the review panel, that only one vault can serve at a time on port 27126, and that syncing pending review data between devices is unsupported. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to connect local MCP-based AI agents to the vault or to review, approve, and undo the file changes they make.",
+ "readmeHash": "8cf9fb446482b02c010a9f38a0061e76e42ed424",
+ "relations": [
+  {
+   "evidence": "In the ChatGPT desktop app, open Settings → Configuration → Open config.toml.",
+   "plugin": "ChatGPT desktop app / Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an MCP client running on the same computer (e.g. the ChatGPT desktop app with Codex)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Runs an authenticated local MCP server that lets AI agents edit vault content while recording every change for review and undo.",
+ "tags": [
+  "mcp",
+  "ai-agents",
+  "codex",
+  "chatgpt",
+  "undo",
+  "local-server"
+ ]
+}

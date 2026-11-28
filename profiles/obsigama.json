@@ -1,0 +1,80 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse a catalog of Obsidian game plugins",
+  "Keep a player profile with friends, achievements, badges and leaderboards",
+  "Sync finished runs from opt-in game plugins via the SDK",
+  "Convert avatars, icons and badges to small WebP images",
+  "Run a private Supabase backend (optional)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Catalog browsing works signed out; everything else needs an account. Data goes only to the official ObsiGama server; an Online/sync off switch stops all network requests. Games are manually reviewed before listing; Safari/iOS cannot encode WebP avatars yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in game hub, so players cannot track runs, achievements, friends or leaderboards across separate game plugins.",
+ "profiledAt": "2026-11-26",
+ "provider": "Ant Digital",
+ "readmeHash": "55af01300ced23a334098f49b662833cfd7a1798",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "no Supabase keys, tokens or other secrets in the plugin",
+   "plugin": "Supabase",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ready integration code + manifests for the two existing games (Mini Old Games, HELLVAULT)",
+   "plugin": "Mini Old Games",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ready integration code + manifests for the two existing games (Mini Old Games, HELLVAULT)",
+   "plugin": "HELLVAULT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ObsiGama account (email sign-up)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "a game plugin with the Connect to ObsiGama toggle",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Supabase project (only to self-host the backend)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Online game hub for Obsidian: account, profile, game catalog, library, friends, achievements, badges and leaderboards, syncing runs from opt-in game plugins.",
+ "tags": [
+  "badges",
+  "gamification",
+  "webp",
+  "self-hosted"
+ ],
+ "textHash": "db7d1c2e060c1ea7325fad13d07fc5e87f475d81"
+}

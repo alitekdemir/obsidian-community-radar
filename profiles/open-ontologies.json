@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai",
+  "thinking"
+ ],
+ "audience": [
+  "developers",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Validate ontology files",
+  ": Reason over vault data",
+  ": Compile vault into RDF graph",
+  ": Query graph via SPARQL",
+  ": Map note elements to RDF properties"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties",
+   "Links",
+   "Tags",
+   "Search"
+  ],
+  "level": "none"
+ },
+ "disambiguation": "Not just a note storage system; it compiles notes into a structured RDF graph for logical reasoning.",
+ "extras": "Desktop only. Sibling channels include Rust binary, Docker image, and PyPI package.",
+ "intent": "new",
+ "intentEvidence": "compile the vault itself (notes, frontmatter, tags, wikilinks) into an RDF graph you can reason over.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Standard note-taking lacks the ability to treat notes and links as a structured knowledge graph that can be logically reasoned over.",
+ "readmeHash": "af5dcb92db00dcd5c66881589c78b45e765e8e3b",
+ "relations": [
+  {
+   "evidence": "Claude Code and Claude Desktop can query your vault as a knowledge graph.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code and Claude Desktop can query your vault as a knowledge graph.",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Open Ontologies engine",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Access Token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Open Ontologies runs the full Open Ontologies engine inside Obsidian, compiling the vault into an RDF graph for validation, reasoning, and AI querying.",
+ "tags": [
+  "rdf",
+  "shacl",
+  "sparql",
+  "knowledge-graph",
+  "ontology",
+  "reasoning",
+  "mcp"
+ ]
+}

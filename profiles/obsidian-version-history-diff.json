@@ -1,0 +1,69 @@
+{
+ "also": [
+  "git",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Diff Sync, File Recovery, and Git version history for the active file",
+  "Open a selected version in a modal rendered as markdown or plain text",
+  "Overwrite the current file with a chosen version",
+  "Switch between line-by-line and side-by-side diff views",
+  "Copy a Git commit hash by clicking it"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File Recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns the plugin uses private APIs and may break at any time. Git diffs only work with the Obsidian Git plugin installed; Sync diffs require an Obsidian Sync subscription.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian's Sync and File Recovery store file versions but provide no way to see a diff between them before restoring.",
+ "readmeHash": "c78598c9832f0ab8ea15e62311996bbfdc9408c7",
+ "relations": [
+  {
+   "evidence": "For this to work, the Obsidian Git plugin needs to be installed.",
+   "plugin": "Obsidian Git",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Sync",
+   "type": "extends"
+  },
+  {
+   "evidence": "I personally find the file recovery diffs better as they are less frequent",
+   "plugin": "File Recovery",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Diff viewer that compares Sync, File Recovery, and Git version history for the active file and can restore a selected version.",
+ "tags": [
+  "diff",
+  "version-history",
+  "obsidian-git",
+  "side-by-side-view",
+  "colorblind-mode"
+ ]
+}

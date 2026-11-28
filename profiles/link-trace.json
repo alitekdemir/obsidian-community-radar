@@ -1,0 +1,91 @@
+{
+ "also": [
+  "export",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes as short links to an Aliyun OSS or Tencent COS bucket",
+  "Export a note as a self-contained ZIP with HTML, CSS and images",
+  "Bundle directly linked notes (one level deeper) with navigation between pages",
+  "Track page views cookielessly via a self-hosted GoatCounter instance",
+  "Render note content for the web, including KaTeX, callouts, Dataview queries and Bases"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a link-graph or backlink tool; it publishes notes to the web and tracks views of the published pages.",
+ "extras": "Requires a bucket with public read access and a custom domain so links open directly in the browser. Desktop only (no mobile support); requires Obsidian 1.7.2 or later. Interface available in English and Chinese. Not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Sharing a note as a public web page normally requires a hosted publishing service or a server, and Obsidian offers no built-in way to publish with view analytics.",
+ "readmeHash": "62654ff3ded40ffa0096a79507cb519ae203fd16",
+ "relations": [
+  {
+   "evidence": "One-click publish to your own Aliyun OSS or Tencent COS bucket",
+   "plugin": "Aliyun OSS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Publish route — choose one cloud storage backend and fill in its credentials: Aliyun OSS | Tencent COS",
+   "plugin": "Tencent COS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "cookieless view tracking via a self-hosted GoatCounter instance, no personal data collected",
+   "plugin": "GoatCounter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview queries rendered as static tables/lists",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Math via KaTeX ($ ... $ and $$ ... $$)",
+   "plugin": "KaTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Image galleries with lightbox (including the Image Cluster imgs block format)",
+   "plugin": "Image Cluster",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Aliyun OSS or Tencent COS bucket",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "bucket access keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Publishes notes as short web links on your own Aliyun OSS or Tencent COS bucket with view tracking, or exports them as self-contained ZIP files.",
+ "tags": [
+  "goatcounter",
+  "aliyun-oss",
+  "tencent-cos",
+  "zip",
+  "katex",
+  "page-view-tracking",
+  "self-hosted",
+  "table-of-contents"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dragged images to Google Drive and insert Markdown links",
+  "Convert existing local image embeds in a note or selection to Drive links",
+  "Re-resolve or repair Drive image links to a different URL format without re-uploading",
+  "Sign in with Google via OAuth 2.0 Device Flow on desktop and mobile",
+  "Prevent duplicate uploads using a content hash"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Privacy caveat: uploaded images are shared as 'anyone with the link' so they render in notes, so it should not be used for sensitive images. OAuth tokens are stored unencrypted in data.json. Setup requires a one-time manual Google Cloud Console configuration (about 10 minutes). Mobile has limitations: no drag-and-drop and a possibly non-functional device-code copy button.",
+ "intent": "new",
+ "intentEvidence": "Paste or drag an image into a note and Loft uploads it to your own Google Drive",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the motivation under 'Why Loft': keeping the vault small so sync and backups stay fast, with images living in the user's own Google Drive.",
+ "primary": "integrations",
+ "problem": "Obsidian stores images inside the vault, which bloats the vault and slows sync and backups.",
+ "readmeHash": "50963d0d5092bc42ea862169c2383f80670083df",
+ "relations": [
+  {
+   "evidence": "Loft uploads it to your own Google Drive, then inserts a rendering Markdown image link",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Self-created Google Cloud OAuth client (Client ID and secret)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Uploads pasted or dragged images to your own Google Drive and replaces local embeds with rendering Markdown image links.",
+ "tags": [
+  "google-drive",
+  "oauth",
+  "image-upload",
+  "paste-to-upload",
+  "device-flow"
+ ]
+}

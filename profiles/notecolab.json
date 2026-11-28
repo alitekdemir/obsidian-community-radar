@@ -1,0 +1,69 @@
+{
+ "also": [
+  "publishing",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Share notes as view-only, editable, or invited-collaborator links",
+  "Edit notes collaboratively in real time with cursors and presence indicators",
+  "Import shared notes or folders into a vault and watch them for updates",
+  "Publish a folder of Markdown files with an encrypted index",
+  "Manage links, identities, and servers, including self-hosted ones"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium hosted service with quota limits; the README warns it is not wholly zero-knowledge because the relay can read live collaboration text unless the opt-in encrypted live editing is enabled, and that colab_* frontmatter properties contain access secrets.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in way to share a note with other people or edit one together live across vaults and browsers.",
+ "readmeHash": "fc2a4dbbe6f5154833c83d659c9c473389ef86cb",
+ "relations": [
+  {
+   "evidence": "Typing disappears while another sync plugin is active: update SimpleSync to version 0.1.28 or later",
+   "plugin": "SimpleSync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Live Yjs collaboration text is decrypted and visible to the relay while the room is active",
+   "plugin": "Yjs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Note Colab hosted server or compatible self-hosted server",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "paid plan for storage upgrades",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Note-sharing plugin that publishes Markdown notes or folders as links with real-time collaborative editing in Obsidian or the browser.",
+ "tags": [
+  "yjs",
+  "self-hosting",
+  "end-to-end-encryption",
+  "capability-links",
+  "presence",
+  "aes-256-gcm"
+ ]
+}

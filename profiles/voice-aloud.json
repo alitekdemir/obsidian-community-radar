@@ -1,0 +1,85 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes aloud sentence by sentence",
+  "Start continuous playback from a clicked sentence in reading view",
+  "Cache synthesized audio per sentence in IndexedDB",
+  "Pregenerate audio through a persistent background queue",
+  "Connect several TTS providers plus the system voice"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Install by copying main.js, manifest.json and styles.css from Releases into .obsidian/plugins/voice-aloud/, or add the repository to BRAT. The built-in system voice works as an offline fallback without a provider account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian cannot read notes aloud on its own, and re-synthesizing audio for unchanged text wastes time and provider quota.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "973c95e45f0162ea270c1922f610e70867a6b5c6",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "OpenAI-compatible endpoints (including self-hosted)",
+   "plugin": "OpenAI-compatible endpoints",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a dedicated Qwen3-TTS adapter",
+   "plugin": "Qwen3-TTS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Azure TTS (SSML with mixed-language <lang> spans for multilingual and HD voices",
+   "plugin": "Azure TTS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek TTS (stella / tide, WAV)",
+   "plugin": "DeepSeek TTS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Xiaomi MiMo TTS",
+   "plugin": "Xiaomi MiMo TTS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TTS provider API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "TTS provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Text-to-speech reader that plays notes sentence by sentence from a clicked sentence, with prefetched, hash-cached audio from several providers.",
+ "tags": [
+  "text-to-speech",
+  "openai",
+  "deepseek",
+  "qwen",
+  "offline",
+  "accessibility"
+ ],
+ "textHash": "3f792c77bae1811bb8156578ab70d89e5533f7d0"
+}

@@ -1,0 +1,79 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Continue and steer Claudian conversations from a mobile device",
+  "Follow streaming replies, Markdown, and execution logs",
+  "Respond to permission requests for the running task",
+  "Send photos and files as attachments from the phone",
+  "Search, switch, and archive conversations in a history panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone AI chat plugin; it only provides remote access to a working Claudian installation on a Mac and includes no model service.",
+ "extras": "Documentation and troubleshooting guides are in Chinese; this private_beta release has pending real-device acceptance testing, requires separately installed version-matched Mac background services, and does not claim end-to-end encryption on the user-owned server route.",
+ "intent": "improve",
+ "intentEvidence": "Claudian is the plugin that executes tasks on your computer; Claudian Remote gives you remote access to it.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Claudian agent tasks run only on the Mac, so users away from the computer cannot continue, monitor, or feed materials into an ongoing task.",
+ "readmeHash": "bb2f533104243449c2b8c7b7fd89692ff1e40c13",
+ "relations": [
+  {
+   "evidence": "Claudian is the plugin that executes tasks on your computer; Claudian Remote gives you remote access to it.",
+   "plugin": "Claudian",
+   "type": "extends"
+  },
+  {
+   "evidence": "By default, install Tailscale on both devices, sign in with the same account, and connect",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude can still send and queue messages without steer.",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Claudian",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Tailscale account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Self-hosted server or sync service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Remote-access companion that lets a phone continue, follow, and add attachments to Claudian AI agent conversations running on a Mac.",
+ "tags": [
+  "tailscale",
+  "claude",
+  "remote-access",
+  "agent-execution",
+  "pairing",
+  "mac-companion"
+ ]
+}

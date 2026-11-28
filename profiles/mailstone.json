@@ -1,0 +1,78 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a designated IMAP folder into Markdown notes",
+  "Store the original .eml next to each note",
+  "Send mail over SMTP, including iMIP calendar invitations",
+  "List inbox messages and move them to the vault folder",
+  "Re-render notes, relink threads and extract attachments"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Sync, sending and the inbox tab are desktop only; mobile can only read notes a desktop already synchronised. No OAuth flow, so providers requiring it (Gmail with 2FA, Microsoft 365) are unsupported. The optional pseudonymizer plugin is not published yet, so the Required setting writes no new mail until it exists.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Mail worth keeping sits in a mail client while the notes derived from it belong in the vault, with no durable link between the two.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "89b50b135bb8e0d232cba66cc788946b1a186a69",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "the plugin delivers iMIP calendar invitations on behalf of the sister plugin calendar-notes",
+   "plugin": "calendar-notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "once TaskNotes is installed — Create task",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Mailstone can hand every new mail to a separate plugin, pseudonymizer, before the note is written",
+   "plugin": "pseudonymizer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "IMAP/SMTP mail account with an app password",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "pseudonymizer",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "calendar-notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Turns one designated IMAP folder into Markdown notes with the original .eml kept beside them, and sends mail over SMTP.",
+ "tags": [
+  "email",
+  "ics",
+  "privacy",
+  "secret-storage"
+ ],
+ "textHash": "606ae74e14f96ccb3a6cf53d04d8c285d35bbe2b"
+}

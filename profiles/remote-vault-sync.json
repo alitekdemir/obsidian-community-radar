@@ -1,0 +1,62 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "push and pull vault changes to an S3 bucket via git",
+  "resolve merge conflicts between local and remote repos",
+  "view diffs and commit changes",
+  "restore discarded local changes",
+  "show sync state in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to back up and sync a vault to your own S3 storage with git-style version history and conflict resolution.",
+ "readmeHash": "6632c3ee71fbc3a8004cc857db470b708ee5507e",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git and git-lfs installed on the system",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AWS access key and secret with S3 read/write access",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "AWS account with an S3 bucket",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git-based backup and sync plugin that stores a vault's git repository in an S3 bucket, with commit history and merge conflict handling.",
+ "tags": [
+  "s3",
+  "aws",
+  "git-lfs",
+  "version-control",
+  "merge-conflicts"
+ ]
+}

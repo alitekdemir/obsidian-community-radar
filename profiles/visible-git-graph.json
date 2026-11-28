@@ -1,0 +1,56 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Draw the vault repository's Git commit graph with branch lanes and ref capsules",
+  "Expand inline commit details with author, message, and changed files",
+  "Open a commit's file diff in a new editor tab",
+  "Watch the .git directory and refresh the graph automatically",
+  "Filter and search commits by ref, author, hash, or description"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Strictly read-only: it never commits, checks out, fetches, pushes, or pulls, and makes no network requests. Requires Obsidian 1.7.2+ on desktop and documents installation via coding agents (AGENTS.md). Lists its own limitations, including an O(n^2) layout risk on extreme topologies and text-only diffs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "git",
+ "problem": "Obsidian offers no built-in way to see the Git history of the repository containing the vault as a visual commit graph with diffs.",
+ "readmeHash": "02b66bb7d3c649dc5212c0466e36745eca21af84",
+ "relations": [
+  {
+   "evidence": "draws its history the way VS Code's Source Control graph does",
+   "plugin": "VS Code Source Control graph",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Desktop-only viewer that renders the vault repository's Git history as an interactive commit graph with inline commit details and file diffs in a side pane.",
+ "tags": [
+  "vs-code",
+  "git-diff",
+  "commit-history",
+  "branches",
+  "read-only",
+  "virtual-scrolling"
+ ]
+}

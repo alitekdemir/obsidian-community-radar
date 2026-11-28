@@ -1,0 +1,64 @@
+{
+ "also": [
+  "syncing",
+  "audio"
+ ],
+ "audience": [
+  "plaud-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Incrementally sync Plaud recordings into Markdown notes using a last-sync checkpoint",
+  "Render notes with title, date, duration, AI summary, highlights, and speaker-labeled transcripts",
+  "Update existing notes in place via a stable file_id in frontmatter",
+  "Store the Plaud session token securely and validate it against the API",
+  "Retry transient failures with backoff and skip trashed recordings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault-sync tool like Obsidian Sync; it one-way imports Plaud recordings into the vault as notes.",
+ "extras": "Unofficial and not reviewed by Obsidian staff; uses a reverse-engineered API that may break if Plaud changes their backend; manual installation only (no community plugin store listing mentioned); includes a legal rationale under EU interoperability provisions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Plaud offers no official API or Obsidian integration, so recordings and their transcripts cannot be brought into a vault without manual copying.",
+ "readmeHash": "2cdb02dbe3741981a2320b2e8f4fc4eae13ecfce",
+ "relations": [
+  {
+   "evidence": "Sync your Plaud voice recordings into Markdown notes inside your Obsidian vault",
+   "plugin": "Plaud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Plaud account with recordings",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Plaud session token extracted from the Plaud web app",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs Plaud voice recorder recordings into Markdown notes with transcripts, AI summaries, highlights, and metadata via a reverse-engineered Plaud API.",
+ "tags": [
+  "plaud",
+  "voice-recordings",
+  "transcription",
+  "ai-summaries",
+  "reverse-engineered-api",
+  "session-token"
+ ]
+}

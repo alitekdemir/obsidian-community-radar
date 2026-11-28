@@ -1,0 +1,70 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "generate a course outline for a subject",
+  "write one chapter note per outline chapter",
+  "resume failed chapter generation",
+  "cancel active generation",
+  "configure OpenAI-compatible providers and models"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin is distributed as manual installation files only (no community plugin listing mentioned). The README warns that a full subject generation can cost around US$3 with gpt-5.6-sol and advises testing one chapter first and checking provider billing dashboards. It records no telemetry and stores the API key in vault plugin data; users are warned not to publish files or screenshots containing it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README does not state why the author built it.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate a complete structured learning course on a subject directly as vault notes.",
+ "readmeHash": "e504dc6a8bcb97ddfe68367073fea4b335fee738",
+ "relations": [
+  {
+   "evidence": "Provider | API base URL | Model ID example\nGoogle Gemini |",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI |  | gpt-5.6-sol",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic Claude |  | claude-opus-4-8",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key from an OpenAI-compatible provider",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider account (e.g. Google AI Studio or OpenAI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI course generator that turns a subject name into an outline plus one Markdown note per chapter, with review questions and terminology tables, via an OpenAI-compatible API.",
+ "tags": [
+  "openai-compatible",
+  "gemini",
+  "course-generation",
+  "review-questions",
+  "token-usage",
+  "bilingual-terminology",
+  "study-notes"
+ ]
+}

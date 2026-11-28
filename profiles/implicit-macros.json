@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Expand inline prompt macros with AI completions",
+  "Stream responses in place with animated highlighting",
+  "Configure any OpenAI-compatible endpoint and model",
+  "Encrypt the API key at rest per device",
+  "Customize delimiters, system prompt, and context length"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a template or automation macro engine; its \"macros\" are AI prompts typed in the note that expand into generated text.",
+ "extras": "README warns that each fired macro sends the prompt plus up to 1500 characters of preceding note text to the configured provider and advises checking the provider's data-retention policy; the API key is encrypted at rest with AES-256-GCM and no telemetry is sent. The manifest notes the plugin has not been manually reviewed by Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run AI prompts from inside a note and have the answer replace the prompt text in place.",
+ "readmeHash": "80e437a37c1d4ce85f3d4b80e584a73a72346cbe",
+ "relations": [
+  {
+   "evidence": "You can point this at OpenAI, a local server (Ollama, llama.cpp, LM Studio, etc.)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible endpoint (OpenAI, Ollama, llama.cpp, LM Studio, or other provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Inline AI macro plugin that expands typed prompts in a note into streaming responses from an OpenAI-compatible chat endpoint.",
+ "tags": [
+  "openai",
+  "ollama",
+  "llama-cpp",
+  "lm-studio",
+  "streaming",
+  "inline-expansion",
+  "chat-completions"
+ ]
+}

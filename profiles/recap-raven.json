@@ -1,0 +1,65 @@
+{
+ "also": [
+  "ttrpg",
+  "import"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import one, several, or all new player-safe session recaps as Markdown notes",
+  "Detect previous imports by stable session ID, including moved or renamed notes",
+  "Preview exact destination paths before writing files",
+  "Optionally import normalized transcripts as linked notes beneath recaps",
+  "Create a campaign index note with a live Obsidian query"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (Obsidian 1.11.4+); mobile may be evaluated later. Warns that Obsidian SecretStorage entries are not isolated from other plugins and that transcripts may contain private GM material, so a dedicated vault is advised. Imports are create-only: existing notes are never overwritten, updated, renamed, moved, or deleted. Transcript importing is off by default and requires permission in both the export key and plugin settings. A narrow migration limitation from version 1.2.0 or earlier means prior imports moved outside the managed Sessions folder may be re-imported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull session recaps from a Recap Raven campaign into local Markdown notes without manual copying and duplicate risk.",
+ "readmeHash": "7eed47cad997a55587c84940d8b340dc6ac64cfa",
+ "relations": [
+  {
+   "evidence": "Import player-safe Recap Raven session recaps into your vault as structured, local Markdown",
+   "plugin": "Recap Raven",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Recap Raven account with an active campaign",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "campaign-bound Obsidian export key (raven_obs_…), stored via Obsidian SecretStorage",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Importer that brings player-safe Recap Raven session recaps into a vault as structured Markdown, with duplicate detection and campaign indexes.",
+ "tags": [
+  "session-recaps",
+  "transcripts",
+  "duplicate-detection",
+  "campaign-index",
+  "export-key",
+  "secret-storage",
+  "create-only-import"
+ ]
+}

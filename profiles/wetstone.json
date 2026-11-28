@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate quiz questions from notes in chosen scope folders using an LLM",
+  "Quiz with multiple choice, true/false, multiple select, fill-in-the-blank, ordering, and cloze questions",
+  "Schedule reviews offline with FSRS spaced repetition",
+  "Track knowledge per concept and rotate question variants",
+  "Store question banks and review logs as markdown and JSON files in the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The API key is stored in plaintext in data.json and syncs with the vault; note content from scope folders is sent to the configured LLM provider when updating questions, while reviewing is fully local and offline. The plugin ships with no API key and the user pays for their own.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "review",
+ "problem": "Obsidian has no built-in way to turn existing notes into adaptive active-recall quizzes; users would have to write flashcards and schedule reviews themselves.",
+ "readmeHash": "5de947ef61045a4ad093a3e38dd7f9cdf08dec6b",
+ "relations": [
+  {
+   "evidence": "An API key for one of: an OpenAI-compatible API, Anthropic, Google Gemini, or a local/self-hosted endpoint",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An API key for one of: an OpenAI-compatible API, Anthropic, Google Gemini, or a local/self-hosted endpoint",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local/self-hosted endpoint (for example Ollama)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key (OpenAI-compatible, Anthropic, Google Gemini, or local endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local/self-hosted LLM endpoint such as Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Spaced-repetition quiz plugin that uses an LLM key you supply to generate questions from your notes and schedules reviews with FSRS.",
+ "tags": [
+  "llm",
+  "fsrs",
+  "spaced-repetition",
+  "quiz",
+  "cloze",
+  "openai"
+ ]
+}

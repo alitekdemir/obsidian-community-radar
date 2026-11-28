@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize a vault two-way with a self-hosted WebObsidian server over Central Sync Protocol 1.0",
+  "Pair a device using a one-use, 10-minute pairing code",
+  "Merge independent UTF-8 text edits three-way and keep overlapping changes as conflict copies",
+  "Resolve conflicts by comparing base, server, and client text or retaining both copies",
+  "Pause, resume, and inspect sync status and unresolved-conflict counts from commands and the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff; 0.1.22 is a community review release not yet listed in the Community Plugins directory, and a SECURITY.md covers threat-model details. Mobile background sync is not guaranteed while the OS suspends the app.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service and generic file sync can silently overwrite stale revisions or lose conflicting edits, so self-hosters need a revision-safe alternative.",
+ "readmeHash": "2ed71cf741ff3002f27f182b5ddf07a51a2ff8f0",
+ "relations": [
+  {
+   "evidence": "two-way synchronization between an Obsidian vault and a self-hosted WebObsidian server",
+   "plugin": "WebObsidian server",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebObsidian server with Central Sync Protocol 1.0",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync client for a self-hosted WebObsidian server, with revision tracking, three-way text merge, and conflict copies.",
+ "tags": [
+  "webobsidian",
+  "self-hosted",
+  "conflict-resolution",
+  "three-way-merge",
+  "websocket",
+  "sha-256",
+  "pairing-code",
+  "secret-storage"
+ ]
+}

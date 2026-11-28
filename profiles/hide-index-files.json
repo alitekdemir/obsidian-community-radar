@@ -1,0 +1,54 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "hide folder note index files from the file explorer",
+  "patch file explorer tree items directly",
+  "work alongside the folder-notes plugin"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general file-hiding tool; it only hides folder note index files from the file explorer.",
+ "extras": "The README lists several companion plugins by the same author (lazy-cached-vault-load, reveal-folded, virtual-dirs, etc.) but documents none of them here.",
+ "intent": "improve",
+ "intentEvidence": "folder-notes uses direct DOM patching and vault's on(event) listeners that may misbehave",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that folder-notes' direct DOM patching and vault event listeners misbehave and miss some folder notes, especially with lazy-cached-vault-load, so they patch tree items directly instead.",
+ "primary": "folders",
+ "problem": "Folder notes show up as clutter in the file explorer, and the folder-notes plugin fails to hide some of them because its DOM patching gets out of sync with the explorer's tree.",
+ "readmeHash": "040bba0419233be97814c6090df00ae682d8c6b0",
+ "relations": [
+  {
+   "evidence": "Use with folder-notes for the full experience.",
+   "plugin": "folder-notes",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "folder-notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "File explorer tweak that hides folder note index files by patching explorer tree items directly instead of relying on DOM patching.",
+ "tags": [
+  "folder-notes",
+  "file-explorer",
+  "index-files",
+  "dom-patching"
+ ]
+}

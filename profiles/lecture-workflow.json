@@ -1,0 +1,88 @@
+{
+ "also": [
+  "audio",
+  "images"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create classroom notes and run start/stop lecture listening sessions",
+  "Detect new clipboard screenshots during monitoring and add them to a classroom timeline",
+  "Transcribe Windows system audio in realtime via Qwen Realtime ASR",
+  "Organize transcripts and screenshots into structured notes with DeepSeek or Qwen AI",
+  "Recover automatically from audio helper and transcription connection drops"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is in Chinese. API keys are stored unencrypted in data.json and the README warns not to share or commit them. The plugin is not manually reviewed by Obsidian staff. Audio is sent to the configured Qwen service, which may charge fees; recordings are not saved locally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to capture live classroom audio, screenshots, and transcripts during a lecture and organize them into structured study notes.",
+ "readmeHash": "fd101576af4eac08069268e07745fad3f6aff140",
+ "relations": [
+  {
+   "evidence": "DeepSeek 用作 Text Provider",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "使用 Qwen Realtime ASR 进行课堂实时转写",
+   "plugin": "Qwen",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Windows Audio Companion 是 Windows 用户在需要直接获取系统音频时使用的可选组件",
+   "plugin": "Windows Audio Companion",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key for text organizing",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Qwen keys for vision and realtime ASR",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Windows Audio Companion helper for system audio capture",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Qwen realtime transcription may incur fees",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Classroom study plugin that turns lecture transcripts, clipboard screenshots, and realtime speech transcription into structured Markdown study notes.",
+ "tags": [
+  "deepseek",
+  "qwen",
+  "asr",
+  "realtime-transcription",
+  "screenshots",
+  "clipboard-watching",
+  "windows",
+  "lecture-notes"
+ ]
+}

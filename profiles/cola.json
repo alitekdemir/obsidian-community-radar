@@ -1,0 +1,59 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with Cola AI in a sidebar",
+  "Send the currently open file as automatic context",
+  "Quote or send selected text to the chat",
+  "Insert Cola's reply at the cursor",
+  "Persist chat history across sessions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not run its own AI model; it only bridges Obsidian to the separate Cola desktop app over a local WebSocket.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README states the connection is local-only (127.0.0.1) and that AI processing and privacy are handled by the Cola app itself.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to chat with an external AI assistant that is aware of the file you currently have open.",
+ "readmeHash": "c4ae94e32f6276b95444a7d64900ee52fc0e6d14",
+ "relations": [
+  {
+   "evidence": "This plugin connects to Cola's local channel plugin via WebSocket.",
+   "plugin": "Cola desktop app",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cola desktop app",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Cola's Obsidian channel plugin (installed from Cola's settings)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sidebar chat client for the Cola AI desktop app that sends your currently open file as context and can insert replies into the editor.",
+ "tags": [
+  "websocket",
+  "chat-history",
+  "selection-quote",
+  "insert-at-cursor"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "audio",
+  "writing"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Record audio directly in Obsidian and auto-transcribe new recordings",
+  "Transcribe lecture audio locally with Whisper and write transcripts into linked notes",
+  "Generate titles, summaries, and key points with a local Ollama model",
+  "Combine several lectures into one set of study notes with a vocabulary table",
+  "Apply permanent transcription corrections and extra vocabulary"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (does not run on mobile). Setup downloads about 1.1 GB plus 2.6-5.2 GB for the summary model. The plugin runs external programs, which triggers Obsidian's directory flags for filesystem access and running programs; the README documents exactly which files, programs, and network hosts it touches. Not yet listed in the community plugin store; installable via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn audio recordings into transcripts and study notes, and cloud transcription services require accounts and uploading private recordings.",
+ "readmeHash": "74f14b32d934e4f7324821f27810db1969a3c6d4",
+ "relations": [
+  {
+   "evidence": "whisper-cli | To transcribe a recording",
+   "plugin": "Whisper (whisper-cli)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Summaries are written by a second program called Ollama. It is free and also runs entirely on your computer.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Homebrew",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local lecture recorder and transcriber that uses Whisper and a local Ollama model to write summaries, key points, and full transcripts into linked notes.",
+ "tags": [
+  "whisper",
+  "ollama",
+  "speech-to-text",
+  "local-llm",
+  "offline",
+  "lectures",
+  "whisper-cli"
+ ]
+}

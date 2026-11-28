@@ -1,0 +1,61 @@
+{
+ "also": [
+  "tasks",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create or update a Super Productivity task from a note's next frontmatter key",
+  "Resolve the SP project from a frontmatter property or Project/ tags",
+  "Map a start date to the task's due date in SP",
+  "Write sp_task_id and sp_task_ref back into the note's frontmatter",
+  "Add a clickable obsidian:// link back to the note in the task's notes field"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Obsidian desktop only — the API is bound to 127.0.0.1, so both apps must run on the same machine. The API token is stored unencrypted in data.json inside the vault. Projects and reminder tags must already exist in SP; the API is read-only for both. Installable via BRAT; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push frontmatter-defined next actions into Super Productivity, so tasks must be entered twice or kept by hand.",
+ "readmeHash": "3c8cfc4f421af07af9c0157f956903ea2f2f3a16",
+ "relations": [
+  {
+   "evidence": "editing a note's frontmatter creates or updates a matching task in Super Productivity via its local REST API",
+   "plugin": "Super Productivity",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Super Productivity desktop v14+ with local REST API enabled",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Super Productivity REST API access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "One-way sync that creates or updates a matching Super Productivity task from a note's frontmatter via SP's local REST API.",
+ "tags": [
+  "super-productivity",
+  "rest-api",
+  "one-way-sync",
+  "idempotency",
+  "due-dates"
+ ]
+}

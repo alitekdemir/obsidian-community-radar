@@ -1,0 +1,72 @@
+{
+ "also": [
+  "import",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync contacts from iCloud into per-contact notes with properties",
+  "Filter which contacts sync by selected iCloud groups",
+  "Download contact photos into the vault and link them",
+  "Insert custom markdown into every contact file",
+  "Sync a Nextcloud address book via a share URL"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not affiliated with Apple; Nextcloud sync may fail when encryption is enabled, and only one Nextcloud address book can be tracked.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull contacts from an address book service, so linking notes to people requires manual entry.",
+ "readmeHash": "61ffaa13699067ab309ab44d570dbf2aedec9b3b",
+ "relations": [
+  {
+   "evidence": "The IcloudClient in this codebase is copied and adapted from tsdav.",
+   "plugin": "tsdav",
+   "type": "fork"
+  },
+  {
+   "evidence": "If using Nextcloud instead iCloud, copy-paste the address book's share URL",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can for example use the dataview plugin to display a table with email and phone number",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "iCloud account with app-specific password",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Nextcloud",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs iCloud contacts into one Markdown note per contact, with contact details stored as properties.",
+ "tags": [
+  "icloud",
+  "nextcloud",
+  "contacts",
+  "vcard",
+  "carddav",
+  "dataview"
+ ]
+}

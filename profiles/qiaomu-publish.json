@@ -1,0 +1,79 @@
+{
+ "also": [
+  "integrations",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview notes in WeChat Official Account layout",
+  "Apply per-note styles, 42 themes and generated title covers",
+  "Copy or export formatted HTML and long PNG",
+  "Send and update WeChat drafts through an AppID connection",
+  "Hand drafts to X, Zhihu and Xiaohongshu via Qiaomu Clipper"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a website or Obsidian Publish tool; it formats notes for WeChat Official Account and hands drafts to other social platforms.",
+ "extras": "Plugin UI is currently Chinese. Draft creation and updating were tested against a controlled local service, not a live WeChat account; iOS and Android are untested. Audio, video and embedded web pages must be inserted manually in WeChat. Credentials are stored in Obsidian SecretStorage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author's premise is that a note should not need formatting twice: write in Obsidian, then preview and send the same content.",
+ "primary": "publishing",
+ "problem": "Notes written in Obsidian have to be reformatted and re-pasted by hand before they can go out as WeChat Official Account articles, and repeated edits leave duplicate drafts.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "a81bf9beff19fbd6e7990f2e8985d754d4035fb4",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "The desktop publishing window also hands drafts to Qiaomu Clipper 1.18.7+ in Chrome.",
+   "plugin": "Qiaomu Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose the Qiaomu fixed-IP relay, direct API access from your device, or an existing self-hosted qmblog Bridge.",
+   "plugin": "qmblog Bridge",
+   "type": "integrates"
+  },
+  {
+   "evidence": "First-run migration reads the older Qiaomu Agent publishing settings in the same vault",
+   "plugin": "Qiaomu Agent",
+   "type": "replaces"
+  },
+  {
+   "evidence": "You need a WeChat Official Account AppID, AppSecret, the relevant API permissions and IP allowlisting.",
+   "plugin": "WeChat Official Account",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account with AppID, AppSecret and API permissions",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Qiaomu Clipper browser extension",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Formats notes into WeChat Official Account article style with live preview, themes and covers, then copies the HTML or sends drafts.",
+ "tags": [
+  "wechat",
+  "png",
+  "zhihu",
+  "xiaohongshu"
+ ],
+ "textHash": "8d40b75b25d09c6708eb339669d799fdbb13f2cf"
+}

@@ -1,0 +1,116 @@
+{
+ "also": [
+  "ai",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Advance ideas through gated stages",
+  "Run Socratic, Devil's Advocate, and Feynman checks",
+  "Track review dates in an Incubator panel",
+  "Generate gate questions with optional AI",
+  "Recall earlier answers via spaced review"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates",
+   "Callouts",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Pre-release (v0.9.0), not yet in Community Plugins (manual install); tested only on Windows 11 desktop, not mobile. AI is off by default and makes no network requests when off; with AI on, an API key is stored as plain text in data.json and syncs with the vault. Companion Chrome extension (Seedbed Capture) and Agent Skill (seedbed-skill) are separate repositories. Feynman checks are pattern matching, not understanding, so false positives are expected.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "thinking",
+ "problem": "Ideas get captured but never developed or critically tested, so they sit unexamined and eventually get forgotten.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "ff2ce6abb50ffbd80855861f9ff9e6f14f8d4323",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Runs the claude program you are already signed in to.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requests to a server on your machine (localhost).",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requests to a server on your machine (localhost).",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Using the Templater plugin instead of the core one? Use its own date syntax",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Example Dataview query",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "source and created deliberately match the names the Obsidian Web Clipper commonly uses",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Seedbed Capture is a companion Chrome extension that plants them straight into your Incubator.",
+   "plugin": "Seedbed Capture",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It uses the same note format as this plugin, so notes made by the skill show up",
+   "plugin": "seedbed-skill",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Idea-incubation plugin that moves notes from seed to mature only after they pass thinking gates: Socratic, Devil's Advocate, and Feynman.",
+ "tags": [
+  "brainstorming",
+  "active-recall",
+  "spaced-repetition",
+  "ollama",
+  "claude-code",
+  "byok",
+  "local-first"
+ ],
+ "textHash": "e55438b55ace0419682903343ef647c36a24cda6"
+}

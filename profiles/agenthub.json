@@ -1,0 +1,103 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with coding agents in a sidebar",
+  "Attach notes, selections, images and @-mentions as context",
+  "Approve or deny agent permission requests",
+  "Run several agent conversations in tabs",
+  "Save, search and resume sessions, and export them to Markdown"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an agent registry or marketplace; it is a chat sidebar that launches coding agents you have already installed.",
+ "extras": "Desktop only (Obsidian 1.8.7+); mobile is unsupported because the plugin launches local processes. It makes no network requests and sends no telemetry, but agents run as child processes with their own permission modes and can read or write files outside the vault. Conversations are stored in the plugin folder and may be picked up by vault sync or Git.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Using a coding agent on vault notes meant leaving Obsidian and pasting note content into a terminal.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "dcd01d96edd5d1afa6197dd8d02b496afab37b6e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "working with Claude Code, Codex, GitHub Copilot, Grok, Gemini CLI, OpenCode, and other coding agents from a sidebar",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "npx -y @agentclientprotocol/codex-acp@2.1.1",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run copilot login.",
+   "plugin": "GitHub Copilot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Disabled by default: personal Gemini Code Assist accounts do not support this client.",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "opencode acp",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use BRAT to try beta versions before they reach the community directory.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Coding agents (Claude Code, Codex, GitHub Copilot, Grok, Gemini CLI, OpenCode)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js with npx",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Account with each agent's provider",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Provider subscription or API usage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar chat for coding agents such as Claude Code and Codex, with notes, selections and images sent as context.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "claude-code",
+  "codex",
+  "gemini-cli",
+  "opencode"
+ ],
+ "textHash": "51a85b9e5a7b7b01ea9d33af6ce16db178d1959d"
+}

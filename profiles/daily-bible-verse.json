@@ -1,0 +1,80 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [
+  "christians"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Insert a daily Bible verse callout into daily notes automatically, via a {{bible-verse}} placeholder, or by command",
+  "Re-roll the verse of the day and pin it for that date",
+  "Serve verses offline from public-domain translations in German, English, Spanish, French, and Italian",
+  "Filter the verse pool by themes or switch to whole-Bible mode with a one-time translation download",
+  "Write the verse reference to a frontmatter property and expose a JavaScript API"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community directory; installs manually or via BRAT. Whole-Bible mode needs a one-time ~4-5 MB download per translation. KJV carries Crown patent restrictions within the United Kingdom; copyrighted modern translations are deliberately excluded.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "Daily notes contain no built-in way to add a daily Scripture verse, and most verse sources require network access or API keys.",
+ "readmeHash": "8dc9603821be037cf7570f19d0810f4139169891",
+ "relations": [
+  {
+   "evidence": "With the core Daily Notes (or Periodic Notes) plugin enabled, every newly created daily note automatically receives the verse callout.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Beblia Holy-Bible-XML-Format",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily Notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Daily-note plugin that inserts a Bible verse as a callout, from offline public-domain translations in five languages, with themes and re-roll.",
+ "tags": [
+  "bible",
+  "scripture",
+  "verse-of-the-day",
+  "public-domain-translations",
+  "multilingual",
+  "seeded-shuffle"
+ ]
+}

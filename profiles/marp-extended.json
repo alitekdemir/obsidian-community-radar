@@ -1,0 +1,74 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview and present Marp slide decks from Markdown notes",
+  "Export decks as HTML, PDF, or PPTX via Marp CLI",
+  "Install bundled and custom Marp theme CSS",
+  "Convert Obsidian wiki-links and image embeds to Marp-compatible syntax",
+  "Add slide metadata, callouts, columns, and card grids via %%marp-*%% markers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a Mermaid diagram plugin; Mermaid rendering and auto-fit only apply to slide content.",
+ "extras": "Security note: HTML exports may execute author-supplied scripts per Marp CLI --html behavior. Export requires a user-installed Marp CLI pinned to version 4.5.1; beta builds are available via BRAT. The bundled TsangerJinKai02 font may require a separate commercial license.",
+ "intent": "alternative",
+ "intentEvidence": "Marp Extended originated from Samuele Cozzi's Marp Slides for Obsidian and is now maintained as an independent plugin project.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian's core Slides feature has no Marp support, no presenter notes, and no direct HTML/PDF/PPTX deck export.",
+ "readmeHash": "8b0cb430b103e7dc7d8f2b54a092e289ea5c69b1",
+ "relations": [
+  {
+   "evidence": "Marp Extended originated from Samuele Cozzi's Marp Slides for Obsidian and is now maintained as an independent plugin project.",
+   "plugin": "Marp Slides for Obsidian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Export runs an external Marp CLI command, but passes the plugin's shipped marp-engine.cjs",
+   "plugin": "Marp CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "we recommend using Marp Extended together with Pivi",
+   "plugin": "Pivi",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Marp CLI (or Node.js/npm for npx fallback)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google Chrome, Chromium, or Microsoft Edge",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Slide deck plugin that previews, presents, and exports Marp presentations from Markdown notes, with custom themes, Mermaid diagrams, and extended syntax.",
+ "tags": [
+  "marp",
+  "marpit",
+  "slides",
+  "pptx",
+  "pdf-export",
+  "mermaid",
+  "presenter-notes"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create Todoist tasks by tagging checklist items with a sync tag",
+  "Sync task edits, subtasks, projects, and labels bidirectionally",
+  "Import Todoist tasks into notes via a fuzzy-search command",
+  "Embed live Todoist task lists with syncist code blocks and Todoist filter syntax",
+  "Type shorthand priorities and due dates that convert to emoji format on sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general vault sync plugin; it only syncs tasks with the Todoist service.",
+ "extras": "README states the plugin was built with AI (Claude in Cursor IDE) and manually validated by a human; requires a Todoist API token stored locally and communicates with api.todoist.com.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Tasks added in Obsidian stay disconnected from Todoist, so tasks have to be managed in both apps by hand.",
+ "readmeHash": "24cd63d7b6abac5d37a68a8380cb27f9a12af2df",
+ "relations": [
+  {
+   "evidence": "Tasks Plugin Compatible: Works with the popular Obsidian Tasks plugin emojis (📅, 🔺, ⏫, 🔼, 🔽)",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin connects directly to the Todoist API v1 (via Obsidian's built-in requestUrl) to sync tasks.",
+   "plugin": "Todoist",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Todoist API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bidirectional sync of Obsidian tasks with Todoist, including subtasks, projects, labels, import, and live query blocks.",
+ "tags": [
+  "todoist",
+  "bidirectional-sync",
+  "subtasks",
+  "due-dates",
+  "priorities",
+  "task-queries",
+  "emoji-syntax"
+ ]
+}

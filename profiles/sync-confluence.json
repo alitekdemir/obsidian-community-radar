@@ -1,0 +1,73 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push bound notes to Confluence pages on a schedule or on demand",
+  "Auto-create child pages from confluence_parent_url and write back the new URL",
+  "Upload local image embeds as Confluence attachments with hash-based skip logic",
+  "Convert wikilinks, heading anchors, callout TOCs, and @[[user]] mentions to Confluence equivalents",
+  "Route notes across up to 10 Confluence instances (Cloud, Server, Data Center)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not two-way sync: it only pushes Obsidian to Confluence, and edits made in Confluence are overwritten on the next sync.",
+ "extras": "One-way sync only (Confluence-side edits are overwritten); desktop only due to Node https dependency; secrets should be stored in Obsidian's key vault (requires Obsidian 1.11.4+); Mermaid/PlantUML sources sent to remote kroki or plantuml.com servers carry a privacy warning the README flags.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push notes to Confluence, so keeping a Confluence wiki in step with a vault means manual copying or separate mapping files.",
+ "readmeHash": "5595219952283f80753ebc82c780c36f82c661a1",
+ "relations": [
+  {
+   "evidence": "Install BRAT from the community store.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A kroki HTTP service (PNG, max compatibility) is optional.",
+   "plugin": "Kroki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "on → renders via a PlantUML server, uploads PNG",
+   "plugin": "PlantUML",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Confluence API token or personal access token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Kroki or PlantUML server for diagram rendering",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishes Obsidian notes to Confluence pages on a schedule, bound by a confluence_url frontmatter field, with attachment and diagram upload.",
+ "tags": [
+  "confluence",
+  "atlassian",
+  "kroki",
+  "plantuml",
+  "one-way-sync",
+  "personal-access-token"
+ ]
+}

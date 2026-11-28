@@ -1,0 +1,53 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move pinned tabs to the left of each tab group",
+  "Re-sort tabs when the layout or active tab changes",
+  "Preserve relative order of pinned and unpinned tabs",
+  "Keep the active tab active after re-sorting",
+  "Apply ordering across split panes, sidebars, and pop-out windows"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Relies on undocumented Obsidian workspace internals and may need updates after Obsidian releases; installable via BRAT until listed in the community directory.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian lets you pin a tab, but it does not move it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants the browser-like behavior of pinned tabs always sitting first, with a predictable order in every tab group.",
+ "primary": "interface",
+ "problem": "Obsidian pins a tab in place without moving it, so pinned notes end up scattered among ordinary tabs and new tabs can open between them.",
+ "readmeHash": "a6cb031e0f713fed5c01e5ad8eb71513e7fb2da2",
+ "relations": [
+  {
+   "evidence": "it wraps Obsidian's setPinned method using monkey-around",
+   "plugin": "monkey-around",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Closest to this plugin: moves pinned tabs to the left of the tab bar",
+   "plugin": "Pinned Tab Utils",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tab-ordering plugin that keeps pinned tabs at the left of every tab group by re-sorting Obsidian's actual tab order.",
+ "tags": [
+  "pinned-tabs",
+  "tab-order",
+  "tab-groups",
+  "split-panes",
+  "pop-out-windows",
+  "brat"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "footnotes"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert numeric citations into unique hex footnote IDs vault-wide",
+  "Parse pasted LLM citation output into a canonical footnote format",
+  "Extract citation metadata from highlighted URLs",
+  "Promote citations to canonical source files with captured PDFs and text",
+  "Enrich citation files with authors, dates, and publisher metadata after review"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Footnotes view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13 or later and is desktop only; the manifest notes it has not been manually reviewed by Obsidian staff. It is one plugin in the author's Content Farm suite (Perplexed, Metafetch, Image Gin), which the README recommends installing separately.",
+ "intent": "improve",
+ "intentEvidence": "Converts numeric citations [1] into unique hex codes [^a1b2c3]",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian footnotes are renumbered by order of appearance and offer no vault-wide way to track, dedupe, enrich, or store citations with their sources.",
+ "readmeHash": "87283101d55149e8b3fcde42322a7a1c6a4ab24a",
+ "relations": [
+  {
+   "evidence": "Automatically creates citation files in a dedicated folder for Dataview/Bases queries",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "formatted citations from URLs use Jina.ai Reader API",
+   "plugin": "Jina.ai Reader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Jina.ai API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Citation manager that converts numeric citations into stable hex footnotes, logs sources to files for Bases/Dataview, and parses pasted LLM citations.",
+ "tags": [
+  "hex-ids",
+  "dataview",
+  "jina-ai",
+  "llm-output",
+  "google-ai-overviews",
+  "perplexity",
+  "url-metadata",
+  "open-graph"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "also": [
+  "export",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes or selections aloud using the operating system's voices",
+  "Export notes or selections as WAV files with a downloadable Piper voice",
+  "Transcribe audio files in the vault into new notes",
+  "Prepare speech-ready text by skipping frontmatter, code blocks, embeds and comments",
+  "Handle transcription and spoken-word files on iOS via an Apple Shortcut"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an audio player or recorder; it turns written notes into spoken audio and audio files into text transcripts.",
+ "extras": "Downloads nothing until the user enables WAV export and clicks Download; voice files are checksum-verified and stored outside the vault. Transcription accepts only local addresses (127.0.0.1, localhost, [::1]). Full documentation, including troubleshooting, is hosted externally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to read notes aloud or turn notes into audio files, and typical TTS services require cloud access and accounts.",
+ "readmeHash": "b58d0661009bf3a91e815dd22e6ad1c566c916be",
+ "relations": [
+  {
+   "evidence": "English (Piper, LJSpeech) or German (Piper, Thorsten), medium quality, switchable in the settings",
+   "plugin": "Piper (LJSpeech, Thorsten voices)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The companion program is audio-ui — speech recognition (Parakeet) running locally on Apple Silicon",
+   "plugin": "audio-ui",
+   "type": "integrates"
+  },
+  {
+   "evidence": "on iOS/iPadOS, an Apple Shortcut transcribes audio files and turns text into a spoken-word file",
+   "plugin": "Apple Shortcuts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.8.7 or newer",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "companion program audio-ui (local speech recognition) for transcription on desktop",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Text-to-speech plugin that reads notes aloud with system voices, exports them as WAV files locally, and transcribes audio files into notes.",
+ "tags": [
+  "text-to-speech",
+  "piper",
+  "wav",
+  "transcription",
+  "apple-shortcuts",
+  "onnx-runtime",
+  "privacy"
+ ]
+}

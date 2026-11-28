@@ -1,0 +1,57 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Filter files by frontmatter include/exclude rules",
+  "Upload notes and their embedded assets to a configured VPS endpoint",
+  "Incrementally upload only changed files",
+  "Serve the published site from a bundled Docker image (Node API + Angular site)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (requires Node.js file system access). Server Docker image and plugin are versioned in lockstep. The GitHub repository is a read-only mirror; full docs and issue tracking live in a separate monorepo. README includes detailed network and vault-access privacy disclosures.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to a self-hosted server you control instead of a hosted publishing service.",
+ "readmeHash": "a1e0c48f742ab4d02e56fcf538b989b1c3c0c403",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "self-hosted VPS server (Docker image)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for the server endpoint",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that uploads selected vault folders to your own VPS with frontmatter-based filtering and incremental sync.",
+ "tags": [
+  "docker",
+  "self-hosted",
+  "vps",
+  "nginx",
+  "incremental-upload"
+ ]
+}

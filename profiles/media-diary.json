@@ -1,0 +1,68 @@
+{
+ "also": [
+  "data",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search TMDB, AniList, and Apple Music for titles in Korean or English",
+  "Create notes with poster, credits, and media details",
+  "Rate works with half-star ratings, status, and a one-line review",
+  "Fill existing notes with media info without overwriting reviews",
+  "Edit per-media-type note templates that skip empty variables"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "A free TMDB API key is only needed for movies and series; anime, webtoons, manga, and albums need no key. Album searches use the US store by default because the Korean store doesn't sell music. The plugin is Korean-first with full English support.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to record watched, read, or listened media with fetched details like posters, credits, and ratings.",
+ "readmeHash": "3aef370b3e934798cc11dd4ef3aca197080672a5",
+ "relations": [
+  {
+   "evidence": "Movie and series data: TMDB.",
+   "plugin": "TMDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anime, webtoon, and manga data: AniList.",
+   "plugin": "AniList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Album data: Apple iTunes Search API.",
+   "plugin": "Apple iTunes Search API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TMDB API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Media diary plugin that logs movies, series, anime, webtoons, manga, and albums with TMDB/AniList/Apple Music search, half-star ratings, and one-line reviews.",
+ "tags": [
+  "tmdb",
+  "anilist",
+  "apple-music",
+  "korean-media",
+  "webtoon",
+  "manga",
+  "half-star-rating"
+ ]
+}

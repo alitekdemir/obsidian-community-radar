@@ -1,0 +1,64 @@
+{
+ "also": [],
+ "audience": [
+  ", ",
+  "developers",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ", ",
+  "Edit remote vault over SSH/SFTP",
+  "Fetch remote file tree",
+  "Stream binary content (images/PDF/video)",
+  "Perform live multi-client synchronization"
+ ],
+ "coreOverlap": {
+  "features": [
+   ", ",
+   "files",
+   "editing"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires an SSH host; daemon binaries are signed with Sigstore cosign.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is for the opposite case: the vault should live only on a remote host you control, with no second copy and no third party — and you want to edit it in place.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to allow users to keep their notes on a machine they control, avoiding cloud middleman services and full local replicas.",
+ "primary": "files",
+ "problem": "Users need to edit large or sensitive vaults stored on remote servers (like home servers or VPS) without duplicating the entire vault locally or relying on third-party cloud sync services.",
+ "readmeHash": "1107e0e4d4c794b8c833061694dcdba45aa8242e",
+ "relations": [
+  {
+   "evidence": "Think of VS Code's Remote-SSH, but for Obsidian",
+   "plugin": "VS Code Remote-SSH",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "SSH Host",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Remote SSH allows editing an Obsidian vault hosted on a remote server over a secure SSH connection, mimicking VS Code's remote development style.",
+ "tags": [
+  "ssh",
+  "sftp",
+  "remote-server",
+  "vps",
+  "shadow-vault",
+  "fs-watch",
+  "conflict-resolution",
+  "daemon"
+ ]
+}

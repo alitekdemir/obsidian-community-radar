@@ -1,0 +1,55 @@
+{
+ "also": [
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show Claude usage windows as rings in the status bar",
+  "Poll the Claude OAuth usage endpoint at a set interval",
+  "Colour rings and show a warning glyph at configurable thresholds",
+  "Display reset times and last-fetch time on hover or click",
+  "Refresh usage on demand via a command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.13.0+). Relies on an undocumented Anthropic API endpoint that may break without notice; plugin fails closed with backoff. Manual install or via BRAT. Requests filesystem, shell (macOS keychain) and network permissions, which the README explains. Not staff-reviewed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian gives no visibility into how much of a Claude subscription's usage windows have been consumed while working in the vault.",
+ "readmeHash": "cf6900008bd2e2b579c853a0deccbbd7c2459f22",
+ "relations": [
+  {
+   "evidence": "reads the OAuth token from the Claude Code credentials file (or the login keychain on macOS)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Status bar plugin that shows Claude subscription usage (5-hour and weekly windows) as rings with percentages and time until reset.",
+ "tags": [
+  "anthropic",
+  "claude-code",
+  "oauth-token",
+  "usage-tracking",
+  "backoff"
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render CleanShot share URLs as inline images in Reading view",
+  "Fetch fresh signed image URLs at render time via a MarkdownPostProcessor",
+  "Cache fetched URLs in memory to avoid refetching on re-renders",
+  "Fall back to a clickable link when the fetch fails"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only — the requestUrl CORS bypass is not available on mobile. Images are never saved to the vault, so there is no impact on Obsidian Sync storage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Downloading images locally would waste Obsidian Sync storage quota, so the author renders them remotely without storing files in the vault.",
+ "primary": "images",
+ "problem": "CleanShot share URLs point to a landing page rather than a direct image, and the underlying signed image URLs expire, so pasted links never display as pictures in notes.",
+ "readmeHash": "3ae1fb2beeaac563a1f06cfb1e047a0e4e8fe37c",
+ "relations": [
+  {
+   "evidence": "renders CleanShot share URLs (cln.sh/XXX) as inline images in reading view",
+   "plugin": "CleanShot",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CleanShot",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders CleanShot share URLs (cln.sh/XXX) as inline images in Reading view by fetching fresh signed image URLs at render time.",
+ "tags": [
+  "cleanshot",
+  "screenshots",
+  "cloudfront",
+  "signed-urls",
+  "remote-images",
+  "cln-sh"
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "also": [
+  "import",
+  "pdf"
+ ],
+ "audience": [
+  "ttrpg-players"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import .ds-hero files into a formatted hero note",
+  "Import filled MCDM character-sheet PDFs into a hero note",
+  "Resolve Power Rolls and tier damage to the hero's actual values",
+  "Set frontmatter properties for each hero",
+  "Archive the previous version of a note on re-import"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not available in the community plugin store yet; installed via BRAT (zachhall/drawsteel-hero-importer) or manually from releases. Full documentation lives in a separate DOCUMENTATION.md, and PDF import has its own FILLABLE PDF BEST PRACTICES.md; PDF import only works against MCDM's Standard character sheet and needs a DS Compendium vault folder to fill gaps.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Draw Steel players have no built-in way to bring their character data from ForgeSteel or the official PDF sheet into an Obsidian note without rebuilding it by hand.",
+ "readmeHash": "3fb67b3efce2cb718589f5386211bd245b93848d",
+ "relations": [
+  {
+   "evidence": "required. The generated Note only renders correctly with this plugin installed and enabled",
+   "plugin": "Draw Steel Elements",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional: Power Roll Detector — makes the Note's Power Roll + N values clickable dice rollers.",
+   "plugin": "Power Roll Detector",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ForgeSteel — where .ds-hero files come from.",
+   "plugin": "ForgeSteel",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Draw Steel Elements",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Power Roll Detector",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports a ForgeSteel .ds-hero export or a filled MCDM character-sheet PDF into a single note formatted with Draw Steel Elements codeblocks.",
+ "tags": [
+  "forge-steel",
+  "mcdm",
+  "character-sheet",
+  "pdf-import",
+  "dice-roller"
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "also": [
+  "pdf",
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes to tagged PDF/A-2A and PDF/UA-1 files",
+  "Export canvas boards as accessible PDFs with card layout",
+  "Translate Obsidian syntax, callouts, embeds and tables to print markup",
+  "Print selected frontmatter properties as a table",
+  "Configure page size, fonts, margins and footer page numbers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a local PDF generator; it uploads note or canvas content to a remote layout service and cannot work offline.",
+ "extras": "Requires network access; note markdown, embedded notes, inlined images and canvas file data are POSTed to the server. Anonymous use is rate limited (60/hour, 200/day) and capped at 20 pages; an API key raises limits and costs render credits. Uploaded source and output are retained 7 days. API URL is configurable for self-hosting. Canvas requests are capped at 25MB, board JSON at 2MB, 60 images and 10 PDFs (5MB each).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian's built-in export prints the rendered view, which produces untagged PDFs without heading structure, alt text, or table headers, so it fails accessibility and archival requirements.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "91282ca6adda7e3e76f20dfc69b7648573196fb2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "a vtable fenced block (Vtable plugin) | an HTML table with merged cells",
+   "plugin": "Vtable",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The adapter turns on by itself while the Structural Tables plugin is enabled",
+   "plugin": "Structural Tables",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "makespdf.com API",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "makesPDF API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "makespdf.com account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "makespdf.com render credits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "PDF exporter that sends note and canvas markdown to the makespdf.com API to produce tagged, accessible PDF/A-2A and PDF/UA-1 files in the vault.",
+ "tags": [
+  "pdf-annotation",
+  "accessibility",
+  "callouts",
+  "wikilinks",
+  "mermaid",
+  "cjk",
+  "self-hosted"
+ ],
+ "textHash": "75049c6503470345ab1d516c3e888837fa032447"
+}

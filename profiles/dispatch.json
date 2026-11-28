@@ -1,0 +1,91 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Manage tickets as plain notes on kanban boards driven by frontmatter",
+  "Dispatch coding agents to repositories with per-card chip commands",
+  "Plan releases with drag-and-drop grouping, progress and forecasts",
+  "Run meetings from board agendas and fold transcripts into tickets",
+  "Track refinement and manual-test state with per-card badges"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only — chips and automations spawn local processes, so there is no mobile version; boards still render without an agent CLI or Node installed. Full documentation lives in separate pages (Overview, Wiki structure, Page types, Workflow skills, Installation & configuration); setup can be delegated to a coding agent via a bundled skill, and feedback is collected through GitHub Discussions.",
+ "intent": "new",
+ "intentEvidence": "an agent-friendly wiki (à la Karpathy's LLM wiki pattern)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author says coding agents now ship faster than teams can decide, so the bottleneck is refinement, agreement and review, and an agent-friendly wiki should become the cockpit for that human side.",
+ "primary": "project-management",
+ "problem": "Obsidian has no built-in way to run a team ticket workflow that turns notes into a board and sends coding agents at the work from a card.",
+ "readmeHash": "c426ad5a262cd77bea77682e1560958b6da58109",
+ "relations": [
+  {
+   "evidence": "every card can dispatch a coding agent — Claude Code, Codex, any CLI",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so Claude Code and Codex run the same process instead of two copies",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The agent posts a ticket's open questions into your team chat (Slack via MCP)",
+   "plugin": "Slack",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a NoteTaker transcript (e.g. Google Gemini) becomes an interpreted report",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an agent-friendly wiki (à la Karpathy's LLM wiki pattern)",
+   "plugin": "LLM-Wiki",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "coding agent CLI (Claude Code, Codex, or any CLI) on PATH",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18 or newer on PATH",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Slack via MCP",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Kanban board over note frontmatter that dispatches coding agents like Claude Code to tickets and runs team refinement, releases and meetings.",
+ "tags": [
+  "kanban",
+  "claude-code",
+  "codex",
+  "mcp",
+  "slack",
+  "adr",
+  "coding-agents"
+ ]
+}

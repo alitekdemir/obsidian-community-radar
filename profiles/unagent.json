@@ -1,0 +1,99 @@
+{
+ "also": [
+  "search",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search and discuss Markdown notes with a connected model",
+  "Create and edit notes through reviewed, undoable actions",
+  "Reference notes, folders, tags, UNreader entries, and UNmemos cards",
+  "Read EPUB/FB2/MOBI/AZW3/TXT ebooks and fetch web pages as Markdown",
+  "Manage UNreader and UNmemos data through their automation APIs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Source-available license (UNcore Source Available License), not open source; commercial use, modification, and redistribution require written permission. API keys stay in device Keychain by default, with an opt-in synced plaintext fallback. UI and docs are bilingual English/Chinese. Vault search covers Markdown only; no PDF, Office, image, or DRM ebook reading.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to question your notes with your own AI model account while controlling exactly which file changes it may make.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "a877babe333c7750e5cd9e3786e208d9e07b90bb",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "With current UNreader, UNagent can manage feeds and articles, read/star/save state, books and shelf categories",
+   "plugin": "UNreader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "UNmemos management now includes permanent deletion by exact memo ID, in addition to search, creation, editing",
+   "plugin": "UNmemos",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For Codex or Claude Code on the same computer, open Settings → UNagent → Connections",
+   "plugin": "Codex / Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The optional WeChat connection is configured under Settings → UNagent → Connections → WeChat connection on a computer",
+   "plugin": "WeChat",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Model provider API key (OpenAI-compatible, Anthropic, or OpenAI Responses)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "UNreader",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "UNmemos",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "UNagent Connect 0.2.1 package with Node.js 22.13+ for Codex/Claude Code pairing",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "WeChat (ClawBot) via a desktop computer running Obsidian",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI assistant that searches, understands, and updates Obsidian notes through your own model provider, with review cards and approval modes for file changes.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "llm",
+  "byok",
+  "semantic-search",
+  "mcp",
+  "wechat"
+ ],
+ "textHash": "a98cae3b9e087152e3b314e821ff18aa27e3347e"
+}

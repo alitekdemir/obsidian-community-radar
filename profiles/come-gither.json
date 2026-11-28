@@ -1,0 +1,57 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two ways with a GitHub repository and create normal git commits",
+  "Merge non-overlapping edits and save overlapping conflicts under _conflicts/",
+  "Download binary placeholders on demand and remove local copies to free space",
+  "Push files over 100 MB through Git LFS with progress notices",
+  "Preview incoming and outgoing changes with per-change revert before syncing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Token is stored in plain text in the plugin's data.json on each device. The README warns that syncing the config folder exposes other plugins' code to anyone with repository write access, and discloses all network endpoints contacted.",
+ "intent": "new",
+ "intentEvidence": "Real git implementations struggle on mobile with large repositories. Come Gither talks to the GitHub API instead.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why' section says real git implementations struggle on mobile with large repositories, so the author built an API-based sync whose cost grows with edits.",
+ "primary": "syncing",
+ "problem": "Git-based vault sync struggles on mobile with large repositories because git operations scale with repository size, not with recent edits.",
+ "readmeHash": "fa0029d4effd511fe5b4c127f438a442a8eea724",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account and repository",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "fine-grained personal access token with Contents read and write",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync with a GitHub repository through the GitHub API, using on-demand placeholders for binaries and no local git.",
+ "tags": [
+  "github",
+  "git-lfs",
+  "conflict-resolution",
+  "placeholders",
+  "personal-access-token",
+  "mobile"
+ ]
+}

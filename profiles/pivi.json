@@ -1,0 +1,110 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [
+  "writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault notes in a sidebar",
+  "Edit text selections inline",
+  "Delegate work to concurrent subagents",
+  "Run vault-native tools and Agent Skills",
+  "Connect MCP servers and web search"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slash commands",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only: macOS supported, Windows/Linux in preview, no iOS/Android. Stable builds ship via Community Plugins; optional BRAT beta builds may be unstable. Requires Obsidian File Recovery for edits (mutations blocked if snapshot fails). MCP is remote-only (Streamable HTTP); stdio not supported. No telemetry. Extensive external docs (recipes, developer handbook, SECURITY.md).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "To give writers AI collaboration with fine-grained precision inside the vault, rather than black-box generation or a repurposed coding agent.",
+ "primary": "ai",
+ "problem": "Existing AI coding agents require a separate app or terminal and are built for software engineering rather than knowledge work inside the vault.",
+ "profiledAt": "2026-11-23",
+ "provider": "Baidu",
+ "readmeHash": "cf23c53060fdca68881c6d8bd21b1170814109ab",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The Pi agent runtime that powers Pivi",
+   "plugin": "Pi",
+   "type": "extends"
+  },
+  {
+   "evidence": "Claudian — Code lineage this version is adapted from",
+   "plugin": "Claudian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Install kepano/obsidian-skills or other Agent Skills into .pivi/skills/",
+   "plugin": "kepano/obsidian-skills",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With the Style Settings plugin installed, customize chat typography",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add the current editor selection or a custom Pivi command to an installed Note Toolbar",
+   "plugin": "Note Toolbar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional integration with the official Obsidian CLI",
+   "plugin": "Obsidian CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install through BRAT (Beta Reviewer's Auto-update Tool)",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Hosted AI provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM server (Ollama, LM Studio, or llama.cpp)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Official Obsidian CLI",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "kepano/obsidian-skills",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "An AI agent that runs inside Obsidian for chatting with notes, editing inline, and delegating tasks through vault-native tools and subagents.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "agent-skills",
+  "mcp",
+  "ollama",
+  "codex"
+ ],
+ "textHash": "4a5cd6c4a0a0f851d56e81b831ffb15b14108062"
+}

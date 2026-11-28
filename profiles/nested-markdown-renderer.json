@@ -1,0 +1,50 @@
+{
+ "also": [
+  "tables"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render nested GFM tables as semantic HTML table elements",
+  "Repair indented callouts that appear as code blocks in Live Preview",
+  "Reveal original Markdown source when the cursor enters or clicks a rendered table",
+  "Keep folded callouts folded while preserving inline Markdown and links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general nested-Markdown renderer; it only handles tables nested under list items and indented callouts, leaving top-level tables to Obsidian's native renderer.",
+ "extras": "Desktop only in the initial release; mobile support is disabled pending testing. Requires Obsidian 1.12.7 or later. Installable via BRAT. The directory listing notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Render nested Markdown tables and indented callouts correctly in Obsidian Live Preview without changing note source.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to close the gap between Reading view, which renders nested GFM tables and indented callouts correctly, and Live Preview, which does not.",
+ "primary": "markdown",
+ "problem": "Obsidian's Live Preview leaves tables nested under list items as pipe-delimited text and can degrade indented callouts into code blocks, even though Reading view renders them correctly.",
+ "readmeHash": "d46fed6d8033ff01c1eaa5df82f40cbbd0d5b3cd",
+ "relations": [
+  {
+   "evidence": "Indented Table improves the readability of pipe-delimited source with editor decorations.",
+   "plugin": "Indented Table",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Live Preview renderer that displays nested GFM tables as real tables and repairs indented callouts without changing note source.",
+ "tags": [
+  "gfm",
+  "live-preview",
+  "callouts",
+  "code-mirror",
+  "pipe-tables"
+ ]
+}

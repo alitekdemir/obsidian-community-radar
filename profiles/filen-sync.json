@@ -1,0 +1,62 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault with a Filen folder in both-way, vault-to-Filen, or Filen-to-vault modes",
+  "Trigger syncs automatically after idle typing, on an interval, or at startup",
+  "Resolve conflicts by saving the other version as a note.conflict file instead of overwriting",
+  "Sync the .obsidian folder's plugins and themes across devices, excluding workspace.json",
+  "Run a force sync from an empty snapshot to reconcile drifted devices without deleting anything"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin list; installs via BRAT or manually. Requires Obsidian 1.13.0 or later for the declarative settings API. Files are held in memory during transfer, so large attachments should be excluded or size-capped. Credentials are stored in Obsidian's secret storage, not in the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault synchronized across devices using a Filen account, so users must rely on manual copies or other sync services.",
+ "readmeHash": "0717412fd3cfde119b682a49f0ad97424a720844",
+ "relations": [
+  {
+   "evidence": "Sync your vault with Filen end-to-end encrypted cloud storage",
+   "plugin": "Filen",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Talks to Filen directly through the official SDK, so there is no server to run",
+   "plugin": "@filen/sdk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Filen",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs an Obsidian vault with Filen end-to-end encrypted cloud storage, with bidirectional or one-way modes and automatic triggers.",
+ "tags": [
+  "filen",
+  "end-to-end-encryption",
+  "cloud-storage",
+  "conflict-resolution",
+  "two-way-sync"
+ ]
+}

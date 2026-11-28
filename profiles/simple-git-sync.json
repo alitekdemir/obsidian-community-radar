@@ -1,0 +1,71 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull the vault from a git remote on open and on return",
+  "Push changes a set time after editing stops",
+  "Resolve conflicting edits and keep the losing version in .trash",
+  "Clone a repository into an empty vault on mobile",
+  "Discard local changes on a read-only device on a daily schedule"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The author states other plugins sync vaults better and that this one is built for their own needs. The plugin edits .gitignore, stores the token in Obsidian's secret storage, and only talks to the configured remote.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built it to learn the inner workings of git and to fit their own syncing needs.",
+ "primary": "syncing",
+ "problem": "Keeping a vault in sync across devices through git means manual commits and pulls, and conflicting edits can silently lose work.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "19252467ce7337719fac5d391b83d43860389f73",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Only GitHub is tested.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "git host account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git 2.38 or later",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs a vault with one git repository on desktop and mobile, pulling on open and pushing after edits, with conflict backups.",
+ "tags": [
+  "github",
+  "conflict-resolution",
+  "android",
+  "ios",
+  "ssh"
+ ],
+ "textHash": "701cb680b13fa0ff4e63d20a64c22c5c521fc5e2"
+}

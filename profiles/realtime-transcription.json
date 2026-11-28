@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe microphone speech in real time",
+  "Run local SenseVoice or managed cloud recognition",
+  "Apply hotwords and wrong => correct rules",
+  "Translate, polish, and summarize transcripts via AI",
+  "Export transcripts to Markdown notes with history"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general audio recorder; it transcribes microphone speech to text and exports notes, with optional AI post-processing.",
+ "extras": "Local mode needs about 240 MB of model files and a Python 3.10-3.12 environment; cloud mode sends audio to Tencent Cloud (mainland China) or Deepgram Nova-3 (overseas). AI features can use OpenAI-compatible APIs or Claude Code, Codex, and OpenCode CLIs. data.json may contain API keys and should not be shared.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to record and transcribe speech, so turning spoken notes into text requires external tools and manual copying.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "e7d3266e6b4ebaee6223866269240cebe9f95178",
+ "readmeSource": "README_EN.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10-3.12 with sherpa-onnx",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Managed cloud ASR account (Tencent Cloud or Deepgram)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key for translation, polishing, summaries",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloud ASR and AI API usage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Real-time speech-to-text plugin using local SenseVoice or cloud ASR, with hotwords, corrections, translation, polishing, and summaries.",
+ "tags": [
+  "speech-to-text",
+  "whisper",
+  "deepgram",
+  "openai-compatible",
+  "ollama",
+  "claude-code",
+  "codex",
+  "opencode"
+ ],
+ "textHash": "9a49aa39863f2a1e5695b1ab2ca68b291e864756"
+}

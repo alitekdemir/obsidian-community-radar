@@ -1,0 +1,71 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Analyze dream entries with OpenAI models to extract summaries, characters, places, objects, emotions, and symbols",
+  "Create and update entity notes with appearance history, related dreams, and duplicate prevention",
+  "Find related dreams using combined vector cosine and shared-entity similarity",
+  "Generate a dashboard and index notes with journal, lucidity, and emotional trend statistics",
+  "Create dream notes from templates with a date picker for historical entries"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a psychological or medical interpretation tool; it only organizes dream entries and tracks recurring themes.",
+ "extras": "Installation via the Obsidian Community Plugins directory is listed as upcoming; manual installation from GitHub releases is currently required. The README details exactly which text is sent to OpenAI and states no requests occur without an API key.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to analyze dream journals, extract structured entities from entries, or discover connections and recurring themes between dreams.",
+ "readmeHash": "c7e1c28853dd6fae2afeaa28e40d843e868b685a",
+ "relations": [
+  {
+   "evidence": "For live interactive tables in the Dashboard and Index pages, installing the Dataview plugin is highly recommended.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater compatibility",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin communicates with the OpenAI API (api.openai.com) when you analyze dreams or generate embeddings",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI-assisted dream journaling plugin that analyzes dream entries, extracts entity notes, finds similar dreams, and builds a lucid dreaming dashboard.",
+ "tags": [
+  "openai",
+  "embeddings",
+  "entity-extraction",
+  "vector-similarity",
+  "dream-journal",
+  "lucid-dreaming"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "synchronize the vault with Synology Drive via the Synology WebAPI",
+  "run two-way, upload-only, or download-only sync modes",
+  "authenticate directly with Synology NAS credentials",
+  "test the NAS connection from plugin settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README includes a disclaimer that the plugin is not affiliated with or endorsed by Synology, warns that sync errors or misconfiguration may cause data loss and recommends full backups (e.g., via Synology Hyper Backup) before syncing, and states the plugin has not been reviewed by Obsidian staff. Additional usage and development guides are linked externally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync or back up a vault to a self-hosted Synology NAS without third-party servers.",
+ "readmeHash": "880c55b1e823cc9b5bbc02f03819851d0e0b2c6b",
+ "relations": [
+  {
+   "evidence": "Direct synchronization leveraging the Official Synology WebAPI for maximum security and native compatibility",
+   "plugin": "Synology Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Synology NAS",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Synology username and password",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that synchronizes notes to a Synology NAS via the official Synology Drive WebAPI, with two-way, upload-only, and download-only modes.",
+ "tags": [
+  "synology-drive",
+  "nas",
+  "webdav",
+  "webapi",
+  "self-hosted"
+ ]
+}

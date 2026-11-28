@@ -1,0 +1,75 @@
+{
+ "also": [
+  "tasks",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule whole-note reviews on a fixed interval ladder",
+  "Grade reviews with four buttons and set the next date",
+  "Pull reviews in before an exam date and cram the deck",
+  "Show review board, forecast chart and progress table",
+  "Create review notes from a template and enroll notes in bulk"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Properties view",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a flashcard plugin; it schedules reviews of entire notes and stores all review state in each note's frontmatter.",
+ "extras": "UI is Japanese only; English UI is planned. Free and open source (MIT), no network requests. Review state lives in study-* frontmatter keys, so it syncs with the notes; grading the same note on two devices at once can cause a sync conflict. Status-bar review count is desktop only.",
+ "intent": "alternative",
+ "intentEvidence": "Other plugins such as Spaced Repetition (flashcards and entire notes) and Note Review Reminder (spaced reviews and reminders) also schedule note reviews.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to schedule and track reviews of whole notes over time, so notes you want to memorize are never revisited on a spaced schedule.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "a530ad1f2b63d7fcebe33883b3554bf15585aa0a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Other plugins such as Spaced Repetition (flashcards and entire notes) and Note Review Reminder (spaced reviews and reminders) also schedule note reviews.",
+   "plugin": "Spaced Repetition",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Other plugins such as Spaced Repetition (flashcards and entire notes) and Note Review Reminder (spaced reviews and reminders) also schedule note reviews.",
+   "plugin": "Note Review Reminder",
+   "type": "alternative"
+  },
+  {
+   "evidence": "There is no separate database, so a note shows when it is due next, and Dataview can read it.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The due-date and final-review rules stay inside the plugin, so templates (Templater and so on) don't need to copy them.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Spaced-review plugin that schedules whole-note reviews on a fixed Ebbinghaus interval ladder, with optional exam-date cramming and review state kept in note frontmatter.",
+ "tags": [
+  "spaced-repetition",
+  "active-recall",
+  "exam-prep",
+  "frontmatter",
+  "dataview",
+  "daily-notes",
+  "templates"
+ ],
+ "textHash": "69245a08e629e05b79d0054e32c77c2d4a0765da"
+}

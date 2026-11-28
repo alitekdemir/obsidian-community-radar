@@ -1,0 +1,83 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert timestamps at the cursor with customizable formats",
+  "Convert selected time text to relative time, weekday, journal links, Unix timestamps, lunar dates, solar terms, or festivals",
+  "Batch-convert dates across a whole note with preview and undo",
+  "Run a draggable Pomodoro timer with duration profiles, count-up mode, and cumulative statistics",
+  "Log Pomodoro sessions to notes, via QuickAdd, or to the clipboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. The README duplicates all content in Chinese, documents known limitations (lunar range 1900-2100, timer progress not saved across restarts), and includes a donation link.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "Obsidian has no built-in way to insert formatted timestamps, convert already-written time expressions, or run a focus timer that logs sessions into notes.",
+ "readmeHash": "adf071e6ff36ff5002167e5a65c3f190823f6a65",
+ "relations": [
+  {
+   "evidence": "the plugin calls executeChoice(name, variables), passing this session's data as variables",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "writing a session log appends inline fields at the end according to the field table",
+   "plugin": "DataView",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templates prefer Templater. If Templater is unavailable it reports the error honestly",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compatibility items such as \"Fix Calendar settings page blank\" are off by default",
+   "plugin": "Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "QuickAdd",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "DataView",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Timestamp inserter with time-text conversion (relative, lunar, festivals) plus a draggable Pomodoro timer with duration profiles and session logging.",
+ "tags": [
+  "pomodoro",
+  "lunar-calendar",
+  "solar-terms",
+  "unix-timestamp",
+  "festivals",
+  "time-conversion"
+ ]
+}

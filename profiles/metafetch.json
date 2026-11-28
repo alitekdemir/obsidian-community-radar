@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch page metadata into frontmatter without an API key",
+  "Fill empty frontmatter fields from folder-defined profiles",
+  "Fill frontmatter fields using AI models",
+  "Fetch website screenshots into notes",
+  "Write company funding data into notes as a json block"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Basic direct fetching works with no API key or rate limit; optional keys raise limits and unlock some commands. API keys are stored in Obsidian's keychain rather than plugin settings, and desktop-only, requires Obsidian 1.13+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author manages site-wide content in Obsidian, where each review note's frontmatter becomes a card on the site, and built Metafetch to fill in those cards.",
+ "primary": "properties",
+ "problem": "Obsidian has no built-in way to turn a URL property into filled frontmatter, so link cards, Bases, and Dataview lack source details.",
+ "readmeHash": "c3311dcb7dae85e4960e9efcca07ce22c2d4703c",
+ "relations": [
+  {
+   "evidence": "Fetch via Microlink | Same fields, through the Microlink API.",
+   "plugin": "Microlink",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For the OpenGraph.io commands, add your key under Settings → Metafetch → OpenGraph.io.",
+   "plugin": "OpenGraph.io",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from: [direct, firecrawl] falls back to Firecrawl when a site refuses a plain fetch",
+   "plugin": "Firecrawl",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenGraph.io / Firecrawl / model providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Metadata fetcher that pulls a URL's title, description, image, favicon, authors, and social links into note frontmatter.",
+ "tags": [
+  "opengraph",
+  "json-ld",
+  "schema-org",
+  "microlink",
+  "opengraph-io",
+  "firecrawl",
+  "web-scraping",
+  "screenshots"
+ ]
+}

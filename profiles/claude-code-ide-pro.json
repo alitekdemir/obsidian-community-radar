@@ -1,0 +1,78 @@
+{
+ "also": [],
+ "audience": [
+  "writers",
+  "localization-teams"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Host Claude Code IDE integration protocol",
+  ": Expose vault state to Claude",
+  ": Propose edits via diff view",
+  ": Navigate files for Claude",
+  ": Read vault graph data"
+ ],
+ "coreOverlap": {
+  "features": [
+   "search",
+   "files",
+   "properties view",
+   "command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin is desktop-only and requires external plugins (obsidian-mcp-pro and obsidian-terminal) for the full intended functionality.",
+ "intent": "improve",
+ "intentEvidence": "An Obsidian plugin that hosts the Claude Code IDE integration protocol — the same WebSocket + MCP contract professional IDEs like VS Code or JetBrains use, implemented in full for Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Made by Transept — a workshop building AI tools for translators, writers, and localization teams. This plugin started as internal tooling for a fiction-universe lore wiki and WritingTool RAG experiments.",
+ "primary": "ai",
+ "problem": "It addresses the difficulty of allowing external AI tools like Claude to interact with the complex structure of a local Obsidian vault without manual context transfer or terminal prompts.",
+ "readmeHash": "b99692bf12eca943ffd884c95375fe2a450d1d77",
+ "relations": [
+  {
+   "evidence": "Looking for a minimal read-only context bridge instead? See petersolopov/obsidian-claude-ide — same protocol, deliberately smaller scope.",
+   "plugin": "petersolopov/obsidian-claude-ide",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "obsidian-mcp-pro",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "polyipseity/obsidian-terminal",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian-mcp-pro",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "polyipseity/obsidian-terminal",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "An Obsidian plugin that implements the Claude Code IDE integration protocol, allowing Claude to view the vault state and propose edits via a side-by-side diff view.",
+ "tags": [
+  "claude",
+  "ide",
+  "mcp",
+  "websocket",
+  "diff",
+  "code-editor",
+  "llm-integration"
+ ]
+}

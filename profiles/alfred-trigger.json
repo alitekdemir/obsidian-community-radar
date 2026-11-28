@@ -1,0 +1,62 @@
+{
+ "also": [
+  "commands"
+ ],
+ "audience": [
+  "macos-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Trigger a configured Alfred workflow from the active document",
+  "Pass the note's name, path, and frontmatter properties as a base64-encoded JSON argument",
+  "Resolve a wikilink under the cursor or selection and send the linked note instead",
+  "Configure the Alfred bundle ID and external trigger ID in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "macOS only; not manually reviewed by Obsidian staff; the author mentions their own Alfred Markdown Curator Workflow as a companion.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to hand the currently active document, including its properties, to the Alfred launcher on macOS.",
+ "readmeHash": "b4668dbfc8aabade48aa429bbfde67d8dface363",
+ "relations": [
+  {
+   "evidence": "This command sends the document name, path, and frontmatter properties to your local Alfred workflow.",
+   "plugin": "Alfred",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Alfred Markdown Curator Workflow I built works great with this plugin!",
+   "plugin": "Alfred Markdown Curator Workflow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Alfred",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "macOS-only plugin that triggers an Alfred workflow with the active note's name, path, and frontmatter properties via an alfred:// URL.",
+ "tags": [
+  "alfred",
+  "macos",
+  "url-scheme",
+  "launcher",
+  "workflow",
+  "base64"
+ ]
+}

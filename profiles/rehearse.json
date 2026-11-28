@@ -1,0 +1,89 @@
+{
+ "also": [
+  "ai",
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate recall, explanation and application questions from a note or selection",
+  "Inspect source quotations and edit answers and checklists before saving cards",
+  "Review saved cards with FSRS spaced repetition, four ratings and undo",
+  "Export cards as Markdown or an Anki-compatible TSV file",
+  "Connect multiple AI providers or local servers without another AI plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "0.5.1 changes are not yet validated in native Obsidian; native mobile is unverified; classified as Optional payment in the directory because third-party AI services can charge, though the plugin itself has no paid features; no telemetry or hosted inference; older Obsidian versions keep API keys only for the current session; no conflict-aware merge for concurrent reviews across devices.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to turn note content into practice questions and review them with spaced repetition.",
+ "readmeHash": "82369e72b9f6f8041ea4cdbfdacf6db446c54a24",
+ "relations": [
+  {
+   "evidence": "Optional beta installation with BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Export Markdown or an Anki-compatible TSV import file.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama and LM Studio are optional local choices",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama and LM Studio are optional local choices",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "FSRS is provided by ts-fsrs",
+   "plugin": "ts-fsrs",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "cloud provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "local model server (Ollama or LM Studio)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI-assisted flashcard generator that turns notes or selections into editable practice sessions with source evidence and FSRS spaced repetition review.",
+ "tags": [
+  "fsrs",
+  "anki",
+  "ollama",
+  "lm-studio",
+  "openai",
+  "anthropic",
+  "gemini",
+  "quizzes"
+ ]
+}

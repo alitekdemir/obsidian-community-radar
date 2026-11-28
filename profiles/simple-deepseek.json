@@ -1,0 +1,88 @@
+{
+ "also": [
+  "integrations",
+  "research"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with DeepSeek models and save, rename and switch conversations",
+  "Convert PDFs and images to Markdown with MinerU",
+  "Reference a local paper library and import arXiv papers",
+  "Review and apply AI edits to a local Jupyter notebook",
+  "Dictate messages and read replies aloud"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only, requires Obsidian 1.12.7 or later. DeepSeek charges for model tokens and per-request Search and Fetch calls; uploaded files expire after 30 days. API keys and machine-specific paths are kept in OS secure storage outside the vault, and full data flow is documented in PRIVACY.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, no PDF-to-Markdown conversion, and no way to let a model read and edit a Jupyter notebook.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "91726110cd4620dca251ea53a52c8a8918855584",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Chat, file questions, web requests, and speech use DeepSeek.",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose File to Markdown to extract a PDF or image with MinerU.",
+   "plugin": "MinerU",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin creates the notebook if absent, starts Jupyter bound to 127.0.0.1",
+   "plugin": "Jupyter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Automatic import supports arXiv.",
+   "plugin": "arXiv",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "DeepSeek API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "MinerU token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Jupyter environment with jupyterlab, jupyter-collaboration and ipykernel",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Desktop-only chat panel for DeepSeek with MinerU PDF and image to Markdown conversion, arXiv paper references, and optional Jupyter notebook collaboration.",
+ "tags": [
+  "deepseek",
+  "ai-chat",
+  "arxiv",
+  "notebook",
+  "text-to-speech",
+  "api-key"
+ ],
+ "textHash": "340635f58f793fa0668222bdc5a6fa3745b32d24"
+}

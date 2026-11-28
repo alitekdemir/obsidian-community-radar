@@ -1,0 +1,71 @@
+{
+ "also": [
+  "charts",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule finish-to-start dependencies between parent and child tasks",
+  "Enforce hard deadlines and schedule children backward",
+  "Roll up parent durations and due dates from active children",
+  "Show a Gantt timeline with weekly intervals",
+  "Retain project colors across Kanban and Gantt views"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone task or project manager; it adds scheduling and a Gantt view on top of TaskNotes.",
+ "extras": "Needs TaskNotes with runtime API v1 and the tasks.read, tasks.write and relationships.read capabilities; Google Calendar sync is delegated to TaskNotes, which keeps the OAuth credentials. Functional requirements and limitations are documented in Tasknotes-PM-requirements.md.",
+ "intent": "improve",
+ "intentEvidence": "Tasknotes-PM is an Obsidian companion plugin for TaskNotes.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "TaskNotes records tasks and project links but does not compute dependency schedules, roll up parent dates, or show a timeline.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "667fc6cc6fb5970b83f5bb83bda183ebcf54fccd",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Tasknotes-PM is an Obsidian companion plugin for TaskNotes.",
+   "plugin": "TaskNotes",
+   "type": "extends"
+  },
+  {
+   "evidence": "When Google Calendar sync is enabled, it asks the installed TaskNotes plugin to run TaskNotes' own local Google Calendar sync",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Companion plugin for TaskNotes that schedules finish-to-start project dependencies, enforces deadlines, and adds a Gantt timeline.",
+ "tags": [
+  "gantt",
+  "scheduling",
+  "due-dates",
+  "google-calendar",
+  "color-coding",
+  "timeline"
+ ],
+ "textHash": "7569eddf17758e4e72e8cbbbe53e596a00105c3b"
+}

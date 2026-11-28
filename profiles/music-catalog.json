@@ -1,0 +1,66 @@
+{
+ "also": [
+  "bases",
+  "data"
+ ],
+ "audience": [
+  "record-collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan UPC barcodes with a USB or Bluetooth scanner to look up releases",
+  "Search Discogs and MusicBrainz by title, artist, label, composer, and conductor",
+  "Save release notes with YAML frontmatter, cover art, and custom fields",
+  "Track condition grades, copy counts, values, and acquisition dates",
+  "Create and manage a Bases table view with pre-configured catalog views"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a music player; it catalogs physical vinyl and CD releases as notes, it does not play or manage audio files.",
+ "extras": "Makes network requests to Discogs and MusicBrainz (only the barcode or search terms are sent, no vault data). Desktop-only for plugin features; notes and the Base view are readable on iOS. Requires Obsidian v1.8.0+ for Bases support.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to catalog a physical music collection with automatic metadata and cover art lookup.",
+ "readmeHash": "aee1a4ff0f1a9e66db8952d112024748460f2cde",
+ "relations": [
+  {
+   "evidence": "automatically pull metadata from Discogs and MusicBrainz",
+   "plugin": "Discogs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "MusicBrainz | UPC lookup and title/artist search (fallback)",
+   "plugin": "MusicBrainz",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Discogs personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Music collection cataloger that scans UPC barcodes or searches Discogs and MusicBrainz to create release notes with metadata, queryable via Bases.",
+ "tags": [
+  "discogs",
+  "musicbrainz",
+  "barcode",
+  "upc",
+  "vinyl",
+  "record-collecting"
+ ]
+}

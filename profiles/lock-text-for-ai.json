@@ -1,0 +1,69 @@
+{
+ "also": [
+  "editing",
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lock selected text or the current paragraph",
+  "Unlock one passage or all passages in a file",
+  "Write lock markers into the Markdown source as hidden comments",
+  "Copy AI instruction text to the clipboard",
+  "Reject Claude Code edits that would change locked passages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not encryption or password protection; it only adds Markdown comment markers and asks AI assistants to respect them.",
+ "extras": "The optional Claude Code hook only covers Claude's file-editing tools; edits made through shell commands or by other assistants rely on the pasted instructions alone. README is bilingual (English and Chinese).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "When you revise a draft back and forth with an AI assistant, passages you've already polished keep getting \"improved\" again.",
+ "primary": "ai",
+ "problem": "Passages already polished during back-and-forth revision with an AI assistant keep getting rewritten again.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "4c06ca216af0c3969b08632868b10aa62f79ad8f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "If a selection cuts through a CriticMarkup comment, such as the ones the Review Comments plugin creates",
+   "plugin": "Review Comments",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "python3",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Locks selected passages with hidden Markdown comment markers and a green highlight so AI assistants editing the note leave them unchanged.",
+ "tags": [
+  "claude-code",
+  "ai-agents",
+  "highlights",
+  "criticmarkup"
+ ],
+ "textHash": "6931feae90ca7d4a8aa0144f2dc94656e6c668f7"
+}

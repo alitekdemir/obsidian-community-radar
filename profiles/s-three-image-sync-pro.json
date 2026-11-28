@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "upload pasted, dropped, scanned, or externally created images to S3-compatible storage",
+  "maintain a local mirror whose path matches the cloud object key",
+  "switch supported Markdown links between cloud URLs and local mirror paths",
+  "migrate managed cloud keys when notes move between directories",
+  "run quick or deep read-only consistency audits across notes, mirrors, and cloud objects"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general two-way folder synchronization service; it only manages supported Markdown image references and their mirrors and cloud objects.",
+ "extras": "The manifest notes the plugin has not been reviewed by Obsidian staff. Credentials are stored in data.json inside the vault and the README warns never to share or publish that file. A separate Chinese manual (README.zh-CN.md) covers Cloudflare R2 examples in detail. Remote deletion is off by default and the README repeatedly warns to back up vault and bucket before use.",
+ "intent": "improve",
+ "intentEvidence": "It is based on and extends jongchoiyip/s3-image-sync.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps pasted images as local vault files, so users who store images in cloud object storage must upload and rewrite links by hand while keeping links, local copies, and cloud objects consistent.",
+ "readmeHash": "519859af243a46df9e0b3d7fe8558a3ab75be8ff",
+ "relations": [
+  {
+   "evidence": "It is based on and extends jongchoiyip/s3-image-sync.",
+   "plugin": "jongchoiyip/s3-image-sync",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible bucket and credentials",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "access key ID and secret access key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Manages image attachments by keeping Markdown links, local mirror files, and S3-compatible cloud objects (R2, AWS S3, MinIO) in sync.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "minio",
+  "aws",
+  "webp",
+  "object-storage",
+  "orphan-detection"
+ ]
+}

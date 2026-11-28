@@ -1,0 +1,76 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files and settings across devices through a Seafile server",
+  "Merge independent edits automatically and preserve conflict copies",
+  "Browse version history and restore file or vault snapshots",
+  "Configure ignore rules with seafile-ignore.txt",
+  "Diagnose and repair sync problems with verification and index rebuild tools"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README warns of data corruption or loss risk while the plugin is under development and advises keeping backups; files over 50 MB may be slow or memory-intensive on mobile.",
+ "intent": "alternative",
+ "intentEvidence": "This repository is a maintained fork of ryanravn/obsidian-seafile-continued",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid hosted service, and Seafile users lack a native way to sync their vault through their own self-hosted Seafile server.",
+ "readmeHash": "2cab2fd8b7ecb7919eaa7c46a6d0f5af7b977d07",
+ "relations": [
+  {
+   "evidence": "This repository is a maintained fork of ryanravn/obsidian-seafile-continued",
+   "plugin": "ryanravn/obsidian-seafile-continued",
+   "type": "fork"
+  },
+  {
+   "evidence": "Original plugin by @conql. The continued version was created and is maintained upstream by @ryanravn.",
+   "plugin": "conql/obsidian-seafile",
+   "type": "fork"
+  },
+  {
+   "evidence": "synchronizing notes across devices using Seafile, an open-source, self-hosted file sync and share solution",
+   "plugin": "Seafile",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Seafile server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Seafile account (password, SSO, or API token)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Seafile-based sync plugin that synchronizes vault files and settings across devices via a self-hosted Seafile server, with realtime sync, conflict merging, and version history.",
+ "tags": [
+  "seafile",
+  "self-hosted",
+  "delta-sync",
+  "end-to-end-encryption",
+  "conflict-merging",
+  "file-history",
+  "websocket"
+ ]
+}

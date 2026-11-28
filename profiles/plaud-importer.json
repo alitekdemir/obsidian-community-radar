@@ -1,0 +1,72 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Plaud recordings as markdown notes with frontmatter, summaries, and transcripts",
+  "Download attachments, mind-maps, screenshots, and optional audio into asset folders",
+  "Sign in to a Plaud account and verify the connection",
+  "Auto-sync new and changed recordings in the background",
+  "Rename imported notes and optionally write the new title back to Plaud"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Early alpha, desktop-only (mobile unsupported until Plaud ships an official API), and uses Plaud's undocumented web API, which may break without warning; the README carries detailed security, privacy, and troubleshooting sections, and BRAT install is documented for pre-release builds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Plaud.AI has no official API or export path, so recordings, AI summaries, and transcripts cannot get into Obsidian without a tool that talks to Plaud's web service.",
+ "readmeHash": "cbf382094df0f7cd2990fce64aff6f665216c305",
+ "relations": [
+  {
+   "evidence": "Import meeting recordings, AI summaries, transcripts, and attachments from Plaud.AI into your Obsidian vault",
+   "plugin": "Plaud.AI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The listing and /ai/transsumm/{id} endpoints were informed by prior community work, most directly rsteckler/applaud",
+   "plugin": "rsteckler/applaud",
+   "type": "inspired"
+  },
+  {
+   "evidence": "with cross-validation against JamesStuder/Plaud_API",
+   "plugin": "JamesStuder/Plaud_API",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Plaud.AI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Plaud.AI account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Plaud.AI meeting recordings, summaries, transcripts, and attachments into the vault as markdown notes with frontmatter.",
+ "tags": [
+  "plaud",
+  "meeting-recordings",
+  "transcription",
+  "reverse-engineered-api",
+  "mind-map",
+  "bookmarklet",
+  "session-token"
+ ]
+}

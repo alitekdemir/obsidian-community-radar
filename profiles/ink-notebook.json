@@ -1,0 +1,97 @@
+{
+ "also": [
+  "markdown",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Write with pens, highlighter, eraser, lasso and shapes on paged notebooks",
+  "Transcribe handwriting to Markdown text pages with Azure AI Vision",
+  "Keep drawings live as figures on the text page",
+  "Annotate PDFs and images, export annotated PDF or notebook",
+  "Import arXiv papers and turn Mermaid or Excalidraw libraries into ink"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Format converter",
+   "Embeds",
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a drawing-only plugin: its main output is a Markdown text page paired with each ink page, and handwriting recognition needs your own Azure key.",
+ "extras": "Free, no account, no telemetry; works offline except handwriting recognition and arXiv search/download. Instant ink on Boox is beta and requires the separate Bridge app matching the plugin build. Earlier versions (up to 1.4) were built on Excalidraw and offer a conversion command. Azure key is stored in the vault at .obsidian/plugins/ink-notebook/data.json. Developer docs in docs/development.md and docs/architecture.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "drawing",
+ "problem": "Obsidian has no way to write by hand on paper-like pages and get the notes back as editable Markdown.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "f2a9fe3730a01b7898770f65fd23e3dccddabe6b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Ink Notebook's own pen engine (Excalidraw is no longer needed)",
+   "plugin": "Excalidraw",
+   "type": "alternative"
+  },
+  {
+   "evidence": "the library of the Excalidraw plugin if you use it",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Handwritten notebooks in Obsidian that feel like the Boox Notes app",
+   "plugin": "Boox Notes",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Paper templates like in GoodNotes and Boox Notes",
+   "plugin": "GoodNotes",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Install and enable BRAT from Community plugins → Browse.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Azure AI Vision key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "free Azure account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ink Notebook Bridge app (Boox only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Handwriting notebook plugin with a pen engine, paper pages, and a text page that transcribes ink to Markdown via Azure AI Vision.",
+ "tags": [
+  "handwriting",
+  "e-ink",
+  "pdf-annotation",
+  "mermaid",
+  "excalidraw",
+  "arxiv",
+  "azure"
+ ],
+ "textHash": "ab159a0ff74aea20cbb6bd7e46ed7e641b8a931a"
+}

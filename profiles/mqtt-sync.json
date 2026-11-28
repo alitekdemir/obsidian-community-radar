@@ -1,0 +1,56 @@
+{
+ "also": [
+  "automation",
+  "import"
+ ],
+ "audience": [
+  "home-automation",
+  "iot-tinkerers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Subscribe to MQTT 3.1.1/5 broker topics over mqtt, mqtts, ws, and wss",
+  "Route messages into notes using ordered first-match rules with templates and insertion modes",
+  "Download message attachments into the vault with size and origin checks",
+  "Publish processing results back to an MQTT topic via an outbox",
+  "Persist accepted messages to a checksummed state file for crash recovery"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault synchronization tool despite the name; \"sync\" refers to MQTT message transport, and it explicitly does not keep notes in sync across devices.",
+ "extras": "Desktop-only and requires Obsidian 1.12.7+. It is not a 24x7 collector and cannot receive while Obsidian is closed. Release assets carry GitHub build-provenance attestations. Flagged as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to receive messages from MQTT devices, gateways, and automations, so machine-generated data cannot be captured into notes without manual copying.",
+ "readmeHash": "ac2e2db851f47eaf7e3577cd8c654ac0a82e960a",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MQTT Broker",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "MQTT client that subscribes to a broker, then routes incoming messages into Markdown notes via ordered first-match rules, with attachments and result publishing.",
+ "tags": [
+  "mqtt",
+  "iot",
+  "message-broker",
+  "smart-home",
+  "tls",
+  "websockets",
+  "qos",
+  "json-envelope"
+ ]
+}

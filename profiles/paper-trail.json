@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations",
+  "tasks"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Queue papers from Zotero into a staged Triage/Reading/Claim/Assessment workflow",
+  "Create paper notes with synced Zotero annotations and placeholder prompts",
+  "Record reading decisions, reasons and deferral dates in note properties",
+  "Insert quoted annotations with page citations and [[citekey]] links",
+  "Export dropped and deferred papers with reasons as a markdown table"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Free, with optional Liberapay donations. Runs entirely offline and never connects to the internet. Requires Obsidian 1.13 or later on desktop. Code lives on Codeberg with a copy on GitHub; releases include signed build attestations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because triage decisions made while skimming abstracts were otherwise forgotten, forcing re-reading abstracts a year later and reconstructing literature-selection rationale from memory.",
+ "primary": "research",
+ "problem": "Reference managers help collect papers and annotation tools help read them, but neither tracks the choosing decisions (drop, defer, promote), so those live only in the reader's head.",
+ "readmeHash": "d5968614de61c53444ffd1835158647193c7d232",
+ "relations": [
+  {
+   "evidence": "It only talks to Zotero, on your own computer.",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install Better BibTeX (optional) from retorque.re/zotero-better-bibtex.",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Paper Trail doesn't run pandoc itself. Exporting is what Due Credit does.",
+   "plugin": "Due Credit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tag Along shows your vault as a folder tree built from your tags.",
+   "plugin": "Tag Along",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7 or later",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Reading-queue plugin that works through a Zotero library in staged passes and records what you decided about each paper.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "literature-review",
+  "reading-queue",
+  "triage",
+  "academic-writing",
+  "citations"
+ ]
+}

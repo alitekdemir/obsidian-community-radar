@@ -1,0 +1,128 @@
+{
+ "also": [
+  "export",
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Renders notes through Obsidian into static HTML",
+  "Publishes Dataview, Bases and Mermaid output",
+  "Publishes HTML prototypes and their referenced files",
+  "Encrypts a published site behind a password",
+  "Publishes to GitHub Pages through the Git Data API"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish",
+   "Bases",
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; publishing requires a running Obsidian. Documentation is hosted on a published site. Also includes a comment/review overlay and a Figma-like prototype editor; password protection is a shared secret, not access control.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "To publish Dataview, Bases and Mermaid output without reimplementing them outside Obsidian.",
+ "primary": "publishing",
+ "problem": "Publishing a vault as a static site usually loses Dataview, Bases and Mermaid output because external converters cannot render them.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "60f2a138a99ce46c043bee28086f17a0173304f9",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Dataview, Datacore, Bases and Mermaid output exists only inside a running Obsidian.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Terminus",
+   "type": "integrates"
+  },
+  {
+   "evidence": "commits the built site through the Git Data API and points GitHub Pages at the branch.",
+   "plugin": "GitHub Pages",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a panel that works like Figma's.",
+   "plugin": "Figma",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Jira",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Asana",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "VS Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Cloudflare Worker",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Obsidian desktop 1.7.2 or later",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Terminus",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "VS Code, Cursor, Windsurf or Zed",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Jira or Asana",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Static-site publisher that renders vault notes through Obsidian so Dataview, Bases and Mermaid output survives in the published HTML.",
+ "tags": [
+  "github-pages",
+  "dataview",
+  "mermaid",
+  "encryption",
+  "password-protection",
+  "comments",
+  "cloudflare-workers"
+ ],
+ "textHash": "362b27bd6902aa6c225bd088ac00630cf4a0872f"
+}

@@ -1,0 +1,121 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Track initiative order as a plain-text code block",
+  "Read HP, AC and initiative from statblocks",
+  "Write damage, conditions and death saves back to character sheets",
+  "Run groups of identical creatures with a shared HP pool",
+  "Mirror the fight onto an Atlas VTT map and a player screen"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a dice roller; it tracks turn order, HP and conditions for a fight, though it can roll initiative through a dice hook.",
+ "extras": "Unofficial fan project; no game text or art ships with it. Companion plugins are optional — without them HP and AC are typed into the block by hand. Exposes an API (ri.*) and events so other plugins can drive the tracker.",
+ "intent": "improve",
+ "intentEvidence": "Roll for Initiative is built on Quick Initiative by walkertbrown (Bananafest Destiny).",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built as a separate plugin on Quick Initiative's plain-text format to add live character sheets, encounter cards, game systems and VTT sync.",
+ "primary": "ttrpg",
+ "problem": "Running combat in Obsidian means juggling statblocks, character sheets and turn order by hand, with nothing keeping HP and conditions in step.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "a137140705187b5ca334ff13c4bb4d756fabf391",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Roll for Initiative is built on Quick Initiative by walkertbrown (Bananafest Destiny).",
+   "plugin": "Quick Initiative",
+   "type": "extends"
+  },
+  {
+   "evidence": null,
+   "plugin": "Initiative Tracker",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Initiative Tracker Plus by Mike (msweat254), a community fork of Initiative Tracker, inspired the encounter card's behaviour.",
+   "plugin": "Initiative Tracker Plus",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Fantasy Statblocks by Jeremy Valentine renders the statblock pane and supplies the bestiary.",
+   "plugin": "Fantasy Statblocks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Atlas VTT by Fabian Urbanek is the battle-map plugin the live sync talks to.",
+   "plugin": "Atlas VTT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One DnD Character Sheet and Edgerunner Character Sheet are companion plugins by the same author as this one.",
+   "plugin": "One DnD Character Sheet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One DnD Character Sheet and Edgerunner Character Sheet are companion plugins by the same author as this one.",
+   "plugin": "Edgerunner Character Sheet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Show the fight to your players on a second screen with TTRPG Tools – Player Screen by Jareika.",
+   "plugin": "TTRPG Tools – Player Screen",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the dice tray of the Game Master Interactive Screen",
+   "plugin": "Game Master Interactive Screen",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Fantasy Statblocks",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "One DnD Character Sheet",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Edgerunner Character Sheet",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Atlas VTT",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "TTRPG Tools: Player Screen",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Initiative tracker that keeps a fight as plain text in a note, reading statblocks and syncing HP and conditions with character sheets.",
+ "tags": [
+  "dnd-5e",
+  "initiative-tracker",
+  "statblocks",
+  "character-sheet",
+  "plain-text"
+ ],
+ "textHash": "73a207215df9c0b7582e996f0ad76ec14168bb53"
+}

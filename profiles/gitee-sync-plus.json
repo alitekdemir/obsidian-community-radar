@@ -1,0 +1,79 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to a remote repository",
+  "Detect local and remote changes with a three-way comparison",
+  "Resolve conflicts by modification time or manually",
+  "Show diffs and a Git-style source-control panel",
+  "Store access tokens in the Obsidian keychain"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not limited to Gitee; it also syncs to GitHub, GitLab and Gitea repositories.",
+ "extras": "On Obsidian versions before 1.11.4 the token falls back to plaintext in data.json; a dedicated private repository is recommended. Installable via BRAT or by copying main.js, manifest.json and styles.css.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is a fork of the community Gitee Sync plugin with a rewritten sync engine",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Forked from the community Gitee Sync plugin to rewrite the sync engine, unify all filtering under .gitignore, and support more platforms without a local Git install.",
+ "primary": "syncing",
+ "problem": "Keeping a vault in a remote Git repository normally requires Git installed locally plus manual commits and pushes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "cb032478e6eff8ccdd1b9ead5beb7d673402128b",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "This plugin is a fork of the community Gitee Sync plugin with a rewritten sync engine",
+   "plugin": "Gitee Sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "Install the BRAT plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Gitee, GitHub, GitLab or Gitea account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Personal access token with repository read/write scope",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs vault notes to a Gitee, GitHub, GitLab or Gitea repository through REST APIs, with three-way change detection and conflict resolution.",
+ "tags": [
+  "github",
+  "gitlab",
+  "gitea",
+  "conflict-resolution",
+  "diff",
+  "secret-storage",
+  "two-way-sync"
+ ],
+ "textHash": "767ea553024e013d849b850cd669b508dc5231dd"
+}

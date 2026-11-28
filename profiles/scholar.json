@@ -1,0 +1,102 @@
+{
+ "also": [
+  "pdf",
+  "search"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Add papers from URLs by downloading the PDF and creating a metadata note",
+  "Search the local library and SemanticScholar for papers",
+  "Check referenced paper details without leaving the tool",
+  "Copy paper BibTeX entries",
+  "Display in-place citation popovers in paper PDFs with Obsidian PDF++"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a study or flashcards tool; it manages an academic paper library with PDFs, metadata, and BibTeX.",
+ "extras": "Exposes a JavaScript API (createPaperNoteFromUrl, isPaperInLibrary, openPaper) usable by other plugins and via Obsidian URIs; the PDF++ citation-popover feature depends on an upstream PR not yet merged, so users must install a modified PDF++ themselves.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted \"a smooth experience that spans from paper reading, note taking, and reflection and synthesis\", built on annotated bibliographies and Zettelkasten.",
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to manage an academic paper library with PDFs, metadata, citations, and BibTeX.",
+ "readmeHash": "9390f687ac8c91962f5873b6afb71a6027abe98e",
+ "relations": [
+  {
+   "evidence": "This is used in conjunction with the amazing PDF Reader plugin tool Obsidian PDF++",
+   "plugin": "Obsidian PDF++",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optionally query and find papers from SemanticScholar directly if they are not in your library",
+   "plugin": "SemanticScholar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The URI examples above require the Advanced URI plugin to be installed",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "citar: A reference manager work in EMACS.",
+   "plugin": "citar",
+   "type": "inspired"
+  },
+  {
+   "evidence": "elfeed: A RSS reader in EMACS.",
+   "plugin": "elfeed",
+   "type": "inspired"
+  },
+  {
+   "evidence": "elfeed-score: A RSS reader with scoring function in EMACS.",
+   "plugin": "elfeed-score",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Some of the code is based on a previous project called paper-note-filer",
+   "plugin": "paper-note-filer",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "SemanticScholar API key",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian PDF++",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Advanced URI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Research library manager that ingests paper PDFs from URLs, creates metadata notes, searches SemanticScholar, and shows citation popovers in PDFs.",
+ "tags": [
+  "semantic-scholar",
+  "bibtex",
+  "arxiv",
+  "zettelkasten",
+  "annotated-bibliography",
+  "citations",
+  "pdf-reading",
+  "emacs"
+ ]
+}

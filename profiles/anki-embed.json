@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Embed Anki decks in notes via anki code blocks or open them in full editor views",
+  "Review flashcards with flip animations, rating buttons, and session statistics",
+  "Rate cards and sync review status back to Anki",
+  "Import CSV/TSV data into Anki decks through a guided modal",
+  "Call AnkiConnect API endpoints for decks, cards, notes, media, and sync"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Review time statistics log as 0 seconds with official AnkiConnect; the author ships a custom AnkiConnect fork (.ankiaddon) that must be installed in Anki and enabled in settings to fix this. Mobile and headless use require hosting anki-docker-server on a remote VPS and pointing the AnkiConnect URL setting at it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to review Anki flashcards inside notes, forcing users to switch to the Anki app to study.",
+ "readmeHash": "5e6b3f934ccef45e7cc85172b95862bf25267146",
+ "relations": [
+  {
+   "evidence": "embeds interactive Anki flashcard decks directly into your notes using AnkiConnect",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Full AnkiConnect API Coverage: Strongly-typed wrappers for all 40+ AnkiConnect endpoints",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "We provide a heavily modified Custom AnkiConnect Fork that adds time-tracking capabilities",
+   "plugin": "Custom AnkiConnect Fork",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with the AnkiConnect add-on (code 2055492159) running locally, or a remote anki-docker-server for mobile/headless use",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Embeds interactive Anki flashcard decks in notes and full editor views, with card review, rating, and sync via AnkiConnect.",
+ "tags": [
+  "anki",
+  "ankiconnect",
+  "spaced-repetition",
+  "deck-review"
+ ]
+}

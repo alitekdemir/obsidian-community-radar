@@ -1,0 +1,69 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "bug-bounty-hunters",
+  "security-researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch HackerOne reports and earnings via the API",
+  "Create and update report notes with frontmatter properties",
+  "Generate current-year and all-time earnings summaries",
+  "Sync automatically at startup and on a configurable interval",
+  "Move the imported folder while updating links and keeping annotations"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the API token is stored unencrypted in .obsidian/plugins/hackerone/data.json and should be excluded from Git, shared backups and other sync services; imported notes live in a reports folder whose Markdown bodies are never overwritten after creation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to import HackerOne bug bounty reports and bounty earnings as notes or to track them over time.",
+ "readmeHash": "0d4533dffd60290b325949d29285f20b9efda042",
+ "relations": [
+  {
+   "evidence": "Requires Obsidian 1.6.6 or newer and the Dataview plugin to render the summaries.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "HackerOne",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "HackerOne API token",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "HackerOne report importer that pulls your bug bounty reports and earnings into notes with periodic sync and Dataview earnings summaries.",
+ "tags": [
+  "hackerone-api",
+  "bug-bounty",
+  "dataview",
+  "earnings",
+  "api-token",
+  "security-research"
+ ]
+}

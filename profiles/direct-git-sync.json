@@ -1,0 +1,69 @@
+{
+ "also": [
+  "backup",
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault to a GitHub repository in one action (stage, commit, fetch, merge, push)",
+  "Run sync automatically on a configurable interval",
+  "Resolve merge conflicts by keeping the local file and saving the remote version as a conflict copy",
+  "View last sync time and recent commit history in a modal",
+  "Add ignore rules written into the vault .gitignore"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The GitHub token is stored in the plugin's data.json inside the vault; the README warns to keep the vault and backups private. Installation via BRAT or manual download is also documented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people who want their vault backed by a GitHub repository for backup, cross-device sharing, and version history, without installing Git on each device.",
+ "primary": "syncing",
+ "problem": "Vault sync through Git normally requires installing and operating the Git CLI on every device, and Obsidian's own sync is a separate paid service.",
+ "readmeHash": "aef296314664f4e58dc141d3d6bc6e7f282e0e54",
+ "relations": [
+  {
+   "evidence": "It uses isomorphic-git for repository operations and Obsidian-friendly HTTP requests",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync your Obsidian vault directly with a GitHub repository on desktop and mobile",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token (classic, repo scope)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account with a repository for the vault",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git-based vault sync that stages, commits, fetches, merges and pushes an Obsidian vault to a GitHub repository on desktop and mobile without the Git CLI.",
+ "tags": [
+  "github",
+  "isomorphic-git",
+  "personal-access-token",
+  "auto-sync",
+  "merge-conflicts",
+  "version-history"
+ ]
+}

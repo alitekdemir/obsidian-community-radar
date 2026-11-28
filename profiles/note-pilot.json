@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask a model about the active note or selected text",
+  "Connect to ChatGPT subscription, API-key providers, or local Ollama endpoints",
+  "Review AI-proposed vault actions before they modify notes or folders",
+  "Open ChatGPT, Claude, and Gemini webviews from Obsidian",
+  "Apply clipboard vault action JSON via a command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Obsidian community directory; installed manually from GitHub releases. Includes privacy/security disclosures, a security policy, and discloses AI coding-agent assistance in its development. modify_note replaces the full file and is flagged as higher risk; absolute paths and path traversal are rejected.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it around the principle that AI can suggest changes but the user keeps control of the vault, with small prompts, provider presets, and reviewed writes.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and AI tools that write to the vault often apply changes without letting the user inspect them first.",
+ "readmeHash": "309f9cb252335ff677a70c178ebbb8e6371435aa",
+ "relations": [
+  {
+   "evidence": "uses openai-oauth, a local OpenAI-compatible proxy",
+   "plugin": "openai-oauth",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, OpenRouter, Groq, Gemini, or DeepSeek API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js and openai-oauth proxy for ChatGPT subscription mode; Ollama for local mode",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT subscription account for the proxy mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI work panel that answers questions about the current note or selection and applies AI-proposed vault file changes only after user review.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "openrouter",
+  "groq",
+  "gemini",
+  "deepseek",
+  "ollama",
+  "chatgpt-subscription"
+ ]
+}

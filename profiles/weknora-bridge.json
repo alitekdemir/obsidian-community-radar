@@ -1,0 +1,66 @@
+{
+ "also": [
+  "publishing",
+  "syncing"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish Markdown, PDF, Word and image files up to 20 MiB to a WeKnora server",
+  "Track remote parsing status separately from successful upload",
+  "Move completed unchanged files into a published folder with conflict-safe recovery",
+  "Import a source-linked catalog and graphs from a compatible snapshot endpoint",
+  "Cache original PDFs, DOCX files and images for in-vault previews"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way editor for remote documents: deleting a local file never deletes its remote document, and it is publication plus optional derived-data import only.",
+ "extras": "Not manually reviewed by Obsidian staff. Desktop only (Windows tested; macOS/Linux unverified), Obsidian 1.11.4+. In-place updates and catalog/graph import require deployment extensions beyond stock WeKnora, so users must validate the API contract before enabling continuous publication. No telemetry; only explicitly published files and search queries leave the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push notes and attachments to an external WeKnora knowledge base and track their parsing state on the server.",
+ "readmeHash": "5f8713a11278ea49250132c09ae9bdecb1e9e5a9",
+ "relations": [
+  {
+   "evidence": "Initial upload, retrieval and search use WeKnora APIs.",
+   "plugin": "WeKnora",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WeKnora server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "scoped API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Publishes selected vault notes and files to a self-hosted WeKnora knowledge base, tracking parsing and archiving completed uploads.",
+ "tags": [
+  "weknora",
+  "knowledge-base",
+  "self-hosted",
+  "document-parsing",
+  "reverse-proxy",
+  "api-key"
+ ]
+}

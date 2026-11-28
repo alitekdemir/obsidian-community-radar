@@ -1,0 +1,72 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Toggle a manual lock per base file via command, status badge or file-explorer menu",
+  "Block cell edits, checkbox toggles, paste, cut, edit keys and drags in locked views",
+  "Hide view settings, sort, filter and New controls while keeping the view-switch menu",
+  "Apply folder and glob lock rules and editable-property exceptions (Pro)",
+  "Lock all bases vault-wide in kiosk mode, including files created later (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file-permission tool; it only guards the Bases interface and notes stay editable in their own editor.",
+ "extras": "Freemium: manual locks are free; folder/glob rules, editable properties and kiosk mode require a $5/month or $15 one-time GitHub Sponsors payment, with GitHub sign-in checks that cache up to 14 days offline. After updates it opens a What's new tab promoting other NoteMods plugins and Zovo Chat (disable in Settings). README lists untested areas: mobile touch, third-party kanban layouts, custom themes, pop-out windows, screen readers; Bases DOM classes are not a documented API and may break on Obsidian updates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Bases tables let a stray click, keystroke or drag silently change cell values, cards or view settings while you are only reading or presenting a base.",
+ "readmeHash": "eb6c5a21c177ba0d8bb83786d1565b7079b6ddcc",
+ "relations": [
+  {
+   "evidence": "The build needs Obsidian 1.13.4 or later and the core Bases plugin.",
+   "plugin": "Bases",
+   "type": "extends"
+  },
+  {
+   "evidence": "Sign in uses the GitHub device flow.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "core Bases plugin",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Read-only lock for Obsidian Bases views that blocks cell edits, checkbox toggles, typing, paste and drags while keeping file links clickable.",
+ "tags": [
+  "read-only",
+  "kiosk-mode",
+  "kanban",
+  "accidental-edits",
+  "glob-rules"
+ ]
+}

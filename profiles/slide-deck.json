@@ -1,0 +1,82 @@
+{
+ "also": [
+  "pdf",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a Markdown note as a slide deck in a side panel",
+  "Export slides to PDF or a numbered PNG series",
+  "Flag slides that overflow the legibility floor",
+  "Apply built-in or user CSS themes per deck",
+  "Generate deck content from a note through an LLM endpoint"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slides"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Deck generation sends note content to a configured OpenAI-compatible endpoint (local by default, Anthropic if the endpoint manager supplies Claude); secrets are replaced by placeholders on the way out and API keys live in Obsidian's secret storage. On mobile, PDF export writes a self-contained HTML file instead of a PDF.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Notes have no fixed-size slide view that looks the same regardless of vault theme, warns when text shrinks below a legibility floor, or exports straight to PDF and images.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "ca1b7a4e06cfe123ab5e0b95d490808081092177",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Requires the local-image-generator plugin (desktop only).",
+   "plugin": "local-image-generator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If the LLM Endpoint Manager plugin is installed, the endpoints (and their keys) come from it instead",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "local-image-generator",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible LLM endpoint (e.g. LM Studio, Ollama)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Renders a Markdown note as a themed slide deck in a side panel and exports it to PDF or a numbered PNG series, flagging slides that overflow.",
+ "tags": [
+  "png",
+  "mermaid",
+  "callouts",
+  "local-llm",
+  "image-generation"
+ ],
+ "textHash": "bee7141ae3105ded4465385794ab7393efedfda4"
+}

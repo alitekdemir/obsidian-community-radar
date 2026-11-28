@@ -1,0 +1,67 @@
+{
+ "also": [
+  "calendar",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert a day's events into a note at the cursor or via a Templater template",
+  "Fetch schedules from private iCal (.ics) feed URLs",
+  "Read Google calendars by ID using gcloud credentials",
+  "Render the schedule as a bullet list or table with RSVP and location details",
+  "Escape event titles and locations before inserting them"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it also reads iCal feeds from Outlook, iCloud, Fastmail and other providers, not only Google Calendar.",
+ "extras": "README warns that a private feed URL works like a password and explains how to reset leaked links; notes Google may stop gcloud's default sign-in from accessing the Calendar API; desktop only and tested mainly on macOS; the schedule is a one-off snapshot, not a sync.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian daily notes have no built-in way to show that day's calendar events when a new note is created.",
+ "readmeHash": "2808565a1c278e3b2de1c68f10a26f103bc89944",
+ "relations": [
+  {
+   "evidence": "reads Google calendars by ID using gcloud credentials",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "drop one line into your Templater daily-note template",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Calendar, Outlook/Microsoft 365, iCloud or other calendar provider via feed URL, or Google Cloud CLI plus Calendar API for Google calendars",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Inserts a day's calendar schedule from iCal feed URLs or the Google Calendar API into a note, designed for Templater daily-note templates.",
+ "tags": [
+  "google-calendar",
+  "ical",
+  "ics",
+  "webcal",
+  "gcloud",
+  "daily-notes",
+  "templater",
+  "rsvp"
+ ]
+}

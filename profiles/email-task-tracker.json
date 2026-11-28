@@ -1,0 +1,63 @@
+{
+ "also": [
+  "data",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import .eml/.msg emails by dragging them in or watching a drop folder",
+  "Sort emails into keyword, sender, and domain filter categories with child categories",
+  "Track task status and milestones from phrases found in emails",
+  "Visualize activity, senders, and task status with dashboard charts",
+  "Encrypt stored records with a passphrase and recovery key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an email client; it stores only short reference records of imported emails and never saves bodies, recipients, or attachments.",
+ "extras": "Desktop-only (uses Node file system access). Uninstalling the plugin deletes records.json, so export to CSV first. Records live in the plugin folder and will sync if a sync tool includes plugin folders. Works fully offline with no network access or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian has no way to import emails and turn correspondence into categorized, status-tracked records without storing email content in the vault.",
+ "readmeHash": "1bf9a64eb07e2ffd5ecdef87f5151aa9c75fa307",
+ "relations": [
+  {
+   "evidence": "Classic Outlook (Windows): drag a message onto the dashboard drop zone, or anywhere in Obsidian.",
+   "plugin": "Outlook",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Gmail (web): open the email → ⋮ → Download message → drop the .eml file.",
+   "plugin": "Gmail",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Outlook or Gmail",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Email tracker that imports .eml/.msg files, sorts them into filter-based categories, and tracks task status and activity on a dashboard.",
+ "tags": [
+  "email",
+  "eml",
+  "msg",
+  "outlook",
+  "gmail",
+  "encryption",
+  "dashboard"
+ ]
+}

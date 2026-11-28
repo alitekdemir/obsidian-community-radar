@@ -1,0 +1,70 @@
+{
+ "also": [
+  "import",
+  "formats"
+ ],
+ "audience": [
+  "evernote-migrators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "decrypt selected Evernote encrypted text via password prompt",
+  "decrypt and replace encrypted text in place",
+  "encrypt selected text as the Evernote secret format",
+  "format encrypted strings as clickable secret buttons",
+  "find encrypted data by its RU5DM prefix"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general-purpose note encryption tool; it only handles Evernote's en-crypt format.",
+ "extras": "Only Evernote's AES-128 encryption (from 2014 onward) is supported; older RC2-encrypted data is not. The companion importer plugin is not on the community list and must be installed via BRAT with a frozen version tag.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Notes imported from Evernote contain encrypted blobs that appear as unreadable text and cannot be opened or re-encrypted inside Obsidian.",
+ "readmeHash": "8415cdc1bc4b456bb4b3954f911106b03bbfb210",
+ "relations": [
+  {
+   "evidence": "When you import notes from Evernote by importer plugin, encrypted data in Evernote is imported as a text.",
+   "plugin": "importer plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin is inspired by the inline-encrypter.",
+   "plugin": "inline-encrypter",
+   "type": "inspired"
+  },
+  {
+   "evidence": "obsidian-importer-for-evernote-decryptor is a forked version of importer plugin",
+   "plugin": "obsidian-importer-for-evernote-decryptor",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Decrypts Evernote en-crypt data in imported notes and encrypts or formats selected text as clickable Evernote secret buttons.",
+ "tags": [
+  "evernote",
+  "decryption",
+  "encryption",
+  "aes",
+  "rc2",
+  "inline-code-block",
+  "password"
+ ]
+}

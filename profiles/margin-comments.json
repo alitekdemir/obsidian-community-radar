@@ -1,0 +1,54 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Comment on selected words or whole lines from the margin",
+  "Reply, edit, resolve and reopen comment threads",
+  "Review and filter all threads for a note or the vault in a side panel",
+  "Keep comments attached to their words as text is edited or notes are moved",
+  "Let AI agents or scripts read, reply to and resolve comments via JSON files"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that Obsidian Sync skips dot-folders by default, so a visible storage folder is needed for cross-device sync. Comments are unencrypted JSON containing note excerpts and can leak through Git, Quartz or vault sharing unless the storage folder is excluded. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Comment on your Obsidian notes like in Google Docs.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted Google Docs-style commenting without touching the notes: comments live outside Markdown, follow edited text, and survive renames and moves.",
+ "primary": "annotation",
+ "problem": "Obsidian has no native commenting, and marking up feedback inside notes would alter the Markdown text itself.",
+ "readmeHash": "ef4dd6768388ee69accaf766f1dc17daf5bf2b80",
+ "relations": [
+  {
+   "evidence": "an AI agent such as Claude Code, or any script, can read your open threads",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AI agent or script for the JSON comment format",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Google Docs-style threaded margin comments for notes, stored as JSON outside Markdown, with a panel to review every thread.",
+ "tags": [
+  "google-docs",
+  "threads",
+  "ai-agents",
+  "orphaned-comments"
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Runs a local MCP server exposing 15 vault tools",
+  "Connects Claude Code, Cursor, Cline and Windsurf to the vault",
+  "Chats with any OpenAI-compatible model in a built-in agent panel",
+  "Persists chat history and exports conversations to notes",
+  "Encrypts stored API keys with AES-256-GCM"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "MCP server is desktop-only (needs Node's http module); chat, history and export work on mobile. No telemetry; API keys encrypted at rest with AES-256-GCM/PBKDF2, while the MCP token stays plaintext by design. Installable via BRAT; docs include Chinese translation, protocol test suite and troubleshooting FAQ.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "External AI agents have no standard local way to read and edit Obsidian vault notes without uploading content to a third-party service.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "fc8567ff9411e0b5198d7330959d7ed265fffc06",
+ "relations": [
+  {
+   "evidence": "exposing the vault to clients such as Claude Code, Cursor, Cline and Windsurf",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "exposing the vault to clients such as Claude Code, Cursor, Cline and Windsurf",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "exposing the vault to clients such as Claude Code, Cursor, Cline and Windsurf",
+   "plugin": "Cline",
+   "type": "integrates"
+  },
+  {
+   "evidence": "exposing the vault to clients such as Claude Code, Cursor, Cline and Windsurf",
+   "plugin": "Windsurf",
+   "type": "integrates"
+  },
+  {
+   "evidence": "让 Claude Code、Claude Desktop、Cursor、Cline、Windsurf、Continue 等任意支持 MCP 的客户端",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "让 Claude Code、Claude Desktop、Cursor、Cline、Windsurf、Continue 等任意支持 MCP 的客户端",
+   "plugin": "Continue",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI 兼容接口（DeepSeek / OpenAI / Kimi / 通义 / GLM / OpenRouter / Ollama / LM Studio…）",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI 兼容接口（DeepSeek / OpenAI / Kimi / 通义 / GLM / OpenRouter / Ollama / LM Studio…）",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI 兼容接口（DeepSeek / OpenAI / Kimi / 通义 / GLM / OpenRouter / Ollama / LM Studio…）",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for the built-in agent (OpenAI-compatible endpoints; local Ollama/LM Studio can leave it empty)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client such as Claude Code, Cursor, Cline or Windsurf (only for external agent access)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Obsidian plugin running a local MCP server and built-in agent chat panel that let AI clients like Claude Code and Cursor read, search and edit vault notes.",
+ "tags": [
+  "ai-agents",
+  "mcp",
+  "claude-code",
+  "local-llm",
+  "api-key",
+  "encryption"
+ ],
+ "textHash": "9aadd7647f0d209f8155b79871268728c1038720"
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "publishing",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish selected notes from a source folder to Confluence Cloud",
+  "Preview remote page and attachment version changes",
+  "Import new Confluence pages and attachments as local Markdown",
+  "Resolve text conflicts and restore local backups",
+  "Generate local Mermaid PNG images for publication"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Confluence client; it only syncs one configured vault folder with one Confluence folder, and publishing is off by default.",
+ "extras": "Read-only by default; publishing and both automation options start disabled. Attachment limit 25 MiB per file. One designated publishing installation per Confluence folder; other installs should only preview or import. Conversion is a supported subset, not lossless; Mermaid image mode has size and diagram-type limits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish a folder of notes to Confluence Cloud or to see and import remote Confluence edits.",
+ "profiledAt": "2026-11-28",
+ "provider": "Baidu",
+ "readmeHash": "8bfdcfeb8f78d5371d5d73a87c8f909c29c8cd4b",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Atlassian account with access to the target Confluence Cloud folder",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Scoped Atlassian API token stored in Obsidian SecretStorage",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Confluence Cloud",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian Desktop 1.14 or later",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plugin that publishes a selected vault folder to Confluence Cloud and previews or imports remote page changes.",
+ "tags": [
+  "confluence",
+  "atlassian",
+  "mermaid",
+  "secret-storage",
+  "conflict-resolution",
+  "version-history",
+  "local-first"
+ ],
+ "textHash": "50740185ff88dee235c5400da6a2a565a3934ab6"
+}

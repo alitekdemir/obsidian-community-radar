@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Runs a fresh interactive Bash session in an Obsidian tab",
+  "Manages the PTY, shell, and process lifecycle through a local Rust bridge",
+  "Installs the bridge as a Termux runit service with checksum verification",
+  "Authenticates each connection with a loopback-only token",
+  "Sources ~/.obsidianrc at shell startup"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Bridge listens on 127.0.0.1 only; tokens expire after six months with a warning in the final seven days; a hardware keyboard is required; terminal data, tokens, and shell output are not recorded by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian on Android gives no way to run a real native shell without leaving the app.",
+ "profiledAt": "2026-11-26",
+ "provider": "Ant Digital",
+ "readmeHash": "6b0fa40d0f590d14fd3007a34f6d6890bd597cca",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Use a real native Termux shell inside Obsidian on Android.",
+   "plugin": "Termux",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Termux (native, aarch64)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "bridge connection token printed by the installer",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Android plugin that embeds a real Termux shell in an Obsidian tab via a local Rust PTY bridge.",
+ "tags": [
+  "android",
+  "cli",
+  "local-first"
+ ],
+ "textHash": "68dca09c9095315b4eef431fbb0037156e433671"
+}

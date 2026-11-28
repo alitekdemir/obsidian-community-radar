@@ -1,0 +1,66 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Manage kanban boards with drag-and-drop lists and cards",
+  "Store each card as a Markdown note in its own board folder",
+  "Edit cards with labels, start/due dates, details, and checklists",
+  "Sync boards two-way with Nextcloud Deck via the REST API",
+  "Resolve field-level sync conflicts with configurable policies"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Attachment sync is opt-in and marked experimental (single-request uploads only; chunked upload planned). Pre-releases are installed via BRAT; the manifest notes the plugin is not manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from Task Deck and refocused on Nextcloud as the sync backend.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in kanban boards, and kanban tools that sync usually rely on third-party clouds instead of cards kept as plain Markdown files.",
+ "readmeHash": "b63d9d9d3c959c90b2cb4458d21107f775de09df",
+ "relations": [
+  {
+   "evidence": "Forked from Task Deck and refocused on Nextcloud as the sync backend.",
+   "plugin": "Task Deck",
+   "type": "fork"
+  },
+  {
+   "evidence": "two-way sync against the Nextcloud Deck REST API",
+   "plugin": "Nextcloud Deck",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Nextcloud with the Deck app (Deck ≥ 1.9 recommended)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Nextcloud account with an App Password",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Kanban plugin that stores every card as a Markdown note in the vault and syncs boards two-way with Nextcloud Deck.",
+ "tags": [
+  "nextcloud",
+  "kanban",
+  "deck-api",
+  "self-hosted",
+  "conflict-resolution",
+  "app-password"
+ ]
+}

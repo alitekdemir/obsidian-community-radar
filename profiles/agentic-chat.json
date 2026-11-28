@@ -1,0 +1,88 @@
+{
+ "also": [
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI agent in a sidebar panel",
+  "Read, search, write, edit, rename, and delete notes via typed tools",
+  "Approve, deny, and undo vault changes with diffs",
+  "Run skills, subagents, MCP tools, and web research",
+  "Track token use and session cost with spend caps"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a plain chat window; the agent can change your vault through typed tools, with approval gates and undo.",
+ "extras": "Fully open source under MIT, free, no telemetry; extensive documentation lives at tardigrde.github.io/obsidian-agentic-chat. Web access, MCP, and observability are opt-in and off by default. Installable via BRAT for pre-release builds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent that can act on vault notes with visible tool calls, approval gates, and privacy-controlled model routing.",
+ "readmeHash": "0c8ce8a990e1ea51225d17269ca7d55c3b9ecd4a",
+ "relations": [
+  {
+   "evidence": "Vault tool, path-safety, exact-edit, search, and JSONL session patterns were adapted from lhr0909/pi-obsidian",
+   "plugin": "pi-obsidian (lhr0909)",
+   "type": "inspired"
+  },
+  {
+   "evidence": "It runs in Obsidian on desktop and mobile and uses the pi agent packages.",
+   "plugin": "@earendil-works/pi-agent-core and @earendil-works/pi-ai (pi packages by Mario Zechner)",
+   "type": "extends"
+  },
+  {
+   "evidence": "You can use hosted models through OpenRouter, with zero-data-retention routing on by default",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "or a local Ollama server that keeps requests on your machine.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenRouter account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama server (for local models)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily, Brave, or SearXNG key (web search)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar AI chat agent that reads, searches, edits, renames, and deletes vault notes through visible, approval-gated tool calls, with privacy-first model routing.",
+ "tags": [
+  "openrouter",
+  "ollama",
+  "mcp",
+  "tool-calling",
+  "zero-data-retention",
+  "agents-md",
+  "subagents",
+  "langfuse"
+ ]
+}

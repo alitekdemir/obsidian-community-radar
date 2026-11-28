@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render paragraph block embeds inline within sentences in Live Preview and Reading view",
+  "Show a hover preview of the source block and open it with Ctrl/Cmd-click",
+  "Display missing blocks as unresolved-link text using the alias or link text",
+  "Resolve nested inline embeds up to three levels deep and stop at loops",
+  "Keep inline rendering through PDF export via the Markdown post processor"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a CSS restyling of embed boxes; it reads blocks through the public API and draws real inline text in the line.",
+ "extras": "Freemium: paragraph blocks inline are free; list items, all-embeds-inline, and extra styles need Pro via GitHub Sponsors sign-in (device flow, read:user scope only, no vault data sent). After updates the plugin opens a What's new tab promoting other NoteMods plugins and Zovo Chat. Manifest notes it has not been manually reviewed by Obsidian staff. Requires Obsidian 1.13.4 or later.",
+ "intent": "improve",
+ "intentEvidence": "Without the plugin, Obsidian draws a block embed as a box with a frame, even in the middle of a sentence.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian draws a block embed as a framed box on its own line, splitting a sentence in two even when the embed sits mid-sentence.",
+ "readmeHash": "1faf9bd755bfa6b34b0b676d96853a14b16d4d76",
+ "relations": [
+  {
+   "evidence": "Rest the pointer on the inline text to see the source block in the core page preview.",
+   "plugin": "Page preview (Obsidian core)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The snippets restyle the box and broke after Obsidian updates. This plugin reads the block with the public API",
+   "plugin": "CSS snippets in the forum",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($15 once or $5/month) for Pro features",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders block embeds written inside a sentence as inline text with a dotted underline, hover preview, and Ctrl/Cmd-click jump to the source block.",
+ "tags": [
+  "block-references",
+  "hover-preview",
+  "live-preview",
+  "reading-view",
+  "pdf-export"
+ ]
+}

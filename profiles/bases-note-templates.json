@@ -1,0 +1,79 @@
+{
+ "also": [
+  "templating",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create new notes from a chosen template via a base's New button",
+  "write base filter values and template properties into the new note",
+  "set a target folder and a file name pattern for new notes per base",
+  "add extra properties with date, time and title variables",
+  "duplicate the current note as a new note (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: Pro features (multiple templates with a picker, per-view templates, Templater support, duplicate as new note) need a GitHub Sponsors payment of $5/month or $15 once, with device-flow sign-in that checks sponsorship via the GitHub API; core features work without an account and make no network requests. After updates it opens a What's new tab that suggests other NoteMods plugins and Zovo Chat.",
+ "intent": "improve",
+ "intentEvidence": "The plugin waits for the app to finish its own step, then rewrites the note in one edit",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Bases' New button only writes filter values into an empty note, so users still have to open the note, delete it and insert a template by hand.",
+ "readmeHash": "4fcb379f9399932c8ba0cd39d5587c7caa390b23",
+ "relations": [
+  {
+   "evidence": "Bases Note Templates makes the New button of a base start new notes from a template.",
+   "plugin": "Bases (core plugin)",
+   "type": "extends"
+  },
+  {
+   "evidence": null,
+   "plugin": "Templates (core plugin)",
+   "type": "extends"
+  },
+  {
+   "evidence": null,
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bases extension that makes the New button of a base create notes from a chosen template, with filter values as properties, a target folder and a name pattern.",
+ "tags": [
+  "github-sponsors",
+  "templater",
+  "name-pattern",
+  "filter-values",
+  "freemium"
+ ]
+}

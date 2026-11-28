@@ -1,0 +1,64 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Compile LaTeX code blocks to PDF or SVG",
+  "Reference vault files and named code blocks as LaTeX dependencies",
+  "Download and cache TeX Live packages on demand",
+  "Show compilation errors and a structured full log with warnings and dependencies",
+  "Save, recompile and export rendered output from a per-render menu"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a math or TikZ equation renderer; it compiles complete multi-page LaTeX documents to PDF or SVG.",
+ "extras": "Compilation is disabled on iOS (cached renders only). Downloads TeX packages from a third-party mirror at texlive.texlyre.org; internet is needed only for uncached packages. Manifest notes the plugin has not been manually reviewed by Obsidian staff. Supports existing tikz code blocks for compatibility.",
+ "intent": "improve",
+ "intentEvidence": "This plugin is based on obsidian-latex-render by fenjalien.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Rendering full LaTeX documents normally requires installing and configuring a system TeX distribution, which is impractical in Obsidian and especially on mobile.",
+ "readmeHash": "62ad62f932089af13a4665a9ebeb7b542acfcbce",
+ "relations": [
+  {
+   "evidence": "This plugin is based on obsidian-latex-render by fenjalien.",
+   "plugin": "obsidian-latex-render by fenjalien",
+   "type": "fork"
+  },
+  {
+   "evidence": "to SwiftLaTeX for making it possible to run LaTeX engines in the browser (this plugin uses a modified fork)",
+   "plugin": "SwiftLaTeX",
+   "type": "extends"
+  },
+  {
+   "evidence": "to Texlyre for maintaining the TeX Live mirror used to download packages on demand.",
+   "plugin": "Texlyre",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Full LaTeX compiler inside code blocks that renders complete documents to PDF or SVG using bundled TeX engines and on-demand TeX Live packages.",
+ "tags": [
+  "tikz",
+  "svg",
+  "texlive",
+  "pdftex",
+  "xetex",
+  "swiftlatex"
+ ]
+}

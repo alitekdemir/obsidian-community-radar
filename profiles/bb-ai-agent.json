@@ -1,0 +1,57 @@
+{
+ "also": [
+  "ai",
+  "interface"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Open the bb IDE as an Obsidian tab or sidebar panel",
+  "Launch the bb desktop app when its local server is not responding",
+  "Set provider, model, and permission-mode defaults for the bb project matching the current vault",
+  "Zoom the embedded bb view from 50% to 200%"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI agent running inside Obsidian; it only embeds the external bb desktop app's web interface.",
+ "extras": "README includes reviewer notes disclosing shell execution (child_process) for launching bb and writing bb's SQLite database, plus clipboard access limited to copying an install command; states it makes no remote network requests. Install command shown: npx bb-app@latest. Desktop-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "For people who already use bb, so they can open its UI inside Obsidian; the plugin explicitly has no functionality of its own.",
+ "primary": "integrations",
+ "problem": "Using bb requires switching to its separate desktop app instead of working with it alongside vault notes in Obsidian.",
+ "readmeHash": "9ce60812464a6472efad78f0ab20358ae9e27010",
+ "relations": [
+  {
+   "evidence": "Embeds bb — a local AI agentic IDE with a desktop app — inside an Obsidian tab",
+   "plugin": "bb",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "bb desktop app",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Wrapper that embeds the bb AI agentic IDE's local web interface inside an Obsidian tab or sidebar.",
+ "tags": [
+  "ai-ide",
+  "agentic-coding",
+  "webview",
+  "localhost",
+  "desktop-app"
+ ]
+}

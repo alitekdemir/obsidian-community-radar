@@ -1,0 +1,66 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes to self-contained HTML",
+  "Narrate notes sentence-by-sentence via TTS",
+  "Highlight the current sentence during playback",
+  "Preserve folder structure and convert wiki-links",
+  "Embed images and audio as data URIs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer",
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not only a read-aloud TTS tool; its core job is exporting notes to self-contained offline HTML pages, with narration as an optional mode.",
+ "extras": "TTS is optional and off by default; enabling it sends note sentences to Volcengine's cloud speech API, while plain HTML export runs fully locally. Desktop-first with no mobile support yet; manual install only (main.js + manifest.json).",
+ "intent": "alternative",
+ "intentEvidence": "this fork adds the Read Along (语音伴读) branding and features",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Crowded Markdown notes lack a clean, comfortable reading format, and long notes can't be listened to while reading offline.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "eed7ccbb2317681f23641cfd53cb561fe1dbcbaf",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "Based on the open-source project notes-to-html-pages by Afan (MIT)",
+   "plugin": "notes-to-html-pages",
+   "type": "fork"
+  },
+  {
+   "evidence": "the note's sentences are sent to Volcengine's (火山引擎) speech-synthesis API",
+   "plugin": "Volcengine (火山引擎)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Volcengine (火山引擎) speech-synthesis API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Exporter that turns Markdown notes into self-contained offline HTML reading pages, with optional sentence-by-sentence TTS narration and synced highlighting.",
+ "tags": [
+  "text-to-speech",
+  "offline",
+  "reading",
+  "highlights"
+ ],
+ "textHash": "67c3c40f790a4228dcd214a1e1bc190bb961c93f"
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "writing",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send the whole note or only changed paragraphs to a selected LLM provider for review",
+  "Render AI comments in a sidebar anchored to the paragraph each one is about",
+  "Run bundled textlint rules and list lint results alongside AI comments",
+  "Store review sessions in frontmatter and comment anchors under .editor-state/",
+  "Configure providers, models, and custom Ollama headers in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a chat assistant or text rewriter; it produces editor-style review comments anchored to existing paragraphs.",
+ "extras": "Not yet listed in the Obsidian community plugin browser; manual installation from release files is required. The README documents that the community directory flags its shell execution and direct filesystem access capabilities and explains why both are needed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a writing reviewer living inside Obsidian instead of a separate tab or chat window, with comments next to the paragraphs they apply to.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get AI review feedback on writing placed inline next to the paragraphs it applies to.",
+ "readmeHash": "2d89da01f93bc5d78cb3c68e71e4d3c4c173ee79",
+ "relations": [
+  {
+   "evidence": "Runs a bundled set of textlint rules in parallel and lists the lint results alongside the AI comments.",
+   "plugin": "textlint",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code and Codex are spawned as subprocesses and communicate with their configured remote services.",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Akaire spawns the selected Claude Code or Codex CLI",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For Ollama, configure its API URL and optional HTTP headers, then run the connection test",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI, Codex CLI, or a running Ollama server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI writing reviewer that sends notes to Claude Code, Codex, or Ollama and shows feedback as comments anchored to paragraphs, with bundled textlint rules.",
+ "tags": [
+  "textlint",
+  "claude-code-cli",
+  "codex-cli",
+  "ollama",
+  "writing-feedback",
+  "review-comments"
+ ]
+}

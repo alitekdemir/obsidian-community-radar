@@ -1,0 +1,54 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open and render .html and .htm files inside vault tabs",
+  "Sanitize HTML content through five selectable operating modes",
+  "Convert and open MHTML (.mht/.mhtml) files on the fly",
+  "Persist form-control values back into the HTML file",
+  "Zoom, search, and auto-reload the opened HTML file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a web clipper or page-saver; it only renders HTML files that already exist in the vault.",
+ "extras": "Warns that Unrestricted Mode is 'very dangerous and may cause the Obsidian app crash'; local images cannot load due to Obsidian constraints; only standard HTML5, SingleFileZ, and MHTML files are supported. Form state persistence is disabled by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "html",
+ "problem": "Obsidian cannot display local HTML files stored in the vault, so saved web pages can't be read inside the app.",
+ "readmeHash": "1bf3077aa6d4d6f7d6641bf39c66787b662198a0",
+ "relations": [
+  {
+   "evidence": "this plugin also use this library to convert MHTML files",
+   "plugin": "mhtml-to-html",
+   "type": "integrates"
+  },
+  {
+   "evidence": "re-save the HTML file as a complete HTML file by dedicated browser extensions",
+   "plugin": "SingleFile",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "File viewer that opens and renders .html and .htm files in the vault, with sandboxed security modes, MHTML conversion, zoom, search, and form state persistence.",
+ "tags": [
+  "file-extensions",
+  "webview"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

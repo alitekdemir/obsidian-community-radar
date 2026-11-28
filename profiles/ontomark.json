@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "graph"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Indexes typed frontmatter notes as ontology entities",
+  "Runs local OWL 2 EL reasoning and draws the hierarchy",
+  "Answers SPARQL queries in a panel or in-note block",
+  "Applies reviewed frontmatter edits as diffs",
+  "Extracts facts through a user-configured model endpoint"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, minimum Obsidian 1.7.2; offline by default with a network-disabled release test and SHA-256-pinned engine. Documents plain-http and redirect-transport caveats; Jev helpers are unevaluated research candidates; corpus timings are historical.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Backlinks show that two notes are related but not how, and Obsidian has no built-in way to type notes, infer class hierarchies, or query them with SPARQL.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "341735578904062451a17c277656ac7583530316",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The in-note surface and its two tokens follow Cristian Vasquez's Dot Triples",
+   "plugin": "Dot Triples",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Dot Triples does that, and Ontomark's bridge joins the two graphs.",
+   "plugin": "Dot Triples",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "model endpoint (HTTPS URL) for assisted fact extraction",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "session API key for the model endpoint",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Jev typed-decision endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Local ontology layer that indexes typed notes, runs OWL 2 EL reasoning and SPARQL, draws the hierarchy, and applies reviewed frontmatter edits.",
+ "tags": [
+  "knowledge-graph",
+  "offline",
+  "local-first",
+  "byok",
+  "llm"
+ ],
+ "textHash": "f36d9018b6837ec818e1e972b31c3b48279648e8"
+}

@@ -1,0 +1,98 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions grounded in notes, Bases and CSV files with citations",
+  "Propose note creation, rewrite, move, rename and delete as diffs for approval",
+  "Restore applied changes from checkpoints",
+  "Compute counts, aggregations, date arithmetic and link audits with deterministic tools",
+  "Run vault-stored skills and workflows and call tools from companion plugins and MCP servers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Canvas",
+   "Daily notes",
+   "Templates",
+   "Bookmarks",
+   "Note composer",
+   "Search",
+   "Graph view",
+   "Backlinks",
+   "Outline",
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a grammar or verb tool; it is an AI agent that reads and edits documents in your vault.",
+ "extras": "Desktop only; interface and agent follow Obsidian's language (Korean or English). Optional Windows x64 offline pack adds local embeddings; otherwise the PGlite runtime and tokenizer table are downloaded on demand. No telemetry. Skill files are compatible with Claude Code skills.",
+ "intent": "alternative",
+ "intentEvidence": "Verbex began as a fork of Smart Composer (MIT, Heesu Suh) and was redeveloped from there.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Getting AI help on a vault usually means copying notes into a chat, and letting a model edit files risks changes you cannot review or undo.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "efd9d4311fcea60ec331c9ce9a1a53ea81082b6a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Verbex began as a fork of Smart Composer (MIT, Heesu Suh) and was redeveloped from there.",
+   "plugin": "Smart Composer",
+   "type": "fork"
+  },
+  {
+   "evidence": "Companion plugins expose their tools to the agent after you approve them",
+   "plugin": "Chart Hands",
+   "type": "integrates"
+  },
+  {
+   "evidence": "HWP Hands exposes only reading tools by default",
+   "plugin": "HWP Hands",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Model provider API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Model provider (OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama, LM Studio or OpenAI-compatible endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Companion plugins (Chart Hands, KorDoc Transform, HWP Hands, HWPX Exporter)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP servers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI agent that answers from vault notes, Bases and CSVs and proposes file edits as diffs applied only after approval.",
+ "tags": [
+  "ai-agents",
+  "llm",
+  "rag",
+  "mcp",
+  "semantic-search",
+  "byok",
+  "openai-compatible"
+ ],
+ "textHash": "2e6f8ca1daada896c22fae84391f159726178f00"
+}

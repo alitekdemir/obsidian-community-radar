@@ -1,0 +1,75 @@
+{
+ "also": [],
+ "audience": [
+  ": language learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ": Look up words offline",
+  ": Save vocabulary as Markdown notes",
+  ": Review words using FSRS",
+  ": Fetch definitions from multiple sources",
+  ": Integrate with external AI"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": markdown",
+   ": review"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "This plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "The hover dictionaries all query an online translation service, so they stop working on a plane and — for Chinese — only ever return Simplified.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To provide a fully offline, feature-rich dictionary and vocabulary learning tool that overcomes the limitations of online-dependent plugins.",
+ "primary": "languages",
+ "problem": "Existing dictionary plugins often rely on online services that fail offline or lack comprehensive features like phonetics and spaced repetition.",
+ "readmeHash": "41bac3cc3d2e43b5922045e112278fda98638666",
+ "relations": [
+  {
+   "evidence": "WordFolio can pull them across (Import from Anki, needs AnkiConnect): it takes the word and its context and fills in phonetics and definitions from the offline dictionary.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Words you look up with the Kobo's built-in dictionary can come in as well (Import from Kobo).",
+   "plugin": "Kobo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "WordFolio",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Anki",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 1
+ },
+ "summary": "WordFolio provides an offline dictionary and vocabulary notebook that allows users to look up English words for definitions, phonetics, and spaced repetition.",
+ "tags": [
+  "offline-dictionary",
+  "spaced-repetition",
+  "markdown-notebook",
+  "ipa",
+  "ollama",
+  "kobo",
+  "ecdict"
+ ]
+}

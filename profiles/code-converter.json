@@ -1,0 +1,51 @@
+{
+ "also": [
+  "files",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect file encodings across 22 candidate encodings with confidence scores",
+  "Convert non-UTF-8 files to UTF-8 with automatic backup and rollback",
+  "Repair double-encoded mojibake with a before/after preview",
+  "Detect U+FFFD replacement characters and report unrecoverable damage",
+  "Export conversion logs as JSON or Markdown"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a code formatter or language transpiler; it converts the character encoding of files, not their content or syntax.",
+ "extras": "Freemium: folder batch conversion, the last 6 UI languages, and editing the extension whitelist require a VIP code; single-file conversion, detection, mojibake repair, logs, and backups are free. The mojibake repair command is experimental, and the linked user guide is currently Chinese only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "Obsidian reads every note as UTF-8, so legacy-encoded files (GBK, Big5, Shift-JIS, UTF-16) open as garbage and can be silently re-saved as permanent mojibake.",
+ "readmeHash": "6b7f6d5209557f32ed50073fc4dae813775d13c4",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "VIP activation code (via GitHub Sponsors or afdian.net)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File encoding converter that detects non-UTF-8 files in a vault, converts them to UTF-8 with automatic backups, and repairs double-encoded mojibake.",
+ "tags": [
+  "encoding",
+  "utf-8",
+  "mojibake",
+  "gbk",
+  "bom",
+  "character-sets"
+ ]
+}

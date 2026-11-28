@@ -1,0 +1,61 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Visualize the vault as an interactive 3D graph positioned by embedding similarity",
+  "Search notes by meaning and fly the camera to the best match",
+  "Show suggested links, potential duplicates, orphan notes, and generate per-cluster MOCs",
+  "Replay vault growth over time by note creation date",
+  "Export the current graph as an interactive HTML file with deep links back into the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only and requires Obsidian 1.11.0 or newer; without an API key it falls back to a folder-based clustered sphere layout; pairwise insights are capped at 3,000 embedded notes; UI is English and Korean; HTML export needs internet to load the renderer CDN.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's graph view arranges notes by links and folders, so notes about similar topics that are not linked do not appear related.",
+ "readmeHash": "be142aa1932202d756e41b2bf58908f80e6692d3",
+ "relations": [
+  {
+   "evidence": "OpenAI — fully supported for note and query embeddings.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "3D graph view that positions notes by semantic similarity using OpenAI embeddings or uploaded vectors, with clusters, search, and insights.",
+ "tags": [
+  "openai",
+  "embeddings",
+  "umap",
+  "pca",
+  "three-js",
+  "3d-force-graph",
+  "k-means"
+ ]
+}

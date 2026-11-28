@@ -1,0 +1,61 @@
+{
+ "also": [
+  "links",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert links via a configurable trigger character",
+  "Create notes when no note exists at the link location",
+  "Apply Templater or QuickAdd templates to newly created notes",
+  "Limit note suggestions and plugin activity to specific folders",
+  "Quick-insert headers as link aliases"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Template insertion explicitly does not work with templates made for the core Templates plugin, and a restart may be needed after installing Templater, QuickAdd, or this plugin. Linking to blocks (^) is not supported; the Todo list marks several features as unfinished.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Obsidian's built-in [[ link suggestion cannot create the note at the linked location or apply a template when the linked note does not exist.",
+ "readmeHash": "22ab4313d34685f31aef5a324b0295472dcb8f86",
+ "relations": [
+  {
+   "evidence": "Inserting templates only works if either the Templater or QuickAdd plugin is installed and enabled.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Inserting templates only works if either the Templater or QuickAdd plugin is installed and enabled.",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater or QuickAdd",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Autocomplete-style link suggestion triggered by a custom character that creates missing notes and can apply Templater or QuickAdd templates.",
+ "tags": [
+  "templater",
+  "quickadd",
+  "wikilinks",
+  "link-suggestion",
+  "relative-paths"
+ ]
+}

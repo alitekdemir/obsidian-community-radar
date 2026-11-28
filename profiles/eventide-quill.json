@@ -1,0 +1,88 @@
+{
+ "also": [
+  "writing",
+  "editing"
+ ],
+ "audience": [
+  "novelists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Lint prose with deterministic craft rules and AI-tell detection",
+  "Generate persona-driven editorial feedback and critical manuscript analysis",
+  "Co-write drafts turn-by-turn with tool-calling, subagents, and context compaction",
+  "Manage typed lorebook entries with coverage-gap detection and a coach mode",
+  "Track manuscript metrics, writing goals, and strip image attachment metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a text generator; the README positions it as 'a thoughtful editor, not a text generator', centered on feedback and linting.",
+ "extras": "Some feature details are deferred to an external wiki (AI-tell heuristics, context management, attachment metadata). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Core linter, dashboard, and lorebook features work with no AI model or network access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in tools for fiction-specific prose checking, editorial feedback, or manuscript-consistency tracking, and AI writing tools typically generate text rather than critique it.",
+ "readmeHash": "7ab7cda7eea14d8e0c09057477bc56edc6cfee76",
+ "relations": [
+  {
+   "evidence": "It runs locally by default (Ollama, or any OpenAI-compatible local server such as LM Studio)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "any OpenAI-compatible local server such as LM Studio",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cloud providers (OpenAI and other OpenAI-compatible endpoints) also work if you prefer",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic Claude and Google Gemini ship native provider implementations",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "safety-filter reporting on Gemini",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama, LM Studio, or another OpenAI-compatible server",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, or Google Gemini API key for cloud providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Novelist-focused writing assistant that lints prose, gives AI editorial feedback, co-writes drafts, and manages a lorebook using local or cloud models.",
+ "tags": [
+  "ollama",
+  "lm-studio",
+  "lorebook",
+  "fiction-writing",
+  "prose-linting",
+  "local-llm",
+  "wikipedia",
+  "fandom"
+ ]
+}

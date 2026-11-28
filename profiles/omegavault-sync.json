@@ -1,0 +1,62 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull changed OmegaVault memories as ready-to-write Markdown files with frontmatter",
+  "Poll the OmegaVault API on an interval using a bearer API token",
+  "Rename files on title changes and remove files via deletion tombstones",
+  "Run manual Sync now or Full resync that resets the cursor",
+  "Configure server URL, API token, vault folder, and poll interval"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way vault sync; it only pulls from OmegaVault, which stays the source of truth and overwrites local edits.",
+ "extras": "Manifest states the plugin has not been manually reviewed by Obsidian staff; installation is manual (copy build output into .obsidian/plugins) or via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull content from an external OmegaVault memory service into vault notes.",
+ "readmeHash": "98f1f3810c8fb766641792e5dbb7094ea621f903",
+ "relations": [
+  {
+   "evidence": "Or install via BRAT by pointing it at this repo.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OmegaVault instance (server URL)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OmegaVault API token (ovk_…)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that pulls OmegaVault memories into a vault as frontmattered Markdown notes, keyed by omegavault_id.",
+ "tags": [
+  "omegavault",
+  "api-token",
+  "polling",
+  "tombstones",
+  "one-way"
+ ]
+}

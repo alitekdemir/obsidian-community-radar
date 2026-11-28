@@ -1,0 +1,64 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes aloud via text-to-speech",
+  "Save notes as MP3 files",
+  "Play saved audio offline",
+  "Browse and select Cartesia voices",
+  "Resume interrupted audio generation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an audio library or player for existing sound files; it generates speech from note text.",
+ "extras": "Free and MIT-licensed, but generation uses a Cartesia account with a free tier (20,000 credits/month) and paid plans; note text is sent to Cartesia, the API key is stored in local storage (not a keychain), and failed transfers can consume credits with no automatic retry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to notes aloud or save them as audio for offline playback.",
+ "profiledAt": "2026-11-26",
+ "provider": "Baidu",
+ "readmeHash": "b734b262021a678f62a9d2d752485a16a944bcc8",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Generating audio requires your own Cartesia account and API key.",
+   "plugin": "Cartesia",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cartesia",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cartesia",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Text-to-speech plugin that reads notes aloud through Cartesia and saves them as MP3 files for offline listening.",
+ "tags": [
+  "text-to-speech",
+  "offline",
+  "api-key",
+  "ios",
+  "privacy"
+ ],
+ "textHash": "3d712762877deb67885fca914d0121b55015da4a"
+}

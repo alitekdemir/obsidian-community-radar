@@ -1,0 +1,57 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert pasted or selected URLs into embedded previews",
+  "Fetch link metadata via multiple parsers with fallback",
+  "Display favicons next to markdown links",
+  "Save embed images to the vault",
+  "Refresh existing embeds' metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not for embedding local vault files; it turns external web URLs into preview cards.",
+ "extras": "Some metadata parsers are rate-limited (MicroLink 50 requests/day, Iframely 1000/month) or require API keys; the default Local parser needs neither. Embeds since v2.0.0 are stored as code blocks, with a Convert button to migrate old embeds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian has no built-in way to turn an external URL into a rich preview card with title, image and favicon inside a note.",
+ "readmeHash": "ae48000dd19616a554a518764cb613bc26de5bae",
+ "relations": [
+  {
+   "evidence": "Similar to the Link Favicons plugin, this plugin can display favicons next to regular markdown links",
+   "plugin": "Link Favicons",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "JSONLink / LinkPreview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "URL embed plugin that converts pasted or selected web links into embedded preview cards rendered from code blocks.",
+ "tags": [
+  "url-preview",
+  "favicons",
+  "link-metadata",
+  "iframely",
+  "jsonlink"
+ ]
+}

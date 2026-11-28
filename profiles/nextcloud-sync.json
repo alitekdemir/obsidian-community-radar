@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs vault files bidirectionally with a Nextcloud folder",
+  "Detects changes by content hash and Nextcloud sync-token",
+  "Merges conflicting text edits and applies per-file-type conflict strategies",
+  "Tracks renames via Nextcloud file IDs and routes deletes through the trashbin",
+  "Restores server-side file versions and compares a local file with its remote copy"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13.0 or later and a server certificate the device trusts. Syncing the config folder and selected community plugins is opt-in and marked Dangerous because it copies executable code. No telemetry; credentials are kept in Obsidian's secret storage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted sync built on Nextcloud's own APIs, arguing that most WebDAV sync plugins treat the server as a dumb file store and compare modification times.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync with a self-hosted Nextcloud server across desktops and mobile devices.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "dfc01e7136bc3d135759d70ced5ac24c932af42c",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Nextcloud server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Nextcloud account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Nextcloud app password",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bidirectional sync plugin that keeps an Obsidian vault and a Nextcloud folder in step using hash-based change detection and conflict merging.",
+ "tags": [
+  "nextcloud",
+  "webdav",
+  "two-way-sync",
+  "conflict-resolution",
+  "self-hosted",
+  "version-history"
+ ],
+ "textHash": "c643b94aee15f5a48089980619492082244c6792"
+}

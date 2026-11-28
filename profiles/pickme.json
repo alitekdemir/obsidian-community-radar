@@ -1,0 +1,64 @@
+{
+ "also": [
+  "pdf",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight, mark regions and drop sticky notes in PDFs via a built-in pdf.js viewer",
+  "Wrap selections in notes with anchor tags and attach annotations",
+  "Ask an OpenAI-compatible model about a selection, with follow-up exchanges kept per annotation",
+  "Browse, filter, rebind and batch-delete all vault annotations in an index sidebar",
+  "Define prompt templates as Markdown files with variables and frontmatter overrides"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff; main.js is ~3.8 MB because pdf.js fonts and CMap tables are inlined, and full settings docs live in a separate Chinese README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in way to annotate selections in notes and PDFs without modifying the source, and no way to ask a model about a selection in place.",
+ "readmeHash": "c90701aa0abafbe4b1d6e886f6f0060bfd3d25f8",
+ "relations": [
+  {
+   "evidence": "Bundles pdf.js (pdfjs-dist@4.10.38, Apache-2.0) for PDF rendering",
+   "plugin": "pdf.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "handlers that want it can point Dataview at the plugin folder",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Annotation plugin that highlights, tags and asks AI questions about selected text in notes and PDFs, storing each annotation as its own linked Markdown file.",
+ "tags": [
+  "pdf-viewer",
+  "highlighting",
+  "sticky-notes",
+  "region-screenshot",
+  "prompt-templates",
+  "openai-compatible",
+  "pdf-js",
+  "stale-anchors"
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move 2D graph labels above nodes by patching the Pixi.js render anchor",
+  "Move 3D graph persistent labels above nodes by scaling the Three.js sprite offset",
+  "Reposition the 3D graph hover tooltip above the cursor via a CSS snippet",
+  "Adjust label distance with a slider",
+  "Override the 2D graph label colour"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The 2D graph patch monkey-patches Obsidian's internal Pixi.js renderer and may break if Obsidian significantly changes its graph implementation; the 3D tooltip fix ships as a CSS snippet that may need enabling manually.",
+ "intent": "improve",
+ "intentEvidence": "Works with both the built-in 2D graph and the 3D Graph community plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The behaviour was requested on the Obsidian forum and acknowledged by the team, but never changed, so the author built this plugin to fix it.",
+ "primary": "graph",
+ "problem": "Obsidian's graph view places labels below nodes and shifts them down on hover, so with an enlarged pointer the label sits under the cursor and is never visible.",
+ "readmeHash": "acd54ecddbd1f96738ddf82229e19fa9cb594689",
+ "relations": [
+  {
+   "evidence": "The 3D graph patch targets obsidian-3d-graph.",
+   "plugin": "obsidian-3d-graph",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "obsidian-3d-graph",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Accessibility plugin that moves graph node labels above nodes so an enlarged mouse pointer does not obscure them, for the 2D graph and the 3D Graph plugin.",
+ "tags": [
+  "accessibility",
+  "enlarged-pointer",
+  "pixi",
+  "three-js",
+  "node-labels"
+ ]
+}

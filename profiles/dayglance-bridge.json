@@ -1,0 +1,75 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show the dayGLANCE agenda (calendar, tasks, events, routines) in a sidebar and complete tasks from it",
+  "Sync tasks between dayGLANCE and daily notes, chosen folders or tags, and linked project or goal notes",
+  "Link notes to dayGLANCE projects and goals, keeping status in dayglance: frontmatter for Dataview",
+  "Add selected text or the current line to dayGLANCE as an inbox task with a wikilink back to the note",
+  "Pair the vault with a GLANCEvault server and apply dayGLANCE changes to the vault with AES-256-GCM encryption"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free and open source under MIT, with no ads or payments; requires a self-hosted GLANCEvault server (no hosted option and no account with the author); the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "dayGLANCE can read and write a vault folder on its own, but a folder alone cannot push planner changes into notes, link notes to projects, or send tasks from Obsidian back to the planner.",
+ "readmeHash": "a571b95f4b2509dbe99e566deebc411d597bfb32",
+ "relations": [
+  {
+   "evidence": "Connects an Obsidian vault to dayGLANCE, a privacy-first day planner.",
+   "plugin": "dayGLANCE",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A self-hosted GLANCEvault server, dayGLANCE's sync server, with dayGLANCE syncing to it.",
+   "plugin": "GLANCEvault",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from your own template if you have one (Templater is supported)",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the others receive the result through Obsidian Sync",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "dayGLANCE",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar bridge to the dayGLANCE planner that shows your agenda and keeps tasks in daily notes, chosen folders and project notes in step.",
+ "tags": [
+  "dayglance",
+  "glancevault",
+  "self-hosted",
+  "templater",
+  "recurring-tasks",
+  "wikilinks",
+  "pairing"
+ ]
+}

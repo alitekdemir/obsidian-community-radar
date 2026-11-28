@@ -1,0 +1,85 @@
+{
+ "also": [
+  "search",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with vault notes and documents in a sidebar",
+  "run keyword and meaning-based (RAG) search over the vault",
+  "extract text from PDF, EPUB, DOCX, PPTX, XLSX and other formats",
+  "cite sources with links to paths, headings, lines, or PDF pages",
+  "connect AI providers including ChatGPT, Claude, Gemini, Ollama, and MCP servers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free and open source (MIT), desktop only, requires Obsidian 1.11.4 or later; the manifest notes it has not been manually reviewed by Obsidian staff. README is bilingual (English and Korean) and covers data-privacy choices, processing limits, and manual installation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's search is keyword-based and cannot answer questions, read PDFs or office documents directly, or link answers back to their sources.",
+ "readmeHash": "d520811fc7cd66fbd90428cc78cf17ed171b2985",
+ "relations": [
+  {
+   "evidence": "Connect ChatGPT browser sign-in, Google Gemini, OpenCode, Claude, Ollama, OpenRouter, an OpenAI API key, or a custom endpoint",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ollama uses its native API; change the endpoint URL to use a local server or Ollama Cloud.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "enable Answers informed by installed plugins, connect Context7 MCP, and name an active plugin in your question",
+   "plugin": "Context7 MCP",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local stdio uses Claude Desktop's command, optional args, and string env fields.",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "AI provider account (e.g. ChatGPT or Google)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for OpenAI, OpenRouter, OpenCode, or custom endpoints",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI chat assistant that answers questions from vault notes and documents with citations, using ChatGPT, Claude, Gemini, Ollama, or other providers.",
+ "tags": [
+  "rag",
+  "citations",
+  "chatgpt",
+  "claude",
+  "gemini",
+  "ollama",
+  "mcp"
+ ]
+}

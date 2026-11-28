@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite only the property that changed, keeping comments, quotes, blank lines, indentation and inline lists",
+  "Skip writes when a property change alters nothing",
+  "Patch processFrontMatter() and enable formatting-preserving mode in obsidian-lib-based plugins",
+  "Fall back to Obsidian's own rewrite when a change cannot be spliced in faithfully",
+  "Ship a demo vault comparing behavior with the plugin on and off"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a YAML formatter or linter; it only stops Obsidian from reformatting frontmatter lines a change does not touch.",
+ "extras": "No settings: installing is the switch and disabling restores Obsidian's default behavior. Beta versions install via BRAT. A demo vault ships with every release and doubles as the documentation; another plugin that patched processFrontMatter() before this one loads will not be called for Markdown files.",
+ "intent": "improve",
+ "intentEvidence": "It covers every plugin that edits front matter through app.fileManager.processFrontMatter(), which includes some of Obsidian's own edits",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "When any plugin edits a property, Obsidian rewrites the entire frontmatter block, destroying comments, quotes, blank lines and inline list style even in untouched properties.",
+ "readmeHash": "38be686eb4a504d545b44c3c70fc9ef052063e03",
+ "relations": [
+  {
+   "evidence": "Same preservation goal; also preserves inline comments, quotes, whitespace and lists; covers obsidian-lib writes",
+   "plugin": "yaml-comments",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "@mnaoumov/obsidian-lib",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Frontmatter protection patch that rewrites only the changed property so comments, quotes, blank lines and inline lists survive plugin edits.",
+ "tags": [
+  "yaml",
+  "comments",
+  "quoting",
+  "inline-lists",
+  "processfrontmatter",
+  "no-settings"
+ ]
+}

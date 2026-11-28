@@ -1,0 +1,85 @@
+{
+ "also": [
+  "search",
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ask questions across selected vault folders",
+  "Cite the note, heading, PDF page or web URL behind each answer",
+  "Index Markdown, TXT, PDF, EPUB, FB2 and DOCX files",
+  "Answer with local models through Ollama or LM Studio, or a cloud API",
+  "Save an answer as a new note or append it to the active note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Web search is opt-in and off until the Web or Index + Web scope is chosen. Mobile requires a cloud endpoint; local loopback servers are unavailable there. No OCR, so scanned PDFs without a text layer contribute nothing. A tool-enabled model may create, update or delete notes, so a read-only profile is advised.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Finding the note or page that holds an answer means searching and reading many files, and a generated answer gives no way to see which source supports it.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "fb3743ba0d4af51d8f62ded0b9ef9ae7dd452272",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "use a local model through Ollama or LM Studio",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LM Studio or another OpenAI-compatible server",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optionally search the web through DuckDuckGo or another configured source",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloud AI provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Chat plugin that answers questions from selected vault folders and optional web search, linking each answer to its source note, heading, PDF page, or URL.",
+ "tags": [
+  "ai-chat",
+  "rag",
+  "citations",
+  "semantic-search",
+  "ollama",
+  "lm-studio",
+  "embeddings",
+  "web-search"
+ ],
+ "textHash": "021088af728c48fbbac115ae34041dd5ae2fef7e"
+}

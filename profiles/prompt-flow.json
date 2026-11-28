@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate AI content at the cursor from configured prompt commands",
+  "Configure and switch between multiple named LLM connections (Ollama, OpenAI-compatible)",
+  "Expand wikilinks and embedded files into the prompt context",
+  "Filter prompt content by callout types, link patterns, and custom filter functions",
+  "Maintain continuous conversations with per-note prompt-file overrides"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a visual prompt-workflow builder; it generates AI content in notes from configured prompt commands.",
+ "extras": "Also installable via BRAT; the directory listing notes it has not been manually reviewed by Obsidian staff. Includes detailed troubleshooting, privacy section (no telemetry), and an external filter API for CustomJS and other plugins.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it based on Thomas Chang's LLM journaling reflection plugin tutorial, extending the approach with multiple connections, prompt files, and filtering.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate AI content from reusable custom prompts using a local LLM or configurable external providers.",
+ "readmeHash": "8ef174f0500e0b5b1b79addca26af92788c3cb14",
+ "relations": [
+  {
+   "evidence": "This plugin is based on Build an LLM Journaling Reflection Plugin for Obsidian by Thomas Chang",
+   "plugin": "Build an LLM Journaling Reflection Plugin for Obsidian (Thomas Chang)",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Additional implementation ideas come from the Canvas Conversation plugin by André Baltazar",
+   "plugin": "Canvas Conversation (André Baltazar)",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI content generation plugin that runs commands from configured prompts against local Ollama models or OpenAI-compatible APIs and inserts the response at the cursor.",
+ "tags": [
+  "ollama",
+  "openai",
+  "openrouter",
+  "llm",
+  "prompt-files",
+  "context-window",
+  "customjs"
+ ]
+}

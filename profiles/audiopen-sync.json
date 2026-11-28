@@ -1,0 +1,77 @@
+{
+ "also": [
+  "templating",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Receive AudioPen and VoiceNotes notes via a webhook into the vault",
+  "Render incoming notes from a custom Markdown template",
+  "Update or append to existing notes using the AudioPen note ID",
+  "Format AudioPen tags as Obsidian links or tags in properties",
+  "Link notes to daily notes using periodic notes settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a device-to-vault sync like Obsidian Sync; it only receives notes pushed from AudioPen or VoiceNotes via a webhook.",
+ "extras": "The README includes affiliate links to AudioPen and VoiceNotes and mentions GitHub Sponsorship; template tag variables do not handle empty states, so the author warns to include a fallback tag or link.",
+ "intent": "improve",
+ "intentEvidence": "based on the amazing work trashhalo did with obsidian-webhooks, but updated and extended",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author extended trashhalo's obsidian-webhooks work to support AudioPen and VoiceNotes.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull transcribed voice notes from AudioPen or VoiceNotes into a vault.",
+ "readmeHash": "965ae6ea1cf0ad2025d41c0ec68696dc12c64cfb",
+ "relations": [
+  {
+   "evidence": "This is based on the amazing work trashhalo did with obsidian-webhooks",
+   "plugin": "obsidian-webhooks",
+   "type": "inspired"
+  },
+  {
+   "evidence": "connects your editor to AudioPen or VoiceNotes to transcribe audio files",
+   "plugin": "AudioPen",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can follow the same instuctions to add the webhook to VoiceNotes",
+   "plugin": "VoiceNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses settings in periodic notes plugin, or daily notes plugin if periodic notes isn't installed",
+   "plugin": "periodic notes plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AudioPen or VoiceNotes",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "AudioPen/VoiceNotes service login token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Webhook-based sync that receives AudioPen and VoiceNotes transcriptions into the vault as templated notes.",
+ "tags": [
+  "audiopen",
+  "voicenotes",
+  "webhook",
+  "transcription",
+  "voice-notes",
+  "affiliate"
+ ]
+}

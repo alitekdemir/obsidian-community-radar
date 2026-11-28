@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe audio and video files via OpenAI models (GPT Transcribe, GPT-4o Transcribe, GPT-4o Mini Transcribe, Whisper)",
+  "Save transcripts as notes in a chosen vault folder",
+  "Correct mistranscribed words with a per-language custom dictionary",
+  "Post-process transcripts with optional AI word correction",
+  "Remove silence locally with an optional WebRTC VAD WASM module"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a live microphone dictation tool; it transcribes existing audio and video files chosen through a file picker.",
+ "extras": "Desktop-only (Obsidian v1.8.7+). OpenAI API is a paid, usage-billed service. File size limits apply (500MB via external picker; 128MiB/2h decoded audio for locally decoded workflows). Bilingual English/Japanese README with detailed privacy, network-usage, and troubleshooting sections.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to turn existing audio or video recordings into text notes, so transcripts must be produced in other tools and pasted in.",
+ "readmeHash": "18ec49a6100bc77e6797cfcbd7d66b32f17a1320",
+ "relations": [
+  {
+   "evidence": "OpenAI API (api.openai.com): Used for audio transcription and text processing",
+   "plugin": "OpenAI API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "fvad.wasm is an optional WebRTC VAD module from @echogarden/fvad-wasm",
+   "plugin": "@echogarden/fvad-wasm",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "OpenAI API (usage-based billing)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI Platform account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Speech-to-text plugin that transcribes audio and video files with OpenAI transcription models and saves the transcripts as notes.",
+ "tags": [
+  "openai",
+  "whisper",
+  "speech-to-text",
+  "gpt-4o-transcribe",
+  "webrtc-vad",
+  "ffmpeg"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Analyze jpg, jpeg, png and webp images with vision AI models",
+  "Return a keyword list for each analyzed image",
+  "Configure AI backends via the AI Providers plugin or built-in Ollama, Gemini and llama.cpp providers",
+  "Cache analysis results in JSON files that can be synced between devices",
+  "Expose an API for use as a dependency in other plugins"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Going forward, new AI backends will be supported through the AI Providers plugin rather than per-service providers in this plugin; new provider requests should go to the AI Providers repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian treats images as opaque files with no way to extract their content as searchable text or keywords.",
+ "readmeHash": "64d4a9643397b720c221b564237ad2867a7360c0",
+ "relations": [
+  {
+   "evidence": "The recommended way to configure AI backends (and the future default) is via the AI Providers community plugin",
+   "plugin": "AI Providers",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin is integrated with the Obsidian OmniSearch Plugin.",
+   "plugin": "OmniSearch",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin is heavily inspired by the Obsidian Text Extractor Plugin.",
+   "plugin": "Obsidian Text Extractor Plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "AI Providers",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "OmniSearch",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Auth token for Ollama proxies",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that analyzes images in the vault with vision-capable AI models (Ollama, Gemini, llama.cpp) and returns a keyword list for each image.",
+ "tags": [
+  "ollama",
+  "llava",
+  "google-gemini",
+  "llama-cpp",
+  "vision-models",
+  "keywords",
+  "image-indexing",
+  "local-llm"
+ ]
+}

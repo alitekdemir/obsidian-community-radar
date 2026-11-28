@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record online meetings as separate microphone and system-audio tracks",
+  "Transcribe audio and video with local Whisper models",
+  "Separate and label speakers by diarization",
+  "Remember named speakers by voice for later meetings",
+  "Summarize transcripts with a local Ollama model and insert them into notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. First run installs a Python environment (about 1.5 GB on Linux, 0.6 GB on macOS) and downloads Whisper (about 3 GB) plus speaker models; recordings and voice prints are stored outside the vault, and voice prints are biometric data.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian cannot capture meeting audio or turn it into a speaker-labelled transcript and summary inside a note.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "b6a559d766d2f9294f362540ff2ac2f0687ddc37",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Summary: any Ollama model (default qwen3.5:9b)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "uv",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "BlackHole",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Desktop plugin that records online or in-person meetings and writes a speaker-labelled transcript and summary into a note using local models.",
+ "tags": [
+  "whisper",
+  "transcription",
+  "speaker-diarization",
+  "ollama",
+  "meeting-notes",
+  "summarization"
+ ],
+ "textHash": "c1b8e2617d350e2a2010d5b2aaadaa2e26b5a883"
+}

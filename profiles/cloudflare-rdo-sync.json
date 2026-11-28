@@ -1,0 +1,82 @@
+{
+ "also": [
+  "ai",
+  "backup"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault between devices through your own Cloudflare Worker with end-to-end encryption",
+  "Resolve conflicts with diff views, merge options, and an optional newest-wins policy",
+  "Browse and restore snapshot history by day, week, or individual sync",
+  "Expose the vault to Claude, Codex, or other MCP clients through an optional, separately deployed agent Worker",
+  "Manage access and admin tokens, multiple vault deployments, and deny rules for the agent"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "You deploy and maintain your own Worker, R2 bucket, and Durable Object; the Cloudflare free plan is enough. Limits include 100 MiB per file and 100,000 files per snapshot. AGPL-3.0-or-later license, provided as-is without warranty; snapshot history is explicitly not a backup.",
+ "intent": "alternative",
+ "intentEvidence": "Not affiliated with Obsidian, and not the official sync service.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Vault syncing normally depends on a paid official service or plugins that guess from timestamps, with no encrypted option on infrastructure you control.",
+ "readmeHash": "c8326dff389ca8f95c628c8ffd9ade0dffa0d727",
+ "relations": [
+  {
+   "evidence": "Not affiliated with Obsidian, and not the official sync service.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Sync your vault to your own Cloudflare account",
+   "plugin": "Cloudflare",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An optional second Worker lets Claude, Codex or any MCP client read",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20+ for deployment scripts",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client such as Claude, ChatGPT, or Codex for AI access",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted sync to your own Cloudflare account with end-to-end encryption, snapshot history, and an optional MCP server for AI assistants.",
+ "tags": [
+  "cloudflare",
+  "self-hosted",
+  "e2e-encryption",
+  "mcp",
+  "diff3",
+  "snapshots",
+  "durable-objects"
+ ]
+}

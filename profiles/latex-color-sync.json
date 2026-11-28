@@ -1,0 +1,45 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite LaTeX formulas to \\textcolor{#RRGGBB}{...} matching nearby text color",
+  "Auto-sync formula colors when editing inserts a newline",
+  "Sync formula colors in the selection, current line, or whole document via commands",
+  "Skip formulas in code blocks, inline code, frontmatter, HTML-like blocks, or containing embedded color commands",
+  "Sample rendered text color from the DOM or fall back to a fixed color"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a theme or color picker tool; it only rewrites formula source to match colors the theme already applies to nearby text.",
+ "extras": "Documentation includes a detailed settings table explaining when to enable or disable each option, common reasons commands report 'no changes', and known limits (formulas must open and close on the same line). README also covers build/packaging and GitHub release workflow for developers. Requires Obsidian >= 1.5.0 and works in source mode only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian math formulas don't follow the theme color of surrounding text like headings, links, or quotes, so formulas stand out with the wrong color.",
+ "readmeHash": "e8331842518e45d9b24e259ad4d9ab0358cfa7f7",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "LaTeX formula color sync that rewrites $...$ and $$...$$ formulas to \\textcolor{#RRGGBB}{...} matching nearby text color in source mode.",
+ "tags": [
+  "textcolor",
+  "formulas",
+  "source-mode",
+  "color-matching",
+  "codemirror"
+ ]
+}

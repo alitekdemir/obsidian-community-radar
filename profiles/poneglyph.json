@@ -1,0 +1,79 @@
+{
+ "also": [
+  "research",
+  "links"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "generate a fully cited research node from a thesis written in IDEA.md",
+  "surface research gaps by traversing a node's ancestry and suggesting thesis topics",
+  "insert bidirectional links between semantically similar nodes via a built-in vector database",
+  "maintain a deduplicated citation ledger in SOURCES.md keyed and sorted by h-index",
+  "visualize node lifecycle status (draft, researched, verified) as graph colours via CSS snippets"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a replacement for actual research: generated nodes can contain hallucinated citations, so human verification via the verified status tag is part of the workflow.",
+ "extras": "The README carries a disclaimer that generated nodes may contain hallucinated citations and outdated information, and requires a human-set verified tag before output is trusted. Sci-Hub paper fetching is described as in beta. Planned but not yet available: Zotero integration, LaTeX literature-review export, and automatic contradiction detection.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Building a cited research map in Obsidian is manual: the agent fills gaps by generating researched nodes, finding missing connections, and maintaining a vault-wide citation ledger.",
+ "readmeHash": "0b51d5ceeb65ea07c81fcceb66741a16153498c4",
+ "relations": [
+  {
+   "evidence": "Ollama can be used for both local inference and local embeddings without an API key",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "via CSS snippets or the Style Settings plugin",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Unpaywall email for open-access paper discovery",
+   "plugin": "Unpaywall",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Mistral, Anthropic, Ollama Cloud or other cloud LLM/embedding provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "local Ollama for offline inference and embeddings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI deep-research agent that generates fully cited markdown research nodes from a thesis and keeps the knowledge graph semantically linked and cited.",
+ "tags": [
+  "ollama",
+  "openai",
+  "embeddings",
+  "vector-database",
+  "citations",
+  "unpaywall",
+  "arxiv",
+  "sci-hub"
+ ]
+}

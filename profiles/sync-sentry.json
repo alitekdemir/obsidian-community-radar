@@ -1,0 +1,66 @@
+{
+ "also": [
+  "files",
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Log every file move, rename, delete and create in a per-device journal and undo entries with one click",
+  "Scan for enabled-but-missing plugins and re-download them from GitHub at startup or on demand",
+  "Check community plugins for updates and update them individually or all at once",
+  "Save named plugin profiles and re-apply them on any device, downloading missing plugins",
+  "Save and apply named workspace layout snapshots that travel with the vault sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery",
+   "Workspaces"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync engine or a replacement for Obsidian Sync; it monitors and repairs a vault that is already synced by an external file-level service such as iCloud.",
+ "extras": "Restoring deletions requires the 'Move to Obsidian trash (.trash)' setting, and the README recommends enabling the core File Recovery plugin alongside this one.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "File-level sync services like iCloud silently break vaults: there is no history of file operations to undo, plugin files get evicted or half-synced, and workspace.json cannot be synced between devices.",
+ "readmeHash": "77eef1a97a86f9fbc363fea54f5889b4eb63cd9c",
+ "relations": [
+  {
+   "evidence": "If you sync your vault with iCloud (or any file-level sync)",
+   "plugin": "iCloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "re-downloaded automatically from GitHub",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "iCloud or another file-level sync service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Vault health dashboard for file-level-sync users that logs file operations with undo, repairs and updates plugins, and saves portable workspace layout snapshots.",
+ "tags": [
+  "icloud",
+  "undo",
+  "file-operation-history",
+  "plugin-profiles",
+  "plugin-repair",
+  "layout-snapshots",
+  "multi-device"
+ ]
+}

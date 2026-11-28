@@ -1,0 +1,76 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the current note to a CSDN draft",
+  "Write csdn_article_id back to frontmatter for later updates",
+  "Browse, search, import and delete drafts in a manager panel",
+  "Manage several CSDN accounts with isolated browser profiles",
+  "Log in through an in-app QR code modal"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a publishing tool; it only fills the CSDN editor and saves drafts, never touching the publish button.",
+ "extras": "Full usage documentation lives in the plugin's Wiki. The plugin spawns a local Python bridge process, keeps Playwright login profiles outside the vault, and only reports local image references instead of uploading them.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Getting a note onto CSDN means pasting it into the web editor by hand, and existing drafts cannot be browsed or edited from inside Obsidian.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "7ad109af57f0cb945080dec96157d9726aa340ce",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "syncs the current Markdown note to a CSDN blog draft",
+   "plugin": "CSDN",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The bridge drives a Playwright Chromium browser to fill the CSDN Markdown editor",
+   "plugin": "Playwright",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.11+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Playwright",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "CSDN account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Obsidian plugin that syncs the current Markdown note to a CSDN blog draft via a local Playwright bridge, with draft management and multi-account support.",
+ "tags": [
+  "blog",
+  "drafts",
+  "wechat",
+  "qr-code",
+  "local-server",
+  "python",
+  "yaml"
+ ],
+ "textHash": "2e3468672bf88071f17f05fd9ee122ba61b22738"
+}

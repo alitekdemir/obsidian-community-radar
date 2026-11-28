@@ -1,0 +1,71 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "rephrase selected text in place from a command or inline button",
+  "cycle through alternate suggestions with the keyboard before accepting",
+  "connect to Ollama, OpenAI, OpenRouter, or a custom OpenAI-compatible endpoint",
+  "store provider API keys in Obsidian Secret Storage",
+  "adjust how much nearby text is sent for style and context"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The default provider is Ollama with a cloud model (nemotron-3-super:cloud), so out of the box note content is sent off-device; the README explains how to switch to a local model. Includes a detailed network and privacy section stating no telemetry, ads, or background requests.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get AI-generated rewording suggestions for a text selection without leaving the editor or writing to the note first.",
+ "readmeHash": "1978881f9b795539c8af805f34807dff07f75f2b",
+ "relations": [
+  {
+   "evidence": "Use Ollama, OpenAI, OpenRouter, or another OpenAI-compatible chat API.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI: requests are sent to  unless you change the API base URL.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter: requests are sent to  the plugin can also request OpenRouter's public model catalog.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI/OpenRouter/custom provider key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI rephrasing tool that replaces selected text in the editor with suggestions from Ollama or OpenAI-compatible chat APIs.",
+ "tags": [
+  "ollama",
+  "openai",
+  "openrouter",
+  "llm",
+  "paraphrasing",
+  "inline-suggestions"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start or join a live collaboration session on the current note from a view-header icon or command",
+  "Share a read-only link that lets others watch the document update live",
+  "Sync edits peer-to-peer at span granularity without overwriting concurrent edits",
+  "Watch the note on disk and merge changes made in external editors such as VS Code",
+  "Track session identity in the note frontmatter via a domd-id key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "macOS only (Apple Silicon or Intel) at this stage; the plugin is not yet in the community store and must be installed manually, though the companion desktop app is downloaded with one click if missing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in real-time co-editing, and existing collaboration options require accounts or external services.",
+ "readmeHash": "0ab63c1d3baac75aad459863d5e151718741aea8",
+ "relations": [
+  {
+   "evidence": "The syncing is handled by DoMD, a small desktop app",
+   "plugin": "DoMD (desktop app)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "edit the note in Obsidian, in VS Code, in whatever you like",
+   "plugin": "VS Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DoMD desktop app",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Peer-to-peer collaboration plugin that lets several people edit one note live, or share a read-only live view, with no account.",
+ "tags": [
+  "peer-to-peer",
+  "live-cursors",
+  "span-granularity",
+  "macos"
+ ]
+}

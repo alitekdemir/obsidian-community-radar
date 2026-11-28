@@ -1,0 +1,68 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [
+  "security-analysts"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Check reputation of IPs, domains and URLs against VirusTotal and AbuseIPDB",
+  "Detect IOCs in notes, including defanged indicators like 8[.]8[.]8[.]8",
+  "Annotate lines with reputation data and links to full reports",
+  "Defang or refang IPs, domains and URLs by command, hotkey or context menu",
+  "Cache results and skip private addresses and user-listed domains"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "API keys require Obsidian 1.11.4 or later and are stored in Obsidian's secret storage. The README warns that the free VirusTotal and AbuseIPDB APIs are non-commercial, so organisations may need licensed keys. Roadmap lists unimplemented features such as file hash analysis and more providers like URLhaus.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "SOC analysts working in Obsidian need to look up indicator reputation and safely handle defanged IOCs without leaving the editor or sending private data to third parties.",
+ "readmeHash": "b7f534d2ff9a99af4c287793a4cf1ca6194883eb",
+ "relations": [
+  {
+   "evidence": "Checks IPs with VirusTotal and AbuseIPDB, and domains and URLs with VirusTotal",
+   "plugin": "VirusTotal",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sends IP addresses to VirusTotal and AbuseIPDB, and domains and URLs to VirusTotal",
+   "plugin": "AbuseIPDB",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "VirusTotal API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AbuseIPDB API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Cybersecurity toolkit that checks IP, domain and URL reputation via VirusTotal and AbuseIPDB, and defangs or refangs IOCs in notes.",
+ "tags": [
+  "api-key",
+  "annotations",
+  "context-menu",
+  "command-palette",
+  "external-links"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

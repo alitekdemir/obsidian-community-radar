@@ -1,0 +1,65 @@
+{
+ "also": [
+  "publishing",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes, attachments and .obsidian configuration across devices",
+  "Resolve conflicts with keep local, keep remote, keep both or three-way Markdown merge",
+  "Share notes and folders by link and publish public blogs",
+  "Collaborate on Markdown notes through invitations and live updates",
+  "Manage files in a web console with history, diffs, restore and recycle bin"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Publish",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an object-storage (S3/OSS) client; it syncs to its own self-hosted Go server.",
+ "extras": "Requires deploying and running a separate Go server (Linux binary/systemd, Docker, or runtime package); community plugin settings sync uploads full data.json files that may contain credentials; WASM and executable server extensions run with host or server-account access and should only be installed after review.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Users who want their vault synced through a server they run themselves, with note sharing and a public blog from the same place, have no self-hosted option.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "a2d11408cfdffa3c916a9468f9c127d953545000",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OSS Sync server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OSS Sync server account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Self-hosted sync server and Obsidian client that keeps notes, attachments and config in sync across devices, with sharing, blog publishing and collaboration.",
+ "tags": [
+  "self-hosted",
+  "docker",
+  "sqlite",
+  "conflict-resolution",
+  "share-links",
+  "blog",
+  "version-history"
+ ],
+ "textHash": "f8e6958d39c1e285173284a0997523cc61b14828"
+}

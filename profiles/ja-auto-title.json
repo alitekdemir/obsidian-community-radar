@@ -1,0 +1,88 @@
+{
+ "also": [
+  "automation",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-rename untitled notes after typing stops",
+  "Generate Japanese titles from note text via Gemini or Claude",
+  "Batch-title all untitled notes with confirmation",
+  "Undo the last rename",
+  "Exclude folders and individual notes from titling"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "API keys are stored per device in Obsidian's Keychain and never synced, so each device must be set up once. Note text (up to about 8,000 characters, without front matter, comments or embedded images) is sent to the chosen AI service only when a title is generated. Gemini has a free tier that may use submitted content to improve Google's products; Claude requires paid credits. Installation is via BRAT until community approval.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted to stop thinking up a file name for each new note.",
+ "primary": "ai",
+ "problem": "New notes stay named 無題のファイル or Untitled, so the user has to invent a filename for every note by hand.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "1b14d74ea6a2a94a68863bee75f8094e80b4b5de",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Gemini API (generativelanguage.googleapis.com), or",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic Claude API (api.anthropic.com). No other network requests are made.",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google AI Studio (Gemini) API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic Console (Claude) API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google AI Studio or Anthropic Console account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Anthropic Claude API credits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plugin that renames untitled notes with AI-generated Japanese titles based on note content, using Google Gemini or Anthropic Claude.",
+ "tags": [
+  "gemini",
+  "claude",
+  "japanese",
+  "rename",
+  "filenames",
+  "api-key"
+ ],
+ "textHash": "1be71a5fac89c71b760e79af11ec36c764e779ac"
+}

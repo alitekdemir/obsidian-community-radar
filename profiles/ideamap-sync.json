@@ -1,0 +1,54 @@
+{
+ "also": [
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync note names, tags, and links to an ideamap account",
+  "authenticate with an ideamap API token",
+  "open notes in Obsidian from ideamap's vault graph",
+  "confirm inbound sync requests via the obsidian://ideamap-sync URI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not cross-device vault synchronization; only note metadata is uploaded to ideamap, and note contents stay on the device.",
+ "extras": "README warns that note names, folder names, and tags alone can be sensitive; the API token is stored in the plugin's data.json and should be excluded from public backups. Accounts are free, and each sync fully replaces the previous import.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to export a vault's structure (titles, tags, link graph) to the ideamap platform for viewing and linking back into the vault.",
+ "readmeHash": "c830739a0ab2e4e532013fb33e6ff4eaca3bdde4",
+ "relations": [
+  {
+   "evidence": "Import your vault's note names, tags, and links into your ideamap account.",
+   "plugin": "ideamap",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "ideamap account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs note names, tags, and links from a vault into the user's ideamap account, without uploading note contents.",
+ "tags": [
+  "ideamap",
+  "api-token",
+  "vault-graph",
+  "deep-links",
+  "metadata-export"
+ ]
+}

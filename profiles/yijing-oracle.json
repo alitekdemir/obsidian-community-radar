@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Cast three-coin hexagram readings with changing lines in a sidebar panel",
+  "Save readings as Markdown notes with frontmatter or insert them at the cursor",
+  "Stream reading interpretations from a local OpenAI-compatible LLM server",
+  "Generate a meditation image per reading via the Local Image Generator plugin",
+  "Configure language, register, filenames, and per-field frontmatter keys"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Optional AI and image features stay off until configured; setup and troubleshooting guides live in separate documentation files.",
+ "intent": "alternative",
+ "intentEvidence": "Native Obsidian re-implementation of the oracle core from the Yijing web/app project.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built a focused native plugin rather than a port, so that \"the vault is the oracle journal\".",
+ "primary": "thinking",
+ "problem": "Obsidian has no built-in way to cast I Ching readings or keep them as searchable, linkable vault notes.",
+ "readmeHash": "e69a61e01f04ccc87c6f87a05c474f7bc4e34136",
+ "relations": [
+  {
+   "evidence": "Native Obsidian re-implementation of the oracle core from the Yijing web/app project.",
+   "plugin": "Yijing web/app project",
+   "type": "alternative"
+  },
+  {
+   "evidence": "generate one image per reading from the hexagram's curated motif, through the Local Image Generator plugin",
+   "plugin": "Local Image Generator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "with the LLM Endpoint Manager the manager decides which endpoint is used",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Local Image Generator",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio or Ollama (OpenAI-compatible local server)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Per-endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Three-coin I Ching oracle that casts hexagram readings in a sidebar panel and saves each reading as a Markdown note with frontmatter.",
+ "tags": [
+  "i-ching",
+  "divination",
+  "hexagrams",
+  "wilhelm",
+  "local-llm",
+  "ollama",
+  "lm-studio"
+ ]
+}

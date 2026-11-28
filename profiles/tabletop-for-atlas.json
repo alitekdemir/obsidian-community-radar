@@ -1,0 +1,96 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Opens Atlas VTT maps on a 3D board with tokens, minis, walls, doors and lights",
+  "Imports 3D minis from GLB, HeroForge and TaleSpire files into a gallery",
+  "Simulates physics dice rolls and logs results to Atlas's roll log",
+  "Runs initiative tracking, token groups and turn indicators during fights",
+  "Stacks scenes as elevation layers with line of sight, materials and lighting"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-18",
+ "disambiguation": "Not a standalone virtual tabletop; it renders Atlas VTT maps in 3D and depends on Atlas VTT for maps, tokens, initiative and rules.",
+ "extras": "GLB minis must be self-contained and uncompressed (no Draco or Meshopt); some lighting and displacement features cost frame rate on slow graphics cards, and the README notes users should check HeroForge and creator terms before sharing minis.",
+ "intent": "improve",
+ "intentEvidence": "Tabletop for Atlas VTT is a community extension.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ttrpg",
+ "problem": "Atlas VTT maps are flat 2D images, so GMs who want a three-dimensional tabletop view of the same maps, walls and tokens have no way to get one inside Obsidian.",
+ "readmeHash": "9b7c612fad3f382f61d2f5ea8b04a541af48cefb",
+ "relations": [
+  {
+   "evidence": "Opens Atlas VTT maps on a 3D board in Obsidian.",
+   "plugin": "Atlas VTT",
+   "type": "extends"
+  },
+  {
+   "evidence": "Players joined through Connect for Atlas VTT or Atlas Online see the minis too",
+   "plugin": "Connect for Atlas VTT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The dice's shapes, faces and pack format come from Interactive Dice for Atlas VTT (MIT).",
+   "plugin": "Interactive Dice for Atlas VTT",
+   "type": "inspired"
+  },
+  {
+   "evidence": "a TaleSpire creature (root.tsMod, or the zip from mod.io)",
+   "plugin": "TaleSpire",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a HeroForge Unity3D export (the .unity3d file, or the zip HeroForge gives you)",
+   "plugin": "HeroForge",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Camera (as in TacticalEngine):",
+   "plugin": "TacticalEngine",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Atlas VTT",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "TaleSpire",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "HeroForge",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "3D board view for Atlas VTT maps with tokens, 3D minis, walls, doors, lights, dice and initiative tracking inside Obsidian.",
+ "tags": [
+  "atlas-vtt",
+  "heroforge",
+  "talespire",
+  "glb",
+  "poly-haven",
+  "line-of-sight",
+  "initiative",
+  "dice-rolling"
+ ]
+}

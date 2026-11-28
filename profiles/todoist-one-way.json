@@ -1,0 +1,59 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push Markdown checkbox tasks tagged #todoist to Todoist",
+  "Trigger sync automatically when a note is saved",
+  "Track synced tasks with a todoist-id marker written back to the task line",
+  "Close or reopen the matching Todoist task when the checkbox changes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not a two-way sync: Todoist changes are ignored and never imported back into Obsidian.",
+ "extras": "Described as an MVP: due dates, priorities, labels, subtasks, per-task project assignment, conflict detection, and task deletion are not implemented. The API token is stored in data.json, which the author advises excluding from vault synchronization. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to send its Markdown tasks to Todoist, and existing sync approaches pull Todoist changes back into notes, which this author wants to avoid.",
+ "readmeHash": "bfbb2465cdaa13acea0b7f6b824fe4af0c380f57",
+ "relations": [
+  {
+   "evidence": "sends any task line ending with #todoist to your Todoist account",
+   "plugin": "Todoist",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Todoist API token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Todoist account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that pushes Markdown checkbox tasks tagged #todoist from Obsidian notes to Todoist when a note is saved.",
+ "tags": [
+  "todoist",
+  "one-way-sync",
+  "api-token",
+  "checkbox-tasks",
+  "task-push"
+ ]
+}

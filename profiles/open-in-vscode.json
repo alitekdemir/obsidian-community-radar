@@ -1,0 +1,65 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "open the active note in an external editor",
+  "open the vault folder in an external editor",
+  "detect or manually configure the editor executable path",
+  "reuse an already open editor window",
+  "test and debug the launch configuration"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not limited to VS Code despite the name; the editor executable can be overridden to launch Cursor, Trae, Zed or Windsurf.",
+ "extras": "README addresses community-review permission flags for child_process and fs/path use, includes troubleshooting (exit code 9009, PATH inheritance, .zshrc on macOS) and documents the plugin bilingually in English and Simplified Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to hand the current note or the vault folder to an external code editor, and launching one from Electron often fails on Windows because PATHEXT is missing.",
+ "readmeHash": "e130fd9bbfd16306bf2fcb8bc8df47a283864bf7",
+ "relations": [
+  {
+   "evidence": "Open the current Obsidian note in VS Code with one command: open the active file, or open the whole vault as a folder.",
+   "plugin": "VS Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The editor executable can be overridden, so cursor, trae, zed and windsurf work too",
+   "plugin": "cursor, trae, zed, windsurf",
+   "type": "integrates"
+  },
+  {
+   "evidence": "搭配使用 markdown-open-typora-obsidian",
+   "plugin": "markdown-open-typora-obsidian",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "VS Code or another editor with a CLI (Cursor, Trae, Zed, Windsurf)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Command that opens the current note or the vault folder in VS Code or a configurable editor such as Cursor, Zed, Trae or Windsurf.",
+ "tags": [
+  "vscode",
+  "cursor",
+  "zed",
+  "windsurf",
+  "trae"
+ ]
+}

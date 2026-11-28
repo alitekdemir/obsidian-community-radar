@@ -1,0 +1,81 @@
+{
+ "also": [
+  "tags"
+ ],
+ "audience": [
+  "librarians",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "classify tags from note title, frontmatter, content, or selection",
+  "insert tags as #tags, WikiLinks, frontmatter keys, or title suffixes",
+  "restrict LLM tag choices with filtered or manual reference tags",
+  "customize prompts, chat roles, and output prefix/suffix",
+  "test and configure OpenAI-compatible or Jina AI endpoints"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Support for local OpenAI-compatible APIs (Ollama, LocalAI) is explicitly marked experimental with no stability guarantee; Jina AI has a free tier with 10M tokens and often no account creation needed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Manually tagging notes takes time, and Obsidian has no built-in way to classify notes automatically from their content.",
+ "readmeHash": "b2846d347b758e6706c8be490d44168acaef51ba",
+ "relations": [
+  {
+   "evidence": "OpenAI-compatible API: Uses OpenAI API, Local AI (Ollama, LocalAI), or other compatible APIs",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local OpenAI-compatible API (Ollama, LocalAI)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local OpenAI-compatible API (Ollama, LocalAI)",
+   "plugin": "LocalAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Jina AI: Uses Jina AI Classifier (cost-effective, multilingual)",
+   "plugin": "Jina AI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key or Jina AI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LocalAI for local AI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI-powered tag classifier that analyzes a note's title, frontmatter, content, or selection and inserts suggested tags via OpenAI-compatible APIs or Jina AI.",
+ "tags": [
+  "chatgpt",
+  "ollama",
+  "localai",
+  "jina-ai",
+  "llm",
+  "zero-shot-classification",
+  "ddc",
+  "lcsh"
+ ]
+}

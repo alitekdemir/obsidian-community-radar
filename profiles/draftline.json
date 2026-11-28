@@ -1,0 +1,58 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create manual version snapshots inside the note body",
+  "Switch which stored version is the editable note body",
+  "Show inline green/red word-level diffs between versions in Live Preview",
+  "Store history as Obsidian callouts with structured markers readable by agents and other tools"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery",
+   "Callouts"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a git or sync tool; snapshots are created manually and stored as callouts inside the note file itself.",
+ "extras": "Not yet in the Obsidian Community Plugins directory; must be installed via BRAT, and the README recommends testing in a disposable vault rather than a primary one. Local and offline: no network calls, self-update, or data leaving the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted both version control over notes and a shared, readable format for discussing changes between drafts with an AI assistant.",
+ "primary": "backup",
+ "problem": "Obsidian has no built-in per-note version history that travels with the file itself and can be read by humans or AI tools without external databases.",
+ "readmeHash": "72006290b2e0f8993f13664643bf5c7218ea5b4a",
+ "relations": [
+  {
+   "evidence": "Install and enable the BRAT plugin from Community Plugins in a dedicated disposable vault",
+   "plugin": "BRAT (Beta Reviewer's Auto-update Tool)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Version-snapshot plugin that archives manual Markdown snapshots inside each note and shows inline word-level diffs between versions.",
+ "tags": [
+  "inline-diff",
+  "version-snapshots",
+  "callouts",
+  "ai-assistant",
+  "brat",
+  "local-first"
+ ]
+}

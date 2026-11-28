@@ -1,0 +1,55 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Maintain a global custom word list inside the .obsidian folder",
+  "Apply the global list to the native spellcheck dictionary",
+  "Merge local device words into the global list",
+  "Replace the local dictionary with the global list, with a merge popup when over 5 words would be deleted",
+  "Poll every 15 seconds for local and external dictionary changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a word-lookup or thesaurus dictionary; it only syncs the custom spellcheck word list.",
+ "extras": "Relies on Electron's internal Session dictionary API, so it may break if Obsidian changes or restricts that API; README recommends backing up large dictionaries; no mobile support; not manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "This plugin aims to make syncing Obsidian's native spellcheck dictionary on desktop possible.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's native spellcheck custom dictionary lives per device, so words added on one desktop do not appear on another.",
+ "readmeHash": "97ed1882e99b4094ed670a7dd340c81eac736cc3",
+ "relations": [
+  {
+   "evidence": "using any sync strategy such as Obsidian Sync should automatically handle the syncing of the custom word list",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Obsidian Sync or another sync strategy",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Spellcheck dictionary syncer that keeps a global custom word list in .obsidian and applies it to Obsidian's native spellcheck across desktop devices.",
+ "tags": [
+  "spellcheck",
+  "dictionary",
+  "electron"
+ ]
+}

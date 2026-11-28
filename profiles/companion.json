@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "suggest inline completions as ghost text while typing",
+  "accept suggestions word-by-word with Tab or a mobile toolbar command",
+  "switch between completion providers (OpenAI, Groq, AI21, goose.ai, Ollama)",
+  "save settings as presets exposed as global editor commands",
+  "toggle completion from the command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Recommends Groq (free as of end of May 2024) or a local Ollama model to lower latency and cost; troubleshooting is handled via GitHub issues rather than in the README.",
+ "intent": "new",
+ "intentEvidence": "providing suggestions in ghost text that can be accepted or ignored by the you as you see fit, similar to what github copilot does",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Obsidian has no built-in AI-powered completion while writing, so suggestions must come from an external tool or manual prompting.",
+ "readmeHash": "7e05066148f4b7fe10104ad89238bc2100eff976",
+ "relations": [
+  {
+   "evidence": "Uses codemirror-companion-extension, my own fork",
+   "plugin": "codemirror-companion-extension",
+   "type": "extends"
+  },
+  {
+   "evidence": "my own fork of saminzadeh's awesome codemirror-extension-inline-suggestion",
+   "plugin": "codemirror-extension-inline-suggestion",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Groq, AI21, or goose.ai API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama running locally",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI autocomplete plugin that shows word and sentence completions as ghost text using OpenAI ChatGPT/GPT-3, Groq, AI21, goose.ai, or local Ollama models.",
+ "tags": [
+  "openai",
+  "chatgpt",
+  "gpt-3",
+  "ollama",
+  "groq",
+  "ghost-text",
+  "jurassic-2",
+  "goose-ai"
+ ]
+}

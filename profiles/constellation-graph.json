@@ -1,0 +1,70 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Explore the vault as an interactive 3D graph with search, selection and note opening",
+  "Fly a starfighter through notes in a flight-and-combat sandbox",
+  "Share a multiplayer room with up to four pilots over a relay",
+  "Replay the vault's creation history as a timelapse animation",
+  "Fold folders or tags into single points and reopen them"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a game app or publishing tool; Pilot mode is a sandbox that never selects, opens or changes a note, and the plugin never writes to the vault.",
+ "extras": "Formerly named Constellation Graph with the same plugin id. Desktop only, requires WebGL and Obsidian 1.7.2 or newer. Multiplayer has not yet been tested across the internet between real installs, and the free default relay has usage limits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's graph view is a static 2D layout, with no 3D navigation, animation, or shared multi-user viewing of the vault.",
+ "readmeHash": "aba3c6e39f1b4ae6ed69f1a24fed5cfcc4ca311f",
+ "relations": [
+  {
+   "evidence": "The bundled main.js includes: - Three.js, MIT licence, copyright the Three.js authors.",
+   "plugin": "Three.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "d3-force-3d, MIT licence, copyright Vasco Asturiano; it builds on d3-force",
+   "plugin": "d3-force-3d",
+   "type": "integrates"
+  },
+  {
+   "evidence": "adapted from the multiplayer work by j117mw3 in pull request #1, with thanks",
+   "plugin": "multiplayer work by j117mw3",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ntfy.sh relay (or a self-chosen relay) for multiplayer rooms and optional arcade score submission",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Interactive 3D galaxy view of the vault's notes and links, with a starfighter flight sandbox and up to four-pilot multiplayer.",
+ "tags": [
+  "webgl",
+  "three-js",
+  "flight-sim",
+  "multiplayer",
+  "webrtc",
+  "ntfy",
+  "screensaver",
+  "gamepad"
+ ]
+}

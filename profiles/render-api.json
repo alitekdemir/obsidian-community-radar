@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "serve rendered markdown, vault files, and Dataview results over a local REST API",
+  "execute Dataview DQL queries and DataviewJS code",
+  "return output as HTML, plain text, or structured JSON",
+  "expose MCP tools (health, render_markdown, render_file, dataview_query, dataviewjs) to AI clients",
+  "configure an API key and CORS origins for requests"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (no mobile). README includes a detailed section explaining each permission flagged by the community market review (network interfaces, filesystem write for the MCP bridge script, clipboard). Server binds to localhost with optional API key auth; installation is via manually downloaded release files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Dataview and rendering results live only inside Obsidian, so external scripts or AI agents have no way to fetch them over HTTP.",
+ "readmeHash": "5a6e82df0f990329956410091f69f984fcc72553",
+ "relations": [
+  {
+   "evidence": "may invoke the dataview plugin's JavaScript API when enabled",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "enables direct integration with AI tools that support the Model Context Protocol",
+   "plugin": "Model Context Protocol",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Have Hermes Agent or Claude Code query your vault via API",
+   "plugin": "Hermes Agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Configuration (Claude Desktop):",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI client such as Hermes Agent, Claude Code, or Claude Desktop",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Local REST API and MCP server that exposes Dataview query results and rendered markdown from a vault to AI tools and external scripts.",
+ "tags": [
+  "mcp",
+  "rest-api",
+  "dataview",
+  "http-server",
+  "claude-desktop",
+  "hermes-agent",
+  "api-key",
+  "wsl"
+ ]
+}

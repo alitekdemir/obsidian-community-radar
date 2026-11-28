@@ -1,0 +1,58 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Toggle sharing per note via a Boolean property",
+  "Copy shared notes and their embedded non-Markdown attachments to a destination folder",
+  "Sync shared copies when notes or known attachments change",
+  "Reconcile and initialize sharing toggles across the vault",
+  "Move managed copies to the OS trash when sharing is switched off"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a web-publishing or share-link tool; it copies files to a local destination folder that an external AI agent uses as its workspace.",
+ "extras": "Desktop-only; makes no network requests, needs no account, and has no telemetry. The README warns it is an allowlist, not a sandbox, and that a sandboxed agent can modify anything mounted into it; the full Docker/Terminal setup is documented elsewhere.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian gives no built-in way to expose only chosen notes and attachments to an external AI tool without risking the rest of a private vault.",
+ "readmeHash": "bfacb8eda415276012ee1f2de377f99a8d767da4",
+ "relations": [
+  {
+   "evidence": "For the complete Obsidian, Docker Sandbox and Terminal workflow, see Full setup.",
+   "plugin": "Docker Sandbox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AI agent or external tool using the destination folder as its workspace (Docker for the sandbox workflow)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Allowlist-based exporter that copies notes flagged with a Boolean property, plus their embedded attachments, to a folder workspace for AI agents.",
+ "tags": [
+  "docker",
+  "sandbox",
+  "ai-agent",
+  "allowlist",
+  "privacy",
+  "file-copy"
+ ]
+}

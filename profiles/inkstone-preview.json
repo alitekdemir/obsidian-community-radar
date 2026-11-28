@@ -1,0 +1,64 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [
+  "inkstone-site-authors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "preview notes as the InkStone site renders them, live on save",
+  "navigate two-way between the editor and preview links",
+  "scaffold site notes (homepage, page, book, listing, feed, translations, language variants)",
+  "toggle between visitor and Owner view of private pages",
+  "commit, pull and push the site folder from a Git panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Does not deploy or host the site; it only previews InkStone's local output and pushes changes to Git.",
+ "extras": "Early release (0.x); desktop only, tested on macOS and Linux, Windows untested live. Supports pre-releases via BRAT. The author discloses that rendered pages may load external resources (e.g. Giscus) and that the plugin runs Python and git as child processes.",
+ "intent": "new",
+ "intentEvidence": "The plugin never re-implements rendering. It's InkStone's own output.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian's reading view renders notes differently from InkStone, so site authors had to commit, push and deploy just to see how a post will look.",
+ "readmeHash": "bac6915d89121ee7db36fd54a4c2c67582122dc2",
+ "relations": [
+  {
+   "evidence": "it runs InkStone on your machine and shows the actual rendered page",
+   "plugin": "InkStone",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "InkStone checkout 1.57.0+ with Python environment",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Live preview pane that renders notes exactly as the author's InkStone site does, plus note scaffolding and a Git commit-and-push panel.",
+ "tags": [
+  "inkstone",
+  "static-site",
+  "python",
+  "local-server",
+  "webhook",
+  "private-pages"
+ ]
+}

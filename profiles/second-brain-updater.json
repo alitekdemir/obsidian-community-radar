@@ -1,0 +1,71 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search and read notes in approved folders",
+  "Analyze relationships among notes",
+  "Preview and stage proposed changes",
+  "Apply updates with backups and source-hash conflict checks",
+  "Pair ChatGPT through a pairing code"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a bulk note rewriter; it connects ChatGPT to user-approved vault folders.",
+ "extras": "Desktop-only; runs a loopback-only local bridge and can use an encrypted public relay hosted on Cloudflare with Auth0 authentication. No telemetry, ads or OpenAI API key; note deletion is intentionally unsupported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "ChatGPT cannot reach a local Obsidian vault, and giving an AI open write access to notes risks unwanted or conflicting edits.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "21751b0ea33138e3fd4932cea6275d75dba52d77",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "connects the @Obsidian ChatGPT plugin to user-approved folders in a local Obsidian vault",
+   "plugin": "@Obsidian",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ChatGPT",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "@Obsidian plugin in ChatGPT",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "MyPlusApps account (via Auth0)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Bridge that lets ChatGPT's @Obsidian plugin search, read and update notes in approved vault folders, with previews, backups and conflict checks.",
+ "tags": [
+  "ai-chat",
+  "openai",
+  "local-server",
+  "conflict-resolution",
+  "cloudflare"
+ ],
+ "textHash": "1e5c2a3d49b386935436d39002b60da463cb1ef7"
+}

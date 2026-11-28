@@ -1,0 +1,67 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault or one folder with a Cloudflare Artifacts repository via commit, pull and push",
+  "Run sync manually, on a timer, or shortly after a note changes",
+  "Stop on conflicts and keep both versions instead of overwriting data",
+  "Set up the namespace, repository and tokens from settings without a command line",
+  "Connect a second device to an existing repository and surface notes changed by others"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires Cloudflare's Workers Paid plan; repository limited to 1 GB and files to 32 MB; tokens expire (auto-renewed when an API token is set); Japanese documentation exists in README.ja.md; conflict resolution currently requires an external Git client, with automatic keep-both handling planned.",
+ "intent": "alternative",
+ "intentEvidence": "your notes get history and an off-device copy without a GitHub account",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says Artifacts gives \"history and an off-device copy without a GitHub account\", implying the author wanted Git-style sync without GitHub.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is paid and closed, and Git-based sync usually needs a GitHub account and a Git client on each device.",
+ "readmeHash": "0a0b2f961aedb7599b318b5f02f666aecd939df2",
+ "relations": [
+  {
+   "evidence": "Both sides use the same Git engine (isomorphic-git)",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloudflare Workers Paid plan (for Artifacts)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloudflare API token (or a manual remote URL and repository token)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Git-based sync that mirrors a vault or one folder to a Cloudflare Artifacts repository, with commit/pull/push in one command or on a timer.",
+ "tags": [
+  "cloudflare",
+  "isomorphic-git",
+  "version-control",
+  "conflict-resolution",
+  "automatic-sync"
+ ]
+}

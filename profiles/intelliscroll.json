@@ -1,0 +1,48 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Resurface notes in a shuffled card feed on a spaced-repetition schedule",
+  "Schedule reviews with FSRS-6, SM-2, Leitner, or an off (shuffle-only) mode",
+  "Filter eligible notes by folders, tags, filename globs, search queries, and file types",
+  "Rate reviewed notes automatically from engagement or manually with four- and eight-tier ladders",
+  "Manage named presets for filters, algorithms, display, and composite total presets"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a flashcard or memory-training tool; it resurfaces whole notes for re-reading, which the README says yields roughly 40-50% one-week retention versus 60-70% for flashcards.",
+ "extras": "Installs as a separate plugin id (intelliscroll) so it can run alongside Doomscroll; scheduler state lives in sidecar files (srs-log.ndjson, srs-snapshot.json) and presets in data.json, which is gitignored and does not sync via git; installation requires cloning and building from source; the marketplace listing notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "A fork of Doomscroll that replaces the pure-random shuffle with a spaced-repetition scheduler.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author argues that in a single-author vault, recently-modified is the wrong signal and what matters is time since last seen, so they forked Doomscroll to put a scheduling engine behind the scroll feed.",
+ "primary": "review",
+ "problem": "Recency-based browsing shows the notes you just wrote (which you already know), and existing spaced-repetition plugins either stamp state into note files or require formal flashcards.",
+ "readmeHash": "3a8921bc5465bf8986224ddef30cdcb231edf710",
+ "relations": [
+  {
+   "evidence": "A fork of Doomscroll that replaces the pure-random shuffle with a spaced-repetition scheduler.",
+   "plugin": "Doomscroll",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Shuffled card feed that resurfaces your own notes on a spaced-repetition schedule without writing any state into the notes.",
+ "tags": [
+  "fsrs",
+  "sm-2",
+  "leitner",
+  "spaced-repetition",
+  "forgetting-curve",
+  "sidecar-state"
+ ]
+}

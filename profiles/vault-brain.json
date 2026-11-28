@@ -1,0 +1,69 @@
+{
+ "also": [
+  "audio",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe voice memos into structured notes with summaries and tasks",
+  "Extract text from images as Markdown",
+  "Chat with the active note or the whole vault using semantic search with citations",
+  "Run AI selection actions like summarize, improve, and translate",
+  "Suggest tags, wrap note mentions in links, and apply AI edits with diffs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory; the README gives manual installation steps. Includes a privacy/network audit section and a warning that remote-server mode sends note content to that machine and stores tokens unencrypted.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI features, and most AI plugins send note content to cloud services, so privacy-conscious users need local inference support.",
+ "readmeHash": "39558cdf74d5c5293d7168a40fd3ee34b1e43f7c",
+ "relations": [
+  {
+   "evidence": "Every AI feature runs against a local Ollama endpoint on 127.0.0.1.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open WebUI (fronts Ollama with API keys) — set Ollama host to",
+   "plugin": "Open WebUI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama 0.30.5+",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Open WebUI API token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Fully-local multimodal AI assistant that transcribes voice memos, OCRs images, chats over the vault with semantic search, and applies writing actions via Ollama.",
+ "tags": [
+  "ollama",
+  "gemma",
+  "local-llm",
+  "rag",
+  "speech-to-text",
+  "diarization"
+ ]
+}

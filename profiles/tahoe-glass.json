@@ -1,0 +1,69 @@
+{
+ "also": [
+  "appearance"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render a refraction lens behind each floating glass surface (toolbar, menus, command palette, notices, status bar)",
+  "Add chromatic dispersion, rim light and a pointer-following highlight to glass",
+  "Adjust glass tint, strength and performance via settings, including a battery saver",
+  "Add header cards with icon and description to settings pages",
+  "Move window controls into the settings sidebar on macOS"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone theme or visual effect; it only works on top of the Tahoe theme, which provides the glass surfaces.",
+ "extras": "Desktop only and made on macOS. Runs pmset -g once a minute to detect low power mode (read-only) and uses Electron's window API for the settings window controls; the README states there is no network use, telemetry, ads, accounts or payments. Not affiliated with or endorsed by Apple.",
+ "intent": "improve",
+ "intentEvidence": "Real refraction for the Tahoe theme's glass.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author notes that CSS can blur what's behind a surface but can't bend it, so the plugin draws a lens for each floating surface instead.",
+ "primary": "theming",
+ "problem": "CSS backdrop blur can only blur what is behind a surface, so Obsidian themes cannot make floating UI actually bend the content behind it like real glass.",
+ "readmeHash": "f1846d8d0372253074e6370910b707ff3730b560",
+ "relations": [
+  {
+   "evidence": "It needs the Tahoe theme: with another theme there's no glass for it to bend.",
+   "plugin": "Tahoe",
+   "type": "extends"
+  },
+  {
+   "evidence": "With Tahoe Run: the ▶ Run capsules on code blocks get the same glass.",
+   "plugin": "Tahoe Run",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The bend across the rim follows Liquid Glass Studio by Charles Yin (MIT)",
+   "plugin": "Liquid Glass Studio",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tahoe theme",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Companion to the Tahoe theme that renders real refraction, dispersion, glare and a pointer highlight on its glass surfaces, plus header cards on settings pages.",
+ "tags": [
+  "macos",
+  "refraction",
+  "glass",
+  "svg-filters",
+  "backdrop-filter",
+  "battery-saver",
+  "liquid-glass"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations",
+  "editing"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with coding-agent CLIs that run with the vault as working directory",
+  "Inline-edit selected note text with word-level diff preview",
+  "Trigger slash commands, skills, and @mentions of files, subagents, and MCP servers",
+  "Toggle plan mode for explore-then-approve workflows",
+  "Manage multiple chat tabs with conversation history, fork, resume, and compact"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Unofficial and not affiliated with or endorsed by xAI, Cursor, Anysphere, or Factory; desktop only (macOS, Linux, Windows); requires Obsidian 1.7.2+. README includes extensive troubleshooting for CLI detection, proxies, and Node.js PATH issues, and a privacy section explaining what is sent to provider APIs and stored locally in vault/.buildian/. Not manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "This project is based on Claudian and modified to adapt Claudian's agent workflow for provider-backed coding CLIs.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run ACP coding agents like Grok Build, Cursor Agent, or Factory Droid directly against vault files.",
+ "readmeHash": "8c9e26eaf622978bf3d0d1b2116368751e7552de",
+ "relations": [
+  {
+   "evidence": "This project is based on Claudian and modified to adapt Claudian's agent workflow",
+   "plugin": "Claudian",
+   "type": "fork"
+  },
+  {
+   "evidence": "connects your vault to ACP coding agents, including the xAI Grok Build CLI",
+   "plugin": "Grok Build CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Grok CLI, Cursor Agent CLI, or Droid CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "provider authentication (grok login, cursor-agent login, or Droid browser login)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI agent chat sidebar that runs provider-backed coding-agent CLIs (Grok Build, Cursor Agent, Factory Droid) to read, edit, and search vault files.",
+ "tags": [
+  "grok",
+  "cursor-agent",
+  "factory-droid",
+  "acp",
+  "mcp",
+  "chat-sidebar",
+  "inline-edit",
+  "diff-preview"
+ ]
+}

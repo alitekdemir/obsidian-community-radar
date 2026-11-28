@@ -1,0 +1,85 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate Anki notes from the current file with AI",
+  "Generate Anki notes from highlighted text",
+  "Review, select and export notes to a chosen Anki deck",
+  "Send diagrams and images to the model",
+  "Tag exported Anki notes with model, effort and prompt metadata"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. Notes are sent to the AI provider only when Generate is run; API keys are stored in Obsidian's Keychain per device and do not sync. The plugin only adds notes to Anki, never edits or deletes existing ones.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": "The author wanted to use spaced repetition with Anki to retain what he reads and watches, automating card creation from his existing Obsidian vaults without changing how he writes notes.",
+ "primary": "flashcards",
+ "problem": "Obsidian cannot turn notes into Anki cards on its own, and existing connectors require special note formatting.",
+ "profiledAt": "2026-11-23",
+ "provider": "Ant Digital",
+ "readmeHash": "c50e9ebb0f367ac9c0530ec88366ac54b5a18731",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The Anki program, installed locally",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AnkiConnect, which exposes Anki's API for Obsidian to call",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses OpenAI or Claude to generate Anki notes from your Obsidian notes",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses OpenAI or Claude to generate Anki notes from your Obsidian notes",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Claude API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Anki desktop program",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AnkiConnect add-on",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Generates Anki flashcard notes from an Obsidian note or selected text using OpenAI or Claude.",
+ "tags": [
+  "anki",
+  "spaced-repetition",
+  "openai",
+  "claude",
+  "api-key"
+ ],
+ "textHash": "f85224119cb3956a9c8d404fe8094565b5820620"
+}

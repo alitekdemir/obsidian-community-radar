@@ -1,0 +1,76 @@
+{
+ "also": [
+  "writing"
+ ],
+ "audience": [
+  "academics",
+  "writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export the active Markdown note to a .docx file next to the source note",
+  "Map Markdown headings to Word heading levels and preserve clickable links",
+  "Adjust overly light text colors so they stay readable on white paper",
+  "Rasterize SVG and WebP images to PNG and convert captions to numbered paragraphs",
+  "Export notes and assembled Longform projects via Pandoc with citation conversion"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The Pandoc export path requires a local Pandoc installation and supports optional bibliography, CSL, and reference DOCX settings; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to produce a .docx file that keeps heading structure, clickable links, and readable text colors when opened in Word, Pages, or Google Docs.",
+ "readmeHash": "c1be26d230338b26e927bec034be260bf1d7fa3a",
+ "relations": [
+  {
+   "evidence": "Adds Pandoc export commands for both the active note and assembled Longform projects.",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Longform command works from either a Longform index note or one of its scene notes",
+   "plugin": "Longform",
+   "type": "integrates"
+  },
+  {
+   "evidence": "strips PDF Scholia Scribe's managed reference block, preserves ordinary @citekey citations",
+   "plugin": "PDF Scholia",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pandoc",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Longform",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Exports Markdown notes to DOCX with Word-compatible headings, links and readable colors, plus Pandoc export for citations and Longform projects.",
+ "tags": [
+  "docx",
+  "pandoc",
+  "microsoft-word",
+  "google-docs",
+  "apple-pages",
+  "citations",
+  "zotero",
+  "longform"
+ ]
+}

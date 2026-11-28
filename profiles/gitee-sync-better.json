@@ -1,0 +1,59 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault two-way with a Gitee or GitHub repository",
+  "Propagate deletions and resolve conflicts by newer modification time",
+  "Include the .obsidian config folder in sync via a settings toggle",
+  "Preview sync plans with dry runs and write diagnostic logs",
+  "Schedule automatic syncs or sync on startup"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Empty (0-byte) files cannot be synced due to platform API limits, and the .obsidian sync toggle warns against mixing desktop and mobile devices.",
+ "intent": "alternative",
+ "intentEvidence": "基于 MemoryL7/obsidian-git-sync 的增强版，新增 .obsidian 目录同步支持。",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The upstream plugin hardcoded exclusion of all dot-directories including .obsidian, so plugin configs and hotkeys could not be synced between devices.",
+ "primary": "syncing",
+ "problem": "Obsidian Sync is a paid service and standard Git workflows need a local Git installation, which is impractical on mobile.",
+ "readmeHash": "928a15a0b28b3187c73b6c5bcffe80e195ee3080",
+ "relations": [
+  {
+   "evidence": "基于 MemoryL7/obsidian-git-sync 的增强版，新增 .obsidian 目录同步支持。",
+   "plugin": "MemoryL7/obsidian-git-sync",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Gitee or GitHub account with a private repository and personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Git-based vault sync to a private Gitee or GitHub repository without a Git install, forked to add .obsidian folder syncing across devices.",
+ "tags": [
+  "gitee",
+  "github",
+  "personal-access-token",
+  "three-way-merge",
+  "conflict-resolution",
+  "mobile"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "search",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search local Obsidian notes from the sidebar",
+  "search remote ExMemo server content including bookmarks and quick notes",
+  "preview remote files before inserting them",
+  "filter searches by keywords, tags, time range, and directories",
+  "upload and download notes to keep devices in sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns users to back up vault data before using \"Sync All Files\" for the first time; remote features require installing and configuring a self-hosted ExMemo backend and registering a user; licensed under LGPL v3.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian's built-in search only covers local notes, and keeping vault data consistent across devices requires an external sync path.",
+ "readmeHash": "674d375ef2bec6f69e3c5307c28f36e9919a00f1",
+ "relations": [
+  {
+   "evidence": "obsidian-exmemo-client is an Obsidian plugin for ExMemo, providing note synchronization and intelligent retrieval features.",
+   "plugin": "ExMemo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ExMemo Server",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "ExMemo user registration",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Client for the ExMemo service that adds sidebar search across local and server data and syncs notes to the server for multi-device access.",
+ "tags": [
+  "exmemo-server",
+  "semantic-search",
+  "vector-search",
+  "self-hosted",
+  "bookmarks",
+  "fuzzy-search"
+ ]
+}

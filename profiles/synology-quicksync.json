@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally with a Synology NAS",
+  "Route traffic over LAN or the QuickConnect WAN relay automatically",
+  "Resolve concurrent edits into timestamped conflict copies",
+  "Propagate deletions safely through Obsidian's trash",
+  "Configure startup sync and periodic background sync intervals"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Passwords are sent in encrypted POST bodies and credentials are stored locally in data.json; also available in Chinese documentation. Community-plugin listing notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Keeping a vault in sync across devices normally requires a paid sync service or installing WebDAV/Docker services on a NAS, which this avoids by using Synology's built-in File Station API.",
+ "readmeHash": "10aed22f1285ea56670bdd281d64d2ecf61aa929",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Synology NAS with DSM",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "DSM user account with read/write permissions",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "NAS sync plugin that synchronizes an Obsidian vault with a Synology NAS through the DSM File Station API and QuickConnect relay, with no server-side setup.",
+ "tags": [
+  "synology",
+  "nas",
+  "quickconnect",
+  "dsm",
+  "file-station",
+  "three-way-merge",
+  "conflict-copies"
+ ]
+}

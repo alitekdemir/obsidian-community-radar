@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with ACP-compatible agents from inside the vault",
+  "Mention notes with @ so agents can read and edit them",
+  "Run multiple agent sessions in sidebar tabs, editor tabs, floating windows, and embedded chat blocks",
+  "Approve or reject agent permission prompts and view word-level diffs of note edits",
+  "Export conversations as Markdown notes with frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin that launches local agents as child processes and lets them run terminal commands; security notes stress that agents have full system access and auto-allow permissions is off by default. Pre-release versions available via BRAT; full documentation is hosted externally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with local AI agents and let them read, edit, and act on vault notes without copy-pasting.",
+ "readmeHash": "cd57bad17c9fdc20c0e5bb59ff113f8cf4e5e647",
+ "relations": [
+  {
+   "evidence": "Built on the Agent Client Protocol (ACP) by Zed.",
+   "plugin": "Agent Client Protocol (ACP) by Zed",
+   "type": "extends"
+  },
+  {
+   "evidence": "Chat with Claude Code, Codex, Gemini CLI, and any ACP agent right in Obsidian",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chat with Claude Code, Codex, Gemini CLI, and any ACP agent right in Obsidian",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a locally installed ACP agent (e.g. Claude Code, Codex, Gemini CLI)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "agent authentication/API keys stored in Obsidian's Keychain",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Chat client for ACP-compatible agents like Claude Code, Codex, and Gemini CLI, with @-mentions that let agents read and edit vault notes.",
+ "tags": [
+  "acp",
+  "claude-code",
+  "gemini-cli",
+  "codex",
+  "mcp",
+  "slash-commands",
+  "terminal-agents",
+  "wsl"
+ ]
+}

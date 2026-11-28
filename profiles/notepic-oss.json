@@ -1,0 +1,68 @@
+{
+ "also": [
+  "attachments",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload all images referenced in the current note to Aliyun OSS",
+  "Compress JPEG/WebP images via Canvas and PNG via UPNG.js before upload",
+  "Rewrite local image links to public OSS or custom-domain URLs in place",
+  "Manage and selectively upload images from a sidebar panel with status badges",
+  "Deduplicate uploads using SHA-256 content hashes and headObject checks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Credentials are stored in plaintext in .obsidian/plugins/notepic-oss/data.json; the README warns to gitignore that file and use a restricted RAM subaccount. Bucket CORS must be configured for app://obsidian.md. A companion CLI exists for batch/CI use.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian stores note images as local vault files, and there is no built-in way to push them to cloud object storage and convert references to public URLs.",
+ "readmeHash": "3bc7c62385d60a18f832367ab6d856b76f39c183",
+ "relations": [
+  {
+   "evidence": "上传到阿里云 OSS，并把链接原地替换为公网 URL",
+   "plugin": "Aliyun OSS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PNG 使用 UPNG.js；GIF / SVG / 动画图保持原样",
+   "plugin": "UPNG.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "请看姊妹项目 NotePic-OSS-CLI",
+   "plugin": "NotePic-OSS-CLI",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Aliyun RAM subaccount with OSS AccessKey ID and Secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Image uploader that compresses and uploads images referenced in the current note to Aliyun OSS, then rewrites the links in place.",
+ "tags": [
+  "aliyun-oss",
+  "image-compression",
+  "image-upload",
+  "cdn",
+  "sha-256",
+  "cors",
+  "wiki-links"
+ ]
+}

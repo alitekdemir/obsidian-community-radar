@@ -1,0 +1,58 @@
+{
+ "also": [
+  "canvas",
+  "annotation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Draw on infinite canvas",
+  ": Place vault content on canvas",
+  ": Annotate over content",
+  ": Select and move strokes",
+  ": Export ink as SVG or PNG"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": canvas",
+   ": files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Supports iPadOS, Windows, macOS, and Linux. Note: Apple Pencil double-tap and Pro squeeze gestures are not supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to keep the input path small, using Pointer Events, Canvas 2D, and no framework layer between the pen and the pixels.",
+ "primary": "drawing",
+ "problem": "Users need a low-latency, infinite drawing canvas within Obsidian that maintains file portability and sync compatibility.",
+ "readmeHash": "d09b498193380f27e5b9cf6e151ee6f2d0dc87f6",
+ "relations": [
+  {
+   "evidence": "Inkpad debounces writes and serializes them through Obsidian's vault API, which keeps it compatible with file-based synchronizers such as Remotely Save.",
+   "plugin": "Remotely Save",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Inkpad is an infinite drawing canvas for Obsidian that allows users to draw, annotate, and place vault content onto a single, sync-friendly canvas using local files.",
+ "tags": [
+  "apple-pencil",
+  "vector",
+  "low-latency",
+  "infinite-canvas"
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "connect a vault to a cloud provider via authentication",
+  "select a remote provider folder as the sync target",
+  "upload local vault files to the remote vault",
+  "download provider files missing from the vault",
+  "resolve name conflicts by most recent modification timestamp"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README includes disclosures that synced remote files will be editable and deletable in the vault; currently only Dropbox is supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian stores notes locally with no built-in way to sync a vault with an external cloud storage provider like Dropbox.",
+ "readmeHash": "bb5e83a4241a844ecf01437761a238bc6dde18a9",
+ "relations": [
+  {
+   "evidence": "This plugin interacts with dropbox via the dropbox javascript sdk.",
+   "plugin": "dropbox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Dropbox account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sync plugin that links an Obsidian vault to a cloud storage provider (currently Dropbox) and copies files between them on desktop and mobile.",
+ "tags": [
+  "dropbox",
+  "cloud-storage",
+  "file-sync",
+  "conflict-resolution"
+ ]
+}

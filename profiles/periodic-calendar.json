@@ -1,0 +1,62 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open or create periodic notes by clicking calendar cells",
+  "Navigate day, week, month, quarter, semester and year notes from one view",
+  "Shade cells as a heatmap from sources like word count and tags",
+  "Navigate the calendar with the keyboard",
+  "Register custom sources through a public API"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full user guide, settings reference and API docs are hosted separately; requires Obsidian 1.10 or later; deliberately keeps CSS class names compatible with the Calendar plugin so existing CSS snippets keep working; installable via BRAT for pre-release testing.",
+ "intent": "alternative",
+ "intentEvidence": "It is MIT licensed, and this is a reimplementation rather than a fork.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author rewrote the Calendar plugin because it had been unmaintained since 2024, its UI package obsidian-calendar-ui was unmaintained since 2023, and other plugins could not contribute data sources to it.",
+ "primary": "calendar",
+ "problem": "Obsidian has no calendar view for periodic notes, and the existing Calendar plugin covers only daily and weekly notes and cannot be extended by other plugins.",
+ "readmeHash": "313e8af4e5ea5fcadd4bd574a46f6b123d5fb57e",
+ "relations": [
+  {
+   "evidence": "Calendar by Liam Cain is the plugin that defined what a calendar in Obsidian's sidebar should feel like",
+   "plugin": "Calendar by Liam Cain",
+   "type": "alternative"
+  },
+  {
+   "evidence": "reads the configuration you already have in core Daily notes and in the Periodic Notes plugin",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar calendar for daily through yearly periodic notes, with cells shaded by data from built-in and third-party sources.",
+ "tags": [
+  "heatmap",
+  "word-count",
+  "week-numbers",
+  "semester",
+  "periodic-notes"
+ ]
+}

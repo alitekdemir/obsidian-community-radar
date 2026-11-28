@@ -1,0 +1,48 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [
+  "screen-reader-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "add ARIA listbox and combobox semantics to Obsidian suggestion popups",
+  "announce how many suggestions are available via a live region",
+  "keep aria-activedescendant in sync with the highlighted item during arrow-key navigation",
+  "log plain-text status lines to the console as a debugging aid"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette",
+   "Quick switcher"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an autocomplete provider; it only makes Obsidian's existing suggestion popups, including wikilink autocomplete, readable by screen readers.",
+ "extras": "Warns that it relies on Obsidian's undocumented internal class names, which may change and make the retrofit silently stop working. Debug logging has no settings UI yet and is enabled via the DevTools console; tested only with VoiceOver on macOS, not Windows/NVDA.",
+ "intent": "improve",
+ "intentEvidence": "retrofits screen reader and keyboard accessibility onto Obsidian's suggestion popups",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author is a blind screen reader user who could not use Obsidian efficiently because dynamically changing content is not picked up by assistive technologies.",
+ "primary": "autocomplete",
+ "problem": "Obsidian's suggestion popups don't announce themselves or expose keyboard navigation state to screen readers, so blind users can't tell which option is selected or that the popup exists.",
+ "readmeHash": "7e0783e218a279b5f4e18dd133ba272a3538122d",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Accessibility layer that adds screen reader and keyboard ARIA semantics to Obsidian's suggestion popups, including the wikilink autocomplete and command palette.",
+ "tags": [
+  "accessibility",
+  "screen-reader",
+  "aria",
+  "voiceover",
+  "live-region",
+  "mutation-observer"
+ ]
+}

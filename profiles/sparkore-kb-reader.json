@@ -1,0 +1,55 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch a configured GitHub repository folder into a local Obsidian cache",
+  "Configure multiple projects with repository, branch, KB root, and destination folder",
+  "Refresh caches manually per project, for all projects, or on startup",
+  "Store the GitHub token in Obsidian SecretStorage instead of plugin data",
+  "Skip unchanged downloads using upstream blob SHAs and remove locally deleted files"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Early internal release; the README advises validating with a test vault before using an important vault. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Private repositories need a fine-grained GitHub personal access token with read-only contents permission.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull just one folder of a GitHub repository as readable notes without cloning the whole repo or using a Git executable, especially on mobile.",
+ "readmeHash": "076bc12e7224a2d1ac354c80c252cb606c2dda30",
+ "relations": [
+  {
+   "evidence": "Sparkore KB Reader connects only to GitHub APIs required to read configured repositories.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only GitHub folder reader that downloads selected knowledge base folders from a repository into a local Obsidian cache, built for mobile.",
+ "tags": [
+  "github",
+  "read-only-cache",
+  "mobile",
+  "personal-access-token",
+  "knowledge-base"
+ ]
+}

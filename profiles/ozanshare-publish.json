@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "publish a note and its linked notes from the file context menu",
+  "republish updates to the same URL and share code",
+  "render Markdown, transclusions, admonitions, Mermaid, MathJax and Excalidraw drawings as HTML",
+  "upload images to Firebase with token-protected links",
+  "list, open and unpublish notes from a dedicated plugin view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "delisted": "2026-11-21",
+ "disambiguation": "Not related to Obsidian's official Publish service; it publishes to the author's own OzanShare web app, not obsidian.pub.",
+ "extras": "The plugin is closed source and requires a paid 'Exclusive Support Level' token from the author to work at all. README warns not to manually delete frontmatter references because each publish scans the vault and may remove the server copy; use Unpublish instead.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to share a single note with someone as a web link without publishing an entire site.",
+ "readmeHash": "5d27db8086b8d3bf4e1ac8fcdd95edbbd8ad9280",
+ "relations": [
+  {
+   "evidence": "Images are uploaded to Firebase server, which are also served with a secret token.",
+   "plugin": "Firebase",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw Drawings",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "email address",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Exclusive Support Level",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "One-click publisher that uploads Markdown notes and linked notes to the author's OzanShare web service with stable shareable URLs.",
+ "tags": [
+  "firebase",
+  "mermaid",
+  "mathjax",
+  "excalidraw",
+  "admonitions",
+  "transclusions",
+  "custom-css",
+  "share-links"
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "also": [
+  "developers",
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Store API keys and settings for AI services in one place",
+  "Share provider settings with other plugins through an encapsulated SDK",
+  "Route generation, tool-calling, and embedding requests to local or remote providers",
+  "Cache embeddings and rank document chunks for vector-based retrieval",
+  "Declare per-model reasoning modes and capabilities via manual checkboxes and a Check probe"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI chat or writing assistant itself; it is a control panel and API layer consumed by other plugins like Local GPT.",
+ "extras": "Warns that requests already sent to a provider continue running and may incur charges, and that embedding cache misses re-send text and can cost money; installable via BRAT; UI available in 11 languages; developer integration docs live outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian AI plugins each need their own provider configuration, so users must enter the same API keys and settings multiple times.",
+ "readmeHash": "18133b5a76a152bb7ef171a8b909b5043a152479",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Local GPT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama / LM Studio / other local server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Central settings hub and shared SDK that stores AI provider credentials and serves generation, tool-calling, and embedding requests to other plugins.",
+ "tags": [
+  "openai",
+  "ollama",
+  "openrouter",
+  "anthropic",
+  "embeddings",
+  "tool-calling",
+  "rag",
+  "api-keys"
+ ]
+}

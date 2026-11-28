@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai",
+  "review"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert LaTeX and Markdown in both directions",
+  "Export notes and folders to LaTeX",
+  "Diff notes block by block with formula awareness",
+  "Translate Chinese and English text locally",
+  "Manage a local llama.cpp translation server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; the translation feature manages a local llama-server process that mobile cannot run. All conversion, diffing, and translation run locally with no telemetry. The LaTeX parser is intentionally conservative and passes unsupported constructs through verbatim; Setext headings are not recognized.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian has no built-in way to convert LaTeX to Markdown, compare notes with math-aware diffs, or translate academic text privately without cloud services.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "082490dc2423f66b50b3a9be82e3489861d052e6",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Powered by llama.cpp's llama-server: everything runs on your machine",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "llama.cpp llama-server and a GGUF model (or an already-running llama-server)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Academic-writing toolkit for LaTeX↔Markdown conversion, formula-aware note diffing, and local llama.cpp Chinese/English translation.",
+ "tags": [
+  "academic-writing",
+  "llama-cpp",
+  "local-llm",
+  "translation",
+  "chinese",
+  "diff"
+ ],
+ "textHash": "a4cb3ed9bb7ebfbf880fef13fd704874e9b7dd82"
+}

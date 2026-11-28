@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assign matching tags from a user-defined tag list with descriptions",
+  "Show confidence scores for each candidate tag before writing",
+  "Write tags as inline #tags or into the tags property",
+  "Batch-tag all notes in a folder with confirmation and run limits",
+  "Suggest a tag list from existing vault tags and folder names"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Sends note content (up to 20,000 characters) and your tag list to TypeSafe's US-hosted API on each run; warns about cost limits on folder runs, plain-text API key storage, and backing up before large batch runs. Interface available in English and German.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Manually tagging notes is tedious and inconsistent, and AI taggers often invent tags that break your existing tag system.",
+ "readmeHash": "c5124fca70d4426349ec8ee2feccad1f54666be5",
+ "relations": [
+  {
+   "evidence": "TagSense uses the Jev API by TypeSafe AI.",
+   "plugin": "Jev",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "TypeSafe account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "TypeSafe API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Jev API usage billed by TypeSafe",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI-powered auto-tagging plugin that assigns tags from your own predefined tag list using the Jev model by TypeSafe AI.",
+ "tags": [
+  "jev",
+  "typesafe",
+  "auto-tagging",
+  "classification",
+  "batch-tagging",
+  "api-key"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "integrations",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync contacts from Microsoft 365 and Google",
+  "Import contacts from CSV and vCard files",
+  "Autocomplete people inside [[ and after @",
+  "Create minimal person notes on first mention",
+  "Merge duplicate contacts across sources"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Google sign-in works on desktop only; a Google OAuth app left in Testing mode forces a new sign-in every 7 days. Client secrets and sessions are kept in Obsidian's secret storage, outside the vault, and access is read-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Obsidian has no way to autocomplete people from an address book, so mentioning someone means typing the full name and creating a person note by hand.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "247643c84e20b6b24b4efb42f2a678d4346427a0",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "signs in to Microsoft the same way as the Outlook Calendar Panel and Microsoft To Do Panel plugins",
+   "plugin": "Outlook Calendar Panel",
+   "type": "inspired"
+  },
+  {
+   "evidence": "signs in to Microsoft the same way as the Outlook Calendar Panel and Microsoft To Do Panel plugins",
+   "plugin": "Microsoft To Do Panel",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft 365 account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Microsoft Entra app registration (client ID and tenant)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth client ID and secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs contacts from Microsoft 365 or Google (or imports CSV/vCard) and autocompletes them as person links, creating a minimal note on first mention.",
+ "tags": [
+  "contacts",
+  "outlook",
+  "auto-linking",
+  "aliases",
+  "oauth"
+ ],
+ "textHash": "e9185295376b68181e429b1d12b04db6c084b12e"
+}

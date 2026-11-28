@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send new and edited notes to the Whisperer knowledge base shortly after editing stops",
+  "Remove notes from the knowledge base when they are deleted in the vault",
+  "Handle renames as moves and run timed full vault re-checks",
+  "Exclude folders and non-supported file types from syncing",
+  "Run a full resync that compares the vault with the knowledge base and fixes differences"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault sync tool across devices; it only sends notes one-way into the Whisperer service and never writes anything back to the vault.",
+ "extras": "The vault token is stored in plain text in .obsidian/plugins/whisperer-sync/data.json, so the README warns to exclude it from git or third-party sync; server limits include 1 MB per note, 50 notes and 8 MB per request, and a 100 MB default knowledge-base quota. The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README is also provided in Russian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to feed vault notes into an external AI assistant's knowledge base.",
+ "readmeHash": "eacc146b797d65be8639b86672c6a6800a82d043",
+ "relations": [
+  {
+   "evidence": "Keep your Obsidian vault in sync with your Whisperer knowledge base",
+   "plugin": "Whisperer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Whisperer",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Whisperer account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid Whisperer subscription (knowledge base feature)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "One-way sync plugin that sends vault notes to the Whisperer knowledge base so its AI assistant answers from your notes.",
+ "tags": [
+  "whisperer",
+  "knowledge-base",
+  "ai-assistant",
+  "one-way-sync",
+  "self-hosted",
+  "token-auth"
+ ]
+}

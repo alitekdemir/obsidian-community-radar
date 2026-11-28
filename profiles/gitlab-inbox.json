@@ -1,0 +1,82 @@
+{
+ "also": [
+  "tasks",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "fetch merge requests, mentions, and todos from the GitLab API on a configurable interval",
+  "show a categorized sidebar inbox with status badges, action buttons, and batch Done/Snooze",
+  "write a persistent checklist note with check-off state that survives refreshes",
+  "auto-prioritize items via configurable label rules and clean up stale todos",
+  "log checked-off items into the daily note and show a status bar count"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The access token is stored locally in data.json; the README warns to add it to .gitignore if the vault is synced via git. Installation is manual (copy main.js, manifest.json, styles.css) rather than through the community plugin browser.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to surface pending GitLab code-review work inside the vault, so review queues and todos must be tracked outside it.",
+ "readmeHash": "f4a36ef7b2855a100275218f754f99f1e93a81ac",
+ "relations": [
+  {
+   "evidence": "connects to your configured GitLab instance (self-hosted or gitlab.com) via authenticated HTTPS requests",
+   "plugin": "GitLab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Tasks plugin (recommended, for checkbox integration with TODO.md)",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GitLab (self-hosted or gitlab.com)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitLab account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitLab personal access token with api scope",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "GitLab review-inbox plugin that fetches MRs, mentions, and todos on a schedule and tracks them in a sidebar and a check-off note.",
+ "tags": [
+  "gitlab",
+  "code-review",
+  "merge-requests",
+  "personal-access-token",
+  "snooze",
+  "notifications"
+ ]
+}

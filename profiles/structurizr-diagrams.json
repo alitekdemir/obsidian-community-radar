@@ -1,0 +1,73 @@
+{
+ "also": [],
+ "audience": [
+  "developers",
+  "software-architects"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Embed interactive Structurizr views in notes using Markdown image syntax",
+  "Export workspaces locally with the Structurizr CLI and serve them from a localhost-only server",
+  "Watch DSL and JSON workspace files and re-export on changes",
+  "Adjust each diagram's height, zoom, fit, and fullscreen, and open views in Structurizr local",
+  "Preserve manual layout positions from workspace JSON when re-exporting changed DSL"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general diagram editor or drawing tool; it only renders views from existing Structurizr DSL or JSON workspace files via the CLI.",
+ "extras": "Desktop-only. Runs fully locally: it strips the remote theme loader so workspace data stays on the machine and the server binds only to 127.0.0.1. Static export drops documentation and decision records, and a Git revision viewer is not yet implemented. Includes an example vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian cannot render Structurizr workspace views inside notes, and Structurizr local does not support iframe or image embeds.",
+ "readmeHash": "5f386284fb7ab3f0f858532fffa0722965276eef",
+ "relations": [
+  {
+   "evidence": "Install the Structurizr CLI and Graphviz.",
+   "plugin": "Structurizr CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Graphviz supplies automatic layout for DSL views that use autoLayout.",
+   "plugin": "Graphviz",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an action to open the view in Structurizr local",
+   "plugin": "Structurizr local",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Structurizr CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Graphviz",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Embeds interactive Structurizr architecture diagrams in notes by exporting local DSL or JSON workspaces with the Structurizr CLI.",
+ "tags": [
+  "structurizr-cli",
+  "graphviz",
+  "dsl",
+  "architecture-diagrams",
+  "local-http-server"
+ ]
+}

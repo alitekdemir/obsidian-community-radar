@@ -1,0 +1,59 @@
+{
+ "also": [
+  "ai",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Surface directly relevant notes in a Related stream while writing",
+  "Suggest diverse cross-topic candidates in a Discover stream",
+  "Retrieve candidates with hybrid vector and full-text search plus a cross-encoder reranker",
+  "Index the vault incrementally into a local LanceDB store",
+  "Preview matched notes and jump to the exact matched passage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (mobile code exists but is unsupported). First run downloads local embedding and reranker models from Hugging Face; the reranker model is roughly 2.3 GB and needs extra memory. Remote mode sends note contents to the configured address and requires a SEMANTIX_API_TOKEN. The Python engine ships separately and must be obtained and built from the project source repository.",
+ "intent": "alternative",
+ "intentEvidence": "Disable the older obsidian-semantix plugin before enabling this semantix plugin: both register the same legacy view type",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search and backlinks do not surface semantically similar or cross-topic notes automatically while writing.",
+ "readmeHash": "6fc239325184e56e20c53f706d02421ce77cca09",
+ "relations": [
+  {
+   "evidence": "Disable the older obsidian-semantix plugin before enabling this semantix plugin: both register the same legacy view type",
+   "plugin": "obsidian-semantix",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Companion Python engine (Python 3.11+ with uv), run locally or at a user-configured remote URL",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local semantic retrieval plugin that shows a dual-stream sidebar of related and diverse notes while you write, powered by a companion Python engine.",
+ "tags": [
+  "embeddings",
+  "vector-search",
+  "semantic-search",
+  "reranker",
+  "lancedb",
+  "mmr"
+ ]
+}

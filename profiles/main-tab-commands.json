@@ -1,0 +1,48 @@
+{
+ "also": [
+  "hotkeys"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Close the current note tab via a command",
+  "Switch to the next, previous, last, or numbered note tab",
+  "Control which tab is focused after closing the current tab",
+  "Prevent closing of pinned tabs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires manually rebinding hotkeys in settings to use the plugin's commands instead of the built-in ones; the focus-after-close setting only works when closing via the plugin's command, not via the tab's X button or middle click.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's built-in tab management commands will apply to the tab group you most recently interacted with.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author personally disliked that built-in tab shortcuts unreliably hit sidebar widget tabs, so they made commands that reliably apply to note tabs.",
+ "primary": "commands",
+ "problem": "Obsidian's built-in tab commands apply to the most recently interacted tab group, so hotkeys like ctrl+W can accidentally close or switch a sidebar widget instead of a note.",
+ "readmeHash": "bd2eaa79ef6efe519ee108b2a2e7b1f83302c8bb",
+ "relations": [
+  {
+   "evidence": "This is complementary to the Pin Enhancer plugin, since you can't use that plugin's",
+   "plugin": "Pin Enhancer",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tab-management commands (close, next, previous, jump to tab N) that always target note tabs in the main area, never sidebar widget tabs.",
+ "tags": [
+  "tabs",
+  "pinned-tabs",
+  "sidebar-widgets"
+ ]
+}

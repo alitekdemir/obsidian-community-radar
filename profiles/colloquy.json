@@ -1,0 +1,81 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with AI models from a panel in the vault",
+  "Save conversations as markdown files as they happen",
+  "Summarise past conversations and pass them as context to new ones",
+  "Attach vault notes, images, screenshots and URLs to questions",
+  "Resume past conversations rebuilt from their saved files"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns up front that the plugin writes to the vault on its own and sends summaries of earlier conversations to the selected provider, including paid ones, both toggleable. Free local summarisation needs Ollama, which does not run on phones, so mobile use requires an API key and automatic reading there is deferred until the desktop is open. Keys are stored in the plugin's data file and never rendered back to the screen.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author designed the automatic summarising to run on a free local model because reading every conversation through a metered API 'is a bill that grows while you sleep', and removed an earlier feature that extracted durable notes after it kept producing confident false claims.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with AI models and keep those conversations as searchable, linkable vault notes.",
+ "readmeHash": "5e2c2f711e80735d0598a8603257f2ed2d9db7d6",
+ "relations": [
+  {
+   "evidence": "Supports Ollama, OpenAI, Anthropic, Google and DeepSeek.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "paste a key for OpenAI, Anthropic, Google or DeepSeek",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "paste a key for OpenAI, Anthropic, Google or DeepSeek",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "paste a key for OpenAI, Anthropic, Google or DeepSeek",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Ollama, OpenAI, Anthropic, Google and DeepSeek.",
+   "plugin": "Google",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, Google or DeepSeek API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI chat panel that saves each conversation as a markdown note and feeds short summaries of past chats to new ones as context.",
+ "tags": [
+  "ollama",
+  "openai",
+  "anthropic",
+  "google",
+  "deepseek",
+  "chat",
+  "context-carryover",
+  "conversation-log"
+ ]
+}

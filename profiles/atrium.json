@@ -1,0 +1,95 @@
+{
+ "also": [
+  "workspaces",
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Arrange modules as resizable cards on a tiled page",
+  "Create and switch workspace pages with their own cards and background",
+  "Show daily notes, tasks, agenda, calendar and vault files",
+  "Run a shell, web page, music and podcasts inside cards",
+  "Record dictation and spoken commands on macOS"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Workspaces",
+   "Daily notes",
+   "Task lists",
+   "Files",
+   "Audio recorder",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Ten of the 21 modules are marked with a dot and need an Atrium Complete license; a 30-day trial starts from Settings → Atrium. Terminal, Calendar events and Dictation run other programs through Node's child_process on desktop only, and Atrium checks with /bin/sh which programs exist. On macOS the atrium-calendar and atrium-speech Swift helpers are downloaded once per version from GitHub releases into the plugin folder and marked executable with chmod. Per-module settings and keys are in a separate online guide at atrium-md.com.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian opens on a file or an empty note with no home view, so a dashboard of notes, tasks and tools has to be assembled from several plugins.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "370cdf68ed4b305e867abcc0cf57d2fb038406df",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "A spoken command can ask Claude Code, in a terminal card, if you turn that on.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Atrium reads events from icalBuddy if you have it installed.",
+   "plugin": "icalBuddy",
+   "type": "integrates"
+  },
+  {
+   "evidence": "read and edit the Calendar app's events through atrium-calendar",
+   "plugin": "Calendar app",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Atrium Complete license",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3 or expect",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "icalBuddy",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "macOS",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Homepage plugin that tiles resizable cards, each a module such as daily note, tasks, agenda, clock or terminal, over your existing notes.",
+ "tags": [
+  "start-page",
+  "dashboard",
+  "card-view",
+  "daily-notes",
+  "agenda",
+  "pomodoro",
+  "terminal",
+  "macos"
+ ],
+ "textHash": "67b08b7aa6b3bbb532c27a5b5c46a871a80a5e7c"
+}

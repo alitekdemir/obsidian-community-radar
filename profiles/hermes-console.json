@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Launch the Hermes Agent CLI in an embedded PTY terminal",
+  "Share selected or cursor note context with Hermes via a per-tab JSON bridge",
+  "Show busy/idle status per Hermes tab and notify when background turns finish",
+  "Manage multiple terminal tabs with rename, colors, pinning, and reordering",
+  "Insert vault note wiki-links and dragged file paths into the terminal"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only and requires Obsidian 1.7.2+; native node-pty binaries must be downloaded from plugin settings after install, and the README includes ARM64 Windows troubleshooting. A donation link is included.",
+ "intent": "alternative",
+ "intentEvidence": "Hermes Console began as a fork of Lean Terminal, an open-source terminal plugin for Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to run the Hermes Agent alongside notes or pass selected note text as context without switching to an external terminal.",
+ "readmeHash": "7cd6aa297a9595882933de4b13589df870e0225f",
+ "relations": [
+  {
+   "evidence": "Hermes Console began as a fork of Lean Terminal, an open-source terminal plugin for Obsidian.",
+   "plugin": "Lean Terminal",
+   "type": "fork"
+  },
+  {
+   "evidence": "Launch Hermes from your vault, opt in per terminal tab to share selected note text",
+   "plugin": "Hermes Agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hermes Agent CLI",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "obsidian-context-bridge Hermes plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Embedded terminal that launches the Hermes Agent CLI from the vault and shares selected note text with it through a local JSON bridge.",
+ "tags": [
+  "hermes-agent",
+  "terminal",
+  "pty",
+  "context-bridge",
+  "xterm",
+  "node-pty"
+ ]
+}

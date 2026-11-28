@@ -1,0 +1,58 @@
+{
+ "also": [
+  "links",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert mention links via a trigger-character suggester matching notes, aliases, and stub headings",
+  "Store unresolved mentions as headings in a shared stub file",
+  "Promote a stub heading to a full note, optionally applying a template",
+  "Rewrite vault-wide links when promoting or converting mentions",
+  "Bulk-convert all unresolved links in the vault to lightweight mentions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet on the official Community Plugins list; install manually or via BRAT for beta builds. The README documents that the suggester reads all vault markdown file names plus stub-file headings on every keystroke, and includes a table of plugin-review findings and their fixes. Known limitations include a single global stub file and exact-text heading matching for promotion.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README opens: 'An Obsidian plugin for people who mention way more things than they want to turn into full notes.'",
+ "primary": "autocomplete",
+ "problem": "Obsidian unresolved links point nowhere until a note is written, and creating a full note for every mentioned thing clutters the vault with files the user does not want to maintain.",
+ "readmeHash": "4a8a8776affc6a7d3cec26d8b4f6ac616f5351ad",
+ "relations": [
+  {
+   "evidence": "this plugin doesn't call Templater itself — it just writes the chosen template's raw text",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Trigger-character suggester that inserts mention links, parking unresolved ones as headings in a shared stub file until they are promoted to full notes.",
+ "tags": [
+  "stub-file",
+  "heading-links",
+  "link-rewrite",
+  "unresolved-links",
+  "aliases",
+  "trigger-character",
+  "templater-compatible"
+ ]
+}

@@ -1,0 +1,103 @@
+{
+ "also": [
+  "ai",
+  "annotation"
+ ],
+ "audience": [
+  "academics",
+  "translators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Read French-Chinese bilingual segments",
+  "Edit translations, notes, and suggestions in place",
+  "Create chapter reading notes",
+  "Look up French words and translate selections",
+  "Run read-only AI interpretation via CLI"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not just a translation aid; it is a reading, editing, and library-sync environment built specifically around Lacan seminar translations.",
+ "extras": "Desktop-only (manifest isDesktopOnly: true, requires Obsidian 1.8.0+); UI and reading materials are mainly in Chinese. 'Local Agent' means a local CLI process, not necessarily local model inference; text sent to the CLI may leave the machine. No telemetry. Scanned PDFs need an OCR text layer from another tool. Detailed CLI-adaptation and architecture docs are referenced but kept elsewhere.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Reading and translating Lacan seminars requires segment-level bilingual comparison, notes, and translation aids that Obsidian does not provide on its own.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "3273dd6e304c72eb371ba77a61bb621817541534",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "支持 Codex CLI、Claude Code、DeepSeek Harness",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude 禁用 Slash Commands、Hooks 和外部 MCP",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek 仅向模型开放允许的只读／网页工具",
+   "plugin": "DeepSeek Harness",
+   "type": "integrates"
+  },
+  {
+   "evidence": "收藏到所选欧路生词本",
+   "plugin": "Eudic (欧路)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "从 KotobaRin 的 WordPress 同域文库接口同步原项目的已发布内容",
+   "plugin": "WordPress",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI, Claude Code, or DeepSeek Harness (one of)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Eudic (欧路) API authorization code",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Model service (may need account, subscription, or pay-per-use)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20+ and npm (only to build from source)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop plugin for reading and comparing French-to-Chinese Lacan seminar translations, with segment notes, dictionary lookup, and a read-only AI sidebar.",
+ "tags": [
+  "translation",
+  "chinese",
+  "dictionary",
+  "text-to-speech",
+  "codex",
+  "claude",
+  "deepseek"
+ ],
+ "textHash": "52cae991190ec0a0e5eac87a08c7392ba3956ab1"
+}

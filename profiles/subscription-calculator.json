@@ -1,0 +1,64 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "track subscriptions with prices, currencies, and billing periods",
+  "calculate yearly totals and monthly averages per currency",
+  "show upcoming renewals from start dates",
+  "manage subscriptions from the command line via Obsidian's CLI",
+  "back up and restore subscription data as JSON"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general expense or finance tracker; it only manages recurring subscription services.",
+ "extras": "Fetching favicons sends the service's domain to Google S2; this can be disabled in settings. Restoring a backup replaces current data rather than merging it.",
+ "intent": "new",
+ "intentEvidence": "That gap led to this plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found that existing Obsidian options leaned toward finance history, note-per-subscription setups, or external spreadsheets, and that gap led to this plugin.",
+ "primary": "finance",
+ "problem": "Obsidian has no focused way to monitor recurring subscription costs without spreading data across notes, Dataview queries, or external spreadsheets.",
+ "readmeHash": "e0f0881b4445d3d9a3f4eaeaf0ad3707b30ddadf",
+ "relations": [
+  {
+   "evidence": "The best option if you want subscription tracking built directly on Obsidian Bases.",
+   "plugin": "fkonovalov/obsidian-subscription-tracker",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Plugins like lberts/personal-finance, uuq007/obsidian-cashlog, fengshuzi/coin-memo, and thekalpit/tare-money are about expenses",
+   "plugin": "lberts/personal-finance",
+   "type": "alternative"
+  },
+  {
+   "evidence": "mkshp-dev/obsidian-finance-plugin and bzimor/obsidian_hledger are built around Beancount or hledger workflows.",
+   "plugin": "mkshp-dev/obsidian-finance-plugin",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google S2 icon service",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Subscription tracker that stores recurring payments in the vault, totals yearly and monthly cost, and shows upcoming renewals.",
+ "tags": [
+  "subscriptions",
+  "recurring-payments",
+  "multi-currency",
+  "favicon",
+  "cli",
+  "google-s2"
+ ]
+}

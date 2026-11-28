@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "quantified-self"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate dated markdown notes summarizing Oura sleep, heart-rate and activity metrics for 7, 14, or 28-day windows",
+  "Compare each metric against the prior three weeks' mean and SD, including outlier flags beyond 1.5 SD",
+  "Connect to Oura through OAuth from the plugin settings",
+  "Configure output folder, default window, deviation threshold and the prompt template that leads each note",
+  "Run the same summary generation headless through a CLI for automation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The OAuth access token is stored in plaintext in plugin data and syncs with the vault if the vault syncs to a cloud service; it expires after 30 days and requires reconnecting. The plugin changed to OAuth in 0.2.0 after Oura retired personal access tokens, deleting the old token setting on first load. A headless CLI in the separate petrograph repo reuses the plugin's generation code.",
+ "intent": "new",
+ "intentEvidence": "A companion to Microlite (Obsidian plugin link), which does the same for your note edits.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Oura's app shows only today, so the author built a note that reports each metric's change against the wearer's own recent baseline, keeping the field set small so a language model is not buried in noise.",
+ "primary": "integrations",
+ "problem": "Oura's own app shows only the current day, and there is no built-in way to bring ring data into Obsidian as a compact summary prepared for an LLM.",
+ "readmeHash": "372145822798633e97c662f023be47601c7545ec",
+ "relations": [
+  {
+   "evidence": "A companion to Microlite (Obsidian plugin link), which does the same for your note edits.",
+   "plugin": "Microlite",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Oura account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Oura ring",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Oura OAuth client ID from a self-registered application",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Generates an LLM-ready markdown note summarizing Oura sleep, heart-rate and activity metrics for 7, 14, or 28 days against a three-week baseline.",
+ "tags": [
+  "oura",
+  "wearables",
+  "sleep-tracking",
+  "hrv",
+  "quantified-self",
+  "oauth",
+  "llm"
+ ]
+}

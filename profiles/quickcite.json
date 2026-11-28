@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search DuckDuckGo without API keys and insert a footnote citation at the cursor",
+  "Auto-number sequential footnotes and append formatted references to the note",
+  "Fact-check claims with an LLM and show color-coded verdict badges with confidence scores",
+  "Open search results in the browser without dismissing the modal",
+  "Refine the pre-filled query and scroll to load more results"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Footnotes view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff, and the README says community-plugin installation is available 'when published', implying manual installation may still be needed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to search the web and turn a selection into a verified, numbered footnote citation without leaving the note or managing footnote numbering by hand.",
+ "readmeHash": "540a7c5ff41d00a37437bdb30cf1a3c9fa86fa34",
+ "relations": [
+  {
+   "evidence": "Powered by DuckDuckGo with a resilient 3-layer strategy (HTML → Lite → Instant Answer API).",
+   "plugin": "DuckDuckGo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add an OpenRouter key (or point at a local Ollama / OpenAI-compatible endpoint)",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Point it at  for local Ollama models, or LM Studio — no cloud required.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio (local OpenAI-compatible endpoint)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Citation tool that searches DuckDuckGo from a modal and inserts sequential Markdown footnotes under the cursor, with optional LLM fact-checking.",
+ "tags": [
+  "duckduckgo",
+  "fact-checking",
+  "citations",
+  "openrouter",
+  "ollama",
+  "lm-studio",
+  "llm",
+  "web-search"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "latex",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Suggest LaTeX commands by English or Chinese meaning, synonyms, or command name inside math blocks",
+  "Insert full command templates whose arguments and matrix cells become Tab-navigable placeholders",
+  "Browse and insert entries from a Search LaTeX window opened from the command palette or ribbon",
+  "Auto-wrap triggers outside math in $...$ while leaving code blocks untouched",
+  "Follow Obsidian's interface language for menus and formula names"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a LaTeX renderer, formatter, or snippet-expander like LaTeX Suite; it pops up a completion list and inserts templates while you type in math.",
+ "extras": "Warns not to enable Completr's LaTeX provider simultaneously and that it takes over Tab from LaTeX Suite while its list is open; the comparison table is based on other projects' READMEs as of September 2026; early builds installable via BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "Most LaTeX completers match what you type against command names, so you have to know \\overset or \\left.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because most LaTeX completers match typed command names rather than intent; this one matches what you mean in Chinese or English and inserts a complete formula with placeholders.",
+ "primary": "autocomplete",
+ "problem": "Obsidian has no built-in LaTeX completion, and existing completers only match command names, so users must already know commands like \\overset to get help.",
+ "readmeHash": "0929bee62d968debfdeda9b09a7a1630e59c6ae4",
+ "relations": [
+  {
+   "evidence": "The plain command list comes from Completr by tth05, used under the MIT License.",
+   "plugin": "Completr",
+   "type": "extends"
+  },
+  {
+   "evidence": "Other Obsidian plugins cover parts of this, and each has its own strengths:",
+   "plugin": "Easy LaTeX",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Other Obsidian plugins cover parts of this, and each has its own strengths:",
+   "plugin": "LaTeX Complete",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "IDE-style LaTeX autocomplete for math blocks that finds commands by English or Chinese meaning and inserts templates with Tab-navigable placeholders.",
+ "tags": [
+  "chinese",
+  "math-blocks",
+  "placeholders",
+  "tabstops",
+  "offline",
+  "curated-entries"
+ ]
+}

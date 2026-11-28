@@ -1,0 +1,76 @@
+{
+ "also": [
+  "editing",
+  "music"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "dynamically highlights all occurrences of the selected text and of regex/keyword queries with custom CSS and capture groups",
+  "builds a sidebar index of ==highlight== text organized by heading hierarchy",
+  "shows floating teleprompter windows that follow the document, cursor, lyrics or reading position",
+  "reads notes aloud with local TTS engines and exports selections as audio files",
+  "performs regex find and replace with a preview, and plays music with karaoke lyrics in a sidebar panel"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file-preview tool despite the name; the core is dynamic text highlighting, with teleprompter, read-aloud and music as extra modules.",
+ "extras": "Only Source and Live Preview modes are supported; the teleprompter and read-aloud are desktop-only, and the README is written primarily in Chinese with an English section. Sponsors are accepted.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's editor cannot highlight every occurrence of the selected text or persistently mark regex query matches with custom styles and widgets.",
+ "readmeHash": "586c9ed2dc516733dd36310176c6d8bd0165bcec",
+ "relations": [
+  {
+   "evidence": "this Music module is modified from two MIT projects — LyricFlux",
+   "plugin": "LyricFlux",
+   "type": "fork"
+  },
+  {
+   "evidence": "modified from LyricFlux and obsidian-lyric (both MIT licensed)",
+   "plugin": "obsidian-lyric",
+   "type": "fork"
+  },
+  {
+   "evidence": "the Regex find & replace module is ported with reference to obsidian-regex-replace",
+   "plugin": "obsidian-regex-replace",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local TTS service (GPT-SoVITS or Qwen3-TTS)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "NetEase / QQ Music account cookies",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Highlights selected text and regex query matches in the editor, plus a highlight index, teleprompter, TTS read-aloud, regex find & replace, and music player.",
+ "tags": [
+  "teleprompter",
+  "text-to-speech",
+  "karaoke",
+  "lyrics",
+  "minimap",
+  "gpt-sovits",
+  "netease-cloud-music",
+  "regex"
+ ]
+}

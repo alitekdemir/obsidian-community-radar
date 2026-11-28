@@ -1,0 +1,43 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "propagate group colors to uncolored notes via weighted breadth-first search",
+  "read color groups defined in the Graph view Groups panel",
+  "adjust propagation with decay factor, max hops, and min influence settings",
+  "apply colors manually via ribbon icon, command, or settings button"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; relies on the desktop Graph view renderer internals and does not work on mobile. Propagated colors are visual only and are not written back into graph.json. Includes a debug command that dumps node structure to the console.",
+ "intent": "improve",
+ "intentEvidence": "Define color groups in Obsidian's built-in Graph view → Groups panel as usual — this plugin reads those groups",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's Graph view only colors notes that match a group query, leaving linked notes without a group uncolored.",
+ "readmeHash": "9e0d941e173a567efa8044480b2b639cd295a872",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Graph view extension that propagates colors from defined color groups to uncolored notes, weighted by link distance and path count.",
+ "tags": [
+  "color-groups",
+  "node-coloring",
+  "breadth-first-search",
+  "wikilinks"
+ ]
+}

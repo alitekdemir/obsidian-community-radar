@@ -1,0 +1,70 @@
+{
+ "also": [
+  "project-management",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror Trello boards into Kanban-plugin Markdown board notes on a configurable interval",
+  "Trigger an immediate sync via a Sync now command",
+  "Render card due-complete state, labels, members, descriptions and checklists in the board note",
+  "Push card names, lane moves and checklist checked states back to Trello with optional two-way sync",
+  "Link each card back to its Trello card using hidden ID markers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not the Kanban board plugin itself; it writes board files that the separate Kanban plugin renders.",
+ "extras": "Two-way sync is experimental and off by default. The README warns that the Trello API key/token stored in data.json should be gitignored, and notes the plugin works on mobile because it uses Obsidian's requestUrl instead of fetch.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to view or edit Trello boards as native Kanban board notes inside a vault.",
+ "readmeHash": "8cf91540ff2c38b59f26a462aa917d148dab2e52",
+ "relations": [
+  {
+   "evidence": "Mirrors Trello boards into native Obsidian Kanban-plugin boards (requires the Kanban plugin to actually render them)",
+   "plugin": "Kanban",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Defaults to one-way sync: Trello is the source of truth",
+   "plugin": "Trello",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Kanban",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Trello API key and token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Trello account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Trello integration that mirrors Trello boards into Kanban-plugin Markdown boards on an interval, with optional two-way editing.",
+ "tags": [
+  "trello",
+  "kanban",
+  "two-way-sync",
+  "3-way-merge"
+ ]
+}

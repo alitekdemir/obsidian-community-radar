@@ -1,0 +1,83 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read the current note or selection aloud with word-level highlighting",
+  "Strip Obsidian markup and add pacing around headings, paragraphs, and list items",
+  "Control playback with pause, segment skipping, seeking, and 0.75x-2x speed",
+  "Replay cached audio instead of regenerating unchanged passages",
+  "Choose among five TTS providers and store their API keys"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (no mobile support). Provider usage may incur charges; the plugin itself is free and open source with no server or telemetry. API keys are stored via Obsidian's SecretStorage, and generated audio is cached unencrypted under .obsidian/plugins/murmur/cache/ (up to 500 MB by default), which may be picked up by backups or sync. The README includes an affiliate disclosure for ElevenLabs and documents current limitations such as unreliable selection highlighting and approximate non-ElevenLabs timing.",
+ "intent": "new",
+ "intentEvidence": "Generic read-aloud tools flatten Markdown into mush. Murmur understands the common shapes of an Obsidian note",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in read-aloud, and generic TTS tools flatten Markdown structure into unbroken text without pacing or visual tracking.",
+ "readmeHash": "e79d695b93074e99110cfbde0d757836a70836fe",
+ "relations": [
+  {
+   "evidence": "Uses API character timestamps for the most precise highlighting; requires a voice ID",
+   "plugin": "ElevenLabs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Includes built-in voice and model choices; highlighting uses uniform estimated timing",
+   "plugin": "Inworld",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fish Audio API usage is billed from a separate API wallet",
+   "plugin": "Fish Audio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requires a Cartesia voice ID; highlighting uses uniform estimated timing",
+   "plugin": "Cartesia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Murmur currently exposes six built-in voices; highlighting uses uniform estimated timing",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "TTS provider API key (ElevenLabs, Inworld, Fish Audio, Cartesia, or OpenAI)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "TTS provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Text-to-speech plugin that reads notes aloud with word-by-word karaoke highlighting, using one of five configured TTS providers.",
+ "tags": [
+  "text-to-speech",
+  "karaoke-highlighting",
+  "elevenlabs",
+  "openai",
+  "inworld",
+  "cartesia",
+  "fish-audio",
+  "api-key"
+ ]
+}

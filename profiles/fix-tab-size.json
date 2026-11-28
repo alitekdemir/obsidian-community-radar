@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert the configured number of spaces per indent",
+  "Apply the Indent visual width setting to space indentation",
+  "Open a demo vault that demonstrates the feature"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does nothing when you indent with tabs; it only changes how many spaces each indent inserts.",
+ "extras": "Documentation is a demo vault shipped with each release and browsable on GitHub; beta versions install via BRAT; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian has an Indent visual width setting, and then ignores it whenever you indent with spaces",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian honors the indent width setting for tabs but always inserts exactly four spaces when Indent using tabs is off.",
+ "readmeHash": "eabddfcd0230158f033a4316e7089e4c2a9f4969",
+ "relations": [
+  {
+   "evidence": "Same indentation goal; uses core Indent visual width; no extra setting/key handler",
+   "plugin": "Indent with Spaces",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Alternative indentation: keeps spaces; changes their count per indent",
+   "plugin": "Simple Tab Indent",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Ensure you have the BRAT plugin installed and enabled.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Editor fix that makes Tab insert the number of spaces set in Obsidian's Indent visual width setting instead of a hardcoded four.",
+ "tags": [
+  "indentation",
+  "spaces",
+  "tab-key",
+  "demo-vault"
+ ]
+}

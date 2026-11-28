@@ -1,0 +1,100 @@
+{
+ "also": [
+  "ocr",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Parse documents into Markdown",
+  "Extract image attachments",
+  "Configure custom save paths",
+  "Batch parse multiple files",
+  "Choose among seven backends"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite its name, it is not limited to MinerU; it supports seven parsing backends.",
+ "extras": "Desktop-only (spawns local CLI processes and bundles an unzip library); MinerU cloud offers a free no-token mode and a paid Precision API; local backends need a Python CLI; README continues in Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian cannot turn PDFs, Office files, or images into editable Markdown notes on its own.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "ad1bcfc57133775cbf159df5851a1b5f9c0180bd",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "MinerU (cloud) — free mode (no token) or the Precision API (with a token, extracts image attachments).",
+   "plugin": "MinerU",
+   "type": "integrates"
+  },
+  {
+   "evidence": "markitdown (local) — runs the local Python CLI; desktop only; no images.",
+   "plugin": "markitdown",
+   "type": "integrates"
+  },
+  {
+   "evidence": "docling (local) — runs the local Python CLI; desktop only; Markdown only.",
+   "plugin": "docling",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Doc2X (document parsing) — Doc2X, strong on PDF formulas / tables / layout.",
+   "plugin": "Doc2X",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TextIn (document parsing) — TextIn xParse for PDF / image / Office.",
+   "plugin": "TextIn",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Baidu OCR (document parsing) — Baidu Cloud document parsing for PDF / image / Office",
+   "plugin": "Baidu OCR",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python CLI (markitdown, docling)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "MinerU Precision API token",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Baidu Cloud / TextIn / Doc2X credentials",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible vision model API",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Right-click parser that converts PDFs, Office files, and images into Markdown via seven backends, saving notes and image attachments to configured folders.",
+ "tags": [
+  "docx",
+  "vision-models",
+  "openai-compatible"
+ ],
+ "textHash": "353c9052c623351fec7dc13e7e397abf124f6d90"
+}

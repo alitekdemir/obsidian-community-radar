@@ -1,0 +1,123 @@
+{
+ "also": [
+  "research",
+  "templating"
+ ],
+ "audience": [
+  "venture-capital-analysts",
+  "equity-research-analysts",
+  "trading-desk-strategists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate source-cited research answers from Perplexity, Claude, Gemini, Perplexica/Vane, or LM Studio",
+  "Enhance selected text in a note with AI and choose replace, insert-below, or preview",
+  "Apply directory templates to one file or batch-fill every file in a folder",
+  "Retrieve verified company facts via Exa and funding rounds via Fireround before generation",
+  "Write citations footers, resolve grounding redirects, and strip tracking parameters from links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only and requires Obsidian 1.13 or later. Core Perplexity and Claude providers need paid API keys; Exa, Gemini, and Firecrawl have free tiers. Full template reference lives in docs/directory-templates.md rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate research content with verified, durable citations inside notes, or to fill hundreds of same-shaped notes from one template.",
+ "readmeHash": "0b4639250c02d5c942447c442226cda6d2d131e8",
+ "relations": [
+  {
+   "evidence": "Support for Perplexity, Anthropic Claude, Google Gemini (with Google Search grounding), Perplexica / Vane (self-hosted), and LM Studio",
+   "plugin": "Perplexity",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Exa finds and verifies the source material, and the writing model writes from it",
+   "plugin": "Exa",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fireround adds a company's rounds to the note, with the raw data under your funding heading",
+   "plugin": "Fireround",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Perplexica / Vane is a free, open-source AI search engine that you run locally",
+   "plugin": "Perplexica / Vane",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Local LLM Support: Integration with LM Studio for local AI processing",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so cite-wide's hex-substitution pass works on Gemini output too",
+   "plugin": "cite-wide",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Perplexity API key (paid)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Perplexity account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Gemini API key (free tier available)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic Claude API key (paid)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Exa API key (free tier with signup credit)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Firecrawl key for Fireround funding data",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Self-hosted Perplexica / Vane server",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "LM Studio local app",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI research plugin that writes source-cited answers into notes using Perplexity, Claude, Gemini, self-hosted Perplexica/Vane, or local LM Studio, with directory templates for batch generation.",
+ "tags": [
+  "perplexity",
+  "claude",
+  "gemini",
+  "lm-studio",
+  "exa",
+  "citations",
+  "deep-research",
+  "funding-rounds"
+ ]
+}

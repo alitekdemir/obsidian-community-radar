@@ -1,0 +1,62 @@
+{
+ "also": [
+  "writing",
+  "export"
+ ],
+ "audience": [
+  "long-form-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Compile a folder or multi-file selection into a single timestamped manuscript note",
+  "Remove HTML comments, Markdown comments and strikethrough text from the output",
+  "Renumber numeric footnotes and gather their definitions at the end",
+  "Insert small caps, alignment, poem and page-break markup for Pandoc export",
+  "Rename a folder's files with consistent numeric prefixes and remove them again"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.14.0 or later; the README covers only manual installation. Generated snapshots are automatically excluded from later compilations. It does not resolve embeds or rewrite relative links, and named or multiline footnotes are not fully handled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Long texts like novels live in many separate notes, and Obsidian has no built-in way to combine a folder's files into one ordered, readable manuscript.",
+ "readmeHash": "83479f71e2a7f539b4f350b063fcd72543b5e480",
+ "relations": [
+  {
+   "evidence": "The default sortspec name protects the configuration notes used by Custom Sort.",
+   "plugin": "Custom Sort",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If Bookbinder is installed, even when disabled, Markdown notes containing an obsidian://bookbinder link are also excluded",
+   "plugin": "Bookbinder",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use your usual export workflow, for example a Pandoc plugin such as Enhancing Export",
+   "plugin": "Enhancing Export",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Compiles a folder or file selection of Markdown notes into one manuscript note, with file numbering, comment cleanup and Pandoc export markup.",
+ "tags": [
+  "pandoc",
+  "manuscript",
+  "long-form",
+  "file-numbering",
+  "snapshots"
+ ]
+}

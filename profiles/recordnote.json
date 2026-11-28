@@ -1,0 +1,63 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe audio recordings into timestamped transcripts",
+  "Generate AI summaries with key points, decisions, action items and suggestions",
+  "Add links to results in the source note",
+  "Re-organize an existing transcript while keeping earlier summaries",
+  "Export or share transcript, summary or combined Markdown"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an audio recorder; it transcribes and organizes recordings captured elsewhere, such as Obsidian Quick Capture or an exported voice memo.",
+ "extras": "Audio is sent to the selected transcription provider and transcript text to the selected text provider, so API access may incur charges; files over 100 MB are rejected and long recordings are limited by the device. A migration command moves an older 语音整理 folder to RecordNote, and iPhone acceptance testing of the open-audio-file fix is still pending.",
+ "intent": "alternative",
+ "intentEvidence": "If upgrading from voice-organizer-local, keep the old plugin files until you have verified",
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Voice recordings captured in Obsidian or stored in the vault stay as raw audio, with no built-in way to turn them into searchable transcripts and structured notes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "2e42fca58a0aad6628d07580984aca6df7a392fa",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "If upgrading from voice-organizer-local, keep the old plugin files until you have verified that settings and recordings are available",
+   "plugin": "voice-organizer-local",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (MiniMax, OpenAI, Gemini, Grok, DeepSeek, Claude or custom endpoint)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Transcribes audio recordings in a vault with configurable AI services and produces timestamped transcripts, summaries, action items and Markdown notes.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "summarization",
+  "action-items",
+  "openai",
+  "voice-memos",
+  "ios"
+ ],
+ "textHash": "94fd994abc70d100460ccafe3d0e826b5c0c5399"
+}

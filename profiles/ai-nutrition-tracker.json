@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "log meals by describing them in natural language",
+  "analyze food photos to extract nutrition data",
+  "save and reuse frequently eaten meals",
+  "track daily calorie and macro progress against goals",
+  "generate daily food log notes with progress visuals"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Data is stored as plain JSON in the vault with notes rendered one-way from it; since 3.0.0 hand-edits to rendered meal notes no longer sync back, and upgrading from 2.x migrates existing notes automatically with backups.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to track nutrition, and manual food logging with forms and calculations is tedious.",
+ "readmeHash": "ac1b3d2b7e38f148212249682e6adc7bdc65515b",
+ "relations": [
+  {
+   "evidence": "Set your OpenRouter API key and nutrition goals",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose from powerful models like Gemini, Claude 4.5 Sonnet, GPT-5 to analyze your food",
+   "plugin": "Gemini, Claude 4.5 Sonnet, GPT-5",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI-powered nutrition tracker that turns meal descriptions or food photos into daily food logs with calories and macros in your vault.",
+ "tags": [
+  "openrouter",
+  "calories",
+  "macronutrients",
+  "food-photos",
+  "meal-logging",
+  "gemini",
+  "claude",
+  "gpt"
+ ]
+}

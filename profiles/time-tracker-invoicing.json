@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [
+  "freelancers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Start and stop a timer on the active note, tagged with its client and project properties",
+  "Show unbilled hours and amounts per client at a configurable rate",
+  "Generate sequentially numbered Markdown invoices from unbilled time for a period",
+  "Export invoices as locally generated PDFs with pagination",
+  "Void issued invoices and record which hours each invoice billed to avoid double billing"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: time tracking, status bar timer, unbilled totals and invoice preview are free; writing invoice files, PDF export and billing allocation require a $29 one-time key verified offline. Free preview shows the invoice before purchase. Data is stored locally in data.json; PDF export is limited to Latin-1 characters and refuses unsupported scripts while still writing the Markdown invoice.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The hours are already in your vault. They just never become an invoice.",
+ "primary": "finance",
+ "problem": "Obsidian has no way to turn time spent working in notes into per-client billable records and invoices without reconstructing hours from memory or file timestamps.",
+ "readmeHash": "79ac58bb83c40541319bc83f63ff598a3f5c1aaf",
+ "relations": [
+  {
+   "evidence": "the licensing approach, settings-tab patterns, build/test setup and project layout are adapted from the Vault Spotlight plugin",
+   "plugin": "Vault Spotlight",
+   "type": "inspired"
+  },
+  {
+   "evidence": "it builds invoices from #billable lines you have already typed, where this plugin clocks the time itself",
+   "plugin": "Invoice Forge",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "license key ($29 one-time) for invoice writing, PDF export and billing periods",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Time tracker that logs billable hours against notes, totals unbilled time per client, and generates numbered Markdown and PDF invoices.",
+ "tags": [
+  "timer",
+  "invoicing",
+  "billable-hours",
+  "hourly-rate"
+ ]
+}

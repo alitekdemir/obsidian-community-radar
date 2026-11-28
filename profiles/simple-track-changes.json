@@ -1,0 +1,61 @@
+{
+ "also": [
+  "formatting",
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Wrap typed or pasted text in addition markup",
+  "Preserve deleted text as deletion markup",
+  "Accept or reject a change at the cursor or all changes",
+  "Jump to next or previous change from a floating indicator",
+  "Fall back to HTML ins tags when Extended Markdown Syntax is absent"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a diff or version-history tool; it marks edits inline as you type rather than comparing saved versions of a note.",
+ "extras": "Additions fall back to native HTML <ins> tags when Extended Markdown Syntax is missing; the fallback can be overridden in settings (Auto, Force ++...++, Force <ins>). The floating indicator label is in Chinese (「追蹤修訂中」).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "editing",
+ "problem": "Obsidian has no built-in way to mark additions and deletions while editing, so deleted text is lost and edits leave no visible record in the note.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "6fc4ef0bf9f40d70407e5a1b11dba0b7f7ccaedc",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "++...++ syntax depends on Extended Markdown Syntax (extended-markdown-syntax).",
+   "plugin": "Extended Markdown Syntax",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Extended Markdown Syntax",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Track-changes mode that wraps typed text in ++addition++ markup and keeps deleted text as %%~~deletion~~%% in Live Preview and Source Mode.",
+ "tags": [
+  "live-preview",
+  "source-mode",
+  "ime",
+  "cjk"
+ ],
+ "textHash": "5906d63efd22ae739c576f739d427050d79fb3e8"
+}

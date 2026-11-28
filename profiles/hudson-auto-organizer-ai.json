@@ -1,0 +1,89 @@
+{
+ "also": [
+  "files",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "File notes into folders by per-vault rules",
+  "File notes manually to chosen destinations",
+  "Route notes with AI suggestions",
+  "Preview files and lines before applying",
+  "Undo the last auto-organize run"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Also checks for exact and similar duplicates and moves deleted copies to a recoverable Deleted folder. The managed OpenRouter key has a USD $1 lifetime limit with no reset; settings, credentials and undo history are stored locally.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "folders",
+ "problem": "Obsidian has no built-in way to route notes into folders by rules or with AI help, so filing is done by hand.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "35826087608d6a18979ce12424377f869dd06944",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Configure your own OpenAI key through Obsidian Secret Storage",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenRouter is the default provider for new installations.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI planning uses a connected Constance account and organize-run credits",
+   "plugin": "Constance",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenRouter",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Constance",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Constance organize-run credits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Note organizer that files notes into folders using per-vault rules, manual destinations or AI routing, with previews and undo.",
+ "tags": [
+  "openai",
+  "openrouter",
+  "para",
+  "duplicate-detection",
+  "folder-structure",
+  "byok",
+  "undo"
+ ],
+ "textHash": "e089ef3582299d340c66e36a39a0d421723a387d"
+}

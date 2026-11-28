@@ -1,0 +1,54 @@
+{
+ "also": [
+  "navigation",
+  "autocomplete"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Match equivalent CJK characters in vault Search and in-note Find",
+  "Extend Quick switcher matching to file names, paths, and aliases",
+  "Extend Graph view filters, groups, and path/file/tag queries",
+  "Extend tag and internal-link suggestions after # and [[",
+  "Match folder names in the native move dialogue"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Quick switcher",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation from GitHub Releases (zip into .obsidian/plugins); flagged as not manually reviewed by Obsidian staff and reliant on internal Obsidian interfaces, so the author recommends testing in a scratch vault. Detailed limitations list (unsupported surfaces, input-size fallbacks, untested platforms) is in the README.",
+ "intent": "improve",
+ "intentEvidence": "CJK Search extends Obsidian’s native Search, Find, Quick switcher, move dialogue, Graph view, and editor suggestions.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's native search treats visually equivalent CJK characters (e.g. 体 vs 體) and compatibility forms as different, so equivalent notes and files are missed.",
+ "readmeHash": "1899a1ad252500f7bc704b0f5ffc18d4c3ad91d9",
+ "relations": [
+  {
+   "evidence": "Character data is selected from Unicode 18.0.0 and OpenCC 1.4.2.",
+   "plugin": "OpenCC",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Search enhancer that matches equivalent CJK and compatibility characters across Obsidian's native search surfaces without changing note text.",
+ "tags": [
+  "cjk",
+  "unicode",
+  "chinese",
+  "compatibility-characters",
+  "opencc"
+ ]
+}

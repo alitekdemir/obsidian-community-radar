@@ -1,0 +1,62 @@
+{
+ "also": [
+  "publishing",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish notes to Notion as a page tree that mirrors vault folders",
+  "Publish notes as rows of a Notion database with tag and folder columns",
+  "Update the same Notion page in place on republish, keeping its link",
+  "Convert Obsidian Markdown (callouts, highlights, tasks, math) to Notion-flavoured Markdown",
+  "Publish whole folders from the file explorer context menu, skipping unchanged notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Publishing is one-way: edits made in Notion are overwritten and deletions in Obsidian do not delete Notion pages. Local images and embeds are not uploaded yet. The API token is stored in Obsidian's secret storage rather than the plugin settings file, and beta versions can be installed via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push notes into Notion while preserving folder structure and updating existing Notion pages instead of creating duplicates.",
+ "readmeHash": "5c7f36f7ba24f2da49f792f7f82582eafc6be5ca",
+ "relations": [
+  {
+   "evidence": "The plugin talks to the Notion REST API directly from Obsidian.",
+   "plugin": "Notion",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Notion account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Notion API token (internal connection or personal access token)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Notion publishing plugin that sends notes to Notion as a page tree mirroring the vault or as database rows, updating the same pages in place.",
+ "tags": [
+  "notion",
+  "notion-api",
+  "page-tree",
+  "database-rows",
+  "markdown-conversion",
+  "one-way-publishing"
+ ]
+}

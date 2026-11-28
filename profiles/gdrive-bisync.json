@@ -1,0 +1,58 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault folders bidirectionally with Google Drive",
+  "Pull changes one-way from Drive without uploading",
+  "Review all changes in a preview before executing a sync",
+  "Resolve conflicts by keeping local, Drive, or both versions per file",
+  "Auto-commit with git before and after each sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff, and community plugin listing is still pending (manual or BRAT install described). The Security section warns that encrypted OAuth tokens and the encryption key live in the same data.json file, so anyone with filesystem access to the vault can decrypt them.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault with Google Drive, so users must rely on paid sync services or manual copying.",
+ "readmeHash": "a95458dbd76b5822612b4b75db71bfbc30753e94",
+ "relations": [
+  {
+   "evidence": "Auto-commit before and after sync for version history",
+   "plugin": "git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account (OAuth sign-in via device code flow)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bidirectional Google Drive sync for vault folders with conflict resolution, pull-only mode, ignore rules, and git auto-commits.",
+ "tags": [
+  "google-drive",
+  "shared-drives",
+  "conflict-resolution",
+  "gitignore",
+  "oauth",
+  "device-code-flow"
+ ]
+}

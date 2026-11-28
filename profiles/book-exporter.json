@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [
+  "writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Compile a manifest note's headings and wikilink bullets into a single book manuscript",
+  "Export the manuscript to EPUB and PDF via Pandoc with Typst, xelatex, tectonic, or weasyprint engines",
+  "Clean up inlined notes by stripping frontmatter, removing scaffolding sections, and rewriting Obsidian-only syntax",
+  "Preview the compiled manuscript and validate the current book",
+  "Configure output folder, engine paths, fonts, and per-book Pandoc arguments, including bibliography and citation style"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin has not been manually reviewed by Obsidian staff. The README states the status is 'Pre-release. Unstable' and points to design and history docs in the repository for full documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to assemble many notes into a structured book and produce EPUB or PDF files for e-readers and printing.",
+ "readmeHash": "a02ce5e71bd9f779918f59d3b93b4bfbb9c3dbab",
+ "relations": [
+  {
+   "evidence": "exports to EPUB and PDF via Pandoc",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For PDF, Typst is the recommended engine — single small binary",
+   "plugin": "Typst",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pandoc >= 3.x on PATH",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "PDF engine (Typst recommended; xelatex, tectonic, or weasyprint alternatives)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Book exporter that compiles a manifest note plus linked chapter notes into a single manuscript and exports it to EPUB and PDF via Pandoc.",
+ "tags": [
+  "epub",
+  "pandoc",
+  "typst",
+  "manuscript",
+  "longform",
+  "citations"
+ ]
+}

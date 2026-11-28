@@ -1,0 +1,68 @@
+{
+ "also": [
+  "import",
+  "research"
+ ],
+ "audience": [
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Hypothesis annotations into vault notes from a command or the ribbon",
+  "Create one note per annotated page with highlights, page notes and tags",
+  "Resync incrementally from a stored cursor without duplicating blocks",
+  "Keep deleted notes deleted across future syncs",
+  "Configure folder, file name template and extra note properties"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general highlighting or annotation tool for Obsidian; it only imports existing Hypothesis annotations via the Hypothesis API.",
+ "extras": "Not manually reviewed by Obsidian staff. Free, with no paid features or sign-in of its own. After minor or major updates it opens a What's new tab that suggests other NoteMods plugins and Zovo Chat; this can be turned off in settings. The developer token is stored in Obsidian secret storage, not data.json.",
+ "intent": "alternative",
+ "intentEvidence": "The older plugin \"Hypothesis\" by weichenw is no longer in the community directory. This plugin does the same job",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to bring annotations from the Hypothesis web annotation service into vault notes.",
+ "readmeHash": "28e22c11c41a38f6f082dd39bff03ddf360a82bf",
+ "relations": [
+  {
+   "evidence": "This plugin only reads your own annotations through the public Hypothesis API",
+   "plugin": "Hypothesis",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin does the same job, shares no code with it, and does not read its notes.",
+   "plugin": "Hypothesis by weichenw",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Hypothesis account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Hypothesis developer token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Importer that pulls Hypothesis web highlights, page notes and tags into the vault as one note per page, with incremental resync and duplicate skipping.",
+ "tags": [
+  "hypothesis",
+  "web-highlights",
+  "web-annotations",
+  "incremental-sync",
+  "api-token"
+ ]
+}

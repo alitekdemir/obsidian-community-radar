@@ -1,0 +1,60 @@
+{
+ "also": [
+  "calendar",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display an Overview, Focus, Schedule, and Metrics dashboard from daily notes",
+  "Parse daily note body sections for tasks, frogs, time blocks, and metrics",
+  "Track activity in an 84-day heatmap with stats like active days and tasks completed",
+  "Quick-capture inbox files via the Capture tab",
+  "Auto-refresh the dashboard 800ms after vault file changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is a read-only dashboard over daily notes, not a command palette or command launcher.",
+ "extras": "Users must build main.js from main.ts before the plugin loads; it expects a specific vault folder layout (00 Human/10 Daily Notes/YYYY-MM-DD.md) and sections in daily notes, so it is tied to the Kaymina-OS vault setup.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in dashboard that parses daily-note body sections into one live overview of focus, schedule, metrics, and activity.",
+ "readmeHash": "aa88d8108a000db26fa5e6650928337b028166b1",
+ "relations": [
+  {
+   "evidence": "This plugin is meant to work with an vault using Gemini CLI",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Gemini CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Dashboard plugin that renders focus, tasks, schedule, metrics, and activity heatmap tabs from a fixed daily-note layout used by the Kaymina-OS vault.",
+ "tags": [
+  "gemini-cli",
+  "dashboard",
+  "heatmap",
+  "daily-notes",
+  "time-blocking",
+  "metrics-tracking"
+ ]
+}

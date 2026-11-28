@@ -1,0 +1,57 @@
+{
+ "also": [
+  "latex"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Copy Markdown selections as LaTeX on the clipboard",
+  "Convert wiki-link and pandoc citations into \\cite, \\autocite or template-based commands",
+  "Turn block ids and links into \\label and \\ref pairs",
+  "Convert Markdown tables, images and code blocks into LaTeX environments",
+  "Collect citation keys missing from a target bibliography via Copy Missing Citations"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README marks bibliographies and captions as partial and the bibliography feature as experimental; the produced LaTeX requires the soul, listings, booktabs, graphicx and hyperref packages (plus tabulary, minted or todonotes for some options).",
+ "intent": "alternative",
+ "intentEvidence": "Lighterweight than Pandoc, doesn't assume you're writing a whole document.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Written for people who do most of their writing in Obsidian with citations from a managed reference set and want simple, quick LaTeX output for fragments rather than whole documents.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to turn notes, especially ones full of citations and block references, into LaTeX snippets without running a heavier document pipeline like Pandoc.",
+ "readmeHash": "5c18603603a0fc7001f6594a471dbae893e78b73",
+ "relations": [
+  {
+   "evidence": "Lighterweight than Pandoc, doesn't assume you're writing a whole document.",
+   "plugin": "Pandoc",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Set Citation syntax to Pandoc to write citations the way pandoc and plugins like Pandoc Reference List expect them",
+   "plugin": "Pandoc Reference List",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Clipboard converter that copies Obsidian Markdown as LaTeX, turning citations, cross-references, tables, figures, code blocks and admonitions into LaTeX code.",
+ "tags": [
+  "pandoc",
+  "citations",
+  "natbib",
+  "booktabs",
+  "overleaf",
+  "clipboard"
+ ]
+}

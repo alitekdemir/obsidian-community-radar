@@ -1,0 +1,68 @@
+{
+ "also": [
+  "git",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Markdown notes through Git Smart HTTP",
+  "Store and verify attachments in S3-compatible storage",
+  "Resolve conflicts with a three-way editor and merge commit",
+  "Show contribution wall, recent files, and commit history",
+  "Synchronize allowlisted shared plugin files and enabled state"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Git client for arbitrary repositories; it synchronizes the team vault's notes, attachments, and allowlisted shared plugin files.",
+ "extras": "Developed entirely by AI per the README disclosure. Automatic synchronization is off by default. Sync Now is bidirectional, so local deletions propagate; the README warns against running it after an accidental unsynchronized deletion. The quick configuration string contains Git and S3 credentials and is compressed but not encrypted. A destructive remote test-reset requires explicit confirmation. Requires Obsidian 1.12.3 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync does not give small teams Git version history, S3-hosted attachments, or a shared conflict-resolution and recovery workflow across desktop and mobile.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "753879a8df75529448ff8a9abe0a39770d194522",
+ "readmeSource": "README_EN.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git Smart HTTP repository with Basic authentication",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible object storage bucket",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Authorization for the shared Git repository and S3 prefix",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Team knowledge-base synchronization plugin that syncs Markdown notes and shared plugin settings through Git and stores attachments in S3-compatible object storage.",
+ "tags": [
+  "s3",
+  "conflict-resolution",
+  "version-history",
+  "local-first",
+  "mobile",
+  "diagnostics"
+ ],
+ "textHash": "58bb138f8a61afeac25002fda0ba0e8ecc8e5ff5"
+}

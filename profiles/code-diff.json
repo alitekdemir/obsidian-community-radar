@@ -1,0 +1,57 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render diffs from pasted git patch text in fenced code blocks",
+  "Generate diffs from a local Git repository by branch, tag, commit or revision range",
+  "Restrict generated diffs to specific file paths",
+  "Configure diff layout, theme, fonts and highlighting via block frontmatter or plugin settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a version-control or note-history tool; it only renders code diffs, running git read-only and never writing to a repository.",
+ "extras": "Flagged as shell execution because repo blocks invoke the local git executable; the README documents exactly which read-only git subcommands run and states there are no network requests or telemetry. Repository-diff blocks are Desktop-only and do not work on mobile or in browsers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "code",
+ "problem": "Obsidian shows pasted patch text as plain code with no diff rendering, and cannot display changes from a local Git repository inside a note.",
+ "readmeHash": "cf5c49cb64b13b9314d764ca85e46d113acfc64a",
+ "relations": [
+  {
+   "evidence": "This plugin uses @pierre/diffs as the (beautiful) rendering engine.",
+   "plugin": "@pierre/diffs",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders code diffs inside notes as code-diff code blocks, either from pasted git patches or generated from a local Git repository.",
+ "tags": [
+  "git-diff",
+  "code-fences",
+  "split-view",
+  "unified-diff",
+  "read-only-git",
+  "desktop-only"
+ ]
+}

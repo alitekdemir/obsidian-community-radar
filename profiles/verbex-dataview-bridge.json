@@ -1,0 +1,70 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run read-only DQL queries for the Verbex agent",
+  "List note fields, value types and common values before a query is written",
+  "Execute the fenced dataview blocks of a given note",
+  "Report the source note of every result row so private notes can be refused",
+  "Ship a Dataview guide skill in English and Korean"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Has no commands, editor features or network access; DataviewJS and inline queries are never executed. Results are cut at 20,000 characters and 150 source notes, and queries whose FROM cannot be resolved or selects more than 150 notes are refused.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "The Verbex agent cannot query Dataview data, and cannot tell which notes a result came from, so it cannot avoid AI-private notes.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "65610b95dd499b51e98c1ddcda3d3fb501cde5a2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "lets the Verbex AI agent run read-only Dataview (DQL) queries",
+   "plugin": "Verbex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dataview 0.5.x (tested against 0.5.68), enabled, with its index built.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Verbex",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bridge that lets the Verbex AI agent run read-only Dataview DQL queries and reports each result row's source note for privacy checks.",
+ "tags": [
+  "dataview",
+  "ai-agents",
+  "privacy",
+  "query-language",
+  "read-only",
+  "agent-skills"
+ ],
+ "textHash": "75ac1c40ed4c6cbf7e657069c7a42bba490aef78"
+}

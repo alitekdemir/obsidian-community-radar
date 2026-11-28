@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Read session logs from Claude Code, Codex and WorkBuddy",
+  "Render a day's token usage, cache reads/writes and plan-limit hits as a receipt",
+  "Estimate costs from an editable per-model price table",
+  "Export receipts as PNG, WebP or animated SVG, or embed them in notes",
+  "Browse receipts by day in a sidebar view with animated scenes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a token counter for your notes; it visualizes AI coding session usage read from logs stored outside the vault.",
+ "extras": "Desktop only (reads logs via Node.js). Reads files outside the vault (~/.claude, ~/.codex, ~/.workbuddy, ~/.config/magpie) but never writes there and sends nothing over the network. Costs are estimates at API list prices, not what subscription users pay. Not yet in the community plugin store; installable manually or via BRAT, and not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Token usage and plan-limit data from AI coding tools sits in local session logs outside the vault, with no way to see a day's totals at a glance or keep them in notes.",
+ "readmeHash": "6c463c9ac2ad016b38d3f68912bacbf7998d1664",
+ "relations": [
+  {
+   "evidence": "The idea comes from claude-receipts by Chris Hutchinson",
+   "plugin": "claude-receipts",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The plugin reads, and never writes, the session logs in ~/.claude/projects (Claude Code)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "~/.codex/sessions and ~/.codex/archived_sessions (Codex)",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "~/.workbuddy/projects (WorkBuddy)",
+   "plugin": "WorkBuddy",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Magpie, if you use it: the receipt adds what Magpie has recorded",
+   "plugin": "Magpie",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex or WorkBuddy session logs",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reads local Claude Code, Codex and WorkBuddy session logs and renders a day's token usage, plan limits and estimated costs as a shop receipt.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "workbuddy",
+  "magpie",
+  "token-usage",
+  "cost-estimates",
+  "svg-animation",
+  "receipt"
+ ]
+}

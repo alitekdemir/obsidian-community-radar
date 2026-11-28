@@ -1,0 +1,69 @@
+{
+ "also": [
+  "tasks",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send Telegram notifications for overdue, due-today, and upcoming tasks",
+  "Parse task dates from frontmatter fields and inline task syntaxes",
+  "Schedule exact-time reminders with configurable lead time and catch-up",
+  "Auto-advance recurring tasks when completed",
+  "Browse overdue, due-today, and upcoming tasks in a sidebar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Setup requires creating a Telegram bot through @BotFather and obtaining a chat ID via @userinfobot; a section lists planned but unimplemented features such as timezone handling and snooze.",
+ "intent": "new",
+ "intentEvidence": "Obsidian plugin that sends Telegram notifications when your tasks reach their deadline.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to push task deadline alerts to the user outside the app, such as via a messaging service like Telegram.",
+ "readmeHash": "2d4b672c1c91a984a57c69c530bc13068367f488",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Reminder",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Kanban-plugin syntax — supports @YYYY-MM-DD @@HH:MM for date+time",
+   "plugin": "Kanban",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Telegram",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Telegram bot token and chat ID (via @BotFather and @userinfobot)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Telegram integration that sends notifications when tasks reach their deadline, supporting exact-time reminders, recurring tasks, and a task sidebar.",
+ "tags": [
+  "telegram",
+  "telegram-bot",
+  "notifications",
+  "recurring-tasks",
+  "due-dates",
+  "task-syntax"
+ ]
+}

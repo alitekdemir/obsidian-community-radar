@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish a note or folder to SmartKeep with public or password-protected access",
+  "Sync vault files and attachments with OneDrive on Windows and Android",
+  "Review, apply and undo AI-suggested edits to a note or selection",
+  "Sync a Windows vault with a chosen external folder",
+  "Configure an OpenAI-compatible endpoint and model for AI editing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Markdown formatter or linter despite the name; it publishes notes, syncs files and reviews AI edits.",
+ "extras": "Requires Obsidian 1.15.1 or later. Interface is English by default with a Simplified Chinese option saved per device. AI features are optional and may incur provider charges; requests over HTTP are sent unencrypted, so HTTPS is advised for remote services.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to publish notes to SmartKeep, keep a vault in step through OneDrive, or preview AI rewrites before they touch a note.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "35cb0c9a9c23443bb0b7585c47310fc594ca27f6",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "OneDrive sync (Windows and Android). Sign in to a Microsoft account on each device.",
+   "plugin": "OneDrive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sign in from SmartMD, then select the note or folder to publish.",
+   "plugin": "SmartKeep",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "SmartKeep account",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Microsoft account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Plugin that publishes notes to SmartKeep, syncs vault files with OneDrive on Windows and Android, and applies reviewed AI edits.",
+ "tags": [
+  "onedrive",
+  "openai-compatible",
+  "ai-chat",
+  "web-search",
+  "android",
+  "windows",
+  "chinese"
+ ],
+ "textHash": "21837e4531bc87198f98b4e68e069721847e76bd"
+}

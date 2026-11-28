@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", "
+ ],
+ "coreOverlap": {
+  "features": [
+   "files",
+   "sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The backup is strictly one-way; it does not pull changes from the bucket. Cloudflare R2 usage incurs costs based on storage and operations.",
+ "intent": "alternative",
+ "intentEvidence": "It is a one-way backup tool, not a two-way sync, and it complements Obsidian File Recovery and Obsidian Sync rather than replacing them.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Users need a reliable, versioned, and secure way to back up their entire Obsidian vault off-site without relying solely on Obsidian's built-in sync features.",
+ "readmeHash": "afb098ec5f0547975520879a6aa9c8597459a4ff",
+ "relations": [
+  {
+   "evidence": "it complements Obsidian File Recovery and Obsidian Sync rather than replacing them.",
+   "plugin": "Obsidian File Recovery",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it complements Obsidian File Recovery and Obsidian Sync rather than replacing them.",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare R2 bucket",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.11.4 or later",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Cloudflare Vault Backup provides versioned, encrypted, and restorable backups of the Obsidian vault to a private Cloudflare R2 bucket.",
+ "tags": [
+  "cloudflare",
+  "encryption",
+  "archiving",
+  "version-history"
+ ]
+}

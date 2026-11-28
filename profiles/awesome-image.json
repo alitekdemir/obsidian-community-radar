@@ -1,0 +1,54 @@
+{
+ "also": [
+  "attachments",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "view images with zoom, pan, rotate, invert, and a thumbnail gallery",
+  "download remote HTTP(S) images into the vault so notes work offline",
+  "store images in a SHA-256 content-addressed media folder and rewrite links",
+  "find and trash unused (orphan) images not referenced anywhere",
+  "convert wiki image embeds to Markdown links vault-wide"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README repeatedly warns that image processing edits note text with no plugin-level undo and recommends backing up the vault (Git, filesystem, or Obsidian Sync) before running; batch orphan deletion is opt-in and reversible only via the trash. Beta installation is via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "the image viewer part of this plugin is based on that great work",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author lists three failure modes of image handling in Obsidian: remote images disappearing, attachments scattering across folders, and the same picture saved under different names.",
+ "primary": "images",
+ "problem": "Remote images vanish when hosts die, attachments scatter across folders, and identical pictures get saved multiple times, with no tooling to keep image storage clean.",
+ "readmeHash": "272329600d163241853be40d488d48f8e332c600",
+ "relations": [
+  {
+   "evidence": "Special thanks to sissilab's marvelous Obsidian Image Toolkit; the image viewer part of this plugin is based on that great work.",
+   "plugin": "Obsidian Image Toolkit",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Image viewer and manager that adds zoom/pan viewing plus automatic local download, SHA-256 deduplication, orphan cleanup, and wikilink conversion.",
+ "tags": [
+  "image-viewer",
+  "sha-256",
+  "content-addressed",
+  "deduplication",
+  "orphan-images",
+  "wikilinks-to-markdown",
+  "offline"
+ ]
+}

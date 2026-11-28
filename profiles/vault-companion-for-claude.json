@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with Claude inside Obsidian on desktop and mobile",
+  "read, search, list, create, and update vault notes through Claude tools",
+  "pin additional notes to the chat context with a fuzzy file picker",
+  "approve or reject every write and Bash action before it runs",
+  "run a Mac relay backend that bills usage to a Claude subscription"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest states the plugin has not been manually reviewed by Obsidian staff. The README includes extensive security and privacy disclosures (network use, vault enumeration, YOLO auto-approve risk) and notes the relay backend does not enforce the Private folders boundary.",
+ "intent": "alternative",
+ "intentEvidence": "Existing Claude integrations for Obsidian (such as Claudian) embed the Claude Code CLI as a child process, which makes them desktop-only",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted Claude with agentic vault access working on mobile, so it calls the Anthropic Messages API directly or routes through a Mac relay instead of embedding the CLI.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and existing Claude integrations are desktop-only because they spawn the Claude Code CLI, which mobile Obsidian cannot run.",
+ "readmeHash": "b92df950162f480825bae4dd96da28851a01173e",
+ "relations": [
+  {
+   "evidence": "Existing Claude integrations for Obsidian (such as Claudian) embed the Claude Code CLI as a child process",
+   "plugin": "Claudian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "It wraps the Claude Agent SDK with your vault as the working directory",
+   "plugin": "Claude Agent SDK",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude Pro/Max subscription",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code and Node 18+ on a Mac (relay backend)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI chat with Claude that reads, searches, creates, and updates vault notes, running via the Anthropic API or a self-hosted Mac relay.",
+ "tags": [
+  "anthropic",
+  "claude",
+  "chat",
+  "agent",
+  "relay",
+  "tailscale"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Highlights matched keywords",
+  ": Applies to tables, callouts, code blocks, and list items",
+  ": Works in Reading view and Live Preview",
+  ": Auto-switches to Reading view on search result click"
+ ],
+ "coreOverlap": {
+  "features": [
+   "search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It is specifically designed to refine the highlight behavior when opening a note from a search result, not for general in-note searching or vault-wide selection.",
+ "extras": null,
+ "intent": "improve",
+ "intentEvidence": "This plugin makes the persistent highlight keyword-precise for those blocks.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "When opening a note from search results, Obsidian's default behavior highlights the entire block or cell instead of just the matched keyword within complex structures.",
+ "readmeHash": "06ad76c6a94ab8638707fca06b218498f9d8636e",
+ "relations": [
+  {
+   "evidence": "Editor-only; not driven by search-result open",
+   "plugin": "Dynamic Highlights",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Skips rendered tables in Live Preview (needs Source mode)",
+   "plugin": "Highlight Same Matches",
+   "type": "alternative"
+  },
+  {
+   "evidence": "It is an in-note find, not the search-result-open flow",
+   "plugin": "Find in Note",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Highlights the full row, not the keyword",
+   "plugin": "Hotlines",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Highlight lives in the result list, not the rendered note",
+   "plugin": "SwiftMatch / SearchPlus",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Keyword-precise highlighting for matched text within complex Markdown blocks (tables, callouts, code) when opening a note from search results.",
+ "tags": [
+  "keyword-precise",
+  "complex-blocks",
+  "search-results",
+  "reading-view"
+ ]
+}

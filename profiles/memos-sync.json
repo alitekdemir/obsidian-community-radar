@@ -1,0 +1,63 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "sync Memos server entries into daily notes incrementally",
+  "force resync all memos from the server",
+  "resync memos for a specific day's note",
+  "create missing daily notes and insert memos under a configured header",
+  "store synced attachments in a configurable folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Supports both Memos API versions (after v0.22.0 and before); daily note template must contain the configured header or syncing fails.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull memos from a Memos server into daily notes.",
+ "readmeHash": "1ca61600245173514b2cb1b9cb123ec545b777b6",
+ "relations": [
+  {
+   "evidence": "The code in obsidian-lifeos provides a lot of reference value in the early stages of this project.",
+   "plugin": "obsidian-lifeos",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Memos server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Memos API token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs memos from a Memos server into Obsidian daily notes, with incremental and forced syncing and automatic daily note creation.",
+ "tags": [
+  "memos",
+  "self-hosted",
+  "incremental-sync",
+  "daily-logs"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Attach notes, selections, text files, and images as chat context",
+  "Stream Markdown responses and resume, search, rename, or fork saved conversations",
+  "Approve or deny file and shell tool requests under per-provider permission modes",
+  "Run a read-only review of uncommitted Git changes",
+  "Export conversations or latest answers to vault notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "delisted": "2026-11-24",
+ "disambiguation": "Despite the name, it is not an official OpenAI product and chats with both Codex and Claude Code CLIs.",
+ "extras": "Warns that the plugin performs filesystem access, child-process execution, and bundled SDK dynamic code generation, and is not a complete security boundary. Unofficial and independent of OpenAI, Anthropic, and Obsidian. Codex app-server uses experimental APIs, so CLI/SDK changes may require plugin updates.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run an AI coding agent chat from inside the app using your existing CLI installation and provider login.",
+ "readmeHash": "4ac7496a8c5b2d06469396a914ab258641745eb5",
+ "relations": [
+  {
+   "evidence": "A native, dockable Obsidian desktop chat for Codex CLI or Claude Code CLI, using your installed executable",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using your installed executable and existing provider login",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex CLI or Claude Code CLI installed and authenticated",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Provider account login via the CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Dockable chat panel for a locally installed Codex CLI or Claude Code CLI, with note attachments, streamed Markdown, tool approvals, and saved sessions.",
+ "tags": [
+  "codex-cli",
+  "claude-code",
+  "chat",
+  "mcp",
+  "approvals",
+  "git-review"
+ ]
+}

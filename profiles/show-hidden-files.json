@@ -1,0 +1,41 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Reveal dotfiles and dotfolders in the file explorer",
+  "Expose files with unsupported extensions like .json, .yml, and .toml",
+  "Toggle each setting independently with automatic revert on disable",
+  "Exclude .obsidian and .trash from being revealed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (relies on Node.js filesystem APIs); requires Obsidian v0.15.0+. The README warns that enabling it exposes sensitive files like .env and .git-credentials to viewing, editing, and deletion. Installable via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Show all file types uses Obsidian's internal vault.setConfig('showUnsupportedFiles', …) API to toggle the native setting programmatically.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's file explorer hides files and folders starting with a dot and files with unsupported extensions, so they cannot be viewed or edited from within the app.",
+ "readmeHash": "1d322303b069f240b0ab763b1d1556336d4403cf",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File explorer utility that reveals hidden dotfiles and files with unsupported extensions inside the Obsidian vault.",
+ "tags": [
+  "dotfiles",
+  "file-explorer",
+  "unsupported-extensions",
+  "env-files"
+ ]
+}

@@ -1,0 +1,93 @@
+{
+ "also": [
+  "ttrpg",
+  "pdf"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Send statblocks, maps, props and encounters to Tome",
+  "Sync player characters to a campaign or shelf",
+  "Compile a folder into a PDF reference",
+  "Import folders as Storybook adventures",
+  "Downscale and re-encode images before upload"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "PDF reference export is desktop only (uses Chromium's PDF engine) and always renders in the light theme. Version 1.1.0 requires a Tome server from 11 September 2026 or later; keep 1.0.4 for older servers. Defaults to a hosted Tome service, with self-hosting supported. Adventure folder format is documented in docs/authoring-adventures.md. Nothing is sent without a confirmation modal.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to send TTRPG statblocks, maps, encounters and characters to a Tome server or compile notes into a reference PDF.",
+ "profiledAt": "2026-11-27",
+ "provider": "Baidu",
+ "readmeHash": "2a6d326ee73567394c4ea73b34269a6f872f0acf",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "sends selected note content to a Tome server",
+   "plugin": "Tome",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fantasy Statblocks statblock YAML blocks",
+   "plugin": "Fantasy Statblocks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Map View zoommap and Leaflet leaflet YAML blocks",
+   "plugin": "Map View",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Map View zoommap and Leaflet leaflet YAML blocks",
+   "plugin": "Leaflet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "whether the folder came from ttrpg-convert-cli or was written by hand",
+   "plugin": "ttrpg-convert-cli",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tome server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tome API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Tome account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Tome server connector that sends statblocks, maps, props, encounters and characters, and compiles folders into PDF references.",
+ "tags": [
+  "dnd-5e",
+  "character-sheet",
+  "api-key",
+  "secret-storage",
+  "image-compression",
+  "self-hosted"
+ ],
+ "textHash": "aae379d176dd588f8af9726823f9f171c81b3e18"
+}

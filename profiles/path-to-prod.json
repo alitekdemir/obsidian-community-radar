@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations",
+  "charts"
+ ],
+ "audience": [
+  "engineering-managers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Forecast goal and epic milestone dates with Monte Carlo simulation",
+  "Reconstruct stage durations from Jira status changelogs",
+  "Match unpointed tickets to comparable historical issues",
+  "Render epic Gantt timelines with P80 dates and P80-P95 ranges",
+  "Copy the dashboard as an email-ready report"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a deployment or release automation tool; it only forecasts Jira delivery dates and never moves code between environments.",
+ "extras": "Described as an MVP; Google Calendar/Microsoft 365 OAuth, Jira OAuth with PKCE, dependency simulation, backtesting, local text embeddings, and Dataview-friendly snapshots are roadmap items, not shipped. The README states forecasts are planning aids rather than commitments, that sparse history or inaccurate calendar data can skew results, and that each epic assumes full team capacity so simultaneous epic dates are not a combined portfolio commitment. No telemetry; the token sits in Obsidian SecretStorage, but older data.json backups may still contain plaintext tokens from earlier releases. Email draft only opens the default mail client and copies the report; it does not send mail or pick recipients.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "project-management",
+ "problem": "Obsidian has no built-in way to turn Jira issue history into delivery dates, so sprint and release forecasting happens outside the vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "4b0c630b723c7cc8996049fba4c96afeab563856",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Reads goal and historical tickets with configurable JQL.",
+   "plugin": "Jira",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Jira (Data Center/Server or Atlassian Cloud)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Jira personal access token or Atlassian Cloud API token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Atlassian account email, for Cloud API tokens using Basic authentication",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Jira forecasting plugin that runs a capacity-aware Monte Carlo simulation over historical issue durations to produce P50/P80/P95 dates for goals and epics.",
+ "tags": [
+  "jira",
+  "gantt",
+  "scheduling",
+  "statistics",
+  "due-dates",
+  "ics",
+  "secret-storage"
+ ],
+ "textHash": "a2e86ac87450844a3c0bd861ef33d53ac6fa78af"
+}

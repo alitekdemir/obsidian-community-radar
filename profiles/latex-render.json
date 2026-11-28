@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render latex code blocks into inline SVG images",
+  "Configure a custom shell command that converts .tex input to .svg output",
+  "Cache generated SVG files and reuse them across notes",
+  "Style rendered output with CSS snippets via the block-language-latex class"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires a locally installed TeX distribution and a user-supplied compile command; the README notes the cross-device sync behavior of the SVG cache \"hasn't been tested\" and gives troubleshooting for PATH and ghostscript issues.",
+ "intent": "alternative",
+ "intentEvidence": "This project is a fork of an existing plugin repository",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked an unpublished plugin because its original author had moved on, and built a version that \"more closely aligned with my use cases and objectives.\"",
+ "primary": "latex",
+ "problem": "Obsidian's built-in math rendering can't compile full latex documents or use arbitrary packages, so some snippets need a real latex toolchain.",
+ "readmeHash": "ddec7ed6c06c9e9aaab565e3b1c1488fec76ee64",
+ "relations": [
+  {
+   "evidence": "Thanks to fenjalien who created the original",
+   "plugin": "fenjalien's original plugin",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "latex system (latex and dvisvgm commands)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Latex code-block renderer that compiles snippets with a user-configured external latex command and displays the resulting SVG inline.",
+ "tags": [
+  "svg",
+  "png",
+  "dvisvgm",
+  "ghostscript",
+  "code-blocks",
+  "caching",
+  "standalone"
+ ]
+}

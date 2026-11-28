@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Coach a paragraph or whole note with reader-perspective notes",
+  "Quote and mark the exact words each note is about in the editor",
+  "Suggest one edit from a bank of 170 craft cards",
+  "Run inference on a user-chosen OpenAI-compatible model server such as Ollama",
+  "Navigate, re-coach, and dismiss notes from a side panel and hotkeys"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a grammar checker or auto-editor; it suggests one edit per paragraph but never writes or replaces your sentences.",
+ "extras": "Requires Obsidian 1.13 or later on desktop. Downloads a ~244 MB embedding model (EmbeddingGemma) and ONNX runtime on request, hash-checked. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "writing",
+ "problem": "Obsidian has no built-in way to get reader-perspective feedback on prose; writers must judge their own paragraphs alone.",
+ "readmeHash": "53cf189e85fbdb1a71bb73f91a32c684db6845f8",
+ "relations": [
+  {
+   "evidence": "It uses a language model on a server you choose, such as Ollama.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Card search: EmbeddingGemma, under the Gemma terms of use, run by Transformers.js.",
+   "plugin": "EmbeddingGemma",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "language model server such as Ollama",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key, only if the server needs one",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Paragraph coach that gives editor-style notes on your writing: what a reader takes from it, and one craft edit to try, without rewriting prose.",
+ "tags": [
+  "ollama",
+  "local-llm",
+  "embeddings",
+  "craft-cards",
+  "prose-feedback"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Decrypt ColorNote .backup and .doc files with the master password",
+  "Convert ColorNote checklists into Markdown task lists",
+  "Unlock locked notes and mark them with a locked property",
+  "Write ColorNote metadata such as dates, color and reminders as note properties",
+  "Skip notes already in the vault by matching ColorNote UUIDs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Makes no network requests and stores no password; locked notes become ordinary readable notes in the vault. Imported notes are never updated, so edits made later in ColorNote require deleting and re-importing. Reading 9.1 backups needs iOS 16.4 or later.",
+ "intent": "alternative",
+ "intentEvidence": "ColorNote Backup Import by Michael Lip also imports ColorNote backups. The table below compares the two.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Notes kept in ColorNote sit inside an encrypted, app-specific backup file, with no direct way to get them into Obsidian as Markdown.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "b18f077703f117de96ea3ed8ee91c2faebc81a09",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "ColorNote Backup Import by Michael Lip also imports ColorNote backups. The table below compares the two.",
+   "plugin": "ColorNote Backup Import",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Reminders are written in the format of Note Pin, a plugin that colors notes",
+   "plugin": "Note Pin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This is the Dated plugin's format, and Obsidian reads it as a Date & time property.",
+   "plugin": "Dated",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ColorNote",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Note Pin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Importer that decrypts a ColorNote backup file and writes each note into the vault as Markdown, including checklists, locked notes and reminders.",
+ "tags": [
+  "migration",
+  "encryption",
+  "checkboxes",
+  "reminders",
+  "android"
+ ],
+ "textHash": "06b9367783671136c6d89b889db355154b21e245"
+}

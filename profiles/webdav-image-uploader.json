@@ -1,0 +1,59 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dragged images to a WebDAV server and insert preview links",
+  "Download, delete and rename remote images from note context menus",
+  "Batch upload and download all images across the vault, folders or single files",
+  "Upload and download PDFs with optional dummy PDF files for preview",
+  "Write a log file of batch upload and download results"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that batch upload/download features have not been thoroughly tested and advises backing up the vault first. Image preview handling differs from Obsidian's default and may fail in reading mode or image properties; the README documents an Nginx configuration to allow anonymous image access instead.",
+ "intent": "alternative",
+ "intentEvidence": "primarily written for my personal use to replace the image-auto-upload plugin, due to it requires running an additional PicGo locally",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wrote it for personal use to replace the image-auto-upload plugin, which required running PicGo locally and could not upload images for an entire vault of thousands of notes.",
+ "primary": "attachments",
+ "problem": "Obsidian stores images as local files, so vaults grow large and images are not available from other devices unless a remote storage workflow is set up.",
+ "readmeHash": "ebf9ce840c72b8e28ebad83d5e709f9835e783f8",
+ "relations": [
+  {
+   "evidence": "written for my personal use to replace the image-auto-upload plugin, due to it requires running an additional PicGo",
+   "plugin": "obsidian-image-auto-upload-plugin",
+   "type": "replaces"
+  },
+  {
+   "evidence": "you can preview the PDFs stored on WebDAV server by PDF++ plugin",
+   "plugin": "PDF++",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Image uploader that stores images and PDFs on a WebDAV server and manages them via preview links, with per-file and vault-wide batch operations.",
+ "tags": [
+  "webdav",
+  "picgo",
+  "nginx",
+  "http-authentication"
+ ]
+}

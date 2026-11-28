@@ -1,0 +1,68 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [
+  "vim-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Navigate and fix misspelled words with the Vim keys ]s, z=, zg and zw on Obsidian's spellchecker",
+  "Rank spelling fixes using word lists, note vocabulary, context and previous picks",
+  "Draw relative numbers on every screen row matching gj/gk movement, including beside rendered maths",
+  "Move the selection in Obsidian's menus with Ctrl-N and Ctrl-P"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode",
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian's built-in Vim key bindings to be enabled (or the Vim Motions plugin) and is desktop only, since the spellchecker is Electron's. Ctrl-N/Ctrl-P in menus needs native menus turned off. Installs via BRAT or manual download until listed in community plugins. Its compiled model.bin cache should be kept out of sync tools (Syncthing, Obsidian Sync, git); each device builds its own.",
+ "intent": "improve",
+ "intentEvidence": "Requires Vim mode: Obsidian's built-in Settings → Editor → Vim key bindings, or the Vim Motions plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "Obsidian's built-in Vim mode lacks spelling navigation and fixing keys, its line numbers don't count the screen rows gj/gk move by on wrapped lines, and menus only respond to arrow keys.",
+ "readmeHash": "35bb2b26fda0752bc657860cb20becb7d83690d1",
+ "relations": [
+  {
+   "evidence": "Requires Vim mode: Obsidian's built-in Settings → Editor → Vim key bindings, or the Vim Motions plugin.",
+   "plugin": "Vim Motions",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Vimrc Support:",
+   "plugin": "Vimrc Support",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Vim Motions",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Vimrc Support",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vim mode add-on that adds Vim spelling keys, relative screen-row numbers for gj/gk on wrapped lines, and Ctrl-N/Ctrl-P menu navigation.",
+ "tags": [
+  "spellcheck",
+  "line-numbers",
+  "keyboard-navigation"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "hotkeys"
+ ],
+ "audience": [
+  "vim-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "load a .obsidian.vimrc startup file of Vim commands from the vault root",
+  "map keys to Obsidian and CodeMirror commands via obcommand, cmcommand and exmap",
+  "surround or paste into selected text with the surround and pasteinto commands",
+  "extend Vim commands with JavaScript snippets using jscommand and jsfile",
+  "provide default motions like [[ ]], zk/zj, gl/gL and gf"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not the Vim support itself (that is built into Obsidian); it only loads a persistent startup configuration for the built-in Vim mode and adds a few extra commands.",
+ "extras": "The author states the plugin needs a new maintainer; JavaScript snippet commands are disabled by default with a security warning about running arbitrary code from vault files; the fixed keyboard layout feature is experimental and the obcommand mechanism is described as hacky and may break in future Obsidian versions.",
+ "intent": "improve",
+ "intentEvidence": "this plugin is a tweak to Obsidian's built-in Vim mode",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "vim",
+ "problem": "Obsidian's built-in Vim mode does not persist settings such as keymaps between sessions, so users must reconfigure it each time.",
+ "readmeHash": "0f97df866227f03a4fb5474a0e6752c2e863776e",
+ "relations": [
+  {
+   "evidence": "this plugin is a tweak to Obsidian's built-in Vim mode",
+   "plugin": "Obsidian built-in Vim mode",
+   "type": "extends"
+  },
+  {
+   "evidence": "which is in turn mostly the codemirror-vim extension for CodeMirror",
+   "plugin": "codemirror-vim",
+   "type": "extends"
+  },
+  {
+   "evidence": "useful for Vim users who are used to the vim-surround plugin",
+   "plugin": "vim-surround",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Relative line numbers work very nicely with this Obsidian plugin",
+   "plugin": "Relative line numbers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Startup-file loader that applies Vim commands and keymaps from a .obsidian.vimrc file to persist Obsidian's built-in Vim mode configuration.",
+ "tags": [
+  "vimrc",
+  "keybindings",
+  "codemirror-vim",
+  "leader-key",
+  "ex-commands",
+  "surround",
+  "keyboard-layouts",
+  "relative-line-numbers"
+ ]
+}

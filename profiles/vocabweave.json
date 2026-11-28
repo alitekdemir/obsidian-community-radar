@@ -1,0 +1,71 @@
+{
+ "also": [
+  "flashcards",
+  "ai"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vocabulary notes to Anki cards and keep both sides updated",
+  "Map note headings to Anki note-type fields, including common aliases",
+  "Detect edits made in Anki and ask which version to keep",
+  "Create new notes from profiles or from selected text",
+  "Generate field text and card images through user-configured AI providers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.13.0+); no mobile support. The listing notes the plugin has not been manually reviewed by Obsidian staff. AI providers are off by default and no API keys are needed for the core Anki sync.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants one source of truth: \"Your vocabulary lives in your vault as readable Markdown, not locked inside Anki.\"",
+ "primary": "integrations",
+ "problem": "Vocabulary kept in Anki is locked inside Anki's own storage, so learners cannot maintain their word list as plain Markdown notes in their vault.",
+ "readmeHash": "2c243de303d0408e11eda67e25d23b3e27048373",
+ "relations": [
+  {
+   "evidence": "VocabWeave talks to Anki on your own computer",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anki with the AnkiConnect add-on (code 2055492159), running while you sync",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with the AnkiConnect add-on",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider key (OpenAI, Gemini, OpenRouter, Anthropic, Groq, Together, etc.)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs vocabulary notes in an Obsidian vault with Anki flashcards, mapping note headings to Anki fields, with optional AI-generated text and images.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "spaced-repetition",
+  "language-learning",
+  "ollama",
+  "openai"
+ ]
+}

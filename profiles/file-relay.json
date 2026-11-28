@@ -1,0 +1,63 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Resolve logical image links through configured local image directories",
+  "Read images over read-only HTTPS WebDAV with certificate validation",
+  "Define named resource groups shared across devices",
+  "Paste or drop images to insert logical links on desktop",
+  "Bulk-convert and restore image link destinations with confirmation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file-sync plugin; it resolves image links to external directories and reads images, it does not copy or sync files between devices.",
+ "extras": "Desktop-only; exercised mainly on Windows. Installed via BRAT for preview releases (0.4.3 is the first preview). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Local config stores only the name of an Obsidian Keychain secret entry, not the secret itself.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian image links break or force attachments into the vault when images live in external folders or need to be served from a remote directory across devices.",
+ "readmeHash": "52cb2e1a1993a0ae34cb0319342d37680b909328",
+ "relations": [
+  {
+   "evidence": "Use official Adjustable Media 0.9.2 if you want its matrix and viewer.",
+   "plugin": "Adjustable Media",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "HTTPS WebDAV service",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV service account (if the service requires authentication)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Image-link resolver that maps logical links to device-local folders and read-only HTTPS WebDAV directories so images can stay outside the vault.",
+ "tags": [
+  "webdav",
+  "nas",
+  "keychain",
+  "image-links",
+  "cross-device",
+  "png-jpeg-webp"
+ ]
+}

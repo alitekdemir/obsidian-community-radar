@@ -1,0 +1,70 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files with 12 cloud providers (S3, WebDAV, Dropbox, OneDrive, Google Drive and more)",
+  "Resolve conflicts with a 3-way merge engine and timestamped conflict copies",
+  "Encrypt synced data with AES-256 or rclone-crypt before it leaves the device",
+  "Schedule timed background sync and sync-on-save",
+  "Import existing Remotely Save credentials and settings on first launch"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Not in the Obsidian community directory; installation is via BRAT or manual download, and the manifest notes the plugin has not been manually reviewed by Obsidian. Known limitations cover large-file transfers on mobile and symlinks, which should be excluded via ignore patterns.",
+ "intent": "alternative",
+ "intentEvidence": "BYOC is a community-maintained fork of the excellent Remotely Save plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The maintainers forked Remotely Save to provide a clean, completely self-hosted experience while keeping its robust sync engine.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through the user's own cloud storage, and the original Remotely Save plugin is no longer the focus of this fork's self-hosted direction.",
+ "readmeHash": "3d8b014a1d6f153560df3f6983a9ac4da801aeaa",
+ "relations": [
+  {
+   "evidence": "BYOC is a fork of Remotely Save, originally created by fyears.",
+   "plugin": "Remotely Save",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "cloud provider account (Dropbox, OneDrive, Google Drive, Box, Yandex Disk, Kor)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access keys or Azure Blob SAS URL",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted WebDAV/S3 server (Nextcloud, ownCloud, Synology, MinIO)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted vault synchronization plugin, forked from Remotely Save, that syncs notes to 12 cloud providers with encryption and conflict handling.",
+ "tags": [
+  "s3",
+  "webdav",
+  "dropbox",
+  "onedrive",
+  "google-drive",
+  "self-hosted",
+  "end-to-end-encryption",
+  "conflict-resolution"
+ ]
+}

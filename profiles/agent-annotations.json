@@ -1,0 +1,62 @@
+{
+ "also": [
+  "annotation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Annotate selected Markdown text with change instructions",
+  "Queue annotations in current.json for agent consumption",
+  "Toggle Review mode to hide or show annotation cards and highlights",
+  "Jump to and manage pending annotations from a side pane",
+  "Install a Skill that lets Claude Code or Cursor process the queue"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI agent itself; it only queues instructions for an external agent (e.g. Claude Code, Cursor) to apply.",
+ "extras": "Agent-side Skill must be installed separately into the agent's skills directory; the README also points to a product requirements doc (docs/PRD.md, in Chinese). Manifest notes the plugin is not reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "There is no built-in way to mark passages in a note with edit instructions that an AI agent can later read and execute.",
+ "readmeHash": "7b4e0dbc104b2e5812afdb713e1a5d62b4e45b54",
+ "relations": [
+  {
+   "evidence": "Copy skill/obsidian-agent-annotations/ into the Agent's skills directory",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cursor: ~/.cursor/skills/obsidian-agent-annotations/",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AI agent such as Claude Code or Cursor",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Annotation plugin that turns selected Markdown passages into change instructions queued in current.json for external AI agents to apply.",
+ "tags": [
+  "claude-code",
+  "cursor",
+  "agent-skills",
+  "current-json",
+  "review-mode"
+ ]
+}

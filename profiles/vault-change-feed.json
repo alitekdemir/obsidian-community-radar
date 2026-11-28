@@ -1,0 +1,51 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record vault file events (create, modify, delete, rename) with line counts across devices",
+  "Maintain per-agent cursors so each AI reads only unread changes",
+  "Deduplicate the same edit recorded by multiple devices using content hashes",
+  "Install the agent reading protocol into AGENTS.md / CLAUDE.md automatically",
+  "Browse recent changes, run a health check, and pause or resume recording from the status bar"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Fully local with no network calls; v2 data layout migrates old logs with a backup; author warns Windows is not smoke-tested yet and the plugin has not been manually reviewed by Obsidian staff; donations accepted via Buy Me a Coffee and Afdian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian gives AI agents no way to see what changed since their last visit, so they must rescan the whole vault and spend context on unchanged files.",
+ "readmeHash": "da30e97e4077eafebb8b9dcd1f484ea6b5a8da17",
+ "relations": [
+  {
+   "evidence": "The plugin installs a short reading protocol into your vault's AGENTS.md / CLAUDE.md on first enable.",
+   "plugin": "Claude (AGENTS.md / CLAUDE.md protocol)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Change-feed recorder that logs every vault edit (create/modify/delete/rename) and gives each AI agent a cursor to incrementally read what changed.",
+ "tags": [
+  "ai-agents",
+  "change-log",
+  "event-log",
+  "cursors",
+  "claude",
+  "agents-md",
+  "local-first"
+ ]
+}

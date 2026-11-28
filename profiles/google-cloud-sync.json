@@ -1,0 +1,63 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault two-way to Google Drive or Cloud Storage",
+  "Encrypt note content end-to-end before upload",
+  "Propagate deletions and keep both copies on conflict",
+  "Authenticate with a user-created Google OAuth client or an HMAC key",
+  "Sync from Obsidian desktop and mobile"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Users must create their own Google OAuth client; versions 0.6.x and earlier used a bundled shared client that was removed, so upgrading requires signing in again. Details are deferred to a SECURITY.md in the repository, and a 0.6.x-to-newer migration caveat plus OAuth token-expiry caveats are documented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author believes keeping notes backed up and in sync shouldn't require a subscription, routing the vault through someone else's server, or letting a plugin rewrite files.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync options route data through a third-party service or cost a subscription, and users who want their vault on their own Google storage have no first-party option.",
+ "readmeHash": "3e528101e40071a5a1c3c65cea24a9289b1a3746",
+ "relations": [
+  {
+   "evidence": "Google Drive — sync to your personal Drive with your ordinary Google account.",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Cloud Storage — for those already on Google Cloud. Sync to your own bucket.",
+   "plugin": "Google Cloud Storage",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account with a user-created OAuth client (or a Cloud Storage HMAC key)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync to your own Google Drive or Google Cloud Storage bucket, with optional end-to-end encryption and no third-party server.",
+ "tags": [
+  "google-drive",
+  "google-cloud-storage",
+  "end-to-end-encryption",
+  "oauth",
+  "two-way-sync",
+  "conflict-resolution"
+ ]
+}

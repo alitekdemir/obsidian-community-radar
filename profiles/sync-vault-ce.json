@@ -1,0 +1,71 @@
+{
+ "also": [
+  "backup",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally or one-way across devices via cloud drives, with conflict merging and recoverable deletions",
+  "Back up vault data to multiple cloud directories and switch between cloud vaults",
+  "Embed and link cloud files in notes using file ID and path links",
+  "Expose cloud storage to LLM clients through a built-in MCP server with list, read, upload, and delete tools",
+  "Automate cloud file operations with CLI commands for listing, searching, and reading files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Despite the name, it does more than sync: it also streams cloud media in notes, backs up vaults, and exposes cloud files to AI agents via MCP and CLI.",
+ "extras": "A Pricing link suggests paid tiers beyond the free community edition. Supported features vary by cloud service, e.g. semantic search and share links are Baidu Netdisk only. Setup docs cover MCP configuration for Claude Code, Claude Desktop (via an sse-bridge), and Cursor/Trae.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync costs money and works only with its own service, so users with large existing cloud drives cannot sync or back up vaults through them without filling local storage.",
+ "readmeHash": "3642f8ccf5d1a9a6f6e5041fd018ea9e9fffe1d1",
+ "relations": [
+  {
+   "evidence": "Compatible with MCP-supported clients such as Claude Code and Cursor.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compatible with MCP-supported clients such as Claude Code and Cursor.",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "cloud drive account (Baidu Netdisk, OneDrive, Aliyun Drive, etc.)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client (Claude Code, Claude Desktop, Cursor/Trae)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Cloud sync and backup framework that connects vaults to Baidu Netdisk, OneDrive, Aliyun Drive and other services, with an MCP server for AI access.",
+ "tags": [
+  "mcp",
+  "baidu-netdisk",
+  "onedrive",
+  "aliyun-drive",
+  "webdav",
+  "end-to-end-encryption",
+  "collaborative-editing",
+  "cli"
+ ]
+}

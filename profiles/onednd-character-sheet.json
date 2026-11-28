@@ -1,0 +1,114 @@
+{
+ "also": [],
+ "audience": [
+  "dnd-players",
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render a tabbed D&D 2024 character sheet inside a note",
+  "Create characters with a full wizard or a beginner quick-start",
+  "Track inventory, attunement slots, weight and currency",
+  "Compute attack bonus, damage and AC from linked item notes",
+  "Import D&D Beyond characters and export the sheet to PDF"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Meta Bind (with its JavaScript option enabled) and JS Engine to render correctly, and Readable line length must be turned off. The public release ships only SRD 5.2.1 species, classes, subclasses and spells; an example vault with items, spells, monsters, feats, conditions and senses is provided separately.",
+ "intent": "alternative",
+ "intentEvidence": "Built to replace Dataview-based character sheets",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted to replace dataviewjs-based sheets with MarkdownRenderChild code block processors so editing one field does not force a multi-second refresh.",
+ "primary": "ttrpg",
+ "problem": "Dataview-based character sheets re-render on every metadata change, so editing one field makes the whole sheet slow and fragile.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "e5832d9951e6b2bb6b47de1f5e2e48ecc288da1e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Built to replace Dataview-based character sheets",
+   "plugin": "Dataview",
+   "type": "alternative"
+  },
+  {
+   "evidence": "This plugin's sheet relies on two other community plugins to actually render correctly",
+   "plugin": "Meta Bind",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install and enable both before creating a character, or the sheet will render incompletely",
+   "plugin": "JS Engine",
+   "type": "integrates"
+  },
+  {
+   "evidence": "clickable roll buttons on Hit/Damage and Spell Attack/Save numbers",
+   "plugin": "Dice Roller",
+   "type": "integrates"
+  },
+  {
+   "evidence": "assigns an icon to every new character note",
+   "plugin": "Iconize",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If the Atlas VTT plugin is installed, every character gets a hidden statblock copy",
+   "plugin": "Atlas VTT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "D&D Beyond character importer (Settings tab).",
+   "plugin": "D&D Beyond",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Meta Bind",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "JS Engine",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dice Roller",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Iconize",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Atlas VTT",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "D&D Beyond",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Interactive D&D 2024 character sheet rendered from Markdown notes, with a creation wizard, level-up, inventory, spells, PDF export and D&D Beyond import.",
+ "tags": [
+  "dnd-5e",
+  "character-sheet",
+  "statblocks",
+  "dataview"
+ ],
+ "textHash": "d139619418dfa3e4cf0c468f28222dd4478d4a35"
+}

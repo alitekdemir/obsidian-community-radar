@@ -1,0 +1,68 @@
+{
+ "also": [
+  "audio",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Play audio and video files from a watched folder with resume and auto-play next",
+  "Keep queue state and playback progress in sync across desktop and mobile",
+  "Manage the queue with sorting, drag-and-drop reordering, and progress indicators",
+  "Download YouTube videos or audio via yt-dlp with quality options",
+  "Delete completed files and warn when a storage limit is exceeded"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. YouTube downloading is desktop-only; Android users are directed to Seal instead.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Created for personal productivity and cross-device media consumption.",
+ "primary": "video",
+ "problem": "Obsidian can embed media files but has no managed player with a queue, resume, progress tracking, or playback that continues across devices.",
+ "readmeHash": "8689ec29bcd13899850daa1a352c50cd8cdb6e59",
+ "relations": [
+  {
+   "evidence": "Download videos or audio directly from YouTube using yt-dlp.",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you should use Seal for downloading YouTube videos, as this feature does not work on mobile",
+   "plugin": "Seal",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Media player plugin that watches a folder, queues audio and video files, and keeps playback position in sync across desktop and mobile.",
+ "tags": [
+  "youtube",
+  "yt-dlp",
+  "ffmpeg",
+  "subtitles",
+  "sleep-timer",
+  "playback-queue",
+  "seal"
+ ]
+}

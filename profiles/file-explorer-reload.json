@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rebuild the entire File Explorer pane from disk via the command palette",
+  "Reload a single folder from its right-click menu",
+  "Reload a folder with all of its subfolders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Ships a demo vault with every release (also installable via a command) that documents the feature; beta installs require the BRAT plugin; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "This plugin refreshes only the file list: the entire pane, a single folder, or a folder and everything beneath it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's File Explorer pane can go stale when files are copied, moved, or deleted outside the app, and the only built-in fix is a full app reload that discards the session and is slow on large vaults.",
+ "readmeHash": "6d9f0970c2be78899aedbe1b8baff783db3a2fa5",
+ "relations": [
+  {
+   "evidence": "Periodic polling of configured folders; adds new synced files; desktop/mobile",
+   "plugin": "Auto Refresh Explorer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Indexes hidden folders; rebuilds metadata cache; reloads plugins",
+   "plugin": "Rebuild Vault Index",
+   "type": "alternative"
+  },
+  {
+   "evidence": "explorer button renames symlink folders out/back to trigger reread",
+   "plugin": "Symlink Refresh Button",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Periodic whole-vault reconciliation; new/changed files; on-demand scan",
+   "plugin": "Vault File Refresh",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File Explorer refresh plugin that reloads the explorer pane, a folder, or a folder with subfolders from disk after files change outside Obsidian.",
+ "tags": [
+  "external-changes",
+  "refresh",
+  "sync-client",
+  "command-palette",
+  "folder-tree",
+  "right-click-menu"
+ ]
+}

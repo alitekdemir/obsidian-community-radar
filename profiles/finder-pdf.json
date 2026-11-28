@@ -1,0 +1,49 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export Markdown files to PDF from the Finder context menu",
+  "Export files outside the vault without importing or opening them",
+  "Resolve filename conflicts with automatic numbered names",
+  "Generate the Finder Quick Action with a Python setup script"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a file search or PDF-reading tool; it adds one macOS Finder context-menu action that renders Markdown to PDF.",
+ "extras": "macOS-only and desktop-only; requires Obsidian 1.14.4+; cold start may still show the main window; relies on Obsidian internal APIs, so future updates may need retesting; triggers the directory's Direct Filesystem Access warning.",
+ "intent": "improve",
+ "intentEvidence": "using Obsidian's native PDF renderer and your vault's export settings",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian's PDF export requires opening notes in the app and works on vault files, so Markdown in arbitrary folders cannot be exported from Finder without importing it.",
+ "readmeHash": "7d536c38cb1f15895124831d42b2ba4a4adddeab",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3 (only to generate the Quick Action)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "macOS Finder Quick Action that exports Markdown files, including ones outside the vault, to PDF using Obsidian's native renderer.",
+ "tags": [
+  "finder",
+  "quick-action",
+  "context-menu",
+  "uri-dispatch",
+  "python",
+  "cold-start"
+ ]
+}

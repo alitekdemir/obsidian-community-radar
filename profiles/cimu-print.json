@@ -1,0 +1,61 @@
+{
+ "also": [
+  "pdf",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture a note, selection, folder, or active non-Markdown view for printing",
+  "Render and paginate a PDF preview, then generate and verify the final PDF",
+  "Send the PDF to a printer via CUPS (lp) on macOS and Linux",
+  "Expose a local authenticated CLI so agents and scripts can submit print jobs with duplex, scale, copies, and page-range options",
+  "Migrate settings and hotkeys from the print plugin and manage temporary PDF cleanup"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; printing via CUPS is stated for macOS and Linux. The manifest notes the plugin has not been manually reviewed by Obsidian staff. The CLI requires Obsidian and the plugin to be running and uses a loopback bearer-token endpoint.",
+ "intent": "alternative",
+ "intentEvidence": "Migration from plugin ID print",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to print notes directly, with rendering that preserves internal links, embeds, Mermaid, math, and the active theme.",
+ "readmeHash": "04a6228e33b564c05b25a54cf98302a4d5ab14bc",
+ "relations": [
+  {
+   "evidence": "reads compatible settings from .obsidian/plugins/print/data.json when the new plugin has no settings",
+   "plugin": "print",
+   "type": "replaces"
+  },
+  {
+   "evidence": "On macOS and Linux, send the verified PDF to CUPS through lp.",
+   "plugin": "CUPS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CUPS (lp)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Desktop printing plugin that renders notes, selections, folders, or views to a paginated PDF preview and sends the PDF to a printer.",
+ "tags": [
+  "cups",
+  "cli",
+  "duplex",
+  "print-preview",
+  "pagination"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse repositories, issues, and pull requests in a sidebar panel",
+  "Filter issues by state and label with pagination",
+  "Create a GitHub issue from the current note or selected text",
+  "Switch the active repository",
+  "Auto-refresh data on a configurable interval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: the GitHub module is free; premium modules (Claude Code bridge, audio notebook sync, AI router) are in development and unlocked by a one-time license. Desktop only. Not yet in the community plugin listing, so install is via BRAT or manual download.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to close the gap when project notes and project code live in different windows.",
+ "primary": "integrations",
+ "problem": "Project notes and GitHub activity live in separate windows, so triaging issues or filing one from a note means leaving the vault.",
+ "readmeHash": "9f8188a86ab4e7c87933762483251a5af2aafdc2",
+ "relations": [
+  {
+   "evidence": "The plugin calls the GitHub API (api.github.com) to list repositories, issues, and pull requests",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Licenses are validated against the Lemon Squeezy API",
+   "plugin": "Lemon Squeezy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token with repo scope",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Premium license (Lemon Squeezy) for in-development modules",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "GitHub client in a sidebar that browses repositories, issues, and pull requests, and creates GitHub issues from note content.",
+ "tags": [
+  "github",
+  "issues",
+  "pull-requests",
+  "repositories",
+  "personal-access-token",
+  "lemonsqueezy"
+ ]
+}

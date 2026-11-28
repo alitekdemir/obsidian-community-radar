@@ -1,0 +1,69 @@
+{
+ "also": [
+  "formatting",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Apply preset or custom LLM cleanup actions to a note or selection",
+  "Review changes as a per-hunk diff with accept/reject and single-undo apply",
+  "Merge and deduplicate multiple meeting notes into one structured note",
+  "Generate Mermaid diagrams, Markdown tables, and Map-of-Content scaffolding",
+  "Run actions in batch, on a schedule, or per-folder defaults, with snapshot rollback"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: fully free with your own API key or local model; hosted tiers (Free: 20 actions/month, Pro: $5/month via Polar) offer managed models without an API key. Note content is sent to the configured LLM provider when actions run; plugin settings store keys unencrypted in data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Cleaning up, restructuring and merging LLM-generated text edits normally means trusting the AI blindly; Obsidian has no built-in way to review AI rewrites hunk by hunk before they are applied.",
+ "readmeHash": "db6b26377c37ff1ec8c92d8ccab5a62849adf369",
+ "relations": [
+  {
+   "evidence": "Anthropic - requests go to (or a base URL you set).",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "requests go to the base URL you enter (OpenAI, OpenRouter, Groq, or a local server such as Ollama / LM Studio / vLLM)",
+   "plugin": "OpenAI-compatible endpoints (OpenAI, OpenRouter, Groq, Ollama / LM Studio / vLLM)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or OpenAI-compatible API key (or local endpoint)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Burnish email account for the hosted gateway",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI-powered note cleaner that runs preset or custom LLM prompts on notes, showing a per-hunk diff for accept/reject before writing.",
+ "tags": [
+  "llm",
+  "diff-review",
+  "byok",
+  "anthropic",
+  "openai",
+  "ollama",
+  "meeting-notes",
+  "mermaid-diagrams"
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "also": [
+  "tasks",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "show daily, weekly, monthly and yearly notes on a month, week, day or agenda calendar",
+  "display, toggle and reschedule dated tasks by dragging chips between days",
+  "read Google Calendar events read-only and create meeting notes from them",
+  "register a month calendar view for Bases queries",
+  "fill periodic-note templates with agenda and week-digest tokens"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Google Calendar integration is read-only and needs a self-configured Google Cloud OAuth client; tokens stay in Obsidian secret storage, and mobile shows no events unless connected via the desktop sign-in flow. Some UI strings in the README are in Italian. The plugin ignores stale Periodic Notes config and Templater syntax is passed through unexecuted.",
+ "intent": "alternative",
+ "intentEvidence": "Replaces the community Calendar plugin — disable it manually to avoid two sidebar calendars",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Daily and periodic notes, dated tasks, and external calendar events are scattered across separate views in Obsidian, with no unified calendar tying them to their dates.",
+ "readmeHash": "14ca848e2ce39a05a3842a391e4028e625345fba",
+ "relations": [
+  {
+   "evidence": "Replaces the community Calendar plugin — disable it manually to avoid two sidebar calendars",
+   "plugin": "Calendar plugin",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Tasks with obsidian-tasks-plugin emoji dates: 📅 due, ⏳ scheduled, ✅ done",
+   "plugin": "obsidian-tasks-plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Horizon reads your Google calendars and shows their events in every view. It never writes to Google.",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Cloud project with Calendar API and OAuth desktop client",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Calendar plugin with a sidebar mini-calendar, month/week/day/agenda views, task triage, and read-only Google Calendar events in one place.",
+ "tags": [
+  "google-calendar",
+  "granola",
+  "task-scheduling",
+  "snooze",
+  "iso-week-numbers",
+  "recurring-tasks",
+  "meeting-notes"
+ ]
+}

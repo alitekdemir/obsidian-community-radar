@@ -1,0 +1,65 @@
+{
+ "also": [
+  "syncing",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted, dropped, or existing vault attachments to S3-compatible storage",
+  "Rewrite note links to point at storage objects, with content-hash deduplication",
+  "Keep, trim, and back-fill local copies so attachments render offline and on new devices",
+  "Manage all attachments in one dialog with counted filters and batch actions",
+  "Clean up unreferenced cloud objects and local files after confirmation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires Obsidian 1.13.0+. The README warns that Android device regression testing stopped at version 1.1.2, that cloud deletions cannot be undone, and that command IDs changed in recent versions so hotkeys need rebinding.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states: \"Upload-only plugins break offline; localize-only plugins need one online pass first. This one does both.\"",
+ "primary": "attachments",
+ "problem": "Upload-only attachment plugins break offline rendering and localize-only plugins grow the vault and need an online pass first; Obsidian has no built-in way to keep attachments in your own cloud storage while staying offline-capable.",
+ "readmeHash": "83ac6815835844d88520fda4eeb1bd09aaa84b0e",
+ "relations": [
+  {
+   "evidence": "it goes to your S3-compatible storage (Cloudflare R2, AWS S3, MinIO, Backblaze B2, self-hosted)",
+   "plugin": "Cloudflare R2 / AWS S3 / MinIO / Backblaze B2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "An S3-compatible bucket you control (Cloudflare R2, AWS S3, MinIO, Backblaze B2, or self-hosted)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key ID and secret access key with ListBucket permission",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Attachment cache that uploads vault attachments to your own S3-compatible storage, rewrites links, and keeps local copies so files still render offline.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "minio",
+  "backblaze-b2",
+  "self-hosted",
+  "deduplication",
+  "offline"
+ ]
+}

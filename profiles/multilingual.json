@@ -1,0 +1,63 @@
+{
+ "also": [
+  "links",
+  "formatting"
+ ],
+ "audience": [
+  "multilingual users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "> Translate note names",
+  "> Add aliases",
+  "> Automatically translate note names",
+  "> Ignore specific patterns"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Aliases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Note names are sent to external translation services (Google/DeepL) for processing.",
+ "intent": "improve",
+ "intentEvidence": "The plugin leverages Obsidian aliases, so that all links remain functional even if the plugin uninstalled.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The goal is to simplify the amazing linking logic of Obsidian for multilingual users, by allowing to more easily link notes and ideas in the current note language.",
+ "primary": "languages",
+ "problem": "Manually creating aliases for note names across multiple languages is time-consuming and frustrating for multilingual users.",
+ "readmeHash": "c21e16ba9575707786a11b47b2a9442b528a10b5",
+ "relations": [
+  {
+   "evidence": "The text (note names) the user will translate using this plugin - both manually and automatically when \"Auto translate\" is ON - will be sent to Google / DeepL for translation.",
+   "plugin": "Google Cloud Translation",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The text (note names) the user will translate using this plugin - both manually and automatically when \"Auto translate\" is ON - will be sent to Google / DeepL for translation.",
+   "plugin": "DeepL",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud Translation or DeepL API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Automatically translates note names into multiple languages and adds them as aliases to simplify linking notes across different languages.",
+ "tags": [
+  "google-cloud-translation",
+  "deepl",
+  "translation",
+  "multilingual"
+ ]
+}

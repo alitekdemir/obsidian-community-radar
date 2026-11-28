@@ -1,0 +1,69 @@
+{
+ "also": [
+  "canvas",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render Base query rows as draggable, resizable cards on a board",
+  "Create assignment zones that update note properties when cards are dropped",
+  "Create or update .canvas snapshots from the active Bases view",
+  "Draw relationship edges from wikilinks and configured properties",
+  "Show TaskNotes task badges and actions on cards when TaskNotes is installed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.10.2 or newer and the Bases core feature; generated .canvas files are snapshots, not live queries, and must be re-exported after changes. The mdbase action provider and event contracts are opt-in behind a local interoperability grant.",
+ "intent": "improve",
+ "intentEvidence": "an Obsidian plugin for Bases and Canvas, and a companion plugin for TaskNotes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Obsidian Bases views present query results as tables or lists, with no spatial board surface for arranging, grouping, and linking the resulting notes.",
+ "readmeHash": "8bd63a93db961aa06df593666cf367f0b901913b",
+ "relations": [
+  {
+   "evidence": "Integrates with TaskNotes when available, while degrading cleanly when it is absent.",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With the mdbase plugin installed and Allow local application interoperability enabled, Canvas Bases registers one action provider",
+   "plugin": "mdbase",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "mdbase",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Bases layout plugin that renders Base query results as a draggable canvas board with cards, groups, relationship edges, assignment zones, and JSON Canvas export.",
+ "tags": [
+  "tasknotes",
+  "json-canvas",
+  "kanban",
+  "drag-and-drop",
+  "mdbase"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "also": [
+  "publishing",
+  "syncing"
+ ],
+ "audience": [
+  "feishu-lark-teams"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Publish the current note as a Feishu/Lark Docx document",
+  "Sync a whole folder while preserving its hierarchy in Feishu/Lark",
+  "Update only changed blocks incrementally, or overwrite the remote document fully",
+  "Rewrite Markdown and Wiki links into remote document references and upload local images",
+  "Trigger automatic sync on save or via a Git pre-push hook"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is a one-way publisher: local Markdown is the source and Feishu/Lark documents are the output, not a two-way vault sync.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that lark-cli versions below 1.0.53 cause Untitled titles and sync errors, that remote manual edits are overwritten (local Markdown wins), and that a failed hook sync blocks the git push.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Notes written in Obsidian stay local, so teams that read, comment and collaborate in Feishu/Lark need manual copying to see the content there.",
+ "readmeHash": "c2ede0ad601aff975409d9e09398112129b35b26",
+ "relations": [
+  {
+   "evidence": "through the local lark-cli",
+   "plugin": "lark-cli",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "lark-cli (>= 1.0.53, installed and logged in)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes and syncs Obsidian Markdown notes to Feishu/Lark cloud documents through the local lark-cli, with block-level incremental updates.",
+ "tags": [
+  "feishu",
+  "lark",
+  "lark-cli",
+  "git-hook",
+  "incremental-sync",
+  "wiki-links"
+ ]
+}

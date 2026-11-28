@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror Feishu/Lark wiki and Drive documents into the vault as Markdown",
+  "Convert docx and legacy doc content and localize images and attachments",
+  "Scan wiki trees and Drive folders recursively and sync on startup or a 15/30/60-minute schedule",
+  "Resolve conflicts between locally edited managed regions and remote versions",
+  "Manage sources, progress, retries and recovery through a Sync Center"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Pulls Feishu/Lark documents into the vault read-only; it does not push local notes back to Feishu or Lark.",
+ "extras": "Requires the user's own Feishu/Lark application with read-only scopes and a separately installed official lark-cli; Sheet, Base, Slides and Mindnote files are discovered but not converted, and the plugin is desktop-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to pull Feishu/Lark wiki and Drive documents into a vault or keep them updated as local Markdown.",
+ "readmeHash": "ba50ee8b668bc8e486a46e4380fec57e0de86c6e",
+ "relations": [
+  {
+   "evidence": "Use requires a Feishu/Lark account, your own application and a separately installed official lark-cli.",
+   "plugin": "lark-cli",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "lark-cli",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Feishu/Lark account with a user-created app",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "App Secret passed to lark-cli via stdin",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Desktop-only plugin that mirrors Feishu and Lark documents into a local vault as Markdown with scheduled, conflict-protected synchronization.",
+ "tags": [
+  "feishu",
+  "lark",
+  "lark-cli",
+  "docx",
+  "wiki",
+  "drive",
+  "conflict-resolution"
+ ]
+}

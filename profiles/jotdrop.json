@@ -1,0 +1,101 @@
+{
+ "also": [
+  "integrations",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show notes as a Keep-style card grid inside Obsidian",
+  "Capture notes, checklists, photos, voice memos and web clips",
+  "Organize cards with colors, labels, tags, pins and reminders",
+  "Import notes from Google Keep, Evernote and Apple Notes",
+  "Sync notes through JotDrop Cloud or any folder sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Tags view",
+   "Files",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Google Keep client; notes are local Markdown files in your vault, and the cloud sync is optional.",
+ "extras": "Free and MIT-licensed; the optional JotDrop Cloud has a free 250 MB plan and a paid Plus tier. Without the cloud there is no account, and sync is left to folder-sync tools (Syncthing, Obsidian Sync, iCloud, Dropbox). Ask JotDrop sends note text to a third-party AI service with your own key; on-device OCR downloads English/Dutch data once. Known issue: deleting many notes while a Syncthing device is offline can bring them back on reconnect.",
+ "intent": "alternative",
+ "intentEvidence": "The free, open-source Google Keep alternative for Android, Obsidian, the web and Chrome",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author wanted Google Keep's fast, friendly cards without lock-in: \"Keep the ease. Lose the lock-in.\"",
+ "primary": "writing",
+ "problem": "Obsidian has no card-grid quick-capture view, so fast jotting of notes, lists, photos and voice memos means leaving the vault for a service that holds your data.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "17f4a5720caad58783de52f4fee5f7cda7b6e15e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The free, open-source Google Keep alternative for Android, Obsidian, the web and Chrome",
+   "plugin": "Google Keep",
+   "type": "alternative"
+  },
+  {
+   "evidence": "JotDrop uses the picture the Excalidraw plugin saves next to the drawing, or asks the plugin to draw it.",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For a manual install, BRAT with Diexar-Labs/jotdrop keeps it current.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "JotDrop for Joplin turns the notes you have there into a card board",
+   "plugin": "Joplin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "JotDrop Cloud (web app, Chrome clipper, optional sync)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider key for Ask JotDrop (Claude, OpenAI, Gemini, OpenRouter)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "JotDrop Cloud account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "JotDrop Plus (more storage, shared AI key)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Excalidraw (drawings on cards)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Keep-style quick-capture card board that stores each note as a plain Markdown file in your vault, with optional encrypted sync.",
+ "tags": [
+  "google-keep",
+  "quick-capture",
+  "card-view",
+  "voice-memos",
+  "web-clipper",
+  "end-to-end-encryption"
+ ],
+ "textHash": "7dcfe60810daf13d525e9c104e45ee30b4dc6182"
+}

@@ -1,0 +1,77 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse, search and edit Markdown notes in a three-pane panel",
+  "Sync notes and images with the Getnote cloud",
+  "Import voice-recorder cards over Bluetooth or Wi-Fi",
+  "Manage tags, backlinks, outlines, history snapshots and trash",
+  "Export and import zip archive bundles"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Search",
+   "Backlinks",
+   "Outline",
+   "Tags view",
+   "Templates",
+   "Bases",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a cloud client: notes live as local Markdown in the vault and everything works offline; Getnote cloud sync and recorder-card import are optional extras.",
+ "extras": "Desktop only for recorder import; starts a loopback HTTP service on 127.0.0.1 for panel assets and OAuth; no telemetry; Getnote cloud API is non-public and may change; UI in Chinese, English and Dutch.",
+ "intent": "alternative",
+ "intentEvidence": "This is the Obsidian port of dsh-getnote (the DeepSeek Harness version).",
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Users of the Getnote (得到大脑) note service cannot keep that workflow inside Obsidian: no local three-pane browser, offline search, cloud sync or recorder-card import for their notes.",
+ "profiledAt": "2026-11-27",
+ "provider": "Ant Digital",
+ "readmeHash": "3f285f411d716b9166dcd8ef98b429466e5cbd1b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "This is the Obsidian port of dsh-getnote (the DeepSeek Harness version).",
+   "plugin": "dsh-getnote",
+   "type": "fork"
+  },
+  {
+   "evidence": null,
+   "plugin": "Getnote (得到大脑)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.10+ with bleak (voice recorder import only)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Getnote Open API key (API Key, Client ID, Grant ID)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local-first port of the Getnote (得到大脑) note workflow: a three-pane Markdown panel for offline browse, search, edit, backlinks, plus optional cloud sync.",
+ "tags": [
+  "local-first",
+  "backlinks",
+  "voice-memos",
+  "heatmap"
+ ],
+ "textHash": "8076687897486367c99597106c73344c4479fb3c"
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "export",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export Markdown tasks as a standards-compliant iCalendar feed",
+  "Sync the feed to a local vault file or a private GitHub Gist",
+  "Split tasks into VEVENT or VTODO based on whether a time is present",
+  "Map task priority, recurrence, alarms, and descriptions to iCalendar fields",
+  "Filter and route tasks by vault path rules, tags, or categories"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The GitHub PAT is stored locally in plugin data in plaintext, not encrypted. Google Calendar does not support VTODO, so date-only tasks must be exported as all-day events to appear there.",
+ "intent": "alternative",
+ "intentEvidence": "iCal Pro is a significantly enhanced and refactored version of the original obsidian-ical-plugin by Andrew Brereton.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to expose Markdown tasks to external calendar apps like Google Calendar, Apple Calendar, or Outlook.",
+ "readmeHash": "d9c6ff7ae87ddd7bd7800c29cc5dc28478ddc3c9",
+ "relations": [
+  {
+   "evidence": "iCal Pro is a significantly enhanced and refactored version of the original obsidian-ical-plugin",
+   "plugin": "obsidian-ical-plugin",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token (gist scope)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account with a secret Gist",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Exports Markdown tasks as an RFC 5545 iCalendar (ICS) feed to a local file or GitHub Gist for subscription by Google, Apple, and Outlook calendars.",
+ "tags": [
+  "ics",
+  "rfc-5545",
+  "google-calendar",
+  "apple-calendar",
+  "outlook",
+  "github-gist",
+  "day-planner",
+  "vtodo"
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "newledge-app-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "link a Newledge account by scanning a QR code",
+  "import Newledge notes, links, highlights, and annotations as Markdown files",
+  "schedule automatic syncs or run manual syncs",
+  "write imported files to a configured vault folder",
+  "add a daily-note link property to imported notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (Chinese and English) and discloses network use: it connects to xinzhi.zone for login, verification, fetching sync content, and reporting sync status, and stores the linked account and token via Obsidian's plugin data API; it states it has no telemetry, ads, or auto-update.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Newledge users have no built-in way to get their Newledge notes, highlights, and annotations into an Obsidian vault as Markdown files.",
+ "readmeHash": "db495889f3357bcd1a3e3a9523927a4fa2a3a0f1",
+ "relations": [
+  {
+   "evidence": "Scan the QR code with the Newledge app. In the app, go to Profile > Data integration",
+   "plugin": "Newledge (Xinzhi) app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Newledge (Xinzhi) works well with Obsidian's Daily notes core plugin.",
+   "plugin": "Daily notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Newledge account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Newledge app (for QR-code linking)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs notes, links, highlights, and annotations from the Newledge (Xinzhi) app into a vault as Markdown files via QR-code account linking.",
+ "tags": [
+  "highlights",
+  "annotations",
+  "qr-code-login",
+  "scheduled-sync",
+  "reading-app"
+ ]
+}

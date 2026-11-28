@@ -1,0 +1,54 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Store anniversaries in note frontmatter, including unknown years (????, 0000, xxxx, yyyy)",
+  "Render a sorted anniversary list in a note via an anniversaries code block",
+  "Filter anniversaries by date ranges using Tasks-style happens syntax",
+  "Show an (X years ago) label for anniversaries with known years",
+  "Override the reference date with a today option in the code block"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Does not send notifications or pop-ups; it renders an anniversary list inside notes via a code block.",
+ "extras": "Supports only the Gregorian calendar and only frontmatter entries, not anniversaries written in the note body; the README includes a contributor-focused build and release section.",
+ "intent": "alternative",
+ "intentEvidence": "Plugins such as TASKS require full date specifications (including year).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because plugins such as TASKS require full date specifications including the year, and plugins like the DATA plugin are too heavyweight for a simple anniversary list.",
+ "primary": "dates",
+ "problem": "Obsidian has no simple way to track recurring annual dates: the Tasks plugin requires full dates with a year and only generates recurring tasks after the current one is checked off, and Dataview is heavyweight for a simple anniversary list.",
+ "readmeHash": "e5581c01902d27bae30e8676a27f457a4bd90c93",
+ "relations": [
+  {
+   "evidence": "Plugins such as TASKS require full date specifications (including year).",
+   "plugin": "Tasks",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Plugins such as the DATA plugin are much more heavyweight and require an unreasonable amount of coding",
+   "plugin": "Dataview",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reads anniversary dates from note frontmatter and lists them in notes, sorted by month and day, with Tasks-style date filters.",
+ "tags": [
+  "anniversaries",
+  "birthdays",
+  "recurring-events",
+  "tasks-syntax",
+  "code-block"
+ ]
+}

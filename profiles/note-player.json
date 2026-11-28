@@ -1,0 +1,73 @@
+{
+ "also": [
+  "bases"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add YouTube tracks as notes with title, channel, and thumbnail",
+  "Download and cache audio locally with yt-dlp and ffmpeg",
+  "Play local audio files from the vault",
+  "Manage playlists as companion notes embedding Bases files",
+  "Show a turntable now-playing card with queue, repeat, and autoplay"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an audio recorder or text-to-speech tool; it plays music playlists whose tracks are Markdown notes.",
+ "extras": "Desktop only (Obsidian 1.13.0+). yt-dlp and ffmpeg must be on PATH for downloading; without them, only local vault audio plays. The README includes detailed network, file-access, and clipboard disclosures.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to play music playlists whose tracks and queue live in notes and Bases files.",
+ "readmeHash": "1d7788b3c477a443c9052b42b21597cd61fea4ae",
+ "relations": [
+  {
+   "evidence": "The plugin runs yt-dlp as a child process to download audio, resolve stream links and expand playlist links.",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ffmpeg, which yt-dlp uses to convert audio to MP3 or WAV",
+   "plugin": "ffmpeg",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Adding a track sends its video URL to youtube.com/oembed, through Obsidian's requestUrl",
+   "plugin": "YouTube",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Music player that stores tracks and playlists as Markdown notes, playing YouTube, cached, and local vault audio in a sidebar player.",
+ "tags": [
+  "youtube",
+  "yt-dlp",
+  "ffmpeg",
+  "playlists",
+  "turntable",
+  "vinyl"
+ ]
+}

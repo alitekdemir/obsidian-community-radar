@@ -1,0 +1,77 @@
+{
+ "also": [
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display scrolling news tickers from RSS feeds, Google News, Hacker News, and Currents",
+  "Show a stock ticker with last price and percentage change via the Finnhub API",
+  "Customize ticker speed, direction, colors, footers, underlines, and headline limits",
+  "Filter headlines by search terms, topics, categories, country, and language",
+  "Cache fetched headlines so they stay visible offline or when a fetch fails"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that Currents' free plan allows only 20 requests per day and 10 headlines per request, that some Google News and Currents sources may be paywalled, and that not all RSS feeds are compatible with the XML reader.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to show live news headlines or stock prices in a scrolling bar inside the app.",
+ "readmeHash": "b56439976ef8cb2d6497297d24a71144d22e7d81",
+ "relations": [
+  {
+   "evidence": "The stock ticker uses the Finnhub API to retrieve global stock quotes.",
+   "plugin": "Finnhub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Currents News API provides global headlines from various sources.",
+   "plugin": "Currents News",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Get Stock Information plugin may be a better alternative, as it doesn't require registration.",
+   "plugin": "Get Stock Information",
+   "type": "alternative"
+  },
+  {
+   "evidence": "If you only want the Hacker News headlines, Obsidian HackerNews may be a better alternative.",
+   "plugin": "Obsidian HackerNews",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Finnhub API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Currents API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Ticker plugin that displays scrolling news headline bars (RSS, Google News, Hacker News, Currents) and a stock quote bar powered by Finnhub.",
+ "tags": [
+  "rss",
+  "finnhub",
+  "google-news",
+  "hacker-news",
+  "currents",
+  "stocks",
+  "news-headlines"
+ ]
+}

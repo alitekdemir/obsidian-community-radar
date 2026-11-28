@@ -1,0 +1,62 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assign a template note to a base view via a command",
+  "Create new notes from the assigned template via the base's New button",
+  "Merge template properties with values the base's filters require",
+  "Fill {{date}}, {{time}} and Templater placeholders in new notes",
+  "Resolve the template for bases embedded with ![[Name.base]]"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a collection of template files; it wires a base's New button to any template note you pick.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Code-block bases written directly into notes get no template, since they have no file to configure.",
+ "intent": "improve",
+ "intentEvidence": "This is the behaviour asked for in the forum thread Bases: New With Template (for 'New' Button).",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "In Obsidian's Bases, the New button always creates a blank note, with no way to base it on a template.",
+ "readmeHash": "2b735d23c026cd4fefb887fc40e957e225313ac2",
+ "relations": [
+  {
+   "evidence": "If the template uses Templater (<% ... %>) and Templater is installed, Templater fills it in",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Views made by the Split Groups plugin are left alone, since Split Groups sets its own template per view.",
+   "plugin": "Split Groups",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bases companion that makes the New button in a base view create a note from a template you choose per base or per view.",
+ "tags": [
+  "new-button",
+  "embedded-bases",
+  "date-placeholders",
+  "template-properties"
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "also": [
+  "images",
+  "integrations"
+ ],
+ "audience": [
+  "publishers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Generate banner, portrait, and square images from a note's image_prompt frontmatter key using Recraft or Ideogram",
+  "Build reusable house styles from 2-10 vault images with Recraft styles, brand colors, and a shared seed",
+  "Prompt every dragged or pasted image for a destination (vault, ImageKit CDN, or Imgur) via the Drop Gate",
+  "Convert local images in a note or folder to ImageKit CDN URLs and rewrite the links",
+  "Search Magnific stock images and insert results at the cursor"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13 or later, desktop only. Each integration is optional and paid per use (e.g. $0.005 to create a Recraft style, $0.007 per Flash image). Release assets are cryptographically attested; the README shows a verification code example. Full release notes live in a separate changelog file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author publishes from Obsidian and needed matched share images (OpenGraph banner, tall card, square) in a consistent house style, plus control over whether images stay local or go public.",
+ "primary": "ai",
+ "problem": "Generating share images that look like one illustrator drew them, and keeping track of where generated and pasted images end up (disk, CDN, or public host), is not handled by Obsidian.",
+ "readmeHash": "c50ede683dfccd5c7b752e53b086e71281f3cf6e",
+ "relations": [
+  {
+   "evidence": "Recraft, including V4.1, Pro (2K), Flash ($0.007 an image), Vector (editable SVG)",
+   "plugin": "Recraft",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Ideogram v3, for per-call style controls and accurate in-image text",
+   "plugin": "Ideogram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ImageKit | Public/private key pair from imagekit.io | CDN upload, conversion commands",
+   "plugin": "ImageKit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Imgur | Client ID from api.imgur.com | Public-host destination in the Drop Gate",
+   "plugin": "Imgur",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Magnific (formerly Freepik) search, inserting results straight into your note",
+   "plugin": "Magnific",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Recraft, Ideogram, ImageKit, Magnific, or Imgur API keys",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI image toolkit that generates styled image sets from frontmatter prompts via Recraft or Ideogram, gates dropped/pasted images, and uploads to ImageKit.",
+ "tags": [
+  "recraft",
+  "ideogram",
+  "imagekit",
+  "imgur",
+  "magnific",
+  "opengraph",
+  "webp",
+  "cdn"
+ ]
+}

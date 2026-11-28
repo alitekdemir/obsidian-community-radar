@@ -1,0 +1,70 @@
+{
+ "also": [
+  "syncing",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with OpenAI-compatible models in a side panel with streaming replies",
+  "attach images to messages for multimodal understanding",
+  "generate images and save them into the vault",
+  "let AI read, create, edit, and organize vault files after approval",
+  "sync notes over WebDAV with bidirectional sync, conflict handling, and filters"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns users to back up their vault before enabling sync and recommends keeping permission confirmation enabled for AI file tools. Licensed under AGPL-3.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, image generation, or WebDAV-based note syncing, so users must combine separate tools.",
+ "readmeHash": "64e9518fffeb4e4e771223850763e716788097e3",
+ "relations": [
+  {
+   "evidence": "The sync foundation is derived from nutstore/obsidian-nutstore-sync.",
+   "plugin": "nutstore/obsidian-nutstore-sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "You can chat with OpenAI-compatible models, send images for multimodal understanding",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WebDAV account (Nutstore)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 3
+ },
+ "summary": "AI chat panel for Obsidian with multimodal input, image generation, a vault file assistant, and WebDAV-based cloud sync.",
+ "tags": [
+  "openai",
+  "webdav",
+  "nutstore",
+  "multimodal",
+  "image-generation",
+  "streaming",
+  "file-assistant"
+ ]
+}

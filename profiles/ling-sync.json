@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pair a vault with a Ling account via obsidian://ling-sync and scoped consent",
+  "Upload selected Markdown folders to Ling with cursor-based manifests and change batches",
+  "Apply agent-requested create, replace, move, and trash commands inside approved folders",
+  "Reconcile vault and server state after startup, resume, or sync conflicts",
+  "Store connector tokens in Obsidian SecretStorage and keep connection state vault-local"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Beta integration, not yet a published Obsidian Community Plugin listing; requires Obsidian 1.11.4 or newer for SecretStorage; only one connector device per Ling account and vault, and API base URL and folders are locked while connected.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to mirror selected Markdown notes to the Ling app or to accept note changes requested by Ling's agent.",
+ "readmeHash": "d39113eeb1f05574de10c3a5cdbda68e22a6b076",
+ "relations": [
+  {
+   "evidence": "sends selected Markdown notes to Ling through the provider-neutral Notes Integration API",
+   "plugin": "Ling",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Ling account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ling",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs selected Markdown notes from an Obsidian vault to the Ling app through its Notes Integration API, with agent-requested writes back into approved folders.",
+ "tags": [
+  "ling",
+  "notes-integration-api",
+  "agent-skill",
+  "secret-storage",
+  "requesturl",
+  "pairing"
+ ]
+}

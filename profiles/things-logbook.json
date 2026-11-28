@@ -1,0 +1,58 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch completed tasks from the Things database on a configured interval",
+  "Backfill the entire historical Things Logbook on first sync",
+  "Write tasks into the daily note matching each task's completed date",
+  "Display each task's subtasks, tags, and areas",
+  "Configure section heading, sync frequency, and tag prefixing"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the initial sync may create or modify hundreds of files, recommends testing in a new vault and backing up data first. Includes donation and sponsorship links.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author uses Things for task management but wants daily notes in Obsidian to be a holistic view of their day-to-day and a data source for their Second Brain.",
+ "primary": "integrations",
+ "problem": "Obsidian daily notes don't include completed task history from external task managers like Things, so the daily note isn't a full record of the day.",
+ "readmeHash": "b980338741d4fe5e554d815c3af4daf3b03e520d",
+ "relations": [
+  {
+   "evidence": "This plugin dumps completed tasks from Things into my daily notes",
+   "plugin": "Things",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Things",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Syncs completed tasks from the Things app's Logbook into the Obsidian daily note matching each task's completion date, on a set interval.",
+ "tags": [
+  "things-app",
+  "logbook",
+  "completed-tasks",
+  "backfill",
+  "daily-notes"
+ ]
+}

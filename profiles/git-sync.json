@@ -1,0 +1,68 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Commit and push edits automatically seconds after typing stops",
+  "Pull remote changes on a 30-second interval and on app focus",
+  "Merge conflicting edits with in-note conflict markers and a resolve flow",
+  "Sync on mobile using a built-in JavaScript git engine",
+  "Show sync state and conflicts in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a git history or backup tool; it has no per-note restore UI and exists to sync the vault across devices.",
+ "extras": "Still unpublished; recommended install path is via BRAT as a beta plugin. On Obsidian versions older than 1.11.4 the token is stored in plain text in data.json. Files over 100 MB are never synced.",
+ "intent": "alternative",
+ "intentEvidence": "Keeps your vault in sync across devices through a git repository, the way Obsidian Sync does",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault synced across devices through a git repository without manual commits and pushes.",
+ "readmeHash": "3d757930c24808dadda1015e2cf4567dd22a943f",
+ "relations": [
+  {
+   "evidence": "through a git repository, the way Obsidian Sync does",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "git host (e.g. GitHub)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "repository access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Git-based vault sync that automatically commits, pushes and pulls notes across devices, including mobile, working like Obsidian Sync.",
+ "tags": [
+  "github",
+  "version-control",
+  "merge-conflicts",
+  "access-token",
+  "offline-support"
+ ]
+}

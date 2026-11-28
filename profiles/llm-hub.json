@@ -1,0 +1,113 @@
+{
+ "also": [
+  "automation",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with multiple LLM providers, including local and CLI backends",
+  "Build multi-step workflows in a visual node editor",
+  "Index the vault locally and inject relevant chunks into prompts (RAG)",
+  "Let the model read, create, and propose edits to notes via function calling",
+  "Track and restore AI-made file changes with a diff view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "File recovery",
+   "Slash commands",
+   "Hotkeys"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a chat-only plugin; it also builds multi-step workflows and maintains a local RAG index, and Discord/Kakeratta chat is handled by the separate LLM Connect Hub plugin.",
+ "extras": "Desktop only; mobile users are directed to Gemini Helper. Discord/Kakeratta integration was moved out into the separate LLM Connect Hub plugin, which migrates legacy settings on first connection. Edit history is in-memory and cleared on restart; Obsidian's built-in file recovery covers persistent version tracking. Live voice sessions bill provider API charges, and realtime audio may fail behind a required proxy. Forgetting an encryption password makes encrypted files unrecoverable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to use external LLMs on notes, and single-provider AI plugins lock users into one model or service.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "bc637bc545eede2ccb146140a47fda9a0c7cd6b0",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Supply AI models, Chat, Base generation, and Workflow execution to the separate Dashboard Hub plugin",
+   "plugin": "Dashboard Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supply API, CLI, and local models to the separate multi-provider Discussion Hub plugin",
+   "plugin": "Discussion Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Connect to Discord and Kakeratta and use LLM Hub models and RAG",
+   "plugin": "LLM Connect Hub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install speech-popup and a microphone button appears above the send button",
+   "plugin": "speech-popup",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Based on kepano/obsidian-skills",
+   "plugin": "kepano/obsidian-skills",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Models contributed by Gemini Helper and Local LLM Hub can participate in the same discussion",
+   "plugin": "Gemini Helper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini, OpenAI, Anthropic, OpenRouter, Grok, or OpenCode",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM server (Ollama, LM Studio, vLLM, AnythingLLM, OpenCode)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CLI tool (Antigravity CLI, Claude Code, Codex CLI)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily or Brave Search for external web search",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "speech-popup for dictated voice conversation",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Multi-provider AI assistant for Obsidian with chat, a visual workflow builder, and local semantic search (RAG) over vault notes.",
+ "tags": [
+  "ai-chat",
+  "llm",
+  "rag",
+  "mcp",
+  "local-llm",
+  "ollama",
+  "gemini",
+  "openai"
+ ],
+ "textHash": "9bc0b3ed039b46d024442b4277ad84dde703f595"
+}

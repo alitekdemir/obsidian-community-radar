@@ -1,0 +1,81 @@
+{
+ "also": [
+  "tasks",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Collect highlights and comments into a searchable sidebar",
+  "Group highlights into named collections",
+  "Add and manage tasks with natural-language quick add",
+  "Sync dated tasks to external calendars with reminders",
+  "Jump from sidebar entries to their location in notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Footnotes view",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: everything except calendar sync is free; calendar sync requires a paid Power-Up subscription sold through Polar, with license validation against the author's server. The plugin sends nothing online until a license key is entered or a calendar connected, and has no analytics. Available in English and Simplified Chinese; PDF highlights are not supported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Highlights, footnotes and checkboxes are scattered across notes in a vault, with no single place to browse, search and navigate them.",
+ "readmeHash": "2487cdd15d4ea8d890b31e534059dfbb0ebb71fd",
+ "relations": [
+  {
+   "evidence": "Including the inline-style and CSS-class output of Highlightr",
+   "plugin": "Highlightr",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Metadata written by the Tasks plugin is hidden by default",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the same one that runs Describe in Oriko",
+   "plugin": "Oriko",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Calendar, Outlook, iCloud, or any other CalDAV calendar",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Power-Up subscription (calendar sync)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google, Microsoft or iCloud account (calendar sync)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Sidebar that collects highlights, comments and tasks from across a vault, with search, filters, collections, natural-language quick add and calendar sync.",
+ "tags": [
+  "highlightr",
+  "caldav",
+  "google-calendar",
+  "natural-language-dates",
+  "reminders",
+  "chinese"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read notes aloud using a chosen text-to-speech provider",
+  "Play generated audio in an audiobook-style player with speed control",
+  "Save readings as MP3 files and embed them in notes",
+  "Bookmark positions inside audio files",
+  "Apply per-language speech profiles for acronyms, abbreviations and pauses"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not voice input or dictation; it converts note text into spoken audio through an external text-to-speech provider.",
+ "extras": "Every feature needs a third-party TTS provider and its key; in-depth instructions, troubleshooting and FAQ live in an external User Guide. The README states there is no account with the developer and no tracking.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Notes are silent text, so you cannot listen to them while walking, commuting or resting your eyes, and there is no built-in way to turn them into reusable audio files.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "4cb7ebf4f723d432e9df868c4428a3cd658544d1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Use the text-to-speech provider you already have: OpenAI, ElevenLabs, AWS Polly, Google Cloud, Azure Speech, MiniMax",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ElevenLabs | The most expressive voices",
+   "plugin": "ElevenLabs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Text-to-speech provider API key (OpenAI, ElevenLabs, AWS Polly, Google Cloud, Azure Speech or MiniMax)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible TTS server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Text-to-speech player that reads notes aloud through a chosen TTS provider, with an audiobook-style player, bookmarks and MP3 saving.",
+ "tags": [
+  "text-to-speech",
+  "openai",
+  "elevenlabs",
+  "openai-compatible",
+  "byok",
+  "accessibility",
+  "podcasts"
+ ],
+ "textHash": "9597d780cb2547da3cc773746e0714358cb48701"
+}

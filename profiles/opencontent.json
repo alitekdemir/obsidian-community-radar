@@ -1,0 +1,80 @@
+{
+ "also": [
+  "writing",
+  "integrations"
+ ],
+ "audience": [
+  "writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Draft articles from vault notes with evidence-bound knowledge and claims",
+  "Run a gated distill-research-draft-critique pipeline stored as Markdown",
+  "Generate and revise text via Codex or Claude CLIs",
+  "Review evidence chains and diffs, then approve or reject drafts",
+  "Export approved articles and prepare WeChat official-account drafts"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a one-click publisher; the plugin does not automatically approve or publicly publish articles, and exports require explicit author approval.",
+ "extras": "Windows-only verification (Obsidian 1.13.7 desktop); the community download ships only main.js/manifest.json/styles.css, so the Python kernel, dependencies, and CLI setup must be installed manually; three Windows symlink permission test failures remain; privacy and third-party notices live in external PRIVACY.md and NOTICE.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no structured workflow for developing notes into finished articles with evidence-bound claims, review records, and an explicit human approval gate.",
+ "readmeHash": "99b5cec4932efe2d5cf616e172d1d2cb1619b820",
+ "relations": [
+  {
+   "evidence": "For AI features, an existing authenticated Codex or Claude native CLI.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For AI features, an existing authenticated Codex or Claude native CLI.",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "WeChat operations use api.weixin.qq.com only after configuration and confirmation.",
+   "plugin": "WeChat",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Explicit Qimao market tasks fetch public rankings from Qimao.",
+   "plugin": "Qimao",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3.12+ kernel installed manually outside the plugin download",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Authenticated OpenAI or Anthropic account via Codex/Claude CLI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI-assisted article pipeline that turns vault notes into drafts with traceable evidence, gated review, and required author approval before export.",
+ "tags": [
+  "codex",
+  "claude",
+  "wechat",
+  "qimao",
+  "evidence-tracing",
+  "python-kernel",
+  "approval-workflow"
+ ]
+}

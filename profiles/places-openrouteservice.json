@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build routes between waypoints",
+  "Build isochrone reachability polygons",
+  "Resolve POI search terms to coordinates",
+  "Read elevation for track points",
+  "Snap recorded tracks to the road network"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone map or places-search plugin; it is a routing provider that runs alongside Places.",
+ "extras": "Not stand-alone; must be installed alongside Places. The README points to a sandbox for examples and does not include setup or API details.",
+ "intent": "improve",
+ "intentEvidence": "This is not a stand-alone plugin, to use, install along side Places.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Places has no built-in openrouteservice provider for routes, reachability polygons, place suggestions, elevation and track snapping.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "757f4bcea47f8014f37a9bf0254f0103f564a45b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "This is not a stand-alone plugin, to use, install along side Places.",
+   "plugin": "Places",
+   "type": "extends"
+  },
+  {
+   "evidence": "Routing provider for Places using openrouteservice",
+   "plugin": "openrouteservice",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "openrouteservice",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Routing provider for the Places plugin that adds openrouteservice directions, isochrones, POI search, elevation lookup and track snapping.",
+ "tags": [
+  "maps"
+ ],
+ "textHash": "7ba5cf33284647fad0a62905a5c09fd537f3acde"
+}

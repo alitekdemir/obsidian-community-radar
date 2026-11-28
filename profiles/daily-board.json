@@ -1,0 +1,67 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display daily notes as weekly cards with excerpts, tasks, focus time and word counts",
+  "Read and edit recent days in a continuous stream, ticking tasks in place",
+  "Create missing daily notes from the daily notes template",
+  "Summarize streaks, weekly focus time, word counts and open tasks with filters",
+  "Match board colours to themes, including the Static Aurora theme"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a kanban or task board; the cards are your daily notes, and tasks are only read and ticked inside them.",
+ "extras": "States it makes no network requests and only writes to daily notes when you tick tasks, edit or create a day. Backgrounds can be vault images, built-in aurora pictures, or live colours matched to the Static Aurora theme.",
+ "intent": "improve",
+ "intentEvidence": "uses the core Daily Notes plugin's folder, date format and template by default",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian's Daily Notes core plugin only opens or lists single daily notes, with no at-a-glance weekly overview of what was written, what tasks remain and how much was focused.",
+ "readmeHash": "39803a9539b11103dda385171e7d42d3855321d9",
+ "relations": [
+  {
+   "evidence": "uses the core Daily Notes plugin's folder, date format and template by default",
+   "plugin": "Daily Notes (core plugin)",
+   "type": "extends"
+  },
+  {
+   "evidence": "Focus time adds up lines like Focused 25 min, which Lantern Focus writes",
+   "plugin": "Lantern Focus",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the writing prompt (from a heading such as ## Reflection, which One Page uses)",
+   "plugin": "One Page",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Made for the Static Aurora theme.",
+   "plugin": "Static Aurora",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Weekly board and stream view of daily notes, showing each day's excerpt, open tasks, focus time and word count in one place.",
+ "tags": [
+  "daily-notes",
+  "weekly-overview",
+  "focus-time",
+  "word-count",
+  "streaks",
+  "heat-bar"
+ ]
+}

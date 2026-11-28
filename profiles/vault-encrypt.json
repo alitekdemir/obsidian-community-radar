@@ -1,0 +1,44 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt the entire vault with a password (AES-256-GCM, PBKDF2 key derivation)",
+  "Decrypt the vault with the same master password",
+  "Anonymize filenames and remove folder structure during encryption",
+  "Pad files to standard sizes to hide content length",
+  "Configure encryption strength via PBKDF2 iteration count (50k-500k)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README repeatedly warns to back up the vault before use, states the plugin has not undergone a security audit and should not be relied on for critical security, and notes forward compatibility with the Obsidian API is not guaranteed. Installation instructions reference the folder name 'cryptsidian', which differs from the plugin id.",
+ "intent": "new",
+ "intentEvidence": "Transform your vault into an unrecognizable collection of encrypted files that provides security and anonymity",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian stores notes as plain local Markdown files, so anyone with file access can read the whole vault; there is no built-in way to encrypt vault contents at rest.",
+ "readmeHash": "d0a11dc79cecbe6f21a8a04032db8b81be5d9220",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault-wide encryption tool that encrypts every file in the vault with AES-256-GCM under a password and anonymizes filenames and folder structure.",
+ "tags": [
+  "encryption",
+  "aes-256-gcm",
+  "pbkdf2",
+  "privacy",
+  "anonymization",
+  "password"
+ ]
+}

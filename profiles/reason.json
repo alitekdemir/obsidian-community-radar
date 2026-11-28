@@ -1,0 +1,74 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build a conceptual map of vault ideas from tags, links, folders, and note recency",
+  "Pull relevant vault context automatically during chat",
+  "Quote vault notes with clickable note links and highlight used graph nodes",
+  "Work with OpenAI-compatible endpoints including local models",
+  "Run the agent core as a standalone CLI outside Obsidian"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "VaultSearch uses the on-device index and does not call an AI provider, but initialization does; privacy details are in external docs. Included indexing credits require signing in, or users can pass OPENAI_API_KEY, OPENAI_BASE_URL, and OPENAI_MODEL via advanced settings.",
+ "intent": "alternative",
+ "intentEvidence": "Enzyme builds its context graph in a fraction of the time and tokens that Claude Code would use",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat that understands the ideas and relationships in a vault, and generic AI agents explore vaults slowly and expensively.",
+ "readmeHash": "c49dbcef873994ba5acbd8cf59ed3de9be4e655d",
+ "relations": [
+  {
+   "evidence": "Enzyme builds its context graph in a fraction of the time and tokens that Claude Code would use",
+   "plugin": "Claude Code",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Works with OpenRouter, OpenAI, Anthropic (via proxy), llama-server, Ollama, vLLM",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with OpenRouter, OpenAI, Anthropic (via proxy), llama-server, Ollama, vLLM",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Chat API key for the configured endpoint",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Sign-in for included indexing credits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Chat agent that builds a conceptual map of vault ideas from tags, links, and folders to answer questions with cited note links.",
+ "tags": [
+  "openrouter",
+  "ollama",
+  "local-models",
+  "context-graph",
+  "cli",
+  "openai-compatible"
+ ]
+}

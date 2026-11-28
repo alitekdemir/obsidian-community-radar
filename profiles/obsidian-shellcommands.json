@@ -1,0 +1,64 @@
+{
+ "also": [
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Define custom shell commands in the settings",
+  "Run commands via the command palette or hotkeys",
+  "Insert note variables like file path and date/time into commands",
+  "Direct command output into the active note",
+  "Set a working directory for command execution"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette",
+   "Hotkeys"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, no mobile support due to NodeJS child_process. README carries strong security warnings about running untrusted commands and notes Windows/PowerShell character corruption issues. Extensive documentation and usage examples are hosted externally, not in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian cannot run external system commands or launch outside applications, so users have to leave the app or script things manually.",
+ "readmeHash": "8f3467e07b13b102bab99a7949013658e11d9948",
+ "relations": [
+  {
+   "evidence": "You can use this to open other vaults, switch workspaces without using a graphical user interface, and append content to notes",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can create macros that launch multiple commands at once.",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you might benefit more from Text Expander",
+   "plugin": "Text Expander",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Shell command runner that lets you define terminal commands and execute them from Obsidian via the command palette, hotkeys, or automation, with note variables and output capture.",
+ "tags": [
+  "shell",
+  "terminal",
+  "system-commands",
+  "variables",
+  "child-process",
+  "bash",
+  "windows-powershell"
+ ]
+}

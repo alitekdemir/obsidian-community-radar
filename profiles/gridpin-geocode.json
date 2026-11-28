@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Geocode the address property of the current note",
+  "Write coordinates into the location property",
+  "Record a match_level for the result",
+  "Leave the note unchanged and explain when no sure answer is found",
+  "Set the address of the GridPin server in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; on a phone 127.0.0.1 is the phone itself. Server data files exist for Australia, Brazil, Canada, France, Germany, Italy, Mexico, the Netherlands, New Zealand, Poland, Serbia, Spain and the United States. Text and code were prepared with an AI assistant; licence Apache-2.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Map views read coordinates from the location property, but notes usually hold only a written address.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "606c2512c04fd51e4f2d316c89dcdc79e645a501",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "writes the coordinates into location, the property that map views such as Map View read",
+   "plugin": "Map View",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The answer comes from your own GridPin server on your computer or network.",
+   "plugin": "GridPin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GridPin server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reads a note's address property, asks a local GridPin server for coordinates, and writes them into the location property.",
+ "tags": [
+  "maps",
+  "local-server",
+  "self-hosted",
+  "docker",
+  "privacy"
+ ],
+ "textHash": "72904b4fe438bd4e2ca61994283182318fdcc0de"
+}

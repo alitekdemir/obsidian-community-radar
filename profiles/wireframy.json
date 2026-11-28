@@ -1,0 +1,73 @@
+{
+ "also": [
+  "canvas",
+  "ai"
+ ],
+ "audience": [
+  "ui-designers",
+  "product-managers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Draw lo-fi wireframes with 82 drag-and-drop widgets, 161 icons, shapes and labelled connecting arrows",
+  "Render wireframes inline in notes and on Canvas from an indentation-based wf code block",
+  "Transform elements in place, present boards read-only, and copy boards as PNG images",
+  "Generate sibling board notes and alternate versions linked to the drawing",
+  "Describe screens or convert screenshots into editable wireframes via an optional AI genie"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "AI features are off by default and need a user-supplied API key stored in plain text in the plugin's data.json; the manifest notes the plugin has not been manually reviewed by Obsidian staff; support runs through a Discord server and GitHub issues.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author argues that lo-fi wireframes keep review focused on structure instead of polish, and that the drawing should live beside the spec, notes and open questions already in Obsidian, in a diffable plain-text file rather than a separate tool behind a login.",
+ "primary": "drawing",
+ "problem": "Obsidian has no built-in way to draw wireframes, so the screens that belong next to a spec end up in a separate design tool outside the vault.",
+ "readmeHash": "c08c7d246a769eee7bd935ab565fefb2a2301161",
+ "relations": [
+  {
+   "evidence": "Install BRAT, then add Divyaraj-M/wireframy as a beta plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own API key — Anthropic (Claude) or Google (Gemini), whichever you already have.",
+   "plugin": "Anthropic (Claude)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Bring your own API key — Anthropic (Claude) or Google (Gemini), whichever you already have.",
+   "plugin": "Google (Gemini)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic (Claude) or Google (Gemini) API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Drag-and-drop lo-fi wireframing editor that stores boards as plain .wire files in the vault, with an inline wf DSL for notes and Canvas.",
+ "tags": [
+  "wireframes",
+  "ui-design",
+  "drag-and-drop",
+  "hand-drawn",
+  "dsl",
+  "claude",
+  "gemini"
+ ]
+}

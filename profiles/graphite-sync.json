@@ -1,0 +1,84 @@
+{
+ "also": [
+  "integrations",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull a Space into an index note plus per-module notes",
+  "Push edited files through a validate-first merge",
+  "Show per-note sync state in a sync panel",
+  "Route Spaces to different destination vaults",
+  "Capture task lines from notes into Graphite"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Task lists",
+   "Properties view",
+   "Backlinks",
+   "Tags view",
+   "Graph view",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general vault sync tool; its optional Note sync is a separate CouchDB feature, and the main job is mirroring Graphite Spaces.",
+ "extras": "Note sync is marked as being built and not yet able to merge non-overlapping edits or use Graphite's own sync as the server. Source is published to read under an all-rights-reserved licence, not open source. The API token is stored in the vault's plugin data, and pulling into another vault copies the server address and token into that vault's plugin folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Graphite Spaces live on a Graphite server or in the Graphite app, so their tasks, notes and calendar data cannot be read or edited as ordinary vault notes.",
+ "profiledAt": "2026-11-27",
+ "provider": "Baidu",
+ "readmeHash": "1a46b7bcdbdb89e21facdaaae51b7d5c335acea2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "carries the whole vault between devices through a CouchDB server, in place of LiveSync",
+   "plugin": "LiveSync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Graphite server account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Graphite plugin key or pairing code",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Graphite app",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "CouchDB server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Two-way sync client that pulls Graphite (Life Planner) Spaces into a vault as Markdown notes and pushes edits back through a validate-first merge.",
+ "tags": [
+  "self-hosted",
+  "two-way-sync",
+  "tasknotes",
+  "daily-notes",
+  "encryption",
+  "local-first"
+ ],
+ "textHash": "443bb94a9ef029768adbbde1ce8d458e2034f195"
+}

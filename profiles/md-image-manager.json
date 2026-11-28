@@ -1,0 +1,58 @@
+{
+ "also": [
+  "attachments",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save and name pasted or dropped images with configurable path templates and optional compression",
+  "Upload single or referenced images to Aliyun OSS, Qiniu, S3-compatible storage, or custom HTTP endpoints",
+  "Convert Wiki image references to standard Markdown across vault, folder, or note scopes",
+  "Browse and preview local and hosting images in a sidebar image browser",
+  "Detect and clean up orphan images and rename images while updating all references"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Docs cover known limitations in detail (one-way Wiki-to-Markdown conversion, custom HTTP hosting is upload-only, cross-hosting migration not implemented) and include provider-specific safety guidance such as least-privilege credentials and potential object-read charges.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Obsidian only saves pasted images as attachments; it has no built-in tools for compressing images, uploading them to image hosting, rewriting references, or finding and cleaning up unused images.",
+ "readmeHash": "25328d4178e6a587d52dba593eafa7f4c9d9178b",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "image hosting provider (Aliyun OSS, Qiniu, or S3-compatible) for upload and remote management features",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "provider credentials (access keys or tokens) for upload, listing, and delete operations",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Image management plugin that handles pasted images through naming, compression, hosting upload, reference updates, browsing, and guarded orphan cleanup.",
+ "tags": [
+  "aliyun-oss",
+  "qiniu",
+  "s3",
+  "minio",
+  "cloudflare-r2",
+  "image-compression",
+  "wiki-links",
+  "orphan-images"
+ ]
+}

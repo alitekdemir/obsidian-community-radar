@@ -1,0 +1,101 @@
+{
+ "also": [
+  "ai",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "schedule AI tasks on cron, interval, one-shot, event or chained triggers",
+  "run tasks through installed backend plugins (Claudian, Oh My Claudian, Copilot)",
+  "write results as new, replaced, appended or daily-note output with fill-in variables",
+  "queue proposed edits to existing notes for approval as diffs",
+  "export upcoming runs as an .ics file or to Google and Outlook calendars"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not call AI providers itself; it only plans, schedules and dispatches tasks through an already-installed backend plugin.",
+ "extras": "Relies on non-public parts of the backend plugins, so backend updates can break task execution; calendar add-ons are marked beta; Claudian and Oh My Claudian work on desktop only, so scheduled tasks run on the computer, while Copilot also supports manual runs on mobile.",
+ "intent": "new",
+ "intentEvidence": "It drives Claudian, Oh My Claudian or Copilot — whichever you have configured — and owns only the scheduling and execution layer.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian AI plugins only run when you open a chat manually, so recurring AI work like reviews or summaries has to be triggered by hand each time.",
+ "readmeHash": "e7197c01f80a3f6b3f5611b7a180287c4a81fddb",
+ "relations": [
+  {
+   "evidence": "It drives Claudian, Oh My Claudian or Copilot — whichever you have configured",
+   "plugin": "Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supported versions: Claudian 2.x, Oh My Claudian 2.5.x, and Copilot 3.x and 4.x",
+   "plugin": "Oh My Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "AI Scheduler does not call AI providers directly. It drives Claudian, Oh My Claudian or Copilot",
+   "plugin": "Copilot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use a Dataview query in a task's instructions, e.g. {{dataview: LIST FROM #project WHERE !completed}}",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater commands in it run when Templater is installed",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "with dates in the Tasks plugin format and an optional tag",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Claudian, Oh My Claudian or Copilot",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google or Microsoft account for calendar add-ons",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Scheduler that runs AI tasks on recurring or event-based triggers through Claudian, Oh My Claudian or Copilot, with approval before existing notes are edited.",
+ "tags": [
+  "cron",
+  "ics",
+  "google-calendar",
+  "outlook",
+  "natural-language-planning",
+  "quiet-hours",
+  "approval-workflow"
+ ]
+}

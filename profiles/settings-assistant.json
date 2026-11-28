@@ -1,0 +1,79 @@
+{
+ "also": [
+  "json",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Apply settings profiles written as notes",
+  "Draft profiles via a local-LLM chat",
+  "Show a diff before each write",
+  "Redact secrets from profiles and chat",
+  "Snapshot and restore config files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Version 1 does not cover appearance/CSS and will not write app.json, appearance.json, core-plugins.json, or community-plugins.json; the plugin never writes its own data.json. Chat was tested in Obsidian's mobile emulation, not on a physical device. Bilingual interface (English/German). Requires Obsidian 1.11.4+ because API keys use Obsidian's secret storage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Editing plugin and app settings JSON by hand is error-prone and hard to undo.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "10a0750ad00d49b377c882a586bfbcfda60e542a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Lessons learned from Config Sync (MIT, xooooooooox/obsidian-config-sync) informed several edge cases.",
+   "plugin": "Config Sync",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Endpoints come from the LLM Endpoint Manager if it is installed",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local LLM server (LM Studio, Ollama, or MLX)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Settings editor that applies reviewed profile notes or local-LLM chat drafts to plugin config files, with diffs, secret redaction, and rollback snapshots.",
+ "tags": [
+  "local-llm",
+  "openai-compatible",
+  "ollama",
+  "lm-studio",
+  "diff",
+  "secret-storage"
+ ],
+ "textHash": "400e1ad818af08de565865ccd4d77b9266ea60a7"
+}

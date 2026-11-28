@@ -1,0 +1,58 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a set of random notes ranked by a local LLM",
+  "Run a Haystack retrieval pipeline in a terminal alongside Obsidian",
+  "Configure how many ranked pages open at once",
+  "Replace the retrieval model by editing rr_app.py",
+  "Work in English and Chinese"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Random note",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a search tool; the LLM only ranks a few random notes to open, it does not replace normal vault search.",
+ "extras": "macOS only for now, with Windows and mobile listed as future plans. Users must set up a conda environment with pip requirements and keep the terminal open while using the plugin. Developers can swap rr_app.py for their own models.",
+ "intent": "improve",
+ "intentEvidence": "Random Note, as a core plugin, provides a complete random way to dig it out...",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because of a bad memory and the pleasure of a treasure hunt, wanting something between Search and Random Note.",
+ "primary": "search",
+ "problem": "Obsidian's Random Note is completely random and Search needs known terms, so unrelated-but-related notes hiding in the vault are hard to stumble upon.",
+ "readmeHash": "2d42bdee96aaf29aa93004690694169445b0e100",
+ "relations": [
+  {
+   "evidence": "Retrieval for Retrieval Component in Haystack",
+   "plugin": "Haystack",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "conda environment with local LLM (terminal must stay open)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Random note opener that uses a local LLM as retriever and ranker, functioning like a mix of fuzzy search and Random Note.",
+ "tags": [
+  "local-llm",
+  "haystack",
+  "conda",
+  "semantic-ranking",
+  "macos"
+ ]
+}

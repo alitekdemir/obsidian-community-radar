@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read the full note aloud with a neural TTS voice",
+  "Summarize the note with an LLM and read the summary",
+  "Control playback with pause, resume, stop, loop, and auto-next",
+  "Convert Markdown elements like tables, code blocks, and links into speech-friendly text",
+  "Adjust voice, speed, and volume"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an audio recorder; it converts note text to spoken audio rather than capturing recordings.",
+ "extras": "Desktop-only plugin; speech synthesis itself needs no API key, only the optional LLM summarization does. Documentation is bilingual (English/Chinese).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people who learn better by listening or want to rest their eyes after writing, turning the vault into a personal podcast.",
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to listen to notes; reading long notes requires keeping your eyes on the screen.",
+ "readmeHash": "fadaad0e85240bf6de63343e4b3f07dc79a6d490",
+ "relations": [
+  {
+   "evidence": "TTS is powered by Microsoft Edge TTS (msedge-tts) — no API key or additional setup required",
+   "plugin": "Microsoft Edge TTS (msedge-tts)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with any OpenAI-compatible API — OpenAI, DeepSeek, Qwen (通义), Zhipu (智谱), and more",
+   "plugin": "OpenAI-compatible APIs (OpenAI, DeepSeek, Qwen, Zhipu)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM API key for OpenAI-compatible summarization service",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Desktop Obsidian only (requires Node.js WebSocket)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Text-to-speech plugin that reads notes aloud via Microsoft Edge TTS, with optional LLM-summarized readings and playlist-style playback controls.",
+ "tags": [
+  "text-to-speech",
+  "edge-tts",
+  "llm",
+  "summarization",
+  "openai-compatible",
+  "chinese-voices",
+  "playback"
+ ]
+}

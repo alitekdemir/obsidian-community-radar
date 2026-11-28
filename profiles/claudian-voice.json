@@ -1,0 +1,67 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Converse with the Claudian agent by voice, with spoken replies and turn detection",
+  "Dictate to the clipboard or drive Claudian's inline edit by holding a hotkey and speaking",
+  "Read the current note aloud with editor highlighting and scrolling",
+  "Capture quick notes like 'note to self' into the daily note without invoking the agent",
+  "Configure transcription and speech engines, including OpenAI, Groq, and local Whisper servers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a standalone dictation or text-to-speech plugin; it only works alongside the Claudian agent plugin.",
+ "extras": "Requires Claudian 2.3.30+; streaming transcription is billed while the microphone is open, so sessions auto-end after 45 seconds of silence by default. Pre-releases available via BRAT. An earlier feat/public-chat-api fork of Claudian is no longer needed.",
+ "intent": "improve",
+ "intentEvidence": "A companion plugin for Claudian: it owns the microphone, speech-to-text, and text-to-speech, and drives Claudian through its plugin API",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "The Claudian agent plugin has no audio support of its own, so there is no way to talk to the agent hands-free or hear its replies spoken.",
+ "readmeHash": "e65f6f2cc70c2b54c039e926b2dd86ff377aea45",
+ "relations": [
+  {
+   "evidence": "A companion plugin for Claudian: it owns the microphone, speech-to-text, and text-to-speech, and drives Claudian through its plugin API",
+   "plugin": "Claudian",
+   "type": "extends"
+  },
+  {
+   "evidence": "Transcription defaults to OpenAI's Realtime API in transcription mode (gpt-4o-mini-transcribe)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Claudian 2.3.30 or later",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Voice interface for the Claudian agent plugin: spoken conversation, hold-to-talk dictation, voice-driven inline edits, and reading notes aloud.",
+ "tags": [
+  "openai",
+  "whisper",
+  "speech-to-text",
+  "text-to-speech",
+  "dictation",
+  "barge-in",
+  "voice-glossary"
+ ]
+}

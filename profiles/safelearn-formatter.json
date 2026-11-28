@@ -1,0 +1,78 @@
+{
+ "also": [
+  "editing",
+  "syntax"
+ ],
+ "audience": [
+  "teachers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Renders @@@ permission blocks with chips, frames and nesting",
+  "Shows fragment markers and side-by-side column regions",
+  "Inserts tags and blocks from a context menu and commands",
+  "Generates dated semester tables of lessons",
+  "Builds per-student sections and invitation lists from a school directory"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Markdown formatter: it displays SafeLearn's tags as visual aids and never changes the file.",
+ "extras": "Directory picker, invitation lists and class listing need a configured safeLearn instance and a Keycloak login; the Keycloak client must be created once by the instance administrator. All tag rendering and writing commands work offline with no account.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Shows what SafeLearn will do with your document while you write it.",
+ "primary": "integrations",
+ "problem": "SafeLearn's directives are instructions to the server rather than readable text, so while writing a teacher cannot see who a block admits or how it will be laid out.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "410446b27722fbfc225dcdb1b6b2909ac76b775e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "SafeLearn is an open-source server that publishes a teacher's Markdown behind a school login.",
+   "plugin": "SafeLearn",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Content that appears one step at a time in a Reveal.js presentation.",
+   "plugin": "Reveal.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The identity provider your instance authenticates against.",
+   "plugin": "Keycloak",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "safeLearn instance",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Keycloak login",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Displays SafeLearn's own Markdown tags — restricted blocks, fragments and columns — as visual aids in the editor and reading view.",
+ "tags": [
+  "slides",
+  "oauth",
+  "live-preview",
+  "color-coding"
+ ],
+ "textHash": "5ea0cd0ba50576ae3699b929342f31ec254b30c4"
+}

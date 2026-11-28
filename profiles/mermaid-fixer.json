@@ -1,0 +1,51 @@
+{
+ "also": [
+  "markdown",
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Repair Mermaid syntax errors in the active note",
+  "Scan the whole vault for Mermaid and table issues",
+  "Preview proposed edits as a diff before applying",
+  "Conservatively repair broken Markdown table structures",
+  "Toggle each fix rule independently in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it also repairs broken Markdown tables, not only Mermaid diagrams.",
+ "extras": "Free and local-only: no accounts, API keys, network requests, or telemetry. Documents that it reads vault files only during the whole-vault command, with full data-flow details in PRIVACY.md.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because AIGC tools frequently produce Mermaid blocks and tables that look almost right while failing to render in Obsidian.",
+ "primary": "syntax",
+ "problem": "AI-generated or hand-edited Mermaid diagrams and tables often look almost valid but fail to render in Obsidian, and fixing them by hand is repetitive.",
+ "readmeHash": "87f478d351d5846baf6c9bfd62afe3bb849047f2",
+ "relations": [
+  {
+   "evidence": "Try Mermaid ELK Renderer - Obsidian Plugin with bundled Mermaid 11 enabled.",
+   "plugin": "Mermaid ELK Renderer - Obsidian Plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Rule-based repairer that fixes broken Mermaid diagram syntax and Markdown tables in the current note or across the whole vault.",
+ "tags": [
+  "mermaid",
+  "diagrams",
+  "diff-preview",
+  "ai-generated-content"
+ ]
+}

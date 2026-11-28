@@ -1,0 +1,73 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes to a Neo4j database",
+  "Render a graph view with nodes styled by tags, folders and link types",
+  "Run Cypher queries from cypher code blocks",
+  "Create typed links with - linkType [[note]] syntax",
+  "Open the vault in Neo4j desktop apps like Bloom, GraphXR and Browser"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README states the plugin will be removed from the community plugins soon; the successor Juggl no longer requires Neo4j or Python. Syncing changes to Neo4j is described as 'still very buggy'.",
+ "intent": "improve",
+ "intentEvidence": "Adds a new and much more functional graph view to Obsidian",
+ "lifecycle": "deprecated",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's built-in graph view offers limited styling, filtering, and no way to query the vault as a graph database.",
+ "readmeHash": "79e9c5a9a484964534c6106c5a1ba4fd381bc547",
+ "relations": [
+  {
+   "evidence": "This plugin has been rewritten with new name Juggl",
+   "plugin": "Juggl",
+   "type": "replaces"
+  },
+  {
+   "evidence": "It does so by connecting to a Neo4j database",
+   "plugin": "Neo4j",
+   "type": "integrates"
+  },
+  {
+   "evidence": "uses the Python package semantic-markdown-converter, which is also in this repo",
+   "plugin": "semantic-markdown-converter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": "Juggl",
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Neo4j desktop with a running database",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "System-installed Python 3.6+",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Graph visualization plugin that syncs the vault into a Neo4j database for a styled, queryable graph with Cypher and typed links.",
+ "tags": [
+  "neo4j",
+  "cypher",
+  "graph-database",
+  "python",
+  "typed-links",
+  "neo4j-bloom"
+ ]
+}

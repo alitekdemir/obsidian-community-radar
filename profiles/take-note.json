@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record meeting audio from the microphone",
+  "Transcribe audio and video locally with Whisper",
+  "Separate and name speakers by voice",
+  "Generate summaries, action items, tickets and questions with an LLM",
+  "Import WhatsApp and Telegram chat exports"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a quick-capture or note-creation tool; it records and transcribes meetings and chats and generates AI notes from them.",
+ "extras": "Recording, transcription and speaker separation need the desktop app; on mobile only chat import, summarization and the sidebar work. The one-step setup script is macOS-only, and Linux/Windows support is untested. Voice fingerprints are stored in ~/.take-note/ outside the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Nobody wants to take notes in meetings.",
+ "primary": "audio",
+ "problem": "Taking notes by hand during meetings is tedious, and raw recordings or transcripts are not turned into structured, actionable notes inside Obsidian.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "6d43c37f2174eb3351a94a9dd7439ba157390537",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Action items as - [ ] tasks with owner, priority and 📅 due date (works with the Tasks plugin)",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "record it with Obsidian's built-in Audio recorder on the phone",
+   "plugin": "Audio recorder",
+   "type": "extends"
+  },
+  {
+   "evidence": "transcription (whisper.cpp) and speaker separation (sherpa-onnx) all run locally",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ffmpeg, whisper.cpp and sherpa-onnx",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Claude or OpenRouter API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Records meetings, transcribes them locally with Whisper, labels speakers, and has an LLM write structured notes with tasks and tickets.",
+ "tags": [
+  "whisper",
+  "speech-to-text",
+  "transcription",
+  "speaker-diarization",
+  "meeting-notes",
+  "summarization",
+  "action-items",
+  "local-llm"
+ ],
+ "textHash": "ffcee684652a225e76de33cfdd28e087ccec1ffd"
+}

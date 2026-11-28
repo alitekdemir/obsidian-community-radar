@@ -1,0 +1,75 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create CSV files from the command palette",
+  "View CSV files as tables with DataviewJS",
+  "Add rows and columns to CSV files",
+  "Browse, move, and delete CSV files in a CSV explorer",
+  "Read and save CSV data programmatically via a readCSV/saveCSV API"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Early release (v0.1.0); the author notes UI changes are planned, Templater coverage is thin, and each CSV file gets a companion .csv.meta file storing column types.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "csv",
+ "problem": "Obsidian has no built-in way to create CSV files, append data to them, or browse and manage them as data tables.",
+ "readmeHash": "c0e80f31877650fc71add1c5327617fb73138270",
+ "relations": [
+  {
+   "evidence": "built with the assumption that you are using DataviewJS",
+   "plugin": "DataviewJS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This feature uses the Buttons plugin.",
+   "plugin": "Buttons",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Templater",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "DataviewJS",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Buttons",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "CSV file toolkit that creates, edits, searches, and reads CSV files through commands, DataviewJS scripts, and an API.",
+ "tags": [
+  "dataviewjs",
+  "templater",
+  "buttons",
+  "column-types",
+  "meta-files"
+ ]
+}

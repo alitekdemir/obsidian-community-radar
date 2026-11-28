@@ -1,0 +1,67 @@
+{
+ "also": [
+  "ai",
+  "research"
+ ],
+ "audience": [
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Find passages in the vault that answer a saved question",
+  "Score candidate passages with the Jev API",
+  "Search by meaning with an optional local embedding model",
+  "Save selected passages as a note with block IDs and backlinks",
+  "Configure retrieval scope, score cutoffs and excluded folders"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not qualitative data analysis software; it retrieves passages that answer a question, it does not code or theme data.",
+ "extras": "Community-directory submission is pending, so manual installation from release files is described. Jev API use may incur charges; local embedding download is about 31 MB from Hugging Face. Mobile testing is incomplete. Deeper docs (user guide, testing status) are referenced but not included in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian search matches keywords but does not judge which passages actually answer a question or gather them into one source-linked note.",
+ "readmeHash": "5be2cc30fdc0d2ac43bf6e1c755d96921f1b4a57",
+ "relations": [
+  {
+   "evidence": "Jev scoring requires a TypeSafe account and API key.",
+   "plugin": "Jev (TypeSafe)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Jev API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "TypeSafe account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Question-driven retrieval plugin that finds passages in your notes answering a saved question, scores them with Jev, and saves selections as block-linked notes.",
+ "tags": [
+  "jev",
+  "typesafe",
+  "embeddings",
+  "question-answering",
+  "block-ids",
+  "retrieval"
+ ]
+}

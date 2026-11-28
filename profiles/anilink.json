@@ -1,0 +1,113 @@
+{
+ "also": [
+  "video",
+  "files"
+ ],
+ "audience": [
+  "anime-watchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse and search an anime shelf by season, status or recent downloads",
+  "Subscribe to subtitle-group RSS feeds and download episodes with qBittorrent",
+  "Play local episodes in a configured player with merged Bilibili danmaku",
+  "Align danmaku timing with local audio",
+  "Sync watched progress, ratings and reviews to Bangumi"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a link or backlink tool; it manages an anime shelf with downloads, playback and Bangumi synchronization.",
+ "extras": "Credentials are stored unencrypted in data.json, so the file should be kept in private storage; cleanup actions delete actual media files; startup scheduling uses Windows scripts; mobile, macOS and Linux builds still need end-to-end verification.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Finding, downloading, watching and tracking anime means switching between Bangumi, RSS feed sites, a torrent client and a local player.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "721603e153fc998696a93d30baaabb313bb7074f",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "Download episodes with qBittorrent and open local files in your configured player.",
+   "plugin": "qBittorrent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Update watched progress manually, save ratings and reviews, and push changes through the Bangumi task queue.",
+   "plugin": "Bangumi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Match Bilibili episode sources from selected uploaders, merge XML danmaku",
+   "plugin": "Bilibili",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Search Bangumi and find subtitle-group feeds through Mikan, or provide a custom RSS feed.",
+   "plugin": "Mikan",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DanDanPlay is recommended for video and companion XML danmaku.",
+   "plugin": "DanDanPlay",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Other Obsidian plugins, ANI-RSS, AutoBangumi and public danmaku proxy services are optional integrations.",
+   "plugin": "ANI-RSS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Other Obsidian plugins, ANI-RSS, AutoBangumi and public danmaku proxy services are optional integrations.",
+   "plugin": "AutoBangumi",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "qBittorrent with Web UI and RSS enabled",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Bangumi access token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili login session",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "DanDanPlay or another video player",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python, NumPy and FFmpeg",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Anime dashboard combining Bangumi search, subtitle-group RSS subscriptions, qBittorrent downloads, local playback with Bilibili danmaku, and progress sync.",
+ "tags": [
+  "bilibili",
+  "rss",
+  "subtitles",
+  "webdav"
+ ],
+ "textHash": "3268e1d1b2a92bc6c509b657776095029ec24d2a"
+}

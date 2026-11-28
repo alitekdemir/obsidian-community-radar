@@ -1,0 +1,70 @@
+{
+ "also": [
+  "tasks",
+  "bases"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Imports active and archived Todoist projects with their active tasks",
+  "Reconciles remote projects with local markdown files via tpt_ frontmatter properties",
+  "Creates a sample Bases view listing active projects",
+  "Auto-imports projects on a configurable background schedule",
+  "Applies Todoist project and label colors in Bases formulas"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way sync or task manager: it only reads from Todoist and never writes anything back.",
+ "extras": "Read-only towards Todoist; no telemetry; API token kept in Obsidian secret storage per device; stylesheet class and variable names may change before version 1.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Todoist project status lives outside the vault, so there is no way to see or query it alongside your notes in Obsidian.",
+ "profiledAt": "2026-11-26",
+ "provider": "Ant Digital",
+ "readmeHash": "37ac1d5e2cf7188ae854968b93ade1561f22bf63",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The plugin connects to the Todoist API (api.todoist.com) and nowhere else.",
+   "plugin": "Todoist",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It requires the Bases core plugin.",
+   "plugin": "Bases",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Todoist API token",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Bases",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Read-only Todoist integration that imports projects, tasks and labels into vault markdown files with tpt_ properties for status tracking.",
+ "tags": [
+  "todoist",
+  "api-key",
+  "due-dates"
+ ],
+ "textHash": "141deb54c9268c7ba33662208045166435f237b2"
+}

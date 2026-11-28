@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "discover installed Chrome, Chromium, Edge, Brave, Vivaldi, Arc, Firefox and Safari profiles",
+  "import each bookmark as a Markdown note rendered from a template",
+  "mirror the browser folder tree into vault subfolders or a flat folder",
+  "filter syncing to a chosen root browser folder",
+  "run syncs on demand, on startup, or at periodic intervals with URL-based duplicate handling"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not sync Obsidian's own Bookmarks core feature; it imports web-browser bookmarks as notes.",
+ "extras": "Desktop-only (macOS, Windows, Linux) because it reads browser database files outside the vault; fully offline with no network requests or telemetry. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Safari access requires either a per-session file-pick or macOS Full Disk Access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no way to bring browser bookmarks into the vault as notes, so saved links stay separate from research and writing.",
+ "readmeHash": "599b10c98e7ceb0c49ae5c51e4e3bf748e99f9ef",
+ "relations": [
+  {
+   "evidence": "Automatically discover installed Chrome, Chromium, Edge, Brave, Vivaldi, Arc, Firefox, Firefox Developer Edition, and Safari (macOS) profiles.",
+   "plugin": "Google Chrome",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Reads live bookmarks from places.sqlite with the SQLite module built into Obsidian",
+   "plugin": "Firefox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "~/Library/Safari/Bookmarks.plist (macOS) | Binary plist, parsed directly in-process.",
+   "plugin": "Safari",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a desktop browser with saved bookmarks (Chrome, Chromium, Edge, Brave, Vivaldi, Arc, Firefox, or Safari on macOS)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports bookmarks from Chrome, Firefox, Safari and other Chromium browsers as individual Markdown notes using customizable templates.",
+ "tags": [
+  "chrome",
+  "firefox",
+  "safari",
+  "chromium",
+  "edge",
+  "plist",
+  "places-sqlite"
+ ]
+}

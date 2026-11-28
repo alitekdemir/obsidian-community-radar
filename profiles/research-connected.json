@@ -1,0 +1,73 @@
+{
+ "also": [
+  "graph"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Build a sampled similarity map of related papers from a title, DOI, or OpenAlex ID",
+  "Inspect shared references, co-citations, and direct citation evidence for map nodes and edges",
+  "Save papers and projects and track their reading status",
+  "Write literature notes and synchronize reading status with linked notes",
+  "Export papers as BibTeX, YAML, and Markdown and embed the graph in notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not affiliated with the Connected Papers web app despite the similar name; it queries OpenAlex and other scholarly APIs directly.",
+ "extras": "Desktop-only (Obsidian 1.14.4+); mobile awaits testing. Service credentials are stored unencrypted in data.json. An optional AI research narrative is off by default. AGPL-3.0 license; no telemetry. The map is a sample, not a complete citation index.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to discover related scholarly papers, inspect the citation evidence behind a relationship, or track reading status for a literature workflow.",
+ "readmeHash": "9a84050dd6a5fe652e9e93ebe2bf180a234a01be",
+ "relations": [
+  {
+   "evidence": "The plugin may retrieve additional abstracts and reference data from OpenAlex, Semantic Scholar, or Crossref",
+   "plugin": "OpenAlex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin may retrieve additional abstracts and reference data from OpenAlex, Semantic Scholar, or Crossref",
+   "plugin": "Semantic Scholar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin may retrieve additional abstracts and reference data from OpenAlex, Semantic Scholar, or Crossref",
+   "plugin": "Crossref",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenCitations can add citation evidence",
+   "plugin": "OpenCitations",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAlex API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Citation-map plugin that builds sampled similarity graphs of related papers from OpenAlex and organizes literature notes in the vault.",
+ "tags": [
+  "openalex",
+  "semantic-scholar",
+  "crossref",
+  "opencitations",
+  "bibtex",
+  "doi"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "tables"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render journal transactions as a sortable, filterable table",
+  "Show as-of-aware account balances and hierarchical category shares",
+  "Triage :tbc: transactions with one-click account assignment",
+  "Manage categorizer rules with live match counter and conflict check",
+  "Rebuild the journal from CSVs inside the plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a budgeting or expense-tracking app; it reads and triages an hledger journal that already exists in the vault.",
+ "extras": "Full documentation lives in docs/ (getting started, troubleshooting, design system); the mobile file picker has not been tested on a physical device; the plugin id was renamed from finance to finance-ledger on 2026-06-10.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "An hledger journal in a vault is plain text, so there is no way inside Obsidian to browse transactions, check balances, see category shares or sort out uncategorized entries.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "d86f204122944fe1e01855bef3d7a591e5984f84",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The Python importer is no longer needed for anything.",
+   "plugin": "Python importer",
+   "type": "replaces"
+  },
+  {
+   "evidence": "renders hledger journals as filterable tables with balance and category dashboards",
+   "plugin": "hledger",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "hledger journal in the vault",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Renders hledger journals as filterable transaction tables with balance, category and dashboard views, plus TBC triage and rule management.",
+ "tags": [
+  "budgeting",
+  "dashboard",
+  "currency"
+ ],
+ "textHash": "83f18bec9029eeedaf0094afd1537e4a2db32822"
+}

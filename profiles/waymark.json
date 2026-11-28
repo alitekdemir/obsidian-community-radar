@@ -1,0 +1,87 @@
+{
+ "also": [
+  "integrations",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import .pilgrim exports as one Markdown note per walk",
+  "Write walk stats, celestial data and weather into namespaced frontmatter",
+  "Link waypoints and place names as wiki-links for graph clustering",
+  "Generate a Dataview dashboard note of walk tables",
+  "Embed interactive route maps from GeoJSON sidecars"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a GPS tracking or route-planning tool; it only imports existing Pilgrim walk exports into Obsidian.",
+ "extras": "Not yet in the community-plugin directory (manual install). The README warns that the Mapbox token is written into notes and data.json, so it travels with the vault and should have a usage cap set.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Pilgrim walk records and their voice-reflection transcriptions stay locked in a separate app instead of being searchable, linkable text in the vault.",
+ "readmeHash": "b94ae550c509d108d40dfce405afca3ed7fc20b7",
+ "relations": [
+  {
+   "evidence": "Waymark imports a .pilgrim export and turns each walk into a Markdown note",
+   "plugin": "Pilgrim",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the Dataview community plugin to render them.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the obsidian-leaflet community plugin — it draws the map.",
+   "plugin": "obsidian-leaflet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Place names come from OpenStreetMap's Nominatim service",
+   "plugin": "OpenStreetMap Nominatim",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Pilgrim",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "obsidian-leaflet",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Mapbox access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Pilgrim walk importer that turns .pilgrim exports into Markdown notes with transcribed voice reflections, stats, waypoints, weather and an optional route map.",
+ "tags": [
+  "pilgrim",
+  "voice-reflections",
+  "dataview",
+  "mapbox",
+  "openstreetmap",
+  "geojson"
+ ]
+}

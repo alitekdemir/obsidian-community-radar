@@ -1,0 +1,67 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Parse local VCALENDAR, VEVENT, VTODO, and VTIMEZONE data",
+  "Group event and task lists by date or component type",
+  "Filter events by text and date range",
+  "Show event details and source lines",
+  "Fall back to raw source view"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a calendar sync or CalDAV client; it only opens local .ics files read-only for inspection.",
+ "extras": "Strictly read-only and offline: never syncs, fetches remote URLs, imports, or writes back to .ics files, and its runtime code avoids network, clipboard, eval, and process APIs. Large files are bounded by parse/render caps. Documentation is the README only.",
+ "intent": "new",
+ "intentEvidence": "ICS Calendar Viewer deliberately stays file-inspection first: open a local .ics, inspect what is inside",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian has no built-in way to open and inspect the contents of local .ics calendar files.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "c629eaedb71f7144bcf077a95df9c9df019f6600",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "ICS imports events from calendar/ICS URLs into Daily Notes.",
+   "plugin": "ICS",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Full Calendar provides a full calendar UI with read-only ICS/CalDAV remote calendars.",
+   "plugin": "Full Calendar",
+   "type": "alternative"
+  },
+  {
+   "evidence": "MemoChron focuses on calendar integration and event notes.",
+   "plugin": "MemoChron",
+   "type": "alternative"
+  },
+  {
+   "evidence": "iCal generates iCal from vault tasks.",
+   "plugin": "iCal",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens local .ics calendar files as an inspection surface with event lists, filters, details, and raw source fallback.",
+ "tags": [
+  "ics",
+  "read-only",
+  "local-first",
+  "timezones"
+ ],
+ "textHash": "d366d339a3134423927dead1e4a5a4921fcc2bee"
+}

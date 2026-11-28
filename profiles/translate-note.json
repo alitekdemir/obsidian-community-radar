@@ -1,0 +1,66 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Translate a selection or a whole note with an OpenAI-compatible LLM",
+  "Review and edit the translation in a side panel before inserting it",
+  "Preserve YAML front-matter when translating a full note",
+  "Switch the active API provider with a command",
+  "Edit the system prompt with a {{targetLanguage}} placeholder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet listed in the Obsidian Community Plugin directory, so manual installation is required. Desktop only (isDesktopOnly: true); mobile untested. API keys are stored unencrypted in data.json inside the plugin folder. Requires Obsidian ≥ 1.13.0.",
+ "intent": "alternative",
+ "intentEvidence": "TranslateNote is a fork of LLM Translate by 陈与小金",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked LLM Translate because it was Chinese-only (interface, errors, default prompt), putting a good translator out of reach for anyone who does not read Chinese.",
+ "primary": "languages",
+ "problem": "Other translation plugins overwrite the note with the result, leaving no way to check the translation against the source or recover if it is wrong.",
+ "readmeHash": "bdfdb67132df230bff81d7a9bfaa8baccf788f33",
+ "relations": [
+  {
+   "evidence": "TranslateNote is a fork of LLM Translate by 陈与小金",
+   "plugin": "LLM Translate",
+   "type": "fork"
+  },
+  {
+   "evidence": "which is itself derived from obsidian-llm-shortcut by chernodub",
+   "plugin": "obsidian-llm-shortcut",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key from at least one provider (DeepSeek, OpenAI, Gemini, Kimi, Qwen, Z.AI, OpenRouter or custom)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama (for local models via a custom endpoint)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "LLM translation plugin that sends a selection or whole note to an OpenAI-compatible provider and shows the result in a side panel for review before inserting.",
+ "tags": [
+  "openai-compatible",
+  "deepseek",
+  "openrouter",
+  "ollama",
+  "review-panel",
+  "prompt-template"
+ ]
+}

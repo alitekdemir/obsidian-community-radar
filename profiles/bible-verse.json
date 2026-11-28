@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render Bible verses inline from {reference} syntax in Live Preview and Reading view",
+  "Compare two or more translations side by side",
+  "Show Strong's numbers with the STEPBible lexicon on King James verses",
+  "Bake verse text into notes as ordinary Markdown and refresh or strip it later",
+  "Link references to BibleGateway, BibleHub, Blue Letter Bible or Bible.com"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Callouts"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Verse text needs the network except for cached verses; the README recommends baking text for notes that must read offline. Free translations need no account or key; only ESV text requires a free key.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to look up scripture text and display it inside a note while writing.",
+ "readmeHash": "089b369818f24760759f3e48d2f1df30e2c86522",
+ "relations": [
+  {
+   "evidence": "Text for the free translations comes from the HelloAO Bible API.",
+   "plugin": "HelloAO Bible API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ESV text comes from the ESV API with your own key",
+   "plugin": "ESV API by Crossway",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Strong's numbers, transliterations and definitions come from the STEPBible lexicon (TBESH and TBESG)",
+   "plugin": "STEPBible lexicon (TBESH and TBESG)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "api.esv.org key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bible verse lookup that renders {references} inline in notes with 15 free translations, comparison views, Strong's numbers, and baking into plain Markdown.",
+ "tags": [
+  "bible",
+  "scripture",
+  "strongs-numbers",
+  "helloao-api",
+  "esv-api",
+  "stepbible",
+  "translations"
+ ]
+}

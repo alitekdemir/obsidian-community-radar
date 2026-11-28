@@ -1,0 +1,134 @@
+{
+ "also": [
+  "automation",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run agent tasks with a configured model",
+  "Read, search and edit notes",
+  "Run shell commands with approvals",
+  "Use skills, web search and MCP servers",
+  "Delegate work to subagents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Slash commands"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a transcription or dictation tool; it is a general AI agent that reads, searches, and edits notes and runs multi-step tasks.",
+ "extras": "Free and AGPL-3.0 licensed, desktop-only (uses Node's network stack). Cloud models, web search, and MCP services may require your own account or API key and may charge fees or consume quota. Data is stored locally in the vault's .scribe-ai folder, which Obsidian Sync excludes, so include it in your own backups.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent that can read, search and edit notes, run commands, and use external tools through a chosen model.",
+ "profiledAt": "2026-11-28",
+ "provider": "Baidu",
+ "readmeHash": "9f87066e67aa92c301ec2e8a486b6b6aece46af8",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The communication layer pins @earendil-works/pi-ai@1.6.1 and exposes its built-in provider catalog.",
+   "plugin": "Pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Scribe contacts Models.dev for public model information",
+   "plugin": "Models.dev",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tavily requires its own API key and can use the free quota for basic searches.",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DeepSeek uses its standalone Search API, which bills successful searches with results.",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Exa offers public search subject to rate limits.",
+   "plugin": "Exa",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Zhipu Coding Plan uses the plan's search quota.",
+   "plugin": "Zhipu Coding Plan",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Scribe contacts GitHub when you request the public skill catalog or fetch a skill",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "list the public OpenAI curated skills or install from a public GitHub folder",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "When you import MCP JSON or Codex TOML, Scribe saves recognized credentials",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "OpenCode Zen",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "FFmpeg",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "model provider, web search, or MCP service",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "cloud model or search service",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "FFmpeg and ffprobe for local video preparation",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "cloud model or search provider that may charge fees",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "AI agent that runs tasks in Obsidian with your configured model: reads, searches and edits notes, runs commands, and uses skills, web search and MCP servers.",
+ "tags": [
+  "ai-agents",
+  "mcp",
+  "web-search",
+  "agent-skills",
+  "tool-calling",
+  "byok"
+ ],
+ "textHash": "87f08e1e58f6847f7b49e0ceaf51b6d6331d0ba7"
+}

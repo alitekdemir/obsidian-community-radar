@@ -1,0 +1,69 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes in real time across devices over direct WebRTC peer-to-peer channels",
+  "Pair devices by scanning a QR code with a single-use ECDH key exchange",
+  "Encrypt note content and obfuscate file paths locally with AES-256-GCM and HMAC",
+  "Reconcile offline divergent edits with a character-level three-way merge engine",
+  "Relay large binary attachments via the Blossom protocol addressed by SHA-256 hash"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Explicitly warns it is not a backup: relay mailboxes expire after about 7 days and R2 blobs after 10 days, so pair it with a backup solution. Not yet in the official community plugin directory, so it must be installed manually from the Releases page. Free; no accounts or paid services required when using public Nostr relays.",
+ "intent": "alternative",
+ "intentEvidence": "Every common Obsidian sync alternative today forces you into an unwanted compromise",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because existing sync alternatives \"force you into an unwanted compromise\" of subscriptions, third-party trust, or self-hosting complexity.",
+ "primary": "syncing",
+ "problem": "Obsidian's sync options force a compromise: paid subscriptions, third-party cloud accounts, or complex self-hosted server stacks.",
+ "readmeHash": "01b7f4aee0881a58ffd6241d78578bc43d282514",
+ "relations": [
+  {
+   "evidence": "Every common Obsidian sync alternative today forces you into an unwanted compromise",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "☁️ Commercial Storage (S3)",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "🖥️ Dedicated VPS / Docker",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare Worker (optional self-hosted relay)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Peer-to-peer real-time vault sync with end-to-end encryption, QR device pairing, and no accounts, subscriptions, or central servers.",
+ "tags": [
+  "peer-to-peer",
+  "webrtc",
+  "e2ee",
+  "nostr",
+  "blossom",
+  "cloudflare-worker",
+  "qr-pairing"
+ ]
+}

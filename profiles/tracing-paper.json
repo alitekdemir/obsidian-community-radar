@@ -1,0 +1,59 @@
+{
+ "also": [
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert every Excalidraw drawing in a vault to tldraw",
+  "Convert a folder, selected drawings or the open drawing",
+  "Save copies beside the originals or into one folder",
+  "Skip empty and already-converted drawings",
+  "Write a per-run conversion report in the vault root"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a tracing or overlay tool; it converts Excalidraw drawing files into tldraw files.",
+ "extras": "Requires tldraw plugin 1.33.0 or newer; the Excalidraw plugin is not needed. Makes no network requests and has no account or telemetry. Built for mobile but only tested on desktop. Conversion is done by tldraw's importer at run time, so no tldraw code is bundled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built it for people who started drawing in Excalidraw and now want those drawings in tldraw, where the only route across was copy and paste.",
+ "primary": "formats",
+ "problem": "Moving Excalidraw drawings into tldraw was only possible by copy and paste, one drawing at a time, so large collections stayed unconverted.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "7c1277739e4bceb0ba47f57242970277ff17537b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "It runs tldraw's own Excalidraw importer, the same code behind paste, inside your installed tldraw plugin.",
+   "plugin": "tldraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "tldraw",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Command that converts Excalidraw drawings across a vault into tldraw files, keeping the originals untouched.",
+ "tags": [
+  "excalidraw",
+  "migration",
+  "batch-processing",
+  "diagrams",
+  "whiteboard"
+ ],
+ "textHash": "c6d7cf9f0517a828d56e3fd6f4134d9015c92cc2"
+}

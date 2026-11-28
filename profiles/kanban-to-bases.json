@@ -1,0 +1,61 @@
+{
+ "also": [
+  "bases"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "convert a Kanban plugin board into one note per card and a .base file",
+  "map card columns, dates, tags and inline fields to note properties",
+  "update notes that a card links to instead of creating copies",
+  "preview the conversion with warnings before running it",
+  "undo the last conversion and restore linked notes' properties"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.14 or later (the release with the native Kanban view for Bases). The settings tab and post-conversion dialog contain a static promotion for the author's Brievora vault product; nothing is loaded from the network.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "formats",
+ "problem": "The Kanban plugin keeps a whole board in a single Markdown file, while the native Bases Kanban view expects one note per card with columns as property values, so existing boards cannot be used in the new view.",
+ "readmeHash": "b38474373a698b38b87b9512c514975b8100cf83",
+ "relations": [
+  {
+   "evidence": "turns a board made with the community Kanban plugin into one note per card",
+   "plugin": "Kanban",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Other plugins' card formats are not converted, except the due date of the Tasks plugin",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Kanban (obsidian-kanban)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Conversion tool that turns a Kanban plugin board into one note per card plus a .base file that opens in Obsidian's native Kanban view.",
+ "tags": [
+  "kanban",
+  "migration",
+  "undo",
+  "card-to-note"
+ ]
+}

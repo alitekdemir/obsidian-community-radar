@@ -1,0 +1,53 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render Vimeo sharing URLs written as Markdown image embeds into players",
+  "Display players in Reading View and Live Preview while keeping source Markdown intact",
+  "Support unlisted videos by keeping the privacy hash in the URL",
+  "Fetch video titles and upload years from Vimeo's oEmbed API for the link below the player",
+  "Leave plain links, ordinary images, YouTube embeds, and code blocks unchanged"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet listed in Obsidian's community plugin directory, so it must be installed manually from release files; playback requires an internet connection, and enabling title retrieval sends video URLs (including privacy hashes for unlisted videos) to Vimeo's oEmbed API.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian has no built-in way to turn a Vimeo sharing URL into an embedded player inside a note.",
+ "readmeHash": "fa7ff1cb832b9549c893c54cfe4341070125a0ce",
+ "relations": [
+  {
+   "evidence": "Displaying an embed loads a player from Vimeo.",
+   "plugin": "Vimeo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Vimeo",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Markdown-based Vimeo embedder that turns image-embed links into Vimeo players in Reading View and Live Preview while keeping the note unchanged.",
+ "tags": [
+  "vimeo",
+  "oembed",
+  "unlisted-video"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "make wikilinks containing a folder respect the default-location setting",
+  "create notes relative to the linking note's folder for ./ and ../ links",
+  "block link clicks that would create files outside the vault",
+  "remove the misleading Folder already exists error on repeated clicks",
+  "document behavior with a clickable demo vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Documentation is itself a demo vault of clickable cases (viewable on GitHub, shipped with each release, or opened via a command); beta versions install via BRAT; debug messages are hidden by default.",
+ "intent": "improve",
+ "intentEvidence": "This plugin makes the first two obey the setting you configured",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "In stock Obsidian, where a clicked unresolved link creates its note depends unpredictably on the link's shape, sometimes placing files at the wrong spot or even outside the vault.",
+ "readmeHash": "0977af7c368cde953a8ad3256902c6b21de34379",
+ "relations": [
+  {
+   "evidence": "Folder prompt on missing-link click; recent folders; drops written folder paths",
+   "plugin": "Create In Chosen Folder",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Creates unresolved wikilink targets/folders when leaving a line; shortens unique links",
+   "plugin": "Link Forge",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Command creates missing targets in a note/folder; folder/template rules",
+   "plugin": "Missing Link File Creator",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Own @-triggered suggester; optional template; creates its chosen targets",
+   "plugin": "Note Auto Creator",
+   "type": "alternative"
+  },
+  {
+   "evidence": "One-click creation of unresolved links through Dataview",
+   "plugin": "Note Batcher",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Fixes new-note creation from wiki links so subfolder and relative links respect the default location setting and never create files outside the vault.",
+ "tags": [
+  "wikilinks",
+  "unresolved-links",
+  "relative-paths",
+  "note-creation",
+  "default-location",
+  "demo-vault"
+ ]
+}

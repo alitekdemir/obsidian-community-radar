@@ -1,0 +1,80 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs #pecklist-tagged task lines both ways with a PeckList server",
+  "Maps Tasks-plugin fields (dates, priority, tags, repeats, done) to PeckList",
+  "Reviews tagged lines and excludes folders, notes or single lines before syncing",
+  "Lists all tasks in a task manager with filters, search and bulk actions",
+  "Adds a bird icon menu, tag suggestions and hidden ids on synced lines"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full settings guide is at pecklist.com/obsidian. README stresses privacy: only tagged lines leave the device, no telemetry, API key stays in Obsidian's secret storage, and the plugin never sees your password.",
+ "intent": "improve",
+ "intentEvidence": "Needs the community Tasks plugin and a PeckList server (0.10 or later).",
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Task lines written in Obsidian stay on the device, with no way to keep them in step with a self-hosted task server or edit them from a phone.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "a4dbf92ed47d1f85a5ff03062b804bfd4564f578",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Write a task in the Tasks plugin's format, tag it #pecklist, and it shows up in PeckList.",
+   "plugin": "Tasks",
+   "type": "extends"
+  },
+  {
+   "evidence": "Sync task lines in your notes with your own PeckList server, both ways.",
+   "plugin": "PeckList",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "PeckList server (0.10 or later)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Account on your PeckList server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "PeckList API key (tasks:read, tasks:write)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way sync that links Tasks-plugin lines tagged #pecklist to your own PeckList server, carrying titles, dates, priority, tags, repeats and done state.",
+ "tags": [
+  "tasks-plugin",
+  "two-way-sync",
+  "self-hosted",
+  "api-key"
+ ],
+ "textHash": "bfcb82393d55b53def138c1b5fe026be3c306b5f"
+}

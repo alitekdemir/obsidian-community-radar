@@ -1,0 +1,79 @@
+{
+ "also": [
+  "search",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with vault notes through local LLM servers or CLI subprocesses",
+  "Retrieve relevant notes with an on-device BM25 index",
+  "Switch models and reasoning effort with slash commands",
+  "Show retrieved sources as clickable wikilinks under each reply",
+  "Append or download assistant replies into vault notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the on-disk BM25 index can reach hundreds of MB and gives per-service exclusion instructions for Obsidian Sync, iCloud, Syncthing, Dropbox, and git. LM Studio API keys are stored in plain text in plugin data; assistant output written to notes is always sanitized. The plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with an LLM about your notes, whether fully offline or through an existing CLI-based AI subscription.",
+ "readmeHash": "53c0095d7961879dd0596a6f7be80e033a3df233",
+ "relations": [
+  {
+   "evidence": "Talks to any server that implements the OpenAI /chat/completions SSE protocol — LM Studio, Ollama, llama.cpp",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Spawns the local claude CLI binary.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Spawns the local codex CLI (codex exec --json).",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LM Studio (or another OpenAI-compatible local server), or the claude / codex CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LM Studio server API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude Pro/Max or Codex/ChatGPT subscription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vault chat assistant that answers questions about your notes using local OpenAI-compatible LLM servers or the Claude Code and Codex CLIs.",
+ "tags": [
+  "lm-studio",
+  "claude-code",
+  "codex",
+  "ollama",
+  "bm25",
+  "rag",
+  "local-llm",
+  "chat"
+ ]
+}

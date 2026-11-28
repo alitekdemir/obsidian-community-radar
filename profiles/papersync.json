@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "import handwritten scans as Markdown notes",
+  "watch Google Drive or a synced folder (iCloud Drive, Dropbox, OneDrive, Syncthing) for new scans",
+  "insert scans into today's daily note",
+  "edit the import template to change the resulting note layout"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Handwriting recognition happens in the Papersync app with your own AI provider; the plugin makes no network requests and only imports the finished Markdown.",
+ "extras": "The plugin has not been manually reviewed by Obsidian staff. The README stresses privacy: no Papersync server, account, or telemetry, and no network requests from the plugin; Google Drive access uses the drive.file scope with the token in Obsidian's secret storage (see SECURITY.md). On macOS, reading an offloaded iCloud file triggers a download. Support is via GitHub Discussions and Issues; MIT licensed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn handwritten paper scans into editable Markdown notes without manual transcription.",
+ "readmeHash": "a2cda59a4386f9b881ad4fbb0be4f367f99ba0ad",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Papersync app (Android, iPhone coming)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key chosen in the app",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Some AI providers charge for use",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Companion-app pipeline that imports handwritten phone scans from Google Drive or a synced folder into your vault as Markdown in today's daily note.",
+ "tags": [
+  "google-drive",
+  "handwriting",
+  "icloud-drive",
+  "syncthing",
+  "dropbox",
+  "onedrive"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add words as notes with definitions and example sentences via command palette",
+  "Mass-import word lists pasted as text",
+  "Import saved words from a Kobo eReader linked to their books",
+  "Capture words from web pages via a companion Chrome extension",
+  "Show a table view of the lexicon with familiarity scores"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Offline mode requires a one-time ~23MB download (167K English entries derived from Wiktionary) stored in the plugin folder; online mode sends lookups to api.dictionaryapi.dev. README states no analytics or account are used.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to look up a word's definition and save it as a note linked back to where you encountered it.",
+ "readmeHash": "a09de84526260e0d0eb38482b4d03c854eb4057c",
+ "relations": [
+  {
+   "evidence": "The lookup goes to the free Dictionary API by default",
+   "plugin": "Dictionary API (api.dictionaryapi.dev)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Data comes from MattDodsonEnglish/english-dictionary.",
+   "plugin": "MattDodsonEnglish/english-dictionary",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Kobo eReader",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Chrome extension",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Personal dictionary plugin that saves words as vault notes with definitions, example sentences, source links, and a lexicon table view.",
+ "tags": [
+  "dictionary-api",
+  "kobo",
+  "chrome-extension",
+  "vocabulary",
+  "wiktionary",
+  "sqlite",
+  "offline-lookup"
+ ]
+}

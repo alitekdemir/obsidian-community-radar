@@ -1,0 +1,59 @@
+{
+ "also": [
+  "git",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync selected vault files with one GitHub repository and branch",
+  "Merge Markdown changed on both devices with a three-way merge and conflict copies",
+  "Filter pull and push by extension and ignore path prefixes",
+  "Push automatically after a debounce and pull by polling while the app is in the foreground",
+  "Resolve conflicts explicitly with keep-local or keep-remote choices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a Git client; it never runs Git locally and speaks only to the GitHub REST API, so there is no local history, branching, or force push.",
+ "extras": "Not manually reviewed by Obsidian staff. Installation requires building with Node.js 18+ and npm, then copying three runtime files into the vault manually, including on iOS. Free with an optional Buy Me a Coffee donation; no paid tiers. Stores tokens in Obsidian secret storage on 1.11.4+, in plain text in older versions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault with a GitHub repository without shelling out to a Git binary, which is impractical on iOS, and Obsidian Sync requires a paid subscription.",
+ "readmeHash": "a1abdaf35548fe17e17aecbeaac75363e99b966e",
+ "relations": [
+  {
+   "evidence": "synchronizes selected vault files with a single GitHub repository through GitHub's Git Database REST API",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with a fine-grained personal access token (Contents: Read and write)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs selected vault files with a single GitHub repository via the GitHub REST API, including three-way merge and conflict copies, on desktop and iOS.",
+ "tags": [
+  "github",
+  "rest-api",
+  "personal-access-token",
+  "three-way-merge",
+  "conflict-resolution",
+  "ios"
+ ]
+}

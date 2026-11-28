@@ -1,0 +1,55 @@
+{
+ "also": [
+  "pdf",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture the rendered reading view as a long screenshot",
+  "Export notes as PDF, JPG or PNG, paginated or as one image",
+  "Split long notes into A4, A5, B5, Letter or custom paper sizes with smart page breaks",
+  "Insert forced page breaks with /// and adjust break positions in a preview",
+  "Add visible or hidden watermarks and author signatures to exported pages"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (no phones or tablets); requires Obsidian 1.4.0+. Exported PDFs store content as images with no selectable text layer and non-clickable links. Uses direct Node.js filesystem access to write outside the vault, which security scanners may flag. MIT-licensed; includes batch export of a chosen folder and a hidden pixel-level watermark feature.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to export a finished Markdown note to PDF and then to an image for sharing, but found that rendered effects disappeared or changed during export, so a screenshot-first approach was built to preserve the reading view exactly.",
+ "primary": "export",
+ "problem": "Obsidian's PDF export can alter rendered content such as gradients, shadows, formulas, diagrams and custom styling, so the exported file no longer matches what the author sees in reading view.",
+ "readmeHash": "71233deea0e53f2e8aa838e5d0141c2ed62eda7e",
+ "relations": [
+  {
+   "evidence": "For Word or ePub, consider Pandoc.",
+   "plugin": "Pandoc Plugin",
+   "type": "alternative"
+  },
+  {
+   "evidence": "For PDF links, bookmarks and merging several notes, take a look at Better Export PDF.",
+   "plugin": "Better Export PDF",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Note exporter that captures the rendered reading view as a long screenshot and outputs it as PDF, JPG or PNG, paginated or as one continuous image.",
+ "tags": [
+  "long-screenshot",
+  "watermark",
+  "page-breaks",
+  "paper-size",
+  "header-footer"
+ ]
+}

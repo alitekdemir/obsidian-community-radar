@@ -1,0 +1,71 @@
+{
+ "also": [
+  "files",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse and manage vault code files in a visual dashboard with filtering, search, and sorting",
+  "Edit code files with syntax highlighting, outline navigation, and search and replace",
+  "Embed code files or line ranges into Markdown notes and export them as real code blocks in PDF",
+  "Mount external project folders into the vault via symlinks or junctions",
+  "Run a system shell terminal inside the editor with per-file working directories"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds",
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The integrated terminal requires downloading a platform-specific native helper (~1-3 MB) from GitHub releases, verified by SHA-256, and works on desktop only. External mounts access files outside the vault, which the README flags as a security risk. The manifest notes the plugin has not been manually reviewed by Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to fill the gap of limited code file support in Obsidian's Markdown-centric workflow.",
+ "primary": "code",
+ "problem": "Obsidian's Markdown-centered workflow gives limited support for browsing, managing, editing, and embedding code files in a vault.",
+ "readmeHash": "747e98f6820a339ce95358a6b5bb62887ccce554",
+ "relations": [
+  {
+   "evidence": "CodeMirror 6: Flexible and modern code editor engine.",
+   "plugin": "CodeMirror 6",
+   "type": "extends"
+  },
+  {
+   "evidence": "xterm.js: Terminal frontend for the integrated terminal.",
+   "plugin": "xterm.js",
+   "type": "extends"
+  },
+  {
+   "evidence": "node-pty: Pseudo-terminal backend by Microsoft",
+   "plugin": "node-pty",
+   "type": "extends"
+  },
+  {
+   "evidence": "its Windows patch inside Obsidian is adapted from lean-obsidian-terminal",
+   "plugin": "lean-obsidian-terminal",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Code file manager and editor for Obsidian with a visual dashboard, syntax-highlighted editing, Markdown embeds, external folder mounts, and a terminal.",
+ "tags": [
+  "codemirror",
+  "syntax-highlighting",
+  "symlinks",
+  "xterm",
+  "node-pty",
+  "code-embeds"
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt vault files transparently via low-level I/O interception using Argon2id and AES-GCM",
+  "Manage master password with envelope encryption (KEK wrapping a DEK) so password changes don't re-encrypt files",
+  "Compress encrypted payloads with Deflate and store them in a native binary format",
+  "Verify plaintext integrity before and after encryption with MurmurHash3 hashing",
+  "Decrypt files outside Obsidian with a separate CLI tool"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README carries strong warnings: early-stage project, not designed for high-stakes data, forgotten passwords mean permanent data loss, and users must manually back up and sync KEK/DEK credentials across devices. The manifest notes the plugin has not been reviewed by Obsidian staff. Docs are in English, Simplified Chinese and Japanese; a separate CLI decryption tool is linked.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian stores all notes as plain text files on disk, so sensitive vault content is readable by anything with file access.",
+ "readmeHash": "05cd1a7f3e96ff513283510643881dd7d7a67c16",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Transparent encryption plugin that encrypts vault files on disk with Argon2id and AES-GCM while you edit normally.",
+ "tags": [
+  "encryption",
+  "argon2id",
+  "aes-gcm",
+  "envelope-encryption",
+  "secret-storage",
+  "cli-tool"
+ ]
+}

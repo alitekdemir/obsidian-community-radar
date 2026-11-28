@@ -1,0 +1,74 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start and stop Happy Squid tasks from checkboxes or strikethrough in notes",
+  "Send up to twenty unfinished subtasks and note context with each task",
+  "Insert Task Goal and Daily Summary cards into journal notes",
+  "Show daily figures like task time, Free Time and times blocked via text markers",
+  "Resolve day markers in daily-note templates for a specific date"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone task manager; it only bridges checkboxes and day figures to the Happy Squid app and requires it for the task features.",
+ "extras": "Freemium: one task per week is free and unlimited tasks need Pro. A Supabase backend receives task text, note context and subtasks; no analytics. Full documentation lives at happy-squid.com/documentation, not in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian checkboxes cannot control tasks in an outside task/focus app, and task data such as time spent, blocks and streaks is not available inside notes.",
+ "readmeHash": "1b0eb61704b40edffcd8d6aac4bb8caac249af6c",
+ "relations": [
+  {
+   "evidence": "Keep a Happy Squid app or browser extension running to handle the request.",
+   "plugin": "Happy Squid",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater: {taskgoal:<% tp.date.now(\"YYYY-MM-DD\") %>}",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Happy Squid account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Happy Squid app or browser extension",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Happy Squid Pro for unlimited tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Integration that starts and stops Happy Squid tasks from note checkboxes and inserts task goals, daily summaries and focus figures into notes.",
+ "tags": [
+  "focus-app",
+  "task-blocking",
+  "time-tracking",
+  "streak",
+  "checkbox-buttons",
+  "supabase",
+  "browser-extension"
+ ]
+}

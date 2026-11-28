@@ -1,0 +1,71 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pair devices with a single-use QR code or pairing link",
+  "Sync selected notes, folders, or the whole vault over a LAN",
+  "Run a one-time transfer without creating an ongoing sync",
+  "Set per-device direction, selected paths, and deletion policy",
+  "Back up overwritten or deleted content before the target changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a QR code generator or scanner; QR codes are used only once to pair two devices for local network sync.",
+ "extras": "Free and open source under the MIT License; in public beta, so the README advises starting with a backup or test vault. Android is not validated or supported, .obsidian is excluded, files over 20 MB are skipped by default, and the host must stay awake with Obsidian open.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing notes between your own devices usually needs a cloud service or account, and Obsidian has no built-in way to copy only chosen notes over a local network.",
+ "profiledAt": "2026-11-20",
+ "provider": "Particle AI",
+ "readmeHash": "456632ae5f411d7e3fcdee4aa6cd827a98a35e76",
+ "relations": [
+  {
+   "evidence": "LAN Vault Sync, MIT: desktop-host/mobile-client topology and Obsidian protocol QR pairing.",
+   "plugin": "LAN Vault Sync",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Self-hosted LiveSync: encrypted setup URIs and conflict-handling concepts.",
+   "plugin": "Self-hosted LiveSync",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Obsidian Decentralized, GPL-3.0: WebRTC and application-layer encryption were studied",
+   "plugin": "Obsidian Decentralized",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Private QR Sync",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Encrypted LAN sync plugin that pairs devices with a QR code and moves selected notes or folders between Obsidian vaults.",
+ "tags": [
+  "qr-code",
+  "device-pairing",
+  "encryption",
+  "local-first",
+  "conflict-resolution",
+  "ios"
+ ],
+ "textHash": "cc0aa51f38535e57a72f632204c4f0e4869d073c"
+}

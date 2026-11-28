@@ -1,0 +1,62 @@
+{
+ "also": [
+  "ttrpg"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run Rant programs in rant code blocks and show the rendered result in preview",
+  "Insert inline Rant programs via rant: inline code blocks",
+  "Embed Rant blocks from other notes using block links and import statements",
+  "Apply Markdown formatting through added bold, italic, highlight, and link functions",
+  "Re-run all Rant blocks in a file with a new random seed via a command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Can also be installed via BRAT as a beta plugin; output varies on each run because Rant picks random block elements, so inline embeds and re-runs are nondeterministic.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "templating",
+ "problem": "Obsidian has no built-in way to run procedural text-generation templates like Rant inside notes and render their random results.",
+ "readmeHash": "4561a1008224079202d5940913eb58f47a0767ee",
+ "relations": [
+  {
+   "evidence": "Thin wrapper around the Rant language Rust crate to be used in Obsidian.",
+   "plugin": "Rant (language)",
+   "type": "extends"
+  },
+  {
+   "evidence": "Example using the dice-roller plugin within a Rant block",
+   "plugin": "dice-roller",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dice Roller",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Code-block integration for the Rant procedural templating language that runs generative text programs and renders their output in preview.",
+ "tags": [
+  "rant",
+  "procedural-generation",
+  "random-seed",
+  "code-blocks",
+  "dice-roller"
+ ]
+}

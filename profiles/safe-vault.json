@@ -1,0 +1,63 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create archive backups of the vault",
+  "exclude files and directories from backups",
+  "encrypt backups with age using a password or identity file",
+  "push and pull the backup repository to a Git remote",
+  "restore the vault from an existing backup"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-security tool; despite the name, its job is creating, encrypting and restoring backup archives of the vault.",
+ "extras": "Requires external CLI tools (tar, age, git) installed and on PATH; backup directory must be outside the vault or excluded from the archive; excluded paths use exact matching with no wildcard support.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian has no built-in way to create encrypted archive backups of a vault that can also be version-controlled and pushed to a Git remote.",
+ "readmeHash": "adf6fba35be273e9c6edc68e0b22e3aece7af053",
+ "relations": [
+  {
+   "evidence": "git for version control and remote synchronization",
+   "plugin": "git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "age for optional encryption",
+   "plugin": "age",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "tar, age and git command-line tools available on the system PATH",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Archive-based backup plugin that creates vault backups as tar archives, with optional age encryption and Git version control.",
+ "tags": [
+  "archive",
+  "tar",
+  "age",
+  "git-remote",
+  "restore",
+  "passphrase"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "run provider-native agent CLIs against the vault as their working directory",
+  "chat with agents in a sidebar with multi-tab conversations, fork, resume, and compact",
+  "preview word-level diffs of agent edits before applying them, or enable YOLO mode",
+  "track agent handoffs on a kanban board from inbox to done",
+  "save and reuse prompts via quick actions, slash commands, and skills"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a code-only developer tool; the README says it is for anyone who works in notes, from writers to small-business owners.",
+ "extras": "Desktop-only (macOS, Linux, Windows), requires Obsidian v1.11.5+; README includes a security model warning that agents run as subprocesses that can edit files and execute shell commands, and notes a post-1.0 roadmap called the Specorator Agent Harness PRD. No telemetry; credentials stored in OS keychain.",
+ "intent": "alternative",
+ "intentEvidence": "began as a fork of the original Claudian Obsidian plugin by Yishen Tu",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI work lives in scattered browser tabs and vanishes when closed, and agent edits reach notes without any review step.",
+ "readmeHash": "7d939178ee32c33b11f97974e1d98931f466a5e7",
+ "relations": [
+  {
+   "evidence": "began as a fork of the original Claudian Obsidian plugin by Yishen Tu",
+   "plugin": "Claudian by Yishen Tu",
+   "type": "fork"
+  },
+  {
+   "evidence": "It runs real provider-native agents — Claude Code, Codex, Opencode, Cursor Agent — with your vault as their working directory",
+   "plugin": "Claude Code, Codex, Opencode, Cursor Agent",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (or Codex CLI, Opencode, or Cursor Agent CLI)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "provider API keys or subscription credentials",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider subscription (e.g. Claude subscription/API)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Agent runner that plans, runs, and reviews provider-native AI CLIs (Claude Code, Codex, Opencode, Cursor Agent) inside the vault, saving chats and edits as Markdown.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "opencode",
+  "cursor-agent",
+  "mcp",
+  "kanban-board",
+  "prompt-templates"
+ ]
+}

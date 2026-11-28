@@ -1,0 +1,62 @@
+{
+ "also": [
+  "files",
+  "workspaces"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create named presets of folders from anywhere in the vault",
+  "Switch presets via the explorer toolbar, ribbon buttons, commands, or hotkeys",
+  "Focus on a single folder one-off without saving a preset",
+  "Update presets automatically when folders are renamed, moved, or deleted",
+  "Remember the active preset across restarts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Relies on an undocumented Obsidian API (getSortedFolderItems) and shows a notice instead of breaking if it changes; conflicts with Explorer Focus and File Explorer++ trigger a warning; mobile tested only in emulation; not yet reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Other plugins, such as Folder Focus Mode and Explorer Focus, focus the explorer on a single folder.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "folders",
+ "problem": "Obsidian's file explorer always lists every folder in the vault, so there is no built-in way to switch the visible folder set to match the context you are working in.",
+ "readmeHash": "ef489482630addc4c5ca1a6efd8b72e4fce4e894",
+ "relations": [
+  {
+   "evidence": "Other plugins, such as Folder Focus Mode and Explorer Focus, focus the explorer on a single folder.",
+   "plugin": "Folder Focus Mode",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Explorer Focus and File Explorer++ hook into the same part of the file explorer.",
+   "plugin": "Explorer Focus",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File explorer plugin that switches between named presets, each showing only chosen folders plus their parents in the file explorer.",
+ "tags": [
+  "file-explorer",
+  "folder-presets",
+  "folder-visibility",
+  "brat"
+ ]
+}

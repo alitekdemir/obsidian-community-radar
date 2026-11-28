@@ -1,0 +1,62 @@
+{
+ "also": [
+  "outlining"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fold list items automatically on note open based on their bullet character",
+  "Configure folding separately for plain items and - [ ] checkboxes per bullet type",
+  "Exclude folders from automatic folding",
+  "Convert lines between -, * and + list items via commands",
+  "Unfold everything in a note via a command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Outline"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Uses Obsidian's private editor.cm API, which the README warns may break in future releases; settings are localized into English, Japanese, Simplified Chinese and Spanish; note that Obsidian's own saved fold state can override the plugin's on reopen.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian can fold a list, but the fold is a per-session gesture, not a property of the note.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted persistent fold state without polluting notes with markers like %% fold %%, callouts, or <details> blocks, using the bullet character already in the text.",
+ "primary": "editing",
+ "problem": "Obsidian's list folds are a per-session gesture that resets on reopen, so users refold the same sections every visit or add fold-marker syntax to their notes.",
+ "readmeHash": "dd0dbe81b3a9c1625afde24c9fd0f8f84769183e",
+ "relations": [
+  {
+   "evidence": "Editors embedded by Sync Embeds are handled too.",
+   "plugin": "Sync Embeds",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install BRAT and add this repository.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Sync Embeds",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Folds list items automatically when a note opens based on the bullet character used (-, * or +), and can convert lines between bullet types.",
+ "tags": [
+  "folding",
+  "bullet-markers",
+  "code-mirror",
+  "checkboxes",
+  "sync-embeds"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "images",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dragged images to image hosting services",
+  "Upload arbitrary files to a public GitHub repository",
+  "Embed uploaded files as Markdown image or link syntax",
+  "Switch between multiple hosting providers in the settings",
+  "Delete Imgur anonymous uploads via the returned deletehash"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that files uploaded to GitHub and the image hosts are public and must comply with each service's terms; notes abuse of GitHub or jsDelivr quotas can affect the account; large or unsupported uploads may produce a broken ![](undefined) link; accepts donations ('buying me a cola').",
+ "intent": "alternative",
+ "intentEvidence": "If you find that Cloudinary is enough to meet your needs, you can just use it.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian stores pasted images and files as local vault attachments, which cannot be rendered or shared when notes are published or viewed elsewhere.",
+ "readmeHash": "dfe93a8045e1049a10588f4e809ff8bef04640cf",
+ "relations": [
+  {
+   "evidence": "If you find that Cloudinary is enough to meet your needs, you can just use it.",
+   "plugin": "obsidian-cloudinary-uploader",
+   "type": "alternative"
+  },
+  {
+   "evidence": "I simply implemented anonymous upload with reference to some posts.",
+   "plugin": "obsidian-imgur-plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "I use jsdelivr here. It is free.",
+   "plugin": "jsdelivr",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "hosting platform account (GitHub, Imgur, SM.MS, Catbox, etc.)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Imgur client-ID",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Uploader that sends pasted or dragged images to hosting services like Imgur, SM.MS and GitHub, or files to GitHub, and embeds the returned links in Markdown.",
+ "tags": [
+  "imgur",
+  "github",
+  "cloudinary",
+  "catbox",
+  "jsdelivr",
+  "imgbb",
+  "alist",
+  "clipboard-upload"
+ ]
+}

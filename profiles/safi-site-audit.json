@@ -1,0 +1,59 @@
+{
+ "also": [
+  "utilities",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Crawl a URL and score it against 94 rules in 15 categories (SEO, content, links, images, security, crawlability)",
+  "Save each audit run as three exports in a per-site folder",
+  "Display the report in a full-width dashboard tab with scores, issues, fixes and per-page findings",
+  "Keep audit history grouped by site in the sidebar",
+  "Enrich audits with Core Web Vitals via a Google PageSpeed Insights API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Documents a known trade-off: because redirects are auto-followed, the redirect-chain rule always reports 0. Notes saved by versions up to 0.5.x embedded the full report as JSON inside the note; those still open in the dashboard.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Running a website audit normally means an external tool, and Obsidian has no way to store those reports as searchable notes alongside the rest of a vault.",
+ "readmeHash": "d59194b67e7d5352b41f3e99f390c9249e14497e",
+ "relations": [
+  {
+   "evidence": "It wraps the Safi-Studio-Scanner engine, which crawls a site and scores it",
+   "plugin": "Safi-Studio-Scanner",
+   "type": "integrates"
+  },
+  {
+   "evidence": "To add Core Web Vitals and accessibility checks, paste a Google PageSpeed Insights API key",
+   "plugin": "Google PageSpeed Insights",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google PageSpeed Insights API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Website auditor that crawls a URL and saves an SEO, content, link, image and security report as Markdown notes in the vault.",
+ "tags": [
+  "dashboard",
+  "api-key"
+ ],
+ "tagsBy": "inclusionai/ling-3.2-flash:free"
+}

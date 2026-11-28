@@ -1,0 +1,76 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync meeting notes, summaries, and transcripts from Granola into the vault",
+  "Customize note output with template variables and conditional blocks",
+  "Link attendees to existing Person notes by email",
+  "Download meeting screenshots and photos into an attachments folder",
+  "Connect and sync multiple Granola accounts with deduplication"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (needs Node.js APIs). The optional API key is stored unencrypted in the vault, and its features (end time, duration, transcript-based timing) require a Granola Business or Enterprise plan.",
+ "intent": "alternative",
+ "intentEvidence": "There are other (1, 2) Granola plugins for Obsidian, but I found their implementation lacking for my needs.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found existing Granola plugins too complex or missing private notes, attendee linking, and template customization, so wrote one fitting their workflow.",
+ "primary": "integrations",
+ "problem": "Granola holds meeting notes and transcripts in its own app, so Obsidian users must copy that content manually to keep it in their vault.",
+ "readmeHash": "bc7680eaf3b7c5f515d90e0c62e160d6992bb80c",
+ "relations": [
+  {
+   "evidence": "This plugin uses Granola's official MCP API to sync meeting notes, AI summaries, and transcripts",
+   "plugin": "Granola",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Granola",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Granola account (OAuth)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Granola API key (grn_...) for end time and duration",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Granola Business or Enterprise plan (API key features)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Granola meeting notes, AI summaries, transcripts, and images into your vault via the official MCP API, with template-based output.",
+ "tags": [
+  "granola",
+  "mcp",
+  "oauth",
+  "meeting-transcripts",
+  "attendee-linking",
+  "brat"
+ ]
+}

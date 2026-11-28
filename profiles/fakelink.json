@@ -1,0 +1,61 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Automatically create virtual links for text matching note titles, aliases, and headers",
+  "Convert virtual links to real links via right-click",
+  "Scope matching to specific folders, tags, or excluded keywords and file extensions",
+  "Jump to a specific line via obsidian://adv-uri links",
+  "Toggle virtual link rendering by mode or command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "The virtual links are rendered only in the editor and never written to files, so they do not appear in Graph View or affect backlink counts.",
+ "extras": "The README notes a limitation: the toggle command cannot fully disable rendering in Canvas and Tables, and users are pointed to other plugins or QuickAdd scripts for a full on/off switch. Enabling the line-jumping feature requires disabling the Advanced URI plugin because Obsidian allows only one plugin per protocol.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is a fork of Virtual Linker / Glossary.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The original Virtual Linker / Glossary plugin broke after Obsidian API updates in 2025, so the author forked it to fix compatibility, improve IME support and stability, and add header-targeting links.",
+ "primary": "links",
+ "problem": "Manually creating [[wiki links]] for every mention of a note title is tedious and clutters Markdown files with duplicated link syntax.",
+ "readmeHash": "c16f37074439443264a767bdb9e69b9a3226e172",
+ "relations": [
+  {
+   "evidence": "This plugin is a fork of Virtual Linker / Glossary.",
+   "plugin": "Virtual Linker / Glossary",
+   "type": "fork"
+  },
+  {
+   "evidence": "the recommended way is to install the Advanced URI plugin and use its \"Copy URI\" command",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced URI",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Fork of Virtual Linker that renders virtual links for text matching note titles, aliases, or headers, without writing them into the Markdown source.",
+ "tags": [
+  "glossary",
+  "virtual-links",
+  "auto-linking",
+  "aliases",
+  "ime",
+  "advanced-uri"
+ ]
+}

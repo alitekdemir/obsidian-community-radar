@@ -1,0 +1,62 @@
+{
+ "also": [
+  "code",
+  "links"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "render the live code a ledger block's decision governs, fetched from the repository at read time",
+  "report each decision's drift status: tracked, drifted by similarity percentage, or code gone",
+  "list every decision in the repository in a sidebar, worst first",
+  "re-check all decisions against current code with commands like Resolve all decisions",
+  "configure the ledger binary path and repository path, with a version check button"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a decision-journal plugin; it binds existing decision notes to code in a git repository and reports staleness rather than helping you record decisions.",
+ "extras": "Desktop-only (shells out to a local process, so it cannot work on Obsidian mobile). Requires installing the ledger binary, running ledger init in the repository, and configuring paths in settings. MIT licensed; the README notes this plugin reports drift but does not prevent it — the companion CI gate (ledger verify) does. The VS Code extension is named Decision Anchors because the Marketplace name was taken, but it is the same project.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because months after a decision is written down, the code has moved or been deleted while the note still confidently describes something that no longer exists, and nobody notices.",
+ "primary": "developers",
+ "problem": "Design-decision notes silently rot as the code they describe gets refactored or deleted, and nothing in Obsidian checks whether a note still matches its code.",
+ "readmeHash": "e450e87a69550723457b6d8cc504f76e089274be",
+ "relations": [
+  {
+   "evidence": "The plugin is a front end for ledger, a small Go binary that does the git work.",
+   "plugin": "ledger (CLI)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "VS Code — Decision Anchors | code → note | Reading unfamiliar code, ask which decision governs this line",
+   "plugin": "Decision Anchors (VS Code extension)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ledger Go binary and a git repository with full history",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Note-side front end for the ledger CLI that renders the code a decision governs inside the note and reports when that code has drifted.",
+ "tags": [
+  "decision-records",
+  "code-drift",
+  "cli",
+  "adr"
+ ]
+}

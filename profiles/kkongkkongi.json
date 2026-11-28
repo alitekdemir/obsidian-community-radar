@@ -1,0 +1,42 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt a note's content with AES-256-GCM and a password",
+  "Unlock a locked note inline without a modal",
+  "Re-lock notes on leaving the note, losing window focus, or after a timeout",
+  "Permanently remove a note's lock"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only because it uses Node's built-in crypto. A forgotten password cannot be recovered by design, and the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Some lock plugins only cover the screen while the .md file stays in plaintext, so the author built one that encrypts what is written to disk.",
+ "primary": "utilities",
+ "problem": "Screen-lock plugins leave the .md file in plaintext on disk, so opening it in any text editor reveals the content.",
+ "readmeHash": "cc96dbb088cd748dff88eb7451fd586c01cf625f",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Note encryption plugin that encrypts a note's content with AES-256-GCM on disk and unlocks it inline after password entry.",
+ "tags": [
+  "encryption",
+  "aes-256-gcm",
+  "scrypt",
+  "password-protection",
+  "ciphertext"
+ ]
+}

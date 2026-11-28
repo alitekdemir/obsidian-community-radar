@@ -1,0 +1,62 @@
+{
+ "also": [
+  "calendar",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display today's TaskNotes tasks grouped by date in a collapsible list",
+  "Show stat tiles for todo, overdue, unplanned, and events that filter the agenda on click",
+  "Add tasks through quick title entry or the full TaskNotes creator",
+  "Embed the agenda in notes with a configurable code block (title, days, events)",
+  "Optionally interleave TaskNotes calendar events (ICS, Google, Microsoft) with tasks by time"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a task manager; it only reads and displays tasks that TaskNotes already indexes.",
+ "extras": "Not manually reviewed by Obsidian staff; installable via BRAT as a beta plugin. Calendar events depend on TaskNotes's own fetching, so a TaskNotes storage change would silently stop events while the rest of the agenda keeps working.",
+ "intent": "improve",
+ "intentEvidence": "Requires the TaskNotes. plugin. This reads your TaskNotes tasks; it does not manage tasks on its own.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian users of TaskNotes lack a single today's-agenda view that groups open tasks by date alongside overdue and unplanned items.",
+ "readmeHash": "b39e6ed7445a775110895475b7195f94ebb2c6e0",
+ "relations": [
+  {
+   "evidence": "A display of all your task notes in a today's agenda window for.",
+   "plugin": "TaskNotes",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "calendar connected in TaskNotes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Agenda wrapper for TaskNotes that shows today's tasks in a date-grouped sidebar pane or embedded block with stat tiles and quick task entry.",
+ "tags": [
+  "agenda-view",
+  "quick-entry",
+  "stat-tiles",
+  "ics",
+  "google-calendar",
+  "code-block-embed"
+ ]
+}

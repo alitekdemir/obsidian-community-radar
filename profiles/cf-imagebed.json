@@ -1,0 +1,72 @@
+{
+ "also": [
+  "integrations",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload images by drag and drop, paste, right-click, or file selection",
+  "Fetch remote images and re-upload them to the image bed",
+  "Batch upload all images in the current note and replace their links",
+  "Name files, folders, and backups with placeholder templates",
+  "Capture photos from the mobile camera or gallery"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Attachments"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an image bed server itself; it is a client that uploads to a CloudFlare ImgBed instance you configure.",
+ "extras": "Channel table notes limits: Telegram needs chunking above 20MB, Discord above 10MB, and Cloudflare R2 is billed after a 10GB free tier. API details are deferred to CloudFlare ImgBed's official documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "images",
+ "problem": "Images pasted or dropped into notes stay in the vault, with no way to push them to a self-hosted image bed and swap in remote links.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "a30f7ddee2567370e0174964c0b78ff126b6f394",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "An Obsidian plugin for uploading images to CloudFlare ImgBed",
+   "plugin": "CloudFlare ImgBed",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CloudFlare ImgBed service",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "CloudFlare ImgBed auth code or API token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "HuggingFace account (HuggingFace channel only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Uploads images from Obsidian to a CloudFlare ImgBed instance and inserts the returned Markdown image links.",
+ "tags": [
+  "image-hosting",
+  "cloudflare",
+  "drag-and-drop",
+  "webdav",
+  "telegram"
+ ],
+ "textHash": "c09df01942fbfde90d695146fcb4d1c5f77bbe8d"
+}

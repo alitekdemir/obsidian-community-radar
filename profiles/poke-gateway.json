@@ -1,0 +1,56 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Connect the vault to the hosted Poke gateway via an outbound WebSocket",
+  "Let Poke list, search, and read markdown notes",
+  "Optionally allow Poke to create or overwrite markdown files",
+  "Restrict access to a configured folder of markdown files",
+  "Generate and copy a connection token for pairing with Poke"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Write access is off by default and requests are limited to a configured folder (the Poke folder on new installs); the manifest notes the plugin has not been manually reviewed by Obsidian staff; the hosted gateway service is maintained separately from the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Outside services like Poke cannot access an Obsidian vault without opening inbound ports, running tunnels, local web servers, or changing router settings.",
+ "readmeHash": "3ef312f234e55a830784eee972624f60c8ce5b7b",
+ "relations": [
+  {
+   "evidence": "Connect your Obsidian vault to Poke so Poke can search, read, and, if you allow it, write markdown notes.",
+   "plugin": "Poke",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Poke",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Gateway plugin that connects a vault to the Poke service over an outbound WebSocket so Poke can list, search, read, and optionally write markdown notes.",
+ "tags": [
+  "websocket",
+  "mcp",
+  "outbound-connection",
+  "connection-token",
+  "folder-scope",
+  "vault-access"
+ ]
+}

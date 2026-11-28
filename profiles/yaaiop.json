@@ -1,0 +1,61 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI model about your vault from a sidebar or full-screen mobile panel",
+  "Let the model search the vault and open notes, images, and PDFs on its own",
+  "Propose small note edits, new notes, and property changes for in-note review",
+  "Use Smart Connections semantic rankings or fall back to keyword search",
+  "Search the web through the provider's built-in search and cite sources"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13.0+. API keys are stored in per-device local storage rather than data.json to survive sync; the README warns local storage is unencrypted and recommends scoped keys with spend limits. Installable via BRAT; release builds carry artifact attestations. Editing notes, memory, and web access are all off by default; web search is billed per use by the provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it around four constraints: it must work on a phone via plain HTTPS calls, avoid vendor lock-in with provider-neutral backends, reuse Smart Connections instead of competing with it, and treat a vault as more than markdown by searching images and PDFs.",
+ "primary": "ai",
+ "problem": "Other AI Obsidian plugins rely on local runtimes or MCP servers that don't work on phones, lock you to one provider, and ignore attachments like images and PDFs.",
+ "readmeHash": "1eb95bad898a9fdcdf72648c2f18bdb6230fdf9a",
+ "relations": [
+  {
+   "evidence": "It should reuse Smart Connections, not compete with it.",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Provider API key (Anthropic, OpenAI, Google, or OpenRouter)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Smart Connections",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI chat plugin that searches your vault, opens notes, images and PDFs, and answers with tappable wikilinks, on desktop and mobile.",
+ "tags": [
+  "anthropic",
+  "openai",
+  "openrouter",
+  "gemini",
+  "smart-connections",
+  "chat-history",
+  "saved-prompts",
+  "api-key"
+ ]
+}

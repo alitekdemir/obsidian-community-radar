@@ -1,0 +1,66 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "poll watched folders every 3 seconds for external file changes",
+  "compare disk contents with Obsidian's internal index to find missing files",
+  "inject TFile objects and fire vault create events so the explorer updates",
+  "customize watched folders and interval by editing constants in main.js"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory; install manually or via BRAT. No settings UI — configuration requires editing constants in main.js.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's built-in file watcher sometimes fails to detect files created by external sync tools",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author kept closing notes on a phone that synced via Syncthing but never appeared in Obsidian's sidebar until a manual reload.",
+ "primary": "files",
+ "problem": "Obsidian's built-in file watcher often misses files created by external sync tools, especially on Windows, so new files only appear after a manual vault reload.",
+ "readmeHash": "ddea73f01933dc5ed55c80a2180895e325534254",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Syncthing",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Dropbox",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "rsync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an external sync tool such as Syncthing, Dropbox, Google Drive, OneDrive or rsync",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "File explorer refresher that polls vault folders and injects files created by external sync tools into Obsidian's index without a reload.",
+ "tags": [
+  "syncthing",
+  "dropbox",
+  "rsync",
+  "file-watcher",
+  "polling"
+ ]
+}

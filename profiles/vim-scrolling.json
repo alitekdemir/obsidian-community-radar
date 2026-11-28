@@ -1,0 +1,50 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scroll reading view with vim motions (j/k, Ctrl+d/Ctrl+u, gg, G)",
+  "Search the current note with / and ? using incremental, smartcase matching",
+  "Jump between search matches with n/N and clear highlights with Esc",
+  "Move the source-mode cursor to the content you were reading when switching from reading view"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not limited to scrolling; it also adds / and ? search with n/N match jumping in reading view.",
+ "extras": "Installation is manual (copy main.js and manifest.json into the plugins folder); the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "brings vim-style navigation and search to Reading view when Obsidian's vim key bindings are enabled",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to fill the gap in reading view and to fix the friction where switching back to source mode after scrolling leaves the cursor far from the content being read.",
+ "primary": "vim",
+ "problem": "Obsidian's built-in vim key bindings do nothing in reading view because it renders static HTML with no editor, breaking vim muscle memory in that mode.",
+ "readmeHash": "395010399e44095dafac162b77222163fe7e9157",
+ "relations": [
+  {
+   "evidence": "Obsidian's built-in vim key bindings (powered by CodeMirror's vim mode)",
+   "plugin": "CodeMirror vim mode",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vim-style scrolling and search (j/k, Ctrl+d/u, gg/G, /, ?) for Obsidian's reading view when vim key bindings are enabled.",
+ "tags": [
+  "reading-view",
+  "scrolling",
+  "incremental-search",
+  "smartcase",
+  "codemirror"
+ ]
+}

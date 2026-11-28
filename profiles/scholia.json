@@ -1,0 +1,80 @@
+{
+ "also": [
+  "ai",
+  "import"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import PDFs into per-paper vault folders",
+  "Convert PDFs to Markdown via a configurable LLM-backed backend",
+  "Highlight key sentences with native ==...== syntax",
+  "Discover and precompute context-aware glossary entries as Markdown files",
+  "Show cached term explanations on hover with a manual Explain now fallback"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed by Obsidian staff. Desktop-only (Obsidian Desktop >= 1.5.0), requires a local filesystem vault, and installs like a local plugin project rather than a packaged release. API keys are stored in plain data.json for compatibility, and the plugin can execute a local CLI tool. Targets digital text-layer PDFs only; scanned OCR documents are out of scope.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian cannot convert text-layer academic PDFs into readable Markdown or provide in-context explanations of technical terms while reading a paper.",
+ "readmeHash": "ec92f89d12dd91a1a6ae3634eae6747ea7e44cf4",
+ "relations": [
+  {
+   "evidence": "Scholia uses Paper2MDViaLLM as the normal PDF-to-Markdown path.",
+   "plugin": "Paper2MDViaLLM",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Scholia makes network requests to OpenAI and/or Anthropic when you run import",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anthropic for Claude models",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "SEP enrichment, when enabled, also fetches public Stanford Encyclopedia of Philosophy pages.",
+   "plugin": "Stanford Encyclopedia of Philosophy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Miniconda or Anaconda with the paper2mdviallm CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Academic PDF reader plugin that imports papers into per-paper Markdown folders and precomputes cached, context-aware hover glossary explanations.",
+ "tags": [
+  "llm",
+  "openai",
+  "anthropic",
+  "hover-glossary",
+  "academic-papers",
+  "paper2mdviallm",
+  "close-reading"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start and stop recording with a rebindable hotkey (Ctrl+S) or a sidebar microphone button",
+  "Stream stable transcript segments into the note while speaking via Volcengine big-model ASR",
+  "Upload a captured WAV recording to Xiaomi MiMo ASR and insert the final transcript",
+  "Store provider credentials (App ID, token, API key) in the vault's plugin data"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because authenticated Volcengine WebSocket connections need Node.js networking; states it has no telemetry, ads, or self-update; README includes a full Chinese-language section; manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in speech-to-text, so dictating a note requires a separate app and manual copy-paste.",
+ "readmeHash": "d4f2197504e4ce001df50a072c9e1980db401a1e",
+ "relations": [
+  {
+   "evidence": "Volcengine big-model ASR streams stable transcript segments into the note while you speak.",
+   "plugin": "Volcengine big-model ASR",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Xiaomi MiMo ASR uploads a WAV recording after you stop and inserts the final transcript.",
+   "plugin": "Xiaomi MiMo ASR",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Volcengine App ID / Access Token or Xiaomi MiMo API Key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Volcengine or Xiaomi MiMo account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Provider ASR usage may be charged per provider pricing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Dictation plugin that records microphone audio on desktop and inserts a transcript at the cursor via Volcengine or Xiaomi MiMo ASR.",
+ "tags": [
+  "dictation",
+  "speech-to-text",
+  "asr",
+  "volcengine",
+  "xiaomi-mimo",
+  "websocket",
+  "streaming-transcription"
+ ]
+}

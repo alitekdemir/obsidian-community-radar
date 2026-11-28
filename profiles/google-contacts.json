@@ -1,0 +1,60 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync Google contacts into per-contact notes",
+  "audit vault notes for contacts missing in Google",
+  "customize note templates, folders, and filename naming",
+  "choose frontmatter naming strategies including vCard compatibility",
+  "render contact relations as Obsidian links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires creating a Google Cloud project, enabling the People API, configuring an OAuth consent screen, and adding yourself as a test user; sync updates only contact frontmatter and never overwrites user text or custom properties.",
+ "intent": "new",
+ "intentEvidence": "Synchronize your Google contacts directly into Obsidian! Each contact becomes a separate note with YAML frontmatter",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull contacts from a Google account into notes or keep that contact data up to date.",
+ "readmeHash": "782dbfbf3b1c6210df66f45fdc5a15704369fbca",
+ "relations": [
+  {
+   "evidence": "VCF (vCard): Fully compatible with the VCF Contacts plugin.",
+   "plugin": "VCF Contacts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google account with People API access",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google OAuth Client ID and Client Secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Google Contacts into the vault as one note per contact with YAML frontmatter, preserving user edits, with label filtering and an orphaned-contact audit.",
+ "tags": [
+  "google-people-api",
+  "oauth",
+  "vcard",
+  "contacts",
+  "two-way-sync"
+ ]
+}

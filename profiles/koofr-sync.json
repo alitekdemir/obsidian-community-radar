@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally with a Koofr mount or folder",
+  "Resolve conflicts by last-write-wins, duplicate creation, or manual diff review",
+  "Exclude files and folders with glob patterns stored in .syncIgnore",
+  "Run manual, forced full, pull-only, or one-directional recovery syncs",
+  "Optionally sync app settings, plugin files, and CSS snippets"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not affiliated with Koofr; built against Koofr's public REST API v2. Pull-only mode is marked experimental. UI is English only. No chunked or resumable uploads for very large files, and no documented token refresh flow.",
+ "intent": "alternative",
+ "intentEvidence": "Why this over Koofr's native client or a WebDAV mount?",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync with Koofr storage, and generic mounts poll the filesystem and leave conflicts unresolved.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "c0302d5b5dfbca7106e82a61ee6ddaca49f76e19",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Its architecture (sync engine, conflict resolution, settings UI) is adapted from obsidian-onedrive by Jeff Steinbok.",
+   "plugin": "obsidian-onedrive",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Why this over Koofr's native client or a WebDAV mount?",
+   "plugin": "Koofr's native client",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Koofr account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way, event-driven sync of an Obsidian vault to Koofr cloud storage, with conflict resolution and glob-based file exclusions.",
+ "tags": [
+  "two-way-sync",
+  "conflict-resolution",
+  "glob-patterns",
+  "ios",
+  "android"
+ ],
+ "textHash": "ac31d53e30f15f382373295e6783449b69c8ce79"
+}

@@ -1,0 +1,52 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compare the active file with another file and view differences",
+  "Merge changes between the two compared files",
+  "Find all Syncthing conflict files and resolve each with the merge option"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only one Syncthing-related command depends on Syncthing; comparison and merging work without it. Instructions for adjusting colors are linked rather than included in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author uses Syncthing and was annoyed by manually cleaning up merge conflicts.",
+ "primary": "files",
+ "problem": "Obsidian has no built-in way to view differences between two files and merge them, and sync tools like Syncthing leave conflict files that must be cleaned up by hand.",
+ "readmeHash": "e40e08a0b6b21e365cb7bc5126259df053a3b306",
+ "relations": [
+  {
+   "evidence": "Finds all Syncthing conflicts and shows the merge option for each conflict sequentially.",
+   "plugin": "Syncthing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Syncthing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Diff tool that compares two vault files, merges differences, and sequentially resolves Syncthing sync conflicts.",
+ "tags": [
+  "diff",
+  "merge",
+  "conflict-resolution",
+  "syncthing"
+ ]
+}

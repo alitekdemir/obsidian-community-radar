@@ -1,0 +1,50 @@
+{
+ "also": [
+  "tables"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Opens .csv and .tsv files in a dedicated table view",
+  "Filters visible rows by searching across cells",
+  "Switches between table and source views with line numbers",
+  "Detects comma, semicolon, and pipe delimiters and parses quoted or multiline fields",
+  "Reports parse warnings, uneven row lengths, BOMs, and large-file render caps"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Renders only the first 10,000 rows of large files and reports the rest as a count; makes no network requests and never writes back to data files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": "The author made it read-only because CSV editing is error-prone: quotes, escaped quotes, multiline cells, delimiters, and line endings can all be damaged by a casual edit flow, so v0.1 never writes to disk.",
+ "primary": "csv",
+ "problem": "Obsidian has no built-in way to inspect CSV or TSV data files as tables; they open as raw text, so checking exports, logs, or datasets means leaving the vault.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "e9f32b60533442f39d898948172a4f90c8b7e34a",
+ "relations": [
+  {
+   "evidence": "Parses quoted fields, escaped quotes, and multiline fields with Papa Parse.",
+   "plugin": "Papa Parse",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens .csv and .tsv files as searchable tables with a source view and parse warnings.",
+ "tags": [
+  "read-only"
+ ],
+ "textHash": "7680f2c345ec30a0c0ab98420887468d07f7fab2"
+}

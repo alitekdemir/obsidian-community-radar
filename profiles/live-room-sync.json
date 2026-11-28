@@ -1,0 +1,57 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a whole vault peer-to-peer between devices over WebRTC with no server",
+  "Co-edit notes live with named cursors, avatars and CRDT merging",
+  "Invite friends with a code or link and approve or block joining devices",
+  "Keep per-note version history locally and preview or restore versions",
+  "Keep conflicting note versions as separate private copies"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README urges backing up the vault before use, states there has been no independent security review, and notes it has only been tested with up to 3 devices (mesh is meant for about 5). Sync only happens when devices are online at the same time; a TURN server is optional for strict networks.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to share a vault live with other people for collaborative editing without a paid sync service or a self-hosted server.",
+ "readmeHash": "c8a79a5ea963a287b561d9811806d60470db0376",
+ "relations": [
+  {
+   "evidence": "Each note is a shared document (Yjs, a CRDT).",
+   "plugin": "Yjs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built on Yjs, y-codemirror.next, Trystero and diff-match-patch.",
+   "plugin": "Trystero",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Peer-to-peer plugin that shares a whole vault live with friends over WebRTC, with Google-Docs-style co-editing and named cursors, no server or account.",
+ "tags": [
+  "webrtc",
+  "p2p",
+  "yjs",
+  "crdt",
+  "nostr",
+  "live-cursors"
+ ]
+}

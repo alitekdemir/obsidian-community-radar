@@ -1,0 +1,76 @@
+{
+ "also": [
+  "backup",
+  "integrations"
+ ],
+ "audience": [
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Seal notes automatically by hashing content locally and sending only hashes to a signed, hash-chained ledger anchored to Bitcoin",
+  "Show per-note proof status, sequence, and sealed version history with restore",
+  "Export portable .nanalproof files and issue paid PDF certificates and public verification links",
+  "Archive original files to a local git repository or optionally push them to your own GitHub repository",
+  "Verify proofs independently with a downloadable verifier, sha256sum and OpenTimestamps tools, or a public check page"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a backup tool; the optional git and GitHub archives store originals, but the core job is tamper-evident timestamping and proof of existence.",
+ "extras": "Desktop-only, with mobile support planned. Freemium: sealing works with a free API key, while PDF certificates, public verification links, and original-file storage are paid. The API host is fixed to api.nanalstamp.com and cannot be redirected. Sealing timing is fixed and not configurable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to prove that a note existed in a specific form at a specific time with verification that does not depend on trusting a service.",
+ "readmeHash": "e414e6a3ed7b1e7f2f6c9d6a50c04153b078d94b",
+ "relations": [
+  {
+   "evidence": "periodically anchors the chain head into Bitcoin via OpenTimestamps",
+   "plugin": "OpenTimestamps",
+   "type": "integrates"
+  },
+  {
+   "evidence": "connect the optional GitHub offsite archive",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "nanalStamp API key",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "nanalStamp Pro plan for PDF certificates, public links, and original-file storage",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "optional sign-in to auto-fetch the API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Timestamps notes with hash-chained, signed proofs anchored to the Bitcoin blockchain via OpenTimestamps, without uploading note content.",
+ "tags": [
+  "bitcoin",
+  "opentimestamps",
+  "sha256",
+  "proof-of-existence",
+  "tamper-evidence",
+  "legal-evidence"
+ ]
+}

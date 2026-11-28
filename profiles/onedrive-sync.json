@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "authenticate with OneDrive personal or Entra ID accounts",
+  "sync vault files bidirectionally on file changes",
+  "resolve sync conflicts with overwrite, duplicate, or manual resolution",
+  "sync Obsidian settings, plugins, snippets, and bookmarks across devices",
+  "exclude files and folders via a .syncIgnore file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The author works on the OneDrive team at Microsoft but states this is not an official Microsoft plugin. Pull-Only Mode is labeled experimental. Pre-release builds are available via BRAT. Entra ID accounts require a one-time Azure app registration by the user. Upgrading from 1.0.x requires disconnecting and reconnecting.",
+ "intent": "alternative",
+ "intentEvidence": "Why this over native OneDrive file sync?",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author, who works on the OneDrive team at Microsoft, built it because it was 'just a thing I needed and wanted to share'.",
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync options don't cover OneDrive, and native OneDrive file sync uses last-writer-wins and syncs device clutter like workspace state files.",
+ "readmeHash": "c3a6aae0cb78a61e9686f439db37800efa8237a3",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian vault with OneDrive. Zero-config for personal Microsoft accounts",
+   "plugin": "OneDrive",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account (personal or Entra ID work/school)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync of an Obsidian vault with OneDrive personal or work/school accounts, using event-driven sync with configurable conflict resolution.",
+ "tags": [
+  "onedrive",
+  "microsoft-graph",
+  "oauth-device-flow",
+  "entra-id",
+  "conflict-resolution",
+  "two-way-sync"
+ ]
+}

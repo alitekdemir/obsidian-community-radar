@@ -1,0 +1,66 @@
+{
+ "also": [
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run the Antigravity CLI in an Obsidian sidebar pane",
+  "Interact with a full terminal (typing, scrolling, resizing) via xterm.js",
+  "Customize the CLI command path and default launch arguments",
+  "Migrate settings automatically from the older Gemini CLI version",
+  "Launch from a ribbon icon or the command palette"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (uses Node.js child_process; no mobile support). The manifest notes the plugin has not been manually reviewed by Obsidian staff. Default arguments include --dangerously-skip-permissions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to run an external AI CLI agent in a pane; you would have to switch to a separate terminal app.",
+ "readmeHash": "3d4f1b12be57481c80d1256035484daab4712ccb",
+ "relations": [
+  {
+   "evidence": "embeds Antigravity CLI directly into a sidebar pane",
+   "plugin": "Antigravity CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Since Google is deprecating/shutting down Gemini CLI, V2.0 has been fully migrated",
+   "plugin": "Gemini CLI",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Antigravity CLI (agy) in system PATH",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3 (PTY wrapper)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar terminal that embeds the Antigravity CLI (agy) inside Obsidian so you can chat with it without leaving your notes.",
+ "tags": [
+  "antigravity",
+  "gemini-cli",
+  "terminal",
+  "xtermjs",
+  "pty",
+  "ai-agent"
+ ]
+}

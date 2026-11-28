@@ -1,0 +1,81 @@
+{
+ "also": [
+  "automation",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a running Tomo container in a terminal tab",
+  "Stream active file, cursor position and selection to Claude Code over a localhost WebSocket",
+  "Execute Tomo instruction documents as batch vault edits with preview",
+  "Resume partially applied runs idempotently",
+  "Run optional .cjs hooks and write per-run log files"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (isDesktopOnly: true); macOS is the verified platform, Linux experimental and Windows user-contributed. Detailed documentation lives in separate documents linked from the README. No telemetry or third-party services.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Tomo generates a lot of vault-shaped output and its review step is where you decide what to apply; the author wanted that apply step automated, with a preview and safe re-runs.",
+ "primary": "integrations",
+ "problem": "Tomo's review output has to be applied to the vault by hand, and there is no way to talk to the agent or hand it live editor context from inside Obsidian.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "e30fc563f3a1ecaa1c59aeae084037f231ac2b52",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "A live chat tab that attaches to a running MiYo Tomo (called Tomo further) Docker container",
+   "plugin": "MiYo Tomo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "gives Claude Code in your Tomo container live ambient context",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install Tomo and Kado",
+   "plugin": "MiYo Kado",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Docker",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MiYo Tomo",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MiYo Kado",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Bridge to a local Tomo (Claude Code) Docker container: a chat tab, an editor-context WebSocket, and an executor for Tomo's instruction files.",
+ "tags": [
+  "claude-code",
+  "docker",
+  "ai-agents",
+  "terminal",
+  "claude",
+  "local-first"
+ ],
+ "textHash": "b58960aefbfa59983d003365891acdbfc540b459"
+}

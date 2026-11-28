@@ -1,0 +1,73 @@
+{
+ "also": [
+  "editing",
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render AI edits as tracked-change proposals with per-change accept and reject buttons",
+  "Chat with connected AI collaborators from a side panel",
+  "Attribute accepted changes to authors by color with an audit note",
+  "Restore snapshots taken before each external edit",
+  "Protect note sections from collaborator edits with %%protect%% markers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It is not an AI assistant itself; it is only the review layer for edits made by externally connected AI tools.",
+ "extras": "The plugin makes no network requests itself; AI access requires running a bundled Python bridge script or an external agent, and the plugin must be built and installed manually from source. Accepts donations.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no way to see, approve, or attribute edits an AI assistant makes to your notes before they enter your text.",
+ "readmeHash": "905d0126afec653dd826da78059f4f02fe4cd87a",
+ "relations": [
+  {
+   "evidence": "Connect Claude: get an API key at console.anthropic.com",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Users of agent tools that already edit local files, such as Claude Code, need no bridge at all",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Perplexity (perplexity-bridge.py): same steps with PERPLEXITY_API_KEY",
+   "plugin": "Perplexity",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an AI tool that edits vault files (bridge script or agent like Claude Code)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or Perplexity API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Review layer that turns AI edits of your notes into tracked-change proposals you accept or reject word by word, with chat, attribution and snapshots.",
+ "tags": [
+  "claude",
+  "claude-code",
+  "perplexity",
+  "anthropic",
+  "track-changes",
+  "three-way-merge",
+  "snapshots"
+ ]
+}

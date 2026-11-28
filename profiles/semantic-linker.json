@@ -1,0 +1,69 @@
+{
+ "also": [
+  "graph",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show a local semantic graph of linked and candidate notes for the active note",
+  "Insert or remove links by clicking candidate and context nodes",
+  "Embed note metadata using Ollama Native or OpenAI-compatible /v1/embeddings providers",
+  "Tune ranking weights, graph display, link insert templates, and URL strategy",
+  "Optionally rank candidates using recorded local click and insert feedback"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only due to local cache files and desktop APIs. Manual installation only (copy manifest.json, main.js, styles.css into the plugins folder). Feedback-aware ranking is disabled by default because of sample bias, and embedding requests send metadata text only, not full note bodies.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian's graph only shows links that already exist, so finding unlinked but related notes and adding links by hand is slow and depends on the user remembering candidates.",
+ "readmeHash": "9bc098edd5fda815a3063103e5493f464a5f2d94",
+ "relations": [
+  {
+   "evidence": "Semantic Linker pairs well with Front Matter Generator (GitHub), which is also maintained by Neurocoda.",
+   "plugin": "Front Matter Generator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Ollama Native embeddings, defaulting to and bge-m3.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or an OpenAI-compatible embeddings provider",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for OpenAI-compatible embeddings mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Graph-sidebar plugin that recommends semantically related notes from indexed front matter metadata and inserts curated links with a click.",
+ "tags": [
+  "embeddings",
+  "ollama",
+  "openai",
+  "bge-m3",
+  "link-suggestions",
+  "metadata-indexing"
+ ]
+}

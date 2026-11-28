@@ -1,0 +1,52 @@
+{
+ "also": [
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show recently modified files grouped by calendar day",
+  "Mark files edited outside Obsidian's editor with a colored dot",
+  "Pin notes to a persistent Pinned section",
+  "Exclude or background folders from the list",
+  "Copy a file's absolute filesystem path to the clipboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a recently-opened-files list; it tracks modifications, and the README explicitly contrasts this with Recent Files plugins.",
+ "extras": "Offers an event contract (recent-edits:plugin-write) so other plugins can declare housekeeping writes; the full contract lives in docs/plugin-write-contract.md rather than the README. Requires Obsidian 1.13.0 or later; copying absolute paths is desktop only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author uses the vault together with AI tools and wanted to see recently modified files and tell in-editor edits apart from filesystem, sync, or plugin writes.",
+ "primary": "files",
+ "problem": "Recent-files lists show what you opened, not what changed, so edits from scripts, AI assistants, or sync are invisible and indistinguishable from your own.",
+ "readmeHash": "7234045986331e8199b2f2cd21f23fd3a8c15cea",
+ "relations": [
+  {
+   "evidence": "First adopter: Foldable Frontmatter Groups.",
+   "plugin": "Foldable Frontmatter Groups",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar panel that lists recently modified vault files grouped by day and marks edits that came from outside Obsidian's editor.",
+ "tags": [
+  "modified-files",
+  "external-edits",
+  "ai-assistants",
+  "file-sync",
+  "pinned-notes",
+  "file-history"
+ ]
+}

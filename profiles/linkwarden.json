@@ -1,0 +1,60 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search a Linkwarden library and insert links bound to entry ids",
+  "Show linked sources' highlights in a right-sidebar panel",
+  "Insert highlights as callout quotes with block ids",
+  "Archive a note's external URLs to Linkwarden and rewrite them to deep links",
+  "Re-bind links whose Linkwarden id changed"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a bookmark sync tool; nothing is materialized as files in the vault — highlights are read from the service into a panel.",
+ "extras": "The README states the plugin is not officially from the Linkwarden project, requires Obsidian >= 1.12.7, and on Linux needs an OS secret backend (kwallet/libsecret); the token is stored device-local via SecretStorage and never enters the synced vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search Linkwarden bookmarks, view their highlights next to the active note, or archive note URLs to the service.",
+ "readmeHash": "cfe3a700ae52b35bf9cb1469f14fc333ee5e26db",
+ "relations": [
+  {
+   "evidence": "This plugin communicates with exactly one remote service: your Linkwarden instance",
+   "plugin": "Linkwarden",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Linkwarden instance (cloud or self-hosted)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Linkwarden access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Client for the Linkwarden bookmark service that binds notes to saved links, shows their highlights in a side panel, and archives URLs.",
+ "tags": [
+  "highlights",
+  "bookmarks",
+  "self-hosted",
+  "deep-links",
+  "access-token"
+ ]
+}

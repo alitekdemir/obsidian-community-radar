@@ -1,0 +1,68 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Visualize tasks as draggable nodes in an interactive graph",
+  "Connect tasks with 🆔/⛔ emoji and blockedBy/dependsOn dependency syntax",
+  "Filter the graph by multiple tags",
+  "Mark tasks done or undone directly from the graph",
+  "Treat whole notes as tasks via NoteTask frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Pre-v1.0 with breaking changes expected to the embed format, filter field names, and settings; full documentation lives on an external site (nicoknl.github.io/tasks-map).",
+ "intent": "improve",
+ "intentEvidence": "Required: Dataview and Tasks plugins must be installed and enabled.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "graph",
+ "problem": "Obsidian's graph view shows notes, not tasks, so task dependencies and relationships are invisible in a visual map.",
+ "readmeHash": "2b7c6e2b5bc184b6248d13ce2cf66d27817cf72c",
+ "relations": [
+  {
+   "evidence": "It supports both inline checkbox tasks (- [ ] task text) via Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Required: Dataview and Tasks plugins must be installed and enabled.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Task graph plugin that renders checkbox and file-based tasks as interactive nodes with dependency edges, tag filtering, and in-graph completion.",
+ "tags": [
+  "dataview",
+  "tasks-plugin",
+  "react-flow",
+  "task-dependencies",
+  "note-task",
+  "emoji-syntax"
+ ]
+}

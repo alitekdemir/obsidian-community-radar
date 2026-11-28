@@ -1,0 +1,74 @@
+{
+ "also": [
+  "vim",
+  "editing"
+ ],
+ "audience": [
+  "neovim-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Launch a Neovim instance in a terminal when Obsidian starts",
+  "Open the active Obsidian file as a buffer in the listening Neovim instance",
+  "Focus an existing Neovim buffer instead of opening a duplicate",
+  "Send new Neovim buffers back to Obsidian via obsidian-bridge.nvim and obsidian-local-rest-api"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns the plugin doesn't work when Obsidian is installed via flatpak, reports an infinite-loop bug when files are renamed or deleted from Obsidian while their buffer is open in Neovim, and recommends doing file operations from Neovim. Includes edge-case notes such as a specific terminal path for Ghostty on macOS.",
+ "intent": "alternative",
+ "intentEvidence": "I know Obsidian has vim bindings, but I've built up my own Neovim config",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author prefers editing in their own customized Neovim setup rather than Obsidian's built-in vim bindings.",
+ "primary": "integrations",
+ "problem": "Obsidian's built-in vim mode can't use a user's full personal Neovim configuration for editing.",
+ "readmeHash": "e3d11590f5b4e18ed20cdcde8ac181ebc1cc4d27",
+ "relations": [
+  {
+   "evidence": "The obsidian.nvim plugin, also highly recommended in general for interacting with Obsidian vaults from Neovim",
+   "plugin": "obsidian.nvim",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The obsidian-bridge.nvim along side the obsidian-local-rest-api, this is what enables to communication",
+   "plugin": "obsidian-bridge.nvim",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The obsidian-bridge.nvim along side the obsidian-local-rest-api, this is what enables to communication",
+   "plugin": "obsidian-local-rest-api",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Neovim",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "obsidian.nvim / obsidian-bridge.nvim / obsidian-local-rest-api",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Neovim bridge that opens every file you view in Obsidian as a buffer in a running external Neovim instance.",
+ "tags": [
+  "neovim",
+  "terminal",
+  "external-editor",
+  "buffers",
+  "obsidian-nvim"
+ ]
+}

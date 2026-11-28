@@ -1,0 +1,50 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt a selected file with a password",
+  "Follow the rclone-crypt format for encrypted output"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not encrypt the whole vault or lock notes in place; it creates separate encrypted copies of files you pick.",
+ "extras": "README warns the password is never stored, so forgotten passwords cannot be recovered; whether rclone itself is required to decrypt files is not explained.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian has no built-in way to produce encrypted versions of individual files, so sensitive notes stay readable in the vault.",
+ "readmeHash": "7f5bfe9085d6c73b31f67953eca399a72e7a9e64",
+ "relations": [
+  {
+   "evidence": "The plugin follows the rclone-crypt format.",
+   "plugin": "rclone",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "rclone",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 2,
+  "focus": 5
+ },
+ "summary": "Generates password-encrypted copies of vault files following the rclone-crypt encryption format.",
+ "tags": [
+  "encryption",
+  "rclone",
+  "password"
+ ]
+}

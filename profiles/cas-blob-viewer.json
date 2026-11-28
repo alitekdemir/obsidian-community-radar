@@ -1,0 +1,46 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Renders CAS blobs inline from sha256 references",
+  "Accepts legacy cas:sha256 and blob://sha256 references",
+  "Falls back to code-block rendering",
+  "Reads optional JSONL metadata records",
+  "Shows unsupported or oversized blobs as a card"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Live Preview rendering is experimental and off by default; rendering toggles require reloading the plugin. The hash syntax identifies the expected blob but does not verify its digest; HTML renders as inert source, PDFs open in the browser viewer, and oversized blobs show a card.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": "Daily notes can reference the durable hash instead of keeping duplicate attachment files around.",
+ "primary": "attachments",
+ "problem": "Obsidian cannot preview file payloads stored once in a content-addressed layout and referenced only by hash, so vaults keep duplicate attachment files.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "c685a8ce9cc1cd844545fe49effc0428b48f4a9f",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that renders content-addressed vault blobs inline from durable sha256 references in embed and code-block syntax.",
+ "tags": [
+  "embeds",
+  "read-only",
+  "local-first"
+ ],
+ "textHash": "dcfb4f7756f6f948dd869bf290aed94c9206fcf4"
+}

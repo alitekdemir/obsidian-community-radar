@@ -1,0 +1,77 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files across devices",
+  "Encrypt file contents and file names with a passphrase",
+  "Merge non-overlapping edits and write conflict copies",
+  "Keep replaced file versions on the server for 30 days",
+  "Share a vault with invited users"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Paid plan is bought outside the plugin through a Telegram bot; sync only runs while the app is open; a forgotten passphrase makes synced data unrecoverable; the plugin is MIT-licensed but the server implementation is closed-source and a self-hosting guide is only planned.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built for people priced out of other options: twice the storage per dollar, and you can pay with a bank card, crypto, or rubles.",
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices normally means wiring up storage buckets, servers or Git, and hosted options can be expensive or hard to pay for in some regions.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "6c135c3ecf3f6387c3d57d734e71bacd50053424",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "get a login code from our Telegram bot",
+   "plugin": "Telegram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "transfers encrypted file data directly to Cloudflare R2 object storage via short-lived signed URLs",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Obsyncian account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Obsyncian plan (Lite, Standard or Plus)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Telegram",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "End-to-end encrypted vault sync and backup that uploads encrypted files to remote storage, merges concurrent edits and shares vaults.",
+ "tags": [
+  "end-to-end-encryption",
+  "encryption",
+  "conflict-resolution",
+  "telegram",
+  "cloudflare",
+  "self-hosted"
+ ],
+ "textHash": "22a722b593a3299e6d9d207d1df8440dc0f3c935"
+}

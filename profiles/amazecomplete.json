@@ -1,0 +1,64 @@
+{
+ "also": [
+  "dates",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert natural language dates as wikilinks or plain text via chrono-node parsing",
+  "Discover and expand Templater templates inline at the cursor",
+  "Fuzzy-search vault markdown files and YAML frontmatter aliases",
+  "Configure a single trigger character (default @) for all suggestion types",
+  "Keep natural language text as a link alias with Shift+Enter"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Template discovery falls back to Obsidian's core Templates plugin or a custom folder if Templater is not used.",
+ "intent": "improve",
+ "intentEvidence": "Built on the date-parsing foundation of Natural Language Dates (nldates-obsidian)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Separate autocomplete plugins use different trigger symbols and produce conflicting suggestion popups, so users juggle multiple triggers for dates, templates, and file links.",
+ "readmeHash": "b202802f2dc1b94536d2060ecffee8e334473d5c",
+ "relations": [
+  {
+   "evidence": "Natural language date parsing and configuration model based on nldates-obsidian",
+   "plugin": "nldates-obsidian",
+   "type": "extends"
+  },
+  {
+   "evidence": "Automatically discovers templates from your Templater template folder",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Unified @-trigger autocomplete popup that inserts natural language dates, expands Templater templates inline, and links vault files and aliases.",
+ "tags": [
+  "chrono-node",
+  "natural-language-dates",
+  "templater",
+  "fuzzy-search",
+  "aliases",
+  "trigger-character"
+ ]
+}

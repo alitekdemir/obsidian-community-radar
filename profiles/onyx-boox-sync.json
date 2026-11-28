@@ -1,0 +1,79 @@
+{
+ "also": [
+  "annotation",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "watch a folder for new Onyx Boox exports and import them automatically",
+  "parse reading-note highlights into clean highlight notes (both firmware layouts)",
+  "reconstruct handwriting PDFs as lossless SVG vectors",
+  "transcribe handwriting to text via cloud, local, or on-device engines",
+  "convert annotated PDFs into verbatim highlight notes with #page deep-links"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a device sync tool; it only watches a folder for exported files and imports them into the vault.",
+ "extras": "Desktop only. Makes zero network requests unless optional handwriting transcription is enabled; no telemetry or crash reporting. Supports highlight templates with placeholders and deduplicates imports by content hash.",
+ "intent": "alternative",
+ "intentEvidence": "The Boox export format handling is a modernized, rewritten take on the parsing logic in Akos Balasko's Onyx Boox Annotation & Highlight Extractor",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to remove the manual rename-and-move steps of the Boox export flow: \"The Onyx Boox export flow is tedious: tap through the table of contents, export to local storage, rename .txt to .md, move it into the vault, then trigger an extractor by hand.\"",
+ "primary": "import",
+ "problem": "Getting highlights and annotations off an Onyx Boox requires a tedious manual flow: export to local storage, rename .txt to .md, move it into the vault, and run an extractor by hand.",
+ "readmeHash": "47a51b619278fdeda698a5e811d4c1e601d22264",
+ "relations": [
+  {
+   "evidence": "a modernized, rewritten take on the parsing logic in Akos Balasko's Onyx Boox Annotation & Highlight Extractor",
+   "plugin": "Onyx Boox Annotation & Highlight Extractor (Akos Balasko)",
+   "type": "replaces"
+  },
+  {
+   "evidence": "it delegates to the companion PDF2MACMD plugin, which manages the signed native binary",
+   "plugin": "PDF2MACMD",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Via BRAT (recommended) - install the BRAT plugin from Community Plugins",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Onyx Boox e-ink device (source of the exported files)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "PDF2MACMD",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic or OpenAI key (for cloud handwriting transcription)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Watches a folder for Onyx Boox export files and imports reading-note highlights, annotated PDFs, and handwriting into your vault as notes.",
+ "tags": [
+  "onyx-boox",
+  "handwriting",
+  "svg",
+  "highlights",
+  "file-watcher",
+  "anthropic",
+  "openai",
+  "lm-studio"
+ ]
+}

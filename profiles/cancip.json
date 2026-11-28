@@ -1,0 +1,95 @@
+{
+ "also": [
+  "search",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with configured AI models from a side panel with current-note, selection, and @-mention context",
+  "Execute vault actions (read, write, patch, rename, copy) in confirmation or full-access mode",
+  "Search notes, sessions, memories, attachments, and configs with a persistent hard-first index",
+  "Maintain long-term memory and harvest successful workflows into generated skills",
+  "Run scheduled automations, session exports, and lightweight local version snapshots"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Further design docs live outside the README (docs/VISION.md, docs/GITHUB_AND_VERSIONING.md). Settings embed payment QR codes and the author solicits custom development work; the file-queue bridge channel has no credential and should be disabled in shared vaults.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent that can search, read, write, and verify changes to vault files under explicit approval, especially on mobile.",
+ "readmeHash": "065e86cf9229fd282d64bcf5f41f364fce280534",
+ "relations": [
+  {
+   "evidence": "Absorb Smart Composer's Obsidian-native chat UX: file chips, current-file context, vault chat",
+   "plugin": "Smart Composer",
+   "type": "inspired"
+  },
+  {
+   "evidence": "a programmatic TypeScript builder adapted from arias007/ob-review-gate-skill",
+   "plugin": "arias007/ob-review-gate-skill",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the raw file operations mirror arias007/minis-bridge exactly and act immediately",
+   "plugin": "arias007/minis-bridge",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Desktop Cancip can connect bidirectionally with Codex, Claude Code, and other MCP-compatible local agents",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Desktop Cancip can connect bidirectionally with Codex, Claude Code, and other MCP-compatible local agents",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Dedicated Mobile Webviewer integration through cancip.webviewer.help/status/read/selection/open/tabs",
+   "plugin": "Mobile Webviewer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "while PDF/DOCX/PNG/PPTX use the installed Mobile PDF Exporter",
+   "plugin": "Mobile PDF Exporter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI model API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Codex / Claude Code CLI for agent bridge",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Mobile-first AI chat side panel that reads and writes vault notes through audited tool actions, long-term memory, and a structured command bus.",
+ "tags": [
+  "mobile",
+  "openai",
+  "mcp",
+  "ollama",
+  "tts",
+  "github",
+  "long-term-memory"
+ ]
+}

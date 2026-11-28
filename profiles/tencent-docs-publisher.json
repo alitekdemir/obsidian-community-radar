@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "publish notes and linked note trees to Tencent Docs smart documents",
+  "map local notes to existing remote sub-pages via a binding modal",
+  "upload local and web images referenced by notes",
+  "convert internal wiki-links into native Tencent Docs mentions",
+  "detect conflicts when remote pages were edited externally"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Publishing is strictly manual (no background sync or file watcher); sub-pages must be created manually in the Tencent Docs web app because the API does not support creating them. Tokens are stored in Obsidian's credential store. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to push local Markdown notes and their linked note structure into Tencent Docs pages.",
+ "readmeHash": "7e977ba73687e18504314e39f6fa9302ac4d782c",
+ "relations": [
+  {
+   "evidence": "Publish Obsidian Markdown notes and linked note trees to Tencent Docs (Smart Documents).",
+   "plugin": "Tencent Docs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Tencent Docs account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tencent Docs Open Platform token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Manually publishes Obsidian Markdown notes and linked note trees to existing Tencent Docs smart documents as projects of bound pages.",
+ "tags": [
+  "tencent-docs",
+  "smart-documents",
+  "wiki-links",
+  "image-upload",
+  "openapi"
+ ]
+}

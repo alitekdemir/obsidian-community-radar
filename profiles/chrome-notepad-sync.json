@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Uploads Markdown notes to a per-vault Chrome Notepad folder",
+  "Syncs changed files automatically every five minutes",
+  "Runs a manual vault sync from the command palette or settings",
+  "Backs up file IDs and timestamps encrypted on the server",
+  "Restores sync mappings after local plugin data is lost"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way sync; it only uploads Markdown copies to Chrome Notepad and never pulls web edits back into the vault.",
+ "extras": "Only Markdown files up to 512 KiB are synced; attachments stay in the vault. Sync tokens expire after 90 days and cannot read note contents. The account must have recoverable encryption enabled.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Notes kept in Obsidian have no built-in way to reach a Chrome Notepad account, so a web copy has to be made by hand.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "9e5e05498ff4d0ed9c37fe454ee174fcc74a8a2f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Send a one-way copy of your Obsidian vault's Markdown notes to a folder in your personal Chrome Notepad account.",
+   "plugin": "Chrome Notepad",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Chrome Notepad",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Chrome Notepad sync token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way uploader that copies a vault's Markdown notes into a folder in a personal Chrome Notepad account.",
+ "tags": [
+  "one-way-sync",
+  "secret-storage"
+ ],
+ "textHash": "52497739371bb34e8270c15467de3c1fa17761ef"
+}

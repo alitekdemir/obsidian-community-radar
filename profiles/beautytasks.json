@@ -1,0 +1,89 @@
+{
+ "also": [
+  "calendar",
+  "project-management"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture tasks with natural-language dates, priorities and labels",
+  "Organize tasks into projects, areas, labels and saved filters",
+  "View tasks as lists, Kanban boards or calendars",
+  "Set reminders, deadlines, sub-tasks and recurring tasks",
+  "Sync dated tasks two-way with Google Calendar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Google Calendar sync requires users to create their own Google Cloud project and publish the consent screen to production, or refresh tokens expire weekly. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Mobile reminders only fire while Obsidian is open; the README documents a third-party app (TaskForge) for home-screen widgets.",
+ "intent": "alternative",
+ "intentEvidence": "A Todoist-style task & project manager that lives inside Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a real task app inside Obsidian that keeps every task as a plain, portable Markdown note with no plugin dependencies, accounts or proprietary database.",
+ "primary": "tasks",
+ "problem": "Obsidian's core task lists are plain checkboxes in notes, with no dashboard, projects, statuses, reminders, recurrence or quick capture the way a dedicated task app has.",
+ "readmeHash": "5cca4c3db8c1e945a27fc2a7ab6b44d164c3b9cd",
+ "relations": [
+  {
+   "evidence": "A Todoist-style task & project manager that lives inside Obsidian",
+   "plugin": "Todoist",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Import from TaskNotes — migrate tasks from the TaskNotes plugin",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TaskForge is one such app (third party, not affiliated, free with a paid tier)",
+   "plugin": "TaskForge",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the one optional online feature is two-way Google Calendar sync",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "works with your theme, CSS snippets, or the Style Settings plugin",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google Calendar",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google account with own API credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Todoist-style task manager where each task is a Markdown note, with a dashboard, Kanban and calendar views, natural-language capture and optional Google Calendar sync.",
+ "tags": [
+  "todoist",
+  "google-calendar",
+  "kanban",
+  "natural-language-dates",
+  "reminders",
+  "recurring-tasks"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [],
+ "audience": [
+  ", "
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ", ",
+  "Expose vault tools",
+  "Read vault files",
+  "Write vault files",
+  "Manage filesystem access"
+ ],
+ "coreOverlap": {
+  "features": [
+   ", ",
+   "files",
+   "search",
+   "links"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It is a local bridge exposing specific vault tools via HTTP, not a general-purpose vault management tool.",
+ "extras": "Local-only deployment model; uses a generated self-signed certificate for HTTPS; includes an optional stdio fallback executable.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "External MCP clients need a secure, local way to interact with and manage the files within an Obsidian vault.",
+ "readmeHash": "142bd4e4bb8d8dcaecb7b2762147247e0a5237dc",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian Desktop 1.14.4 or later",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 22 or later",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "npm",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "A local Markdown vault",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "An MCP client with Streamable HTTP support",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Generated bearer token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A local bridge that connects MCP clients to an Obsidian vault, exposing eight vault tools via Streamable HTTP MCP.",
+ "tags": [
+  "mcp",
+  "streamable-http",
+  "local-bridge",
+  "stdio",
+  "bearer-token"
+ ]
+}

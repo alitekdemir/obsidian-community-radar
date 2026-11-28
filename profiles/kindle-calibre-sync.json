@@ -1,0 +1,80 @@
+{
+ "also": [
+  "annotation",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Kindle highlights and notes into vault",
+  "Match and convert books in Calibre",
+  "Inject annotations into Calibre metadata",
+  "Generate deep links to book locations",
+  "Read EPUBs in a side-by-side pane"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin (isDesktopOnly: true). Close the Calibre desktop app during syncing or converting so SQLite does not lock metadata.db; if it is busy, Markdown updates and reading still complete with a non-fatal warning. A legacy standalone Python CLI (kindle_sync.py and related scripts) is retained for headless automation without Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull in Kindle highlights and notes or to read EPUB books next to them.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "433938b03822e0f2dec031f1489a712601d34c02",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Matches books in Calibre's metadata.db",
+   "plugin": "Calibre",
+   "type": "integrates"
+  },
+  {
+   "evidence": "syncing Kindle highlights and personal notes into your Obsidian vault",
+   "plugin": "Kindle",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calibre (with metadata.db)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Kindle device or Notebook HTML exports",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Calibre ebook-convert CLI",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "GVFS/GIO, libmtp, or calibre-debug (for MTP Kindles)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Desktop plugin that syncs Kindle highlights and personal notes into Obsidian and a Calibre library, with an embedded side-by-side EPUB reader.",
+ "tags": [
+  "kindle",
+  "epub",
+  "highlights",
+  "annotations",
+  "ebooks"
+ ],
+ "textHash": "245b377dc71b2a6dfee418f9f16edad2e307ac54"
+}

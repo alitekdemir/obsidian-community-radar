@@ -1,0 +1,96 @@
+{
+ "also": [
+  "syncing",
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync watched folders to Anki decks",
+  "Infer Anki note type from Markdown structure",
+  "Convert frontmatter tags to Anki tags",
+  "Turn WikiLinks into obsidian:// links",
+  "Sync embedded media assets to Anki"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general Anki authoring tool; it supports only Anki's four default note types and no custom note types or native Anki markup.",
+ "extras": "Desktop only: the README states it does not work on Obsidian mobile apps because it needs a running Anki desktop instance. Automatic sync is disabled by default and the README warns it can lose review progress. Automatic note names are incompatible with Obsidian Sync. Linux users are advised to install Anki from the official website rather than Flatpak. Built as a thin wrapper over the standalone yanki CLI/TypeScript library, so it does its own Markdown to HTML rendering rather than using Obsidian's; rendering may differ from Obsidian. Includes an Agent Skill for coding agents. The README lists other Obsidian Anki plugins (Export to Anki / Obsidian_to_Anki, AnkiBridge, Flashcards, Anki Sync, Note Synchronizer, Awesome Flashcard, Auto Anki, text2anki-openai, AnkiSync+) without positioning Yanki against any of them.",
+ "intent": "new",
+ "intentEvidence": "Obsidian plugin to sync flashcards from a folder in your vault to Anki. Pure Markdown syntax. No fuss.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "The author wants Markdown-first, context-agnostic tools to avoid lock-in to Obsidian-specific syntax: \"I'm trying to ensure that the tools I write for my own workflows are 'Markdown first' and as context-agnostic as possible\".",
+ "primary": "flashcards",
+ "problem": "Creating Anki cards normally requires Anki-specific markup and manual deck management, which breaks the flow of writing notes in Obsidian.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "8e66cc3e8e889585ee698b1452c6e1ebe8b780c4",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The AnkiConnect add-on, version 26.11.15.0 or newer.",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "plugins like Victor Tao's Obsidian Linter can automate tag migration from the document body to frontmatter",
+   "plugin": "Obsidian Linter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This matches support in Obsidian provided by the Markdown Furigana plugin.",
+   "plugin": "Markdown Furigana",
+   "type": "inspired"
+  },
+  {
+   "evidence": "it's recommended to implement this in Obsidian with Markdown and plugins like Templater",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This is useful if you use the folder notes plugin to keep a top-level note per folder.",
+   "plugin": "folder notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PJ Eby's Hot-Reload Obsidian plugin is a huge help during development.",
+   "plugin": "Hot-Reload Obsidian",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki desktop application",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "AnkiConnect add-on",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "AnkiWeb account (only for pushing synced notes to AnkiWeb)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plugin that syncs Markdown flashcard notes from watched vault folders to Anki, inferring note types from Markdown structure.",
+ "tags": [
+  "anki",
+  "spaced-repetition",
+  "wikilinks",
+  "media",
+  "automatic-note-names",
+  "furigana"
+ ],
+ "textHash": "bd7abeb0fc2364895d3a13a08bd5043bdb65f631"
+}

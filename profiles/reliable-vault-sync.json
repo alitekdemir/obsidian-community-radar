@@ -1,0 +1,57 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize vault files and settings through a self-hosted Git-backed server",
+  "Merge non-overlapping text changes with three-way merges on the server",
+  "Resolve overlapping conflicts with an in-app resolver preserving BASE, LOCAL, and REMOTE versions",
+  "Transfer only changed file contents using incremental manifests",
+  "Configure per-device identity and vault ID for multi-device sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Early-release warning: keep independent backups and test new devices with a vault copy. Server stores vault contents in plaintext; no end-to-end encryption yet. Can be installed via BRAT (GHloII/reliable-vault-sync) before the in-app index updates.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's Sync is a paid service, and standard Git workflows don't handle mobile devices, automatic syncing, or recoverable conflicts inside the app.",
+ "readmeHash": "d75263c9f2cf4ea7acc9b98795895bb9c522ac20",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Reliable Vault Sync server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "server access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Self-hosted Git-backed vault sync plugin that synchronizes notes, attachments, and settings across devices with server-side merging and conflict resolution.",
+ "tags": [
+  "self-hosted",
+  "conflict-resolution",
+  "three-way-merge",
+  "websocket",
+  "docker",
+  "end-to-end-encryption"
+ ]
+}

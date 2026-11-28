@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Switch a note's display between original, English and German",
+  "Translate sentences via an OpenAI-compatible LLM and cache them in the vault",
+  "Edit translated sentences and restore replaced originals",
+  "Maintain a scoped glossary that corrects recurring term translations",
+  "Bulk-translate a folder with a token and cost estimate"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a file-rewriting translator: switching languages only renders a translation over the note, and only between English and German.",
+ "extras": "Requires Obsidian 1.11.4 or later for secret storage. Mobile is view-only: it reads pre-generated translations from the synced cache folder and never calls an API. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to read mixed German and English notes in one language; editing the file to translate it would break search, backlinks and sync.",
+ "readmeHash": "aa0e8f95ebcd67caf0bacb6e57391372bb1c50f6",
+ "relations": [
+  {
+   "evidence": "Built on the official Obsidian sample plugin template and API.",
+   "plugin": "Obsidian sample plugin",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Cloud provider account (OpenAI, OpenRouter, Meta Model API)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Per-token cloud translation costs",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Display-only translator that switches a note's view between its original text, English and German using any OpenAI-compatible LLM, without rewriting files.",
+ "tags": [
+  "llm",
+  "openai-compatible",
+  "lm-studio",
+  "openrouter",
+  "glossary",
+  "translation-cache",
+  "english-german",
+  "sentence-segmentation"
+ ]
+}

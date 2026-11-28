@@ -1,0 +1,64 @@
+{
+ "also": [
+  "dates",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit calendar events as list lines in Daily Notes",
+  "Insert event references from any note",
+  "Bidirectionally sync events with a CalDAV calendar",
+  "Create and edit display reminders (VALARM)",
+  "Resolve conflicts between local and remote edits"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a calendar view or CalDAV client; it only edits events as Markdown lines and delegates the calendar UI and CalDAV connection to Full Calendar Remastered.",
+ "extras": "README warns to test with a disposable calendar and keep backups of both vault and calendar before trusting it; some UI labels appear only in Chinese (授权, 处理冲突); the manifest notes the plugin has not been manually reviewed by Obsidian staff; documentation includes SECURITY.md referenced from the README.",
+ "intent": "improve",
+ "intentEvidence": "Full Calendar Remastered remains the calendar client and the remote CalDAV collection remains the source of truth.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for people who plan and journal in Markdown but use a dedicated calendar app for calendar views and system reminders.",
+ "primary": "calendar",
+ "problem": "People who plan and journal in Markdown have no way to keep Daily Note event lines and a real CalDAV calendar in sync, so calendar views and system reminders live in a separate app.",
+ "readmeHash": "e6eb2210caa138f0319ce27768fac18d040144bf",
+ "relations": [
+  {
+   "evidence": "It asks Full Calendar Remastered to read or mutate the selected calendar through a scoped JavaScript API.",
+   "plugin": "Full Calendar Remastered",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Full Calendar Remastered with a writable CalDAV calendar source",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "CalDAV calendar server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Calendar-event bridge that edits CalDAV events as plain list lines in Obsidian Daily Notes and syncs them through the Full Calendar Remastered plugin.",
+ "tags": [
+  "caldav",
+  "full-calendar-remastered",
+  "dayplanner-format",
+  "reminders",
+  "valarm",
+  "conflict-resolution"
+ ]
+}

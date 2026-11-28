@@ -1,0 +1,70 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Builds ticked notes into a read-only site as a zip archive or folder",
+  "Filters notes by path and property rules with regular expressions",
+  "Renders notes with Obsidian reading view, graph, backlinks, outline and search",
+  "Reviews what goes in and what stays out before building",
+  "Runs headless builds on a server through obsidian-cmd-runner"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish",
+   "Search",
+   "Graph view",
+   "Backlinks",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Warns that copied Obsidian, theme and plugin stylesheets belong to their authors, so think before sharing a site publicly; output must be kept out of sync (gitignore); zip limited to 4 GB and 65,535 files; canvases and bases are excluded; builds are byte-for-byte deterministic.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian cannot turn a chosen subset of a vault into a self-contained read-only website that opens from a file with no server or network.",
+ "profiledAt": "2026-11-26",
+ "provider": "Ant Digital",
+ "readmeHash": "8d53ad2db693bda921e9b40cd81b41da39ffa171",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "obsidian-cmd-runner starts Obsidian without its window, on a build server after a push or from a script",
+   "plugin": "obsidian-cmd-runner",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsidian-cmd-runner",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 22.18 or later",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Static-site exporter that builds chosen notes into a read-only website drawn by Obsidian, packed as one zip with index.html.",
+ "tags": [
+  "static-site",
+  "github-pages",
+  "read-only",
+  "regex",
+  "zip"
+ ],
+ "textHash": "e1f64e95a6a26df2ee1cb6d8f9952fb34b908a76"
+}

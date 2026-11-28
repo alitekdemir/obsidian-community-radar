@@ -1,0 +1,72 @@
+{
+ "also": [
+  "integrations",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with AI models in a sidebar with streaming responses",
+  "include active note context and file mentions in prompts",
+  "sign in via Claude Max OAuth, Anthropic API key, or ChatGPT Plus/Codex",
+  "review and apply agent-generated file edits through a multi-file diff UI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. Manifest carries an unreviewed-plugin notice. Disclosures state that prompts, note context, and responses are sent to Anthropic or OpenAI, and that API keys, OAuth tokens, and chat session IDs are stored in vault plugin data. Agent edits can modify vault files, so the README advises reviewing generated diffs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, so users must leave the app or wire up separate tools to chat with models over their notes.",
+ "readmeHash": "81f8ff8b7b58f8c861331511a856c2e455fd8350",
+ "relations": [
+  {
+   "evidence": "Claude Max OAuth support, an Anthropic API key fallback",
+   "plugin": "Anthropic/Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ChatGPT Plus/Codex OAuth sign-in",
+   "plugin": "ChatGPT Plus/Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Claude Max or ChatGPT Plus",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Claude Max / ChatGPT Plus subscription",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Desktop-only plugin that adds an AI chat sidebar using Claude Max OAuth, an Anthropic API key, or ChatGPT Plus/Codex, with note context and diff review.",
+ "tags": [
+  "claude",
+  "chatgpt",
+  "anthropic",
+  "openai",
+  "codex",
+  "oauth",
+  "streaming"
+ ]
+}

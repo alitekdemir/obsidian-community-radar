@@ -1,0 +1,63 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [
+  "craft-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview link repairs from info.json identifiers and Markdown siblings",
+  "Write repaired Markdown copies beside the source notes",
+  "Convert day:// links to date note links",
+  "Report unresolved links, metadata issues, and write failures",
+  "Run automatic repair passes when new exports arrive (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Craft importer; it repairs links in export files you have already placed in the vault.",
+ "extras": "Freemium: free version writes up to 10 repaired copies per pass; Pro (GitHub Sponsors, $5/month or $15 once) removes the limit and adds output folders, date formats, and automatic repair. Pro requires GitHub device-flow sign-in; the plugin stores the token in Obsidian's secret storage and sends no vault data. The README lists untested areas (real customer exports, mobile, real payments) and notes the plugin has not been manually reviewed by Obsidian staff. A What's new tab promotes other NoteMods plugins and can be disabled in settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Markdown imported from Craft is readable, but its page links still open Craft instead of the local notes.",
+ "readmeHash": "45cfa94dfaf9a65ba8ae163df99a5e63e9f0945e",
+ "relations": [
+  {
+   "evidence": "restores supported Craft page links from local info.json identifiers",
+   "plugin": "Craft",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Repairs Craft page links in imported Craft exports by mapping craftdocs:// URLs to local notes via info.json identifiers.",
+ "tags": [
+  "craft",
+  "craftdocs",
+  "textbundle",
+  "info-json",
+  "wikilinks",
+  "date-notes"
+ ]
+}

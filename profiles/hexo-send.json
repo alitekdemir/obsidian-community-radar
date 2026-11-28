@@ -1,0 +1,67 @@
+{
+ "also": [
+  "publishing",
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pre-release single notes, folders, or multi-selections to a local Hexo repository",
+  "Review and edit category, tags, keywords, descriptions, and image alt text before writing",
+  "Copy local images to /images/<abbrlink>/ and fill cover and top-image metadata",
+  "Detect Hexo, Node.js, Git, and abbrlink configuration before running",
+  "Run two Hexo validation passes, create exactly one commit, and push only after explicit confirmation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; not yet accepted into the community directory (BRAT or manual install offered). README includes detailed security section about filesystem access, process execution, and network use; the Community directory may show filesystem and process-execution warnings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in workflow for turning notes into Hexo posts, including copying images, filling metadata, validating the generated site, and making a controlled local Git commit.",
+ "readmeHash": "04d4681c788601d58a64dfe86e1c1cd52e19570a",
+ "relations": [
+  {
+   "evidence": "pre-releases selected Markdown files, folders, or multiple selections to a local Hexo repository",
+   "plugin": "Hexo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With BRAT, add FountainChan/obsidian-hexo-send as a beta plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hexo repository with local Hexo CLI, hexo-abbrlink, Node.js, and Git",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint key for optional AI metadata suggestions",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Hexo publishing assistant that pre-releases notes to a local Hexo repository, copying images, validating the site, and committing with explicit push confirmation.",
+ "tags": [
+  "hexo",
+  "git-commit",
+  "static-site-generator",
+  "abbrlink",
+  "openai",
+  "blog"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Convert pasted Zotero annotation links into Pandoc citations automatically",
+  "Resolve citation keys via Better BibTeX's local JSON-RPC API or a local .bib file",
+  "Keep zotero:// links to the specific PDF annotation inside each citation",
+  "Strip annotation links from a whole note to leave plain Pandoc citations for export",
+  "Convert selections, whole notes, and multiple annotations in one pass"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, since Better BibTeX mode talks to a local port and .bib mode reads files outside the vault. The README includes troubleshooting steps, known limitations, and disclosures about local network and file access; the .bib mode matches by author surname plus year and warns about ambiguous matches.",
+ "intent": "improve",
+ "intentEvidence": "Using the excellent jpeacock29/zotero-cite-links Obsidian plugin you can click these Pandoc citations and be linked to the item in Zotero.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted the deep-link functionality of Zotero annotations for research while keeping publish-ready Pandoc citations, since the zotero-cite-links plugin only works for library items, not highlights and other annotations.",
+ "primary": "research",
+ "problem": "Obsidian's Pandoc citation workflows work for Zotero library items, but pasted annotations arrive as Zotero links rather than citation keys, and existing click-through plugins don't cover annotations.",
+ "readmeHash": "1eb5fe563913f61c4ab1be533f7cc0109a6d0672",
+ "relations": [
+  {
+   "evidence": "the plugin talks to Zotero over Better BibTeX's local JSON-RPC API (item.citationkey)",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requires Zotero to be running with the Better BibTeX plugin installed.",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "However, this only works for library items, not highlights and other annotations. This plugin addresses that gap.",
+   "plugin": "jpeacock29/zotero-cite-links",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Converts Zotero drag-and-drop annotation links into Pandoc-style citations that keep a deep link to the highlighted annotation in Zotero.",
+ "tags": [
+  "zotero",
+  "better-bibtex",
+  "pandoc",
+  "citations",
+  "annotations",
+  "bibtex"
+ ]
+}

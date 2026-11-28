@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations",
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Clip Xiaohongshu image-text notes into Markdown with tags and full-resolution images",
+  "Download Bilibili and YouTube videos locally via yt-dlp",
+  "Transcribe narration-only subtitles with whisper.cpp, skipping background music",
+  "Segment subtitles into natural sentences with single-point timestamps",
+  "Save notes and media to configurable vault folders with a progress panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires macOS (Apple Silicon recommended) and several external tools installed via brew; a settings self-check verifies the environment. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Docs mention a 'ZeroCloud family' of plugins built with Claude-assisted development.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Saving Xiaohongshu posts and video narration into Markdown normally requires cloud APIs or manual copying, which this does offline with no cost.",
+ "readmeHash": "a1d360427faea36a325ab1e11457dc042547e817",
+ "relations": [
+  {
+   "evidence": "Everything runs locally: yt-dlp for downloads, whisper.cpp (large-v3-turbo) for transcription",
+   "plugin": "yt-dlp",
+   "type": "integrates"
+  },
+  {
+   "evidence": "yt-dlp for downloads, whisper.cpp (large-v3-turbo) for transcription, silero-vad for voice detection",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python 3, yt-dlp, ffmpeg, whisper-cli",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "silero-vad",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Web clipper that saves Xiaohongshu posts, Bilibili and YouTube videos, and web articles as local Markdown notes, with local transcription.",
+ "tags": [
+  "xiaohongshu",
+  "bilibili",
+  "youtube",
+  "web-clipper",
+  "yt-dlp",
+  "whisper",
+  "transcription",
+  "subtitles"
+ ]
+}

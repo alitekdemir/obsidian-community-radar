@@ -1,0 +1,58 @@
+{
+ "also": [
+  "syntax"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render ANSI escape codes in code blocks",
+  "Match the active Obsidian theme and dark/light mode",
+  "Configure custom dark and light color themes",
+  "Parse string-represented escape sequences per block",
+  "Correct iTerm2-specific control sequences"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README lists limitations: strikethrough and blinking text are not supported due to the ansi_up dependency, and raw escape sequences may not render in Obsidian.",
+ "intent": "new",
+ "intentEvidence": "I created this plugin specifically so that I could copy terminal output from iTerm2",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author created it specifically to copy terminal output from iTerm2 and save it into notes.",
+ "primary": "code",
+ "problem": "Obsidian code blocks show raw ANSI escape sequences instead of the colors a terminal displays, so pasted terminal output is unreadable.",
+ "readmeHash": "9ce0a407b301d35d8eb31185550e8efa90a6920d",
+ "relations": [
+  {
+   "evidence": "This plugin bundles ansi_up, which is distributed under the MIT License",
+   "plugin": "ansi_up",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "iTerm2",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "ANSI renderer that displays color-coded terminal output inside 'ansi' code blocks, translating escape sequences like a terminal would.",
+ "tags": [
+  "ansi",
+  "iterm2",
+  "terminal-output",
+  "escape-sequences",
+  "color-codes",
+  "ansi-up"
+ ]
+}

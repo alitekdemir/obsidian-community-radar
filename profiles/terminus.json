@@ -1,0 +1,86 @@
+{
+ "also": [
+  "developers",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Runs a real PTY-backed shell with multiple concurrent terminals",
+  "Tracks Claude Code edits and shows word-level, line-numbered diffs",
+  "Accepts or rejects changes per file or per hunk, with undo",
+  "Explains failed commands and suggests fixes through Claude",
+  "Organises Claude sessions into groups with an agent inbox"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS and Linux only; Windows is not supported. Session logging to notes and agent control are off by default. If Claude Code's Keychain login can't be read, a token from claude setup-token can be pasted in settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built so a Claude Code turn never leaves you hunting for where a change happened or copying errors into a separate chat window.",
+ "primary": "integrations",
+ "problem": "Obsidian has no terminal, and Claude Code's file edits land on disk with no in-app way to see, review or revert them.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "fa361741d83ebc605da9d401ff543858ac4fe4be",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The plugin auto-provisions a project-scoped .claude/settings.local.json in your vault wiring a PreToolUse hook",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Vault Publisher offers its site preview this way, so its Open in Terminus button",
+   "plugin": "Vault Publisher",
+   "type": "integrates"
+  },
+  {
+   "evidence": "git is optional. It powers the \"vs git HEAD\" diff view",
+   "plugin": "git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI (claude), installed and logged in",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.9+",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "PTY-backed terminal inside Obsidian with shell integration, command-failure help, and a Claude Code review workflow with per-file diffs.",
+ "tags": [
+  "claude-code",
+  "terminal",
+  "cli",
+  "diff",
+  "ai-agents",
+  "agent-skills"
+ ],
+ "textHash": "86b5e9c49601187b8b27996037c0f459adcfab7b"
+}

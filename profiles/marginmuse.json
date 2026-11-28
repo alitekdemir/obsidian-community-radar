@@ -1,0 +1,67 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with OpenAI-compatible models using note, folder, and imported web page context",
+  "read, create, edit, rename, and delete notes through built-in tools",
+  "create and edit Canvas boards",
+  "search the web with provider fallback and fetch URLs",
+  "run MCP servers, user-authored SKILL.md skills, and an optional Agent mode"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (uses Node.js APIs). MCP tools and web access are disabled by default and must be enabled in settings; file tools can modify the vault, so the README includes extensive safety and privacy warnings. Bilingual English/Chinese documentation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with AI models while letting them read and modify vault notes, Canvas, and external tools.",
+ "readmeHash": "b7df02204d96462d239aacfdf3c6dbc4388d6004",
+ "relations": [
+  {
+   "evidence": "OpenAI-compatible chat providers, including local Ollama and LM Studio endpoints.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Web search queries are sent to Bing and, when a reliable fallback is needed, Baidu, Sogou, or 360.",
+   "plugin": "Bing",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js for stdio MCP servers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI assistant panel that chats with OpenAI-compatible models, edits notes and Canvas, searches the web, and runs MCP tools and skills.",
+ "tags": [
+  "mcp",
+  "llm",
+  "web-search",
+  "tool-calling",
+  "agent",
+  "skills",
+  "openai"
+ ]
+}

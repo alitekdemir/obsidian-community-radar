@@ -1,0 +1,62 @@
+{
+ "also": [
+  "visualization",
+  "data"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "list memory notes with keyword search and filters by project, harness, currency, and tag",
+  "show a provenance panel for the active memory note",
+  "render a d3-force memory graph colored by project and sized by importance",
+  "badge and dim superseded and expired memories",
+  "group the graph by project, harness, or tag via facet hub nodes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not the memory engine itself; recall lives in the agentcairn CLI/MCP, and this plugin is only the read/navigate layer.",
+ "extras": "The plugin is explicitly read-only and local-only: it reads frontmatter via metadataCache, never note bodies, writes nothing, and makes no network requests. Points to a design spec in the main repo for further details.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README doesn't state the author's motivation.",
+ "primary": "ai",
+ "problem": "Agent memory stored as Markdown notes shows no provenance, importance, or currency status, and superseded memories look identical to current ones.",
+ "readmeHash": "d202353034c6fe4eb7498fc2c41904e6eab3a676",
+ "relations": [
+  {
+   "evidence": "This plugin is the read/navigate layer; agentcairn's CLI/MCP is the recall layer.",
+   "plugin": "agentcairn",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "agentcairn",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only Memory view that browses an agentcairn agent-memory vault as a filterable list and an interactive memory graph.",
+ "tags": [
+  "agent-memory",
+  "provenance",
+  "currency-status",
+  "mcp",
+  "cli",
+  "duckdb",
+  "d3-force"
+ ]
+}

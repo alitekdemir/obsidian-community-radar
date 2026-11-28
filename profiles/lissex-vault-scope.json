@@ -1,0 +1,66 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track note creation and modification statistics per day, folder, and tag",
+  "Group and filter Markdown tasks by status, priority, folder, and tag",
+  "Plan day schedules and migrate incomplete tasks between daily notes",
+  "Generate weekly, monthly, and yearly period plans from templates",
+  "Display GitHub commit activity and a contribution heatmap"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Statistics history is stored in VaultScope/activity.json inside the vault; the README notes it cannot recover edits made before installation or while disabled, and that notes in hidden directories may not be indexed. It states no data is sent to external services, except manual GitHub sync.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no single overview that combines note activity statistics with day-to-day planning, so users must check several places to see what they did and what is due.",
+ "readmeHash": "ed1b000ee53fbbebe14a7bc5f80b9d6f2f9d4099",
+ "relations": [
+  {
+   "evidence": "connect the GitHub account. VaultScope verifies the account and loads repositories available to that token",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "maintains a local list of courses from Stepik, Udemy, and other platforms",
+   "plugin": "Stepik, Udemy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Dashboard that tracks vault note activity and combines daily notes, tasks, schedules, period plans, learning courses, and GitHub commit stats.",
+ "tags": [
+  "github",
+  "heatmap",
+  "stepik",
+  "udemy",
+  "streaks",
+  "contribution-graph",
+  "time-blocking"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the pi coding agent in a sidebar panel with streaming replies and tool-call cards",
+  "Send the current note, selection, or pasted images to pi with one click",
+  "Configure tool permissions, working directory, sessions, and default model in settings",
+  "Search, replay, and rename past pi sessions from history",
+  "Log vault file changes observed while the plugin runs in an optional operation-log panel"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general chat assistant; it wraps the pi coding agent CLI, which can run tools (including bash) and modify vault files directly.",
+ "extras": "Desktop-only; on mobile it connects to a WebSocket bridge running pi on a computer. README warns that granting the bash tool gives pi full command execution and stresses keeping a token on remote bridges. No telemetry; optional AI operation log is described as an activity trail, not an audit log. The manifest notes the plugin has not been reviewed by Obsidian staff, and the author states it is a personal project with no maintenance schedule.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run a local coding agent that executes tools against the vault and answers its prompts inside a panel instead of a terminal.",
+ "readmeHash": "daf7b5ab27e9f421b29deda8fb4f699c0057af38",
+ "relations": [
+  {
+   "evidence": "Run the pi coding agent in an Obsidian sidebar: chat next to your notes",
+   "plugin": "pi",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pi CLI",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "model provider API keys (via models.json)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar chat panel that runs the pi coding agent, letting it read and write the vault while you reference notes, selections, or images.",
+ "tags": [
+  "coding-agent",
+  "cli",
+  "token-usage",
+  "tool-permissions",
+  "websocket",
+  "tailscale",
+  "remote-mode",
+  "agents-md"
+ ]
+}

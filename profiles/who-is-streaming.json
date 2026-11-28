@@ -1,0 +1,79 @@
+{
+ "also": [
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search movies and series using the note name",
+  "Write title details and streaming availability as note properties",
+  "Refresh a note directly via its tmdb_id and Type properties",
+  "Filter results by country and chosen streaming services",
+  "Save poster images into the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a live-streaming or screen-recording tool; it looks up which subscription services currently carry a given movie or series.",
+ "extras": "The API has free and paid tiers. The README also documents a Title stats view (with CSS variables and data attributes for restyling) and a Jellyfin watch-history integration; the Demo section is empty.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Notes about a film or show do not record where it can currently be watched, so availability has to be checked service by service by hand.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "d24f4386fe9ed02a50499d2bbcd695c351cbcdd4",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "using the Streaming Availability API by Movie of the Night",
+   "plugin": "Streaming Availability API by Movie of the Night",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
+   "plugin": "TMDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "List the titles in Jellyfin libraries and read watched status and dates.",
+   "plugin": "Jellyfin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Streaming Availability API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "TMDB API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Jellyfin server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Looks up which streaming services carry a movie or series and writes the title details and availability into the note's properties.",
+ "tags": [
+  "movies",
+  "tmdb",
+  "api-key"
+ ],
+ "textHash": "0ce1ff3bad30429eed1873caf51b22b38c1feb6f"
+}

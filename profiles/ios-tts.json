@@ -1,0 +1,58 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a full-document accessibility preview of the current note",
+  "Run a command or click a pane icon to invoke the preview",
+  "Add explicit paragraph and heading breaks for highlighting and pauses",
+  "Adjust the 100,000-word default preview limit in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not synthesize speech itself; it only exposes the full document to Apple's Accessibility Reader, which handles playback.",
+ "extras": "Requires Obsidian 1.13+ and iOS 26+ or macOS 26+; no speech service account or API key needed. The listing notes it has not been manually reviewed by Obsidian staff. Setup instructions live partly in linked external help docs, and the change history notes iPhone validation of the latest paragraph-boundary change is still pending. Apache 2.0 licensed.",
+ "intent": "improve",
+ "intentEvidence": "This plugin presents a special preview mode that Accessibility Reader can use to read the entire document",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants users to use the free, high-quality TTS built into iOS/macOS instead of paying for TTS API keys in other plugins.",
+ "primary": "audio",
+ "problem": "Obsidian's preview loads only the visible portion of a note, so Apple's Accessibility Reader can only speak part of the document.",
+ "readmeHash": "478247182f4948a16e26cb9018ae9504528696a3",
+ "relations": [
+  {
+   "evidence": "Invoke Apple's Accessibility Reader. The defaults are triple-click the lock button on iPhone and Command-Escape on Mac.",
+   "plugin": "Apple Accessibility Reader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Apple Accessibility Reader (set up in iOS/macOS accessibility settings)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Accessibility preview mode that renders the entire note so Apple's on-device Text-to-Speech via Accessibility Reader can read it aloud.",
+ "tags": [
+  "apple",
+  "text-to-speech",
+  "accessibility-reader",
+  "ios",
+  "macos",
+  "siri-voices",
+  "offline-speech"
+ ]
+}

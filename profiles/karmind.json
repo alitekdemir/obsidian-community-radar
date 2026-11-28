@@ -1,0 +1,68 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Compile raw notes in a raw/ folder into interlinked wiki pages",
+  "Answer questions using relevant wiki context",
+  "Backfill answers and analysis into the wiki",
+  "Run health checks for broken links, orphan pages, and gaps",
+  "Manage chat conversations and run slash-command skills"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns that LLM requests may include note content and that the API provider may log it, advising against use with sensitive notes unless the provider is trusted; /compile can consume many tokens; API keys are stored via Obsidian SecretStorage.",
+ "intent": "new",
+ "intentEvidence": "It follows a \"collect, compile, ask, backfill, improve\" workflow inspired by Andrej Karpathy's LLM Wiki pattern.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built to follow the 'collect, compile, ask, backfill, improve' workflow inspired by Andrej Karpathy's LLM Wiki pattern.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn collected raw material into a maintained wiki or ask LLM questions grounded in vault context.",
+ "readmeHash": "69f48ce62ae49120a679bd1e65e54581a940ea93",
+ "relations": [
+  {
+   "evidence": "The knowledge workflow is inspired by Andrej Karpathy's LLM Wiki idea file.",
+   "plugin": "Andrej Karpathy's LLM Wiki",
+   "type": "inspired"
+  },
+  {
+   "evidence": "For web articles, Obsidian Web Clipper is recommended.",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian Web Clipper",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "LLM-powered plugin that compiles raw notes into an interlinked personal wiki, answers questions, backfills answers, and runs wiki health checks.",
+ "tags": [
+  "llm",
+  "wiki",
+  "qa",
+  "openai",
+  "karpathy",
+  "health-check"
+ ]
+}

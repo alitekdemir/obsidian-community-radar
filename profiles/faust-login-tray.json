@@ -1,0 +1,62 @@
+{
+ "also": [
+  "utilities",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create an XDG autostart entry for Obsidian",
+  "Launch Obsidian with a hidden-start flag",
+  "Check the local tray host via gdbus",
+  "Remove the autostart entry when disabled"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a tray plugin itself; it only registers a login autostart entry and requires Keep Open in Tray for hiding.",
+ "extras": "Linux only, tested on Ubuntu 24.04. Writes faust-obsidian-start-in-tray.desktop outside the vault in the XDG autostart directory; no network access. Setting labels are in Russian with English in parentheses; README is bilingual English/Russian. Turn the setting off before uninstalling to remove the startup entry.",
+ "intent": "improve",
+ "intentEvidence": "Enable Keep Open in Tray and make sure the system tray is available.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian has no built-in way to launch minimized into the system tray when the Linux desktop session starts.",
+ "profiledAt": "2026-11-23",
+ "provider": "Baidu",
+ "readmeHash": "94d08cac28719f1b990ae5a04a59ddb751404fee",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Enable Keep Open in Tray and make sure the system tray is available.",
+   "plugin": "Keep Open in Tray",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Keep Open in Tray",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "gdbus and a StatusNotifierHost tray",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that starts Obsidian hidden in the Linux system tray at desktop login by adding an XDG autostart entry.",
+ "tags": [
+  "linux",
+  "system-tray",
+  "obsidian-uri"
+ ],
+ "textHash": "8ba815e75e1b24768e1240d778de14e09709157a"
+}

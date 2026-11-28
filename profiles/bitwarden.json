@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Unlock a Bitwarden vault with the master password and decrypt it in-plugin",
+  "Browse logins, cards, secure notes, and IDs by type or by folder tree",
+  "Search items by name, username, or URL",
+  "Copy usernames, passwords, and auto-refreshing TOTP codes",
+  "Sync or lock the session against US, EU, or self-hosted servers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "View-only: it cannot create, edit, or delete vault items.",
+ "extras": "Unofficial plugin not affiliated with Bitwarden; not in the community plugin store, so it must be installed manually. Warning: decrypted user key and access token are stored in data.json, which should be kept out of Git.",
+ "intent": "new",
+ "intentEvidence": "非公式プラグインです。Bitwarden 公式とは関係ありません。",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to view password vault entries or copy credentials and 2FA codes without leaving the app.",
+ "readmeHash": "216fe438496f53947256eb63bb8475aab9349064",
+ "relations": [
+  {
+   "evidence": "Obsidian のサイドパネルから Bitwarden の Vault を閲覧できる",
+   "plugin": "Bitwarden",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Bitwarden personal API key (client_id and client_secret)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Bitwarden account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only side panel that unlocks and browses a Bitwarden vault, with search, quick copy, and TOTP codes, decrypted entirely client-side.",
+ "tags": [
+  "password-vault",
+  "totp",
+  "two-factor-auth",
+  "argon2id",
+  "client-side-encryption",
+  "self-hosted",
+  "favicons"
+ ]
+}

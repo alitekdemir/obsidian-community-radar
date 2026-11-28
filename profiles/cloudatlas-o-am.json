@@ -1,0 +1,106 @@
+{
+ "also": [
+  "tasks",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Marvin categories, projects, and tasks into managed note regions",
+  "Create Marvin tasks from the editor with deep links back to the source note",
+  "Mark linked Marvin tasks done when checklist items are checked in Obsidian",
+  "Refresh a managed Today region in daily notes with due and scheduled tasks",
+  "Expose a typed API for Templater automation and a local MCP server for agents"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Distributed via BRAT or manual file copy rather than the community store; sync is mostly one-way (Marvin is the source of truth) with deliberate exceptions for task creation and completion; the bundled MCP server is stated to be spun out into its own repository; an experimental incremental sync feature exists; the local desktop API can be used to avoid API rate limits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to view Amazing Marvin task data in notes or create and complete Marvin tasks from the vault.",
+ "readmeHash": "bb20ecb3fd35e445554e4328a320d65e4e147183",
+ "relations": [
+  {
+   "evidence": "This plugin brings Amazing Marvin tasks, categories, and projects into Obsidian",
+   "plugin": "Amazing Marvin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The link can use either Advanced URI (the default, for the Advanced URI community plugin)",
+   "plugin": "Advanced URI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The default projection remains the existing Dataview format.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tasks can instead use Obsidian Tasks' Dataview fields or emoji date format",
+   "plugin": "Obsidian Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater and other in-Obsidian automation can use a typed API",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install the BRAT plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Amazing Marvin limited API token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Amazing Marvin account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Amazing Marvin desktop app (local API server)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Advanced URI",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Amazing Marvin integration that imports tasks, categories, and projects into vault notes, creates and completes Marvin tasks, and ships a companion MCP server.",
+ "tags": [
+  "amazing-marvin",
+  "mcp",
+  "dataview",
+  "advanced-uri",
+  "templater",
+  "deep-links",
+  "api-token"
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "embed live OneNote desktop windows inside notes",
+  "browse notebooks, sections, and pages in a sidebar tree",
+  "select pages via cascading dropdowns in code blocks",
+  "convert OneNote XML content to HTML with tables, images, and ink",
+  "extract preview images from handwritten ink pages"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Windows-only for embedding; macOS limited to basic sidebar browsing via AppleScript. On first launch the plugin automatically downloads two helper executables (onenote-repos.exe, win-embed-overlay.exe) from the GitHub release. Only one active embed session at a time.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no native way to view or edit OneNote content, so users must switch to the OneNote app or export content to use it alongside their notes.",
+ "readmeHash": "2d861aedadb2d3d855b6d94a3575b8a7d0159448",
+ "relations": [
+  {
+   "evidence": "The plugin communicates with the OneNote desktop application through the Windows COM interface.",
+   "plugin": "OneNote",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OneNote desktop (Microsoft 365 or Office 2016+)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Embeds and edits OneNote notes inside Obsidian via local COM integration with the OneNote desktop app, including live window embedding.",
+ "tags": [
+  "onenote",
+  "com",
+  "win32",
+  "window-embedding",
+  "applescript",
+  "windows-only"
+ ]
+}

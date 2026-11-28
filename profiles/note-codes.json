@@ -1,0 +1,46 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assign a 4-character code to every note",
+  "Look up notes by code in a search modal",
+  "Copy a note's code or obsidian://note-codes/open URL",
+  "Open notes by code via a protocol handler",
+  "Display the current note's code in the status bar or metadata sidebar"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher",
+   "Status bar"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Codes are derived from the note path via SHA-256 and Crockford Base32, so they change when a note is renamed; the README explains ambiguous characters are normalized during search.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian has no built-in way to reference a note by a short identifier you can jot down on paper or type elsewhere, since paths and names are long and change on rename.",
+ "readmeHash": "469c2e741910923fc3aa0f5a7ec775f58b83e690",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Short-code linker that assigns a stable 4-character code to every note so you can reference and open notes from anywhere.",
+ "tags": [
+  "short-codes",
+  "sha-256",
+  "base32",
+  "protocol-handler",
+  "code-lookup"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Reference merge requests inline (e.g. !123 or alias:!123) or in code blocks",
+  "Render live badges with state, pipeline result, approvals, and author",
+  "Configure multiple GitLab accounts for different instances with aliases and default projects",
+  "Open the merge request in the browser by clicking its badge",
+  "Cache API responses (default 15 minutes) with manual cache clearing"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README explains setup (alias, host, token, default project) and usage but not troubleshooting or limits.",
+ "intent": "new",
+ "intentEvidence": "Modeled on obsidian-jira-issue: configure one or more GitLab accounts, then reference merge requests inline or in a code block.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian notes that mention merge requests show only static text; there is no built-in way to see current merge request status.",
+ "readmeHash": "dcc5821c48825dab6d93f427329248434c11f2ad",
+ "relations": [
+  {
+   "evidence": "Modeled on obsidian-jira-issue: configure one or more GitLab accounts",
+   "plugin": "obsidian-jira-issue",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "personal or project access token with read_api scope",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitLab account/instance",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "GitLab integration that renders merge request references as badges showing live state, pipeline result, approvals, and author in notes.",
+ "tags": [
+  "gitlab",
+  "merge-request",
+  "badge",
+  "live-status",
+  "access-token"
+ ]
+}

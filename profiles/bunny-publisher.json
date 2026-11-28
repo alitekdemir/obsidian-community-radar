@@ -1,0 +1,79 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload images and media files to Bunny.net storage zones",
+  "Convert wiki-style embeds into Markdown image links with CDN URLs",
+  "Build dynamic upload paths from date placeholders like {{YYYY}}/{{MM}}",
+  "Delete local media files after a successful upload",
+  "Generate alt text via OpenAI, Google Gemini, or Perplexity"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-publishing tool; it only uploads media files and replaces embeds with CDN URLs.",
+ "extras": "Setup requires building from source (npm install and npm run build); the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores images and media as local vault files, so serving them from a CDN requires manual uploading and link rewriting.",
+ "readmeHash": "418cbab02cf9159311f272147aaef0e237872a64",
+ "relations": [
+  {
+   "evidence": "upload images and other media directly from Obsidian to your Bunny.net Storage Zone",
+   "plugin": "Bunny.net Storage Zone",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally generate alt-text using OpenAI, Google Gemini, or Perplexity",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally generate alt-text using OpenAI, Google Gemini, or Perplexity",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optionally generate alt-text using OpenAI, Google Gemini, or Perplexity",
+   "plugin": "Perplexity",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Bunny.net API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Google Gemini, or Perplexity key for alt text",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Media uploader that sends images and files from notes to Bunny.net storage zones and rewrites local embeds as CDN URLs.",
+ "tags": [
+  "bunny-net",
+  "cdn",
+  "media-upload",
+  "alt-text",
+  "openai",
+  "gemini",
+  "perplexity"
+ ]
+}

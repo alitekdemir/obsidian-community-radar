@@ -1,0 +1,83 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault with a Git branch",
+  "Transfer commits and files in small batches",
+  "Merge text changes line by line",
+  "Keep conflict copies beside files",
+  "Revert changed files to the last sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general Git client; it only syncs a vault with one branch of a Git repository.",
+ "extras": "Try it on a copy of a vault first; it has not run on a real phone or iOS; requires Git protocol v2 and SHA-1; Git LFS files arrive as pointer files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built to sync a vault with a Git repository on a phone without a Git program or holding more than a few megabytes at a time.",
+ "primary": "syncing",
+ "problem": "Syncing an Obsidian vault with a Git repository on a phone is hard because mobile devices lack a Git program and cannot hold large repository data in memory.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "986c575d3b9912d36509e260f3aff090d0ff69a1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "For a repository on github.com it also asks api.github.com for the sizes of the files",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitLab and Codeberg do not answer when git asks for sizes",
+   "plugin": "GitLab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "GitLab and Codeberg do not answer when git asks for sizes",
+   "plugin": "Codeberg",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git host reachable over HTTPS",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Git host token",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Git host account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Git-based vault sync that transfers commits and files in small batches, designed to work on phones without a Git program.",
+ "tags": [
+  "github",
+  "gitlab",
+  "android",
+  "ios",
+  "conflict-resolution",
+  "version-history",
+  "secret-storage"
+ ],
+ "textHash": "2fb1da3322f7aa0ff64a49d6b188d97178ed745e"
+}

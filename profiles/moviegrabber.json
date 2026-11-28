@@ -1,0 +1,73 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search movies and series by title or IMDB ID via the OMDb API",
+  "Generate notes from a customizable template with prefix, suffix, regex, and JavaScript string transforms",
+  "Embed YouTube trailers using the optional YouTube Data API key",
+  "Save movie poster images locally as jpg files",
+  "Preserve user content below a delimiter when overwriting existing notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README includes a disclaimer that the search selection preview uses outside assets (movie posters) retrieved from OMDb; it also documents an optional custom CSS snippet and Dataview card view for displaying the generated notes, and notes that the card view requires country, year, length, and trailer_embed fields.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up movie or series metadata and turn it into notes with structured properties.",
+ "readmeHash": "96823907a149a81a07d712927a3cad06fece4f8e",
+ "relations": [
+  {
+   "evidence": "Uses the Open Movie Database (OMDb) API to retrieve movie/series data",
+   "plugin": "Open Movie Database (OMDb) API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the Youtube Data API to get the embed links for the trailers (optional)",
+   "plugin": "Youtube Data API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Using a dataview table in combination with a custom css snippet, you can use these notes",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OMDb API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "YouTube Data API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Template-based note generator that fetches movie and series data from the OMDb API and writes it into properties for Dataview.",
+ "tags": [
+  "omdb",
+  "imdb",
+  "youtube-data-api",
+  "movies",
+  "tv-series",
+  "dataview",
+  "posters",
+  "trailers"
+ ]
+}

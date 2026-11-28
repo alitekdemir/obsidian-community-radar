@@ -1,0 +1,94 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Play link and local videos in a draggable player window",
+  "Convert Bilibili, Douyin, WeChat, netdisk and web links into notes",
+  "Insert timestamped links that jump back to the video position",
+  "Generate model summaries, translations and image OCR",
+  "Split books into chapter notes and notes into Canvas boards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a video editor; it plays videos and writes timestamped notes from them.",
+ "extras": "Desktop only (needs Electron). Bilibili timestamps come from an internal timer and are approximate; Douyin and netdisk links usually yield only title/cover or metadata; PDF book splitting is not implemented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Bilibili videos mostly have no captions and yt-dlp only lists danmaku streams, so the author added a local Whisper transcription bridge.",
+ "primary": "video",
+ "problem": "Watching a video and writing timestamped notes in Obsidian means switching apps and copying links and quotes by hand.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "9f69e743c8f5c57beaac92a94f1ed4d176cb07f2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "aidenlx/media-extended —— 媒体播放 + 时间戳笔记的产品形态",
+   "plugin": "aidenlx/media-extended",
+   "type": "inspired"
+  },
+  {
+   "evidence": "larryxu001/video-transcript-obsidian-fetch —— 字幕优先、无字幕再转写的取舍",
+   "plugin": "larryxu001/video-transcript-obsidian-fetch",
+   "type": "inspired"
+  },
+  {
+   "evidence": "vancoder4-cyber/anycontent-obsidian-importer —— 多平台链接统一成 Markdown 的思路",
+   "plugin": "vancoder4-cyber/anycontent-obsidian-importer",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "yt-dlp",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible model API",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3 with faster-whisper",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "magpie gateway",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Desktop-only plugin that plays videos in a separate window and turns links, books and images into notes with timestamps, AI summaries and Canvas boards.",
+ "tags": [
+  "bilibili",
+  "timestamps",
+  "transcription",
+  "whisper",
+  "yt-dlp",
+  "summarization"
+ ],
+ "textHash": "0c3919aa4a9992ab45a5c01201e3774a356b2997"
+}

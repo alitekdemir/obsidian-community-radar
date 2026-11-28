@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assign a knowledge base to each vault folder",
+  "Preview planned uploads, updates and deletions",
+  "Sync manually, on vault changes, or on an interval",
+  "Filter files by note properties and attachment extensions",
+  "Show a per-file sync status button in the note header"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "One-way upload to Langdock knowledge bases, not a two-way vault sync.",
+ "extras": "Requires Obsidian 1.12.4 or later. Images such as JPG, PNG and SVG are skipped because the Knowledge Folder API rejects image uploads; they must be uploaded manually in Langdock. Full documentation, network-use notes and troubleshooting live on an external site.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Copies of notes and attachments in a Langdock knowledge base go stale because they must be uploaded and updated by hand as the vault changes.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "c91f1758d35770670c23b3b89e986e8084642ec1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Classify each attachment with Classificator.",
+   "plugin": "Classificator",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Langdock workspace",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Langdock workspace API key with KNOWLEDGE_FOLDER_API permission",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Classificator",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs selected Markdown notes and attachments from vault folders to assigned Langdock knowledge bases, manually or on a schedule.",
+ "tags": [
+  "one-way-sync",
+  "api-key",
+  "docx",
+  "pptx"
+ ],
+ "textHash": "e4f6c530f0b9b5ce0d053f47d7eec9f084674b27"
+}

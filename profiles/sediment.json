@@ -1,0 +1,91 @@
+{
+ "also": [
+  "integrations",
+  "backup"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Hold agent writes in a pending queue with before/after diffs",
+  "Re-read and hash-verify targets before applying approved writes",
+  "Snapshot accepted changes and roll them back",
+  "Record and export a searchable change timeline as JSON or CSV",
+  "Expose 14 MCP tools for agent context, search, notes, memos, tasks and changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly): client setup, snapshots and uninstall use Node fs. Not a sandbox: an agent with direct filesystem access outside Sediment can still edit notes. Timeline is bounded by retained tool calls (500) and snapshots (200), so regular exports are needed for a permanent record. File bridge for non-MCP agents, poster export and art-style switching are experimental and off by default. The manifest description emphasizes a knowledge dashboard with heatmaps, memos and weekly reviews; the README positions those as supporting views for the write-audit core. Setup and threat-model docs live in examples/ (SECURE-AGENT-SETUP.md, AGENTS.md, Claude Code skill).",
+ "intent": "alternative",
+ "intentEvidence": "its own docs call it a review aid, not a complete audit",
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "A chat diff vanishes on restart, doesn't record shell changes, and never tells the agent you revoked something.",
+ "primary": "ai",
+ "problem": "Agent edits to the vault leave no durable record of what changed, whether it was approved, or how to undo it.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "8725d3a8e6cc54e9e009a3720a057fae718a82c1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "its own docs call it a review aid, not a complete audit",
+   "plugin": "Copilot for Obsidian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Auth and optimistic locking, but no approval queue, diff, rollback, or provenance",
+   "plugin": "mcp-obsidian",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Auth and optimistic locking, but no approval queue, diff, rollback, or provenance",
+   "plugin": "local-rest-api",
+   "type": "alternative"
+  },
+  {
+   "evidence": "optional Ollama embeddings are loopback-only with automatic fallback",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "One-click client setup supports 14 clients: OpenCode, Qoder (+ CN), Claude Desktop, Claude Code, Cursor, Cline",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MCP-capable agent client (Claude Code, Cursor, Codex, OpenCode, Cline, and others)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local-first write-audit layer for Obsidian that gates agent MCP writes behind approval, snapshots, rollback, and a searchable change timeline.",
+ "tags": [
+  "ai-agents",
+  "mcp",
+  "provenance",
+  "local-first",
+  "version-history",
+  "agent-skills"
+ ],
+ "textHash": "7362a7b499c23dbf4bf576d89978b9e2410ea8d0"
+}

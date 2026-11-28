@@ -1,0 +1,61 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [
+  "bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "publish notes to a configured WordPress site",
+  "read post metadata such as title and tags from YAML front matter",
+  "write the WordPress post ID and categories back into front matter to support later edits",
+  "publish via the command palette or an optional side ribbon button"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that some hosts or sites disable XML-RPC, in which case publishing will not work; REST API with application passwords (WordPress 5.6+) is recommended instead. Further protocol details are on an external page.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish notes to a self-hosted WordPress site, so bloggers must copy and paste content manually.",
+ "readmeHash": "8c9eeb256061ec81de14f5e8682607bedbbbd7ac",
+ "relations": [
+  {
+   "evidence": "This plugin uses XML-RPC or REST protocol to publish to WordPress.",
+   "plugin": "WordPress",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WordPress site",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "WordPress username and application password (WordPress 5.6+ for REST API)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishing plugin that sends Obsidian Markdown notes to a WordPress site via XML-RPC or the REST API.",
+ "tags": [
+  "wordpress",
+  "xml-rpc",
+  "rest-api",
+  "blog",
+  "application-passwords"
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "also": [
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Switch each device between Standard, Lite and Extreme start modes that control which community plugins load",
+  "Tick plugins for the Lite start list and load or unload plugins for the current session",
+  "Show window memory and running plugin count in the status bar with a popup for mode switching",
+  "Restart Obsidian directly in a chosen start mode via commands",
+  "Move itself to the top of the community plugin list so start-up interception works"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a runtime memory cleaner; it saves memory by skipping plugins at start-up, since unloading them mid-session frees little.",
+ "extras": "Desktop only and requires Obsidian 1.13.0+. Relies on non-public Obsidian internals (app.plugins, community-plugins.json order), so an Obsidian update could change behaviour; a fail-safe loads plugins normally if the plugin is removed or disabled. Renamed from Plugin Memory Monitor (id plugin-monitor) in 0.4.0. Ko-fi donations accepted.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Older laptops, low-RAM PCs and shared or virtual desktops feel the cost of every Obsidian plugin, and the author found unloading plugins mid-session frees almost nothing.",
+ "primary": "utilities",
+ "problem": "Loaded community plugins keep most of their memory until restart, so on low-RAM machines the only reliable saving is to not load unneeded plugins at start-up, which Obsidian cannot do per device.",
+ "readmeHash": "c148a10d48d1a3d59c54077a77f26202809f757a",
+ "relations": [
+  {
+   "evidence": "With BRAT: add mohammedsuder/obsidian-memory-saver as a beta plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Start-up mode manager that loads only the community plugins a device needs and shows Obsidian's memory use and plugin count in the status bar.",
+ "tags": [
+  "electron",
+  "ram",
+  "start-up",
+  "performance",
+  "plugin-loader"
+ ]
+}

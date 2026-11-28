@@ -1,0 +1,73 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Roll unfinished tasks from the most recent earlier daily note into today's note",
+  "Gather unfinished tasks from past daily notes over a chosen lookback period",
+  "Place rolled tasks under a chosen heading and filter by source headings",
+  "Undo the last rollover and restore the previous note contents",
+  "Import settings from Rollover Daily Todos"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns to turn off Rollover Daily Todos when switching, or new daily notes get their tasks twice. Tasks with custom checkbox characters count as unfinished unless listed in the finished markers setting.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin does what Rollover Daily Todos does, and adds",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian daily notes start blank, so unfinished tasks from the previous day have to be copied by hand.",
+ "readmeHash": "e52d46c7877e1bcd24502fdb475d7443ffd3befe",
+ "relations": [
+  {
+   "evidence": "This plugin does what Rollover Daily Todos does, and adds the items above",
+   "plugin": "Rollover Daily Todos",
+   "type": "alternative"
+  },
+  {
+   "evidence": "or from Periodic Notes when its daily notes are on",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If another plugin such as Templater fills the new note",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Task rollover helper that moves unfinished tasks from the previous daily note into today's note when it is created, with heading placement, deduplication and undo.",
+ "tags": [
+  "checkbox",
+  "undo",
+  "nested-lists",
+  "daily-notes",
+  "task-carryover"
+ ]
+}

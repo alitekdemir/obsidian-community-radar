@@ -1,0 +1,70 @@
+{
+ "also": [
+  "calendar",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Schedule unscheduled tasks into free gaps in a week view as accept-or-drag proposals",
+  "Read durations and dates from plain task lines or the Obsidian Tasks syntax",
+  "Write Day Planner-format time ranges back into notes without reformatting them",
+  "Draw a read-only ICS calendar feed on the grid and treat its events as busy",
+  "Review planned versus kept work and roll unfinished tasks into the next week"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (manifest claims no mobile support); early 0.2.0 release that the author suggests trying first in a scratch vault; requires Obsidian 1.7.2+; no account, server, or telemetry; weekly review output is readable by Obsidian Bases tables.",
+ "intent": "new",
+ "intentEvidence": "Fit this week | Schedules unscheduled work into your free slots. Nothing else in the directory does this",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "Obsidian task lists say what to do but not when, and comparable planners require annotating every task with durations or dates before they can schedule anything.",
+ "readmeHash": "a32448ff1dafdc606d6a68b3004a652648a94f42",
+ "relations": [
+  {
+   "evidence": "Weekfit writes Day Planner format — the same HH:MM - HH:MM lines the Day Planner plugin already renders",
+   "plugin": "Day Planner",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you use Tasks, keep using it — Weekfit reads its syntax rather than replacing it",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Weekfit defers to the Periodic Notes plugin when you have it installed",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ICS calendar feed URL",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Task scheduler that fits unscheduled tasks into free slots in a week view and writes the plan back as plain-text time lines.",
+ "tags": [
+  "ics",
+  "day-planner",
+  "time-blocking",
+  "weekly-review",
+  "drag-and-resize",
+  "recurring-commitments",
+  "backlog"
+ ]
+}

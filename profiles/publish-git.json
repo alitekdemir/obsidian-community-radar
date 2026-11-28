@@ -1,0 +1,73 @@
+{
+ "also": [
+  "git",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "publish notes tagged with a configurable tag to a GitHub Pages Jekyll site",
+  "convert Obsidian wikilinks and image embeds to relative Markdown paths",
+  "detect and log links pointing to private untagged notes",
+  "split or merge notes at publish time using split and merge callouts",
+  "generate detailed Git commit messages and push via Git or WSL"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault backup or Git sync tool; it publishes only tagged notes as a static Jekyll site.",
+ "extras": "Described as a premium (paid) plugin and marked as not manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish only tagged notes to your own Jekyll site on GitHub Pages, including link conversion and Git pushes.",
+ "readmeHash": "d3975fdc4fe30492ff7f8a9f8631a1caf327522b",
+ "relations": [
+  {
+   "evidence": "publishing of notes directly to a GitHub Pages-hosted Jekyll static site",
+   "plugin": "GitHub Pages",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Initializes a stunning Jekyll template with",
+   "plugin": "Jekyll",
+   "type": "integrates"
+  },
+  {
+   "evidence": "wraps and forwards commands to a WSL bash environment",
+   "plugin": "WSL",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account and repository",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Git (optionally via WSL on Windows)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Selective publisher that pushes notes tagged #public to a GitHub Pages-hosted Jekyll site, converting wikilinks and automating Git commits.",
+ "tags": [
+  "jekyll",
+  "github-pages",
+  "static-site",
+  "digital-garden",
+  "wikilinks"
+ ]
+}

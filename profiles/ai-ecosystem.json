@@ -1,0 +1,70 @@
+{
+ "also": [
+  "developers",
+  "automation"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run a local REST and MCP server for AI agent clients",
+  "Install and manage companion plugin modules from a catalog",
+  "Execute vault scripts in Python, Node.js, Bash or PowerShell on agent request",
+  "Inspect, filter and mask requests, tool calls and script runs",
+  "Install Claude Code hooks, setup skills and protection rules in the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an AI chat or assistant plugin; it is the server layer other plugins register into and external agents connect to.",
+ "extras": "Desktop only; the Claude Code hooks need Node.js on the PATH. The README carries strong security warnings: disabling Script Engine restrictions lets any authenticated client run arbitrary code, and the module catalog installs plugins only from one GitHub owner (EmanuellCarvalhoPires) on explicit clicks. The README is duplicated in Portuguese and includes a development and release guide for module authors.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI-related Obsidian plugins each need their own server and client configuration, so agents must connect to many separate local endpoints.",
+ "readmeHash": "64f20e2f9a953ef2c83ba3ecc24ffa384ea1de10",
+ "relations": [
+  {
+   "evidence": "Single local server (REST and MCP) for AI agents such as Claude Code",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "for AI agents such as Claude Code and Antigravity",
+   "plugin": "Antigravity",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Environment Keys",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "An MCP client such as Claude Code or Antigravity",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local REST and MCP server hub that lets AI agents like Claude Code use vault tools through companion plugin modules.",
+ "tags": [
+  "mcp",
+  "claude-code",
+  "antigravity",
+  "rest-api",
+  "local-server",
+  "script-runner",
+  "hooks"
+ ]
+}

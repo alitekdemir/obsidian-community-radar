@@ -1,0 +1,81 @@
+{
+ "also": [
+  "editing",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "mark text as human-written, AI-generated, or quoted with plain-text inline markers",
+  "colour text by author or AI model in live preview and reading view",
+  "track authorship as you type, paste, move lines, or paste an AI revision",
+  "export notes to PDF, Pandoc, Publish, or iA Writer annotations with markers handled",
+  "provide an agent skill and CLI so AI agents sign the text they write"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README states the plugin makes no network requests and collects no data, and details clipboard, vault and PDF privacy behaviour. The manifest notes it has not been manually reviewed by Obsidian staff. The full syntax and a detailed guide live in docs/SPEC.md and docs/GUIDE.md rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no way to record and display which parts of a note the user wrote, which an AI wrote, and which were quoted from elsewhere.",
+ "readmeHash": "fbe654b72364fe819bb90155980fc900414e0ad1",
+ "relations": [
+  {
+   "evidence": "to and from iA Writer's Markdown Annotations",
+   "plugin": "iA Writer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Search that ignores markers, in Obsidian's search, the find bar and Omnisearch",
+   "plugin": "Omnisearch",
+   "type": "integrates"
+  },
+  {
+   "evidence": "pages clipped with Obsidian Web Clipper are saved as signed quotes",
+   "plugin": "Obsidian Web Clipper",
+   "type": "integrates"
+  },
+  {
+   "evidence": "to Pandoc, to Obsidian Publish",
+   "plugin": "Pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "copy skills/rakkan into your agent's skills folder (~/.claude/skills/ for Claude Code)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 18 or later",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Inline authorship marker system that tags text as human-written, AI-generated, or quoted, and colours it by author or model in live preview and reading view.",
+ "tags": [
+  "ai-writing",
+  "attribution",
+  "ia-writer",
+  "pandoc",
+  "web-clipper",
+  "claude-code",
+  "provenance"
+ ]
+}

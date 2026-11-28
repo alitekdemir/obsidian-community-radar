@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes and attachments across devices through a self-hosted Worker",
+  "Merge non-overlapping text edits with a three-way line diff",
+  "Write conflict copies for overlapping or binary edits",
+  "Mint device tokens from an already-authorized device",
+  "Export local-only diagnostics without note content"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not peer-to-peer: every device syncs through a single self-hosted Cloudflare Worker.",
+ "extras": "No client-side end-to-end encryption: the Worker and anyone with access to the Cloudflare account or R2 bucket can read note and attachment bytes. The README states it is sync, not backup. Settings, themes and plugins are not synced, empty folders are skipped, and blob garbage collection is not implemented. The plugin ID changed from obsidian-distributed-sync to distributed-sync in v1.1.0.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted vault owners to run the sync server in their own Cloudflare account, with no vendor account or shared backend, and to keep conflicting edits rather than guess at them.",
+ "primary": "syncing",
+ "problem": "Syncing a vault across devices usually means trusting a third-party service with note contents, and overlapping edits get overwritten instead of preserved.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "3e0aa4e3a81904ae09d47ea0076b3c40b0756cec",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Designed for Cloudflare Workers, D1, and R2; the free tiers are usually enough for a personal vault.",
+   "plugin": "Cloudflare Workers",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install BRAT, choose Add Beta Plugin, and enter Developits/Obsync.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Deployed Cloudflare Worker with D1 and R2 (Wrangler)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Self-hosted sync plugin plus a Cloudflare Worker backend that keeps a vault synchronized across devices with three-way merges and conflict files.",
+ "tags": [
+  "cloudflare",
+  "cloudflare-workers",
+  "self-hosted",
+  "conflict-resolution",
+  "two-way-sync"
+ ],
+ "textHash": "6e9b91ecfb3aa3cbe9ba79c7887cb7abd7355f3d"
+}

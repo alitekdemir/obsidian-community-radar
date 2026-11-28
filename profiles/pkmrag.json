@@ -1,0 +1,70 @@
+{
+ "also": [
+  "search",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run hybrid semantic, BM25, and graph-boosted retrieval over vault notes",
+  "Discover unlinked note pairs with high similarity and suggest missing links",
+  "Warn about contradictions with LLM-backed citations in a sidebar",
+  "Expose vault query tools to AI agents via MCP over stdio and HTTP/SSE",
+  "Incrementally sync and reindex notes after edits"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The Obsidian plugin is a companion to a separately installed Python engine; the manifest notes it has not been manually reviewed by Obsidian staff, and detailed plugin docs live at docs/subsystems/obsidian-plugin.md rather than in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's search is keyword-based and its graph only shows explicit links, so semantically related but unconnected notes and contradictions stay hidden.",
+ "readmeHash": "fb6661186ec7b972ae03431813f83a1067f0a05c",
+ "relations": [
+  {
+   "evidence": "Serves as a high-precision retrieval data plane for AI agents (Claude Code, Cursor, OpenCode)",
+   "plugin": "Claude Code, Cursor, OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Swap between Ollama, OpenAI, Groq, or local endpoints",
+   "plugin": "Ollama, OpenAI, Groq",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PKMRAG Python engine (installed via pipx or uv)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for OpenAI or Groq (Ollama and local endpoints need none)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Local-first hybrid GraphRAG engine and MCP server that adds semantic retrieval, missing-link discovery, and contradiction warnings to a vault.",
+ "tags": [
+  "graphrag",
+  "mcp",
+  "vector-search",
+  "embeddings",
+  "semantic-search",
+  "ollama",
+  "rag"
+ ]
+}

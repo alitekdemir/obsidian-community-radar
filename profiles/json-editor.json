@@ -1,0 +1,82 @@
+{
+ "also": [
+  "code",
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Edit JSON values and structure in a tree view",
+  "Edit JSON text in a CodeMirror source mode",
+  "Preserve comments and formatting in .jsonc files",
+  "Render JSON code blocks as collapsible trees",
+  "Validate JSON against a companion schema"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a read-only JSON viewer; it edits .json and .jsonc files in place and only renders JSON code blocks in notes as read-only trees.",
+ "extras": "Requires Obsidian 1.11.4+ (API keys stored in app.secretStorage). Claims the .json extension, so only one .json-handling plugin can be active; on conflict the file view is disabled but code-block rendering keeps working. Tree edits to .json re-serialize the whole document, which can reorder integer-like object keys; files with integers above 2^53 open read-only. Optional LLM repair sends the broken block to a user-configured endpoint (local server, Ollama, LM Studio, or Anthropic for Claude); secrets in the block are replaced with placeholders first. No telemetry or remote resources otherwise.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "Built for personal use, released because it might be useful to others.",
+ "primary": "json",
+ "problem": "Obsidian has no dedicated JSON editor, so .json files open as plain text and JSON snippets in notes stay unreadable, while ordinary re-serialization destroys comments and formatting.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "a2c0eb257d702fa175850634c7784030c4e5a157",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "With the LLM Endpoint Manager plugin installed, the endpoint, its API key and the model come from there",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Known examples: JSON Viewer (read-only viewer), JSON Collapsible, and Data Files Editor.",
+   "plugin": "JSON Viewer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Known examples: JSON Viewer (read-only viewer), JSON Collapsible, and Data Files Editor.",
+   "plugin": "JSON Collapsible",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Known examples: JSON Viewer (read-only viewer), JSON Collapsible, and Data Files Editor.",
+   "plugin": "Data Files Editor",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM endpoint API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "JSON file editor with a tree/source toggle, comment-preserving .jsonc edits, and collapsible JSON trees for code blocks in notes.",
+ "tags": [
+  "syntax-highlighting",
+  "code-blocks",
+  "llm",
+  "openai-compatible",
+  "ollama",
+  "lm-studio",
+  "claude"
+ ],
+ "textHash": "aa8ffd31892622e19ec51cd89a0333a2dfe7d847"
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "backup",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move deleted notes, attachments and folders into a vault Trash folder",
+  "Restore entries to their original vault path",
+  "Rename to avoid overwriting when the original path is occupied",
+  "Empty the trash permanently after confirmation",
+  "Import existing items from the hidden .trash folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync service; it stores deleted items in an ordinary vault folder so your existing sync plugin can transfer them.",
+ "extras": "The default Delete interception is best-effort and may conflict with other trash-replacement plugins; the explicit Move to Synced Trash command is the safer fallback. Empty trash permanently removes everything inside Trash/, including files the plugin cannot index. The Trash folder stays visible in the vault, so trashed notes remain searchable by other plugins. The README advises keeping independent backups and testing with throwaway notes first.",
+ "intent": "improve",
+ "intentEvidence": "Standard Obsidian trash methods redirected to synced Trash when the plugin is enabled",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's hidden .trash directory is often not synchronized, so a note deleted on one device cannot be restored from another.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "705ad0ccd04d64f53a75f7aa35237da520b3bc54",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Works with existing file-based sync services such as Remotely Save + Dropbox",
+   "plugin": "Remotely Save",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the simplest installation method is to use BRAT on the iPhone and add your GitHub plugin repository",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Remotely Save",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Recoverable trash folder inside the vault that holds deleted notes, attachments and folders so an existing sync service can carry them to other devices.",
+ "tags": [
+  "trash",
+  "conflict-resolution",
+  "ios",
+  "windows",
+  "dropbox"
+ ],
+ "textHash": "dae8caf28c2b938383f9f375dc58ba52db00c07c"
+}

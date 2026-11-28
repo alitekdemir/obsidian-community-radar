@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "> Intercept copy events",
+  "> Read image binary",
+  "> Write image to clipboard",
+  "> Support multiple image formats"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (uses the navigator.clipboard.write API with ClipboardItem).",
+ "intent": "improve",
+ "intentEvidence": "This plugin makes Cmd+C just work: select the image embed, copy, paste anywhere.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To allow users to paste images directly into other applications (Slack, Mail, Figma, etc.) without needing to right-click and copy from the rendered preview.",
+ "primary": "images",
+ "problem": "By default, selecting an image embed in source mode copies the wikilink text instead of the image data, making it difficult to paste the image directly into other applications.",
+ "readmeHash": "d133bcf85f8b30789517f37a950763468ed1f950",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "copy-image-hotkey",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Intercept the system copy event to copy the actual image binary to the clipboard when an image embed is selected in source mode or Live Preview.",
+ "tags": [
+  "clipboard",
+  "image-embed",
+  "source-mode",
+  "binary-data",
+  "system-copy"
+ ]
+}

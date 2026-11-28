@@ -1,0 +1,102 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch YouTube captions automatically, manually, or via pasted transcript",
+  "Translate and summarize captions with Bedrock, OpenAI, Claude, or Gemini",
+  "Save genre-aware study notes with YAML frontmatter and embedded video",
+  "Bulk summarize multiple links, keeping failed links for retry",
+  "Auto-summarize new videos from subscribed channels once a day"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a video downloader or speech-to-text tool; it only fetches YouTube captions and sends them to an AI provider.",
+ "extras": "Requires Obsidian 1.13.0+; AWS profile/SSO auth needs desktop runtime with Node.js 20+. API keys stored in Obsidian secret storage, not data.json; keys must be re-entered per device. No telemetry; cloud models incur provider usage fees; auto-summarize spends quota without per-run confirmation. Migrates settings and channels from earlier ID obsidian-youtube-summarizer.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to pull YouTube captions and turn videos into notes without external tools like yt-dlp or a separate summary server.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "e1bc06b0d61cc6301bd82b0971e94aae86c31665",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Amazon Bedrock with AWS profile authentication first (IAM Roles Anywhere, SSO), falling back to a Bearer token",
+   "plugin": "Amazon Bedrock",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI and OpenAI-compatible servers, Anthropic Claude, Google Gemini",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI and OpenAI-compatible servers, Anthropic Claude, Google Gemini",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OpenAI and OpenAI-compatible servers, Anthropic Claude, Google Gemini",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Point an OpenAI-compatible server such as Ollama or LM Studio at a local address",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Point an OpenAI-compatible server such as Ollama or LM Studio at a local address",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Fetch YouTube captions inside Obsidian, translate and summarize them with the AI model of your choice",
+   "plugin": "YouTube",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key or AWS credentials (Bedrock, OpenAI, Anthropic, Gemini, or compatible server)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "YouTube Data API key (subscription feed and channel list only)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AWS CLI profile in ~/.aws/config for Bedrock IAM Roles Anywhere or SSO",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "YouTube caption summarizer that fetches transcripts in Obsidian and turns them into structured study notes with a chosen LLM.",
+ "tags": [
+  "youtube",
+  "llm",
+  "summarization",
+  "translation",
+  "openai-compatible",
+  "claude",
+  "gemini",
+  "api-key"
+ ],
+ "textHash": "9908df31660883522858151e983dbc90f98b8214"
+}

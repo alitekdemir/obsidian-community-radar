@@ -1,0 +1,61 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "match today's daily note by filename date prefix",
+  "open today's note via ribbon icon or command palette command",
+  "prefer descriptive notes and show a picker when several match",
+  "create a missing standard date file in the resolved folder",
+  "resolve YYYY/MM/DD placeholders in custom folder paths"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Bilingual English/Chinese UI that follows Obsidian's interface language; includes manual installation steps; README notes the plugin is pending acceptance into the community plugin directory; requires Obsidian 1.5.0 or later; no network access.",
+ "intent": "improve",
+ "intentEvidence": "Follow the core Daily Notes folder and date format when enabled.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "The core Daily Notes plugin opens the plain date-named file and has trouble with date formats containing folder segments, so descriptive daily notes sharing the date prefix are hard to reach.",
+ "readmeHash": "ef2deedd9a248d98b7e4979f0ab66289201293d3",
+ "relations": [
+  {
+   "evidence": "Follow the core Daily Notes folder and date format when enabled.",
+   "plugin": "Daily Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Handle races with the core Daily Notes and Templater plugins when creating a missing note.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Daily note opener that finds today's note by matching the date prefix in its filename, prefers descriptive notes, and creates a missing date file.",
+ "tags": [
+  "daily-notes",
+  "date-prefix",
+  "date-format",
+  "templater"
+ ]
+}

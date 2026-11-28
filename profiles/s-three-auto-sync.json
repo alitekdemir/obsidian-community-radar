@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes and attachments to S3-compatible storage or Cloudflare R2",
+  "Run manual one-shot sync or automatic debounced sync with remote-change polling",
+  "Detect conflicts and preserve local differences as .conflict-<hash> copies",
+  "Retain overwritten and deleted content in vault recovery folders and remote tombstones",
+  "Verify provider compatibility with a connection check before first sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Settings interface is currently in Chinese. Requires Obsidian 1.8.7 or newer; verified on macOS, with iOS, Android, and Windows validation still pending. Credentials are stored unencrypted in data.json, and retained blobs and recovery copies are never automatically cleaned, so storage usage can grow; the author states it does not replace an independent backup.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to synchronize a vault with self-owned S3-compatible object storage, and switching between sync tools on the same remote location causes conflicts.",
+ "readmeHash": "9e228b9e657a880c1f00e3d633ba2fec05b3fdd1",
+ "relations": [
+  {
+   "evidence": "Disable Remotely Save / Remotely Sync for the same sync location on all participating devices",
+   "plugin": "Remotely Save",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3-compatible storage provider (bucket, access key, secret key)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault sync to your own S3-compatible storage or Cloudflare R2, manual by default with optional automatic sync, incremental transfer, and conflict copies.",
+ "tags": [
+  "s3",
+  "cloudflare-r2",
+  "self-hosted",
+  "conflict-resolution",
+  "tombstones",
+  "sha-256"
+ ]
+}

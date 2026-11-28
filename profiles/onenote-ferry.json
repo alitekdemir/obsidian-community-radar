@@ -1,0 +1,75 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import OneNote notebooks from OneDrive, a downloaded folder or a Windows export",
+  "Convert pages to Markdown with highlights, links, tables and LaTeX equations",
+  "Keep pictures, attachments, printouts and handwriting as files",
+  "Update imported notes when OneNote pages change, keeping previous versions",
+  "Write a report of anything that could not be converted"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Free with an optional donation link; needs Obsidian 1.13 or later on a computer and does not work on phones or tablets; developed and tested on macOS, with Windows and Linux unverified; less common cases are documented in docs/requirements.md in Chinese.",
+ "intent": "alternative",
+ "intentEvidence": "OneNote Ferry is meant for the cases they leave open",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built for the cases other migration tools leave open: OneNote on a Mac, large notebooks, notes whose details matter, and users who keep writing in OneNote afterwards.",
+ "primary": "import",
+ "problem": "OneNote for Mac exports only PDF, most converters depend on OneNote for Windows, and Obsidian's official Importer is slowed by Microsoft's request limits on large notebooks.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "12c2554e7dd184c4de25159ce0424d97a312978a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Obsidian's official Importer fetches every page through Microsoft's online interface and is held to Microsoft's request limits",
+   "plugin": "Obsidian Importer",
+   "type": "alternative"
+  },
+  {
+   "evidence": "You have OneNote for Windows and want a one-time export | OneNote Md Exporter or OneNote Ferry",
+   "plugin": "OneNote Md Exporter",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Joplin's OneNote converter, based on onenote.rs: reads the OneNote files.",
+   "plugin": "Joplin's OneNote converter",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "OneNote for Windows",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Importer that converts OneNote notebooks into Markdown notes, keeping highlights, links, attachments, printouts and handwriting, and re-syncing later changes.",
+ "tags": [
+  "onenote",
+  "onedrive",
+  "migration",
+  "handwriting",
+  "highlights",
+  "local-first"
+ ],
+ "textHash": "3d336f8a8526f2423ccd154e1c61af00f910af33"
+}

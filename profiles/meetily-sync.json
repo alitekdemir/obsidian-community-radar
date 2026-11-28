@@ -1,0 +1,57 @@
+{
+ "also": [
+  "ai",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync meetings from Meetily's local SQLite database",
+  "Write a summary note and a transcript note per meeting",
+  "Add YAML frontmatter and cross-links between paired notes",
+  "Configure note locations with folder, subfolder, and filename patterns",
+  "Automate syncing on startup or on a timer"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a meeting recorder or transcriber; it only exports meetings that Meetily has already recorded and summarized.",
+ "extras": "Desktop only because it reads Meetily's SQLite file from disk; makes no network requests; Meetily's database is read-only and never modified.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README states the gap it closes: Meetily content \"stays inside the Meetily app\" and \"nothing ties it back to the rest of your knowledge base.\"",
+ "primary": "integrations",
+ "problem": "Meetings recorded and summarized in Meetily stay inside that app, and moving them into Obsidian means manual copy-pasting with no links back to the knowledge base.",
+ "readmeHash": "737352df9bf8b82569720cac688c40b3d65757e4",
+ "relations": [
+  {
+   "evidence": "Meetily Sync connects two tools you run locally.",
+   "plugin": "Meetily",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Meetily",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Meetily meeting summaries and transcripts from the app's local SQLite database into the vault as linked Markdown notes.",
+ "tags": [
+  "meetily",
+  "whisper",
+  "meeting-notes",
+  "speech-to-text",
+  "diarization",
+  "sqlite"
+ ]
+}

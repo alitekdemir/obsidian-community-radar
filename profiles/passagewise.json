@@ -1,0 +1,77 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Kindle My Clippings.txt and Kindle notebook HTML",
+  "Import KOReader metadata sidecars and JSON exports",
+  "Import a Kobo KoboReader.sqlite database",
+  "Create one note per book with a block ID per highlight",
+  "Skip already-imported highlights and merge exact repeats on re-import"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Kindle imports are free; Kobo and KOReader imports need a one-time US$12 Pro license, not sold in Japan. Importing never uses the network, but activating or removing a Pro key contacts Polar. The README notes no testing on physical devices and mobile was checked only in desktop emulation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Ebook highlight exports arrive as flat files, and re-importing them into Obsidian tends to duplicate quotes or overwrite notes you have already edited.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "53887c95ec71db90dc4c8faa9e2ce2503c401c87",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Compatible with Kindle, Kobo, and KOReader export files.",
+   "plugin": "Kindle",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compatible with Kindle, Kobo, and KOReader export files.",
+   "plugin": "Kobo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compatible with Kindle, Kobo, and KOReader export files.",
+   "plugin": "KOReader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Kindle, Kobo or KOReader",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Passagewise Pro (US$12 one-time)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Kindle, Kobo and KOReader highlight exports into one note per book, adding only new highlights and leaving existing text untouched.",
+ "tags": [
+  "ebooks",
+  "kindle",
+  "kobo",
+  "highlights",
+  "annotations",
+  "duplicate-detection",
+  "sqlite",
+  "freemium"
+ ],
+ "textHash": "7bfe8c656a3b6a88e46ef1b78bd2a1a3d5237d0d"
+}

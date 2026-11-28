@@ -1,0 +1,76 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send the open note and its Vault images to a Tomos site over HTTPS",
+  "Create a new note pre-filled with Tomos Front Matter as a starting template",
+  "Send draft:true notes to Tomos Inbox for preview before manual publishing",
+  "Publish to a GitHub-based Tomos site via the Tomos GitHub App",
+  "Report Tomos publish and Bluesky announcement results as Obsidian notices"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (Japanese and English). Image transfer is limited to JPEG, PNG, GIF and WebP, up to 5 images per article and 10MB each; SVG is not supported. Images are resized to a 2048px long edge for GitHub publishing. The plugin never modifies the original note or moves Vault images.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to send a note together with its local embedded images straight to a Tomos site for preview and publishing.",
+ "readmeHash": "3265f798b1b847196d68cad27221859a8ea50c76",
+ "relations": [
+  {
+   "evidence": "Tomos Publisher sends Markdown and local images from Desktop and Mobile to a Tomos site over HTTPS.",
+   "plugin": "Tomos",
+   "type": "integrates"
+  },
+  {
+   "evidence": "To publish to a GitHub-based Tomos site, choose GitHub版Tomos as the destination, connect through the Tomos GitHub App",
+   "plugin": "Tomos GitHub App",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tomos v1.0.5以降ではBluesky投稿成功・失敗・再投稿防止もNoticeで確認",
+   "plugin": "Bluesky",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tomos site (v0.1.0-beta.1 or later) over HTTPS",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tomos posting token issued in Tomos Post",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Tomos GitHub App connection for GitHub-based publishing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Publishing connector that sends Markdown and local images from Obsidian to a Tomos site, with draft previews, article templates and Bluesky notices.",
+ "tags": [
+  "tomos",
+  "bluesky",
+  "github",
+  "image-upload",
+  "og-image",
+  "draft-preview"
+ ]
+}

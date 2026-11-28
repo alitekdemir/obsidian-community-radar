@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files two-way with a Seafile library or a folder inside it",
+  "Merge concurrent edits of notes and Excalidraw drawings, keeping conflict copies",
+  "Compare and restore file versions from the server history",
+  "Restore deleted files from the Seafile trash",
+  "Limit synced folders and file types per device"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "iOS/iPadOS support is untested on a device. The README warns against running it alongside another sync for the same vault (Obsidian Sync, Remotely Save, an auto-pushing Git plugin or the Seafile desktop client). Syncing other plugins' settings is off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Vaults kept on a self-hosted Seafile server have no Obsidian-native client, and ordinary file sync can silently overwrite edits made on two devices.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "e00b68cec62eb7fcbf9e824cc8b07b4865b969d8",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Sync your Obsidian vault through your own Seafile server",
+   "plugin": "Seafile",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw drawings (.excalidraw.md and .excalidraw) get a merge of their own",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Seafile Server 7.0 or newer",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Seafile login",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync between an Obsidian vault and a Seafile library, with three-way merge, conflict copies and deletion safety.",
+ "tags": [
+  "two-way-sync",
+  "conflict-resolution",
+  "self-hosted",
+  "version-history",
+  "excalidraw",
+  "encryption"
+ ],
+ "textHash": "a3b1bf59a032a5f298805701cc18c26850255e82"
+}

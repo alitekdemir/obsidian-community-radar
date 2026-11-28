@@ -1,0 +1,86 @@
+{
+ "also": [
+  "search",
+  "sidebar"
+ ],
+ "audience": [
+  "security-analysts",
+  "incident-responders",
+  "threat-researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "extract IP addresses, domains, and SHA256/MD5 hashes from the current note",
+  "display all found IOCs in an organized sidebar view",
+  "defang domains and IP addresses via context menu or command",
+  "recognize standard and defanged IOCs like \"evil[.]com\"",
+  "open search pivots for an indicator on security engines"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Note contents are processed locally; the only automatic network request fetches the public TLD list from data.iana.org for domain validation, cached for offline use. Opening a search pivot sends the selected indicator to that provider.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "As security professionals, the authors constantly encounter IOCs in their work and found tracking them within lengthy notes challenging.",
+ "primary": "research",
+ "problem": "Security professionals struggle to keep track of indicators of compromise scattered throughout lengthy notes.",
+ "readmeHash": "9512fec4ac0f37fdddaee869c548c4b3872c1fb2",
+ "relations": [
+  {
+   "evidence": "supports pivots to the following resources/search engines",
+   "plugin": "VirusTotal",
+   "type": "integrates"
+  },
+  {
+   "evidence": "supports pivots to the following resources/search engines",
+   "plugin": "Shodan",
+   "type": "integrates"
+  },
+  {
+   "evidence": "supports pivots to the following resources/search engines",
+   "plugin": "AbuseIPDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "supports pivots to the following resources/search engines",
+   "plugin": "Censys",
+   "type": "integrates"
+  },
+  {
+   "evidence": "supports pivots to the following resources/search engines",
+   "plugin": "URLScan",
+   "type": "integrates"
+  },
+  {
+   "evidence": "supports pivots to the following resources/search engines",
+   "plugin": "GreyNoise",
+   "type": "integrates"
+  },
+  {
+   "evidence": "supports pivots to the following resources/search engines",
+   "plugin": "Spur Context API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sidebar view that extracts IP addresses, domains, and file hashes from the current note, with defanging and one-click search pivots.",
+ "tags": [
+  "indicators-of-compromise",
+  "defanging",
+  "threat-intelligence",
+  "incident-response",
+  "soc",
+  "sha256",
+  "md5"
+ ]
+}

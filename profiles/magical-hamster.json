@@ -1,0 +1,67 @@
+{
+ "also": [
+  "audio"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe microphone audio live in a sidebar",
+  "Enhance shorthand note lines into bullets grounded in the transcript",
+  "Generate executive summaries, recaps, or action items after a meeting",
+  "Answer questions with sources drawn from the transcript and indexed vault folders",
+  "Create a companion note per meeting linked from the daily note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not manually reviewed by Obsidian staff. Transcription requires a Mac with Apple silicon (M1 or later) and about 8 GB of models; the speech runtime (~700 MB) is stored outside the vault in ~/Library/Application Support/magical-hamster/. A guided walkthrough is in docs/TUTORIAL.md rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in meeting transcription or AI meeting notes, so capturing and cleaning up what was said during a meeting means leaving the vault or using cloud services.",
+ "readmeHash": "943a02d0bfce70020d20aaeef0329a154067546d",
+ "relations": [
+  {
+   "evidence": "the writing and retrieval models through Ollama (Gemma 4 12B and EmbeddingGemma 2 by default)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "speech recognition with NVIDIA's Nemotron 3.5 ASR model through sherpa-onnx",
+   "plugin": "sherpa-onnx",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 22 or later",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Meeting assistant that transcribes meetings locally, turns shorthand lines into transcript-grounded bullets, writes summaries, and answers questions from the transcript and vault.",
+ "tags": [
+  "ollama",
+  "speech-recognition",
+  "transcription",
+  "meetings",
+  "local-llm",
+  "asr",
+  "sherpa-onnx"
+ ]
+}

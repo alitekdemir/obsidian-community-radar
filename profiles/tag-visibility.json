@@ -1,0 +1,63 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Hide, flag, or pin tags across the tag pane, Properties, autocomplete, and Notebook Navigator",
+  "Browse and triage all vault tags in a dockable panel with counts, filters, and bulk actions",
+  "Author regex, frequency-threshold, and list-based rules with a live preview of affected tags",
+  "Delegate tag renaming to Tag Wrangler from the panel's row menu",
+  "Remove all display effects instantly via a panic-disable command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Distributed via BRAT until the directory listing is live; requires Obsidian 1.9.10 or newer; makes no network requests and no telemetry; includes a detailed non-goals section.",
+ "intent": "improve",
+ "intentEvidence": "One command docks the panel beside the native tag pane",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Obsidian offers no built-in way to hide noisy or irrelevant tags across its UI surfaces without editing note content.",
+ "readmeHash": "f22296854134a0fdee09bdccfbef632614b11ad3",
+ "relations": [
+  {
+   "evidence": "Tag Visibility delegates renaming to Tag Wrangler and never writes note content itself",
+   "plugin": "Tag Wrangler",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tag Visibility decorates Notebook Navigator's tag tree through runtime interop only",
+   "plugin": "Notebook Navigator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install it to customize Tag Visibility's hidden- and flagged-tag styling through a GUI",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Rule engine that hides, flags, or pins tags across the tag pane, Properties, autocomplete, and Notebook Navigator without modifying any notes.",
+ "tags": [
+  "regex",
+  "tag-wrangler",
+  "dataview",
+  "notebook-navigator",
+  "style-settings",
+  "metadata-cache"
+ ]
+}

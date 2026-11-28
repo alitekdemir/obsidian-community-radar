@@ -1,0 +1,84 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Browse web pages and local HTML inside Obsidian tabs",
+  "Search selected text or pages with a default search engine",
+  "Copy links pointing to text highlights and video timestamps",
+  "Run Chrome extensions such as Tampermonkey and Dark Reader",
+  "Expose open tabs to AI agents through a local MCP server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web Viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Chrome extensions and the MCP server are desktop-only and need an Obsidian installer of 1.12.4 or later (Electron 39+); extensions can't load while session isolation is on. MCP server is localhost-only, token-protected, and JavaScript execution is off by default.",
+ "intent": "improve",
+ "intentEvidence": "The core functionality of the plugin, rendering a web view, is greatly influenced by Ellpeck's Obsidian Custom Frames plugin",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Web links in Obsidian open in an external browser, taking users out of the vault while researching or reading.",
+ "readmeHash": "c8f7b3a28885e87e9c0cac5518c4bff2c89c65d7",
+ "relations": [
+  {
+   "evidence": "greatly influenced by Ellpeck's Obsidian Custom Frames plugin and this plugin wouldn't have been possible without it",
+   "plugin": "Obsidian Custom Frames",
+   "type": "inspired"
+  },
+  {
+   "evidence": "This used to be the separate Chrome Extensions Bridge plugin.",
+   "plugin": "Chrome Extensions Bridge",
+   "type": "replaces"
+  },
+  {
+   "evidence": "while Obsidian's core Web Viewer plugin is enabled, extensions run in Web Viewer tabs",
+   "plugin": "Web Viewer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Quickadd to search selection in ChatGPT in Surfing",
+   "plugin": "Quickadd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Quickadd",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI agent client (Claude Code, Codex CLI, Cursor)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Chrome Web Store",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "In-app web browser that opens web pages and local HTML in Obsidian tabs, with history, search, Chrome extensions and an MCP server for AI agents.",
+ "tags": [
+  "web-browser",
+  "mcp",
+  "bookmarklet",
+  "chrome-extensions",
+  "tampermonkey",
+  "search-engine",
+  "bilibili"
+ ]
+}

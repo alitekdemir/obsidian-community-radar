@@ -1,0 +1,75 @@
+{
+ "also": [
+  "collaboration",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Browse a review queue of a repository's pull requests and issues",
+  "Create issues from repository templates with a Write/Preview editor and @mention autocomplete",
+  "Render PR Markdown files and issue/PR comment threads as Markdown with collapsible file diffs",
+  "Submit GitHub reviews (Comment, Approve, Request changes) and comment or close items",
+  "Expose the open PR/issue to Claude clients via a local read-only stdio MCP server"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a Git version-control or vault-sync plugin; it works with GitHub issues and pull requests, not commits or vault history.",
+ "extras": "Desktop-only (reads the vault's git remote). The GitHub token is stored in plaintext in data.json, so don't sync the vault to untrusted locations; GitHub forbids approving your own PR and the Approve option is disabled in that case. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for reading and reviewing Markdown spec / design documents, which render poorly on GitHub's web UI.",
+ "primary": "integrations",
+ "problem": "Reviewing Markdown spec and design documents on GitHub's web UI renders poorly, and reviewing them means leaving Obsidian.",
+ "readmeHash": "d0da3c8e8072cb175d7000e7eb12949d56b595c1",
+ "relations": [
+  {
+   "evidence": "an external Claude client (e.g. Claudian or the Claude Code CLI) see the pull request or issue you're viewing",
+   "plugin": "Claudian",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Other Claude clients (e.g. the claude CLI): use Copy config and add the entry to that client",
+   "plugin": "Claude Code CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You read and discuss specs in Obsidian's native Markdown, and every action writes straight back to GitHub.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude client (Claudian or Claude Code CLI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "GitHub integration that lets you read, comment on, and review issues and pull requests inside Obsidian, writing every action back to GitHub.",
+ "tags": [
+  "github",
+  "pull-requests",
+  "code-review",
+  "issue-templates",
+  "mcp-server",
+  "claude",
+  "spec-documents"
+ ]
+}

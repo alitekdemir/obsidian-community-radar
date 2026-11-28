@@ -1,0 +1,63 @@
+{
+ "also": [],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Push file changes to a self-hosted server after a 2s debounce",
+  "Pull remote changes on startup and on a polling interval",
+  "Receive real-time desktop updates via Server-Sent Events",
+  "Transfer only changed files via delta sync",
+  "Save stale writes as timestamped .conflict copies instead of overwriting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Real-time push (SSE) is desktop-only; mobile relies on polling and sync-on-focus. Setup requires deploying a separate companion server.",
+ "intent": "alternative",
+ "intentEvidence": "a lightweight self-hosted alternative to Obsidian Sync / obsidian-livesync",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To offer a lightweight, self-hosted sync option with no vendor lock-in and no vault size limits beyond the user's own storage.",
+ "primary": "syncing",
+ "problem": "Obsidian Sync is a paid hosted service, and existing sync options can have vault size limits or vendor lock-in.",
+ "readmeHash": "0fdd7fffdbde47cf1ffedf38d6988ec8afe48f43",
+ "relations": [
+  {
+   "evidence": "a lightweight self-hosted alternative to Obsidian Sync / obsidian-livesync",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "a lightweight self-hosted alternative to Obsidian Sync / obsidian-livesync",
+   "plugin": "obsidian-livesync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "companion self-hosted sync server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault sync client that pairs with a self-hosted companion server to push, pull, and merge changes across devices.",
+ "tags": [
+  "self-hosted",
+  "delta-sync",
+  "conflict-resolution",
+  "server-sent-events",
+  "qr-pairing",
+  "glob-exclusions"
+ ]
+}

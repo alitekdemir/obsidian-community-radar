@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Renders interactive Plotly charts from YAML or JSON plotly code blocks",
+  "Fits chart width to the note and to PDF export pages",
+  "Explores CSV and Markdown table data with read-only eda tools",
+  "Builds, checks and reads chart blocks through agent tools",
+  "Records data provenance in chart block comments"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Agent tools are read-only and exposed via agentinterop v1, the author's own MCP-like convention, not an official standard; CSV tools accept at most 100 columns, 100,000 rows and 5 MiB; the plugin works without any agent, and the community-list install path applies only once it is listed.",
+ "intent": "alternative",
+ "intentEvidence": "It is a fork of obsidian-plotly by Dmitriy Shulha (MIT), updated to Plotly.js 4 and D3 7.",
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Obsidian cannot render interactive Plotly charts from plain code blocks, and LLM agents have no validated way to turn vault data into chart blocks.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "02174c243439f03b809c04a7a954f5c3a70f950c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "It is a fork of obsidian-plotly by Dmitriy Shulha (MIT), updated to Plotly.js 4 and D3 7.",
+   "plugin": "obsidian-plotly",
+   "type": "fork"
+  },
+  {
+   "evidence": "Paired with Verbex, an AI agent for Obsidian, you describe the chart you need in plain words",
+   "plugin": "Verbex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This needs the Dataview plugin with Enable JavaScript queries turned on in its settings.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a compatible HWPX Exporter renders into an HWPX document",
+   "plugin": "HWPX Exporter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Verbex",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plotly chart renderer that draws interactive charts from YAML or JSON code blocks and gives LLM agents read-only tools to build, check and trace them.",
+ "tags": [
+  "ai-agents",
+  "dataview",
+  "llm"
+ ],
+ "textHash": "7086844266420cd91d7838d738a8804334cb794e"
+}

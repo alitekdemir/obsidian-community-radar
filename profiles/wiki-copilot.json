@@ -1,0 +1,64 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions over the vault with traceable citations that open the exact note and heading",
+  "Run model-planned lexical retrieval in fast (curated Wiki) and precise (full Markdown scan) modes",
+  "Expand retrieval through outgoing links, backlinks, and Wikilink expansion without an embedding service",
+  "Stream OpenAI-compatible answers with cancellation and non-streaming fallback",
+  "Run an index diagnostics command comparing vault-visible files with indexed coverage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the Copilot name, it does not write or edit notes; it answers questions with citations and currently does not automatically modify Wiki or source notes.",
+ "extras": "Requires Obsidian 1.13.0 or later; works on mobile (isDesktopOnly false) with device-local IndexedDB indexing; API keys are stored in Obsidian Secret Storage; no embedding service is required. Roadmap items (refine-and-save workflow, hybrid embedding retrieval) are not implemented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README frames the goal as treating a vault as a structured knowledge system instead of a flat collection of interchangeable chunks.",
+ "primary": "ai",
+ "problem": "Vault-wide AI chat treats notes as flat interchangeable chunks and needs embedding services, losing structure and traceability.",
+ "readmeHash": "422a7e2256aaedf3b9a1392403cecbc35019d8ba",
+ "relations": [
+  {
+   "evidence": "Choose DeepSeek, OpenAI, or another OpenAI-compatible service in the plugin settings.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Choose DeepSeek, OpenAI, or another OpenAI-compatible service in the plugin settings.",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible model service (DeepSeek, OpenAI, or other)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Question-answering plugin that builds a persistent LLM Wiki from the vault and answers with local lexical retrieval and traceable citations.",
+ "tags": [
+  "rag",
+  "question-answering",
+  "lexical-retrieval",
+  "citations",
+  "openai",
+  "deepseek",
+  "minisearch"
+ ]
+}

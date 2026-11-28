@@ -1,0 +1,89 @@
+{
+ "also": [
+  "flashcards",
+  "sidebar"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "chat with answers grounded in selected notes, folders, PDFs, and images",
+  "generate multiple-choice, short-answer, and essay quizzes with model grading",
+  "generate term/definition flashcards and run self-scored review sessions",
+  "switch providers and models on the fly, including Gemini and Claude CLI logins",
+  "open Google NotebookLM in the sidebar or browser"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a multi-agent orchestrator; it is one assistant sidebar whose backend can be pointed at different AI providers.",
+ "extras": "Not yet in the community store; requires manual installation of four files including pdf.worker.min.js (without it, PDF reading fails). API keys are stored in plain text in data.json. The Gemini CLI provider runs with --approval-mode yolo, granting it file access and web search without prompting. Quiz and flashcard content can be generated in English, Korean, or both.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ground AI chat, quizzes, or flashcards in selected vault content, or to switch between multiple AI providers from one panel.",
+ "readmeHash": "8249b1bbe566a3f788c19aa0758a6f927c9b1c88",
+ "relations": [
+  {
+   "evidence": "The NotebookLM tab embeds notebooklm.google.com in an iframe on desktop.",
+   "plugin": "NotebookLM",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Groq, Gemini, OpenAI, and Claude over their HTTP APIs",
+   "plugin": "Groq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Groq, Gemini, OpenAI, and Claude over their HTTP APIs",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Groq, Gemini, OpenAI, and Claude over their HTTP APIs",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Groq, Gemini, OpenAI, and Claude over their HTTP APIs",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Groq, Gemini, Claude, or OpenAI API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "gemini or claude CLI installed (desktop only)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "provider account (paid for Claude and OpenAI)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Sidebar assistant that indexes notes, folders, PDFs, and images as context and lets you chat, quiz, and drill flashcards across six AI providers.",
+ "tags": [
+  "groq",
+  "gemini",
+  "openai",
+  "claude",
+  "notebooklm",
+  "quiz"
+ ]
+}

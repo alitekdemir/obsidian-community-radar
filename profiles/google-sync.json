@@ -1,0 +1,62 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Google Calendar events into events/ notes",
+  "Import Google Tasks into tasks/ notes",
+  "Push edits from linked notes back to Google",
+  "Archive old, completed, and orphaned notes into archive folders",
+  "Connect using a user-supplied Google OAuth client"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a full two-way sync: it only imports and updates existing Google items and never creates or deletes anything in Google.",
+ "extras": "Users must supply their own Google OAuth client ID, secret, and hosted redirect bridge page; tokens are stored in the vault's plugin data and should be treated as private. A headless Node build of the same sync engine can run outside Obsidian for cron use and can commit the vault to git. Startup import is off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to bring Google Calendar events and Tasks into a vault as editable notes or send edits back to Google.",
+ "readmeHash": "e046c3860d78d531790cede3c9aa716c9c351c9a",
+ "relations": [
+  {
+   "evidence": "do not use Templater folder-template auto-runs on Google Sync's managed events/ or tasks/ folders",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google Cloud project with Calendar and Tasks APIs and an OAuth client plus hosted redirect bridge",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Google sync plugin that imports Calendar events and Tasks as frontmatter-linked notes and pushes edits back to existing Google items.",
+ "tags": [
+  "google-calendar",
+  "google-tasks",
+  "oauth",
+  "recurring-events",
+  "frontmatter-linking",
+  "headless"
+ ]
+}

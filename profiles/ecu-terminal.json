@@ -1,0 +1,61 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run a shell in a docked panel or pinned tab",
+  "Arrange terminals in a resizable split grid",
+  "Type one command into all panes at once",
+  "Insert the last command and its output into a note",
+  "Notify when a long-running command finishes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. On first use it downloads a platform-specific node-pty engine (about 25 KB on macOS/Linux, 600 KB on Windows) from the repository's release and checks it against a built-in SHA-256 hash; this is the only network request. Windows and Linux builds are marked not tested. Flatpak and Snap builds of Obsidian run sandboxed, so the terminal only sees the sandbox. Recent commands are stored in data.json with secret-like entries filtered out.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Obsidian has no shell, so running commands or keeping terminal output alongside notes means switching to a separate terminal app.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "a076301c3560469220c09aad39830472c418e9f3",
+ "relations": [
+  {
+   "evidence": "Split grid (MobaXterm style): add terminals to a grid.",
+   "plugin": "MobaXterm",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "node-pty engine (one-time download)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Terminal emulator for Obsidian desktop with docked and tabbed panes, split grids, multi-pane input and command output capture into notes.",
+ "tags": [
+  "terminal",
+  "cli",
+  "macos",
+  "windows",
+  "linux",
+  "notifications"
+ ],
+ "textHash": "c276d7af367f171f92ddf5b8da54aab10458d0ca"
+}

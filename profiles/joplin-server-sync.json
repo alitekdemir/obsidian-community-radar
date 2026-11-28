@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes, folders and attachments bidirectionally with Joplin Server via its delta API",
+  "Encrypt synced content end-to-end using the Joplin E2EE protocol",
+  "Merge conflicting edits with three-way merge or configurable conflict strategies",
+  "Convert wiki-links and tags to Joplin-compatible Markdown and back",
+  "Force push or force pull to reset the server or local vault, with typed confirmation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README documents destructive operations in detail (force push/pull wipe the server or local vault) and E2EE caveats such as all clients needing the same password; also installable via BRAT and manual download.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync options don't cover Joplin Server, so users with notes on a self-hosted Joplin instance have no way to keep their vault in sync with it.",
+ "readmeHash": "381da2a62e01a48b62020813c10cb7932c516bbb",
+ "relations": [
+  {
+   "evidence": "Bidirectional sync between Obsidian and a Joplin Server instance.",
+   "plugin": "Joplin Server",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Joplin Server instance",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Joplin Server account credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bidirectional vault sync with a Joplin Server instance, covering notes, folders, attachments, tags and links, with optional E2EE.",
+ "tags": [
+  "joplin",
+  "e2ee",
+  "three-way-merge",
+  "conflict-resolution",
+  "self-hosted",
+  "delta-api"
+ ]
+}

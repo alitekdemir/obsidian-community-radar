@@ -1,0 +1,65 @@
+{
+ "also": [
+  "syncing",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Doubao conversations into Markdown notes",
+  "Filter conversations by time range",
+  "Schedule automatic sync runs",
+  "Track 30 days of sync history",
+  "Update notes by uid after rename or move"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a media importer; it leaves image and file URLs in the note and does not download media yet.",
+ "extras": "UI currently uses Simplified Chinese. Doubao web endpoints are private and may change; sync stops with a visible error if the API format changes. Automatic sync requests up to 200 recent conversations per run, and a 200-item list does not prove full account coverage. Conversations over 1000 message pages or with a repeated page are skipped. Media is not downloaded.",
+ "intent": "new",
+ "intentEvidence": "Doubao Sync is a sister plugin to Dedao Brain Sync.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Doubao conversations live only on the web, so they cannot be searched, linked, or kept as local notes in the vault.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "033db3115d3f80ac22bd4272eee15a3df174e864",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "Settings components and interaction patterns adapted from Dedao Brain Sync retain the original MIT attribution.",
+   "plugin": "Dedao Brain Sync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Doubao account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "network access to www.doubao.com",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Plugin that saves Doubao conversations as local Markdown notes with time-range sync, scheduling, and 30-day history.",
+ "tags": [
+  "doubao",
+  "scheduling",
+  "local-first",
+  "history",
+  "web-login"
+ ],
+ "textHash": "06de2b842a326074633ca469d4ec09b03399402b"
+}

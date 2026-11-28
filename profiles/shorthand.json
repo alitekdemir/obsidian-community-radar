@@ -1,0 +1,83 @@
+{
+ "also": [
+  "audio",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture microphone and system audio",
+  "Transcribe speech locally",
+  "Write meeting notes from a live transcript",
+  "Improve existing writing without a recording",
+  "Save a linked transcript note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a shorthand or stenography writing system; it records audio and has an AI backend write the notes.",
+ "extras": "Desktop only; the plugin does not include Shorthand, an AI model, or a cloud service. Recordings, transcripts and agent sessions are deleted by default when a capture finishes. Free and open source, but main.js bundles the non-open-source Anthropic Claude Agent SDK.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Turning a live meeting or spoken thoughts into a structured Obsidian note normally means transcribing and rewriting by hand.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "12a1f27c39c042361458f50a5b0cae7f2e1b4554",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "choose the note taker: Claude, ChatGPT (Codex), Cursor, another app (ACP), or your own API key",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "choose the note taker: Claude, ChatGPT (Codex), Cursor, another app (ACP), or your own API key",
+   "plugin": "ChatGPT (Codex)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "choose an API provider, or use a local model with Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Shorthand desktop app",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "AI subscription (Claude, ChatGPT, or Cursor)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Right-sidebar panel that records meetings or dictated thoughts and has an AI subscription write them into the current note.",
+ "tags": [
+  "meeting-notes",
+  "transcription",
+  "speech-to-text",
+  "claude",
+  "openai",
+  "ollama"
+ ],
+ "textHash": "08c64f57d76866f355615d9589e51dcfe9259337"
+}

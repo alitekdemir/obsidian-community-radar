@@ -1,0 +1,60 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Insert a heading derived from the filename into blank files",
+  "Transform filenames into titles (strip extension, replace underscores, capitalize)",
+  "Skip files in the Daily Notes folder",
+  "Wait for templates to fill new files before deciding whether to insert a heading"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian leaves newly created files blank, so users who follow the convention of a heading matching the filename must type it by hand.",
+ "readmeHash": "b596bea1768ecf1b1b4af24a8a1ec7305b4a958e",
+ "relations": [
+  {
+   "evidence": "most often a Templater folder/file template applied automatically on creation",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the convention of the page heading matching the filename (like NotePlan)",
+   "plugin": "NotePlan",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Automation plugin that inserts a Markdown heading built from the filename whenever a new or blank file is opened.",
+ "tags": [
+  "zettelkasten",
+  "wiki-links",
+  "filenames",
+  "noteplan"
+ ]
+}

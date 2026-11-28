@@ -1,0 +1,50 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Delete task lines shortly after their checkbox is ticked",
+  "Strip completed lines on external writes and Dataview checkbox clicks",
+  "Insert new task lines via ribbon button or command",
+  "Sweep all completed tasks from the active note on demand"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task manager; it only removes completed task lines and inserts new ones, it does not track or organize tasks.",
+ "extras": "No settings page in this release; the delete delay and checkbox filters are not configurable. Not yet manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted notes to function like a todo app, not accumulate a graveyard of strikethrough completed tasks.",
+ "primary": "tasks",
+ "problem": "Completed tasks normally stay in files as - [x] lines, which becomes noise for people who want notes to act like a todo app rather than a log.",
+ "readmeHash": "3b42e137696521ee325bda446058bf0b2356c9d0",
+ "relations": [
+  {
+   "evidence": "Compatible with Dataview TASK queries — checking a task in an embedded Dataview result triggers the auto-delete.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task-line cleanup plugin that deletes a task line shortly after its checkbox is marked done, keeping notes free of completed tasks.",
+ "tags": [
+  "dataview",
+  "checkbox",
+  "auto-delete",
+  "undo",
+  "sweep"
+ ]
+}

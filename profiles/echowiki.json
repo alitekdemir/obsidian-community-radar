@@ -1,0 +1,67 @@
+{
+ "also": [
+  "audio",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record voice notes and transcribe them via STT into raw/",
+  "Compile raw notes into wiki summaries, concepts and entities pages with an LLM",
+  "Link generated pages together with wikilinks and refresh index and log files",
+  "Watch raw/ for new or changed files and auto-compile them",
+  "Queue raw files for approval before compilation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet published to the community plugin directory ('Once published, install EchoWiki'); README includes maintainer release steps and an optional Node.js CLI for headless compilation; API keys are stored locally in the plugin's data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to automatically turn unprocessed notes and voice recordings into organized, wikilinked wiki pages.",
+ "readmeHash": "37511458bb0d05262e155af5656eb0060b0b27df",
+ "relations": [
+  {
+   "evidence": "bundling the compiler and Vercel AI SDK in-process",
+   "plugin": "Vercel AI SDK",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Text compilation (any OpenAI-compatible endpoint)",
+   "plugin": "OpenAI-compatible endpoints",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM API key (OpenAI-compatible endpoint)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "STT API key for voice transcription",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Local-first LLM agent that compiles raw notes and voice transcripts into a structured, interlinked wiki of summaries, concepts and entities.",
+ "tags": [
+  "llm",
+  "speech-to-text",
+  "vercel-ai-sdk",
+  "openai-compatible",
+  "wikilinks",
+  "knowledge-base"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Uploads attachments to S3-compatible, WebDAV or own-server storage",
+  "Embeds stored files in notes via keyhole:// links",
+  "Encrypts uploads end-to-end on the device",
+  "Moves existing attachments to storage and back again",
+  "Caches viewed files offline on the device"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Beta: tested on macOS and iPhone only, Android untested. Without Keyhole installed, embeds show as broken images, and Obsidian Publish cannot show Keyhole files. No telemetry; secrets live in the device keychain, never in the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian keeps attachments inside the vault, so vaults grow large and files stay tied to local disk, with no built-in way to keep them on your own private storage.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "0967bfd2311a47e1c6d17e99aa5dede68e692bdc",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "keyhole-server: a small server of its own, no dependencies, Docker image",
+   "plugin": "keyhole-server",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible storage (AWS S3, Cloudflare R2, Backblaze B2, Wasabi, MinIO), WebDAV (Nextcloud, Synology) or a keyhole-server instance",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Plugin that stores attachments on your own S3, WebDAV or server storage and embeds them in notes via keyhole:// links, with optional end-to-end encryption.",
+ "tags": [
+  "s3",
+  "webdav",
+  "end-to-end-encryption",
+  "self-hosted",
+  "image-compression",
+  "privacy",
+  "offline"
+ ],
+ "textHash": "3d218c1197872a1166f5b2dc3c78592028c88f35"
+}

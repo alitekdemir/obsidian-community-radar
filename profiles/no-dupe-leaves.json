@@ -1,0 +1,48 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "focus the existing pane when a note is already open",
+  "prevent duplicate instances of the same note across panes",
+  "preserve forced open-in-new-pane actions such as middle-clicking links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a duplicate-file finder; it only prevents the same note from being opened in two panes at once.",
+ "extras": "The README warns that the plugin overrides the default Obsidian behavior by overwriting the public openLinkText() function, which also affects plugins using it; it does not apply to core features like the File Explorer, and the author points readers to an original feature request asking for this behavior in core.",
+ "intent": "improve",
+ "intentEvidence": "This plugin modifies the default behavior of Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian's default link handling can replace a pane's content even when the target note is already open elsewhere, producing multiple instances of the same note.",
+ "readmeHash": "0dbea2122aea05a125d7290465c6142652b8f8a8",
+ "relations": [
+  {
+   "evidence": "affects other plugins that use this function - like Omnisearch",
+   "plugin": "Omnisearch",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Tab-behavior modifier that focuses the pane already showing a note instead of opening a second copy of it.",
+ "tags": [
+  "panes",
+  "tabs",
+  "duplicate-tabs",
+  "focus"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [
+  "research",
+  "search"
+ ],
+ "audience": [
+  "jurists",
+  "legal-academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "search Légifrance databases (jurisprudence, codes, legislation, Journal officiel) and read texts in a built-in reader",
+  "create decision and article notes from Légifrance data using customizable Handlebars templates",
+  "detect legal references cited in notes and list them with links in a side panel",
+  "maintain a SQLite database of which notes cite which legal texts, with full texts and validity status",
+  "export tables of decisions and bibliographies as Markdown, CSV, BibTeX or RIS"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Works without PISTE credentials in a reduced mode (reference detection, panel, indexing, opening legifrance.gouv.fr in the browser); credentials unlock exact links, validity status, decision completion and article notes. Requires Obsidian 1.13.2 or later. Credentials are stored in Obsidian's secret storage, not data.json. The README includes a disclosure section on network access and a note that the plugin itself contains no AI features even though it was developed with Claude Code.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search French legal databases, consult court decisions and statutes, or track the legal references cited across a vault.",
+ "readmeHash": "a72145e101b0ea59ef5472030b631147d0d16a21",
+ "relations": [
+  {
+   "evidence": "Ce module intègre l'API Légifrance dans l'environnement de travail Obsidian.md.",
+   "plugin": "Légifrance",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Grâce à vos identifiants PISTE (obtenus gratuitement via la plateforme en ligne)",
+   "plugin": "PISTE",
+   "type": "integrates"
+  },
+  {
+   "evidence": "à ArianeWeb (conseil-etat.fr), à la Revue générale du droit",
+   "plugin": "ArianeWeb",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "PISTE",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "PISTE Client ID / Client Secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Legal research integration that searches the Légifrance API, creates decision notes and indexes legal citations across the vault.",
+ "tags": [
+  "legifrance",
+  "piste",
+  "french-law",
+  "jurisprudence",
+  "legal-citations",
+  "bibtex",
+  "sqlite"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes and attachments to Baidu Netdisk incrementally",
+  "Preserve conflicting versions during folder-based sync",
+  "Track pending sync changes",
+  "Pair devices with encrypted pairing codes",
+  "Encrypt file content with optional E2EE"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires creating your own Baidu developer application for AppKey/AppSecret; credentials and the E2EE password are stored in local plugin settings, not an OS keychain. E2EE protects file content, not all filenames or metadata. iOS/Android hardware validation is still outstanding and background suspension or app exit can interrupt transfers.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through Baidu Netdisk while preserving conflicting versions.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "948bb924afb1d7bed6c9969cceab79b44ae6b3f3",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "Folder-based Markdown conflict handling requires the separately installed QYY Folder Notes",
+   "plugin": "QYY Folder Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an independently installed BRAT can install QYY542/qyy-baidu-sync",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Network requests go to Baidu for OAuth, listings, uploads and downloads",
+   "plugin": "Baidu Netdisk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Baidu Netdisk account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Baidu developer application AppKey and AppSecret",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "QYY Folder Notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Incremental sync plugin that syncs notes and attachments to Baidu Netdisk, preserving conflict versions and tracking pending changes.",
+ "tags": [
+  "two-way-sync",
+  "conflict-resolution",
+  "end-to-end-encryption",
+  "oauth"
+ ],
+ "textHash": "6693c0f0687a5f94f50ae6740cffc460ba47e600"
+}

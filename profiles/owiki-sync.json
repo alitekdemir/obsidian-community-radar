@@ -1,0 +1,55 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes, renames and deletes across devices in near realtime",
+  "Transfer only changed files to minimize traffic",
+  "Merge compatible edits and save unresolved ones as .conflict.md copies",
+  "Queue offline changes locally and deliver them on reconnect",
+  "Pair and unbind devices via PIN and set single-device write mode"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a wiki or publishing tool; despite the name it only syncs vault files with an OWiki server.",
+ "extras": "Ships without a server; users must deploy OWiki separately. README warns the sync logic is unvalidated at scale and may cause data loss, advising an independent vault backup. Not yet in the community directory; installable via BRAT from johnhom1024/owiki-sync.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid hosted service, so users who want multi-device sync through a server they control have no first-party option.",
+ "readmeHash": "b3722c99c6fa54f65c48203090624a8e0f19eacb",
+ "relations": [
+  {
+   "evidence": "Sync your vault with a self-hosted OWiki server via WebSocket.",
+   "plugin": "OWiki server",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OWiki server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Self-hosted sync plugin that replicates vault notes and attachments across desktop and mobile devices through your own OWiki server over WebSocket.",
+ "tags": [
+  "websocket",
+  "self-hosted",
+  "conflict-resolution",
+  "offline",
+  "device-pairing"
+ ]
+}

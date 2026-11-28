@@ -1,0 +1,59 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Discord channel messages into Markdown notes",
+  "Download and embed attachments locally",
+  "Fetch only messages added since the last sync",
+  "Retry requests that hit Discord rate limits",
+  "Organize attachments by channel and by file type"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Sync runs one way only: messages are pulled from Discord into notes, and nothing is posted back to Discord.",
+ "extras": "Bot token is stored in data.json inside the plugin folder; the plugin ID changed from discord-to-obsidian in v0.2.0, so existing users must copy data.json to the new folder; only regular text channels are synced, forum and thread channels are skipped; install via BRAT or by copying build files until it is in the community store.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Discord conversations stay outside the vault, and Discord CDN attachment links expire, so messages and files cannot be kept or searched in Obsidian.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "15e3842ad93a6d031ed3236d93cb306b9e3c324c",
+ "relations": [
+  {
+   "evidence": "install BRAT, add bicybert/discord-to-obsidian, and it will pull every new GitHub release automatically",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Discord",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Discord bot token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs Discord channel messages into vault notes, one note per channel with a heading per message and attachments saved locally.",
+ "tags": [
+  "discord"
+ ],
+ "textHash": "cbf064cfac523ed886a62f25e7be6678579ce803"
+}

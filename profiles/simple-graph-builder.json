@@ -1,0 +1,93 @@
+{
+ "also": [
+  "ai",
+  "research"
+ ],
+ "audience": [
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Extract entities and relationships from notes with a chosen LLM",
+  "Explore and search an interactive knowledge graph",
+  "Correct or retract relationships against their source notes",
+  "Build PubMed and OpenAlex literature searches from graph concepts",
+  "Mirror the graph into notes as Obsidian links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view",
+   "Backlinks",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a diagram or chart drawing tool; it extracts entities and relationships from note text with an LLM and stores them as its own graph.",
+ "extras": "Note analysis is billed by the chosen provider, while local servers are free; settings and the graph, including API keys, are stored in the plugin's data.json, and the README warns against committing that file to git. Detailed guides for graph view, search, literature search, relationship review, settings, MCP access and the data model live in separate documentation pages.",
+ "intent": "alternative",
+ "intentEvidence": "combines the simplicity of LightRAG with KGGen's hybrid resolution approach, adapted for Obsidian's local-first architecture",
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted an ontology model that builds on Obsidian's existing note links to meet users' needs, especially researchers', without the complex schemas of traditional knowledge graphs.",
+ "primary": "graph",
+ "problem": "Obsidian links notes to each other but does not capture the entities and relationships inside them, leaving researchers without a concept-level graph to explore or search.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "1f854cd72eeb9292fe943d0154db5d58dc0f0313",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "combines the simplicity of LightRAG with KGGen's hybrid resolution approach",
+   "plugin": "LightRAG",
+   "type": "inspired"
+  },
+  {
+   "evidence": "provides comprehensive extraction but at high cost ($50-100+ per corpus)",
+   "plugin": "Microsoft GraphRAG",
+   "type": "alternative"
+  },
+  {
+   "evidence": "inspired by KGGen [3]",
+   "plugin": "KGGen",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Search follows HippoRAG [6] in ranking by Personalized PageRank over the graph.",
+   "plugin": "HippoRAG",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Bring a med-lit-mcp literature review (articles, wiki pages and its knowledge graph) into your vault",
+   "plugin": "med-lit-mcp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Claude, OpenAI, Gemini or DeepSeek API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or an OpenAI-compatible local server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "LLM-powered entity extraction that turns notes into a knowledge graph with an interactive graph view, graph-aware search and literature lookup.",
+ "tags": [
+  "knowledge-graph",
+  "llm",
+  "rag",
+  "semantic-search",
+  "mcp",
+  "openalex",
+  "ollama"
+ ],
+ "textHash": "f2280c5d35ea0c8f7c70a13143b916e16109b2fe"
+}

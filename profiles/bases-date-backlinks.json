@@ -1,0 +1,84 @@
+{
+ "also": [
+  "dates",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add a date-backlinks Base embed to the daily notes template",
+  "Show the view automatically below existing daily notes",
+  "Match date, date-time, and list date properties against the daily note date",
+  "Roll up matching notes by week or month with Pro",
+  "Narrow the generated query with folder filters and date ranges"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not traditional backlinks; it matches date properties through a Bases query and writes no link properties into the matching notes.",
+ "extras": "Freemium: week/month rollups, extra properties and ranges need Pro ($15 one-time or $5/month via GitHub Sponsors, one payment covers all NoteMods plugins). After updates the plugin opens a 'What's new' tab promoting other NoteMods plugins and Zovo Chat; it sends no note data or telemetry and sign-in uses the GitHub device flow. Requires Obsidian 1.13.4+.",
+ "intent": "improve",
+ "intentEvidence": "The core Bases plugin must be enabled in the vault.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Core Bases filters and Dataview queries require writing manual queries to see which notes share a daily note's date inside that daily note.",
+ "readmeHash": "a8c08953366f83e9b9a29de2004fbc3782de656e",
+ "relations": [
+  {
+   "evidence": "The core Bases plugin must be enabled in the vault.",
+   "plugin": "Bases",
+   "type": "extends"
+  },
+  {
+   "evidence": "Choose a template in core Daily notes or Periodic Notes.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Date Linker writes daily note links into a managed frontmatter property.",
+   "plugin": "Date Linker",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Why use this instead of Dataview or a plain Bases filter?",
+   "plugin": "Dataview",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases (core plugin)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bases view that lists notes whose date properties match the current daily note's date, embedded in daily notes via a template or automatically.",
+ "tags": [
+  "daily-notes",
+  "moment-tokens",
+  "date-lists",
+  "github-sponsors",
+  "base-embed"
+ ]
+}

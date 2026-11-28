@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Translate tapped or selected text using Google Translate",
+  "Add a translate button to the mobile toolbar",
+  "Generate context sentences with a Gemini API key",
+  "Configure a Cloud Translation API key as a fallback when translation fails"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it also works on desktop, not just mobile.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes setup steps for a paid Google Cloud API whose free tier covers under 0.5M characters per month.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author values the consistency Google Translate provides over AI translation.",
+ "primary": "languages",
+ "problem": "Obsidian has no built-in way to quickly translate a selected or tapped word, especially on mobile.",
+ "readmeHash": "7246afae7a9b6c3f278c447bbf7c249a06362ca9",
+ "relations": [
+  {
+   "evidence": "Tap or Select the desired word to get it's translation from Google Translate",
+   "plugin": "Google Translate",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you want to generate context sentences: Grab your Gemini API key",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud Translation API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key (for context sentences)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google Cloud billing account (only if setting up the Cloud Translation API)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Translation plugin that translates tapped or selected words via Google Translate on mobile and desktop, with optional AI context sentences.",
+ "tags": [
+  "google-translate",
+  "gemini",
+  "cloud-translation-api",
+  "mobile-toolbar"
+ ]
+}

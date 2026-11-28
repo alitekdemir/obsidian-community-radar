@@ -1,0 +1,62 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import iCal/ICS feeds into a note",
+  "Write events as markdown tasks or wikilinks",
+  "Preserve completed imported tasks across syncs",
+  "Handle recurring, all-day, and multi-day events",
+  "Report skipped or malformed events in an error section"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "One-way only: it imports ICS feeds into the vault and does not export Obsidian tasks back to a calendar, sign in to accounts, or use CalDAV.",
+ "extras": "One-way import only; no OAuth, CalDAV, or account sign-in, so feeds needing a login page or HTML calendar view are unsupported. Private iCal links act like passwords and are hidden from status/error messages. For vaults shared across devices, only one device should write calendar notes. Source ZIP releases need building; they do not include main.js.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Calendar events from Google Calendar, Outlook, iCloud, or other ICS feeds have to be retyped by hand to appear as tasks in Obsidian.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "7283e110a246ef3af377a83360d9f1e94585a98d",
+ "relations": [
+  {
+   "evidence": "Calendar Importer pairs beautifully with the Tasks plugin.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Calendar provider publishing an iCal/ICS feed URL (Google Calendar, Outlook, iCloud, Zoho)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Background importer that turns iCal/ICS calendar feeds into markdown tasks inside a managed section of a note.",
+ "tags": [
+  "ics",
+  "google-calendar",
+  "outlook",
+  "icloud",
+  "tasks-plugin",
+  "daily-notes",
+  "wikilinks",
+  "recurring-events"
+ ],
+ "textHash": "68080b17f02b0fa27809b468d10915443b3bcdfc"
+}

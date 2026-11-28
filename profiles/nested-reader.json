@@ -1,0 +1,83 @@
+{
+ "also": [
+  "thinking"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "answer questions about selected text as inline cards with follow-ups and hover popovers",
+  "grow a new linked child note from a question about a phrase",
+  "run background deep dives that write longer pages and mark them unread",
+  "browse the family of nested pages in a sidebar panel with unread and failed states",
+  "configure model context from vault search, web search, excluded folders and extra instructions"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a reading-mode or annotation tool; it asks an AI about selected text and can grow the answer into child notes.",
+ "extras": "Desktop only and requires Obsidian 1.13.0 or later. The plugin is free but answers cost money through the chosen AI service. Excluded-folder protection varies by connection: enforced by the plugin with an API key, best-effort with the Claude plan, and instruction-only with the codex sandbox, which can read the whole disk. No telemetry or ads.",
+ "intent": "alternative",
+ "intentEvidence": "This is an Obsidian port of Nested Reader by True Frontier.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask an AI about a specific phrase in place and keep answers attached to the text or grow them into linked notes.",
+ "readmeHash": "336662bb7d79be77b10b3841bec1688a2d607d50",
+ "relations": [
+  {
+   "evidence": "This is an Obsidian port of Nested Reader by True Frontier.",
+   "plugin": "Nested Reader by True Frontier",
+   "type": "inspired"
+  },
+  {
+   "evidence": "using the Omnisearch plugin's index for search when it is installed",
+   "plugin": "Omnisearch",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Claude, OpenAI, Grok (xAI) or Perplexity account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Provider API key (API-key connections)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "claude or codex command-line tool (plan connections)",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Paid AI plan or per-use API billing",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Omnisearch (for vault search via its index)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Ask-about-selection AI tool that answers questions on highlighted text inline, or grows linked child notes and tree-browsable pages from them.",
+ "tags": [
+  "claude",
+  "chatgpt",
+  "codex",
+  "perplexity",
+  "grok",
+  "inline-answers",
+  "child-notes",
+  "omnisearch"
+ ]
+}

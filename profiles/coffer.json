@@ -1,0 +1,99 @@
+{
+ "also": [
+  "publishing",
+  "backup"
+ ],
+ "audience": [
+  "self-hosters",
+  "homelab-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files through S3-compatible buckets or WebDAV",
+  "Merge concurrent edits line by line and keep both copies when it cannot",
+  "Restore files, folders or the whole vault to earlier versions",
+  "Share folders with roles, expiring invites and signed changes",
+  "Publish selected notes as a static website in separate storage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "Publish"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a password manager or encrypted-notes vault; it syncs, shares and publishes existing vault files through storage you provide.",
+ "extras": "Free, open source (MIT), no account and no telemetry. Tested on macOS and iOS only; Android not yet supported and no independent security audit. The first branch upgrade makes the vault unreadable to versions before 0.12.0, and the README advises keeping a backup of important vaults.",
+ "intent": "alternative",
+ "intentEvidence": "Coffer is for people who want their vault in storage that they control.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault through storage you control otherwise means paying for Obsidian Sync or running a server for a self-hosted sync tool.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "386203aa9fd0463d241b47b3b4b81ed86169493b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Obsidian Sync is the official sync service. It needs no setup, and your subscription supports the Obsidian team.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Remotely Save supports more storage services, such as Dropbox and OneDrive.",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Self-hosted LiveSync syncs in real time (with CouchDB, or peer-to-peer while both devices are online).",
+   "plugin": "Self-hosted LiveSync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Obsidian Git gives full Git history and diffs with any Git host.",
+   "plugin": "Obsidian Git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "iCloud Drive is built into Apple devices and needs no plugin.",
+   "plugin": "iCloud Drive",
+   "type": "alternative"
+  },
+  {
+   "evidence": "WebDAV servers (Nextcloud or a NAS)",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible bucket or WebDAV server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Storage access key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "End-to-end encrypted vault sync through your own S3-compatible bucket or WebDAV server, with version history, shared folders and static site publishing.",
+ "tags": [
+  "end-to-end-encryption",
+  "s3",
+  "webdav",
+  "self-hosted",
+  "version-history",
+  "static-site",
+  "conflict-resolution",
+  "cli"
+ ],
+ "textHash": "f00d5337cd8ab0853672f3dd283463ef6b6b340b"
+}

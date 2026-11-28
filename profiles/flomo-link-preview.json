@@ -1,0 +1,65 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Previews flomo MEMO links as cards in Reading view and Live Preview",
+  "Reads memo content via the flomo MCP memo_batch_get tool",
+  "Keeps the original Markdown link unchanged",
+  "Caches memo text and tags for offline viewing",
+  "Stores the flomo token in Obsidian Secret Storage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Interface is Chinese-only; cached memo text and tags are stored in plaintext in the plugin data.json and may be included in vault backups or sync; cards render body Markdown as plain text and do not show attachments; OAuth is not implemented.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Flomo MEMO links pasted into notes appear as bare links, so reading a private memo requires leaving Obsidian and opening flomo.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "96b1f821d19f2a6e9556291c5bef67fb35dcef65",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Requires Obsidian 1.11.4 or later and flomo PRO or MAX for the official MCP service.",
+   "plugin": "flomo",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "flomo PRO or MAX",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "flomo MCP personal token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Flomo link previewer that renders private MEMO links as cards in Reading view and Live Preview without changing the note's Markdown.",
+ "tags": [
+  "flomo",
+  "link-previews",
+  "mcp",
+  "secret-storage"
+ ],
+ "textHash": "6b5f6c804b16abb11cae6f163cddf171e5261953"
+}

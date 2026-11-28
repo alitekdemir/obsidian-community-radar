@@ -1,0 +1,56 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add comments to selected text via a floating button or command",
+  "Store comments as CriticMarkup blocks inside the note file",
+  "Reply to and resolve comment threads from a side panel",
+  "Rebuild per-comment notes and export all comments as JSON for querying or LLM use",
+  "Dictate comments through a custom speech-to-text endpoint"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a spaced-repetition note review tool; it adds inline text comments to selected spans and stores them as CriticMarkup.",
+ "extras": "Dictation is off by default and makes no network requests unless pointed at a custom endpoint; comments are editable by hand since markup lives in the file. UI ships in eight languages.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Obsidian has no built-in way to attach review comments to selected text while keeping them in the note file itself in a format tools can read.",
+ "readmeHash": "2b48d19669a0b39dba44bb95e458e2105c07fec2",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "custom transcription endpoint (e.g. whisper.cpp server)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Notion-style review comments stored inline as CriticMarkup in Markdown files, with a side panel, resolve workflow, and AI-friendly export.",
+ "tags": [
+  "criticmarkup",
+  "claude",
+  "llm",
+  "dictation",
+  "speech-to-text",
+  "dataview"
+ ]
+}

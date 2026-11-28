@@ -1,0 +1,67 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render tikz and latex code blocks as SVG diagrams",
+  "Auto-wrap snippets in a customizable standalone preamble",
+  "Compile full standalone documents with custom documentclass and packages",
+  "Recolor diagram lines and text to match the active light/dark theme",
+  "Cache compiled SVGs in IndexedDB and diagnose the toolchain from settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only plugin that executes the local latex compiler and dvisvgm via child_process; makes no network calls and documents security measures and Windows MiKTeX troubleshooting. Beta releases are available via BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "Forked from the Obsidian TikZJax plugin by @artisticat1.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted full access to the local TeX package ecosystem instead of the limited package support of WebAssembly-based renderers.",
+ "primary": "latex",
+ "problem": "Obsidian's built-in math rendering and WebAssembly-based TikZ solutions support only a limited set of packages, so diagrams using tools like pgfplots or chemfig cannot be compiled.",
+ "readmeHash": "badbde95ba0b49b11025409f5074d9a734b4bf6c",
+ "relations": [
+  {
+   "evidence": "Forked from the Obsidian TikZJax plugin by @artisticat1.",
+   "plugin": "Obsidian TikZJax plugin by @artisticat1",
+   "type": "fork"
+  },
+  {
+   "evidence": "Inspired by the TikZJax project by @kisonecat.",
+   "plugin": "TikZJax project by @kisonecat",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "A LaTeX distribution (MiKTeX, TeX Live, or MacTeX) and dvisvgm available in the system PATH",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Renders TikZ and LaTeX code blocks to vector SVG diagrams using the local system TeX installation, with support for any installed package.",
+ "tags": [
+  "tikz",
+  "dvisvgm",
+  "svg",
+  "pgfplots",
+  "circuitikz",
+  "chemfig",
+  "miktex",
+  "tex-live"
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "also": [
+  "search",
+  "syncing"
+ ],
+ "audience": [
+  "chinese-language-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Capture quick notes into a single memo file with timeline, filters, and export",
+  "Manage tasks and projects in Gantt, Kanban, list, and calendar views",
+  "Search the whole vault with CJK-friendly full-text search and a persistent index",
+  "Sync the vault bidirectionally with OneDrive including encryption and safety guards",
+  "Render Dataview-style query blocks as tables, lists, and checkable task lists"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Daily notes"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an unreviewed-plugin warning from Obsidian staff; the search engine is described as re-implemented without reusing omnisearch's GPL code, and the sync engine is ported from an unnamed upstream sync project.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian's dashboard, search, task tracking, and sync live in separate plugins and core features, so users must assemble many tools to get one workspace.",
+ "readmeHash": "06c4baf33a0d40120f9d603d3560b360eca50a56",
+ "relations": [
+  {
+   "evidence": "recreating the omnisearch experience (UI only — no GPL code reused)",
+   "plugin": "omnisearch",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Graphical appearance settings for the Minimal theme (ported from obsidian-minimal-settings)",
+   "plugin": "obsidian-minimal-settings",
+   "type": "fork"
+  },
+  {
+   "evidence": "Clause order matches Dataview (FROM → WHERE → SORT → LIMIT)",
+   "plugin": "Dataview",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Keep the entire vault in sync with OneDrive.",
+   "plugin": "OneDrive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account for OneDrive",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 1
+ },
+ "summary": "Dashboard suite combining quick capture, task and project boards, calendar, full-text vault search, OneDrive sync, and Markdown enhancements.",
+ "tags": [
+  "onedrive",
+  "quick-capture",
+  "kanban",
+  "gantt",
+  "heatmap",
+  "cjk",
+  "dataview-dql",
+  "linter"
+ ]
+}

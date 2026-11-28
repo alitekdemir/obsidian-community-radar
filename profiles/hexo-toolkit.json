@@ -1,0 +1,75 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [
+  "hexo-bloggers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "convert the active note to Hexo-compatible Markdown via a command",
+  "extract Hexo front-matter according to plugin settings",
+  "rewrite internal title links, file links and image embeds to Hexo syntax",
+  "convert embedded Excalidraw images to svg",
+  "upload local images to SM.MS or provide copy buttons for local hosting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Conversion depends on Hexo renderer type and requires hexo-path properties for file link rewriting; README ends with an empty Screenshot section.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Hexo does not understand Obsidian-specific Markdown such as wiki links, embed syntax and Excalidraw embeds, so posts need manual rework before publishing.",
+ "readmeHash": "03b87eccc9592ffa7ebf18bcee798238b18101d5",
+ "relations": [
+  {
+   "evidence": "helps users to manage their Hexo posts, including converting notes to Hexo-compatible Markdown format",
+   "plugin": "Hexo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "all local images in the post will be uploaded to SM.MS automatically",
+   "plugin": "SM.MS",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Convert embedded Excalidraw images (e.g. ![[test.excalidraw]]) to svg",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hexo",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "SM.MS",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Converts Obsidian notes to Hexo-compatible Markdown, rewriting front-matter, internal links, embeds and images, with optional SM.MS image upload.",
+ "tags": [
+  "hexo",
+  "static-site-generator",
+  "sm-ms",
+  "excalidraw",
+  "image-hosting",
+  "image-upload"
+ ]
+}

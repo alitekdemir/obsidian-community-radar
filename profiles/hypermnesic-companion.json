@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Surface pause-triggered related notes around the cursor as internal links",
+  "Show an expandable reinvention nudge with the matched snippet and context",
+  "Provide a thinking panel with Socratic questions, tensions, and selection recall",
+  "Rank stale-but-relevant notes above recently touched ones by forgetting curve",
+  "Drag or copy related notes into the editor without ever writing the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly true). Networking is strictly opt-in and goes only to the configured endpoint; the engine has no built-in authentication and relies on Tailscale network trust, so the README warns to never point it at a public URL. Manual build and install only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "While writing, Obsidian only shows relations you already linked; there is no way to surface semantically related or stale-but-relevant notes and near-duplicate ideas as you pause.",
+ "readmeHash": "ed8ff04cb794218502115569cfbef0aa17faf7e1",
+ "relations": [
+  {
+   "evidence": "The companion is a read-only client — it has nothing to talk to on its own.",
+   "plugin": "hypermnesic engine (leonardsellem/hypermnesic)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "hypermnesic engine (leonardsellem/hypermnesic), self-hosted and reached over Tailscale",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Read-only companion that surfaces pause-triggered related notes and a reinvention nudge from a self-hosted hypermnesic index over MCP on your tailnet.",
+ "tags": [
+  "mcp",
+  "tailscale",
+  "self-hosted",
+  "semantic-recall",
+  "forgetting-curve",
+  "reinvention-nudge"
+ ]
+}

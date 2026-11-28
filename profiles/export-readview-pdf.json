@@ -1,0 +1,59 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export the active Reading view's DOM to PDF via Electron's printToPDF",
+  "Inline local images as Data URLs and snapshot canvas elements as PNGs",
+  "Capture stylesheets, adoptedStyleSheets, and CSS variables for faithful styling",
+  "Configure page size, orientation, margins, scale, and header/footer",
+  "Save to a configurable vault-relative or absolute output path"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation only: the plugin must be built from source with npm and copied into the vault's plugin directory. Desktop-only (no mobile support), and export works only from Reading view, not Live Preview or Source mode.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to PDF-export a note exactly as the Reading view renders it, including content produced by plugins like Dataview or Excalidraw.",
+ "readmeHash": "ffec9f5622ae9eecbe7e4776acde88dc5f1120d3",
+ "relations": [
+  {
+   "evidence": "Compatible with reading-view plugins: Dataview, Excalidraw, Interlinear, Mermaid, custom canvases",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compatible with reading-view plugins: Dataview, Excalidraw, Interlinear, Mermaid",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Compatible with reading-view plugins: Dataview, Excalidraw, Interlinear, Mermaid",
+   "plugin": "Interlinear",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Exports the active Reading view's rendered DOM to PDF using Chromium's print engine, preserving layout, theme, and second-pass plugin rendering.",
+ "tags": [
+  "chromium",
+  "electron",
+  "dom-snapshot",
+  "print-engine",
+  "wysiwyg"
+ ]
+}

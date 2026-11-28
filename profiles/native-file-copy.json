@@ -1,0 +1,44 @@
+{
+ "also": [
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Copy selected File Explorer files and folders as FileDrop clipboard objects",
+  "Restore normal text copying when focus leaves the File Explorer",
+  "Skip selected descendants when a parent folder is copied",
+  "Invoke powershell.exe to place vault paths on the Windows clipboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general clipboard manager; it only redefines Ctrl+C inside the File Explorer, leaving editor and other views untouched.",
+ "extras": "Windows-only and desktop-only; it reads the File Explorer's internal selection state, which the author says should be retested after major Obsidian upgrades. No network services or telemetry.",
+ "intent": "improve",
+ "intentEvidence": "changes Ctrl+C in the focused File Explorer into a native Windows file copy",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Copying from Obsidian's File Explorer does not put actual file objects on the Windows clipboard, so other apps cannot receive the selected vault files directly as attachments.",
+ "readmeHash": "9855a9460e68b55ecf55bedd1159805a5bded39c",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Windows-only plugin that turns Ctrl+C in the File Explorer into a native file copy, placing selected files and folders on the Windows file-drop clipboard.",
+ "tags": [
+  "windows",
+  "clipboard",
+  "file-drop",
+  "powershell",
+  "file-explorer"
+ ]
+}

@@ -1,0 +1,91 @@
+{
+ "also": [
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Organize bookmarks in nested folders",
+  "Search and filter bookmarks",
+  "Pin bookmarks to a top row",
+  "Open bookmarks in the Web Viewer",
+  "Import and export browser bookmarks"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bookmarks",
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Meant to pair with Obsidian's Web Viewer core plugin; when that plugin is off, unavailable, or on mobile, bookmarks open in the system browser instead. Arc import reads Arc's local data file directly and skips Arc's unpinned tabs by design.",
+ "intent": "improve",
+ "intentEvidence": "This plugin is the bookmarks manager to go with it",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "To provide the bookmarks manager Obsidian's Web Viewer lacks: a persistent sidebar that stays visible while browsing, rather than a bookmarks-and-browser hybrid that disappears when you click a link.",
+ "primary": "links",
+ "problem": "Obsidian's Web Viewer can read links but ships no bookmarks manager, so saved sites can't be organized or reopened inside the app.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "cc614fa34670f9915c657a94015da88287bf4f61",
+ "relations": [
+  {
+   "evidence": "This plugin is the bookmarks manager to go with it",
+   "plugin": "Web Viewer",
+   "type": "extends"
+  },
+  {
+   "evidence": "this reads its internal data file directly from the usual install location and imports your pinned items",
+   "plugin": "Arc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chrome, Firefox, Safari, and Edge all export to the same standard HTML bookmarks format",
+   "plugin": "Chrome",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chrome, Firefox, Safari, and Edge all export to the same standard HTML bookmarks format",
+   "plugin": "Firefox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chrome, Firefox, Safari, and Edge all export to the same standard HTML bookmarks format",
+   "plugin": "Safari",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chrome, Firefox, Safari, and Edge all export to the same standard HTML bookmarks format",
+   "plugin": "Edge",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Web Viewer",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Arc",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bookmarks sidebar that opens saved links in Obsidian's built-in Web Viewer, with nested folders, search, pinned items, and browser import/export.",
+ "tags": [
+  "bookmarks",
+  "favicon",
+  "webview",
+  "drag-and-drop",
+  "external-links"
+ ],
+ "textHash": "73e7d3a2dc41f2eb5fa6e3c8d81dd44febf58fbc"
+}

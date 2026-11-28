@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with a self-hosted LLM server from a sidebar with persistent history and streaming",
+  "read, search, create, append and overwrite notes through function-calling tools with confirmation and diff preview",
+  "extract text from PDF, DOCX and PPTX files in the vault for the agent",
+  "run optional web searches via DuckDuckGo or the Brave Search API",
+  "edit selected text inline with AI and accept or reject a word diff"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only. The manifest notes the plugin has not been manually reviewed by Obsidian staff. README covers privacy, network use, known limitations and bundled third-party libraries (pdf.js, fflate) in detail.",
+ "intent": "alternative",
+ "intentEvidence": "Both plugins share the same core.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with an AI model that can act on vault notes, and no built-in chat works with self-hosted LLM servers.",
+ "readmeHash": "905b2f9bfe4b279acf04bda33ff5a28033578712",
+ "relations": [
+  {
+   "evidence": "Both plugins share the same core.",
+   "plugin": "Euridian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Works with Ollama, vLLM, LM Studio, llama.cpp server, LiteLLM",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with Ollama, vLLM, LM Studio, llama.cpp server, LiteLLM",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible LLM server (Ollama, vLLM, LM Studio, llama.cpp, LiteLLM or similar)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Brave Search API key for Brave web search; server API key if the server requires one",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Chat sidebar that connects to your own OpenAI-compatible LLM server and can read, search, create and edit vault notes via function calling.",
+ "tags": [
+  "ollama",
+  "vllm",
+  "lm-studio",
+  "llama-cpp",
+  "litellm",
+  "function-calling",
+  "local-llm",
+  "openai-compatible"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "latex",
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "draw formulas on a pen/eraser handwriting canvas with pan, zoom, and selection tools",
+  "import images and crop, rotate, or enhance the formula region",
+  "recognize formulas via SimpleTex, custom APIs, or experimental Mathpix and OpenAI backends",
+  "insert recognized LaTeX inline, display, or raw",
+  "review past recognitions in a history of canvas snapshots"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "SimpleTex is the recommended free backend; Mathpix and OpenAI GPT-4o Vision support and the camera capture feature are labeled experimental. Also installable via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Typing complex math in LaTeX is slow; Obsidian has no built-in way to draw formulas by hand or convert formula images to LaTeX.",
+ "readmeHash": "1c698b5517ca8e59969ed695bc6ced478f24aebd",
+ "relations": [
+  {
+   "evidence": "It supports multiple API backends, with SimpleTex as the recommended (and free) option.",
+   "plugin": "SimpleTex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "viewport-based infinite canvas in the style of Tldraw/Excalidraw",
+   "plugin": "Tldraw/Excalidraw",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API token/key (SimpleTex UAT, Mathpix, OpenAI, or custom API)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "SimpleTex account to create a UAT token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Handwriting and image-to-LaTeX plugin that recognizes drawn or imported formulas via OCR APIs and inserts LaTeX into notes.",
+ "tags": [
+  "simpletex",
+  "mathpix",
+  "openai-vision",
+  "formula-recognition",
+  "handwriting-canvas",
+  "infinite-canvas",
+  "image-enhancement"
+ ]
+}

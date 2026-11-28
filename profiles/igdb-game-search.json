@@ -1,0 +1,81 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [
+  "gamers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search games by title via the IGDB API",
+  "Create game notes from metadata using template files or a built-in renderer",
+  "Insert game metadata into an existing note",
+  "Download cover images and screenshots into the vault",
+  "Translate summary fields via DeepL and fetch Steam playtime and achievements"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries an unreviewed-plugin notice. The IGDB API is free only for non-commercial use under the Twitch Developer Service Agreement. Requires Obsidian 1.13.0 or later. Steam data requires a public Steam profile; no HowLongToBeat service is contacted.",
+ "intent": "alternative",
+ "intentEvidence": "This project started as a fork of anpigon/obsidian-book-search-plugin and was adapted for IGDB-based game metadata.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to fetch video game metadata from IGDB and turn it into structured notes with frontmatter, images, and playtime stats.",
+ "readmeHash": "99ee52e4ed26912e6a86b1fd97668116316e2056",
+ "relations": [
+  {
+   "evidence": "This project started as a fork of anpigon/obsidian-book-search-plugin and was adapted for IGDB-based game metadata.",
+   "plugin": "anpigon/obsidian-book-search-plugin",
+   "type": "fork"
+  },
+  {
+   "evidence": "Use the Templater plugin for loops, conditions, or any other scripting inside templates.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Twitch Client ID and Client Secret",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Twitch account with two-factor authentication",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "DeepL API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Steam Web API key stored in Obsidian Secret Storage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Searches the IGDB game database and creates Obsidian notes filled with game metadata, cover images, and optional Steam playtime data.",
+ "tags": [
+  "igdb",
+  "twitch",
+  "steam",
+  "deepl",
+  "video-games",
+  "time-to-beat",
+  "achievements"
+ ]
+}

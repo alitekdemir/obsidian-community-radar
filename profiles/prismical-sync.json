@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import selected Prismical notes or folders into a chosen vault folder",
+  "Synchronize note bodies in both directions manually or on a 60-second interval",
+  "Merge non-overlapping edits and queue overlapping changes for conflict review",
+  "Rename and move linked files while preserving unsent edits across restarts",
+  "Disconnect or reconnect individual notes without deleting local Markdown"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop beta: one connector device per vault, no mobile, tags, attachments, transcripts, or local-to-remote note creation yet; manual installation required until listed in the community directory; sends note content and account identifiers to the Prismical API (server-side diagnostics, no client-side analytics).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to bring Prismical meeting notes into the vault and keep edits made in either app synchronized.",
+ "readmeHash": "f9bafd04890dc0fb256902b09d3fc144f106082d",
+ "relations": [
+  {
+   "evidence": "Sync selected Prismical note bodies with Markdown files in Obsidian, in both directions.",
+   "plugin": "Prismical",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Prismical account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Prismical API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that imports selected Prismical meeting notes as Markdown files and keeps edits in sync across both apps.",
+ "tags": [
+  "meeting-notes",
+  "prismical",
+  "two-way-sync",
+  "conflict-resolution",
+  "api-key",
+  "indexeddb"
+ ]
+}

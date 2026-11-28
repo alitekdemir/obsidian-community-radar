@@ -1,0 +1,67 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Display ZIP entry metadata as a folder/file tree and table",
+  "Filter entries by path text or extension",
+  "Summarize archive counts, sizes, and compression ratio",
+  "Flag unsafe entries such as path traversal, encryption, or huge sizes",
+  "Refresh metadata after external file changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an archiver, extractor, backup, or export tool; it only reads ZIP metadata and never extracts, opens, renames, deletes, or writes files.",
+ "extras": "v0.1 supports .zip only; .tar, .gz, .tgz, .rar, and .7z are explicitly deferred. Listings are capped at 2,000 entries. No parser dependency, network, clipboard, subprocess, or write-back APIs. BRAT install offered for beta testing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian has no built-in way to see what is inside a .zip file in the vault without extracting it or opening it in another app.",
+ "profiledAt": "2026-11-17",
+ "provider": "Ant Digital",
+ "readmeHash": "c59282484ff7ef24050f455fa8f726943933daa9",
+ "relations": [
+  {
+   "evidence": "Archive Viewer is different by design: it only inspects an existing local .zip file as metadata",
+   "plugin": "Archive File",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Archive Viewer is different by design: it only inspects an existing local .zip file as metadata",
+   "plugin": "Differential ZIP Backup",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Archive Viewer is different by design: it only inspects an existing local .zip file as metadata",
+   "plugin": "Export Markdown ZIP",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Archive Viewer is different by design: it only inspects an existing local .zip file as metadata",
+   "plugin": "Course Module Loader",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only inspector that shows .zip archive central-directory metadata as a searchable tree and table, with safety warnings, without extracting anything.",
+ "tags": [
+  "zip",
+  "read-only",
+  "file-extensions"
+ ],
+ "textHash": "3a5dd7e065ae0d4b57da1db1e63f0046e793cb75"
+}

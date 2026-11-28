@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save named snapshots of the current note and its embedded attachments",
+  "Diff snapshots against the current note or the previous snapshot",
+  "Restore snapshots without creating new ones, including recovering missing or changed attachments",
+  "Lock snapshots against deletion",
+  "Manually clean up orphaned histories of deleted notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not whole-vault commit-style history; it snapshots one note and its embedded attachments at a time and points users to obsidian-git for coarse-grained history.",
+ "extras": "The manifest states the plugin has not been manually reviewed by Obsidian staff. Snapshots are plain files stored in the vault (default .note-snapshots folder) so they sync with existing vault sync tools; note identity relies on an ns-id frontmatter key that must be preserved.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wrote it to solve their own problems; the README states no feature changes are planned, only bug and compatibility fixes.",
+ "primary": "backup",
+ "problem": "Obsidian has no per-note, manual version history: file recovery is automatic and vault-wide, and git plugins work at whole-vault granularity rather than per note.",
+ "readmeHash": "033fb5c04a8d0e6a90511acbba6ef0636944e840",
+ "relations": [
+  {
+   "evidence": "If you need whole-vault, commit-style history across many files at once, use obsidian-git instead",
+   "plugin": "obsidian-git",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Per-note version-control plugin that saves named snapshots of a note and its embedded attachments, with diffs, locking, and restore.",
+ "tags": [
+  "version-control",
+  "snapshots",
+  "diff",
+  "restore",
+  "file-history"
+ ]
+}

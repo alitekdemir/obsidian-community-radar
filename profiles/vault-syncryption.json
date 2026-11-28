@@ -1,0 +1,65 @@
+{
+ "also": [
+  "backup",
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes, attachments, settings, themes and plugins end-to-end encrypted",
+  "Approve or remove per-device encryption keys and create a recovery key",
+  "Merge concurrent edits and keep both versions on conflicting line changes",
+  "Browse and restore file version history held on the server",
+  "Run a device in remote-only mode with locking and remote wipe"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file-transfer or backup tool; it requires a Sync server you host yourself and the plugin alone does nothing.",
+ "extras": "Requires Obsidian 1.13 or later; the encryption key is kept in Obsidian's secret storage. Server needs ports 80 and 443 open and a shared secret from the server admin to create the first vault. Android and Windows are under-tested and testers are wanted. Beta releases are untested work in progress that may lose or corrupt data. The server also offers an admin page, Prometheus metrics and a Grafana dashboard.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in sync is a paid service and other sync options either store readable notes on a third-party server or leave plaintext copies on devices you don't control.",
+ "profiledAt": "2026-11-23",
+ "provider": "Baidu",
+ "readmeHash": "2890693ec5f5d6970662cc3ecd75f6615113a635",
+ "readmeSource": "README.md",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Vault Syncryption server (Docker host with public IP and DNS)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted end-to-end encrypted sync plugin that syncs the whole vault, including settings and plugins, through a server you run.",
+ "tags": [
+  "self-hosted",
+  "end-to-end-encryption",
+  "encryption",
+  "docker",
+  "s3",
+  "version-history",
+  "offline",
+  "android"
+ ],
+ "textHash": "008d94277311e01cbc362c44f3e8f945a9da1e59"
+}

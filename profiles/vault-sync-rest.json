@@ -1,0 +1,69 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Seed a vault by downloading an entire GitHub repository file by file",
+  "Pull incremental changes and push them as one atomic git commit via the GitHub REST API",
+  "Auto-sync on an interval, after idle editing, or when Obsidian opens or returns to the foreground",
+  "Merge concurrent text edits with a git-style 3-way merge and conflict markers",
+  "Skip per-device files such as plugin data, workspace state, and cache"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "GitHub-only (no GitLab, Bitbucket, or Gitea); GitHub API caps apply (100 MB per file, ~100k files per tree, 300 files per compare). Not yet in the community plugin store; beta install is via BRAT. The Personal Access Token is stored in the plugin's data.json, which is excluded from sync.",
+ "intent": "alternative",
+ "intentEvidence": "The popular obsidian-git plugin uses isomorphic-git, which loads entire packfiles into memory during clone and pull.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author spent hours debugging why obsidian-git could not clone a vault on iOS, traced it to isomorphic-git memory exhaustion, and built this REST-based alternative in one session.",
+ "primary": "syncing",
+ "problem": "Git-protocol sync plugins like obsidian-git exhaust the iOS WebView memory heap on large vaults, silently crashing Obsidian and wiping its config folder.",
+ "readmeHash": "94a01e25320759f2737b2fdc4f1c555978b4aa4a",
+ "relations": [
+  {
+   "evidence": "The popular obsidian-git plugin uses isomorphic-git, which loads entire packfiles into memory during clone and pull.",
+   "plugin": "obsidian-git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "BRAT lets you install plugins straight from GitHub.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub Personal Access Token with Contents read/write",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync with a GitHub repository via the GitHub REST API, designed to work on iOS where git-protocol sync plugins crash.",
+ "tags": [
+  "github",
+  "rest-api",
+  "git-commits",
+  "personal-access-token",
+  "ios",
+  "conflict-markers"
+ ]
+}

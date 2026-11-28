@@ -1,0 +1,65 @@
+{
+ "also": [
+  "tasks",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Scan the vault for checkbox tasks containing YYYY-MM-DD dates",
+  "Generate an iCalendar file with events or TODO items from those tasks",
+  "Save the calendar to the vault filesystem or a GitHub Gist",
+  "Filter tasks by tags, completion status, age, and target directories",
+  "Optionally parse Day Planner format tasks with start and end times"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "It does not display a calendar in Obsidian; it only exports tasks as an iCalendar file for use in other calendar apps.",
+ "extras": "README includes a detailed privacy section explaining exactly when network requests occur; optional destinations include a custom web URL in addition to GitHub Gist.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to turn dated tasks into a calendar file that external calendar applications can consume.",
+ "readmeHash": "9581853216f6a55562c69741c7116becb22c08c6",
+ "relations": [
+  {
+   "evidence": "This plugin has rudimentary support for Obsidian Tasks emoji format and Obsidian Tasks dataview format.",
+   "plugin": "Obsidian Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin supports Day Planner format tasks. If you enable this in the settings",
+   "plugin": "Day Planner",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub personal access token and Gist",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Generates an iCalendar file from dated tasks in the vault, saving it to disk or a GitHub Gist for subscription in calendar apps.",
+ "tags": [
+  "ics",
+  "icalendar",
+  "github-gist",
+  "day-planner",
+  "google-calendar",
+  "thunderbird",
+  "emoji-status"
+ ]
+}

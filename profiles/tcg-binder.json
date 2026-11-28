@@ -1,0 +1,105 @@
+{
+ "also": [
+  "data",
+  "search"
+ ],
+ "audience": [
+  "collectors",
+  "gamers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  ">Track collections",
+  "Build decks",
+  "Import card lists",
+  "Export decklists",
+  "View market prices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Properties view",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Offline-first design; scoped to a specific binder folder to prevent vault enumeration.",
+ "intent": "alternative",
+ "intentEvidence": "Your data stays readable, syncable, linkable and greppable — with or without the plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To provide a free, data-owned, and easily manageable system for tracking TCG collections and decks within a Markdown vault.",
+ "primary": "ttrpg",
+ "problem": "Managing physical trading card collections is tedious, often requiring proprietary apps that lock data or require manual retyping during migration.",
+ "readmeHash": "42bf9f64a710db8391564461ce7b234735b836a4",
+ "relations": [
+  {
+   "evidence": "Market prices (TCGplayer via TCGdex) stamped on every card note, with the snapshot date",
+   "plugin": "TCGplayer",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Card database: TCGdex (default — free, no key) or pokemontcg.io (needs an API key since the Scrydex acquisition)",
+   "plugin": "TCGdex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Card database: TCGdex (default — free, no key) or pokemontcg.io (needs an API key since the Scrydex acquisition)",
+   "plugin": "pokemontcg.io",
+   "type": "integrates"
+  },
+  {
+   "evidence": "CSV import from ManaBox, Collectr and TCG Collector",
+   "plugin": "ManaBox",
+   "type": "integrates"
+  },
+  {
+   "evidence": "CSV import from ManaBox, Collectr and TCG Collector",
+   "plugin": "Collectr",
+   "type": "integrates"
+  },
+  {
+   "evidence": "CSV import from ManaBox, Collectr and TCG Collector",
+   "plugin": "TCG Collector",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import a decklist straight from Pokémon TCG Live (paste → deck note)",
+   "plugin": "Pokémon TCG Live",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "TCGdex",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "pokemontcg.io",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "A tool that allows users to track Pokémon TCG collections, build decks, and manage card data using Markdown frontmatter within Obsidian.",
+ "tags": [
+  "pokemon",
+  "tcg",
+  "decklist",
+  "card",
+  "collection",
+  "tcgplayer",
+  "tcgdex"
+ ]
+}

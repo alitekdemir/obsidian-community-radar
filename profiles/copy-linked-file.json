@@ -1,0 +1,60 @@
+{
+ "also": [
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "copy the vault file behind a wikilink, embed, or markdown link to the clipboard",
+  "resolve local file:/// URLs and copy the target file",
+  "copy files from a right-click menu in the file explorer",
+  "paste copied files into File Explorer, email, chat apps, or upload controls"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Copies the file itself as a clipboard file drop list, not the link text or URL.",
+ "extras": "Desktop-only and Windows-only; uses Node.js and Windows clipboard APIs, so macOS, Linux, iOS, and Android are not supported. README states no network requests, telemetry, or note modifications.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's copy actions work on link text or paths, so getting the real underlying file into File Explorer, email, or chat apps requires finding it manually.",
+ "readmeHash": "a5fb890b6049a78aff988e4b575d1f675bb4a478",
+ "relations": [
+  {
+   "evidence": "Invokes Windows PowerShell locally to write the file path into the system clipboard",
+   "plugin": "PowerShell",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian desktop",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "PowerShell (powershell.exe)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Windows-only plugin that copies the actual file behind an internal link, embed, file:/// URL, or file menu item to the Windows clipboard.",
+ "tags": [
+  "clipboard",
+  "windows",
+  "powershell",
+  "file-explorer",
+  "embeds",
+  "wikilink"
+ ]
+}

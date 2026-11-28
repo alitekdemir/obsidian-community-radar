@@ -1,0 +1,122 @@
+{
+ "also": [
+  "research",
+  "writing"
+ ],
+ "audience": [
+  "academics",
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import Zotero papers into structured literature notes",
+  "Sync Zotero highlights and comments into a note with page numbers",
+  "Promote checked candidates into permanent notes",
+  "Package a week's literature notes as a zip",
+  "Create projects and time writing sessions"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an e-reader or text-to-speech tool; it manages Zotero literature notes and the course workflow around them.",
+ "extras": "Desktop only (macOS, Windows, Linux). Free and open source under GPL-3.0, with no account or payment. Downloads the PDF utility from GitHub and checks it against a built-in SHA-256 checksum; setup and upgrade instructions live in separate files (STUDENT-SETUP-GUIDE.md, UPDATING.md, UPDATE-REPORT-2.3.md).",
+ "intent": "alternative",
+ "intentEvidence": "2.x copies the import formats and other settings from the community Zotero Integration plugin",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Zotero reading and highlights sit apart from Obsidian notes, so literature notes have to be copied by hand and candidates turned into permanent notes one at a time.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "ad60b7a78751348405ba69a9ae6e157b3c5ce19c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Import a paper from Zotero into a structured literature note",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requires Zotero 7 with the Better BibTeX plugin",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "copies the import formats and other settings from the community Zotero Integration plugin",
+   "plugin": "Zotero Integration",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Highlight sync and PDF import use pdfannots2json, a program by mgmeyers that reads annotations out of PDF files",
+   "plugin": "pdfannots2json",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A template that uses Templater is run through Templater",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A Dataview query under \"Permanent notes not yet used\" is replaced by the plugin's list",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A done date added by the Tasks plugin is ignored",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Until Second Reader appears in the community directory, install it with BRAT instead",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "PDF Utility (pdfannots2json)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tesseract",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Literature-note workflow plugin that imports Zotero papers, syncs highlights with page numbers, and promotes candidates into permanent notes.",
+ "tags": [
+  "zotero",
+  "literature-notes",
+  "highlights",
+  "bibtex",
+  "academic-writing",
+  "pdf-annotation",
+  "time-tracking"
+ ],
+ "textHash": "083df90ddca3cebb25de0070ec9d8f78694496cb"
+}

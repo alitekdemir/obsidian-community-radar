@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import public YouTube playlists as per-video notes",
+  "Fetch video metadata and available transcripts",
+  "Maintain per-playlist and root index notes",
+  "Generate optional AI summaries via OpenAI-compatible endpoints",
+  "Customize video-note frontmatter with a validated YAML template"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Sync means pulling playlist data from YouTube into vault notes, not syncing a vault across devices or services.",
+ "extras": "Marked as not manually reviewed by Obsidian staff; installable via BRAT as a beta plugin. Playlist syncing needs no YouTube API key, and donations are accepted via Buy Me a Coffee and Bondin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn a public YouTube playlist into per-video notes with metadata and transcripts, so learners must create them manually.",
+ "readmeHash": "b4b7d1faac795c1e852b3c9947451c193c98d873",
+ "relations": [
+  {
+   "evidence": "YT Knowledge Notes for the metadata property conventions used by the default note template.",
+   "plugin": "YT Knowledge Notes",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Dataview: query the generated frontmatter to build dashboards for channels, playlists, tags",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater: use the stable video-note properties as inputs for your own note templates",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "QuickAdd: connect Obsidian commands and capture flows around a repeatable playlist-sync workflow",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw: link generated video notes from visual maps, lesson plans, and research diagrams",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (OpenAI, NVIDIA NIM, or custom endpoint)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "YouTube playlist importer that creates one note per video with metadata, transcripts, index notes, and optional AI summaries.",
+ "tags": [
+  "youtube",
+  "playlists",
+  "transcripts",
+  "openai",
+  "nvidia-nim",
+  "video-embeds"
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "also": [
+  "theming",
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add or remove a CSS class on the current canvas via commands or settings",
+  "Add a CSS class to a closed canvas by its filepath",
+  "Rename, remove, or clear CSS classes from the settings",
+  "Switch the class append target between the canvas body and workspace leaf",
+  "Automatically track canvases when files are moved, renamed, or deleted"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The plugin ships no CSS itself; you must write your own rules in the .obsidian/snippets folder. The README explains a trade-off: classes on the workspace leaf survive focus changes but are lost on image export, while body mode does the opposite. The author accepts donations ('coffee money').",
+ "intent": "improve",
+ "intentEvidence": "Add the class .canvas-file to the DOM of each canvas file, and adding the attribute [data-canvas-path=\"filepath\"]",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "css",
+ "problem": "Obsidian gives every canvas the same DOM, so you cannot target or style one specific canvas with CSS snippets.",
+ "readmeHash": "968fd61ff0b024d55de185d1077130c69659d741",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Adds a CSS class and data attributes such as data-canvas-path to canvas files so individual canvases can be styled with your own CSS snippets.",
+ "tags": [
+  "whiteboard",
+  "style-settings",
+  "text-styling",
+  "file-extensions"
+ ]
+}

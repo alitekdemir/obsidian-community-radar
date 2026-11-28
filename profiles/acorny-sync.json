@@ -1,0 +1,55 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull highlights from Acorny's read-only export feed",
+  "Write one Markdown note per source with frontmatter and a highlights list",
+  "Append new highlights idempotently while preserving manual edits",
+  "Match notes by acorny-source-id so renames do not create duplicates",
+  "Trigger sync manually, on startup, or on an interval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it does not sync your vault across devices; it is a one-way import of Acorny highlights into notes.",
+ "extras": "Beta installs go through the BRAT plugin; the read-only export token is stored in the plugin data file inside the vault and the README warns not to publicly sync or share that folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to import and keep updated the highlights you make in the Acorny reading service.",
+ "readmeHash": "51bebf3d88d96af0e41b4a80eb5d8d0ea68b187c",
+ "relations": [
+  {
+   "evidence": "Pulls highlights from Acorny's read-only export feed (/api/v1/exports/highlights/feed).",
+   "plugin": "Acorny",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Acorny",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Pulls highlights from the Acorny reading service into your vault as one Markdown note per source, appending new highlights idempotently.",
+ "tags": [
+  "highlights",
+  "reading",
+  "export-token",
+  "idempotent",
+  "block-ids"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "publishing",
+  "syncing"
+ ],
+ "audience": [
+  "small-teams",
+  "freelancers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Edit the same note simultaneously with CRDT merge and offline support",
+  "Share folders with viewer or editor permissions via email invites",
+  "Publish notes or folders as a website with public, protected, or private access",
+  "Self-host the relay server with Docker Compose or use the hosted service",
+  "Connect to user-configured relay and control-plane servers in settings"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish",
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a device-sync tool like Obsidian Sync; its core job is real-time multiplayer editing plus web publishing.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README includes a network-usage table stating requests go only to user-configured servers, with no telemetry. Docs for the server side live in a separate repo.",
+ "intent": "alternative",
+ "intentEvidence": "Better than Obsidian Publish — custom domains, access control, flat pricing.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "collaboration",
+ "problem": "Obsidian has no built-in real-time collaboration, so teams export notes or switch to Notion or Google Docs, and Obsidian Publish is a paid subscription with limited control.",
+ "readmeHash": "db78f7ac211822ec0533a3ed82d9ad53530e4273",
+ "relations": [
+  {
+   "evidence": "Publishing means paying $8/month for Obsidian Publish with limited control",
+   "plugin": "Obsidian Publish",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Replace Notion/Confluence. Keep Obsidian.",
+   "plugin": "Notion",
+   "type": "alternative"
+  },
+  {
+   "evidence": "As a fallback, BRAT can install it from entire-vc/evc-team-relay-obsidian.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pair with Local Sync for repo /docs ↔ vault sync.",
+   "plugin": "EVC Local Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "relay server (self-hosted via Docker Compose or hosted at entire.vc)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "hosted account at entire.vc or self-hosted login",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Real-time collaboration and web publishing plugin: CRDT-based co-editing, shared folders with permissions, and one-click publishing, self-hosted or hosted.",
+ "tags": [
+  "crdt",
+  "self-hosted",
+  "docker",
+  "websocket",
+  "access-control",
+  "websites"
+ ]
+}

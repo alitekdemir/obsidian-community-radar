@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "music-collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "browse album collections as cover cards on a shelf",
+  "play audio from local vault files or NetEase, QQ Music, and Kugou accounts",
+  "import albums from local audio files, online search, or album links",
+  "append timestamped listening entries to album notes",
+  "track playback statistics with a calendar heatmap and export to a note"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only. Online sources use unofficial platform APIs and playback depends on account permissions and platform availability; the README warns users to exclude the plugin's credential files from cloud-drive sync tools.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author believes music and notes have a natural affinity: 'A song is worth writing down' and memories tied to music should stay as private pages in your own notes rather than social posts.",
+ "primary": "audio",
+ "problem": "Obsidian has no way to keep a music collection in the vault, play it, or tie listening notes and playback history to the album they came from.",
+ "readmeHash": "32d015127fa28a390c9cc228683291ac18ffa4ce",
+ "relations": [
+  {
+   "evidence": "The local gateway uses some API modules from NeteaseCloudMusicApi, which is released under the MIT license.",
+   "plugin": "NeteaseCloudMusicApi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The hand-drawn strokes in the tutorial (dashed boxes, ring, arrows) use roughjs, the same engine Excalidraw uses internally (MIT).",
+   "plugin": "roughjs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "NetEase Cloud Music, QQ Music, or Kugou account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Mobile NetEase/QQ/Kugou app for QR-code sign-in",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Album shelf and vinyl-turntable player that treats each album as a Markdown note and plays local audio or NetEase Cloud Music, QQ Music, and Kugou accounts.",
+ "tags": [
+  "netease-cloud-music",
+  "qq-music",
+  "kugou",
+  "turntable",
+  "vinyl",
+  "lrc",
+  "heatmap"
+ ]
+}

@@ -1,0 +1,51 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Define path-matching ignore rules for files and folders",
+  "Hide matching paths from the index by adding a dot prefix",
+  "Show hidden paths again by removing the dot prefix",
+  "Preview a rename plan before applying batch renames",
+  "Recover or undo interrupted batch renames"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an internal filter or virtual exclude; it renames files and folders on disk by adding or removing a leading dot.",
+ "extras": "Prominent warning that the plugin renames items on the filesystem; includes collision aborts, protected-directory skips, an audit log, and a recovery action for interrupted batches.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's native \"Excluded files\" setting does not always prevent indexing overhead for massive folder trees",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author used Obsidian to write in a Next.js blog repository and indexing /node_modules made the vault slow to open.",
+ "primary": "files",
+ "problem": "Obsidian indexes every file in the vault, so large non-note directories like node_modules or build caches slow startup and clutter search and graph view, and the native excluded-files setting does not always prevent that overhead.",
+ "readmeHash": "a7287d2f51b7b85eba44975d06f25ddd9fc4e31d",
+ "relations": [
+  {
+   "evidence": "Pair File Ignore with the Show-Hide-Files plugin if you need to view or manage dot-prefixed files",
+   "plugin": "Show-Hide-Files",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Rule-based tool that hides files and folders from Obsidian's index by toggling dot prefixes on disk, with rename previews and recovery.",
+ "tags": [
+  "dot-prefix",
+  "gitignore-patterns",
+  "indexing",
+  "batch-rename",
+  "hidden-files"
+ ]
+}

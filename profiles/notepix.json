@@ -1,0 +1,67 @@
+{
+ "also": [
+  "attachments",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload pasted or dragged images to a GitHub repository and swap in hosted links",
+  "Batch-upload all local images embedded in the current note",
+  "Render private-repo images in Reading View and Live Preview via authenticated fetch",
+  "Delete images from GitHub and notes, with multi-select and cross-note usage warnings",
+  "Report orphaned repository images that no note or canvas references"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Token encryption with AES-GCM and a master password is optional but recommended; SECURITY.md covers the vulnerability-reporting process. Legacy pre-v2 links need a classic token with access to all repositories.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was burned by an Imgur-style public uploader: uploaded images were publicly visible and he had no guarantee the service would keep running, so he wanted images in storage he controls.",
+ "primary": "integrations",
+ "problem": "Pasted images bloat an Obsidian vault, and third-party image hosts make images public or may shut down, leaving notes with dead links.",
+ "readmeHash": "f128a28c2881d22c18256676cd07674678f7bc5b",
+ "relations": [
+  {
+   "evidence": "It uploads your pasted images to your own GitHub repository — which can be private",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "for public repos, serve images via the fast jsDelivr CDN",
+   "plugin": "jsDelivr",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Uploads pasted or existing images to your own GitHub repository and replaces local files with hosted links, rendering private-repo images via authenticated fetch.",
+ "tags": [
+  "github",
+  "jsdelivr",
+  "cdn",
+  "image-hosting",
+  "aes-gcm",
+  "paste-upload"
+ ]
+}

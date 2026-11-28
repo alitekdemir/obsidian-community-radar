@@ -1,0 +1,56 @@
+{
+ "also": [
+  "files",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render ftags as chips at the top of file views",
+  "remove an ftag connection via a chip button",
+  "move files with no non-inbox ftags to the inbox folder",
+  "show child notes as chips below the ftag chips",
+  "open the file menu from chips on right-click"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that it uses file system APIs that move files and modify symlinks in frontmatter, and recommends backing up the vault; the README also lists many companion plugins by the same author.",
+ "intent": "improve",
+ "intentEvidence": "If you have crosslink-advanced enabled, a button for adding new tags appears to the left of the tags",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Ftags assigned via clones and symlinks have no visible representation when a file is open, so you cannot see or manage a file's tag hierarchy in the editor.",
+ "readmeHash": "512b49c0d4d1197e903a5cd23a1f6fdac236a4f6",
+ "relations": [
+  {
+   "evidence": "If you have crosslink-advanced enabled, a button for adding new tags appears to the left of the tags",
+   "plugin": "crosslink-advanced",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "crosslink-advanced",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Displays a file's ftags (clone/symlink-based tags) and child notes as styled chips at the top of the markdown view.",
+ "tags": [
+  "ftags",
+  "chips",
+  "symlinks",
+  "clones",
+  "crosslink-advanced"
+ ]
+}

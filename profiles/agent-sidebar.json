@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a local Claude Code agent in a sidebar",
+  "Approve or decline edits and commands as line diffs",
+  "Switch permission modes including plan mode before edits run",
+  "Mention notes and attach pasted images as context",
+  "Resume and browse past Claude Code conversations, including terminal-started ones"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general AI chat plugin; it only drives a local Claude Code CLI session, not other providers or chat backends.",
+ "extras": "Still awaiting Obsidian community review; until approved it must be installed via BRAT or manually. The plugin itself makes no network requests and has no telemetry, but Claude Code sends prompts, note paths and file contents to Anthropic or a configured provider; the README links to Anthropic's legal and compliance page regarding API key authentication for third-party Agent SDK tools. Desktop only, tested on macOS.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to drive an AI coding-style agent over your vault with streamed replies, tool call visibility and per-edit approval.",
+ "readmeHash": "73f430c4711c643dafa7e1a54bcfa4d53275cb9b",
+ "relations": [
+  {
+   "evidence": "Agent Sidebar runs the claude CLI you already have, with your vault as the working directory.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The panel is modeled on the Claude Code extension for VS Code",
+   "plugin": "Claude Code extension for VS Code",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code CLI",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Claude account or Anthropic API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Sidebar chat panel that runs a local Claude Code CLI agent to read, search and edit vault notes, showing tool calls and approvable diffs.",
+ "tags": [
+  "claude-code",
+  "anthropic",
+  "ai-agent",
+  "diffs",
+  "permission-modes",
+  "mcp",
+  "agent-sdk"
+ ]
+}

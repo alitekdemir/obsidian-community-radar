@@ -1,0 +1,93 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Summarise video links, local files and pasted transcripts into notes",
+  "Extract platform subtitles or run speech-to-text for a timestamped transcript",
+  "Add key points and an evidence mode with watch, skim or skip verdicts",
+  "Play the video beside its transcript with click-to-seek and highlights",
+  "Search across transcripts and build claim matrices or course playlists"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, Obsidian 1.11.4+; the plugin and backend are free but the summary model is billed per token by the provider and SiliconFlow refuses requests while the account balance is zero. The 550 MB backend image is downloaded only after the user confirms in a Terminal window; the plugin never downloads or updates the backend itself.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "video",
+ "problem": "Obsidian cannot turn a video into a note with a summary and a timestamped transcript on its own.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "665b9274a1cd70c02ec73150a11f09923302d168",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "n8n with yt-dlp and ffmpeg in Docker on your own computer, started by the script",
+   "plugin": "n8n",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Needs Obsidian 1.11.4+ on desktop and Docker Desktop or OrbStack.",
+   "plugin": "Docker Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Speech-to-text | SiliconFlow SenseVoiceSmall, used only for videos without subtitles",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Summary model | DeepSeek deepseek-flash by default, or any OpenAI-compatible model",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Docker Desktop or OrbStack",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Summary model key (DeepSeek or OpenAI-compatible)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "SiliconFlow speech-to-text key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bilibili login",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Turns video links, local recordings and transcripts into notes with a summary, key points and a timestamped transcript, using a backend the user runs.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "summarization",
+  "youtube",
+  "bilibili",
+  "timestamps",
+  "docker"
+ ],
+ "textHash": "4f6f0c1bd1d34cf19b79b5980818e7d098585543"
+}

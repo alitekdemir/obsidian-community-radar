@@ -1,0 +1,70 @@
+{
+ "also": [
+  "ocr",
+  "latex"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run a local proxy server on port 50905 inside Obsidian",
+  "Receive images from the WriteTex app via mDNS discovery",
+  "Convert math and diagram images to LaTeX, TikZ, or Markdown with an AI model",
+  "Insert recognized code at the cursor with real-time streaming",
+  "Send surrounding note text as context to improve recognition accuracy"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation from GitHub releases; screenshots of math are processed by an external AI service, with details deferred to a linked privacy policy.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Getting handwritten or printed math and diagrams from a tablet into Obsidian requires manually transcribing them into LaTeX or leaving the editor.",
+ "readmeHash": "923788dbba72799d4b82aff6114071cbfee886eb",
+ "relations": [
+  {
+   "evidence": "Seamlessly connects the WriteTex mobile app to your desktop Obsidian editor.",
+   "plugin": "WriteTex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Enter your OpenAI API key (sk-...).",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WriteTex app",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bridge plugin that runs a local proxy server so the WriteTex OCR app can send math images and insert LaTeX, TikZ, or Markdown at the cursor.",
+ "tags": [
+  "openai",
+  "tikz",
+  "mdns",
+  "handwriting",
+  "gpt-4o",
+  "openrouter",
+  "localai"
+ ]
+}

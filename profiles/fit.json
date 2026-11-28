@@ -1,0 +1,78 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files across mobile and desktop via a GitHub repository",
+  "Preserve conflicting remote changes in a _fit folder for manual merging",
+  "Run auto-sync on a periodic interval",
+  "Configure sync with a guided GitHub setup and personal access token",
+  "Exclude device-specific .obsidian settings from syncing by default"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a full Git client; it syncs a vault via the GitHub API and leaves advanced git features like branching to other plugins.",
+ "extras": "README warns the plugin is in beta and advises backing up the vault first. Notes GitHub API file size limits (~100MB hard limit, issues above 10MB), a past beta bug that corrupted binary files on GitHub (fixed in v1.4), and that GitHub Enterprise Server support and an 'Explain Sync Status' command are upcoming. Developer docs live in the repo's docs/ directory.",
+ "intent": "alternative",
+ "intentEvidence": "There are also other plugins for synchronizing changes such as Git integration, GitHub sync, and YAOS.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault between devices is hard when other git-based sync plugins do not support Obsidian mobile, and users need conflict-safe, one-click syncing without losing changes.",
+ "readmeHash": "f55dd69ca7d6d3503627f91d26af8221298cef35",
+ "relations": [
+  {
+   "evidence": "There are also other plugins for synchronizing changes such as Git integration, GitHub sync, and YAOS. However, they do not support mobile",
+   "plugin": "Git integration, GitHub sync, YAOS",
+   "type": "alternative"
+  },
+  {
+   "evidence": "if you need features such as branching of your repo, Git is a nice plugin",
+   "plugin": "Git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "This plugin uses Octokit to interface with GitHub rest api across devices.",
+   "plugin": "Octokit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin used Obsidian Sample Plugin as a template.",
+   "plugin": "Obsidian Sample Plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token with Contents read/write",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that keeps notes and attachments in sync across mobile and desktop devices through a GitHub repository.",
+ "tags": [
+  "github",
+  "conflict-resolution",
+  "auto-sync",
+  "octokit",
+  "personal-access-token",
+  "mobile"
+ ]
+}

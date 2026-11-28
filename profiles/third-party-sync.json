@@ -1,0 +1,73 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to S3, WebDAV, or OneDrive",
+  "Encrypt files end-to-end before upload",
+  "Schedule automatic syncs and detect remote changes",
+  "Resolve conflicts and abort syncs that modify too many files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not the official Obsidian Sync service; it syncs through the user's own S3, WebDAV, or OneDrive storage.",
+ "extras": "Not backwards compatible with Remotely Save; the README warns users to back up their vault before switching. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Some setup details live in external service compatibility, WebDAV config, and technical docs.",
+ "intent": "alternative",
+ "intentEvidence": "An Obsidian sync plugin, forked from Remotely Save with security-first improvements.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked Remotely Save to upgrade its encryption security (AES-256-GCM, per-file IVs, integrity checks) and simplify the codebase.",
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid service, and users who prefer their own cloud storage previously had to use Remotely Save's older encryption schemes and support for many services.",
+ "readmeHash": "85b74cd7ae0883a5a68dfda7e2540691d7c8fe25",
+ "relations": [
+  {
+   "evidence": "forked from Remotely Save with security-first improvements",
+   "plugin": "Remotely Save",
+   "type": "fork"
+  },
+  {
+   "evidence": "output format compatible with RClone Crypt's base64url filename encoding",
+   "plugin": "RClone Crypt",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "S3 / WebDAV / OneDrive cloud storage service",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access keys",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "cloud storage (upload, download, and API calls may incur charges)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Fork of Remotely Save that syncs a vault to S3, WebDAV, or OneDrive with rebuilt AES-256-GCM end-to-end encryption.",
+ "tags": [
+  "s3",
+  "webdav",
+  "onedrive",
+  "encryption",
+  "end-to-end-encryption",
+  "rclone",
+  "self-hosted"
+ ]
+}

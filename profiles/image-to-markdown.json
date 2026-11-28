@@ -1,0 +1,78 @@
+{
+ "also": [
+  "ai",
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe embedded images to Markdown notes",
+  "Transcribe selected PDF page ranges",
+  "Generate image descriptions in Describe mode",
+  "Refine transcripts with prose feedback",
+  "Stream results live into a sidebar"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4+ for keychain-stored API keys. HEIC/HEIF images are recognized but skipped. Fully offline with no telemetry. Sister plugin: vault-rag.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "Split out of vault-rag because image transcription is not RAG; the two only ever shared the SSE transport.",
+ "primary": "ocr",
+ "problem": "Obsidian cannot extract text from images or PDFs on its own, leaving scans, screenshots and photographed pages unsearchable.",
+ "profiledAt": "2026-11-26",
+ "provider": "Baidu",
+ "readmeHash": "9e0d81fa41f2529a2398a3333962ec0c53bca3a3",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Image to Markdown was split out of vault-rag 0.2.0 on 2026-06-21 because image transcription is not RAG",
+   "plugin": "vault-rag",
+   "type": "fork"
+  },
+  {
+   "evidence": "If the LLM Endpoint Manager plugin is installed, the endpoints (and their keys) come from it instead",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an OpenAI-compatible local server running a vision-capable model (e.g. LM Studio)",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible local vision server (e.g. LM Studio)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "endpoint API key for hosted providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vision-LLM tool that transcribes embedded images and PDFs in a note into Markdown notes, fully offline and non-destructive.",
+ "tags": [
+  "vision-models",
+  "local-llm",
+  "offline"
+ ],
+ "textHash": "8f96bfa705c7e8484baa22e30a2b148aeab0810d"
+}

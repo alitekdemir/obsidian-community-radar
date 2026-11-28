@@ -1,0 +1,78 @@
+{
+ "also": [
+  "images",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "upload pasted clipboard images to an AWS S3 bucket",
+  "insert S3 links into the note at paste time",
+  "upload dragged media files including video, audio and PDFs",
+  "override upload behavior per note with YAML frontmatter",
+  "copy uploads to a local folder instead of S3"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Setup requires manual bucket configuration: a world-readable bucket policy, a CORS policy, and an IAM user with write access. The plugin is ad-supported and the README asks users to report bugs since it is still in development.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Pasting images into Obsidian saves them locally, so sharing or viewing them elsewhere usually means relying on a third-party host such as imgur.",
+ "readmeHash": "3f844841273ef9b26ebba298830cf50d5db099ad",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Typora",
+   "type": "inspired"
+  },
+  {
+   "evidence": "the following Obsidian plugins: - Obsidian Image Uploader",
+   "plugin": "Obsidian Image Uploader",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Remotely Save",
+   "type": "inspired"
+  },
+  {
+   "evidence": null,
+   "plugin": "Obsidian Imgur Plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "AWS account with an IAM user and S3 bucket",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "AWS S3 storage",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Uploads pasted or dragged images and media to your own AWS S3 bucket and inserts links to them in notes.",
+ "tags": [
+  "aws-s3",
+  "self-hosted",
+  "clipboard-paste",
+  "drag-and-drop",
+  "image-upload",
+  "cors",
+  "iam"
+ ]
+}

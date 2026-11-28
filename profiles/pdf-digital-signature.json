@@ -1,0 +1,57 @@
+{
+ "also": [
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sign exported PDFs with PKCS#7/X.509 certificates (.pfx/.p12)",
+  "Stamp custom footers and page numbers on every PDF page",
+  "Generate self-signed certificates from the settings",
+  "Check PDF signature integrity and detect appended bytes",
+  "Choose Integrity signature or Certify (DocMDP P=1) signing modes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Marked as not manually reviewed in the manifest; supports beta install via BRAT and requires Obsidian 1.13.0+. Certificate passwords are stored in Obsidian's SecretStorage, not data.json. Limits: 64 MiB per PDF and 4 MiB per PKCS#12 file. No trusted timestamps, PAdES T/LT/LTA, TSA services, or trust-chain/revocation validation; already-signed PDFs are rejected. Bundles pdf-lib, node-forge, and @signpdf; all signing runs locally with no network calls.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian's PDF export cannot produce cryptographically signed documents or stamp signer names and page numbers on every page without external tools like OpenSSL or Python.",
+ "readmeHash": "cf5c96a5facd98d0a4acd8007c64a6120fe05790",
+ "relations": [
+  {
+   "evidence": "For optional independent validation and trust configuration, see pyHanko's guide.",
+   "plugin": "pyHanko",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "PDF post-processing plugin that cryptographically signs exported PDFs with X.509/PKCS#7 certificates and stamps custom running footers and page numbers.",
+ "tags": [
+  "digital-signature",
+  "pkcs7",
+  "x509",
+  "pfx",
+  "self-signed-certificate",
+  "footer",
+  "pyhanko",
+  "docmdp"
+ ]
+}

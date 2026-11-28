@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Serve 66 vault tools (files, search, tasks, frontmatter, canvas, links) over MCP on loopback",
+  "Run on-device semantic search with local embedding models",
+  "Manage per-client bearer tokens with tool profiles and allowlists",
+  "Gate Obsidian command execution behind an opt-in allowlist with approval modals",
+  "Author MCP prompts as markdown notes with Templater-style parameters and embeds"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents renderer crashes on Obsidian 1.14 with Electron 43, fixed in 3.1.1, and records an accepted local-process risk if another program binds the broker port. A companion headless server serves the same tools without Obsidian running.",
+ "intent": "new",
+ "intentEvidence": "Your Obsidian vault, exposed to AI clients over the Model Context Protocol.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI assistants have no built-in, secure way to read and edit an Obsidian vault; this exposes vault tools over the Model Context Protocol without a separate process or cloud call.",
+ "readmeHash": "ccc94252f062183666b6e669634a0df15c2748a6",
+ "relations": [
+  {
+   "evidence": "or Smart Connections if you already use it",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Templater templates as tool calls.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with core Daily Notes and with Periodic Notes.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "DQL or JsonLogic",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "serves the vault tools from a folder without Obsidian running",
+   "plugin": "obsidian-mcp-headless",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an MCP client (Claude Desktop, Claude Code, Codex, Cursor, Cline, Continue, Windsurf, VS Code)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Runs an MCP server inside Obsidian so AI clients such as Claude Desktop, Claude Code, Codex and Cursor can read, write, search and organize the vault.",
+ "tags": [
+  "mcp",
+  "claude-desktop",
+  "claude-code",
+  "codex",
+  "cursor",
+  "embeddings",
+  "bearer-tokens",
+  "loopback-server"
+ ]
+}

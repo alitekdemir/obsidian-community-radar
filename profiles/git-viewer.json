@@ -1,0 +1,57 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Shows Git status grouped into staged, changed, untracked, deleted, renamed and conflicted files",
+  "Opens changed files inside Obsidian",
+  "Commits only explicitly selected files with a required commit message",
+  "Lists the latest 50 commits with hash, subject, author and timestamp",
+  "Shows read-only commit details with full hash, message body and changed files"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not read-only: besides status and history it can create a commit from explicitly selected files.",
+ "extras": "Desktop only; needs Node.js filesystem access and permission to run the local git executable. Repository discovery can resolve to an ancestor repository root outside the vault, so status and history may include paths outside the vault. No pull, push, clone, fetch, merge, rebase, branch management, discard or conflict resolution.",
+ "intent": "alternative",
+ "intentEvidence": "without launching a heavier Git client or Visual Studio Code",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Built so users can stay inside Obsidian, see exactly which vault files changed, open them, and make intentional commits without launching a heavier Git client or Visual Studio Code.",
+ "primary": "git",
+ "problem": "Seeing which vault files changed and committing a targeted subset normally means leaving Obsidian for a full Git client or VS Code.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "b18d89eeaf10ba2064ff9430df635d8c3833472d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "without launching a heavier Git client or Visual Studio Code",
+   "plugin": "Visual Studio Code",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Sidebar Git status and history viewer that commits only the files you explicitly select.",
+ "tags": [
+  "version-history"
+ ],
+ "textHash": "fa75787158b593ae69ce300d1b624cebb8c3ea14"
+}

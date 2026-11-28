@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Find near-duplicate tags by case, plural, separator and spelling rules",
+  "Detect synonyms and abbreviations with an optional AI pass",
+  "Review each group and choose which tag to keep",
+  "Merge tags in note bodies and frontmatter across the vault",
+  "Undo the last merge"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Tags view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI-only tool: duplicate detection runs on local rules, and the AI pass is optional.",
+ "extras": "Without the AI pass the plugin makes no network requests; the AI pass sends only tag names, never note content, titles or file paths. Installation is manual: copy main.js, manifest.json and styles.css into the plugin folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Vaults collect near-duplicate tags such as #idea and #ideas or #to-do and #todo, and there is no built-in way to find and merge them across all notes.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "b60cb43306256123605685cf30b07cbe6cdfa32d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Works with OpenAI, OpenRouter, Ollama or any endpoint that speaks the chat completions format.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with OpenAI, OpenRouter, Ollama or any endpoint that speaks the chat completions format.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with OpenAI, OpenRouter, Ollama or any endpoint that speaks the chat completions format.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for the AI endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Finds near-duplicate tags by rules or an optional AI pass, shows each group for review, and merges approved tags across the vault with undo.",
+ "tags": [
+  "duplicate-detection",
+  "batch-processing",
+  "find-and-replace",
+  "nested-tags",
+  "openai",
+  "ollama",
+  "openrouter",
+  "undo"
+ ],
+ "textHash": "c38844d3c3decc7d85859588e069a194a7b75c91"
+}

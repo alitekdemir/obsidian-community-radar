@@ -1,0 +1,68 @@
+{
+ "also": [
+  "pdf",
+  "drawing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Annotate PDFs with pen, highlighter, eraser, shapes, and lasso selection stored as real PDF annotations",
+  "Extract highlights and comments into a Markdown note with links back to PDF pages",
+  "Draw in ```inkling code blocks inside notes, with strokes kept in separate .ink attachment files",
+  "Create blank, lined, or dot-grid PDF notebooks and handwrite pages into them",
+  "Navigate documents via outline, find-in-document, page jump, and per-page zoom"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin catalogue; must be installed via BRAT or manually from a release. Makes no network requests and needs no accounts. Some PDFs (forms, signed documents) open read-only by design, and JPEG 2000 images in PDFs do not display.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author started it as a side project because he wanted to work only inside his vault.",
+ "primary": "annotation",
+ "problem": "Obsidian can display PDFs but offers no way to annotate them, and handwritten ink or diagrams inside notes are awkward on stylus devices.",
+ "readmeHash": "facb2cad311a59647725383209d2c79e8d876de8",
+ "relations": [
+  {
+   "evidence": "They are in the bundled PDF library, pdf.js.",
+   "plugin": "pdf.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Inkling rewrites a PDF through pdf-lib",
+   "plugin": "pdf-lib",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install with BRAT",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Stylus-first annotation plugin that lets you draw, highlight, and comment on PDFs and add ink drawing blocks to Markdown notes.",
+ "tags": [
+  "stylus",
+  "handwriting",
+  "pdf-annotations",
+  "palm-rejection",
+  "pressure-sensitivity",
+  "pdf-lib",
+  "s-pen"
+ ]
+}

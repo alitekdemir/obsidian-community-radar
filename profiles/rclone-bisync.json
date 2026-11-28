@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault both ways with any rclone remote",
+  "Auto-sync at startup and after edits stop",
+  "Keep conflicting note versions as .conflict1 files for manual merging",
+  "Exclude workspace files, plugin data and custom patterns from sync",
+  "Pull remote changes on a timer from other computers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a backup tool; it merges edits and deletions in both directions rather than making copies.",
+ "extras": "Documents limits: needs rclone 1.66+ (Linux distro packages are often too old), the Flatpak Obsidian build cannot run rclone, mobile is unsupported, and closing Obsidian triggers no final sync. Warns to keep rclone's config file out of the vault and git since it grants full Drive access.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault with a cloud drive normally means a paid service or one-way upload; users need free two-way desktop sync with their own storage.",
+ "readmeHash": "e5202e58b00efa0893f6cc5927c0102047806f30",
+ "relations": [
+  {
+   "evidence": "This desktop plugin runs rclone bisync for you, so edits, new files and deletions move in both directions.",
+   "plugin": "rclone",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "rclone",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "storage service account (Google Drive, Dropbox, OneDrive, etc.)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google client ID and secret",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Runs rclone bisync to keep a vault two-way synced with Google Drive, Dropbox, OneDrive or any other rclone remote.",
+ "tags": [
+  "rclone",
+  "google-drive",
+  "dropbox",
+  "onedrive",
+  "bisync",
+  "webdav",
+  "proton-drive"
+ ]
+}

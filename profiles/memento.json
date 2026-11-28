@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create one-time and recurring events via dialog, commands or the Calendar plugin",
+  "show events grouped by day in a searchable, filterable timeline sidebar",
+  "display read-only ICS calendars from Google Calendar or iCloud",
+  "generate dated notes per event occurrence with frontmatter properties",
+  "show a pending-count badge in the status bar and on the ribbon icon"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Works on mobile with an adapted layout; event note property names can be English or Spanish; events can be exported and imported as JSON.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian has no built-in way to create, repeat and view dated events alongside notes; Calendar shows dates but holds no events.",
+ "readmeHash": "ab173aecc7e015ac48e1b3f8178e37ebaadfa9e7",
+ "relations": [
+  {
+   "evidence": "With the Calendar plugin installed, Memento adds to its month view",
+   "plugin": "Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Calendar: in the calendar's settings, under Integrate calendar, copy the secret address in iCal format.",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "iCloud: share the calendar as a public calendar and copy its link.",
+   "plugin": "iCloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Calendar",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Event manager that stores one-time and recurring events in the vault and shows them in a sidebar timeline, with read-only ICS calendars and event notes.",
+ "tags": [
+  "ics",
+  "google-calendar",
+  "icloud",
+  "recurring-events",
+  "event-notes",
+  "timeline"
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "also": [
+  "editing",
+  "export"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Edit .typ documents with completion, hover docs, go-to-definition, and formatting",
+  "Show compiler diagnostics underlined in the editor as you type",
+  "Preview the rendered document in a workspace leaf with two-way source navigation",
+  "Export PDFs into the vault",
+  "Create Typst projects and edit BibLaTeX, Hayagriva, YAML, and TOML files with highlighting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not the Tinymist language server itself; it is an Obsidian plugin that launches and drives a separately installed Tinymist executable.",
+ "extras": "Desktop only; Obsidian mobile cannot launch the executable. Only one plugin can own the .typ extension. The README includes a detailed privacy/security section explaining why automated review flags network calls (a loopback preview server) and child_process usage. No accounts, telemetry, or network requests except Typst package imports.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author uses Obsidian for thinking, research, and writing, but documents needing serious typesetting meant leaving the vault; the plugin closes that gap.",
+ "primary": "latex",
+ "problem": "Obsidian has no Typst support, so documents needing serious typesetting forced users to leave the vault for another app.",
+ "readmeHash": "060b189e5fee111d7eb661c6ec3d60de660f8a76",
+ "relations": [
+  {
+   "evidence": "Built on Tinymist by Myriad-Dreamin, and Typst.",
+   "plugin": "Tinymist",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built on Tinymist by Myriad-Dreamin, and Typst.",
+   "plugin": "Typst",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Typst syntax highlighting comes from codemirror-lang-typst.",
+   "plugin": "codemirror-lang-typst",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tinymist 0.13.0+ executable (installed via brew, cargo, scoop, winget, or GitHub releases)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Obsidian desktop 1.13.0+ on a filesystem vault",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Typst editor and preview plugin that edits .typ documents with Tinymist language intelligence, live-previews the rendered output, and exports PDFs into the vault.",
+ "tags": [
+  "typst",
+  "language-server",
+  "typesetting",
+  "biblatex",
+  "hayagriva",
+  "yaml",
+  "toml"
+ ]
+}

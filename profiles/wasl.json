@@ -1,0 +1,54 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [
+  "arabic-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "find unlinked mentions of the open note's title and aliases across the vault",
+  "match Arabic prefixes, diacritics, tatweel, dropped hamza and Persian letter variants with a stated reason",
+  "link mentions after preview and confirmation, with undo and per-mention ignore",
+  "configure per-note behavior via properties like wasl: exact, wasl: indefinite and aliases",
+  "run offline on mobile with an Arabic or English interface"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No AI and no network access; matching limits are documented in detail, with synthetic test metrics (83/84) and a 41%-of-mentions estimate that the author flags as preliminary. Warns when Obsidian's 'Automatically update internal links' setting is off. Android is untried; only iPhone tested.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's built-in unlinked mentions look for the name literally, so it catches none of the three.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author had notes whose titles appeared in other notes with Arabic prefixes and spelling variation that Obsidian's unlinked mentions never caught.",
+ "primary": "links",
+ "problem": "Obsidian's built-in unlinked mentions match titles literally, so Arabic spelling variation like prefixes, diacritics or tatweel hides mentions it never finds.",
+ "readmeHash": "f31f83548f30395ecb22d5b11210093991d76e2b",
+ "relations": [
+  {
+   "evidence": "Obsidian's built-in unlinked mentions look for the name literally, so it catches none of the three.",
+   "plugin": "Obsidian built-in unlinked mentions",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Arabic-aware unlinked-mentions finder that suggests links for note titles with prefixes, diacritics or tatweel, linking only on approval.",
+ "tags": [
+  "arabic",
+  "unlinked-mentions",
+  "diacritics",
+  "tatweel",
+  "prefix-morphology",
+  "aliases"
+ ]
+}

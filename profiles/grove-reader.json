@@ -1,0 +1,68 @@
+{
+ "also": [
+  "formats",
+  "flashcards"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read EPUB, MOBI, AZW3, FB2, CBZ, PDF and TXT books from a cover-grid shelf",
+  "Highlight and comment on passages in five colours with bookmarks",
+  "Generate one Markdown note per book with backlinks to each excerpt",
+  "Search annotations in a book or the whole vault and export to Markdown or CSV",
+  "Review highlights with spaced repetition and track reading stats"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Two builds: the community build cannot read PDFs and hands them to the default program; the full build with PDF support is distributed from the companion repository LLllCCC/grove-reader-full. Offline by default, no telemetry, API keys stored in plugin data.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "annotation",
+ "problem": "Reading e-books means leaving Obsidian, so highlights and reading notes end up outside the vault and disconnected from its Markdown, links and search.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "82eb67a0fb75f1ad94a61a82f6169755446e8fa9",
+ "relations": [
+  {
+   "evidence": "foliate-js (MIT, vendored in lib/foliate-js) renders EPUB",
+   "plugin": "foliate-js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PDF reading and annotation are built directly on pdfjs-dist",
+   "plugin": "pdfjs-dist",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint (baseUrl, apiKey, model)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "E-book reader for EPUB, MOBI, AZW3, FB2, CBZ, PDF and TXT that highlights passages and generates one Markdown note per book with backlinks.",
+ "tags": [
+  "ebooks",
+  "epub",
+  "annotations",
+  "highlights",
+  "spaced-repetition",
+  "dataview",
+  "openai-compatible"
+ ],
+ "textHash": "09fabc16d554c07d365462388797a00fe66e762b"
+}

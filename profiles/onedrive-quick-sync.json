@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally with a OneDrive folder",
+  "Preview planned uploads, downloads and deletions without changing files",
+  "Resolve conflicts with Keep Both, Newer Wins, Local Wins or Remote Wins",
+  "Upload files over 4 MiB through chunked upload sessions",
+  "Sign in with OAuth 2.0 device code flow"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Ships with a preconfigured Microsoft first-party client ID so no Azure app registration is needed; custom client IDs are kept across updates. OAuth tokens are stored in the plugin's data.json and excluded from sync, as are workspace files and the local .nomedia file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in step with a OneDrive folder, and mobile devices cannot use Node modules or redirect-based OAuth sign-in.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "c32ec90062de344e0531cebe9b2b02e80aaefc33",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "Synchronize your Obsidian vault with any folder in Microsoft OneDrive (Personal or Work/School)",
+   "plugin": "Microsoft OneDrive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account (personal or work/school)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Azure app client ID",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync between an Obsidian vault and a chosen OneDrive folder, using QuickXorHash comparison and OAuth device-code sign-in on desktop and mobile.",
+ "tags": [
+  "onedrive",
+  "two-way-sync",
+  "conflict-resolution",
+  "oauth",
+  "android",
+  "ios"
+ ],
+ "textHash": "48903d76b38300be9d39a1cb487431b0db2a4302"
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "files",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open any folder as a scoped file explorer in sidebars, editor area, or popout windows",
+  "Chain parent and child panels with cascading focus sync",
+  "Drill down into subfolders in place with a back-history stack",
+  "Filter, sort, and apply view presets per panel",
+  "Restore Folder Space views after restart"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a workspace layout manager; layouts are saved and restored by a separate plugin, Window Spaces, while this one provides folder-scoped explorer views.",
+ "extras": "Desktop only and requires Obsidian 1.13.0+. README is trilingual (English, Traditional and Simplified Chinese). Exposes a public developer API documented in docs/api.md. Listed as not manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "Folder Space reuses Obsidian's native File Explorer tree, so drag & drop, keyboard navigation, right-click menus",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to keep the benefits of a single vault while visually isolating one project or task at a time, since the default explorer forces every folder to compete for attention.",
+ "primary": "folders",
+ "problem": "Obsidian's default File Explorer shows the entire vault, which becomes a crowded tree once a vault spans many projects and topics.",
+ "readmeHash": "0a523dd3e6eb90b47520b067e0f7ddc53d145882",
+ "relations": [
+  {
+   "evidence": "Pair Folder Spaces with Window Spaces to save and restore these layouts.",
+   "plugin": "Window Spaces",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Folder Notes aware: option to disable folder-note opening in folder-only views",
+   "plugin": "Folder Notes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Window Spaces",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Opens any folder as an independent, scoped File Explorer view with cascading panels, view presets, and in-place drill-down navigation.",
+ "tags": [
+  "miller-columns",
+  "drill-down",
+  "file-tree",
+  "popout-windows",
+  "folder-notes",
+  "multi-panel"
+ ]
+}

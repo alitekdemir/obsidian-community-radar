@@ -1,0 +1,51 @@
+{
+ "also": [
+  "pdf",
+  "status-bar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Restore the saved reading position when reopening Markdown and PDF files",
+  "Show reading progress in the status bar as percentage, lines, or pages",
+  "Add, open, remove, or reset one quick bookmark per file from the status bar or command palette",
+  "Highlight the bookmarked Markdown paragraph or PDF page",
+  "Configure completion threshold, automatic resume, and duplicate-tab behavior"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bookmarks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general bookmark manager; each file gets only one quick bookmark, alongside the saved reading position.",
+ "extras": "Desktop only (macOS, Windows, Linux); verified on macOS with Obsidian 1.12.7 and Windows/Linux testing is still welcome. PDF page restore relies on internal PDF.js elements, so Obsidian or PDF++ updates may temporarily break it. State is stored locally in the plugin's data.json and note content is never modified; debug logging is off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian does not remember where you stopped reading a long Markdown note or PDF, so reopening a file means manually finding your place again.",
+ "readmeHash": "de7f47d96812a31b42b1e81c117cc8742f8874df",
+ "relations": [
+  {
+   "evidence": "Works with Obsidian's built-in PDF viewer and is designed to coexist with PDF++.",
+   "plugin": "PDF++",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Reading tracker that records where you stopped in Markdown and PDF files, restores that position on reopen, and keeps one quick bookmark per file.",
+ "tags": [
+  "pdfjs",
+  "reading-position",
+  "resume-reading",
+  "pdf-plus-plus"
+ ]
+}

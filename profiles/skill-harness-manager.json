@@ -1,0 +1,85 @@
+{
+ "also": [
+  "automation",
+  "commands"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scans vault and external folders for SKILL.md skills and commands",
+  "Browses, filters and edits skills in a side pane",
+  "Launches skills from ribbon buttons, command palette or right-click on files and selected text",
+  "Registers CLI harnesses and agents and runs skills through them",
+  "Schedules skills to run on a timer"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop and macOS only for now. Schedules run only while Obsidian is open; runs missed while the laptop was asleep execute once after it wakes. Bundled setup skills help configure cmux and Ghostty.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The goal is more ownership and pruning of skills over time instead of collecting or building skills that aren't used regularly and aren't maintained.",
+ "primary": "ai",
+ "problem": "Skills and commands scattered across .claude/, .codex/, .cursor/ and marketplace folders are hard to see, edit or run from inside Obsidian.",
+ "profiledAt": "2026-11-17",
+ "provider": "Particle AI",
+ "readmeHash": "381b4f72f95ee8ba0684e0d99bae7908f93eb5c7",
+ "relations": [
+  {
+   "evidence": "modelled on Databricks Jobs triggers",
+   "plugin": "Databricks Jobs",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Terminal runs and session Connects open as new, named tabs in one cmux workspace",
+   "plugin": "cmux",
+   "type": "integrates"
+  },
+  {
+   "evidence": "runs open as tabs (or windows) in your existing Ghostty via AppleScript",
+   "plugin": "Ghostty",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CLI harness (claude, codex, opencode, ucode, Omnigent or a custom command)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "cmux",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ghostty",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Side pane that collects SKILL.md skills and commands from vault and external folders and launches them through a chosen CLI harness.",
+ "tags": [
+  "agent-skills",
+  "ai-agents",
+  "claude",
+  "codex",
+  "cli",
+  "macos",
+  "scheduling"
+ ],
+ "textHash": "335deed877f65f379810dfca5b52487dab4498db"
+}

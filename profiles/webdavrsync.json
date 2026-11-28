@@ -1,0 +1,63 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files two-way with a WebDAV server",
+  "Archive deleted files in an append-only trash backup",
+  "Back up encrypted plugin configs and API keys",
+  "Resolve conflicts by keeping both versions",
+  "Filter sync with glob ignore rules and optional .obsidian sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The WebDAV password is stored in plain text in the plugin's own data.json, which is always excluded from sync. No cross-device lock is implemented, so avoid editing the same file on two devices. Desktop only; mobile support is unverified.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault to a self-hosted WebDAV server, and deleted files can vanish when the server copy is removed.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "be3357163942f32a2e3068aaecb87ab34be2d7c0",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "synchronizes your Obsidian vault with any standard WebDAV server (Nextcloud, ownCloud, SFTPGo, Apache mod_dav, nginx-dav, …)",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "WebDAV server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Two-way WebDAV sync plugin with an append-only trash archive and encrypted backup of plugin configs and API keys.",
+ "tags": [
+  "webdav",
+  "two-way-sync",
+  "encryption",
+  "conflict-resolution",
+  "trash",
+  "glob-patterns",
+  "nextcloud"
+ ],
+ "textHash": "55b336232a40fe668e9829943587929f50cc2b99"
+}

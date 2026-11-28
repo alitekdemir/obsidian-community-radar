@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push the vault or individual notes to Notion as native Notion blocks",
+  "Pull Notion pages back into the vault with image downloads and rollback via history",
+  "Sync incrementally, on save, on a schedule, or manually per sync mode",
+  "Map YAML frontmatter to Notion page properties and wikilinks to synced page URLs",
+  "Upload attachment embeds through a configurable external file endpoint"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Pending Obsidian staff review; installable only manually until approved. Desktop only (no mobile support). Attachment uploads go to Notion as placeholder callouts unless the user configures an external hosting endpoint. Stores the Notion token in data.json inside the vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep vault content synchronized with Notion, including converting Markdown to Notion blocks and resolving wikilinks to Notion pages.",
+ "readmeHash": "c737f465fdcf3dd7d07cdaa21da5aaa08bfb73de",
+ "relations": [
+  {
+   "evidence": "Synchronize your entire Obsidian vault to Notion — preserving folder hierarchy, markdown formatting, internal links",
+   "plugin": "Notion",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Notion Internal Integration Secret",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Notion workspace with a shared root page",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "External file hosting endpoint (Cloudflare R2, S3, or own server) for attachment uploads",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that mirrors an Obsidian vault to Notion, preserving folder hierarchy, Markdown formatting, wikilinks, frontmatter, and attachments.",
+ "tags": [
+  "notion",
+  "notion-api",
+  "two-way-sync",
+  "incremental-sync",
+  "wikilinks",
+  "callouts",
+  "integration-token"
+ ]
+}

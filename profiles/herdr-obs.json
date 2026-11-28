@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run coding agents in split terminal panes and tabs",
+  "Keep agent sessions alive across tab closes and reloads",
+  "Show agent status as working, blocked or done in Mission Control",
+  "Let agents read and edit notes through a local Vault Control Bridge",
+  "Log every agent edit and roll it back"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a project or task manager; Mission Control is a status board for running terminal agents.",
+ "extras": "Desktop only (Obsidian 1.14.4+); makes no network calls and needs no account or API keys; UI control is off by default and blocked in protected areas; macOS and Windows are untested; Flatpak builds stop agents when Obsidian quits.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Coding agents run outside Obsidian, so they cannot safely read or edit vault notes, and their sessions stop when the app reloads.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "151fce7c26ee09878f2a73ea5fe1c006cda8ecea",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "It needs Herdr, which you install yourself.",
+   "plugin": "Herdr",
+   "type": "integrates"
+  },
+  {
+   "evidence": "UI control comes from Obsidian Control Center, also by Daniel.",
+   "plugin": "Obsidian Control Center",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Herdr 0.8 or newer",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Terminal workspace that runs persistent coding-agent sessions inside Obsidian and lets them read and edit notes through a logged, undoable bridge.",
+ "tags": [
+  "ai-agents",
+  "claude-code",
+  "codex",
+  "gemini",
+  "opencode",
+  "terminal",
+  "cli",
+  "mcp"
+ ],
+ "textHash": "a8bb4951b7c42026c0dc934f0e5802007f459d58"
+}

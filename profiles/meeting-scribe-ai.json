@@ -1,0 +1,70 @@
+{
+ "also": [
+  "audio",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record audio inside the desktop app and save it in the vault",
+  "Transcribe recordings with Doubao Speech",
+  "Polish transcript text with an OpenAI-compatible model",
+  "Generate structured meeting minutes in Markdown and append them to the current note",
+  "Recover and retry failed long-recording processing from saved audio and sidecar segments"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README includes a privacy section disclosing that audio and transcripts are sent to the configured providers, and that data.json should not be committed publicly. Attachment upload exists in the UI but attachment contents are not yet sent into the AI pipeline. Docs are bilingual (Chinese and English) and cover manual installation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's audio recorder only captures sound; it does not transcribe recordings or turn them into structured meeting notes.",
+ "readmeHash": "5ae3ad574eee64b8b64f853bb326189d59ef514d",
+ "relations": [
+  {
+   "evidence": "Transcribe recordings with Doubao Speech",
+   "plugin": "Doubao Speech",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Polish transcript text with an OpenAI-compatible model",
+   "plugin": "OpenAI-compatible model endpoints",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Doubao/Volcengine speech transcription key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM endpoint key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI meeting scribe that records audio in the vault, transcribes it with Doubao Speech, polishes the transcript with an LLM, and writes meeting minutes in Markdown.",
+ "tags": [
+  "doubao",
+  "speech-to-text",
+  "transcription",
+  "meeting-minutes",
+  "openai-compatible",
+  "deepseek",
+  "openrouter"
+ ]
+}

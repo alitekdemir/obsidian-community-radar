@@ -1,0 +1,69 @@
+{
+ "also": [
+  "research",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run autonomous, stoppable research loops over vault notes",
+  "Add bounded file or folder context with @ mentions and the + control",
+  "Build AI-discovered MOC indexes with resumable checkpointed runs",
+  "Install and select instruction-only skill packages via /skill",
+  "Analyze public YouTube videos through Gemini"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a web or academic research tool; it researches the user's own vault notes.",
+ "extras": "The manifest carries the warning 'This plugin has not been manually reviewed by Obsidian staff.' The development repository is private; only the product repository is public, and the README lists untested areas such as mobile SecretStorage, long MOC runs, and MCP server compatibility.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it around the boundary that the agent should read what it needs rather than receive the whole vault by default.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and asking AI about a vault usually means pasting large amounts of notes into the model instead of letting the agent read only what it needs.",
+ "readmeHash": "a5fb7be79475f408ab97bdaebb17d206b5568730",
+ "relations": [
+  {
+   "evidence": "Supports user-entered Gemini and Agnes API keys stored in Obsidian SecretStorage.",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Agnes receives the URL as text because its current adapter does not claim native video input.",
+   "plugin": "Agnes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini or Agnes API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Gemini or Agnes provider account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Mobile-first AI research agent that searches the vault with bounded context, shows its protected prompt, and requires approval before any note edits.",
+ "tags": [
+  "gemini",
+  "agnes",
+  "mcp",
+  "autonomous-agent",
+  "moc",
+  "youtube",
+  "mobile-first",
+  "bounded-context"
+ ]
+}

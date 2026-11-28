@@ -1,0 +1,66 @@
+{
+ "also": [
+  "pdf",
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "transcribe handwritten PDFs to Markdown via Gemini",
+  "generate a titled note with summary, headings, tables, and LaTeX math",
+  "tag action items with a configurable tag",
+  "create an OCR-enhanced searchable PDF copy",
+  "customize note title format and output folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires the user's own Gemini API key; the selected PDF is uploaded to Google's API during conversion.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Handwritten PDF notes are hard to search, skim, or reuse in Obsidian, and copying their content into notes manually is tedious.",
+ "readmeHash": "630bdffccfed7121f8b4147e02c09871fb4b42fd",
+ "relations": [
+  {
+   "evidence": "Send the selected PDF to Gemini for handwriting recognition.",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This plugin bundles pdf-lib under the MIT license",
+   "plugin": "pdf-lib",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gemini API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google Gemini account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI converter that turns handwritten PDFs into formatted Markdown notes using Gemini handwriting recognition, with an optional searchable OCR PDF copy.",
+ "tags": [
+  "gemini",
+  "handwriting",
+  "transcription",
+  "searchable-text",
+  "pdf-lib"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "also": [
+  "collaboration",
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files through user-owned S3, WebDAV or Google Drive storage with device-side encryption",
+  "Resolve conflicts with automatic merge, a three-way merge editor or per-side choices",
+  "Browse and restore file history, a vault-wide timeline and deleted files",
+  "Edit notes and Excalidraw drawings live across devices through a self-hosted relay",
+  "Share folders with other people and publish single notes as expiring share links"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Real-time features (instant sync, live editing, shared folders, share links) require deploying a Cloudflare Worker relay to your own account; Google Drive needs your own OAuth client and lacks conditional writes, so simultaneous first setups can conflict. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Large files over the 25 MB default limit are skipped until streaming support lands (roadmap).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync runs through the vendor's service; there is no first-party way to sync a vault through user-owned storage with device-side encryption and conflict resolution.",
+ "readmeHash": "7d934230cb34541b5050c65fbde7e990e1ec28e5",
+ "relations": [
+  {
+   "evidence": "Excalidraw drawings sync the same way (Excalidraw plugin 2.x).",
+   "plugin": "Excalidraw plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An optional relay, a Cloudflare Worker you deploy to your own account, adds instant sync",
+   "plugin": "Cloudflare Workers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "storage provider account (S3-compatible, WebDAV or Google Drive)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloudflare API token for the relay and R2 setup",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Cloudflare account for the optional relay",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Google Cloud OAuth client for Google Drive sign-in",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "End-to-end encrypted vault sync through your own S3, WebDAV or Google Drive storage, with conflict merging, file history and optional live editing.",
+ "tags": [
+  "end-to-end-encryption",
+  "s3",
+  "webdav",
+  "google-drive",
+  "cloudflare-workers",
+  "self-hosted",
+  "conflict-merge"
+ ]
+}

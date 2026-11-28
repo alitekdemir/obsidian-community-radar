@@ -1,0 +1,75 @@
+{
+ "also": [
+  "research",
+  "utilities"
+ ],
+ "audience": [
+  "islamic-studies"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch Quran ayat by Surah and range from selectable providers",
+  "Fetch hadith by book and reference number from selectable providers",
+  "Preview and edit fetched text before inserting or copying",
+  "Configure providers, translations, link destinations, and output formatting",
+  "Download and manage offline databases and normalize Arabic honorifics"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README warns users to verify fetched Ahadith and provider links, lists known bugs and a roadmap, documents which network requests are sent to providers, and recommends specific providers. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to look up and insert Quranic verses or hadith with chosen translations, source links, and honorific formatting, so users must copy and format such texts manually.",
+ "readmeHash": "06e4c6c55c68c0978cb3b668a7268d5cf1fda3d5",
+ "relations": [
+  {
+   "evidence": "Arabic Quran text and translations discovered from its edition catalog.",
+   "plugin": "Al Quran Cloud",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Collections and translations from its edition catalog, with Arabic and translation editions retrieved separately.",
+   "plugin": "hadith-api",
+   "type": "integrates"
+  },
+  {
+   "evidence": "17 books from the pinned hadith-json v1.2.0 dataset, with Arabic and English text.",
+   "plugin": "Hadith JSON",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Uses Sunnah.com data (e.g., using 204a for Sahih Muslim)",
+   "plugin": "Sunnah.com",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "online Quran and Hadith providers (e.g., Al Quran Cloud, hadith-api)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Fetches Quran verses and hadith from online providers and inserts them into notes with translations, links, formatting, and offline database support.",
+ "tags": [
+  "quran",
+  "hadith",
+  "islamic-texts",
+  "arabic",
+  "translations",
+  "offline-databases",
+  "sunnah-com"
+ ]
+}

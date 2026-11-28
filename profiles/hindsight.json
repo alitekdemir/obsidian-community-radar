@@ -1,0 +1,82 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes into a Hindsight memory bank",
+  "Answer questions in a grounded chat panel with source citations",
+  "Auto-tag notes by vault, folder, and dates for scoped recall",
+  "Show live sync status in the status bar",
+  "Run headless CLI ingestion without the desktop app"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a version-history or backup tool; it syncs notes to an AI memory bank for cited question-answering.",
+ "extras": "In beta; recommended install is via BRAT (repo vectorize-io/hindsight-obsidian). Hindsight Cloud is free during beta, with a self-hosting alternative. Sync is one-way (Obsidian to Hindsight) and chat conversations are not stored by default. Running the CLI and the plugin against the same bank with mismatched config can let one prune documents the other owns.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian's built-in search cannot answer natural-language questions over your notes and cite the source notes.",
+ "profiledAt": "2026-11-26",
+ "provider": "Baidu",
+ "readmeHash": "9dd7ad1975b436dbeb3d4c410f87e47f60435ea7",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The plugin syncs your vault into a Hindsight memory bank",
+   "plugin": "Hindsight",
+   "type": "integrates"
+  },
+  {
+   "evidence": "your external automations (n8n, Hermes, etc.) hit the same bank",
+   "plugin": "n8n",
+   "type": "integrates"
+  },
+  {
+   "evidence": "your external automations (n8n, Hermes, etc.) hit the same bank",
+   "plugin": "Hermes",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hindsight",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Hindsight Cloud API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Hindsight Cloud",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI chat plugin that syncs your vault into a Hindsight memory bank and answers questions grounded on your notes with citations.",
+ "tags": [
+  "ai-chat",
+  "ai-agents",
+  "rag",
+  "citations",
+  "self-hosted",
+  "api-key"
+ ],
+ "textHash": "547db75fe6c0e73b770869700c891c678fb4e592"
+}

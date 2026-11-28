@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lazy-render Mermaid diagrams as they approach the viewport",
+  "Show placeholders with diagram type for off-screen diagrams",
+  "Render diagrams manually via commands or placeholder clicks",
+  "Open rendered diagrams in a zoomable fullscreen lightbox",
+  "Re-render visible diagrams after light/dark theme switches"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Mermaid"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "May conflict with other plugins that modify Mermaid rendering (e.g. Mermaid Next, Beauty Diagram); the README recommends using only one. On Obsidian 1.13+ the core Mermaid feature must be enabled in Settings → Editor or placeholders report that Mermaid is disabled. Works on desktop and mobile.",
+ "intent": "improve",
+ "intentEvidence": "接管 Obsidian 内置 Mermaid 渲染器",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian synchronously renders every Mermaid diagram when a note opens, freezing the UI for seconds on diagram-heavy notes.",
+ "readmeHash": "ddd79b5c5e3ea56a1a898a19a46c5db14db17105",
+ "relations": [
+  {
+   "evidence": "借鉴了社区插件 Beauty Diagram 和 Beautiful Mermaid Renderer 覆盖内置 mermaid 渲染器的实现思路",
+   "plugin": "Beauty Diagram",
+   "type": "inspired"
+  },
+  {
+   "evidence": "借鉴了社区插件 Beauty Diagram 和 Beautiful Mermaid Renderer 覆盖内置 mermaid 渲染器的实现思路",
+   "plugin": "Beautiful Mermaid Renderer",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Mermaid lazy-render plugin that defers off-screen diagram rendering so notes with many diagrams open without freezing the UI.",
+ "tags": [
+  "mermaid",
+  "lazy-loading",
+  "viewport",
+  "lightbox",
+  "performance"
+ ]
+}

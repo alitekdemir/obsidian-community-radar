@@ -1,0 +1,65 @@
+{
+ "also": [
+  "audio",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect running Zoom, Google Meet, and Teams sessions in the background",
+  "Prompt with a popup to start recording, create a note, or both",
+  "Generate meeting notes from a template with title, date, time, and app variables",
+  "Auto-stop recording or notify when the meeting ends",
+  "Configure per-app detection, polling interval, and file naming"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "macOS only (detection uses pgrep and osascript); requires Obsidian v1.4.0+; runs entirely locally with no network access; recording requires the Audio Recorder core plugin or the optional System Recording plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian has no way to notice when an online meeting starts, so starting a recording or a meeting note depends on the user remembering to do it manually.",
+ "readmeHash": "7273a4e92c8d4aa000e9c58ad3552c8192984d5b",
+ "relations": [
+  {
+   "evidence": "uses the API of System Recording 1.1.0+",
+   "plugin": "System Recording",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Record with the core Audio Recorder (your microphone) or with the System Recording plugin",
+   "plugin": "Audio Recorder core plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "System Recording",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "macOS-only utility that detects running Zoom, Google Meet, and Microsoft Teams sessions and prompts to record audio or create a meeting note.",
+ "tags": [
+  "zoom",
+  "google-meet",
+  "microsoft-teams",
+  "macos",
+  "meeting-notes",
+  "system-audio",
+  "osascript"
+ ]
+}

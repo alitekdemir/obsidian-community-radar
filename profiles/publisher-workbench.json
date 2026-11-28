@@ -1,0 +1,73 @@
+{
+ "also": [
+  "export",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Style WeChat output with theme presets and typography settings",
+  "Preview articles as HTML with embedded local images",
+  "Copy rich-text HTML to the WeChat editor clipboard",
+  "Hand off drafts through optional Wechatsync and X Bridge integrations",
+  "Dry-run handoff commands before real draft creation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an Obsidian Publish connector; it targets WeChat Official Accounts and X Articles, and never clicks the final public Publish button.",
+ "extras": "Desktop-only (no mobile); WeChat rich copy may fail with Base64 images since the WeChat editor can strip them, so the README strongly recommends verifying the saved draft and using Wechatsync for reliable image handling. Formerly named Obsidian Publisher (old ID obsidian-publisher, no settings migration).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to turn notes into styled rich text that can be pasted into WeChat's editor or handed off as X Articles drafts.",
+ "readmeHash": "436aeb878683581b82d9fe3233fbd569281e4a6e",
+ "relations": [
+  {
+   "evidence": "Wechatsync is a separate third-party CLI plus Chrome integration, not installed automatically by this plugin.",
+   "plugin": "Wechatsync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The companion extension uses a pinned, MIT-licensed version of xPoster.",
+   "plugin": "xPoster",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat, X, or Xiaohongshu platform account",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Wechatsync CLI + Chrome extension",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "X Bridge Chrome extension (desktop Chrome)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Draft-prep workbench that converts Markdown notes into themed rich-text and HTML drafts for WeChat Official Accounts and X Articles handoff.",
+ "tags": [
+  "wechat",
+  "wechatsync",
+  "x-articles",
+  "xiaohongshu",
+  "chrome-extension",
+  "rich-text",
+  "clipboard"
+ ]
+}

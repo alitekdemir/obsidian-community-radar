@@ -1,0 +1,63 @@
+{
+ "also": [
+  "tasks",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync todo items from a file or the whole vault to Google Calendar events",
+  "read estimated and actual time from todo parentheses",
+  "update event descriptions with estimated-versus-actual time on completion",
+  "update or delete events when todos change or are removed",
+  "configure start time, calendar ID and time zone"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general two-way calendar client; it only pushes note todos to Google Calendar and updates their events.",
+ "extras": "Desktop only (local HTTP server for OAuth); requires the user to create a Google Cloud project and OAuth credentials; sync state is stored in sync-data.json inside the plugin folder.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian todos live as plain list items with no schedule, so time-estimated work never shows up on a calendar or gets compared against actual time spent.",
+ "readmeHash": "e42d467853fbe8ee24c5e29016665a0339d28868",
+ "relations": [
+  {
+   "evidence": "Reads todo items from your Obsidian notes and creates Google Calendar events with the correct duration.",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth 2.0 client credentials",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs todo items with time estimates from notes to Google Calendar events and records estimated versus actual time on completion.",
+ "tags": [
+  "google-calendar",
+  "time-estimates",
+  "time-tracking",
+  "oauth",
+  "scheduling"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert a whole note, a selection, or a folder to speech",
+  "Save generated audio in the vault and link it to the source note",
+  "Play audio in a floating player with pause, seeking and speed control",
+  "Highlight sentences during playback",
+  "Connect to cloud or local TTS providers with custom endpoints"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a podcast publishing or RSS tool; it generates speech audio from notes and plays it inside Obsidian.",
+ "extras": "Desktop only; macOS tested, Windows and Linux untested in this release. Credentials are stored unencrypted in data.json and may be included in vault sync. No voice models or reference recordings are bundled. Community directory approval is pending.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to turn written notes into audio, so notes can only be read on screen.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "7485a90bb942486ee917cd2595a37de3c92a2175",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "a separately deployed GPT-SoVITS server",
+   "plugin": "GPT-SoVITS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Cloud TTS provider credentials",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Cloud TTS provider account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloud TTS provider",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "GPT-SoVITS server",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js, FFmpeg, sherpa-onnx-node and a SenseVoice model",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Converts notes, selections, or folders to speech using cloud or local TTS providers, saves the audio in the vault, and plays it back with sentence highlighting.",
+ "tags": [
+  "text-to-speech",
+  "minimax",
+  "highlights",
+  "local-server"
+ ],
+ "textHash": "df6664d407c27dffcc58864ed56e79d3b1f2b803"
+}

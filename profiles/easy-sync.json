@@ -1,0 +1,75 @@
+{
+ "also": [
+  "backup",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files through a user's own OneDrive app folder",
+  "Offer two-way and one-way sync modes",
+  "Merge non-overlapping text edits and flag conflicts for review",
+  "Sync selected Obsidian settings, themes, hotkeys, and plugin files",
+  "Migrate an existing Remotely Save or OneDrive-folder vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a real-time collaboration service; it syncs files between devices and must be the only sync tool managing the vault.",
+ "extras": "Open source under the MIT License and free; OneDrive is the only supported backend (no WebDAV, S3, or Google Drive) and there is no end-to-end encryption, so cloud copies are plain files in the user's own OneDrive. Requires Obsidian 1.13.4 or later. The README warns against running EasySync alongside another sync tool or a cloud-synced vault folder, notes that the first sync is slow, and includes download-speed troubleshooting (DNS, proxy, hosts file).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep the same vault current across devices without a third-party sync service or a cloud-synced folder that risks file conflicts.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "1a244d941c718f79473035345c323da6700eec20",
+ "readmeSource": "README-en.md",
+ "relations": [
+  {
+   "evidence": "If this vault previously synced with Remotely Save, the first sync will ask whether to adopt the old repository",
+   "plugin": "Remotely Save",
+   "type": "integrates"
+  },
+  {
+   "evidence": "don't let other sync tools such as Obsidian Sync or Remotely Save manage the same vault",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account with OneDrive storage",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OneDrive (cloud storage; the OneDrive client app is not needed)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "OneDrive-backed vault sync plugin that keeps notes and attachments in sync across computer, phone, and tablet in two-way or one-way mode.",
+ "tags": [
+  "onedrive",
+  "two-way-sync",
+  "one-way-sync",
+  "conflict-resolution",
+  "microsoft-graph",
+  "chunked-uploads",
+  "migration"
+ ],
+ "textHash": "3be65ba8cd49f0276e338f978410ca8951820571"
+}

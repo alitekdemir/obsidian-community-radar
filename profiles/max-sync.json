@@ -1,0 +1,65 @@
+{
+ "also": [
+  "import",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Fetch new messages from the MAX Sync backend using a bot-issued user token",
+  "Append incoming messages to a target note using a template",
+  "Download media attachments into an attachments folder",
+  "Insert transcribed audio text and tags via template variables"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault-syncing tool like Obsidian Sync; it imports chat messages from the MAX messenger into a note.",
+ "extras": "Desktop only (Obsidian 1.5.0+). Requires running a separate MAX Sync backend and requesting a personal token from a bot; the listing notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull chat messages and their media from the MAX messenger into notes.",
+ "readmeHash": "2562effc251db44281d83ff510e5bb792ea02870",
+ "relations": [
+  {
+   "evidence": "Sync messages from MAX messenger into your Obsidian vault.",
+   "plugin": "MAX messenger",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "MAX Sync backend and bot",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MAX messenger",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "user token from the bot (/token)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Syncs messages from MAX messenger into a vault note via a companion sync server, appending templated entries and downloading media attachments.",
+ "tags": [
+  "max-messenger",
+  "message-capture",
+  "audio-transcription",
+  "bot",
+  "token"
+ ]
+}

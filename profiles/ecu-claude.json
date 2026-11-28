@@ -1,0 +1,84 @@
+{
+ "also": [
+  "integrations",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run agent CLIs in a sidebar terminal",
+  "Open and resume multiple agent tabs",
+  "Send note, folder and selection references to the agent",
+  "Start agents in folders outside the vault",
+  "Chat with Claude using an API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The node-pty native module is downloaded from the repository's releases on first use and checked by SHA-256. On mobile only the chat panel is available. Interface is in English and Turkish.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Running a coding agent on vault notes means leaving Obsidian for an external terminal, with no way to hand the agent a reference to a note or selection.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "549fd29fe1c43b4533ffa867b49d78270197946e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Claude Code (default) | claude | --dangerously-skip-permissions | --continue",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex | codex | --dangerously-bypass-approvals-and-sandbox | resume --last",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Gemini CLI | gemini | --approval-mode=yolo | --resume latest",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If ecu-terminal is installed, its copy is reused and nothing is downloaded.",
+   "plugin": "ecu-terminal",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "An agent CLI such as Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Sidebar terminal that runs AI coding agent CLIs such as Claude Code and Codex next to your notes, with an optional Claude API chat panel.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "gemini-cli",
+  "terminal",
+  "cli",
+  "ai-agents",
+  "api-key"
+ ],
+ "textHash": "48a9b089fc35ee248341222ac97afc5b33b55589"
+}

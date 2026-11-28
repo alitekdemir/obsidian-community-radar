@@ -1,0 +1,64 @@
+{
+ "also": [
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate Anki cards from note text using #card tags, :: separators, and cloze syntax",
+  "Insert, update, and delete Anki cards from the current file or the whole vault",
+  "Support LaTeX, images, audio, note references, and code syntax highlighting in cards",
+  "Migrate notes from the original Flashcards plugin while keeping Anki review history"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not offer in-Obsidian flashcard review; it only generates and syncs cards to Anki.",
+ "extras": "Detailed usage instructions are kept in a separate wiki rather than the README; the README includes a migration guide warning that mismatched settings can create duplicate Anki cards.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is a fork of reuseman/flashcards-obsidian, originally by Alex Colucci and Noah Rousell, with bug fixes and small tweaks",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn note text into Anki cards, so users must retype or manually export their flashcards.",
+ "readmeHash": "cc0e90ebed31a6099985a91dfcd592a371844716",
+ "relations": [
+  {
+   "evidence": "This plugin is a fork of reuseman/flashcards-obsidian",
+   "plugin": "flashcards-obsidian",
+   "type": "fork"
+  },
+  {
+   "evidence": "sends card content to Anki on your machine via AnkiConnect",
+   "plugin": "Anki (AnkiConnect)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki with the AnkiConnect add-on",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "AnkiConnect Anki add-on",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Fork of the Flashcards plugin that syncs Obsidian flashcards to Anki using tags, inline separators, and cloze syntax.",
+ "tags": [
+  "anki",
+  "ankiconnect",
+  "spaced-repetition",
+  "cloze",
+  "reversed-cards"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "code",
+  "languages"
+ ],
+ "audience": [
+  "conlangers",
+  "fiction writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight EpXsC, EpXsT and EpXsG fenced blocks",
+  "Show hover glosses from the vault dictionary",
+  "Lint blocks for brackets, clause order and unit compatibility",
+  "Load dictionary, grammar, rank and root files from the vault",
+  "Translate EpXsT blocks through an optional local model endpoint"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general syntax-highlighting framework; it only handles the fictional EpXsC, EpXsT and EpXsG blocks, plus glosses and linting.",
+ "extras": "Model-assisted translation is off by default and sends only EpXsT source sentences; API keys sit in the plugin settings file because Secret Storage is not implemented. Blocks longer than 50 lines skip token coloring. The tokenizer, parsers and linter are Obsidian-free and usable from a CLI.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built it for a conlang used in a novel and as an experiment toward a future corpus/glossary toolchain.",
+ "primary": "syntax",
+ "problem": "Obsidian shows the fictional language's code blocks as plain text, with no token colors, no word glosses and no way to check brackets, clause order or unit consistency.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "a1037f937f0311c88a871d78cb6204ff26f8f075",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "configure an OpenAI-compatible endpoint (for example Ollama at model qwen2.5:7b)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible model endpoint (e.g. Ollama)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for the endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Prism syntax highlighting, hover glosses and linting for EpXsC, EpXsT and EpXsG fenced code blocks of a fictional constructed language.",
+ "tags": [
+  "syntax-highlighting",
+  "code-blocks",
+  "hover-preview",
+  "dictionary",
+  "translation",
+  "openai-compatible"
+ ],
+ "textHash": "8b8ddde54a6fee7a722e271633dc04d010fa9393"
+}

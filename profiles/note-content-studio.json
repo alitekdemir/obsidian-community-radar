@@ -1,0 +1,90 @@
+{
+ "also": [
+  "export",
+  "integrations"
+ ],
+ "audience": [
+  "chinese-social-media-creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Preview notes live as WeChat Official Account articles",
+  "Convert note headings into Xiaohongshu image cards and export them as PNGs",
+  "Sync notes to Feishu cloud documents",
+  "Track per-note publish status across platforms in a dashboard",
+  "Polish layout and titles with an AI provider using your own API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general content editing studio; it converts and publishes notes to specific Chinese platforms.",
+ "extras": "Desktop only since 3.12.0. Xiaohongshu/X publishing is freemium: 3 free publishes/day, paid Pro/Max tiers sold on Afdian; the Crosspost extension is not yet publicly released. Additional guides live in docs/guides/. Includes a reference proxy server for WeChat's IP-whitelist requirement.",
+ "intent": "improve",
+ "intentEvidence": "Built on obsidian-wechat-converter by DavidLam and a TypeScript port of the note-to-red rendering engine by Yeban",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to turn notes into ready-to-publish content for Chinese platforms like WeChat or Xiaohongshu, forcing manual reformatting and image handling.",
+ "readmeHash": "402963efd7aca9dd6f7f87332a57cd8df08d8800",
+ "relations": [
+  {
+   "evidence": "Built on obsidian-wechat-converter by DavidLam",
+   "plugin": "obsidian-wechat-converter",
+   "type": "fork"
+  },
+  {
+   "evidence": "a TypeScript port of the note-to-red rendering engine by Yeban",
+   "plugin": "note-to-red rendering engine",
+   "type": "fork"
+  },
+  {
+   "evidence": "requires the companion browser extension Crosspost, which is distributed separately",
+   "plugin": "Crosspost",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeChat Official Account AppID/Secret and self-hosted API proxy",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Feishu app credentials",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key for layout and title polish",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Crosspost browser extension for Xiaohongshu/X draft publishing",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Pro/Max license for more than the free 3 publishes/day quota",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Publishing converter that renders notes as WeChat Official Account articles, Xiaohongshu image cards, or Feishu docs, with live preview and draft publishing.",
+ "tags": [
+  "wechat",
+  "xiaohongshu",
+  "feishu",
+  "image-cards",
+  "deepseek",
+  "chinese-platforms",
+  "png-export"
+ ]
+}

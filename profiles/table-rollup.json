@@ -1,0 +1,77 @@
+{
+ "also": [
+  "tables"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Merge Markdown tables from many notes by matching column names",
+  "Sort rows by any column and filter rows with a find box",
+  "Add summary rows and group subtotals (Pro)",
+  "Roll up task lists from headings into Task, Done and Due columns (Pro)",
+  "Export the merged table to a new note or CSV file (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: free tier merges up to 50 notes with sorting and search; Pro (GitHub Sponsors, $15 one-time or $5/month) removes the limit and adds summaries, filters, task rollup and export. After GitHub sign-in the plugin contacts GitHub to verify sponsorship; no note content is sent. Requires Obsidian 1.13.4 or later. Settings and a What's new tab promote other NoteMods plugins and a Telegram chat.",
+ "intent": "improve",
+ "intentEvidence": "Table Rollup is a view for the core Bases plugin. The base selects the notes, and Table Rollup draws one merged table",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Bases views work on note properties, so there is no built-in way to combine the contents of Markdown tables scattered across many notes into one merged, sortable view.",
+ "readmeHash": "50d497fba88df231d572c8d402292360a8eeaa5a",
+ "relations": [
+  {
+   "evidence": "Dataview reads properties and inline fields, not Markdown tables.",
+   "plugin": "Dataview",
+   "type": "alternative"
+  },
+  {
+   "evidence": "SQLSeal reads a Markdown table, but you write one query line for each file",
+   "plugin": "SQLSeal",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Block View lists matching blocks from many notes, but it shows each table on its own",
+   "plugin": "Block View",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Bases (core plugin)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Bases view that merges Markdown tables from many notes into one sortable table, matching columns by name and linking each row to its source note.",
+ "tags": [
+  "sorting",
+  "filtering",
+  "summary-statistics",
+  "task-lists",
+  "sponsorware"
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Record microphone, system audio, and up to eight inputs",
+  "Play recordings in a waveform player with bookmarks and chapters",
+  "Transcribe audio with cloud or local Whisper engines",
+  "Convert and split audio files",
+  "Clean up audio with filters and loudness leveling"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.14.4 or newer; multi-track recording, local whisper.cpp transcription and input device selection are desktop-only. Full documentation lives in the docs folder and is linked from the settings tab. API keys are stored in Obsidian's keychain per device.",
+ "intent": "improve",
+ "intentEvidence": "Turn Obsidian's own Audio recorder off.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian's built-in Audio recorder only captures a microphone and offers no playback controls, transcription, or file conversion.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "de7e278ed55bd1113f69f407828cc164f366cbe0",
+ "relations": [
+  {
+   "evidence": "Turn Obsidian's own Audio recorder off.",
+   "plugin": "Obsidian Audio recorder",
+   "type": "replaces"
+  },
+  {
+   "evidence": "a fully offline whisper.cpp model that never touches the network",
+   "plugin": "whisper.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Transcription or LLM provider API key (OpenAI, Groq, Deepgram, Gemini, Mistral, AssemblyAI, Anthropic, DeepSeek)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Audio recorder that captures microphone and system audio, plays it in a waveform player, transcribes it, and converts or cleans up files.",
+ "tags": [
+  "transcription",
+  "speech-to-text",
+  "whisper",
+  "speaker-diarization",
+  "voice-memos",
+  "summarization",
+  "openai",
+  "deepgram"
+ ],
+ "textHash": "19086ed24e77a49f3ffd9424fb90f19ec309aaf1"
+}

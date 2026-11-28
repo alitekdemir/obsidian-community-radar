@@ -1,0 +1,59 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Index vault Markdown files locally with QMD",
+  "Run keyword-first search with brief semantic refinement",
+  "Open matching notes and jump near the relevant line",
+  "Manually refresh the index from the command palette or settings",
+  "Show setup progress with cancel and resume"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "QMD may download embedding model files from Hugging Face on first use; the plugin warns it can only vouch for its own behavior since QMD is separate software. Installation is manual via GitHub Releases zip rather than the community plugin store.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README explains the design choice to show keyword results first because local semantic search is slow on the first query while the embedding model loads.",
+ "primary": "search",
+ "problem": "Obsidian's built-in search is keyword-based only and cannot find notes by semantic similarity without sending data to a cloud service.",
+ "readmeHash": "f65964e22e7636cf8724b67a02a51b2fbf1bf025",
+ "relations": [
+  {
+   "evidence": "The plugin delegates to local QMD commands",
+   "plugin": "QMD",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "QMD command-line tool",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local semantic search plugin that delegates indexing, embedding, and search to the QMD command-line tool.",
+ "tags": [
+  "qmd",
+  "embeddings",
+  "local-first",
+  "sqlite",
+  "keyword-search",
+  "privacy",
+  "hugging-face"
+ ]
+}

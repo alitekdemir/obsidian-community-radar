@@ -1,0 +1,81 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files across devices via CouchDB replication",
+  "Encrypt notes end-to-end with AES-256/HKDF before upload",
+  "Filter synced content by file type and gitignore-style ignore patterns",
+  "Sync .obsidian configuration with per-device exclusions",
+  "Queue offline changes, auto-reconnect, and show a live sync status indicator"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The managed backend needs a license key from mdfriday.com while self-hosting via CouchDB or hugoverse is free; a detailed section discloses all external network requests and why native fetch is used inside the PouchDB replication adapter.",
+ "intent": "alternative",
+ "intentEvidence": "builds on the battle-tested Self-hosted LiveSync core and adds what it lacks",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted to keep the LiveSync replication core but remove the server setup burden by adding a managed, open-source backend activated with a license key.",
+ "primary": "syncing",
+ "problem": "Obsidian's Sync is paid and closed-source, while free options like Self-hosted LiveSync require manually provisioning and maintaining your own CouchDB server.",
+ "readmeHash": "536021a12f7ff336b4576c7a958aef0d40f38c7d",
+ "relations": [
+  {
+   "evidence": "builds on the battle-tested Self-hosted LiveSync core and adds what it lacks",
+   "plugin": "Self-hosted LiveSync",
+   "type": "extends"
+  },
+  {
+   "evidence": "MDFriday Sync uses CouchDB as the sync backend",
+   "plugin": "CouchDB",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run the backend yourself using hugoverse — MDFriday's fully open-source backend",
+   "plugin": "hugoverse",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "mdfriday-sync",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "CouchDB v3+ server or hugoverse backend",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "mdfriday.com account for the managed backend",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "license key for the managed backend",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault synchronization plugin that replicates notes across devices through a CouchDB backend with end-to-end encryption, selective sync, and live updates.",
+ "tags": [
+  "couchdb",
+  "pouchdb",
+  "e2ee",
+  "self-hosted",
+  "live-sync",
+  "aes-256"
+ ]
+}

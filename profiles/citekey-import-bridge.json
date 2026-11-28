@@ -1,0 +1,84 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Receive citekeys from the Zotero companion plugin",
+  "Run a configured Zotero Integration import format",
+  "Open the imported note in a new tab",
+  "Use configurable vault, folder and import format names"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a citation or bibliography importer itself; it receives a citekey from Zotero and triggers a Zotero Integration import.",
+ "extras": "Desktop only; the mobile app is not supported. Vault name, note folder and import format name must match the Zotero side exactly. Relies on Zotero Integration's runImport(), which is not a formally stable public API. Install, customization, troubleshooting and template guides live outside the README.",
+ "intent": "improve",
+ "intentEvidence": "Citekey Import Bridge calls Zotero Integration's runImport().",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "To turn the multi-step routine of importing a Zotero paper into Obsidian into a single right-click in Zotero.",
+ "primary": "integrations",
+ "problem": "Getting from a paper in Zotero to its literature note in Obsidian means switching apps, opening the command palette and searching for the paper again.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "b21875feef571255263ce3e1fc51095338fa8332",
+ "relations": [
+  {
+   "evidence": "Citekey Import Bridge calls Zotero Integration's runImport().",
+   "plugin": "Zotero Integration",
+   "type": "extends"
+  },
+  {
+   "evidence": "two small plugins that work together: one for Zotero (Zotero Citekey Bridge) and one for Obsidian",
+   "plugin": "Zotero Citekey Bridge",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You will also install two existing plugins: Better BibTeX for Zotero and Zotero Integration for Obsidian.",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7 or later",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Zotero Integration",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Better BibTeX",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Zotero Citekey Bridge",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Obsidian half of a Zotero bridge that receives a citekey, runs a Zotero Integration import, and opens the new note in a tab.",
+ "tags": [
+  "zotero",
+  "citations",
+  "literature-notes",
+  "bibtex",
+  "note-creation"
+ ],
+ "textHash": "47fc6124474bee65ed529fcccc52d59dcecb9258"
+}

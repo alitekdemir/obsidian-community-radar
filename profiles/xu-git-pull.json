@@ -1,0 +1,65 @@
+{
+ "also": [
+  "git",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull files from a GitHub, GitCode or Gitee repository into the vault",
+  "Fetch a whole repo via shallow git clone in full-overwrite mode",
+  "Download only changed files in a throttled incremental mode with resume",
+  "Filter written files with always-on and custom glob exclusion rules",
+  "Access private repositories with platform tokens"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a two-way git sync tool; it only downloads from the remote repository and never uploads or manages commits and branches.",
+ "extras": "Bilingual Chinese/English UI; manual beta installation path and BRAT install (xcloud-ai/xu-git-pull) are described alongside the recommended community-directory install; token is stored in local data.json and the README warns to use short-lived read-only tokens if the vault is cloud-synced.",
+ "intent": "alternative",
+ "intentEvidence": "不适合：移动端也要编辑并同步回电脑（请用 obsidian-git 等双向同步方案）",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Two-way git sync plugins are heavyweight on mobile and hosting APIs rate-limit file downloads, so a read-only mobile vault has no cheap way to stay current with a repo pushed from desktop.",
+ "readmeHash": "506f54ea7b7a3b14fe468348196f802d87cb8fd8",
+ "relations": [
+  {
+   "evidence": "不适合：移动端也要编辑并同步回电脑（请用 obsidian-git 等双向同步方案）",
+   "plugin": "obsidian-git",
+   "type": "alternative"
+  },
+  {
+   "evidence": "克隆由内置的 isomorphic-git（v1.44.2）+ LightningFS 完成",
+   "plugin": "isomorphic-git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Platform token (GitHub fine-grained / Gitee / GitCode)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way downloader that pulls notes from a GitHub, GitCode or Gitee repository into a vault for reading on phones and tablets.",
+ "tags": [
+  "github",
+  "gitee",
+  "gitcode",
+  "shallow-clone",
+  "isomorphic-git",
+  "one-way-download",
+  "wake-lock"
+ ]
+}

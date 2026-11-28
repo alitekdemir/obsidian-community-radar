@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "extract text from images with AI vision models",
+  "replace image embeds with extracted text",
+  "batch-extract text from a folder of images",
+  "route output to cursor, note, or new files with templates",
+  "connect custom OpenAI-compatible providers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Full documentation lives in a separate Plugin Wiki (placeholders, rate limits, privacy). Installation via the Community Plugin Browser is not yet available; BRAT or manual installation are offered. Custom OpenAI-compatible providers are untested. OpenAI requires a user or service account key, not an sk-proj key. A proxy may be used to fetch external images and may temporarily log metadata for up to 7 days.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Traditional OCR tools like Tesseract handle images poorly, and Obsidian has no built-in way to convert embedded images into text.",
+ "readmeHash": "4a4b64ac8dd7ead4d4c11ec8783c2489d0d4968c",
+ "relations": [
+  {
+   "evidence": "Requires OpenAI API key",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requires Google API key",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Run models like llava, llava:13b, or bakllava entirely on your machine",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Requires LM Studio to be installed and running",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Google API key for cloud models",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or LM Studio for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "OCR plugin that extracts text and handwriting from images into notes using AI vision models from OpenAI, Google Gemini, Ollama, or LM Studio.",
+ "tags": [
+  "openai",
+  "gemini",
+  "ollama",
+  "lm-studio",
+  "gpt-4o",
+  "handwriting",
+  "vision-models",
+  "batch-extraction"
+ ]
+}

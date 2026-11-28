@@ -1,0 +1,58 @@
+{
+ "also": [
+  "integrations",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Autocomplete issue mentions by typing gh# with a number or title words",
+  "Search issues across many repositories in one GitHub Project",
+  "Insert a markdown link to the picked issue",
+  "Rank previously linked issues higher in results",
+  "Show a hover card with issue state, labels, update time, and excerpt"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The personal access token is stored in the plugin's data.json inside the vault; the README documents the exact token permissions needed and notes SSO authorization for organizations that use it.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "autocomplete",
+ "problem": "Obsidian has no built-in way to autocomplete links to GitHub issues from a project board or preview issue details when hovering such links.",
+ "readmeHash": "a057876eedd074e7a737a2e196e9b7ec00f0ab2f",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token (read-only)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub organization owning the project",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "GitHub issue mention autocomplete that searches a GitHub Project board via a gh# trigger, inserts markdown links, and shows hover previews.",
+ "tags": [
+  "github",
+  "issue-links",
+  "hover-preview",
+  "project-boards",
+  "personal-access-token",
+  "issue-tracker"
+ ]
+}

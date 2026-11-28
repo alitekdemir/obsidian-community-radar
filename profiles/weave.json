@@ -1,0 +1,89 @@
+{
+ "also": [
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create cards from the active note with trace links back to the source",
+  "Parse Markdown into Q&A, cloze, fill-in and multiple-choice cards",
+  "Schedule reviews with FSRS6 across formal and reference-based decks",
+  "Jump from a card to its source passage, block reference, Canvas node or EPUB location",
+  "Import and export APKG, CSV and vault backups"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a proofreading or note-review tool; \"review\" here means spaced-repetition study of flashcards.",
+ "extras": "Freemium: the core FSRS/Markdown/parse-preview/retention/API/APKG loop is free, while advanced analytics, management views, emergent decks, exam banks and AI need a buy-once Premium activation; some features offer limited-time trials. Cards and decks live in .wdeck/.qbank files that should not be hand-edited or bulk-renamed; third-party plugins should write through getOfficialAPI().",
+ "intent": "alternative",
+ "intentEvidence": "You write in Markdown; the plugin parses and previews that structure as question types—instead of Anki-style field forms.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Flashcards made in Obsidian usually drift away from the notes they came from, so reviewing loses the original context and the card has to be maintained as a separate form.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "4cf7638714bc551d42c15a1e60717df5dbaa82b7",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "instead of Anki-style field forms",
+   "plugin": "Anki",
+   "type": "alternative"
+  },
+  {
+   "evidence": "EPUB Reader adds in-book excerpts and book-anchor jumps",
+   "plugin": "Weave EPUB Reader",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Incremental Reading handles reading queues and scheduling",
+   "plugin": "Weave Incremental Reading",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Community tools such as PDF++, Excalidraw, Media Extended, Mind Map, etc.",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Weave Premium (buy-once)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Weave EPUB Reader",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Weave Incremental Reading",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Spaced-repetition flashcard plugin that turns Markdown notes into source-linked cards, reviews them with FSRS6, and jumps back to the original passage.",
+ "tags": [
+  "spaced-repetition",
+  "fsrs",
+  "cloze",
+  "anki",
+  "active-recall"
+ ],
+ "textHash": "4f8e57c6e8442425d553dd6e518895bbec72f6ed"
+}

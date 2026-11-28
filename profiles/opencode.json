@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run the OpenCode CLI in an embedded terminal spawned at the vault root",
+  "Drag notes and folders into the terminal as context references",
+  "Browse past sessions with message history, token usage, and model details",
+  "Resume previous sessions or open them via session links",
+  "Export conversation threads as Markdown notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not an in-vault code editor; it embeds the external OpenCode CLI agent in a terminal tab.",
+ "extras": "Platform support varies: Linux is stable but tested on only three distros, Windows support is beta and needs Node.js for the PTY helper, and macOS is experimental. Known issues include shortcut conflicts (mitigated by a leader key), large-image paste timeouts, and oversized sessions failing to preview.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Using the OpenCode CLI means switching to an external terminal, with no vault access for context and no built-in way to browse or resume past sessions.",
+ "readmeHash": "dd8fd781b59f822f983b58e9a612e5e6dbf680b5",
+ "relations": [
+  {
+   "evidence": "A plugin that embeds the OpenCode CLI directly into Obsidian.",
+   "plugin": "OpenCode CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Terminal integration approach inspired by polyipseity/obsidian-terminal",
+   "plugin": "polyipseity/obsidian-terminal",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenCode CLI",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js on PATH",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Terminal embed that runs the OpenCode CLI inside Obsidian, with session history browsing, one-click resume, and conversation export.",
+ "tags": [
+  "terminal",
+  "ai-agent",
+  "cli",
+  "sessions",
+  "pty"
+ ]
+}

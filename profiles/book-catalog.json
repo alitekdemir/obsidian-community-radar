@@ -1,0 +1,66 @@
+{
+ "also": [
+  "bases"
+ ],
+ "audience": [
+  "book-collectors"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Capture book metadata by scanning ISBN barcodes or searching by title and author",
+  "Fetch title, authors, publisher, year, page count, subjects, and cover image from Open Library and Google Books",
+  "Save book notes with YAML frontmatter and a personal notes section",
+  "Track condition grades, copy counts, valuation, and acquisition dates, with duplicate detection",
+  "Create and open a Bases catalog file with table views like All Books and By Year"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian v1.8.0+ for Bases and desktop only; makes unauthenticated network requests to Open Library and Google Books but sends no vault data.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "data",
+ "problem": "Obsidian has no built-in way to catalog a physical book collection, fetch book metadata from ISBN or title lookups, or view the collection as a structured table.",
+ "readmeHash": "0f7235883f4d0e33006c840151169f014070fbdb",
+ "relations": [
+  {
+   "evidence": "Open Library (Internet Archive) | ISBN lookup and title/author search | Every lookup and search",
+   "plugin": "Open Library",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Google Books | ISBN lookup and title/author search (fallback) | When Open Library returns no results",
+   "plugin": "Google Books",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Book collection cataloger that scans ISBN barcodes or searches Open Library and Google Books to create metadata-rich book notes browsable in a Bases table.",
+ "tags": [
+  "isbn",
+  "barcode-scanner",
+  "open-library",
+  "google-books",
+  "book-collection",
+  "condition-grading",
+  "custom-fields"
+ ]
+}

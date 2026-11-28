@@ -1,0 +1,74 @@
+{
+ "also": [
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull unchecked tasks from earlier daily or weekly notes into the current note",
+  "Remove moved tasks from the notes they came from",
+  "Move indented sub-tasks and notes along with their parent task",
+  "Pull unfinished sub-tasks out from under finished tasks as top-level tasks",
+  "Configure the weekly note name format when Periodic Notes and Calendar are absent"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The README warns that undo removes the pulled tasks from the current note but does not restore them to the earlier notes. It also includes maintainer-facing release instructions.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says yesterday's open tasks shouldn't get forgotten and old notes shouldn't pile up with duplicates.",
+ "primary": "tasks",
+ "problem": "Open tasks in past daily and weekly notes get forgotten or get duplicated when users copy them forward by hand.",
+ "readmeHash": "48094fd6adb65b7a3a8c2bc34b03500e0ead6616",
+ "relations": [
+  {
+   "evidence": "Leftovers uses the folder and date format from Obsidian's core Daily Notes plugin, or from Periodic Notes",
+   "plugin": "Daily Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "With Periodic Notes or Calendar: Leftovers uses that plugin's weekly note folder and format.",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Periodic Notes or Calendar: Leftovers uses that plugin's weekly note folder and format.",
+   "plugin": "Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Calendar",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task carry-over plugin that moves unfinished checkboxes from earlier daily or weekly notes into the note you are working on.",
+ "tags": [
+  "carry-over",
+  "daily-notes",
+  "weekly-notes",
+  "periodic-notes",
+  "checkboxes",
+  "command-palette"
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "also": [
+  "research",
+  "search"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Capture definitions, results and relations as draft records citing source lines and verbatim quotes",
+  "Bind relation and node roles from per-base document types with user-defined kinds",
+  "Search records across all registered bases with fused lexical, dense-embedding and name lanes",
+  "Look up text selections and view a record's typed neighbourhood in a lookup sidebar",
+  "Review and accept drafts, and let agents capture, compile and query via Skills and an MCP server"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (does not load on mobile); requires Obsidian 1.13.7 or newer. Conflicts with the Hidden Folders Access plugin, which it detects and disables its own indexing for. Agent web/paper search sends data to Exa, Wikipedia and arXiv; embedding models (about 2.3 GB) download from the Hugging Face Hub.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author believes research sources reduce to a few knowledge nodes, so a knowledge graph should be the foundation and retrieval should depend on it rather than whole documents.",
+ "primary": "thinking",
+ "problem": "Obsidian has no structured knowledge base where research facts and relations cite exact source paths, line ranges and verbatim quotes, retrievable across vaults by semantic search.",
+ "readmeHash": "40548b3c17f4800e7bb30453105b99c750aa2089",
+ "relations": [
+  {
+   "evidence": "Link its own runtime: kgd claude link then kgd claude doctor, or kgd codex link",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "kgd claude link|doctor, kgd codex link|doctor | Install or verify the Skills",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "OMP loads stdio MCP servers natively from .mcp.json, .omp/mcp.json or ~/.omp/agent/mcp.json",
+   "plugin": "OMP",
+   "type": "integrates"
+  },
+  {
+   "evidence": "web and paper searches go to Exa (mcp.exa.ai)",
+   "plugin": "Exa",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "kgd CLI (Python core installed via uv)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "model provider key for the optional agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local research knowledge base that stores definitions, results and typed relations as Markdown records citing source lines, with fused lexical and semantic search.",
+ "tags": [
+  "embeddings",
+  "bge-m3",
+  "sqlite",
+  "mcp-server",
+  "claude-code",
+  "codex",
+  "citations"
+ ]
+}

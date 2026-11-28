@@ -1,0 +1,67 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import a Zoho ZNote export ZIP into Markdown notes in a chosen folder",
+  "Convert checklists to Markdown tasks and HTML text to Markdown",
+  "Copy local card resources to asset folders and create embeds or links",
+  "Map notebook names and card fields to folders and YAML properties (Pro)",
+  "Compare a later export against a baseline import by card ID and SHA-256 (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Only handles Zoho's native ZNote export format; a Zoho HTML export is outside its scope.",
+ "extras": "Freemium: core import is free; Pro (mapping profiles, later-export comparison) requires a GitHub Sponsors sponsorship of theluckystrike. After updates, the plugin opens a 'What's new' tab that suggests other NoteMods plugins and Zovo Chat (can be disabled). Import limits: 64 MiB ZIP, 192 MiB expanded, 10,000 members. README lists untested areas (mobile, Windows/Linux, large archives, live payment). Reminders, location fields, and audio/sketch/encrypted cards are skipped.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian's format converter cannot read Zoho Notebook's native ZNote archive format, so exporting cards into the vault otherwise requires manual conversion.",
+ "readmeHash": "4c0bd385410983af46adf68c0d254fced7714b30",
+ "relations": [
+  {
+   "evidence": "The parser examples in zoho-notebook-to-obsidian helped identify the native fields.",
+   "plugin": "zoho-notebook-to-obsidian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The two sample ZIPs are from jimmy-test-data.",
+   "plugin": "jimmy-test-data",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 one-time)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Zoho Notebook native ZNote export ZIPs as Markdown notes with YAML properties, tasks, tags, and local attachments, plus an import report.",
+ "tags": [
+  "zoho",
+  "znote",
+  "zip",
+  "tar",
+  "yaml-properties",
+  "migration",
+  "sha-256"
+ ]
+}

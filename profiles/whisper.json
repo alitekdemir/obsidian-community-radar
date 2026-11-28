@@ -1,0 +1,86 @@
+{
+ "also": [
+  "integrations",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio and transcribe it at the cursor via Whisper-compatible APIs",
+  "upload audio files (mp3, mp4, m4a, wav, webm, ogg) for transcription",
+  "transcribe audio files from the file context menu",
+  "post-process transcripts with an LLM to fix grammar, remove filler words, or extract action items",
+  "create notes from transcriptions using filename and content templates"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Works on desktop and mobile; includes manual installation instructions via GitHub releases. Automation via iOS Shortcuts, Alfred, or any tool that can open URLs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in way to turn recorded or uploaded audio into transcribed text in a note.",
+ "readmeHash": "4d924b011e5a11ceafbb50428a6a091dec339515",
+ "relations": [
+  {
+   "evidence": "Works with OpenAI, Groq, Azure, or any other Whisper-compatible API.",
+   "plugin": "OpenAI Whisper API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with OpenAI, Groq, Azure, or any other Whisper-compatible API.",
+   "plugin": "Groq",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with OpenAI, Groq, Azure, or any other Whisper-compatible API.",
+   "plugin": "Azure",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Claude, GPT, or any OpenAI-compatible endpoint (Ollama, LM Studio, etc.).",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports Claude, GPT, or any OpenAI-compatible endpoint (Ollama, LM Studio, etc.).",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Whisper-compatible API (OpenAI, Groq, Azure, or other)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "LLM endpoint (Claude, GPT, or OpenAI-compatible) for post-processing",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Speech-to-text plugin that records or uploads audio, transcribes it with Whisper-compatible APIs, and optionally post-processes the text with an LLM.",
+ "tags": [
+  "openai",
+  "whisper",
+  "groq",
+  "azure",
+  "speech-to-text",
+  "transcription",
+  "post-processing",
+  "ollama"
+ ]
+}

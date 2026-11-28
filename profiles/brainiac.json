@@ -1,0 +1,74 @@
+{
+ "also": [
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render the vault as a 3D brain of note and paragraph points grouped by folder and similarity",
+  "Switch between 12 shapes such as galaxy, clusters, wheel, stream, calendar and clock",
+  "Replay the vault growing note by note on a timeline in date order",
+  "Search, hover and click points to open the note at the paragraph heading",
+  "Customize palettes, background themes, glow, links, rotation and point size"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI assistant despite the name; it only visualizes the vault in 3D and runs no AI unless you opt into Ollama embeddings.",
+ "extras": "The manifest warns the plugin has not been manually reviewed by Obsidian staff. Desktop only; network use (Ollama) and reading files outside the vault (Claude Code) are off by default; files with names containing secrets-like words are skipped.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no 3D, time-aware way to see the whole vault's notes, paragraphs and writing history at once.",
+ "readmeHash": "25ce7f3268b2f1177b48609a42ec51c11c1b4308",
+ "relations": [
+  {
+   "evidence": "Inspired by the mindcorpus app. No code is shared with it.",
+   "plugin": "mindcorpus",
+   "type": "inspired"
+  },
+  {
+   "evidence": "if you set Similarity to Ollama embeddings, Brainiac sends your note text to an Ollama server",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Brainiac reads your Claude Code history from ~/.claude/projects/*.jsonl",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama (optional, for embeddings)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude Code (optional, for chat history dots)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "3D visualization that renders the vault as a glowing brain of note and paragraph points, with 12 shapes, timeline replay, search and writing-history views.",
+ "tags": [
+  "3d",
+  "threejs",
+  "umap",
+  "tf-idf",
+  "ollama",
+  "claude-code",
+  "timeline"
+ ]
+}

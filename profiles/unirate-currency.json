@@ -1,0 +1,64 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render live exchange rates from inline code spans",
+  "Convert amounts inline with an optional amount in the code span",
+  "Insert rates through a pick-from/to/amount/date modal command",
+  "Convert selected text via a command",
+  "Cache rates in memory for an hour"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Built and maintained by UniRateAPI itself (vendor disclosure); not yet approved on the community plugin list, so manual installation is required; historical rates back to 1999 and commodities (XAU, XAG, XPT, XPD) need a paid UniRateAPI Pro plan.",
+ "intent": "alternative",
+ "intentEvidence": "Existing Obsidian finance plugins are either crypto-only (obsidian-crypto-lookup) or general-purpose calculators",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Existing finance plugins are crypto-only or general-purpose calculators, none offer inline live rates, and a 2022 forum request for this remains unanswered.",
+ "primary": "finance",
+ "problem": "Obsidian has no way to show live currency rates inline in prose; existing finance plugins are crypto-only or calculator-style rather than inline.",
+ "readmeHash": "a9b0a3882d2b65c4b22aa560d8ee334061f0db03",
+ "relations": [
+  {
+   "evidence": "Powered by UniRateAPI.",
+   "plugin": "UniRateAPI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Existing Obsidian finance plugins are either crypto-only (obsidian-crypto-lookup)",
+   "plugin": "obsidian-crypto-lookup",
+   "type": "alternative"
+  },
+  {
+   "evidence": "or general-purpose calculators that happen to handle currency (obsidian-numerals)",
+   "plugin": "obsidian-numerals",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "UniRateAPI key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Inline currency converter that renders live and historical exchange rates from inline code spans like `usd:eur` or `usd:eur:100` via UniRateAPI.",
+ "tags": [
+  "currency",
+  "exchange-rates",
+  "crypto",
+  "commodities",
+  "inline-code",
+  "unirateapi"
+ ]
+}

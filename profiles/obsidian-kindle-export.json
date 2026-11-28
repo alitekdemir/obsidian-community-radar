@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "ereader-owners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes as .epub to Kindle or PocketBook",
+  "Include embedded images, .md files, and .mp3 files in the export",
+  "Send the converted file by email via a PHP backend",
+  "Merge embedded images and notes into a single .md file (mergedown)",
+  "Configure Kindle, PocketBook, and sender email settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy warning: if you do not self-host the PHP backend, your note content is sent to the author's server, though the author states it is not saved or read. Planned but unfinished features include .html and .pdf export and folder/file covers; the epub cover does not show on the Kindle bookshelf due to format limits.",
+ "intent": "alternative",
+ "intentEvidence": "I was using Calibre and Pandoc-Export plugin, but I was wondering about a short way to export",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a one-command export that bundles embedded files, after using Calibre and the Pandoc-Export plugin.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to get notes onto an e-reader, so users had to run multi-step conversions through tools like Calibre or Pandoc.",
+ "readmeHash": "1480baaafdf7c629637bc53fe0ea41f915b8bcac",
+ "relations": [
+  {
+   "evidence": "I was using Calibre and Pandoc-Export plugin, but I was wondering about a short way",
+   "plugin": "Calibre",
+   "type": "alternative"
+  },
+  {
+   "evidence": "I was using Calibre and Pandoc-Export plugin, but I was wondering about a short way",
+   "plugin": "Pandoc-Export",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "PHP backend (self-hosted or the author's server)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Email account and Kindle/PocketBook send-to address",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "E-book export plugin that converts notes and their embedded images and notes into an .epub file and emails it to a Kindle or PocketBook.",
+ "tags": [
+  "epub",
+  "kindle",
+  "pocketbook",
+  "email",
+  "php-backend",
+  "mergedown",
+  "calibre"
+ ]
+}

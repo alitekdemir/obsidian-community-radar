@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [
+  "investors",
+  "privacy-conscious-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Record contributions, withdrawals, and account valuations as encrypted events",
+  "Calculate XIRR, cumulative profit, and monthly and yearly returns",
+  "Compare performance against the S&P 500 via FRED data",
+  "Encrypt the ledger with a password, PBKDF2-SHA256, and a recovery key",
+  "Export records as plaintext JSON and CSV"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a brokerage-sync or live-holdings tracker; it records account-level contributions, withdrawals, and valuations entered manually.",
+ "extras": "Extensive privacy and security disclosures: automatic benchmark mode sends HTTPS requests to FRED (manual mode avoids network access), exports are plaintext, and a financial disclaimer states the plugin is not investment advice. The manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "Investors have no private, account-free way to track portfolio performance inside Obsidian without brokerage sync or external financial services.",
+ "readmeHash": "a5a6e2d2decd81d133e4ad9d13f123dfefaa2c25",
+ "relations": [
+  {
+   "evidence": "Automatic benchmark mode requests public benchmark and FX data from FRED",
+   "plugin": "FRED",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "FRED (fred.stlouisfed.org)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Local-first portfolio tracker that stores encrypted account-level cash flows and valuations in the vault and computes returns with S&P 500 benchmarks.",
+ "tags": [
+  "xirr",
+  "sp-500",
+  "fred",
+  "aes-256-gcm",
+  "encryption",
+  "portfolio-tracking",
+  "currency-conversion",
+  "privacy"
+ ]
+}

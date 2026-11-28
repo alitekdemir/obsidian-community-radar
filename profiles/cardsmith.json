@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai",
+  "export"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Generate flashcards from notes or selections",
+  ": Review and edit generated cards before saving",
+  ": Export cards to Anki",
+  ": Sync folder content for batch card generation",
+  ": Maintain Spaced Repetition review history across regenerations"
+ ],
+ "coreOverlap": {
+  "features": [
+   ": Spaced Repetition"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free tier covers single notes (up to 10 cards) with own AI key or Ollama. Pro is $3/month and adds folder generation, synced folders, and hosted generation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Manually creating flashcards from extensive notes is time-consuming and inefficient.",
+ "readmeHash": "42f941f02b153e936e862c224c61935f7c18e7b8",
+ "relations": [
+  {
+   "evidence": "Export a note's cards, including ones you wrote by hand, to an Anki import file.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cards are written in the format used by the Spaced Repetition plugin, so you keep reviewing in Obsidian exactly as you do now.",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, OpenRouter",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Cardsmith Pro",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "A tool that uses AI to generate spaced-repetition flashcards from selected notes, allowing review before saving and exporting to Anki.",
+ "tags": [
+  "anki",
+  "spaced-repetition",
+  "ollama",
+  "ai-generation",
+  "cloze",
+  "reversed-cards"
+ ]
+}

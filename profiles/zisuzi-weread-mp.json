@@ -1,0 +1,82 @@
+{
+ "also": [
+  "import",
+  "markdown"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sign in to WeRead by scanning a QR code",
+  "List and search Official Accounts on the WeRead shelf",
+  "Poll for new articles and save them as Markdown",
+  "Backfill an account's full article archive with retry",
+  "Download images, audio and video into a local assets folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a WeRead book highlights and notes sync tool; it only archives Official Account articles from your shelf.",
+ "extras": "Desktop only (login window relies on Electron webview), Obsidian 1.13.0 or newer. Credentials are stored in plain text in the plugin's data.json, which should not be synced publicly. WeRead private endpoints have no published quota; the plugin enforces daily budgets, cooldowns and conservative intervals to avoid throttling. AI and local agent features are off by default.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "WeChat Official Account articles disappear from the subscription feed and saved links later 404, so long reads meant to be kept are lost.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "e63ecb90e0c23b780bbc0bb4c153ae09f3ced45b",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "Interaction and reading-surface patterns inspired by joeseesun/qiaomu-ai-rss",
+   "plugin": "qiaomu-ai-rss",
+   "type": "inspired"
+  },
+  {
+   "evidence": "WeRead API practice informed by zhaohongxuan/obsidian-weread-plugin",
+   "plugin": "obsidian-weread-plugin",
+   "type": "inspired"
+  },
+  {
+   "evidence": "That plugin syncs book highlights and notes; this one archives Official Account articles.",
+   "plugin": "Weread highlights plugin",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "WeRead account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API key for AI processing",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local CLI agent (Hermes, Claude Code, Codex, Kimi, Gemini, Cursor)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "WeRead Official Account collector that archives subscribed accounts' articles, with images and media, as local Markdown notes.",
+ "tags": [
+  "wechat",
+  "rss",
+  "web-clipper",
+  "html-to-markdown",
+  "image-compression",
+  "openai-compatible",
+  "cli"
+ ],
+ "textHash": "621b07145b436943985c44f32d0332b02f6f35ef"
+}

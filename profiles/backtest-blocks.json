@@ -1,0 +1,102 @@
+{
+ "also": [
+  "charts",
+  "integrations"
+ ],
+ "audience": [
+  "traders"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run strategy rules on historical prices",
+  "Compare results with buy and hold",
+  "Chart equity curves and trades",
+  "Sweep parameters and check whether results are luck",
+  "List today's orders across the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general code-block tester; it only runs trading rules against market prices.",
+ "extras": "The plugin never places orders; you place trades yourself. It is not financial advice. Full guide and recipes live in docs/reference.md and docs/cookbook.md, and phone layouts were only checked in mobile emulation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "finance",
+ "problem": "A note can hold a trading idea, but there is no way to test those rules on historical prices without leaving the vault for a separate backtesting tool.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "8f28f1529700fc3d548828513a37e4f1617d9b1c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "query1.finance.yahoo.com and query2.finance.yahoo.com: Yahoo prices",
+   "plugin": "Yahoo Finance",
+   "type": "integrates"
+  },
+  {
+   "evidence": "data-api.binance.vision: Binance prices, and its list of markets",
+   "plugin": "Binance",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tiingo:SPY | Tiingo (an API key is necessary)",
+   "plugin": "Tiingo",
+   "type": "integrates"
+  },
+  {
+   "evidence": "fred:T10Y2Y | FRED, an economic series.",
+   "plugin": "FRED",
+   "type": "integrates"
+  },
+  {
+   "evidence": "To add it to Claude Code:",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Tiingo",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "FRED",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Anthropic (strategy writer)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20 or later",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Runs trading-strategy rules written in a note against past prices and shows the backtest, figures and chart in place of the block.",
+ "tags": [
+  "statistics",
+  "code-blocks",
+  "mcp",
+  "api-key",
+  "llm"
+ ],
+ "textHash": "bf6bf3ac266dfae1e5e81a65a8f5a823f796f88a"
+}

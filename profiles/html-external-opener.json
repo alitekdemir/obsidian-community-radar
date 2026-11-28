@@ -1,0 +1,56 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "open local HTML links from Reading View with one click",
+  "run a command to open the HTML link under the cursor in Source Mode or Live Preview",
+  "resolve vault-relative link paths including URL-encoded spaces and non-ASCII filenames",
+  "configure a custom browser executable or use the system default",
+  "verify targets stay inside the vault and reject symlink escapes before opening"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. It is desktop-only (requires a local filesystem vault, no mobile support), warns that opened HTML pages can execute JavaScript without sandboxing, and notes that pages needing a web server may fail under file://. Also documents limitations like fragments not forwarded via the system default app.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian keeps interactive HTML demos, reports and standalone web pages next to notes but gives no safe way to launch those local .html/.htm files in an external browser from a link.",
+ "readmeHash": "e79010b8ba761a9170c36b32f9874e15ae345e8e",
+ "relations": [
+  {
+   "evidence": "specify Chrome, Edge, Firefox, or another browser executable",
+   "plugin": "Chrome",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "browser or system default HTML application",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Opens local HTML file links in Markdown notes with the system default app or a user-chosen browser executable.",
+ "tags": [
+  "external-browser",
+  "file-protocol",
+  "chrome",
+  "edge",
+  "firefox",
+  "url-fragments"
+ ]
+}

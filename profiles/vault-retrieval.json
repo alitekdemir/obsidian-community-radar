@@ -1,0 +1,81 @@
+{
+ "also": [
+  "search",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rank related notes by similarity",
+  "Search notes by meaning",
+  "Answer questions with grounded RAG chat",
+  "Reshape selections and restructure notes with an LLM",
+  "Suggest and insert wikilinks from the index"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Backlinks",
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not distributed through Obsidian's community directory; installed via the AnySource Sideloader catalog or manually. The plugin API (version 1) is explicitly experimental. Some diagnostic strings remain in German and are being cleaned up. Sibling plugin image-to-markdown handles image transcription. Cross-device index sync requires Obsidian Sync's 'Sync all other file types'; API keys are stored in Obsidian's keychain and do not sync. The MCP server is desktop only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's built-in search only matches keywords, so finding notes by meaning or getting answers grounded in your vault isn't possible.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "36b5b42e858408917dabb28ab1c597eeb15a3ddd",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "If the LLM Lab plugin is installed, Vault Retrieval reports its LLM calls to it",
+   "plugin": "LLM Lab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "retrieval backend for MCP clients (Claude Code, OpenClaw, …)",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible embedding endpoint (local like Ollama or hosted)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible chat LLM endpoint (local like LM Studio or hosted)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Hosted provider API key (OpenRouter, Groq, OpenAI, Mistral, etc.)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local retrieval plugin adding related notes, semantic search, and grounded RAG chat over your vault via a synced embedding index.",
+ "tags": [
+  "semantic-search",
+  "rag",
+  "embeddings",
+  "local-llm",
+  "openai-compatible",
+  "mcp",
+  "offline"
+ ],
+ "textHash": "d4b3240f5d27f6b997b0a2a86426cf29cff14e46"
+}

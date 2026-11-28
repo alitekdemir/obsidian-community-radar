@@ -1,0 +1,84 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "detect whether the vault sits in a folder the device's cloud can sync",
+  "compare vaults across devices using beacon files and file fingerprints",
+  "resolve conflicted duplicate files with keep-newest or merge actions",
+  "flag iCloud-offloaded placeholder files as not downloaded",
+  "two-way sync the vault to GitHub on a schedule with a personal access token"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a sync transport for iCloud or Google Drive; it only checks and repairs cloud sync setup — the optional GitHub mode is the only part that actually moves files.",
+ "extras": "Makes no network requests at all unless GitHub storage is enabled (the only host contacted is api.github.com); installs via manual download or BRAT rather than a build toolchain. The manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Cloud sync setups fail silently in ways Obsidian cannot see — a vault in the wrong folder, offloaded placeholder files, or duplicate conflict copies — with no way to verify or repair them.",
+ "readmeHash": "db0ad536e576bbcf65b9cd16981f9e8741548b14",
+ "relations": [
+  {
+   "evidence": "If you have the BRAT plugin, add jamalbalya/jemzsync and it will install and auto-update for you.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Sync — official, paid, built for this, with version history.",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Remotely Save — free community plugin supporting S3, Dropbox, OneDrive, WebDAV, with end-to-end encryption.",
+   "plugin": "Remotely Save",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Working Copy — Git-based, good if you want full version control.",
+   "plugin": "Working Copy",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT (alternative install path)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Sync checker that verifies a vault sits where iCloud or Google Drive can reach it, compares devices via vault fingerprints, and resolves conflicted duplicates.",
+ "tags": [
+  "icloud",
+  "google-drive",
+  "github",
+  "conflict-resolution",
+  "file-deduplication",
+  "device-beacons",
+  "placeholders"
+ ]
+}

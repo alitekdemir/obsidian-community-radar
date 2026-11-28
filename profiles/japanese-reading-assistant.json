@@ -1,0 +1,74 @@
+{
+ "also": [
+  "languages",
+  "pdf"
+ ],
+ "audience": [
+  "japanese-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Explain selected Japanese words and sentences with vocabulary, readings, and grammar points via an LLM",
+  "Extract text from a drawn PDF region using local OCR",
+  "Save analysis results to a dated Markdown study note",
+  "Switch explanations between Chinese and English",
+  "Run analysis through local Ollama or an OpenAI-compatible cloud API"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; the optional PP-OCR integration starts a Windows process and is disabled until manually configured. Also installable via BRAT before community listing. No telemetry; cloud API keys stored in Obsidian Secret Storage.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README does not state the author's motivation.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to get contextual explanations of Japanese words and sentences while reading, especially in PDFs.",
+ "readmeHash": "677b454ea277dfb9b9defdd9637da64e51e94d6a",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The script creates an isolated Python 3.11 environment and installs PP-OCR.",
+   "plugin": "PP-OCR (PaddleOCR)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or a PP-OCR PowerShell setup",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible cloud API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI reading assistant that explains selected Japanese text with vocabulary and grammar in Chinese or English and saves results to daily study notes.",
+ "tags": [
+  "japanese",
+  "ollama",
+  "deepseek",
+  "paddle-ocr",
+  "language-learning",
+  "study-notes"
+ ]
+}

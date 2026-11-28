@@ -1,0 +1,73 @@
+{
+ "also": [
+  "editing",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite selected text or the whole note with AI",
+  "Define reusable role prompts as markdown files in a vault folder",
+  "Apply or reject AI rewrites through a diff-based review queue",
+  "Attach review comments anchored to the text they discuss",
+  "Connect to cloud and local LLM providers with an API key or base URL"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes a troubleshooting section (e.g. free-tier Gemini returning 400/404 errors) and an explicit roadmap with completed and planned items.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run LLM-based edits on a selection or a whole note and review the resulting changes one item at a time before applying them.",
+ "readmeHash": "bc04574ac67bdd6a5f22b32194c80479844cf993",
+ "relations": [
+  {
+   "evidence": "Modai has diff (jdiff) wordsDiff highlighting any changes git style.",
+   "plugin": "jdiff",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Modai integrates ChatGPT and Gemini directly into your Obsidian writing workflow.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Modai integrates ChatGPT and Gemini directly into your Obsidian writing workflow.",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Provider API key for cloud models (OpenAI, Gemini, Anthropic, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local inference server (Ollama, LM Studio, llama.cpp, vLLM, etc.) for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI writing assistant that rewrites, edits and reviews selected text or whole notes using role-based prompts and custom LLM instructions, with a diff review panel.",
+ "tags": [
+  "chatgpt",
+  "gemini",
+  "openai",
+  "ollama",
+  "diff-highlighting",
+  "role-prompts",
+  "openai-compatible"
+ ]
+}

@@ -1,0 +1,89 @@
+{
+ "also": [
+  "integrations",
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "import events from remote ICS calendar URLs into daily notes",
+  "cache calendars locally via vdir for faster workflows",
+  "extract custom fields from event text using regex and text patterns",
+  "expose a getEvents() API for Dataview, Templater and Full Calendar",
+  "customize per-calendar output format, time format and Dataview metadata"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a full calendar management or viewing tool; it imports events into notes rather than displaying or editing calendars.",
+ "extras": "Setup walkthroughs for obtaining secret ICS URLs from Google Calendar and Outlook. Beta releases are available via BRAT. The BRAT instructions end with 'Enable the Amazing Marvin plugin', which appears to be a copy-paste error from another plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a simple, maintainable calendar integration that adapts to user expectations instead of trying to be a full calendar system.",
+ "primary": "calendar",
+ "problem": "Obsidian daily notes have no built-in way to pull scheduled events from an external calendar into the note for the day.",
+ "readmeHash": "d3084e7f3ca1d061a4cdac67d01f1e08406fb419",
+ "relations": [
+  {
+   "evidence": "designed to work with the Daily Note or Periodic Notes plugins",
+   "plugin": "Daily Notes / Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "I highly recommend pairing this with the Day Planner plugin",
+   "plugin": "Day Planner",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can use it through Dataview or Templater for more advanced / customized usage",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can use it through Dataview or Templater for more advanced / customized usage",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Or you can use Full Calendar to render a calendar view of your events",
+   "plugin": "Full Calendar",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you want to try out beta releases, you can use the BRAT plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "a calendar service exposing an ICS URL (e.g. Google Calendar or Microsoft Office 365)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview, Templater, Daily Notes or Periodic Notes, Full Calendar, BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "ICS import plugin that adds events from remote iCalendar URLs and vdir caches into daily notes on demand.",
+ "tags": [
+  "ics",
+  "google-calendar",
+  "outlook",
+  "vdir",
+  "dataview",
+  "templater"
+ ]
+}

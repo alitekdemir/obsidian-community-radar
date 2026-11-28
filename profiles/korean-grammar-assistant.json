@@ -1,0 +1,81 @@
+{
+ "also": [
+  "editing",
+  "ai"
+ ],
+ "audience": [
+  "korean-language-writers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "check Korean spelling and grammar in selected editor text",
+  "review detected issues in a popup or inline in the editor",
+  "apply, keep, ignore, or manually edit each correction",
+  "switch between the default proxy, NaraSpeller, and Bareun.ai providers",
+  "run optional AI review via OpenAI, Claude, Gemini, or Ollama"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest is marked BETA. The default grammar check routes selected text through the author's proxy at appstore.junlim.org; only selected text is sent, and no AI keys are needed unless AI review is enabled. Privacy section states there is no telemetry or remote account system.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "languages",
+ "problem": "Obsidian has no built-in Korean grammar or spelling checking, so writers must leave the vault to use external checkers.",
+ "readmeHash": "917ad2be1820e50017351b99c940bc072621d830",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "NaraSpeller (부산대 맞춤법 검사기)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Direct Bareun.ai API/server: requires a Bareun.ai account, API key, and direct API host settings.",
+   "plugin": "Bareun.ai",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional AI review with OpenAI, Anthropic Claude, Google Gemini, or local Ollama.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "NaraSpeller API key",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Bareun.ai API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Bareun.ai account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Korean spelling and grammar checker with popup and inline review, multiple grammar providers, and optional AI-assisted suggestions.",
+ "tags": [
+  "korean",
+  "spell-check",
+  "grammar-checking",
+  "naraspeller",
+  "bareun-ai",
+  "ollama"
+ ]
+}

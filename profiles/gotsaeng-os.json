@@ -1,0 +1,66 @@
+{
+ "also": [
+  "export",
+  "data"
+ ],
+ "audience": [
+  "adhd",
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan and classify vault notes into project, decision, research, review, and chat-export types",
+  "Extract facts, decisions, actions, risks, assumptions, questions, and insights from notes",
+  "Write Markdown and JSON context-pack artifacts with coverage, provenance, and confidence stats",
+  "Diff consecutive compiles via a manifest to surface added, changed, stale, and resolved context",
+  "Expose compilation as CLI commands and MCP tools for AI clients"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is not a life-management OS or AI assistant; it makes no LLM calls and only compiles vault notes into context-pack artifacts.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The Obsidian adapter is desktop-only; the same compiler is also available as @gotsaeng/cli and @gotsaeng/mcp on npm. The README includes an explicit 'What GotSaeng OS Does Not Do' section and a security/privacy statement (local-only, no telemetry).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because LLMs are useful but long-running work still loses context, and scattered notes, chat exports, and decisions are often forgotten; a local-first compiler turns that scattered Markdown into a portable handoff pack.",
+ "primary": "ai",
+ "problem": "Long-running work loses context because notes, chat exports, decisions, and execution logs live in separate places, and Obsidian has no way to compile them into a portable handoff pack.",
+ "readmeHash": "49340cc5fd6e149adc82176ffa6633441547cd9a",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Claude Code / Codex / Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Node.js 20 or newer",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client such as Claude Code, Codex, or Cursor",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Vault compiler that scans Markdown notes, extracts facts, decisions, and actions, and writes auditable Markdown/JSON context packs for humans and AI tools.",
+ "tags": [
+  "context-packs",
+  "mcp",
+  "llm-handoff",
+  "cli",
+  "provenance",
+  "memory-diff",
+  "weekly-review"
+ ]
+}

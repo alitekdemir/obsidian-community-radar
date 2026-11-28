@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export a single note as a one-chapter EPUB",
+  "Export a folder of notes as a book, with subfolders as Parts",
+  "Export a note plus its linked notes to a chosen depth",
+  "Preview a book's chapter order before building it",
+  "Push finished books to an Onyx Boox device over Wi-Fi"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Mermaid",
+   "Math"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a handwriting or ink-annotation tool; it only converts notes into EPUB books.",
+ "extras": "Pushing to a Boox needs the BooxDrop app and both devices on the same Wi-Fi network; the local EPUB is always written first. No telemetry, analytics or account. The README notes that how a Boox library displays the book detail fields has not been checked on a device yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author built it so notes can be read comfortably on an e-ink device instead of a laptop screen.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to turn notes into a book that reads well on an e-ink device, with chapters, covers, footnotes and a navigable table of contents.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "537daf9c8f0e5ac323ab814554987e211c77ca37",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "every export is uploaded straight to the device's library after it saves",
+   "plugin": "Onyx Boox",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "Bases",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "BooxDrop on an Onyx Boox device",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Bases",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Exports notes, folders, or linked notes as EPUB 3 books for e-ink readers, with optional Wi-Fi delivery to an Onyx Boox device.",
+ "tags": [
+  "epub",
+  "e-ink",
+  "mermaid",
+  "image-compression",
+  "cover-art"
+ ],
+ "textHash": "0069a696eef6cb19a6a63f7af89d3c2b87eba4f4"
+}

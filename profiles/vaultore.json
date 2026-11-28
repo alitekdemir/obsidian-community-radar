@@ -1,0 +1,90 @@
+{
+ "also": [
+  "code",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run TypeScript, shell and AI cells in Markdown notes",
+  "Execute each code cell in its own container",
+  "Write cell outputs back under the cell",
+  "Read and write vault notes from workflows",
+  "Schedule workflows with cron while Obsidian is open"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Callouts"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; every run needs a running container engine, even AI-only workflows; the CLI is not on npm yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian notes cannot execute code or AI prompts, so workflows that read and write notes must be run outside the vault.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "8db4678f6484ac587a86179f9faeca56c0193a62",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "AI cells send their prompt to api.openai.com or api.anthropic.com, with your API key",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "call OpenAI or Anthropic with your own key",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Docker, Podman, Colima (macOS), or Apple container (macOS 26+, Apple silicon).",
+   "plugin": "Docker",
+   "type": "integrates"
+  },
+  {
+   "evidence": "vaultore schedules export writes the manifest that hands scheduled workflows to CronAI",
+   "plugin": "CronAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Container engine (Docker, Podman, Colima, or Apple container)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI or Anthropic API key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "OpenAI or Anthropic account with paid API access",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Workflow runner that executes TypeScript, shell and AI cells in Markdown notes inside containers and writes results back under each cell.",
+ "tags": [
+  "code-blocks",
+  "docker",
+  "openai",
+  "llm",
+  "scheduling",
+  "byok"
+ ],
+ "textHash": "f5dab373fb7b014f7d6f72eea3b410f998f7548e"
+}

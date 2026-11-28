@@ -1,0 +1,52 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Lint the current filename or all filenames in the vault for invalid characters",
+  "Rename files by replacing troublesome characters with user-chosen replacements",
+  "Automatically lint new files created in Obsidian or synced in from external systems",
+  "Respect vault settings for updating internal links after renames"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a note-content linter; it only checks and renames filenames, never editing file contents.",
+ "extras": "The authors state they do not use Obsidian Sync and cannot guarantee that automatic linting works with it; they welcome a contribution validating compatibility.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Notes created outside Obsidian or synced across platforms can end up with filenames containing characters like pipes, colons, or brackets that cause issues in Obsidian or are invalid on Android.",
+ "readmeHash": "6ce0d02e9167c3b9128fd1bbb6d990b7f0a8af4e",
+ "relations": [
+  {
+   "evidence": "the developers of Obsidian for the Obsidian Sample Plugin for the basis of this plugin",
+   "plugin": "Obsidian Sample Plugin",
+   "type": "extends"
+  },
+  {
+   "evidence": "Obsidian Filename Emoji Remover Plugin, whose code we read and experimented with before diving into writing our own plugin",
+   "plugin": "Obsidian Filename Emoji Remover Plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Filename linter that finds and renames files containing invalid or troublesome characters, replacing them with characters of your choice.",
+ "tags": [
+  "android",
+  "renaming",
+  "invalid-characters",
+  "filename-sanitization"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "also": [
+  "research"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search books by title, author or ISBN and create a note from the chosen result",
+  "Insert book metadata into the properties of the current note",
+  "Save cover images into the vault and reference them in properties",
+  "Fill notes from template files using Book Search-compatible variables",
+  "Import settings from the Book Search plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a reading or e-book tool; it only creates notes with metadata about books.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents exactly which hosts it contacts and states there is no telemetry or account.",
+ "intent": "alternative",
+ "intentEvidence": "Book Lookup is a successor to Book Search.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to fetch book metadata from online catalogs, so making a note for a book means copying title, author, ISBN and cover by hand.",
+ "readmeHash": "51931591b4918f605b477bb51f0c4e7d5d23cd5b",
+ "relations": [
+  {
+   "evidence": "Book Lookup is a successor to Book Search.",
+   "plugin": "Book Search",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Create a note for any book from Open Library or Google Books",
+   "plugin": "Open Library",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Create a note for any book from Open Library or Google Books",
+   "plugin": "Google Books",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Books API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Book note creator that searches Open Library or Google Books by title, author or ISBN and fills a note with properties, a cover and a description.",
+ "tags": [
+  "open-library",
+  "google-books",
+  "isbn",
+  "book-covers"
+ ]
+}

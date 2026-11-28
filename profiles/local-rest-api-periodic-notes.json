@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations",
+  "dates"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Expose REST endpoints under /periodic/{period}/ for daily, weekly, monthly, quarterly, and yearly notes",
+  "Read, create, append, patch, and delete periodic notes, including heading or block targets",
+  "Provide an MCP periodic_note_get_path tool that returns and optionally creates the current periodic note's path",
+  "Delegate folder, format, template, and creation logic to the Daily Notes and Periodic Notes plugins",
+  "Redirect requests to the host's /vault/ endpoint to keep write semantics identical"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a periodic-notes plugin itself; it only exposes REST endpoints and delegates all note configuration and creation to the Daily Notes and Periodic Notes plugins.",
+ "extras": "Marked as not manually reviewed by Obsidian staff; a design trade-off note is referenced in src/routes.ts rather than the README itself.",
+ "intent": "improve",
+ "intentEvidence": "Adds periodic-note support to Obsidian Local REST API using functionality provided by @liamcaine's Periodic Notes plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "developers",
+ "problem": "Local REST API removed its native periodic-note endpoints, so external tools and MCP clients lack a documented way to read or write periodic notes.",
+ "readmeHash": "eb738dff8675c558793161e5e7811911a66a08e7",
+ "relations": [
+  {
+   "evidence": "the same model Local REST API used before its (since-removed) native implementation",
+   "plugin": "Local REST API",
+   "type": "extends"
+  },
+  {
+   "evidence": "using functionality provided by @liamcaine's Periodic Notes plugin",
+   "plugin": "Periodic Notes (@liamcaine)",
+   "type": "extends"
+  },
+  {
+   "evidence": "delegates all folder/format/template/creation logic to the core Daily Notes and community Periodic Notes plugins via obsidian-daily-notes-interface",
+   "plugin": "obsidian-daily-notes-interface",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Local REST API",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Periodic Notes",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Daily Notes (core)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Extension for the Local REST API plugin that adds REST endpoints and an MCP tool for daily, weekly, monthly, quarterly, and yearly periodic notes.",
+ "tags": [
+  "rest-api",
+  "http",
+  "mcp",
+  "periodic-notes",
+  "daily-notes"
+ ]
+}

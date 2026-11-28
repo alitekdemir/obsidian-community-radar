@@ -1,0 +1,79 @@
+{
+ "also": [
+  "research",
+  "visualization"
+ ],
+ "audience": [
+  "researchers",
+  "developers",
+  "security-researchers",
+  "formal-methods-engineers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Execute fenced code blocks via a floating Run button or command palette",
+  "Render rich output panels (MIME bundles, Graphviz SVG, D3, Plotly, Cytoscape) beneath blocks",
+  "Run blocks in Docker, Podman, WSL, SSH, or QEMU execution groups",
+  "Write output to files, pipe stdin, and add interactive slider/select/button input controls",
+  "Hash, snapshot, and cryptographically sign notes for reproducibility, with JSONL logging"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Executes code locally without sandboxing by default and shows a consent modal; desktop-only because it uses Node.js and local processes. Detailed guides live in the plugin's docs/ directory rather than the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built for research and exploratory notes where code, proofs, solver queries, and runtime output should stay readable in the document.",
+ "primary": "code",
+ "problem": "Obsidian code blocks are static text with syntax highlighting only; there is no built-in way to execute them and see their output without leaving the note or rewriting the block into a special format.",
+ "readmeHash": "e2c3cacd9d11910f3a87966730fdb9e75fa464c2",
+ "relations": [
+  {
+   "evidence": "Display outputs use MIME bundles inspired by Jupyter outputs.",
+   "plugin": "Jupyter",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The built in Godbolt execution group posts snippet source to Compiler Explorer and returns a public shortlink.",
+   "plugin": "Compiler Explorer (Godbolt)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "installed language interpreters/compilers",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Docker, Podman, WSL, SSH, or QEMU for execution groups",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Graphviz for DOT visualization",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Code execution plugin that runs standard fenced Markdown code blocks in place, rendering output beneath them while keeping native syntax highlighting.",
+ "tags": [
+  "jupyter",
+  "docker",
+  "ssh",
+  "qemu",
+  "graphviz",
+  "plotly",
+  "godbolt",
+  "reproducibility"
+ ]
+}

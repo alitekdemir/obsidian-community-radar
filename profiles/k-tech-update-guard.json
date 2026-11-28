@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Check GitHub for community plugin and theme updates on demand",
+  "Select which updates to install from a checkbox dialog",
+  "Restore the previous files of an installed update",
+  "Ignore updates so they are not offered again",
+  "View release notes and remaining GitHub API quota"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "No-warranty MIT disclaimer is included; the author asks for donations via Buy Me a Coffee; the UI ships in ten languages. No support for sideloaded plugins outside the community directory or themes on GitHub guesses.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian updates plugins and themes without letting you review each release first or roll back a bad update.",
+ "readmeHash": "1e3d187ad993c335be4a2a635410127321288080",
+ "relations": [
+  {
+   "evidence": "Skips BRAT-managed items by default (setting)",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Lazy Loader: read its settings so delayed items are not treated as disabled",
+   "plugin": "Lazy Loader",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Manual update checker that scans GitHub for community plugin and theme updates on demand and installs only the ones you select.",
+ "tags": [
+  "github",
+  "selective-updates",
+  "rollback",
+  "release-notes",
+  "personal-access-token",
+  "brat"
+ ]
+}

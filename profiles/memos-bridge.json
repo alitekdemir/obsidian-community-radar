@@ -1,0 +1,71 @@
+{
+ "also": [
+  "syncing",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync Memos into daily notes",
+  "Download and embed attachments",
+  "Update marked blocks non-destructively",
+  "Fall back between public and local URLs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Fixes the HTTP 410 Gone error seen in unmaintained Memos plugins; supports Memos 26.x+ (/api/memos) and legacy /api/v1/memos; installable via BRAT or by manually copying main.js and manifest.json. README is bilingual (Chinese/English).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "Built to support the latest Memos REST API (/api/memos) where /api/v1 has been removed, while keeping legacy /api/v1/memos compatibility.",
+ "primary": "integrations",
+ "problem": "Self-hosted Memos entries stay outside the vault, and older sync plugins fail with HTTP 410 Gone on newer Memos releases.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "134d488f65fde96cc9510e7bd91fd807fed68dac",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "syncs your self-hosted Memos into Obsidian",
+   "plugin": "Memos",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Self-hosted Memos server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Memos Access Token",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sync plugin that pulls self-hosted Memos into Obsidian, downloading attachments and updating marked daily-note blocks without overwriting manual edits.",
+ "tags": [
+  "memos",
+  "self-hosted",
+  "one-way-sync",
+  "daily-notes"
+ ],
+ "textHash": "d267cf31dc35f5722582c1ed703c253e8dda2a1f"
+}

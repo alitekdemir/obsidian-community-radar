@@ -1,0 +1,68 @@
+{
+ "also": [
+  "templating",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate frontmatter from a JSON or JavaScript template on save",
+  "Access file metadata, properties, tags, and Dataview data in templates",
+  "Run generation on a folder or the whole vault via commands",
+  "Exclude files or folders from generation with yaml-gen-ignore"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README warns the plugin is still under development and that hacking templates via global variables could break your vault; manual installation requires cloning and building with bun. Automatic generation on save requires wiring a command into the obsidian-custom-save plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian does not generate or keep frontmatter properties up to date on its own, so users must write and maintain YAML by hand in every note.",
+ "readmeHash": "a4d3242c59285d7f04fc0c14e89490a1960b7d35",
+ "relations": [
+  {
+   "evidence": "install obsidian-custom-save and add the frontmatter-generator: run file command",
+   "plugin": "obsidian-custom-save",
+   "type": "integrates"
+  },
+  {
+   "evidence": "you can only access this if you install and enable the dataview plugin",
+   "plugin": "dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "obsidian-custom-save",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Frontmatter generator that creates note properties from a JSON or JavaScript template each time a file is saved.",
+ "tags": [
+  "javascript",
+  "yaml",
+  "dataview",
+  "zod",
+  "on-save",
+  "tfile"
+ ]
+}

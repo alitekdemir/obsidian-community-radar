@@ -1,0 +1,73 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "capture text and links from the iOS Shortcuts share sheet or Android share menu",
+  "queue captures in a private Cloudflare Worker and D1 database",
+  "append captures to one Markdown table per day",
+  "encrypt queued content with AES-256-GCM and delete it after confirmed storage",
+  "sync automatically when the desktop app starts or while it is open"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a mobile Obsidian client; the phone only sends captures and never runs the Obsidian app.",
+ "extras": "README is bilingual (English and Chinese) with a step-by-step beginner tutorial, troubleshooting table, and final checklist; users must deploy their own relay to a free Cloudflare account, and the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian has no built-in way to push text or links shared on a phone into the desktop app, and the phone does not even need to run Obsidian.",
+ "readmeHash": "f778fed952cf1856badbd20e53f1ab9b13ab7465",
+ "relations": [
+  {
+   "evidence": "Messages are stored temporarily in a private Cloudflare Worker and D1 database owned by the user",
+   "plugin": "Cloudflare Worker and D1",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Capture text and links from the iOS Shortcuts share sheet.",
+   "plugin": "iOS Shortcuts",
+   "type": "integrates"
+  },
+  {
+   "evidence": "安卓推荐使用免费的开源 App HTTP Shortcuts",
+   "plugin": "HTTP Shortcuts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "HTTP Shortcuts (Android)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Mobile-to-desktop capture tool that sends text and links from an iPhone or Android into a desktop Obsidian vault via a self-deployed Cloudflare Worker relay.",
+ "tags": [
+  "cloudflare",
+  "ios-shortcuts",
+  "http-shortcuts",
+  "share-sheet",
+  "encryption",
+  "d1"
+ ]
+}

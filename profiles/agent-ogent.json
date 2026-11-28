@@ -1,0 +1,75 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run a streaming chat agent with configurable execution scopes",
+  "Read, write, edit, rename, move, delete and restore vault notes through safe tools",
+  "Run approval-gated desktop Git commands limited to the current vault",
+  "Search and fetch web pages via Tavily or Brave Search",
+  "Connect to any OpenAI-compatible endpoint with a user-supplied API key"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that conversation content and approved note content are sent to the configured LLM endpoint, that API keys are stored in the plugin data.json file, and that it imports settings from the upstream open-agent plugin on first launch without deleting old data.",
+ "intent": "alternative",
+ "intentEvidence": "This repository is a personal fork and ongoing customization of OpenAgent for Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI agent, so users who want a model to inspect and edit their vault need a tool that does so safely, with path checks, approval gates, and undo snapshots.",
+ "readmeHash": "ca80f00c54bdf34953b8068f48bba3be5df7590a",
+ "relations": [
+  {
+   "evidence": "a personal fork and ongoing customization of OpenAgent for Obsidian",
+   "plugin": "OpenAgent for Obsidian",
+   "type": "fork"
+  },
+  {
+   "evidence": "optional Tavily or Brave Search through web.search",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "optional Tavily or Brave Search through web.search",
+   "plugin": "Brave Search",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible provider API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Tavily or Brave Search API key for web search",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Vault-aware AI agent chat plugin with streaming output, approval-gated vault file tools, desktop Git commands, and bring-your-own OpenAI-compatible providers.",
+ "tags": [
+  "ai-agent",
+  "openai-compatible",
+  "byok",
+  "streaming",
+  "tavily",
+  "brave-search",
+  "tool-use"
+ ]
+}

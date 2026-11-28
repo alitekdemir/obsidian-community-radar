@@ -1,0 +1,42 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "scale card text proportionally to each card's rendered size",
+  "shrink overflowing cards' text to the largest size that fits",
+  "clamp font sizes with base, min, max, and sensitivity settings",
+  "skip cards whose font-size is already styled by a theme or snippet"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation only until accepted into the community plugin directory. Deliberately sets inline styles with !important on card text because no stylesheet rule can beat Canvas's zoom-compensation; a 'Respect existing font-size CSS' toggle and a master off switch clear or avoid overrides. The store listing notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "instead of only scaling with canvas zoom",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author first tried to achieve this with CSS in the Rathgar Gold theme; both container-query attempts failed due to Canvas internals, so they built a plugin around a proven JavaScript technique.",
+ "primary": "canvas",
+ "problem": "Obsidian Canvas scales card text only with zoom level, so enlarging a card does not enlarge its text and overflowing cards scroll instead of fitting.",
+ "readmeHash": "dc6a0ed15a3ea565f3bdda59aef825534c055177",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Canvas enhancer that scales the text inside each Canvas card proportionally to the card's own size as you resize it, instead of only scaling with canvas zoom.",
+ "tags": [
+  "font-size",
+  "zoom",
+  "resize-observer",
+  "shrink-to-fit",
+  "inline-styles"
+ ]
+}

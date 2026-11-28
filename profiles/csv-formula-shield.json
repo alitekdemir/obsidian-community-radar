@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "scan vault CSV files for cells starting with formula prefixes",
+  "preview affected cells with row, column, and before-and-after values",
+  "write a separate escaped CSV copy while leaving the source in place",
+  "apply a strict negative-number rule to keep plain negative numbers unescaped",
+  "audit multiple CSV files and write a combined JSON report (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: the check-and-copy command is free; saved policies and the combined audit report require Pro via GitHub sponsorship. The README states it has not been tested in Excel, LibreOffice, or on mobile, and that escaping is not a guaranteed safety measure (citing OWASP CSV injection limits). After updates it opens a What's new tab suggesting other NoteMods plugins and Zovo Chat.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "csv",
+ "problem": "A spreadsheet treats a CSV cell that starts with a formula prefix as executable input, and Obsidian offers no way to neutralize such cells before sharing a CSV.",
+ "readmeHash": "53d5afd2e98e55aa7870d5dc7667b4be5f8933e4",
+ "relations": [
+  {
+   "evidence": "Pro features need a GitHub Sponsors sponsorship of theluckystrike",
+   "plugin": "GitHub Sponsors",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "GitHub Sponsors sponsorship of theluckystrike ($5/month or $15 once)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "CSV injection guard that scans vault CSV files for formula-prefix cells, previews each change, and writes a separate escaped copy.",
+ "tags": [
+  "csv-injection",
+  "formula-injection",
+  "escaping",
+  "owasp",
+  "spreadsheets",
+  "github-sponsors"
+ ]
+}

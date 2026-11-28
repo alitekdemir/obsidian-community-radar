@@ -1,0 +1,51 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally between devices over a LAN WebSocket connection",
+  "Auto-merge concurrent text edits with Yjs CRDT and prompt for binary-file conflicts",
+  "Discover peers automatically via UDP broadcast and authenticate with a pre-shared key",
+  "Encrypt traffic with auto-generated TLS certificates and PIN verification",
+  "Filter sync history and preview diffs before transferring changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "The README notes the plugin intentionally triggers Obsidian's automated review warnings for direct filesystem access and network APIs, and explains why each is required. There is also a 'not manually reviewed by Obsidian staff' notice.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault between devices on the same local network without a cloud service or paid subscription.",
+ "readmeHash": "028a7a2f91a21e73e8966a633f550dbc654465b0",
+ "relations": [
+  {
+   "evidence": "Yjs CRDT automatically merges concurrent text edits. No manual conflict resolution.",
+   "plugin": "Yjs",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Peer-to-peer vault sync over LAN with CRDT auto-merge, TLS encryption, and UDP device discovery — no cloud service involved.",
+ "tags": [
+  "lan",
+  "crdt",
+  "yjs",
+  "peer-to-peer",
+  "tls",
+  "udp-discovery",
+  "self-hosted"
+ ]
+}

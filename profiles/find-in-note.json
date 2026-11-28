@@ -1,0 +1,44 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search the open note and highlight every match in place",
+  "step through matches with Enter, Shift+Enter or arrows",
+  "scroll to the current match only when it is off screen",
+  "switch to reading view while editing and restore the previous mode afterwards",
+  "fall back to the command palette until Cmd+F is freed"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires a one-time manual hotkey change to free Cmd+F from built-in search (the plugin never edits hotkey settings itself); highlighting depends on the CSS Custom Highlight API being present in the device web engine, and the author states it has not been tested on a physical phone. Matches in unrendered parts of very long notes are counted only as they scroll into view.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian's built-in Cmd+F lives inside the editor.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because the built-in editor search forces the editor to expose raw Markdown of the block containing a match, destroying the rendered view the user was looking at.",
+ "primary": "search",
+ "problem": "Obsidian's built-in Cmd+F works in the editor, so highlighting a match exposes raw Markdown and collapses rendered tables into unreadable pipe walls.",
+ "readmeHash": "4f00ec850d60ea3a0686b6ab9f5b6b6924f42fdb",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "In-note search that highlights every match in the rendered reading view without unrendering tables, callouts or code blocks.",
+ "tags": [
+  "reading-view",
+  "highlighting",
+  "css-custom-highlight-api",
+  "in-page-search",
+  "mobile",
+  "find-and-replace-bar"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+ "also": [
+  "automation",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI agent that reads and writes notes through tools",
+  "Require human approval for agent write operations via a policy chain",
+  "Create, iterate and reload Cordis sub-plugins through conversation",
+  "Configure OpenAI-compatible model providers with per-model defaults",
+  "Export chat sessions to Markdown in a configurable directory"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Its sub-plugins are Cordis plugins adapted to Obsidian's extension points, not Obsidian-native community plugins.",
+ "extras": "Desktop only (no Obsidian Mobile support); status is beta; API keys are stored in plain text in .obsidian/plugins/harness-like/data.json; full user and developer docs live on an external Harness Like Docs site.",
+ "intent": "new",
+ "intentEvidence": "An Obsidian implementation inspired by DeepSeek Harness",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian plugins are static, hand-coded extensions; there is no built-in way to run an AI agent over your notes or generate new plugins by chatting.",
+ "readmeHash": "2ab0f73b68ae0ea57a79bbfde4701b23010f3d51",
+ "relations": [
+  {
+   "evidence": "An Obsidian implementation inspired by DeepSeek Harness",
+   "plugin": "DeepSeek Harness",
+   "type": "inspired"
+  },
+  {
+   "evidence": "It embeds a Cordis runtime inside the Obsidian plugin process",
+   "plugin": "Cordis",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "model provider API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI agent plugin that embeds a Cordis runtime in Obsidian, letting an agent read and write notes, call tools with approval, and build sub-plugins by conversation.",
+ "tags": [
+  "deepseek",
+  "cordis",
+  "agent",
+  "tool-calls",
+  "approval-workflow",
+  "openai-compatible",
+  "bilingual"
+ ]
+}

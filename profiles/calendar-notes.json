@@ -1,0 +1,74 @@
+{
+ "also": [
+  "calendar",
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "mirror CalDAV events, tasks and CardDAV contacts as notes on an interval",
+  "write changes back through diff-previewing forms with undo",
+  "sync task notes with the server, resolving conflicts per row",
+  "match and adopt existing contact or event notes",
+  "expose a versioned read/write API for other plugins"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a calendar or task manager; it only mirrors server data as notes and writes back through explicit, diff-confirmed commands.",
+ "extras": "Not yet verified against mailbox.org or Nextcloud live servers; tested only against Radicale. No telemetry; passwords stored in Obsidian's secret storage. The manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Calendar events, tasks and contacts live on a DAV server outside the vault, so they cannot be linked, queried or edited from Obsidian.",
+ "readmeHash": "5b2478f8099438eb498f76b192ee2e8e964951dc",
+ "relations": [
+  {
+   "evidence": "frontmatter, written the way TaskNotes expects it",
+   "plugin": "TaskNotes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tested end-to-end against Radicale",
+   "plugin": "Radicale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "mailbox.org or Nextcloud are the intended targets",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CalDAV/CardDAV server over HTTPS with Basic Auth",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "a mail plugin that registers itself with calendar-notes",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Mirrors CalDAV events, tasks and CardDAV contacts as Markdown notes with the server as source of truth; writes go back only via confirmed commands.",
+ "tags": [
+  "caldav",
+  "carddav",
+  "contacts",
+  "ics",
+  "nextcloud",
+  "mailbox-org",
+  "radicale",
+  "tasknotes"
+ ]
+}

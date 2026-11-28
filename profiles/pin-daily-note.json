@@ -1,0 +1,68 @@
+{
+ "also": [
+  "calendar",
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move the pinned tab to the new day's daily note without stealing focus",
+  "Pin the first tab showing today's note when no daily tab is pinned",
+  "Unpin any extra pinned daily tabs so only one remains",
+  "Open today's daily note via command, reusing or creating the pinned tab",
+  "Create missing daily notes and folders from the configured template"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff, and installation is manual (copy main.js and manifest.json into the plugins folder).",
+ "intent": "improve",
+ "intentEvidence": "This plugin sits on top of your daily notes plugin, which stays the source of truth",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "dates",
+ "problem": "A manually pinned daily note tab stays pinned to yesterday after the date rolls over, so the pin stops being useful.",
+ "readmeHash": "3cb5687078b0ce29986552754c1a0a3335750e21",
+ "relations": [
+  {
+   "evidence": "This plugin sits on top of your daily notes plugin, which stays the source of truth",
+   "plugin": "Daily notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Auto-detect (default): Periodic Notes (if its daily notes are enabled), then Notebook Navigator",
+   "plugin": "Periodic Notes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Notebook Navigator's settings are read from periodicNotesFolder and calendarCustomFilePattern",
+   "plugin": "Notebook Navigator",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "a daily note source (core Daily notes, Periodic Notes, or Notebook Navigator)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Tab-pinning helper that keeps one pinned tab on today's daily note and moves that pin to the new note when the day changes.",
+ "tags": [
+  "pinned-tabs",
+  "tab-management",
+  "periodic-notes",
+  "notebook-navigator",
+  "momentjs"
+ ]
+}

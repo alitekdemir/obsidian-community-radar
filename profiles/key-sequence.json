@@ -1,0 +1,56 @@
+{
+ "also": [
+  "vim"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "assign multi-key sequences to any Obsidian command",
+  "define sequences in a vimrc-style config file with a configurable leader",
+  "embed sequence definitions into another plugin's vimrc file",
+  "reload the config file without restarting Obsidian"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Hotkeys",
+   "Vim mode"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Vim editing mode; it only triggers commands with key sequences and has no Vim-style leader key or editing behavior.",
+ "extras": "No sequences are pre-configured; the plugin captures keydown events at document level, so a partial-match sequence takes priority over conflicting hotkeys while in progress, and sequences are disabled while typing in inputs, textareas, selects, or contentEditable elements.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "hotkeys",
+ "problem": "Obsidian hotkeys bind commands to single chords, so there is no built-in way to trigger commands with a sequence of keys.",
+ "readmeHash": "3bd7bfdd3cb0b4b3838cd96f479f7374c665035b",
+ "relations": [
+  {
+   "evidence": "Merge key sequences into another plugin's config file (e.g. Obsidian-Vimrc-Support's .obsidian.vimrc).",
+   "plugin": "Obsidian-Vimrc-Support",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian-Vimrc-Support",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that assigns multi-key key sequences to any Obsidian command, configured in a vimrc-style file in the vault.",
+ "tags": [
+  "vimrc",
+  "leader-key",
+  "key-sequences",
+  "chords"
+ ]
+}

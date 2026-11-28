@@ -1,0 +1,75 @@
+{
+ "also": [
+  "ai",
+  "interface"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Installs DSH and missing tools (git, Node.js, pnpm) with one click",
+  "Starts, monitors and restarts the DSH service in the background",
+  "Embeds the DSH web UI in an Obsidian panel",
+  "Injects note selections into the DSH chat and opens DSH-produced files in Obsidian",
+  "Serves the panel over LAN HTTPS for phones and other devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not the DSH agent itself; it installs, runs and embeds the separate DeepSeek Harness web app inside Obsidian.",
+ "extras": "Desktop only; Linux support is preview and not yet validated on real Ubuntu hardware. Only DSH 0.1.5-rc.1 to 0.2.2-rc.5 is verified, and 0.1.2–0.1.4 are known incompatible. A non-loopback service address exposes DSH to the local network.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Using the DeepSeek Harness agent means command-line setup and a separate browser window that is disconnected from the notes in your vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "61ccec9d1a10108132ca76ad1df6828b492cc7e2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "embeds the native DeepSeek Harness (DSH) Web UI into your vault",
+   "plugin": "DeepSeek Harness (DSH)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "whose select-and-send design inspired this plugin's bridge",
+   "plugin": "Claudian",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "DeepSeek Harness (DSH)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "model API key for DSH",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Desktop plugin that installs, launches and embeds the DeepSeek Harness web UI in a vault panel, with a two-way note-to-chat bridge.",
+ "tags": [
+  "deepseek",
+  "ai-agents",
+  "llm",
+  "webview",
+  "local-server",
+  "api-key"
+ ],
+ "textHash": "145125b92632ee3278e44a6a34f37c932c319831"
+}

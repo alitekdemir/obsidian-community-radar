@@ -1,0 +1,53 @@
+{
+ "also": [
+  "ai",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "fetch RSS, URL, GitHub, and Hacker News sources into a normalized candidate pool",
+  "filter candidates by freshness, quality gates, and topic keywords",
+  "write a daily Markdown draft with sections, signals, and failure records",
+  "score candidates with an Anthropic-compatible model and keep top unique events",
+  "apply external writer-output.json drafts from a compatible companion skill"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Runs are manual and Desktop-only; the draft is a labeled candidate pool for later selection, not a final curated report.",
+ "extras": "Desktop-only and manual with no scheduling or publishing; the plugin is unreviewed by Obsidian staff, and the README references local development paths and companion files (skills/trending-radar-writer, THIRD-PARTY-SOURCES.md) in an external toolkit repository.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no built-in way to collect trending tech news from multiple feeds into an auditable daily report with preserved source evidence and failure records.",
+ "readmeHash": "b5ddaf41268656f2363e83568436adb1e564bdf6",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Anthropic-compatible API key for AI ranking",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Manually run trend radar that fetches RSS, GitHub, and Hacker News sources, filters and dedupes items, and writes a daily Markdown candidate-pool draft.",
+ "tags": [
+  "rss",
+  "atom",
+  "hacker-news",
+  "github-trending",
+  "rsshub",
+  "anthropic",
+  "chinese-tech",
+  "trend-scoring"
+ ]
+}

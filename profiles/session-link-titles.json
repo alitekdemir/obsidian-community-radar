@@ -1,0 +1,66 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Title pasted URLs as Markdown links",
+  "Link selected text by pasting a URL over it",
+  "Fetch titles through the Web viewer session for listed domains",
+  "Run commands to title URLs at the cursor or in a selection",
+  "Import Bilibili cookies into the Web viewer session"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a session or tab manager; it titles pasted URLs and only uses a browser session as a fallback for fetching titles.",
+ "extras": "Alpha release; the browser fallback relies on an undocumented internal Web viewer interface that a future Obsidian update may break. Optional Bilibili cookie import handles account credentials, is limited to bilibili.com, and cannot guarantee that site challenges pass.",
+ "intent": "alternative",
+ "intentEvidence": "Disable other automatic title plugins, including Named Links and the earlier Link Title Browser Fallback",
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author's two motivating cases were a Zhihu article and a Bilibili video whose titles ordinary fetching could not retrieve.",
+ "primary": "links",
+ "problem": "Pasted URLs stay as bare addresses because some sites reject ordinary HTTP requests, so their titles cannot be fetched.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "cb5d997d031f1a60770b463f5a6a8c0b576ef683",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Disable other automatic title plugins, including Named Links and the earlier Link Title Browser Fallback",
+   "plugin": "Named Links",
+   "type": "alternative"
+  },
+  {
+   "evidence": "No dependency on Named Links, Auto Link Title, or the earlier local fallback helper",
+   "plugin": "Auto Link Title",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Web viewer",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Desktop plugin that converts pasted URLs into titled Markdown links, falling back to Obsidian's Web viewer session for sites that block plain requests.",
+ "tags": [
+  "auto-linking",
+  "webview",
+  "bilibili",
+  "zhihu",
+  "clipboard"
+ ],
+ "textHash": "e260f2bed025ca20afc81339f2c3d67ab44a30d7"
+}

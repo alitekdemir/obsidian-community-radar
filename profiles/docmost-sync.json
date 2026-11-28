@@ -1,0 +1,74 @@
+{
+ "also": [
+  "integrations",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Pull Docmost page trees into one subfolder per space as Markdown notes",
+  "Push new and edited notes back to Docmost as pages",
+  "Download and upload images and attachments into per-space attachment folders",
+  "Detect conflicts and save the local version as a conflict copy",
+  "Sync on startup, on an interval, after editing or manually"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4+ and a recent Docmost (Markdown content API, tested with v0.97.0); not yet tested on iOS or iPadOS. API key login needs a paid Docmost Enterprise license, while email and password work with the free Community edition; accounts with MFA or enforced SSO cannot log in that way. Credentials are kept in Obsidian's secret storage, and the plugin talks only to the server URL you enter.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Docmost pages and Obsidian notes live apart, so content, images and attachments have to be copied between them by hand.",
+ "profiledAt": "2026-11-16",
+ "provider": "Particle AI",
+ "readmeHash": "01e20b409539287ec06dc8c024fbed13680c4b0e",
+ "relations": [
+  {
+   "evidence": "Two-way sync between Docmost spaces and a folder in your Obsidian vault",
+   "plugin": "Docmost",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Docmost server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Docmost account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Docmost API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Docmost Enterprise license",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync between Docmost spaces and a vault folder, pulling pages down as Markdown notes and pushing edits, images and attachments back.",
+ "tags": [
+  "two-way-sync",
+  "conflict-resolution"
+ ],
+ "textHash": "cde594af25ad9edc5777a4d42526cf14a7a5b933"
+}

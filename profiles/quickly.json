@@ -1,0 +1,67 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open a quick-capture modal via a global OS hotkey or obsidian://quick-capture URI",
+  "Search the vault by note title and navigate to the matching note",
+  "Create a new note with a title and body content",
+  "Submit new notes with Ctrl+Enter or a Submit button"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Quick switcher"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Several listed features are unchecked in the README's task list (datalist filtering while typing, duplicate-name notices), so they are not yet implemented; a 'Conversation' section at the end is empty. Global hotkey setup requires an external tool per OS.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "navigation",
+ "problem": "Obsidian's switcher and note creation only work inside the app, so capturing a note from anywhere in the OS requires switching to Obsidian first and needs an external hotkey tool to trigger.",
+ "readmeHash": "7ec68d0acaaae53c50d7598adf73a6c5d19f34af",
+ "relations": [
+  {
+   "evidence": "You can use a tool like AutoHotkey to set up a global hotkey.",
+   "plugin": "AutoHotkey",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can use a tool like BetterTouchTool or Keyboard Maestro to set up a global hotkey.",
+   "plugin": "BetterTouchTool",
+   "type": "integrates"
+  },
+  {
+   "evidence": "You can use a tool like BetterTouchTool or Keyboard Maestro to set up a global hotkey.",
+   "plugin": "Keyboard Maestro",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "AutoHotkey / BetterTouchTool / Keyboard Maestro (or OS shortcut settings)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Quick-capture modal that opens from a global OS hotkey or URI, letting you search existing notes or create a new note with a title and body.",
+ "tags": [
+  "quick-capture",
+  "global-hotkey",
+  "autohotkey",
+  "bettertouchtool",
+  "keyboard-maestro",
+  "uri-scheme"
+ ]
+}

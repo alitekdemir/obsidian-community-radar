@@ -1,0 +1,71 @@
+{
+ "also": [
+  "dates",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add created, modified, and optional type properties to new in-scope notes",
+  "Append nested daily date tags such as date/2026/11/03 after tracked edits",
+  "Scope tracking to selected folders with exclusions for templates",
+  "Wait for Templater template completion before processing new notes",
+  "Expose a read-only API for other plugins to build date tags"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.5.0 or later. README warns users to back up the vault before enabling automatic frontmatter changes. Distributed under GPL-3.0-or-later; works offline with no accounts or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "automation",
+ "problem": "Obsidian does not automatically record creation and modification timestamps or accumulate a per-day tag history in a note's frontmatter.",
+ "readmeHash": "48c1b9de165b9bd671e7e5c3f25c17704cb2989f",
+ "relations": [
+  {
+   "evidence": "The plugin waits for Templater's completion event when a matching folder or regex creation rule is enabled.",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If Linter manages modified timestamps, enable Delegate modified to Linter and configure Linter separately.",
+   "plugin": "Linter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "On desktop, edits made while commands such as append, prepend, property:set, daily:append, or eval run are tracked",
+   "plugin": "Obsidian CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Linter",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Automation plugin that maintains created and modified frontmatter timestamps and a nested daily date-tag history in tracked Markdown notes.",
+ "tags": [
+  "templater",
+  "linter",
+  "timestamps",
+  "obsidian-cli",
+  "yaml"
+ ]
+}

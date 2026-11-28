@@ -1,0 +1,80 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate cited Vault Radar briefs from recently changed notes",
+  "Chat with vault, folder, tag, or selection-scoped notes with clickable citations",
+  "Show semantically related notes while writing via a local embedding index",
+  "Run summarize, rewrite, and task-extraction text actions from the command palette",
+  "Draft weekly reviews, meeting tasks, and project updates as approval-gated changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No telemetry or hosted backend; only Ollama is described as end-to-end smoke-tested, other OpenAI-compatible servers rely on a shared request contract. Automatic Radar runs and indexing are off by default. Radar never edits notes, and Canvas creation requires explicit confirmation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to use a local LLM to surface signals from changed notes, chat with vault context, or keep semantically related notes visible while writing.",
+ "readmeHash": "d13eeff6f15746bce474f85fbbc0eae6ca3cea35",
+ "relations": [
+  {
+   "evidence": "Use Ollama, LM Studio, vLLM, LocalAI, OpenAI, or another server with OpenAI-compatible endpoints.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Ollama, LM Studio, vLLM, LocalAI, OpenAI, or another server with OpenAI-compatible endpoints.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Ollama, LM Studio, vLLM, LocalAI, OpenAI, or another server with OpenAI-compatible endpoints.",
+   "plugin": "LocalAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Ollama, LM Studio, vLLM, LocalAI, OpenAI, or another server with OpenAI-compatible endpoints.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "A local or remote OpenAI-compatible LLM server (e.g. Ollama)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for remote chat/embedding endpoints and search providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local LLM assistant that turns changed notes into cited insight briefs, answers grounded vault questions, and runs approval-gated review workflows.",
+ "tags": [
+  "ollama",
+  "lm-studio",
+  "localai",
+  "openai-compatible",
+  "rag",
+  "embeddings",
+  "tavily",
+  "searxng"
+ ]
+}

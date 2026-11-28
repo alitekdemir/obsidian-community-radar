@@ -1,0 +1,50 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Drag column edges in the header row to resize columns",
+  "Persist widths per table across restarts, keyed by note path and table content",
+  "Configure minimum and maximum column widths",
+  "Resize via mouse, touch, or stylus using pointer events"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Reading view only; Live Preview support is planned. Touch dragging is not supported despite pointer-event claims, and byte-identical tables in one note share saved widths.",
+ "intent": "alternative",
+ "intentEvidence": "no table code blocks, no hidden markup in the file, no lock-in",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wants resizable tables without embedding anything in notes, so tables remain valid Markdown everywhere and the plugin can be disabled without lock-in.",
+ "primary": "tables",
+ "problem": "Obsidian gives no way to adjust Markdown table column widths visually, and other solutions store widths in code blocks or hidden markup that breaks portability.",
+ "readmeHash": "cf98e76fa4f38bb075a04b8aef52adf5e978ede5",
+ "relations": [
+  {
+   "evidence": "widths stored in a hidden comment inside a code block",
+   "plugin": "Better Tables",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Advanced Tables is a great complement: it focuses on table editing and navigation",
+   "plugin": "Advanced Tables",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Table column resizer that lets you drag column edges in reading view and persists widths while keeping notes as plain Markdown pipe tables.",
+ "tags": [
+  "column-widths",
+  "reading-view",
+  "drag-resize",
+  "pointer-events"
+ ]
+}

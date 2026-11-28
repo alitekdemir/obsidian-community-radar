@@ -1,0 +1,69 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Index Markdown notes into local vector chunks",
+  "Search the vault semantically from a side pane",
+  "Fuse semantic similarity with keyword matching in hybrid search",
+  "Explore related indexed chunks on a Semantic Walk canvas",
+  "Expose vault search to MCP clients such as Claude Desktop and Cursor"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI chat or writing assistant; it only indexes and searches notes, and any generation happens in the connected MCP client.",
+ "extras": "Desktop-only (macOS Apple Silicon and Windows x64); downloads a managed local embedding runtime and model on first run. Freemium: license validation with a server-side grace period, falling back to free limits. Some details live in separate docs files (local-runtime.md, mcp-server.md, install-troubleshooting.md).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's core search matches keywords only, and there is no built-in way to give AI clients semantic retrieval over the vault.",
+ "readmeHash": "cb911ae96c30dcd4306d466acf22efbd8b8d7f2a",
+ "relations": [
+  {
+   "evidence": "Built-in MCP server with one-click setup for Claude Desktop, Claude Code, Cursor, opencode and Codex.",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built-in MCP server with one-click setup for Claude Desktop, Claude Code, Cursor, opencode and Codex.",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Analogy license (free limits apply when unlicensed)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "MCP client (Claude Desktop, Claude Code, Cursor, opencode, Codex)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Local semantic search plugin that indexes vault notes into vector chunks and exposes the index to MCP clients for retrieval-augmented generation.",
+ "tags": [
+  "rag",
+  "embeddings",
+  "mcp",
+  "vector-database",
+  "sqlite",
+  "onnx"
+ ]
+}

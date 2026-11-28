@@ -1,0 +1,58 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview web links, notes, and PDFs in an overlay via Shift+click",
+  "Keep a preview as a regular tab preserving state and scroll position",
+  "Hide webpage elements with rules saved per site origin",
+  "Restore reading positions when reopening a link",
+  "Search inside previewed pages with Cmd/Ctrl+F"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it does not create floating OS windows; previews appear inside the main vault window and pop-out windows are not supported.",
+ "extras": "Uses private Web viewer APIs and may need adjustments after Obsidian updates; not manually reviewed by Obsidian staff; mobile and pop-out windows unsupported; tested only on macOS; Google sign-in returns 401 in the tested environment.",
+ "intent": "improve",
+ "intentEvidence": "Webpages load directly through Obsidian's Web viewer.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian opens links in separate tabs or panes, pulling you away from the note; there is no Peek-style temporary overlay for previewing links without leaving context.",
+ "readmeHash": "2aaec7fc3e7655ef98e8241df33ff84ab73b0a5e",
+ "relations": [
+  {
+   "evidence": "Webpages load directly through Obsidian's Web viewer.",
+   "plugin": "Web viewer",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Web viewer (core plugin)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Link-preview overlay that opens web pages, notes, or PDFs over the current note, can keep them as tabs, and hides webpage elements via saved per-site rules.",
+ "tags": [
+  "overlay",
+  "peek",
+  "element-hiding",
+  "css-selectors",
+  "reading-position",
+  "pdf-preview"
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "also": [
+  "charts",
+  "integrations"
+ ],
+ "audience": [
+  "engineers",
+  "scientists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Draw Modelica schematics by dragging library components and wiring pins",
+  "Simulate and plot models through the locally installed OpenModelica compiler (omc)",
+  "Sweep parameters and measure differences between runs",
+  "Embed live diagrams, plots, and equation-solving blocks in notes",
+  "Edit models as Modelica source with completion and diagnostics"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not manually reviewed by Obsidian staff; desktop only (mobile unsupported); tested only on Linux against OpenModelica 1.27.0 and MSL 4.1.0; works fully offline unless AI assistance is enabled; releases carry signed build-provenance attestations; no telemetry or update checks.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "science",
+ "problem": "Obsidian has no way to draw, simulate, or plot physical models, so engineers must work in a separate Modelica tool and cannot keep models and derivations alongside their notes.",
+ "readmeHash": "a2e5035dc9d0583c5ede47930bcf6f074c92856c",
+ "relations": [
+  {
+   "evidence": "It writes a model out as Modelica source, hands that text to the omc you already have installed",
+   "plugin": "OpenModelica",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so a file round-trips through OMEdit and the other Modelica tools",
+   "plugin": "OMEdit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "BRAT installs a plugin straight from its GitHub releases and updates it for you",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenModelica (omc on PATH)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider key (OpenAI, DeepSeek, Groq, OpenRouter, or local server)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Modelica modeling studio with a drag-and-drop schematic editor that simulates and plots systems using a locally installed OpenModelica compiler.",
+ "tags": [
+  "openmodelica",
+  "simulation",
+  "schematic-editor",
+  "physics",
+  "equations",
+  "units",
+  "plotting"
+ ]
+}

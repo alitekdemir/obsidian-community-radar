@@ -1,0 +1,61 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync notes, attachments, and configuration in real-time across desktop and mobile devices",
+  "Track note modification history and restore previous versions",
+  "Auto-merge edits and deletions made while offline when reconnecting",
+  "Back up notes to the server and preview attachments in the cloud without downloading",
+  "Generate share links and expose vaults through the server's REST and MCP interfaces"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Configuration sync is flagged as 'currently in the testing phase, please use with caution'; end-to-end encryption and AI notes are listed as unimplemented roadmap items. Detailed server deployment docs live in the separate Fast Note Sync Service repository, and the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid service, and users may want a self-hosted alternative with sharing, history, and API access.",
+ "readmeHash": "1c562906283b5e3e450933220dd495b149f4af18",
+ "relations": [
+  {
+   "evidence": "also supports backup, mirroring, and Git synchronization",
+   "plugin": "Git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "directly use a third-party repository (like WebDav) for certain types of attachments",
+   "plugin": "WebDav",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Fast Note Sync Service (standalone server)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Real-time vault sync across devices through a self-hosted Fast Note Sync Service server, with version history, offline merge, backup, and sharing links.",
+ "tags": [
+  "self-hosted",
+  "rest-api",
+  "mcp",
+  "webdav"
+ ]
+}

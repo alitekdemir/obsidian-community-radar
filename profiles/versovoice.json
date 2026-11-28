@@ -1,0 +1,59 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Filter notes locally for secrets, passwords, confidentiality markers and personal details before sending",
+  "Send vault notes to Verso in batches of 2000, skipping unchanged notes",
+  "Preview what will be sent and what is held back and why",
+  "Exclude folders or single notes via verso: ignore frontmatter or a .versoignore file",
+  "Connect the vault to Verso with a minted vrs_ API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a voice recording or transcription tool; despite the name it only sends notes to the Verso service for LinkedIn post drafting.",
+ "extras": "The README warns the API key is stored as plain text in plugin data (Obsidian has no secret store) and travels with the .obsidian folder if synced. The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README states the plugin never reads posts back, publishes, or deletes vault content.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it so you \"write from things you actually did instead of from an empty box\".",
+ "primary": "integrations",
+ "problem": "Obsidian has no way to feed existing vault notes to an outside drafting service, and sending raw notes risks leaking keys, credentials or confidential content.",
+ "readmeHash": "e06a48c7f4b4979a8bfc37870fdb22ad0432ba5e",
+ "relations": [
+  {
+   "evidence": "You need a Verso account. Verso writes drafts; a person decides what gets published.",
+   "plugin": "Verso",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Verso account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "vrs_ connection key from Verso",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault-to-Verso sender that filters sensitive notes locally, then uploads the rest so Verso can draft LinkedIn posts from your work.",
+ "tags": [
+  "verso",
+  "linkedin",
+  "privacy",
+  "sensitive-data",
+  "drafting",
+  "gitignore"
+ ]
+}

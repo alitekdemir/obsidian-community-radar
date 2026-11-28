@@ -1,0 +1,71 @@
+{
+ "also": [
+  "canvas"
+ ],
+ "audience": [
+  "small-business",
+  "creators"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror Instagram DMs as one note per message",
+  "Create per-sender profile notes with editable notes and tags",
+  "Move conversations between funnel stages from folders, context menu or frontmatter",
+  "Detect trigger codes in outgoing Instagram replies to change stages",
+  "Arrange contacts as cards on a Canvas board and colour the graph view by stage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a chat client; replies are sent from Instagram (optionally via trigger codes), while Obsidian only mirrors, files and stages the conversations.",
+ "extras": "The hosted companion server is free to use at present; no self-hosting instructions are given. Message text is queued on the server only until the vault acknowledges it, and the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "As a desktop app, Obsidian cannot receive Instagram message webhooks, so DM conversations stay inside Instagram instead of becoming searchable, stageable notes in the vault.",
+ "readmeHash": "519fbd06d5c6487075139934b8e6d9e87c9870cb",
+ "relations": [
+  {
+   "evidence": "Mirrors Instagram direct messages into an Obsidian vault.",
+   "plugin": "Instagram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "companion server (hosted or self-run)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Instagram professional (Business or Creator) account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key issued by the server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Mirrors Instagram Business direct messages into vault notes, with funnel stages, per-sender profile notes, and a Canvas contact board.",
+ "tags": [
+  "instagram",
+  "crm",
+  "funnel-stages",
+  "direct-messages",
+  "webhooks"
+ ]
+}

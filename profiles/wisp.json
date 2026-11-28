@@ -1,0 +1,76 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with Claude Messages API or OpenAI-compatible providers in streaming sessions",
+  "inspect vault notes, folders, metadata, links, and recent notes via read-only tools",
+  "create, append, update, and edit notes after explicit user approval",
+  "transcribe voice input through OpenAI-compatible, Deepgram, or DashScope speech-to-text",
+  "run optional read-only web search through Tavily or Brave Search"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Early MVP installed from source; not yet listed in the community plugin store. Free with bring-your-own-key; no hosted model credits or subscription. Delete and note rename are not exposed, and vault content is only sent to the chat provider when a vault tool result is needed.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to give one assistant experience across phones, tablets, and computers while treating the vault as the user's own data.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, and existing options are not designed to work consistently on mobile and desktop with user-supplied provider keys.",
+ "readmeHash": "f87df9833c1ef439a9faf08c7545b54221c5207f",
+ "relations": [
+  {
+   "evidence": "streaming Claude Messages API and OpenAI-compatible providers",
+   "plugin": "Claude Messages API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional read-only web search through Tavily or Brave Search",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "using OpenAI-compatible, Deepgram, or Alibaba DashScope speech-to-text providers",
+   "plugin": "Deepgram",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "AI provider account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "chat provider API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "speech-to-text or web search provider key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Mobile-first AI assistant that chats with Claude or OpenAI-compatible providers, answers vault questions, and edits notes after approval.",
+ "tags": [
+  "claude",
+  "openai",
+  "byok",
+  "speech-to-text",
+  "voice-input",
+  "tavily",
+  "brave-search",
+  "deepgram"
+ ]
+}

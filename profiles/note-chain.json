@@ -1,0 +1,75 @@
+{
+ "also": [
+  "files",
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create and reorder prev/next note chains with commands and drag-and-drop",
+  "Sort and indent File Explorer entries by chain order",
+  "Sync note chains with LongForm project scenes",
+  "Expose vault tools over a local MCP server and online vault",
+  "Automate AI chats in Obsidian Web Viewer"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files",
+   "Word count"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Bundles many loosely related extras beyond chaining: a local MCP/HTTP server, an online vault web interface, an OldBuddy chat UI, WebViewer LLM automation for ChatGPT/Claude/Gemini and others, textarea code blocks, and an EasyAPI scripting layer; README includes a detailed network and privacy disclosure.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author was staring at messy drawers of notes and realized 'Linear output requires linear input', so chains should be built from the start.",
+ "primary": "links",
+ "problem": "Obsidian's File Explorer sorts alphabetically or by time and backlink graphs give no linear order, so turning scattered notes into a linear document takes manual effort.",
+ "readmeHash": "111d0549de90ad1bd26d99478884e46f27a994d1",
+ "relations": [
+  {
+   "evidence": "Reset note chain by longform and Reset longform scenes by note chain are a set of mutually reinforcing commands",
+   "plugin": "LongForm",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Calling a tool runs the matching {name}.md through Templater.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "LongForm",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "Links notes into ordered chains via prev/next metadata, sorts and indents the File Explorer by chain order, and adds scripting, MCP, and AI-chat tools.",
+ "tags": [
+  "mcp",
+  "templater",
+  "dataview",
+  "longform",
+  "file-explorer",
+  "llm"
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Look up movie, series, and book metadata via OMDB, TMDB, Google Books, and Open Library",
+  "Generate media notes from Handlebars templates with configurable folders per media type",
+  "Download and save artwork such as posters and covers with readable filenames",
+  "Estimate book word counts from page count and format-based words-per-page heuristics",
+  "Enrich records by combining a primary data source with a secondary source"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a journaling or daily-notes tool; it logs specific movies, series, and books you watch or read, not general diary entries.",
+ "extras": "Movie and TV lookups require API keys; Google Books works without a key and Open Library only asks for an email header. The README states the plugin collects no telemetry and sends only search terms and API keys to metadata providers, not note contents.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to log watched or read media as notes with metadata pulled from external movie and book databases.",
+ "readmeHash": "294b0f6aeb58248c27a021e2994b36022dd80f09",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "Open Movie Database (OMDB)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "A community built movie and TV database",
+   "plugin": "The Movie Database (TMDB)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An API built to support Google's vision to digitize the worlds books",
+   "plugin": "Google Books",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Open Library is an open, editable library catalog",
+   "plugin": "Open Library",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OMDB",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "TMDB",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Books",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "TMDB account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Media logging plugin that creates notes for movies, series, and books, fetching metadata from online databases and rendering it through templates.",
+ "tags": [
+  "movies",
+  "tv-series",
+  "books",
+  "omdb",
+  "tmdb",
+  "google-books",
+  "open-library",
+  "handlebars"
+ ]
+}

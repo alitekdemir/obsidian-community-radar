@@ -1,0 +1,63 @@
+{
+ "also": [
+  "outlining",
+  "vim"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move and indent list items with their children, including via drag and drop",
+  "Fold and unfold selected list items",
+  "Split, merge and delete items with Enter, Backspace and Delete while re-parenting orphaned children",
+  "Renumber ordered lists while preserving their start number",
+  "Select item, subtree, parents, list or note with Mod+A"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "No default hotkeys; users must bind commands in Settings → Hotkeys. The README warns to disable Outliner before enabling Listwise because both handle the same keys. Mobile drag and drop is unsupported and mobile has not been tested on devices.",
+ "intent": "alternative",
+ "intentEvidence": "Listwise follows the behavior and conventions of Outliner by Viacheslav Slinko, which many Obsidian users already know.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it is for people who \"outline in Markdown lists and miss the item handling of an outliner such as Workflowy, Dynalist or Logseq\".",
+ "primary": "editing",
+ "problem": "Editing nested Markdown lists item-by-item lacks the parent/child handling of dedicated outliners, so moving or indenting an item leaves its children behind.",
+ "readmeHash": "83b87a10d045e4803c18112e404b5b41b545d3ee",
+ "relations": [
+  {
+   "evidence": "Behavior, command ids and settings follow Outliner (MIT, Viacheslav Slinko), so its users can switch without relearning.",
+   "plugin": "Outliner",
+   "type": "alternative"
+  },
+  {
+   "evidence": "With the Zoom plugin, an indentation line click can zoom in.",
+   "plugin": "Zoom",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Zoom",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Outliner-style list editor that moves, indents, folds and edits list items together with their children across selections and cursors.",
+ "tags": [
+  "workflowy",
+  "dynalist",
+  "logseq",
+  "multiple-cursors",
+  "drag-and-drop",
+  "ordered-lists",
+  "undo"
+ ]
+}

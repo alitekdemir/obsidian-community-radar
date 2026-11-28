@@ -1,0 +1,77 @@
+{
+ "also": [
+  "ai",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Connect to a Memos instance and browse memos as editable cards",
+  "Create, edit, delete, and set visibility for memos with live Markdown preview",
+  "Upload files as Memos attachments",
+  "Clip web pages by URL and summarize them with a local OpenAI-compatible LLM",
+  "Clip the current browser page via a companion Chromium extension"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a card view for vault notes; it manages records on an external Memos server.",
+ "extras": "Desktop-only (uses Electron APIs for clipping); requires manual build from source (npm install, copy dist files); the manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to view, create, or edit memos stored on a Memos server from inside the app.",
+ "readmeHash": "f1e733bb640ef93b36fa205fcdd4d4c6b05fddf6",
+ "relations": [
+  {
+   "evidence": "Desktop Obsidian plugin that connects to a Memos instance and shows memos as editable cards.",
+   "plugin": "Memos",
+   "type": "integrates"
+  },
+  {
+   "evidence": "summarize them with a local OpenAI-compatible LLM",
+   "plugin": "OpenAI-compatible LLM",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Memos instance",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Memos personal access token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "local OpenAI-compatible LLM server",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Chromium browser extension (memos-obsidian-clipper)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Desktop plugin that connects to a Memos instance and manages memos as editable cards, with web clipping and local LLM summarization.",
+ "tags": [
+  "memos",
+  "web-clipping",
+  "llm",
+  "openai-compatible",
+  "browser-extension",
+  "self-hosted"
+ ]
+}

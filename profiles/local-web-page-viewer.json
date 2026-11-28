@@ -1,0 +1,63 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render local .html files with working CSS, images, fonts and scripts",
+  "Zoom, reset and fit-to-width the rendered page",
+  "Play video and view images in an in-app media viewer with codec fallback",
+  "Create and jump to bookmarks inside a page",
+  "Remember scroll position per file and device"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Only opens .html/.htm files stored in the vault; it is not a browser for live websites.",
+ "extras": "Not yet in the official Community Plugins directory; installation is via BRAT. The plugin becomes the sole handler for .html/.htm files in the vault by design. Known gaps include no @import inlining, no back/forward navigation between linked pages, and untested behavior for very large video files.",
+ "intent": "alternative",
+ "intentEvidence": "Two existing approaches were tried and ruled out during development, for concrete, observed reasons",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to read Telegram Desktop channel exports (messages.html plus css/, images/, js/, photos/, video_files/) inside Obsidian, including on mobile, after finding existing viewer approaches broken by Obsidian's CSP or desktop-only.",
+ "primary": "html",
+ "problem": "Obsidian does not render .html files, so clicking one in the file explorer gives an unsupported-file-type error instead of a readable page.",
+ "readmeHash": "d64c82b314946caa59eb1895f4f5480dc358d5a3",
+ "relations": [
+  {
+   "evidence": "\"HTML Reader\"-style plugins (inject the file's contents into an iframe/srcdoc without inlining its CSS)",
+   "plugin": "HTML Reader",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Install and enable the BRAT community plugin.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "HTML file viewer that opens local .html files in a vault as fully rendered pages with CSS, images, video, zoom, bookmarks and scroll memory.",
+ "tags": [
+  "telegram",
+  "iframe",
+  "srcdoc",
+  "webkit",
+  "hevc",
+  "static-sites"
+ ]
+}

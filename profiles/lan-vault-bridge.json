@@ -1,0 +1,60 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync new, changed and deleted files in both directions over LAN",
+  "Pair devices with a QR code or pasted connection string",
+  "Review conflicts with previews and word-level diffs",
+  "Protect deletions with tombstone manifest entries",
+  "Transfer up to six files in parallel"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Traffic is plain HTTP and the bearer token is stored in plain text in data.json; sync is manual only, with no background watcher or interval sync; tombstones are kept indefinitely and clearing them is irreversible; the README says the plugin is not yet published in the community directory and real screenshots are still to come.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Moving vault changes between a desktop and a phone normally needs a cloud service or account, and there is no direct device-to-device transfer over the local network.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "1abd5e2f47bfe3f4e569e513b568e597c2bd0d9f",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Desktop and phone on the same LAN, or connected through a VPN such as Tailscale or ZeroTier.",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Tailscale or ZeroTier",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Syncs a vault bidirectionally between a desktop and a phone over the local network, with tombstone deletion protection and an interactive conflict review window.",
+ "tags": [
+  "local-first",
+  "conflict-resolution",
+  "tailscale",
+  "android",
+  "ios",
+  "qr-code"
+ ],
+ "textHash": "6822902770fefe89c88e44dd45c66649f5024c88"
+}

@@ -1,0 +1,63 @@
+{
+ "also": [
+  "theming",
+  "css"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "style internal links based on target note tags, frontmatter properties or file path",
+  "create selectors that add colors, backgrounds and emoji before or after links",
+  "expose target note metadata as data-link HTML attributes and --data-link- CSS variables",
+  "apply link styling across live preview, reading mode, file browser and supported community plugins",
+  "edit target note frontmatter from the link context menu (deprecated)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Themes and CSS snippets"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The link context menu feature for editing frontmatter is explicitly deprecated and migrated to the metadata-menu plugin; the rest of the plugin remains active. Styling without Style Settings is possible but requires writing your own CSS snippets. The README notes its demo videos are outdated.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian renders all internal links the same, so you cannot visually tell from a link what kind of note it points to or what its properties are.",
+ "readmeHash": "9b960ee0919850de881474c18a3f6fd777dfe8a8",
+ "relations": [
+  {
+   "evidence": "Install and enable the Style Settings Plugin in Obsidian.",
+   "plugin": "Style Settings",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This functionality is deprecated and has been migrated to metadata-menu plugin",
+   "plugin": "metadata-menu",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Style Settings",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Link styling plugin that adds CSS data attributes and variables to internal links based on the target note's frontmatter, tags or path.",
+ "tags": [
+  "style-settings",
+  "data-attributes",
+  "css-variables",
+  "selectors",
+  "inline-fields"
+ ]
+}

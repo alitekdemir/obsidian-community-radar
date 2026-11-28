@@ -1,0 +1,63 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish markdown notes to a GitHub repository",
+  "Upload embedded images to an assets directory",
+  "Convert wikilinks to standard markdown paths",
+  "Organize published content into post-type subdirectories",
+  "Unpublish notes and delete images no longer used"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault backup or sync tool; it publishes only notes whose pb-publish frontmatter field is set to true.",
+ "extras": "The README warns that users who don't know what they are doing should use the Digital Garden plugin instead; beta installation is via BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "I'd recommend using the Obsidian Digital Garden plugin instead.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author had already built a site with Astro and found adapting the existing Digital Garden plugin to that setup harder than writing his own plugin from scratch.",
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to push selected notes and images to a GitHub repository as plain markdown for use by a static site.",
+ "readmeHash": "cd3cef0595e6eb6768b72fa695139fcc5b543cfa",
+ "relations": [
+  {
+   "evidence": "I'd recommend using the Obsidian Digital Garden plugin instead.",
+   "plugin": "Obsidian Digital Garden",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The plugin uses the GitHub API through Octokit.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account with repository write access and personal access token",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Publishes frontmatter-gated markdown notes and their embedded images to a GitHub repository, converting wikilinks and organizing files by post type.",
+ "tags": [
+  "github",
+  "astro",
+  "octokit",
+  "static-site",
+  "wikilinks",
+  "personal-access-token"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an AI agent about vault notes",
+  "Let the agent search, read and edit notes through an MCP server",
+  "Review and undo agent edits in Ask, Plan or Auto mode",
+  "Add, toggle and remove local or remote MCP servers",
+  "Detect and enable companion -antidian plugins"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian Desktop 1.7.2+; the plugin asks for shell, filesystem and clipboard permissions, downloads the agy binary if missing, and runs only a loopback MCP server with a bearer token; no telemetry. Settings and conversations carry over from the old Anti-dian id, but custom hotkeys must be reassigned.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to hold a conversation with an AI agent that can act directly on the notes in a vault.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "347fbecfd135878aa84327f152a32d1cf6687ef8",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Enabled Obsidian plugins whose ID ends with -antidian (such as Excalidraw MCP, excalidraw-mcp-antidian) are detected automatically",
+   "plugin": "Excalidraw MCP (excalidraw-mcp-antidian)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Up to 1.0.1 the plugin was listed as Anti-dian (id anti-dian).",
+   "plugin": "Anti-dian",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Antigravity CLI (agy)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Chat sidebar that runs Google's Antigravity CLI agent to search, read and edit vault notes, with reviewable inline edits and MCP tool servers.",
+ "tags": [
+  "ai-agents",
+  "antigravity",
+  "mcp",
+  "ai-chat",
+  "agent-skills",
+  "local-server"
+ ],
+ "textHash": "afbda98e6703a7b06a7df7d90f1a14bb3da3070a"
+}

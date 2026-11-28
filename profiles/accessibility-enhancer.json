@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [
+  "screen-reader-users",
+  "keyboard-only-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Add ARIA roles, names, and states to div-based UI controls (ribbon, tabs, file tree, modals, palettes, settings)",
+  "Restore keyboard operability with roving tab order, focus traps, and arrow-key navigation",
+  "Restore a visible focus indicator and honor OS reduced-motion settings",
+  "Announce toast notices and caret line numbers through polite live regions",
+  "Apply mobile screen-reader retrofits (TalkBack/VoiceOver roles, labels, and focus containment)"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Still in beta and installed via BRAT or manual download rather than the Community Plugins store. Version 0.7.0 changed the plugin ID from a11y-enhancer, so the old copy must be uninstalled separately or both will run and double every fix. Some version-compatibility deferrals are checked against Obsidian's code and release notes but not yet verified in a live keyboard-only or screen-reader pass.",
+ "intent": "improve",
+ "intentEvidence": "retrofits WCAG 2.1 Level AA accessibility onto Obsidian's interface at runtime — no wait for upstream",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian's interface is built from divs with little ARIA, few native controls, and state carried only by CSS classes, making it largely unusable with a keyboard or screen reader.",
+ "readmeHash": "be7063b5cefe890a86e3571828cb5b8a4b098e0d",
+ "relations": [
+  {
+   "evidence": "BRAT pulls the latest GitHub release, so you get updates automatically.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Runtime DOM-patching plugin that retrofits WCAG 2.1 AA accessibility onto Obsidian's UI: keyboard operability, ARIA roles, focus ring, reduced motion, and screen-reader announcements.",
+ "tags": [
+  "wcag-21",
+  "aria",
+  "screen-readers",
+  "keyboard-navigation",
+  "reduced-motion",
+  "dom-patching",
+  "talkback"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "also": [],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Receive capture events from the LeetLog browser extension over a local port",
+  "Write structured per-problem notes with timing, submission counts and accepted code",
+  "Import legacy hand-written notes into a one-file-per-problem format",
+  "Configure port, notes folder and note template language (English or Chinese)",
+  "Ship ready-made Bases and Dataview dashboard templates"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone tracker; the plugin is only the receiving bridge — the LeetLog browser extension does the capture and can write notes without Obsidian.",
+ "extras": "The plugin is one of three interchangeable writers; the extension's folder mode and a Python server work without Obsidian. Cloud sync is in private beta. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "Why not existing tools?",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Existing tools push to GitHub, lack timing and attempt history, or send data to a third-party server; the author wanted local-first notes with room for the user's own insights.",
+ "primary": "integrations",
+ "problem": "Obsidian has no automatic way to capture LeetCode practice sessions — timing, submission counts and accepted code — into local Markdown notes.",
+ "readmeHash": "d974b202bd625bc7ba159c979436f1501e952b6c",
+ "relations": [
+  {
+   "evidence": "Receives events from the LeetLog browser extension and auto-writes LeetCode practice notes",
+   "plugin": "LeetLog browser extension",
+   "type": "integrates"
+  },
+  {
+   "evidence": "requires the Dataview plugin",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Why not existing tools?",
+   "plugin": "LeetHub",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Why not existing tools?",
+   "plugin": "LeetPlug",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LeetLog browser extension (Chrome 111+)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "LeetLog Cloud (private beta)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Bridge plugin that receives events from the LeetLog browser extension and writes LeetCode practice notes with timing, submissions and code into your vault.",
+ "tags": [
+  "leetcode",
+  "browser-extension",
+  "coding-interview",
+  "local-first",
+  "dataview"
+ ]
+}

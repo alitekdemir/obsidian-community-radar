@@ -1,0 +1,62 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload files above a size threshold to an S3-compatible bucket",
+  "Download missing files from the bucket on new devices",
+  "Propagate deletions to other devices via Obsidian's trash",
+  "Save conflicting edits as conflict copies",
+  "Run sync on a schedule, after changes, or on command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. Requires Obsidian 1.13.0 or later. Files over 50 MB are skipped, and each file is held fully in memory during transfer.",
+ "intent": "improve",
+ "intentEvidence": "Obsidian Sync's Standard plan skips files larger than 5 MB. This plugin syncs those files",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync's Standard plan skips files larger than 5 MB, so large files stay unsynced across a user's devices.",
+ "readmeHash": "e1387e20d9e6b468163e4b7a306f99a9b83d8136",
+ "relations": [
+  {
+   "evidence": "syncs those files through your own Cloudflare R2 bucket (any S3-compatible storage should work)",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Cloudflare R2 or S3-compatible bucket",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "R2 API token / access key ID and secret",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs vault files above 5 MB through your own Cloudflare R2 or S3-compatible bucket, covering files Obsidian Sync's Standard plan skips.",
+ "tags": [
+  "cloudflare-r2",
+  "s3",
+  "large-files",
+  "file-size-limit",
+  "conflict-resolution"
+ ]
+}

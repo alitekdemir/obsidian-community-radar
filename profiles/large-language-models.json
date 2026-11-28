@@ -1,0 +1,72 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with cloud and local LLM models",
+  "switch between model providers in each chat view",
+  "open chat views as a sidebar, tab, or floating popup",
+  "run a built-in MCP server for external clients to read and write the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The MCP server is desktop-only, disabled by default, binds to 127.0.0.1, and requires a bearer token; write tools show confirmation dialogs in Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with large language models or let external AI clients read and edit vault files.",
+ "readmeHash": "4ca3303e30c212fe75eddc727006b9174ce6d544",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "GPT4All",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install Ollama and pull the models you want to use",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Desktop, or any other MCP-compatible client, can read and write this vault directly",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI, Anthropic, Google, or Mistral API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "GPT4All or Ollama for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI chat plugin that connects to cloud LLM providers (OpenAI, Anthropic, Google, Mistral) and local models (GPT4All, Ollama) from sidebar, tab, or popup.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "mistral",
+  "gpt4all",
+  "ollama",
+  "mcp",
+  "claude-desktop",
+  "chat"
+ ]
+}

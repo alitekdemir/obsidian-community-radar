@@ -1,0 +1,68 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "upload pictures and videos to the WeChat public account resource management",
+  "add drafts and publish articles to the WeChat public platform",
+  "send group messages to fans",
+  "download materials from WeChat and videos from YouTube",
+  "publish articles to Baidu Baijiahao and view a statistics dashboard"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Sending group messages to fans requires authenticated calling permission; the WeChat server requires the client IP to be whitelisted; settings take effect only after the plugin is restarted; the repo also ships an OpenClaw CLI for automation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish articles, images, or videos to the WeChat public platform or Baidu Baijiahao.",
+ "readmeHash": "fd121388b9faae8de926790834a41716c2713444",
+ "relations": [
+  {
+   "evidence": "publish articles or videos and other resources in obsidian to the WeChat public account",
+   "plugin": "WeChat public account",
+   "type": "integrates"
+  },
+  {
+   "evidence": "publish obsidian's article to baidu's baijiahao",
+   "plugin": "Baidu Baijiahao",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "WeChat appid and secret",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Tencent WeChat server account with client IP whitelisted",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Publishing plugin that sends vault articles and media to WeChat public accounts and Baidu Baijiahao, with material downloads and a stats dashboard.",
+ "tags": [
+  "wechat",
+  "baidu-baijiahao",
+  "youtube",
+  "draft-box",
+  "media-upload",
+  "statistics-dashboard"
+ ]
+}

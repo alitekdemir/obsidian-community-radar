@@ -1,0 +1,64 @@
+{
+ "also": [
+  "annotation",
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight, underline, and annotate PDF text with editable notes",
+  "Draw freehand ink strokes with adjustable colors and widths",
+  "Search PDF text and restore saved reading positions",
+  "Export annotations to Markdown notes with backlinks to PDF pages",
+  "Translate or explain selected text via an OpenAI-compatible endpoint"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only, Obsidian 1.13.7+; macOS verified while Windows and Linux still need platform testing. API key is stored in plaintext in data.json. Annotations live in sibling *.annotations.json sidecars and exported notes in *.notes.md, both requiring manual backup; old paper-reader:// links are not migrated.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "pdf",
+ "problem": "Obsidian lacks built-in PDF annotation, freehand ink, and structured export of reading notes with links back to the source page.",
+ "readmeHash": "b327a14f3cd3bcb83dad5a18a31c570338685fe7",
+ "relations": [
+  {
+   "evidence": "It bundles Mozilla PDF.js under Apache-2.0",
+   "plugin": "Mozilla PDF.js",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible endpoint key",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "AI provider account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "PDF paper reader with text highlights, ink drawing, full-text search, and append-only Markdown note export linking back to PDF pages; optional AI via your own endpoint.",
+ "tags": [
+  "ink-annotation",
+  "openai-compatible",
+  "pdfjs",
+  "sidecar-files",
+  "translation",
+  "reading-position"
+ ]
+}

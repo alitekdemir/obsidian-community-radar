@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "append timestamped entries of type experiment, result, decision or idea with automatic git, parameter, data and figure provenance",
+  "run offline queries that write a project timeline, a side-by-side comparison of two runs, and a parameter search to a queries note",
+  "generate a weekly report through a local Ollama model with bullets that cite the entries they came from",
+  "export a reproducibility card with commit, repository URL, command, parameters, data hashes and figures",
+  "watch configured repository, data and figures folders to detect changed files and new images"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Part of the author's Companion suite of local-first plugins (Local Vault Agent, Lecture Companion, Paper Companion and others, all at github.com/TonyPeonio). Desktop-only because it shells out to git and hashes files; the manifest notes it has not been manually reviewed by Obsidian staff. Hashing covers only the first 64 MB of each data file.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Researchers must manually record experimental provenance like commits, config parameters, data file versions and figures, and Obsidian has no structured lab-notebook tool for this.",
+ "readmeHash": "143d0c251360612bb5a946e5c8a137323343ee0e",
+ "relations": [
+  {
+   "evidence": "The plugin runs git and hashes files, so it is desktop only.",
+   "plugin": "git",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an optional weekly report uses a local model through Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Append-only lab notebook that logs experiments, results, decisions and ideas with git commit, parameters, data hashes and figures filled in, then queries them.",
+ "tags": [
+  "lab-notebook",
+  "reproducibility",
+  "provenance",
+  "ollama",
+  "git-commit",
+  "sha256"
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Discover recent local agent sessions grouped by project directory",
+  "Inspect session evidence, matching process IDs, working directories, and TCP listening addresses",
+  "Search and filter projects and sessions by tool and recorded activity state",
+  "Open Codex and WorkBuddy sessions via app links and copy claude --resume commands",
+  "Refresh the dashboard automatically every 30 seconds or manually"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It does not run AI agents or send prompts; it only displays read-only status of their sessions and processes.",
+ "extras": "Interface is currently in Chinese only; automatic detection works only on macOS (unsupported on Windows and Linux); not yet in the community directory, so it must be installed manually from GitHub releases; reads files outside the vault (agent databases and logs) and writes snapshot files to Application Support; no telemetry, accounts, or payment.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "When running several local AI coding agents, there is no single view of which sessions are active, which logs need attention, or which background services are still listening.",
+ "readmeHash": "4dba42ac59c252c159be6bb12f34ab522ca16b6f",
+ "relations": [
+  {
+   "evidence": "dashboard for local Codex, Claude Code, and WorkBuddy projects, sessions, processes",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dashboard for local Codex, Claude Code, and WorkBuddy projects, sessions, processes",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "dashboard for local Codex, Claude Code, and WorkBuddy projects, sessions, processes",
+   "plugin": "WorkBuddy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex, Claude Code, or WorkBuddy installed locally",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.9+ (user-installed; plugin does not install dependencies)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "macOS with ps and lsof",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Dashboard that monitors local Codex, Claude Code, and WorkBuddy agent sessions, processes, and listening services on macOS.",
+ "tags": [
+  "codex",
+  "claude-code",
+  "workbuddy",
+  "process-monitoring",
+  "lsof",
+  "session-tracking",
+  "sqlite",
+  "macos"
+ ]
+}

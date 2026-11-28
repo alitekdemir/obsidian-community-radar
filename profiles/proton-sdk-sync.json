@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files and .obsidian settings two-way with Proton Drive",
+  "Detect three-way conflicts and keep the losing side as a conflict copy",
+  "Browse, compare and restore earlier Drive versions of a note",
+  "Exclude paths by glob and skip files above a size limit",
+  "Create view-only Proton public links for files"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a developer SDK; it is a sync plugin built on Proton's official Drive SDK.",
+ "extras": "Not yet in the community directory; install manually or via BRAT. The README warns the plugin writes to and can delete files in the vault and has no external audit, so a restorable backup is advised. GPL-3.0-or-later; no telemetry and no paid tiers.",
+ "intent": "alternative",
+ "intentEvidence": "This is a fork of obsidian-proton-sync.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The fork exists to publish releases cut from a tested tree and to run the same sync engine headless on a Linux server.",
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault in sync with Proton Drive, and a device that was offline cannot tell an edit it missed from one it made.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "3760d70d2d794eec55f6b9ebf62f8890b7882169",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "This is a fork of obsidian-proton-sync.",
+   "plugin": "obsidian-proton-sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "The same engine runs as a daemon on a Linux server (ondreu/pss-daemon)",
+   "plugin": "ondreu/pss-daemon",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Proton account with Drive",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way end-to-end encrypted sync between a vault and a Proton Drive folder, with three-way conflict detection and version history.",
+ "tags": [
+  "end-to-end-encryption",
+  "two-way-sync",
+  "conflict-resolution",
+  "version-history",
+  "nas",
+  "linux",
+  "share-links"
+ ],
+ "textHash": "6aff3cbdfa9f4471efbe136d56863b5577285c18"
+}

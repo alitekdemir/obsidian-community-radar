@@ -1,0 +1,82 @@
+{
+ "also": [
+  "flashcards",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Creates Anki cards from Markdown card markers",
+  "Syncs edits, renames and removals to Anki",
+  "Queues mobile changes in an outbox for desktop processing",
+  "Renders embeds, Canvas and diagrams as Anki media",
+  "Maps Obsidian tags and folder paths to Anki tags and decks"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop sync needs Anki running with AnkiConnect; mobile edits are queued in a vault folder and applied on the next desktop sync. No telemetry, account or hosted service. Versions before 1.0.0 used the plugin ID obsidian-anki-bridge and are migrated automatically.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Markdown notes and Anki decks are separate stores, so keeping cards in sync by hand risks duplicate cards, lost review history, and generated IDs written into notes.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "90017bae8f6c0c0ae026a0b268e4a1e7de15548a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "the plugin connects to a running Anki application through AnkiConnect",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Anki Bridge creates and updates Anki flashcards directly from an Obsidian vault",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw drawings and other visual file embeds rendered through their Obsidian plugin",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "AnkiConnect",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Anki",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AnkiConnect API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plugin that creates and updates Anki flashcards from Markdown notes, keeping card IDs and review history out of the notes.",
+ "tags": [
+  "anki",
+  "spaced-repetition",
+  "cloze",
+  "image-occlusion",
+  "excalidraw",
+  "obsidian-sync",
+  "syncthing"
+ ],
+ "textHash": "daca8080957d53d59aaee6a64fdc509aec65aafa"
+}

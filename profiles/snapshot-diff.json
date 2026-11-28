@@ -1,0 +1,68 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Take timestamped or named snapshots as plain Markdown files",
+  "Pick a version from snapshots, File recovery versions, or git commits",
+  "Compare versions side by side with word-level highlights and line numbers",
+  "Edit the live note while the diff is open",
+  "Restore a changed block from the earlier version with one click"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a backup or version-control tool; it keeps at most a few snapshots per note and never writes to git.",
+ "extras": "Reads File recovery versions through an undocumented method that could stop working after an Obsidian update; git commits are desktop-only and require git installed; snapshots are full copies, so high per-note limits are discouraged in large vaults.",
+ "intent": "improve",
+ "intentEvidence": "the automatic versions Obsidian's core File recovery plugin saves every few minutes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian saves automatic File recovery versions and git history, but offers no readable side-by-side comparison of a note's earlier versions.",
+ "readmeHash": "76310006c98738300f60e357654d3ae97d4331df",
+ "relations": [
+  {
+   "evidence": "the automatic versions Obsidian's core File recovery plugin saves",
+   "plugin": "File recovery",
+   "type": "extends"
+  },
+  {
+   "evidence": "the git commits that changed the note, if your vault is a git repository",
+   "plugin": "git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "File recovery",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Side-by-side diff tool that snapshots notes and compares them with earlier snapshots, File recovery versions, or git commits, with per-block restore.",
+ "tags": [
+  "snapshots",
+  "diff-viewer",
+  "side-by-side",
+  "word-diff",
+  "version-history",
+  "restore"
+ ]
+}

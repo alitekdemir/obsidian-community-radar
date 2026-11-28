@@ -1,0 +1,64 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to S3-compatible object storage",
+  "Run manual or automatic syncs per vault and device",
+  "Sync deletions and keep conflict copies",
+  "Optionally sync empty directories",
+  "Import and export connection configurations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not an AI plugin; despite the name, it only syncs vault files through object storage.",
+ "extras": "Detailed design lives in a separate docs file (docs/obsidian-oss-sync-mvp.md); README includes Chinese and English sections and developer build instructions. Config export can include the Access Key and Secret.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid service, and there is no built-in way to sync a vault through a user's own S3-compatible object storage.",
+ "readmeHash": "5370667ce7a2cb16716af99f5f1909942f439146",
+ "relations": [
+  {
+   "evidence": "Cohere works with S3-compatible providers such as Cloudflare R2, Aliyun OSS, Tencent COS",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "S3 Access Key and Secret",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "S3-compatible object storage service",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault sync plugin that replicates notes through S3-compatible object storage such as Cloudflare R2, Aliyun OSS, or MinIO.",
+ "tags": [
+  "s3",
+  "object-storage",
+  "cloudflare-r2",
+  "aliyun-oss",
+  "minio",
+  "conflict-resolution",
+  "self-hosted"
+ ]
+}

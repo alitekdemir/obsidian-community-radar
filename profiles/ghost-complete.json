@@ -1,0 +1,75 @@
+{
+ "also": [
+  "autocomplete",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Suggest inline ghost text at the cursor while writing Markdown",
+  "Accept the full line with Tab or the next word with Right Arrow",
+  "Connect to OpenRouter or Groq with separate API keys",
+  "Toggle autocomplete via command or status-bar indicator",
+  "Exclude private folders from the text sent to providers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only and requires Obsidian 1.13.2 or newer. main.js is not committed, so the plugin must be built from source or downloaded from a GitHub Actions artifact; no release had been published at the time of writing. OpenRouter can forward note text to an underlying model host, and requests can incur provider charges; the plugin itself has no telemetry and stores only the secret id.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian's editor offers no inline AI text completion, so finishing a line or thought requires switching to an external tool.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "7a822b2ef8de1e51763551bea7fb3ed118f23b6d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "in the same spirit as GitHub Copilot in VS Code",
+   "plugin": "GitHub Copilot",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Providers: OpenRouter (default) and Groq.",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Providers: OpenRouter (default) and Groq.",
+   "plugin": "Groq",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenRouter",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Groq",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Inline AI ghost-text autocomplete for the Markdown editor, suggesting continuations at the cursor; Tab accepts the line, Right Arrow the next word.",
+ "tags": [
+  "ghost-text",
+  "openrouter",
+  "groq",
+  "llm",
+  "byok"
+ ],
+ "textHash": "f922f51edb47855ed27b9684c35452925dbd718f"
+}

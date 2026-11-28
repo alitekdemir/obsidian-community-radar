@@ -1,0 +1,64 @@
+{
+ "also": [
+  "pdf",
+  "folders"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export a folder of notes to one PDF",
+  "Add a PDF outline and contents page",
+  "Create clickable cross-references between notes",
+  "Unfold callouts in the light theme",
+  "Append linked outside notes as an appendix"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; requires Obsidian 1.13.1 or newer. Uses Obsidian's built-in PDF printing (print-to-pdf IPC) and Node fs; no network access and never writes into the vault. Beta versions available via BRAT. Native TikZ 1.2.0 needed for correct light-theme TikZ output is not released yet.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian can export single notes to PDF but has no built-in way to combine a whole folder into one navigable PDF.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "3c3e0b3eaec6bde1bf37739e196c9d80452b4f26",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "the Native TikZ plugin 1.2.0 or newer, so TikZ diagrams print in the light theme",
+   "plugin": "Native TikZ plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "install BRAT and add dingzy53/obsidian-batch-export",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Native TikZ plugin",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Folder exporter that combines a folder's notes into one PDF with an outline, contents page, clickable cross-references and unfolded callouts.",
+ "tags": [
+  "callouts",
+  "cross-references",
+  "table-of-contents",
+  "tikz"
+ ],
+ "textHash": "2a55e42d423954493149daaaadbce391215f9e58"
+}

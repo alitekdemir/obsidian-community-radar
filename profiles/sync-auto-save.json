@@ -1,0 +1,64 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the vault to S3, Dropbox, OneDrive, WebDAV and other cloud services",
+  "Trigger a sync when a file or folder is deleted",
+  "Debounce sync after saves with a configurable wait time",
+  "Encrypt files end-to-end with a password before upload",
+  "Skip large files and hidden paths by regex"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a note auto-save tool; it triggers cloud sync after saves and deletions rather than saving notes itself.",
+ "extras": "Freemium: several services and Smart Conflict Handling are paid PRO features. README warns to always back up the vault before use, and the manifest notes the plugin has not been manually reviewed by Obsidian staff. Much documentation lives on external linked pages.",
+ "intent": "alternative",
+ "intentEvidence": "Based on Remotely Save 0.5.25, originally created by fyears.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid service, and Remotely Save lacked automatic syncing when files are deleted or saved.",
+ "readmeHash": "f0c9324a1b3000ef1606c7431f5cef72bc5ea1df",
+ "relations": [
+  {
+   "evidence": "Based on Remotely Save 0.5.25, originally created by fyears.",
+   "plugin": "Remotely Save",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "cloud storage service account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "PRO features (Google Drive, Box, Smart Conflict, etc.)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Fork of Remotely Save that syncs a vault to cloud storage and adds deletion-triggered sync plus debounced sync-on-save timing.",
+ "tags": [
+  "remotely-save",
+  "s3",
+  "dropbox",
+  "onedrive",
+  "webdav",
+  "end-to-end-encryption",
+  "google-drive"
+ ]
+}

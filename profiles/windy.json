@@ -1,0 +1,69 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "follow the active page and restore its most recent conversation",
+  "run Codex agent conversations with streaming, tool status, and approvals",
+  "mention other notes with @ and attach local files as context",
+  "keep agent tasks running in the background across page switches",
+  "select models and reasoning effort per conversation or as defaults"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "YOLO mode disables approval prompts and gives Codex unrestricted local execution; the README warns to leave it off in untrusted environments. First public beta targets macOS desktop and a single vault. Also available via BRAT or manual installation.",
+ "intent": "alternative",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to make agent-assisted work feel native and nearly invisible, reducing interaction to one action: opening the page you want to work on.",
+ "primary": "ai",
+ "problem": "Chat-centric agent plugins live in a persistent sidebar with tab-managed conversations, so users must manually keep note navigation and chat navigation in sync.",
+ "readmeHash": "b899e781977b0f3e170a340e6a94a7ec8bef13da",
+ "relations": [
+  {
+   "evidence": "imports a selected snapshot of Claudian's provider-neutral runtime contracts and Codex adapter",
+   "plugin": "Claudian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Windy launches codex app-server as a local child process",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex (ChatGPT/Codex desktop app or Codex CLI)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT account",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key (alternative to ChatGPT login)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Page-native AI agent that follows the active note and keeps a page-scoped Codex conversation for each page.",
+ "tags": [
+  "codex",
+  "openai",
+  "chatgpt",
+  "agent",
+  "page-context",
+  "local-first"
+ ]
+}

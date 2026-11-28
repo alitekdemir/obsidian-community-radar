@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Store API tokens and values encrypted under a master password",
+  "Insert secret keys into notes with autocomplete and placeholder syntax",
+  "Proxy AI agents' HTTP requests, replacing keys and masking values in responses",
+  "Expose notes tagged as MCP tools for connected AI clients",
+  "Show a live activity log of every AI client request and approval"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Obsidian 1.13+) because the local server needs Node.js APIs unavailable on mobile. No password recovery: forgetting the master password loses the stored variables. Free and open source, no telemetry or account; README documents security limits such as malicious plugins sharing the same process.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI agents working with Obsidian need API credentials, but pasting tokens into notes or exposing them to agents risks leaking them; this plugin keeps values encrypted and brokers requests instead.",
+ "readmeHash": "cb1bae6a31194b35dde5f67b1e6412264ea2e390",
+ "relations": [
+  {
+   "evidence": "Environment Keys registers as a module on AI Ecosystem's unified local server (127.0.0.1:27150)",
+   "plugin": "AI Ecosystem (ai-ecosystem)",
+   "type": "extends"
+  },
+  {
+   "evidence": "Claude Code: runs claude mcp add --transport http --scope user environment-variables",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Cursor: adds an environment-variables entry to ~/.cursor/mcp.json",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "ai-ecosystem",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI client (Claude Code, Codex, Antigravity, Cursor or any MCP client)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Secret vault that stores API tokens encrypted in the vault and lets AI agents use them in HTTP requests through a local MCP server without seeing the values.",
+ "tags": [
+  "mcp",
+  "secrets",
+  "encryption",
+  "api-tokens",
+  "http-proxy",
+  "quickjs"
+ ]
+}

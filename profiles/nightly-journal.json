@@ -1,0 +1,77 @@
+{
+ "also": [
+  "dates",
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Interview the user about their day with AI-generated follow-up questions",
+  "Show a confirmable writing plan before anything is saved",
+  "Write daily notes with mood/energy frontmatter plus people and project notes with wikilinks",
+  "Answer questions about past notes with dated, clickable sources",
+  "Attach photos and PDFs and make them searchable memory"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; mobile is not supported. Voice setup downloads about 3 GB and requires Python 3.12, not 3.13/3.14. Git auto-commit is off by default and should stay off if the vault already uses git. Free and open source (MIT) with an optional Ko-fi donation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to capture your day through a guided conversation, or to query your own past notes with cited answers.",
+ "readmeHash": "0b53baacb42ee6720d4a497ba9e08c744883e6d9",
+ "relations": [
+  {
+   "evidence": "A local AI interviews you at the end of your day and writes your journal for you — 100% local via Ollama.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "text-to-speech (Kokoro) and speech-to-text (Whisper) through a small local sidecar",
+   "plugin": "Kokoro",
+   "type": "integrates"
+  },
+  {
+   "evidence": "text-to-speech (Kokoro) and speech-to-text (Whisper) through a small local sidecar",
+   "plugin": "Whisper",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama running locally with an interview model",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Python 3.12 voice sidecar (Kokoro and Whisper)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI journaling plugin that interviews you each night via a local Ollama model, then writes daily, people, and project notes and answers questions from your past notes.",
+ "tags": [
+  "ollama",
+  "rag",
+  "embeddings",
+  "whisper",
+  "kokoro",
+  "pdf-extraction",
+  "voice-chat",
+  "git-undo"
+ ]
+}

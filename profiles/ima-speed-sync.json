@@ -1,0 +1,77 @@
+{
+ "also": [
+  "import",
+  "attachments"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save IMA articles as Obsidian notes",
+  "Download PDF, image, audio and video originals",
+  "Preserve original folder names and subfolders",
+  "Extract PDF text locally and run image OCR",
+  "Skip already-saved items and add missing notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault sync tool; it only brings material shared through IMA into Obsidian, one way.",
+ "extras": "Uses PowerShell and local file access, and IMA windows may appear in the foreground, which can show as marketplace review cautions. Cloud OCR uploads whole PDFs to Baidu AI Studio; the stated free quota is up to 20,000 pages per user, per model, per day. Some sidebar text and messages remain in Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Material kept in IMA stays inside that app, so it cannot be searched, annotated or cited next to the notes in a vault.",
+ "profiledAt": "2026-11-27",
+ "provider": "Particle AI",
+ "readmeHash": "20238e8c7e6e5012017a2f948c90be7563589f82",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Save articles and files shared through IMA as notes and files in Obsidian.",
+   "plugin": "IMA",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The recommended cloud mode sends the entire PDF to Baidu AI Studio only after you add your own access token",
+   "plugin": "Baidu AI Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "IMA desktop, installed and signed in",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Windows 10 or later",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Baidu AI Studio access token",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Offline OCR runtime installed outside Obsidian",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Imports articles and files shared through IMA on Windows into Obsidian as notes and attachments, keeping original folder names.",
+ "tags": [
+  "windows",
+  "articles"
+ ],
+ "textHash": "48e46da49b3b9b943d5b44520952c5408cbb364a"
+}

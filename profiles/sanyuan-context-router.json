@@ -1,0 +1,61 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send an explicit query or editor selection to the configured sidecar endpoint",
+  "Trigger retrieval only when the sidecar's conservative trigger detects retrieval intent",
+  "Preview the returned read-injection block before using it",
+  "Copy or insert the injection block into the active note",
+  "Verify sidecar connectivity and display its detected status"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The plugin alone is not functional until the separately installed Python sidecar is running; the browse-sanyuan-nodes command exists only in builds from the pinned upstream commit, not in release 0.1.1. Non-loopback endpoints require an explicit settings opt-in, and the MIT license covers only this repository, not the sidecar or Sanyuan materials.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to pull relevant vault context from an external retrieval pipeline and inject it into the note being written.",
+ "readmeHash": "aefe4083df0fdc967f812c1cc23e66f647a597e1",
+ "relations": [
+  {
+   "evidence": "Retrieval, embeddings, reranking, database access, and Sanyuan topology processing run in a separate Python sidecar.",
+   "plugin": "Sanyuan / sanyuan-obsidian sidecar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Sanyuan retrieval sidecar (sanyuan-obsidian 0.1.0)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Embedding-provider credentials (kept in the sidecar)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Retrieval client that sends a query or editor selection to a Sanyuan-compatible sidecar and inserts the returned context block into notes.",
+ "tags": [
+  "retrieval",
+  "rag",
+  "embeddings",
+  "sidecar",
+  "sanyuan",
+  "context-injection"
+ ]
+}

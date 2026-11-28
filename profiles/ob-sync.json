@@ -1,0 +1,82 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync the whole vault to GitHub or Gitee over git (commit, pull, push, scheduled sync)",
+  "Mirror vault images to Cloudflare R2 with a filterable image manager",
+  "Install, update, roll back and freeze community plugins and themes from GitHub or Gitee",
+  "Show diffs, sync status, conflict guides and repository cleanup in a sidebar panel",
+  "Check for and apply updates to SyncHub itself"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not in the official community plugin store; manual installation required. The manifest notes it has not been reviewed by Obsidian staff. Vault sync is desktop-only (needs system git); plugin installation works on mobile. Tokens are stored in the OS keychain, not data.json. The author accepts donations via PayPal and a coffee QR code.",
+ "intent": "improve",
+ "intentEvidence": "SyncHub extends both",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author found obsidian-git mature but limited to GitHub and GitLab, and BRAT GitHub-only and dependent on releases, so SyncHub adds Gitee support, source-file installs, and backup-before-write installation.",
+ "primary": "syncing",
+ "problem": "Existing git-sync and beta-plugin tools for Obsidian only support GitHub and GitLab, leaving Gitee users without vault sync or plugin installation.",
+ "readmeHash": "0b760a0673bddba294820253417a35c33c7099e2",
+ "relations": [
+  {
+   "evidence": "obsidian-git is mature, but it only knows GitHub and GitLab",
+   "plugin": "obsidian-git",
+   "type": "extends"
+  },
+  {
+   "evidence": "obsidian42-brat is also GitHub-only, and requires the plugin to have published a release",
+   "plugin": "obsidian42-brat",
+   "type": "extends"
+  },
+  {
+   "evidence": "Sync your vault with GitHub or Gitee, and install community plugins from both",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync your vault with GitHub or Gitee, and install community plugins from both",
+   "plugin": "Gitee",
+   "type": "integrates"
+  },
+  {
+   "evidence": "keeps a copy of your vault's images on Cloudflare R2",
+   "plugin": "Cloudflare R2",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "git",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "GitHub or Gitee",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 2
+ },
+ "summary": "Git-based vault sync to GitHub or Gitee, plus Cloudflare R2 image backup and a plugin/theme installer that works with both platforms.",
+ "tags": [
+  "github",
+  "gitee",
+  "cloudflare-r2",
+  "diff-view",
+  "plugin-installer"
+ ]
+}

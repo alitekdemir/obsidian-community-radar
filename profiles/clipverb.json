@@ -1,0 +1,68 @@
+{
+ "also": [
+  "video"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Send a pasted video link to the Clipverb app",
+  "Send the link under the cursor or a selected link",
+  "Pair the plugin with the app using a pairing code",
+  "Choose captions-only or captions-plus-summary mode",
+  "Explain why the app could not take a link"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a clipper itself; it only passes a video link to the separate Clipverb desktop app, which writes the note.",
+ "extras": "The plugin is free but needs the paid Clipverb desktop app (30-day trial) running on the same computer; desktop only; it connects only to 127.0.0.1 on ports 47800-47809 and writes no files itself; interface available in English, Arabic, Spanish and French.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian cannot pull a video's captions or a summary of it into a note, so that material has to be copied in by hand.",
+ "profiledAt": "2026-11-26",
+ "provider": "Particle AI",
+ "readmeHash": "c2f214d357466546704ada81876d479013c1160d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Send a video link from Obsidian to the Clipverb desktop app.",
+   "plugin": "Clipverb desktop app",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Clipverb desktop app",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Clipverb desktop app purchase",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Sends a video link to the Clipverb desktop app, which files the video's captions or an AI-made summary as a Markdown note in the vault.",
+ "tags": [
+  "subtitles",
+  "summarization",
+  "byok",
+  "local-server"
+ ],
+ "textHash": "da166d89617cf24caa3bac35fb28b00368c864ed"
+}

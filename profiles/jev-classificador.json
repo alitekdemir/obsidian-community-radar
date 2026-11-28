@@ -1,0 +1,56 @@
+{
+ "also": [
+  "ai",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", "
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": null,
+ "intent": "new",
+ "intentEvidence": "Tag and classify notes with Jev (TypeSafe): records genre and category and generates folder and subject tags in the frontmatter.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Manually classifying notes into specific genres and categories is time-consuming and inconsistent.",
+ "readmeHash": "37891fbe59d6b07cec8c0d810119339b96e3e317",
+ "relations": [
+  {
+   "evidence": "sends 1 request to Jev (TypeSafe System One), which picks a categoria (field, 13 options) and a genero (subfield, 89 options)",
+   "plugin": "Jev (TypeSafe System One)",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the plugin sends to the TypeSafe API (api.typesafe.ai): the note title, its tags and up to N characters of the body",
+   "plugin": "TypeSafe API (api.typesafe.ai)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Jev (TypeSafe System One) API Key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI-powered note classifier that uses the Jev (TypeSafe) API to categorize notes and automatically generate frontmatter properties and folder tags.",
+ "tags": [
+  "typesafe",
+  "ai-classification",
+  "taxonomy",
+  "frontmatter-generation"
+ ]
+}

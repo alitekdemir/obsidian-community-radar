@@ -1,0 +1,58 @@
+{
+ "also": [
+  "search",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search text in vault images from the command palette",
+  "copy an image's recognized text to the clipboard",
+  "create an index note so Obsidian's search finds image text",
+  "read new and changed images in the background (PNG, JPEG, GIF, WebP, HEIC, TIFF, BMP)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Mac-only for reading images; on iPhone/iPad search works from stored index. Builds a helper with Xcode command line tools (xcrun swiftc) or falls back to AppleScript. No network use, no telemetry, not affiliated with Apple.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ocr",
+ "problem": "Obsidian cannot search the words inside images, so screenshots and scanned pages are only findable by filename or tags.",
+ "readmeHash": "3c61f2afffffb9078df41620f8538d802951b335",
+ "relations": [
+  {
+   "evidence": "Organize's \"Text from images\" is the same reader. With it on, Tahoe OCR searches Organize's index instead",
+   "plugin": "Tahoe Organize",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "macOS (Vision OCR); optionally Xcode command line tools",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "OCR plugin that reads text in vault images (screenshots, slides, scans) with macOS Vision, so images are searchable and their text copyable.",
+ "tags": [
+  "macos-vision",
+  "live-text",
+  "screenshots",
+  "scanned-pages",
+  "apple",
+  "ocr-index"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [
+  "instructors",
+  "teaching-assistants"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Grade submissions (notes, .txt, .pdf or pasted text) against a rubric note with a local Ollama model",
+  "Write draft grading notes with proposed scores, verbatim evidence quotes and draft student comments",
+  "Rebuild a grade book with per-criterion averages, score distribution and most-missed criteria",
+  "Check rubric notes for missing points, duplicate criteria and overlaps",
+  "Parse rubrics from markdown tables or bullet/heading outlines"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general teaching or course-management tool; it only grades submissions against rubric notes and rebuilds a grade book.",
+ "extras": "Free and MIT-licensed; default model qwen3.5:9b needs about a 12 GB GPU and larger models grade more consistently. The README candidly warns that a 9B model misreads, over-rewards confident prose and sometimes invents quotes, and that dropped quotes and clamped scores are shown so users can judge reliability. Every score stays a proposal until the user types their own; no accounts, API keys or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Institutions typically allow AI in grading only if no cloud model ever sees student names or words, so grading must happen locally.",
+ "primary": "ai",
+ "problem": "Instructors grading with rubrics have no AI-assisted grading in Obsidian that keeps student work entirely on their own machine, as institutions require.",
+ "readmeHash": "991448f9c2745e5ff77d3ea673e57886240be18d",
+ "relations": [
+  {
+   "evidence": "graded by a local model through Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama running locally",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Rubric-based grading assistant that grades student submissions with a local Ollama model, producing draft scores, verbatim evidence, comments and a grade book.",
+ "tags": [
+  "ollama",
+  "llm",
+  "grading",
+  "rubrics",
+  "gradebook",
+  "local-first"
+ ]
+}

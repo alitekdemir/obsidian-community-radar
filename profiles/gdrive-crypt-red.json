@@ -1,0 +1,74 @@
+{
+ "also": [
+  "backup",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "sync the vault across desktop and mobile via the user's own Google Drive",
+  "encrypt file contents and names client-side using the rclone crypt standard",
+  "create rotating encrypted or plain vault snapshots from the command palette",
+  "exclude files and folders from sync via glob patterns or regular expressions",
+  "export settings including auth tokens via QR code or text string"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "README states the code was AI-edited and the author is not a developer, urging users to back up first; some features such as backup explorer/restore are command-palette only; the manifest notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "FORK OF crypt-drive-sync by mooncodee",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked crypt-drive-sync because they \"modified it to the level that i needed for personal use\" and wanted cross-platform (desktop and mobile) support.",
+ "primary": "syncing",
+ "problem": "Obsidian's official Sync is a paid service, and users who want to sync through their own cloud storage cannot do so with end-to-end encryption and no lock-in.",
+ "readmeHash": "497baf57eabbbdde97ec62ba730c605000eeb7ff",
+ "relations": [
+  {
+   "evidence": "Forked and extended from crypt-drive-sync by mooncodee.",
+   "plugin": "crypt-drive-sync by mooncodee",
+   "type": "fork"
+  },
+  {
+   "evidence": "Because Google Drive+ uses standard Rclone crypt formatting, you can mount, browse, or sync your vault using Rclone",
+   "plugin": "rclone",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth Client ID and Secret (user-created)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "rclone (for direct external access to the encrypted vault)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Encrypted vault sync to your own Google Drive using rclone crypt format, with rolling vault snapshots, multi-vault paths, and glob/regex sync filters.",
+ "tags": [
+  "google-drive",
+  "rclone",
+  "encryption",
+  "oauth",
+  "snapshots",
+  "qr-code"
+ ]
+}

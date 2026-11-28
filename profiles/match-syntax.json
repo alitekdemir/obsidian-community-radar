@@ -1,0 +1,49 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Highlight text in the active note that matches a match-syntax query",
+  "Search using part-of-speech tags, wildcards, and greedy or optional matching",
+  "Combine AND logic, negative matches, and JavaScript regex in one query",
+  "Fuzzy-match text using Damerau-Levenshtein distance",
+  "Keep highlights until manually cleared via a setting"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a syntax highlighter for code; it highlights note text that matches query patterns.",
+ "extras": "Matching works only with English grammar; other languages are not supported. A TODO list lists planned features such as custom tags and a match count in the status bar.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search matches literal text or regex but cannot match by grammatical part-of-speech, wildcards, or fuzzy text patterns inside the active note.",
+ "readmeHash": "e7de36ad07cb57d0300183e90513e9538d6dc38b",
+ "relations": [
+  {
+   "evidence": "MatchSyntax heavily depends on the compromise library",
+   "plugin": "compromise",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Search tool that highlights parts of the active note matching queries written in the compromise match syntax.",
+ "tags": [
+  "compromise",
+  "regex",
+  "part-of-speech",
+  "fuzzy-matching",
+  "highlighting"
+ ]
+}

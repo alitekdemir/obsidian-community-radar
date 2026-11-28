@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "download the public Letterboxd RSS feed for a username",
+  "create one note per watched movie in a chosen folder",
+  "run sync manually or on a timer",
+  "forward-link new watch dates via the Reflect Forward Linker plugin"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the name, it is a one-way download of a public RSS feed, not two-way sync; no Letterboxd sign-in is required.",
+ "extras": "The README includes a privacy note: it only fetches the public RSS feed for the given username and sends no vault contents or telemetry.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull a user's Letterboxd watch history into per-movie notes.",
+ "readmeHash": "7def7ac2539e165b1e13394d68e113ecd999af71",
+ "relations": [
+  {
+   "evidence": "the plugin also works with the separately installed Reflect Forward Linker plugin inside Obsidian",
+   "plugin": "Reflect Forward Linker",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Reflect Forward Linker",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Letterboxd public RSS feed",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "RSS-based importer that turns a Letterboxd user's public watch feed into one Obsidian note per movie, on demand or on a timer.",
+ "tags": [
+  "letterboxd",
+  "rss",
+  "movies",
+  "watch-history",
+  "film-journal"
+ ]
+}

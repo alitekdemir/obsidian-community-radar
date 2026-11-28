@@ -1,0 +1,56 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Open .numbers files in a dedicated read-only view",
+  "Toggle between the embedded preview thumbnail and a full tables view",
+  "Render cell formats, colours and merged cells via a built-in IWA parser",
+  "Copy tables to the clipboard as Markdown or CSV",
+  "Fall back through parsing engines to a readable preview or error message"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a spreadsheet editor; it only renders .numbers files read-only and never writes to, moves or modifies them.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README documents extensive measured limits: the IWA parser reads 7 of 9 reference files, pre-BNC files and package-format saves are not supported, number separators are hard-coded to Spanish convention, formulas and footer rows are not shown yet, and a Numbers update can break parsing of the undocumented format.",
+ "intent": "new",
+ "intentEvidence": "It is not a spreadsheet editor — Sheet Plus and Univer already cover that.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it to fill the gap of reading Apple's proprietary .numbers format, which no other plugin interprets.",
+ "primary": "formats",
+ "problem": "Obsidian cannot open Apple's proprietary .numbers format, and existing spreadsheet plugins only edit other formats, not read this one.",
+ "readmeHash": "3536371a8a2b443d22889a05e7ffac98bfeae42c",
+ "relations": [
+  {
+   "evidence": "a port of the read path of numbers-parser",
+   "plugin": "numbers-parser",
+   "type": "fork"
+  },
+  {
+   "evidence": "SheetJS, as a safety net: it delivers values but no formats and no styles",
+   "plugin": "SheetJS",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Read-only viewer that opens Apple .numbers spreadsheets in Obsidian, rendering formatted tables with copy-to-Markdown and CSV buttons.",
+ "tags": [
+  "apple-numbers",
+  "spreadsheets",
+  "sheetjs",
+  "protobuf",
+  "iwa",
+  "numbers-parser",
+  "snappy"
+ ]
+}

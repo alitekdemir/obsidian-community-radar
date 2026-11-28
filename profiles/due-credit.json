@@ -1,0 +1,96 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export notes to Word, PDF, Markdown or LaTeX through pandoc",
+  "Turn wiki links into formatted citations with a reference list",
+  "Insert citations from a .bib bibliography at the cursor",
+  "Strip Obsidian-only content such as comments, tags and block IDs from exports",
+  "Apply custom Word templates and pandoc arguments"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Free, with donations via Liberapay. Requires Obsidian 1.13 or later on desktop. Includes an unusually detailed network and file disclosure and reproducible-release verification instructions; further documentation (architecture, FAQ) lives outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because a link that works in Obsidian means nothing when a chapter has to go to a supervisor as a Word file.",
+ "primary": "export",
+ "problem": "Citation links that work inside Obsidian turn into dead text the moment a note has to leave the vault as a Word file or journal submission.",
+ "readmeHash": "2d377a32c2e4a79c29d6bd2c986e4e3eaa425369",
+ "relations": [
+  {
+   "evidence": "It runs pandoc on your note to turn your links into real citations",
+   "plugin": "pandoc",
+   "type": "integrates"
+  },
+  {
+   "evidence": "export a .bib file from Zotero with Better BibTeX's auto-export turned on",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "when Better BibTeX changes a key, links made before still cite the paper",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works well with Paper Trail, which turns your Zotero library into a reading queue",
+   "plugin": "Paper Trail",
+   "type": "integrates"
+  },
+  {
+   "evidence": "In the Open publishes a note as a post on your own website",
+   "plugin": "In the Open",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Take the Floor presents a note as slides, with your speaker notes on your own screen",
+   "plugin": "Take the Floor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "pandoc (or the built-in pandoc it offers to download)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "TeX distribution with xelatex, for PDF export",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Zotero with Better BibTeX auto-export, for citations",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Pandoc-based exporter that turns a note's links into real citations and exports it as Word, PDF, Markdown or LaTeX with a reference list.",
+ "tags": [
+  "pandoc",
+  "zotero",
+  "better-bibtex",
+  "bibtex",
+  "csl",
+  "xelatex",
+  "academic-writing"
+ ]
+}

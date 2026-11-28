@@ -1,0 +1,115 @@
+{
+ "also": [
+  "integrations",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the vault via an agent loop",
+  "Search and read notes, Bases and Canvas files",
+  "Write and edit notes through approval dialogs",
+  "Manage memory and skills as Markdown notes",
+  "Attach working context to each conversation"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Detailed tutorial, guides and troubleshooting live on an external documentation site. Local servers need CORS enabled or chat fails even though the connection test passes; models without native tool calling fall back to a less reliable text mode. README is provided in English and German.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in assistant that can search, read and edit notes while keeping writes under your control and your data on your own machine.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "17ec2dc6556f899129ee014d20822525d46f744d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "typically one on your own machine (LM Studio, Ollama)",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "typically one on your own machine (LM Studio, Ollama)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With Vault Retrieval installed, Koda adds search by meaning",
+   "plugin": "Vault Retrieval",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the text recognised by Image to Markdown",
+   "plugin": "Image to Markdown",
+   "type": "integrates"
+  },
+  {
+   "evidence": "generate_image asks Local Image Generator for a picture",
+   "plugin": "Local Image Generator",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude (Anthropic API) works through the LLM Endpoint Manager",
+   "plugin": "LLM Endpoint Manager",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible chat endpoint with a tool-calling model (LM Studio, Ollama, or hosted provider)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for a hosted model provider",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Vault Retrieval",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Image to Markdown",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Local Image Generator",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "LLM Endpoint Manager",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Agentic chat sidebar that searches, reads and writes your notes with approval, using a chosen OpenAI-compatible model and a Markdown memory note.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "local-llm",
+  "openai-compatible",
+  "tool-calling",
+  "lm-studio",
+  "ollama",
+  "claude"
+ ],
+ "textHash": "b4924f8a53312f8ddd8dda770dcff09fc8133698"
+}

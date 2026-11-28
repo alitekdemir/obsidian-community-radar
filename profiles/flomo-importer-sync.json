@@ -1,0 +1,81 @@
+{
+ "also": [
+  "integrations",
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import Flomo memos into vault notes incrementally",
+  "Download memo attachments into a configurable folder",
+  "Push notes or selected text to Flomo via token, webhook, or URL scheme",
+  "Generate Canvas and Moments overview files from imported memos",
+  "Extract a Flomo Bearer token through an embedded WebView login"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general note-taking plugin; it only moves content between a Flomo account and the vault.",
+ "extras": "Desktop-only features rely on Electron webview and Node.js modules; Playwright and native modules are lazily loaded on desktop only, and mobile falls back to manual token entry or URL scheme. Push via Bearer token uses a reverse-engineered private API with a local 100-item daily limit; official webhook push is described as Pro-member. README notes experimental bidirectional links and merge-memos-by-date, plus WAF bypass via spoofed Chrome User-Agent.",
+ "intent": "alternative",
+ "intentEvidence": "Enhanced fork from jia6y/flomo-to-obsidian with major improvements",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Flomo memos live outside the vault, so keeping them as Obsidian notes requires repeated manual export and import with no incremental updates.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "d4a1dd85528aed43252284953b4f7d789dd241f1",
+ "readmeSource": "README_EN.md",
+ "relations": [
+  {
+   "evidence": "Enhanced fork from jia6y/flomo-to-obsidian with major improvements",
+   "plugin": "jia6y/flomo-to-obsidian",
+   "type": "fork"
+  },
+  {
+   "evidence": "Inspired by the get-to-obsidian project's advanced approach",
+   "plugin": "get-to-obsidian",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Flomo account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Playwright (npx playwright@1.43.1 install)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js modules (Playwright, fs-extra)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Flomo Bearer Token or Webhook URL for push",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Flomo import and sync plugin that pulls memos into Obsidian notes and pushes notes back to Flomo via private API or webhook.",
+ "tags": [
+  "flomo",
+  "memos",
+  "webhook",
+  "playwright"
+ ],
+ "textHash": "5cc9169773a78b3217ecf4fdf5309db4a78ee1e0"
+}

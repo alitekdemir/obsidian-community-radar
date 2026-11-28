@@ -1,0 +1,69 @@
+{
+ "also": [
+  "tasks",
+  "data"
+ ],
+ "audience": [
+  "3d-printing-hobbyists"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import print jobs from the Bambu Lab cloud",
+  "Plan prints on a queue board from model links",
+  "Track filament spools by material and colour",
+  "Compute print cost from filament, power, wear and maintenance",
+  "Generate a Bases tracker and a print dashboard note"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault sync tool; it imports print jobs from the Bambu Lab cloud and is built to run alongside note-sync services.",
+ "extras": "Uses an undocumented Bambu Lab cloud API that may change or stop working; the login token is stored in the plugin's data.json inside the vault; LAN-only printers are not synced; remaining filament on a spool is not tracked by the plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "To keep the 3D printing log where the rest of the notes live.",
+ "primary": "integrations",
+ "problem": "3D printing logs, spool stock and costs live outside Obsidian, so they are not kept with the rest of the notes.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "8831f0fd55a8637477a10805d3fe865337383fca",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "paste a MakerWorld, Printables, Thingiverse or Cults3D link",
+   "plugin": "MakerWorld",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Obsidian Sync, Seafile, iCloud, Syncthing and similar tools copy your notes between devices",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Bambu Lab account",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Turns Bambu Lab cloud print jobs into notes, plans a print queue from model links, and tracks spools and print cost in Bases tables.",
+ "tags": [
+  "3d",
+  "inventory",
+  "budgeting",
+  "dashboard",
+  "statistics"
+ ],
+ "textHash": "f3f85569f493827cbb1488be49db11935ef727bf"
+}

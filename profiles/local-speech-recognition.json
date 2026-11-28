@@ -1,0 +1,60 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe speech offline through a locally spawned sherpa-onnx WebSocket server",
+  "Insert transcriptions at the cursor or copy them to the clipboard",
+  "Select among SenseVoice, FunASR, Paraformer and Qwen3-ASR models and manage the service lifecycle",
+  "Build a pinyin lexicon to detect and one-click-correct homophone transcription errors",
+  "Control recording, cursor movement and candidate picking with a gamepad"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (spawns a local subprocess and captures the microphone); requires downloading a server binary and model folders from 230 MB to 3.7 GB; the lexicon and fuzzy matching only affect Chinese text; macOS may block the unsigned binary due to a quarantine flag; recording is capped at 280 seconds; push-to-talk semantics are approximated because Obsidian hotkeys deliver only key-down events.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built-in speech-to-text, and cloud dictation services require API keys or send audio off the device.",
+ "readmeHash": "66e2ded23f9741d353bf711adffe24aa5a452e72",
+ "relations": [
+  {
+   "evidence": "Offline speech recognition in Obsidian, powered by a locally deployed sherpa-onnx service",
+   "plugin": "sherpa-onnx",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "sherpa-onnx-offline-websocket-server binary and an ASR model folder",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Offline speech-to-text dictation that runs a local sherpa-onnx WebSocket service and inserts transcriptions at the cursor via a hotkey.",
+ "tags": [
+  "speech-to-text",
+  "dictation",
+  "sherpa-onnx",
+  "asr",
+  "pinyin",
+  "sensevoice",
+  "funasr",
+  "gamepad"
+ ]
+}

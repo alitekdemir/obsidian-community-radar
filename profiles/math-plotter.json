@@ -1,0 +1,71 @@
+{
+ "also": [
+  "math",
+  "latex"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Insert function plots via an inline builder or modal form",
+  "Plot 2D functions, 3D surfaces, parametric curves, ODE/PDE solutions and data points",
+  "Render graphs as SVG in Reading View from JSON blocks",
+  "Rotate, zoom and drag plotted points interactively",
+  "Export graphs as SVG or PNG"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian Desktop. Octave and LuaLaTeX are optional fallback renderers, off by default; the README notes the plugin never touches the system clipboard.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "charts",
+ "problem": "Plotting math graphs in Obsidian normally requires learning and writing TikZ, PGFPlots or Octave code instead of filling in a form.",
+ "readmeHash": "d6c32c28be6e8b29d641ee9b72e564bc8754975f",
+ "relations": [
+  {
+   "evidence": "Octave, if you enable it, samples numerically through octave-cli and feeds CSV data to PGFPlots",
+   "plugin": "GNU Octave",
+   "type": "integrates"
+  },
+  {
+   "evidence": "TikZJax (bundled WebAssembly) compiles the generated PGFPlots",
+   "plugin": "TikZJax",
+   "type": "integrates"
+  },
+  {
+   "evidence": "LuaLaTeX is a last-resort fallback for plots TikZJax can't compile",
+   "plugin": "LuaLaTeX",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "GNU Octave CLI / LuaLaTeX + Poppler",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Form-based math graph builder that inserts 2D, 3D, parametric, ODE/PDE and data plots into notes as JSON blocks rendered as SVG.",
+ "tags": [
+  "octave",
+  "tikz",
+  "pgfplots",
+  "tikzjax",
+  "svg",
+  "lua-latex",
+  "pde",
+  "parametric"
+ ]
+}

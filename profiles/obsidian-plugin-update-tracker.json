@@ -1,0 +1,50 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track installed plugins with available updates via a status-bar icon",
+  "View and install updates with rendered release notes",
+  "Evaluate upgrade risk using version statistics and code-change diffs",
+  "Ignore specific plugin updates and optionally show beta versions",
+  "Customize the icon appearance with settings or CSS snippets"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Privacy note: update checks go through the author's AWS Lambda-backed API, which receives your installed plugin list and versions and collects your IP. Warns that downloaded main.js files from GitHub releases may contain code different from the visible diff. Documents a free public API other plugins can use to check version info, and warns about loading-order issues with lazy-plugin.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian gives no built-in signal for which community plugins have new versions, what changed, or whether an upgrade is safe to install.",
+ "readmeHash": "1e7592f5c33ae15e1a25d6e4a9979b0cd4c71721",
+ "relations": [
+  {
+   "evidence": "when this plugin detects that lazy-plugin and Ignore Updates to Disabled Plugins are enabled",
+   "plugin": "lazy-plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Status-bar tracker that shows when installed community plugins have updates and helps evaluate the riskiness of upgrading them.",
+ "tags": [
+  "release-notes",
+  "version-checking",
+  "beta-versions",
+  "code-diff",
+  "github",
+  "risk-assessment"
+ ]
+}

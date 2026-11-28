@@ -1,0 +1,49 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Route web views through a clean Electron partition with a real Chrome user agent",
+  "Open window.open() sign-in popups as real windows with a live window.opener",
+  "Strip Obsidian's navigation guards from popup windows so OAuth callbacks complete",
+  "Keep web view cookies across launches by dodging Obsidian's partition sweep",
+  "Deny web view permission requests for camera, microphone, geolocation and more"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Web viewer",
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it does more than swap the user agent string: it also reroutes web views to a persistent partition and replaces Obsidian's popup window handling.",
+ "extras": "Desktop only. Depends on undocumented Obsidian internals (App.getWebviewPartition, the create-browser-session IPC channel) and warns it may stop working after Obsidian updates; the README says it should eventually become unnecessary once Obsidian fixes this upstream. Web views lose ad blocking because Obsidian's filtering rides on the same handler being skipped. Install is recommended via BRAT.",
+ "intent": "improve",
+ "intentEvidence": "Both Web Viewer tabs and Canvas web embeds call getWebviewPartition(), so both are covered.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author implements the root-cause diagnosis Bryan Monge published in Obsidian forum thread 117394, including the finding that a custom partition sidesteps Obsidian's header hooks.",
+ "primary": "utilities",
+ "problem": "Obsidian's Web Viewer sends a malformed \"Chrome\" user agent header and hijacks window.open(), so Google sign-ins fail inside web views and Canvas web embeds.",
+ "readmeHash": "fc98bd8b93935f049d8d9b67702069a8126d0701",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Patches Obsidian's Web Viewer to use a clean Electron session with a real Chrome user agent, so Google and other sign-ins work.",
+ "tags": [
+  "electron",
+  "user-agent",
+  "google",
+  "webview",
+  "cookies",
+  "popups",
+  "sign-in",
+  "session-partition"
+ ]
+}

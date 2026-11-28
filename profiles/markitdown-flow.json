@@ -1,0 +1,68 @@
+{
+ "also": [
+  "formats",
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Convert folders of documents to Markdown notes",
+  "Inspect page composition and text coverage",
+  "Extract partial text from mixed PDFs",
+  "Hand off excluded originals to external OCR tools",
+  "Copy selected photo metadata fields"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; needs a separately installed Python environment and matching plugin bundle. A legacy CLI path can contact a configured provider and incur charges, but the strict conversion workflow needs no API key. No client telemetry is sent.",
+ "intent": "alternative",
+ "intentEvidence": "The original obsidian-markitdown project by Ethan Troy is credited under the MIT license.",
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian cannot turn PDFs and other documents into notes, and simple converters silently produce incomplete notes from partly scanned files.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "a000a281b43a47d968a29ddc7933291b71532f3a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The original obsidian-markitdown project by Ethan Troy is credited under the MIT license.",
+   "plugin": "obsidian-markitdown",
+   "type": "fork"
+  },
+  {
+   "evidence": "The optional ExifTool process receives a private copy of the selected image for a bounded, field-scoped read.",
+   "plugin": "ExifTool",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python virtual environment with markitdown-gc",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "ExifTool",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Converts local documents to Markdown notes, holding back mixed or scanned files for external OCR.",
+ "tags": [
+  "docx",
+  "exif",
+  "cli"
+ ],
+ "textHash": "2a1fb36e59f10bbdc404616ec5007de359301e18"
+}

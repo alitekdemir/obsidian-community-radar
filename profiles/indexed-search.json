@@ -1,0 +1,86 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Narrow core Search to notes that can possibly match a query",
+  "Build and maintain a trigram index in IndexedDB",
+  "Keep core Search's query syntax and exact results",
+  "Optionally ignore Excalidraw drawing data when searching",
+  "Expose a typed search API to other plugins"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a search box of its own; it only narrows core Search, which still runs its own matcher and lists the results.",
+ "extras": "Ships a demo vault (also downloadable as a zip) that documents each feature with runnable searches; publishes a typed API (contract 1.0.0) for other plugins; beta releases installable via BRAT.",
+ "intent": "alternative",
+ "intentEvidence": "The fast search plugins answer in a search box of their own, with their own query language",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted fast search on large vaults without the separate search box, query language and different results that other fast search plugins bring.",
+ "primary": "search",
+ "problem": "Core Search reads and matches every note on every query, so each search on a vault of tens of thousands of notes takes half a second to a second.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "3e3fd259a7bc316383cdfa4e8766d8bed5c729fe",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Same goal, different engine: keeps core Search's pane, syntax and exact results",
+   "plugin": "CFR Find",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal, different engine: no separate search box or ranking; core Search answers",
+   "plugin": "Fast Find 10K",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal, different engine: core Search's own results and order",
+   "plugin": "Lean Search",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal, different engine: an index of its own on every platform, and core Search answers",
+   "plugin": "Native Search",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal, different engine: keeps core Search's pane, syntax and exact results",
+   "plugin": "Omnisearch",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal, different engine: core Search's exact results, no AI",
+   "plugin": "Vault Finder",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal, different engine: core Search's query language and results",
+   "plugin": "VaultDex",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Trigram index in IndexedDB that narrows core Search to candidate notes, keeping core's pane, query syntax and exact results.",
+ "tags": [
+  "regex",
+  "excalidraw"
+ ],
+ "textHash": "bda6c1d6f307cadd918305cce14a7d6b272f16a5"
+}

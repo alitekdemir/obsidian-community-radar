@@ -1,0 +1,84 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "athletes",
+  "self-quantification"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "sync recent activities from Garmin Connect or the Strava API",
+  "import FIT files, individually or zipped, from Garmin, COROS, Wahoo, Polar and Suunto devices",
+  "import historical activities from a Strava bulk export CSV",
+  "generate note paths, content and frontmatter from Handlebars.js templates",
+  "estimate calories from heart-rate or power data and expose fields as properties for Dataview"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory and not manually reviewed by Obsidian staff; installed via BRAT or manually. Secrets are stored in Obsidian's secret storage on 1.11.4+ and must be set up per device. The same activity imported from Strava and Garmin/FIT creates two notes because IDs differ.",
+ "intent": "alternative",
+ "intentEvidence": "It started as a fork of Strava Sync by Howard Wilson, and is released under the same MIT license.",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to bring fitness activity data from services or device files into the vault as structured notes.",
+ "readmeHash": "2c7a1adc9894d52bffce4d9dac657c4aaf6a79fc",
+ "relations": [
+  {
+   "evidence": "It started as a fork of Strava Sync by Howard Wilson",
+   "plugin": "Strava Sync",
+   "type": "fork"
+  },
+  {
+   "evidence": "Customizable properties / front matter allowing for Obsidian Dataview integration",
+   "plugin": "Obsidian Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Per-sport icons for use with Iconize",
+   "plugin": "Iconize",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This example requires that the Contribution Graph plugin first be installed and enabled.",
+   "plugin": "Contribution Graph",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Strava API application or Garmin Personal API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Strava subscription (required for Strava API access since June 2026)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT for installation; Dataview, Iconize, Charts, Contribution Graph for integrations",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Workout importer that syncs activities from Garmin Connect or Strava, or imports FIT files, creating one templated note per activity.",
+ "tags": [
+  "garmin",
+  "strava",
+  "fit",
+  "workouts",
+  "handlebars",
+  "dataview"
+ ]
+}

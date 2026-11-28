@@ -1,0 +1,80 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rewrite the current line or selection with an AI model",
+  "Proofread or translate using built-in and custom prompt modes",
+  "Show suggestions as a ghost preview accepted with Tab",
+  "Connect to any OpenAI-compatible server such as Ollama or OpenAI",
+  "Wrap note titles and aliases in wiki links after a rewrite"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Spellcheck"
+  ],
+  "level": "partial"
+ },
+ "delisted": "2026-11-25",
+ "disambiguation": "Not a general AI chat assistant or autocomplete; it only rewrites the current line or selection on demand.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README warns that pointing the Base URL at a remote service sends note content off the machine, with the API key sent as a Bearer token.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author tuned it for small local models because correcting one line is easy work for a model like gemma3 and on-demand triggering keeps the machine cool.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in on-demand AI rewriting, and most AI tools target whole documents or next-word autocomplete rather than single lines with small local models.",
+ "readmeHash": "a2eb9d9974dcc896d74f89f3e7ef6e891662d322",
+ "relations": [
+  {
+   "evidence": "Works with any OpenAI-compatible server: Ollama, LM Studio, OpenAI, OpenRouter…",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with any OpenAI-compatible server: Ollama, LM Studio, OpenAI, OpenRouter…",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with any OpenAI-compatible server: Ollama, LM Studio, OpenAI, OpenRouter…",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works with any OpenAI-compatible server: Ollama, LM Studio, OpenAI, OpenRouter…",
+   "plugin": "OpenRouter",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or another OpenAI-compatible server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key for remote authenticated endpoints",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Line-level AI rewriting plugin that proofreads, translates, or applies custom modes to the current line via local or OpenAI-compatible models, with a ghost preview.",
+ "tags": [
+  "ollama",
+  "lm-studio",
+  "openai",
+  "openrouter",
+  "ghost-preview",
+  "proofreading",
+  "local-models"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "backup"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs vault files bi-directionally through an S3-compatible bucket",
+  "Creates scheduled backup snapshots with age- or count-based retention",
+  "Encrypts synced files and backups with a passphrase",
+  "Writes LOCAL_ and REMOTE_ copies when a file conflicts",
+  "Downloads a backup snapshot as a ZIP file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync",
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "A lost passphrase cannot be recovered; the README advises against running it alongside Obsidian Sync; mobile background limits may delay sync; credentials are moved to Obsidian's Keychain, which needs Obsidian 1.11.5 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep a vault synchronized or take scheduled snapshots to your own S3-compatible storage.",
+ "profiledAt": "2026-11-25",
+ "provider": "Particle AI",
+ "readmeHash": "49a3151644f7905b6e840b152a6f263916eda314",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Works with AWS S3, Cloudflare R2, Backblaze B2, RustFS, and any other S3-compatible endpoint.",
+   "plugin": "AWS S3",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "S3-compatible storage bucket",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "S3 access key ID and secret access key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs vault files across devices and makes scheduled backups through S3-compatible storage, with optional end-to-end encryption.",
+ "tags": [
+  "s3",
+  "cloudflare",
+  "encryption",
+  "end-to-end-encryption",
+  "ios",
+  "android"
+ ],
+ "textHash": "84e1e8b28b195431278b06592a8f7d66ee35a82b"
+}

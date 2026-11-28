@@ -1,0 +1,69 @@
+{
+ "also": [
+  "search",
+  "links"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with notes through an OpenAI-compatible model",
+  "Attach notes and Markdown skills to a conversation",
+  "Surface notes related to the note being read",
+  "Search notes by keyword and semantic similarity",
+  "Build and maintain a local SQLite index of the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a fiction plotting or outlining tool; the name refers to the thread between notes.",
+ "extras": "Free and needs no Trama account. The SQLite index lives in the app's browser storage (OPFS) outside the vault, so it is device-local and not covered by vault backups or sync. Only a fixed placeholder bearer token is sent, so direct API-key connections are unsupported and paid APIs need a gateway. Chat history is session-only and not saved to disk.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian offers no built-in way to ask questions about your notes, find notes related by meaning, or search for an idea when you have forgotten the exact wording.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "c1d90f88cb9775483f81b6854cbb1f96dd0146d2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Local servers such as LM Studio can provide chat and embeddings without a paid API.",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenAI-compatible model server with chat and embedding endpoints",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Remote OpenAI-compatible provider or gateway",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local-first AI plugin that adds a chat view, related-note discovery, and keyword-plus-semantic search over an indexed vault.",
+ "tags": [
+  "local-llm",
+  "embeddings",
+  "semantic-search",
+  "rag",
+  "openai-compatible",
+  "sqlite",
+  "lm-studio"
+ ],
+ "textHash": "abb7ecb8e444f44fd82d09270b995a6b327f3373"
+}

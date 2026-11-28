@@ -1,0 +1,72 @@
+{
+ "also": [
+  "canvas",
+  "research"
+ ],
+ "audience": [
+  "academics",
+  "researchers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export Zotero collections, picked items, or authors as .canvas citation maps",
+  "Derive reading status from Zotero annotations and read/unread tags",
+  "Expand cited works outside the selection into the map",
+  "Link paper cards to vault notes via Better BibTeX citation keys or exact note titles",
+  "Configure colors, file-name patterns, and grouping options"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a citation-insertion or bibliography tool; it only exports a read-only visual map of your Zotero library as a canvas file.",
+ "extras": "Desktop-only by design; the manifest notes the plugin has not been manually reviewed by the Obsidian team. Development/BRAT install is documented; no marketplace install mentioned.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian Canvas maps have to be built by hand, so there is no quick way to visualize a Zotero library's citation relationships inside a vault.",
+ "readmeHash": "98e91cf8652c85e5bbe24f413fef4fa0f3d836a0",
+ "relations": [
+  {
+   "evidence": "Citation Atlas talks to the Zotero Local API on localhost:23119",
+   "plugin": "Zotero",
+   "type": "integrates"
+  },
+  {
+   "evidence": "match by Better BibTeX citation key (Citation Key: in the Extra field)",
+   "plugin": "Better BibTeX",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the Read 2026-01-02 style used by zotero-actions-tags (prefix matching)",
+   "plugin": "zotero-actions-tags",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Zotero 7 or newer, running locally",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Zotero citation-map exporter that writes a .canvas literature map with papers as cards, citation edges, collection groups, and reading-status colors.",
+ "tags": [
+  "zotero",
+  "citation-graph",
+  "json-canvas",
+  "better-bibtex",
+  "reading-status",
+  "local-api"
+ ]
+}

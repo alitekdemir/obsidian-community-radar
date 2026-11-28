@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Auto-sync notes to Mengram on save with debounce",
+  "Search synced memories from the command palette",
+  "Bulk-sync the current file or entire vault",
+  "Filter synced and excluded folders",
+  "View memory vault statistics"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Freemium: free tier limited to 100 adds and 500 searches per month, paid plans available. Sends note content to mengram.io over HTTPS; no data leaves the vault without an API key. Supports self-hosted instances via a base URL setting. Manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author states the vault already holds what you know and wanted to make it something AI assistants can actually read.",
+ "primary": "ai",
+ "problem": "Obsidian notes stay locked in the vault, so AI assistants like Claude or Cursor cannot answer questions from what you have written.",
+ "readmeHash": "ed26bce39754769e9f97eabe9ac9c86a10439ed3",
+ "relations": [
+  {
+   "evidence": "MCP Server (Claude, Cursor, Windsurf)",
+   "plugin": "Claude, Cursor, Windsurf (MCP clients)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Mengram API key (om-...)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Mengram account at mengram.io",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Mengram paid plan beyond free tier limits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Syncs vault notes to the Mengram service, extracting entities, facts and relationships into searchable memory for AI assistants via MCP.",
+ "tags": [
+  "mcp",
+  "claude",
+  "cursor",
+  "windsurf",
+  "knowledge-graph",
+  "entity-extraction",
+  "self-hosted"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai",
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Start a local MCP HTTP server exposing vault notes to Codex",
+  "Export active-note context and create request files for Codex",
+  "Import Codex replies by appending them or creating new notes",
+  "Summarize selected text or the active note into a daily note with an AI API",
+  "Expose MCP tools to search, read, write, append, and list notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; the MCP server binds to 127.0.0.1 and requires bearer-token authorization. AI summarization is optional and needs no key for the file bridge or MCP server. UI supports English and Chinese. Docs include a security section warning against sharing tokens or exposing the endpoint publicly.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "AI agents like Codex have no built-in way to search, read, and write vault notes without a hardcoded vault path or manual file handling.",
+ "readmeHash": "5c4edb967fc8999ae1d1d88d925ee99a311eedf7",
+ "relations": [
+  {
+   "evidence": "codex-bridge is a desktop-only plugin that connects your local vault to Codex.",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "For Codex-side usage, install the companion obsidian-connect skill.",
+   "plugin": "obsidian-connect skill",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex (or another MCP client)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Local bridge that connects an Obsidian vault to Codex through file-based commands and a localhost MCP server for search, read, and write access.",
+ "tags": [
+  "codex",
+  "mcp",
+  "local-server",
+  "bearer-token",
+  "openai-compatible",
+  "ai-summaries",
+  "chinese-ui"
+ ]
+}

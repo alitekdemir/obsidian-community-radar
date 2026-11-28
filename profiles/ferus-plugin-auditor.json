@@ -1,0 +1,54 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "scan installed plugins' main.js for dangerous API patterns",
+  "verify plugin bundles against GitHub release hashes",
+  "score each plugin's risk on a 0-100 scale with tiers",
+  "show findings in a sortable in-vault report panel",
+  "detect newly installed plugins and offer to scan them"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "An audit tool, not a firewall or antivirus: it flags and scores plugins but never disables them or sandboxes anything.",
+ "extras": "Desktop-only (isDesktopOnly: true), no mobile support. README explicitly warns static analysis has blind spots and cannot catch all malicious plugins. No telemetry, no premium tier. Unauthenticated GitHub API is rate-limited to 60 requests/hour; a personal access token raises this to 5000/hour.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because Obsidian cannot sandbox community plugins, leaving users exposed to plugins with full file, network and shell access.",
+ "primary": "utilities",
+ "problem": "Obsidian cannot sandbox community plugins, so every enabled plugin gets full access to files, network and shell commands with no way for users to assess the risk.",
+ "readmeHash": "0d3374ef5556e32f1ed862bb75d15f2802fba981",
+ "relations": [
+  {
+   "evidence": "The only outbound calls are to api.github.com (to fetch release metadata and asset hashes).",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub fine-grained personal access token (read-only, no scopes)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Security audit tool that scans installed community plugins' main.js for dangerous APIs, verifies hashes against GitHub releases, and scores risk.",
+ "tags": [
+  "static-analysis",
+  "supply-chain",
+  "sha-256",
+  "github-api",
+  "risk-scoring",
+  "malware-detection"
+ ]
+}

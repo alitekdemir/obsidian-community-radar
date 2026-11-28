@@ -1,0 +1,68 @@
+{
+ "also": [
+  "attachments",
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Upload local attachments via a configurable CLI upload command",
+  "Auto-upload pasted screenshots and pasted or dropped files",
+  "Transfer remote HTTP(S) images in the current note to the host",
+  "Batch-migrate referenced attachments across the whole vault",
+  "Optionally delete local source files after links are replaced"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a cloud sync or storage service itself; it shells out to a local upload tool such as uPic or PicSee that must already be installed.",
+ "extras": "Requires Obsidian Desktop 1.14.4 or later; mobile is not supported because upload commands run as local executables. Shell pipelines and variable expansion in the upload command are unsupported.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian stores attachments locally in the vault and offers no built-in way to upload them to an image host and swap the links to cloud URLs.",
+ "readmeHash": "d4d4bb8b9e0c621f4d0fe2f30b41bf7fb8725101",
+ "relations": [
+  {
+   "evidence": "Built-in uPic upload command: /Applications/uPic.app/Contents/MacOS/uPic -o url -u %s",
+   "plugin": "uPic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Built-in Picsee upload command: \"/Applications/Picsee.app/Contents/MacOS/Picsee -u %s\"",
+   "plugin": "Picsee",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Inspired by typora image upload functionality",
+   "plugin": "typora",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an upload tool with a CLI (e.g. uPic or PicSee) or a custom upload executable",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Uploads vault attachments to cloud hosting through configurable external upload tools like uPic and PicSee, replacing local links with URLs.",
+ "tags": [
+  "upic",
+  "picsee",
+  "image-hosting",
+  "screenshots",
+  "paste-upload",
+  "batch-migration",
+  "url-replacement"
+ ]
+}

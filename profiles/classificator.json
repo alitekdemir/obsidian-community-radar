@@ -1,0 +1,64 @@
+{
+ "also": [
+  "files",
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assign a classification label to notes and attachments",
+  "Display classification badges or dots in file explorer and header",
+  "Set default classifications per folder and for new notes",
+  "Batch reclassify selected files with a preview",
+  "List notes with missing or unknown classifications"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view",
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a content classifier; it only stores and displays a label you pick, and other plugins read the property.",
+ "extras": "Attachment classifications and folder rules are stored in a _meta.md file in each folder, which the README says to skip when reading individual note classifications. Manual install by copying manifest.json, main.js, and styles.css; development requires Node.js 24.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Obsidian has no built-in way to mark notes and attachments with a sensitivity label and see that label while browsing the file explorer.",
+ "profiledAt": "2026-11-26",
+ "provider": "Baidu",
+ "readmeHash": "5428ec3d327b0423efc73ed11e11c4f4cf734b2c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Langdock Sync uses the property to determine which notes are eligible for synchronization",
+   "plugin": "Langdock Sync",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Obsidian Desktop 1.7.4 or later",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Plugin that saves a classification label in a note's YAML frontmatter and shows it as a badge or dot in the file explorer and note header.",
+ "tags": [
+  "yaml",
+  "color-coding",
+  "badges",
+  "file-explorer",
+  "folder-structure",
+  "batch-processing"
+ ],
+ "textHash": "0ad0a8c0d96bc08925b8b57f90e4b2b5540c1707"
+}

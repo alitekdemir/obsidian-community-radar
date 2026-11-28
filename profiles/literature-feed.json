@@ -1,0 +1,101 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search OpenAlex weekly for each user-defined feed and rank papers into priority, strong and possible tiers",
+  "Write a weekly reading-inbox note with a filterable table, status chips, tick boxes and dismissals",
+  "Sync ticked papers into Zotero collections with feed tags, skipping papers already in the library",
+  "Report search effectiveness, topic overlap and term suggestions from a local history ledger",
+  "Build literature reviews with cost-capped OpenAlex lookups, citation-gap analysis, network graphs and copy-paste LLM prompts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the Obsidian community plugin store; the README says everything beyond the current phase describes what it is being built to do. OpenAlex requests cost paid credits with free daily allowance and per-review spending limits, and costs are stated throughout.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "research",
+ "problem": "Obsidian has no way to discover new academic papers on chosen topics and triage them into a reading queue without manual searches and manual Zotero entry.",
+ "readmeHash": "07842906f50205754e0e755df33a257624925334",
+ "relations": [
+  {
+   "evidence": "From there your usual Zotero → ZotLit → Obsidian reading workflow takes over.",
+   "plugin": "ZotLit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Lab Kit is a separate plugin for a chemistry lab notebook. Literature Feed works with it through note conventions only",
+   "plugin": "Lab Kit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Zotero add-on Better Find Full Text (its README lists Zotero 7.0, 8.x, 9.x and 10.x).",
+   "plugin": "Better Find Full Text",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It is a TypeScript port of the check_refs.py script, so nothing needs installing.",
+   "plugin": "check_refs.py",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAlex API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Zotero API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "OpenAlex free account",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Zotero account",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "ZotLit",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Zotero desktop (for PDF fetching)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Academic literature discovery that searches OpenAlex weekly into a reading-inbox note and syncs ticked papers to your Zotero library.",
+ "tags": [
+  "openalex",
+  "zotero",
+  "crossref",
+  "doi",
+  "citation-gaps",
+  "literature-review",
+  "llm-prompts"
+ ]
+}

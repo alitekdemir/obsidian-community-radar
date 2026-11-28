@@ -1,0 +1,74 @@
+{
+ "also": [
+  "images",
+  "attachments"
+ ],
+ "audience": [
+  "artists",
+  "researchers",
+  "creative-professionals"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Scan a designated asset folder for images without sidecar notes",
+  "Generate titles, categories, keywords, and descriptions with a local Vision-Language Model",
+  "Create markdown sidecar notes with YAML frontmatter next to each image",
+  "Extract vault-wide links and embeds of each image into a linked_notes list",
+  "Batch-process images sequentially with automatic downscaling before inference"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Backlinks"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installation is manual only (release files placed into .obsidian/plugins); the README includes a full Japanese translation, and the manifest notes the plugin has not been reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it from an experimental Python-based image archival workflow developed to manage large-scale creative image collections inside Obsidian.",
+ "primary": "ai",
+ "problem": "Images in a vault carry no searchable metadata, and describing large image libraries by hand is impractical while cloud vision APIs raise privacy and cost concerns.",
+ "readmeHash": "e3e86ffdb1a31de0e56d3d366ecd5a7a3ca179a0",
+ "relations": [
+  {
+   "evidence": "Designed to work seamlessly with local LLM/VLM servers like LM Studio or Ollama",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Designed to work seamlessly with local LLM/VLM servers like LM Studio or Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local OpenAI-compatible vision server (LM Studio or Ollama)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key (dummy for local servers, real for remote services)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Image asset tagger that scans a vault folder and uses a local Vision-Language Model to generate markdown sidecar notes with YAML metadata for images.",
+ "tags": [
+  "vlm",
+  "lm-studio",
+  "ollama",
+  "sidecar-notes",
+  "image-tagging",
+  "dataview",
+  "local-llm"
+ ]
+}

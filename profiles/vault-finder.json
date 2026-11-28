@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Search vault notes from a right-sidebar panel with keyboard navigation",
+  "Build a local full-text index with automatic incremental updates",
+  "Retrieve results by vector embeddings using a configurable embeddings endpoint",
+  "Expand keywords, filter results, and synthesize summaries with OpenAI, Anthropic, or Gemini",
+  "Save AI summaries as notes to any vault folder"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Not a locator for vault folders or files; it searches the content of notes inside the current vault.",
+ "extras": "Desktop only. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Sent content is limited to the query plus paths and truncated snippets of top hits, not full note bodies; with no API keys configured, indexing and search stay fully local. Settings details are deferred to the plugin settings tab rather than documented in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's built-in search lacks semantic retrieval, mixed Chinese/English tokenization, and AI-assisted filtering or summarization of results.",
+ "readmeHash": "213ba2cb3a31355f69b6222101d0af8a65760361",
+ "relations": [
+  {
+   "evidence": "Local full-text index (MiniSearch) with automatic incremental updates",
+   "plugin": "MiniSearch",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional AI enhancement (OpenAI, Anthropic, Gemini): keyword expansion, relevance filter, Markdown article synthesis",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional AI enhancement (OpenAI, Anthropic, Gemini): keyword expansion, relevance filter, Markdown article synthesis",
+   "plugin": "Anthropic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional AI enhancement (OpenAI, Anthropic, Gemini): keyword expansion, relevance filter, Markdown article synthesis",
+   "plugin": "Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Chat API key (OpenAI, Anthropic, or Gemini) for AI enhancement",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Embeddings API key for vector search",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Right-sidebar full-text search panel with a local MiniSearch index, plus optional vector retrieval and AI keyword expansion and summaries.",
+ "tags": [
+  "vector-search",
+  "embeddings",
+  "minisearch",
+  "chinese",
+  "openai",
+  "anthropic",
+  "gemini"
+ ]
+}

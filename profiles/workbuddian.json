@@ -1,0 +1,92 @@
+{
+ "also": [
+  "integrations",
+  "editing"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a local AI agent",
+  "Reference notes and files with @",
+  "Approve tool calls and edits",
+  "Show line-level diffs with one-click undo",
+  "Rewrite selected text inline"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Slash commands"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Windows/macOS); Linux unsupported. Requires Obsidian 1.7.2+. The WorkBuddy desktop-app route relies on internal interfaces and may break after WorkBuddy updates. Exported settings JSON contains the Hermes API key in plain text.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to run a local AI coding agent against your notes with tool approvals and diffs.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "23964c512e487fe457d8b16841764999c4e4f5c2",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "the CLI behind this plugin's CodeBuddy backend",
+   "plugin": "CodeBuddy / WorkBuddy",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the agent behind this plugin's Hermes backend",
+   "plugin": "Hermes Agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Workbuddian's UI follows its design patterns (no code copied)",
+   "plugin": "Claudian",
+   "type": "inspired"
+  },
+  {
+   "evidence": "early versions referenced or used parts of its implementation",
+   "plugin": "BuddyBridge",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "A backend: CodeBuddy CLI, WorkBuddy desktop app, or Hermes Agent",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "CodeBuddy or WorkBuddy account (for those backends)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js (official CodeBuddy CLI only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "AI agent chat plugin that connects a local Hermes Agent or CodeBuddy/WorkBuddy CLI to your vault with streaming replies, approvals, and inline edits.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "tool-calling",
+  "mcp",
+  "inline-editing",
+  "diff",
+  "slash-menu",
+  "agent-skills"
+ ],
+ "textHash": "af00198c964bfb4ccdcea9c519d417a801940b0e"
+}

@@ -1,0 +1,48 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Wrap tag-shaped text in code spans or code blocks on paste",
+  "Repair notes already broken by raw HTML via a command",
+  "Handle pastes from rendered HTML sources where the tag survives Obsidian's HTML conversion",
+  "Configure detection scope, an ignore list, and confirmation prompts",
+  "Toggle protection from the status bar or a command"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a security or HTML-sanitizing tool; it only rewrites tag-shaped text into code so the renderer ignores it.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff, and the README states it was built with AI assistance (Claude, DeepSeek, Poolside).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author hit the angle-bracket rendering problem in day-to-day use and built the plugin to fix it.",
+ "primary": "editing",
+ "problem": "Pasted text containing something like <name> is parsed as an unclosed raw-HTML tag, so everything below it in the note stops rendering correctly.",
+ "readmeHash": "e47bb2177e4a78e9a8f93bf95c9d35fea3e06fcc",
+ "relations": [
+  {
+   "evidence": "Build setup, release workflow, and manifest.json / versions.json conventions follow the Obsidian sample plugin (MIT).",
+   "plugin": "Obsidian sample plugin",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Paste handler that wraps tag-shaped HTML text in code spans or code blocks so raw angle brackets don't break a note's rendering.",
+ "tags": [
+  "paste-handling",
+  "clipboard",
+  "commonmark",
+  "escaping"
+ ]
+}

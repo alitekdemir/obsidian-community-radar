@@ -1,0 +1,80 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "search across files with whole-word, regex and case-sensitive matching",
+  "scope searches by included/excluded folders and file types",
+  "search text inside PDF, Excalidraw, Excel, PowerPoint, draw.io and Visio files",
+  "jump to results grouped by file with matches highlighted on open",
+  "replace matches in Markdown notes with regex capture-group support"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Limitations section notes that scanned PDFs without a text layer cannot be searched, PlantUML drawn as PNG has no text to highlight, and replace cannot be undone from the panel. The author also makes the companion plugins Rich Table and Rich View, which are needed for Excel, PowerPoint, draw.io and Visio search.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "search",
+ "problem": "Obsidian's core search only covers notes, so text inside PDFs, drawings, spreadsheets and slides is invisible to vault-wide search.",
+ "readmeHash": "6e8a6917d0bcbef885c2341840d8e7dec79a1168",
+ "relations": [
+  {
+   "evidence": "Excel (.xlsx) | Rich Table | Cell values, per sheet.",
+   "plugin": "Rich Table",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PowerPoint (.pptx) | Rich View | Slide text. A result opens at its slide.",
+   "plugin": "Rich View",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Excalidraw (.excalidraw) | Excalidraw | The words in the drawing, not the compressed drawing data",
+   "plugin": "Excalidraw",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Rich Table",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Rich View",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Excalidraw",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Cross-file search panel that matches whole words and regex, scopes by folder and file type, and searches PDF, Excalidraw, Excel, PowerPoint, draw.io and Visio content.",
+ "tags": [
+  "regex",
+  "whole-word",
+  "excalidraw",
+  "excel",
+  "powerpoint",
+  "drawio",
+  "visio",
+  "plantuml"
+ ]
+}

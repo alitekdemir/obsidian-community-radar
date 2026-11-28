@@ -1,0 +1,68 @@
+{
+ "also": [
+  "integrations",
+  "ocr"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe Douyin and TikTok videos into Markdown notes",
+  "OCR Douyin image posts into Markdown",
+  "Scrape WeChat Official Account articles into Markdown",
+  "Fetch timestamped YouTube transcripts with channel metadata",
+  "Auto-import files dropped into a watched inbox folder"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not yet approved for the community plugin store (manifest states it has not been manually reviewed); install via BRAT until approved. Desktop-only, minimum Obsidian 1.4.0. The plugin makes no direct internet calls; only the local backend does, forwarding audio/images to SiliconFlow for ASR/OCR. Known limits: YouTube transcripts fail when captions are disabled, WeChat login-walled articles cannot be extracted, WeChat images may not load due to Referer restrictions, and Douyin OCR takes ~5s per image.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn social media and video links into readable Markdown notes with transcripts, article text, or OCR of images.",
+ "readmeHash": "32107fe325ae55b5d228f5fdfeba1472f0a05902",
+ "relations": [
+  {
+   "evidence": "The backend is a separate FastAPI service that you run locally",
+   "plugin": "anycontent-obsidian-backend",
+   "type": "integrates"
+  },
+  {
+   "evidence": "it forwards the audio / image to whichever provider you've configured your API key with (SiliconFlow by default)",
+   "plugin": "SiliconFlow",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Local FastAPI backend (Python 3.10+, anycontent-obsidian-backend)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "SiliconFlow API key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Imports Douyin, TikTok, WeChat, and YouTube links as Markdown notes by sending them to a local backend for transcription, scraping, or OCR.",
+ "tags": [
+  "douyin",
+  "tiktok",
+  "wechat",
+  "youtube",
+  "siliconflow",
+  "asr",
+  "fastapi"
+ ]
+}

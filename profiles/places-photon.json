@@ -1,0 +1,58 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Resolve search terms to place suggestions and coordinates",
+  "Reverse-resolve coordinates to the nearest named feature",
+  "Provide POI search over OpenStreetMap data"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a stand-alone plugin; it only adds Photon-backed place search to the Places plugin.",
+ "extras": "Not a stand-alone plugin; requires the Places plugin and its places-shared library. Usage examples are in the Places sandbox rather than the README. Makes network requests to Photon for POI and reverse search; no background tasks.",
+ "intent": "improve",
+ "intentEvidence": "Search provider for Places using Photon, with POI search over OpenStreetMap data.",
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "search",
+ "problem": "The Places plugin needs a search backend to turn place names into coordinates and coordinates back into named features.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "b2c858d1c4156048983f1e419683d5c79409bafd",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "This is not a stand-alone plugin, to use, install along side Places.",
+   "plugin": "Places",
+   "type": "extends"
+  },
+  {
+   "evidence": "Search provider for Places using Photon, with POI search over OpenStreetMap data.",
+   "plugin": "Photon",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Places",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Search provider add-on for the Places plugin that uses Photon to resolve place names to coordinates and coordinates to named features.",
+ "tags": [
+  "maps"
+ ],
+ "textHash": "18eae57f13e76492d9a9dcb76c45dce6fcb88828"
+}

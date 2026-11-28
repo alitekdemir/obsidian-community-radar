@@ -1,0 +1,57 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Delay opening today's daily note after startup by a configurable 0-120 seconds",
+  "Resolve the daily-note command by ID with a fallback prefix search",
+  "Optionally skip opening if today's note is already open",
+  "Run a secondary rollover command after the daily note opens",
+  "Trigger the delayed open manually via command and settings button"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a todo or rollover plugin itself; it only delays opening the daily note so another plugin's rollover can trigger.",
+ "extras": "Manual installation only (copy files into .obsidian/plugins); the manifest notes the plugin has not been reviewed by Obsidian staff. README documents known limitations where file-creation-triggered rollover may still need the secondary command or manual run.",
+ "intent": "improve",
+ "intentEvidence": "An unofficial companion for Rollover Daily Todos.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README explains it exists because early note creation during startup on Android and synced vaults caused rollover plugins to miss the file-creation event.",
+ "primary": "dates",
+ "problem": "On some setups (especially Android with synced vaults), the daily note is created so early during startup that plugins listening for file-creation events miss it and rollover never runs.",
+ "readmeHash": "da73519516de861ec416cd3d33364ef6863324c4",
+ "relations": [
+  {
+   "evidence": "An unofficial companion for Rollover Daily Todos.",
+   "plugin": "Rollover Daily Todos",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Rollover Daily Todos",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Companion plugin that delays opening today's daily note at startup so the Rollover Daily Todos plugin reliably catches the note-creation event.",
+ "tags": [
+  "daily-notes",
+  "startup-delay",
+  "command-scheduling",
+  "rollover",
+  "android"
+ ]
+}

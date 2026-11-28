@@ -1,0 +1,58 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Push managed frontmatter fields (name, org, emails, phones) from contact notes to a macOS Contacts group",
+  "Stamp matched Mac cards with a UUID marker and obsidian:// back-link so matching survives renames",
+  "Generate a sync report classifying each contact as in-sync, updated, created, edited-in-mac, orphan-mac, or suggestion",
+  "Run dry-run and confirm-before-write checks before touching Contacts.app",
+  "Create contact notes from a template and bulk-adopt orphan Mac cards"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "macOS only. Requests capabilities beyond typical plugins: shell execution (osascript/JXA), filesystem access outside the vault for temp files, and vault-wide file enumeration; the plugin explains why each is needed. Community plugin submission is pending review, so manual install may be required; further docs in docs/INSTALLATION.md. No network calls or telemetry.",
+ "intent": "alternative",
+ "intentEvidence": "This is a deliberate inversion of raulanatol/obsidian-mac-sync-contacts",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author deliberately inverted the pull-based approach of existing contact-sync plugins so the full record stays in Obsidian while only minimal fields reach Contacts.app.",
+ "primary": "integrations",
+ "problem": "Existing Obsidian contact tools pull contacts from Apple or Google into the vault, but none keep Obsidian as the source of truth and push only caller-identifying fields to macOS Contacts.",
+ "readmeHash": "94d23a5d2890e8208f6846a664b1e7f883731d7f",
+ "relations": [
+  {
+   "evidence": "This is a deliberate inversion of raulanatol/obsidian-mac-sync-contacts",
+   "plugin": "raulanatol/obsidian-mac-sync-contacts",
+   "type": "alternative"
+  },
+  {
+   "evidence": "a plugin-native take on the ideas proven by czottmann/obsidian-people",
+   "plugin": "czottmann/obsidian-people",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "macOS Contacts.app (desktop Obsidian on macOS)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way contact sync that pushes a chosen subset of Obsidian contact notes' frontmatter fields to the macOS Contacts app via osascript.",
+ "tags": [
+  "macos",
+  "contacts-app",
+  "osascript",
+  "jxa",
+  "icloud"
+ ]
+}

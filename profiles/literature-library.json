@@ -1,0 +1,86 @@
+{
+ "also": [
+  "files",
+  "pdf"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Organize papers into a library-category-paper folder structure shown as collapsible entries",
+  "Create paper entries by dragging PDFs into a category",
+  "Look up bibliographic metadata via Crossref or arXiv",
+  "Run document recognition through a PaddleOCR-compatible service",
+  "Translate note content through an OpenAI-compatible chat service"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.11.4+ on desktop; the README warns that the initial release has not been checked on every desktop platform and advises keeping normal vault backups because importing and automatic renaming move or rename files. Automatic metadata lookup on import is on by default and sends DOIs/arXiv IDs to Crossref or arXiv. Not yet listed in Community plugins; installed manually from release files.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README does not state the author's motivation.",
+ "primary": "research",
+ "problem": "Obsidian's file explorer shows plain folders and files, so keeping a paper's PDF, OCR result, translation, notes, and bibliographic metadata together is unwieldy.",
+ "readmeHash": "5d5f9b5dbabbdd96899db11ad720a2af87a03758",
+ "relations": [
+  {
+   "evidence": "Look up metadata through Crossref or arXiv.",
+   "plugin": "Crossref",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Look up metadata through Crossref or arXiv.",
+   "plugin": "arXiv",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Optional PaddleOCR-compatible document recognition with local image downloads.",
+   "plugin": "PaddleOCR",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OCR service",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "translation service",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "OCR/translation credentials",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "service provider accounts",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Literature manager that organizes each academic paper as one collapsible entry in the file explorer, grouping PDF, OCR text, translation, notes, and metadata files in one folder.",
+ "tags": [
+  "crossref",
+  "arxiv",
+  "paddleocr",
+  "translation",
+  "citation-metadata",
+  "openai"
+ ]
+}

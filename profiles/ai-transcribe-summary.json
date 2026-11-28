@@ -1,0 +1,71 @@
+{
+ "also": [
+  "audio",
+  "writing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ", ",
+  "Record meetings",
+  "Transcribe audio files",
+  "Generate structured summaries",
+  "Clean up transcripts"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Tasks",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "API keys are stored locally in the vault data file and should be excluded from version control or shared backups.",
+ "intent": "new",
+ "intentEvidence": "This plugin is built around avoiding those failure modes specifically:",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "To avoid common failure modes in Whisper-based transcription, such as size limits, silence artifacts, and data loss during API calls.",
+ "primary": "ai",
+ "problem": "Standard transcription methods fail due to long recording size limits, silence artifacts, or loss of data during API call failures.",
+ "readmeHash": "55ee348a3341f3d5aae3c634b2b52ef2fed617ac",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Obsidian 1.5.0 or later",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "OpenAI/OpenRouter API key",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Summary provider API key (OpenAI/Gemini/OpenRouter)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "API provider account",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 1
+ },
+ "summary": "A tool for recording meetings, reliably transcribing audio, and generating structured summaries from the resulting transcripts.",
+ "tags": [
+  "whisper",
+  "openai",
+  "openrouter",
+  "gemini",
+  "structured-summary",
+  "meeting-recording",
+  "action-items"
+ ]
+}

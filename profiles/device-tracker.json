@@ -1,0 +1,72 @@
+{
+ "also": [
+  "syncing",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Write created_device on first appearance of a note",
+  "Write modified_device when a human types locally",
+  "Filter out synced-in and programmatic editor changes",
+  "Store device names per device in localStorage",
+  "Support Dataview queries over the device fields"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a human/AI authorship tracker; it records which machine touched the note, not who or what wrote it.",
+ "extras": "Not yet in the official community plugin directory (manual install instructions provided) and marked as not manually reviewed by Obsidian staff. iOS is not supported. Documentation is available in English and Chinese. Device names are not backfilled for pre-existing notes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "File-sync tools keep vaults in step but lose the information of which machine created or last edited a note, and naive tracking breaks because synced-in files count as modify events.",
+ "readmeHash": "21f68696fff43464ea7d24dff6f5f92df19c95da",
+ "relations": [
+  {
+   "evidence": "Once the fields are in your notes, Dataview can filter on them",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "This is a device tracker, not a human/AI tracker.",
+   "plugin": "Authorship Tracker",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Device Tracker is built to sit next to them without loops or fights",
+   "plugin": "update-time-on-edit",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Device Tracker is built to sit next to them without loops or fights",
+   "plugin": "front-matter-timestamps",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Provenance plugin that records which device created and last edited each note in frontmatter, ignoring changes that arrive through sync.",
+ "tags": [
+  "dataview",
+  "provenance",
+  "device-tracking",
+  "multi-device",
+  "localstorage",
+  "syncthing"
+ ]
+}

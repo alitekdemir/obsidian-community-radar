@@ -1,0 +1,79 @@
+{
+ "also": [
+  "graph",
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Renders vault notes as an 80-level semantic contour landscape",
+  "Embeds notes via OpenAI-compatible APIs or local ONNX models",
+  "Detects peaks and names them with an LLM or TF-IDF fallback",
+  "Searches notes semantically and pans the map to the active note",
+  "Exports the landscape as a standalone interactive HTML file"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (macOS/Windows/Linux), no mobile; requires Obsidian v1.8.7+. Zero telemetry; all processing local or via user-configured endpoints. Bilingual Simplified Chinese/English UI.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian's file list and graph view do not show where notes semantically cluster, so large vaults hide their thematic peaks and valleys.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "dd951da8ac379cd7f441f969fe3857127ebbc0c1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "synthesizes domain labels via OpenAI-compatible LLMs (DeepSeek, OpenAI, local Ollama / 127.0.0.1, etc.)",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "synthesizes domain labels via OpenAI-compatible LLMs (DeepSeek, OpenAI, local Ollama / 127.0.0.1, etc.)",
+   "plugin": "DeepSeek",
+   "type": "integrates"
+  },
+  {
+   "evidence": "synthesizes domain labels via OpenAI-compatible LLMs (DeepSeek, OpenAI, local Ollama / 127.0.0.1, etc.)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for OpenAI-compatible embedding or summit-naming endpoints",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Semantic topographic map plugin that renders an Obsidian vault as 80-level contour terrain from embeddings, UMAP and kernel density estimation.",
+ "tags": [
+  "embeddings",
+  "semantic-search",
+  "knowledge-graph",
+  "local-llm",
+  "ollama",
+  "openai-compatible",
+  "multilingual"
+ ],
+ "textHash": "1201cdb5b9141e75edb4fd994a396067826485e3"
+}

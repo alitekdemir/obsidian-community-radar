@@ -1,0 +1,72 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Transcribe YouTube video subtitles into a Markdown note",
+  "Render an interactive mindmap from iris-mindmap code blocks",
+  "Generate a summary and structured mindmap via an OpenAI-compatible LLM endpoint",
+  "Build a degraded-mode mindmap from speech pauses without an LLM",
+  "Write frontmatter metadata indexable by Dataview"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual installation only; not yet in the community plugin marketplace. Without an LLM key it still works in degraded mode (paragraph transcript, pause-based mindmap).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Obsidian has no built-in way to turn a YouTube video's subtitles into a structured, indexable note with a summary and mindmap.",
+ "readmeHash": "2566e37c1c5ee54f313c554860654422ee2ee27b",
+ "relations": [
+  {
+   "evidence": "YouTube — récupération des sous-titres de la vidéo demandée (via youtube-transcript-plus)",
+   "plugin": "youtube-transcript-plus",
+   "type": "integrates"
+  },
+  {
+   "evidence": "markmap-lib et markmap-view — transformation et rendu de la mindmap",
+   "plugin": "markmap-lib / markmap-view",
+   "type": "extends"
+  },
+  {
+   "evidence": "Métadonnées en frontmatter, indexables par Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible LLM endpoint (Fantasy Cloud, Groq, Google AI Studio, OpenRouter)",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "free LLM provider account for summary and structured mindmap",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "YouTube-to-note tool that transcribes a video's subtitles into a Markdown note with an interactive mindmap and an optional LLM summary.",
+ "tags": [
+  "youtube",
+  "subtitles",
+  "transcripts",
+  "mindmap",
+  "markmap",
+  "openai-compatible"
+ ]
+}

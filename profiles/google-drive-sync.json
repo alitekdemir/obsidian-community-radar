@@ -1,0 +1,66 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files bidirectionally with a Google Drive folder",
+  "Push and pull changes via commands, ribbon button, or automatic push",
+  "Resolve conflicts automatically with local file prioritization",
+  "Sync multiple vaults per Google account by vault name",
+  "Sync Obsidian configuration files between devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "Unofficial and independent from Obsidian's own Sync service; it stores vault files in the user's Google Drive.",
+ "extras": "The README strongly warns to always back up the vault, forbids manual edits to the synced Google Drive folder or files outside Obsidian, states there is no manual conflict resolution, and notes vault contents pass between the device and the Google Drive API with a privacy policy provided; setup instructions with images live on the plugin's homepage.",
+ "intent": "alternative",
+ "intentEvidence": "This is not the official sync service provided by Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to sync a vault through a user's own Google Drive account, including on iOS.",
+ "readmeHash": "456e6f4d23dee65f854a30723baef1c22bf64733",
+ "relations": [
+  {
+   "evidence": "This plugin communicates with external servers, namely the Google Drive API",
+   "plugin": "Google Drive API",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Drive refresh token",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted access token endpoint",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Unofficial sync plugin that keeps an Obsidian vault synchronized with a Google Drive folder across devices, including the iOS app.",
+ "tags": [
+  "google-drive",
+  "ios",
+  "two-way-sync",
+  "conflict-resolution",
+  "refresh-token",
+  "self-hosted-endpoint"
+ ]
+}

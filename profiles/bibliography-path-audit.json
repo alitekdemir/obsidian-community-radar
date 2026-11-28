@@ -1,0 +1,69 @@
+{
+ "also": [
+  "files",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read saved path fields from Citations or Citation Extended settings",
+  "Flag edge spaces, leading slashes, and hidden Markdown suffixes",
+  "Sample the target file for BibTeX or CSL JSON content",
+  "List up to eight same-folder files with matching base names",
+  "Label Windows, UNC, and desktop paths as outside the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a reference manager or importer; it only reads citation tool settings and reports path faults without changing settings or files.",
+ "extras": "Free audit only; named reports and batch checks are listed as planned Pro work, and the GitHub Sponsors sign-in adds no features in this release. A What's new tab opens after minor or major updates and can be turned off in settings. README lists untested areas: Linux CI, light themes, physical mobile devices, Windows desktop, symlink escapes, live citation plugin releases, real sponsorship payments, large reference collections. Content reads are skipped above 2 MiB; sample inspection covers up to 4096 characters.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "A citation tool stops loading references when its saved bibliography path has a small fault, and Obsidian gives no way to inspect that stored value.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "1585ae1da262ccc1b1143494828da02fc7cea335",
+ "relations": [
+  {
+   "evidence": "Citations uses its saved export path and format.",
+   "plugin": "Citations",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Citation Extended lists entries with an explicit local-file or vault-file source and a supported format.",
+   "plugin": "Citation Extended",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Citations or Citation Extended",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "GitHub account sponsoring theluckystrike",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Read-only auditor that reads Citations or Citation Extended path settings and reports faults in the saved local bibliography path.",
+ "tags": [
+  "bibtex",
+  "citations",
+  "broken-links",
+  "local-first",
+  "secret-storage"
+ ],
+ "textHash": "d1c52bf7342516a7e1d8538936a43442babd8f5e"
+}

@@ -1,0 +1,68 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync tagged tasks bidirectionally with a dedicated Microsoft To Do list",
+  "Map task fields (due/scheduled dates, priority, completion, in-progress) between Markdown and To Do",
+  "Carry indented notes and one level of sub-checkboxes into To Do body and steps",
+  "Capture new To Do tasks into vault notes and route sub-tags to dedicated lists",
+  "Attach obsidian:// deep links that open and highlight the task line from To Do"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a vault-wide sync tool; it only syncs explicitly tagged task lines with Microsoft To Do and never touches untagged tasks or other To Do lists.",
+ "extras": "Documentation is bilingual (Chinese and English). The README notes the plugin is pending inclusion in the official community plugin directory, so it may need manual installation from GitHub Releases meanwhile.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Tasks written in Obsidian Markdown stay in the vault, so users who rely on Microsoft To Do for mobile reminders and check-off have no bridge between the two.",
+ "readmeHash": "203228e52ded0a6c415423cf6d1e0d3512fdd5d0",
+ "relations": [
+  {
+   "evidence": "The plugin talks to Microsoft Graph for your To Do account—sign-in, push, and pull.",
+   "plugin": "Microsoft To Do",
+   "type": "integrates"
+  },
+  {
+   "evidence": "so Obsidian Tasks can still parse metadata from the end of the line",
+   "plugin": "Obsidian Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Microsoft account",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Microsoft To Do",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Two-way sync plugin that mirrors tagged Obsidian tasks to a dedicated Microsoft To Do list, with notes, subtasks, reminders, and deep links.",
+ "tags": [
+  "microsoft-todo",
+  "microsoft-graph",
+  "two-way-sync",
+  "deep-links",
+  "reminders",
+  "tasks-plugin"
+ ]
+}

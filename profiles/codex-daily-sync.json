@@ -1,0 +1,87 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Save Codex Desktop tasks as Markdown notes",
+  "Copy conversation images into the attachments folder",
+  "Link tasks into a Dataview daily track by creation date",
+  "Import local WorkBuddy conversations",
+  "Update only a managed region so user text is kept"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a daily journal; it archives AI conversations and only optionally links them into a Dataview daily track.",
+ "extras": "WorkBuddy support is marked experimental and its local file format has no stability promise; Windows support is listed as hardware validation in progress; data.json stores task IDs and note paths and should be treated as personal data.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author wanted AI conversations that produce plans, debugging conclusions and drafts to be filed into the knowledge base instead of being lost under the next conversation.",
+ "primary": "integrations",
+ "problem": "Plans, debugging conclusions and drafts worked out with an AI get buried under the next conversation, with no automatic way to keep them in the vault.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "e483926c0384c9437ad4a96db04c0b55df087894",
+ "readmeSource": "README.en.md",
+ "relations": [
+  {
+   "evidence": "optionally link each task into a Dataview daily track by its creation date",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local Codex Desktop installation",
+   "plugin": "Codex Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Save your local WorkBuddy conversations as notes too",
+   "plugin": "WorkBuddy",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex Desktop",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "WorkBuddy",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Syncs local Codex Desktop tasks, and optionally WorkBuddy conversations, into Markdown notes with question-and-answer callouts and images.",
+ "tags": [
+  "ai-chat",
+  "codex",
+  "openai",
+  "dataview",
+  "daily-notes",
+  "local-first"
+ ],
+ "textHash": "6b67a7b4efb506415f5e906dd887d0a731619799"
+}

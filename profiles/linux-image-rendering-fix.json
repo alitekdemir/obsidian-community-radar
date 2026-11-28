@@ -1,0 +1,46 @@
+{
+ "also": [],
+ "audience": [
+  "linux-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Intercept Markdown rendering to find image elements",
+  "Read image files directly from disk and rewrite src as Blob URLs",
+  "Bypass the broken app:// protocol for non-ASCII paths and missing codecs",
+  "Support png, jpg, gif, webp, svg and bmp formats"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "README states the underlying defect is an upstream Electron/Chromium bug the Obsidian team cannot fix directly. The plugin is marked as not manually reviewed by Obsidian staff, and bug reports are directed to a separate issues page.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "images",
+ "problem": "On Linux, Obsidian often fails to display local images because the app:// protocol cannot resolve non-ASCII paths and some Electron builds lack image codecs.",
+ "readmeHash": "99d8505a5ec470a6bb5043908f20649dc0ebfed5",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Linux workaround that rewrites image sources to Blob URLs so local images display on Ubuntu, Snap, Flatpak and DEB installs.",
+ "tags": [
+  "linux",
+  "ubuntu",
+  "electron",
+  "blob-url",
+  "snap",
+  "flatpak",
+  "deb"
+ ]
+}

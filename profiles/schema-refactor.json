@@ -1,0 +1,53 @@
+{
+ "also": [
+  "bases",
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rename top-level frontmatter properties across Markdown files",
+  "Update property references in Bases filters, formulas, sorting, grouping, and columns",
+  "Preview affected files, locations, and diffs before writing",
+  "Create snapshots and undo plans and roll back failed writes",
+  "Audit the vault with a read-only Doctor for missing, unused, or drifted properties"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general code or text refactoring tool; it only renames top-level frontmatter properties and their references in Bases.",
+ "extras": "Must currently be built from source or have main.js, manifest.json, and styles.css placed manually in the plugins folder; requires Obsidian 1.9.0 or later. Mobile supports Doctor, scanning, and review only, not writes. Snapshots are stored under .obsidian/plugins/schema-refactor/snapshots/. Runs entirely locally with no account, server, telemetry, or AI service.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Renaming a property manually risks missing a reference, which can leave a Base incomplete or silently produce wrong results; the author wanted one reviewed workflow for the whole vault.",
+ "primary": "properties",
+ "problem": "Renaming a property normally means updating many files by hand, and bulk text replacement is unsafe because the same word can appear in note content, string literals, or unsupported configuration shapes.",
+ "readmeHash": "6488f2ab0f49e61693e8d94c2fc927ecc1436022",
+ "relations": [
+  {
+   "evidence": "Updates exact property references in supported Obsidian Bases structures.",
+   "plugin": "Bases",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault-wide property renamer that updates frontmatter keys and their Bases references with review, snapshots, rollback, and undo.",
+ "tags": [
+  "rename",
+  "refactoring",
+  "rollback",
+  "undo",
+  "snapshots",
+  "transactions"
+ ]
+}

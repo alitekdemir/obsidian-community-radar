@@ -1,0 +1,49 @@
+{
+ "also": [
+  "files",
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Replace the first H1 heading with the new file name after a rename",
+  "Skip updates when heading and file name intentionally differ or the metadata cache is stale"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a bulk file renamer; it only rewrites the note's first H1 heading after a rename, never renames files or inserts headings.",
+ "extras": "Desktop only; mobile support is listed as a TODO. Includes a troubleshooting section explaining why it does nothing when Obsidian's metadata cache is out of sync.",
+ "intent": "alternative",
+ "intentEvidence": "There is an alternate plugin, you might want to check out: Obsidian Filename Heading Sync.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author prefers keeping the title inside the file contents so the Markdown is self-contained in other editors, and dislikes the more aggressive syncing behaviour of an existing plugin.",
+ "primary": "formatting",
+ "problem": "When a file is renamed (e.g. after a template fills in '# Untitled'), the H1 heading inside the note still shows the old name, so heading and file name drift apart.",
+ "readmeHash": "8073694203c1cb7a4dbc1f4f38e6451a21807021",
+ "relations": [
+  {
+   "evidence": "There is an alternate plugin, you might want to check out: Obsidian Filename Heading Sync.",
+   "plugin": "Obsidian Filename Heading Sync",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Heading-sync plugin that updates a note's first H1 to match a new file name after a rename, and leaves it alone otherwise.",
+ "tags": [
+  "h1",
+  "heading",
+  "inline-title",
+  "file-rename",
+  "sync"
+ ]
+}

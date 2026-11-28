@@ -1,0 +1,69 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Detect renames made outside Obsidian",
+  "Report external renames to Obsidian as single renames",
+  "Recognize renames made while Obsidian was closed",
+  "Handle moved files and whole folders",
+  "Offer to install Advanced Rename and Delete Handler"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a file-renaming tool; it only recognizes renames made outside Obsidian and reports them.",
+ "extras": "Documentation is a demo vault shipped with releases and browsable on GitHub. Renames are only recognized where the file system keeps a file's inode, and dot-files are never handled. Since 4.0.0 the plugin no longer rewrites links itself.",
+ "intent": "improve",
+ "intentEvidence": "recognizes those external renames for what they are and reports them to Obsidian as a single rename",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "files",
+ "problem": "A file renamed in a file manager, script or sync client arrives in Obsidian as a delete plus a create, so every note linking to it is left pointing at nothing.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "54d9a0c2ca951e1397d19a5f6dc04955b2005e09",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Rewriting the links that pointed at the old name is then done by Advanced Rename and Delete Handler",
+   "plugin": "Advanced Rename and Delete Handler",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Same goal, different detection: pairs by inode",
+   "plugin": "Link Keeper",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal, different detection: pairs by inode; finds offline renames by itself",
+   "plugin": "Resource Link Refactor",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Advanced Rename and Delete Handler",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Detects renames made outside Obsidian and reports them as a single rename so files keep their identity and open tabs follow.",
+ "tags": [
+  "rename",
+  "filenames",
+  "file-explorer"
+ ],
+ "textHash": "8bd7bbc4a9e75822358b4776ee66a4d2b6ad5f8b"
+}

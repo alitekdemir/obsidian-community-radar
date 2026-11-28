@@ -1,0 +1,65 @@
+{
+ "also": [
+  "syncing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Organize, summarize, and generate Markdown from notes on request",
+  "Read and write vault files through the Obsidian Vault API",
+  "Synchronize the vault through a user-configured LiveSync-based server",
+  "Migrate legacy obsidian-livesync configuration and prevent duplicate sync instances"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The server-side Hermes adapter, deployment files, and credentials are excluded from the public repository, so only the client is auditable. Full AI access requires an OsyC account or activation card, and requested vault content is sent to the configured backend, which may retain task metadata. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "alternative",
+ "intentEvidence": "The src/ directory contains the auditable LiveSync-derived client source and OsyC integration modules.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI note organization or generation, and its sync options require manual setup or a first-party subscription.",
+ "readmeHash": "1aa06e9342b42a042a8eca04416220e5197ddae8",
+ "relations": [
+  {
+   "evidence": "The src/ directory contains the auditable LiveSync-derived client source",
+   "plugin": "obsidian-livesync",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "OsyC account",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "activation card / paid AI entitlements",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "activation card key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 3
+ },
+ "summary": "AI assistant that organizes, summarizes, and generates Markdown from vault notes, with optional LiveSync-based sync through a user-configured paid backend.",
+ "tags": [
+  "livesync",
+  "hermes-adapter",
+  "activation-card",
+  "note-organizer"
+ ]
+}

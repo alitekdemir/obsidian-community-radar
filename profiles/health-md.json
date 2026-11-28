@@ -1,0 +1,65 @@
+{
+ "also": [
+  "charts"
+ ],
+ "audience": [
+  "quantified-self"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render health visualization charts from health-viz code blocks",
+  "Filter chart data by date, datetime, and rolling windows",
+  "Generate and regenerate a Health Dashboard reference note",
+  "Insert visualizations via a command palette wizard",
+  "Configure data folder structure, file patterns, and formats"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Falls back to a bundled mock dataset when the data folder is empty; chart availability differs between iOS (HealthKit) and Android (Health Connect), with mood and medication views iOS-only.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "visualization",
+ "problem": "Obsidian has no built-in way to turn health tracking data files sitting in a vault into charts inside notes.",
+ "readmeHash": "7aa23e428ccba57821ad70a4733d5ace5242f7b8",
+ "relations": [
+  {
+   "evidence": "Download Health.md on the App Store, or Health.md for Android on Google Play, to easily export and get access to your health data.",
+   "plugin": "Health.md",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add a health-viz block to your daily-note template (Templates or Templater plugin)",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Health.md app (Apple Health / Health Connect exports)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Renders interactive Apple Health-style charts in notes from JSON, CSV, Markdown, or Bases health-export files stored in the vault.",
+ "tags": [
+  "apple-health",
+  "healthkit",
+  "whoop",
+  "sleep-tracking",
+  "heart-rate",
+  "workouts",
+  "medication",
+  "quantified-self"
+ ]
+}

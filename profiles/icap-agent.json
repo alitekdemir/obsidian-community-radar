@@ -1,0 +1,87 @@
+{
+ "also": [
+  "editing",
+  "research"
+ ],
+ "audience": [
+  "students",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Explain selected words or passages in place",
+  "Generate recall prompts and check questions with feedback",
+  "Run request blocks with file references, skills and images",
+  "Save conversations as session notes",
+  "Read PDF, EPUB and Word documents with page citations"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop uses the bundled Pi runtime; mobile runs a reduced agent with API keys kept in the device keychain, no shell, no file tools outside the vault and no Pi skills or MCP servers. Scanned PDFs without a text layer cannot be read (no OCR). main.js is about 9 MB.",
+ "intent": "alternative",
+ "intentEvidence": "Coming from ICPA (icpa-agent)? ICAP imports its settings on first start; then remove the old plugin.",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The name comes from the ICAP framework (Chi & Wylie, 2014): learning deepens from Passive to Active, Constructive and Interactive.",
+ "primary": "ai",
+ "problem": "Studying from notes is passive: Obsidian has no built-in way to get explanations, self-testing or feedback without switching to a separate chat window.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "bc151e8ee8c725ab3e31636bc6c2afc2a22721bb",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Coming from ICPA (icpa-agent)? ICAP imports its settings on first start; then remove the old plugin.",
+   "plugin": "ICPA (icpa-agent)",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Its agent is Pi, built into the plugin and connected to your own model provider",
+   "plugin": "Pi",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Pi stores it in ~/.pi/agent/auth.json, shared with the Pi CLI.",
+   "plugin": "Pi CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Model provider account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Pi (1.5.0 or later)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "In-note learning agent that writes explanations, recall prompts, quiz feedback and request blocks into your notes, powered by the Pi runtime.",
+ "tags": [
+  "ai-agents",
+  "llm",
+  "active-recall",
+  "quizzes",
+  "epub",
+  "docx",
+  "byok"
+ ],
+ "textHash": "56283124e01da82a3575f5bc730163430294fc65"
+}

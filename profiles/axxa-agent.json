@@ -1,0 +1,71 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with models from OpenAI, Anthropic, Gemini, OpenRouter, NVIDIA NIM or local Ollama",
+  "answer questions over the vault with hybrid search that cites notes as wikilinks",
+  "run an agent that creates, edits, moves and deletes notes behind confirmation levels",
+  "store chats, skills and cost reports as Markdown files in the vault",
+  "track API spend and remaining free-tier quotas by provider, model and day"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not just an agent despite the name; it also offers plain chat and a vault Q&A mode.",
+ "extras": "Free with no tiers or account; users pay their AI provider directly. The manifest notes the plugin has not been manually reviewed by Obsidian staff, and the README carries unusually detailed privacy and network-use disclosures.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI assistant, so chatting with models, asking questions over your notes, and letting an agent edit the vault all require a plugin.",
+ "readmeHash": "d3240dade7e08e817ed0fecf9820526bd35f8f81",
+ "relations": [
+  {
+   "evidence": "Chat, Vault Q&A and the agent can all run on your machine with Ollama",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "web_search, which needs your own Tavily key (1,000 free searches a month)",
+   "plugin": "Tavily",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Install BRAT, add axxalab/axxa-agent, and BRAT keeps you on the latest beta",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "one AI provider key (OpenAI, Anthropic, Gemini, OpenRouter or NVIDIA NIM)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama server for local models",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI panel with chat, vault Q&A that cites your notes, and a confirm-first agent that edits notes, mobile-first, across six bring-your-own-key providers.",
+ "tags": [
+  "rag",
+  "embeddings",
+  "ollama",
+  "openai",
+  "claude",
+  "gemini",
+  "openrouter",
+  "tavily"
+ ]
+}

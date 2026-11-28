@@ -1,0 +1,78 @@
+{
+ "also": [
+  "dates"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Show lunar dates, solar terms and Taiwanese festivals in month and year grids",
+  "Mark public holidays, substitute holidays and make-up workdays",
+  "Open or create the periodic note for a day, week, month, quarter or year",
+  "Add events and reminders that are written into daily note properties",
+  "Fire reminders through a dialog, corner notice or desktop notification"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a calendar sync or CalDAV client; the holiday data ships inside the plugin and your entries are stored in daily note properties.",
+ "extras": "Makes no network requests; the holiday table is bundled and a CI step fails the release if a network call site appears. Years without an official announcement fall back to algorithmic holidays until you paste the JSON in the settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "calendar",
+ "problem": "Obsidian calendars show plain dates, with no Taiwanese holiday table, substitute workdays, lunar dates or solar terms, and no quick way to reach the periodic note for a day.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "2f802d51514ad57ed5ce47b1cdf4dd12f868ae8a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Pairs with QuickAdd to create daily, weekly, monthly, quarterly and yearly periodic notes.",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Periodic notes come from either the core Daily Notes plugin or the community Periodic Notes plugin",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Weekly notes are also recognised from the Calendar plugin's settings.",
+   "plugin": "Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Daily Notes or Periodic Notes",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "QuickAdd",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Taiwanese almanac calendar showing public holidays, substitute workdays, lunar dates and solar terms in month and year views, plus a sidebar and floating window.",
+ "tags": [
+  "lunar-calendar",
+  "daily-notes",
+  "periodic-notes",
+  "reminders",
+  "quickadd",
+  "offline"
+ ],
+ "textHash": "835b09f4a82e28977f8e2cef1f4880b2defe939a"
+}

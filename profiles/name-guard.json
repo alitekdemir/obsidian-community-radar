@@ -1,0 +1,50 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "block creation of notes whose name already exists in the vault",
+  "block renames and moves into a name that is already taken",
+  "restrict guarding to situations where shortest-path links are affected",
+  "scope enforcement by file type, defaulting to Markdown"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Full documentation (getting started, how it works, settings reference, FAQ) lives in separate linked files not included in the README.",
+ "intent": "improve",
+ "intentEvidence": "Keep every note name unique — and stop Obsidian from silently rewriting your links.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because automatic link rewrites changed links the user never touched, created noisy git diffs, and made careless undos leave links resolving to the wrong file.",
+ "primary": "links",
+ "problem": "With 'Shortest path when possible' link format, a second note sharing a name makes Obsidian silently rewrite existing wikilinks to full paths, touching notes the user never edited.",
+ "readmeHash": "b57e1f3f414aada09aed08f5427d03f54ed6249d",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "NameGuard",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault guard that blocks creating, renaming, or moving notes whose name would duplicate an existing note, preventing shortest-path link rewrites.",
+ "tags": [
+  "wikilinks",
+  "shortest-path",
+  "duplicate-names",
+  "link-rewrites",
+  "local-only"
+ ]
+}

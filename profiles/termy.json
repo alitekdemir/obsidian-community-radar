@@ -1,0 +1,84 @@
+{
+ "also": [
+  "utilities",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Run local shells in split panes",
+  "Build and launch reusable workflows",
+  "Hand off note context to AI CLIs",
+  "Open file references from terminal output",
+  "Customize terminal appearance and rendering"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only because it uses a native Rust PTY backend. No telemetry or analytics. Downloads the matching native PTY binary from GitHub Releases on demand; offline mode disables downloads and update checks. Uses local WebSocket connections for terminal transport and the IDE bridge, plus a local-only dsh-TUI selection bridge on 127.0.0.1. UI localized in English, Simplified Chinese, Japanese, Korean, and Russian. Listed in the official Community Plugins directory; BRAT can track early tagged builds.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": "Built for people who already live in Obsidian and do real work in a terminal, wanting more than a plain terminal pane but a workflow-oriented environment aligned with vault and editor context.",
+ "primary": "developers",
+ "problem": "Obsidian has no built-in terminal, and AI CLI sessions started outside it cannot access the active note, vault, or editor selection.",
+ "profiledAt": "2026-11-25",
+ "provider": "Baidu",
+ "readmeHash": "62be6c21af31b0515cbd7fb166802dd2a7ebcae2",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Claude Code and OpenCode use Termy's IDE bridge",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Claude Code and OpenCode use Termy's IDE bridge",
+   "plugin": "OpenCode",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex uses a vault-local Skill at .agents/skills/termy-obsidian-context/SKILL.md",
+   "plugin": "Codex CLI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the built-in dsh-TUI launcher receives Obsidian editor selections through dsh-TUI's protocol-v2 loopback bridge",
+   "plugin": "dsh-TUI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "built-in launchers for Claude Code, Codex CLI, OpenCode, Gemini CLI, Hermes, Pi, and dsh-TUI",
+   "plugin": "Gemini CLI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, Codex CLI, or OpenCode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Terminal emulator for Obsidian with split panes, reusable workflows, and AI CLI context handoff, powered by xterm.js and a Rust PTY backend.",
+ "tags": [
+  "terminal",
+  "cli",
+  "split-view",
+  "claude-code",
+  "codex",
+  "opencode",
+  "gemini-cli"
+ ],
+ "textHash": "234f24932264fa680c117f6f6160750f6773c385"
+}

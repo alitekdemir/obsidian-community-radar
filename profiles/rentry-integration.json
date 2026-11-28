@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create Rentry pastes from vault notes via command palette or file context menu",
+  "Update and remove existing pastes with one-way sync towards Rentry",
+  "Upload image embeds to Cloudinary (experimental)",
+  "Track paste state through frontmatter properties like rentryId and rentryEditCode"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Cloudinary image uploads are marked experimental and need credentials; the manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish individual notes to Rentry or keep those pastes in sync with the vault.",
+ "readmeHash": "bb3a971c6d20046a252f277e77cba2e217fcc014",
+ "relations": [
+  {
+   "evidence": "Share your vault notes using Rentry",
+   "plugin": "Rentry",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Image embed uploads via Cloudinary (experimental, requires credentials.",
+   "plugin": "Cloudinary",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Rentry",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Cloudinary credentials",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Publishing plugin that shares vault notes as pastes on Rentry, with paste updating, removal, and optional image uploads via Cloudinary.",
+ "tags": [
+  "rentry",
+  "cloudinary",
+  "paste",
+  "image-uploads"
+ ]
+}

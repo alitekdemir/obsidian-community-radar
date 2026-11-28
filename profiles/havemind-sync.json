@@ -1,0 +1,79 @@
+{
+ "also": [
+  "collaboration"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a shared vault in real time across desktop and mobile through a self-hosted server",
+  "Merge non-overlapping edits automatically and keep both versions as conflict copies",
+  "Track who wrote each change in an Activity panel and restore past note versions",
+  "Invite and approve members with a one-time invitation and a 6-digit voice handshake",
+  "Run background AI agents as vault members with task notes (optional)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "No end-to-end encryption: the server stores the vault in plaintext, so whoever controls the server machine can read everything; the README includes a security model and privacy disclosures. Syncs only an .obsidian/ appearance allowlist, never plugins, and only attachments up to 25 MB (PNG, JPG, GIF, WebP, SVG, PDF).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's own Sync is a hosted service, and small groups who want to share one vault on hardware they control have no self-hosted option with per-author history and conflict handling.",
+ "readmeHash": "3b5a771b0d53aa3e25b9967f3762a27fe2deac1f",
+ "relations": [
+  {
+   "evidence": "Set up Tailscale. Make a free account, turn on MagicDNS and HTTPS certificates in its admin console",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "With a local Ollama nothing leaves.",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "run Claude, MCP or another local agent in that vault, its edits land in the same history",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Self-hosted Havemind server (your own hardware, Docker install script or manual build)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Model provider API key for AI agents (or local Ollama)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Self-hosted real-time vault sync for two or three people, with authorship tracking, conflict copies, per-note history and optional AI agents as members.",
+ "tags": [
+  "tailscale",
+  "self-hosted",
+  "docker",
+  "three-way-merge",
+  "restic",
+  "ollama",
+  "claude"
+ ]
+}

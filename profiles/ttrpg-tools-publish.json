@@ -1,0 +1,79 @@
+{
+ "also": [
+  "ttrpg"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "generate the Publish runtime in publish.js and publish.css between markers",
+  "convert map and timeline data into publishable Markdown data notes",
+  "generate assets manifest notes linking all referenced files",
+  "render read-only interactive maps (pan, zoom, markers, overlays) on the Publish site",
+  "render timeline code blocks from pre-generated data notes on the Publish site"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a TTRPG content or campaign tool itself; it only prepares Maps and Timeline output for Obsidian Publish.",
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README warns that inline (storage: note) marker storage is not supported; JSON marker files are required. Roadmap mentions future tools and design options.",
+ "intent": "improve",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Kept separate from Maps and Timeline so non-Publish users avoid extra runtime, the main plugins stay smaller, and other tools can gain Publish support later.",
+ "primary": "publishing",
+ "problem": "Obsidian Publish cannot render TTRPG Tools interactive maps or timeline code blocks without a generated runtime and pre-exported data notes.",
+ "readmeHash": "e1297e9c43cd044fcc6a098e164e57a64462b1c6",
+ "relations": [
+  {
+   "evidence": null,
+   "plugin": "TTRPG Tools: Maps (Zoom Map)",
+   "type": "extends"
+  },
+  {
+   "evidence": "TTRPG Tools: Timeline (Simple Timeline) so timeline code blocks can be rendered",
+   "plugin": "TTRPG Tools: Timeline (Simple Timeline)",
+   "type": "extends"
+  },
+  {
+   "evidence": "a helper plugin for people who publish their vault as a website (Obsidian Publish)",
+   "plugin": "Obsidian Publish",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "paidService",
+   "name": "Obsidian Publish (with custom domain)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "TTRPG Tools: Maps (Zoom Map)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "TTRPG Tools: Timeline (Simple Timeline)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Publish bridge that generates publish.js, publish.css and data notes so TTRPG Tools maps and timelines render on Obsidian Publish sites.",
+ "tags": [
+  "obsidian-publish",
+  "interactive-maps",
+  "markers",
+  "timelines",
+  "publish-js"
+ ]
+}

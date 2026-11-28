@@ -1,0 +1,77 @@
+{
+ "also": [
+  "research",
+  "templating"
+ ],
+ "audience": [
+  "korean-language-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Search books across multiple providers by title or ISBN13",
+  "Create book notes from templates with customizable frontmatter and cover images",
+  "Update book info and abstract sections in existing notes",
+  "Detect duplicate notes vault-wide by ISBN13 before creation",
+  "Track reading status with wishlist/reading/read commands and date stamping"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, search is only the input; the plugin's job is creating and maintaining book notes in the vault, not just looking books up.",
+ "extras": "Generated notes carry a mandatory YES24 attribution footer with no toggle when YES24 data is used; the Aladin OpenAPI shuts down 2026-10-30 and its code is removed in v2.0.0, which also ends the used-book price check feature with no replacement; full changelog lives in CHANGELOG.md rather than the README.",
+ "intent": "alternative",
+ "intentEvidence": "Successor to anpigon/obsidian-book-search-plugin (unmaintained)",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Built to solve the Naver Book Search API end-of-life (2026-08-01) and provide a proper Korean-first book note workflow after the predecessor plugin became unmaintained.",
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to search external book databases and generate book notes, and the main Korean source lost its API.",
+ "readmeHash": "0d1efd22b422a822432fdd06003a598fc2530fe0",
+ "relations": [
+  {
+   "evidence": "Successor to anpigon/obsidian-book-search-plugin (unmaintained)",
+   "plugin": "anpigon/obsidian-book-search-plugin",
+   "type": "replaces"
+  },
+  {
+   "evidence": "If you already hold a working TTB Key, the Aladin provider keeps functioning until the shutdown date",
+   "plugin": "Aladin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "YES24",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Kakao",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Books",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Book note maker that metasearches YES24, Kakao, Google Books, and Open Library and creates templated notes with frontmatter, covers, and reading status.",
+ "tags": [
+  "yes24",
+  "kakao",
+  "google-books",
+  "open-library",
+  "aladin",
+  "isbn",
+  "korean-books"
+ ]
+}

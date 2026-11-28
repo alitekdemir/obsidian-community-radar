@@ -1,0 +1,68 @@
+{
+ "also": [
+  "pdf"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Preview .pptx, .docx, and .xlsx files in Obsidian tabs",
+  "Convert documents to PDF with headless LibreOffice",
+  "Auto-refresh the preview when the file changes on disk, including edits by AI agents",
+  "Navigate a custom PDF viewer with zoom, rotation, sheet tabs, and a thumbnail rail",
+  "Install LibreOffice from the plugin's settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop Obsidian only; each conversion spins up a fresh LibreOffice process taking ~15-20s, so refreshes are not instant. The README details several rendering limitations, such as no detection of purely visual edits and single-page Excel sheet exports requiring LibreOffice 24.8+.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "attachments",
+ "problem": "Obsidian has no built-in viewer for Office documents, so opening .pptx/.docx/.xlsx files means leaving the app for the OS default application.",
+ "readmeHash": "efc346a2d8a4d4a1606b1b4bef614531d26f39d9",
+ "relations": [
+  {
+   "evidence": "The file is converted to PDF with soffice --headless --convert-to pdf.",
+   "plugin": "LibreOffice",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The PDF is rendered with pdf.js onto a <canvas>",
+   "plugin": "pdf.js",
+   "type": "integrates"
+  },
+  {
+   "evidence": "including edits made by an external tool or an AI agent (e.g. Claude Code CLI",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "LibreOffice",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Document previewer that opens PowerPoint, Word, and Excel files in Obsidian tabs, rendering them via a headless LibreOffice install.",
+ "tags": [
+  "libreoffice",
+  "pdfjs",
+  "pptx",
+  "docx",
+  "xlsx",
+  "soffice",
+  "ai-agents",
+  "office-documents"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "also": [
+  "calendar",
+  "sidebar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "View incomplete tasks grouped by day in a timeline pane or embedded note block",
+  "Filter tasks by free text, status, tags, and due dates",
+  "Create, complete, reopen, and quick-edit tasks through the TaskNotes API",
+  "Reschedule tasks by dragging them onto another day",
+  "Show calendar events from ICS, Google, and Microsoft feeds"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest carries Obsidian's 'not manually reviewed' warning. Calendar events are read through feature-detected TaskNotes services because there is no public Runtime calendar namespace yet; a missing or incompatible TaskNotes API shows an error instead of scanning the vault.",
+ "intent": "improve",
+ "intentEvidence": "Companion plugin for TaskNotes that shows an agenda-style Today's Timeline",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tasks",
+ "problem": "TaskNotes has no day-agenda view that groups incomplete tasks by date, shows overdue/unplanned stats, and allows quick rescheduling and creation in one place.",
+ "readmeHash": "8bcffbeb285ce98a5c6cf8a8dc13f581439bdfb6",
+ "relations": [
+  {
+   "evidence": "Companion plugin for TaskNotes that shows an agenda-style Today's Timeline",
+   "plugin": "TaskNotes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Optional calendar events — ICS / Google / Microsoft when those TaskNotes integrations are active",
+   "plugin": "TaskNotes ICS / Google / Microsoft calendar services",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Add Grmglib/tasknotes-timeline-wrapper in BRAT.",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google / Microsoft calendar accounts (via TaskNotes integrations)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Agenda-style Today's Timeline pane for TaskNotes with date-grouped tasks, stat tiles, filters, calendar events, and quick task entry.",
+ "tags": [
+  "agenda",
+  "ics",
+  "google-calendar",
+  "microsoft-calendar",
+  "drag-and-drop",
+  "reminders"
+ ]
+}

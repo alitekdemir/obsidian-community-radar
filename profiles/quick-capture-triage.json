@@ -1,0 +1,59 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Show untriaged inbox notes in a sidebar panel",
+  "Save a note by setting status to active and moving it to the organized folder",
+  "Discard a note to Obsidian's trash",
+  "Scan a configurable inbox folder for untriaged notes",
+  "Strip legacy inbox tags from older notes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Does not capture notes itself; it only triages notes already synced into the vault by an external server.",
+ "extras": "Manual install only (build from source; not yet in the community plugin store). Architecture docs live in CLAUDE.md / AGENTS.md / GEMINI.md, not the README. Parts of the README (settings labels) are in Chinese.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Notes captured by an external pipeline land in the vault unreviewed, and Obsidian has no built-in flow to quickly keep or discard each one.",
+ "readmeHash": "6a922fe2b337acf208e9292935f47508cdc254d1",
+ "relations": [
+  {
+   "evidence": "notes synced into your vault's inbox folder by the main Obsidian Inbox server",
+   "plugin": "obsidian-inbox",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "obsidian-inbox server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Sidebar panel for triaging notes synced into your inbox folder by the obsidian-inbox server, with a keep or discard button per note.",
+ "tags": [
+  "inbox",
+  "quick-capture",
+  "triage",
+  "self-hosted",
+  "keep-or-discard"
+ ]
+}

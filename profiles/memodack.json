@@ -1,0 +1,74 @@
+{
+ "also": [
+  "languages",
+  "integrations"
+ ],
+ "audience": [
+  "language-learners"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Annotate words with inline translations using {value|translation} syntax",
+  "Translate selected words into plugin syntax via a Translate command",
+  "Attach images to words with same-named links",
+  "Practice selected or all vocabulary with voiceover playback",
+  "Configure Google or custom translation and text-to-speech providers"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Translation and voiceover do not work without either a Google Cloud API key or a locally run Translator service; the README markets the plugin as offline and free but the network services still need setup.",
+ "intent": "alternative",
+ "intentEvidence": "Forget expensive apps like Quizlet, Readlang, and others. Memodack is a simpler, free alternative",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "flashcards",
+ "problem": "Obsidian has no built-in way to mark up foreign-language words with translations and drill them, and dedicated apps like Quizlet are paid and separate from your notes.",
+ "readmeHash": "0015560fd03fe0506ed738e09a0098765182f871",
+ "relations": [
+  {
+   "evidence": "Forget expensive apps like Quizlet, Readlang, and others.",
+   "plugin": "Quizlet",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Forget expensive apps like Quizlet, Readlang, and others.",
+   "plugin": "Readlang",
+   "type": "alternative"
+  },
+  {
+   "evidence": "To connect your own free service, run Translator.",
+   "plugin": "Translator",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud API key (Cloud Translation API, Cloud Text-to-Speech API)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Translator (self-hosted custom provider)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Language-learning memorization plugin that stores vocabulary with inline translations and quizzes you in a practice mode with voiceover.",
+ "tags": [
+  "vocabulary",
+  "translation",
+  "text-to-speech",
+  "google-cloud",
+  "readlang",
+  "quizlet"
+ ]
+}

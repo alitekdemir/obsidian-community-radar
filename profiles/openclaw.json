@@ -1,0 +1,86 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with an OpenClaw agent from a sidebar panel",
+  "Send the active note as chat context",
+  "Show tool calls (files read/written, commands, fetched pages)",
+  "Persist chat history across devices via Obsidian Sync",
+  "Connect to a gateway over Tailscale with token auth"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "A one-line patch to the OpenClaw gateway is required to accept Obsidian's origin, and it must be re-applied after every gateway update; an upstream fix is being tracked. Setup requires editing config on the gateway machine and approving each device.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to converse with a self-hosted AI agent that treats the vault as its workspace from within the app.",
+ "readmeHash": "100c019a8b40d5cb08e7b38f9baceda52206f2d6",
+ "relations": [
+  {
+   "evidence": "Chat with your OpenClaw AI agent directly from Obsidian.",
+   "plugin": "OpenClaw",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Tailscale encrypts all traffic (WireGuard VPN), gateway token authenticates connections",
+   "plugin": "Tailscale",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chat history and tool calls persist via Obsidian Sync",
+   "plugin": "Obsidian Sync",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you want pre-release builds: - Install BRAT - BRAT → Add Beta Plugin",
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "OpenClaw gateway",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Tailscale",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Sidebar chat client for a self-hosted OpenClaw AI agent, connected over Tailscale, with streaming replies and send-note-as-context commands.",
+ "tags": [
+  "tailscale",
+  "chat",
+  "streaming",
+  "ai-agent",
+  "websocket",
+  "self-hosted",
+  "tool-calls"
+ ]
+}

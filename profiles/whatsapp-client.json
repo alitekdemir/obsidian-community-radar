@@ -1,0 +1,70 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [
+  "retail-sellers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "chat with WhatsApp contacts through an Evolution API instance",
+  "create customer, order, garment and bundle notes from commands",
+  "link a chat's phone number or LID to a customer note",
+  "send payment QR images with an optional name caption",
+  "attach photos from the device or vault to outgoing messages"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The API key is stored in the plugin's data.json; the README advises enabling end-to-end encryption if the vault is synced with Self-hosted LiveSync. Settings text and command names are in Spanish, and the default vault path points to a specific retail setup (../Complices).",
+ "intent": "alternative",
+ "intentEvidence": "replaces the Templater templates with plugin commands",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to message customers over WhatsApp or turn those conversations into customer and order notes.",
+ "readmeHash": "d34f2c92452f02fb561e63e96eeea5d250bc3fa3",
+ "relations": [
+  {
+   "evidence": "a WhatsApp client (through Evolution API 2.3.x)",
+   "plugin": "Evolution API",
+   "type": "integrates"
+  },
+  {
+   "evidence": "replaces the Templater templates with plugin commands",
+   "plugin": "Templater",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Evolution API server",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Evolution API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "WhatsApp client embedded in Obsidian via Evolution API, adding retail customer, order and payment workflows to a sales vault.",
+ "tags": [
+  "whatsapp",
+  "evolution-api",
+  "crm",
+  "sales",
+  "messaging",
+  "payments"
+ ]
+}

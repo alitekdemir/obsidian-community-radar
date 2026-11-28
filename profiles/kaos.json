@@ -1,0 +1,71 @@
+{
+ "also": [
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "render live dashboards from the Ferusnet tenant tools API in a tabbed custom view",
+  "display service data as tables, badges, bar charts and status tiles",
+  "store the Kaos API key in the OS-native keychain instead of data.json",
+  "optionally read vault notes for context or write reports back via a vault-access mode",
+  "revoke leaked API keys through the Ferus agent"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Only functional for members of the Ferusnet organisation; the README states it will do nothing useful for anyone else. The manifest notes the plugin has not been manually reviewed by Obsidian staff. Beta/pre-release versions are available via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to display live metrics from external business services, so users must leave the vault to check operational dashboards.",
+ "readmeHash": "da7ecc8510e4353f4bf9d4aff5d54ec06880aaf9",
+ "relations": [
+  {
+   "evidence": "renders live operational dashboards from the Ferusnet backend (Jira, Freshdesk, CRM, tenant metrics)",
+   "plugin": "Ferusnet",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from the Ferusnet backend (Jira, Freshdesk, CRM, tenant metrics)",
+   "plugin": "Jira",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from the Ferusnet backend (Jira, Freshdesk, CRM, tenant metrics)",
+   "plugin": "Freshdesk",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Ferusnet tenant account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Kaos API key from the Ferusnet identity service",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Dashboard view that renders live Ferusnet operational metrics (Jira, Freshdesk, CRM, tenant data) from an Azure backend inside Obsidian.",
+ "tags": [
+  "ferusnet",
+  "jira",
+  "freshdesk",
+  "crm",
+  "azure",
+  "dashboards"
+ ]
+}

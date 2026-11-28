@@ -1,0 +1,63 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "chat with an AI assistant that can search, read, create and edit notes",
+  "review every edit as a diff before it is applied, with automatic backups of overwritten notes",
+  "run standing jobs on return, daily or at set times, fed only new lines from watched notes",
+  "read ICS calendar feeds to answer questions and build briefings",
+  "build image prompts from word chips and generate pictures on your own ComfyUI"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not in the community plugin browser yet and must be built and installed manually. API keys and calendar addresses are stored in plain text in data.json. The README carries an extensive, unusual warning that text hidden in notes can instruct the assistant, includes a red-team test script, and discloses that the plugin was AI-assisted ('vibe coded').",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "AI assistants in Obsidian mostly only talk about notes; getting one that safely writes to them requires per-edit approval, backups and guardrails against injected instructions.",
+ "readmeHash": "c95316a034b101c2e27538dcdf166439fa8cdeb7",
+ "relations": [
+  {
+   "evidence": "It comes from Simulacrum, the standalone studio this panel is a port of",
+   "plugin": "Simulacrum",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "model provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "ComfyUI or ntfy server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "AI chat assistant that searches, reads, creates and edits vault notes, showing every write as an approvable diff, with scheduled jobs, calendar reading and an image studio.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "ollama",
+  "comfyui",
+  "ntfy",
+  "tool-calling",
+  "prompt-injection",
+  "diff-review"
+ ]
+}

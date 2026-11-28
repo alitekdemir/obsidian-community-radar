@@ -1,0 +1,86 @@
+{
+ "also": [
+  "search",
+  "review"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Answer questions from vault notes with cited sources",
+  "Search notes by keyword and by meaning",
+  "Run spaced daily reviews of older notes",
+  "Generate weekly reports and an interactive topic graph",
+  "Plan note reorganization with a preview before anything changes"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search",
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a note-writing generator; it answers from and reorganizes the notes already in the vault.",
+ "extras": "Manual install from release files (main.js, manifest.json, styles.css). The skill market contacts the EduAIoT server but uploads no notes; some skill packs are paid membership extras. No telemetry or ads.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Notes pile up without being revisited or connected, and general chat assistants answer without pointing back to the user's own notes.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "6e71c3d6c9c857c22cebd78e24476574be79756d",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Optional: use EduAIoT desktop model and shared search index",
+   "plugin": "EduAIoT desktop app",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Model | Your API key, Ollama, or EduAIoT desktop app",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Model provider API key",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "EduAIoT desktop app",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "EduAIoT skill market membership",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "AI assistant for a vault that answers questions with cited notes, searches by meaning, and produces reviews, weekly reports and topic maps.",
+ "tags": [
+  "rag",
+  "semantic-search",
+  "embeddings",
+  "byok",
+  "ollama",
+  "openai-compatible",
+  "spaced-repetition",
+  "llm"
+ ],
+ "textHash": "8a9fdb71fe24ae6aaa91ca9607a40ba97c7ed3ee"
+}

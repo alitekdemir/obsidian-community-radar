@@ -1,0 +1,57 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  ": Synchronize vault data to CouchDB",
+  ": Encrypt note content and metadata",
+  ": Display sync status and file states",
+  ": Maintain version history of notes",
+  ": Resolve sync conflicts automatically"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires self-hosting a CouchDB server. End-to-end encryption is on by default.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin takes a narrower path: one CouchDB server, always end-to-end encrypted, as few options as possible",
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Users need a reliable, private, and end-to-end encrypted method to synchronize their local Obsidian vault across multiple devices using a self-hosted server.",
+ "readmeHash": "ebd9ef5e76e7420003821b95c50e893ad707340a",
+ "relations": [
+  {
+   "evidence": "CouchDB Sync is inspired by Self-hosted LiveSync by vorotamoroz, which proved that PouchDB/CouchDB replication makes a great Obsidian sync.",
+   "plugin": "Self-hosted LiveSync by vorotamoroz",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "CouchDB server",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Passphrase",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "A live synchronization tool that securely replicates Obsidian vault data to a self-hosted CouchDB server using end-to-end encryption.",
+ "tags": [
+  "couchdb",
+  "aes-256-gcm",
+  "end-to-end-encryption",
+  "self-hosted"
+ ]
+}

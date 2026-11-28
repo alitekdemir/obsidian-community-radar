@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [
+  "self-hosters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault notes across devices via a self-hosted Qdrant collection",
+  "Embed every note with a llama.cpp-compatible embedding server",
+  "Query the collection as a semantic search index from outside Obsidian",
+  "Pull changes from Qdrant with a command on new devices"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Conflict handling is last-write-wins by modification time only; the README warns it is not built for real-time collaborative editing and requires pre-creating a Qdrant collection sized to the embedding model.",
+ "intent": "alternative",
+ "intentEvidence": "instead of Obsidian Sync, iCloud, or a CouchDB setup",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian Sync is a paid service and other self-hosted setups like CouchDB or Syncthing don't give you a semantic search index, so users need sync and embeddings in one self-hosted place.",
+ "readmeHash": "6ec01532c9ab0fa0584a1152a8865982748b11e4",
+ "relations": [
+  {
+   "evidence": "instead of Obsidian Sync, iCloud, or a CouchDB setup",
+   "plugin": "Obsidian Sync",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Obsidian Sync, CouchDB, Syncthing - none of that is needed",
+   "plugin": "Syncthing",
+   "type": "alternative"
+  },
+  {
+   "evidence": "This plugin talks to Qdrant directly over HTTP or HTTPS from inside Obsidian",
+   "plugin": "Qdrant",
+   "type": "integrates"
+  },
+  {
+   "evidence": "An embedding server that speaks the llama.cpp /embedding endpoint",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Qdrant instance and a llama.cpp-compatible embedding server",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Syncs the vault across devices through a self-hosted Qdrant vector database and embeds every note for semantic search from outside tools.",
+ "tags": [
+  "qdrant",
+  "llama-cpp",
+  "embeddings",
+  "semantic-search",
+  "vector-database",
+  "self-hosted",
+  "last-write-wins"
+ ]
+}

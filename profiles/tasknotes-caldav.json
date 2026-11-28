@@ -1,0 +1,66 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Two-way sync TaskNotes tasks with CalDAV VTODO lists on multiple accounts",
+  "Route tasks to lists by tags and project membership",
+  "Map statuses, priorities, recurrence, reminders and dependencies to VTODO fields",
+  "Preview the first sync per list before anything is written",
+  "Filter tasks out of sync by tags and folders"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Not in the community plugin directory; install via BRAT or manually from GitHub releases. Tested only on desktop; mobile is untried. Passwords are stored in Obsidian's secret storage, requiring Obsidian 1.11.4+.",
+ "intent": "improve",
+ "intentEvidence": "Built on TaskNotes by Callum Alpass and its runtime API.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The sync began as a pull request to TaskNotes (#2280); moving it into a companion plugin using TaskNotes' runtime API lets it work with stock TaskNotes without waiting for a merge.",
+ "primary": "syncing",
+ "problem": "Tasks stored as TaskNotes notes stay inside the vault and don't appear in external calendar or task apps, and server-side edits don't reach the notes.",
+ "readmeHash": "0c2fa9c4fddedbb4823116393933dc2290f328c5",
+ "relations": [
+  {
+   "evidence": "Built on TaskNotes by Callum Alpass and its runtime API.",
+   "plugin": "TaskNotes",
+   "type": "extends"
+  },
+  {
+   "evidence": "Tested on desktop against Nextcloud.",
+   "plugin": "Nextcloud",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "TaskNotes",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "CalDAV server (Nextcloud, iCloud, Radicale, Baikal, etc.)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way sync of TaskNotes tasks with CalDAV task lists (VTODO) such as Nextcloud Tasks, Apple Reminders, Radicale or Baikal.",
+ "tags": [
+  "caldav",
+  "vtodo",
+  "nextcloud",
+  "icloud",
+  "apple-reminders",
+  "radicale"
+ ]
+}

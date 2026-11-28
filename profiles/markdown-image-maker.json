@@ -1,0 +1,54 @@
+{
+ "also": [
+  "images"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export a whole .md file or selected Markdown text as styled images",
+  "Preview paginated images before exporting",
+  "Write generated image files into a chosen vault folder",
+  "Insert Obsidian image links back into the source note",
+  "Remember template, brand text, size, format, and quality settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only: it uses local Node.js modules at runtime. The converter backend must be set up separately (default is a local HTTP service); no API key is required. Privacy section explains that Markdown content is sent only to the configured backend.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "export",
+ "problem": "Obsidian can export notes in some formats but has no built-in way to turn a note or selected text into styled shareable images.",
+ "readmeHash": "b6b08b8c3640ec12dd70592ed6b9a6e624671ed7",
+ "relations": [
+  {
+   "evidence": "the plugin can also call a local 38html project module directly",
+   "plugin": "38html",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "local converter backend (local HTTP service or local 38html project module)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Markdown-to-image exporter that renders whole files or editor selections as styled, paginated images via a local converter backend.",
+ "tags": [
+  "image-export",
+  "pagination",
+  "local-server",
+  "nodejs"
+ ]
+}

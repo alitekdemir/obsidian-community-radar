@@ -1,0 +1,69 @@
+{
+ "also": [
+  "git"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Synchronize notes and attachments across devices through a GitHub repository",
+  "Track deletions, renames and file identities with tombstones and per-device baselines",
+  "Resolve conflicting edits with explicit Use LOCAL / Use REMOTE choices instead of automatic merge",
+  "Recover interrupted syncs from transaction journals with Resume or Abort actions",
+  "Verify remote commits, manifests and local contents before advancing the verified baseline"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": "This is file synchronization, not real-time collaborative editing.",
+ "extras": "Notes are not end-to-end encrypted; anyone with repository access can read them, so a private repository is advised. Requires Obsidian 1.6.0+, enforces a 20 MiB per-file limit, and the installation ID (local-mirror-sync) differs from the display name for upgrade compatibility.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because a git push/pull workflow alone does not handle offline deletions, renames, or interrupted operations, so these questions must be part of the sync protocol itself.",
+ "primary": "syncing",
+ "problem": "Plain git-style or backup syncing cannot tell whether a missing file was deleted on another device, whether a renamed file is the same file, or whether an interrupted sync actually finished.",
+ "readmeHash": "ad8b9d0a695b2597a02c24e8c9a12cbe1dcaef0e",
+ "relations": [
+  {
+   "evidence": "Each device exchanges notes, attachments and file identity information through the same GitHub repository.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": null,
+   "plugin": "BRAT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub account and a private notes repository",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub fine-grained personal access token with Contents read/write",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Git-based vault synchronization across devices via GitHub with verified baselines, deletion tombstones, rename tracking and explicit conflict review.",
+ "tags": [
+  "github",
+  "tombstones",
+  "file-identity",
+  "conflict-resolution",
+  "multi-device",
+  "transaction-recovery",
+  "fine-grained-token"
+ ]
+}

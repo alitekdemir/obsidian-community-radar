@@ -1,0 +1,59 @@
+{
+ "also": [
+  "commands",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create tasks via a guided modal",
+  "Configure multiple target notes for tasks",
+  "Append a configurable tag to created tasks",
+  "Set due dates using natural language input",
+  "Trigger task creation through the obsidian://create-task URI with prefilled parameters"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists",
+   "Command palette"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a task manager; it only creates tasks and leaves management to plugins like Tasks or CardBoard.",
+ "extras": "README notes that Lazy Loader users must set Create Task to Instant or the URI will not open the modal when Obsidian is closed; includes setup examples for Raycast, Windows shortcuts, Chrome bookmarks, and Android's Automate.",
+ "intent": "improve",
+ "intentEvidence": "Create Task was made to improve the creation of tasks in Obsidian.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted tasks stored in different notes per project and tagged for CardBoard's tag-based columns, while other plugins save all tasks in a single note.",
+ "primary": "tasks",
+ "problem": "Obsidian has plugins for managing tasks but nothing focused on quickly capturing a task into the right note with a tag and due date.",
+ "readmeHash": "aa072aedab7d3a6e04183ae482f135af53161cd2",
+ "relations": [
+  {
+   "evidence": "This is helpful when using the CardBoard plugin since their columns are tag-based.",
+   "plugin": "CardBoard",
+   "type": "integrates"
+  },
+  {
+   "evidence": "there are already many other plugins like CardBoard and Tasks",
+   "plugin": "Tasks",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task-creation helper that opens a step-by-step modal from the command palette, ribbon, or obsidian:// URI to write tasks into configurable target notes.",
+ "tags": [
+  "modal",
+  "natural-language-dates",
+  "due-dates",
+  "uri-scheme",
+  "raycast",
+  "automate"
+ ]
+}

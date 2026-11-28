@@ -1,0 +1,77 @@
+{
+ "also": [
+  "tasks",
+  "workspaces"
+ ],
+ "audience": [
+  "university-students",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Provide a university home dashboard and class capture workflow",
+  "Manage daily notes and a course folder structure per semester",
+  "Maintain a read-only timetable and a reminders table",
+  "Show a month/week agenda with toggleable layers for timetable, local events, and feeds",
+  "Import ICS feeds such as Google Calendar with manual or periodic sync"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it is not a unique-note generator; it is a full university workspace with agenda, timetable, and reminders.",
+ "extras": "README is mostly Spanish with a short English section. Requires Obsidian 1.11.5+ for ICS features. Warns not to run it alongside the separate unique and unique-agenda plugins. ICS secrets are stored per device in Obsidian SecretStorage; automatic deletion of absent ICS events is suspended to avoid deleting valid notes. Includes MIT-licensed code from Obsidian Calendar (see NOTICE).",
+ "intent": "alternative",
+ "intentEvidence": "no lo instales junto a los plugins separados unique y unique-agenda",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author bundled the system he uses daily as a student so classes, journal, timetable, reminders, and calendar work in one install instead of three plugins.",
+ "primary": "calendar",
+ "problem": "Setting up an organized university vault normally means installing and configuring several separate plugins for daily notes, timetables, reminders, and calendars.",
+ "readmeHash": "abae5c5df754ac1beed05d67a00dd230bcc2334f",
+ "relations": [
+  {
+   "evidence": "no lo instales junto a los plugins separados unique y unique-agenda",
+   "plugin": "unique",
+   "type": "replaces"
+  },
+  {
+   "evidence": "Duplicarías vistas, comandos y cintas. Unique Suite los reemplaza.",
+   "plugin": "unique-agenda",
+   "type": "replaces"
+  },
+  {
+   "evidence": "El calendario de notas diarias se basa en Obsidian Calendar de Liam Cain (MIT).",
+   "plugin": "Obsidian Calendar (Liam Cain)",
+   "type": "extends"
+  },
+  {
+   "evidence": "vistas mes/semana, capas e importación ICS, incluido Google Calendar",
+   "plugin": "Google Calendar",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Google Calendar",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 2
+ },
+ "summary": "University workspace plugin combining a home dashboard, class capture, daily notes, timetable, reminders, and a layered agenda with ICS feeds.",
+ "tags": [
+  "google-calendar",
+  "ics",
+  "university",
+  "timetable",
+  "semester",
+  "students"
+ ]
+}

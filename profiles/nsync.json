@@ -1,0 +1,53 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault two-way across devices via the user's own Google Drive appDataFolder",
+  "Review uploads, downloads and deletes before the first sync",
+  "Keep both versions of notes edited on two devices as conflict copies",
+  "Refuse syncs that would delete most of a vault and warn on vault-name mismatches",
+  "Browse files stored on Google Drive and auto-sync every 60 seconds"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Early software: the README warns to back up the vault before the first sync since NSync moves and deletes files. No end-to-end encryption (Google can read appDataFolder files), .obsidian settings are not synced, and mobile has no background sync. Not in the community plugin browser at time of writing; install via BRAT or manual release download. Installation via BRAT is described at length but is only an install method.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian's built-in Sync is a paid third-party service, and users who want to sync through their own Google Drive without a middleman have no built-in way to do it.",
+ "readmeHash": "7a4830ea5069ce1d2bc4dc20b2b9bd2d0eb6b65c",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account with a self-created Google Cloud OAuth client",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Two-way vault sync through the user's own Google Drive appDataFolder, with first-sync review, conflict copies and 60-second auto-sync on desktop and mobile.",
+ "tags": [
+  "google-drive",
+  "google-cloud",
+  "oauth",
+  "conflict-resolution",
+  "two-way-sync",
+  "appdatafolder",
+  "mobile"
+ ]
+}

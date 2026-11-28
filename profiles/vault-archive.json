@@ -1,0 +1,59 @@
+{
+ "also": [
+  "attachments",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Move notes older than a set age into an archive vault",
+  "Copy linked attachments along with archived notes",
+  "Preview the archive plan with conflicts and missing attachments",
+  "Exclude folders and file types from archiving",
+  "Commit and push the archive vault to Git"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a backup or versioning tool; it moves notes and attachments out into a second vault.",
+ "extras": "Closed-source and free with no plugin account; desktop only (Windows and macOS, Obsidian 1.5.0+). Recommends backing up both vaults and pausing sync and external edits during archiving.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Years of notes and attachments made the author's vault slow to sync across a phone and several computers, and keeping the whole vault on the phone used a lot of storage; the author wanted a small active vault plus separate archive vaults.",
+ "primary": "files",
+ "problem": "Vaults with years of notes and attachments sync slowly across devices and take up a lot of storage on a phone.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "fa7147d5e192f9cd3dce09afa7a125f388392882",
+ "relations": [
+  {
+   "evidence": "the plugin calls your local Git executable to send the archive commit to the remote",
+   "plugin": "Git",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Git",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Moves notes older than a chosen age, together with their attachments, into a separate archive vault while keeping the original folder structure.",
+ "tags": [
+  "archiving",
+  "folder-structure",
+  "batch-processing"
+ ],
+ "textHash": "00cc675a708f9bebf71c07d5f4707b80c3a04528"
+}

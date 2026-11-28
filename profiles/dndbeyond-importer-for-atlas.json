@@ -1,0 +1,81 @@
+{
+ "also": [
+  "ttrpg"
+ ],
+ "audience": [
+  "ttrpg-game-masters"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import public D&D Beyond character sheets as statblock notes",
+  "Re-sync imported characters with D&D Beyond",
+  "Embed the original D&D Beyond sheet page in notes",
+  "Save character images to a configurable folder",
+  "Override statblock templates via frontmatter"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Embeds"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Fetches from an unofficial, undocumented D&D Beyond endpoint that could change without warning; the plugin is read-only and never writes back. Not made, endorsed or supported by Atlas VTT or Atlas Online. Recommends installing the 5e 2024 Character Sheet template from the Armarium.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no way to fetch D&D Beyond character sheets, so TTRPG players must rebuild statblocks by hand for Atlas VTT.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "8459faf4fa441f4e4eb812775e4d1957b1d9b103",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Import any public D&D Beyond character sheet into Obsidian as a ready to use statblock for Atlas VTT.",
+   "plugin": "Atlas VTT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin fetches from an unofficial internal endpoint",
+   "plugin": "D&D Beyond",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The importer makes use of this plugin to default to 'Reader' view",
+   "plugin": "Force note view mode",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "D&D Beyond",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Atlas VTT",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Force note view mode",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Importer that pulls public D&D Beyond character sheets into Obsidian as Atlas VTT statblock notes.",
+ "tags": [
+  "dnd-5e",
+  "character-sheet",
+  "statblocks"
+ ],
+ "textHash": "e2eeb654e023e257db6a9daf54236c52f03606ad"
+}

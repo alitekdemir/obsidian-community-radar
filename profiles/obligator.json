@@ -1,0 +1,57 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create and open daily notes from a sidebar icon",
+  "Roll over unchecked to-dos with their headings and structure",
+  "Schedule recurring to-dos with a cron-like {{obligate}} template macro",
+  "Link each note to the previous and next note via template macros",
+  "Archive old daily notes to keep the notes directory clean"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Points to an example template file and crontab.guru for macro syntax; offers help via GitHub issues.",
+ "intent": "alternative",
+ "intentEvidence": "A fully featured replacement for the built-in daily notes plugin.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author's to-do list was extensive with lots of formatting he wanted to maintain between notes, which rollover-daily-todos destroyed.",
+ "primary": "calendar",
+ "problem": "The built-in Daily notes plugin starts each note blank, and rollover-daily-todos copies unchecked tasks into one heading, discarding the note's formatting structure.",
+ "readmeHash": "2a0548f5a0c3f9ec4038dbe44914454ff713a067",
+ "relations": [
+  {
+   "evidence": "rollover-daily-todos copies only the unchecked to-do items and places them all into a specified header",
+   "plugin": "rollover-daily-todos",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Obligator replaces and extends the function of the built in Daily notes plugin",
+   "plugin": "Daily notes (core plugin)",
+   "type": "replaces"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Daily notes replacement that copies unchecked to-dos, their surrounding formatting, and scheduled items into each new daily note.",
+ "tags": [
+  "rollover",
+  "recurring-tasks",
+  "cron-syntax",
+  "bullet-journal",
+  "archiving",
+  "daily-logs"
+ ]
+}

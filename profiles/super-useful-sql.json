@@ -1,0 +1,56 @@
+{
+ "also": [
+  "developers"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Run read-only SQL queries against registered SQLite files by absolute path",
+  "Join tables across multiple attached databases using aliases",
+  "Browse results in a side panel with a query box, result table and query history",
+  "Render a data dictionary note as a schema tree and column tooltips",
+  "Export results to Markdown and write API instruction blocks for AI assistants"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (node:sqlite comes from the Electron installer, so a full reinstall may be needed). No network access, telemetry, accounts or payment. Installable manually or via BRAT. Results and exports are capped by maxRows (default 200,000), and queries cannot be interrupted and may block the UI.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it as \"the other half\" of database workflows: most database plugins store data inside the vault, which does not scale, so bulk data should stay in .db files outside it.",
+ "primary": "data",
+ "problem": "Keeping large datasets as vault notes bloats the index and sync, and Obsidian has no built-in way to query external SQLite databases.",
+ "readmeHash": "2d5bdaf60a0ec8135ec19ef3e6269424f03f9456",
+ "relations": [
+  {
+   "evidence": "If Copilot or Claudian is installed, the plugin offers to hand it a short instruction block",
+   "plugin": "Copilot",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If Copilot or Claudian is installed, the plugin offers to hand it a short instruction block",
+   "plugin": "Claudian",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Read-only SQL query panel that runs SQLite queries against .db files outside the vault and shows results, history and a schema tree in a side panel.",
+ "tags": [
+  "sqlite",
+  "sql",
+  "data-dictionary",
+  "query-history",
+  "side-panel",
+  "read-only",
+  "brat"
+ ]
+}

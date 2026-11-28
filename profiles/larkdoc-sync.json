@@ -1,0 +1,70 @@
+{
+ "also": [
+  "publishing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish Markdown notes to Feishu/Lark Docs",
+  "Sync folders and standalone PDFs",
+  "Bind notes to existing remote documents",
+  "Attach local files as native cards",
+  "Log publish and sync results locally"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish",
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite 'sync' in the name, it is one-way only: Obsidian to Feishu/Lark, and remote edits do not come back.",
+ "extras": "Installation is not one-click: build from source with npm ci and npm run build, then copy main.js, manifest.json, and styles.css into the plugin folder, or run the included install.sh. Git pre-push does not upload attachments, and .feishuignore rules do not apply to manual single-note sync.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to publish notes to Feishu/Lark Docs or keep a shared remote document updated as the local note changes.",
+ "profiledAt": "2026-11-26",
+ "provider": "Baidu",
+ "readmeHash": "e43d396631a7973c62efb55a87d6fdec46880530",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "include work from HeShiLie's fork",
+   "plugin": "HeShiLie's fork",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Feishu or Lark",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "lark-cli",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Node.js with npm",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Publisher that sends Markdown notes, folders, and PDFs to Feishu/Lark Docs and keeps them in sync via the local lark-cli.",
+ "tags": [
+  "feishu",
+  "one-way-sync",
+  "cli"
+ ],
+ "textHash": "43701c8d644e2a5ca04768098d6db59305dc0b3b"
+}

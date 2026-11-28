@@ -1,0 +1,69 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Maps repo folders to vault folders",
+  "Checks the repo branch for new commits",
+  "Lists new, changed, and removed files in a dialog",
+  "Protects locally edited files from overwrite",
+  "Moves removed repo files to system trash"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a script runner; it only downloads plain template and script files and never executes them.",
+ "extras": "Access token is stored in plain text in the plugin's data.json; GitHub only; without a token the API allows 60 requests per hour; no telemetry; no git install needed and works on mobile.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Obsidian has no built-in way to keep templates and scripts identical across vaults from a single GitHub source, so updates must be copied by hand.",
+ "profiledAt": "2026-11-19",
+ "provider": "Ant Digital",
+ "readmeHash": "7ace9386b04dde9a198c9a5505a0daa362e2d67e",
+ "relations": [
+  {
+   "evidence": "templates and scripts for Templater or QuickAdd",
+   "plugin": "Templater",
+   "type": "integrates"
+  },
+  {
+   "evidence": "templates and scripts for Templater or QuickAdd",
+   "plugin": "QuickAdd",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "GitHub",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "GitHub personal access token",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "One-way sync tool that maps GitHub repo folders to vault folders and asks before applying new, changed, or removed template and script files.",
+ "tags": [
+  "github",
+  "one-way-sync",
+  "templater",
+  "quickadd"
+ ],
+ "textHash": "2dd69064b59e7cc06dcc776042f5658bdecd40b8"
+}

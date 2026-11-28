@@ -1,0 +1,76 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Read the current note, a selection, or from the cursor aloud",
+  "Play every note in a folder back to back",
+  "Highlight and auto-scroll the sentence being read in a reader pane",
+  "Apply pronunciation rules and silent-symbol filtering",
+  "Cache sentence audio and export a note to MP3"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "On Android the plugin only gives setup guidance for the system Select to Speak service, without sentence highlighting, folder playback or Edge voices. Azure keys are kept in Obsidian SecretStorage, and note text is sent to Microsoft only when an online provider is chosen.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian cannot read notes aloud on its own, and Chinese-first voices, sentence tracking and folder-wide playback are missing.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "dda120da1d9f7e27f17ad42e422475f177978585",
+ "readmeSource": "README.md#English",
+ "relations": [
+  {
+   "evidence": "Install the BRAT plugin, then command palette → \"BRAT: Add a beta plugin\"",
+   "plugin": "BRAT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Callout and Highlightr markup cleanup",
+   "plugin": "Highlightr",
+   "type": "integrates"
+  },
+  {
+   "evidence": "use their own Azure Speech Key",
+   "plugin": "Azure Speech",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Microsoft Edge (Edge CLI)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Azure Speech key",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Reads notes aloud in Traditional Chinese using offline system voices, Edge CLI or Azure, with sentence highlighting and folder playback.",
+ "tags": [
+  "text-to-speech",
+  "chinese",
+  "cjk",
+  "offline",
+  "highlights",
+  "callouts",
+  "pronunciation"
+ ],
+ "textHash": "d4d872d636bc2f34a0ccac393eefc8c3ca2e4ec5"
+}

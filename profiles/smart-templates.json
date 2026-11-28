@@ -1,0 +1,88 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Build context-aware prompts from the active note or a text selection",
+  "Discover templates from vault folders, flagged notes, and built-in defaults",
+  "Merge multiple selected templates into a single prompt",
+  "Copy finished prompts to the clipboard for any AI chat",
+  "Generate output inside Obsidian with a chosen model (Pro)"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Templates"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a template insertion tool like core Templates; it packages templates with note context into AI prompts.",
+ "extras": "Freemium: Core (template discovery, prompt building, clipboard copy) is free; Pro adds in-Obsidian generation with streamed output and model selection.",
+ "intent": "improve",
+ "intentEvidence": "Smart Templates does not ask you to replace the template system you already like.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Every AI prompt is a mini project: gather the right notes, explain the task, paste the structure, and remind the model how to answer.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to combine existing note structures with gathered context into AI prompts, so users re-assemble the same prompt scaffolding by hand every time.",
+ "readmeHash": "feed3613eceae5a5823a62dc2c9cb252ac8faa5c",
+ "relations": [
+  {
+   "evidence": "Paste the result into ChatGPT, Claude, Gemini, or any other chat interface.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Paste the result into ChatGPT, Claude, Gemini, or any other chat interface.",
+   "plugin": "Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Paste the result into ChatGPT, Claude, Gemini, or any other chat interface.",
+   "plugin": "Gemini",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Quickly gather the right notes with Smart Context.",
+   "plugin": "Smart Context",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Find relevant notes with Smart Connections.",
+   "plugin": "Smart Connections",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Manage AI conversations in notes with Smart Chat.",
+   "plugin": "Smart Chat",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "AI model API key (Pro in-Obsidian generation only)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Any external AI chat interface (Core clipboard workflow)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "AI prompt builder that pairs vault templates with note context to produce ready-to-run prompts for any AI chat, with optional in-Obsidian generation.",
+ "tags": [
+  "prompt-engineering",
+  "chatgpt",
+  "claude",
+  "gemini",
+  "openai",
+  "local-models"
+ ]
+}

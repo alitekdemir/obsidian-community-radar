@@ -1,0 +1,70 @@
+{
+ "also": [
+  "import",
+  "integrations"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Import agent session files (.jsonl) as formatted transcript notes",
+  "Browse and search sessions in a picker and sidebar rack",
+  "Re-import changed sessions without creating duplicates",
+  "Schedule automatic imports per folder (shelf)",
+  "Redact secrets and save transcript images as vault attachments"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the cassette theme, it records nothing itself; it converts existing agent session log files into notes.",
+ "extras": "Desktop-only, since it reads files outside the vault with Node's fs. Makes no network requests. Redaction of secrets is described as best-effort. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Agent coding tools write raw .jsonl session logs in hidden home-folder folders that are hard to read and never reach your notes.",
+ "readmeHash": "3d6d34cca9a10dd16117330b44180b5aa87290eb",
+ "relations": [
+  {
+   "evidence": "Pop a Claude Code, ChatGPT / Codex, or Pi session into the deck",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Import agent transcripts (Claude Code, ChatGPT / Codex, Pi) as readable notes",
+   "plugin": "ChatGPT / Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ChatGPT / Codex, Pi, or Auto-detect. Auto-detect reads the first lines of each file.",
+   "plugin": "Pi",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Code, ChatGPT / Codex, or Pi session files on disk",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Imports Claude Code, ChatGPT / Codex, and Pi session transcripts into the vault as readable, titled Markdown notes.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "chatgpt",
+  "pi",
+  "jsonl",
+  "transcripts",
+  "redaction"
+ ]
+}

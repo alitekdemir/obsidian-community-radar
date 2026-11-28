@@ -1,0 +1,68 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Import watchlist, lists, watched history and ratings as one note per movie or show",
+  "Match and update existing notes by media ID while keeping note bodies",
+  "Format filenames with LiquidJS filters such as slugify and truncate",
+  "Fetch posters, genres and descriptions for watchlist and list items",
+  "Preview new, updated, skipped and dropped notes before applying changes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Sync is manual and one-way only, and seasons and episodes are skipped. The API key is stored in Obsidian SecretStorage and must be selected again on each device. Requires Obsidian 1.13.0 or newer; poster embeds load from a remote image host.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Watchlist, rating and watched-history data kept on MDBList stays outside the vault, so it cannot be filtered, linked or reviewed alongside notes.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "72884a2449aaf567d3308fb77e5739fe31e94d44",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The plugin syncs manually, one way, from MDBList into your vault.",
+   "plugin": "MDBList",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Filter and group your library with Obsidian Bases, Dataview, or search.",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "MDBList account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "MDBList API key",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "One-way sync that turns an MDBList watchlist, lists, watched history and ratings into movie and TV notes in the vault.",
+ "tags": [
+  "movies",
+  "tmdb",
+  "one-way-sync",
+  "api-key"
+ ],
+ "textHash": "c617a29982724536108ad069b0e80474d54922e9"
+}

@@ -1,0 +1,45 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Delete all notes matching the current search results in one action",
+  "Trigger deletion from the search results count menu or the Tags view",
+  "Respect the vault's Deleted files setting (system trash, .trash, or permanent)",
+  "Keep attachments linked from deleted notes",
+  "Warn which deletion mode applies and disable the menu while search runs"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Search"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Relies on the undocumented internal search:results-menu event, so the Delete item may stop appearing after Obsidian updates; installable via BRAT and release files can be verified with gh attestation.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian's search can match many notes at once, but deleting them still has to be done file by file.",
+ "readmeHash": "6c98ed60959d43a6a0697bc458704c4ee76edb47",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Bulk-delete tool that removes every note in the current search results at once, for example all notes sharing a tag.",
+ "tags": [
+  "bulk-delete",
+  "tag-search",
+  "nested-tags",
+  "trash",
+  "mobile"
+ ]
+}

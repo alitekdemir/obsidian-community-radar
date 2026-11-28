@@ -1,0 +1,91 @@
+{
+ "also": [
+  "ocr",
+  "import"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "convert PDFs to Markdown with OCR, formulas and tables",
+  "extract and save images from PDFs into the vault",
+  "batch-convert multiple PDFs from the file explorer or command palette",
+  "choose between self-hosted Marker endpoints and cloud OCR APIs",
+  "optionally reformat extracted Markdown with CLI agents like Claude or Codex"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a plain text extractor: it produces formatted Markdown notes with images, tables, math and optional agent-based cleanup, not just recognized text.",
+ "extras": "Warns that MistralAI and Mathpix upload documents to their servers (Mistral stores files at least 24h); CLI formatting is desktop-only and the README stresses output checks are not guaranteed semantic equivalence; API keys are stored in Obsidian's secret storage rather than data.json.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted superior extraction quality and mobile accessibility compared to other converters, working directly inside Obsidian via external AI endpoints.",
+ "primary": "pdf",
+ "problem": "Obsidian cannot turn PDFs—especially scanned or math-heavy ones—into editable Markdown notes with images, tables and formulas intact.",
+ "readmeHash": "1b4c21617d999a9a9868ebd8daf91835e2a4efc6",
+ "relations": [
+  {
+   "evidence": "Marker Project: The AI model powering the conversions",
+   "plugin": "Marker Project",
+   "type": "integrates"
+  },
+  {
+   "evidence": "MistralAI (OCR API with excellent results, billed per page)",
+   "plugin": "MistralAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Mathpix (OCR API specialized in math and science, also converts DOCX, PPTX, EPUB and other formats)",
+   "plugin": "Mathpix",
+   "type": "integrates"
+  },
+  {
+   "evidence": "datalab.to (Hosted API for the Marker AI model, provided by the developer himself)",
+   "plugin": "datalab.to",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Any OpenAI compatible API, e.g. OpenAI, OpenRouter, Ollama or LM Studio",
+   "plugin": "Ollama",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "MistralAI, Mathpix, Datalab or OpenAI-compatible API key",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "datalab.to account or Mathpix credits for hosted endpoints",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted Marker API (Docker or Python) or local Ollama/LM Studio server",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Converts PDFs to Markdown with OCR, formulas, tables and images, using Marker, datalab.to, MistralAI, Mathpix, or any OpenAI-compatible API.",
+ "tags": [
+  "marker",
+  "mistralai",
+  "mathpix",
+  "datalab",
+  "ollama",
+  "lm-studio",
+  "cli-agents",
+  "epub"
+ ]
+}

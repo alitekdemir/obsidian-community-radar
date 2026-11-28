@@ -1,0 +1,50 @@
+{
+ "also": [
+  "formatting"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "insert hierarchical numbering prefixes like 1.1.1. with trailing periods",
+  "create the next sibling item on Enter, or exit numbering on a prefix-only item",
+  "indent and outdent items or selected subtrees with Tab and Shift+Tab",
+  "insert, delete, and renumber a contiguous numbered block in one undoable transaction",
+  "normalize legacy four-space or tab-indented blocks via a renumber command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a Markdown list formatter; it treats numbering prefixes like 1.1. as literal text, not as Markdown list markers.",
+ "extras": "The README notes it is a Community directory submission candidate (release 0.3.4); screenshots, detailed examples, and troubleshooting live in the project Wiki rather than the README. It is local-only with no network requests or telemetry.",
+ "intent": "new",
+ "intentEvidence": "Unlike standard Markdown ordered lists, this plugin owns the entire numeric prefix.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README's 'Why this plugin?' section explains that Markdown only recognizes single-integer list markers, so the plugin manages the complete hierarchy as readable plain text and recalculates blocks in one undoable transaction.",
+ "primary": "editing",
+ "problem": "Markdown only recognizes a single integer like 1. as an ordered-list marker, so deeper hierarchies such as 1.1. and 1.1.1. cannot be written as stable plain-text numbering.",
+ "readmeHash": "8e286211c70550bc2517a25d0c76648d725d4e24",
+ "relations": [
+  {
+   "evidence": "Recognized numbering is handled before conflicting Outliner keymaps.",
+   "plugin": "Outliner",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Plugin that creates and maintains hierarchical plain-text numbering such as 1.1.1. with a trailing period at every depth.",
+ "tags": [
+  "hierarchical-numbering",
+  "ordered-lists",
+  "plain-text",
+  "renumbering"
+ ]
+}

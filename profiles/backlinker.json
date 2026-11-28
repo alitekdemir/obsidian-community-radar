@@ -1,0 +1,81 @@
+{
+ "also": [
+  "links",
+  "calendar"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Capture lines into today's daily note with automatic wiki links",
+  "Create tasks with due dates parsed from phrases like 'next fri'",
+  "Link unlinked mentions in existing notes",
+  "Triage an Inbox.md file, filing each line into the right note",
+  "Build people dossiers and match event guest lists against the vault"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Daily notes"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a backlink manager or link-suggestion tool; it writes new linked lines into daily notes and only reports or retro-links unlinked mentions.",
+ "extras": "Primarily a Python CLI (bl) used outside Obsidian; the Obsidian plugin only covers capture and retro-linking and shares the same linker test cases. Runs fully offline with no account or network access, and every write is atomic with per-file undo.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "Plenty of plugins already link note titles as you type. This one is for capture with the exact rules of the CLI.",
+ "primary": "automation",
+ "problem": "Quick capture normally means opening Obsidian, finding the right note and typing wiki links by hand, so mentions of people and topics go unlinked and never show up in backlinks.",
+ "readmeHash": "67b9e05e7719242e0c521e7ed8940cefcf4edfdc",
+ "relations": [
+  {
+   "evidence": "Tasks are copied without their checkbox, so they don't show up twice in the Tasks plugin.",
+   "plugin": "Tasks plugin",
+   "type": "integrates"
+  },
+  {
+   "evidence": "tasks (📅 2026-10-09) or dataview ([due:: 2026-10-09])",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "If you use Periodic Notes, its daily settings win over the core plugin's",
+   "plugin": "Periodic Notes",
+   "type": "integrates"
+  },
+  {
+   "evidence": "an MCP server so Claude can file notes and research people for you",
+   "plugin": "Claude",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Python (for the bl CLI)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Claude (for MCP features)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Capture tool that appends a line to today's daily note from a terminal, phone inbox or Claude, wiki-linking people, companies and topics already in the vault.",
+ "tags": [
+  "cli",
+  "mcp",
+  "claude",
+  "quick-capture",
+  "natural-language-dates",
+  "inbox",
+  "dossiers",
+  "raycast"
+ ]
+}

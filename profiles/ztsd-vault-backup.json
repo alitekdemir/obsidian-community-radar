@@ -1,0 +1,44 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "create compressed vault backups as .tar.zst archives",
+  "generate SHA-256 sidecar checksum files and validate archives before restoring",
+  "extract restore snapshots into a separate timestamped folder without overwriting the live vault",
+  "prune old backups with a configurable maximum count",
+  "exclude .obsidian and .trash folders from archives"
+ ],
+ "coreOverlap": {
+  "features": [
+   "File recovery"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Restores extract to a separate recovery directory for review rather than overwriting the vault; archives always exclude .obsidian and .trash. Restores are manual only — no scheduled automatic backups are described.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "backup",
+ "problem": "Obsidian has no built-in way to make verified, storage-efficient local vault backups with safe restoration.",
+ "readmeHash": "2c8f5021920fd8813aeaeb149c5c9e7e01b1c722",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault backup plugin that creates tar archives compressed with Zstandard, verifies them with SHA-256 checksums, and restores snapshots non-destructively.",
+ "tags": [
+  "zstd",
+  "sha256",
+  "tar",
+  "integrity-checking",
+  "snapshot-restore",
+  "data-recovery"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [],
+ "audience": [
+  "chemists",
+  "chemistry-students",
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Shows structure previews on hover over \\ch-marked chemical names",
+  "Resolves English, Brazilian Portuguese, and German names via PubChem and Wikidata",
+  "Displays compound details such as formula, molecular weight, synonyms, and PubChem CID",
+  "Renders structures locally with RDKit when Wikipedia images are unavailable",
+  "Caches resolved compounds for offline rendering and refreshes them from PubChem"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manual install from the 0.1.6 release assets; first lookup needs internet, but cached compounds render offline with RDKit; failed lookups are cached 24 hours.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "science",
+ "problem": "Obsidian has no built-in way to see a chemical's structure or properties from a name written in a note.",
+ "profiledAt": "2026-11-27",
+ "provider": "Ant Digital",
+ "readmeHash": "6a8e1b71a955bd1fa7e31ac157e8490e237acf6a",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "ChemHover uses PubChem to resolve chemical names and spelling suggestions",
+   "plugin": "PubChem",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ChemHover checks Wikidata for a matching compound",
+   "plugin": "Wikidata",
+   "type": "integrates"
+  },
+  {
+   "evidence": "It prefers structure images from Wikipedia",
+   "plugin": "Wikipedia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "ChemHover renders the structure locally with RDKit",
+   "plugin": "RDKit",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Hover-preview plugin that shows chemical structures and compound properties for \\ch-marked names, preferring Wikipedia images with an RDKit fallback.",
+ "tags": [
+  "hover-preview",
+  "offline"
+ ],
+ "textHash": "9d67e625e9298a5b6ace53b9695e6bc55dee01da"
+}

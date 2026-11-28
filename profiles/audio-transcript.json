@@ -1,0 +1,76 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "record audio from the microphone or transcribe uploaded audio files",
+  "transcribe audio through cloud or local providers with speaker diarization",
+  "insert transcripts with timestamps that link back to the audio",
+  "summarize transcriptions and chat with them using LLM providers",
+  "queue multiple files for batch transcription"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. README mixes English and Spanish. The default transcription provider, spob, appears to be the author's own pay-as-you-go service.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian can record audio but has no built-in way to transcribe recordings or identify who said what.",
+ "readmeHash": "622b14075120710c2bacfafd43147dd9d73eca66",
+ "relations": [
+  {
+   "evidence": "Use Gladia, Deepgram, or AssemblyAI for speaker separation.",
+   "plugin": "Gladia",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Gladia, Deepgram, or AssemblyAI for speaker separation.",
+   "plugin": "Deepgram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Use Gladia, Deepgram, or AssemblyAI for speaker separation.",
+   "plugin": "AssemblyAI",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "Gladia, Deepgram, AssemblyAI, OpenAI, Groq, spob, or an LLM provider key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "whisper.cpp (self-hosted local transcription)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Audio recording and transcription plugin that inserts speaker-labeled, timestamped transcripts and adds AI summaries and chat over them.",
+ "tags": [
+  "speaker-diarization",
+  "transcription",
+  "gladia",
+  "deepgram",
+  "assemblyai",
+  "whisper",
+  "llm-chat",
+  "timestamps"
+ ]
+}

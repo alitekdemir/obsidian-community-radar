@@ -1,0 +1,60 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "yuque-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Restore the original Yuque directory order from an exported order manifest",
+  "Reorder files by precise drag and drop with up to 50 undo steps",
+  "Pair folders with folder-notes and hide duplicates in the file explorer",
+  "Detect duplicate GUIDs and regenerate or re-identify vault files",
+  "Copy a source directory into the current vault with conflict handling"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general file-sorting tool; it restores Yuque's exported order via GUID identities and a _yuque_order.json manifest.",
+ "extras": "The README mixes English and Chinese; the complete operation manual is a separate Chinese guide ('YuqueOut 与 Yuque Sorting 使用说明'). The plugin warns that folder identities live in data.json, so moving folders in Windows Explorer weakens identity; Obsidian-internal moves are recommended. It also guards its hook into Obsidian's internal Folder.sort and falls back to default order if that interface changes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author modified the existing Yuque export extension for personal needs and built this plugin so migrated documents keep a Yuque-like table-of-contents experience in Obsidian.",
+ "primary": "files",
+ "problem": "Obsidian's file explorer cannot reproduce Yuque's custom directory ordering after a knowledge base is exported into a vault.",
+ "readmeHash": "d2e266ed746340f0ac87f1c3e79439755b861084",
+ "relations": [
+  {
+   "evidence": "yuque-sorting 是配合 chrome-extension-yuque（YuqueOut 修改版） 使用的桌面端 Obsidian 插件",
+   "plugin": "chrome-extension-yuque (YuqueOut modified version)",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "chrome-extension-yuque (YuqueOut)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Restores Yuque's exported document order in Obsidian using stable GUID identities and an order manifest, with drag-and-drop sorting and folder-note display.",
+ "tags": [
+  "yuque",
+  "drag-and-drop",
+  "folder-notes",
+  "guid",
+  "document-order",
+  "undo"
+ ]
+}

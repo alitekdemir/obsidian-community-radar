@@ -1,0 +1,64 @@
+{
+ "also": [
+  "data",
+  "visualization"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Mirror one or many Jira projects into the vault as one note per issue with YAML frontmatter",
+  "Connect to Jira Cloud or Server/Data Center via API token, PAT, or password",
+  "Sync issues on demand, on a timer, at startup, or filtered by JQL, with incremental caching",
+  "Render a filterable KPI dashboard with charts for status, productivity, bugs, and per-assignee workload",
+  "Rebuild all notes from the local cache without API calls"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Credentials are stored in the plugin's data.json inside the vault; the README warns to keep the vault private, notes it performs only GET requests, and points to a separate document for setup and troubleshooting. Desktop-only, no mobile support.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to pull Jira issue data into the vault or visualize project progress, workload, and bug counts locally.",
+ "readmeHash": "ec8b948cac27407d946bd7e55e3982675526f6ff",
+ "relations": [
+  {
+   "evidence": "Each issue note carries frontmatter you can query with Dataview/Bases",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Jira (Cloud or Server/Data Center)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Jira API token or Personal Access Token (or username/password)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Read-only Jira sync that mirrors issues as Markdown notes and shows a local, filterable KPI dashboard for projects, sprints, assignees, and bugs.",
+ "tags": [
+  "jira",
+  "atlassian",
+  "jql",
+  "kpi",
+  "issue-tracker",
+  "sprints",
+  "story-points",
+  "api-token"
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Create new .ctxt compressed files via a button",
+  "Compress file contents automatically on each save",
+  "Convert opened files between their format and .ctxt and back to .md",
+  "Show compression ratio toasts and file size in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a vault backup or archive tool; it compresses individual note files in place so they stay editable.",
+ "extras": "README warns of possible data loss, that links will not appear in the graph, that other plugins may fail to read compressed files, and that files must be converted back to Markdown before uninstalling or disabling the plugin or they become inaccessible. It also notes a closed-source build script and that compression of large files is slow (several seconds per save).",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian stores notes as plain text on disk and offers no way to keep files compressed while still editing them in the app.",
+ "readmeHash": "568ae636633e260efbf72a55a3f5e521558d23ae",
+ "relations": [
+  {
+   "evidence": "The compression plugin is packaged with pako, a compression library and a custom one.",
+   "plugin": "pako",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Creates compressed .ctxt files that can be edited like normal notes, compressing contents automatically each time the file is saved.",
+ "tags": [
+  "file-extensions",
+  "zip",
+  "autosave"
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with the Hermes Agent in a sidebar view or floating modal",
+  "Review AI-proposed note and code edits as unified or side-by-side diffs",
+  "Insert active note content and selections into agent sessions",
+  "Install and update official Obsidian agent skills under .agents/skills/",
+  "Configure endpoint, API key, model, and temperature settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (isDesktopOnly: true); spawns the local hermes CLI, git diff, and a terminal emulator; requires a Git-versioned vault for diff proposals; builds from source rather than installing from a release listing.",
+ "intent": "alternative",
+ "intentEvidence": "A standalone Obsidian plugin inspired by the VSCode Hermes Studio extension and patterns from Obsidian Copilot.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to chat with a local AI agent or inspect its proposed note edits as diffs before applying them.",
+ "readmeHash": "dfb59418ace93f1bae31c884df0f57ded6eefe0e",
+ "relations": [
+  {
+   "evidence": "A standalone Obsidian plugin inspired by the VSCode Hermes Studio extension",
+   "plugin": "VSCode Hermes Studio extension",
+   "type": "inspired"
+  },
+  {
+   "evidence": "inspired by the VSCode Hermes Studio extension and patterns from Obsidian Copilot",
+   "plugin": "Obsidian Copilot",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Hermes Agent CLI (hermes acp)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API keys for model selection",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "AI chat workbench for the local Hermes Agent with sessions, diff review of proposed edits, skills hub, and subagent panels in Obsidian.",
+ "tags": [
+  "hermes-agent",
+  "agent-client-protocol",
+  "unified-diff",
+  "subagents",
+  "chat",
+  "skills",
+  "memory-review"
+ ]
+}

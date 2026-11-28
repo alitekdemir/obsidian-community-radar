@@ -1,0 +1,54 @@
+{
+ "also": [
+  "tasks"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Export outstanding (unchecked) tasks to CSV",
+  "Auto-export on file save or modification with debouncing",
+  "Configure output path, folder scope, delimiter, and header options",
+  "Trigger exports via command palette, ribbon icon, or hotkey",
+  "Show last export status in the status bar"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a task manager or tracker; it only reads unchecked tasks and writes them to a CSV file.",
+ "extras": "Not yet published to the Obsidian community plugin store; manual installation from GitHub Releases is required. The README notes European Excel users may need to switch the CSV delimiter to semicolon.",
+ "intent": "alternative",
+ "intentEvidence": "This is a TypeScript port of the markdown-task-export C# console application, adapted for Obsidian",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for personal use managing customer project tasks with time tracking integration, porting their own C# console tool to Obsidian.",
+ "primary": "export",
+ "problem": "Obsidian has no built-in way to get outstanding tasks out of the vault in a structured CSV format that external time-tracking software can consume.",
+ "readmeHash": "e0b47b570ff76c909eb00c638460f09fbb4ea71d",
+ "relations": [
+  {
+   "evidence": "This is a TypeScript port of the markdown-task-export C# console application",
+   "plugin": "markdown-task-export",
+   "type": "fork"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ManicTime",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Task exporter that scans a configured folder for unchecked Markdown tasks and writes them to a CSV file for time-tracking tools like ManicTime.",
+ "tags": [
+  "manictime",
+  "time-tracking",
+  "unchecked-tasks",
+  "file-watching"
+ ]
+}

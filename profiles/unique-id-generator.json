@@ -1,0 +1,57 @@
+{
+ "also": [
+  "templating"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate unique IDs in seven formats",
+  "Insert IDs at the cursor or copy them to the clipboard",
+  "Set a default format with a comparison guide",
+  "Expose per-format API functions for Templater and scripts",
+  "Decode creation time from time-based IDs"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Makes no network requests and never reads the clipboard; requires Obsidian 1.13.1+; no hotkeys assigned by default; same-second counter is per device, so multi-device setups need collision-resistant formats.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Obsidian has no built-in way to mint unique identifiers, and the available ID formats differ in length, ordering and collision safety.",
+ "profiledAt": "2026-11-22",
+ "provider": "Ant Digital",
+ "readmeHash": "307edc25175a59bf5c1aad34ad2d1d43afb5569e",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Call any format from Templater or your own scripts, with its own options.",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Templater",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Command-and-API plugin that generates unique IDs in base36, Sqids, NanoID, UUID, ULID and TypeID formats for insertion or clipboard copy.",
+ "tags": [
+  "templater",
+  "javascript",
+  "privacy"
+ ],
+ "textHash": "0772c2b7339ae1095dc4ec7d12ac3a3a5abe068e"
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync vault files to a Google Drive folder on demand",
+  "Keep both versions of a conflicting note, the other saved with a timestamped name",
+  "Resume an interrupted sync without creating duplicates",
+  "Log the last 500 sync actions to a log file",
+  "Store the OAuth client secret and refresh token in Obsidian's secret storage"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general drive or device sync tool; it copies vault files to a folder in Google Drive only.",
+ "extras": "You must create your own Google Cloud OAuth client and refresh token; while the consent screen is in Testing, Google expires refresh tokens after 7 days. Deletions, renames and empty folders are not synced, and the README advises backing up the vault before the first sync. Real-world testing is ongoing.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "There is no built-in way to keep a vault in step with a folder in Google Drive, and an interrupted or conflicting sync can leave notes out of date or overwritten.",
+ "profiledAt": "2026-11-23",
+ "provider": "Particle AI",
+ "readmeHash": "a6c8d78d599651e8f4c869016b88013aa03fd3df",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Sync an Obsidian vault with a folder in your Google Drive using one command, Sync.",
+   "plugin": "Google Drive",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Google account",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Google Cloud OAuth client ID and client secret",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Google Drive",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Command that syncs vault files with a folder in the user's own Google Drive, keeping both copies when a note changed on two devices.",
+ "tags": [
+  "google-drive",
+  "oauth",
+  "conflict-resolution",
+  "obsidian-sync",
+  "secret-storage"
+ ],
+ "textHash": "3344c2e5b0d10c5cc459677eee640ad024af4cd0"
+}

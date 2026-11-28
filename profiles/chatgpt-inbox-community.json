@@ -1,0 +1,71 @@
+{
+ "also": [
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "receive notes from ChatGPT or MCP clients into allowed folders",
+  "queue notes through a relay with verified delivery receipts",
+  "apply version-checked edits, trash moves and file attachments in GitHub mode",
+  "pair devices over OAuth and store credentials in SecretStorage",
+  "run test notes and diagnostics to verify the receive pipeline"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a ChatGPT chat client inside Obsidian; it only receives externally created notes, edits, trash moves and attachments into the vault.",
+ "extras": "Setup interface uses Spanish labels. No public relay is included; Relay mode requires hosting the bundled server yourself or trusting an operator. The plugin has not been manually reviewed by Obsidian staff, and 0.4.4 is an unpublished reliability candidate.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way for an external AI client like ChatGPT to create notes in the vault with verified delivery and folder-scoped permissions.",
+ "readmeHash": "6f55dd401494d10533afef091c2fed9cecad5a00",
+ "relations": [
+  {
+   "evidence": "Create Markdown notes in your current Obsidian vault from ChatGPT or another compatible MCP client.",
+   "plugin": "ChatGPT",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Advanced GitHub mode reads request JSON files using GET requests to the repository you configure.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "ChatGPT or compatible MCP client",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "ChatGPT account with custom MCP write tools",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "relay hosting and database may cost money",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "Receives notes created by ChatGPT or other MCP clients into the vault, via Lite links, a hosted relay, or a GitHub request queue.",
+ "tags": [
+  "chatgpt",
+  "mcp",
+  "relay",
+  "github",
+  "oauth",
+  "inbox"
+ ]
+}

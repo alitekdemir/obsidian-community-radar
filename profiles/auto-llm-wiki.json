@@ -1,0 +1,55 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Ingest new or changed raw files (Markdown, PDF, Office, HTML, images, code) into wiki pages via an LLM",
+  "Extract text from documents and use vision OCR for scanned PDFs, slides, and images",
+  "Chat with the wiki in a side panel using index-first retrieval",
+  "Lint the wiki for stale claims, contradictions, and missing pages",
+  "Preview, confirm, and atomically apply or roll back generated change plans"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Manifest notes the plugin has not been manually reviewed by Obsidian staff. The README details privacy behavior: selected vault content and the API key are sent to the configured endpoint, and there is no telemetry or self-update mechanism.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The README says it helps turn raw source notes into a wiki that compounds over time instead of re-deriving knowledge from scratch on every query.",
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to turn a folder of raw sources into a persistent, structured wiki that is kept up to date and queryable with AI help.",
+ "readmeHash": "bda2ffe49f10711d72e442a894a92fe8aef439fb",
+ "relations": [
+  {
+   "evidence": "Send only new or changed raw files to an OpenAI-compatible chat completions endpoint.",
+   "plugin": "OpenAI-compatible chat completions endpoints",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI-compatible API URL, key, and model",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "AI-assisted wiki maintainer that ingests raw source files into a structured wiki, answers chat queries against it, and lints pages via previewed change plans.",
+ "tags": [
+  "openai",
+  "rag",
+  "chat",
+  "karpathy",
+  "document-extraction"
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "also": [
+  "project-management",
+  "graph"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Two-way sync boards, lists, and cards as notes",
+  "Map card labels to bh/ tags",
+  "Color the graph by label and status",
+  "Create linked notes for checklists and card notes",
+  "Archive deleted cards to _archive/"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Graph view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a self-contained kanban plugin; it two-way syncs boards to and from the external BoardHydra service.",
+ "extras": "Plugin is free and open source (MIT) but syncing requires a paid BoardHydra plan (Pro or Business); Pro includes 500 API requests per day. Board and list notes are rewritten by the plugin and should not be edited. The auth key is stored in plaintext in the plugin settings file and should be kept out of public vault backups.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "BoardHydra boards live on an external service, so their cards can't be edited or explored as notes and graph trees inside Obsidian.",
+ "profiledAt": "2026-11-21",
+ "provider": "Baidu",
+ "readmeHash": "06d39872250f577e8ec7474e5808b6cdca0299b3",
+ "relations": [
+  {
+   "evidence": "Sync your BoardHydra boards with your vault, both ways.",
+   "plugin": "BoardHydra",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "BoardHydra",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "BoardHydra Pro or Business plan",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "AI app (Claude, Codex, or Gemini) for the optional tidy-up prompt",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Two-way sync between BoardHydra boards and your vault, turning each board, list, and card into a linked note.",
+ "tags": [
+  "kanban",
+  "two-way-sync",
+  "nested-tags",
+  "color-coding",
+  "backlinks"
+ ],
+ "textHash": "49121b0090529f2722a98371d41169bfe0fb6fff"
+}

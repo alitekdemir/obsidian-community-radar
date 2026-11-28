@@ -1,0 +1,84 @@
+{
+ "also": [
+  "automation",
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with multiple AI agents in one shared conversation",
+  "Let agents read, search, create, and edit vault notes with approval gating",
+  "Attach vault context via @mentions, folders, tags, and resolved embeds",
+  "Search the web during chat via DuckDuckGo, Brave, Tavily, Exa, or SearXNG",
+  "Sync and back up chat sessions across devices through WebDAV"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Multi-user WebSocket relay chat is explicitly in progress and untested; README documents mobile background-execution limitations (streams pause, tool calls abort) and recommends keeping the app in the foreground for long operations. Requires Obsidian 1.11.4+.",
+ "intent": "alternative",
+ "intentEvidence": "originally forked from FBarrca/obsidian-inlineAI and has been significantly extended",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in AI chat, and existing options lack multi-agent conversations, agentic vault tools, and cross-device session sync.",
+ "readmeHash": "f17b01cb20650ae38c45468fa461b543a15c76be",
+ "relations": [
+  {
+   "evidence": "This plugin was originally forked from FBarrca/obsidian-inlineAI",
+   "plugin": "FBarrca/obsidian-inlineAI",
+   "type": "fork"
+  },
+  {
+   "evidence": "Inspired by Logan Yang's excellent Obsidian Copilot plugin",
+   "plugin": "Obsidian Copilot",
+   "type": "inspired"
+  },
+  {
+   "evidence": "When the Dataview plugin exposes its query API, the agent can run read-only",
+   "plugin": "Dataview",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API keys (OpenAI, Anthropic, Brave, Tavily, Exa, etc.)",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "WebDAV storage for remote sync",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or self-hosted SearXNG for local setups",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Multi-agent AI chat panel that lets AI profiles use vault context, run note tools, search the web, and sync sessions via WebDAV.",
+ "tags": [
+  "openai",
+  "anthropic",
+  "ollama",
+  "openrouter",
+  "webdav",
+  "dataview",
+  "multi-agent",
+  "web-search"
+ ]
+}

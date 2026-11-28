@@ -1,0 +1,78 @@
+{
+ "also": [
+  "autocomplete",
+  "properties"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Trigger an autocomplete dropdown of relationship types by typing @ in a wikilink alias",
+  "Sync matched @types to YAML frontmatter fields on save",
+  "Support multiple @types per wikilink in natural display text",
+  "Configure relationship types (key, label, description) via the plugin's data.json",
+  "Leave frontmatter and @type text intact when the plugin is uninstalled"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Pre-release versions install via BRAT. AI-assisted relationship discovery is documented in a separate skill/SKILL.md rather than in the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "links",
+ "problem": "Obsidian wikilinks have no way to express the kind of relationship between notes, and typed links usually require hand-editing YAML frontmatter.",
+ "readmeHash": "fd307f9c620a240e87f74020cb7e305a451da108",
+ "relations": [
+  {
+   "evidence": "Dataview | Yes | Reads YAML frontmatter natively",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Graph Link Types | Yes | Reads frontmatter via Dataview",
+   "plugin": "Graph Link Types",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Breadcrumbs | Yes | Reads frontmatter",
+   "plugin": "Breadcrumbs",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Juggl | Yes | Reads Dataview metadata",
+   "plugin": "Juggl",
+   "type": "integrates"
+  },
+  {
+   "evidence": "PENgram handles ingestion; Wikilink Types handles the connections.",
+   "plugin": "PENgram",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The Vault Linker skill lets AI agents (Claude Code, OpenClaw, etc.) analyze your vault",
+   "plugin": "Vault Linker",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 3
+ },
+ "summary": "Typed-wikilink plugin that autocompletes @relationship types inside wikilink aliases and syncs them to YAML frontmatter on save.",
+ "tags": [
+  "dataview",
+  "breadcrumbs",
+  "graph-link-types",
+  "juggl",
+  "relationship-types",
+  "claude-code"
+ ]
+}

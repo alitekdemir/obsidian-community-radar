@@ -1,0 +1,54 @@
+{
+ "also": [
+  "integrations",
+  "ai"
+ ],
+ "audience": [
+  "codex-cli-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Export archived Codex sessions to Markdown notes",
+  "Group exported notes by session workdir or project name",
+  "Add frontmatter with session id, project, cwd, source path, and tags",
+  "Extract base64-encoded images into a media folder",
+  "Skip already-exported sessions unless overwrite is enabled"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Format converter"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only; uses Node.js filesystem access to read files outside the vault, with output paths constrained to the current vault.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "import",
+ "problem": "Codex Desktop/CLI stores session histories as JSONL files outside the vault, making them hard to read, search, or link from Obsidian notes.",
+ "readmeHash": "cfe84d56815b63969fd41cd5d75b963660fec5c6",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Codex Desktop / Codex CLI",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Imports local Codex session JSONL logs into the vault as Markdown notes grouped by workspace, with frontmatter and extracted base64 images.",
+ "tags": [
+  "codex",
+  "jsonl",
+  "chat-logs",
+  "base64-images",
+  "ai-sessions"
+ ]
+}

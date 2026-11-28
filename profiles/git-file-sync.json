@@ -1,0 +1,73 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync selected vault files to and from GitHub, GitLab, or Gitea on desktop and mobile",
+  "Review local changes, remote changes, renames, deletions, and conflicts in a source control view",
+  "Build a sync queue of uploads, downloads, and remote deletions and apply them as one reviewed plan",
+  "Compare local and remote versions with unified and side-by-side diffs before overwriting",
+  "Resolve conflicts explicitly by choosing to keep the local or remote version"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Despite the name, it does not use a local Git repository or the Git CLI; it syncs selected files through the GitHub, GitLab, and Gitea APIs.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. The README includes security guidance on scoping and rotating tokens, stores tokens locally in plugin data, and states there is no telemetry. Additional guides exist in Traditional and Simplified Chinese outside the README.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Full-vault sync solutions and Git-based plugins move every file or require a local .git repository and Git CLI, leaving no way to keep private notes out of sync while selectively sharing project files.",
+ "readmeHash": "43742e82fd8a340e0cec22322b8bc6af377f1d3e",
+ "relations": [
+  {
+   "evidence": "Selective, file-by-file sync between your Obsidian vault and GitHub, GitLab, or Gitea.",
+   "plugin": "GitHub",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Selective, file-by-file sync between your Obsidian vault and GitHub, GitLab, or Gitea.",
+   "plugin": "GitLab",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Selective, file-by-file sync between your Obsidian vault and GitHub, GitLab, or Gitea.",
+   "plugin": "Gitea",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "provider access token (GitHub fine-grained token, GitLab token, or Gitea token)",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "account on GitHub, GitLab, or Gitea",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Selective file-by-file sync between a vault and GitHub, GitLab, or Gitea through a review-and-queue source control workflow, without a local Git repository.",
+ "tags": [
+  "github",
+  "gitlab",
+  "gitea",
+  "diff-viewer",
+  "conflict-resolution",
+  "selective-sync"
+ ]
+}

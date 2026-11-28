@@ -1,0 +1,68 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Turn messages sent to a Telegram bot into vault notes",
+  "Process notes with AI providers for titles, formatting, categorization and image analysis",
+  "Transcribe voice, audio and video messages",
+  "Extract text locally from PDF, DOCX, XLSX, PPTX, EPUB, TXT, CSV and code files",
+  "Route messages to folders and templates with variables and distribution rules"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Mobile support is in beta, as are the Claude and Gemini providers. Catching up on messages sent while Obsidian was closed is desktop-only and needs your own Telegram api_id/api_hash; the Bot API limits file downloads to 20 MB. Secrets are encrypted in data.json and a pin code is recommended before cloud-syncing the vault.",
+ "intent": "improve",
+ "intentEvidence": "This plugin was inspired by and built upon obsidian-telegram-sync by soberhacker",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Obsidian has no built-in way to turn Telegram messages into notes, so thoughts sent from a phone must be copied over manually.",
+ "readmeHash": "836c8fef72f295017597da9f42f2c407e98486d6",
+ "relations": [
+  {
+   "evidence": "This plugin was inspired by and built upon obsidian-telegram-sync by soberhacker",
+   "plugin": "obsidian-telegram-sync",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Telegram bot created through @BotFather",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "AI provider API key (OpenAI, Anthropic, Google or OpenAI-compatible endpoint)",
+   "optional": true
+  },
+  {
+   "kind": "apiKey",
+   "name": "Telegram api_id/api_hash from my.telegram.org for catching up on offline messages",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Telegram bot integration that saves messages sent to your own bot as vault notes, with optional AI processing, categorization and document text extraction.",
+ "tags": [
+  "telegram",
+  "openai",
+  "claude",
+  "gemini",
+  "ollama",
+  "whisper",
+  "transcription",
+  "bot"
+ ]
+}

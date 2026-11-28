@@ -1,0 +1,69 @@
+{
+ "also": [
+  "automation",
+  "ai"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Create and maintain symlinks from vault skill folders into agent skill folders",
+  "Route skills per group, per skill, or to separate Claude Code profiles",
+  "Preview every link that would be created or removed before syncing",
+  "Repair recorded links after vault moves and update paths on folder renames",
+  "Suggest Claude Code config folders found on the computer"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not a general symlink manager; it only links vault skill folders into AI agent skill and config folders.",
+ "extras": "Desktop only; on Windows the links are directory junctions. Sync is off after install, and a command removes all created links before uninstalling. Installable via BRAT.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "Coding agents read skills from folders outside the vault, so skills edited in Obsidian must be copied or linked by hand to reach each agent.",
+ "readmeHash": "54e8a51c72f117e159cb5f3147f34c62f35814f1",
+ "relations": [
+  {
+   "evidence": "a Claude profile is a Claude Code config folder, ~/.claude by default",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex, Cursor, GitHub Copilot, Gemini CLI, OpenCode and most other agents read ~/.agents/skills",
+   "plugin": "Codex",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Codex, Cursor, GitHub Copilot, Gemini CLI, OpenCode and most other agents read ~/.agents/skills",
+   "plugin": "Cursor",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "an AI coding agent such as Claude Code, Codex or Cursor",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Symlink manager that keeps AI agent skills in the vault and links them into Claude Code, Codex, Cursor and other agents' skill folders.",
+ "tags": [
+  "claude-code",
+  "codex",
+  "cursor",
+  "symlinks",
+  "agent-skills",
+  "gemini-cli"
+ ]
+}

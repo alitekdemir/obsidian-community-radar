@@ -1,0 +1,72 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Encrypt note bodies and selected frontmatter values",
+  "Lock selected notes, text or files",
+  "Retain existing preferences and local recovery records",
+  "Connect a Constance account and buy credits",
+  "Check payment status and cancel pending purchases"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Account and billing use Constance v2; purchases are via Paddle in USD; analytics and error reports go to Datadog; passwords are not saved; requires Obsidian 1.5.0 or later.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "utilities",
+ "problem": "Sensitive note bodies and frontmatter values remain plain Markdown in the vault unless the user encrypts them separately.",
+ "profiledAt": "2026-11-21",
+ "provider": "Particle AI",
+ "readmeHash": "5788dc735b021046a8515b501eaea94e0fa6ed79",
+ "relations": [
+  {
+   "evidence": "Connect your Constance account in plugin settings.",
+   "plugin": "Constance",
+   "type": "integrates"
+  },
+  {
+   "evidence": "New purchases use Paddle and USD.",
+   "plugin": "Paddle",
+   "type": "integrates"
+  },
+  {
+   "evidence": "automatic startup and plugin error reports sent to Datadog",
+   "plugin": "Datadog",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Constance account",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Constance credits",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 4
+ },
+ "summary": "Local password-based encryption plugin that locks note bodies and selected frontmatter values, with Constance account billing for credits.",
+ "tags": [
+  "encryption",
+  "password-protection",
+  "privacy",
+  "local-first"
+ ],
+ "textHash": "fc77e8e2b044de506852c1f70dd8be2a2618af76"
+}

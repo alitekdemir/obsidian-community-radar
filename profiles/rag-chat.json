@@ -1,0 +1,67 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Index all markdown notes locally with a built-in BM25 search engine",
+  "Send retrieved note chunks as context to a chosen LLM provider",
+  "Chat in a side panel with clickable citations that open the referenced note",
+  "Keep the index updated automatically as notes are created, edited, renamed or deleted",
+  "Connect to local LLM servers such as Ollama, llama.cpp, LM Studio or Jan without an API key"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Despite the RAG name, retrieval uses a built-in BM25 keyword index, not vector embeddings.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. Indexing is fully local, but note chunks are sent to the chosen LLM provider when asking questions; local providers avoid this.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask natural-language questions of your vault and get answers grounded in your notes with citations.",
+ "readmeHash": "0fb8267f4e6c80d93c395c5b6fa8e64d12e239a0",
+ "relations": [
+  {
+   "evidence": "choose your server type (Ollama, llama.cpp, LM Studio, Jan, or other OpenAI-compatible)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "llama.cpp | Local — any GGUF model",
+   "plugin": "llama.cpp",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "API key for the chosen cloud provider (OpenAI, Anthropic, Google, Mistral, Groq, xAI, DeepSeek, Cohere, Together AI, Perplexity)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local LLM server (Ollama, llama.cpp, LM Studio, Jan) for local providers",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Vault chat plugin that answers questions from your notes using local BM25 retrieval and any LLM provider, with clickable source citations.",
+ "tags": [
+  "rag",
+  "bm25",
+  "llm",
+  "ollama",
+  "chatbot",
+  "citations",
+  "local-llm"
+ ]
+}

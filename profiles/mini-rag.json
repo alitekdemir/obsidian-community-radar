@@ -1,0 +1,51 @@
+{
+ "also": [
+  "search"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Chat with a local LLM about selected notes or folders",
+  "Chunk notes and generate vector embeddings for retrieval",
+  "Summarize notes or folders, in stages if they exceed the context window",
+  "Cache embeddings on disk to speed up re-opening chats",
+  "Save conversations as notes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop-only (runs local servers). Free and open source with a GitHub Sponsors support link shown in settings and the chat panel. Documented privacy trade-off: the optional embedding cache stores note text and vectors in unencrypted JSON and can be synced away if the .obsidian folder syncs.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to ask an LLM questions grounded in the contents of specific notes or folders, especially with a local, privacy-preserving model.",
+ "readmeHash": "ca913153d498b6d3d5f0887b88ce12b4c42696fd",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Ollama or llama.cpp (llama-server) running locally",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "RAG chat plugin that answers questions about selected notes or folders using a locally running LLM (Ollama or llama.cpp) with embedding-based retrieval.",
+ "tags": [
+  "ollama",
+  "llama-cpp",
+  "rag",
+  "embeddings",
+  "local-llm",
+  "vector-retrieval",
+  "context-window"
+ ]
+}

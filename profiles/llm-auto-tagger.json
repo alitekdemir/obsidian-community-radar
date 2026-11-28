@@ -1,0 +1,74 @@
+{
+ "also": [
+  "ai"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Add existing vault tags to note frontmatter using a configured LLM",
+  "Read candidate tags from Obsidian metadata before each tagging request",
+  "Test the configured API URL, key, and model connection",
+  "Run a resumable, cancellable bulk tagging pass over the whole vault",
+  "Connect to OpenAI-compatible endpoints and named providers"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Privacy note: the plugin sends note content to the configured LLM provider, and the README advises reviewing provider privacy, billing, and retention terms before using it with private notes. The manifest states the plugin has not been manually reviewed by Obsidian staff. Provider API keys are stored locally in plugin settings.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "tags",
+ "problem": "Tagging many notes by hand is slow, and Obsidian has no way to automatically assign tags from an existing vault tag vocabulary.",
+ "readmeHash": "7a1040b06fb4ca5d6533f69950e37deeccc370ab",
+ "relations": [
+  {
+   "evidence": "Supports OpenAI-compatible APIs, OpenAI, Anthropic Claude, Google Gemini, and common China provider presets.",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports OpenAI-compatible APIs, OpenAI, Anthropic Claude, Google Gemini, and common China provider presets.",
+   "plugin": "Anthropic Claude",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Supports OpenAI-compatible APIs, OpenAI, Anthropic Claude, Google Gemini, and common China provider presets.",
+   "plugin": "Google Gemini",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "LLM provider API key",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "LLM provider account (OpenAI, Anthropic, Gemini, DeepSeek, Qwen, Kimi, GLM, Doubao, Hunyuan, or custom endpoint)",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 4
+ },
+ "summary": "LLM-powered plugin that tags Markdown notes with existing vault tags chosen by your configured LLM API and written to frontmatter.",
+ "tags": [
+  "llm",
+  "openai",
+  "anthropic",
+  "gemini",
+  "deepseek",
+  "claude",
+  "auto-tagging"
+ ]
+}

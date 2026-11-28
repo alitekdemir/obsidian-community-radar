@@ -1,0 +1,69 @@
+{
+ "also": [
+  "pdf",
+  "editing"
+ ],
+ "audience": [
+  "academics"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Edit LaTeX source files with CodeMirror 6 syntax highlighting",
+  "Compile projects with latexmk or Tectonic backends",
+  "Preview the generated PDF in a side-by-side pane",
+  "Parse diagnostics and jump to the first compilation error",
+  "Generate SyncTeX data during compilation"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "Not for rendering LaTeX math inside Markdown notes; it edits and compiles standalone LaTeX projects.",
+ "extras": "Desktop-only (needs Obsidian 1.8+). Compiles run local executables without a shell; the README warns against enabling shell escape unless you understand the consequences. Tectonic may download packages from its bundle service when not cached. No telemetry, accounts, or ads; the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "latex",
+ "problem": "Obsidian has no way to edit full LaTeX projects, run a local TeX compiler, or view the resulting PDF inside the vault.",
+ "readmeHash": "929250a6064a4a517354d049b85ab9f5aa7b5cc3",
+ "relations": [
+  {
+   "evidence": "latexmk and Tectonic backends with safe argument-based process execution",
+   "plugin": "latexmk",
+   "type": "integrates"
+  },
+  {
+   "evidence": "latexmk and Tectonic backends with safe argument-based process execution",
+   "plugin": "Tectonic",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Overleaf-style side-by-side workspace with a live, reusable PDF preview",
+   "plugin": "Overleaf",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "latexmk (TeX Live, MacTeX, or MiKTeX) or Tectonic on PATH",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "LaTeX workspace that edits .tex, .sty, and .cls files, compiles them with local latexmk or Tectonic, and previews the PDF beside the editor.",
+ "tags": [
+  "latexmk",
+  "tectonic",
+  "synctex",
+  "tex",
+  "overleaf",
+  "codemirror"
+ ]
+}

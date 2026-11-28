@@ -1,0 +1,73 @@
+{
+ "also": [],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync a vault between desktops via a Cloudflare R2 bucket",
+  "Encrypt file contents, paths, and modification times end-to-end",
+  "Resolve three-way sync conflicts with copies or last-modified wins",
+  "Confirm before overwriting or deleting a large share of files",
+  "Filter synced files by glob ignore paths and a size limit"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Sync"
+  ],
+  "level": "full"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only (Linux and macOS), requires Obsidian 1.13.2 or later. The encryption format has not been third-party audited; forgetting the password makes the remote copy unrecoverable, though local vaults stay intact. Free and MIT licensed; installation is by manual download or self-build, with a fish install script.",
+ "intent": "alternative",
+ "intentEvidence": "R2V2 narrows the target to R2 and makes encryption mandatory.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "syncing",
+ "problem": "Syncing a vault through a storage provider normally exposes file names, contents, and timestamps, and existing byoc sync plugins make encryption optional.",
+ "readmeHash": "d229c804617e68fc9670e95699c5f4a03f806fbe",
+ "relations": [
+  {
+   "evidence": "BYOC supports twelve storage services and makes encryption optional. R2V2 narrows the target to R2",
+   "plugin": "BYOC",
+   "type": "alternative"
+  },
+  {
+   "evidence": "the approach of BYOC and of Remotely Save, which it is based on",
+   "plugin": "Remotely Save",
+   "type": "inspired"
+  },
+  {
+   "evidence": "The rules follow the specification of the Unison file synchronizer",
+   "plugin": "Unison file synchronizer",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "account",
+   "name": "Cloudflare account with an R2 bucket and API token",
+   "optional": false
+  },
+  {
+   "kind": "paidService",
+   "name": "Cloudflare R2 usage beyond the free tier",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Vault-sync plugin that syncs a desktop vault through a Cloudflare R2 bucket with mandatory end-to-end encryption of contents, file names, and modification times.",
+ "tags": [
+  "cloudflare-r2",
+  "end-to-end-encryption",
+  "aes-gcm",
+  "scrypt",
+  "three-way-merge",
+  "conflict-resolution",
+  "s3",
+  "zero-knowledge"
+ ]
+}

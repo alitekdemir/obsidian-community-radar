@@ -1,0 +1,107 @@
+{
+ "also": [
+  "ai",
+  "integrations"
+ ],
+ "audience": [
+  "students"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Record lectures with live local transcription",
+  "Fetch and match course slides from Canvas or Moodle",
+  "Summarize transcripts with a local model",
+  "Link transcript paragraphs and timestamps to slides",
+  "Build course notes, review notes and flashcards"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Audio recorder",
+   "Audio recorder",
+   "Audio recorder"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a general audio-to-text tool: it records or imports a lecture, then builds course notes, slide links and review notes around it.",
+ "extras": "Desktop-only (starts a local whisper-server process, uses Node.js). The plugin does not download whisper.cpp itself; a setup checklist walks through installing it and the models. Optional opt-in flashcards use the Spaced Repetition plugin's Question::Answer format. Part of the Companion suite of local-first plugins by Tony Peonio.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "audio",
+ "problem": "Obsidian has no built way to record a lecture, transcribe it on your own machine, and tie the slides and course notes to what was said.",
+ "profiledAt": "2026-11-22",
+ "provider": "Baidu",
+ "readmeHash": "d7a5e9298c2f902389374a50afe14e2648919cc0",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Ask about this lecture (panel button and command) opens Local Vault Agent's chat about the lecture note",
+   "plugin": "Local Vault Agent",
+   "type": "integrates"
+  },
+  {
+   "evidence": "the single-line format of the Spaced Repetition plugin, so the note reviews itself",
+   "plugin": "Spaced Repetition",
+   "type": "integrates"
+  },
+  {
+   "evidence": "plugins such as Whisper, Scribe and Obsidian Transcription record or take an audio file and send it",
+   "plugin": "Whisper",
+   "type": "alternative"
+  },
+  {
+   "evidence": "plugins such as Whisper, Scribe and Obsidian Transcription record or take an audio file and send it",
+   "plugin": "Scribe",
+   "type": "alternative"
+  },
+  {
+   "evidence": "plugins such as Whisper, Scribe and Obsidian Transcription record or take an audio file and send it",
+   "plugin": "Obsidian Transcription",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "whisper.cpp (whisper-server)",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Ollama or an OpenAI-compatible chat model server",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Canvas LMS access token",
+   "optional": true
+  },
+  {
+   "kind": "account",
+   "name": "Moodle web service token",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "Local Vault Agent",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Local-first lecture recorder that transcribes speech live with whisper.cpp, pulls Canvas or Moodle slides, and writes summarized course notes via a local model.",
+ "tags": [
+  "whisper",
+  "transcription",
+  "speech-to-text",
+  "ollama",
+  "moodle",
+  "spaced-repetition"
+ ],
+ "textHash": "8957e2f471dc7b6facafc5c178e38983497162ef"
+}

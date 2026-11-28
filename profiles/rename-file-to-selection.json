@@ -1,0 +1,52 @@
+{
+ "also": [
+  "commands"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Rename the active file to the current text selection",
+  "Sanitize the selection into a valid filename",
+  "Bind a hotkey to the rename command"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Files"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Installation is manual (downloading main.js and manifest.json) or via the BRAT beta plugin installer; the README is minimal with no screenshots.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "files",
+ "problem": "Obsidian has no built-in command to rename a file from a text selection, so users must manually copy the selection and use the rename dialog.",
+ "readmeHash": "30f48a594e6016a381e1cfdf94de6c262c164e49",
+ "relations": [
+  {
+   "evidence": "Use the Commander community plugin to add a command button near your file title",
+   "plugin": "Commander",
+   "type": "integrates"
+  },
+  {
+   "evidence": "sanitize-filename-ts - to sanitize selection for filenames",
+   "plugin": "sanitize-filename-ts",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Single-command utility that renames the active note using the currently selected text, sanitized for valid filenames.",
+ "tags": [
+  "rename",
+  "selection",
+  "filename-sanitization"
+ ]
+}

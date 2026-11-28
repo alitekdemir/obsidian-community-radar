@@ -1,0 +1,67 @@
+{
+ "also": [
+  "canvas"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate AI reply cards on a Canvas",
+  "Branch conversations by re-running generation from earlier cards",
+  "Feed context to prompts via incoming arrows from cards or Markdown notes",
+  "Preview the exact context before sending a request",
+  "Connect through a saved AI Providers connection"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Canvas"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "The 2.0.0 upgrade does not transfer the old endpoint, API key, or model selection, so connections must be reconfigured; the README warns that Generate AI note sends included Canvas text, linked Markdown, and PNG/JPEG images to the configured endpoint.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian Canvas has no built-in way to run AI conversations or branch them across cards.",
+ "readmeHash": "5cf07725f994036b04dab00ffa02d6e339782488",
+ "relations": [
+  {
+   "evidence": "Install and enable AI Providers 1.13.0 or newer in the same vault.",
+   "plugin": "AI Providers",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "AI Providers 1.13.0+",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "API key or account for hosted providers",
+   "optional": true
+  },
+  {
+   "kind": "paidService",
+   "name": "Provider generation charges",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Branching AI chat on Obsidian Canvas: selected cards get generated reply cards, and incoming arrows supply conversation context.",
+ "tags": [
+  "gpt",
+  "openrouter",
+  "branching-chat",
+  "vision-models",
+  "reasoning-effort"
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "also": [
+  "interface"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render nested objects and arrays in the Properties panel",
+  "Edit leaf values inline with inferred types",
+  "Add and remove array items and object keys",
+  "Write changes back through Obsidian's frontmatter API"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "A smaller alternative to the Nested Properties plugin; it omits vault-wide key renames, type conversion and collapsible trees.",
+ "extras": "Not yet in the community store; must be installed manually from release files. Relies on undocumented Obsidian APIs and self-deactivates if those internals change. Emphasizes security posture: no network access, no telemetry, no bundled YAML library, CI-enforced bundle checks, and GitHub build provenance attestation.",
+ "intent": "alternative",
+ "intentEvidence": "This plugin is an independent, from-scratch implementation with a different goal: the smallest possible trusted surface.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a minimal, small trusted surface: the plugin exists to offer similar functionality to Nested Properties while carrying zero automated risk flags on the community plugin store.",
+ "primary": "properties",
+ "problem": "Obsidian's Properties panel shows arrays of objects and nested objects as raw text with an unknown-type warning and provides no way to edit them.",
+ "readmeHash": "e4e9153de5af95e57ed661f0475fe144951e46b1",
+ "relations": [
+  {
+   "evidence": "The Nested Properties plugin covers similar ground with a larger feature set",
+   "plugin": "Nested Properties",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Properties panel extension that renders and lets you edit nested frontmatter objects and arrays inline instead of Obsidian's unsupported-type raw text.",
+ "tags": [
+  "yaml",
+  "arrays",
+  "nested-objects",
+  "minimal",
+  "unofficial-api"
+ ]
+}

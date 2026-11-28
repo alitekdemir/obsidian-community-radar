@@ -1,0 +1,67 @@
+{
+ "also": [
+  "data"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Aggregate open tasks carrying a chosen tag from the whole vault",
+  "Group tasks into three due-date horizons (in progress, upcoming, later)",
+  "Reorder tasks by drag-and-drop with the order persisting across refreshes",
+  "Complete tasks in their source notes, including recurring task rollover",
+  "Jump from a task to its source note at the right line"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Task lists"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "Not yet in the community plugin directory; the README says to install via BRAT or by copying files manually, and the manifest notes it has not been manually reviewed by Obsidian staff.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author wanted a single list that combines automatic aggregation with manual ordering that survives refreshes, which plain query views cannot do.",
+ "primary": "tasks",
+ "problem": "Query-based task views auto-aggregate but have fixed order, while Kanban boards allow dragging but don't auto-fill from the vault, so no view offers both.",
+ "readmeHash": "1a75074328d5e6fae12040a5fe51efe549caf9ec",
+ "relations": [
+  {
+   "evidence": "Recurring tasks (🔁, via the Tasks plugin) roll over to their next occurrence.",
+   "plugin": "Tasks",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Query-based task views (Tasks, Dataview) auto-aggregate but are read-only in order.",
+   "plugin": "Dataview",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Kanban boards let you drag cards but don't auto-fill from your vault.",
+   "plugin": "Kanban",
+   "type": "alternative"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Tasks",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Task view that gathers tagged open tasks from across the vault into a due-date-grouped list with persistent drag-and-drop ordering.",
+ "tags": [
+  "drag-and-drop",
+  "recurring-tasks",
+  "tasks-plugin",
+  "dataview",
+  "kanban"
+ ]
+}

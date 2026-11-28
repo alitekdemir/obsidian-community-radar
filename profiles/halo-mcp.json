@@ -1,0 +1,77 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Publish, update and pull posts with a preview dialog",
+  "Push and pull single pages and manage them",
+  "Search site content and manage attachments and the recycle bin",
+  "Run batch draft/publish/unpublish operations across the vault",
+  "Route notes to different Halo sites by glob path patterns"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Publish"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not an AI/LLM connector; MCP here refers to Halo's MCP Server plugin used as the publishing backend.",
+ "extras": "The manifest notes the plugin has not been manually reviewed by Obsidian staff. It is a GPL-3.0 fork, so upstream settings do not carry over and sites must be reconfigured. Deleting attachments is irreversible and requires double confirmation; troubleshooting centers on the MCP connection self-check command.",
+ "intent": "alternative",
+ "intentEvidence": "This is a fork of halo-sigs/obsidian-halo.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author forked the upstream obsidian-halo plugin to migrate its backend from Halo's REST API to the official MCP Server plugin, and to let it coexist with the original.",
+ "primary": "publishing",
+ "problem": "Obsidian has no built-in way to publish notes to a self-hosted Halo site or manage that site's posts, pages and attachments from the vault.",
+ "readmeHash": "b507c00f744358a32155e9726398e682f5bca946",
+ "relations": [
+  {
+   "evidence": "halo-sigs/obsidian-halo — the upstream plugin this is forked from.",
+   "plugin": "halo-sigs/obsidian-halo",
+   "type": "fork"
+  },
+  {
+   "evidence": "obsidian-wordpress — the original idea came from this repo.",
+   "plugin": "obsidian-wordpress",
+   "type": "inspired"
+  },
+  {
+   "evidence": "with the official MCP Server plugin installed and enabled.",
+   "plugin": "Halo MCP Server plugin",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Halo ≥ 2.26 with the MCP Server plugin",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "hmcp_ MCP access key from the Halo console",
+   "optional": false
+  },
+  {
+   "kind": "account",
+   "name": "Personal Access Token for images over 7 MiB",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Publishing and site-management plugin that pushes Obsidian notes to a Halo blog through Halo's official MCP Server.",
+ "tags": [
+  "halo",
+  "mcp",
+  "blog",
+  "cms",
+  "self-hosted"
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "also": [
+  "properties",
+  "automation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Update created, updated, and viewed date properties automatically on edit or open",
+  "Count edits per note as an approximate activity signal",
+  "Bulk-populate missing dates from each file's on-disk timestamps with a dry-run preview",
+  "Reformat existing dates and rename date properties across the vault",
+  "Skip false updates using SHA-256 content hashing and gitignore-style file filters"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Requires Obsidian 1.13.0 or newer. Fully local: no network requests or telemetry. The plugin notes it has not been manually reviewed by Obsidian staff. Documentation on nested property limits, sync-cache exclusion, and date-format migration from Moment.js to date-fns is included.",
+ "intent": "new",
+ "intentEvidence": "Obsidian has no built-in frontmatter date management. It tracks ctime/mtime at the filesystem level",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author lists the gaps it fills: manual timestamp upkeep breaks writing flow, sync services trigger false updates, template plugins write before templates finish, and old vaults lack consistent dates.",
+ "primary": "dates",
+ "problem": "Obsidian never writes date properties into notes itself, and sync tools or template plugins can create false or premature timestamps.",
+ "readmeHash": "4be1181565527aba9a00d4a2ab6ff1762b311cfe",
+ "relations": [
+  {
+   "evidence": "making it queryable via Dataview for spaced repetition, review workflows",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The plugin waits 5 seconds (configurable: Settings → Advanced → New file delay) before processing newly created files",
+   "plugin": "Templater",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Dataview",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Automatically writes created, updated, and viewed dates into note frontmatter, with bulk fill, reformat, and property rename tools.",
+ "tags": [
+  "dataview",
+  "date-fns",
+  "unix-timestamp",
+  "sha-256",
+  "iana-timezones",
+  "excalidraw"
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "also": [
+  "formats"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render chat conversations in code blocks as message bubbles",
+  "Align speakers left, right or center and continue multi-message turns",
+  "Render Markdown, including images and wikilinks, inside message bubbles",
+  "Render WebVTT, Zendesk and Intercom transcript exports",
+  "Keep legacy 1.x blocks working via the chat-old format"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The 2.0 rewrite dropped several 1.x per-block styling options (header size, max width, minimal mode, manual colors); users upgrading must rename blocks to chat-old or chat-zendesk.",
+ "intent": "new",
+ "intentEvidence": "Version 2.0 is a full rewrite. The default chat format is new",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "interface",
+ "problem": "Obsidian has no built-in way to display conversations as chat interfaces inside notes.",
+ "readmeHash": "4c542fb3ec2f7f9459d8ddfb97b7c3f20d5076d1",
+ "relations": [
+  {
+   "evidence": "If you export chat transcripts from Zendesk or a similar support tool, the chat-zendesk format will render them",
+   "plugin": "Zendesk",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The chat-intercom format renders conversations in the style Intercom exports them.",
+   "plugin": "Intercom",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Chat View can render WebVTT caption files, which is the format most meeting tools",
+   "plugin": "WebVTT",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Renders chat conversations as styled message bubbles inside Markdown code blocks, with several transcript formats.",
+ "tags": [
+  "chat-ui",
+  "code-blocks",
+  "webvtt",
+  "zendesk",
+  "intercom",
+  "transcripts"
+ ]
+}

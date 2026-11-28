@@ -1,0 +1,54 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [
+  "bot-developers",
+  "steam-users"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "generate Steam Guard codes from a shared secret in an inline code block",
+  "reveal codes on hover or keep them always visible",
+  "generate codes locally without sending secrets or codes off the device"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": "It only displays two-factor codes; it does not log you into Steam or manage your accounts.",
+ "extras": "The README warns that Steam Guard via the official mobile app is the only Valve-endorsed two-factor method, that other plugins could read the stored secret from the vault, and that users must know how to obtain their account's shared secret via an external guide.",
+ "intent": "new",
+ "intentEvidence": "The original steam-totp implementation has been patched with minimal changes",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it for convenience when managing multiple Steam accounts, especially for bot developers handling automated trading across dozens of accounts.",
+ "primary": "integrations",
+ "problem": "Checking Steam Guard codes means opening the official mobile app each time, which is slow when switching between many Steam accounts.",
+ "readmeHash": "81a8689d88a0e1308f3709fa4318f0ed0ebc9f2f",
+ "relations": [
+  {
+   "evidence": "The original steam-totp implementation has been patched with minimal changes",
+   "plugin": "steam-totp",
+   "type": "fork"
+  },
+  {
+   "evidence": null,
+   "plugin": "Dataview",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Generates live Steam Guard two-factor codes inside inline code blocks in notes, using a Steam shared secret.",
+ "tags": [
+  "steam",
+  "totp",
+  "two-factor",
+  "code-blocks"
+ ]
+}

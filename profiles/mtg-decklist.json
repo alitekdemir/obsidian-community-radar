@@ -1,0 +1,65 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [
+  "magic-the-gathering-players"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Render decklist blocks as grouped deck panels",
+  "Fetch card data and images from Scryfall",
+  "Chart mana curve, colors, and card types",
+  "Document combos with steps and loop diagrams",
+  "Import Moxfield and Archidekt decks by URL"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Live Preview",
+   "Page preview"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": null,
+ "extras": "No API key, account, or paid service is needed; only public Moxfield and Archidekt decks can be fetched, and the README warns both APIs are undocumented and could change. Author states this is their first Obsidian plugin and to \"expect a few rough edges\". Unofficial fan content, not affiliated with Wizards of the Coast. Export commands open a modal rather than using the clipboard.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": "experimental",
+ "model": "baidu/ernie-5.5-flash-preview:free@v4",
+ "motivation": null,
+ "primary": "markdown",
+ "problem": "Obsidian has no built-in way to show Magic: The Gathering decklists, card images, mana symbols, or combo sequences, so that data stays as plain text.",
+ "profiledAt": "2026-11-28",
+ "provider": "Baidu",
+ "readmeHash": "2e5805c0ae7f19c9b000eb9391ff03e43f0b695b",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "Card data and images are fetched from the public Scryfall API.",
+   "plugin": "Scryfall",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Drop a public Moxfield or Archidekt deck URL into a decklist block and the plugin fetches the cards",
+   "plugin": "Moxfield",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Works the same way as Moxfield, but for a public Archidekt deck",
+   "plugin": "Archidekt",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 3
+ },
+ "summary": "Plugin that renders Magic: The Gathering decklist code blocks as styled deck panels with Scryfall data, previews, stats, combos, and inline mana symbols.",
+ "tags": [
+  "code-blocks",
+  "hover-preview"
+ ],
+ "textHash": "e2d1e9e0821a2f128dc2e88d1a5c57277ada75f6"
+}

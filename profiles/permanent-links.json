@@ -1,0 +1,81 @@
+{
+ "also": [
+  "files"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Assigns a generated or readable key to a note or attachment",
+  "Copies obsidian:// permanent links, including to a heading or block",
+  "Keys every file in a folder or the whole vault",
+  "Follows moves, renames, deletions and restores of keyed files",
+  "Repairs duplicate or hand-edited keys"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Note composer",
+   "Properties view"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a web-link archiver or broken-link checker; it gives vault files keys so obsidian:// links keep resolving after moves.",
+ "extras": "Documentation is an interactive demo vault shipped with each release and readable on GitHub; beta builds install through BRAT; the plugin publishes a cross-plugin API (contract 1.1.0) declared in api.d.ts.",
+ "intent": "alternative",
+ "intentEvidence": "Same goal for links to notes: adds key generation; attachments; an index instead of a scan",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "Ids that survive a move are a long-standing request: people in the Obsidian community have asked for them since at least 2021.",
+ "primary": "links",
+ "problem": "Obsidian rewrites links inside the vault when a file moves, but obsidian://open links kept in bookmarks, emails, task trackers or other vaults break on the first move.",
+ "profiledAt": "2026-11-24",
+ "provider": "Particle AI",
+ "readmeHash": "2f9f457d098cf16de79f8df46647c24bd68fc695",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "The idea and the shape of the setting come from Vault Permalink Kit",
+   "plugin": "Vault Permalink Kit",
+   "type": "inspired"
+  },
+  {
+   "evidence": "Same goal for links to notes: adds attachments; an index instead of a scan; duplicate repair",
+   "plugin": "Advanced URI",
+   "type": "alternative"
+  },
+  {
+   "evidence": "Same goal for links to notes: adds key generation; attachments; an index instead of a scan",
+   "plugin": "Notes UID",
+   "type": "alternative"
+  },
+  {
+   "evidence": "The handle comes from the @mnaoumov/obsidian-lib plugin registry",
+   "plugin": "@mnaoumov/obsidian-lib",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "self-hosted redirector",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Gives notes and attachments a permanent key on request and copies obsidian:// links that keep opening the file after it moves.",
+ "tags": [
+  "obsidian-uri",
+  "aliases",
+  "broken-links",
+  "duplicate-detection"
+ ],
+ "textHash": "ec0de3d869583b216ffc69211291742613aadcb9"
+}

@@ -1,0 +1,54 @@
+{
+ "also": [
+  "navigation"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Track recently opened or edited files in an internal list",
+  "Add a Recent files view to any Base",
+  "Sort entries strictly by recency, ignoring the Base sort",
+  "Cap entries with a per-view Max items slider",
+  "Show relative last-opened timestamps that refresh each minute"
+ ],
+ "coreOverlap": {
+  "features": [
+   "Bases"
+  ],
+  "level": "partial"
+ },
+ "disambiguation": "Not a standalone recent-files sidebar; it adds a view type that is selected inside .base files.",
+ "extras": "Recency is stored in the plugin's own data file, not in note frontmatter, and the plugin writes nothing to notes. All Bases filter one shared tracked list, so a Base scoped to a folder can show fewer entries than its Max items slider allows.",
+ "intent": "improve",
+ "intentEvidence": "adds a custom Bases view listing your recently opened files, in list format",
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": null,
+ "primary": "bases",
+ "problem": "Bases can filter and sort notes by their properties but not by when you last opened them, so a recency-ordered view is not possible on its own.",
+ "profiledAt": "2026-11-28",
+ "provider": "Particle AI",
+ "readmeHash": "a0dd4cc9fa10c589926bd02601e79db80966a0a3",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "its settings shape (path and tag exclusion, open-vs-edit tracking) informed this plugin's settings",
+   "plugin": "recent-files-obsidian",
+   "type": "inspired"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "Adds a Bases view type that lists recently opened files, filtered by the Base and ordered by recency.",
+ "tags": [
+  "recent-files",
+  "timestamps",
+  "sorting",
+  "regex"
+ ],
+ "textHash": "3a88e9548a5d7357b250da1a0b8312cad15a5977"
+}

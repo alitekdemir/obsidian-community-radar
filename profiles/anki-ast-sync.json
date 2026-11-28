@@ -1,0 +1,67 @@
+{
+ "also": [
+  "integrations"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Sync flashcards from notes to Anki decks via AnkiConnect",
+  "Parse cards with an AST so delimiters in code, math, and embeds are ignored",
+  "Show per-card sync status badges and diagnostics in the Live Preview editor",
+  "Resolve block transclusions and upload embedded media to Anki",
+  "Detect duplicate and orphaned cards and offer safe resolution options"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Anki Desktop must be running locally during sync, and AnkiConnect's CORS config must include Obsidian. Also installable via BRAT as a beta plugin. Includes a headless CLI (runs via Bun) for CI/CD sync independent of Obsidian.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author built it because traditional flashcard sync tools rely on fragile regular expressions and reformat notes; an AST-based parser understands true syntactic structure and keeps Markdown files pristine.",
+ "primary": "flashcards",
+ "problem": "Regex-based Obsidian-to-Anki sync tools break on nested code blocks, math, callouts, and embeds, and re-serialize Markdown files, destroying the user's formatting.",
+ "readmeHash": "a0c1cd6b0748fbf7ff58314eb635c55b6b65d5db",
+ "relations": [
+  {
+   "evidence": "A deterministic, AST-powered synchronization pipeline and Obsidian plugin bridging Obsidian and Anki.",
+   "plugin": "Anki",
+   "type": "integrates"
+  },
+  {
+   "evidence": "Sync flashcards directly to Anki using an AST markdown engine via AnkiConnect.",
+   "plugin": "AnkiConnect",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Anki Desktop (v2.1.54+)",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "AnkiConnect add-on in Anki Desktop",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Flashcard sync plugin that parses Markdown notes into an AST and syncs cards to Anki via AnkiConnect without reformatting the source files.",
+ "tags": [
+  "anki",
+  "anki-connect",
+  "spaced-repetition",
+  "ast",
+  "cloze",
+  "transclusion",
+  "remark"
+ ]
+}

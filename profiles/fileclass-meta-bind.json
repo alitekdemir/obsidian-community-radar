@@ -1,0 +1,65 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Render compatible Fileclass fields as Meta Bind controls in the editor",
+  "Trigger FCMB[field] controls via a persistent multi-select prompt",
+  "Toggle multiple options with clicks or keyboard without closing the prompt",
+  "Follow Obsidian's native Prompt/Suggestion UI, theming, and highlight styles",
+  "Refresh rendered controls when definitions or frontmatter change"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "README is bilingual (Chinese and English); v0.1.6 changelog notes that only the multi-select UI was reworked while interaction rules from v0.1.4 are kept. Makes no network requests or telemetry and is MIT licensed.",
+ "intent": "improve",
+ "intentEvidence": "After installing Fileclass and Meta Bind, enable this plugin and open a note that uses Fileclass fields.",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "properties",
+ "problem": "Fileclass fields are edited as plain frontmatter; there is no built-in way to turn them into in-editor input controls bound to Meta Bind.",
+ "readmeHash": "9d2836f74a91159138427e6ccae9747790255746",
+ "relations": [
+  {
+   "evidence": "Compatible fields are rendered as Meta Bind controls in the editor.",
+   "plugin": "Fileclass",
+   "type": "extends"
+  },
+  {
+   "evidence": "It does not bundle Fileclass, Meta Bind, or CodeMirror; those integrations use the APIs exposed by the installed host plugins",
+   "plugin": "Meta Bind",
+   "type": "extends"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "plugin",
+   "name": "Fileclass",
+   "optional": false
+  },
+  {
+   "kind": "plugin",
+   "name": "Meta Bind",
+   "optional": false
+  }
+ ],
+ "scores": {
+  "docs": 3,
+  "focus": 5
+ },
+ "summary": "Bridge plugin that renders Fileclass fields as Meta Bind input controls in notes, with a native-style persistent multi-select prompt.",
+ "tags": [
+  "fileclass",
+  "meta-bind",
+  "multi-select",
+  "prompt",
+  "field-controls"
+ ]
+}

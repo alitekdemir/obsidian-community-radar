@@ -1,0 +1,78 @@
+{
+ "also": [
+  "editing"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Generate text in place from @[prompt] syntax in notes",
+  "Replace the prompt with Markdown output such as tables or summaries",
+  "Configure the OpenAI model, API key, and 32k variants",
+  "Point to a custom URL for local OpenAI-compatible servers",
+  "Adjust the window size of surrounding context sent to the model"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Warns that the number of tokens sent to the API affects cost; features beyond current ones may be added on request, but the author intends to keep functionality simple.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": null,
+ "primary": "ai",
+ "problem": "Obsidian has no built-in way to generate text in place from a prompt written inside a note.",
+ "readmeHash": "c82812a453e4396d13c4b93f4744b3c81b285fcb",
+ "relations": [
+  {
+   "evidence": "using OpenAI's models",
+   "plugin": "OpenAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local LLM setup with an OpenAI-compatible API (examples include LocalAI, Ollama, LM Studio)",
+   "plugin": "LocalAI",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local LLM setup with an OpenAI-compatible API (examples include LocalAI, Ollama, LM Studio)",
+   "plugin": "Ollama",
+   "type": "integrates"
+  },
+  {
+   "evidence": "a local LLM setup with an OpenAI-compatible API (examples include LocalAI, Ollama, LM Studio)",
+   "plugin": "LM Studio",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "apiKey",
+   "name": "OpenAI API key",
+   "optional": false
+  },
+  {
+   "kind": "externalApp",
+   "name": "Local OpenAI-compatible LLM server (LocalAI, Ollama, LM Studio)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 4,
+  "focus": 5
+ },
+ "summary": "In-place AI text generation plugin that replaces @[prompt] syntax inside notes with completions from OpenAI or OpenAI-compatible models.",
+ "tags": [
+  "openai",
+  "gpt-3-5-turbo",
+  "gpt-4",
+  "llm",
+  "ollama",
+  "localai",
+  "lm-studio",
+  "inline-prompts"
+ ]
+}

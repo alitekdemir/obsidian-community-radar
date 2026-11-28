@@ -1,0 +1,40 @@
+{
+ "also": [
+  "utilities"
+ ],
+ "audience": [],
+ "basis": "readme",
+ "capabilities": [
+  "Extend any toast's display time to a configurable minimum duration",
+  "Persist all toasts on screen until clicked",
+  "Log recent toasts from any plugin or core for later review",
+  "Configure minimum duration, persist mode, and log size in settings"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Patches the undocumented internal API Notice.prototype.setAutoHide, so it may need updates if Obsidian changes how Notice schedules auto-hide; only affects toasts created after the plugin loads. The manifest notes the plugin has not been manually reviewed by Obsidian staff.",
+ "intent": "improve",
+ "intentEvidence": "patches the single method Obsidian's Notice class uses internally to schedule its auto-hide timer",
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author cites long-standing user complaints that notification toasts disappear too fast or are broken, with no built-in way to control their duration.",
+ "primary": "interface",
+ "problem": "Obsidian toasts auto-hide after a fixed 4 seconds with no setting to change it, so messages with useful detail vanish before they can be read.",
+ "readmeHash": "25acc5e83e0d55b5f05db24a9c00f44aa88d6965",
+ "relations": [],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Toast duration controller that patches Obsidian's Notice class so notifications last longer, stay until dismissed, and are kept in a reviewable log.",
+ "tags": [
+  "notifications",
+  "notice",
+  "auto-hide"
+ ]
+}

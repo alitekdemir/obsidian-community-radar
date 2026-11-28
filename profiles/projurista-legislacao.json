@@ -1,0 +1,78 @@
+{
+ "also": [
+  "integrations",
+  "search"
+ ],
+ "audience": [
+  "lawyers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Look up a provision by citation form or by words of its text",
+  "Insert a ready-made citation at the cursor",
+  "Verify every statutory citation in a note against the embedded text",
+  "Expose lookup and verification tools to Claude through a local MCP server",
+  "Save chosen statutes as vault notes with verification hashes"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Desktop only; interface in Brazilian Portuguese; main.js is about 11 MB because the legislation base is embedded uncompressed; no network access and no telemetry; not yet in the community plugin directory, so it is installed via BRAT or by hand.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "particle-ai/particle-1:free@v4",
+ "motivation": "The author's stated idea is that the content of an article is not written from memory but copied from a verified base.",
+ "primary": "research",
+ "problem": "Legal provisions quoted from memory cannot be checked inside Obsidian, and there is no built-in source of literal statutory text to cite from.",
+ "profiledAt": "2026-11-22",
+ "provider": "Particle AI",
+ "readmeHash": "aaf16d6053183575bf103e840cde7d850f280cb1",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "É o irmão do Projurista MCP, que faz o mesmo com súmulas e precedentes qualificados.",
+   "plugin": "Projurista MCP",
+   "type": "inspired"
+  },
+  {
+   "evidence": "\"Conectar ao Claude Desktop\" grava a conexão no arquivo de configuração (com cópia de segurança)",
+   "plugin": "Claude Desktop",
+   "type": "integrates"
+  },
+  {
+   "evidence": "\"Copiar comando do Claude Code\" e cole no terminal.",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Claude Desktop or Claude Code",
+   "optional": true
+  },
+  {
+   "kind": "plugin",
+   "name": "BRAT",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 4
+ },
+ "summary": "Embeds Brazilian federal legislation as literal text to look up, cite and verify statutory provisions in notes and through a local MCP server for Claude.",
+ "tags": [
+  "citations",
+  "mcp",
+  "claude",
+  "claude-code",
+  "provenance",
+  "offline"
+ ],
+ "textHash": "b073b4fb2e38c341c8ac133453ee7201b5605db3"
+}

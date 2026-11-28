@@ -1,0 +1,57 @@
+{
+ "also": [
+  "languages"
+ ],
+ "audience": [
+  "chinese-writers-on-ipad"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Type Chinese via a built-in Pinyin IME with candidate selection",
+  "Toggle Chinese and English with a configurable key (Shift by default)",
+  "Type full-width Chinese punctuation in Chinese mode",
+  "Download and update a large offline dictionary with checksum verification",
+  "Run diagnostic commands and save redacted key-trace reports into the vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "The full ~26 MB dictionary (GPL-3.0 data compiled from rime-ice) is downloaded at runtime from npmmirror with npmjs fallback; the plugin itself is AGPL-3.0-or-later. The README recommends disabling it on Mac and when using the iPad on-screen keyboard to avoid Shift conflicts with other input methods.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "z-ai/glm-5.3-flash@v3",
+ "motivation": "The author only wanted to write Chinese with a keyboard on iPad and \"ended up writing an input method first\", calling it a personal workaround they hope becomes unnecessary.",
+ "primary": "editing",
+ "problem": "Typing Chinese in Obsidian on an iPad with a hardware keyboard is laggy because of the system Pinyin IME, and the plugin author says no fix outside Obsidian is possible.",
+ "readmeHash": "a8385cdf3a2178a8a03e75e7d536d60320f58c30",
+ "relations": [
+  {
+   "evidence": "拼音引擎用 RIME，通过 My RIME 的 WebAssembly 构建。",
+   "plugin": "My RIME",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The dictionary comes from rime-ice.",
+   "plugin": "rime-ice",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Built-in Pinyin input method for the editor that bypasses the laggy system Chinese IME when typing with an iPad hardware keyboard.",
+ "tags": [
+  "pinyin",
+  "rime",
+  "input-method",
+  "chinese",
+  "ipad",
+  "webassembly"
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "also": [
+  "ai",
+  "search"
+ ],
+ "audience": [
+  "developers"
+ ],
+ "basis": "readme",
+ "capabilities": [
+  "Syncs agent memories into the vault as Markdown notes with type, confidence and provenance frontmatter",
+  "Skips edited notes on later syncs and lists the files it skipped",
+  "Searches memories from a sidebar chat in recall mode, with date and change filters",
+  "Answers questions from stored memories in answer mode",
+  "Starts and manages a local Memanto server per vault"
+ ],
+ "coreOverlap": {
+  "features": [],
+  "level": "none"
+ },
+ "disambiguation": null,
+ "extras": "Chat needs the local Memanto server on 127.0.0.1, so it is desktop-only; synced notes still open on mobile. Cloud backend has a free 100,000-operation tier; on-prem backend needs no key. API key is read from ~/.memanto/.env and never saved in the vault; only chat input is sent, never notes.",
+ "intent": "new",
+ "intentEvidence": null,
+ "lifecycle": null,
+ "model": "inclusionai/ling-3.2-flash:free@v4",
+ "motivation": null,
+ "primary": "integrations",
+ "problem": "What coding agents learn (decisions, preferences, facts, mistakes) stays outside Obsidian, with no way to browse, search or question it from the vault.",
+ "profiledAt": "2026-11-24",
+ "provider": "Ant Digital",
+ "readmeHash": "3ffdf4dbc7cae42ae60b29b34905a7a308d9f22c",
+ "readmeSource": "README.md",
+ "relations": [
+  {
+   "evidence": "so you can query them with Dataview",
+   "plugin": "Dataview",
+   "type": "integrates"
+  },
+  {
+   "evidence": "The cloud backend needs a free key from console.moorcheh.ai/api-keys",
+   "plugin": "Moorcheh",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from tools like Claude Code, Cursor and Codex",
+   "plugin": "Claude Code",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from tools like Claude Code, Cursor and Codex",
+   "plugin": "Cursor",
+   "type": "integrates"
+  },
+  {
+   "evidence": "from tools like Claude Code, Cursor and Codex",
+   "plugin": "Codex",
+   "type": "integrates"
+  }
+ ],
+ "replacedBy": null,
+ "requires": [
+  {
+   "kind": "externalApp",
+   "name": "Memanto (Python 3.11 or newer)",
+   "optional": false
+  },
+  {
+   "kind": "apiKey",
+   "name": "Moorcheh API key (cloud backend only)",
+   "optional": true
+  },
+  {
+   "kind": "externalApp",
+   "name": "Docker (on-prem backend only)",
+   "optional": true
+  }
+ ],
+ "scores": {
+  "docs": 5,
+  "focus": 5
+ },
+ "summary": "Agent-memory bridge that syncs coding agents' memories into the vault as Markdown notes and adds a sidebar chat for recall and answers.",
+ "tags": [
+  "ai-agents",
+  "ai-chat",
+  "local-server",
+  "dataview",
+  "api-key"
+ ],
+ "textHash": "1aa1bb6003458900bde8a542779cc012ba17d694"
+}
